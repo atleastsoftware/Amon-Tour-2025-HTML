@@ -120,11 +120,11 @@ export default function Dashboard() {
         <div className="container mx-auto px-4 flex justify-between items-center">
           <div className="flex items-center space-x-4">
             <Link href="/">
-              <a className="flex items-center">
+              <div className="flex items-center cursor-pointer">
                 <span className="text-white font-heading font-bold text-xl">Senthang</span>
                 <span className="text-secondary font-accent text-xl ml-1">Siam</span>
                 <span className="text-white font-heading font-bold text-xl ml-1">Tour</span>
-              </a>
+              </div>
             </Link>
             <div className="hidden md:block text-sm px-3 py-1 bg-primary-dark rounded">
               Admin Dashboard

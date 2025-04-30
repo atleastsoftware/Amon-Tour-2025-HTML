@@ -116,11 +116,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   app.post("/api/tours", requireAuth, async (req, res) => {
     try {
+      console.log("Creating tour with data:", req.body);
       const tourData = insertTourSchema.parse(req.body);
       const tour = await storage.createTour(tourData);
       res.status(201).json(tour);
-    } catch (error) {
-      res.status(400).json({ message: "Invalid tour data", error });
+    } catch (error: any) {
+      console.error("Tour creation error:", error);
+      res.status(400).json({ 
+        message: "Invalid tour data", 
+        error: error.errors || error.message || error 
+      });
     }
   });
   
