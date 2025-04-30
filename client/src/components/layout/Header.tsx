@@ -20,16 +20,16 @@ type NavLinkProps = {
 const NavLink = ({ href, isActive, children, onClick }: NavLinkProps) => {
   return (
     <Link href={href}>
-      <a
+      <span
         onClick={onClick}
-        className={`font-heading font-semibold transition-colors ${
+        className={`font-heading font-semibold transition-colors cursor-pointer ${
           isActive 
             ? "text-primary border-b-2 border-primary" 
             : "text-neutral-700 hover:text-primary"
         }`}
       >
         {children}
-      </a>
+      </span>
     </Link>
   );
 };
@@ -58,11 +58,11 @@ export default function Header() {
       <nav className="container mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo */}
         <Link href="/">
-          <a className="flex items-center">
+          <span className="flex items-center cursor-pointer">
             <span className="text-primary font-heading font-bold text-2xl">Senthang</span>
             <span className="text-secondary font-accent text-2xl ml-1">Siam</span>
             <span className="text-primary font-heading font-bold text-2xl ml-1">Tour</span>
-          </a>
+          </span>
         </Link>
         
         {/* Mobile Menu Button */}
@@ -106,7 +106,7 @@ export default function Header() {
               <DropdownMenuContent>
                 <DropdownMenuItem asChild>
                   <Link href="/admin/dashboard">
-                    <a className="w-full">Dashboard</a>
+                    <span className="w-full cursor-pointer">Dashboard</span>
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={handleLogout}>
@@ -116,9 +116,9 @@ export default function Header() {
             </DropdownMenu>
           ) : (
             <Link href="/admin/login">
-              <a className="bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark transition-colors">
+              <span className="bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark transition-colors cursor-pointer">
                 Admin
-              </a>
+              </span>
             </Link>
           )}
         </div>
@@ -146,9 +146,9 @@ export default function Header() {
           {isAuthenticated ? (
             <>
               <Link href="/admin/dashboard">
-                <a className="font-heading font-semibold text-neutral-700 hover:text-primary transition-colors py-2" onClick={closeMobileMenu}>
+                <span className="font-heading font-semibold text-neutral-700 hover:text-primary transition-colors py-2 cursor-pointer" onClick={closeMobileMenu}>
                   Dashboard
-                </a>
+                </span>
               </Link>
               <Button 
                 variant="default" 
@@ -163,9 +163,9 @@ export default function Header() {
             </>
           ) : (
             <Link href="/admin/login">
-              <a className="bg-primary text-white px-4 py-2 rounded text-center hover:bg-primary-dark transition-colors" onClick={closeMobileMenu}>
+              <span className="bg-primary text-white px-4 py-2 rounded text-center hover:bg-primary-dark transition-colors cursor-pointer block" onClick={closeMobileMenu}>
                 Admin
-              </a>
+              </span>
             </Link>
           )}
         </div>

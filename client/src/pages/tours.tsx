@@ -121,7 +121,7 @@ export default function Tours() {
               </div>
             ) : (
               <div className="text-center py-8">
-                <p className="text-gray-500">Aucun tour ne correspond à vos critères.</p>
+                <p className="text-gray-500">No tours match your criteria.</p>
               </div>
             )}
           </div>
