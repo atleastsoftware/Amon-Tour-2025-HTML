@@ -136,7 +136,7 @@ export default function TourDetails() {
                       rel="noopener noreferrer" 
                       className="bg-secondary text-white px-6 py-3 rounded-lg font-heading font-semibold hover:bg-secondary-dark transition-colors inline-block"
                     >
-                      Book on TOUR NINJA
+                      Book Now
                     </a>
                   </div>
                 </div>
@@ -171,14 +171,14 @@ export default function TourDetails() {
                   <p className="text-gray-700 mb-4">Contact us for more information about this tour or to create your customized journey.</p>
                   <div className="space-y-3">
                     <Link href="/#contact">
-                      <a className="w-full bg-primary text-white py-2 px-4 rounded text-center block hover:bg-primary-dark transition-colors">
+                      <span className="w-full bg-primary text-white py-2 px-4 rounded text-center block hover:bg-primary-dark transition-colors cursor-pointer">
                         Contact Us
-                      </a>
+                      </span>
                     </Link>
                     <Link href="/custom-tour">
-                      <a className="w-full bg-secondary text-white py-2 px-4 rounded text-center block hover:bg-secondary-dark transition-colors">
+                      <span className="w-full bg-secondary text-white py-2 px-4 rounded text-center block hover:bg-secondary-dark transition-colors cursor-pointer">
                         Custom Tour
-                      </a>
+                      </span>
                     </Link>
                   </div>
                 </div>
