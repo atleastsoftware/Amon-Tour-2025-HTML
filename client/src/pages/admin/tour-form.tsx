@@ -36,7 +36,7 @@ import { Link } from "wouter";
 // Extended schema with validation
 const tourFormSchema = insertTourSchema
   .extend({
-    price: z.coerce.number().min(1, { message: "Le prix doit être supérieur à 0" }),
+    price: z.coerce.number().min(1, { message: "Price must be greater than 0" }),
   });
 
 type TourFormData = z.infer<typeof tourFormSchema>;
@@ -102,16 +102,16 @@ export default function TourForm() {
         // Update existing tour
         await apiRequest("PUT", `/api/tours/${tourId}`, data);
         toast({
-          title: "Tour mis à jour",
-          description: "Le tour a été mis à jour avec succès.",
+          title: "Tour updated",
+          description: "The tour has been successfully updated.",
           variant: "default",
         });
       } else {
         // Create new tour
         await apiRequest("POST", "/api/tours", data);
         toast({
-          title: "Tour créé",
-          description: "Le nouveau tour a été créé avec succès.",
+          title: "Tour created",
+          description: "The new tour has been successfully created.",
           variant: "default",
         });
       }
@@ -124,8 +124,8 @@ export default function TourForm() {
       setLocation("/admin/dashboard");
     } catch (error) {
       toast({
-        title: "Erreur",
-        description: "Un problème est survenu lors de l'enregistrement du tour.",
+        title: "Error",
+        description: "There was a problem saving the tour.",
         variant: "destructive",
       });
     } finally {
@@ -149,19 +149,19 @@ export default function TourForm() {
     <div className="min-h-screen bg-neutral-light py-8">
       <div className="container mx-auto px-4">
         <Link href="/admin/dashboard">
-          <a className="inline-flex items-center text-primary hover:text-primary-dark mb-6">
+          <span className="inline-flex items-center text-primary hover:text-primary-dark mb-6 cursor-pointer">
             <ArrowLeft className="mr-2 h-5 w-5" />
-            Retour au tableau de bord
-          </a>
+            Back to dashboard
+          </span>
         </Link>
         
         <Card className="max-w-4xl mx-auto">
           <CardHeader>
-            <CardTitle>{tourId ? "Modifier un tour" : "Ajouter un nouveau tour"}</CardTitle>
+            <CardTitle>{tourId ? "Edit tour" : "Add new tour"}</CardTitle>
             <CardDescription>
               {tourId 
-                ? "Modifiez les informations du tour existant."
-                : "Créez un nouveau tour qui sera affiché sur le site."}
+                ? "Modify information for the existing tour."
+                : "Create a new tour to be displayed on the website."}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -172,12 +172,12 @@ export default function TourForm() {
                   name="title"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Titre</FormLabel>
+                      <FormLabel>Title</FormLabel>
                       <FormControl>
-                        <Input placeholder="Ex: Bangkok Essentiel" {...field} />
+                        <Input placeholder="Ex: Bangkok Essential" {...field} />
                       </FormControl>
                       <FormDescription>
-                        Le titre principal du tour.
+                        The main title of the tour.
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -190,12 +190,12 @@ export default function TourForm() {
                     name="duration"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Durée</FormLabel>
+                        <FormLabel>Duration</FormLabel>
                         <FormControl>
-                          <Input placeholder="Ex: 3 jours" {...field} />
+                          <Input placeholder="Ex: 3 days" {...field} />
                         </FormControl>
                         <FormDescription>
-                          Durée du tour (ex: 3 jours, 5 jours, etc.)
+                          Duration of the tour (ex: 3 days, 5 days, etc.)
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
@@ -207,12 +207,12 @@ export default function TourForm() {
                     name="price"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Prix (€)</FormLabel>
+                        <FormLabel>Price ($)</FormLabel>
                         <FormControl>
                           <Input type="number" min="0" placeholder="Ex: 350" {...field} />
                         </FormControl>
                         <FormDescription>
-                          Prix de départ en euros (sans le symbole €)
+                          Starting price in dollars (without the $ symbol)
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
@@ -225,16 +225,16 @@ export default function TourForm() {
                   name="shortDescription"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Description courte</FormLabel>
+                      <FormLabel>Short Description</FormLabel>
                       <FormControl>
                         <Textarea 
-                          placeholder="Brève description du tour (visible dans les cartes)"
+                          placeholder="Brief description of the tour (visible on cards)"
                           rows={2}
                           {...field} 
                         />
                       </FormControl>
                       <FormDescription>
-                        Une courte description qui apparaîtra sur les cartes des tours (max. 150 caractères).
+                        A short description that will appear on tour cards (max. 150 characters).
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -246,16 +246,16 @@ export default function TourForm() {
                   name="description"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Description complète</FormLabel>
+                      <FormLabel>Full Description</FormLabel>
                       <FormControl>
                         <Textarea 
-                          placeholder="Description détaillée du tour"
+                          placeholder="Detailed description of the tour"
                           rows={6}
                           {...field} 
                         />
                       </FormControl>
                       <FormDescription>
-                        Description détaillée du tour qui apparaîtra sur la page de détails.
+                        Detailed description of the tour that will appear on the details page.
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -267,12 +267,12 @@ export default function TourForm() {
                   name="imageUrl"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>URL de l'image</FormLabel>
+                      <FormLabel>Image URL</FormLabel>
                       <FormControl>
-                        <Input placeholder="https://exemple.com/image.jpg" {...field} />
+                        <Input placeholder="https://example.com/image.jpg" {...field} />
                       </FormControl>
                       <FormDescription>
-                        URL de l'image principale du tour (utilisez des services comme Unsplash ou similaires).
+                        URL for the main tour image (use services like Unsplash or similar).
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -284,12 +284,12 @@ export default function TourForm() {
                   name="tourNinjaUrl"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>URL de TOUR NINJA</FormLabel>
+                      <FormLabel>TOUR NINJA URL</FormLabel>
                       <FormControl>
                         <Input placeholder="https://tourninja.com/tour/xyz" {...field} />
                       </FormControl>
                       <FormDescription>
-                        Le lien externe vers la page de réservation sur TOUR NINJA.
+                        The external link to the booking page on TOUR NINJA.
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -308,9 +308,9 @@ export default function TourForm() {
                         />
                       </FormControl>
                       <div className="space-y-1 leading-none">
-                        <FormLabel>Tour en vedette</FormLabel>
+                        <FormLabel>Featured Tour</FormLabel>
                         <FormDescription>
-                          Cochez cette case pour mettre ce tour en avant sur la page d'accueil.
+                          Check this box to highlight this tour on the home page.
                         </FormDescription>
                       </div>
                     </FormItem>
@@ -323,15 +323,15 @@ export default function TourForm() {
                     variant="outline"
                     onClick={() => setLocation("/admin/dashboard")}
                   >
-                    Annuler
+                    Cancel
                   </Button>
                   <Button 
                     type="submit"
                     disabled={isSubmitting}
                   >
                     {isSubmitting 
-                      ? "Enregistrement..." 
-                      : tourId ? "Mettre à jour" : "Créer le tour"}
+                      ? "Saving..." 
+                      : tourId ? "Update" : "Create tour"}
                   </Button>
                 </div>
               </form>
