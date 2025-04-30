@@ -5,6 +5,7 @@ import { storage } from "./storage";
 import { db } from "./db";
 import { eq } from "drizzle-orm";
 import { users } from "@shared/schema";
+import { migrateTours } from "./migration";
 
 // Function to ensure admin user exists
 async function ensureAdminUser() {
@@ -61,6 +62,12 @@ app.use((req, res, next) => {
 });
 
 (async () => {
+  // Ensure admin user exists in database
+  await ensureAdminUser();
+  
+  // Migrate tours from JSON to database
+  await migrateTours();
+  
   const server = await registerRoutes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {

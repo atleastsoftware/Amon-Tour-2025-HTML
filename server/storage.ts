@@ -95,9 +95,15 @@ export class DatabaseStorage implements IStorage {
   }
   
   async createCustomTourRequest(insertRequest: InsertCustomTourRequest): Promise<CustomTourRequest> {
+    // Make sure interests is properly handled as a string array
+    const valueToInsert = {
+      ...insertRequest,
+      interests: Array.isArray(insertRequest.interests) ? insertRequest.interests : []
+    };
+    
     const [request] = await db
       .insert(customTourRequests)
-      .values(insertRequest)
+      .values(valueToInsert)
       .returning();
     return request;
   }
