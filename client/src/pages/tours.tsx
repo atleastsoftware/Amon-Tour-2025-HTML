@@ -19,13 +19,13 @@ export default function Tours() {
   });
   
   const [searchTerm, setSearchTerm] = useState("");
-  const [durationFilter, setDurationFilter] = useState("");
+  const [durationFilter, setDurationFilter] = useState("all");
   
   const filteredTours = tours?.filter(tour => {
     const matchesSearch = tour.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
                           tour.description.toLowerCase().includes(searchTerm.toLowerCase());
     
-    const matchesDuration = durationFilter === "" || tour.duration === durationFilter;
+    const matchesDuration = durationFilter === "all" || tour.duration === durationFilter;
     
     return matchesSearch && matchesDuration;
   });
@@ -88,7 +88,7 @@ export default function Tours() {
                       <SelectValue placeholder="All durations" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">All durations</SelectItem>
+                      <SelectItem value="all">All durations</SelectItem>
                       {uniqueDurations.map((duration) => (
                         <SelectItem key={duration} value={duration}>
                           {duration}

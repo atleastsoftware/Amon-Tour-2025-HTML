@@ -27,8 +27,8 @@ import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 
 const loginSchema = z.object({
-  username: z.string().min(1, { message: "Le nom d'utilisateur est requis" }),
-  password: z.string().min(1, { message: "Le mot de passe est requis" }),
+  username: z.string().min(1, { message: "Username is required" }),
+  password: z.string().min(1, { message: "Password is required" }),
 });
 
 type LoginFormData = z.infer<typeof loginSchema>;
@@ -58,15 +58,15 @@ export default function Login() {
     try {
       await login.mutateAsync(data);
       toast({
-        title: "Connexion réussie",
-        description: "Vous êtes maintenant connecté à l'espace administrateur.",
+        title: "Login successful",
+        description: "You are now logged into the admin dashboard.",
         variant: "default",
       });
       setLocation("/admin/dashboard");
     } catch (error) {
       toast({
-        title: "Erreur de connexion",
-        description: "Nom d'utilisateur ou mot de passe incorrect.",
+        title: "Login error",
+        description: "Incorrect username or password.",
         variant: "destructive",
       });
     }
@@ -75,18 +75,18 @@ export default function Login() {
   return (
     <div className="min-h-screen bg-neutral-light flex flex-col items-center justify-center p-4">
       <Link href="/">
-        <a className="mb-8 flex items-center">
+        <span className="mb-8 flex items-center cursor-pointer">
           <span className="text-primary font-heading font-bold text-2xl">Senthang</span>
           <span className="text-secondary font-accent text-2xl ml-1">Siam</span>
           <span className="text-primary font-heading font-bold text-2xl ml-1">Tour</span>
-        </a>
+        </span>
       </Link>
       
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-heading text-center">Espace Administrateur</CardTitle>
+          <CardTitle className="text-2xl font-heading text-center">Admin Dashboard</CardTitle>
           <CardDescription className="text-center">
-            Connectez-vous pour gérer votre site
+            Log in to manage your website
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -97,9 +97,9 @@ export default function Login() {
                 name="username"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Nom d'utilisateur</FormLabel>
+                    <FormLabel>Username</FormLabel>
                     <FormControl>
-                      <Input placeholder="Nom d'utilisateur" {...field} />
+                      <Input placeholder="Username" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -111,9 +111,9 @@ export default function Login() {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Mot de passe</FormLabel>
+                    <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input type="password" placeholder="Mot de passe" {...field} />
+                      <Input type="password" placeholder="Password" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -125,14 +125,16 @@ export default function Login() {
                 className="w-full bg-primary hover:bg-primary-dark"
                 disabled={login.isPending}
               >
-                {login.isPending ? "Connexion en cours..." : "Se connecter"}
+                {login.isPending ? "Logging in..." : "Login"}
               </Button>
             </form>
           </Form>
         </CardContent>
         <CardFooter className="flex justify-center">
           <Button variant="link" asChild>
-            <Link href="/">Retour au site</Link>
+            <Link href="/">
+              <span>Back to website</span>
+            </Link>
           </Button>
         </CardFooter>
       </Card>
