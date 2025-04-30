@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "title": "Bangkok Essentiel",
+    "shortDescription": "Découvrez les incontournables de la capitale thaïlandaise : Grand Palais, temples, marchés flottants et cuisine locale.",
+    "description": "Notre circuit Bangkok Essentiel vous emmène au cœur de la vibrante capitale thaïlandaise pour découvrir ses plus beaux trésors culturels et historiques. Accompagné d'un guide francophone expert, vous visiterez le Grand Palais et le Temple du Bouddha d'Émeraude, symboles de la monarchie thaïlandaise. Vous explorerez Wat Pho et son impressionnant Bouddha couché de 46 mètres de long. Une excursion au marché flottant de Damnoen Saduak vous plongera dans la vie quotidienne traditionnelle. Le soir, vous dégusterez une authentique cuisine thaïlandaise et profiterez d'un spectacle culturel. Ce circuit est idéal pour une première découverte de la Thaïlande, alliant patrimoine, culture et gastronomie.",
+    "duration": "3 jours",
+    "price": 350,
+    "imageUrl": "https://images.unsplash.com/photo-1528181304800-259b08848526?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+    "tourNinjaUrl": "https://tourninja.com/tours/bangkok-essential",
+    "featured": true
+  },
+  {
+    "id": 2,
+    "title": "Triangle d'Or",
+    "shortDescription": "Explorez le Nord de la Thaïlande, ses montagnes, ses tribus et la frontière avec le Laos et la Birmanie.",
+    "description": "Partez à la découverte du mythique Triangle d'Or, cette région fascinante où se rencontrent les frontières de la Thaïlande, du Laos et de la Birmanie. Votre aventure commence à Chiang Mai, la Rose du Nord, où vous visiterez des temples anciens et le célèbre marché de nuit. Vous monterez ensuite vers les montagnes pour rencontrer les tribus Karen et Akha et découvrir leurs traditions ancestrales. À Chiang Rai, vous serez émerveillé par le Temple Blanc (Wat Rong Khun) et le Temple Bleu, des joyaux d'architecture contemporaine. Le point culminant du voyage sera la visite du Triangle d'Or lui-même, avec une croisière sur le Mékong et la possibilité d'apercevoir trois pays en même temps. Une immersion complète dans la culture et l'histoire du Nord thaïlandais, entre traditions ethniques et paysages à couper le souffle.",
+    "duration": "5 jours",
+    "price": 590,
+    "imageUrl": "https://images.unsplash.com/photo-1551016988-eb38968b55d2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80",
+    "tourNinjaUrl": "https://tourninja.com/tours/golden-triangle",
+    "featured": true
+  },
+  {
+    "id": 3,
+    "title": "Îles du Sud",
+    "shortDescription": "Détendez-vous sur les plus belles plages de Thaïlande : Phuket, Phi Phi, Krabi et bien d'autres paradis tropicaux.",
+    "description": "Notre circuit Îles du Sud vous emmène dans un voyage paradisiaque à travers les plus belles îles et plages de la Thaïlande. Commencez par Phuket, la plus grande île thaïlandaise, où vous pourrez vous détendre sur des plages de sable fin et profiter de la vie nocturne animée de Patong. Embarquez ensuite pour une excursion en bateau traditionnel (long-tail boat) vers les spectaculaires îles Phi Phi, rendues célèbres par le film 'La Plage'. Vous explorerez les formations karstiques impressionnantes de la baie de Phang Nga, avec ses pitons rocheux émergeant des eaux turquoise. À Krabi, laissez-vous séduire par Railay Beach, accessible uniquement par bateau et entourée de falaises de calcaire idéales pour l'escalade. Ce circuit est l'équilibre parfait entre détente balnéaire, activités nautiques comme le snorkeling, et découverte des paysages les plus époustouflants du sud de la Thaïlande.",
+    "duration": "7 jours",
+    "price": 790,
+    "imageUrl": "https://images.unsplash.com/photo-1552465011-1c479c548c28?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80",
+    "tourNinjaUrl": "https://tourninja.com/tours/southern-islands",
+    "featured": true
+  }
+]
