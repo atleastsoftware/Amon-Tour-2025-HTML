@@ -76,11 +76,11 @@ export default function CustomTourForm() {
   };
 
   const interestOptions = [
-    { id: "culture", label: "Culture & Histoire" },
-    { id: "nature", label: "Nature & Aventure" },
-    { id: "beaches", label: "Plages & Îles" },
-    { id: "food", label: "Gastronomie" },
-    { id: "wellness", label: "Bien-être & Spa" },
+    { id: "culture", label: "Culture & History" },
+    { id: "nature", label: "Nature & Adventure" },
+    { id: "beaches", label: "Beaches & Islands" },
+    { id: "food", label: "Gastronomy" },
+    { id: "wellness", label: "Wellness & Spa" },
     { id: "shopping", label: "Shopping" },
   ];
 
@@ -93,12 +93,12 @@ export default function CustomTourForm() {
             <div className="h-64 md:h-auto relative">
               <img 
                 src="https://images.unsplash.com/photo-1504214208698-ea1916a2195a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
-                alt="Plage de Thaïlande" 
+                alt="Beach in Thailand" 
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-primary/70 to-transparent flex flex-col justify-center p-8 text-white">
-                <h3 className="font-heading font-bold text-3xl mb-3">Créez Votre Voyage Sur Mesure</h3>
-                <p className="max-w-xs">Parlez-nous de vos envies et nous vous proposerons un circuit adapté à vos préférences.</p>
+                <h3 className="font-heading font-bold text-3xl mb-3">Create Your Custom Journey</h3>
+                <p className="max-w-xs">Tell us about your wishes and we'll design a tour tailored to your preferences.</p>
               </div>
             </div>
             
@@ -112,9 +112,9 @@ export default function CustomTourForm() {
                       name="name"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Nom complet</FormLabel>
+                          <FormLabel>Full Name</FormLabel>
                           <FormControl>
-                            <Input placeholder="Votre nom" {...field} />
+                            <Input placeholder="Your name" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -127,7 +127,7 @@ export default function CustomTourForm() {
                         <FormItem>
                           <FormLabel>Email</FormLabel>
                           <FormControl>
-                            <Input placeholder="Votre email" {...field} />
+                            <Input placeholder="Your email" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -141,21 +141,21 @@ export default function CustomTourForm() {
                       name="travelers"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Nombre de voyageurs</FormLabel>
+                          <FormLabel>Number of Travelers</FormLabel>
                           <Select 
                             onValueChange={field.onChange} 
                             defaultValue={field.value}
                           >
                             <FormControl>
                               <SelectTrigger>
-                                <SelectValue placeholder="Sélectionnez" />
+                                <SelectValue placeholder="Select" />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                              <SelectItem value="1-2">1-2 personnes</SelectItem>
-                              <SelectItem value="3-5">3-5 personnes</SelectItem>
-                              <SelectItem value="6-10">6-10 personnes</SelectItem>
-                              <SelectItem value="11+">11+ personnes</SelectItem>
+                              <SelectItem value="1-2">1-2 people</SelectItem>
+                              <SelectItem value="3-5">3-5 people</SelectItem>
+                              <SelectItem value="6-10">6-10 people</SelectItem>
+                              <SelectItem value="11+">11+ people</SelectItem>
                             </SelectContent>
                           </Select>
                           <FormMessage />
@@ -168,21 +168,21 @@ export default function CustomTourForm() {
                       name="duration"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Durée approximative</FormLabel>
+                          <FormLabel>Approximate Duration</FormLabel>
                           <Select 
                             onValueChange={field.onChange} 
                             defaultValue={field.value}
                           >
                             <FormControl>
                               <SelectTrigger>
-                                <SelectValue placeholder="Sélectionnez" />
+                                <SelectValue placeholder="Select" />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                              <SelectItem value="1-3">1-3 jours</SelectItem>
-                              <SelectItem value="4-7">4-7 jours</SelectItem>
-                              <SelectItem value="8-14">8-14 jours</SelectItem>
-                              <SelectItem value="15+">15+ jours</SelectItem>
+                              <SelectItem value="1-3">1-3 days</SelectItem>
+                              <SelectItem value="4-7">4-7 days</SelectItem>
+                              <SelectItem value="8-14">8-14 days</SelectItem>
+                              <SelectItem value="15+">15+ days</SelectItem>
                             </SelectContent>
                           </Select>
                           <FormMessage />
@@ -197,7 +197,7 @@ export default function CustomTourForm() {
                     render={() => (
                       <FormItem>
                         <div className="mb-4">
-                          <FormLabel>Centres d'intérêt</FormLabel>
+                          <FormLabel>Interests</FormLabel>
                         </div>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                           {interestOptions.map((option) => (
@@ -244,10 +244,10 @@ export default function CustomTourForm() {
                     name="message"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Décrivez votre voyage idéal</FormLabel>
+                        <FormLabel>Describe your ideal trip</FormLabel>
                         <FormControl>
                           <Textarea 
-                            placeholder="Dites-nous ce que vous aimeriez voir et faire en Thaïlande..."
+                            placeholder="Tell us what you would like to see and do in Thailand..."
                             rows={4}
                             {...field} 
                           />
@@ -262,7 +262,7 @@ export default function CustomTourForm() {
                     className="w-full bg-primary text-white py-3 rounded-md font-heading font-semibold hover:bg-primary-dark transition-colors"
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? "Envoi en cours..." : "Envoyer ma demande"}
+                    {isSubmitting ? "Sending..." : "Send my request"}
                   </Button>
                 </form>
               </Form>
