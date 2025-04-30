@@ -8,7 +8,7 @@ import { ArrowLeft, MapPin, Calendar, Clock, Euro } from "lucide-react";
 
 export default function TourDetails() {
   const { id } = useParams();
-  const tourId = parseInt(id);
+  const tourId = parseInt(id || '0');
   
   const { data: tour, isLoading, error } = useQuery<Tour>({
     queryKey: [`/api/tours/${tourId}`],
@@ -20,11 +20,11 @@ export default function TourDetails() {
       <>
         <Header />
         <div className="container mx-auto px-4 py-16 text-center">
-          <h1 className="font-heading font-bold text-2xl mb-4">Erreur</h1>
-          <p className="mb-6">Identifiant de tour invalide.</p>
+          <h1 className="font-heading font-bold text-2xl mb-4">Error</h1>
+          <p className="mb-6">Invalid tour ID.</p>
           <Link href="/tours">
             <a className="bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark transition-colors">
-              Retour aux tours
+              Back to Tours
             </a>
           </Link>
         </div>
@@ -57,11 +57,11 @@ export default function TourDetails() {
       <>
         <Header />
         <div className="container mx-auto px-4 py-16 text-center">
-          <h1 className="font-heading font-bold text-2xl mb-4">Tour introuvable</h1>
-          <p className="mb-6">Le tour que vous recherchez n'existe pas ou a été supprimé.</p>
+          <h1 className="font-heading font-bold text-2xl mb-4">Tour Not Found</h1>
+          <p className="mb-6">The tour you are looking for does not exist or has been removed.</p>
           <Link href="/tours">
             <a className="bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark transition-colors">
-              Retour aux tours
+              Back to Tours
             </a>
           </Link>
         </div>
@@ -89,7 +89,7 @@ export default function TourDetails() {
             <Link href="/tours">
               <a className="flex items-center text-white hover:text-secondary mb-4 transition-colors">
                 <ArrowLeft className="mr-2 h-5 w-5" />
-                Retour aux tours
+                Back to Tours
               </a>
             </Link>
             <h1 className="font-heading font-bold text-4xl md:text-5xl mb-2">
@@ -100,7 +100,7 @@ export default function TourDetails() {
                 <Calendar className="h-4 w-4 mr-1" /> {tour.duration}
               </span>
               <span className="bg-primary text-white px-3 py-1 rounded-full flex items-center">
-                <Euro className="h-4 w-4 mr-1" /> À partir de {tour.price}€
+                <Euro className="h-4 w-4 mr-1" /> From ${tour.price}
               </span>
             </div>
           </div>

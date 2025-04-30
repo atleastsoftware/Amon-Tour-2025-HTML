@@ -22,10 +22,10 @@ export default function TourCard({ tour }: TourCardProps) {
         </div>
         <p className="text-gray-600 mb-4">{tour.shortDescription}</p>
         <div className="flex justify-between items-center">
-          <span className="font-heading font-bold text-lg text-primary">À partir de {tour.price}€</span>
+          <span className="font-heading font-bold text-lg text-primary">From ${tour.price}</span>
           <Link href={`/tours/${tour.id}`}>
             <a className="text-secondary font-semibold hover:text-secondary-dark transition-colors">
-              Voir détails →
+              View details →
             </a>
           </Link>
         </div>
