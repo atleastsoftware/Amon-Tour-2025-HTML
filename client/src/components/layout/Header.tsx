@@ -81,16 +81,16 @@ export default function Header() {
         {/* Desktop Navigation */}
         <div className="hidden md:flex space-x-8 items-center">
           <NavLink href="/" isActive={location === '/'}>
-            Accueil
+            Home
           </NavLink>
           <NavLink href="/tours" isActive={location === '/tours'}>
-            Nos Tours
+            Our Tours
           </NavLink>
           <NavLink href="/#about" isActive={false}>
-            À Propos
+            About Us
           </NavLink>
           <NavLink href="/custom-tour" isActive={location === '/custom-tour'}>
-            Voyage Sur Mesure
+            Custom Tour
           </NavLink>
           <NavLink href="/#contact" isActive={false}>
             Contact
@@ -110,7 +110,7 @@ export default function Header() {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={handleLogout}>
-                  Déconnexion
+                  Logout
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -128,16 +128,16 @@ export default function Header() {
       <div className={`md:hidden bg-white border-t border-gray-200 px-4 py-3 ${isMobileMenuOpen ? 'block' : 'hidden'}`}>
         <div className="flex flex-col space-y-3">
           <NavLink href="/" isActive={location === '/'} onClick={closeMobileMenu}>
-            Accueil
+            Home
           </NavLink>
           <NavLink href="/tours" isActive={location === '/tours'} onClick={closeMobileMenu}>
-            Nos Tours
+            Our Tours
           </NavLink>
           <NavLink href="/#about" isActive={false} onClick={closeMobileMenu}>
-            À Propos
+            About Us
           </NavLink>
           <NavLink href="/custom-tour" isActive={location === '/custom-tour'} onClick={closeMobileMenu}>
-            Voyage Sur Mesure
+            Custom Tour
           </NavLink>
           <NavLink href="/#contact" isActive={false} onClick={closeMobileMenu}>
             Contact
@@ -158,7 +158,7 @@ export default function Header() {
                   closeMobileMenu();
                 }}
               >
-                Déconnexion
+                Logout
               </Button>
             </>
           ) : (

@@ -113,10 +113,10 @@ export default function TourDetails() {
               {/* Main Content */}
               <div className="lg:col-span-2">
                 <div className="bg-white p-6 rounded-lg shadow-md">
-                  <h2 className="font-heading font-semibold text-2xl mb-4">Description du Tour</h2>
+                  <h2 className="font-heading font-semibold text-2xl mb-4">Tour Description</h2>
                   <p className="text-gray-700 whitespace-pre-line mb-8">{tour.description}</p>
                   
-                  <h3 className="font-heading font-semibold text-xl mb-3">Points forts du circuit</h3>
+                  <h3 className="font-heading font-semibold text-xl mb-3">Tour Highlights</h3>
                   <div className="flex flex-col gap-2 mb-8">
                     {tour.description.split('.').slice(0, 4).map((point, index) => (
                       point.trim() && (
@@ -135,7 +135,7 @@ export default function TourDetails() {
                       rel="noopener noreferrer" 
                       className="bg-secondary text-white px-6 py-3 rounded-lg font-heading font-semibold hover:bg-secondary-dark transition-colors inline-block"
                     >
-                      Réserver sur TOUR NINJA
+                      Book on TOUR NINJA
                     </a>
                   </div>
                 </div>
@@ -144,39 +144,39 @@ export default function TourDetails() {
               {/* Sidebar */}
               <div>
                 <div className="bg-white p-6 rounded-lg shadow-md mb-6">
-                  <h3 className="font-heading font-semibold text-xl mb-4">Informations</h3>
+                  <h3 className="font-heading font-semibold text-xl mb-4">Information</h3>
                   <ul className="space-y-3">
                     <li className="flex items-center">
                       <Clock className="h-5 w-5 text-primary mr-2" />
-                      <span>Durée: {tour.duration}</span>
+                      <span>Duration: {tour.duration}</span>
                     </li>
                     <li className="flex items-center">
                       <Euro className="h-5 w-5 text-primary mr-2" />
-                      <span>Prix: À partir de {tour.price}€ par personne</span>
+                      <span>Price: From ${tour.price} per person</span>
                     </li>
                     <li className="flex items-center">
                       <MapPin className="h-5 w-5 text-primary mr-2" />
-                      <span>Type: Tour privé</span>
+                      <span>Type: Private Tour</span>
                     </li>
                     <li className="flex items-center">
                       <i className="fas fa-language text-primary mr-2"></i>
-                      <span>Guide: Francophone</span>
+                      <span>Guide: English speaking</span>
                     </li>
                   </ul>
                 </div>
                 
                 <div className="bg-white p-6 rounded-lg shadow-md">
-                  <h3 className="font-heading font-semibold text-xl mb-4">Vous avez des questions ?</h3>
-                  <p className="text-gray-700 mb-4">Contactez-nous pour plus d'informations sur ce circuit ou pour créer votre voyage sur mesure.</p>
+                  <h3 className="font-heading font-semibold text-xl mb-4">Have Questions?</h3>
+                  <p className="text-gray-700 mb-4">Contact us for more information about this tour or to create your customized journey.</p>
                   <div className="space-y-3">
                     <Link href="/#contact">
                       <a className="w-full bg-primary text-white py-2 px-4 rounded text-center block hover:bg-primary-dark transition-colors">
-                        Nous contacter
+                        Contact Us
                       </a>
                     </Link>
                     <Link href="/custom-tour">
                       <a className="w-full bg-secondary text-white py-2 px-4 rounded text-center block hover:bg-secondary-dark transition-colors">
-                        Voyage sur mesure
+                        Custom Tour
                       </a>
                     </Link>
                   </div>

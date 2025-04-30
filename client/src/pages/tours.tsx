@@ -44,16 +44,16 @@ export default function Tours() {
           <div className="absolute inset-0 z-0">
             <img 
               src="https://images.unsplash.com/photo-1580758733867-9638a08cb85b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
-              alt="Tours en Thaïlande" 
+              alt="Tours in Thailand" 
               className="w-full h-full object-cover"
             />
           </div>
           <div className="container mx-auto px-4 relative z-20 h-full flex flex-col justify-center items-center text-center text-white">
             <h1 className="font-heading font-bold text-4xl md:text-5xl mb-4">
-              Nos Tours et Circuits
+              Our Tours
             </h1>
             <p className="text-lg md:text-xl max-w-2xl">
-              Découvrez notre sélection de circuits pour explorer la Thaïlande à votre rythme.
+              Discover our selection of tours to explore Thailand at your own pace.
             </p>
           </div>
         </section>
@@ -62,33 +62,33 @@ export default function Tours() {
         <section className="py-16">
           <div className="container mx-auto px-4">
             <div className="bg-white p-6 rounded-lg shadow-md mb-8">
-              <h2 className="font-heading font-semibold text-xl mb-4">Filtrer les tours</h2>
+              <h2 className="font-heading font-semibold text-xl mb-4">Filter Tours</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="search" className="block text-sm font-medium text-gray-700 mb-1">
-                    Rechercher
+                    Search
                   </label>
                   <Input
                     id="search"
                     type="text"
-                    placeholder="Rechercher par titre ou description..."
+                    placeholder="Search by title or description..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
                 </div>
                 <div>
                   <label htmlFor="duration" className="block text-sm font-medium text-gray-700 mb-1">
-                    Durée
+                    Duration
                   </label>
                   <Select
                     value={durationFilter}
                     onValueChange={setDurationFilter}
                   >
                     <SelectTrigger id="duration">
-                      <SelectValue placeholder="Toutes les durées" />
+                      <SelectValue placeholder="All durations" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">Toutes les durées</SelectItem>
+                      <SelectItem value="">All durations</SelectItem>
                       {uniqueDurations.map((duration) => (
                         <SelectItem key={duration} value={duration}>
                           {duration}
