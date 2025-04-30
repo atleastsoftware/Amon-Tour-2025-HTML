@@ -14,6 +14,8 @@ import {
 } from "@shared/schema";
 import fs from "fs";
 import path from "path";
+import { db } from "./db";
+import { eq } from "drizzle-orm";
 
 export interface IStorage {
   // User operations
@@ -38,160 +40,83 @@ export interface IStorage {
   getContactMessages(): Promise<ContactMessage[]>;
 }
 
-export class MemStorage implements IStorage {
-  private users: Map<number, User>;
-  private tours: Map<number, Tour>;
-  private customTourRequests: Map<number, CustomTourRequest>;
-  private contactMessages: Map<number, ContactMessage>;
-  
-  private userCurrentId: number;
-  private tourCurrentId: number;
-  private customTourRequestCurrentId: number;
-  private contactMessageCurrentId: number;
-  
-  private readonly dataPath = path.join(process.cwd(), "data");
-  private readonly toursPath = path.join(this.dataPath, "tours.json");
-  
-  constructor() {
-    this.users = new Map();
-    this.tours = new Map();
-    this.customTourRequests = new Map();
-    this.contactMessages = new Map();
-    
-    this.userCurrentId = 1;
-    this.tourCurrentId = 1;
-    this.customTourRequestCurrentId = 1;
-    this.contactMessageCurrentId = 1;
-    
-    // Create admin user
-    this.createUser({
-      username: "admin",
-      password: "admin123", // In a real app, this would be hashed
-    });
-    
-    // Load tours from file if exists
-    this.loadToursFromFile();
-  }
-  
-  private loadToursFromFile() {
-    try {
-      if (!fs.existsSync(this.dataPath)) {
-        fs.mkdirSync(this.dataPath, { recursive: true });
-      }
-      
-      if (fs.existsSync(this.toursPath)) {
-        const data = fs.readFileSync(this.toursPath, 'utf8');
-        const toursData = JSON.parse(data);
-        
-        if (Array.isArray(toursData) && toursData.length > 0) {
-          toursData.forEach(tour => {
-            this.tours.set(tour.id, tour);
-            this.tourCurrentId = Math.max(this.tourCurrentId, tour.id + 1);
-          });
-        }
-      }
-    } catch (error) {
-      console.error("Error loading tours:", error);
-    }
-  }
-  
-  private saveToursToFile() {
-    try {
-      const toursData = Array.from(this.tours.values());
-      fs.writeFileSync(this.toursPath, JSON.stringify(toursData, null, 2), 'utf8');
-    } catch (error) {
-      console.error("Error saving tours:", error);
-    }
-  }
-  
-  // User operations
+export class DatabaseStorage implements IStorage {
   async getUser(id: number): Promise<User | undefined> {
-    return this.users.get(id);
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user || undefined;
   }
-  
+
   async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
-      (user) => user.username === username,
-    );
+    const [user] = await db.select().from(users).where(eq(users.username, username));
+    return user || undefined;
   }
-  
+
   async createUser(insertUser: InsertUser): Promise<User> {
-    const id = this.userCurrentId++;
-    const user: User = { ...insertUser, id };
-    this.users.set(id, user);
+    const [user] = await db
+      .insert(users)
+      .values(insertUser)
+      .returning();
     return user;
   }
   
-  // Tour operations
   async getTours(): Promise<Tour[]> {
-    return Array.from(this.tours.values());
+    return db.select().from(tours);
   }
   
   async getTour(id: number): Promise<Tour | undefined> {
-    return this.tours.get(id);
+    const [tour] = await db.select().from(tours).where(eq(tours.id, id));
+    return tour || undefined;
   }
   
   async createTour(insertTour: InsertTour): Promise<Tour> {
-    const id = this.tourCurrentId++;
-    const tour: Tour = { ...insertTour, id };
-    this.tours.set(id, tour);
-    this.saveToursToFile();
+    const [tour] = await db
+      .insert(tours)
+      .values(insertTour)
+      .returning();
     return tour;
   }
   
   async updateTour(id: number, tourData: Partial<InsertTour>): Promise<Tour | undefined> {
-    const existingTour = this.tours.get(id);
-    if (!existingTour) return undefined;
-    
-    const updatedTour: Tour = { ...existingTour, ...tourData };
-    this.tours.set(id, updatedTour);
-    this.saveToursToFile();
-    return updatedTour;
+    const [updatedTour] = await db
+      .update(tours)
+      .set(tourData)
+      .where(eq(tours.id, id))
+      .returning();
+    return updatedTour || undefined;
   }
   
   async deleteTour(id: number): Promise<boolean> {
-    const result = this.tours.delete(id);
-    if (result) {
-      this.saveToursToFile();
-    }
-    return result;
+    const result = await db.delete(tours).where(eq(tours.id, id));
+    return true; // In PostgreSQL we don't get the count of affected rows directly
   }
   
   async getFeaturedTours(): Promise<Tour[]> {
-    return Array.from(this.tours.values()).filter(tour => tour.featured);
+    return db.select().from(tours).where(eq(tours.featured, true));
   }
   
-  // Custom tour request operations
   async createCustomTourRequest(insertRequest: InsertCustomTourRequest): Promise<CustomTourRequest> {
-    const id = this.customTourRequestCurrentId++;
-    const request: CustomTourRequest = { 
-      ...insertRequest, 
-      id,
-      createdAt: new Date()
-    };
-    this.customTourRequests.set(id, request);
+    const [request] = await db
+      .insert(customTourRequests)
+      .values(insertRequest)
+      .returning();
     return request;
   }
   
   async getCustomTourRequests(): Promise<CustomTourRequest[]> {
-    return Array.from(this.customTourRequests.values());
+    return db.select().from(customTourRequests);
   }
   
-  // Contact message operations
   async createContactMessage(insertMessage: InsertContactMessage): Promise<ContactMessage> {
-    const id = this.contactMessageCurrentId++;
-    const message: ContactMessage = { 
-      ...insertMessage, 
-      id,
-      createdAt: new Date()
-    };
-    this.contactMessages.set(id, message);
+    const [message] = await db
+      .insert(contactMessages)
+      .values(insertMessage)
+      .returning();
     return message;
   }
   
   async getContactMessages(): Promise<ContactMessage[]> {
-    return Array.from(this.contactMessages.values());
+    return db.select().from(contactMessages);
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();

@@ -1,6 +1,30 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import { storage } from "./storage";
+import { db } from "./db";
+import { eq } from "drizzle-orm";
+import { users } from "@shared/schema";
+
+// Function to ensure admin user exists
+async function ensureAdminUser() {
+  try {
+    // Check if admin user exists
+    const [existingAdmin] = await db.select().from(users).where(eq(users.username, "admin"));
+    
+    if (!existingAdmin) {
+      // Create admin user if it doesn't exist
+      log("Creating admin user");
+      await storage.createUser({
+        username: "admin",
+        password: "admin123", // In a real app, this would be hashed
+      });
+      log("Admin user created successfully");
+    }
+  } catch (error) {
+    log(`Error ensuring admin user: ${error}`);
+  }
+}
 
 const app = express();
 app.use(express.json());
