@@ -8,6 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { Tour, insertTourSchema } from "@shared/schema";
 import { z } from "zod";
+import { formatTHB } from "@/lib/utils";
 
 import {
   Card,
