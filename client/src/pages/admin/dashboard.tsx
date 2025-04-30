@@ -323,7 +323,7 @@ export default function Dashboard() {
           <TabsContent value="messages">
             <Card>
               <CardHeader>
-                <CardTitle>Messages de Contact</CardTitle>
+                <CardTitle>Contact Messages</CardTitle>
               </CardHeader>
               <CardContent>
                 {messagesLoading ? (
@@ -335,9 +335,9 @@ export default function Dashboard() {
                     <Table>
                       <TableHeader>
                         <TableRow>
-                          <TableHead>Nom</TableHead>
+                          <TableHead>Name</TableHead>
                           <TableHead>Email</TableHead>
-                          <TableHead>Sujet</TableHead>
+                          <TableHead>Subject</TableHead>
                           <TableHead>Date</TableHead>
                         </TableRow>
                       </TableHeader>
@@ -357,7 +357,7 @@ export default function Dashboard() {
                   </div>
                 ) : (
                   <div className="text-center py-8">
-                    <p className="text-gray-500">Aucun message de contact.</p>
+                    <p className="text-gray-500">No contact messages available.</p>
                   </div>
                 )}
               </CardContent>
@@ -370,17 +370,17 @@ export default function Dashboard() {
       <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Confirmer la suppression</DialogTitle>
+            <DialogTitle>Confirm Deletion</DialogTitle>
             <DialogDescription>
-              Êtes-vous sûr de vouloir supprimer le tour "{tourToDelete?.title}" ? Cette action est irréversible.
+              Are you sure you want to delete the tour "{tourToDelete?.title}"? This action cannot be undone.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <Button variant="outline" onClick={() => setDeleteDialogOpen(false)}>
-              Annuler
+              Cancel
             </Button>
             <Button variant="destructive" onClick={deleteTour}>
-              Supprimer
+              Delete
             </Button>
           </DialogFooter>
         </DialogContent>
