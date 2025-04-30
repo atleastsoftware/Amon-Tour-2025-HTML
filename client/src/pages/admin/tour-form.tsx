@@ -207,12 +207,12 @@ export default function TourForm() {
                     name="price"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Price ($)</FormLabel>
+                        <FormLabel>Price (THB)</FormLabel>
                         <FormControl>
-                          <Input type="number" min="0" placeholder="Ex: 350" {...field} />
+                          <Input type="number" min="0" placeholder="Ex: 10000" {...field} />
                         </FormControl>
                         <FormDescription>
-                          Starting price in dollars (without the $ symbol)
+                          Starting price in Thai Baht (without the ฿ symbol)
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
