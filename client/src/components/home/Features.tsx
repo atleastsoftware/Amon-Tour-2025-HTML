@@ -8,8 +8,8 @@ export default function Features() {
             <div className="w-16 h-16 bg-primary-light rounded-full flex items-center justify-center mb-4">
               <i className="fas fa-user-check text-white text-2xl"></i>
             </div>
-            <h3 className="font-heading font-bold text-xl mb-2">Tours Privés</h3>
-            <p className="text-gray-600">Vivez une expérience unique avec nos guides francophones et nos véhicules privés.</p>
+            <h3 className="font-heading font-bold text-xl mb-2">Private Tours</h3>
+            <p className="text-gray-600">Experience a unique journey with our English-speaking guides and private vehicles.</p>
           </div>
           
           {/* Feature 2 */}
@@ -17,8 +17,8 @@ export default function Features() {
             <div className="w-16 h-16 bg-primary-light rounded-full flex items-center justify-center mb-4">
               <i className="fas fa-map-marked-alt text-white text-2xl"></i>
             </div>
-            <h3 className="font-heading font-bold text-xl mb-2">Circuits Personnalisés</h3>
-            <p className="text-gray-600">Créez votre propre itinéraire selon vos envies, votre rythme et vos centres d'intérêt.</p>
+            <h3 className="font-heading font-bold text-xl mb-2">Customized Itineraries</h3>
+            <p className="text-gray-600">Create your own journey based on your desires, your pace, and your interests.</p>
           </div>
           
           {/* Feature 3 */}
@@ -26,8 +26,8 @@ export default function Features() {
             <div className="w-16 h-16 bg-primary-light rounded-full flex items-center justify-center mb-4">
               <i className="fas fa-heart text-white text-2xl"></i>
             </div>
-            <h3 className="font-heading font-bold text-xl mb-2">Expériences Authentiques</h3>
-            <p className="text-gray-600">Découvrez la Thaïlande loin des sentiers battus et immergez-vous dans la culture locale.</p>
+            <h3 className="font-heading font-bold text-xl mb-2">Authentic Experiences</h3>
+            <p className="text-gray-600">Discover Thailand off the beaten path and immerse yourself in the local culture.</p>
           </div>
         </div>
       </div>
