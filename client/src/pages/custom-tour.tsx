@@ -13,7 +13,7 @@ export default function CustomTour() {
           <div className="absolute inset-0 bg-black/40 z-10"></div>
           <div className="absolute inset-0 z-0">
             <img 
-              src="https://images.unsplash.com/photo-1598977123118-4e4428362d5c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
+              src="/uploads/tours/tour-1745996624172-231261635.jpeg" 
               alt="Customized tour in Thailand" 
               className="w-full h-full object-cover"
             />
