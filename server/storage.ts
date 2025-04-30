@@ -15,7 +15,7 @@ import {
 import fs from "fs";
 import path from "path";
 import { db } from "./db";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 
 export interface IStorage {
   // User operations
@@ -69,11 +69,37 @@ export class DatabaseStorage implements IStorage {
   }
   
   async createTour(insertTour: InsertTour): Promise<Tour> {
-    const [tour] = await db
-      .insert(tours)
-      .values(insertTour)
-      .returning();
-    return tour;
+    try {
+      const [tour] = await db
+        .insert(tours)
+        .values(insertTour)
+        .returning();
+      return tour;
+    } catch (error: any) {
+      // Check if it's a duplicate key error
+      if (error.code === '23505' && error.constraint === 'tours_pkey') {
+        console.log("Handling duplicate key error by using custom query");
+        // Get the highest ID from the tours table and increment it
+        const [{ max }] = await db.select({ 
+          max: sql`MAX(${tours.id})` 
+        }).from(tours);
+        
+        const nextId = (max || 0) + 1;
+        console.log(`Next available ID: ${nextId}`);
+        
+        // Reset the sequence to the next available ID
+        await db.execute(sql`SELECT setval('tours_id_seq', ${nextId}, false)`);
+        
+        // Try again with the sequence reset
+        const [tour] = await db
+          .insert(tours)
+          .values(insertTour)
+          .returning();
+        return tour;
+      }
+      // If it's not a duplicate key error, rethrow
+      throw error;
+    }
   }
   
   async updateTour(id: number, tourData: Partial<InsertTour>): Promise<Tour | undefined> {
