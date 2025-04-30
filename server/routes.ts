@@ -1,7 +1,9 @@
-import type { Express, Request, Response } from "express";
+import express, { type Express, type Request, type Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertTourSchema, insertCustomTourRequestSchema, insertContactMessageSchema } from "@shared/schema";
+import { upload, getPublicFileUrl } from "./upload";
+import path from "path";
 import session from "express-session";
 import MemoryStore from "memorystore";
 import { v4 as uuidv4 } from "uuid";
@@ -27,6 +29,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     return res.status(401).json({ message: "Unauthorized" });
   };
 
+  // Serve uploaded files
+  app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
+  
   // Authentication routes
   app.post("/api/login", async (req, res) => {
     const { username, password } = req.body;
@@ -61,6 +66,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json(req.session.user);
   });
 
+  // Image upload route
+  app.post("/api/upload/image", requireAuth, upload.single('image'), (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ message: "No file uploaded" });
+      }
+      
+      const fileUrl = getPublicFileUrl(req.file.filename);
+      res.json({ 
+        message: "File uploaded successfully", 
+        file: {
+          url: fileUrl,
+          filename: req.file.filename,
+          originalname: req.file.originalname,
+          mimetype: req.file.mimetype,
+          size: req.file.size
+        }
+      });
+    } catch (error) {
+      res.status(500).json({ message: "Error uploading file", error });
+    }
+  });
+  
   // Tour routes
   app.get("/api/tours", async (req, res) => {
     const tours = await storage.getTours();

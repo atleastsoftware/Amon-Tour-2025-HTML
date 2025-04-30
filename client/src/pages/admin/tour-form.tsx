@@ -268,13 +268,30 @@ export default function TourForm() {
                   name="imageUrl"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Image URL</FormLabel>
-                      <FormControl>
-                        <Input placeholder="https://example.com/image.jpg" {...field} />
-                      </FormControl>
-                      <FormDescription>
-                        URL for the main tour image (use services like Unsplash or similar).
-                      </FormDescription>
+                      <FormLabel>Tour Image</FormLabel>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                          <FormControl>
+                            <Input 
+                              placeholder="https://example.com/image.jpg" 
+                              {...field} 
+                              className="mb-2"
+                            />
+                          </FormControl>
+                          <FormDescription>
+                            Enter a URL for the main tour image, or use the uploader to the right.
+                          </FormDescription>
+                        </div>
+                        <div>
+                          <div className="border rounded-md p-4 bg-gray-50">
+                            <p className="text-sm font-medium mb-2">Upload an image</p>
+                            <ImageUpload 
+                              currentImage={field.value}
+                              onUploadComplete={(url) => field.onChange(url)}
+                            />
+                          </div>
+                        </div>
+                      </div>
                       <FormMessage />
                     </FormItem>
                   )}
