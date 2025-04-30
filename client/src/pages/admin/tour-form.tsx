@@ -33,6 +33,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "wouter";
+import { ImageUpload } from "@/components/ui/image-upload";
 
 // Extended schema with validation
 const tourFormSchema = insertTourSchema
