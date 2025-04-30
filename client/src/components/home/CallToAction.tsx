@@ -12,14 +12,14 @@ export default function CallToAction() {
         </p>
         <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
           <Link href="/tours">
-            <a className="bg-white text-secondary px-8 py-3 rounded-lg font-heading font-semibold hover:bg-gray-100 transition-colors">
+            <span className="bg-white text-secondary px-8 py-3 rounded-lg font-heading font-semibold hover:bg-gray-100 transition-colors cursor-pointer">
               View All Tours
-            </a>
+            </span>
           </Link>
           <Link href="/#contact">
-            <a className="bg-primary text-white px-8 py-3 rounded-lg font-heading font-semibold hover:bg-primary-dark transition-colors">
+            <span className="bg-primary text-white px-8 py-3 rounded-lg font-heading font-semibold hover:bg-primary-dark transition-colors cursor-pointer">
               Contact Us
-            </a>
+            </span>
           </Link>
         </div>
       </div>

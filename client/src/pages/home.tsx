@@ -65,10 +65,10 @@ export default function Home() {
         <section id="tours" className="py-16">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">Nos Tours Populaires</h2>
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">Our Popular Tours</h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
               <p className="text-gray-600 max-w-2xl mx-auto">
-                Explorez nos circuits les plus appréciés, soigneusement conçus pour vous faire découvrir le meilleur de la Thaïlande.
+                Explore our most popular tours, carefully designed to help you discover the best of Thailand.
               </p>
             </div>
             
@@ -93,15 +93,15 @@ export default function Home() {
               </div>
             ) : (
               <div className="text-center py-8">
-                <p className="text-gray-500">Aucun tour disponible pour le moment.</p>
+                <p className="text-gray-500">No tours available at the moment.</p>
               </div>
             )}
             
             <div className="text-center mt-12">
               <Link href="/tours">
-                <a className="bg-primary text-white px-8 py-3 rounded-lg font-heading font-semibold hover:bg-primary-dark transition-colors inline-block">
-                  Voir tous nos tours
-                </a>
+                <span className="bg-primary text-white px-8 py-3 rounded-lg font-heading font-semibold hover:bg-primary-dark transition-colors inline-block cursor-pointer">
+                  View All Tours
+                </span>
               </Link>
             </div>
           </div>

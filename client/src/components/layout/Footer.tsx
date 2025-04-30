@@ -12,7 +12,7 @@ export default function Footer() {
               <span className="text-secondary font-accent text-2xl ml-1">Siam</span>
               <span className="text-white font-heading font-bold text-2xl ml-1">Tour</span>
             </div>
-            <p className="mb-4">Votre spécialiste des voyages sur mesure en Thaïlande. Tours privés, guides francophones et expériences authentiques.</p>
+            <p className="mb-4">Your specialist for custom travel in Thailand. Private tours, English-speaking guides and authentic experiences.</p>
             <div className="flex space-x-3">
               <a href="#" className="text-white hover:text-secondary transition-colors" aria-label="Facebook">
                 <i className="fab fa-facebook-f"></i>
@@ -31,36 +31,36 @@ export default function Footer() {
           
           {/* Quick Links */}
           <div>
-            <h4 className="font-heading font-semibold text-lg mb-4">Liens Rapides</h4>
+            <h4 className="font-heading font-semibold text-lg mb-4">Quick Links</h4>
             <ul className="space-y-2">
               <li>
                 <Link href="/">
-                  <a className="hover:text-secondary transition-colors">Accueil</a>
+                  <span className="hover:text-secondary transition-colors cursor-pointer">Home</span>
                 </Link>
               </li>
               <li>
                 <Link href="/tours">
-                  <a className="hover:text-secondary transition-colors">Nos Tours</a>
+                  <span className="hover:text-secondary transition-colors cursor-pointer">Our Tours</span>
                 </Link>
               </li>
               <li>
                 <Link href="/#about">
-                  <a className="hover:text-secondary transition-colors">À Propos</a>
+                  <span className="hover:text-secondary transition-colors cursor-pointer">About Us</span>
                 </Link>
               </li>
               <li>
                 <Link href="/custom-tour">
-                  <a className="hover:text-secondary transition-colors">Voyage Sur Mesure</a>
+                  <span className="hover:text-secondary transition-colors cursor-pointer">Custom Tour</span>
                 </Link>
               </li>
               <li>
                 <Link href="/#contact">
-                  <a className="hover:text-secondary transition-colors">Contact</a>
+                  <span className="hover:text-secondary transition-colors cursor-pointer">Contact</span>
                 </Link>
               </li>
               <li>
                 <Link href="/admin/login">
-                  <a className="hover:text-secondary transition-colors">Admin</a>
+                  <span className="hover:text-secondary transition-colors cursor-pointer">Admin</span>
                 </Link>
               </li>
             </ul>
@@ -82,33 +82,33 @@ export default function Footer() {
           {/* Newsletter */}
           <div>
             <h4 className="font-heading font-semibold text-lg mb-4">Newsletter</h4>
-            <p className="mb-4">Inscrivez-vous pour recevoir nos offres spéciales et conseils de voyage.</p>
+            <p className="mb-4">Subscribe to receive our special offers and travel tips.</p>
             <form className="mb-4" onSubmit={(e) => e.preventDefault()}>
               <div className="flex">
                 <input 
                   type="email" 
-                  placeholder="Votre email" 
+                  placeholder="Your email" 
                   className="px-4 py-2 rounded-l-md w-full text-gray-800 focus:outline-none"
                 />
                 <button 
                   type="submit" 
                   className="bg-secondary px-4 py-2 rounded-r-md hover:bg-secondary-dark transition-colors"
-                  aria-label="S'inscrire"
+                  aria-label="Subscribe"
                 >
                   <i className="fas fa-paper-plane"></i>
                 </button>
               </div>
             </form>
-            <p className="text-sm">Nous respectons votre vie privée. Désabonnez-vous à tout moment.</p>
+            <p className="text-sm">We respect your privacy. Unsubscribe at any time.</p>
           </div>
         </div>
         
         <div className="border-t border-white/20 pt-6 flex flex-col md:flex-row justify-between items-center">
-          <p>&copy; {new Date().getFullYear()} Senthang Siam Tour. Tous droits réservés.</p>
+          <p>&copy; {new Date().getFullYear()} Senthang Siam Tour. All rights reserved.</p>
           <div className="flex space-x-4 mt-4 md:mt-0">
-            <a href="#" className="text-sm hover:text-secondary transition-colors">Mentions légales</a>
-            <a href="#" className="text-sm hover:text-secondary transition-colors">Politique de confidentialité</a>
-            <a href="#" className="text-sm hover:text-secondary transition-colors">Conditions générales</a>
+            <a href="#" className="text-sm hover:text-secondary transition-colors">Legal Notice</a>
+            <a href="#" className="text-sm hover:text-secondary transition-colors">Privacy Policy</a>
+            <a href="#" className="text-sm hover:text-secondary transition-colors">Terms & Conditions</a>
           </div>
         </div>
       </div>

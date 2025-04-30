@@ -26,12 +26,12 @@ import {
 import { Button } from "@/components/ui/button";
 
 const customTourSchema = z.object({
-  name: z.string().min(2, { message: "Le nom est requis" }),
-  email: z.string().email({ message: "Email invalide" }),
-  travelers: z.string().min(1, { message: "Veuillez sélectionner le nombre de voyageurs" }),
-  duration: z.string().min(1, { message: "Veuillez sélectionner la durée" }),
-  interests: z.array(z.string()).min(1, { message: "Sélectionnez au moins un centre d'intérêt" }),
-  message: z.string().min(10, { message: "Veuillez décrire votre voyage idéal (10 caractères minimum)" }),
+  name: z.string().min(2, { message: "Name is required" }),
+  email: z.string().email({ message: "Invalid email" }),
+  travelers: z.string().min(1, { message: "Please select the number of travelers" }),
+  duration: z.string().min(1, { message: "Please select the duration" }),
+  interests: z.array(z.string()).min(1, { message: "Select at least one interest" }),
+  message: z.string().min(10, { message: "Please describe your ideal trip (minimum 10 characters)" }),
 });
 
 type CustomTourFormData = z.infer<typeof customTourSchema>;
@@ -58,16 +58,16 @@ export default function CustomTourForm() {
       await apiRequest("POST", "/api/custom-tour-requests", data);
       
       toast({
-        title: "Demande envoyée",
-        description: "Nous vous contacterons très rapidement pour discuter de votre projet de voyage.",
+        title: "Request sent",
+        description: "We will contact you very soon to discuss your travel project.",
         variant: "default",
       });
       
       form.reset();
     } catch (error) {
       toast({
-        title: "Erreur",
-        description: "Un problème est survenu lors de l'envoi de votre demande. Veuillez réessayer.",
+        title: "Error",
+        description: "There was a problem sending your request. Please try again.",
         variant: "destructive",
       });
     } finally {
