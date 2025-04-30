@@ -286,10 +286,16 @@ export default function TourForm() {
                         <div>
                           <div className="border rounded-md p-4 bg-gray-50">
                             <p className="text-sm font-medium mb-2">Upload an image</p>
-                            <ImageUpload 
-                              currentImage={field.value}
-                              onUploadComplete={(url) => field.onChange(url)}
-                            />
+                            {isAuthenticated ? (
+                              <ImageUpload 
+                                currentImage={field.value}
+                                onUploadComplete={(url) => field.onChange(url)}
+                              />
+                            ) : (
+                              <div className="text-amber-600 p-4 text-sm">
+                                Authentication required to upload images. Please use the URL field instead.
+                              </div>
+                            )}
                           </div>
                         </div>
                       </div>
