@@ -69,11 +69,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Image upload route
   app.post("/api/upload/image", requireAuth, upload.single('image'), (req, res) => {
     try {
+      console.log("Image upload request received");
+      
       if (!req.file) {
+        console.error("No file uploaded in request");
         return res.status(400).json({ message: "No file uploaded" });
       }
       
       const fileUrl = getPublicFileUrl(req.file.filename);
+      console.log("File uploaded successfully:", {
+        url: fileUrl,
+        filename: req.file.filename,
+        size: req.file.size
+      });
+      
       res.json({ 
         message: "File uploaded successfully", 
         file: {
@@ -85,7 +94,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       });
     } catch (error) {
-      res.status(500).json({ message: "Error uploading file", error });
+      console.error("Error during file upload:", error);
+      res.status(500).json({ message: "Error uploading file", error: String(error) });
     }
   });
   

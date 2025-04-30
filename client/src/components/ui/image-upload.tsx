@@ -55,19 +55,32 @@ export function ImageUpload({ onUploadComplete, currentImage, className = "" }: 
       formData.append('image', file);
       
       // Upload file
+      console.log('Uploading file to /api/upload/image...');
       const response = await fetch('/api/upload/image', {
         method: 'POST',
         body: formData,
         credentials: 'include',
       });
+      console.log('Upload response status:', response.status);
       
       if (!response.ok) {
-        throw new Error('Failed to upload image');
+        console.error('Upload failed with status:', response.status);
+        // Handle 401 Unauthorized errors
+        if (response.status === 401) {
+          toast({
+            title: "Authentication required",
+            description: "You need to be logged in to upload images.",
+            variant: "destructive"
+          });
+          throw new Error('Authentication required for image upload');
+        }
+        throw new Error(`Failed to upload image: ${response.statusText}`);
       }
       
       const data = await response.json();
       
       // Pass the URL to parent component
+      console.log('Upload successful, file URL:', data.file.url);
       onUploadComplete(data.file.url);
       
       toast({
