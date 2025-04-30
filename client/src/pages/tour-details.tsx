@@ -5,6 +5,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, MapPin, Calendar, Clock, Euro } from "lucide-react";
+import { formatTHB } from "@/lib/utils";
 
 export default function TourDetails() {
   const { id } = useParams();
@@ -100,7 +101,7 @@ export default function TourDetails() {
                 <Calendar className="h-4 w-4 mr-1" /> {tour.duration}
               </span>
               <span className="bg-primary text-white px-3 py-1 rounded-full flex items-center">
-                <Euro className="h-4 w-4 mr-1" /> From {new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB' }).format(tour.price)}
+                <Euro className="h-4 w-4 mr-1" /> From {formatTHB(tour.price)}
               </span>
             </div>
           </div>
@@ -152,7 +153,7 @@ export default function TourDetails() {
                     </li>
                     <li className="flex items-center">
                       <Euro className="h-5 w-5 text-primary mr-2" />
-                      <span>Price: From {new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB' }).format(tour.price)} per person</span>
+                      <span>Price: From {formatTHB(tour.price)} per person</span>
                     </li>
                     <li className="flex items-center">
                       <MapPin className="h-5 w-5 text-primary mr-2" />

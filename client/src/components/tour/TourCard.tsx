@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import { Tour } from "@shared/schema";
+import { formatTHB } from "@/lib/utils";
 
 interface TourCardProps {
   tour: Tour;
@@ -22,7 +23,7 @@ export default function TourCard({ tour }: TourCardProps) {
         </div>
         <p className="text-gray-600 mb-4">{tour.shortDescription}</p>
         <div className="flex justify-between items-center mb-4">
-          <span className="font-heading font-bold text-lg text-primary">From {new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB' }).format(tour.price)}</span>
+          <span className="font-heading font-bold text-lg text-primary">From {formatTHB(tour.price)}</span>
           <Link href={`/tours/${tour.id}`}>
             <span className="text-secondary font-semibold hover:text-secondary-dark transition-colors cursor-pointer">
               View details →

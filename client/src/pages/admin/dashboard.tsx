@@ -5,6 +5,7 @@ import { useIsAuthenticated, useLogout } from "@/lib/auth";
 import { Tour, CustomTourRequest, ContactMessage } from "@shared/schema";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
+import { formatTHB } from "@/lib/utils";
 
 import {
   Card,
@@ -232,7 +233,7 @@ export default function Dashboard() {
                           <TableRow key={tour.id}>
                             <TableCell className="font-medium">{tour.title}</TableCell>
                             <TableCell>{tour.duration}</TableCell>
-                            <TableCell>{new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB' }).format(tour.price)}</TableCell>
+                            <TableCell>{formatTHB(tour.price)}</TableCell>
                             <TableCell>{tour.featured ? "Yes" : "No"}</TableCell>
                             <TableCell className="text-right">
                               <div className="flex justify-end space-x-2">
