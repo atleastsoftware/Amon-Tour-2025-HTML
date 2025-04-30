@@ -84,8 +84,8 @@ export default function Dashboard() {
       await apiRequest("DELETE", `/api/tours/${tourToDelete.id}`);
       
       toast({
-        title: "Tour supprimé",
-        description: `Le tour "${tourToDelete.title}" a été supprimé avec succès.`,
+        title: "Tour deleted",
+        description: `"${tourToDelete.title}" has been successfully deleted.`,
         variant: "default",
       });
       
@@ -94,8 +94,8 @@ export default function Dashboard() {
       setTourToDelete(null);
     } catch (error) {
       toast({
-        title: "Erreur",
-        description: "Un problème est survenu lors de la suppression du tour.",
+        title: "Error",
+        description: "A problem occurred while deleting the tour.",
         variant: "destructive",
       });
     }
@@ -304,7 +304,7 @@ export default function Dashboard() {
                             <TableCell>{request.travelers}</TableCell>
                             <TableCell>{request.duration}</TableCell>
                             <TableCell>
-                              {new Date(request.createdAt).toLocaleDateString()}
+                              {request.createdAt ? new Date(request.createdAt).toLocaleDateString() : '-'}
                             </TableCell>
                           </TableRow>
                         ))}
@@ -348,7 +348,7 @@ export default function Dashboard() {
                             <TableCell>{message.email}</TableCell>
                             <TableCell>{message.subject}</TableCell>
                             <TableCell>
-                              {new Date(message.createdAt).toLocaleDateString()}
+                              {message.createdAt ? new Date(message.createdAt).toLocaleDateString() : '-'}
                             </TableCell>
                           </TableRow>
                         ))}
