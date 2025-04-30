@@ -21,13 +21,23 @@ export default function TourCard({ tour }: TourCardProps) {
           <span className="bg-primary-light text-white px-2 py-1 rounded text-sm">{tour.duration}</span>
         </div>
         <p className="text-gray-600 mb-4">{tour.shortDescription}</p>
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center mb-4">
           <span className="font-heading font-bold text-lg text-primary">From ${tour.price}</span>
           <Link href={`/tours/${tour.id}`}>
             <span className="text-secondary font-semibold hover:text-secondary-dark transition-colors cursor-pointer">
               View details →
             </span>
           </Link>
+        </div>
+        <div className="flex justify-between items-center">
+          <a 
+            href={tour.tourNinjaUrl} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="w-full bg-secondary text-white py-2 px-4 rounded text-center block hover:bg-secondary-dark transition-colors"
+          >
+            Book Now
+          </a>
         </div>
       </div>
     </div>

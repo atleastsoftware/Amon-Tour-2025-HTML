@@ -126,7 +126,7 @@ export default function Dashboard() {
               </a>
             </Link>
             <div className="hidden md:block text-sm px-3 py-1 bg-primary-dark rounded">
-              Espace Admin
+              Admin Dashboard
             </div>
           </div>
           
@@ -138,13 +138,13 @@ export default function Dashboard() {
               onClick={handleLogout}
             >
               <LogOut className="mr-2 h-4 w-4" />
-              Déconnexion
+              Logout
             </Button>
             <Link href="/">
-              <a className="text-white hover:text-gray-200 transition-colors">
+              <span className="text-white hover:text-gray-200 transition-colors cursor-pointer">
                 <ChevronLeft className="mr-2 h-4 w-4 inline" />
-                Retour au site
-              </a>
+                Back to website
+              </span>
             </Link>
           </div>
         </div>
@@ -152,15 +152,15 @@ export default function Dashboard() {
       
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="font-heading font-bold text-3xl mb-2">Tableau de bord</h1>
-          <p className="text-gray-600">Gérez votre site et consultez les demandes des clients.</p>
+          <h1 className="font-heading font-bold text-3xl mb-2">Dashboard</h1>
+          <p className="text-gray-600">Manage your website and view customer requests.</p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-xl">Tours</CardTitle>
-              <CardDescription>Nombre total de tours</CardDescription>
+              <CardDescription>Total number of tours</CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-3xl font-bold">{tours?.length || 0}</p>
@@ -169,8 +169,8 @@ export default function Dashboard() {
           
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-xl">Demandes personnalisées</CardTitle>
-              <CardDescription>Nombre total de demandes</CardDescription>
+              <CardTitle className="text-xl">Custom Requests</CardTitle>
+              <CardDescription>Total number of requests</CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-3xl font-bold">{customTourRequests?.length || 0}</p>
@@ -180,7 +180,7 @@ export default function Dashboard() {
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-xl">Messages</CardTitle>
-              <CardDescription>Nombre total de messages</CardDescription>
+              <CardDescription>Total number of messages</CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-3xl font-bold">{contactMessages?.length || 0}</p>
@@ -191,7 +191,7 @@ export default function Dashboard() {
         <Tabs defaultValue="tours">
           <TabsList className="mb-6">
             <TabsTrigger value="tours">Tours</TabsTrigger>
-            <TabsTrigger value="requests">Demandes personnalisées</TabsTrigger>
+            <TabsTrigger value="requests">Custom Requests</TabsTrigger>
             <TabsTrigger value="messages">Messages</TabsTrigger>
           </TabsList>
           
@@ -199,14 +199,14 @@ export default function Dashboard() {
             <Card>
               <CardHeader>
                 <div className="flex justify-between items-center">
-                  <CardTitle>Gestion des Tours</CardTitle>
+                  <CardTitle>Tour Management</CardTitle>
                   <Link href="/admin/tour-form">
-                    <a>
+                    <span>
                       <Button>
                         <Plus className="mr-2 h-4 w-4" />
-                        Ajouter un tour
+                        Add Tour
                       </Button>
-                    </a>
+                    </span>
                   </Link>
                 </div>
               </CardHeader>
@@ -220,9 +220,9 @@ export default function Dashboard() {
                     <Table>
                       <TableHeader>
                         <TableRow>
-                          <TableHead>Titre</TableHead>
-                          <TableHead>Durée</TableHead>
-                          <TableHead>Prix</TableHead>
+                          <TableHead>Title</TableHead>
+                          <TableHead>Duration</TableHead>
+                          <TableHead>Price</TableHead>
                           <TableHead>Featured</TableHead>
                           <TableHead className="text-right">Actions</TableHead>
                         </TableRow>
@@ -232,8 +232,8 @@ export default function Dashboard() {
                           <TableRow key={tour.id}>
                             <TableCell className="font-medium">{tour.title}</TableCell>
                             <TableCell>{tour.duration}</TableCell>
-                            <TableCell>{tour.price}€</TableCell>
-                            <TableCell>{tour.featured ? "Oui" : "Non"}</TableCell>
+                            <TableCell>${tour.price}</TableCell>
+                            <TableCell>{tour.featured ? "Yes" : "No"}</TableCell>
                             <TableCell className="text-right">
                               <div className="flex justify-end space-x-2">
                                 <Link href={`/admin/tour-form?id=${tour.id}`}>
@@ -262,11 +262,11 @@ export default function Dashboard() {
                   </div>
                 ) : (
                   <div className="text-center py-8">
-                    <p className="text-gray-500">Aucun tour disponible.</p>
+                    <p className="text-gray-500">No tours available.</p>
                     <Link href="/admin/tour-form">
-                      <a className="text-primary hover:underline mt-2 inline-block">
-                        Ajouter un premier tour
-                      </a>
+                      <span className="text-primary hover:underline mt-2 inline-block cursor-pointer">
+                        Add your first tour
+                      </span>
                     </Link>
                   </div>
                 )}
@@ -277,7 +277,7 @@ export default function Dashboard() {
           <TabsContent value="requests">
             <Card>
               <CardHeader>
-                <CardTitle>Demandes de Voyages Personnalisés</CardTitle>
+                <CardTitle>Custom Tour Requests</CardTitle>
               </CardHeader>
               <CardContent>
                 {requestsLoading ? (
@@ -289,10 +289,10 @@ export default function Dashboard() {
                     <Table>
                       <TableHeader>
                         <TableRow>
-                          <TableHead>Nom</TableHead>
+                          <TableHead>Name</TableHead>
                           <TableHead>Email</TableHead>
-                          <TableHead>Voyageurs</TableHead>
-                          <TableHead>Durée</TableHead>
+                          <TableHead>Travelers</TableHead>
+                          <TableHead>Duration</TableHead>
                           <TableHead>Date</TableHead>
                         </TableRow>
                       </TableHeader>
@@ -313,7 +313,7 @@ export default function Dashboard() {
                   </div>
                 ) : (
                   <div className="text-center py-8">
-                    <p className="text-gray-500">Aucune demande de voyage personnalisé.</p>
+                    <p className="text-gray-500">No custom tour requests available.</p>
                   </div>
                 )}
               </CardContent>
