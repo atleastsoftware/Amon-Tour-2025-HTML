@@ -8,6 +8,7 @@ import CustomTour from "@/pages/custom-tour";
 import Login from "@/pages/admin/login";
 import Dashboard from "@/pages/admin/dashboard";
 import TourForm from "@/pages/admin/tour-form";
+import WhatsAppButton from "@/components/ui/WhatsAppButton";
 
 function Router() {
   return (
@@ -33,6 +34,7 @@ function App() {
   return (
     <TooltipProvider>
       <Router />
+      <WhatsAppButton />
     </TooltipProvider>
   );
 }
