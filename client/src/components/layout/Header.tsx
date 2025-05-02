@@ -3,6 +3,7 @@ import { Link, useLocation } from "wouter";
 import { useIsAuthenticated, useLogout } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
   DropdownMenu,
   DropdownMenuContent,
@@ -20,16 +21,24 @@ type NavLinkProps = {
 const NavLink = ({ href, isActive, children, onClick }: NavLinkProps) => {
   return (
     <Link href={href}>
-      <span
+      <motion.span
         onClick={onClick}
-        className={`font-heading font-semibold transition-colors cursor-pointer ${
+        className={`font-heading font-semibold transition-colors cursor-pointer relative ${
           isActive 
-            ? "text-primary border-b-2 border-primary" 
+            ? "text-primary" 
             : "text-neutral-700 hover:text-primary"
         }`}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.98 }}
       >
         {children}
-      </span>
+        {isActive && (
+          <motion.div 
+            className="absolute bottom-0 left-0 w-full h-[2px] bg-primary"
+            layoutId="activeNav"
+          />
+        )}
+      </motion.span>
     </Link>
   );
 };
