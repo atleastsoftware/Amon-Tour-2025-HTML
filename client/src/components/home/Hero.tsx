@@ -43,7 +43,7 @@ export default function Hero() {
   }, []);
   
   return (
-    <section className="relative h-[70vh]">
+    <section id="hero" className="relative h-[70vh]">
       <motion.div 
         className="absolute inset-0 bg-black/40 z-10"
         initial={{ opacity: 0 }}
