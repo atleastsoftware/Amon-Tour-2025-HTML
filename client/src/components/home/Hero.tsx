@@ -1,8 +1,47 @@
 import { Link } from "wouter";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { FadeInWhenVisible, SlideUpWhenVisible, StaggerChildren, StaggerItem } from "@/components/ui/animations";
+import { useState, useEffect } from "react";
+
+// Définition des images du carrousel
+const carouselImages = [
+  {
+    src: "https://images.unsplash.com/photo-1528181304800-259b08848526?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1680&q=80",
+    alt: "Grand Palace in Bangkok"
+  },
+  {
+    src: "https://images.unsplash.com/photo-1490077476659-095159692ab5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1680&q=80", 
+    alt: "Beautiful beach in Thailand"
+  },
+  {
+    src: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1679&q=80", 
+    alt: "Temples of Thailand"
+  },
+  {
+    src: "https://images.unsplash.com/photo-1506665531195-3566af98b107?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1680&q=80", 
+    alt: "Traditional floating market"
+  }
+];
 
 export default function Hero() {
+  const [currentImage, setCurrentImage] = useState(0);
+  
+  // Fonction pour passer à l'image suivante
+  const nextImage = () => {
+    setCurrentImage((prev) => (prev + 1) % carouselImages.length);
+  };
+  
+  // Changer d'image automatiquement toutes les 5 secondes
+  useEffect(() => {
+    const timer = setInterval(() => {
+      nextImage();
+    }, 5000);
+    
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+  
   return (
     <section className="relative h-[70vh]">
       <motion.div 
@@ -11,15 +50,34 @@ export default function Hero() {
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       ></motion.div>
-      <div className="absolute inset-0 z-0">
-        <motion.img 
-          src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1679&q=80" 
-          alt="Temples of Thailand" 
-          className="w-full h-full object-cover"
-          initial={{ scale: 1.1, opacity: 0.8 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1.5 }}
-        />
+      
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <AnimatePresence mode="wait">
+          <motion.img 
+            key={currentImage}
+            src={carouselImages[currentImage].src}
+            alt={carouselImages[currentImage].alt}
+            className="w-full h-full object-cover"
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1 }}
+          />
+        </AnimatePresence>
+        
+        {/* Indicateurs de carrousel */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex space-x-2">
+          {carouselImages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentImage(index)}
+              className={`w-3 h-3 rounded-full ${
+                index === currentImage ? 'bg-white' : 'bg-white/50'
+              } transition-all duration-300`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
       </div>
       
       <div className="container mx-auto px-4 relative z-20 h-full flex flex-col justify-center items-center text-center text-white">
