@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Tour } from "@shared/schema";
 import { motion } from "framer-motion";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SearchBar from "@/components/layout/SearchBar";
@@ -18,10 +19,40 @@ import { Link } from "wouter";
 
 export default function Home() {
   const [, setLocation] = useLocation();
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [maxScroll, setMaxScroll] = useState(0);
   
   const { data: featuredTours, isLoading } = useQuery<Tour[]>({
     queryKey: ['/api/tours/featured'],
   });
+
+  useEffect(() => {
+    const updateScrollInfo = () => {
+      if (carouselRef.current) {
+        const container = carouselRef.current;
+        setScrollPosition(container.scrollLeft);
+        setMaxScroll(container.scrollWidth - container.clientWidth);
+      }
+    };
+
+    const container = carouselRef.current;
+    if (container) {
+      container.addEventListener('scroll', updateScrollInfo);
+      // Initial update
+      updateScrollInfo();
+      
+      // Update on resize as well
+      window.addEventListener('resize', updateScrollInfo);
+    }
+
+    return () => {
+      if (container) {
+        container.removeEventListener('scroll', updateScrollInfo);
+      }
+      window.removeEventListener('resize', updateScrollInfo);
+    };
+  }, [featuredTours]);
   
   // Handle smooth scrolling for hash links
   useEffect(() => {
@@ -112,7 +143,7 @@ export default function Home() {
                       }
                     }}
                   >
-                    <i className="fas fa-chevron-right"></i>
+                    <FiChevronRight size={20} />
                   </button>
                 </div>
                 
@@ -127,13 +158,14 @@ export default function Home() {
                       }
                     }}
                   >
-                    <i className="fas fa-chevron-left"></i>
+                    <FiChevronLeft size={20} />
                   </button>
                 </div>
               </div>
             ) : featuredTours && featuredTours.length > 0 ? (
               <div className="relative overflow-hidden">
                 <motion.div 
+                  ref={carouselRef}
                   className="flex space-x-6 overflow-x-auto pb-6 pl-1 -ml-1 pr-8 scrollbar-hide snap-x"
                   initial={{ x: 20, opacity: 0 }}
                   whileInView={{ x: 0, opacity: 1 }}
@@ -160,7 +192,7 @@ export default function Home() {
                       }
                     }}
                   >
-                    <i className="fas fa-chevron-right"></i>
+                    <FiChevronRight size={20} />
                   </motion.button>
                 </div>
                 
@@ -177,8 +209,22 @@ export default function Home() {
                       }
                     }}
                   >
-                    <i className="fas fa-chevron-left"></i>
+                    <FiChevronLeft size={20} />
                   </motion.button>
+                </div>
+                
+                {/* Indicateur de progression */}
+                <div className="absolute -bottom-2 left-0 right-0">
+                  <div className="relative h-1 mx-auto max-w-sm bg-gray-200 rounded-full overflow-hidden">
+                    <motion.div 
+                      className="absolute top-0 left-0 h-full bg-primary rounded-full"
+                      initial={{ width: '0%' }}
+                      animate={{ 
+                        width: maxScroll > 0 ? `${(scrollPosition / maxScroll) * 100}%` : '0%' 
+                      }}
+                      transition={{ type: 'spring', damping: 15 }}
+                    />
+                  </div>
                 </div>
               </div>
             ) : (
