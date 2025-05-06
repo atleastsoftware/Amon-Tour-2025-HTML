@@ -26,6 +26,17 @@ export default function Home() {
   const { data: featuredTours, isLoading } = useQuery<Tour[]>({
     queryKey: ['/api/tours/featured'],
   });
+  
+  // Function to handle carousel scrolling
+  const handleCarouselScroll = (direction: 'left' | 'right') => {
+    if (carouselRef.current) {
+      const scrollAmount = direction === 'right' ? 300 : -300;
+      carouselRef.current.scrollBy({ 
+        left: scrollAmount, 
+        behavior: 'smooth' 
+      });
+    }
+  };
 
   useEffect(() => {
     const updateScrollInfo = () => {
@@ -116,7 +127,10 @@ export default function Home() {
             
             {isLoading ? (
               <div className="relative overflow-hidden">
-                <div className="flex space-x-6 overflow-x-auto pb-6 pl-1 -ml-1 pr-8 scrollbar-hide snap-x">
+                <div 
+                  ref={carouselRef} 
+                  className="flex space-x-6 overflow-x-auto pb-6 pl-1 -ml-1 pr-8 scrollbar-hide snap-x"
+                >
                   {[1, 2, 3, 4, 5].map((i) => (
                     <div 
                       key={i} 
@@ -133,33 +147,41 @@ export default function Home() {
                 </div>
                 
                 <div className="absolute top-1/2 -right-4 transform -translate-y-1/2">
-                  <button 
+                  <motion.button 
                     className="bg-white p-3 rounded-full shadow-lg text-primary hover:bg-primary hover:text-white transition-colors"
                     aria-label="Scroll right"
-                    onClick={() => {
-                      const container = document.querySelector('.overflow-x-auto');
-                      if (container) {
-                        container.scrollBy({ left: 300, behavior: 'smooth' });
-                      }
-                    }}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={() => handleCarouselScroll('right')}
                   >
                     <FiChevronRight size={20} />
-                  </button>
+                  </motion.button>
                 </div>
                 
                 <div className="absolute top-1/2 -left-4 transform -translate-y-1/2">
-                  <button 
+                  <motion.button 
                     className="bg-white p-3 rounded-full shadow-lg text-primary hover:bg-primary hover:text-white transition-colors"
                     aria-label="Scroll left"
-                    onClick={() => {
-                      const container = document.querySelector('.overflow-x-auto');
-                      if (container) {
-                        container.scrollBy({ left: -300, behavior: 'smooth' });
-                      }
-                    }}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={() => handleCarouselScroll('left')}
                   >
                     <FiChevronLeft size={20} />
-                  </button>
+                  </motion.button>
+                </div>
+                
+                {/* Indicateur de progression */}
+                <div className="absolute -bottom-2 left-0 right-0">
+                  <div className="relative h-1 mx-auto max-w-sm bg-gray-200 rounded-full overflow-hidden">
+                    <motion.div 
+                      className="absolute top-0 left-0 h-full bg-primary rounded-full"
+                      initial={{ width: '0%' }}
+                      animate={{ 
+                        width: maxScroll > 0 ? `${(scrollPosition / maxScroll) * 100}%` : '0%' 
+                      }}
+                      transition={{ type: 'spring', damping: 15 }}
+                    />
+                  </div>
                 </div>
               </div>
             ) : featuredTours && featuredTours.length > 0 ? (
@@ -185,12 +207,7 @@ export default function Home() {
                     aria-label="Scroll right"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
-                    onClick={() => {
-                      const container = document.querySelector('.overflow-x-auto');
-                      if (container) {
-                        container.scrollBy({ left: 300, behavior: 'smooth' });
-                      }
-                    }}
+                    onClick={() => handleCarouselScroll('right')}
                   >
                     <FiChevronRight size={20} />
                   </motion.button>
@@ -202,12 +219,7 @@ export default function Home() {
                     aria-label="Scroll left"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
-                    onClick={() => {
-                      const container = document.querySelector('.overflow-x-auto');
-                      if (container) {
-                        container.scrollBy({ left: -300, behavior: 'smooth' });
-                      }
-                    }}
+                    onClick={() => handleCarouselScroll('left')}
                   >
                     <FiChevronLeft size={20} />
                   </motion.button>
