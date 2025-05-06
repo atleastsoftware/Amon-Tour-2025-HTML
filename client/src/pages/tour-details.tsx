@@ -23,10 +23,8 @@ export default function TourDetails() {
         <div className="container mx-auto px-4 py-16 text-center">
           <h1 className="font-heading font-bold text-2xl mb-4">Error</h1>
           <p className="mb-6">Invalid tour ID.</p>
-          <Link href="/tours">
-            <a className="bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark transition-colors">
-              Back to Tours
-            </a>
+          <Link href="/tours" className="bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark transition-colors">
+            Back to Tours
           </Link>
         </div>
         <Footer />
@@ -60,10 +58,8 @@ export default function TourDetails() {
         <div className="container mx-auto px-4 py-16 text-center">
           <h1 className="font-heading font-bold text-2xl mb-4">Tour Not Found</h1>
           <p className="mb-6">The tour you are looking for does not exist or has been removed.</p>
-          <Link href="/tours">
-            <a className="bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark transition-colors">
-              Back to Tours
-            </a>
+          <Link href="/tours" className="bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark transition-colors">
+            Back to Tours
           </Link>
         </div>
         <Footer />
@@ -87,11 +83,9 @@ export default function TourDetails() {
             />
           </div>
           <div className="container mx-auto px-4 relative z-20 h-full flex flex-col justify-end pb-16 text-white">
-            <Link href="/tours">
-              <a className="flex items-center text-white hover:text-secondary mb-4 transition-colors">
+            <Link href="/tours" className="flex items-center text-white hover:text-secondary mb-4 transition-colors">
                 <ArrowLeft className="mr-2 h-5 w-5" />
                 Back to Tours
-              </a>
             </Link>
             <h1 className="font-heading font-bold text-4xl md:text-5xl mb-2">
               {tour.title}
@@ -170,15 +164,11 @@ export default function TourDetails() {
                   <h3 className="font-heading font-semibold text-xl mb-4">Have Questions?</h3>
                   <p className="text-gray-700 mb-4">Contact us for more information about this tour or to create your customized journey.</p>
                   <div className="space-y-3">
-                    <Link href="/#contact">
-                      <span className="w-full bg-primary text-white py-2 px-4 rounded text-center block hover:bg-primary-dark transition-colors cursor-pointer">
-                        Contact Us
-                      </span>
+                    <Link href="/#contact" className="w-full bg-primary text-white py-2 px-4 rounded text-center block hover:bg-primary-dark transition-colors cursor-pointer">
+                      Contact Us
                     </Link>
-                    <Link href="/custom-tour">
-                      <span className="w-full bg-secondary text-white py-2 px-4 rounded text-center block hover:bg-secondary-dark transition-colors cursor-pointer">
-                        Custom Tour
-                      </span>
+                    <Link href="/custom-tour" className="w-full bg-secondary text-white py-2 px-4 rounded text-center block hover:bg-secondary-dark transition-colors cursor-pointer">
+                      Custom Tour
                     </Link>
                   </div>
                 </div>
