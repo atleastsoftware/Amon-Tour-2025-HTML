@@ -20,8 +20,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-// Import hero image
-import toursHeroImage from "@assets/screenshot-1745992307021.png";
+// Image is loaded from URL directly
 
 export default function Tours() {
   const { data: tours, isLoading } = useQuery<Tour[]>({
@@ -110,8 +109,8 @@ export default function Tours() {
           ></motion.div>
           <div className="absolute inset-0 z-0">
             <motion.img 
-              src={toursHeroImage} 
-              alt="Tours in Thailand" 
+              src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1739&q=80" 
+              alt="Thai Island Paradise" 
               className="w-full h-full object-cover"
               initial={{ scale: 1.1, opacity: 0.8 }}
               animate={{ scale: 1, opacity: 1 }}
