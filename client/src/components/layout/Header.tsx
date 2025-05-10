@@ -4,6 +4,7 @@ import { useIsAuthenticated, useLogout } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import logoWhite from "@/assets/logo-white.png";
 import { 
   DropdownMenu,
   DropdownMenuContent,
@@ -67,34 +68,20 @@ export default function Header() {
       <nav className="container mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo */}
         <Link href="/">
-          <motion.span 
+          <motion.div
             className="flex items-center cursor-pointer"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
             whileHover={{ scale: 1.03 }}
           >
-            <motion.span 
-              className="text-primary font-heading font-bold text-2xl"
-              whileHover={{ y: -2 }}
-            >
-              Senthang
-            </motion.span>
-            <motion.span 
-              className="text-secondary font-accent text-2xl ml-1"
-              whileHover={{ y: -2 }}
-              transition={{ delay: 0.05 }}
-            >
-              Siam
-            </motion.span>
-            <motion.span 
-              className="text-primary font-heading font-bold text-2xl ml-1"
-              whileHover={{ y: -2 }}
-              transition={{ delay: 0.1 }}
-            >
-              Tour
-            </motion.span>
-          </motion.span>
+            <img 
+              src={logoWhite} 
+              alt="Senthang Siam Tour" 
+              className="h-10 w-auto"
+              style={{ filter: 'invert(28%) sepia(54%) saturate(796%) hue-rotate(178deg) brightness(96%) contrast(94%)' }}
+            />
+          </motion.div>
         </Link>
         
         {/* Mobile Menu Button */}
