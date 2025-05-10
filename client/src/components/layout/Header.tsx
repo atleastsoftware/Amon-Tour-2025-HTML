@@ -78,8 +78,12 @@ export default function Header() {
             <img 
               src={logoWhite} 
               alt="Senthang Siam Tour" 
-              className="h-8 w-auto"
-              style={{ filter: 'invert(28%) sepia(54%) saturate(796%) hue-rotate(178deg) brightness(96%) contrast(94%)' }}
+              className="h-7 w-auto"
+              style={{ 
+                filter: 'invert(28%) sepia(54%) saturate(796%) hue-rotate(178deg) brightness(96%) contrast(94%)',
+                marginTop: '1px',
+                marginBottom: '1px'
+              }}
             />
           </motion.div>
         </Link>
@@ -123,6 +127,7 @@ export default function Header() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
+          style={{ height: '40px' }}
         >
           <NavLink href="/" isActive={location === '/'}>
             Home
