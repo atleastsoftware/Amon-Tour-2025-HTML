@@ -78,7 +78,7 @@ export default function Header() {
             <img 
               src={logoWhite} 
               alt="Senthang Siam Tour" 
-              className="h-10 w-auto"
+              className="h-8 w-auto"
               style={{ filter: 'invert(28%) sepia(54%) saturate(796%) hue-rotate(178deg) brightness(96%) contrast(94%)' }}
             />
           </motion.div>
