@@ -1,7 +1,14 @@
 import express, { type Express, type Request, type Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertTourSchema, insertCustomTourRequestSchema, insertContactMessageSchema } from "@shared/schema";
+import { 
+  insertTourSchema, 
+  insertCustomTourRequestSchema, 
+  insertContactMessageSchema,
+  insertTourAvailabilitySchema,
+  insertReservationSchema
+} from "@shared/schema";
+import { createPaymentIntent, createOrRetrieveCustomer } from "./stripe";
 import { upload, getPublicFileUrl } from "./upload";
 import path from "path";
 import session from "express-session";
@@ -203,6 +210,230 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/contact-messages", requireAuth, async (req, res) => {
     const messages = await storage.getContactMessages();
     res.json(messages);
+  });
+
+  // Tour availability routes
+  app.get("/api/tours/:tourId/availabilities", async (req, res) => {
+    try {
+      const tourId = parseInt(req.params.tourId);
+      if (isNaN(tourId)) {
+        return res.status(400).json({ message: "Invalid tour ID" });
+      }
+
+      const availabilities = await storage.getTourAvailabilities(tourId);
+      res.json(availabilities);
+    } catch (error) {
+      console.error("Error fetching availabilities:", error);
+      res.status(500).json({ message: "Failed to fetch availabilities", error: String(error) });
+    }
+  });
+
+  app.get("/api/tours/:tourId/availabilities/range", async (req, res) => {
+    try {
+      const tourId = parseInt(req.params.tourId);
+      if (isNaN(tourId)) {
+        return res.status(400).json({ message: "Invalid tour ID" });
+      }
+
+      const { startDate, endDate } = req.query;
+      if (!startDate || !endDate) {
+        return res.status(400).json({ message: "Start date and end date are required" });
+      }
+
+      const availabilities = await storage.getAvailabilitiesByDateRange(
+        tourId,
+        new Date(startDate as string),
+        new Date(endDate as string)
+      );
+      res.json(availabilities);
+    } catch (error) {
+      console.error("Error fetching availabilities by range:", error);
+      res.status(500).json({ message: "Failed to fetch availabilities", error: String(error) });
+    }
+  });
+
+  app.post("/api/tours/:tourId/availabilities", requireAuth, async (req, res) => {
+    try {
+      const tourId = parseInt(req.params.tourId);
+      if (isNaN(tourId)) {
+        return res.status(400).json({ message: "Invalid tour ID" });
+      }
+
+      const availabilityData = insertTourAvailabilitySchema.parse({
+        ...req.body,
+        tourId
+      });
+      
+      const availability = await storage.createTourAvailability(availabilityData);
+      res.status(201).json(availability);
+    } catch (error: any) {
+      console.error("Error creating availability:", error);
+      res.status(400).json({ 
+        message: "Invalid availability data", 
+        error: error.errors || error.message || String(error) 
+      });
+    }
+  });
+
+  app.put("/api/availabilities/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid ID" });
+      }
+
+      const availabilityData = req.body;
+      const availability = await storage.updateTourAvailability(id, availabilityData);
+
+      if (!availability) {
+        return res.status(404).json({ message: "Availability not found" });
+      }
+
+      res.json(availability);
+    } catch (error) {
+      console.error("Error updating availability:", error);
+      res.status(400).json({ message: "Invalid availability data", error: String(error) });
+    }
+  });
+
+  app.delete("/api/availabilities/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid ID" });
+      }
+
+      const result = await storage.deleteTourAvailability(id);
+      if (!result) {
+        return res.status(404).json({ message: "Availability not found" });
+      }
+
+      res.json({ message: "Availability deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting availability:", error);
+      res.status(500).json({ message: "Failed to delete availability", error: String(error) });
+    }
+  });
+
+  // Reservation routes
+  app.post("/api/reservations", async (req, res) => {
+    try {
+      const reservationData = insertReservationSchema.parse(req.body);
+      
+      // Vérifier s'il y a de la disponibilité
+      const availability = await storage.getTourAvailability(reservationData.availabilityId);
+      if (!availability) {
+        return res.status(404).json({ message: "Tour availability not found" });
+      }
+      
+      // Vérifier s'il y a assez de place pour cette réservation
+      if (availability.currentBookings + reservationData.numberOfPeople > availability.maxCapacity) {
+        return res.status(400).json({ 
+          message: "Not enough capacity for this booking",
+          availableSpaces: availability.maxCapacity - availability.currentBookings
+        });
+      }
+      
+      // Créer ou récupérer un client Stripe
+      const customer = await createOrRetrieveCustomer(
+        reservationData.customerName,
+        reservationData.customerEmail,
+        reservationData.customerPhone
+      );
+      
+      // Calculer le montant total
+      const tourPrice = availability.price || (await storage.getTour(reservationData.tourId))?.price || 0;
+      const totalAmount = tourPrice * reservationData.numberOfPeople;
+      
+      // Créer un PaymentIntent Stripe
+      const { clientSecret, paymentIntentId } = await createPaymentIntent({
+        amount: totalAmount,
+        customerId: customer.id,
+        description: `Reservation for ${reservationData.numberOfPeople} person(s)`,
+        metadata: {
+          tourId: reservationData.tourId.toString(),
+          availabilityId: reservationData.availabilityId.toString(),
+          customerName: reservationData.customerName,
+          customerEmail: reservationData.customerEmail,
+          customerPhone: reservationData.customerPhone,
+          numberOfPeople: reservationData.numberOfPeople.toString()
+        }
+      });
+      
+      // Créer la réservation dans notre système
+      const reservation = await storage.createReservation({
+        ...reservationData,
+        totalAmount,
+        stripeCustomerId: customer.id,
+        stripePaymentIntentId: paymentIntentId
+      });
+      
+      res.status(201).json({
+        reservation,
+        paymentIntent: {
+          clientSecret
+        }
+      });
+    } catch (error: any) {
+      console.error("Error creating reservation:", error);
+      res.status(400).json({ 
+        message: "Failed to create reservation", 
+        error: error.errors || error.message || String(error) 
+      });
+    }
+  });
+
+  app.get("/api/reservations", requireAuth, async (req, res) => {
+    try {
+      const reservations = await storage.getReservations();
+      res.json(reservations);
+    } catch (error) {
+      console.error("Error fetching reservations:", error);
+      res.status(500).json({ message: "Failed to fetch reservations", error: String(error) });
+    }
+  });
+
+  app.get("/api/reservations/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid ID" });
+      }
+
+      const reservation = await storage.getReservation(id);
+      if (!reservation) {
+        return res.status(404).json({ message: "Reservation not found" });
+      }
+
+      res.json(reservation);
+    } catch (error) {
+      console.error("Error fetching reservation:", error);
+      res.status(500).json({ message: "Failed to fetch reservation", error: String(error) });
+    }
+  });
+
+  app.put("/api/reservations/:id/status", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid ID" });
+      }
+
+      const { status } = req.body;
+      if (!status || !['pending', 'confirmed', 'cancelled', 'completed'].includes(status)) {
+        return res.status(400).json({ message: "Invalid status" });
+      }
+
+      const reservation = await storage.updateReservationStatus(id, status);
+      if (!reservation) {
+        return res.status(404).json({ message: "Reservation not found" });
+      }
+
+      res.json(reservation);
+    } catch (error) {
+      console.error("Error updating reservation status:", error);
+      res.status(500).json({ message: "Failed to update reservation status", error: String(error) });
+    }
   });
 
   const httpServer = createServer(app);
