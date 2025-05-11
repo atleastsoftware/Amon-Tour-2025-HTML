@@ -441,14 +441,25 @@ export default function AvailabilityManager() {
                 </SelectContent>
               </Select>
               
-              <Button 
-                variant="default" 
-                onClick={() => setIsCreateDialogOpen(true)}
-                disabled={!selectedTourId}
-              >
-                <Plus className="h-4 w-4 mr-2" />
-                Ajouter une disponibilité
-              </Button>
+              <div className="flex gap-2">
+                <Button 
+                  variant="outline" 
+                  onClick={openBulkCreateDialog}
+                  disabled={!selectedTourId}
+                >
+                  <CalendarRange className="h-4 w-4 mr-2" />
+                  Ajouter en masse
+                </Button>
+                
+                <Button 
+                  variant="default" 
+                  onClick={() => setIsCreateDialogOpen(true)}
+                  disabled={!selectedTourId}
+                >
+                  <Plus className="h-4 w-4 mr-2" />
+                  Ajouter une disponibilité
+                </Button>
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -795,6 +806,193 @@ export default function AvailabilityManager() {
               {deleteAvailability.isPending ? "Suppression..." : "Supprimer"}
             </Button>
           </DialogFooter>
+        </DialogContent>
+      </Dialog>
+      
+      {/* Modal pour créer des disponibilités en masse */}
+      <Dialog open={isBulkCreateDialogOpen} onOpenChange={setIsBulkCreateDialogOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Créer des disponibilités en masse</DialogTitle>
+            <DialogDescription>
+              Sélectionnez une plage de dates pour créer plusieurs disponibilités à la fois.
+            </DialogDescription>
+          </DialogHeader>
+          
+          <Form {...bulkForm}>
+            <form onSubmit={bulkForm.handleSubmit(onSubmitBulkCreate)} className="space-y-4">
+              <FormField
+                control={bulkForm.control}
+                name="tourId"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Tour</FormLabel>
+                    <Select
+                      disabled={true}
+                      value={selectedTourId.toString()}
+                      onValueChange={(value) => {
+                        field.onChange(parseInt(value));
+                      }}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Sélectionner un tour" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {tours?.map(tour => (
+                          <SelectItem key={tour.id} value={tour.id.toString()}>
+                            {tour.title}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <div className="grid grid-cols-2 gap-4">
+                <FormField
+                  control={bulkForm.control}
+                  name="startDate"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>Date de début</FormLabel>
+                      <CalendarComponent
+                        mode="single"
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        disabled={(date) => date < new Date()}
+                        className="border rounded-md p-3"
+                      />
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                
+                <FormField
+                  control={bulkForm.control}
+                  name="endDate"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>Date de fin</FormLabel>
+                      <CalendarComponent
+                        mode="single"
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        disabled={(date) => date < bulkForm.getValues().startDate}
+                        className="border rounded-md p-3"
+                      />
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              
+              <FormField
+                control={bulkForm.control}
+                name="daysOfWeek"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Jours de la semaine</FormLabel>
+                    <div className="flex flex-wrap gap-2">
+                      {[
+                        { day: 1, label: "Lu" },
+                        { day: 2, label: "Ma" },
+                        { day: 3, label: "Me" },
+                        { day: 4, label: "Je" },
+                        { day: 5, label: "Ve" },
+                        { day: 6, label: "Sa" },
+                        { day: 0, label: "Di" },
+                      ].map(({ day, label }) => (
+                        <Button
+                          type="button"
+                          key={day}
+                          variant={field.value.includes(day) ? "default" : "outline"}
+                          className="w-10 h-10 p-0"
+                          onClick={() => {
+                            if (field.value.includes(day)) {
+                              field.onChange(field.value.filter(d => d !== day));
+                            } else {
+                              field.onChange([...field.value, day]);
+                            }
+                          }}
+                        >
+                          {label}
+                        </Button>
+                      ))}
+                    </div>
+                    <FormDescription>
+                      Sélectionnez les jours de la semaine à inclure
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={bulkForm.control}
+                name="maxCapacity"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Capacité maximale</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        min={1}
+                        max={100}
+                        {...field}
+                        onChange={e => field.onChange(parseInt(e.target.value))}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={bulkForm.control}
+                name="price"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Prix spécifique (optionnel)</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        min={0}
+                        placeholder="Laisser vide pour utiliser le prix par défaut"
+                        {...field}
+                        value={field.value || ""}
+                        onChange={e => {
+                          const value = e.target.value ? parseInt(e.target.value) : undefined;
+                          field.onChange(value);
+                        }}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      Si laissé vide, le prix par défaut du tour sera utilisé
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <DialogFooter>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setIsBulkCreateDialogOpen(false)}
+                >
+                  Annuler
+                </Button>
+                <Button 
+                  type="submit"
+                  disabled={createBulkAvailabilities.isPending || isCreatingBulk}
+                >
+                  {createBulkAvailabilities.isPending || isCreatingBulk ? "Création en cours..." : "Créer les disponibilités"}
+                </Button>
+              </DialogFooter>
+            </form>
+          </Form>
         </DialogContent>
       </Dialog>
     </div>
