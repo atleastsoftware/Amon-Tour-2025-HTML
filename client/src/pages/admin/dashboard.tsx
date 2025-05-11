@@ -194,6 +194,7 @@ export default function Dashboard() {
             <TabsTrigger value="tours">Tours</TabsTrigger>
             <TabsTrigger value="requests">Custom Requests</TabsTrigger>
             <TabsTrigger value="messages">Messages</TabsTrigger>
+            <TabsTrigger value="reservations">Reservations</TabsTrigger>
           </TabsList>
           
           <TabsContent value="tours">
@@ -361,6 +362,41 @@ export default function Dashboard() {
                     <p className="text-gray-500">No contact messages available.</p>
                   </div>
                 )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+          
+          <TabsContent value="reservations">
+            <Card>
+              <CardHeader>
+                <CardTitle>Reservation Management</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="bg-white p-6 rounded-md shadow-sm">
+                    <h3 className="font-heading font-semibold text-xl mb-4">Tour Availability</h3>
+                    <p className="text-gray-600 mb-4">
+                      Manage the availability dates, capacity, and pricing for your tours. Allow customers to book specific dates.
+                    </p>
+                    <Link href="/admin/availability-manager">
+                      <Button>
+                        Manage Availabilities
+                      </Button>
+                    </Link>
+                  </div>
+                  
+                  <div className="bg-white p-6 rounded-md shadow-sm">
+                    <h3 className="font-heading font-semibold text-xl mb-4">Reservations</h3>
+                    <p className="text-gray-600 mb-4">
+                      View and manage customer reservations. Confirm bookings, update status, and view payment information.
+                    </p>
+                    <Link href="/admin/reservations-manager">
+                      <Button>
+                        Manage Reservations
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </TabsContent>

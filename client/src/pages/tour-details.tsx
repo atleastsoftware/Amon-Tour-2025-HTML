@@ -123,14 +123,20 @@ export default function TourDetails() {
                     ))}
                   </div>
                   
-                  <div className="text-center">
+                  <div className="text-center flex flex-col sm:flex-row justify-center gap-4">
+                    <Link 
+                      href={`/book-tour/${tour.id}`}
+                      className="bg-secondary text-white px-6 py-3 rounded-lg font-heading font-semibold hover:bg-secondary-dark transition-colors inline-block"
+                    >
+                      Book Now
+                    </Link>
                     <a 
                       href={tour.tourNinjaUrl} 
                       target="_blank" 
                       rel="noopener noreferrer" 
-                      className="bg-secondary text-white px-6 py-3 rounded-lg font-heading font-semibold hover:bg-secondary-dark transition-colors inline-block"
+                      className="bg-primary text-white px-6 py-3 rounded-lg font-heading font-semibold hover:bg-primary-dark transition-colors inline-block"
                     >
-                      Book Now
+                      Book on TOUR NINJA
                     </a>
                   </div>
                 </div>
@@ -140,7 +146,7 @@ export default function TourDetails() {
               <div>
                 <div className="bg-white p-6 rounded-lg shadow-md mb-6">
                   <h3 className="font-heading font-semibold text-xl mb-4">Information</h3>
-                  <ul className="space-y-3">
+                  <ul className="space-y-3 mb-5">
                     <li className="flex items-center">
                       <Clock className="h-5 w-5 text-primary mr-2" />
                       <span>Duration: {tour.duration}</span>
@@ -158,6 +164,12 @@ export default function TourDetails() {
                       <span>Guide: English speaking</span>
                     </li>
                   </ul>
+                  <Link 
+                    href={`/book-tour/${tour.id}`}
+                    className="w-full bg-secondary text-white py-2 px-4 rounded text-center block hover:bg-secondary-dark transition-colors"
+                  >
+                    Book This Tour
+                  </Link>
                 </div>
                 
                 <div className="bg-white p-6 rounded-lg shadow-md">
