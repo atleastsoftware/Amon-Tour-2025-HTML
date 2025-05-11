@@ -4,9 +4,9 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { format, isAfter, parseISO, addDays } from "date-fns";
+import { format, isAfter, parseISO, addDays, eachDayOfInterval, isBefore } from "date-fns";
 import { fr } from "date-fns/locale";
-import { LogOut, ChevronLeft, Plus, Calendar, Edit, Trash2, AlertTriangle } from "lucide-react";
+import { LogOut, ChevronLeft, Plus, Calendar, Edit, Trash2, AlertTriangle, CalendarRange } from "lucide-react";
 import { useIsAuthenticated, useLogout } from "@/lib/auth";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -59,7 +59,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Tour, TourAvailability } from "@shared/schema";
 import { formatTHB } from "@/lib/utils";
 
-// Schéma pour les disponibilités
+// Schéma pour les disponibilités individuelles
 const availabilitySchema = z.object({
   tourId: z.number().min(1, "Un tour est requis"),
   date: z.date({
@@ -70,7 +70,24 @@ const availabilitySchema = z.object({
   price: z.number().min(0, "Prix minimum: 0").optional(),
 });
 
+// Schéma pour la création en masse de disponibilités
+const bulkAvailabilitySchema = z.object({
+  tourId: z.number().min(1, "Un tour est requis"),
+  startDate: z.date({
+    required_error: "Une date de début est requise",
+    invalid_type_error: "Format de date invalide",
+  }),
+  endDate: z.date({
+    required_error: "Une date de fin est requise",
+    invalid_type_error: "Format de date invalide",
+  }),
+  maxCapacity: z.number().min(1, "Capacité minimum: 1").max(100, "Capacité maximum: 100"),
+  price: z.number().min(0, "Prix minimum: 0").optional(),
+  daysOfWeek: z.array(z.number().min(0).max(6)).default([0, 1, 2, 3, 4, 5, 6]),
+});
+
 type AvailabilityFormValues = z.infer<typeof availabilitySchema>;
+type BulkAvailabilityFormValues = z.infer<typeof bulkAvailabilitySchema>;
 
 export default function AvailabilityManager() {
   const { isAuthenticated } = useIsAuthenticated();
@@ -83,7 +100,9 @@ export default function AvailabilityManager() {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isBulkCreateDialogOpen, setIsBulkCreateDialogOpen] = useState(false);
   const [selectedAvailability, setSelectedAvailability] = useState<TourAvailability | null>(null);
+  const [isCreatingBulk, setIsCreatingBulk] = useState(false);
   
   // Formulaire pour créer/modifier une disponibilité
   const form = useForm<AvailabilityFormValues>({
@@ -93,6 +112,19 @@ export default function AvailabilityManager() {
       date: new Date(),
       maxCapacity: 10,
       price: undefined,
+    },
+  });
+  
+  // Formulaire pour créer des disponibilités en masse
+  const bulkForm = useForm<BulkAvailabilityFormValues>({
+    resolver: zodResolver(bulkAvailabilitySchema),
+    defaultValues: {
+      tourId: 0,
+      startDate: new Date(),
+      endDate: addDays(new Date(), 30),
+      maxCapacity: 10,
+      price: undefined,
+      daysOfWeek: [0, 1, 2, 3, 4, 5, 6], // Tous les jours par défaut
     },
   });
   
@@ -130,6 +162,66 @@ export default function AvailabilityManager() {
         variant: "destructive",
         title: "Erreur",
         description: error.message || "Une erreur est survenue lors de la création de la disponibilité."
+      });
+    }
+  });
+  
+  // Mutation pour créer des disponibilités en masse
+  const createBulkAvailabilities = useMutation({
+    mutationFn: async (data: BulkAvailabilityFormValues) => {
+      // Vérifier que la date de fin est après la date de début
+      if (isBefore(data.endDate, data.startDate)) {
+        throw new Error("La date de fin doit être après la date de début");
+      }
+      
+      // Générer toutes les dates dans la plage
+      const allDaysInRange = eachDayOfInterval({
+        start: data.startDate,
+        end: data.endDate
+      });
+      
+      // Filtrer pour ne garder que les jours de la semaine sélectionnés
+      const selectedDays = allDaysInRange.filter(date => 
+        data.daysOfWeek.includes(date.getDay())
+      );
+      
+      // Créer les disponibilités pour chaque date
+      const results = [];
+      setIsCreatingBulk(true);
+      
+      for (const date of selectedDays) {
+        try {
+          const response = await apiRequest("POST", `/api/tours/${data.tourId}/availabilities`, {
+            date: format(date, 'yyyy-MM-dd'),
+            maxCapacity: data.maxCapacity,
+            price: data.price,
+          });
+          
+          const result = await response.json();
+          results.push(result);
+        } catch (error) {
+          console.error(`Erreur lors de la création pour ${format(date, 'yyyy-MM-dd')}:`, error);
+        }
+      }
+      
+      setIsCreatingBulk(false);
+      return results;
+    },
+    onSuccess: (results) => {
+      queryClient.invalidateQueries({ queryKey: [`/api/tours/${selectedTourId}/availabilities`] });
+      toast({
+        title: "Disponibilités créées",
+        description: `${results.length} disponibilités ont été ajoutées avec succès.`
+      });
+      setIsBulkCreateDialogOpen(false);
+      bulkForm.reset();
+    },
+    onError: (error: any) => {
+      setIsCreatingBulk(false);
+      toast({
+        variant: "destructive",
+        title: "Erreur",
+        description: error.message || "Une erreur est survenue lors de la création des disponibilités."
       });
     }
   });
@@ -208,6 +300,20 @@ export default function AvailabilityManager() {
     }
   }, [isCreateDialogOpen, selectedTourId, form]);
   
+  // Effet pour réinitialiser le formulaire de création en masse
+  useEffect(() => {
+    if (isBulkCreateDialogOpen) {
+      bulkForm.reset({
+        tourId: selectedTourId,
+        startDate: addDays(new Date(), 1),
+        endDate: addDays(new Date(), 30),
+        maxCapacity: 10,
+        price: undefined,
+        daysOfWeek: [0, 1, 2, 3, 4, 5, 6], // Tous les jours par défaut
+      });
+    }
+  }, [isBulkCreateDialogOpen, selectedTourId, bulkForm]);
+  
   // Fonction pour gérer la déconnexion
   const handleLogout = () => {
     logout.mutate();
@@ -225,6 +331,11 @@ export default function AvailabilityManager() {
     setIsDeleteDialogOpen(true);
   };
   
+  // Fonction pour ouvrir la modal de création en masse
+  const openBulkCreateDialog = () => {
+    setIsBulkCreateDialogOpen(true);
+  };
+  
   // Fonction pour soumettre le formulaire de création
   const onSubmitCreate = (values: AvailabilityFormValues) => {
     createAvailability.mutate(values);
@@ -238,6 +349,11 @@ export default function AvailabilityManager() {
       id: selectedAvailability.id,
       values
     });
+  };
+  
+  // Fonction pour soumettre le formulaire de création en masse
+  const onSubmitBulkCreate = (values: BulkAvailabilityFormValues) => {
+    createBulkAvailabilities.mutate(values);
   };
   
   // Fonction pour confirmer la suppression
