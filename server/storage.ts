@@ -3,6 +3,8 @@ import {
   tours,
   customTourRequests,
   contactMessages,
+  tourAvailability,
+  reservations,
   type User,
   type InsertUser,
   type Tour,
@@ -11,6 +13,10 @@ import {
   type InsertCustomTourRequest,
   type ContactMessage,
   type InsertContactMessage,
+  type TourAvailability,
+  type InsertTourAvailability,
+  type Reservation,
+  type InsertReservation,
 } from "@shared/schema";
 import fs from "fs";
 import path from "path";
@@ -38,6 +44,23 @@ export interface IStorage {
   // Contact message operations
   createContactMessage(message: InsertContactMessage): Promise<ContactMessage>;
   getContactMessages(): Promise<ContactMessage[]>;
+  
+  // Tour availability operations
+  createTourAvailability(availability: InsertTourAvailability): Promise<TourAvailability>;
+  getTourAvailability(id: number): Promise<TourAvailability | undefined>;
+  getTourAvailabilities(tourId: number): Promise<TourAvailability[]>;
+  updateTourAvailability(id: number, data: Partial<InsertTourAvailability>): Promise<TourAvailability | undefined>;
+  deleteTourAvailability(id: number): Promise<boolean>;
+  getAvailabilitiesByDateRange(tourId: number, startDate: Date, endDate: Date): Promise<TourAvailability[]>;
+  
+  // Reservation operations
+  createReservation(reservation: InsertReservation): Promise<Reservation>;
+  getReservation(id: number): Promise<Reservation | undefined>;
+  getReservations(): Promise<Reservation[]>;
+  getTourReservations(tourId: number): Promise<Reservation[]>;
+  updateReservation(id: number, data: Partial<Reservation>): Promise<Reservation | undefined>;
+  updateReservationStatus(id: number, status: 'pending' | 'confirmed' | 'cancelled' | 'completed'): Promise<Reservation | undefined>;
+  updateReservationPayment(id: number, paymentIntentId: string, customerId: string): Promise<Reservation | undefined>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -154,6 +177,135 @@ export class DatabaseStorage implements IStorage {
   
   async getContactMessages(): Promise<ContactMessage[]> {
     return db.select().from(contactMessages);
+  }
+  
+  // Implémentation des méthodes de gestion des disponibilités
+  async createTourAvailability(data: InsertTourAvailability): Promise<TourAvailability> {
+    const [availability] = await db
+      .insert(tourAvailability)
+      .values(data)
+      .returning();
+    return availability;
+  }
+
+  async getTourAvailability(id: number): Promise<TourAvailability | undefined> {
+    const [availability] = await db
+      .select()
+      .from(tourAvailability)
+      .where(eq(tourAvailability.id, id));
+    return availability || undefined;
+  }
+
+  async getTourAvailabilities(tourId: number): Promise<TourAvailability[]> {
+    return db
+      .select()
+      .from(tourAvailability)
+      .where(eq(tourAvailability.tourId, tourId));
+  }
+
+  async updateTourAvailability(id: number, data: Partial<InsertTourAvailability>): Promise<TourAvailability | undefined> {
+    const [updatedAvailability] = await db
+      .update(tourAvailability)
+      .set({
+        ...data,
+        updatedAt: new Date(),
+      })
+      .where(eq(tourAvailability.id, id))
+      .returning();
+    return updatedAvailability || undefined;
+  }
+
+  async deleteTourAvailability(id: number): Promise<boolean> {
+    await db.delete(tourAvailability).where(eq(tourAvailability.id, id));
+    return true;
+  }
+
+  async getAvailabilitiesByDateRange(tourId: number, startDate: Date, endDate: Date): Promise<TourAvailability[]> {
+    return db
+      .select()
+      .from(tourAvailability)
+      .where(
+        sql`${tourAvailability.tourId} = ${tourId} 
+        AND ${tourAvailability.date} >= ${startDate} 
+        AND ${tourAvailability.date} <= ${endDate}`
+      );
+  }
+
+  // Implémentation des méthodes de gestion des réservations
+  async createReservation(data: InsertReservation): Promise<Reservation> {
+    // Get the availability to calculate total amount if not provided
+    if (!data.totalAmount) {
+      const availability = await this.getTourAvailability(data.availabilityId);
+      if (!availability) {
+        throw new Error("Tour availability not found");
+      }
+      
+      // Use the price from availability or fallback to tour price
+      const price = availability.price || (await this.getTour(data.tourId))?.price || 0;
+      data.totalAmount = price * data.numberOfPeople;
+    }
+    
+    // Create the reservation
+    const [reservation] = await db
+      .insert(reservations)
+      .values(data)
+      .returning();
+      
+    // Update the current bookings count for this availability
+    if (reservation) {
+      const availability = await this.getTourAvailability(data.availabilityId);
+      if (availability) {
+        await this.updateTourAvailability(
+          data.availabilityId, 
+          { currentBookings: availability.currentBookings + data.numberOfPeople }
+        );
+      }
+    }
+    
+    return reservation;
+  }
+
+  async getReservation(id: number): Promise<Reservation | undefined> {
+    const [reservation] = await db
+      .select()
+      .from(reservations)
+      .where(eq(reservations.id, id));
+    return reservation || undefined;
+  }
+
+  async getReservations(): Promise<Reservation[]> {
+    return db.select().from(reservations);
+  }
+
+  async getTourReservations(tourId: number): Promise<Reservation[]> {
+    return db
+      .select()
+      .from(reservations)
+      .where(eq(reservations.tourId, tourId));
+  }
+
+  async updateReservation(id: number, data: Partial<Reservation>): Promise<Reservation | undefined> {
+    const [updatedReservation] = await db
+      .update(reservations)
+      .set({
+        ...data,
+        updatedAt: new Date()
+      })
+      .where(eq(reservations.id, id))
+      .returning();
+    return updatedReservation || undefined;
+  }
+
+  async updateReservationStatus(id: number, status: 'pending' | 'confirmed' | 'cancelled' | 'completed'): Promise<Reservation | undefined> {
+    return this.updateReservation(id, { status });
+  }
+
+  async updateReservationPayment(id: number, paymentIntentId: string, customerId: string): Promise<Reservation | undefined> {
+    return this.updateReservation(id, { 
+      stripePaymentIntentId: paymentIntentId, 
+      stripeCustomerId: customerId,
+      status: 'confirmed'
+    });
   }
 }
 

@@ -1,4 +1,4 @@
-import { pgTable, text, serial, integer, boolean, timestamp, json } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, integer, boolean, timestamp, json, date, pgEnum } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -40,6 +40,36 @@ export const contactMessages = pgTable("contact_messages", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+export const reservationStatusEnum = pgEnum("reservation_status", ["pending", "confirmed", "cancelled", "completed"]);
+
+export const tourAvailability = pgTable("tour_availability", {
+  id: serial("id").primaryKey(),
+  tourId: integer("tour_id").notNull().references(() => tours.id, { onDelete: "cascade" }),
+  date: date("available_date").notNull(),
+  maxCapacity: integer("max_capacity").notNull().default(10),
+  currentBookings: integer("current_bookings").notNull().default(0),
+  price: integer("price"), // Prix spécifique pour cette date (optionnel, sinon utilise le prix du tour)
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const reservations = pgTable("reservations", {
+  id: serial("id").primaryKey(),
+  tourId: integer("tour_id").notNull().references(() => tours.id, { onDelete: "cascade" }),
+  availabilityId: integer("availability_id").notNull().references(() => tourAvailability.id, { onDelete: "cascade" }),
+  customerName: text("customer_name").notNull(),
+  customerEmail: text("customer_email").notNull(),
+  customerPhone: text("customer_phone").notNull(),
+  numberOfPeople: integer("number_of_people").notNull(),
+  totalAmount: integer("total_amount").notNull(),
+  status: reservationStatusEnum("status").notNull().default("pending"),
+  stripePaymentIntentId: text("stripe_payment_intent_id"),
+  stripeCustomerId: text("stripe_customer_id"),
+  specialRequests: text("special_requests"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
 export const insertUserSchema = createInsertSchema(users).pick({
   username: true,
   password: true,
@@ -59,6 +89,22 @@ export const insertContactMessageSchema = createInsertSchema(contactMessages).om
   createdAt: true,
 });
 
+export const insertTourAvailabilitySchema = createInsertSchema(tourAvailability).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+  currentBookings: true,
+});
+
+export const insertReservationSchema = createInsertSchema(reservations).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+  status: true,
+  stripePaymentIntentId: true,
+  stripeCustomerId: true,
+});
+
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
 
@@ -70,3 +116,9 @@ export type CustomTourRequest = typeof customTourRequests.$inferSelect;
 
 export type InsertContactMessage = z.infer<typeof insertContactMessageSchema>;
 export type ContactMessage = typeof contactMessages.$inferSelect;
+
+export type InsertTourAvailability = z.infer<typeof insertTourAvailabilitySchema>;
+export type TourAvailability = typeof tourAvailability.$inferSelect;
+
+export type InsertReservation = z.infer<typeof insertReservationSchema>;
+export type Reservation = typeof reservations.$inferSelect;
