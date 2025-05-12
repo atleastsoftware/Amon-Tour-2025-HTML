@@ -212,6 +212,8 @@ const DateSelector = ({
                 modifiersClassNames={{
                   available: "bg-primary-light text-primary rounded-full"
                 }}
+                hideHead={false}
+                disableNavigation={true} /* Désactive les boutons de navigation intégrés */
                 classNames={{
                   root: "w-full",
                   table: "w-full border-spacing-2 table-fixed",
@@ -223,7 +225,8 @@ const DateSelector = ({
                   day_today: "font-bold border border-primary",
                   day_selected: "bg-primary text-white hover:bg-primary",
                   day_disabled: "opacity-40",
-                  day_outside: "opacity-20"
+                  day_outside: "opacity-20",
+                  nav_button: "hidden" /* Cache les boutons de navigation */
                 }}
               />
             </div>
