@@ -287,15 +287,22 @@ const BookingSummary = ({
   tour, 
   selectedDate,
   numberOfPeople,
+  numberOfChildren = 0,
   availability
 }: { 
   tour?: Tour, 
   selectedDate?: Date,
   numberOfPeople: number,
+  numberOfChildren?: number,
   availability?: TourAvailability
 }) => {
-  const price = availability?.price || tour?.price || 0;
-  const totalPrice = price * numberOfPeople;
+  const adultPrice = availability?.price || tour?.price || 0;
+  // Utiliser le prix enfant de la disponibilité, ou celui du tour, ou 75% du prix adulte par défaut
+  const childPrice = availability?.childPrice || tour?.childPrice || Math.round(adultPrice * 0.75);
+  
+  const adultTotal = adultPrice * numberOfPeople;
+  const childrenTotal = childPrice * numberOfChildren;
+  const totalPrice = adultTotal + childrenTotal;
   
   return (
     <Card>
@@ -316,14 +323,28 @@ const BookingSummary = ({
           </div>
           
           <div className="flex justify-between">
-            <span>Nombre de personnes:</span>
+            <span>Nombre d'adultes:</span>
             <span className="font-semibold">{numberOfPeople}</span>
           </div>
           
+          {numberOfChildren > 0 && (
+            <div className="flex justify-between">
+              <span>Nombre d'enfants:</span>
+              <span className="font-semibold">{numberOfChildren}</span>
+            </div>
+          )}
+          
           <div className="flex justify-between">
-            <span>Prix par personne:</span>
-            <span className="font-semibold">{formatTHB(price)}</span>
+            <span>Prix par adulte:</span>
+            <span className="font-semibold">{formatTHB(adultPrice)}</span>
           </div>
+          
+          {numberOfChildren > 0 && (
+            <div className="flex justify-between">
+              <span>Prix par enfant:</span>
+              <span className="font-semibold">{formatTHB(childPrice)}</span>
+            </div>
+          )}
           
           <div className="border-t pt-4 flex justify-between">
             <span className="font-bold">Total:</span>
@@ -676,6 +697,7 @@ export default function BookTour() {
               tour={tour} 
               selectedDate={selectedDate}
               numberOfPeople={form.watch("numberOfPeople") || 1}
+              numberOfChildren={form.watch("numberOfChildren") || 0}
               availability={selectedAvailability}
             />
             
