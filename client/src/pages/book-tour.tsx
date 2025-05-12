@@ -51,6 +51,7 @@ const bookingSchema = z.object({
   customerEmail: z.string().email("Email invalide"),
   customerPhone: z.string().min(5, "Numéro de téléphone invalide"),
   numberOfPeople: z.number().min(1, "Minimum 1 personne").max(20, "Maximum 20 personnes"),
+  numberOfChildren: z.number().min(0, "Ne peut pas être négatif").max(15, "Maximum 15 enfants").default(0),
   specialRequests: z.string().optional(),
   totalAmount: z.number().optional() // Ce champ sera calculé lors de la soumission
 });
@@ -426,6 +427,7 @@ export default function BookTour() {
       customerEmail: "",
       customerPhone: "",
       numberOfPeople: 1,
+      numberOfChildren: 0,
       specialRequests: ""
     }
   });
@@ -590,25 +592,53 @@ export default function BookTour() {
                         )}
                       />
                       
-                      <FormField
-                        control={form.control}
-                        name="numberOfPeople"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Nombre de personnes</FormLabel>
-                            <FormControl>
-                              <Input 
-                                type="number" 
-                                min={1} 
-                                max={20} 
-                                {...field} 
-                                onChange={e => field.onChange(parseInt(e.target.value))} 
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <FormField
+                          control={form.control}
+                          name="numberOfPeople"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Nombre d'adultes</FormLabel>
+                              <FormControl>
+                                <Input 
+                                  type="number" 
+                                  min={1} 
+                                  max={20} 
+                                  {...field} 
+                                  onChange={e => field.onChange(parseInt(e.target.value))} 
+                                />
+                              </FormControl>
+                              <FormDescription>
+                                Personnes de 12 ans et plus
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <FormField
+                          control={form.control}
+                          name="numberOfChildren"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Nombre d'enfants</FormLabel>
+                              <FormControl>
+                                <Input 
+                                  type="number" 
+                                  min={0} 
+                                  max={15} 
+                                  {...field} 
+                                  onChange={e => field.onChange(parseInt(e.target.value || "0"))} 
+                                />
+                              </FormControl>
+                              <FormDescription>
+                                Enfants de moins de 12 ans
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
                       
                       <FormField
                         control={form.control}

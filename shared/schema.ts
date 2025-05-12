@@ -112,6 +112,7 @@ const baseReservationSchema = createInsertSchema(reservations).omit({
 // Créer un schéma personnalisé qui rend totalAmount optionnel
 export const insertReservationSchema = baseReservationSchema.extend({
   totalAmount: z.number().optional(), // Sera calculé côté serveur si non fourni
+  numberOfChildren: z.number().optional().default(0), // Nombre d'enfants optionnel
 });
 
 export type InsertUser = z.infer<typeof insertUserSchema>;
