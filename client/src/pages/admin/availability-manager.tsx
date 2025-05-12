@@ -857,13 +857,28 @@ export default function AvailabilityManager() {
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
                       <FormLabel>Date de début</FormLabel>
-                      <CalendarComponent
-                        mode="single"
-                        selected={field.value}
-                        onSelect={field.onChange}
-                        disabled={(date) => date < new Date()}
-                        className="border rounded-md p-3"
-                      />
+                      <div className="w-full">
+                        <CalendarComponent
+                          mode="single"
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          disabled={(date) => date < new Date()}
+                          className="border rounded-md p-3"
+                          classNames={{
+                            root: "w-full",
+                            table: "w-full border-spacing-1 table-fixed",
+                            head_row: "flex justify-between mb-2",
+                            head_cell: "w-10 h-10 text-base font-medium",
+                            row: "flex w-full justify-between my-1",
+                            cell: "w-10 h-10 p-0 relative",
+                            day: "h-10 w-10 p-0 font-normal text-base",
+                            day_today: "font-bold border border-primary",
+                            day_selected: "bg-primary text-white hover:bg-primary",
+                            day_disabled: "opacity-40",
+                            day_outside: "opacity-20"
+                          }}
+                        />
+                      </div>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -875,13 +890,28 @@ export default function AvailabilityManager() {
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
                       <FormLabel>Date de fin</FormLabel>
-                      <CalendarComponent
-                        mode="single"
-                        selected={field.value}
-                        onSelect={field.onChange}
-                        disabled={(date) => date < bulkForm.getValues().startDate}
-                        className="border rounded-md p-3"
-                      />
+                      <div className="w-full">
+                        <CalendarComponent
+                          mode="single"
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          disabled={(date) => date < bulkForm.getValues().startDate}
+                          className="border rounded-md p-3"
+                          classNames={{
+                            root: "w-full",
+                            table: "w-full border-spacing-1 table-fixed",
+                            head_row: "flex justify-between mb-2",
+                            head_cell: "w-10 h-10 text-base font-medium",
+                            row: "flex w-full justify-between my-1",
+                            cell: "w-10 h-10 p-0 relative",
+                            day: "h-10 w-10 p-0 font-normal text-base",
+                            day_today: "font-bold border border-primary",
+                            day_selected: "bg-primary text-white hover:bg-primary",
+                            day_disabled: "opacity-40",
+                            day_outside: "opacity-20"
+                          }}
+                        />
+                      </div>
                       <FormMessage />
                     </FormItem>
                   )}

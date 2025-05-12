@@ -160,65 +160,72 @@ const DateSelector = ({
       <h3 className="font-heading font-semibold text-xl">Sélectionnez une date</h3>
       <div className="bg-white p-6 rounded-lg shadow-md">
         {isLoading ? (
-          <div className="flex justify-center py-8">
-            <div className="animate-spin h-10 w-10 border-4 border-primary border-t-transparent rounded-full"></div>
+          <div className="flex justify-center items-center py-20">
+            <div className="animate-spin h-12 w-12 border-4 border-primary border-t-transparent rounded-full"></div>
+            <span className="ml-3 text-primary">Chargement du calendrier...</span>
           </div>
         ) : (
           <>
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center justify-between mb-8">
               <Button 
                 variant="outline" 
-                size="icon" 
+                size="default" 
                 onClick={goToPreviousMonth}
                 disabled={isBefore(selectedMonth, startOfMonth(new Date()))}
-                className="h-8 w-8 p-0"
+                className="flex items-center gap-2 h-10"
               >
                 <ChevronLeft className="h-4 w-4" />
+                <span className="hidden sm:inline">Mois précédent</span>
               </Button>
               
-              <h3 className="font-medium text-lg capitalize">
+              <h3 className="font-medium text-xl capitalize">
                 {format(selectedMonth, 'MMMM yyyy', { locale: fr })}
               </h3>
               
               <Button 
                 variant="outline" 
-                size="icon" 
+                size="default" 
                 onClick={goToNextMonth}
                 disabled={isAfter(selectedMonth, addMonths(new Date(), 11))}
-                className="h-8 w-8 p-0"
+                className="flex items-center gap-2 h-10"
               >
+                <span className="hidden sm:inline">Mois suivant</span>
                 <ChevronRight className="h-4 w-4" />
               </Button>
             </div>
             
-            <Calendar
-              mode="single"
-              selected={selectedDate}
-              onSelect={handleDateChange}
-              disabled={(date) => !isDateAvailable(date) || date < new Date()}
-              className="rounded-md border-none"
-              locale={fr}
-              month={selectedMonth}
-              fromDate={new Date()}
-              toDate={addMonths(new Date(), 12)}
-              modifiers={{
-                available: (date) => isDateAvailable(date)
-              }}
-              modifiersClassNames={{
-                available: "bg-primary-light text-primary rounded-full"
-              }}
-              styles={{
-                day: {
-                  "&[data-selected]": {
-                    backgroundColor: "var(--primary)",
-                    color: "white"
-                  }
-                },
-                caption_label: { fontSize: "16px", marginBottom: "8px" },
-                day_today: { fontWeight: "bold", borderWidth: "1px", borderColor: "var(--primary)" },
-                day_disabled: { opacity: 0.4 }
-              }}
-            />
+            <div className="w-full max-w-md mx-auto">
+              <Calendar
+                mode="single"
+                selected={selectedDate}
+                onSelect={handleDateChange}
+                disabled={(date) => !isDateAvailable(date) || date < new Date()}
+                className="rounded-md border-none"
+                locale={fr}
+                month={selectedMonth}
+                fromDate={new Date()}
+                toDate={addMonths(new Date(), 12)}
+                modifiers={{
+                  available: (date) => isDateAvailable(date)
+                }}
+                modifiersClassNames={{
+                  available: "bg-primary-light text-primary rounded-full"
+                }}
+                classNames={{
+                  root: "w-full",
+                  table: "w-full border-spacing-2 table-fixed",
+                  head_row: "flex justify-between mb-2",
+                  head_cell: "w-10 h-10 text-base font-medium",
+                  row: "flex w-full justify-between my-1",
+                  cell: "w-10 h-10 p-0 relative",
+                  day: "h-10 w-10 p-0 font-normal text-lg",
+                  day_today: "font-bold border border-primary",
+                  day_selected: "bg-primary text-white hover:bg-primary",
+                  day_disabled: "opacity-40",
+                  day_outside: "opacity-20"
+                }}
+              />
+            </div>
             
             <div className="mt-4 pt-4 border-t border-gray-200">
               <div className="flex flex-col gap-3">
