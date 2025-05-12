@@ -38,6 +38,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -804,7 +805,7 @@ export default function AvailabilityManager() {
           <DialogHeader>
             <DialogTitle>Créer des disponibilités en masse</DialogTitle>
             <DialogDescription>
-              Sélectionnez une plage de dates pour créer plusieurs disponibilités à la fois.
+              Activez tous les jours pour les prochains mois en un seul clic.
             </DialogDescription>
           </DialogHeader>
           
@@ -839,110 +840,54 @@ export default function AvailabilityManager() {
                 )}
               />
               
-              <div className="grid grid-cols-2 gap-4">
-                <FormField
-                  control={bulkForm.control}
-                  name="startDate"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col">
-                      <FormLabel>Date de début</FormLabel>
-                      <div className="w-full">
-                        <CalendarComponent
-                          mode="single"
-                          selected={field.value}
-                          onSelect={field.onChange}
-                          disabled={(date) => date < new Date()}
-                          className="border rounded-md p-3"
-                          classNames={{
-                            root: "w-full",
-                            table: "w-full border-spacing-1 table-fixed",
-                            head_row: "flex justify-between mb-2",
-                            head_cell: "w-10 h-10 text-base font-medium",
-                            row: "flex w-full justify-between my-1",
-                            cell: "w-10 h-10 p-0 relative",
-                            day: "h-10 w-10 p-0 font-normal text-base",
-                            day_today: "font-bold border border-primary",
-                            day_selected: "bg-primary text-white hover:bg-primary",
-                            day_disabled: "opacity-40",
-                            day_outside: "opacity-20"
-                          }}
-                        />
-                      </div>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                
-                <FormField
-                  control={bulkForm.control}
-                  name="endDate"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col">
-                      <FormLabel>Date de fin</FormLabel>
-                      <div className="w-full">
-                        <CalendarComponent
-                          mode="single"
-                          selected={field.value}
-                          onSelect={field.onChange}
-                          disabled={(date) => date < bulkForm.getValues().startDate}
-                          className="border rounded-md p-3"
-                          classNames={{
-                            root: "w-full",
-                            table: "w-full border-spacing-1 table-fixed",
-                            head_row: "flex justify-between mb-2",
-                            head_cell: "w-10 h-10 text-base font-medium",
-                            row: "flex w-full justify-between my-1",
-                            cell: "w-10 h-10 p-0 relative",
-                            day: "h-10 w-10 p-0 font-normal text-base",
-                            day_today: "font-bold border border-primary",
-                            day_selected: "bg-primary text-white hover:bg-primary",
-                            day_disabled: "opacity-40",
-                            day_outside: "opacity-20"
-                          }}
-                        />
-                      </div>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
+              <FormField
+                control={bulkForm.control}
+                name="numberOfMonths"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Durée (nombre de mois)</FormLabel>
+                    <div className="flex items-center">
+                      <Select
+                        value={field.value.toString()}
+                        onValueChange={(value) => field.onChange(parseInt(value))}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Sélectionner une durée" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((month) => (
+                            <SelectItem key={month} value={month.toString()}>
+                              {month} {month === 1 ? 'mois' : 'mois'}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <FormDescription>
+                      Disponibilités créées à partir d'aujourd'hui pour le nombre de mois sélectionné
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               
               <FormField
                 control={bulkForm.control}
-                name="daysOfWeek"
+                name="enableAllDays"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Jours de la semaine</FormLabel>
-                    <div className="flex flex-wrap gap-2">
-                      {[
-                        { day: 1, label: "Lu" },
-                        { day: 2, label: "Ma" },
-                        { day: 3, label: "Me" },
-                        { day: 4, label: "Je" },
-                        { day: 5, label: "Ve" },
-                        { day: 6, label: "Sa" },
-                        { day: 0, label: "Di" },
-                      ].map(({ day, label }) => (
-                        <Button
-                          type="button"
-                          key={day}
-                          variant={field.value.includes(day) ? "default" : "outline"}
-                          className="w-10 h-10 p-0"
-                          onClick={() => {
-                            if (field.value.includes(day)) {
-                              field.onChange(field.value.filter(d => d !== day));
-                            } else {
-                              field.onChange([...field.value, day]);
-                            }
-                          }}
-                        >
-                          {label}
-                        </Button>
-                      ))}
+                  <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+                    <div className="space-y-0.5">
+                      <FormLabel>Activer tous les jours</FormLabel>
+                      <FormDescription>
+                        Tous les jours seront disponibles pour ce tour
+                      </FormDescription>
                     </div>
-                    <FormDescription>
-                      Sélectionnez les jours de la semaine à inclure
-                    </FormDescription>
+                    <FormControl>
+                      <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
