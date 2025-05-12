@@ -479,10 +479,15 @@ export default function BookTour() {
       return;
     }
     
+    // Calcule le montant total de la réservation
+    const price = selectedAvailability?.price || tour?.price || 0;
+    const totalAmount = price * data.numberOfPeople;
+    
     createReservation.mutate({
       ...data,
       tourId,
-      availabilityId: selectedAvailability.id
+      availabilityId: selectedAvailability.id,
+      totalAmount // Ajoute le totalAmount requis
     });
   };
   
