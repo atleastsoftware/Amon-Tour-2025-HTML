@@ -363,7 +363,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Créer la réservation dans notre système
       const reservation = await storage.createReservation({
         ...reservationData,
-        totalAmount,
+        // Si totalAmount est déjà fourni dans reservationData, utiliser cette valeur
+        // sinon, utiliser le montant calculé
+        totalAmount: reservationData.totalAmount ?? totalAmount,
         stripeCustomerId: customer.id,
         stripePaymentIntentId: paymentIntentId
       });

@@ -96,13 +96,19 @@ export const insertTourAvailabilitySchema = createInsertSchema(tourAvailability)
   currentBookings: true,
 });
 
-export const insertReservationSchema = createInsertSchema(reservations).omit({
+// Créer le schéma de base
+const baseReservationSchema = createInsertSchema(reservations).omit({
   id: true,
   createdAt: true,
   updatedAt: true,
   status: true,
   stripePaymentIntentId: true,
   stripeCustomerId: true,
+});
+
+// Créer un schéma personnalisé qui rend totalAmount optionnel
+export const insertReservationSchema = baseReservationSchema.extend({
+  totalAmount: z.number().optional(), // Sera calculé côté serveur si non fourni
 });
 
 export type InsertUser = z.infer<typeof insertUserSchema>;
