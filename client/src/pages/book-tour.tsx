@@ -339,11 +339,29 @@ const BookingSummary = ({
             <span className="font-semibold">{formatTHB(adultPrice)}</span>
           </div>
           
+          <div className="flex justify-between">
+            <span>Sous-total adultes:</span>
+            <span className="font-semibold">{formatTHB(adultTotal)}</span>
+          </div>
+          
           {numberOfChildren > 0 && (
-            <div className="flex justify-between">
-              <span>Prix par enfant:</span>
-              <span className="font-semibold">{formatTHB(childPrice)}</span>
-            </div>
+            <>
+              <div className="flex justify-between">
+                <span>Prix par enfant:</span>
+                <span className="font-semibold">
+                  {formatTHB(childPrice)} 
+                  {childPrice < adultPrice && (
+                    <span className="text-green-600 text-xs ml-1">
+                      (-{Math.round((1 - childPrice/adultPrice) * 100)}%)
+                    </span>
+                  )}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span>Sous-total enfants:</span>
+                <span className="font-semibold">{formatTHB(childrenTotal)}</span>
+              </div>
+            </>
           )}
           
           <div className="border-t pt-4 flex justify-between">

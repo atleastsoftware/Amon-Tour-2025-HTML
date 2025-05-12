@@ -113,6 +113,8 @@ const baseReservationSchema = createInsertSchema(reservations).omit({
 export const insertReservationSchema = baseReservationSchema.extend({
   totalAmount: z.number().optional(), // Sera calculé côté serveur si non fourni
   numberOfChildren: z.number().optional().default(0), // Nombre d'enfants optionnel
+  stripeCustomerId: z.string().optional(), // Ajouté pour permettre l'ID du client Stripe
+  stripePaymentIntentId: z.string().optional(), // Ajouté pour permettre l'ID de paiement Stripe
 });
 
 export type InsertUser = z.infer<typeof insertUserSchema>;
