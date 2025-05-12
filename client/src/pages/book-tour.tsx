@@ -7,12 +7,31 @@ import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Calendar } from "@/components/ui/calendar";
-import { ArrowLeft, Calendar as CalendarIcon, User, Clock, Euro } from "lucide-react";
-import { format, addMonths, isAfter, isSameDay } from "date-fns";
+import { 
+  ArrowLeft, 
+  Calendar as CalendarIcon, 
+  User, 
+  Clock, 
+  Euro, 
+  ChevronLeft, 
+  ChevronRight, 
+  Check 
+} from "lucide-react";
+import { 
+  format, 
+  addMonths, 
+  isAfter, 
+  isSameDay, 
+  startOfMonth, 
+  isBefore,
+  parseISO,
+  eachDayOfInterval
+} from "date-fns";
 import { fr } from "date-fns/locale";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Badge } from "@/components/ui/badge";
 import { formatTHB } from "@/lib/utils";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -49,6 +68,7 @@ const DateSelector = ({
 }) => {
   const [availableDates, setAvailableDates] = useState<Date[]>([]);
   const [availabilities, setAvailabilities] = useState<TourAvailability[]>([]);
+  const [selectedMonth, setSelectedMonth] = useState<Date>(new Date());
   
   // Requête pour récupérer les disponibilités pour ce tour
   const { data, isLoading } = useQuery<TourAvailability[]>({
@@ -69,12 +89,34 @@ const DateSelector = ({
       // Créer la liste des dates disponibles
       const dates = validAvailabilities.map(a => new Date(a.date));
       setAvailableDates(dates);
+      
+      // Si nous avons des dates disponibles et qu'aucune date n'est sélectionnée,
+      // aller au premier mois avec des disponibilités
+      if (dates.length > 0 && !selectedDate) {
+        dates.sort((a, b) => a.getTime() - b.getTime());
+        setSelectedMonth(startOfMonth(dates[0]));
+      }
     }
-  }, [data]);
+  }, [data, selectedDate]);
   
   // Fonction pour vérifier si une date est disponible
   const isDateAvailable = (date: Date) => {
     return availableDates.some(availableDate => isSameDay(availableDate, date));
+  };
+  
+  // Obtenir l'information sur la disponibilité pour une date spécifique
+  const getAvailabilityInfo = (date: Date) => {
+    const availability = availabilities.find(a => 
+      isSameDay(new Date(a.date), date)
+    );
+    
+    if (!availability) return null;
+    
+    const spotsAvailable = availability.maxCapacity - availability.currentBookings;
+    return {
+      price: availability.price || null,
+      spotsAvailable
+    };
   };
   
   const handleDateChange = (date: Date | undefined) => {
@@ -91,29 +133,138 @@ const DateSelector = ({
     onSelectDate(date, selectedAvailability);
   };
   
+  const goToPreviousMonth = () => {
+    setSelectedMonth(prevMonth => addMonths(prevMonth, -1));
+  };
+  
+  const goToNextMonth = () => {
+    setSelectedMonth(prevMonth => addMonths(prevMonth, 1));
+  };
+  
+  // Déterminer les classes CSS pour une date spécifique
+  const getDayClass = (day: Date) => {
+    const isAvailable = isDateAvailable(day);
+    const isSelected = selectedDate && isSameDay(day, selectedDate);
+    
+    if (!isAvailable) return "";
+    
+    if (isSelected) {
+      return "bg-primary text-white rounded-full";
+    }
+    
+    return "bg-primary-light text-primary hover:bg-primary-200 rounded-full";
+  };
+  
   return (
     <div className="flex flex-col gap-4">
       <h3 className="font-heading font-semibold text-xl">Sélectionnez une date</h3>
-      <div className="bg-white p-4 rounded-lg shadow-md">
+      <div className="bg-white p-6 rounded-lg shadow-md">
         {isLoading ? (
-          <div className="flex justify-center py-4">
-            <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full"></div>
+          <div className="flex justify-center py-8">
+            <div className="animate-spin h-10 w-10 border-4 border-primary border-t-transparent rounded-full"></div>
           </div>
         ) : (
-          <Calendar
-            mode="single"
-            selected={selectedDate}
-            onSelect={handleDateChange}
-            disabled={(date) => !isDateAvailable(date) || isAfter(new Date(), date)}
-            className="rounded-md"
-            locale={fr}
-            fromDate={new Date()}
-            toDate={addMonths(new Date(), 6)}
-          />
+          <>
+            <div className="flex items-center justify-between mb-6">
+              <Button 
+                variant="outline" 
+                size="icon" 
+                onClick={goToPreviousMonth}
+                disabled={isBefore(selectedMonth, startOfMonth(new Date()))}
+                className="h-8 w-8 p-0"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+              
+              <h3 className="font-medium text-lg capitalize">
+                {format(selectedMonth, 'MMMM yyyy', { locale: fr })}
+              </h3>
+              
+              <Button 
+                variant="outline" 
+                size="icon" 
+                onClick={goToNextMonth}
+                disabled={isAfter(selectedMonth, addMonths(new Date(), 11))}
+                className="h-8 w-8 p-0"
+              >
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </div>
+            
+            <Calendar
+              mode="single"
+              selected={selectedDate}
+              onSelect={handleDateChange}
+              disabled={(date) => !isDateAvailable(date) || date < new Date()}
+              className="rounded-md border-none"
+              locale={fr}
+              month={selectedMonth}
+              fromDate={new Date()}
+              toDate={addMonths(new Date(), 12)}
+              modifiers={{
+                available: (date) => isDateAvailable(date)
+              }}
+              modifiersClassNames={{
+                available: "bg-primary-light text-primary rounded-full"
+              }}
+              styles={{
+                day: {
+                  "&[data-selected]": {
+                    backgroundColor: "var(--primary)",
+                    color: "white"
+                  }
+                },
+                caption_label: { fontSize: "16px", marginBottom: "8px" },
+                day_today: { fontWeight: "bold", borderWidth: "1px", borderColor: "var(--primary)" },
+                day_disabled: { opacity: 0.4 }
+              }}
+            />
+            
+            <div className="mt-4 pt-4 border-t border-gray-200">
+              <div className="flex flex-col gap-3">
+                {selectedDate && (
+                  <div className="flex flex-col">
+                    <h4 className="font-medium text-md flex items-center">
+                      <Check className="text-green-500 mr-2 h-4 w-4" />
+                      {format(selectedDate, 'dd MMMM yyyy', { locale: fr })}
+                    </h4>
+                    
+                    {getAvailabilityInfo(selectedDate) && (
+                      <div className="pl-6 text-sm text-gray-600 flex flex-col gap-1">
+                        <div>
+                          <Badge variant="outline" className="text-green-600 bg-green-50 border-green-200">
+                            {getAvailabilityInfo(selectedDate)?.spotsAvailable} places disponibles
+                          </Badge>
+                        </div>
+                        {getAvailabilityInfo(selectedDate)?.price && (
+                          <div className="text-primary font-medium">
+                            Prix: {formatTHB(getAvailabilityInfo(selectedDate)?.price || 0)}/personne
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
+                
+                <div className="flex items-center justify-start gap-6 text-sm text-gray-600 pt-2">
+                  <div className="flex items-center">
+                    <div className="w-3 h-3 rounded-full bg-primary-light mr-2"></div>
+                    <span>Disponible</span>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-3 h-3 rounded-full bg-primary mr-2"></div>
+                    <span>Sélectionné</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
         )}
       </div>
       {availableDates.length === 0 && !isLoading && (
-        <p className="text-red-500">Aucune date disponible pour ce tour.</p>
+        <div className="bg-red-50 p-4 rounded-lg border border-red-200 text-red-600 text-center">
+          Aucune date disponible pour ce tour. Veuillez nous contacter pour des arrangements personnalisés.
+        </div>
       )}
     </div>
   );
