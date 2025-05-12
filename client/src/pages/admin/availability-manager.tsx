@@ -4,7 +4,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { format, isAfter, parseISO, addDays, eachDayOfInterval, isBefore } from "date-fns";
+import { format, isAfter, parseISO, addDays, addMonths, eachDayOfInterval, isBefore } from "date-fns";
 import { fr } from "date-fns/locale";
 import { LogOut, ChevronLeft, Plus, Calendar, Edit, Trash2, AlertTriangle, CalendarRange } from "lucide-react";
 import { useIsAuthenticated, useLogout } from "@/lib/auth";
@@ -73,17 +73,10 @@ const availabilitySchema = z.object({
 // Schéma pour la création en masse de disponibilités
 const bulkAvailabilitySchema = z.object({
   tourId: z.number().min(1, "Un tour est requis"),
-  startDate: z.date({
-    required_error: "Une date de début est requise",
-    invalid_type_error: "Format de date invalide",
-  }),
-  endDate: z.date({
-    required_error: "Une date de fin est requise",
-    invalid_type_error: "Format de date invalide",
-  }),
+  numberOfMonths: z.number().min(1, "Minimum 1 mois").max(12, "Maximum 12 mois").default(3),
   maxCapacity: z.number().min(1, "Capacité minimum: 1").max(100, "Capacité maximum: 100"),
   price: z.number().min(0, "Prix minimum: 0").optional(),
-  daysOfWeek: z.array(z.number().min(0).max(6)).default([0, 1, 2, 3, 4, 5, 6]),
+  enableAllDays: z.boolean().default(true),
 });
 
 type AvailabilityFormValues = z.infer<typeof availabilitySchema>;
@@ -120,11 +113,10 @@ export default function AvailabilityManager() {
     resolver: zodResolver(bulkAvailabilitySchema),
     defaultValues: {
       tourId: 0,
-      startDate: new Date(),
-      endDate: addDays(new Date(), 30),
+      numberOfMonths: 3,
       maxCapacity: 10,
       price: undefined,
-      daysOfWeek: [0, 1, 2, 3, 4, 5, 6], // Tous les jours par défaut
+      enableAllDays: true,
     },
   });
   
@@ -169,21 +161,19 @@ export default function AvailabilityManager() {
   // Mutation pour créer des disponibilités en masse
   const createBulkAvailabilities = useMutation({
     mutationFn: async (data: BulkAvailabilityFormValues) => {
-      // Vérifier que la date de fin est après la date de début
-      if (isBefore(data.endDate, data.startDate)) {
-        throw new Error("La date de fin doit être après la date de début");
-      }
+      // Calculer la date de début (aujourd'hui) et la date de fin (après X mois)
+      const startDate = new Date();
+      const endDate = addMonths(startDate, data.numberOfMonths);
       
       // Générer toutes les dates dans la plage
       const allDaysInRange = eachDayOfInterval({
-        start: data.startDate,
-        end: data.endDate
+        start: startDate,
+        end: endDate
       });
       
-      // Filtrer pour ne garder que les jours de la semaine sélectionnés
-      const selectedDays = allDaysInRange.filter(date => 
-        data.daysOfWeek.includes(date.getDay())
-      );
+      // Si enableAllDays est true, utiliser toutes les dates
+      // Sinon, on pourrait filtrer certains jours, mais on met tout par défaut
+      const selectedDays = allDaysInRange;
       
       // Créer les disponibilités pour chaque date
       const results = [];
@@ -305,11 +295,10 @@ export default function AvailabilityManager() {
     if (isBulkCreateDialogOpen) {
       bulkForm.reset({
         tourId: selectedTourId,
-        startDate: addDays(new Date(), 1),
-        endDate: addDays(new Date(), 30),
+        numberOfMonths: 3,
         maxCapacity: 10,
         price: undefined,
-        daysOfWeek: [0, 1, 2, 3, 4, 5, 6], // Tous les jours par défaut
+        enableAllDays: true,
       });
     }
   }, [isBulkCreateDialogOpen, selectedTourId, bulkForm]);
