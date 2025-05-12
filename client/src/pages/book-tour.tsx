@@ -507,8 +507,13 @@ export default function BookTour() {
     }
     
     // Calcule le montant total de la réservation
-    const price = selectedAvailability?.price || tour?.price || 0;
-    const totalAmount = price * data.numberOfPeople;
+    const adultPrice = selectedAvailability?.price || tour?.price || 0;
+    const childPrice = selectedAvailability?.childPrice || tour?.childPrice || Math.round(adultPrice * 0.75);
+    
+    // Calcul du montant total
+    const adultTotal = adultPrice * data.numberOfPeople;
+    const childrenTotal = childPrice * (data.numberOfChildren || 0);
+    const totalAmount = adultTotal + childrenTotal;
     
     createReservation.mutate({
       ...data,

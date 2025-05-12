@@ -341,22 +341,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
         reservationData.customerPhone
       );
       
+      // Récupérer les prix adulte et enfant
+      const tour = await storage.getTour(reservationData.tourId);
+      const adultPrice = availability.price || tour?.price || 0;
+      const childPrice = availability.childPrice || tour?.childPrice || Math.round(adultPrice * 0.75);
+      
       // Calculer le montant total
-      const tourPrice = availability.price || (await storage.getTour(reservationData.tourId))?.price || 0;
-      const totalAmount = tourPrice * reservationData.numberOfPeople;
+      const numberOfChildren = reservationData.numberOfChildren || 0;
+      const adultTotal = adultPrice * reservationData.numberOfPeople;
+      const childrenTotal = childPrice * numberOfChildren;
+      
+      // Utiliser le totalAmount fourni ou le calculer si non fourni
+      const totalAmount = reservationData.totalAmount ?? (adultTotal + childrenTotal);
       
       // Créer un PaymentIntent Stripe
       const { clientSecret, paymentIntentId } = await createPaymentIntent({
         amount: totalAmount,
         customerId: customer.id,
-        description: `Reservation for ${reservationData.numberOfPeople} person(s)`,
+        description: `Reservation for ${reservationData.numberOfPeople} adult(s)${numberOfChildren > 0 ? ` and ${numberOfChildren} child(ren)` : ''}`,
         metadata: {
           tourId: reservationData.tourId.toString(),
           availabilityId: reservationData.availabilityId.toString(),
           customerName: reservationData.customerName,
           customerEmail: reservationData.customerEmail,
           customerPhone: reservationData.customerPhone,
-          numberOfPeople: reservationData.numberOfPeople.toString()
+          numberOfPeople: reservationData.numberOfPeople.toString(),
+          numberOfChildren: (numberOfChildren).toString()
         }
       });
       
