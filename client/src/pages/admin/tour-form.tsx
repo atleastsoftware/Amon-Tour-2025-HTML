@@ -39,6 +39,7 @@ import { ImageUpload } from "@/components/ui/image-upload";
 const tourFormSchema = insertTourSchema
   .extend({
     price: z.coerce.number().min(1, { message: "Price must be greater than 0" }),
+    childPrice: z.coerce.number().optional(),
   });
 
 type TourFormData = z.infer<typeof tourFormSchema>;
@@ -67,6 +68,7 @@ export default function TourForm() {
       shortDescription: "",
       duration: "",
       price: 0,
+      childPrice: undefined,
       imageUrl: "",
       tourNinjaUrl: "",
       featured: false,
@@ -89,6 +91,7 @@ export default function TourForm() {
         shortDescription: tour.shortDescription,
         duration: tour.duration,
         price: tour.price,
+        childPrice: tour.childPrice || undefined, // Convertir null en undefined si nécessaire
         imageUrl: tour.imageUrl,
         tourNinjaUrl: tour.tourNinjaUrl,
         featured: tour.featured,
@@ -209,18 +212,44 @@ export default function TourForm() {
                     name="price"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Price (THB)</FormLabel>
+                        <FormLabel>Adult Price (THB)</FormLabel>
                         <FormControl>
                           <Input type="number" min="0" placeholder="Ex: 10000" {...field} />
                         </FormControl>
                         <FormDescription>
-                          Starting price in Thai Baht (without the ฿ symbol)
+                          Adult price in Thai Baht (without the ฿ symbol)
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
                 </div>
+                
+                <FormField
+                  control={form.control}
+                  name="childPrice"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Child Price (THB) - Optional</FormLabel>
+                      <FormControl>
+                        <Input 
+                          type="number" 
+                          min="0" 
+                          placeholder="Ex: 5000" 
+                          value={field.value || ''}
+                          onChange={(e) => {
+                            const value = e.target.value ? parseInt(e.target.value) : undefined;
+                            field.onChange(value);
+                          }}
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        Special price for children in Thai Baht (leave empty if there is no special child price)
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 
                 <FormField
                   control={form.control}

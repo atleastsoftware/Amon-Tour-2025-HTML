@@ -15,6 +15,7 @@ export const tours = pgTable("tours", {
   shortDescription: text("short_description").notNull(),
   duration: text("duration").notNull(),
   price: integer("price").notNull(),
+  childPrice: integer("child_price"), // Prix pour les enfants (optionnel)
   imageUrl: text("image_url").notNull(),
   tourNinjaUrl: text("tour_ninja_url").notNull(),
   featured: boolean("featured").default(false),
@@ -49,6 +50,7 @@ export const tourAvailability = pgTable("tour_availability", {
   maxCapacity: integer("max_capacity").notNull().default(10),
   currentBookings: integer("current_bookings").notNull().default(0),
   price: integer("price"), // Prix spécifique pour cette date (optionnel, sinon utilise le prix du tour)
+  childPrice: integer("child_price"), // Prix spécifique pour les enfants (optionnel)
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
@@ -61,6 +63,7 @@ export const reservations = pgTable("reservations", {
   customerEmail: text("customer_email").notNull(),
   customerPhone: text("customer_phone").notNull(),
   numberOfPeople: integer("number_of_people").notNull(),
+  numberOfChildren: integer("number_of_children").default(0), // Nombre d'enfants
   totalAmount: integer("total_amount").notNull(),
   status: reservationStatusEnum("status").notNull().default("pending"),
   stripePaymentIntentId: text("stripe_payment_intent_id"),
