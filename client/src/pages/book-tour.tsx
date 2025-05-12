@@ -51,7 +51,8 @@ const bookingSchema = z.object({
   customerEmail: z.string().email("Email invalide"),
   customerPhone: z.string().min(5, "Numéro de téléphone invalide"),
   numberOfPeople: z.number().min(1, "Minimum 1 personne").max(20, "Maximum 20 personnes"),
-  specialRequests: z.string().optional()
+  specialRequests: z.string().optional(),
+  totalAmount: z.number().optional() // Ce champ sera calculé lors de la soumission
 });
 
 type BookingFormData = z.infer<typeof bookingSchema>;

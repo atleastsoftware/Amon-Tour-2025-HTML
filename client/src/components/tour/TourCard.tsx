@@ -57,16 +57,15 @@ export default function TourCard({ tour }: TourCardProps) {
           </Link>
         </div>
         <div className="flex justify-between items-center">
-          <motion.a 
-            href={tour.tourNinjaUrl} 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="w-full bg-secondary text-white py-2 px-4 rounded text-center block"
-            whileHover={{ scale: 1.03, backgroundColor: "#E67E22" }}
-            whileTap={{ scale: 0.98 }}
-          >
-            Book Now
-          </motion.a>
+          <Link href={`/book-tour/${tour.id}`}>
+            <motion.span 
+              className="w-full bg-secondary text-white py-2 px-4 rounded text-center block cursor-pointer"
+              whileHover={{ scale: 1.03, backgroundColor: "#E67E22" }}
+              whileTap={{ scale: 0.98 }}
+            >
+              Book Now
+            </motion.span>
+          </Link>
         </div>
       </div>
     </motion.div>
