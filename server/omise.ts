@@ -2,15 +2,22 @@ import omise from 'omise';
 import { log } from './vite';
 
 // Vérifier si les clés Omise sont présentes
-if (!process.env.OMISE_SECRET_KEY) {
-  throw new Error('OMISE_SECRET_KEY est requis dans les variables d\'environnement');
-}
+const hasOmiseKeys = process.env.OMISE_SECRET_KEY && process.env.OMISE_PUBLIC_KEY;
 
-// Initialiser Omise avec la clé secrète
-const omiseClient = omise({
-  secretKey: process.env.OMISE_SECRET_KEY,
-  publicKey: process.env.OMISE_PUBLIC_KEY
-});
+// Initialiser Omise avec la clé secrète si disponible
+const omiseClient = hasOmiseKeys 
+  ? omise({
+      secretKey: process.env.OMISE_SECRET_KEY as string,
+      publicKey: process.env.OMISE_PUBLIC_KEY as string
+    })
+  : null;
+
+// Logger l'état d'Omise
+if (hasOmiseKeys) {
+  log('Omise initialisé avec succès');
+} else {
+  log('Omise non initialisé (clés manquantes)');
+}
 
 export interface CreateChargeParams {
   amount: number; // Montant en centimes (ex: 1000 pour 10.00 THB)
@@ -34,6 +41,10 @@ export async function createChargeWithCommission({
   description = '',
   metadata = {}
 }: CreateChargeParams) {
+  if (!omiseClient) {
+    throw new Error('Les clés Omise ne sont pas configurées. Veuillez configurer OMISE_SECRET_KEY et OMISE_PUBLIC_KEY.');
+  }
+
   try {
     // Calcul du montant principal et de la commission (5%)
     const baseAmount = amount;
@@ -94,6 +105,10 @@ export async function createChargeWithCommission({
  * Vérifie le statut d'une charge Omise
  */
 export async function checkChargeStatus(chargeId: string) {
+  if (!omiseClient) {
+    throw new Error('Les clés Omise ne sont pas configurées. Veuillez configurer OMISE_SECRET_KEY et OMISE_PUBLIC_KEY.');
+  }
+
   try {
     const charge = await omiseClient.charges.retrieve(chargeId);
     return {
@@ -112,6 +127,10 @@ export async function checkChargeStatus(chargeId: string) {
  * Crée un client Omise ou récupère un client existant
  */
 export async function createOrRetrieveCustomer(name: string, email: string, cardToken?: string) {
+  if (!omiseClient) {
+    throw new Error('Les clés Omise ne sont pas configurées. Veuillez configurer OMISE_SECRET_KEY et OMISE_PUBLIC_KEY.');
+  }
+
   try {
     // Rechercher un client existant par email
     const existingCustomers = await omiseClient.customers.list();
@@ -146,6 +165,10 @@ export async function createOrRetrieveCustomer(name: string, email: string, card
  * Annule une charge Omise
  */
 export async function cancelCharge(chargeId: string) {
+  if (!omiseClient) {
+    throw new Error('Les clés Omise ne sont pas configurées. Veuillez configurer OMISE_SECRET_KEY et OMISE_PUBLIC_KEY.');
+  }
+
   try {
     const charge = await omiseClient.charges.retrieve(chargeId);
     

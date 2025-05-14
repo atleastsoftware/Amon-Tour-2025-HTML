@@ -61,6 +61,7 @@ export interface IStorage {
   updateReservation(id: number, data: Partial<Reservation>): Promise<Reservation | undefined>;
   updateReservationStatus(id: number, status: 'pending' | 'confirmed' | 'cancelled' | 'completed'): Promise<Reservation | undefined>;
   updateReservationPayment(id: number, paymentIntentId: string, customerId: string): Promise<Reservation | undefined>;
+  updateReservationWithOmise(id: number, chargeId: string): Promise<Reservation | undefined>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -304,6 +305,13 @@ export class DatabaseStorage implements IStorage {
     return this.updateReservation(id, { 
       stripePaymentIntentId: paymentIntentId, 
       stripeCustomerId: customerId,
+      status: 'confirmed'
+    });
+  }
+  
+  async updateReservationWithOmise(id: number, chargeId: string): Promise<Reservation | undefined> {
+    return this.updateReservation(id, { 
+      omiseChargeId: chargeId, 
       status: 'confirmed'
     });
   }

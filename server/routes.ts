@@ -396,6 +396,65 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Route pour les paiements avec Omise (avec commission de 5%)
+  app.post("/api/payments/omise/charge", async (req, res) => {
+    try {
+      const { cardToken, amount, customerName, customerEmail, tourId, availabilityId } = req.body;
+      
+      if (!cardToken || !amount || !customerName || !customerEmail) {
+        return res.status(400).json({ message: "Informations de paiement incomplètes" });
+      }
+      
+      // Créer la charge avec commission de 5%
+      const charge = await createChargeWithCommission({
+        amount: parseInt(amount),
+        cardToken,
+        customerName,
+        customerEmail,
+        description: `Réservation de tour${tourId ? ` #${tourId}` : ''}`,
+        metadata: {
+          tourId: tourId?.toString() || '',
+          availabilityId: availabilityId?.toString() || '',
+        }
+      });
+      
+      // Si une réservation existe, mettre à jour son statut
+      if (tourId && availabilityId) {
+        try {
+          // Rechercher la réservation correspondante
+          const reservations = await storage.getTourReservations(parseInt(tourId));
+          const reservation = reservations.find(r => 
+            r.availabilityId === parseInt(availabilityId) && 
+            r.customerEmail === customerEmail
+          );
+          
+          if (reservation) {
+            // Mettre à jour la réservation avec l'ID de charge Omise
+            await storage.updateReservationWithOmise(reservation.id, charge.id);
+          }
+        } catch (err) {
+          console.error("Erreur lors de la mise à jour de la réservation:", err);
+          // On continue même en cas d'erreur car le paiement a déjà été effectué
+        }
+      }
+      
+      res.status(200).json({
+        id: charge.id,
+        status: charge.status,
+        amount: charge.amount,
+        baseAmount: charge.baseAmount,
+        commissionAmount: charge.commissionAmount,
+        paid: charge.paid
+      });
+    } catch (error: any) {
+      console.error("Erreur lors du paiement Omise:", error);
+      res.status(400).json({ 
+        message: "Erreur lors du traitement du paiement", 
+        error: error.message 
+      });
+    }
+  });
+
   app.get("/api/reservations", requireAuth, async (req, res) => {
     try {
       const reservations = await storage.getReservations();
