@@ -302,7 +302,16 @@ const BookingSummary = ({
   
   const adultTotal = adultPrice * numberOfPeople;
   const childrenTotal = childPrice * numberOfChildren;
-  const totalPrice = adultTotal + childrenTotal;
+  // Calculer la taxe de 5% par personne
+  const taxPerAdult = Math.round(adultPrice * 0.05);
+  const taxPerChild = Math.round(childPrice * 0.05);
+  const adultTaxTotal = taxPerAdult * (numberOfPeople - numberOfChildren);
+  const childrenTaxTotal = taxPerChild * numberOfChildren;
+  const totalTax = adultTaxTotal + childrenTaxTotal;
+  
+  // Calculer le total avec la taxe
+  const subtotal = adultTotal + childrenTotal;
+  const totalPrice = subtotal + totalTax;
   
   return (
     <Card>
@@ -324,7 +333,7 @@ const BookingSummary = ({
           
           <div className="flex justify-between">
             <span>Nombre d'adultes:</span>
-            <span className="font-semibold">{numberOfPeople}</span>
+            <span className="font-semibold">{numberOfPeople - numberOfChildren}</span>
           </div>
           
           {numberOfChildren > 0 && (
@@ -363,6 +372,23 @@ const BookingSummary = ({
               </div>
             </>
           )}
+          
+          <div className="flex justify-between text-sm">
+            <span>Sous-total:</span>
+            <span>{formatTHB(subtotal)}</span>
+          </div>
+          
+          <div className="flex justify-between text-sm">
+            <span className="flex items-center">
+              <span>Taxe (5% par personne):</span>
+              <span className="text-xs text-gray-500 ml-1 italic">
+                {`(${formatTHB(taxPerAdult)} × ${numberOfPeople - numberOfChildren}${
+                  numberOfChildren > 0 ? ` + ${formatTHB(taxPerChild)} × ${numberOfChildren}` : ''
+                })`}
+              </span>
+            </span>
+            <span>{formatTHB(totalTax)}</span>
+          </div>
           
           <div className="border-t pt-4 flex justify-between">
             <span className="font-bold">Total:</span>
@@ -528,10 +554,21 @@ export default function BookTour() {
     const adultPrice = selectedAvailability?.price || tour?.price || 0;
     const childPrice = selectedAvailability?.childPrice || tour?.childPrice || Math.round(adultPrice * 0.75);
     
-    // Calcul du montant total
-    const adultTotal = adultPrice * data.numberOfPeople;
+    // Calcul du montant de base
+    const numAdults = data.numberOfPeople - (data.numberOfChildren || 0);
+    const adultTotal = adultPrice * numAdults;
     const childrenTotal = childPrice * (data.numberOfChildren || 0);
-    const totalAmount = adultTotal + childrenTotal;
+    const subtotal = adultTotal + childrenTotal;
+    
+    // Calculer la taxe de 5% par personne
+    const taxPerAdult = Math.round(adultPrice * 0.05);
+    const taxPerChild = Math.round(childPrice * 0.05);
+    const adultTaxTotal = taxPerAdult * numAdults;
+    const childrenTaxTotal = taxPerChild * (data.numberOfChildren || 0);
+    const totalTax = adultTaxTotal + childrenTaxTotal;
+    
+    // Montant total avec taxe
+    const totalAmount = subtotal + totalTax;
     
     createReservation.mutate({
       ...data,
