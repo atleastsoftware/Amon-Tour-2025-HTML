@@ -114,7 +114,7 @@ export async function checkChargeStatus(chargeId: string) {
 export async function createOrRetrieveCustomer(name: string, email: string, cardToken?: string) {
   try {
     // Rechercher un client existant par email
-    const existingCustomers = await omiseClient.customers.list({ email });
+    const existingCustomers = await omiseClient.customers.list();
     
     if (existingCustomers.data && existingCustomers.data.length > 0) {
       const customer = existingCustomers.data[0];
@@ -131,8 +131,8 @@ export async function createOrRetrieveCustomer(name: string, email: string, card
     
     // Créer un nouveau client
     const customer = await omiseClient.customers.create({
-      name,
-      email,
+      description: name,
+      email: email,
       ...(cardToken ? { card: cardToken } : {})
     });
     
@@ -149,10 +149,8 @@ export async function cancelCharge(chargeId: string) {
   try {
     const charge = await omiseClient.charges.retrieve(chargeId);
     
-    if (charge.status === 'pending' || charge.status === 'authorized') {
-      const updatedCharge = await omiseClient.charges.update(chargeId, {
-        reverse: true
-      });
+    if (charge.status === 'pending') {
+      const updatedCharge = await omiseClient.charges.reverse(chargeId);
       return {
         id: updatedCharge.id,
         status: updatedCharge.status,

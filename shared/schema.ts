@@ -68,6 +68,7 @@ export const reservations = pgTable("reservations", {
   status: reservationStatusEnum("status").notNull().default("pending"),
   stripePaymentIntentId: text("stripe_payment_intent_id"),
   stripeCustomerId: text("stripe_customer_id"),
+  omiseChargeId: text("omise_charge_id"),
   specialRequests: text("special_requests"),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
