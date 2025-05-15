@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'wouter';
-import Header from '@/components/layout/Header';
+import { useLocation, Link } from 'wouter';
 import Footer from '@/components/layout/Footer';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Home } from 'lucide-react';
 import { motion } from 'framer-motion';
+import logoAmon from "@assets/Logo Long Blue.png";
 
 export default function BookingIframe() {
   const [, setLocation] = useLocation();
@@ -48,7 +48,7 @@ export default function BookingIframe() {
   return (
     <div className="flex flex-col min-h-screen">
       <header className="bg-white py-3 shadow-sm">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 flex justify-between items-center">
           <Link href="/">
             <img 
               src={logoAmon} 
@@ -56,6 +56,24 @@ export default function BookingIframe() {
               className="h-12 w-auto"
             />
           </Link>
+          <div className="flex gap-2">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={goBack} 
+              className="flex items-center gap-1"
+            >
+              <ArrowLeft size={16} /> Back
+            </Button>
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={() => setLocation('/')} 
+              className="flex items-center gap-1"
+            >
+              <Home size={16} /> Home
+            </Button>
+          </div>
         </div>
       </header>
       
