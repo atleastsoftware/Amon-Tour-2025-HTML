@@ -158,37 +158,37 @@ export default function Stays() {
                       </Button>
                     </a>
                   </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
       </section>
 
       {/* Call to Action */}
       <section className="bg-gray-100 py-16">
-        <div className="container mx-auto px-4">
-          <div className="bg-white rounded-xl p-8 md:p-12 shadow-lg">
-            <div className="flex flex-col md:flex-row items-center justify-between">
-              <div className="mb-6 md:mb-0 md:mr-10">
-                <h3 className="font-heading font-bold text-2xl md:text-3xl mb-4">Need a Custom Accommodation?</h3>
-                <p className="text-gray-600">
-                  We can help you find the perfect accommodation for your stay in Thailand. Contact us for a personalized proposal.
-                </p>
+          <div className="container mx-auto px-4">
+            <div className="bg-white rounded-xl p-8 md:p-12 shadow-lg">
+              <div className="flex flex-col md:flex-row items-center justify-between">
+                <div className="mb-6 md:mb-0 md:mr-10">
+                  <h3 className="font-heading font-bold text-2xl md:text-3xl mb-4">Need a Custom Accommodation?</h3>
+                  <p className="text-gray-600">
+                    We can help you find the perfect accommodation for your stay in Thailand. Contact us for a personalized proposal.
+                  </p>
+                </div>
+                <Link href="/custom-tour">
+                  <motion.div 
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Button size="lg" className="whitespace-nowrap">
+                      Contact Us
+                    </Button>
+                  </motion.div>
+                </Link>
               </div>
-              <Link href="/custom-tour">
-                <motion.div 
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Button size="lg" className="whitespace-nowrap">
-                    Contact Us
-                  </Button>
-                </motion.div>
-              </Link>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
       </div>
       <Footer />
     </>
