@@ -8,11 +8,8 @@ import TourDetails from "@/pages/tour-details";
 import CustomTour from "@/pages/custom-tour";
 import BookTour from "@/pages/book-tour";
 import PaymentComplete from "@/pages/payment-complete";
-import Login from "@/pages/admin/login";
-import Dashboard from "@/pages/admin/dashboard";
-import TourForm from "@/pages/admin/tour-form";
-import AvailabilityManager from "@/pages/admin/availability-manager";
-import ReservationsManager from "@/pages/admin/reservations-manager";
+import AdminLogin from "@/pages/admin-login";
+import Admin from "@/pages/admin";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
 
 function Router() {
@@ -28,11 +25,8 @@ function Router() {
       <Route path="/payment-complete" component={PaymentComplete} />
       
       {/* Admin Pages */}
-      <Route path="/admin/login" component={Login} />
-      <Route path="/admin/dashboard" component={Dashboard} />
-      <Route path="/admin/tour-form" component={TourForm} />
-      <Route path="/admin/availability-manager" component={AvailabilityManager} />
-      <Route path="/admin/reservations-manager" component={ReservationsManager} />
+      <Route path="/admin-login" component={AdminLogin} />
+      <Route path="/admin" component={Admin} />
       
       {/* Fallback to 404 */}
       <Route component={NotFound} />
