@@ -29,24 +29,23 @@ export default function Footer() {
                   className="text-white font-heading font-bold text-2xl"
                   whileHover={{ y: -2 }}
                 >
-                  Company
+                  Amon
                 </motion.span>
                 <motion.span 
                   className="text-secondary font-accent text-2xl ml-1"
                   whileHover={{ y: -2 }}
                   transition={{ delay: 0.05 }}
                 >
-                  Name
-                </motion.span>
-                <motion.span 
-                  className="text-white font-heading font-bold text-2xl ml-1"
-                  whileHover={{ y: -2 }}
-                  transition={{ delay: 0.1 }}
-                >
-                  Here
+                  Tour
                 </motion.span>
               </motion.div>
-              <p className="mb-4">Your company description goes here. Add a brief overview of your services and unique selling points.</p>
+              <p className="mb-4 font-semibold">Agence de voyage réceptive francophone</p>
+              <p className="mb-4">
+                Amon Tour est une marque de:<br />
+                Flame BB Co., Ltd.<br />
+                242 Moo1 Tombol Ao Nang<br />
+                81180 Krabi, Thaïlande
+              </p>
               <div className="flex flex-wrap gap-3">
                 <motion.a 
                   href="#" 
@@ -106,7 +105,7 @@ export default function Footer() {
                   whileHover={{ x: 3 }}
                 >
                   <MapPin className="mr-2 mt-1 text-secondary flex-shrink-0" size={18} />
-                  <span>Your Address, City, Country</span>
+                  <span>242 Moo1 Tombol Ao Nang<br/>81180 Krabi, Thaïlande</span>
                 </motion.li>
                 <motion.li 
                   className="flex items-center"
@@ -114,10 +113,24 @@ export default function Footer() {
                 >
                   <Phone className="mr-2 text-secondary flex-shrink-0" size={18} />
                   <a 
-                    href="tel:#" 
+                    href="tel:+66962166559" 
                     className="hover:text-secondary transition-colors"
                   >
-                    +00 (0)00 000 0000
+                    +66 (0)96 216 6559
+                  </a>
+                </motion.li>
+                <motion.li 
+                  className="flex items-center"
+                  whileHover={{ x: 3 }}
+                >
+                  <i className="fab fa-whatsapp mr-2 text-secondary flex-shrink-0" style={{ fontSize: '18px' }}></i>
+                  <a 
+                    href="https://wa.me/66653496445" 
+                    className="hover:text-secondary transition-colors"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    +66 65 349 6445
                   </a>
                 </motion.li>
                 <motion.li 
@@ -126,22 +139,22 @@ export default function Footer() {
                 >
                   <Mail className="mr-2 text-secondary flex-shrink-0" size={18} />
                   <a 
-                    href="mailto:contact@example.com" 
+                    href="mailto:info@amon-tour.com" 
                     className="hover:text-secondary transition-colors"
                   >
-                    contact@example.com
+                    info@amon-tour.com
                   </a>
                 </motion.li>
                 <motion.li 
                   className="flex items-center"
                   whileHover={{ x: 3 }}
                 >
-                  <Clock className="mr-2 text-secondary flex-shrink-0" size={18} />
-                  <span>Mon-Fri: 9:00 AM - 5:00 PM</span>
+                  <i className="fab fa-line mr-2 text-secondary flex-shrink-0" style={{ fontSize: '18px' }}></i>
+                  <span>Line ID: amontour</span>
                 </motion.li>
                 <motion.li className="mt-2" whileHover={{ x: 3 }}>
                   <span className="bg-secondary/20 text-white px-2 py-1 rounded-full text-xs">
-                    License: #00000
+                    License TAT: 34/01995
                   </span>
                 </motion.li>
               </ul>
@@ -247,7 +260,7 @@ export default function Footer() {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.5 }}
         >
-          <p>&copy; {new Date().getFullYear()} Your Company Name. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Flame BB Co., Ltd. (Amon Tour). All rights reserved.</p>
           <div className="flex space-x-4 mt-4 md:mt-0">
             <motion.a 
               href="#" 
