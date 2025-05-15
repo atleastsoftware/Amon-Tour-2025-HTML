@@ -32,8 +32,19 @@ export default function Hero() {
           <div className="w-full md:w-1/2">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+              animate={{ 
+                opacity: 1, 
+                y: 0,
+                x: [0, 5, 0, -5, 0],
+                transition: {
+                  y: { duration: 0.6 },
+                  x: {
+                    repeat: Infinity,
+                    duration: 5,
+                    ease: "easeInOut"
+                  }
+                }
+              }}
               className="max-w-xl"
             >
               <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight">
@@ -62,8 +73,20 @@ export default function Hero() {
           <div className="w-full md:w-1/2">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              animate={{ 
+                opacity: 1, 
+                scale: 1,
+                y: [0, -8, 0],
+                transition: {
+                  scale: { duration: 0.6, delay: 0.2 },
+                  opacity: { duration: 0.6, delay: 0.2 },
+                  y: {
+                    repeat: Infinity,
+                    duration: 4,
+                    ease: "easeInOut"
+                  }
+                }
+              }}
               className="rounded-lg overflow-hidden"
             >
               <img 
