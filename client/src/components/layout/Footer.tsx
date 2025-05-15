@@ -199,17 +199,7 @@ export default function Footer() {
                     </motion.span>
                   </Link>
                 </StaggerItem>
-                <StaggerItem>
-                  <Link href="/#contact">
-                    <motion.span 
-                      className="hover:text-secondary transition-colors cursor-pointer flex items-center"
-                      whileHover={{ x: 5 }}
-                    >
-                      <i className="fas fa-chevron-right mr-2 text-xs text-secondary"></i>
-                      Contact
-                    </motion.span>
-                  </Link>
-                </StaggerItem>
+
               </StaggerChildren>
             </div>
           </SlideUpWhenVisible>

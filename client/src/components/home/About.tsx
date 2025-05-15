@@ -26,11 +26,16 @@ export default function About() {
               With our private French-speaking tours in Krabi, you'll experience Amon Tour's very special excursions. All these programs have been designed to discover the natural masterpieces of the region from Krabi, far from mass tourism and accompanied by French locals. Eric and Margaux offer private French-speaking tours in Krabi and will join you during these unforgettable days. We have prepared 3 sea excursions (including one that's customizable), 3 land excursions, a sunset kayak tour, and even a surprise tour for those who love adventure! These day tours are the result of our experience and knowledge of these sites that we particularly love.
             </p>
             <div className="flex items-center space-x-4">
-              <Link href="/#contact">
-                <span className="bg-primary text-white px-6 py-2 rounded font-heading font-semibold hover:bg-primary-dark transition-colors cursor-pointer">
+              <a 
+                href="https://wa.me/66653496445" 
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="bg-primary text-white px-6 py-2 rounded font-heading font-semibold hover:bg-primary-dark transition-colors cursor-pointer flex items-center">
+                  <i className="fab fa-whatsapp mr-2"></i>
                   Contact Us
                 </span>
-              </Link>
+              </a>
               <Link href="/custom-tour">
                 <span className="text-primary font-heading font-semibold hover:text-primary-dark transition-colors cursor-pointer">
                   Create Your Journey →

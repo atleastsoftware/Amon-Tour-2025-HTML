@@ -13,7 +13,6 @@ import About from "@/components/home/About";
 import Testimonials from "@/components/home/Testimonials";
 import CustomTourForm from "@/components/home/CustomTourForm";
 import CallToAction from "@/components/home/CallToAction";
-import Contact from "@/components/home/Contact";
 import TourCard from "@/components/tour/TourCard";
 import { Link } from "wouter";
 
@@ -285,8 +284,6 @@ export default function Home() {
         <CustomTourForm />
         
         <CallToAction />
-        
-        <Contact />
       </main>
       
       <Footer />
