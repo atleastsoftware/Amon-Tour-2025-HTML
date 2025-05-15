@@ -84,13 +84,13 @@ export default function Hero() {
         <StaggerChildren className="flex flex-col items-center">
           <StaggerItem>
             <h1 className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl mb-4 max-w-3xl">
-              Discover Authentic Thailand with Senthang Siam Tour
+              Discover Amazing Destinations with Our Tours
             </h1>
           </StaggerItem>
           
           <StaggerItem>
             <p className="text-lg md:text-xl max-w-2xl mb-8">
-              Personalized journeys, private tours, and authentic experiences in the heart of the Kingdom of Siam.
+              Personalized journeys, private tours, and authentic experiences in the heart of your dream destination.
             </p>
           </StaggerItem>
           

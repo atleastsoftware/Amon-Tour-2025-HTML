@@ -5,7 +5,7 @@ export default function Testimonials() {
         <div className="text-center mb-12">
           <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">What Our Travelers Say</h2>
           <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
-          <p className="max-w-2xl mx-auto">Discover the experiences of our customers during their journeys with Senthang Siam Tour.</p>
+          <p className="max-w-2xl mx-auto">Discover the experiences of our customers during their journeys with our travel company.</p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -18,7 +18,7 @@ export default function Testimonials() {
               <i className="fas fa-star text-yellow-400"></i>
               <i className="fas fa-star text-yellow-400"></i>
             </div>
-            <p className="italic text-gray-600 mb-4">"An exceptional journey thanks to Senthang Siam Tour. Our guide was passionate and showed us the real Thailand, far from the usual tourist routes."</p>
+            <p className="italic text-gray-600 mb-4">"An exceptional journey thanks to this tour company. Our guide was passionate and showed us the authentic experience, far from the usual tourist routes."</p>
             <div className="flex items-center">
               <div className="w-12 h-12 rounded-full overflow-hidden mr-4">
                 <img 
@@ -29,7 +29,7 @@ export default function Testimonials() {
               </div>
               <div>
                 <h4 className="font-heading font-semibold">Sophie and Peter</h4>
-                <p className="text-sm text-gray-500">Golden Triangle Tour, May 2023</p>
+                <p className="text-sm text-gray-500">Custom Experience Tour, May 2023</p>
               </div>
             </div>
           </div>
@@ -79,7 +79,7 @@ export default function Testimonials() {
               </div>
               <div>
                 <h4 className="font-heading font-semibold">Mark and Julie</h4>
-                <p className="text-sm text-gray-500">Bangkok and Islands, December 2022</p>
+                <p className="text-sm text-gray-500">City and Beach Tour, December 2022</p>
               </div>
             </div>
           </div>
