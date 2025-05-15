@@ -69,7 +69,7 @@ export default function Stays() {
   return (
     <>
       <Header />
-      <div className="min-h-screen bg-gray-50 pt-16">
+      <div className="min-h-screen bg-white pt-16">
         {/* Hero Section */}
         <section className="bg-white text-gray-900 py-16 md:py-24">
           <div className="container mx-auto px-4">
