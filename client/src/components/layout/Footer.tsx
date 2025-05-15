@@ -15,199 +15,187 @@ export default function Footer() {
   return (
     <footer className="bg-black text-white pt-12 pb-6">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-          {/* Company Info */}
-          <SlideUpWhenVisible>
-            <div>
-              <motion.div 
-                className="mb-4"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
-                whileHover={{ scale: 1.05 }}
+        {/* Logo Area */}
+        <div className="flex justify-center mb-10">
+          <motion.div 
+            className="mb-4"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            whileHover={{ scale: 1.05 }}
+          >
+            <img 
+              src={logoA} 
+              alt="Amon Tour Logo" 
+              className="h-16 w-auto"
+            />
+          </motion.div>
+        </div>
+        
+        {/* Main Footer Content */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-10">
+          {/* Contact Column */}
+          <div>
+            <h4 className="font-heading font-bold text-xl mb-6 text-center">Contact</h4>
+            <ul className="space-y-4">
+              <motion.li 
+                className="flex items-center justify-center"
+                whileHover={{ y: -2 }}
               >
-                <img 
-                  src={logoA} 
-                  alt="Amon Tour Logo" 
-                  className="h-16 w-auto"
-                />
-              </motion.div>
-              <p className="mb-4 font-semibold">French and English speaking travel agency in Thailand</p>
-              <p className="mb-4">
+                <a 
+                  href="tel:+66612534584" 
+                  className="font-heading hover:text-secondary transition-colors"
+                >
+                  T: +66 61 253 4584
+                </a>
+              </motion.li>
+              <motion.li 
+                className="flex items-center justify-center"
+                whileHover={{ y: -2 }}
+              >
+                <a 
+                  href="mailto:amontour@gmail.com" 
+                  className="font-heading hover:text-secondary transition-colors"
+                >
+                  E: amontour@gmail.com
+                </a>
+              </motion.li>
+              <motion.li 
+                className="flex items-center justify-center mt-6"
+              >
+                <div className="flex space-x-4">
+                  <motion.a 
+                    href="#" 
+                    className="text-white hover:text-secondary transition-colors"
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.9 }}
+                    aria-label="Facebook"
+                  >
+                    <i className="fab fa-facebook-f"></i>
+                  </motion.a>
+                  <motion.a 
+                    href="#" 
+                    className="text-white hover:text-secondary transition-colors"
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.9 }}
+                    aria-label="Twitter"
+                  >
+                    <i className="fab fa-twitter"></i>
+                  </motion.a>
+                  <motion.a 
+                    href="#" 
+                    className="text-white hover:text-secondary transition-colors"
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.9 }}
+                    aria-label="Pinterest"
+                  >
+                    <i className="fab fa-pinterest-p"></i>
+                  </motion.a>
+                  <motion.a 
+                    href="#" 
+                    className="text-white hover:text-secondary transition-colors"
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.9 }}
+                    aria-label="TikTok"
+                  >
+                    <i className="fab fa-tiktok"></i>
+                  </motion.a>
+                </div>
+              </motion.li>
+            </ul>
+            
+            {/* Hidden Info on Mobile */}
+            <div className="md:hidden mt-6">
+              <p className="text-center mb-4">
                 Amon Tour is a brand of:<br />
                 Flame BB Co., Ltd.<br />
-                242 Moo1 Tombol Ao Nang<br />
+                242 Moo1 Tombol Ao Nang<br/>
                 81180 Krabi, Thailand
               </p>
-              <div className="flex flex-wrap gap-3">
-                <motion.a 
-                  href="#" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-blue-600 hover:bg-blue-700 p-2 rounded-full transition-colors flex items-center justify-center w-10 h-10" 
-                  aria-label="Facebook"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <Facebook size={18} />
-                </motion.a>
-                <motion.a 
-                  href="#" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-gradient-to-br from-purple-600 to-pink-500 p-2 rounded-full transition-colors flex items-center justify-center w-10 h-10" 
-                  aria-label="Instagram"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <Instagram size={18} />
-                </motion.a>
-                <motion.a 
-                  href="#" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-green-600 hover:bg-green-700 p-2 rounded-full transition-colors flex items-center justify-center w-10 h-10" 
-                  aria-label="WhatsApp"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <i className="fab fa-whatsapp"></i>
-                </motion.a>
-                <motion.a 
-                  href="#" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-green-500 hover:bg-green-600 p-2 rounded-full transition-colors flex items-center justify-center w-10 h-10" 
-                  aria-label="Line"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <i className="fab fa-line"></i>
-                </motion.a>
-              </div>
+              <p className="text-center">
+                <span className="bg-secondary/20 text-white px-2 py-1 rounded-full text-xs">
+                  License TAT: 34/01995
+                </span>
+              </p>
             </div>
-          </SlideUpWhenVisible>
+          </div>
           
-          {/* Contact Info */}
-          <SlideUpWhenVisible delay={0.1}>
-            <div>
-              <h4 className="font-heading font-semibold text-lg mb-4">Contact Us</h4>
-              <ul className="space-y-3">
-                <motion.li 
-                  className="flex items-start"
-                  whileHover={{ x: 3 }}
+          {/* Useful Links Column */}
+          <div>
+            <h4 className="font-heading font-bold text-xl mb-6 text-center">Useful Links</h4>
+            <div className="flex flex-col items-center space-y-4">
+              <Link href="/">
+                <motion.span 
+                  className="font-heading hover:text-secondary transition-colors cursor-pointer"
+                  whileHover={{ y: -2 }}
                 >
-                  <MapPin className="mr-2 mt-1 text-secondary flex-shrink-0" size={18} />
-                  <span>242 Moo1 Tombol Ao Nang<br/>81180 Krabi, Thailand</span>
-                </motion.li>
-
-                <motion.li 
-                  className="flex items-center"
-                  whileHover={{ x: 3 }}
+                  Home
+                </motion.span>
+              </Link>
+              <Link href="/tours">
+                <motion.span 
+                  className="font-heading hover:text-secondary transition-colors cursor-pointer"
+                  whileHover={{ y: -2 }}
                 >
-                  <i className="fab fa-whatsapp mr-2 text-secondary flex-shrink-0" style={{ fontSize: '18px' }}></i>
-                  <a 
-                    href="https://wa.me/66653496445" 
-                    className="hover:text-secondary transition-colors"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    +66 65 349 6445
-                  </a>
-                </motion.li>
-                <motion.li 
-                  className="flex items-center"
-                  whileHover={{ x: 3 }}
+                  Our Tours
+                </motion.span>
+              </Link>
+              <Link href="/#about">
+                <motion.span 
+                  className="font-heading hover:text-secondary transition-colors cursor-pointer"
+                  whileHover={{ y: -2 }}
                 >
-                  <Mail className="mr-2 text-secondary flex-shrink-0" size={18} />
-                  <a 
-                    href="mailto:info@amon-tour.com" 
-                    className="hover:text-secondary transition-colors"
-                  >
-                    info@amon-tour.com
-                  </a>
-                </motion.li>
-                <motion.li 
-                  className="flex items-center"
-                  whileHover={{ x: 3 }}
+                  About Us
+                </motion.span>
+              </Link>
+              <Link href="/custom-tour">
+                <motion.span 
+                  className="font-heading hover:text-secondary transition-colors cursor-pointer"
+                  whileHover={{ y: -2 }}
                 >
-                  <i className="fab fa-line mr-2 text-secondary flex-shrink-0" style={{ fontSize: '18px' }}></i>
-                  <span>Line ID: amontour</span>
-                </motion.li>
-                <motion.li className="mt-2" whileHover={{ x: 3 }}>
-                  <span className="bg-secondary/20 text-white px-2 py-1 rounded-full text-xs">
-                    License TAT: 34/01995
-                  </span>
-                </motion.li>
-              </ul>
+                  Custom Tour
+                </motion.span>
+              </Link>
+              <motion.a 
+                href="https://wa.me/66653496445" 
+                className="hover:text-secondary transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ y: -2 }}
+              >
+                WhatsApp
+              </motion.a>
+              <motion.span
+                className="hover:text-secondary transition-colors cursor-pointer"
+                whileHover={{ y: -2 }}
+              >
+                What they say about us
+              </motion.span>
             </div>
-          </SlideUpWhenVisible>
+          </div>
           
-          {/* Quick Links */}
-          <SlideUpWhenVisible delay={0.2}>
-            <div>
-              <h4 className="font-heading font-semibold text-lg mb-4">Quick Links</h4>
-              <StaggerChildren className="space-y-2">
-                <StaggerItem>
-                  <Link href="/">
-                    <motion.span 
-                      className="hover:text-secondary transition-colors cursor-pointer flex items-center"
-                      whileHover={{ x: 5 }}
-                    >
-                      <i className="fas fa-chevron-right mr-2 text-xs text-secondary"></i>
-                      Home
-                    </motion.span>
-                  </Link>
-                </StaggerItem>
-                <StaggerItem>
-                  <Link href="/tours">
-                    <motion.span 
-                      className="hover:text-secondary transition-colors cursor-pointer flex items-center"
-                      whileHover={{ x: 5 }}
-                    >
-                      <i className="fas fa-chevron-right mr-2 text-xs text-secondary"></i>
-                      Our Tours
-                    </motion.span>
-                  </Link>
-                </StaggerItem>
-                <StaggerItem>
-                  <Link href="/#about">
-                    <motion.span 
-                      className="hover:text-secondary transition-colors cursor-pointer flex items-center"
-                      whileHover={{ x: 5 }}
-                    >
-                      <i className="fas fa-chevron-right mr-2 text-xs text-secondary"></i>
-                      About Us
-                    </motion.span>
-                  </Link>
-                </StaggerItem>
-                <StaggerItem>
-                  <Link href="/custom-tour">
-                    <motion.span 
-                      className="hover:text-secondary transition-colors cursor-pointer flex items-center"
-                      whileHover={{ x: 5 }}
-                    >
-                      <i className="fas fa-chevron-right mr-2 text-xs text-secondary"></i>
-                      Custom Tour
-                    </motion.span>
-                  </Link>
-                </StaggerItem>
-
-              </StaggerChildren>
+          {/* Payment Column */}
+          <div>
+            <h4 className="font-heading font-bold text-xl mb-6 text-center">Pay Safely With Us</h4>
+            <p className="text-center mb-6">
+              The payment is encrypted and transmitted securely with an SSL protocol.
+            </p>
+            <div className="flex justify-center space-x-3">
+              <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/mastercard.png" alt="mastercard" className="h-8" />
+              <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/visa.png" alt="visa" className="h-8" />
+              <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/mastercard.png" alt="mastercard" className="h-8" />
+              <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/american_express.png" alt="american express" className="h-8" />
             </div>
-          </SlideUpWhenVisible>
-          
-          {/* Newsletter */}
-          <SlideUpWhenVisible delay={0.3}>
-            <div>
-              <h4 className="font-heading font-semibold text-lg mb-4">Newsletter</h4>
-              <p className="mb-4">Subscribe to receive our special offers and travel tips.</p>
+            
+            {/* Newsletter on desktop */}
+            <div className="hidden md:block mt-8">
+              <h5 className="font-heading font-semibold text-lg mb-4 text-center">Newsletter</h5>
               <form className="mb-4" onSubmit={(e) => e.preventDefault()}>
-                <div className="flex">
+                <div className="flex justify-center">
                   <input 
                     type="email" 
                     placeholder="Your email" 
-                    className="px-4 py-2 rounded-l-md w-full text-gray-800 focus:outline-none"
+                    className="px-4 py-2 rounded-l-md w-full max-w-xs text-gray-800 focus:outline-none"
                   />
                   <motion.button 
                     type="submit" 
@@ -220,11 +208,11 @@ export default function Footer() {
                   </motion.button>
                 </div>
               </form>
-              <p className="text-sm">We respect your privacy. Unsubscribe at any time.</p>
             </div>
-          </SlideUpWhenVisible>
+          </div>
         </div>
         
+        {/* Copyright */}
         <motion.div 
           className="border-t border-white/20 pt-6 flex flex-col md:flex-row justify-between items-center"
           initial={{ opacity: 0 }}
