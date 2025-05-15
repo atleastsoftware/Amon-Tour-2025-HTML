@@ -107,18 +107,7 @@ export default function Footer() {
                   <MapPin className="mr-2 mt-1 text-secondary flex-shrink-0" size={18} />
                   <span>242 Moo1 Tombol Ao Nang<br/>81180 Krabi, Thaïlande</span>
                 </motion.li>
-                <motion.li 
-                  className="flex items-center"
-                  whileHover={{ x: 3 }}
-                >
-                  <Phone className="mr-2 text-secondary flex-shrink-0" size={18} />
-                  <a 
-                    href="tel:+66962166559" 
-                    className="hover:text-secondary transition-colors"
-                  >
-                    +66 (0)96 216 6559
-                  </a>
-                </motion.li>
+
                 <motion.li 
                   className="flex items-center"
                   whileHover={{ x: 3 }}
