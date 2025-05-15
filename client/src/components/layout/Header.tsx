@@ -63,7 +63,7 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-white py-4">
+    <header className="bg-white py-6">
       {/* Main Navigation */}
       <nav className="container mx-auto px-4 flex justify-between items-center">
         {/* Logo */}
@@ -78,7 +78,7 @@ export default function Header() {
             <img 
               src={logoAmon} 
               alt="Amon Logo" 
-              className="h-14 w-auto"
+              className="h-24 w-auto"
             />
           </motion.div>
         </Link>
