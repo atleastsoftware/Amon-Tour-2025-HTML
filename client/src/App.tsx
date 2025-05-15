@@ -3,6 +3,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import Tours from "@/pages/tours";
+import Stays from "@/pages/stays";
 import TourDetails from "@/pages/tour-details";
 import CustomTour from "@/pages/custom-tour";
 import BookTour from "@/pages/book-tour";
@@ -20,6 +21,7 @@ function Router() {
       {/* Public Pages */}
       <Route path="/" component={Home} />
       <Route path="/tours" component={Tours} />
+      <Route path="/stays" component={Stays} />
       <Route path="/tours/:id" component={TourDetails} />
       <Route path="/custom-tour" component={CustomTour} />
       <Route path="/book-tour/:id" component={BookTour} />
