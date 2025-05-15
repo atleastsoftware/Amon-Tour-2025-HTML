@@ -24,99 +24,57 @@ const carouselImages = [
 ];
 
 export default function Hero() {
-  const [currentImage, setCurrentImage] = useState(0);
-  
-  // Fonction pour passer à l'image suivante
-  const nextImage = () => {
-    setCurrentImage((prev) => (prev + 1) % carouselImages.length);
-  };
-  
-  // Changer d'image automatiquement toutes les 5 secondes
-  useEffect(() => {
-    const timer = setInterval(() => {
-      nextImage();
-    }, 5000);
-    
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
-  
   return (
-    <section id="hero" className="relative h-[70vh]">
-      <motion.div 
-        className="absolute inset-0 bg-black/40 z-10"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-      ></motion.div>
-      
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <AnimatePresence mode="wait">
-          <motion.img 
-            key={currentImage}
-            src={carouselImages[currentImage].src}
-            alt={carouselImages[currentImage].alt}
-            className="w-full h-full object-cover"
-            initial={{ opacity: 0, scale: 1.1 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1 }}
-          />
-        </AnimatePresence>
-        
-        {/* Indicateurs de carrousel */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex space-x-2">
-          {carouselImages.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentImage(index)}
-              className={`w-3 h-3 rounded-full ${
-                index === currentImage ? 'bg-white' : 'bg-white/50'
-              } transition-all duration-300`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div>
-      </div>
-      
-      <div className="container mx-auto px-4 relative z-20 h-full flex flex-col justify-center items-center text-center text-white">
-        <StaggerChildren className="flex flex-col items-center">
-          <StaggerItem>
-            <h1 className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl mb-4 max-w-3xl">
-              Discover Amazing Destinations with Our Tours
-            </h1>
-          </StaggerItem>
-          
-          <StaggerItem>
-            <p className="text-lg md:text-xl max-w-2xl mb-8">
-              Personalized journeys, private tours, and authentic experiences in the heart of your dream destination.
-            </p>
-          </StaggerItem>
-          
-          <StaggerItem>
-            <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+    <section id="hero" className="mt-8 mb-20">
+      <div className="container mx-auto px-4">
+        <div className="flex flex-col md:flex-row items-center gap-10">
+          {/* Left content - Title and description */}
+          <div className="w-full md:w-1/2">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="max-w-xl"
+            >
+              <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight">
+                Your exclusive experiences <br/>
+                <span className="text-primary">in</span>COUNTRY
+              </h1>
+              
+              <p className="text-gray-600 mb-8 text-lg">
+                Discover amazing places away from mass tourism.
+                Explore hidden gems and experience authentic local culture.
+              </p>
+              
               <Link href="/tours">
                 <motion.span 
-                  className="bg-primary px-8 py-3 rounded-lg font-heading font-semibold hover:bg-primary-dark transition-colors cursor-pointer"
+                  className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Explore Our Tours
+                  Learn More
                 </motion.span>
               </Link>
-              <Link href="/custom-tour">
-                <motion.span 
-                  className="bg-secondary px-8 py-3 rounded-lg font-heading font-semibold hover:bg-secondary-dark transition-colors cursor-pointer"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  Custom Tour
-                </motion.span>
-              </Link>
-            </div>
-          </StaggerItem>
-        </StaggerChildren>
+            </motion.div>
+          </div>
+          
+          {/* Right content - Image */}
+          <div className="w-full md:w-1/2">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="rounded-lg overflow-hidden"
+            >
+              <img 
+                src={carouselImages[0].src}
+                alt="Destination highlight"
+                className="w-full h-auto object-cover rounded-lg"
+                style={{ maxHeight: "400px" }}
+              />
+            </motion.div>
+          </div>
+        </div>
       </div>
     </section>
   );

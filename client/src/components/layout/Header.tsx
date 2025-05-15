@@ -63,26 +63,22 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-white shadow-md">
+    <header className="bg-white py-4">
       {/* Main Navigation */}
-      <nav className="container mx-auto px-4 py-3 flex justify-between items-center">
+      <nav className="container mx-auto px-4 flex justify-between items-center">
         {/* Logo */}
         <Link href="/">
           <motion.div
             className="flex items-center cursor-pointer"
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            whileHover={{ scale: 1.03 }}
+            whileHover={{ scale: 1.05 }}
           >
             <img 
               src={logoTemplate} 
               alt="Company Logo" 
-              className="h-7 w-auto"
-              style={{ 
-                marginTop: '1px',
-                marginBottom: '1px'
-              }}
+              className="h-10 w-auto"
             />
           </motion.div>
         </Link>
@@ -122,33 +118,29 @@ export default function Header() {
         
         {/* Desktop Navigation */}
         <motion.div 
-          className="hidden md:flex space-x-8 items-center"
+          className="hidden md:flex space-x-10 items-center"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          style={{ height: '40px' }}
         >
           <NavLink href="/" isActive={location === '/'}>
-            Home
+            Stay
           </NavLink>
           <NavLink href="/tours" isActive={location === '/tours'}>
-            Our Tours
-          </NavLink>
-          <NavLink href="/#about" isActive={false}>
-            About Us
+            Tours
           </NavLink>
           <NavLink href="/custom-tour" isActive={location === '/custom-tour'}>
-            Custom Tour
+            Accommodation
           </NavLink>
-          <NavLink href="/#contact" isActive={false}>
-            Contact
+          <NavLink href="/account" isActive={location === '/account'}>
+            My Account
           </NavLink>
-
+          
           {isAuthenticated ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Button variant="outline" className="bg-primary text-white hover:bg-primary-dark">
+                  <Button variant="outline" className="border-gray-300 hover:bg-gray-50">
                     Admin
                   </Button>
                 </motion.div>
@@ -177,11 +169,11 @@ export default function Header() {
           ) : (
             <Link href="/admin/login">
               <motion.span 
-                className="bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark transition-colors cursor-pointer"
+                className="text-gray-700 px-4 py-2 rounded border border-gray-300 hover:bg-gray-50 transition-colors cursor-pointer"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Admin
+                Cart
               </motion.span>
             </Link>
           )}
@@ -199,66 +191,34 @@ export default function Header() {
             transition={{ duration: 0.3, ease: "easeInOut" }}
           >
             <motion.div 
-              className="flex flex-col space-y-3"
+              className="flex flex-col space-y-5 py-3"
               initial={{ y: -20 }}
               animate={{ y: 0 }}
               transition={{ duration: 0.3, delay: 0.1 }}
             >
               <NavLink href="/" isActive={location === '/'} onClick={closeMobileMenu}>
-                Home
+                Stay
               </NavLink>
               <NavLink href="/tours" isActive={location === '/tours'} onClick={closeMobileMenu}>
-                Our Tours
-              </NavLink>
-              <NavLink href="/#about" isActive={false} onClick={closeMobileMenu}>
-                About Us
+                Tours
               </NavLink>
               <NavLink href="/custom-tour" isActive={location === '/custom-tour'} onClick={closeMobileMenu}>
-                Custom Tour
+                Accommodation
               </NavLink>
-              <NavLink href="/#contact" isActive={false} onClick={closeMobileMenu}>
-                Contact
+              <NavLink href="/account" isActive={location === '/account'} onClick={closeMobileMenu}>
+                My Account
               </NavLink>
               
-              {isAuthenticated ? (
-                <>
-                  <Link href="/admin/dashboard">
-                    <motion.span 
-                      className="font-heading font-semibold text-neutral-700 hover:text-primary transition-colors py-2 cursor-pointer" 
-                      onClick={closeMobileMenu}
-                      whileHover={{ x: 5 }}
-                    >
-                      Dashboard
-                    </motion.span>
-                  </Link>
-                  <motion.div
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.97 }}
-                  >
-                    <Button 
-                      variant="default" 
-                      className="bg-primary text-white hover:bg-primary-dark mt-2 w-full"
-                      onClick={() => {
-                        handleLogout();
-                        closeMobileMenu();
-                      }}
-                    >
-                      Logout
-                    </Button>
-                  </motion.div>
-                </>
-              ) : (
-                <Link href="/admin/login">
-                  <motion.span 
-                    className="bg-primary text-white px-4 py-2 rounded text-center hover:bg-primary-dark transition-colors cursor-pointer block" 
-                    onClick={closeMobileMenu}
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.97 }}
-                  >
-                    Admin
-                  </motion.span>
-                </Link>
-              )}
+              <Link href="/cart">
+                <motion.span 
+                  className="text-gray-700 px-4 py-2 rounded border border-gray-300 text-center hover:bg-gray-50 transition-colors cursor-pointer block" 
+                  onClick={closeMobileMenu}
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                >
+                  Cart
+                </motion.span>
+              </Link>
             </motion.div>
           </motion.div>
         )}
