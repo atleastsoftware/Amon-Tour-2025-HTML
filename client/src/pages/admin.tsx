@@ -51,8 +51,24 @@ export default function AdminPage() {
         </div>
         
         <Card className="mb-8">
-          <CardHeader>
+          <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle>Tours</CardTitle>
+            <div className="flex gap-2">
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => setLocation('/tour-card-builder')}
+              >
+                Générateur de fiches
+              </Button>
+              <Button 
+                variant="default" 
+                size="sm"
+                onClick={() => window.alert('Bientôt disponible!')}
+              >
+                + Créer un tour
+              </Button>
+            </div>
           </CardHeader>
           <CardContent>
             {toursLoading ? (
@@ -94,8 +110,13 @@ export default function AdminPage() {
           </CardContent>
         </Card>
         
-        <div className="text-center text-gray-500 text-sm">
-          Pour les opérations avancées (création, modification, suppression), contactez le développeur.
+        <div className="space-y-1">
+          <div className="text-center text-gray-500 text-sm">
+            Utilisez le "Générateur de fiches" pour créer rapidement des fiches de tour avec images, descriptions et liens personnalisés.
+          </div>
+          <div className="text-center text-gray-500 text-sm">
+            Pour les autres opérations avancées (modification, suppression complète), contactez le développeur.
+          </div>
         </div>
       </div>
       
