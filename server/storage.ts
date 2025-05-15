@@ -320,9 +320,17 @@ export class DatabaseStorage implements IStorage {
 
   // TourCard operations
   async createTourCard(tourCardData: InsertTourCard): Promise<TourCard> {
+    // Create an array of the values to insert
     const [tourCard] = await db
       .insert(tourCards)
-      .values(tourCardData)
+      .values({
+        title: tourCardData.title,
+        description: tourCardData.description,
+        price: tourCardData.price,
+        currency: tourCardData.currency,
+        customLink: tourCardData.customLink,
+        images: tourCardData.images,
+      })
       .returning();
     return tourCard;
   }
@@ -343,9 +351,19 @@ export class DatabaseStorage implements IStorage {
   }
 
   async updateTourCard(id: string, data: Partial<InsertTourCard>): Promise<TourCard | undefined> {
+    // Create a clean update object with only valid fields
+    const updateData: Record<string, any> = {};
+    
+    if (data.title !== undefined) updateData.title = data.title;
+    if (data.description !== undefined) updateData.description = data.description;
+    if (data.price !== undefined) updateData.price = data.price;
+    if (data.currency !== undefined) updateData.currency = data.currency;
+    if (data.customLink !== undefined) updateData.customLink = data.customLink;
+    if (data.images !== undefined) updateData.images = data.images;
+    
     const [updatedTourCard] = await db
       .update(tourCards)
-      .set(data)
+      .set(updateData)
       .where(eq(tourCards.id, id))
       .returning();
     return updatedTourCard;

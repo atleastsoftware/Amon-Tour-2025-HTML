@@ -132,7 +132,11 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
           }
           
           const uploadData = await uploadResponse.json();
-          imageUrls.push(uploadData.file.url);
+          if (uploadData && uploadData.file && uploadData.file.url) {
+            imageUrls.push(uploadData.file.url);
+          } else {
+            throw new Error("Invalid response from image upload");
+          }
         } catch (uploadError) {
           console.error("Error uploading image:", uploadError);
           toast({
@@ -166,6 +170,11 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
         
         const createdCard = await createResponse.json();
         
+        // Ensure the card has the necessary properties before proceeding
+        if (!createdCard || !createdCard.id) {
+          throw new Error("Invalid response from server when creating tour card");
+        }
+        
         toast({
           title: "Succès",
           description: "Fiche de tour créée avec succès"
@@ -183,8 +192,18 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
         setSelectedFiles([]);
         setPreviewUrls([]);
         
-        // Call success callback
-        onSuccess(createdCard);
+        // Call success callback with properly typed card
+        const typedCard: TourCardData & { id: string } = {
+          id: createdCard.id,
+          title: createdCard.title || "",
+          description: createdCard.description || "",
+          price: typeof createdCard.price === 'number' ? createdCard.price : 0,
+          currency: createdCard.currency || "THB",
+          customLink: createdCard.customLink || "",
+          images: Array.isArray(createdCard.images) ? createdCard.images : []
+        };
+        
+        onSuccess(typedCard);
       } catch (createError) {
         console.error("Error creating tour card:", createError);
         toast({
