@@ -39,7 +39,7 @@ export default function Footer() {
                   Tour
                 </motion.span>
               </motion.div>
-              <p className="mb-4 font-semibold">French-speaking travel agency in Thailand</p>
+              <p className="mb-4 font-semibold">French and English speaking travel agency in Thailand</p>
               <p className="mb-4">
                 Amon Tour is a brand of:<br />
                 Flame BB Co., Ltd.<br />
