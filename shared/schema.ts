@@ -1,4 +1,4 @@
-import { pgTable, text, serial, integer, boolean, timestamp, json, date, pgEnum } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, integer, boolean, timestamp, json, date, pgEnum, uuid } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -38,6 +38,17 @@ export const contactMessages = pgTable("contact_messages", {
   email: text("email").notNull(),
   subject: text("subject").notNull(),
   message: text("message").notNull(),
+
+});
+
+export const tourCards = pgTable("tour_cards", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  title: text("title").notNull(),
+  description: text("description"),
+  price: integer("price").notNull(),
+  currency: text("currency").notNull().default("THB"),
+  customLink: text("custom_link").notNull(),
+  images: json("images").notNull().$type<string[]>(),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
