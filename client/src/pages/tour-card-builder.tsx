@@ -28,21 +28,14 @@ export default function TourCardBuilder() {
   const queryClient = useQueryClient();
   
   // Fetch tour cards
-  const { data: tourCards = [], isLoading: cardsLoading } = useQuery<TourCardData[]>({
-    queryKey: ['/api/tour-cards'],
-    onError: () => {
-      toast({
-        title: "Erreur",
-        description: "Impossible de charger les fiches de tour",
-        variant: "destructive"
-      });
-    }
+  const { data: tourCards = [], isLoading: cardsLoading } = useQuery({
+    queryKey: ['/api/tour-cards']
   });
   
   // Delete tour card mutation
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
-      return apiRequest(`/api/tour-cards/${id}`, {
+      return fetch('/api/tour-cards/' + id, {
         method: 'DELETE'
       });
     },
@@ -83,6 +76,9 @@ export default function TourCardBuilder() {
 
   if (authLoading) return <div className="container mx-auto p-8 text-center">Chargement...</div>;
 
+  // Force TypeScript to treat tourCards as TourCardData[]
+  const safeCards = Array.isArray(tourCards) ? tourCards as TourCardData[] : [];
+  
   return (
     <>
       <Header />
@@ -101,17 +97,17 @@ export default function TourCardBuilder() {
           </div>
           
           <div className="lg:col-span-2">
-            <h2 className="text-xl font-heading font-semibold mb-4">Vos fiches ({tourCards.length})</h2>
+            <h2 className="text-xl font-heading font-semibold mb-4">Vos fiches ({safeCards.length})</h2>
             
             {cardsLoading ? (
               <div className="text-center py-8">Chargement des fiches...</div>
-            ) : tourCards.length === 0 ? (
+            ) : safeCards.length === 0 ? (
               <div className="bg-gray-50 border border-dashed rounded-lg p-8 text-center">
                 <p className="text-gray-500">Aucune fiche pour le moment. Créez votre première fiche !</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-                {tourCards.map((card) => (
+                {safeCards.map((card: TourCardData) => (
                   <TourCardDisplay 
                     key={card.id} 
                     tourCard={card} 

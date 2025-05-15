@@ -118,16 +118,31 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
       const imageUrls: string[] = [];
       
       for (const file of selectedFiles) {
-        const formData = new FormData();
-        formData.append('image', file);
+        const fileFormData = new FormData();
+        fileFormData.append('image', file);
         
-        const response = await apiRequest<{file: {url: string}}>('/api/upload/image', {
-          method: 'POST',
-          body: formData,
-          // Don't set Content-Type header here, it will be set automatically for FormData
-        });
-        
-        imageUrls.push(response.file.url);
+        try {
+          const uploadResponse = await fetch('/api/upload/image', {
+            method: 'POST',
+            body: fileFormData,
+          });
+          
+          if (!uploadResponse.ok) {
+            throw new Error(`Failed to upload image: ${uploadResponse.statusText}`);
+          }
+          
+          const uploadData = await uploadResponse.json();
+          imageUrls.push(uploadData.file.url);
+        } catch (uploadError) {
+          console.error("Error uploading image:", uploadError);
+          toast({
+            title: "Erreur d'upload",
+            description: "Une erreur est survenue lors de l'upload de l'image",
+            variant: "destructive"
+          });
+          setIsLoading(false);
+          return;
+        }
       }
       
       // Then create the tour card
@@ -136,33 +151,48 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
         images: imageUrls
       };
       
-      const response = await apiRequest<TourCardData & { id: string }>('/api/tour-cards', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(tourCardData)
-      });
-      
-      toast({
-        title: "Succès",
-        description: "Fiche de tour créée avec succès"
-      });
-      
-      // Reset form
-      setFormData({
-        title: "",
-        description: "",
-        price: 0,
-        currency: "THB",
-        customLink: "",
-        images: []
-      });
-      setSelectedFiles([]);
-      setPreviewUrls([]);
-      
-      // Call success callback
-      onSuccess(response);
+      try {
+        const createResponse = await fetch('/api/tour-cards', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(tourCardData)
+        });
+        
+        if (!createResponse.ok) {
+          throw new Error(`Failed to create tour card: ${createResponse.statusText}`);
+        }
+        
+        const createdCard = await createResponse.json();
+        
+        toast({
+          title: "Succès",
+          description: "Fiche de tour créée avec succès"
+        });
+        
+        // Reset form
+        setFormData({
+          title: "",
+          description: "",
+          price: 0,
+          currency: "THB",
+          customLink: "",
+          images: []
+        });
+        setSelectedFiles([]);
+        setPreviewUrls([]);
+        
+        // Call success callback
+        onSuccess(createdCard);
+      } catch (createError) {
+        console.error("Error creating tour card:", createError);
+        toast({
+          title: "Erreur",
+          description: "Une erreur est survenue lors de la création de la fiche",
+          variant: "destructive"
+        });
+      }
       
     } catch (error) {
       console.error("Error creating tour card:", error);
