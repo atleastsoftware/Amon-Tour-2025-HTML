@@ -122,7 +122,19 @@ export default function TourCardItem({
                 variant={isBookingOpen ? "secondary" : "default"}
                 size="sm"
                 className="flex-1"
-                onClick={() => setIsBookingOpen(!isBookingOpen)}
+                onClick={(e) => {
+                  // Vérifier si l'appareil est mobile (petite résolution d'écran)
+                  const isMobileDevice = window.innerWidth < 768;
+                  
+                  if (isMobileDevice) {
+                    // Sur mobile, afficher l'iframe directement sur la page
+                    setIsBookingOpen(!isBookingOpen);
+                  } else {
+                    // Sur PC, rediriger vers la page dédiée à l'iframe
+                    e.preventDefault();
+                    window.location.href = `/booking?link=${encodeURIComponent(customLink)}&title=${encodeURIComponent(title)}&type=${encodeURIComponent(type)}`;
+                  }
+                }}
               >
                 {isBookingOpen ? (
                   <>

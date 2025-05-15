@@ -9,6 +9,7 @@ import Stays from "@/pages/stays";
 import TourDetails from "@/pages/tour-details";
 import CustomTour from "@/pages/custom-tour";
 import BookTour from "@/pages/book-tour";
+import BookingIframe from "@/pages/booking-iframe";
 import PaymentComplete from "@/pages/payment-complete";
 import AdminLogin from "@/pages/admin-login";
 import Admin from "@/pages/admin";
@@ -27,6 +28,7 @@ function Router() {
       <Route path="/tours/:id" component={TourDetails} />
       <Route path="/custom-tour" component={CustomTour} />
       <Route path="/book-tour/:id" component={BookTour} />
+      <Route path="/booking" component={BookingIframe} />
       <Route path="/payment-complete" component={PaymentComplete} />
       
       {/* Admin Pages */}
