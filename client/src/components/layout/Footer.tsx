@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { FadeInWhenVisible, SlideUpWhenVisible, StaggerChildren, StaggerItem } from "@/components/ui/animations";
+import logoA from "@/assets/logo-a.png";
 import { 
   Facebook, 
   Instagram, 
@@ -12,32 +13,24 @@ import {
 
 export default function Footer() {
   return (
-    <footer className="bg-primary text-white pt-12 pb-6">
+    <footer className="bg-black text-white pt-12 pb-6">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           {/* Company Info */}
           <SlideUpWhenVisible>
             <div>
               <motion.div 
-                className="flex items-center mb-4"
+                className="mb-4"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
-                whileHover={{ scale: 1.03 }}
+                whileHover={{ scale: 1.05 }}
               >
-                <motion.span 
-                  className="text-white font-heading font-bold text-2xl"
-                  whileHover={{ y: -2 }}
-                >
-                  Amon
-                </motion.span>
-                <motion.span 
-                  className="text-secondary font-accent text-2xl ml-1"
-                  whileHover={{ y: -2 }}
-                  transition={{ delay: 0.05 }}
-                >
-                  Tour
-                </motion.span>
+                <img 
+                  src={logoA} 
+                  alt="Amon Tour Logo" 
+                  className="h-16 w-auto"
+                />
               </motion.div>
               <p className="mb-4 font-semibold">French and English speaking travel agency in Thailand</p>
               <p className="mb-4">
