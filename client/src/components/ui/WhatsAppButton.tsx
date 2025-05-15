@@ -1,10 +1,9 @@
-import { motion, useAnimation, AnimatePresence } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import { useState, useEffect } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 export function WhatsAppButton() {
   const [isHovered, setIsHovered] = useState(false);
-  const [isTooltipVisible, setIsTooltipVisible] = useState(false);
   const controls = useAnimation();
   const isMobile = useIsMobile();
   
@@ -32,15 +31,6 @@ export function WhatsAppButton() {
 
     return () => clearTimeout(timeout);
   }, [controls, isHovered]);
-
-  // Show tooltip only on desktop devices
-  useEffect(() => {
-    if (!isMobile && isHovered) {
-      setIsTooltipVisible(true);
-    } else {
-      setIsTooltipVisible(false);
-    }
-  }, [isHovered, isMobile]);
   
   return (
     <motion.div
@@ -54,18 +44,7 @@ export function WhatsAppButton() {
         delay: 1
       }}
     >
-      <AnimatePresence>
-        {isTooltipVisible && (
-          <motion.div
-            className="mr-3 bg-white text-green-600 font-medium text-sm rounded-full py-2 px-4 shadow-md"
-            initial={{ opacity: 0, x: 20, width: 0 }}
-            animate={{ opacity: 1, x: 0, width: "auto" }}
-            exit={{ opacity: 0, x: 20, width: 0 }}
-          >
-            Discutez avec nous en français !
-          </motion.div>
-        )}
-      </AnimatePresence>
+
       
       <motion.a
         href="https://wa.me/66653496445"
