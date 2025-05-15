@@ -105,6 +105,25 @@ export default function Home() {
         
         <SearchBar />
         
+        {/* Section description */}
+        <section className="py-20">
+          <div className="container mx-auto px-4 max-w-4xl text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <p className="text-lg text-gray-700 leading-relaxed">
+                This is a family-run travel agency that combines the organization of exclusive activities 
+                with the creation of tailor-made trips throughout the country.
+                Our goal is to offer an immersive experience, far from mass tourism, with personalized service 
+                for every traveler — as if we were welcoming our own family or friends.
+              </p>
+            </motion.div>
+          </div>
+        </section>
+        
         <Features />
         
         {/* Popular Tours Section */}
