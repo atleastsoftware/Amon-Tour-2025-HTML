@@ -66,22 +66,24 @@
   }
 
   body {
-    font-family: 'Archivo', sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     @apply antialiased bg-background text-foreground;
   }
 }
 
-/* Thai-inspired styling with modern fonts */
+/* Modern fonts similar to Airbnb */
 .font-heading {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 600;
 }
 
 .font-body {
-  font-family: 'Archivo', sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
 .font-accent {
-  font-family: 'Parisienne', cursive;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 500;
 }
 
 .tour-card:hover img {
