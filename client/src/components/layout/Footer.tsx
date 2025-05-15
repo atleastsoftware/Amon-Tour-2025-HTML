@@ -13,12 +13,12 @@ import {
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-white pt-12 pb-6">
+    <footer className="bg-black text-white pt-8 pb-4">
       <div className="container mx-auto px-4">
         {/* Logo Area */}
-        <div className="flex justify-center mb-10">
+        <div className="flex justify-center mb-6">
           <motion.div 
-            className="mb-4"
+            className="mb-2"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -27,17 +27,17 @@ export default function Footer() {
             <img 
               src={logoA} 
               alt="Amon Tour Logo" 
-              className="h-16 w-auto"
+              className="h-12 w-auto"
             />
           </motion.div>
         </div>
         
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
           {/* Contact Column */}
           <div>
-            <h4 className="font-heading font-bold text-xl mb-6 text-center">Contact</h4>
-            <ul className="space-y-4">
+            <h4 className="font-heading font-bold text-lg mb-3 text-center">Contact</h4>
+            <ul className="space-y-2">
               <motion.li 
                 className="flex items-center justify-center"
                 whileHover={{ y: -2 }}
@@ -122,8 +122,8 @@ export default function Footer() {
           
           {/* Useful Links Column */}
           <div>
-            <h4 className="font-heading font-bold text-xl mb-6 text-center">Useful Links</h4>
-            <div className="flex flex-col items-center space-y-4">
+            <h4 className="font-heading font-bold text-lg mb-3 text-center">Useful Links</h4>
+            <div className="flex flex-col items-center space-y-2">
               <Link href="/">
                 <motion.span 
                   className="font-heading hover:text-secondary transition-colors cursor-pointer"
@@ -176,8 +176,8 @@ export default function Footer() {
           
           {/* Newsletter Column */}
           <div>
-            <h4 className="font-heading font-bold text-xl mb-6 text-center">Newsletter</h4>
-            <p className="font-heading text-center mb-6">
+            <h4 className="font-heading font-bold text-lg mb-3 text-center">Newsletter</h4>
+            <p className="font-heading text-center mb-3">
               Subscribe to receive our special offers and travel tips.
             </p>
             <form className="mb-4" onSubmit={(e) => e.preventDefault()}>
@@ -206,7 +206,7 @@ export default function Footer() {
         
         {/* Copyright */}
         <motion.div 
-          className="border-t border-white/20 pt-6 flex flex-col md:flex-row justify-between items-center"
+          className="border-t border-white/20 pt-4 flex flex-col md:flex-row justify-between items-center text-sm"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
