@@ -52,27 +52,6 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const isBookingPage = location.startsWith('/booking');
 
-  // Ajouter un écouteur d'événement pour le défilement
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      if (scrollPosition > 10) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-
-    // Attachez l'écouteur uniquement sur la page de réservation
-    if (isBookingPage) {
-      window.addEventListener('scroll', handleScroll);
-    }
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [isBookingPage]);
-
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
@@ -86,9 +65,7 @@ export default function Header() {
   };
 
   return (
-    <header className={`bg-white fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled ? 'py-2 shadow-md' : 'py-6'
-    } ${isBookingPage ? 'sticky top-0 z-50' : ''}`}>
+    <header className="bg-white py-6">
       {/* Main Navigation */}
       <nav className="container mx-auto px-4 flex justify-between items-center">
         {/* Logo */}
@@ -114,7 +91,7 @@ export default function Header() {
             <img 
               src={logoAmon} 
               alt="Amon Logo" 
-              className={`transition-all duration-300 ${scrolled ? 'h-12' : 'h-24'} w-auto`}
+              className="h-24 w-auto"
             />
           </motion.div>
         </Link>

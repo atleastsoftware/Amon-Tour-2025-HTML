@@ -47,9 +47,19 @@ export default function BookingIframe() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Header />
+      <header className="bg-white py-3 shadow-sm">
+        <div className="container mx-auto px-4">
+          <Link href="/">
+            <img 
+              src={logoAmon} 
+              alt="Amon Logo" 
+              className="h-12 w-auto"
+            />
+          </Link>
+        </div>
+      </header>
       
-      <main className="flex-grow flex flex-col pt-[96px]">
+      <main className="flex-grow flex flex-col">
         {bookingLink && (
           <motion.div 
             className="flex-grow w-full bg-white"
@@ -58,7 +68,7 @@ export default function BookingIframe() {
             transition={{ duration: 0.5 }}
           >
             {isLoading && (
-              <div className="flex justify-center items-center h-[calc(100vh-140px)]">
+              <div className="flex justify-center items-center h-[calc(100vh-80px)]">
                 <div className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
               </div>
             )}
@@ -67,7 +77,7 @@ export default function BookingIframe() {
               title={`Réservation pour ${title}`}
               className="w-full h-full border-0"
               style={{ 
-                height: 'calc(100vh - 140px)',
+                height: 'calc(100vh - 80px)',
                 display: isLoading ? 'none' : 'block'
               }}
               onLoad={handleIframeLoad}
