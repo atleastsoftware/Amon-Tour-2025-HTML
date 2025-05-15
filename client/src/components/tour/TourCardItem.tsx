@@ -107,21 +107,11 @@ export default function TourCardItem({
               <p className="text-gray-600 text-sm mb-4 line-clamp-3">{description}</p>
             )}
             
-            <div className="mt-auto flex gap-2">
-              <Button 
-                variant="outline" 
-                size="sm" 
-                className="flex-1"
-                onClick={handleCopyLink}
-              >
-                {copied ? <Check className="h-4 w-4 mr-1" /> : <Copy className="h-4 w-4 mr-1" />}
-                {copied ? 'Copié' : 'Copier le lien'}
-              </Button>
-              
+            <div className="mt-auto flex">
               <Button 
                 variant={isBookingOpen ? "secondary" : "default"}
                 size="sm"
-                className="flex-1"
+                className="w-full"
                 onClick={(e) => {
                   // Vérifier si l'appareil est mobile (petite résolution d'écran)
                   const isMobileDevice = window.innerWidth < 768;
