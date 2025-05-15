@@ -2,10 +2,6 @@ import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { FadeInWhenVisible, SlideUpWhenVisible, StaggerChildren, StaggerItem } from "@/components/ui/animations";
 import logoA from "@/assets/logo-a.png";
-import visaIcon from "@/assets/payment-icons/visa.svg";
-import mastercardIcon from "@/assets/payment-icons/mastercard.svg";
-import amexIcon from "@/assets/payment-icons/american-express.svg";
-import paypalIcon from "@/assets/payment-icons/paypal.svg";
 import { 
   Facebook, 
   Instagram, 
@@ -178,41 +174,33 @@ export default function Footer() {
             </div>
           </div>
           
-          {/* Payment Column */}
+          {/* Newsletter Column */}
           <div>
-            <h4 className="font-heading font-bold text-xl mb-6 text-center">Pay Safely With Us</h4>
+            <h4 className="font-heading font-bold text-xl mb-6 text-center">Newsletter</h4>
             <p className="font-heading text-center mb-6">
-              The payment is encrypted and transmitted securely with an SSL protocol.
+              Subscribe to receive our special offers and travel tips.
             </p>
-            <div className="flex justify-center space-x-3 bg-white p-3 rounded">
-              <img src={visaIcon} alt="Visa" className="h-8" />
-              <img src={mastercardIcon} alt="Mastercard" className="h-8" />
-              <img src={amexIcon} alt="American Express" className="h-8" />
-              <img src={paypalIcon} alt="PayPal" className="h-8" />
-            </div>
-            
-            {/* Newsletter on desktop */}
-            <div className="hidden md:block mt-8">
-              <h5 className="font-heading font-semibold text-lg mb-4 text-center">Newsletter</h5>
-              <form className="mb-4" onSubmit={(e) => e.preventDefault()}>
-                <div className="flex justify-center">
-                  <input 
-                    type="email" 
-                    placeholder="Your email" 
-                    className="px-4 py-2 rounded-l-md w-full max-w-xs text-gray-800 focus:outline-none"
-                  />
-                  <motion.button 
-                    type="submit" 
-                    className="bg-secondary px-4 py-2 rounded-r-md hover:bg-secondary-dark transition-colors"
-                    aria-label="Subscribe"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <i className="fas fa-paper-plane"></i>
-                  </motion.button>
-                </div>
-              </form>
-            </div>
+            <form className="mb-4" onSubmit={(e) => e.preventDefault()}>
+              <div className="flex justify-center">
+                <input 
+                  type="email" 
+                  placeholder="Your email" 
+                  className="px-4 py-2 rounded-l-md w-full max-w-xs text-gray-800 focus:outline-none"
+                />
+                <motion.button 
+                  type="submit" 
+                  className="bg-secondary px-4 py-2 rounded-r-md hover:bg-secondary-dark transition-colors"
+                  aria-label="Subscribe"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <i className="fas fa-paper-plane"></i>
+                </motion.button>
+              </div>
+            </form>
+            <p className="font-heading text-center text-sm">
+              We respect your privacy. Unsubscribe at any time.
+            </p>
           </div>
         </div>
         
