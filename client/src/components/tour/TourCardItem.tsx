@@ -13,6 +13,7 @@ export interface TourCardItemProps {
   price: number;
   currency: string;
   customLink: string;
+  type: "tour" | "experience";
   images: string[];
 }
 
@@ -22,6 +23,7 @@ export default function TourCardItem({
   price, 
   currency, 
   customLink, 
+  type,
   images 
 }: TourCardItemProps) {
   const { toast } = useToast();
@@ -81,8 +83,17 @@ export default function TourCardItem({
             </div>
           )}
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-            <div className="inline-block px-3 py-1 rounded-full bg-primary text-white font-medium text-sm">
-              From {formatPrice(price, currency)}
+            <div className="flex items-center gap-2">
+              <div className="inline-block px-3 py-1 rounded-full bg-primary text-white font-medium text-sm">
+                From {formatPrice(price, currency)}
+              </div>
+              <div className={`inline-block px-3 py-1 rounded-full font-medium text-xs ${
+                type === "tour" 
+                  ? "bg-blue-600 text-white" 
+                  : "bg-amber-500 text-white"
+              }`}>
+                {type === "tour" ? "Tour" : "Experience"}
+              </div>
             </div>
           </div>
         </div>

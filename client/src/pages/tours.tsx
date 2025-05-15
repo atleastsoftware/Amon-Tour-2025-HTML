@@ -4,6 +4,7 @@ import { Tour } from "@shared/schema";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import TourCard from "@/components/tour/TourCard";
+import TourCardItem, { TourCardItemProps } from "@/components/tour/TourCardItem";
 import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
 import { 
@@ -23,14 +24,24 @@ import {
 // Image is loaded from URL directly
 
 export default function Tours() {
-  const { data: tours, isLoading } = useQuery<Tour[]>({
+  const { data: tours, isLoading: isLoadingTours } = useQuery<Tour[]>({
     queryKey: ['/api/tours'],
   });
+  
+  const { data: tourCards = [], isLoading: isLoadingTourCards } = useQuery<TourCardItemProps[]>({
+    queryKey: ['/api/tour-cards'],
+  });
+  
+  // Filtre pour avoir uniquement les tour cards de type "tour"
+  const tourTypeCards = tourCards.filter(card => card.type === "tour");
   
   const [searchTerm, setSearchTerm] = useState("");
   const [durationFilter, setDurationFilter] = useState("all");
   const [regionFilter, setRegionFilter] = useState("all");
   const [activeTab, setActiveTab] = useState("all");
+  
+  // État pour basculer entre l'affichage des Tours et des TourCards
+  const [showTourCards, setShowTourCards] = useState(true);
   
   // Define Thailand regions
   const regions = {
@@ -143,7 +154,33 @@ export default function Tours() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <h2 className="font-heading font-semibold text-xl mb-4">Filter Tours</h2>
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="font-heading font-semibold text-xl">Filter Tours</h2>
+                  
+                  <div className="flex items-center bg-gray-100 rounded-lg p-1">
+                    <button
+                      onClick={() => setShowTourCards(true)}
+                      className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                        showTourCards 
+                          ? 'bg-white shadow-sm text-primary' 
+                          : 'text-gray-600 hover:text-gray-900'
+                      }`}
+                    >
+                      Tour Cards
+                    </button>
+                    <button
+                      onClick={() => setShowTourCards(false)}
+                      className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                        !showTourCards 
+                          ? 'bg-white shadow-sm text-primary' 
+                          : 'text-gray-600 hover:text-gray-900'
+                      }`}
+                    >
+                      Classic Tours
+                    </button>
+                  </div>
+                </div>
+                
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <motion.div whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 400 }}>
                     <label htmlFor="search" className="block text-sm font-medium text-gray-700 mb-1">
@@ -158,88 +195,95 @@ export default function Tours() {
                     />
                   </motion.div>
                   
-                  <motion.div whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 400 }}>
-                    <label htmlFor="region" className="block text-sm font-medium text-gray-700 mb-1">
-                      Region
-                    </label>
-                    <Select
-                      value={regionFilter}
-                      onValueChange={setRegionFilter}
-                    >
-                      <SelectTrigger id="region">
-                        <SelectValue placeholder="All regions" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {Object.entries(regions).map(([key, value]) => (
-                          <SelectItem key={key} value={key}>
-                            {value}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </motion.div>
-                  
-                  <motion.div whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 400 }}>
-                    <label htmlFor="duration" className="block text-sm font-medium text-gray-700 mb-1">
-                      Duration
-                    </label>
-                    <Select
-                      value={durationFilter}
-                      onValueChange={setDurationFilter}
-                    >
-                      <SelectTrigger id="duration">
-                        <SelectValue placeholder="All durations" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All durations</SelectItem>
-                        {uniqueDurations.map((duration) => (
-                          <SelectItem key={duration} value={duration}>
-                            {duration}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </motion.div>
+                  {!showTourCards && (
+                    <>
+                      <motion.div whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 400 }}>
+                        <label htmlFor="region" className="block text-sm font-medium text-gray-700 mb-1">
+                          Region
+                        </label>
+                        <Select
+                          value={regionFilter}
+                          onValueChange={setRegionFilter}
+                        >
+                          <SelectTrigger id="region">
+                            <SelectValue placeholder="All regions" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {Object.entries(regions).map(([key, value]) => (
+                              <SelectItem key={key} value={key}>
+                                {value}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </motion.div>
+                      
+                      <motion.div whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 400 }}>
+                        <label htmlFor="duration" className="block text-sm font-medium text-gray-700 mb-1">
+                          Duration
+                        </label>
+                        <Select
+                          value={durationFilter}
+                          onValueChange={setDurationFilter}
+                        >
+                          <SelectTrigger id="duration">
+                            <SelectValue placeholder="All durations" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="all">All durations</SelectItem>
+                            {uniqueDurations.map((duration) => (
+                              <SelectItem key={duration} value={duration}>
+                                {duration}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </motion.div>
+                    </>
+                  )}
                 </div>
               </motion.div>
             </SlideUpWhenVisible>
             
-            {/* Region tabs */}
-            <div className="mb-8">
-              <motion.div
-                className="flex flex-wrap border-b border-gray-200 overflow-x-auto scrollbar-hide pb-1"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.3 }}
-              >
-                {Object.entries(regions).map(([key, label]) => (
-                  <motion.button
-                    key={key}
-                    className={`px-4 py-2 mr-2 mb-2 rounded-t-lg font-medium transition-colors text-sm md:text-base relative
-                      ${activeTab === key 
-                        ? 'text-primary border-b-2 border-primary' 
-                        : 'text-gray-500 hover:text-primary hover:bg-gray-50'
-                      }`}
-                    onClick={() => setActiveTab(key)}
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    {label}
-                    {activeTab === key && (
-                      <motion.div 
-                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary"
-                        layoutId="activeTab"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.3 }}
-                      />
-                    )}
-                  </motion.button>
-                ))}
-              </motion.div>
-            </div>
+            {/* Region tabs - only for classic tours */}
+            {!showTourCards && (
+              <div className="mb-8">
+                <motion.div
+                  className="flex flex-wrap border-b border-gray-200 overflow-x-auto scrollbar-hide pb-1"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.3 }}
+                >
+                  {Object.entries(regions).map(([key, label]) => (
+                    <motion.button
+                      key={key}
+                      className={`px-4 py-2 mr-2 mb-2 rounded-t-lg font-medium transition-colors text-sm md:text-base relative
+                        ${activeTab === key 
+                          ? 'text-primary border-b-2 border-primary' 
+                          : 'text-gray-500 hover:text-primary hover:bg-gray-50'
+                        }`}
+                      onClick={() => setActiveTab(key)}
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      {label}
+                      {activeTab === key && (
+                        <motion.div 
+                          className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary"
+                          layoutId="activeTab"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ duration: 0.3 }}
+                        />
+                      )}
+                    </motion.button>
+                  ))}
+                </motion.div>
+              </div>
+            )}
             
-            {isLoading ? (
+            {/* Loading state */}
+            {(showTourCards ? isLoadingTourCards : isLoadingTours) ? (
               <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {[1, 2, 3, 4, 5, 6].map((i) => (
                   <StaggerItem key={i}>

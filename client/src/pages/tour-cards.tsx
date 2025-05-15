@@ -24,7 +24,8 @@ export default function TourCards() {
       card.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
       (card.description && card.description.toLowerCase().includes(searchTerm.toLowerCase()));
     
-    return matchesSearch;
+    // Filter by type - only show experiences
+    return matchesSearch && card.type === "experience";
   });
   
   return (
