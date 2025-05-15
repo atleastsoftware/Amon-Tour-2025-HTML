@@ -21,6 +21,7 @@ function Router() {
       {/* Public Pages */}
       <Route path="/" component={Home} />
       <Route path="/tours" component={Tours} />
+      <Route path="/experiences" component={Experiences} />
       <Route path="/tour-cards" component={TourCards} />
       <Route path="/stays" component={Stays} />
       <Route path="/tours/:id" component={TourDetails} />
