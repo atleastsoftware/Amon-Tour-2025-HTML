@@ -129,12 +129,12 @@ export default function TourCardItem({
                 {isBookingOpen ? (
                   <>
                     <X className="h-4 w-4 mr-1" />
-                    Fermer
+                    Close
                   </>
                 ) : (
                   <>
                     <ExternalLink className="h-4 w-4 mr-1" />
-                    Réserver
+                    Book Now
                   </>
                 )}
               </Button>
@@ -157,7 +157,7 @@ export default function TourCardItem({
               <div className="flex-1 mr-2">
                 <h3 className="text-base md:text-lg font-semibold text-primary truncate">{title}</h3>
                 <p className="text-xs md:text-sm text-gray-600 hidden sm:block">
-                  Réservation en ligne - {type === "tour" ? "Tour" : "Expérience"}
+                  Online booking - {type === "tour" ? "Tour" : "Experience"}
                 </p>
               </div>
               <Button 
@@ -167,13 +167,13 @@ export default function TourCardItem({
                 className="h-8 px-2 md:px-3 border-primary/30 hover:bg-primary/10 whitespace-nowrap flex-shrink-0"
               >
                 <X className="h-4 w-4 md:mr-1" />
-                <span className="hidden md:inline">Fermer</span>
+                <span className="hidden md:inline">Close</span>
               </Button>
             </div>
             <div className="w-full bg-white h-[calc(100vh-48px)] md:h-[calc(100vh-150px)]" style={{ minHeight: '500px' }}>
               <iframe 
                 src={customLink} 
-                title={`Réservation pour ${title}`}
+                title={`Booking for ${title}`}
                 className="w-full h-full border-0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               />

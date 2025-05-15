@@ -92,7 +92,7 @@ export default function BookingIframe() {
             )}
             <iframe 
               src={bookingLink} 
-              title={`Réservation pour ${title}`}
+              title={`Booking for ${title}`}
               className="w-full h-full border-0"
               style={{ 
                 height: 'calc(100vh - 80px)',
