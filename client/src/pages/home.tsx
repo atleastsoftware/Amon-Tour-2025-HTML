@@ -164,7 +164,7 @@ export default function Home() {
                   ))}
                 </div>
                 
-                <div className="absolute top-1/2 -right-8 transform -translate-y-1/2 z-10">
+                <div className="absolute top-1/2 -right-4 transform -translate-y-1/2">
                   <motion.button 
                     className="bg-white p-3 rounded-full shadow-lg text-primary hover:bg-primary hover:text-white transition-colors"
                     aria-label="Scroll right"
@@ -176,7 +176,7 @@ export default function Home() {
                   </motion.button>
                 </div>
                 
-                <div className="absolute top-1/2 -left-8 transform -translate-y-1/2 z-10">
+                <div className="absolute top-1/2 -left-4 transform -translate-y-1/2">
                   <motion.button 
                     className="bg-white p-3 rounded-full shadow-lg text-primary hover:bg-primary hover:text-white transition-colors"
                     aria-label="Scroll left"
@@ -219,7 +219,7 @@ export default function Home() {
                   ))}
                 </motion.div>
                 
-                <div className="absolute top-1/2 -right-8 transform -translate-y-1/2 z-10">
+                <div className="absolute top-1/2 -right-4 transform -translate-y-1/2">
                   <motion.button 
                     className="bg-white p-3 rounded-full shadow-lg text-primary hover:bg-primary hover:text-white transition-colors"
                     aria-label="Scroll right"
@@ -231,7 +231,7 @@ export default function Home() {
                   </motion.button>
                 </div>
                 
-                <div className="absolute top-1/2 -left-8 transform -translate-y-1/2 z-10">
+                <div className="absolute top-1/2 -left-4 transform -translate-y-1/2">
                   <motion.button 
                     className="bg-white p-3 rounded-full shadow-lg text-primary hover:bg-primary hover:text-white transition-colors"
                     aria-label="Scroll left"
