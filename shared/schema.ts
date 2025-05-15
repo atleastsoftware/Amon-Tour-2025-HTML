@@ -49,6 +49,7 @@ export const tourCards = pgTable("tour_cards", {
   currency: text("currency").notNull().default("THB"),
   customLink: text("custom_link").notNull(),
   images: json("images").notNull().$type<string[]>(),
+  type: text("type").notNull().default("experience"), // "tour" ou "experience"
   createdAt: timestamp("created_at").defaultNow(),
 });
 

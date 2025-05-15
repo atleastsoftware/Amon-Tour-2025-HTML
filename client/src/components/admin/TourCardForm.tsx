@@ -14,6 +14,7 @@ interface TourCardData {
   price: number;
   currency: string;
   customLink: string;
+  type: "tour" | "experience";
   images: string[];
 }
 
@@ -30,6 +31,7 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
     price: 0,
     currency: "THB",
     customLink: "",
+    type: "experience",
     images: []
   });
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
@@ -187,6 +189,7 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
           price: 0,
           currency: "THB",
           customLink: "",
+          type: "experience",
           images: []
         });
         setSelectedFiles([]);
@@ -200,6 +203,7 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
           price: typeof createdCard.price === 'number' ? createdCard.price : 0,
           currency: createdCard.currency || "THB",
           customLink: createdCard.customLink || "",
+          type: createdCard.type || "experience",
           images: Array.isArray(createdCard.images) ? createdCard.images : []
         };
         
@@ -284,6 +288,47 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
                 <option value="EUR">EUR</option>
                 <option value="USD">USD</option>
               </select>
+            </div>
+          </div>
+          
+          <div>
+            <Label htmlFor="type">Type de fiche *</Label>
+            <div className="grid grid-cols-2 gap-4 mt-2">
+              <button
+                type="button"
+                onClick={() => setFormData({...formData, type: "tour"})}
+                className={`p-4 border rounded-md flex flex-col items-center justify-center gap-2 ${formData.type === "tour" 
+                  ? "border-primary bg-primary/10" 
+                  : "border-gray-200 hover:border-gray-300"}`}
+              >
+                <div className={`text-2xl ${formData.type === "tour" ? "text-primary" : "text-gray-500"}`}>
+                  🚌
+                </div>
+                <span className={`font-medium ${formData.type === "tour" ? "text-primary" : "text-gray-700"}`}>
+                  Tour
+                </span>
+                <span className="text-xs text-gray-500">
+                  Excursions guidées
+                </span>
+              </button>
+              
+              <button
+                type="button"
+                onClick={() => setFormData({...formData, type: "experience"})}
+                className={`p-4 border rounded-md flex flex-col items-center justify-center gap-2 ${formData.type === "experience" 
+                  ? "border-primary bg-primary/10" 
+                  : "border-gray-200 hover:border-gray-300"}`}
+              >
+                <div className={`text-2xl ${formData.type === "experience" ? "text-primary" : "text-gray-500"}`}>
+                  ✨
+                </div>
+                <span className={`font-medium ${formData.type === "experience" ? "text-primary" : "text-gray-700"}`}>
+                  Expérience
+                </span>
+                <span className="text-xs text-gray-500">
+                  Activités & Découvertes
+                </span>
+              </button>
             </div>
           </div>
           
