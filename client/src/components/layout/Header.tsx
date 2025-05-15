@@ -4,7 +4,7 @@ import { useIsAuthenticated, useLogout } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import logoWhite from "@/assets/logo-white.png";
+import logoTemplate from "@/assets/logo-template.svg";
 import { 
   DropdownMenu,
   DropdownMenuContent,
@@ -76,11 +76,10 @@ export default function Header() {
             whileHover={{ scale: 1.03 }}
           >
             <img 
-              src={logoWhite} 
-              alt="Senthang Siam Tour" 
+              src={logoTemplate} 
+              alt="Company Logo" 
               className="h-7 w-auto"
               style={{ 
-                filter: 'invert(28%) sepia(54%) saturate(796%) hue-rotate(178deg) brightness(96%) contrast(94%)',
                 marginTop: '1px',
                 marginBottom: '1px'
               }}

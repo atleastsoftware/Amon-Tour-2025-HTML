@@ -7,19 +7,19 @@ import { useState, useEffect } from "react";
 const carouselImages = [
   {
     src: "https://images.unsplash.com/photo-1528181304800-259b08848526?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1680&q=80",
-    alt: "Grand Palace in Bangkok"
+    alt: "Destination landmark 1"
   },
   {
     src: "https://images.unsplash.com/photo-1490077476659-095159692ab5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1680&q=80", 
-    alt: "Beautiful beach in Thailand"
+    alt: "Beautiful beach landscape"
   },
   {
     src: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1679&q=80", 
-    alt: "Temples of Thailand"
+    alt: "Heritage site"
   },
   {
     src: "https://images.unsplash.com/photo-1506665531195-3566af98b107?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1680&q=80", 
-    alt: "Traditional floating market"
+    alt: "Local culture"
   }
 ];
 

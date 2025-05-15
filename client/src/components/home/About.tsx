@@ -7,28 +7,28 @@ export default function About() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="order-2 lg:order-1">
             <h2 className="font-heading font-bold text-3xl md:text-4xl mb-6">
-              Senthang Siam Tour, Your Thailand Expert
+              Your Company Name, Your Travel Expert
             </h2>
             <p className="text-gray-700 mb-4">
-              Founded by passionate enthusiasts of Thai culture, our agency specializes in custom tours and authentic experiences in the heart of the Kingdom of Siam.
+              Founded by passionate travel enthusiasts, our agency specializes in custom tours and authentic experiences in the heart of your destination.
             </p>
-            <p className="text-gray-700 mb-4">Our French-Thai team guarantees you:</p>
+            <p className="text-gray-700 mb-4">Our expert team guarantees you:</p>
             <ul className="mb-6 space-y-2">
               <li className="flex items-start">
                 <i className="fas fa-check-circle text-primary mt-1 mr-2"></i>
-                <span>In-depth knowledge of the country and its hidden treasures</span>
+                <span>In-depth knowledge of destinations and hidden gems</span>
               </li>
               <li className="flex items-start">
                 <i className="fas fa-check-circle text-primary mt-1 mr-2"></i>
-                <span>Experienced and passionate English-speaking guides</span>
+                <span>Experienced and passionate local guides</span>
               </li>
               <li className="flex items-start">
                 <i className="fas fa-check-circle text-primary mt-1 mr-2"></i>
-                <span>Comfortable air-conditioned vehicles</span>
+                <span>Comfortable transportation options</span>
               </li>
               <li className="flex items-start">
                 <i className="fas fa-check-circle text-primary mt-1 mr-2"></i>
-                <span>Complete flexibility to adapt your journey to your desires</span>
+                <span>Complete flexibility to customize your journey</span>
               </li>
             </ul>
             <div className="flex items-center space-x-4">
