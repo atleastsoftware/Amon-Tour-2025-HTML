@@ -4,12 +4,14 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function BookingIframe() {
   const [, setLocation] = useLocation();
   const [bookingLink, setBookingLink] = useState<string>('');
   const [title, setTitle] = useState<string>('');
   const [type, setType] = useState<string>('tour');
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     // On récupère les paramètres de l'URL
@@ -27,7 +29,17 @@ export default function BookingIframe() {
     setBookingLink(link);
     setTitle(title || 'Réservation');
     setType(type || 'tour');
+    
+    // Simule un petit délai de chargement pour une meilleure transition
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
   }, [setLocation]);
+
+  // Gestion des événements de l'iframe
+  const handleIframeLoad = () => {
+    setIsLoading(false);
+  };
 
   const goBack = () => {
     window.history.back();
@@ -38,35 +50,30 @@ export default function BookingIframe() {
       <Header />
       
       <main className="flex-grow flex flex-col">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h1 className="text-2xl font-semibold text-primary">{title}</h1>
-              <p className="text-sm text-gray-600">
-                Réservation en ligne - {type === "tour" ? "Tour" : "Expérience"}
-              </p>
-            </div>
-            <Button 
-              variant="outline"
-              onClick={goBack}
-              className="border-primary/30 hover:bg-primary/10"
-            >
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Retour
-            </Button>
-          </div>
-        </div>
-
         {bookingLink && (
-          <div className="flex-grow w-full bg-white border-t border-b border-gray-200">
+          <motion.div 
+            className="flex-grow w-full bg-white"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: isLoading ? 0 : 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            {isLoading && (
+              <div className="flex justify-center items-center h-[calc(100vh-140px)]">
+                <div className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+              </div>
+            )}
             <iframe 
               src={bookingLink} 
               title={`Réservation pour ${title}`}
               className="w-full h-full border-0"
-              style={{ minHeight: 'calc(100vh - 300px)' }}
+              style={{ 
+                height: 'calc(100vh - 140px)',
+                display: isLoading ? 'none' : 'block'
+              }}
+              onLoad={handleIframeLoad}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             />
-          </div>
+          </motion.div>
         )}
       </main>
       
