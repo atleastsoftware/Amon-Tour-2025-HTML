@@ -1,105 +1,32 @@
-import { motion } from "framer-motion";
-import { ReactNode } from "react";
-
-// Animation variants for fade-in effect
-export const fadeIn = {
-  hidden: { opacity: 0 },
-  visible: { 
-    opacity: 1,
-    transition: {
-      duration: 0.6
-    }
-  }
-};
-
-// Animation variants for slide-up effect
-export const slideUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: {
-      duration: 0.6
-    }
-  }
-};
-
-// Animation variants for slide-in-left effect
-export const slideInLeft = {
-  hidden: { opacity: 0, x: -50 },
-  visible: { 
-    opacity: 1, 
-    x: 0,
-    transition: {
-      duration: 0.6
-    }
-  }
-};
-
-// Animation variants for slide-in-right effect
-export const slideInRight = {
-  hidden: { opacity: 0, x: 50 },
-  visible: { 
-    opacity: 1, 
-    x: 0,
-    transition: {
-      duration: 0.6
-    }
-  }
-};
-
-// Animation variants for scale-up effect
-export const scaleUp = {
-  hidden: { opacity: 0, scale: 0.8 },
-  visible: { 
-    opacity: 1, 
-    scale: 1,
-    transition: {
-      duration: 0.5
-    }
-  }
-};
-
-// Animation variants for staggered children
-export const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-      delayChildren: 0.3
-    }
-  }
-};
+import { useRef, useEffect, ReactNode } from 'react';
+import { motion, useInView, useAnimation, Variants } from 'framer-motion';
 
 interface FadeInWhenVisibleProps {
   children: ReactNode;
-  delay?: number;
-  duration?: number;
   className?: string;
+  delay?: number;
 }
 
-// Component for fade-in animation when element becomes visible
-export function FadeInWhenVisible({ 
-  children, 
-  delay = 0, 
-  duration = 0.6,
-  className = ""
-}: FadeInWhenVisibleProps) {
+export function FadeInWhenVisible({ children, className, delay = 0.2 }: FadeInWhenVisibleProps) {
+  const controls = useAnimation();
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, amount: 0.3 });
+  
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    }
+  }, [controls, inView]);
+  
   return (
     <motion.div
+      ref={ref}
+      animate={controls}
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6, delay }}
       variants={{
-        hidden: { opacity: 0 },
-        visible: { 
-          opacity: 1,
-          transition: {
-            duration,
-            delay
-          }
-        }
+        visible: { opacity: 1 },
+        hidden: { opacity: 0 }
       }}
       className={className}
     >
@@ -108,28 +35,26 @@ export function FadeInWhenVisible({
   );
 }
 
-// Component for slide-up animation when element becomes visible
-export function SlideUpWhenVisible({ 
-  children, 
-  delay = 0, 
-  duration = 0.6,
-  className = ""
-}: FadeInWhenVisibleProps) {
+export function SlideUpWhenVisible({ children, className, delay = 0.2 }: FadeInWhenVisibleProps) {
+  const controls = useAnimation();
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, amount: 0.3 });
+  
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    }
+  }, [controls, inView]);
+  
   return (
     <motion.div
+      ref={ref}
+      animate={controls}
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6, delay }}
       variants={{
-        hidden: { opacity: 0, y: 30 },
-        visible: { 
-          opacity: 1, 
-          y: 0,
-          transition: {
-            duration,
-            delay
-          }
-        }
+        visible: { opacity: 1, y: 0 },
+        hidden: { opacity: 0, y: 50 }
       }}
       className={className}
     >
@@ -138,28 +63,26 @@ export function SlideUpWhenVisible({
   );
 }
 
-// Component for slide-in-left animation when element becomes visible
-export function SlideInLeftWhenVisible({ 
-  children, 
-  delay = 0, 
-  duration = 0.6,
-  className = ""
-}: FadeInWhenVisibleProps) {
+export function ScaleWhenVisible({ children, className, delay = 0.2 }: FadeInWhenVisibleProps) {
+  const controls = useAnimation();
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, amount: 0.3 });
+  
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    }
+  }, [controls, inView]);
+  
   return (
     <motion.div
+      ref={ref}
+      animate={controls}
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6, delay }}
       variants={{
-        hidden: { opacity: 0, x: -50 },
-        visible: { 
-          opacity: 1, 
-          x: 0,
-          transition: {
-            duration,
-            delay
-          }
-        }
+        visible: { opacity: 1, scale: 1 },
+        hidden: { opacity: 0, scale: 0.8 }
       }}
       className={className}
     >
@@ -168,84 +91,66 @@ export function SlideInLeftWhenVisible({
   );
 }
 
-// Component for slide-in-right animation when element becomes visible
-export function SlideInRightWhenVisible({ 
-  children, 
-  delay = 0, 
-  duration = 0.6,
-  className = ""
-}: FadeInWhenVisibleProps) {
-  return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
-      variants={{
-        hidden: { opacity: 0, x: 50 },
-        visible: { 
-          opacity: 1, 
-          x: 0,
-          transition: {
-            duration,
-            delay
-          }
-        }
-      }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
-// Component for staggered children animation when element becomes visible
-export function StaggerChildren({ 
-  children, 
-  delay = 0, 
-  className = ""
-}: FadeInWhenVisibleProps) {
-  return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
-      variants={{
-        hidden: { opacity: 0 },
-        visible: {
-          opacity: 1,
-          transition: {
-            staggerChildren: 0.2,
-            delayChildren: delay
-          }
-        }
-      }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
-// Animation for individual staggered child
-export function StaggerItem({ 
-  children, 
-  className = ""
-}: {
+interface StaggerChildrenProps {
   children: ReactNode;
   className?: string;
-}) {
+  delay?: number;
+  staggerDelay?: number;
+}
+
+export function StaggerChildren({ 
+  children, 
+  className, 
+  delay = 0.2,
+  staggerDelay = 0.1
+}: StaggerChildrenProps) {
+  const controls = useAnimation();
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, amount: 0.3 });
+  
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    }
+  }, [controls, inView]);
+  
+  const container: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        delay,
+        staggerChildren: staggerDelay,
+      }
+    }
+  };
+  
   return (
     <motion.div
-      variants={{
-        hidden: { opacity: 0, y: 20 },
-        visible: { 
-          opacity: 1, 
-          y: 0,
-          transition: {
-            duration: 0.5
-          }
-        }
-      }}
+      ref={ref}
+      className={className}
+      variants={container}
+      initial="hidden"
+      animate={controls}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+export function StaggerItem({ children, className }: { children: ReactNode, className?: string }) {
+  const item: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.4 }
+    }
+  };
+  
+  return (
+    <motion.div
+      variants={item}
       className={className}
     >
       {children}
