@@ -39,12 +39,12 @@ export default function Footer() {
                   Tour
                 </motion.span>
               </motion.div>
-              <p className="mb-4 font-semibold">Agence de voyage réceptive francophone</p>
+              <p className="mb-4 font-semibold">French-speaking travel agency in Thailand</p>
               <p className="mb-4">
-                Amon Tour est une marque de:<br />
+                Amon Tour is a brand of:<br />
                 Flame BB Co., Ltd.<br />
                 242 Moo1 Tombol Ao Nang<br />
-                81180 Krabi, Thaïlande
+                81180 Krabi, Thailand
               </p>
               <div className="flex flex-wrap gap-3">
                 <motion.a 
@@ -105,7 +105,7 @@ export default function Footer() {
                   whileHover={{ x: 3 }}
                 >
                   <MapPin className="mr-2 mt-1 text-secondary flex-shrink-0" size={18} />
-                  <span>242 Moo1 Tombol Ao Nang<br/>81180 Krabi, Thaïlande</span>
+                  <span>242 Moo1 Tombol Ao Nang<br/>81180 Krabi, Thailand</span>
                 </motion.li>
 
                 <motion.li 

@@ -7,32 +7,32 @@ export default function About() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="order-2 lg:order-1">
             <h2 className="font-heading font-bold text-3xl md:text-4xl mb-6">
-              Amon Tour: Le concept
+              Amon Tour: The Concept
             </h2>
             <p className="text-gray-700 mb-4">
-              Eric, Margaux Gabriel et Raphaël nous sommes une famille française délocalisée à Krabi dans le sud de la Thaïlande depuis près de 10ans. En plus d'organiser vos vacances et de vous accueillir, nous vous accompagnons dans vos excursions. Nous faisons le lien avec nos partenaires locaux pour une garantie de service optimum. Nous vous offrons également nos bons plans vers d'autres destinations en Thaïlande dont Koh Mook et Khao Sok.
+              Eric, Margaux, Gabriel, and Raphaël - we are a French family relocated to Krabi in southern Thailand for nearly 10 years. In addition to organizing your vacation and welcoming you, we accompany you on your excursions. We work closely with our local partners to guarantee optimal service. We also offer our insider tips for other destinations in Thailand, including Koh Mook and Khao Sok.
             </p>
             <h3 className="font-heading font-semibold text-2xl mt-6 mb-3">
-              Tours privés francophones à Krabi
+              Private French-Speaking Tours in Krabi
             </h3>
             <p className="text-gray-700 mb-4">
-              Tours privés francophones à Krabi est la façon la plus exclusive de découvrir les merveilles de la région de Krabi.
+              Private French-speaking tours in Krabi are the most exclusive way to discover the wonders of the Krabi region.
             </p>
             <h3 className="font-heading font-semibold text-xl mt-5 mb-3">
-              Margaux et Eric vous invitent en vacances!!
+              Margaux and Eric invite you on vacation!
             </h3>
             <p className="text-gray-700 mb-6">
-              Vous retrouvez dans nos tours privés francophone à Krabi les excursions très spéciales d'Amon Tour. Tous ces programmes ont été conçu pour découvrir les chefs d'oeuvre naturelles de la region au départ de Krabi, loin du tourisme de masse bien sûr mais également en étant accompagner par des Français vivant sur place. En effet Eric et Margaux vous offrent des tours privés francophones à Krabi et se joindront à vous lors de ces journées inoubliables. Nous vous avons concoctés 3 sorties en mer (dont une personnalisable), 3 excursions terrestres, un tour en kayak au couché du soleil et même un tour surprise pour ceux qui aiment l'aventure! Ces tours à la journée sont le fruit de notre expérience, de notre connaissance de ces sites que nous aimons particulièrement.
+              With our private French-speaking tours in Krabi, you'll experience Amon Tour's very special excursions. All these programs have been designed to discover the natural masterpieces of the region from Krabi, far from mass tourism and accompanied by French locals. Eric and Margaux offer private French-speaking tours in Krabi and will join you during these unforgettable days. We have prepared 3 sea excursions (including one that's customizable), 3 land excursions, a sunset kayak tour, and even a surprise tour for those who love adventure! These day tours are the result of our experience and knowledge of these sites that we particularly love.
             </p>
             <div className="flex items-center space-x-4">
               <Link href="/#contact">
                 <span className="bg-primary text-white px-6 py-2 rounded font-heading font-semibold hover:bg-primary-dark transition-colors cursor-pointer">
-                  Contactez-nous
+                  Contact Us
                 </span>
               </Link>
               <Link href="/custom-tour">
                 <span className="text-primary font-heading font-semibold hover:text-primary-dark transition-colors cursor-pointer">
-                  Créer votre voyage →
+                  Create Your Journey →
                 </span>
               </Link>
             </div>
@@ -41,7 +41,7 @@ export default function About() {
             <div className="relative">
               <img 
                 src="https://images.unsplash.com/photo-1490077476659-095159692ab5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1680&q=80" 
-                alt="Magnifique plage thaïlandaise - Amon Tour" 
+                alt="Beautiful Thai beach - Amon Tour" 
                 className="w-full h-auto rounded-lg shadow-lg"
               />
               <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-lg hidden md:block">
@@ -55,14 +55,14 @@ export default function About() {
                   </div>
                   <span className="font-semibold">5.0/5</span>
                 </div>
-                <p className="text-sm text-gray-600">80 avis sur Google</p>
+                <p className="text-sm text-gray-600">80 reviews on Google</p>
                 <a 
                   href="https://www.google.com/search?q=%E0%B8%AD%E0%B8%A1%E0%B8%A3%E0%B8%97%E0%B8%B1%E0%B8%A7%E0%B8%A3%E0%B9%8C+Reviews" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-xs text-primary hover:underline mt-1 inline-block"
                 >
-                  Voir tous les avis
+                  See all reviews
                 </a>
               </div>
             </div>
