@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 import { 
   FadeInWhenVisible, 
   SlideUpWhenVisible, 
@@ -65,95 +67,97 @@ export default function Stays() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <section className="bg-primary text-white py-16 md:py-24">
-        <div className="container mx-auto px-4">
-          <SlideUpWhenVisible>
-            <h1 className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl text-center mb-6">
-              Find Your Ideal Accommodation in Thailand
-            </h1>
-          </SlideUpWhenVisible>
-          <FadeInWhenVisible delay={0.2}>
-            <p className="text-lg md:text-xl text-center max-w-3xl mx-auto mb-10">
-              Carefully selected accommodations for an authentic and comfortable stay in Thailand.
-            </p>
-          </FadeInWhenVisible>
-        </div>
-      </section>
+    <>
+      <Header />
+      <div className="min-h-screen bg-gray-50 pt-16">
+        {/* Hero Section */}
+        <section className="bg-primary text-white py-16 md:py-24">
+          <div className="container mx-auto px-4">
+            <SlideUpWhenVisible>
+              <h1 className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl text-center mb-6">
+                Find Your Ideal Accommodation in Thailand
+              </h1>
+            </SlideUpWhenVisible>
+            <FadeInWhenVisible delay={0.2}>
+              <p className="text-lg md:text-xl text-center max-w-3xl mx-auto mb-10">
+                Carefully selected accommodations for an authentic and comfortable stay in Thailand.
+              </p>
+            </FadeInWhenVisible>
+          </div>
+        </section>
 
-      {/* Stays Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <SlideUpWhenVisible>
-            <h2 className="font-heading font-bold text-3xl md:text-4xl text-center mb-12">
-              Our Recommended Accommodations
-            </h2>
-          </SlideUpWhenVisible>
+        {/* Stays Section */}
+        <section className="py-16">
+          <div className="container mx-auto px-4">
+            <SlideUpWhenVisible>
+              <h2 className="font-heading font-bold text-3xl md:text-4xl text-center mb-12">
+                Our Recommended Accommodations
+              </h2>
+            </SlideUpWhenVisible>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {stays.map((stay, index) => (
-              <motion.div 
-                key={stay.id}
-                className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -5 }}
-              >
-                <div className="relative h-64 overflow-hidden">
-                  <img 
-                    src={stay.image} 
-                    alt={stay.title} 
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                  />
-                  <div className="absolute top-4 right-4 bg-primary text-white py-1 px-3 rounded-full font-semibold">
-                    {stay.price}€ / nuit
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {stays.map((stay, index) => (
+                <motion.div 
+                  key={stay.id}
+                  className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={{ y: -5 }}
+                >
+                  <div className="relative h-64 overflow-hidden">
+                    <img 
+                      src={stay.image} 
+                      alt={stay.title} 
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                    />
+                    <div className="absolute top-4 right-4 bg-primary text-white py-1 px-3 rounded-full font-semibold">
+                      {stay.price}€ / night
+                    </div>
                   </div>
-                </div>
                 
-                <div className="p-6">
-                  <h3 className="font-heading font-bold text-xl mb-2 text-gray-900">{stay.title}</h3>
-                  
-                  <div className="flex items-center mb-3 text-gray-600">
-                    <MapPin className="w-4 h-4 mr-1 text-secondary" />
-                    <span className="text-sm">{stay.location}</span>
-                  </div>
-                  
-                  <p className="text-gray-600 mb-4">{stay.description}</p>
-                  
-                  <div className="mb-5">
-                    <div className="flex items-center mb-2">
-                      <Users className="w-4 h-4 mr-2 text-gray-500" />
-                      <span className="text-sm text-gray-600">Capacity: {stay.capacity} people</span>
+                  <div className="p-6">
+                    <h3 className="font-heading font-bold text-xl mb-2 text-gray-900">{stay.title}</h3>
+                    
+                    <div className="flex items-center mb-3 text-gray-600">
+                      <MapPin className="w-4 h-4 mr-1 text-secondary" />
+                      <span className="text-sm">{stay.location}</span>
                     </div>
                     
-                    <div className="flex flex-wrap gap-2 mt-3">
-                      {stay.features.slice(0, 3).map((feature, i) => (
-                        <span key={i} className="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded-full">
-                          {feature}
-                        </span>
-                      ))}
-                      {stay.features.length > 3 && (
-                        <span className="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded-full">
-                          +{stay.features.length - 3}
-                        </span>
-                      )}
+                    <p className="text-gray-600 mb-4">{stay.description}</p>
+                    
+                    <div className="mb-5">
+                      <div className="flex items-center mb-2">
+                        <Users className="w-4 h-4 mr-2 text-gray-500" />
+                        <span className="text-sm text-gray-600">Capacity: {stay.capacity} people</span>
+                      </div>
+                      
+                      <div className="flex flex-wrap gap-2 mt-3">
+                        {stay.features.slice(0, 3).map((feature, i) => (
+                          <span key={i} className="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded-full">
+                            {feature}
+                          </span>
+                        ))}
+                        {stay.features.length > 3 && (
+                          <span className="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded-full">
+                            +{stay.features.length - 3}
+                          </span>
+                        )}
+                      </div>
                     </div>
+                    
+                    <a 
+                      href={stay.externalBookingUrl} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="w-full"
+                    >
+                      <Button className="w-full flex items-center justify-center gap-2" size="lg">
+                        Book Now
+                        <ExternalLink className="w-4 h-4" />
+                      </Button>
+                    </a>
                   </div>
-                  
-                  <a 
-                    href={stay.externalBookingUrl} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="w-full"
-                  >
-                    <Button className="w-full flex items-center justify-center gap-2" size="lg">
-                      Book Now
-                      <ExternalLink className="w-4 h-4" />
-                    </Button>
-                  </a>
-                </div>
               </motion.div>
             ))}
           </div>
@@ -185,6 +189,8 @@ export default function Stays() {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+      <Footer />
+    </>
   );
 }
