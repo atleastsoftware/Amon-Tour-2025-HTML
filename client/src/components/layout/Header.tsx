@@ -135,13 +135,16 @@ export default function Header() {
           transition={{ duration: 0.5, delay: 0.2 }}
         >
           <NavLink href="/" isActive={location === '/'}>
-            Stay
+            Home
           </NavLink>
           <NavLink href="/tours" isActive={location === '/tours'}>
             Tours
           </NavLink>
+          <NavLink href="/stays" isActive={location === '/stays'}>
+            Stays
+          </NavLink>
           <NavLink href="/custom-tour" isActive={location === '/custom-tour'}>
-            Accommodation
+            Custom Tour
           </NavLink>
           <NavLink href="/account" isActive={location === '/account'}>
             My Account
@@ -208,13 +211,16 @@ export default function Header() {
               transition={{ duration: 0.3, delay: 0.1 }}
             >
               <NavLink href="/" isActive={location === '/'} onClick={closeMobileMenu}>
-                Stay
+                Home
               </NavLink>
               <NavLink href="/tours" isActive={location === '/tours'} onClick={closeMobileMenu}>
                 Tours
               </NavLink>
+              <NavLink href="/stays" isActive={location === '/stays'} onClick={closeMobileMenu}>
+                Stays
+              </NavLink>
               <NavLink href="/custom-tour" isActive={location === '/custom-tour'} onClick={closeMobileMenu}>
-                Accommodation
+                Custom Tour
               </NavLink>
               <NavLink href="/account" isActive={location === '/account'} onClick={closeMobileMenu}>
                 My Account
