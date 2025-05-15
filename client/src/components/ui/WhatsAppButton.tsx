@@ -11,14 +11,16 @@ export function WhatsAppButton() {
   // Pulse animation effect
   useEffect(() => {
     const pulseAnimation = async () => {
-      await controls.start({
-        scale: 1.05,
-        transition: { duration: 0.5 }
-      });
-      await controls.start({
-        scale: 1,
-        transition: { duration: 0.5 }
-      });
+      if (!isHovered) {
+        await controls.start({
+          scale: 1.05,
+          transition: { duration: 0.5 }
+        });
+        await controls.start({
+          scale: 1,
+          transition: { duration: 0.5 }
+        });
+      }
     };
 
     // Start pulse animation after 3 seconds, repeat every 15 seconds
@@ -29,7 +31,7 @@ export function WhatsAppButton() {
     }, 3000);
 
     return () => clearTimeout(timeout);
-  }, [controls]);
+  }, [controls, isHovered]);
 
   // Show tooltip only on desktop devices
   useEffect(() => {
@@ -75,6 +77,10 @@ export function WhatsAppButton() {
           boxShadow: isHovered 
             ? "0 0 20px rgba(74, 222, 128, 0.6), 0 8px 16px rgba(0, 0, 0, 0.15)" 
             : "0 4px 12px rgba(0, 0, 0, 0.15)"
+        }}
+        whileHover={{ 
+          scale: 1.15,
+          transition: { duration: 0.3, ease: "easeOut" }
         }}
         whileTap={{ scale: 0.95 }}
         animate={controls}
