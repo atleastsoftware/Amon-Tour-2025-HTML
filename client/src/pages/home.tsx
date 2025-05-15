@@ -14,6 +14,7 @@ import Testimonials from "@/components/home/Testimonials";
 import CustomTourForm from "@/components/home/CustomTourForm";
 import CallToAction from "@/components/home/CallToAction";
 import TourCard from "@/components/tour/TourCard";
+import TourCardItem, { TourCardItemProps } from "@/components/tour/TourCardItem";
 import { Link } from "wouter";
 
 export default function Home() {
@@ -22,9 +23,19 @@ export default function Home() {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [maxScroll, setMaxScroll] = useState(0);
   
-  const { data: featuredTours, isLoading } = useQuery<Tour[]>({
+  const { data: featuredTours, isLoading: isLoadingTours } = useQuery<Tour[]>({
     queryKey: ['/api/tours/featured'],
   });
+  
+  const { data: tourCards = [], isLoading: isLoadingTourCards } = useQuery<TourCardItemProps[]>({
+    queryKey: ['/api/tour-cards'],
+  });
+  
+  // Filtre pour avoir uniquement les tour cards de type "tour"
+  const tourTypeCards = tourCards.filter(card => card.type === "tour" || !card.type);
+  
+  // Pour l'affichage, on considère qu'on est en chargement si l'une des deux requêtes est en cours
+  const isLoading = isLoadingTours || isLoadingTourCards;
   
   // Function to handle carousel scrolling
   const handleCarouselScroll = (direction: 'left' | 'right') => {
@@ -202,7 +213,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            ) : featuredTours && featuredTours.length > 0 ? (
+            ) : (tourTypeCards && tourTypeCards.length > 0) || (featuredTours && featuredTours.length > 0) ? (
               <div className="relative overflow-hidden">
                 <motion.div 
                   ref={carouselRef}
@@ -212,8 +223,16 @@ export default function Home() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5 }}
                 >
-                  {featuredTours.map((tour) => (
-                    <div key={tour.id} className="flex-shrink-0 w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] snap-start">
+                  {/* Afficher d'abord les TourCards */}
+                  {tourTypeCards.map((card) => (
+                    <div key={`card-${card.id}`} className="flex-shrink-0 w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] snap-start">
+                      <TourCardItem {...card} />
+                    </div>
+                  ))}
+                  
+                  {/* Afficher ensuite les Tours classiques */}
+                  {featuredTours?.map((tour) => (
+                    <div key={`tour-${tour.id}`} className="flex-shrink-0 w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] snap-start">
                       <TourCard tour={tour} />
                     </div>
                   ))}
