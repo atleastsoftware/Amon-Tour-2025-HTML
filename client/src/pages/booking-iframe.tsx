@@ -4,7 +4,7 @@ import Footer from '@/components/layout/Footer';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Home } from 'lucide-react';
 import { motion } from 'framer-motion';
-import logoAmon from "@assets/Logo Long Blue.png";
+import logoAmon from "@assets/IMG_1454-removebg-preview.png";
 
 export default function BookingIframe() {
   const [, setLocation] = useLocation();
@@ -53,7 +53,7 @@ export default function BookingIframe() {
             <img 
               src={logoAmon} 
               alt="Amon Logo" 
-              className="h-12 w-auto"
+              className="h-16 w-auto"
             />
           </Link>
           <div className="flex gap-2">
