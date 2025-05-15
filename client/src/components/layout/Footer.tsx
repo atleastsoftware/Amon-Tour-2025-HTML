@@ -29,27 +29,27 @@ export default function Footer() {
                   className="text-white font-heading font-bold text-2xl"
                   whileHover={{ y: -2 }}
                 >
-                  Senthang
+                  Company
                 </motion.span>
                 <motion.span 
                   className="text-secondary font-accent text-2xl ml-1"
                   whileHover={{ y: -2 }}
                   transition={{ delay: 0.05 }}
                 >
-                  Siam
+                  Name
                 </motion.span>
                 <motion.span 
                   className="text-white font-heading font-bold text-2xl ml-1"
                   whileHover={{ y: -2 }}
                   transition={{ delay: 0.1 }}
                 >
-                  Tour
+                  Here
                 </motion.span>
               </motion.div>
-              <p className="mb-4">Your specialist for custom travel in Thailand. Private tours, English-speaking guides and authentic experiences.</p>
+              <p className="mb-4">Your company description goes here. Add a brief overview of your services and unique selling points.</p>
               <div className="flex flex-wrap gap-3">
                 <motion.a 
-                  href="https://www.facebook.com/SenthangSiamTour" 
+                  href="#" 
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-blue-600 hover:bg-blue-700 p-2 rounded-full transition-colors flex items-center justify-center w-10 h-10" 
@@ -60,7 +60,7 @@ export default function Footer() {
                   <Facebook size={18} />
                 </motion.a>
                 <motion.a 
-                  href="https://www.instagram.com/senthangsiam.tour/" 
+                  href="#" 
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-gradient-to-br from-purple-600 to-pink-500 p-2 rounded-full transition-colors flex items-center justify-center w-10 h-10" 
@@ -71,7 +71,7 @@ export default function Footer() {
                   <Instagram size={18} />
                 </motion.a>
                 <motion.a 
-                  href="https://wa.me/66961599224" 
+                  href="#" 
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-green-600 hover:bg-green-700 p-2 rounded-full transition-colors flex items-center justify-center w-10 h-10" 
@@ -82,7 +82,7 @@ export default function Footer() {
                   <i className="fab fa-whatsapp"></i>
                 </motion.a>
                 <motion.a 
-                  href="https://lin.ee/T2E2fEZ" 
+                  href="#" 
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-green-500 hover:bg-green-600 p-2 rounded-full transition-colors flex items-center justify-center w-10 h-10" 
@@ -106,7 +106,7 @@ export default function Footer() {
                   whileHover={{ x: 3 }}
                 >
                   <MapPin className="mr-2 mt-1 text-secondary flex-shrink-0" size={18} />
-                  <span>218/12 Rama 3 Road Soi 6, Bangkok, Thailand</span>
+                  <span>Your Address, City, Country</span>
                 </motion.li>
                 <motion.li 
                   className="flex items-center"
@@ -114,10 +114,10 @@ export default function Footer() {
                 >
                   <Phone className="mr-2 text-secondary flex-shrink-0" size={18} />
                   <a 
-                    href="tel:+66910487015" 
+                    href="tel:#" 
                     className="hover:text-secondary transition-colors"
                   >
-                    +66 (0)91 048 7015
+                    +00 (0)00 000 0000
                   </a>
                 </motion.li>
                 <motion.li 
@@ -126,10 +126,10 @@ export default function Footer() {
                 >
                   <Mail className="mr-2 text-secondary flex-shrink-0" size={18} />
                   <a 
-                    href="mailto:senthangsiamtour@gmail.com" 
+                    href="mailto:contact@example.com" 
                     className="hover:text-secondary transition-colors"
                   >
-                    senthangsiamtour@gmail.com
+                    contact@example.com
                   </a>
                 </motion.li>
                 <motion.li 
@@ -137,11 +137,11 @@ export default function Footer() {
                   whileHover={{ x: 3 }}
                 >
                   <Clock className="mr-2 text-secondary flex-shrink-0" size={18} />
-                  <span>Mon-Sun: 9:00 AM - 6:00 PM</span>
+                  <span>Mon-Fri: 9:00 AM - 5:00 PM</span>
                 </motion.li>
                 <motion.li className="mt-2" whileHover={{ x: 3 }}>
                   <span className="bg-secondary/20 text-white px-2 py-1 rounded-full text-xs">
-                    TAT License: 14/04455
+                    License: #00000
                   </span>
                 </motion.li>
               </ul>
@@ -247,7 +247,7 @@ export default function Footer() {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.5 }}
         >
-          <p>&copy; {new Date().getFullYear()} Senthang Siam Tour. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Your Company Name. All rights reserved.</p>
           <div className="flex space-x-4 mt-4 md:mt-0">
             <motion.a 
               href="#" 
