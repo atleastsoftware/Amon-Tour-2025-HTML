@@ -1,17 +1,10 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Check, Copy, ExternalLink, X } from 'lucide-react';
 import { formatTHB } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from '@/components/ui/dialog';
 
 export interface TourCardItemProps {
   id: string;
@@ -69,14 +62,14 @@ export default function TourCardItem({
   };
 
   return (
-    <>
+    <div className="flex flex-col">
       <motion.div
         className="h-full"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 20 }}
         transition={{ duration: 0.3 }}
-        whileHover={{ y: -5 }}
+        whileHover={!isBookingOpen ? { y: -5 } : {}}
       >
         <Card className="overflow-hidden h-full flex flex-col">
           <div className="relative aspect-video overflow-hidden">
@@ -126,49 +119,65 @@ export default function TourCardItem({
               </Button>
               
               <Button 
-                variant="default" 
+                variant={isBookingOpen ? "secondary" : "default"}
                 size="sm"
                 className="flex-1"
-                onClick={() => setIsBookingOpen(true)}
+                onClick={() => setIsBookingOpen(!isBookingOpen)}
               >
-                <ExternalLink className="h-4 w-4 mr-1" />
-                Réserver
+                {isBookingOpen ? (
+                  <>
+                    <X className="h-4 w-4 mr-1" />
+                    Fermer
+                  </>
+                ) : (
+                  <>
+                    <ExternalLink className="h-4 w-4 mr-1" />
+                    Réserver
+                  </>
+                )}
               </Button>
             </div>
           </CardContent>
         </Card>
       </motion.div>
 
-      {/* Booking Modal with iframe */}
-      <Dialog open={isBookingOpen} onOpenChange={setIsBookingOpen}>
-        <DialogContent className="max-w-4xl h-[80vh] sm:max-h-[85vh] p-0">
-          <div className="px-6 pt-6 pb-2 flex flex-row items-center justify-between">
-            <div>
-              <h2 className="text-xl font-semibold">{title}</h2>
-              <p className="text-sm text-gray-500">
-                Réservez directement votre {type === "tour" ? "tour" : "expérience"}
-              </p>
+      {/* Inline Booking iframe */}
+      <AnimatePresence>
+        {isBookingOpen && (
+          <motion.div 
+            className="w-full mt-2 border border-gray-200 rounded-lg shadow-lg overflow-hidden"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="bg-white p-3 flex items-center justify-between border-b">
+              <div>
+                <h3 className="text-md font-semibold">{title}</h3>
+                <p className="text-xs text-gray-500">
+                  Réservation - {type === "tour" ? "Tour" : "Expérience"}
+                </p>
+              </div>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={() => setIsBookingOpen(false)}
+                className="h-8 w-8 p-0"
+              >
+                <X className="h-4 w-4" />
+              </Button>
             </div>
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              onClick={() => setIsBookingOpen(false)}
-              className="h-8 w-8"
-            >
-              <X className="h-4 w-4" />
-            </Button>
-          </div>
-          <div className="flex-1 overflow-hidden p-0 h-full">
-            <iframe 
-              src={customLink} 
-              title={`Réservation pour ${title}`}
-              className="w-full h-full border-0"
-              style={{ height: 'calc(80vh - 90px)' }}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            />
-          </div>
-        </DialogContent>
-      </Dialog>
-    </>
+            <div className="w-full h-[500px]">
+              <iframe 
+                src={customLink} 
+                title={`Réservation pour ${title}`}
+                className="w-full h-full border-0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }
