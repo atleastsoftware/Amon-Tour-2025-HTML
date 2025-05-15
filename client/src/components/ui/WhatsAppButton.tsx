@@ -12,19 +12,19 @@ export function WhatsAppButton() {
   useEffect(() => {
     const pulseAnimation = async () => {
       await controls.start({
-        scale: 1.1,
-        transition: { duration: 0.3 }
+        scale: 1.05,
+        transition: { duration: 0.5 }
       });
       await controls.start({
         scale: 1,
-        transition: { duration: 0.3 }
+        transition: { duration: 0.5 }
       });
     };
 
-    // Start pulse animation after 3 seconds, repeat every 10 seconds
+    // Start pulse animation after 3 seconds, repeat every 15 seconds
     const timeout = setTimeout(() => {
       pulseAnimation();
-      const interval = setInterval(pulseAnimation, 10000);
+      const interval = setInterval(pulseAnimation, 15000);
       return () => clearInterval(interval);
     }, 3000);
 
@@ -47,8 +47,8 @@ export function WhatsAppButton() {
       animate={{ opacity: 1, y: 0 }}
       transition={{
         type: "spring",
-        stiffness: 260,
-        damping: 20,
+        stiffness: 100,
+        damping: 15,
         delay: 1
       }}
     >
@@ -69,23 +69,19 @@ export function WhatsAppButton() {
         href="https://wa.me/66653496445"
         target="_blank"
         rel="noopener noreferrer"
-        className={`bg-green-500 text-white rounded-full p-4 shadow-lg flex items-center justify-center hover:bg-green-600 transition-colors
-                   ${isMobile ? 'w-14 h-14' : 'w-12 h-12'}`}
+        className={`bg-green-500 text-white rounded-full p-4 shadow-lg flex items-center justify-center hover:bg-green-600 transition-colors cursor-pointer
+                   ${isMobile ? 'w-16 h-16' : 'w-14 h-14'}`}
         style={{ 
           boxShadow: isHovered 
             ? "0 0 20px rgba(74, 222, 128, 0.6), 0 8px 16px rgba(0, 0, 0, 0.15)" 
             : "0 4px 12px rgba(0, 0, 0, 0.15)"
         }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        initial={{ scale: 0.8 }}
+        whileTap={{ scale: 0.95 }}
         animate={controls}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        onTouchStart={() => controls.start({ scale: 1.1 })}
-        onTouchEnd={() => controls.start({ scale: 1 })}
       >
-        <i className={`fab fa-whatsapp ${isMobile ? 'text-3xl' : 'text-2xl'}`} aria-hidden="true"></i>
+        <i className={`fab fa-whatsapp ${isMobile ? 'text-3xl' : 'text-2xl'}`} style={{ pointerEvents: 'none' }} aria-hidden="true"></i>
         <span className="sr-only">Contact via WhatsApp</span>
       </motion.a>
     </motion.div>
