@@ -1,5 +1,4 @@
 import { Link } from "wouter";
-import thailandLandscape from "@/assets/thailand-landscape.jpeg";
 
 export default function About() {
   return (
@@ -41,7 +40,7 @@ export default function About() {
           <div className="order-1 lg:order-2">
             <div className="relative">
               <img 
-                src={thailandLandscape} 
+                src="https://images.unsplash.com/photo-1490077476659-095159692ab5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1680&q=80" 
                 alt="Magnifique plage thaïlandaise - Amon Tour" 
                 className="w-full h-auto rounded-lg shadow-lg"
               />
@@ -56,7 +55,7 @@ export default function About() {
                   </div>
                   <span className="font-semibold">4.9/5</span>
                 </div>
-                <p className="text-sm text-gray-600">Over 500 customer reviews</p>
+                <p className="text-sm text-gray-600">Plus de 500 avis clients</p>
               </div>
             </div>
           </div>
