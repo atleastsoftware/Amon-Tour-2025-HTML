@@ -38,12 +38,12 @@ export default function Hero() {
             >
               <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight">
                 Your exclusive experiences <br/>
-                <span className="text-primary">in</span>COUNTRY
+                <span className="text-primary">in </span>THAILAND
               </h1>
               
               <p className="text-gray-600 mb-8 text-lg">
-                Discover amazing places away from mass tourism.
-                Explore hidden gems and experience authentic local culture.
+                Discover amazing places away from mass tourism.<br/>
+                Krabi, Khao Sok, Koh Mook and many more destinations.
               </p>
               
               <Link href="/tours">
