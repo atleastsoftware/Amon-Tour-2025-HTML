@@ -92,8 +92,8 @@ export default function CustomTourForm() {
             {/* Image Side */}
             <div className="h-64 md:h-auto relative">
               <img 
-                src="/uploads/tours/tour-1745996684988-936942722.jpeg" 
-                alt="Beach in Thailand" 
+                src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
+                alt="Beautiful landscape" 
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-primary/70 to-transparent flex flex-col justify-center p-8 text-white">
@@ -247,7 +247,7 @@ export default function CustomTourForm() {
                         <FormLabel>Describe your ideal trip</FormLabel>
                         <FormControl>
                           <Textarea 
-                            placeholder="Tell us what you would like to see and do in Thailand..."
+                            placeholder="Tell us what you would like to see and do during your journey..."
                             rows={4}
                             {...field} 
                           />

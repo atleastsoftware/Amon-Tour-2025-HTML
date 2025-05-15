@@ -69,7 +69,7 @@ export default function Contact() {
         <div className="text-center mb-12">
           <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">Contact Us</h2>
           <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
-          <p className="text-gray-600 max-w-2xl mx-auto">Our team is ready to answer all your questions and help you organize your next trip to Thailand.</p>
+          <p className="text-gray-600 max-w-2xl mx-auto">Our team is ready to answer all your questions and help you organize your next journey.</p>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -80,21 +80,21 @@ export default function Contact() {
               <li className="flex items-start">
                 <i className="fas fa-map-marker-alt text-primary mt-1 mr-3 w-5 text-center"></i>
                 <div>
-                  <span className="block">Senthang Siam Tour</span>
-                  <span className="text-gray-600">123 Sukhumvit Road, Bangkok, Thailand</span>
+                  <span className="block">Company Name</span>
+                  <span className="text-gray-600">123 Street Name, City, Country</span>
                 </div>
               </li>
               <li className="flex items-center">
                 <i className="fas fa-phone text-primary mr-3 w-5 text-center"></i>
-                <span>+66 (0)2 123 4567</span>
+                <span>+00 (0)00 000 0000</span>
               </li>
               <li className="flex items-center">
                 <i className="fas fa-envelope text-primary mr-3 w-5 text-center"></i>
-                <span>contact@senthangsiamtour.com</span>
+                <span>contact@example.com</span>
               </li>
               <li className="flex items-center">
                 <i className="fas fa-clock text-primary mr-3 w-5 text-center"></i>
-                <span>Monday to Saturday, 9am to 6pm (GMT+7)</span>
+                <span>Monday to Friday, 9am to 5pm</span>
               </li>
             </ul>
             <div className="mt-6">

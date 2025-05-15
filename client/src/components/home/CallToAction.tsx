@@ -5,10 +5,10 @@ export default function CallToAction() {
     <section className="py-16 bg-secondary">
       <div className="container mx-auto px-4 text-center">
         <h2 className="font-heading font-bold text-3xl md:text-4xl text-white mb-4">
-          Ready to discover authentic Thailand?
+          Ready to discover your next adventure?
         </h2>
         <p className="text-white max-w-2xl mx-auto mb-8">
-          Book your custom trip now and let our destination experts guide you through this amazing country.
+          Book your custom trip now and let our destination experts guide you through an amazing journey.
         </p>
         <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
           <Link href="/tours">
