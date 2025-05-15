@@ -41,6 +41,73 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
+    
+    // Si le champ modifié est le lien personnalisé, on tente d'extraire un titre à partir de l'URL
+    if (name === "customLink" && value) {
+      try {
+        // Extraction du dernier segment de l'URL (après le dernier slash)
+        let urlSlug = value.trim();
+        
+        // Si le lien se termine par un slash, on le supprime
+        if (urlSlug.endsWith('/')) {
+          urlSlug = urlSlug.slice(0, -1);
+        }
+        
+        // Gestion des différents formats d'URL (avec ou sans protocole)
+        if (!urlSlug.includes('://') && !urlSlug.startsWith('/')) {
+          urlSlug = 'https://' + urlSlug;
+        }
+        
+        // Tenter de parser l'URL
+        let pathSegments;
+        try {
+          const url = new URL(urlSlug);
+          pathSegments = url.pathname.split('/').filter(segment => segment);
+        } catch (e) {
+          // Si l'URL est invalide, on utilise simplement la méthode de découpage par slash
+          pathSegments = urlSlug.split('/').filter(segment => segment);
+        }
+        
+        // Prendre le dernier segment du chemin
+        const lastSegment = pathSegments.length > 0 ? pathSegments[pathSegments.length - 1] : '';
+        
+        if (lastSegment) {
+          // Convertir les tirets et underscore en espaces et mettre en majuscule la première lettre de chaque mot
+          const title = lastSegment
+            .replace(/-|_/g, ' ')  // Remplacer les tirets et underscore par des espaces
+            .split(' ')
+            .map(word => {
+              // Ignorer les mots vides
+              if (!word) return '';
+              return word.charAt(0).toUpperCase() + word.slice(1);
+            })
+            .filter(word => word)  // Filtrer les mots vides
+            .join(' ');
+          
+          // Mise à jour du formulaire avec le nouveau titre extrait
+          // On remplace toujours le titre, même s'il n'est pas vide
+          if (title) {
+            // Notifier l'utilisateur que le titre a été rempli automatiquement
+            toast({
+              title: "Titre auto-rempli",
+              description: "Le titre a été automatiquement généré à partir du lien.",
+              duration: 3000
+            });
+            
+            setFormData({
+              ...formData,
+              [name]: value,
+              title: title
+            });
+            return;
+          }
+        }
+      } catch (error) {
+        console.error("Erreur lors de l'extraction du titre depuis l'URL:", error);
+      }
+    }
+    
+    // Comportement normal pour les autres champs
     setFormData({
       ...formData,
       [name]: name === "price" ? parseFloat(value) || 0 : value
