@@ -15,18 +15,18 @@ import {
 
 // Image is loaded from URL directly
 
-export default function Tours() {
+export default function Experiences() {
   const { data: tourCards = [], isLoading } = useQuery<TourCardItemProps[]>({
     queryKey: ['/api/tour-cards'],
   });
   
-  // Filtre pour avoir uniquement les tour cards de type "tour" ou sans type (compatibilité)
-  const tourTypeCards = tourCards.filter(card => card.type === "tour" || !card.type);
+  // Filtre pour avoir uniquement les tour cards de type "experience"
+  const experienceTypeCards = tourCards.filter(card => card.type === "experience");
   
   const [searchTerm, setSearchTerm] = useState("");
 
   // Filtre les cartes selon le terme de recherche
-  const filteredTourCards = tourTypeCards.filter(card => 
+  const filteredExperienceCards = experienceTypeCards.filter(card => 
     searchTerm === "" || 
     card.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
     (card.description && card.description.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -42,7 +42,7 @@ export default function Tours() {
           <div 
             className="relative h-[50vh] bg-cover bg-center"
             style={{ 
-              backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://images.unsplash.com/photo-1528181304800-259b08848526?q=80&w=1000&auto=format&fit=crop)"
+              backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://images.unsplash.com/photo-1604159129533-9d35777a0b07?q=80&w=1000&auto=format&fit=crop)"
             }}
           >
             <div className="absolute inset-0 flex items-center justify-center text-center px-4">
@@ -53,7 +53,7 @@ export default function Tours() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
                 >
-                  Explore Thailand Tours
+                  Discover Thailand Experiences
                 </motion.h1>
                 <motion.p 
                   className="text-xl text-white max-w-2xl mx-auto"
@@ -61,14 +61,14 @@ export default function Tours() {
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.5, delay: 0.2 }}
                 >
-                  Discover the best tours and experiences in Thailand tailored for you
+                  Immerse yourself in authentic Thai culture with our unique experiences
                 </motion.p>
               </div>
             </div>
           </div>
         </FadeInWhenVisible>
         
-        {/* Tours List */}
+        {/* Experiences List */}
         <section className="py-16">
           <div className="container mx-auto px-4">
             <SlideUpWhenVisible>
@@ -78,7 +78,7 @@ export default function Tours() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <h2 className="font-heading font-semibold text-xl mb-4">Filter Tours</h2>
+                <h2 className="font-heading font-semibold text-xl mb-4">Filter Experiences</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <motion.div whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 400 }}>
                     <label htmlFor="search" className="block text-sm font-medium text-gray-700 mb-1">
@@ -117,11 +117,11 @@ export default function Tours() {
                   </StaggerItem>
                 ))}
               </StaggerChildren>
-            ) : filteredTourCards.length > 0 ? (
+            ) : filteredExperienceCards.length > 0 ? (
               <StaggerChildren 
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
               >
-                {filteredTourCards.map((card) => (
+                {filteredExperienceCards.map((card) => (
                   <StaggerItem key={card.id}>
                     <TourCardItem {...card} />
                   </StaggerItem>
@@ -134,7 +134,7 @@ export default function Tours() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
               >
-                <p className="text-gray-500">No tours available matching your search. Try different keywords or create some tours in the admin panel!</p>
+                <p className="text-gray-500">No experiences available matching your search. Try different keywords or create some experiences in the admin panel!</p>
               </motion.div>
             )}
           </div>

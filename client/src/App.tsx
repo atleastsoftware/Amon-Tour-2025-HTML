@@ -3,6 +3,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import Tours from "@/pages/tours";
+import Experiences from "@/pages/experiences";
 import TourCards from "@/pages/tour-cards";
 import Stays from "@/pages/stays";
 import TourDetails from "@/pages/tour-details";
