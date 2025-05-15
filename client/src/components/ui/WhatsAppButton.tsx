@@ -60,13 +60,13 @@ export function WhatsAppButton() {
             animate={{ opacity: 1, x: 0, width: "auto" }}
             exit={{ opacity: 0, x: 20, width: 0 }}
           >
-            Chat with us!
+            Discutez avec nous en français !
           </motion.div>
         )}
       </AnimatePresence>
       
       <motion.a
-        href="https://wa.me/66961599224"
+        href="https://wa.me/66653496445"
         target="_blank"
         rel="noopener noreferrer"
         className={`bg-green-500 text-white rounded-full p-4 shadow-lg flex items-center justify-center hover:bg-green-600 transition-colors
