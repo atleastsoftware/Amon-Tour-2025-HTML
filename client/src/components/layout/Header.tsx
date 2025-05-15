@@ -4,7 +4,7 @@ import { useIsAuthenticated, useLogout } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import logoTemplate from "@/assets/logo-template.svg";
+import logoAmon from "@/assets/logo-amon.png";
 import { 
   DropdownMenu,
   DropdownMenuContent,
@@ -76,9 +76,9 @@ export default function Header() {
             whileHover={{ scale: 1.05 }}
           >
             <img 
-              src={logoTemplate} 
-              alt="Company Logo" 
-              className="h-10 w-auto"
+              src={logoAmon} 
+              alt="Amon Logo" 
+              className="h-12 w-auto"
             />
           </motion.div>
         </Link>
