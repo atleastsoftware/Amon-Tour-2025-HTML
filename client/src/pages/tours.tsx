@@ -303,25 +303,53 @@ export default function Tours() {
                   </StaggerItem>
                 ))}
               </StaggerChildren>
-            ) : filteredTours && filteredTours.length > 0 ? (
-              <StaggerChildren 
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-              >
-                {filteredTours.map((tour) => (
-                  <StaggerItem key={tour.id}>
-                    <TourCard tour={tour} />
-                  </StaggerItem>
-                ))}
-              </StaggerChildren>
+            ) : showTourCards ? (
+              // Si on affiche les tour cards
+              tourTypeCards && tourTypeCards.length > 0 ? (
+                <StaggerChildren 
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                >
+                  {tourTypeCards.filter(card => 
+                    card.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                    (card.description && card.description.toLowerCase().includes(searchTerm.toLowerCase()))
+                  ).map((card) => (
+                    <StaggerItem key={card.id}>
+                      <TourCardItem {...card} />
+                    </StaggerItem>
+                  ))}
+                </StaggerChildren>
+              ) : (
+                <motion.div 
+                  className="text-center py-8"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <p className="text-gray-500">No tour cards available. Create some in the admin panel!</p>
+                </motion.div>
+              )
             ) : (
-              <motion.div 
-                className="text-center py-8"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
-              >
-                <p className="text-gray-500">No tours match your criteria.</p>
-              </motion.div>
+              // Si on affiche les tours classiques
+              filteredTours && filteredTours.length > 0 ? (
+                <StaggerChildren 
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                >
+                  {filteredTours.map((tour) => (
+                    <StaggerItem key={tour.id}>
+                      <TourCard tour={tour} />
+                    </StaggerItem>
+                  ))}
+                </StaggerChildren>
+              ) : (
+                <motion.div 
+                  className="text-center py-8"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <p className="text-gray-500">No tours match your criteria.</p>
+                </motion.div>
+              )
             )}
           </div>
         </section>
