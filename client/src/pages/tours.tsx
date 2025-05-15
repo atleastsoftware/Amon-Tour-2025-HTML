@@ -18,10 +18,15 @@ import {
 export default function Tours() {
   const { data: tourCards = [], isLoading } = useQuery<TourCardItemProps[]>({
     queryKey: ['/api/tour-cards'],
+    onSuccess: (data) => {
+      console.log('Tour cards data received:', data);
+    }
   });
   
   // Filtre pour avoir uniquement les tour cards de type "tour" ou sans type (compatibilité)
   const tourTypeCards = tourCards.filter(card => card.type === "tour" || !card.type);
+  
+  console.log('Tour type cards filtered:', tourTypeCards);
   
   const [searchTerm, setSearchTerm] = useState("");
 
