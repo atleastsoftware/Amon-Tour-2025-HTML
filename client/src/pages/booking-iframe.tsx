@@ -49,7 +49,7 @@ export default function BookingIframe() {
     <div className="flex flex-col min-h-screen">
       <Header />
       
-      <main className="flex-grow flex flex-col">
+      <main className="flex-grow flex flex-col pt-[96px]">
         {bookingLink && (
           <motion.div 
             className="flex-grow w-full bg-white"
