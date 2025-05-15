@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { useIsAuthenticated, useLogout } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
@@ -49,6 +49,29 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { isAuthenticated } = useIsAuthenticated();
   const logout = useLogout();
+  const [scrolled, setScrolled] = useState(false);
+  const isBookingPage = location.startsWith('/booking');
+
+  // Ajouter un écouteur d'événement pour le défilement
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      if (scrollPosition > 10) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    // Attachez l'écouteur uniquement sur la page de réservation
+    if (isBookingPage) {
+      window.addEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isBookingPage]);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
