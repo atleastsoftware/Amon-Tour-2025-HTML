@@ -6,7 +6,8 @@ import {
   insertCustomTourRequestSchema, 
   insertContactMessageSchema,
   insertTourAvailabilitySchema,
-  insertReservationSchema
+  insertReservationSchema,
+  insertTourCardSchema
 } from "@shared/schema";
 import { createPaymentIntent, createOrRetrieveCustomer } from "./stripe";
 import { upload, getPublicFileUrl } from "./upload";
@@ -445,6 +446,81 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error updating reservation status:", error);
       res.status(500).json({ message: "Failed to update reservation status", error: String(error) });
+    }
+  });
+  
+  // TourCard routes
+  app.get("/api/tour-cards", async (req, res) => {
+    try {
+      const tourCards = await storage.getTourCards();
+      res.json(tourCards);
+    } catch (error) {
+      console.error("Error fetching tour cards:", error);
+      res.status(500).json({ message: "Failed to fetch tour cards", error: String(error) });
+    }
+  });
+  
+  app.get("/api/tour-cards/:id", async (req, res) => {
+    try {
+      const id = req.params.id;
+      
+      const tourCard = await storage.getTourCard(id);
+      if (!tourCard) {
+        return res.status(404).json({ message: "Tour card not found" });
+      }
+      
+      res.json(tourCard);
+    } catch (error) {
+      console.error("Error fetching tour card:", error);
+      res.status(500).json({ message: "Failed to fetch tour card", error: String(error) });
+    }
+  });
+  
+  app.post("/api/tour-cards", requireAuth, async (req, res) => {
+    try {
+      const tourCardData = insertTourCardSchema.parse(req.body);
+      const tourCard = await storage.createTourCard(tourCardData);
+      res.status(201).json(tourCard);
+    } catch (error: any) {
+      console.error("Error creating tour card:", error);
+      res.status(400).json({ 
+        message: "Invalid tour card data", 
+        error: error.errors || error.message || String(error) 
+      });
+    }
+  });
+  
+  app.put("/api/tour-cards/:id", requireAuth, async (req, res) => {
+    try {
+      const id = req.params.id;
+      
+      const tourCardData = req.body;
+      const tourCard = await storage.updateTourCard(id, tourCardData);
+      
+      if (!tourCard) {
+        return res.status(404).json({ message: "Tour card not found" });
+      }
+      
+      res.json(tourCard);
+    } catch (error) {
+      console.error("Error updating tour card:", error);
+      res.status(400).json({ message: "Invalid tour card data", error: String(error) });
+    }
+  });
+  
+  app.delete("/api/tour-cards/:id", requireAuth, async (req, res) => {
+    try {
+      const id = req.params.id;
+      
+      const result = await storage.deleteTourCard(id);
+      if (!result) {
+        return res.status(404).json({ message: "Tour card not found" });
+      }
+      
+      res.json({ message: "Tour card deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting tour card:", error);
+      res.status(500).json({ message: "Failed to delete tour card", error: String(error) });
     }
   });
 

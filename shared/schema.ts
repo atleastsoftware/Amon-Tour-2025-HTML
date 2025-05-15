@@ -145,3 +145,11 @@ export type TourAvailability = typeof tourAvailability.$inferSelect;
 
 export type InsertReservation = z.infer<typeof insertReservationSchema>;
 export type Reservation = typeof reservations.$inferSelect;
+
+export const insertTourCardSchema = createInsertSchema(tourCards).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type InsertTourCard = z.infer<typeof insertTourCardSchema>;
+export type TourCard = typeof tourCards.$inferSelect;

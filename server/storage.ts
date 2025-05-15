@@ -5,6 +5,7 @@ import {
   contactMessages,
   tourAvailability,
   reservations,
+  tourCards,
   type User,
   type InsertUser,
   type Tour,
@@ -17,6 +18,8 @@ import {
   type InsertTourAvailability,
   type Reservation,
   type InsertReservation,
+  type TourCard,
+  type InsertTourCard,
 } from "@shared/schema";
 import fs from "fs";
 import path from "path";
@@ -61,6 +64,13 @@ export interface IStorage {
   updateReservation(id: number, data: Partial<Reservation>): Promise<Reservation | undefined>;
   updateReservationStatus(id: number, status: 'pending' | 'confirmed' | 'cancelled' | 'completed'): Promise<Reservation | undefined>;
   updateReservationPayment(id: number, paymentIntentId: string, customerId: string): Promise<Reservation | undefined>;
+  
+  // TourCard operations
+  createTourCard(tourCard: InsertTourCard): Promise<TourCard>;
+  getTourCards(): Promise<TourCard[]>;
+  getTourCard(id: string): Promise<TourCard | undefined>;
+  updateTourCard(id: string, data: Partial<InsertTourCard>): Promise<TourCard | undefined>;
+  deleteTourCard(id: string): Promise<boolean>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -306,6 +316,47 @@ export class DatabaseStorage implements IStorage {
       stripeCustomerId: customerId,
       status: 'confirmed'
     });
+  }
+
+  // TourCard operations
+  async createTourCard(tourCardData: InsertTourCard): Promise<TourCard> {
+    const [tourCard] = await db
+      .insert(tourCards)
+      .values(tourCardData)
+      .returning();
+    return tourCard;
+  }
+
+  async getTourCards(): Promise<TourCard[]> {
+    return db
+      .select()
+      .from(tourCards)
+      .orderBy(tourCards.createdAt);
+  }
+
+  async getTourCard(id: string): Promise<TourCard | undefined> {
+    const [tourCard] = await db
+      .select()
+      .from(tourCards)
+      .where(eq(tourCards.id, id));
+    return tourCard;
+  }
+
+  async updateTourCard(id: string, data: Partial<InsertTourCard>): Promise<TourCard | undefined> {
+    const [updatedTourCard] = await db
+      .update(tourCards)
+      .set(data)
+      .where(eq(tourCards.id, id))
+      .returning();
+    return updatedTourCard;
+  }
+
+  async deleteTourCard(id: string): Promise<boolean> {
+    const [deletedTourCard] = await db
+      .delete(tourCards)
+      .where(eq(tourCards.id, id))
+      .returning();
+    return !!deletedTourCard;
   }
 }
 

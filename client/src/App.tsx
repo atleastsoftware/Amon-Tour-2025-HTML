@@ -10,6 +10,7 @@ import BookTour from "@/pages/book-tour";
 import PaymentComplete from "@/pages/payment-complete";
 import AdminLogin from "@/pages/admin-login";
 import Admin from "@/pages/admin";
+import TourCardBuilder from "@/pages/tour-card-builder";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 
 function Router() {
