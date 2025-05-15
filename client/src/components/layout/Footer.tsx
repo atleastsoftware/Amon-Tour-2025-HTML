@@ -158,7 +158,7 @@ export default function Footer() {
               </Link>
               <motion.a 
                 href="https://wa.me/66653496445" 
-                className="hover:text-secondary transition-colors"
+                className="font-heading hover:text-secondary transition-colors"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ y: -2 }}
@@ -166,7 +166,7 @@ export default function Footer() {
                 WhatsApp
               </motion.a>
               <motion.span
-                className="hover:text-secondary transition-colors cursor-pointer"
+                className="font-heading hover:text-secondary transition-colors cursor-pointer"
                 whileHover={{ y: -2 }}
               >
                 What they say about us
@@ -177,7 +177,7 @@ export default function Footer() {
           {/* Payment Column */}
           <div>
             <h4 className="font-heading font-bold text-xl mb-6 text-center">Pay Safely With Us</h4>
-            <p className="text-center mb-6">
+            <p className="font-heading text-center mb-6">
               The payment is encrypted and transmitted securely with an SSL protocol.
             </p>
             <div className="flex justify-center space-x-3">
@@ -220,25 +220,25 @@ export default function Footer() {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.5 }}
         >
-          <p>&copy; {new Date().getFullYear()} Flame BB Co., Ltd. (Amon Tour). All rights reserved.</p>
+          <p className="font-heading">&copy; {new Date().getFullYear()} Flame BB Co., Ltd. (Amon Tour). All rights reserved.</p>
           <div className="flex space-x-4 mt-4 md:mt-0">
             <motion.a 
               href="#" 
-              className="text-sm hover:text-secondary transition-colors"
+              className="font-heading text-sm hover:text-secondary transition-colors"
               whileHover={{ y: -2 }}
             >
               Legal Notice
             </motion.a>
             <motion.a 
               href="#" 
-              className="text-sm hover:text-secondary transition-colors"
+              className="font-heading text-sm hover:text-secondary transition-colors"
               whileHover={{ y: -2 }}
             >
               Privacy Policy
             </motion.a>
             <motion.a 
               href="#" 
-              className="text-sm hover:text-secondary transition-colors"
+              className="font-heading text-sm hover:text-secondary transition-colors"
               whileHover={{ y: -2 }}
             >
               Terms & Conditions
