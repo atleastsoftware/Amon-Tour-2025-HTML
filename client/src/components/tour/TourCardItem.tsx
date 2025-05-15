@@ -145,29 +145,30 @@ export default function TourCardItem({
       <AnimatePresence>
         {isBookingOpen && (
           <motion.div 
-            className="w-full mt-2 border border-gray-200 rounded-lg shadow-lg overflow-hidden"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
+            className="w-full my-6 border-2 border-primary/20 rounded-xl shadow-xl overflow-hidden bg-white"
+            initial={{ opacity: 0, height: 0, y: -20 }}
+            animate={{ opacity: 1, height: 'auto', y: 0 }}
+            exit={{ opacity: 0, height: 0, y: -20 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
           >
-            <div className="bg-white p-3 flex items-center justify-between border-b">
+            <div className="bg-gradient-to-r from-primary/10 to-white p-4 flex items-center justify-between border-b-2 border-primary/20">
               <div>
-                <h3 className="text-md font-semibold">{title}</h3>
-                <p className="text-xs text-gray-500">
-                  Réservation - {type === "tour" ? "Tour" : "Expérience"}
+                <h3 className="text-lg font-semibold text-primary">{title}</h3>
+                <p className="text-sm text-gray-600">
+                  Réservation en ligne - {type === "tour" ? "Tour" : "Expérience"}
                 </p>
               </div>
               <Button 
-                variant="ghost" 
+                variant="outline" 
                 size="sm" 
                 onClick={() => setIsBookingOpen(false)}
-                className="h-8 w-8 p-0"
+                className="h-8 px-3 border-primary/30 hover:bg-primary/10"
               >
-                <X className="h-4 w-4" />
+                <X className="h-4 w-4 mr-1" />
+                Fermer
               </Button>
             </div>
-            <div className="w-full h-[500px]">
+            <div className="w-full h-[800px] bg-white">
               <iframe 
                 src={customLink} 
                 title={`Réservation pour ${title}`}
