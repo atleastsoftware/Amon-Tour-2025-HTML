@@ -8,9 +8,6 @@ import { useToast } from '@/hooks/use-toast';
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
 } from '@/components/ui/dialog';
 
 export interface TourCardItemProps {
@@ -42,82 +39,78 @@ export default function TourCardItem({
       case 'THB':
         return formatTHB(price);
       case 'EUR':
-        return `€${price}`;
+        return new Intl.NumberFormat('fr-FR', {
+          style: 'currency',
+          currency: 'EUR'
+        }).format(price);
       case 'USD':
-        return `$${price}`;
+        return new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD'
+        }).format(price);
       default:
         return `${price} ${currency}`;
     }
   };
 
   const handleCopyLink = () => {
-    navigator.clipboard.writeText(customLink).then(() => {
-      setCopied(true);
-      toast({
-        title: 'Lien copié',
-        description: 'Le lien a été copié dans votre presse-papiers',
-      });
-      setTimeout(() => setCopied(false), 2000);
-    }).catch(err => {
-      console.error('Erreur lors de la copie du lien:', err);
-      toast({
-        title: 'Erreur',
-        description: 'Impossible de copier le lien',
-        variant: 'destructive',
-      });
+    navigator.clipboard.writeText(customLink);
+    setCopied(true);
+    toast({
+      description: "Lien copié dans le presse-papier!",
     });
+    
+    setTimeout(() => {
+      setCopied(false);
+    }, 2000);
   };
 
   return (
     <>
-      <motion.div
+      <motion.div 
+        whileHover={{ y: -5, transition: { duration: 0.2 } }}
         className="h-full"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 20 }}
-        transition={{ duration: 0.3 }}
-        whileHover={{ y: -5 }}
       >
-        <Card className="overflow-hidden h-full flex flex-col">
-          <div className="relative aspect-video overflow-hidden">
+        <Card className="shadow-md overflow-hidden h-full flex flex-col">
+          <div className="relative h-48 overflow-hidden bg-gray-100">
             {images && images.length > 0 ? (
               <img 
                 src={images[0]} 
                 alt={title} 
-                className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                className="w-full h-full object-cover"
               />
             ) : (
-              <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                <span className="text-gray-400">No image</span>
+              <div className="flex h-full w-full items-center justify-center text-gray-400">
+                <span>Aucune image</span>
               </div>
             )}
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-              <div className="flex items-center gap-2">
-                <div className="inline-block px-3 py-1 rounded-full bg-primary text-white font-medium text-sm">
-                  From {formatPrice(price, currency)}
-                </div>
-                <div className={`inline-block px-3 py-1 rounded-full font-medium text-xs ${
-                  type === "tour" 
-                    ? "bg-blue-600 text-white" 
-                    : "bg-amber-500 text-white"
-                }`}>
-                  {type === "tour" ? "Tour" : "Experience"}
-                </div>
-              </div>
+            
+            <div className="absolute top-2 right-2 bg-white py-1 px-2 rounded-md shadow-sm text-xs font-medium">
+              {type === "experience" ? "Expérience" : "Tour"}
             </div>
           </div>
           
-          <CardContent className="flex flex-col flex-grow p-5">
-            <h3 className="font-heading text-lg font-semibold mb-2">{title}</h3>
+          <CardContent className="flex-1 flex flex-col p-4">
+            <div className="flex-1">
+              <h3 className="font-heading font-semibold text-lg mb-1 line-clamp-2">{title}</h3>
+              
+              {description && (
+                <p className="text-sm text-gray-600 line-clamp-3 mb-3">
+                  {description}
+                </p>
+              )}
+              
+              <div className="mt-auto">
+                <p className="text-lg font-semibold text-primary mb-3">
+                  À partir de {formatPrice(price, currency)}
+                </p>
+              </div>
+            </div>
             
-            {description && (
-              <p className="text-gray-600 text-sm mb-4 line-clamp-3">{description}</p>
-            )}
-            
-            <div className="mt-auto flex gap-2">
-              <Button 
-                variant="outline" 
-                size="sm" 
+            <div className="flex gap-2 mt-4">
+              <Button
+                variant="outline"
+                size="sm"
                 className="flex-1"
                 onClick={handleCopyLink}
               >
