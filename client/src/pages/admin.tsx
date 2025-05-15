@@ -1,32 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useLocation } from "wouter";
 import { useIsAuthenticated, useLogout } from "@/lib/auth";
-import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useToast } from "@/hooks/use-toast";
-import { Tour } from "@shared/schema";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { ImagePlus, FileText } from "lucide-react";
 
 export default function AdminPage() {
   const { isAuthenticated, isLoading: authLoading } = useIsAuthenticated();
   const [, setLocation] = useLocation();
   const logout = useLogout();
-  const { toast } = useToast();
-  
-  // Fetch tours data
-  const { data: tours = [], isLoading: toursLoading } = useQuery<Tour[]>({
-    queryKey: ['/api/tours'],
-  });
 
   useEffect(() => {
     if (!authLoading && !isAuthenticated) {
@@ -50,72 +34,67 @@ export default function AdminPage() {
           <Button variant="outline" onClick={handleLogout}>Déconnexion</Button>
         </div>
         
-        <Card className="mb-8">
-          <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle>Tours</CardTitle>
-            <div className="flex gap-2">
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={() => setLocation('/tour-card-builder')}
-              >
-                Générateur de fiches
-              </Button>
-              <Button 
-                variant="default" 
-                size="sm"
-                onClick={() => window.alert('Bientôt disponible!')}
-              >
-                + Créer un tour
-              </Button>
-            </div>
-          </CardHeader>
-          <CardContent>
-            {toursLoading ? (
-              <div className="text-center py-4">Chargement des tours...</div>
-            ) : (
-              <div className="overflow-x-auto">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>ID</TableHead>
-                      <TableHead>Titre</TableHead>
-                      <TableHead>Durée</TableHead>
-                      <TableHead>Prix</TableHead>
-                      <TableHead>Mis en avant</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {tours.length === 0 ? (
-                      <TableRow>
-                        <TableCell colSpan={5} className="text-center py-4">
-                          Aucun tour trouvé
-                        </TableCell>
-                      </TableRow>
-                    ) : (
-                      tours.map((tour) => (
-                        <TableRow key={tour.id}>
-                          <TableCell>{tour.id}</TableCell>
-                          <TableCell className="font-medium">{tour.title}</TableCell>
-                          <TableCell>{tour.duration}</TableCell>
-                          <TableCell>{tour.price}€</TableCell>
-                          <TableCell>{tour.featured ? 'Oui' : 'Non'}</TableCell>
-                        </TableRow>
-                      ))
-                    )}
-                  </TableBody>
-                </Table>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-        
-        <div className="space-y-1">
-          <div className="text-center text-gray-500 text-sm">
-            Utilisez le "Générateur de fiches" pour créer rapidement des fiches de tour avec images, descriptions et liens personnalisés.
+        <div className="grid gap-6">
+          <div className="text-center">
+            <h2 className="text-2xl font-heading font-semibold mb-2">Générateur de fiches de Tours</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Créez facilement des fiches de tours personnalisées avec images, descriptions et prix. 
+              Ces fiches seront automatiquement affichées sur le site.
+            </p>
           </div>
-          <div className="text-center text-gray-500 text-sm">
-            Pour les autres opérations avancées (modification, suppression complète), contactez le développeur.
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            <Card className="overflow-hidden">
+              <CardHeader className="bg-primary/5 pb-4">
+                <CardTitle className="flex items-center gap-2">
+                  <ImagePlus className="h-5 w-5" />
+                  Créer des fiches de tour
+                </CardTitle>
+                <CardDescription>
+                  Ajoutez de nouvelles fiches avec images et détails
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="pt-6">
+                <p className="mb-4 text-sm text-muted-foreground">
+                  Créez des fiches de tour avec titre, description, prix, et jusqu'à 3 images par fiche. 
+                  Les fiches apparaîtront automatiquement sur le site.
+                </p>
+                <Button 
+                  className="w-full" 
+                  onClick={() => setLocation('/tour-card-builder')}
+                >
+                  Accéder au générateur de fiches
+                </Button>
+              </CardContent>
+            </Card>
+            
+            <Card className="overflow-hidden">
+              <CardHeader className="bg-primary/5 pb-4">
+                <CardTitle className="flex items-center gap-2">
+                  <FileText className="h-5 w-5" />
+                  Guide d'utilisation
+                </CardTitle>
+                <CardDescription>
+                  Comment utiliser le générateur de fiches
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="pt-6">
+                <div className="space-y-4">
+                  <div className="grid grid-cols-[25px_1fr] gap-2">
+                    <div className="bg-primary text-primary-foreground rounded-full h-5 w-5 flex items-center justify-center text-xs font-bold">1</div>
+                    <p className="text-sm">Remplissez le formulaire avec le titre, la description et le prix</p>
+                  </div>
+                  <div className="grid grid-cols-[25px_1fr] gap-2">
+                    <div className="bg-primary text-primary-foreground rounded-full h-5 w-5 flex items-center justify-center text-xs font-bold">2</div>
+                    <p className="text-sm">Téléchargez jusqu'à 3 images pour illustrer le tour</p>
+                  </div>
+                  <div className="grid grid-cols-[25px_1fr] gap-2">
+                    <div className="bg-primary text-primary-foreground rounded-full h-5 w-5 flex items-center justify-center text-xs font-bold">3</div>
+                    <p className="text-sm">Ajoutez un lien personnalisé (optionnel) pour rediriger vers une page spécifique</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </div>
