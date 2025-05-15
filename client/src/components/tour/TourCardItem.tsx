@@ -145,16 +145,16 @@ export default function TourCardItem({
       <AnimatePresence>
         {isBookingOpen && (
           <motion.div 
-            className="w-full my-6 border-2 border-primary/20 rounded-xl shadow-xl overflow-hidden bg-white"
-            initial={{ opacity: 0, height: 0, y: -20 }}
-            animate={{ opacity: 1, height: 'auto', y: 0 }}
-            exit={{ opacity: 0, height: 0, y: -20 }}
-            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="fixed inset-0 z-50 bg-white md:relative md:z-auto md:w-full md:my-6 md:border-2 md:border-primary/20 md:rounded-xl md:shadow-xl md:overflow-hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
           >
-            <div className="bg-gradient-to-r from-primary/10 to-white p-4 flex items-center justify-between border-b-2 border-primary/20">
-              <div>
-                <h3 className="text-lg font-semibold text-primary">{title}</h3>
-                <p className="text-sm text-gray-600">
+            <div className="bg-gradient-to-r from-primary/10 to-white p-3 md:p-4 flex items-center justify-between border-b-2 border-primary/20 sticky top-0 z-10">
+              <div className="flex-1 mr-2">
+                <h3 className="text-base md:text-lg font-semibold text-primary truncate">{title}</h3>
+                <p className="text-xs md:text-sm text-gray-600 hidden sm:block">
                   Réservation en ligne - {type === "tour" ? "Tour" : "Expérience"}
                 </p>
               </div>
@@ -162,13 +162,13 @@ export default function TourCardItem({
                 variant="outline" 
                 size="sm" 
                 onClick={() => setIsBookingOpen(false)}
-                className="h-8 px-3 border-primary/30 hover:bg-primary/10"
+                className="h-8 px-2 md:px-3 border-primary/30 hover:bg-primary/10 whitespace-nowrap flex-shrink-0"
               >
-                <X className="h-4 w-4 mr-1" />
-                Fermer
+                <X className="h-4 w-4 md:mr-1" />
+                <span className="hidden md:inline">Fermer</span>
               </Button>
             </div>
-            <div className="w-full h-[800px] bg-white">
+            <div className="w-full bg-white h-[calc(100vh-48px)] md:h-[calc(100vh-150px)]" style={{ minHeight: '500px' }}>
               <iframe 
                 src={customLink} 
                 title={`Réservation pour ${title}`}
