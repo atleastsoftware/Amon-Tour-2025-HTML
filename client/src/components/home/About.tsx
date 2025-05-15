@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import amonTourTeam from "@/assets/amon-tour-team.jpg";
 
 export default function About() {
   return (
@@ -40,8 +41,8 @@ export default function About() {
           <div className="order-1 lg:order-2">
             <div className="relative">
               <img 
-                src="https://images.unsplash.com/photo-1490077476659-095159692ab5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1680&q=80" 
-                alt="Beautiful Thai beach - Amon Tour" 
+                src={amonTourTeam} 
+                alt="Amon Tour team with clients on a beautiful Thai beach" 
                 className="w-full h-auto rounded-lg shadow-lg"
               />
               <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-lg hidden md:block">
