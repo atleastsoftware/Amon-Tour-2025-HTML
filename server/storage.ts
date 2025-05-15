@@ -61,7 +61,6 @@ export interface IStorage {
   updateReservation(id: number, data: Partial<Reservation>): Promise<Reservation | undefined>;
   updateReservationStatus(id: number, status: 'pending' | 'confirmed' | 'cancelled' | 'completed'): Promise<Reservation | undefined>;
   updateReservationPayment(id: number, paymentIntentId: string, customerId: string): Promise<Reservation | undefined>;
-  updateReservationWithOmise(id: number, chargeId: string): Promise<Reservation | undefined>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -242,22 +241,8 @@ export class DatabaseStorage implements IStorage {
       }
       
       // Use the price from availability or fallback to tour price
-      const adultPrice = availability.price || (await this.getTour(data.tourId))?.price || 0;
-      const childPrice = availability.childPrice || (await this.getTour(data.tourId))?.childPrice || adultPrice * 0.5; // 50% par défaut si non spécifié
-      
-      // Calculer le prix de base (adultes + enfants)
-      const baseAdultAmount = adultPrice * (data.numberOfPeople - (data.numberOfChildren || 0));
-      const baseChildAmount = childPrice * (data.numberOfChildren || 0);
-      const baseAmount = baseAdultAmount + baseChildAmount;
-      
-      // Ajouter la taxe de 5% par personne
-      const taxPerAdult = Math.round(adultPrice * 0.05);
-      const taxPerChild = Math.round(childPrice * 0.05);
-      const totalTax = (taxPerAdult * (data.numberOfPeople - (data.numberOfChildren || 0))) + 
-                       (taxPerChild * (data.numberOfChildren || 0));
-      
-      // Montant total avec taxe
-      data.totalAmount = baseAmount + totalTax;
+      const price = availability.price || (await this.getTour(data.tourId))?.price || 0;
+      data.totalAmount = price * data.numberOfPeople;
     }
     
     // Create the reservation
@@ -319,13 +304,6 @@ export class DatabaseStorage implements IStorage {
     return this.updateReservation(id, { 
       stripePaymentIntentId: paymentIntentId, 
       stripeCustomerId: customerId,
-      status: 'confirmed'
-    });
-  }
-  
-  async updateReservationWithOmise(id: number, chargeId: string): Promise<Reservation | undefined> {
-    return this.updateReservation(id, { 
-      omiseChargeId: chargeId, 
       status: 'confirmed'
     });
   }

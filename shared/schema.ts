@@ -68,7 +68,6 @@ export const reservations = pgTable("reservations", {
   status: reservationStatusEnum("status").notNull().default("pending"),
   stripePaymentIntentId: text("stripe_payment_intent_id"),
   stripeCustomerId: text("stripe_customer_id"),
-  omiseChargeId: text("omise_charge_id"),
   specialRequests: text("special_requests"),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
@@ -116,7 +115,6 @@ export const insertReservationSchema = baseReservationSchema.extend({
   numberOfChildren: z.number().optional().default(0), // Nombre d'enfants optionnel
   stripeCustomerId: z.string().optional(), // Ajouté pour permettre l'ID du client Stripe
   stripePaymentIntentId: z.string().optional(), // Ajouté pour permettre l'ID de paiement Stripe
-  omiseChargeId: z.string().optional(), // Ajouté pour permettre l'ID de charge Omise
 });
 
 export type InsertUser = z.infer<typeof insertUserSchema>;
