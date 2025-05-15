@@ -71,7 +71,7 @@ export default function Stays() {
       <Header />
       <div className="min-h-screen bg-gray-50 pt-16">
         {/* Hero Section */}
-        <section className="bg-primary text-white py-16 md:py-24">
+        <section className="bg-white text-gray-900 py-16 md:py-24">
           <div className="container mx-auto px-4">
             <SlideUpWhenVisible>
               <h1 className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl text-center mb-6">
@@ -79,7 +79,7 @@ export default function Stays() {
               </h1>
             </SlideUpWhenVisible>
             <FadeInWhenVisible delay={0.2}>
-              <p className="text-lg md:text-xl text-center max-w-3xl mx-auto mb-10">
+              <p className="text-lg md:text-xl text-center max-w-3xl mx-auto mb-10 text-gray-700">
                 Carefully selected accommodations for an authentic and comfortable stay in Thailand.
               </p>
             </FadeInWhenVisible>
