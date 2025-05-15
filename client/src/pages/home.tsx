@@ -31,8 +31,8 @@ export default function Home() {
     queryKey: ['/api/tour-cards'],
   });
   
-  // Filtre pour avoir uniquement les tour cards de type "tour"
-  const tourTypeCards = tourCards.filter(card => card.type === "tour" || !card.type);
+  // SOLUTION IMMÉDIATE: Ne pas filtrer les cartes pour montrer toutes les cartes sur la page d'accueil
+  const tourTypeCards = tourCards;
   
   // Pour l'affichage, on considère qu'on est en chargement si l'une des deux requêtes est en cours
   const isLoading = isLoadingTours || isLoadingTourCards;

@@ -31,7 +31,7 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
     price: 0,
     currency: "THB",
     customLink: "",
-    type: "experience",
+    type: "tour", // Définir "tour" comme valeur par défaut au lieu de "experience"
     images: []
   });
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);

@@ -23,10 +23,11 @@ export default function Tours() {
     }
   });
   
-  // Filtre pour avoir uniquement les tour cards de type "tour" ou sans type (compatibilité)
-  const tourTypeCards = tourCards.filter(card => card.type === "tour" || !card.type);
+  // SOLUTION IMMÉDIATE: Ne pas filtrer par type pour afficher toutes les cartes
+  // Le type par défaut est "experience" mais nous voulons montrer toutes les cartes sur la page des Tours
+  const tourTypeCards = tourCards;
   
-  console.log('Tour type cards filtered:', tourTypeCards);
+  console.log('Tour cards (sans filtrage):', tourTypeCards);
   
   const [searchTerm, setSearchTerm] = useState("");
 
