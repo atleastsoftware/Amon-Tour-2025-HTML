@@ -2,6 +2,10 @@ import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { FadeInWhenVisible, SlideUpWhenVisible, StaggerChildren, StaggerItem } from "@/components/ui/animations";
 import logoA from "@/assets/logo-a.png";
+import visaIcon from "@/assets/payment-icons/visa.svg";
+import mastercardIcon from "@/assets/payment-icons/mastercard.svg";
+import amexIcon from "@/assets/payment-icons/american-express.svg";
+import paypalIcon from "@/assets/payment-icons/paypal.svg";
 import { 
   Facebook, 
   Instagram, 
@@ -180,11 +184,11 @@ export default function Footer() {
             <p className="font-heading text-center mb-6">
               The payment is encrypted and transmitted securely with an SSL protocol.
             </p>
-            <div className="flex justify-center space-x-3">
-              <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/mastercard.png" alt="mastercard" className="h-8" />
-              <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/visa.png" alt="visa" className="h-8" />
-              <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/mastercard.png" alt="mastercard" className="h-8" />
-              <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/american_express.png" alt="american express" className="h-8" />
+            <div className="flex justify-center space-x-3 bg-white p-3 rounded">
+              <img src={visaIcon} alt="Visa" className="h-8" />
+              <img src={mastercardIcon} alt="Mastercard" className="h-8" />
+              <img src={amexIcon} alt="American Express" className="h-8" />
+              <img src={paypalIcon} alt="PayPal" className="h-8" />
             </div>
             
             {/* Newsletter on desktop */}
