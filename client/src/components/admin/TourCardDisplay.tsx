@@ -6,8 +6,10 @@ import {
   Copy, 
   Check, 
   Share2, 
-  Trash
+  Trash,
+  Edit
 } from "lucide-react";
+import TourCardEditModal from "./TourCardEditModal";
 import { useToast } from "@/hooks/use-toast";
 import { formatTHB } from "@/lib/utils";
 
@@ -18,17 +20,21 @@ interface TourCardData {
   price: number;
   currency: string;
   customLink: string;
+  type: "tour" | "experience";
   images: string[];
+  tags?: string[];
 }
 
 interface TourCardDisplayProps {
   tourCard: TourCardData;
   onDelete?: (id: string) => void;
+  onUpdate?: (updatedCard: TourCardData) => void;
 }
 
-export default function TourCardDisplay({ tourCard, onDelete }: TourCardDisplayProps) {
+export default function TourCardDisplay({ tourCard, onDelete, onUpdate }: TourCardDisplayProps) {
   const { toast } = useToast();
   const [copied, setCopied] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   
   const formatPrice = (price: number, currency: string) => {
     switch (currency) {
@@ -74,9 +80,16 @@ export default function TourCardDisplay({ tourCard, onDelete }: TourCardDisplayP
     }
   };
 
+  const handleUpdateTourCard = (updatedCard: TourCardData) => {
+    if (onUpdate) {
+      onUpdate(updatedCard);
+    }
+  };
+
   return (
-    <Card className="overflow-hidden flex flex-col h-full">
-      <div className="relative aspect-video">
+    <>
+      <Card className="overflow-hidden flex flex-col h-full">
+        <div className="relative aspect-video">
         {tourCard.images.length > 0 ? (
           <img 
             src={tourCard.images[0]} 
@@ -127,6 +140,17 @@ export default function TourCardDisplay({ tourCard, onDelete }: TourCardDisplayP
               <span className="sr-only">Partager</span>
             </Button>
             
+            {/* Bouton d'édition */}
+            {onUpdate && (
+              <Button 
+                variant="outline"
+                onClick={() => setIsEditModalOpen(true)}
+              >
+                <Edit className="h-4 w-4 text-blue-500" />
+                <span className="sr-only">Modifier</span>
+              </Button>
+            )}
+            
             {onDelete && (
               <Button 
                 variant="outline"
@@ -140,5 +164,16 @@ export default function TourCardDisplay({ tourCard, onDelete }: TourCardDisplayP
         </div>
       </CardContent>
     </Card>
+    
+    {/* Modal d'édition */}
+    {onUpdate && (
+      <TourCardEditModal
+        tourCard={tourCard}
+        isOpen={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+        onSave={handleUpdateTourCard}
+      />
+    )}
+    </>
   );
 }

@@ -18,7 +18,9 @@ interface TourCardData {
   price: number;
   currency: string;
   customLink: string;
+  type: "tour" | "experience";
   images: string[];
+  tags?: string[];
 }
 
 export default function TourCardBuilder() {
@@ -55,6 +57,33 @@ export default function TourCardBuilder() {
       });
     }
   });
+  
+  // Update tour card mutation
+  const updateMutation = useMutation({
+    mutationFn: async (card: TourCardData) => {
+      return fetch('/api/tour-cards/' + card.id, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(card)
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/tour-cards'] });
+      toast({
+        title: "Succès",
+        description: "La fiche a été mise à jour avec succès"
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Erreur",
+        description: "Une erreur est survenue lors de la mise à jour de la fiche",
+        variant: "destructive"
+      });
+    }
+  });
 
   useEffect(() => {
     if (!authLoading && !isAuthenticated) {
@@ -73,6 +102,10 @@ export default function TourCardBuilder() {
   
   const handleDeleteTourCard = (id: string) => {
     deleteMutation.mutate(id);
+  };
+  
+  const handleUpdateTourCard = (updatedCard: TourCardData) => {
+    updateMutation.mutate(updatedCard);
   };
 
   if (authLoading) return <div className="container mx-auto p-8 text-center">Chargement...</div>;
@@ -114,6 +147,7 @@ export default function TourCardBuilder() {
                     key={card.id} 
                     tourCard={card} 
                     onDelete={handleDeleteTourCard}
+                    onUpdate={handleUpdateTourCard}
                   />
                 ))}
               </div>
