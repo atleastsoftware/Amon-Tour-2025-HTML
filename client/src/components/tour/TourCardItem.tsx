@@ -99,7 +99,22 @@ export default function TourCardItem({
       >
         <Card 
           className="overflow-hidden h-full flex flex-col cursor-pointer"
-          onClick={() => setIsDetailsOpen(true)}
+          onClick={() => {
+            // Préparer les données du tour à envoyer comme paramètre d'URL
+            const tourData = JSON.stringify({
+              id,
+              title,
+              description,
+              price,
+              currency,
+              customLink,
+              type,
+              images,
+              tags
+            });
+            // Rediriger vers la page de détail du tour
+            window.location.href = `/tour-view?tourData=${encodeURIComponent(tourData)}`;
+          }}
         >
           <div className="relative aspect-video overflow-hidden">
             {images && images.length > 0 ? (
@@ -219,137 +234,7 @@ export default function TourCardItem({
         )}
       </AnimatePresence>
       
-      {/* Tour Details Dialog */}
-      <Dialog open={isDetailsOpen} onOpenChange={setIsDetailsOpen}>
-        <DialogContent className="max-w-4xl p-0 overflow-hidden">
-          <div className="relative bg-white rounded-lg shadow-xl overflow-hidden">
-            {/* Gallery */}
-            <div className="relative aspect-[16/9] overflow-hidden">
-              {images && images.length > 0 ? (
-                <>
-                  <img 
-                    src={images[currentImageIndex]} 
-                    alt={`${title} image ${currentImageIndex + 1}`}
-                    className="w-full h-full object-cover"
-                  />
-                  
-                  {/* Image indicators */}
-                  {images.length > 1 && (
-                    <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-1.5">
-                      {images.map((_, index) => (
-                        <button
-                          key={index}
-                          className={`w-2 h-2 rounded-full ${
-                            index === currentImageIndex 
-                              ? 'bg-white' 
-                              : 'bg-white/50'
-                          }`}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setCurrentImageIndex(index);
-                          }}
-                        />
-                      ))}
-                    </div>
-                  )}
-                  
-                  {/* Image navigation buttons */}
-                  {images.length > 1 && (
-                    <>
-                      <button 
-                        className="absolute left-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-black/30 hover:bg-black/50 text-white"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          navigateGallery('prev');
-                        }}
-                      >
-                        <ChevronLeft className="h-6 w-6" />
-                      </button>
-                      <button 
-                        className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-black/30 hover:bg-black/50 text-white"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          navigateGallery('next');
-                        }}
-                      >
-                        <ChevronRight className="h-6 w-6" />
-                      </button>
-                    </>
-                  )}
-                </>
-              ) : (
-                <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                  <span className="text-gray-400">No images available</span>
-                </div>
-              )}
-              
-              {/* Price and type badges */}
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
-                <div className="flex items-center gap-2 flex-wrap">
-                  <div className="inline-block px-4 py-2 rounded-full bg-primary text-white font-medium text-base">
-                    From {formatPrice(price, currency)}
-                  </div>
-                  <div className={`inline-block px-4 py-2 rounded-full font-medium text-sm ${
-                    type === "tour" 
-                      ? "bg-blue-600 text-white" 
-                      : "bg-amber-500 text-white"
-                  }`}>
-                    {type === "tour" ? "Tour" : "Experience"}
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            {/* Content */}
-            <div className="p-6">
-              <DialogHeader>
-                <DialogTitle className="text-2xl font-heading font-bold">{title}</DialogTitle>
-              </DialogHeader>
-              
-              {/* Tags */}
-              {tags && tags.length > 0 && (
-                <div className="flex flex-wrap gap-1.5 mt-4">
-                  {tags.map((tag, index) => (
-                    <Badge key={index} variant="outline" className="text-xs px-2.5 py-1 bg-gray-50">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-              )}
-              
-              {/* Description */}
-              {description && (
-                <DialogDescription className="mt-4 text-base">
-                  {description}
-                </DialogDescription>
-              )}
-              
-              {/* Booking button */}
-              <div className="mt-6">
-                <Button
-                  className="w-full py-6 text-base"
-                  onClick={() => {
-                    // Vérifier si l'appareil est mobile (petite résolution d'écran)
-                    const isMobileDevice = window.innerWidth < 768;
-                    
-                    if (isMobileDevice) {
-                      // Sur mobile, afficher l'iframe directement sur la page
-                      setIsDetailsOpen(false);
-                      setIsBookingOpen(true);
-                    } else {
-                      // Sur PC, rediriger vers la page dédiée à l'iframe
-                      window.location.href = `/booking?link=${encodeURIComponent(customLink)}&title=${encodeURIComponent(title)}&type=${encodeURIComponent(type)}`;
-                    }
-                  }}
-                >
-                  <ExternalLink className="h-5 w-5 mr-2" />
-                  Book Now
-                </Button>
-              </div>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+
     </div>
   );
 }
