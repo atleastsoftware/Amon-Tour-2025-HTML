@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, Link } from 'wouter';
 import Footer from '@/components/layout/Footer';
 import Header from '@/components/layout/Header';
+import HeaderSimple from '@/components/layout/HeaderSimple';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
 import { motion } from 'framer-motion';
