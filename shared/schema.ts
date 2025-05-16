@@ -50,6 +50,7 @@ export const tourCards = pgTable("tour_cards", {
   customLink: text("custom_link").notNull(),
   images: json("images").notNull().$type<string[]>(),
   type: text("type").notNull().default("experience"), // "tour" ou "experience"
+  tags: json("tags").$type<string[]>().default([]), // Tags pour catégoriser (villes, îles, etc.)
   createdAt: timestamp("created_at").defaultNow(),
 });
 

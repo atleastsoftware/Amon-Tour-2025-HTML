@@ -16,6 +16,7 @@ interface TourCardData {
   customLink: string;
   type: "tour" | "experience";
   images: string[];
+  tags: string[];
 }
 
 interface TourCardFormProps {
@@ -32,8 +33,10 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
     currency: "THB",
     customLink: "",
     type: "tour", // Définir "tour" comme valeur par défaut au lieu de "experience"
-    images: []
+    images: [],
+    tags: []
   });
+  const [tagInput, setTagInput] = useState("");
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
 
