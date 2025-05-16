@@ -260,7 +260,8 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
           currency: "THB",
           customLink: "",
           type: "experience",
-          images: []
+          images: [],
+          tags: []
         });
         setSelectedFiles([]);
         setPreviewUrls([]);
@@ -274,7 +275,8 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
           currency: createdCard.currency || "THB",
           customLink: createdCard.customLink || "",
           type: createdCard.type || "experience",
-          images: Array.isArray(createdCard.images) ? createdCard.images : []
+          images: Array.isArray(createdCard.images) ? createdCard.images : [],
+          tags: Array.isArray(createdCard.tags) ? createdCard.tags : []
         };
         
         onSuccess(typedCard);
@@ -412,6 +414,48 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
               placeholder="Ex: https://tourninja.com/tour/xxx"
               required
             />
+          </div>
+          
+          <div>
+            <Label htmlFor="tags">Location Tags</Label>
+            <div className="flex items-start gap-2">
+              <div className="flex-grow">
+                <Input
+                  id="tagInput"
+                  value={tagInput}
+                  onChange={handleTagInputChange}
+                  onKeyDown={handleTagKeyDown}
+                  placeholder="Ex: Bangkok, Phuket, Koh Samui"
+                />
+              </div>
+              <Button 
+                type="button" 
+                onClick={addTag}
+                variant="outline"
+              >
+                Add
+              </Button>
+            </div>
+            
+            {formData.tags.length > 0 && (
+              <div className="flex flex-wrap gap-2 mt-2">
+                {formData.tags.map((tag, index) => (
+                  <div 
+                    key={index} 
+                    className="flex items-center gap-1 px-2 py-1 bg-primary/10 text-primary rounded-md"
+                  >
+                    <span>{tag}</span>
+                    <button
+                      type="button"
+                      onClick={() => removeTag(tag)}
+                      className="text-primary hover:text-primary/80"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
           
           <div>
