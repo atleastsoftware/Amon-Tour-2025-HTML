@@ -7,9 +7,9 @@ export default function HeaderSimple() {
     <header className="bg-white shadow-sm py-2 border-b">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center">
-          <Link href="/">
+          <Link href="/" className="flex items-center cursor-pointer">
             <motion.div 
-              className="flex items-center cursor-pointer"
+              className="flex items-center"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
             >
@@ -18,9 +18,9 @@ export default function HeaderSimple() {
                 alt="Senthang Siam" 
                 className="h-12 mr-3" 
               />
-              <div className="text-primary font-heading font-semibold hidden sm:block">
+              <span className="text-primary font-heading font-semibold hidden sm:block">
                 Senthang Siam
-              </div>
+              </span>
             </motion.div>
           </Link>
           
