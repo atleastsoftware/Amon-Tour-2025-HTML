@@ -25,15 +25,11 @@ export default function HeaderSimple() {
           </Link>
           
           <nav className="flex items-center space-x-2 sm:space-x-6">
-            <Link href="/tours">
-              <a className="text-gray-700 hover:text-primary text-sm sm:text-base font-medium">
-                Tours
-              </a>
+            <Link href="/tours" className="text-gray-700 hover:text-primary text-sm sm:text-base font-medium">
+              Tours
             </Link>
-            <Link href="/experiences">
-              <a className="text-gray-700 hover:text-primary text-sm sm:text-base font-medium">
-                Experiences
-              </a>
+            <Link href="/experiences" className="text-gray-700 hover:text-primary text-sm sm:text-base font-medium">
+              Experiences
             </Link>
           </nav>
         </div>
