@@ -7,9 +7,9 @@ export default function HeaderSimple() {
     <header className="bg-white shadow-sm py-2 border-b">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center">
-          <Link href="/" className="flex items-center cursor-pointer">
+          <Link href="/">
             <motion.div 
-              className="flex items-center"
+              className="flex items-center cursor-pointer"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
             >
@@ -18,18 +18,22 @@ export default function HeaderSimple() {
                 alt="Senthang Siam" 
                 className="h-12 mr-3" 
               />
-              <span className="text-primary font-heading font-semibold hidden sm:block">
+              <div className="text-primary font-heading font-semibold hidden sm:block">
                 Senthang Siam
-              </span>
+              </div>
             </motion.div>
           </Link>
           
           <nav className="flex items-center space-x-2 sm:space-x-6">
-            <Link href="/tours" className="text-gray-700 hover:text-primary text-sm sm:text-base font-medium">
-              Tours
+            <Link href="/tours">
+              <a className="text-gray-700 hover:text-primary text-sm sm:text-base font-medium">
+                Tours
+              </a>
             </Link>
-            <Link href="/experiences" className="text-gray-700 hover:text-primary text-sm sm:text-base font-medium">
-              Experiences
+            <Link href="/experiences">
+              <a className="text-gray-700 hover:text-primary text-sm sm:text-base font-medium">
+                Experiences
+              </a>
             </Link>
           </nav>
         </div>
