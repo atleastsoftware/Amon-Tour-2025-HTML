@@ -9,6 +9,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import TourCardForm from "@/components/admin/TourCardForm";
 import TourCardDisplay from "@/components/admin/TourCardDisplay";
+import QuickTourCardCreator from "@/components/admin/QuickTourCardCreator";
 
 interface TourCardData {
   id: string;
@@ -93,6 +94,7 @@ export default function TourCardBuilder() {
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-1">
+            <QuickTourCardCreator onSuccess={handleNewTourCard} />
             <TourCardForm onSuccess={handleNewTourCard} />
           </div>
           
