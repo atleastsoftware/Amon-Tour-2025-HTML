@@ -152,9 +152,6 @@ export default function Header() {
           <NavLink href="/custom-tour" isActive={location === '/custom-tour'}>
             Custom Tour
           </NavLink>
-          <NavLink href="/account" isActive={location === '/account'}>
-            My Account
-          </NavLink>
           
           {isAuthenticated ? (
             <DropdownMenu>
