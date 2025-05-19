@@ -143,7 +143,7 @@ export default function Header() {
             Tours
           </NavLink>
           <NavLink href="/experiences" isActive={location === '/experiences'}>
-            Experiences
+            Journey
           </NavLink>
           {/* Menu Séjour temporairement masqué */}
           {/* <NavLink href="/stays" isActive={location === '/stays'}>
@@ -220,7 +220,7 @@ export default function Header() {
                 Tours
               </NavLink>
               <NavLink href="/experiences" isActive={location === '/experiences'} onClick={closeMobileMenu}>
-                Experiences
+                Journey
               </NavLink>
               {/* Menu Séjour temporairement masqué */}
               {/* <NavLink href="/stays" isActive={location === '/stays'} onClick={closeMobileMenu}>
