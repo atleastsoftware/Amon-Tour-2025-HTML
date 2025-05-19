@@ -424,7 +424,7 @@ export default function TourCardForm({ onSuccess }: TourCardFormProps) {
                   ✨
                 </div>
                 <span className={`font-medium ${formData.type === "experience" ? "text-primary" : "text-gray-700"}`}>
-                  Expérience
+                  Séjour
                 </span>
                 <span className="text-xs text-gray-500">
                   Activités & Découvertes
