@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Tour } from "@shared/schema";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import SEO from "@/components/layout/SEO";
 import TourCardItem, { TourCardItemProps } from "@/components/tour/TourCardItem";
 import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
@@ -34,6 +35,11 @@ export default function Experiences() {
 
   return (
     <>
+      <SEO 
+        title="Thailand Journeys - Immersive Travel Experiences"
+        description="Discover authentic travel experiences and cultural journeys across Thailand. Immerse yourself in local traditions, cuisine, and hidden gems."
+        keywords="thailand journey, cultural experiences, local immersion, authentic thailand, thai culture, immersive travel"
+      />
       <Header />
       
       <main>

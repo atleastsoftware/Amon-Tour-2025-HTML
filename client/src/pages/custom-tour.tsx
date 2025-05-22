@@ -1,10 +1,16 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import SEO from "@/components/layout/SEO";
 import CustomTourForm from "@/components/home/CustomTourForm";
 
 export default function CustomTour() {
   return (
     <>
+      <SEO 
+        title="Create Your Custom Thailand Experience"
+        description="Design your own personalized Thailand tour. Tell us your preferences, and our local experts will craft a customized itinerary just for you."
+        keywords="custom thailand tour, personalized travel, tailor-made itinerary, private guide thailand, custom travel experience"
+      />
       <Header />
       
       <main>
