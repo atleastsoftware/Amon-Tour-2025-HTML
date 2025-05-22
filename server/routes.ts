@@ -15,6 +15,8 @@ import path from "path";
 import session from "express-session";
 import MemoryStore from "memorystore";
 import { v4 as uuidv4 } from "uuid";
+import bcrypt from "bcrypt";
+import rateLimit from "express-rate-limit";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Setup session store
@@ -24,10 +26,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
       secret: process.env.SESSION_SECRET || "senthang-siam-tour-secret",
       resave: false,
       saveUninitialized: false,
-      cookie: { secure: process.env.NODE_ENV === "production", maxAge: 86400000 }, // 24 hours
+      cookie: { 
+        secure: process.env.NODE_ENV === "production", 
+        maxAge: 86400000, // 24 hours
+        httpOnly: true,   // Prevent client-side JS from reading the cookie
+        sameSite: 'lax'   // CSRF protection
+      },
       store: new SessionStore({ checkPeriod: 86400000 }), // 24 hours
     })
   );
+  
+  // Configure rate limiting for login attempts
+  const loginLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 5, // 5 attempts per windowMs
+    message: { message: "Too many login attempts, please try again later" },
+    standardHeaders: true,
+    legacyHeaders: false,
+  });
 
   // Authentication middleware
   const requireAuth = (req: Request, res: Response, next: Function) => {
@@ -41,21 +57,56 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
   
   // Authentication routes
-  app.post("/api/login", async (req, res) => {
+  app.post("/api/login", loginLimiter, async (req, res) => {
     const { username, password } = req.body;
     
     if (!username || !password) {
       return res.status(400).json({ message: "Username and password are required" });
     }
     
-    const user = await storage.getUserByUsername(username);
-    
-    if (!user || user.password !== password) {
-      return res.status(401).json({ message: "Invalid credentials" });
+    try {
+      // Add a small delay to prevent timing attacks
+      await new Promise(resolve => setTimeout(resolve, 300 + Math.random() * 200));
+      
+      const user = await storage.getUserByUsername(username);
+      
+      // Si l'utilisateur n'existe pas
+      if (!user) {
+        return res.status(401).json({ message: "Invalid credentials" });
+      }
+      
+      // Vérifie si le mot de passe est déjà haché avec bcrypt
+      let passwordIsValid = false;
+      
+      if (user.password.startsWith('$2')) {
+        // Le mot de passe est déjà haché avec bcrypt
+        passwordIsValid = await bcrypt.compare(password, user.password);
+      } else {
+        // Pour la transition, on accepte encore les mots de passe en clair
+        // mais on va les hacher pour les utilisations futures
+        passwordIsValid = user.password === password;
+        
+        if (passwordIsValid) {
+          // Mise à jour du mot de passe en le hachant
+          const hashedPassword = await bcrypt.hash(password, 10);
+          await storage.updateUserPassword(user.id, hashedPassword);
+        }
+      }
+      
+      if (!passwordIsValid) {
+        return res.status(401).json({ message: "Invalid credentials" });
+      }
+      
+      // Si tout est valide, on crée la session
+      if (req.session) {
+        req.session.user = { id: user.id, username: user.username };
+      }
+      
+      res.json({ message: "Login successful", user: { id: user.id, username: user.username } });
+    } catch (error) {
+      console.error("Login error:", error);
+      res.status(500).json({ message: "An error occurred during login" });
     }
-    
-    req.session.user = { id: user.id, username: user.username };
-    res.json({ message: "Login successful", user: { id: user.id, username: user.username } });
   });
   
   app.post("/api/logout", (req, res) => {
