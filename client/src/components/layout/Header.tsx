@@ -153,7 +153,7 @@ export default function Header() {
             Custom Tour
           </NavLink>
           
-          {isAuthenticated ? (
+          {isAuthenticated && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
@@ -183,16 +183,6 @@ export default function Header() {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-          ) : (
-            <Link href="/cart">
-              <motion.span 
-                className="text-gray-700 px-4 py-2 rounded border border-gray-300 hover:bg-gray-50 transition-colors cursor-pointer"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Cart
-              </motion.span>
-            </Link>
           )}
         </motion.div>
       </nav>
@@ -231,16 +221,7 @@ export default function Header() {
               </NavLink>
 
               
-              <Link href="/cart">
-                <motion.span 
-                  className="text-gray-700 px-4 py-2 rounded border border-gray-300 text-center hover:bg-gray-50 transition-colors cursor-pointer block" 
-                  onClick={closeMobileMenu}
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.97 }}
-                >
-                  Cart
-                </motion.span>
-              </Link>
+
             </motion.div>
           </motion.div>
         )}
