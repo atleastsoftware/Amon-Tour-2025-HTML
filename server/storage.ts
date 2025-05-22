@@ -93,6 +93,15 @@ export class DatabaseStorage implements IStorage {
     return user;
   }
   
+  async updateUserPassword(id: number, hashedPassword: string): Promise<User | undefined> {
+    const [user] = await db
+      .update(users)
+      .set({ password: hashedPassword })
+      .where(eq(users.id, id))
+      .returning();
+    return user || undefined;
+  }
+  
   async getTours(): Promise<Tour[]> {
     return db.select().from(tours);
   }
