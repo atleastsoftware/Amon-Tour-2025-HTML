@@ -184,7 +184,7 @@ export default function Header() {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Link href="/admin/login">
+            <Link href="/cart">
               <motion.span 
                 className="text-gray-700 px-4 py-2 rounded border border-gray-300 hover:bg-gray-50 transition-colors cursor-pointer"
                 whileHover={{ scale: 1.05 }}
