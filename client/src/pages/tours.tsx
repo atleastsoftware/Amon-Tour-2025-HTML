@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Tour } from "@shared/schema";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import SEO from "@/components/layout/SEO";
 import TourCardItem, { TourCardItemProps } from "@/components/tour/TourCardItem";
 import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
@@ -40,6 +41,11 @@ export default function Tours() {
 
   return (
     <>
+      <SEO 
+        title="Thailand Tours - Discover Amazing Destinations"
+        description="Explore our handpicked selection of tours across Thailand. From Bangkok city tours to island adventures, find your perfect Thailand experience."
+        keywords="thailand tours, bangkok day trips, island hopping, guided tours, thailand adventures, authentic experiences"
+      />
       <Header />
       
       <main>

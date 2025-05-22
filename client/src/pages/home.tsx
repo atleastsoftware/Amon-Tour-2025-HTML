@@ -7,6 +7,7 @@ import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SearchBar from "@/components/layout/SearchBar";
+import SEO from "@/components/layout/SEO";
 import Hero from "@/components/home/Hero";
 import Features from "@/components/home/Features";
 import About from "@/components/home/About";
@@ -108,6 +109,11 @@ export default function Home() {
   
   return (
     <>
+      <SEO 
+        title="Amon Tour - Discover Authentic Thailand"
+        description="Experience Thailand like never before with our expertly curated tours, journeys and stays. Discover temples, beaches, and immersive cultural experiences."
+        keywords="thailand tours, bangkok tours, phuket travel, authentic thai experience, thailand vacation, thai culture"
+      />
       <Header />
       
       <main>
