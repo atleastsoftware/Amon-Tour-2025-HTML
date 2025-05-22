@@ -153,37 +153,7 @@ export default function Header() {
             Custom Tour
           </NavLink>
           
-          {isAuthenticated && (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Button variant="outline" className="border-gray-300 hover:bg-gray-50">
-                    Admin
-                  </Button>
-                </motion.div>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem asChild>
-                  <Link href="/admin/dashboard">
-                    <motion.span 
-                      className="w-full cursor-pointer"
-                      whileHover={{ x: 3 }}
-                    >
-                      Dashboard
-                    </motion.span>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={handleLogout} asChild>
-                  <motion.div
-                    className="cursor-pointer w-full"
-                    whileHover={{ x: 3 }}
-                  >
-                    Logout
-                  </motion.div>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          )}
+
         </motion.div>
       </nav>
       
