@@ -15,6 +15,9 @@ import PaymentComplete from "@/pages/payment-complete";
 import AdminLogin from "@/pages/admin-login";
 import Admin from "@/pages/admin";
 import TourCardBuilder from "@/pages/tour-card-builder";
+import LegalNotice from "@/pages/legal-notice";
+import PrivacyPolicy from "@/pages/privacy-policy";
+import TermsConditions from "@/pages/terms-conditions";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 
 function Router() {
@@ -32,6 +35,11 @@ function Router() {
       <Route path="/booking" component={BookingIframe} />
       <Route path="/tour-view" component={TourView} />
       <Route path="/payment-complete" component={PaymentComplete} />
+      
+      {/* Legal Pages */}
+      <Route path="/legal-notice" component={LegalNotice} />
+      <Route path="/privacy-policy" component={PrivacyPolicy} />
+      <Route path="/terms-conditions" component={TermsConditions} />
       
       {/* Admin Pages */}
       <Route path="/admin-login" component={AdminLogin} />
