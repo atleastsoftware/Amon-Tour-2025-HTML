@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { FadeInWhenVisible, SlideUpWhenVisible, StaggerChildren, StaggerItem } from "@/components/ui/animations";
 import { useState, useEffect } from "react";
+import heroImage from "@/assets/DJI_20241115104455_0160_D-min.jpeg";
 
 // Définition des images du carrousel
 const carouselImages = [
@@ -90,8 +91,8 @@ export default function Hero() {
               className="rounded-lg overflow-hidden"
             >
               <img 
-                src={carouselImages[0].src}
-                alt="Destination highlight"
+                src={heroImage}
+                alt="Beautiful Thai landscape aerial view"
                 className="w-full h-auto object-cover rounded-lg"
                 style={{ maxHeight: "400px" }}
               />
