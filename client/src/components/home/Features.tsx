@@ -16,7 +16,7 @@ export default function Features() {
             <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">Why Choose Us</h2>
             <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Our commitment is to provide the best travel experience at your destination with our personalized services.
+              Our commitment is to provide the best travel experience at Krabi (and more!) with our personalized services.
             </p>
           </motion.div>
         </div>
@@ -40,7 +40,7 @@ export default function Features() {
                 <Users size={36} className="text-white" />
               </motion.div>
               <h3 className="font-heading font-bold text-xl mb-2 mt-6">Private Tours</h3>
-              <p className="text-gray-600">Experience a unique journey with our English-speaking guides and private vehicles.</p>
+              <p className="text-gray-600">Experience a unique journey with our English or French-speaking guides and private vehicles.</p>
               
               <motion.div 
                 className="mt-4 grid grid-cols-3 gap-2"

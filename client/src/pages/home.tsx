@@ -11,6 +11,8 @@ import SEO from "@/components/layout/SEO";
 import Hero from "@/components/home/Hero";
 import Features from "@/components/home/Features";
 import About from "@/components/home/About";
+import Interests from "@/components/home/Interests";
+import CustomTourCta from "@/components/home/CustomTourCta";
 import Testimonials from "@/components/home/Testimonials";
 import CustomTourForm from "@/components/home/CustomTourForm";
 import CallToAction from "@/components/home/CallToAction";
