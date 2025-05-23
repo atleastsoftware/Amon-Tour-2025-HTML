@@ -304,6 +304,10 @@ export default function Home() {
           </div>
         </section>
         
+        <CustomTourCta />
+        
+        <Interests />
+        
         <About />
         
         <Testimonials />
