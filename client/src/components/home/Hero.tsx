@@ -63,7 +63,7 @@ export default function Hero() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Learn More
+                  See our offer
                 </motion.span>
               </Link>
             </motion.div>

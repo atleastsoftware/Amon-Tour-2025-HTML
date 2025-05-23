@@ -43,10 +43,10 @@ export default function Footer() {
                 whileHover={{ y: -2 }}
               >
                 <a 
-                  href="tel:+66612534584" 
+                  href="tel:+66653496445" 
                   className="font-heading hover:text-secondary transition-colors"
                 >
-                  T: +66 61 253 4584
+                  T: +66 65 349 6445
                 </a>
               </motion.li>
               <motion.li 
@@ -54,10 +54,10 @@ export default function Footer() {
                 whileHover={{ y: -2 }}
               >
                 <a 
-                  href="mailto:amontour@gmail.com" 
+                  href="mailto:info@amon-tour.com" 
                   className="font-heading hover:text-secondary transition-colors"
                 >
-                  E: amontour@gmail.com
+                  E: info@amon-tour.com
                 </a>
               </motion.li>
               <motion.li 
@@ -115,6 +115,16 @@ export default function Footer() {
               <p className="text-center">
                 <span className="bg-secondary/20 text-white px-2 py-1 rounded-full text-xs">
                   License TAT: 34/01995
+                </span>
+              </p>
+              <p className="text-center mt-2">
+                <span className="text-xs">
+                  <i className="fab fa-whatsapp mr-1"></i> WhatsApp: +66 65 349 6445
+                </span>
+              </p>
+              <p className="text-center mt-1">
+                <span className="text-xs">
+                  <i className="fab fa-line mr-1"></i> Line ID: amontour
                 </span>
               </p>
             </div>
@@ -215,21 +225,21 @@ export default function Footer() {
           <p className="font-heading">&copy; {new Date().getFullYear()} Flame BB Co., Ltd. (Amon Tour). All rights reserved.</p>
           <div className="flex space-x-4 mt-4 md:mt-0">
             <motion.a 
-              href="#" 
+              href="/legal-notice" 
               className="font-heading text-sm hover:text-secondary transition-colors"
               whileHover={{ y: -2 }}
             >
               Legal Notice
             </motion.a>
             <motion.a 
-              href="#" 
+              href="/privacy-policy" 
               className="font-heading text-sm hover:text-secondary transition-colors"
               whileHover={{ y: -2 }}
             >
               Privacy Policy
             </motion.a>
             <motion.a 
-              href="#" 
+              href="/terms-conditions" 
               className="font-heading text-sm hover:text-secondary transition-colors"
               whileHover={{ y: -2 }}
             >

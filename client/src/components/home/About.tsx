@@ -8,22 +8,30 @@ export default function About() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="order-2 lg:order-1">
             <h2 className="font-heading font-bold text-3xl md:text-4xl mb-6">
-              Amon Tour: The Concept
+              Who We Are
             </h2>
             <p className="text-gray-700 mb-4">
-              Eric, Margaux, Gabriel, and Raphaël - we are a French family relocated to Krabi in southern Thailand for nearly 10 years. In addition to organizing your vacation and welcoming you, we accompany you on your excursions. We work closely with our local partners to guarantee optimal service. We also offer our insider tips for other destinations in Thailand, including Koh Mook and Khao Sok.
+              We are Éric, Margaux, Gabriel, and Raphaël, a French family living in Krabi, southern Thailand, since 2013.
             </p>
+            <p className="text-gray-700 mb-6">
+              From our life here, we created Amon Tour — a small, independent travel agency built on a simple idea: personally welcome our travelers to Krabi and offer them a different way to experience Thailand.
+            </p>
+            
             <h3 className="font-heading font-semibold text-2xl mt-6 mb-3">
-              Private French-Speaking Tours in Krabi
+              Deep Local Roots
             </h3>
             <p className="text-gray-700 mb-4">
-              Private French-speaking tours in Krabi are the most exclusive way to discover the wonders of the Krabi region.
+              We live here year-round, in the heart of the region we love. This close connection to the destination allows us to offer exclusive experiences in Krabi, designed and guided by our team of professional local guides or trusted partners.
             </p>
-            <h3 className="font-heading font-semibold text-xl mt-5 mb-3">
-              Margaux and Eric invite you on vacation!
+            <p className="text-gray-700 mb-6">
+              You're not booking a generic tour — you're being welcomed, guided, and cared for by people who live here, who know the tides, the seasons, the crowds to avoid, and the hidden gems worth discovering.
+            </p>
+            
+            <h3 className="font-heading font-semibold text-2xl mt-6 mb-3">
+              Our Concept
             </h3>
             <p className="text-gray-700 mb-6">
-              With our private French-speaking tours in Krabi, you'll experience Amon Tour's very special excursions. All these programs have been designed to discover the natural masterpieces of the region from Krabi, far from mass tourism and accompanied by French locals. Eric and Margaux offer private French-speaking tours in Krabi and will join you during these unforgettable days. We have prepared 3 sea excursions (including one that's customizable), 3 land excursions, a sunset kayak tour, and even a surprise tour for those who love adventure! These day tours are the result of our experience and knowledge of these sites that we particularly love.
+              Combine the warmth and proximity of a local agency in Krabi with the expertise of a tailor-made travel designer for all of Thailand. At Amon Tour, you're supported before, during, and after your trip. You're in contact with real people – a face, a voice, a team – not a call center or an algorithm. We're here, on the ground, to make your trip a seamless, personal, and unforgettable experience.
             </p>
             <div className="flex items-center space-x-4">
               <a 
