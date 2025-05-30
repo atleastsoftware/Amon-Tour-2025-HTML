@@ -582,6 +582,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     TTL: 6 * 60 * 60 * 1000 // 6 hours in milliseconds
   };
 
+  // Clear cache to force fresh data fetch
+  tourCache.data = null;
+  tourCache.timestamp = 0;
+
   // Secure Tour Ninja API proxy route
   app.get("/api/proxy/tours", async (req, res) => {
     try {
@@ -637,7 +641,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
         throw new Error(`Tour Ninja API error: ${response.status} ${response.statusText}`);
       }
 
-      const tours = await response.json();
+      const apiResponse = await response.json();
+      
+      // Extract tours data from the nested response structure
+      let tours = apiResponse;
+      if (apiResponse.success && apiResponse.tours) {
+        tours = apiResponse.tours;
+      } else if (apiResponse.data && apiResponse.data.tours) {
+        tours = apiResponse.data.tours;
+      } else if (Array.isArray(apiResponse.data)) {
+        tours = apiResponse.data;
+      }
+      
+      console.log("Tour Ninja API response structure:", JSON.stringify(apiResponse, null, 2));
       
       // Update cache
       tourCache.data = tours;
