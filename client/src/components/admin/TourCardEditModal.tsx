@@ -76,10 +76,11 @@ export default function TourCardEditModal({
   };
   
   const addTag = () => {
-    if (tagInput.trim() && !formData.tags.includes(tagInput.trim())) {
+    const currentTags = formData.tags || [];
+    if (tagInput.trim() && !currentTags.includes(tagInput.trim())) {
       setFormData({
         ...formData,
-        tags: [...formData.tags, tagInput.trim()]
+        tags: [...currentTags, tagInput.trim()]
       });
       setTagInput("");
     }
@@ -93,9 +94,10 @@ export default function TourCardEditModal({
   };
   
   const removeTag = (tagToRemove: string) => {
+    const currentTags = formData.tags || [];
     setFormData({
       ...formData,
-      tags: formData.tags.filter(tag => tag !== tagToRemove)
+      tags: currentTags.filter(tag => tag !== tagToRemove)
     });
   };
 
@@ -180,7 +182,7 @@ export default function TourCardEditModal({
             <Textarea
               id="description"
               name="description"
-              value={formData.description}
+              value={formData.description || ""}
               onChange={handleInputChange}
               placeholder="Décrivez brièvement ce tour..."
               rows={3}
@@ -281,7 +283,7 @@ export default function TourCardEditModal({
               </Button>
             </div>
             
-            {formData.tags.length > 0 && (
+            {formData.tags && formData.tags.length > 0 && (
               <div className="flex flex-wrap gap-2 mt-2">
                 {formData.tags.map((tag, index) => (
                   <Badge key={index} variant="secondary" className="flex items-center gap-1 px-2 py-1">
