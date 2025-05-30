@@ -13,20 +13,39 @@ import {
   StaggerChildren,
   StaggerItem 
 } from "@/components/ui/animations";
+import { useTourNinja } from "@/hooks/useTourNinja";
 
 // Image is loaded from URL directly
 
 export default function Tours() {
-  const { data: tourCards = [], isLoading } = useQuery<TourCardItemProps[]>({
-    queryKey: ['/api/tour-cards'],
-    onSuccess: (data) => {
-      console.log('Tour cards data received:', data);
-    }
+  const { data: tourCards = [], isLoading: localToursLoading } = useQuery<TourCardItemProps[]>({
+    queryKey: ['/api/tour-cards']
   });
   
-  // SOLUTION IMMÉDIATE: Ne pas filtrer par type pour afficher toutes les cartes
-  // Le type par défaut est "experience" mais nous voulons montrer toutes les cartes sur la page des Tours
-  const tourTypeCards = tourCards;
+  // Get Tour Ninja tours
+  const { tours: tourNinjaTours = [], isLoading: tourNinjaLoading } = useTourNinja();
+  
+  // Convert Tour Ninja tours to TourCardItem format
+  const tourNinjaCards: TourCardItemProps[] = tourNinjaTours.map((tour: any) => ({
+    id: tour.id,
+    title: tour.name,
+    description: tour.description || tour.shortDescription || "",
+    price: tour.price,
+    currency: tour.currency,
+    customLink: tour.bookingUrl || tour.detailsUrl || "",
+    type: "tour" as const,
+    images: tour.images,
+    tags: tour.tags || [],
+    createdAt: new Date(tour.createdAt)
+  }));
+  
+  // Combine local tour cards with Tour Ninja tours
+  const allTours = [...(tourCards || []), ...tourNinjaCards];
+  
+  // Filter only tours (not experiences)
+  const tourTypeCards = allTours.filter((card: any) => card.type === "tour");
+  
+  const isLoading = localToursLoading || tourNinjaLoading;
   
   console.log('Tour cards (sans filtrage):', tourTypeCards);
   
