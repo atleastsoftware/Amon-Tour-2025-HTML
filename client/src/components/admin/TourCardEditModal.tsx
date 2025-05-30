@@ -8,17 +8,9 @@ import { Badge } from "@/components/ui/badge";
 import { X, Plus } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
-interface TourCardData {
-  id: string;
-  title: string;
-  description: string;
-  price: number;
-  currency: string;
-  customLink: string;
-  type: "tour" | "experience";
-  images: string[];
-  tags: string[];
-}
+import type { TourCard } from "@shared/schema";
+
+type TourCardData = TourCard;
 
 interface TourCardEditModalProps {
   tourCard: TourCardData;

@@ -13,17 +13,9 @@ import TourCardEditModal from "./TourCardEditModal";
 import { useToast } from "@/hooks/use-toast";
 import { formatTHB } from "@/lib/utils";
 
-interface TourCardData {
-  id: string;
-  title: string;
-  description: string;
-  price: number;
-  currency: string;
-  customLink: string;
-  type: "tour" | "experience";
-  images: string[];
-  tags?: string[];
-}
+import type { TourCard } from "@shared/schema";
+
+type TourCardData = TourCard;
 
 interface TourCardDisplayProps {
   tourCard: TourCardData;
@@ -49,28 +41,43 @@ export default function TourCardDisplay({ tourCard, onDelete, onUpdate }: TourCa
     }
   };
   
-  const copyLink = () => {
-    // In a real app, this would be the shareable link to the tour card page
-    // For now, we'll just copy the custom link
-    navigator.clipboard.writeText(tourCard.customLink);
-    setCopied(true);
-    toast({
-      title: "Lien copié",
-      description: "Le lien a été copié dans le presse-papiers"
-    });
-    
-    setTimeout(() => setCopied(false), 2000);
+  const copyLink = async () => {
+    try {
+      // In a real app, this would be the shareable link to the tour card page
+      // For now, we'll just copy the custom link
+      await navigator.clipboard.writeText(tourCard.customLink);
+      setCopied(true);
+      toast({
+        title: "Lien copié",
+        description: "Le lien a été copié dans le presse-papiers"
+      });
+      
+      setTimeout(() => setCopied(false), 2000);
+    } catch (error) {
+      console.error('Failed to copy link:', error);
+      toast({
+        title: "Erreur",
+        description: "Impossible de copier le lien",
+        variant: "destructive"
+      });
+    }
   };
   
-  const shareCard = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: tourCard.title,
-        text: tourCard.description || `Découvrez ${tourCard.title}`,
-        url: tourCard.customLink
-      }).catch(error => console.error('Error sharing', error));
-    } else {
-      copyLink();
+  const shareCard = async () => {
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: tourCard.title,
+          text: tourCard.description || `Découvrez ${tourCard.title}`,
+          url: tourCard.customLink
+        });
+      } else {
+        await copyLink();
+      }
+    } catch (error) {
+      console.error('Error sharing:', error);
+      // If sharing fails, fallback to copying link
+      await copyLink();
     }
   };
   
