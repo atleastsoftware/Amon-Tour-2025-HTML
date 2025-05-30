@@ -601,9 +601,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       if (!apiKey || !companyId) {
+        console.error("Tour Ninja credentials missing:", {
+          hasApiKey: !!apiKey,
+          hasCompanyId: !!companyId,
+          environment: process.env.NODE_ENV,
+          hostname: req.hostname
+        });
         return res.status(500).json({ 
           message: "Tour Ninja API credentials not configured",
-          configured: false
+          configured: false,
+          debug: {
+            hasApiKey: !!apiKey,
+            hasCompanyId: !!companyId,
+            environment: process.env.NODE_ENV
+          }
         });
       }
 

@@ -41,6 +41,17 @@ export function useTourNinja() {
     refetchOnWindowFocus: false,
   });
 
+  // Log for debugging deployment issues
+  if (process.env.NODE_ENV === 'production') {
+    console.log('Tour Ninja API response in production:', {
+      hasResponse: !!response,
+      hasData: !!(response?.data),
+      dataLength: response?.data?.length || 0,
+      success: response?.success,
+      error: error?.message
+    });
+  }
+
   return {
     tours: response?.data || [],
     isLoading,
