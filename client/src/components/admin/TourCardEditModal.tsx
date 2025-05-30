@@ -29,13 +29,14 @@ export default function TourCardEditModal({
   const [formData, setFormData] = useState<TourCardData>({
     id: "",
     title: "",
-    description: "",
+    description: null,
     price: 0,
     currency: "THB",
     customLink: "",
     type: "tour",
     images: [],
-    tags: []
+    tags: null,
+    createdAt: null
   });
   const [tagInput, setTagInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -44,9 +45,16 @@ export default function TourCardEditModal({
   useEffect(() => {
     if (tourCard) {
       setFormData({
-        ...tourCard,
-        // S'assurer que tags existe
-        tags: tourCard.tags || []
+        id: tourCard.id,
+        title: tourCard.title,
+        description: tourCard.description || "",
+        price: tourCard.price,
+        currency: tourCard.currency,
+        customLink: tourCard.customLink,
+        type: tourCard.type,
+        images: [...tourCard.images],
+        tags: tourCard.tags || [],
+        createdAt: tourCard.createdAt
       });
     }
   }, [tourCard]);
