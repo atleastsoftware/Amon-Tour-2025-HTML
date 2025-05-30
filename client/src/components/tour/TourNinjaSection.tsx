@@ -5,7 +5,7 @@ import TourNinjaCard from "./TourNinjaCard";
 import { Button } from "@/components/ui/button";
 
 export default function TourNinjaSection() {
-  const { tours, isLoading, error, refetch } = useTourNinja();
+  const { tours, isLoading, error, refetch, cached, fallback, success } = useTourNinja();
 
   if (error) {
     return (
@@ -50,6 +50,12 @@ export default function TourNinjaSection() {
             <p className="text-gray-600 max-w-2xl mx-auto">
               Discover additional tour options from our trusted partners.
             </p>
+            {(cached || fallback) && (
+              <p className="text-sm text-orange-600 mt-2">
+                {cached && !fallback && "Showing cached data"}
+                {fallback && "Showing cached data (connection issues)"}
+              </p>
+            )}
           </motion.div>
         </div>
 

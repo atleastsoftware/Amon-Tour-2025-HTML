@@ -672,6 +672,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Cache management route (admin only)
+  app.post("/api/proxy/tours/refresh", requireAuth, async (req, res) => {
+    try {
+      // Clear cache
+      tourCache.data = null;
+      tourCache.timestamp = 0;
+      
+      res.json({ 
+        success: true, 
+        message: "Tour cache cleared successfully" 
+      });
+    } catch (error) {
+      console.error("Error clearing tour cache:", error);
+      res.status(500).json({ 
+        success: false,
+        message: "Failed to clear cache", 
+        error: String(error) 
+      });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
