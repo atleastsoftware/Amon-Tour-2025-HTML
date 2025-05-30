@@ -575,39 +575,99 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Tour Ninja API proxy route
+  // In-memory cache for Tour Ninja data (6 hours TTL)
+  let tourCache = {
+    data: null as any,
+    timestamp: 0,
+    TTL: 6 * 60 * 60 * 1000 // 6 hours in milliseconds
+  };
+
+  // Secure Tour Ninja API proxy route
   app.get("/api/proxy/tours", async (req, res) => {
     try {
       const apiKey = process.env.TOUR_NINJA_API_KEY;
       const companyId = process.env.TOUR_NINJA_COMPANY_ID;
+      const allowedDomain = process.env.COMPANY_DOMAIN;
+      
+      // Security: Verify domain if configured
+      if (allowedDomain && req.hostname !== allowedDomain && req.hostname !== 'localhost') {
+        return res.status(403).json({ 
+          message: "Access denied for this domain" 
+        });
+      }
       
       if (!apiKey || !companyId) {
         return res.status(500).json({ 
-          message: "Tour Ninja API credentials not configured" 
+          message: "Tour Ninja API credentials not configured",
+          configured: false
         });
       }
 
+      // Check cache first
+      const now = Date.now();
+      if (tourCache.data && (now - tourCache.timestamp) < tourCache.TTL) {
+        console.log("Returning cached Tour Ninja data");
+        return res.json({
+          success: true,
+          data: tourCache.data,
+          cached: true,
+          timestamp: tourCache.timestamp
+        });
+      }
+
+      console.log("Fetching fresh data from Tour Ninja API");
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 seconds timeout
+      
       const response = await fetch(
         `https://tour-ninja-backend.replit.app/api/public/tours?apiKey=${apiKey}&companyId=${companyId}`,
         {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
+            'User-Agent': 'AmonTour-Website/1.0'
           },
+          signal: controller.signal
         }
       );
+      
+      clearTimeout(timeoutId);
 
       if (!response.ok) {
-        throw new Error(`Tour Ninja API error: ${response.status}`);
+        throw new Error(`Tour Ninja API error: ${response.status} ${response.statusText}`);
       }
 
       const tours = await response.json();
-      res.json(tours);
+      
+      // Update cache
+      tourCache.data = tours;
+      tourCache.timestamp = now;
+      
+      res.json({
+        success: true,
+        data: tours,
+        cached: false,
+        timestamp: now
+      });
     } catch (error) {
       console.error("Error fetching tours from Tour Ninja:", error);
+      
+      // Fallback to cache if available, even if expired
+      if (tourCache.data) {
+        console.log("Returning expired cache as fallback");
+        return res.json({
+          success: true,
+          data: tourCache.data,
+          cached: true,
+          fallback: true,
+          timestamp: tourCache.timestamp
+        });
+      }
+      
       res.status(500).json({ 
+        success: false,
         message: "Failed to fetch tours from Tour Ninja", 
-        error: String(error) 
+        error: process.env.NODE_ENV === 'development' ? String(error) : 'Internal server error'
       });
     }
   });

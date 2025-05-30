@@ -5,27 +5,50 @@ export interface TourNinjaTour {
   id: string;
   name: string;
   description: string;
-  image?: string;
-  price?: number;
-  currency?: string;
-  link?: string;
-  location?: string;
-  duration?: string;
-  [key: string]: any; // Pour d'autres propriétés potentielles
+  shortDescription?: string;
+  images: string[];
+  primaryImage?: string;
+  price: number;
+  currency: string;
+  duration: string;
+  location: string;
+  bookingUrl?: string;
+  detailsUrl?: string;
+  externalId: string;
+  isActive: boolean;
+  category?: string;
+  tags?: string[];
+  maxGuests?: number;
+  minGuests?: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface TourNinjaApiResponse {
+  success: boolean;
+  data: TourNinjaTour[];
+  cached?: boolean;
+  fallback?: boolean;
+  timestamp?: number;
+  message?: string;
 }
 
 export function useTourNinja() {
-  const { data: tours = [], isLoading, error, refetch } = useQuery<TourNinjaTour[]>({
+  const { data: response, isLoading, error, refetch } = useQuery<TourNinjaApiResponse>({
     queryKey: ['/api/proxy/tours'],
-    retry: false,
+    retry: 1,
     staleTime: 5 * 60 * 1000, // 5 minutes
+    refetchOnWindowFocus: false,
   });
 
   return {
-    tours,
+    tours: response?.data || [],
     isLoading,
     error,
-    refetch
+    refetch,
+    cached: response?.cached || false,
+    fallback: response?.fallback || false,
+    success: response?.success || false
   };
 }
 

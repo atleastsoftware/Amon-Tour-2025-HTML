@@ -12,8 +12,10 @@ interface TourNinjaCardProps {
 
 export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
   const handleCardClick = () => {
-    if (tour.link) {
-      window.open(tour.link, '_blank', 'noopener,noreferrer');
+    if (tour.bookingUrl) {
+      window.open(tour.bookingUrl, '_blank', 'noopener,noreferrer');
+    } else if (tour.detailsUrl) {
+      window.open(tour.detailsUrl, '_blank', 'noopener,noreferrer');
     }
   };
 
@@ -27,15 +29,15 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
     >
       <Card className="h-full cursor-pointer hover:shadow-lg transition-shadow overflow-hidden group">
         <div className="relative">
-          {tour.image && (
+          {(tour.primaryImage || tour.images?.[0]) && (
             <div className="h-48 overflow-hidden">
               <img
-                src={tour.image}
+                src={tour.primaryImage || tour.images[0]}
                 alt={tour.name}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.src = 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80';
+                  target.style.display = 'none';
                 }}
               />
             </div>
@@ -79,16 +81,30 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
             </div>
           </div>
 
-          {tour.link && (
-            <motion.button
-              onClick={handleCardClick}
-              className="w-full bg-primary text-white py-2 px-4 rounded-md font-medium text-sm hover:bg-primary-dark transition-colors flex items-center justify-center"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              View Details
-              <ExternalLink size={14} className="ml-2" />
-            </motion.button>
+          {(tour.bookingUrl || tour.detailsUrl) && (
+            <div className="flex gap-2">
+              {tour.bookingUrl && (
+                <motion.button
+                  onClick={() => window.open(tour.bookingUrl, '_blank', 'noopener,noreferrer')}
+                  className="flex-1 bg-primary text-white py-2 px-4 rounded-md font-medium text-sm hover:bg-primary-dark transition-colors flex items-center justify-center"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Book Now
+                </motion.button>
+              )}
+              {tour.detailsUrl && (
+                <motion.button
+                  onClick={() => window.open(tour.detailsUrl, '_blank', 'noopener,noreferrer')}
+                  className="flex-1 bg-secondary text-white py-2 px-4 rounded-md font-medium text-sm hover:bg-secondary-dark transition-colors flex items-center justify-center"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  More Info
+                  <ExternalLink size={12} className="ml-1" />
+                </motion.button>
+              )}
+            </div>
           )}
         </CardContent>
       </Card>
