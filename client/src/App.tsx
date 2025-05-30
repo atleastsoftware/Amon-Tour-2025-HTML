@@ -18,6 +18,7 @@ import TourCardBuilder from "@/pages/tour-card-builder";
 import LegalNotice from "@/pages/legal-notice";
 import PrivacyPolicy from "@/pages/privacy-policy";
 import TermsConditions from "@/pages/terms-conditions";
+import ExternalStays from "@/pages/external-stays";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 
 function Router() {
@@ -35,6 +36,7 @@ function Router() {
       <Route path="/booking" component={BookingIframe} />
       <Route path="/tour-view" component={TourView} />
       <Route path="/payment-complete" component={PaymentComplete} />
+      <Route path="/external-stays" component={ExternalStays} />
       
       {/* Legal Pages */}
       <Route path="/legal-notice" component={LegalNotice} />

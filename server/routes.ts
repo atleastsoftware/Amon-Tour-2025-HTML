@@ -575,6 +575,43 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Tour Ninja API proxy route
+  app.get("/api/proxy/tours", async (req, res) => {
+    try {
+      const apiKey = process.env.TOUR_NINJA_API_KEY;
+      const companyId = process.env.TOUR_NINJA_COMPANY_ID;
+      
+      if (!apiKey || !companyId) {
+        return res.status(500).json({ 
+          message: "Tour Ninja API credentials not configured" 
+        });
+      }
+
+      const response = await fetch(
+        `https://tour-ninja-backend.replit.app/api/public/tours?apiKey=${apiKey}&companyId=${companyId}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Tour Ninja API error: ${response.status}`);
+      }
+
+      const tours = await response.json();
+      res.json(tours);
+    } catch (error) {
+      console.error("Error fetching tours from Tour Ninja:", error);
+      res.status(500).json({ 
+        message: "Failed to fetch tours from Tour Ninja", 
+        error: String(error) 
+      });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
