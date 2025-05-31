@@ -155,38 +155,25 @@ export default function Tours() {
             
             {/* Loading state */}
             {isLoading ? (
-              <div className="space-y-8">
-                <div className="text-center py-4">
-                  <div className="inline-flex items-center space-x-2 text-blue-600">
-                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
-                    <span className="text-lg">Chargement des tours en cours...</span>
-                  </div>
-                  <p className="text-gray-500 mt-2">
-                    {tourNinjaLoading ? "Récupération des derniers tours disponibles" : "Préparation de l'affichage"}
-                  </p>
-
-                </div>
-                
-                <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {[1, 2, 3, 4, 5, 6].map((i) => (
-                    <StaggerItem key={i}>
-                      <motion.div 
-                        className="bg-white rounded-lg overflow-hidden shadow-md h-96 animate-pulse"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5 }}
-                      >
-                        <div className="h-56 bg-gray-300"></div>
-                        <div className="p-6 space-y-4">
-                          <div className="h-6 bg-gray-300 rounded w-3/4"></div>
-                          <div className="h-4 bg-gray-300 rounded"></div>
-                          <div className="h-4 bg-gray-300 rounded w-1/2"></div>
-                        </div>
-                      </motion.div>
-                    </StaggerItem>
-                  ))}
-                </StaggerChildren>
-              </div>
+              <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {[1, 2, 3, 4, 5, 6].map((i) => (
+                  <StaggerItem key={i}>
+                    <motion.div 
+                      className="bg-white rounded-lg overflow-hidden shadow-md h-96 animate-pulse"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <div className="h-56 bg-gray-300"></div>
+                      <div className="p-6 space-y-4">
+                        <div className="h-6 bg-gray-300 rounded w-3/4"></div>
+                        <div className="h-4 bg-gray-300 rounded"></div>
+                        <div className="h-4 bg-gray-300 rounded w-1/2"></div>
+                      </div>
+                    </motion.div>
+                  </StaggerItem>
+                ))}
+              </StaggerChildren>
             ) : filteredTourCards.length > 0 ? (
               <StaggerChildren 
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
