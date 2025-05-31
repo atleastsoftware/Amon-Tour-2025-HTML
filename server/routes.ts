@@ -582,7 +582,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     TTL: 6 * 60 * 60 * 1000 // 6 hours in milliseconds
   };
 
-  // Clear cache to force fresh data fetch with correct API URL
+  // Clear cache to force fresh data fetch with production API URL
   tourCache.data = null;
   tourCache.timestamp = 0;
 
@@ -659,7 +659,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 seconds timeout
       
       const response = await fetch(
-        `https://cde80561-c0db-4534-be3c-2648dce69f2c-00-3e1vlysnatw4g.spock.replit.dev/api/public/tours?apiKey=${apiKey}&companyId=${companyId}`,
+        `https://www.tourninja.io/api/public/tours?apiKey=${apiKey}&companyId=${companyId}`,
         {
           method: 'GET',
           headers: {
