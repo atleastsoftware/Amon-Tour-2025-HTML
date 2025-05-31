@@ -1,0 +1,106 @@
+Instructions d'intégration API TourNinja
+1. URL de l'API
+https://cde80561-c0db-4534-be3c-2648dce69f2c-00-3e1vlysnatw4g.spock.replit.dev/api/public/tours?apiKey=tourninja-showcase-7-amontour&companyId=7
+2. Code JavaScript à intégrer
+// Code à ajouter dans votre site web
+fetch('https://cde80561-c0db-4534-be3c-2648dce69f2c-00-3e1vlysnatw4g.spock.replit.dev/api/public/tours?apiKey=tourninja-showcase-7-amontour&companyId=7')
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      // Créer une section pour afficher les tours
+      const toursContainer = document.getElementById('tours-container'); // Vous devez créer cette div
+      
+      data.tours.forEach(tour => {
+        // Créer un élément pour chaque tour
+        const tourElement = document.createElement('div');
+        tourElement.className = 'tour-item';
+        tourElement.innerHTML = `
+          <h3><a href="${tour.url}" target="_blank">${tour.name}</a></h3>
+          <p>Prix: ${tour.price} ${tour.currency}</p>
+          <p>Durée: ${tour.duration} jour(s)</p>
+          ${tour.description ? `<p>${tour.description}</p>` : ''}
+          ${tour.primaryImage ? `<img src="${tour.primaryImage}" alt="${tour.name}" style="max-width: 200px;">` : ''}
+        `;
+        
+        toursContainer.appendChild(tourElement);
+      });
+    }
+  })
+  .catch(error => {
+    console.error('Erreur lors du chargement des tours:', error);
+  });
+3. HTML nécessaire
+Ajoutez cette div dans votre page où vous voulez afficher les tours :
+
+<div id="tours-container">
+  <!-- Les tours seront ajoutés ici automatiquement -->
+</div>
+4. CSS optionnel pour le style
+.tour-item {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+}
+.tour-item h3 a {
+  color: #2563eb;
+  text-decoration: none;
+}
+.tour-item h3 a:hover {
+  text-decoration: underline;
+}
+.tour-item img {
+  border-radius: 4px;
+  margin-top: 10px;
+}
+5. Structure des données retournées
+L'API retourne cette structure JSON :
+
+{
+  "success": true,
+  "tours": [
+    {
+      "id": "token_unique",
+      "name": "Nom du tour",
+      "description": "Description du tour",
+      "price": 1500,
+      "currency": "THB",
+      "duration": 1,
+      "maxParticipants": 8,
+      "primaryImage": "url_de_l_image",
+      "images": ["url1", "url2"],
+      "url": "lien_vers_presentation_tour",
+      "features": {
+        "hasPickup": true,
+        "hasLunch": false,
+        "boatType": "Speed boat",
+        "tourType": "Private"
+      }
+    }
+  ],
+  "company": {
+    "id": "7",
+    "name": "amontour"
+  },
+  "metadata": {
+    "count": 1,
+    "cacheRecommendation": "6 heures"
+  }
+}
+6. Points importants
+L'API est publique, aucune authentification spéciale nécessaire
+Les liens tour.url mènent vers la page de présentation du tour
+Recommandation : Mettez en cache les résultats pendant 6 heures maximum
+L'API supporte CORS pour les appels depuis d'autres domaines
+7. Test rapide
+Pour tester, ouvrez la console de votre navigateur et exécutez :
+
+fetch('https://cde80561-c0db-4534-be3c-2648dce69f2c-00-3e1vlysnatw4g.spock.replit.dev/api/public/tours?apiKey=tourninja-showcase-7-amontour&companyId=7')
+  .then(r => r.json())
+  .then(console.log);
+Ces instructions permettront à l'autre agent d'intégrer parfaitement vos tours sur son site web.
+
+
+Scroll to latest
+
+Message Agent…
