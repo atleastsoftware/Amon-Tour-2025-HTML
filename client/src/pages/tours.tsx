@@ -32,7 +32,7 @@ export default function Tours() {
     description: tour.description || tour.shortDescription || "",
     price: tour.price,
     currency: tour.currency,
-    customLink: tour.bookingUrl || tour.tourUrl || tour.url || tour.detailsUrl || `https://www.tourninja.io/book/${tour.id}`,
+    customLink: tour.bookingUrl || tour.detailsUrl || "",
     type: "tour" as const,
     images: tour.images || [],
     tags: tour.tags || [],
@@ -42,8 +42,8 @@ export default function Tours() {
   // Combine local tour cards with Tour Ninja tours
   const allTours = [...(tourCards || []), ...tourNinjaCards];
   
-  // Show all tours for now (remove type filter to debug)
-  const tourTypeCards = allTours;
+  // Filter only tours (not experiences)
+  const tourTypeCards = allTours.filter((card: any) => card.type === "tour");
   
   const isLoading = localToursLoading || tourNinjaLoading;
   
