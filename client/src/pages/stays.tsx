@@ -3,11 +3,10 @@ import { Link } from "wouter";
 import { motion } from "framer-motion";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import SEO from "@/components/layout/SEO";
 import { 
   FadeInWhenVisible, 
-  SlideUpWhenVisible, 
-  SlideInLeftWhenVisible, 
-  SlideInRightWhenVisible 
+  SlideUpWhenVisible
 } from "@/components/ui/animations";
 import { Button } from "@/components/ui/button";
 import { MapPin, Calendar, Users, StarIcon, ExternalLink } from "lucide-react";
