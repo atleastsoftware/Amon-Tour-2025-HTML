@@ -164,14 +164,7 @@ export default function Tours() {
                   <p className="text-gray-500 mt-2">
                     {tourNinjaLoading ? "Récupération des derniers tours disponibles" : "Préparation de l'affichage"}
                   </p>
-                  {tourNinjaLoading && (
-                    <div className="mt-4 bg-blue-50 border border-blue-200 rounded-lg p-4 max-w-md mx-auto">
-                      <p className="text-sm text-blue-700">
-                        L'API Tour Ninja peut prendre jusqu'à 2 minutes pour répondre.
-                        Vos tours authentiques se chargeront bientôt.
-                      </p>
-                    </div>
-                  )}
+
                 </div>
                 
                 <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
