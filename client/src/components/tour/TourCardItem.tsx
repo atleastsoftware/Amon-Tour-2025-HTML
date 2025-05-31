@@ -116,7 +116,25 @@ export default function TourCardItem({
             window.location.href = `/tour-view?tourData=${encodeURIComponent(tourData)}`;
           }}
         >
-          <div className="relative aspect-video overflow-hidden">
+          <div 
+            className="relative aspect-video overflow-hidden cursor-pointer"
+            onClick={(e) => {
+              e.stopPropagation(); // Prevent triggering card click event
+              const tourData = JSON.stringify({
+                id,
+                title,
+                description,
+                price,
+                currency,
+                images,
+                tags,
+                createdAt,
+                type,
+                customLink
+              });
+              window.location.href = `/tour-view?tourData=${encodeURIComponent(tourData)}`;
+            }}
+          >
             {images && images.length > 0 ? (
               <img 
                 src={images[0]} 
