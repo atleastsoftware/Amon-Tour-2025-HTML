@@ -32,7 +32,7 @@ export default function Tours() {
     description: tour.description || tour.shortDescription || "",
     price: tour.price,
     currency: tour.currency,
-    customLink: tour.bookingUrl || tour.tourUrl || tour.detailsUrl || "",
+    customLink: tour.bookingUrl || tour.tourUrl || tour.url || tour.detailsUrl || `https://www.tourninja.io/book/${tour.id}`,
     type: "tour" as const,
     images: tour.images || [],
     tags: tour.tags || [],

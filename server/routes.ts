@@ -656,7 +656,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         hostname: req.hostname
       });
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 seconds timeout
+      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 seconds timeout
       
       const response = await fetch(
         `https://www.tourninja.io/api/public/tours?apiKey=${apiKey}&companyId=${companyId}`,
