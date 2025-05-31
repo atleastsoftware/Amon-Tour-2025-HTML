@@ -131,6 +131,7 @@ export default function TourCardItem({
                 type,
                 customLink
               });
+              console.log('Redirecting to tour view with data:', tourData);
               window.location.href = `/tour-view?tourData=${encodeURIComponent(tourData)}`;
             }}
           >
