@@ -46,17 +46,6 @@ export default function Tours() {
   const tourTypeCards = allTours.filter((card: any) => card.type === "tour");
   
   const isLoading = localToursLoading || tourNinjaLoading;
-  
-  console.log('Debug - Tour cards received:', {
-    localTours: tourCards?.length || 0,
-    tourNinjaTours: tourNinjaTours?.length || 0,
-    tourNinjaCards: tourNinjaCards?.length || 0,
-    allTours: allTours?.length || 0,
-    tourTypeCards: tourTypeCards?.length || 0,
-    firstTourNinja: tourNinjaTours?.[0]
-  });
-  console.log('Tour cards (sans filtrage):', tourTypeCards);
-  
   const [searchTerm, setSearchTerm] = useState("");
 
   // Filtre les cartes selon le terme de recherche
