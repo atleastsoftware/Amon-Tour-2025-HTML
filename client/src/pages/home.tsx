@@ -19,6 +19,7 @@ import CustomTourForm from "@/components/home/CustomTourForm";
 import CallToAction from "@/components/home/CallToAction";
 import TourCard from "@/components/tour/TourCard";
 import TourCardItem, { TourCardItemProps } from "@/components/tour/TourCardItem";
+import { useTourNinja } from "@/hooks/useTourNinja";
 import { Link } from "wouter";
 
 export default function Home() {
@@ -35,11 +36,28 @@ export default function Home() {
     queryKey: ['/api/tour-cards'],
   });
   
-  // SOLUTION IMMÉDIATE: Ne pas filtrer les cartes pour montrer toutes les cartes sur la page d'accueil
-  const tourTypeCards = tourCards;
+  // Get Tour Ninja tours
+  const { tours: tourNinjaTours = [], isLoading: tourNinjaLoading } = useTourNinja();
   
-  // Pour l'affichage, on considère qu'on est en chargement si l'une des deux requêtes est en cours
-  const isLoading = isLoadingTours || isLoadingTourCards;
+  // Convert Tour Ninja tours to TourCardItem format
+  const tourNinjaCards: TourCardItemProps[] = tourNinjaTours.map((tour: any) => ({
+    id: tour.id,
+    title: tour.name,
+    description: tour.description || tour.shortDescription || "",
+    price: tour.price,
+    currency: tour.currency,
+    customLink: tour.bookingUrl || tour.detailsUrl || tour.url || `https://www.tourninja.io/details/${tour.id}`,
+    type: "tour" as const,
+    images: tour.images || [],
+    tags: tour.tags || [],
+  }));
+  
+  // Combine local tour cards with Tour Ninja tours
+  const allTourCards = [...tourCards, ...tourNinjaCards];
+  const tourTypeCards = allTourCards;
+  
+  // Pour l'affichage, on considère qu'on est en chargement si l'une des requêtes est en cours
+  const isLoading = isLoadingTours || isLoadingTourCards || tourNinjaLoading;
   
   // Function to handle carousel scrolling
   const handleCarouselScroll = (direction: 'left' | 'right') => {
