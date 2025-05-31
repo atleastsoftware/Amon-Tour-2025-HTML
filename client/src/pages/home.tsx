@@ -131,9 +131,44 @@ export default function Home() {
   return (
     <>
       <SEO 
-        title="Amon Tour - Discover Authentic Thailand"
-        description="Experience Thailand like never before with our expertly curated tours, journeys and stays. Discover temples, beaches, and immersive cultural experiences."
-        keywords="thailand tours, bangkok tours, phuket travel, authentic thai experience, thailand vacation, thai culture"
+        title="Amon Tour - Authentic Thailand Travel Experiences | Private Tours & Cultural Journeys"
+        description="Discover authentic Thailand with Amon Tour. Expert-guided private tours, cultural experiences, and personalized journeys across Bangkok, Phuket, and beyond. Family-run travel agency offering immersive experiences away from mass tourism."
+        keywords="thailand private tours, bangkok cultural experiences, phuket authentic travel, thailand family travel agency, personalized thailand journeys, thai temple tours, island hopping thailand, authentic thai culture, thailand vacation planning"
+        canonicalUrl="https://amon-tour.com/"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "TravelAgency",
+          "name": "Amon Tour",
+          "description": "Family-run travel agency specializing in authentic Thailand experiences, private tours, and cultural journeys across Bangkok, Phuket, and beyond.",
+          "url": "https://amon-tour.com",
+          "logo": "https://amon-tour.com/Logo Long Blue.png",
+          "image": "https://amon-tour.com/Logo Long Blue.png",
+          "telephone": "+66-XXX-XXX-XXX",
+          "email": "contact@amon-tour.com",
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "TH",
+            "addressRegion": "Thailand"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "13.7367",
+            "longitude": "100.5232"
+          },
+          "areaServed": {
+            "@type": "Country",
+            "name": "Thailand"
+          },
+          "serviceType": ["Private Tours", "Cultural Experiences", "Travel Planning", "Temple Tours", "Island Tours"],
+          "priceRange": "$$-$$$",
+          "openingHours": "Mo-Su 08:00-20:00",
+          "foundingDate": "2020",
+          "slogan": "Authentic Thailand experiences, far from mass tourism",
+          "sameAs": [
+            "https://www.facebook.com/amontour",
+            "https://www.instagram.com/amontour"
+          ]
+        }}
       />
       <Header />
       

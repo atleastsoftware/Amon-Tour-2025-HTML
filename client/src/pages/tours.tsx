@@ -60,9 +60,41 @@ export default function Tours() {
   return (
     <>
       <SEO 
-        title="Thailand Tours - Discover Amazing Destinations"
-        description="Explore our handpicked selection of tours across Thailand. From Bangkok city tours to island adventures, find your perfect Thailand experience."
-        keywords="thailand tours, bangkok day trips, island hopping, guided tours, thailand adventures, authentic experiences"
+        title="Thailand Tours - Private Tours & Authentic Experiences | Amon Tour"
+        description="Discover authentic Thailand tours with Amon Tour. Private guided tours in Bangkok, Phuket, and beyond. Cultural experiences, temple visits, island hopping, and personalized journeys away from mass tourism."
+        keywords="thailand private tours, bangkok guided tours, phuket experiences, thailand cultural tours, authentic thai adventures, temple tours thailand, island hopping tours, thailand vacation packages, personalized tours"
+        canonicalUrl="https://amon-tour.com/tours"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          "name": "Thailand Tours by Amon Tour",
+          "description": "Authentic private tours and cultural experiences across Thailand",
+          "url": "https://amon-tour.com/tours",
+          "numberOfItems": tourTypeCards.length,
+          "itemListElement": tourTypeCards.slice(0, 10).map((tour, index) => ({
+            "@type": "TouristTrip",
+            "position": index + 1,
+            "name": tour.title,
+            "description": tour.description,
+            "url": `https://amon-tour.com/tours/${tour.id}`,
+            "image": tour.images?.[0] || "https://amon-tour.com/Logo Long Blue.png",
+            "offers": {
+              "@type": "Offer",
+              "price": tour.price,
+              "priceCurrency": tour.currency || "THB",
+              "availability": "https://schema.org/InStock",
+              "seller": {
+                "@type": "TravelAgency",
+                "name": "Amon Tour"
+              }
+            },
+            "provider": {
+              "@type": "TravelAgency",
+              "name": "Amon Tour",
+              "url": "https://amon-tour.com"
+            }
+          }))
+        }}
       />
       <Header />
       
