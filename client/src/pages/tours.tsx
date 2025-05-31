@@ -54,6 +54,8 @@ export default function Tours() {
     card.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
     (card.description && card.description.toLowerCase().includes(searchTerm.toLowerCase()))
   );
+  
+  console.log('Filtered tours for display:', filteredTourCards.length);
 
   return (
     <>
