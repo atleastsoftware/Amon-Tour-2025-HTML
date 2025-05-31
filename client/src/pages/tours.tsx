@@ -42,11 +42,19 @@ export default function Tours() {
   // Combine local tour cards with Tour Ninja tours
   const allTours = [...(tourCards || []), ...tourNinjaCards];
   
-  // Filter only tours (not experiences)
-  const tourTypeCards = allTours.filter((card: any) => card.type === "tour");
+  // Show all tours for now (remove type filter to debug)
+  const tourTypeCards = allTours;
   
   const isLoading = localToursLoading || tourNinjaLoading;
   
+  console.log('Debug - Tour cards received:', {
+    localTours: tourCards?.length || 0,
+    tourNinjaTours: tourNinjaTours?.length || 0,
+    tourNinjaCards: tourNinjaCards?.length || 0,
+    allTours: allTours?.length || 0,
+    tourTypeCards: tourTypeCards?.length || 0,
+    firstTourNinja: tourNinjaTours?.[0]
+  });
   console.log('Tour cards (sans filtrage):', tourTypeCards);
   
   const [searchTerm, setSearchTerm] = useState("");
