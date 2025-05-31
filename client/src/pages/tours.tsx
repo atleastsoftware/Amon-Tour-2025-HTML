@@ -32,11 +32,11 @@ export default function Tours() {
     description: tour.description || tour.shortDescription || "",
     price: tour.price,
     currency: tour.currency,
-    customLink: tour.bookingUrl || tour.detailsUrl || "",
+    customLink: tour.bookingUrl || tour.tourUrl || tour.detailsUrl || "",
     type: "tour" as const,
-    images: tour.images,
+    images: tour.images || [],
     tags: tour.tags || [],
-    createdAt: new Date(tour.createdAt)
+    createdAt: new Date(tour.createdAt || new Date())
   }));
   
   // Combine local tour cards with Tour Ninja tours
