@@ -128,7 +128,6 @@ export default function TourCardItem({
                 currency,
                 images,
                 tags,
-                createdAt,
                 type,
                 customLink
               });
