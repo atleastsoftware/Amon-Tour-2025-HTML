@@ -23,7 +23,7 @@ export default function Tours() {
   });
   
   // Get Tour Ninja tours
-  const { tours: tourNinjaTours = [], isLoading: tourNinjaLoading } = useTourNinja();
+  const { tours: tourNinjaTours = [], isLoading: tourNinjaLoading, refetch: refetchTours, cached } = useTourNinja();
   
   // Convert Tour Ninja tours to TourCardItem format
   const tourNinjaCards: TourCardItemProps[] = tourNinjaTours.map((tour: any) => ({
@@ -131,31 +131,69 @@ export default function Tours() {
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />
                   </motion.div>
+                  
+                  {cached && (
+                    <motion.div whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 400 }}>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Data Cache
+                      </label>
+                      <button
+                        onClick={() => refetchTours()}
+                        className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200 flex items-center justify-center gap-2"
+                        disabled={tourNinjaLoading}
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                        {tourNinjaLoading ? 'Actualisation...' : 'Actualiser Tours'}
+                      </button>
+                    </motion.div>
+                  )}
                 </div>
               </motion.div>
             </SlideUpWhenVisible>
             
             {/* Loading state */}
             {isLoading ? (
-              <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {[1, 2, 3, 4, 5, 6].map((i) => (
-                  <StaggerItem key={i}>
-                    <motion.div 
-                      className="bg-white rounded-lg overflow-hidden shadow-md h-96 animate-pulse"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      <div className="h-56 bg-gray-300"></div>
-                      <div className="p-6 space-y-4">
-                        <div className="h-6 bg-gray-300 rounded w-3/4"></div>
-                        <div className="h-4 bg-gray-300 rounded"></div>
-                        <div className="h-4 bg-gray-300 rounded w-1/2"></div>
-                      </div>
-                    </motion.div>
-                  </StaggerItem>
-                ))}
-              </StaggerChildren>
+              <div className="space-y-8">
+                <div className="text-center py-4">
+                  <div className="inline-flex items-center space-x-2 text-blue-600">
+                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
+                    <span className="text-lg">Chargement des tours en cours...</span>
+                  </div>
+                  <p className="text-gray-500 mt-2">
+                    {tourNinjaLoading ? "Récupération des derniers tours disponibles" : "Préparation de l'affichage"}
+                  </p>
+                  {tourNinjaLoading && (
+                    <div className="mt-4 bg-blue-50 border border-blue-200 rounded-lg p-4 max-w-md mx-auto">
+                      <p className="text-sm text-blue-700">
+                        L'API Tour Ninja peut prendre jusqu'à 2 minutes pour répondre.
+                        Vos tours authentiques se chargeront bientôt.
+                      </p>
+                    </div>
+                  )}
+                </div>
+                
+                <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {[1, 2, 3, 4, 5, 6].map((i) => (
+                    <StaggerItem key={i}>
+                      <motion.div 
+                        className="bg-white rounded-lg overflow-hidden shadow-md h-96 animate-pulse"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
+                      >
+                        <div className="h-56 bg-gray-300"></div>
+                        <div className="p-6 space-y-4">
+                          <div className="h-6 bg-gray-300 rounded w-3/4"></div>
+                          <div className="h-4 bg-gray-300 rounded"></div>
+                          <div className="h-4 bg-gray-300 rounded w-1/2"></div>
+                        </div>
+                      </motion.div>
+                    </StaggerItem>
+                  ))}
+                </StaggerChildren>
+              </div>
             ) : filteredTourCards.length > 0 ? (
               <StaggerChildren 
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"

@@ -575,11 +575,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // In-memory cache for Tour Ninja data (6 hours TTL)
+  // In-memory cache for Tour Ninja data (30 minutes TTL for fresher content)
   let tourCache = {
     data: null as any,
     timestamp: 0,
-    TTL: 6 * 60 * 60 * 1000 // 6 hours in milliseconds
+    TTL: 30 * 60 * 1000 // 30 minutes in milliseconds
   };
 
   // Clear cache to force fresh data fetch with production API URL
@@ -656,7 +656,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         hostname: req.hostname
       });
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 seconds timeout
+      const timeoutId = setTimeout(() => controller.abort(), 90000); // 90 seconds timeout for slow API
       
       const response = await fetch(
         `https://www.tourninja.io/api/public/tours?apiKey=${apiKey}&companyId=${companyId}`,
