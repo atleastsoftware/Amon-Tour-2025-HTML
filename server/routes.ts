@@ -55,6 +55,76 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Serve uploaded files
   app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
+
+  // SEO Routes
+  app.get('/sitemap.xml', async (req, res) => {
+    try {
+      const baseUrl = 'https://amon-tour.com';
+      const staticPages = [
+        { url: '/', changefreq: 'daily', priority: '1.0' },
+        { url: '/tours', changefreq: 'weekly', priority: '0.9' },
+        { url: '/experiences', changefreq: 'weekly', priority: '0.8' },
+        { url: '/stays', changefreq: 'weekly', priority: '0.8' },
+        { url: '/external-stays', changefreq: 'weekly', priority: '0.7' },
+        { url: '/custom-tour', changefreq: 'monthly', priority: '0.7' },
+        { url: '/privacy-policy', changefreq: 'yearly', priority: '0.3' },
+        { url: '/terms-conditions', changefreq: 'yearly', priority: '0.3' },
+        { url: '/legal-notice', changefreq: 'yearly', priority: '0.3' }
+      ];
+
+      // Get tours for dynamic URLs
+      const tours = await storage.getTours();
+      const tourUrls = tours.map(tour => ({
+        url: `/tour-details/${tour.id}`,
+        changefreq: 'weekly',
+        priority: '0.8',
+        lastmod: new Date().toISOString().split('T')[0]
+      }));
+
+      const allUrls = [...staticPages, ...tourUrls];
+      
+      const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${allUrls.map(page => `  <url>
+    <loc>${baseUrl}${page.url}</loc>
+    <changefreq>${page.changefreq}</changefreq>
+    <priority>${page.priority}</priority>
+    ${'lastmod' in page ? `<lastmod>${page.lastmod}</lastmod>` : ''}
+  </url>`).join('\n')}
+</urlset>`;
+
+      res.set('Content-Type', 'application/xml');
+      res.send(sitemap);
+    } catch (error) {
+      console.error('Error generating sitemap:', error);
+      res.status(500).send('Error generating sitemap');
+    }
+  });
+
+  app.get('/robots.txt', (req, res) => {
+    const robotsTxt = `User-agent: *
+Allow: /
+
+# SEO optimized for Thailand tourism
+Allow: /tours
+Allow: /experiences
+Allow: /stays
+Allow: /custom-tour
+
+# Block admin areas
+Disallow: /admin
+Disallow: /api/
+Disallow: /uploads/
+
+# Sitemap location
+Sitemap: https://amon-tour.com/sitemap.xml
+
+# Crawl delay to be respectful
+Crawl-delay: 1`;
+
+    res.set('Content-Type', 'text/plain');
+    res.send(robotsTxt);
+  });
   
   // Authentication routes
   app.post("/api/login", loginLimiter, async (req, res) => {

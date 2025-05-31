@@ -68,6 +68,44 @@ export default function Stays() {
 
   return (
     <>
+      <SEO 
+        title="Thailand Accommodations - Unique Stays & Hotels | Amon Tour"
+        description="Discover exceptional accommodations in Thailand with Amon Tour. From luxury villas to traditional bungalows and modern apartments. Carefully selected stays for authentic experiences in Bangkok, Phuket, and beyond."
+        keywords="thailand hotels, thailand accommodations, thailand villas, bangkok hotels, phuket resorts, thai bungalows, luxury stays thailand, boutique hotels thailand, beachfront villas, authentic accommodations"
+        canonicalUrl="https://amon-tour.com/stays"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          "name": "Thailand Accommodations by Amon Tour",
+          "description": "Carefully selected accommodations for authentic and comfortable stays in Thailand",
+          "url": "https://amon-tour.com/stays",
+          "numberOfItems": stays.length,
+          "itemListElement": stays.map((stay, index) => ({
+            "@type": "LodgingBusiness",
+            "position": index + 1,
+            "name": stay.title,
+            "description": stay.description,
+            "url": stay.externalBookingUrl,
+            "image": stay.image,
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": stay.location,
+              "addressCountry": "TH"
+            },
+            "priceRange": `$${stay.price}`,
+            "amenityFeature": stay.features.map(feature => ({
+              "@type": "LocationFeatureSpecification",
+              "name": feature
+            })),
+            "maximumAttendeeCapacity": stay.capacity,
+            "provider": {
+              "@type": "TravelAgency",
+              "name": "Amon Tour",
+              "url": "https://amon-tour.com"
+            }
+          }))
+        }}
+      />
       <Header />
       <div className="min-h-screen bg-white pt-16">
         {/* Hero Section */}
