@@ -124,28 +124,8 @@ export default function Tours() {
               </motion.div>
             </SlideUpWhenVisible>
             
-            {/* Loading state */}
-            {isLoading ? (
-              <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {[1, 2, 3, 4, 5, 6].map((i) => (
-                  <StaggerItem key={i}>
-                    <motion.div 
-                      className="bg-white rounded-lg overflow-hidden shadow-md h-96 animate-pulse"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      <div className="h-56 bg-gray-300"></div>
-                      <div className="p-6 space-y-4">
-                        <div className="h-6 bg-gray-300 rounded w-3/4"></div>
-                        <div className="h-4 bg-gray-300 rounded"></div>
-                        <div className="h-4 bg-gray-300 rounded w-1/2"></div>
-                      </div>
-                    </motion.div>
-                  </StaggerItem>
-                ))}
-              </StaggerChildren>
-            ) : filteredTourCards.length > 0 ? (
+            {/* Tours display */}
+            {filteredTourCards.length > 0 ? (
               <StaggerChildren 
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
               >
