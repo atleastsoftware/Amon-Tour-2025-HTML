@@ -120,19 +120,17 @@ export default function TourCardItem({
             className="relative aspect-video overflow-hidden cursor-pointer"
             onClick={(e) => {
               e.stopPropagation(); // Prevent triggering card click event
-              const tourData = JSON.stringify({
-                id,
-                title,
-                description,
-                price,
-                currency,
-                images,
-                tags,
-                type,
-                customLink
-              });
-              console.log('Redirecting to tour view with data:', tourData);
-              window.location.href = `/tour-view?tourData=${encodeURIComponent(tourData)}`;
+              
+              // Vérifier si l'appareil est mobile (petite résolution d'écran)
+              const isMobileDevice = window.innerWidth < 768;
+              
+              if (isMobileDevice) {
+                // Sur mobile, afficher l'iframe directement sur la page
+                setIsBookingOpen(!isBookingOpen);
+              } else {
+                // Sur PC, rediriger vers la page dédiée à l'iframe
+                window.location.href = `/booking?link=${encodeURIComponent(customLink)}&title=${encodeURIComponent(title)}&type=${encodeURIComponent(type)}`;
+              }
             }}
           >
             {images && images.length > 0 ? (
