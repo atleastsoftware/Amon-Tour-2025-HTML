@@ -23,7 +23,7 @@ export default function Tours() {
   });
   
   // Get Tour Ninja tours
-  const { tours: tourNinjaTours = [], isLoading: tourNinjaLoading, refetch: refetchTours, cached } = useTourNinja();
+  const { tours: tourNinjaTours = [], isLoading: tourNinjaLoading } = useTourNinja();
   
   // Convert Tour Ninja tours to TourCardItem format
   const tourNinjaCards: TourCardItemProps[] = tourNinjaTours.map((tour: any) => ({
@@ -47,18 +47,15 @@ export default function Tours() {
   
   const isLoading = localToursLoading || tourNinjaLoading;
   
-  console.log('DEBUG - État complet:', {
+  console.log('Debug - Tour cards received:', {
     localTours: tourCards?.length || 0,
     tourNinjaTours: tourNinjaTours?.length || 0,
     tourNinjaCards: tourNinjaCards?.length || 0,
     allTours: allTours?.length || 0,
     tourTypeCards: tourTypeCards?.length || 0,
-    isLoading,
-    localToursLoading,
-    tourNinjaLoading,
     firstTourNinja: tourNinjaTours?.[0]
   });
-  console.log('Tour cards finaux:', tourTypeCards);
+  console.log('Tour cards (sans filtrage):', tourTypeCards);
   
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -134,24 +131,6 @@ export default function Tours() {
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />
                   </motion.div>
-                  
-                  {cached && (
-                    <motion.div whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 400 }}>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Data Cache
-                      </label>
-                      <button
-                        onClick={() => refetchTours()}
-                        className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200 flex items-center justify-center gap-2"
-                        disabled={tourNinjaLoading}
-                      >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                        </svg>
-                        {tourNinjaLoading ? 'Actualisation...' : 'Actualiser Tours'}
-                      </button>
-                    </motion.div>
-                  )}
                 </div>
               </motion.div>
             </SlideUpWhenVisible>
