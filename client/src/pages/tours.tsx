@@ -47,15 +47,18 @@ export default function Tours() {
   
   const isLoading = localToursLoading || tourNinjaLoading;
   
-  console.log('Debug - Tour cards received:', {
+  console.log('DEBUG - État complet:', {
     localTours: tourCards?.length || 0,
     tourNinjaTours: tourNinjaTours?.length || 0,
     tourNinjaCards: tourNinjaCards?.length || 0,
     allTours: allTours?.length || 0,
     tourTypeCards: tourTypeCards?.length || 0,
+    isLoading,
+    localToursLoading,
+    tourNinjaLoading,
     firstTourNinja: tourNinjaTours?.[0]
   });
-  console.log('Tour cards (sans filtrage):', tourTypeCards);
+  console.log('Tour cards finaux:', tourTypeCards);
   
   const [searchTerm, setSearchTerm] = useState("");
 
