@@ -652,14 +652,14 @@ Crawl-delay: 1`;
     TTL: 6 * 60 * 60 * 1000 // 6 hours in milliseconds
   };
 
-  // Clear cache to force fresh data fetch with production API URL
+  // Clear cache to force fresh data fetch with updated API credentials
   tourCache.data = null;
   tourCache.timestamp = 0;
 
   // Debug route for deployment issues
   app.get("/api/debug/tour-ninja", (req, res) => {
-    const apiKey = process.env.TOUR_NINJA_API_KEY;
-    const companyId = process.env.TOUR_NINJA_COMPANY_ID;
+    const apiKey = "tourninja-showcase-2-amontour";
+    const companyId = "2";
     
     res.json({
       environment: process.env.NODE_ENV,
@@ -679,8 +679,8 @@ Crawl-delay: 1`;
   // Secure Tour Ninja API proxy route
   app.get("/api/proxy/tours", async (req, res) => {
     try {
-      const apiKey = process.env.TOUR_NINJA_API_KEY;
-      const companyId = process.env.TOUR_NINJA_COMPANY_ID;
+      const apiKey = "tourninja-showcase-2-amontour";
+      const companyId = "2";
       const allowedDomain = process.env.COMPANY_DOMAIN;
       
       // Security: Verify domain if configured (disabled for deployment debugging)
