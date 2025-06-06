@@ -1,0 +1,61 @@
+Objectif : Mettre à jour l'API du site vitrine pour récupérer les images des tours depuis l'API TourNinja avec système de fallback.
+
+Modifications à apporter :
+
+URL de l'API mise à jour :
+const API_URL = 'https://tourninja.replit.app/api/public/tours';
+const API_KEY = 'tourninja-showcase-2-amontour';
+const COMPANY_ID = '2';
+Fonction de récupération des tours :
+async function fetchTours() {
+  try {
+    const response = await fetch(`${API_URL}?apiKey=${API_KEY}&companyId=${COMPANY_ID}`);
+    const data = await response.json();
+    
+    if (data.success) {
+      return data.tours.map(tour => ({
+        id: tour.id,
+        name: tour.name,
+        description: tour.description,
+        price: tour.price,
+        currency: tour.currency,
+        duration: tour.duration,
+        maxParticipants: tour.maxParticipants,
+        primaryImage: tour.primaryImage, // Image principale garantie
+        images: tour.images, // Array complet d'images
+        detailsUrl: tour.detailsUrl, // Lien vers les détails (PAS vers paiement direct)
+        features: tour.features
+      }));
+    }
+  } catch (error) {
+    console.error('Erreur API TourNinja:', error);
+    return [];
+  }
+}
+Affichage des cartes de tours :
+function renderTourCard(tour) {
+  return `
+    <div class="tour-card" onclick="window.open('${tour.detailsUrl}', '_blank')">
+      <img src="${tour.primaryImage}" alt="${tour.name}" class="tour-image" />
+      <div class="tour-info">
+        <h3>${tour.name}</h3>
+        <p>${tour.description}</p>
+        <div class="tour-price">
+          ${tour.price > 0 ? `${tour.price} ${tour.currency}` : 'Prix sur demande'}
+        </div>
+        <div class="tour-duration">Durée: ${tour.duration} jour(s)</div>
+      </div>
+    </div>
+  `;
+}
+Points clés :
+
+L'API retourne maintenant systématiquement des images (vraies ou fallback professionnel)
+detailsUrl redirige vers la page de détails complète (pas vers paiement direct)
+primaryImage est toujours définie
+Gestion d'erreur incluse pour fallback gracieux
+Test de l'API :
+Vous pouvez tester l'API directement dans le navigateur avec cette URL :
+https://tourninja.replit.app/api/public/tours?apiKey=tourninja-showcase-2-amontour&companyId=2
+
+Implémente ces modifications pour que le site vitrine Amon Tour affiche correctement les images et redirige vers les pages de détails des tours TourNinja.

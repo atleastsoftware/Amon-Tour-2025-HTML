@@ -652,7 +652,7 @@ Crawl-delay: 1`;
     TTL: 6 * 60 * 60 * 1000 // 6 hours in milliseconds
   };
 
-  // Clear cache to force fresh data fetch with updated API credentials
+  // Clear cache to force fresh data fetch with updated API URL and credentials
   tourCache.data = null;
   tourCache.timestamp = 0;
 
@@ -721,7 +721,7 @@ Crawl-delay: 1`;
       }
 
       console.log("Fetching fresh data from Tour Ninja API", {
-        url: `https://www.tourninja.io/api/public/tours?apiKey=${apiKey}&companyId=${companyId}`,
+        url: `https://tourninja.replit.app/api/public/tours?apiKey=${apiKey}&companyId=${companyId}`,
         environment: process.env.NODE_ENV,
         hostname: req.hostname
       });
@@ -729,7 +729,7 @@ Crawl-delay: 1`;
       const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 seconds timeout
       
       const response = await fetch(
-        `https://www.tourninja.io/api/public/tours?apiKey=${apiKey}&companyId=${companyId}`,
+        `https://tourninja.replit.app/api/public/tours?apiKey=${apiKey}&companyId=${companyId}`,
         {
           method: 'GET',
           headers: {
@@ -748,17 +748,32 @@ Crawl-delay: 1`;
 
       const apiResponse = await response.json();
       
-      // Extract tours data from the nested response structure
-      let tours = apiResponse;
-      if (apiResponse.success && apiResponse.tours) {
-        tours = apiResponse.tours;
-      } else if (apiResponse.data && apiResponse.data.tours) {
-        tours = apiResponse.data.tours;
-      } else if (Array.isArray(apiResponse.data)) {
-        tours = apiResponse.data;
+      // Extract tours data from the new API structure
+      let tours = [];
+      if (apiResponse.success && Array.isArray(apiResponse.tours)) {
+        tours = apiResponse.tours.map(tour => ({
+          id: tour.id,
+          name: tour.name,
+          description: tour.description || '',
+          price: tour.price || 0,
+          currency: tour.currency || 'THB',
+          duration: tour.duration || 1,
+          maxParticipants: tour.maxParticipants,
+          primaryImage: tour.primaryImage,
+          images: tour.images || [],
+          url: tour.url || tour.detailsUrl || `https://www.tourninja.io/details/${tour.id}`,
+          bookingUrl: tour.url || tour.detailsUrl || `https://www.tourninja.io/details/${tour.id}`,
+          detailsUrl: tour.url || tour.detailsUrl || `https://www.tourninja.io/details/${tour.id}`,
+          features: tour.features || {},
+          location: tour.location || 'Thailand',
+          isActive: true,
+          externalId: tour.id,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        }));
       }
       
-      console.log("Tour Ninja API response structure:", JSON.stringify(apiResponse, null, 2));
+      console.log(`Tour Ninja API: Successfully processed ${tours.length} tours`);
       
       // Update cache
       tourCache.data = tours;
