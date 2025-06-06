@@ -1,0 +1,74 @@
+INFORMATIONS ENTREPRISE AMON TOUR
+ID Entreprise : 2
+Nom : amon tour
+Nombre de liens actifs : 21 liens
+
+API ENDPOINTS DISPONIBLES
+1. API Publique pour Site Vitrine (Recommandée)
+GET /api/v1/public-tours?companyId=2&apiKey={API_KEY}
+Clé API dynamique : tourninja-showcase-2-amontour
+
+2. API Alternative
+GET /api/v1/company-links?companyId=2
+Headers requis : x-api-key: demo-api-key-123456
+
+EXEMPLE D'APPEL API COMPLET
+// Appel depuis le site vitrine d'Amon Tour
+const response = await fetch('https://votre-domaine-tourninja.com/api/v1/public-tours?companyId=2&apiKey=tourninja-showcase-2-amontour', {
+  method: 'GET',
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  }
+});
+const data = await response.json();
+STRUCTURE DE RÉPONSE
+{
+  "success": true,
+  "tours": [
+    {
+      "id": "PIGyavyKHL",
+      "name": "Semi Private - Koh Phi Phi in the morning",
+      "description": "",
+      "price": 3700,
+      "currency": "THB",
+      "duration": 1,
+      "maxParticipants": 17,
+      "primaryImage": null,
+      "images": [],
+      "bookingUrl": "https://votre-domaine/book/PIGyavyKHL",
+      "detailsUrl": "https://votre-domaine/details/PIGyavyKHL",
+      "features": {
+        "hasPickup": false,
+        "hasLunch": false,
+        "boatType": null,
+        "tourType": "semi-private"
+      }
+    }
+  ],
+  "company": {
+    "id": 2,
+    "name": "amon tour",
+    "logo": null
+  },
+  "metadata": {
+    "count": 21,
+    "timestamp": "2025-06-06T07:15:52.000Z",
+    "cacheRecommendation": "6 heures"
+  }
+}
+INFORMATIONS TECHNIQUES
+Performance : Réponse en 18ms pour 21 liens
+Cache recommandé : 6 heures côté site vitrine
+Sécurité : API multi-tenant sécurisée
+Format : JSON standard
+CORS : Configuré pour domaines externes
+URLs DE RÉSERVATION
+Chaque lien génère automatiquement :
+
+URL de réservation : /book/{token}
+URL de détails : /details/{token}
+Exemple pour le lien PIGyavyKHL :
+
+Réservation : https://votre-domaine/book/PIGyavyKHL
+Détails : https://votre-domaine/details/PIGyavyKHL
