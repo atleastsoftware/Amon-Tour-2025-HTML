@@ -652,11 +652,9 @@ Crawl-delay: 1`;
     TTL: 6 * 60 * 60 * 1000 // 6 hours in milliseconds
   };
 
-  // Clear cache to force fresh data fetch with updated API endpoint
+  // Clear cache to force fresh data fetch with updated API credentials
   tourCache.data = null;
   tourCache.timestamp = 0;
-  // Reset TTL to normal value
-  tourCache.TTL = 6 * 60 * 60 * 1000;
 
   // Debug route for deployment issues
   app.get("/api/debug/tour-ninja", (req, res) => {
@@ -723,7 +721,7 @@ Crawl-delay: 1`;
       }
 
       console.log("Fetching fresh data from Tour Ninja API", {
-        url: `https://www.tourninja.io/api/public/company-links/${companyId}?apiKey=${apiKey}`,
+        url: `https://www.tourninja.io/api/public/tours?apiKey=${apiKey}&companyId=${companyId}`,
         environment: process.env.NODE_ENV,
         hostname: req.hostname
       });
@@ -731,7 +729,7 @@ Crawl-delay: 1`;
       const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 seconds timeout
       
       const response = await fetch(
-        `https://www.tourninja.io/api/public/company-links/${companyId}?apiKey=${apiKey}`,
+        `https://www.tourninja.io/api/public/tours?apiKey=${apiKey}&companyId=${companyId}`,
         {
           method: 'GET',
           headers: {
@@ -750,37 +748,17 @@ Crawl-delay: 1`;
 
       const apiResponse = await response.json();
       
-      // Transform company-links data to tour format with authentic images
-      let tours = [];
-      if (apiResponse.links && Array.isArray(apiResponse.links)) {
-        tours = apiResponse.links.map((tour: any) => ({
-          id: tour.token,
-          name: tour.tourName,
-          description: tour.description || "",
-          price: tour.pricePerPerson || 0,
-          currency: tour.currency || 'THB',
-          duration: tour.days || 1,
-          maxParticipants: tour.maxParticipants,
-          primaryImage: tour.photos && tour.photos.length > 0 ? tour.photos[0] : null,
-          images: tour.photos || [],
-          url: tour.bookingUrl || tour.detailsUrl || `https://www.tourninja.io/details/${tour.token}`,
-          bookingUrl: tour.bookingUrl,
-          detailsUrl: tour.detailsUrl,
-          hasImages: tour.photos && tour.photos.length > 0,
-          imageCount: tour.photos ? tour.photos.length : 0,
-          destination: tour.destination,
-          pricing: tour.pricing,
-          features: {
-            hasPickup: false,
-            hasLunch: false,
-            boatType: null,
-            tourType: null
-          }
-        }));
+      // Extract tours data from the nested response structure
+      let tours = apiResponse;
+      if (apiResponse.success && apiResponse.tours) {
+        tours = apiResponse.tours;
+      } else if (apiResponse.data && apiResponse.data.tours) {
+        tours = apiResponse.data.tours;
+      } else if (Array.isArray(apiResponse.data)) {
+        tours = apiResponse.data;
       }
       
       console.log("Tour Ninja API response structure:", JSON.stringify(apiResponse, null, 2));
-      console.log(`Transformed ${tours.length} tours with ${tours.filter((t: any) => t.hasImages).length} having images`);
       
       // Update cache
       tourCache.data = tours;
@@ -789,8 +767,6 @@ Crawl-delay: 1`;
       res.json({
         success: true,
         data: tours,
-        company: apiResponse.company || {},
-        metadata: apiResponse.metadata || {},
         cached: false,
         timestamp: now
       });

@@ -26,33 +26,18 @@ export default function Tours() {
   const { tours: tourNinjaTours = [], isLoading: tourNinjaLoading } = useTourNinja();
   
   // Convert Tour Ninja tours to TourCardItem format
-  const tourNinjaCards: TourCardItemProps[] = tourNinjaTours.map((tour: any) => {
-    // Handle images from Tour Ninja API - only use authentic data
-    let tourImages: string[] = [];
-    
-    if (tour.primaryImage) {
-      tourImages.push(tour.primaryImage);
-    }
-    
-    if (tour.images && Array.isArray(tour.images) && tour.images.length > 0) {
-      // Add additional images, avoiding duplicates
-      const additionalImages = tour.images.filter((img: string) => img && img !== tour.primaryImage);
-      tourImages = [...tourImages, ...additionalImages];
-    }
-    
-    return {
-      id: tour.id,
-      title: tour.name || 'Tour Name',
-      description: tour.description || tour.shortDescription || "",
-      price: tour.price || 0,
-      currency: tour.currency || 'THB',
-      customLink: tour.url || tour.bookingUrl || tour.detailsUrl || `https://www.tourninja.io/details/${tour.id}`,
-      type: "tour" as const,
-      images: tourImages, // Only authentic images from Tour Ninja
-      tags: tour.tags || [],
-      createdAt: new Date(tour.createdAt || new Date())
-    };
-  });
+  const tourNinjaCards: TourCardItemProps[] = tourNinjaTours.map((tour: any) => ({
+    id: tour.id,
+    title: tour.name,
+    description: tour.description || tour.shortDescription || "",
+    price: tour.price,
+    currency: tour.currency,
+    customLink: tour.bookingUrl || tour.detailsUrl || tour.url || `https://www.tourninja.io/details/${tour.id}`,
+    type: "tour" as const,
+    images: tour.images || [],
+    tags: tour.tags || [],
+    createdAt: new Date(tour.createdAt || new Date())
+  }));
   
   // Combine local tour cards with Tour Ninja tours
   const allTours = [...(tourCards || []), ...tourNinjaCards];
