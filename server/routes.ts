@@ -655,6 +655,8 @@ Crawl-delay: 1`;
   // Clear cache to force fresh data fetch with updated API endpoint
   tourCache.data = null;
   tourCache.timestamp = 0;
+  // Reset TTL to normal value
+  tourCache.TTL = 6 * 60 * 60 * 1000;
 
   // Debug route for deployment issues
   app.get("/api/debug/tour-ninja", (req, res) => {
@@ -759,13 +761,13 @@ Crawl-delay: 1`;
           currency: tour.currency || 'THB',
           duration: tour.days || 1,
           maxParticipants: tour.maxParticipants,
-          primaryImage: tour.primaryImage,
-          images: tour.images || [],
+          primaryImage: tour.photos && tour.photos.length > 0 ? tour.photos[0] : null,
+          images: tour.photos || [],
           url: tour.bookingUrl || tour.detailsUrl || `https://www.tourninja.io/details/${tour.token}`,
           bookingUrl: tour.bookingUrl,
           detailsUrl: tour.detailsUrl,
-          hasImages: tour.hasImages,
-          imageCount: tour.imageCount,
+          hasImages: tour.photos && tour.photos.length > 0,
+          imageCount: tour.photos ? tour.photos.length : 0,
           destination: tour.destination,
           pricing: tour.pricing,
           features: {
