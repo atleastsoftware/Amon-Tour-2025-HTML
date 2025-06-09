@@ -71,10 +71,10 @@ export default function TourDetails() {
       
       <Header />
       
-      <main className="flex flex-col min-h-screen bg-white pt-20">
+      <main className="bg-white pt-16">
         {/* Header avec navigation */}
-        <section className="bg-gray-50 border-b flex-shrink-0">
-          <div className="container mx-auto px-4 py-4">
+        <section className="bg-gray-50 border-b">
+          <div className="container mx-auto px-4 py-3">
             <div className="flex items-center justify-between">
               <Button onClick={handleBack} variant="outline" size="sm">
                 <ArrowLeft className="h-4 w-4 mr-2" />
@@ -90,7 +90,7 @@ export default function TourDetails() {
         </section>
 
         {/* Contenu principal avec iframe */}
-        <section className="relative flex-1 overflow-hidden">
+        <div className="relative" style={{ height: 'calc(100vh - 180px)' }}>
           {isLoading && (
             <motion.div 
               className="absolute inset-0 bg-white z-10 flex items-center justify-center"
@@ -106,7 +106,7 @@ export default function TourDetails() {
           )}
           
           <motion.div
-            className="h-full"
+            className="w-full h-full"
             initial={{ opacity: 0 }}
             animate={{ opacity: isLoading ? 0 : 1 }}
             transition={{ duration: 0.3, delay: isLoading ? 0 : 0.2 }}
@@ -122,9 +122,10 @@ export default function TourDetails() {
               }}
               allow="fullscreen"
               sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+              style={{ minHeight: '600px' }}
             />
           </motion.div>
-        </section>
+        </div>
       </main>
     </>
   );
