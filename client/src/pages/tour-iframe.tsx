@@ -80,9 +80,9 @@ export default function TourIframe() {
           </div>
         </section>
 
-        {/* Section iframe intégrée dans le flux de la page */}
+        {/* Section iframe plein écran */}
         <section className="iframe-wrapper">
-          <div className="relative" style={{ minHeight: '700px' }}>
+          <div className="relative" style={{ height: 'calc(100vh - 73px)' }}>
             {isLoading && (
               <motion.div 
                 className="absolute inset-0 bg-white z-10 flex items-center justify-center"
@@ -110,7 +110,7 @@ export default function TourIframe() {
             )}
 
             <motion.div
-              className="w-full"
+              className="w-full h-full"
               initial={{ opacity: 0 }}
               animate={{ opacity: isLoading ? 0 : 1 }}
               transition={{ duration: 0.3, delay: isLoading ? 0 : 0.2 }}
@@ -118,10 +118,9 @@ export default function TourIframe() {
               <iframe
                 src={`https://www.tourninja.io/details/${tourId}`}
                 width="100%"
-                height="700"
+                height="100%"
                 style={{ 
-                  border: 'none',
-                  minHeight: '600px'
+                  border: 'none'
                 }}
                 title="Détails du tour"
                 onLoad={() => setIsLoading(false)}
@@ -137,8 +136,6 @@ export default function TourIframe() {
           </div>
         </section>
       </main>
-      
-      <Footer />
     </>
   );
 }
