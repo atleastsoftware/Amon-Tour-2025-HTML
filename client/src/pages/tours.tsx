@@ -22,6 +22,11 @@ export default function Tours() {
     queryKey: ['/api/tour-cards']
   });
   
+  // Get featured tours from home page
+  const { data: featuredTours = [], isLoading: isLoadingTours } = useQuery<Tour[]>({
+    queryKey: ['/api/tours/featured'],
+  });
+  
   // Get Tour Ninja tours
   const { tours: tourNinjaTours = [], isLoading: tourNinjaLoading } = useTourNinja();
   
@@ -38,14 +43,27 @@ export default function Tours() {
     tags: tour.tags || [],
     createdAt: new Date(tour.createdAt || new Date())
   }));
+
+  // Convert featured tours to TourCardItem format
+  const featuredTourCards: TourCardItemProps[] = featuredTours.map((tour: Tour) => ({
+    id: tour.id.toString(),
+    title: tour.title,
+    description: tour.description || tour.shortDescription || "",
+    price: tour.price,
+    currency: "THB",
+    customLink: tour.tourNinjaUrl || `/tour/${tour.id}`,
+    type: "tour" as const,
+    images: tour.imageUrl ? [tour.imageUrl] : [],
+    tags: []
+  }));
   
-  // Combine local tour cards with Tour Ninja tours
-  const allTours = [...(tourCards || []), ...tourNinjaCards];
+  // Combine all tour cards: local + featured + Tour Ninja
+  const allTours = [...(tourCards || []), ...featuredTourCards, ...tourNinjaCards];
   
   // Filter only tours (not experiences)
   const tourTypeCards = allTours.filter((card: any) => card.type === "tour");
   
-  const isLoading = localToursLoading || tourNinjaLoading;
+  const isLoading = localToursLoading || tourNinjaLoading || isLoadingTours;
   const [searchTerm, setSearchTerm] = useState("");
 
   // Filtre les cartes selon le terme de recherche
