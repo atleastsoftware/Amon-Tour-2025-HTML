@@ -100,20 +100,24 @@ export default function TourCardItem({
         <Card 
           className="overflow-hidden h-full flex flex-col cursor-pointer"
           onClick={() => {
-            // Préparer les données du tour à envoyer comme paramètre d'URL
-            const tourData = JSON.stringify({
-              id,
-              title,
-              description,
-              price,
-              currency,
-              customLink,
-              type,
-              images,
-              tags
-            });
-            // Rediriger vers la page de détail du tour
-            window.location.href = `/tour-view?tourData=${encodeURIComponent(tourData)}`;
+            // Si c'est un tour Tour Ninja (contient tourninja.io), ouvrir directement le lien
+            if (customLink && customLink.includes('tourninja.io')) {
+              window.open(customLink, '_blank', 'noopener,noreferrer');
+            } else {
+              // Pour les autres tours, rediriger vers la page de détail
+              const tourData = JSON.stringify({
+                id,
+                title,
+                description,
+                price,
+                currency,
+                customLink,
+                type,
+                images,
+                tags
+              });
+              window.location.href = `/tour-view?tourData=${encodeURIComponent(tourData)}`;
+            }
           }}
         >
           <div 
