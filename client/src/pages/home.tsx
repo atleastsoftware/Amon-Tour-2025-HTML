@@ -46,7 +46,7 @@ export default function Home() {
     description: tour.description || tour.shortDescription || "",
     price: tour.price,
     currency: tour.currency,
-    customLink: tour.bookingUrl || tour.detailsUrl || tour.url || `https://www.tourninja.io/details/${tour.id}`,
+    customLink: tour.url || tour.detailsUrl || `https://www.tourninja.io/details/${tour.id}`,
     type: "tour" as const,
     images: tour.images || [],
     tags: tour.tags || [],
