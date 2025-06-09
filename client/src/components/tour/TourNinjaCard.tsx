@@ -26,10 +26,11 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
       transition={{ delay: index * 0.1 }}
       whileHover={{ y: -5 }}
       className="h-full"
+      onClick={handleCardClick}
     >
       <Card className="h-full cursor-pointer hover:shadow-lg transition-shadow overflow-hidden group">
         <div className="relative">
-          {(tour.primaryImage || tour.images?.[0]) && (
+          {(tour.primaryImage || tour.images?.[0]) ? (
             <div className="h-48 overflow-hidden">
               <img
                 src={tour.primaryImage || tour.images[0]}
@@ -41,15 +42,23 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
                 }}
               />
             </div>
-          )}
-          
-          {tour.price && (
-            <div className="absolute top-3 right-3">
-              <Badge variant="secondary" className="bg-white/90 text-primary font-semibold">
-                {tour.currency === 'THB' ? formatTHB(tour.price) : `${tour.price} ${tour.currency || 'THB'}`}
-              </Badge>
+          ) : (
+            <div className="h-48 bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center">
+              <div className="text-blue-600 text-center p-4">
+                <MapPin className="w-8 h-8 mx-auto mb-2" />
+                <span className="text-sm">Krabi, Thailand</span>
+              </div>
             </div>
           )}
+          
+          <div className="absolute top-3 right-3">
+            <Badge variant="secondary" className="bg-white/90 text-primary font-semibold">
+              {tour.price > 0 
+                ? (tour.currency === 'THB' ? formatTHB(tour.price) : `${tour.price} ${tour.currency || 'THB'}`)
+                : 'Prix sur demande'
+              }
+            </Badge>
+          </div>
         </div>
 
         <CardContent className="p-4 flex flex-col justify-between h-full">

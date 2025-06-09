@@ -652,7 +652,7 @@ Crawl-delay: 1`;
     TTL: 6 * 60 * 60 * 1000 // 6 hours in milliseconds
   };
 
-  // Clear cache to force fresh data fetch with updated API URL and credentials
+  // Clear cache to force fresh data fetch with legacy endpoint
   tourCache.data = null;
   tourCache.timestamp = 0;
 
@@ -721,7 +721,7 @@ Crawl-delay: 1`;
       }
 
       console.log("Fetching fresh data from Tour Ninja API", {
-        url: `https://www.tourninja.io/api/public/tours?apiKey=${apiKey}&companyId=${companyId}`,
+        url: `https://www.tourninja.io/api/public/tours/legacy?companyId=${companyId}`,
         environment: process.env.NODE_ENV,
         hostname: req.hostname
       });
@@ -729,7 +729,7 @@ Crawl-delay: 1`;
       const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 seconds timeout
       
       const response = await fetch(
-        `https://www.tourninja.io/api/public/tours?apiKey=${apiKey}&companyId=${companyId}`,
+        `https://www.tourninja.io/api/public/tours/legacy?companyId=${companyId}`,
         {
           method: 'GET',
           headers: {
@@ -748,10 +748,20 @@ Crawl-delay: 1`;
 
       const apiResponse = await response.json();
       
-      // Extract tours data from the API response  
+      // Extract and enhance tours data from the API response  
       let tours = [];
       if (apiResponse.success && Array.isArray(apiResponse.tours)) {
-        tours = apiResponse.tours;
+        tours = apiResponse.tours.map((tour: any) => ({
+          ...tour,
+          // Ensure we have proper image fallback
+          primaryImage: tour.primaryImage || (tour.images && tour.images[0]) || null,
+          // Add bookingUrl if not present
+          bookingUrl: tour.bookingUrl || `https://www.tourninja.io/book/${tour.id}`,
+          // Ensure detailsUrl for more information
+          detailsUrl: tour.url || `https://www.tourninja.io/details/${tour.id}`,
+          // Add location for consistency
+          location: tour.location || 'Krabi, Thailand'
+        }));
       } else if (Array.isArray(apiResponse.data)) {
         tours = apiResponse.data;
       }

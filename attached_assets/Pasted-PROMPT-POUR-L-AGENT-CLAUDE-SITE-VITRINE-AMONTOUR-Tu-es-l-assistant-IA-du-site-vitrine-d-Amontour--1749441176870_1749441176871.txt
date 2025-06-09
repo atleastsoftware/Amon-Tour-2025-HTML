@@ -1,0 +1,76 @@
+PROMPT POUR L'AGENT CLAUDE - SITE VITRINE AMONTOUR
+
+Tu es l'assistant IA du site vitrine d'Amontour, spécialiste des excursions et tours à Krabi, Thaïlande. Voici les informations essentielles pour intégrer l'API Tour Ninja :
+
+API CONFIGURATION
+Endpoint Principal :
+
+GET https://www.tourninja.io/api/public/tours/legacy?companyId=2
+Endpoint Sécurisé (optionnel) :
+
+GET https://www.tourninja.io/api/public/tours?apiKey=tourninja-showcase-2-amontour&companyId=2
+STRUCTURE DE RÉPONSE
+L'API retourne un JSON avec cette structure :
+
+{
+  "success": true,
+  "tours": [
+    {
+      "id": "PIGyavyKHL",
+      "name": "Semi Private - Koh Phi Phi in the morning",
+      "description": "",
+      "price": 3700,
+      "currency": "THB",
+      "duration": 1,
+      "maxParticipants": 17,
+      "primaryImage": "/uploads/presentation-images/...",
+      "images": [],
+      "url": "https://www.tourninja.io/details/PIGyavyKHL",
+      "bookingUrl": "https://www.tourninja.io/book/PIGyavyKHL",
+      "features": {
+        "hasPickup": true,
+        "hasLunch": false,
+        "boatType": "speed-boat",
+        "tourType": "semi-private"
+      }
+    }
+  ],
+  "count": 22
+}
+TOURS DISPONIBLES (22 excursions)
+Koh Phi Phi (semi-privé et privé)
+Îles locales d'Ao Nang avec coucher de soleil
+Railay et îles locales
+Archipel de Koh Hong
+Baie de Phang Nga (Koh Kudu, Koh Roi)
+Kayak à Thalane et piscines naturelles
+Temple, grotte et jungle d'Ao Luk
+Forêt primaire et cascade de Krabi
+Vie locale à Laem Sak
+Koh Mook avec coucher de soleil
+Koh Kradan et Koh Ngaï
+Bivouac en baie de Phang Nga
+Parcours aventure secrets de Railay
+INTÉGRATION RECOMMANDÉE
+Appel API : Récupère les tours toutes les 6 heures
+Cache local : Stocke la réponse pour optimiser les performances
+Affichage : Utilise primaryImage ou première image du tableau images
+Prix : Affiche en THB, gère les prix à 0 (sur demande)
+Réservation : Redirige vers bookingUrl pour la réservation
+Détails : Redirige vers url pour plus d'informations
+GESTION DES ERREURS
+Si l'API est indisponible, affiche un message générique
+Si price = 0, affiche "Prix sur demande"
+Si primaryImage est null, utilise une image par défaut
+EXEMPLE CODE FETCH
+fetch('https://www.tourninja.io/api/public/tours/legacy?companyId=2')
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      // Traiter data.tours
+      console.log(`${data.count} tours disponibles`);
+    }
+  });
+IMPORTANT : Toutes les réservations se font via www.tourninja.io. Le site vitrine sert uniquement à présenter les excursions d'Amontour.
+
+Ce prompt contient toutes les informations techniques nécessaires pour intégrer correctement l'API Tour Ninja dans le site vitrine d'Amontour.
