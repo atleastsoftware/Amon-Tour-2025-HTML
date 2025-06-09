@@ -498,10 +498,7 @@ export default function Tours() {
                           
                           <div className="absolute top-3 right-3">
                             <Badge variant="secondary" className="bg-white/90 text-primary font-semibold">
-                              {tour.price > 0 
-                                ? formatTHB(tour.price)
-                                : 'Prix sur demande'
-                              }
+                              {displayPrice(tour)}
                             </Badge>
                           </div>
                         </div>
@@ -529,6 +526,35 @@ export default function Tours() {
                               <Clock size={14} className="mr-1" />
                               {formatDuration(tour.duration)}
                             </div>
+                          </div>
+
+                          {/* Informations enrichies */}
+                          <div className="flex flex-wrap gap-1 mb-3">
+                            {tour.tourTiming && (
+                              <Badge variant="outline" className="text-xs">
+                                {tour.tourTiming}
+                              </Badge>
+                            )}
+                            {tour.features?.hasPickup && (
+                              <Badge variant="outline" className="text-xs bg-green-50 text-green-700 border-green-200">
+                                Transport inclus
+                              </Badge>
+                            )}
+                            {tour.features?.hasLunch && (
+                              <Badge variant="outline" className="text-xs bg-orange-50 text-orange-700 border-orange-200">
+                                Déjeuner inclus
+                              </Badge>
+                            )}
+                            {tour.priceTable && tour.priceTable.length > 0 && (
+                              <Badge variant="outline" className="text-xs bg-purple-50 text-purple-700 border-purple-200">
+                                Tour privé
+                              </Badge>
+                            )}
+                            {tour.maxParticipants && (
+                              <Badge variant="outline" className="text-xs bg-blue-50 text-blue-700 border-blue-200">
+                                Max {tour.maxParticipants}p
+                              </Badge>
+                            )}
                           </div>
 
                           <div className="flex items-center justify-between">
