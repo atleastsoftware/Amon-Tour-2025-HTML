@@ -1,11 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, Clock, ExternalLink } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { MapPin, Clock, ExternalLink, Search, Filter, X } from "lucide-react";
 import { formatTHB } from "@/lib/utils";
 
 interface TourNinjaTour {
@@ -34,6 +37,13 @@ export default function Tours() {
   const [tours, setTours] = useState<TourNinjaTour[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  
+  // Filtres
+  const [searchTerm, setSearchTerm] = useState("");
+  const [priceRange, setPriceRange] = useState<string>("all");
+  const [durationFilter, setDurationFilter] = useState<string>("all");
+  const [destinationFilter, setDestinationFilter] = useState<string>("all");
+  const [showFilters, setShowFilters] = useState(false);
 
   useEffect(() => {
     const fetchTours = async () => {
@@ -80,6 +90,67 @@ export default function Tours() {
     return duration === 1 ? "1 jour" : `${duration} jours`;
   };
 
+  // Extraire les options de filtre dynamiquement des données de l'API
+  const filterOptions = useMemo(() => {
+    const destinations = Array.from(new Set(tours.map(tour => tour.destination).filter(Boolean))) as string[];
+    const durations = Array.from(new Set(tours.map(tour => tour.duration).filter(Boolean)));
+    const priceRanges = [
+      { value: "0-2000", label: "0 - 2,000 THB" },
+      { value: "2000-4000", label: "2,000 - 4,000 THB" },
+      { value: "4000-6000", label: "4,000 - 6,000 THB" },
+      { value: "6000+", label: "6,000+ THB" },
+      { value: "free", label: "Prix sur demande" }
+    ];
+    
+    return { destinations, durations, priceRanges };
+  }, [tours]);
+
+  // Appliquer tous les filtres
+  const filteredTours = useMemo(() => {
+    return tours.filter(tour => {
+      // Filtre de recherche textuelle
+      const matchesSearch = searchTerm === "" || 
+        tour.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        tour.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        tour.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        tour.destination?.toLowerCase().includes(searchTerm.toLowerCase());
+
+      // Filtre de prix
+      const matchesPrice = (() => {
+        if (priceRange === "all") return true;
+        if (priceRange === "free") return tour.price === 0;
+        
+        const [min, max] = priceRange.split("-").map(p => p.replace("+", ""));
+        const minPrice = parseInt(min);
+        const maxPrice = max ? parseInt(max) : Infinity;
+        
+        return tour.price >= minPrice && tour.price < maxPrice;
+      })();
+
+      // Filtre de durée
+      const matchesDuration = durationFilter === "all" || 
+        tour.duration.toString() === durationFilter;
+
+      // Filtre de destination
+      const matchesDestination = destinationFilter === "all" || 
+        tour.destination === destinationFilter;
+
+      return matchesSearch && matchesPrice && matchesDuration && matchesDestination;
+    });
+  }, [tours, searchTerm, priceRange, durationFilter, destinationFilter]);
+
+  // Fonction pour réinitialiser tous les filtres
+  const clearFilters = () => {
+    setSearchTerm("");
+    setPriceRange("all");
+    setDurationFilter("all");
+    setDestinationFilter("all");
+  };
+
+  // Compter les filtres actifs
+  const activeFiltersCount = [searchTerm, priceRange, durationFilter, destinationFilter]
+    .filter(filter => filter !== "" && filter !== "all").length;
+
   return (
     <>
       <SEO 
@@ -121,6 +192,131 @@ export default function Tours() {
         {/* Tours Section */}
         <section className="py-16">
           <div className="container mx-auto px-4">
+            
+            {/* Barre de recherche et filtres */}
+            <motion.div 
+              className="mb-8"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              {/* Barre de recherche principale */}
+              <div className="flex flex-col md:flex-row gap-4 mb-4">
+                <div className="flex-1 relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                  <Input
+                    type="text"
+                    placeholder="Rechercher un tour (nom, destination, description...)"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="pl-10 h-12"
+                  />
+                </div>
+                
+                <Button
+                  variant={showFilters ? "default" : "outline"}
+                  onClick={() => setShowFilters(!showFilters)}
+                  className="h-12 px-6"
+                >
+                  <Filter className="h-4 w-4 mr-2" />
+                  Filtres {activeFiltersCount > 0 && `(${activeFiltersCount})`}
+                </Button>
+                
+                {activeFiltersCount > 0 && (
+                  <Button
+                    variant="outline"
+                    onClick={clearFilters}
+                    className="h-12 px-4"
+                  >
+                    <X className="h-4 w-4 mr-2" />
+                    Réinitialiser
+                  </Button>
+                )}
+              </div>
+
+              {/* Panneau de filtres détaillés */}
+              {showFilters && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="bg-gray-50 rounded-lg p-6 border"
+                >
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {/* Filtre par prix */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Prix
+                      </label>
+                      <Select value={priceRange} onValueChange={setPriceRange}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Toutes les gammes" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="all">Toutes les gammes</SelectItem>
+                          {filterOptions.priceRanges.map(range => (
+                            <SelectItem key={range.value} value={range.value}>
+                              {range.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    {/* Filtre par durée */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Durée
+                      </label>
+                      <Select value={durationFilter} onValueChange={setDurationFilter}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Toutes les durées" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="all">Toutes les durées</SelectItem>
+                          {filterOptions.durations.sort((a, b) => a - b).map(duration => (
+                            <SelectItem key={duration} value={duration.toString()}>
+                              {formatDuration(duration)}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    {/* Filtre par destination */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Destination
+                      </label>
+                      <Select value={destinationFilter} onValueChange={setDestinationFilter}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Toutes les destinations" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="all">Toutes les destinations</SelectItem>
+                          {filterOptions.destinations.sort().map(destination => (
+                            <SelectItem key={destination} value={destination}>
+                              {destination}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Résumé des résultats */}
+              <div className="mt-4 text-sm text-gray-600">
+                {filteredTours.length} tour(s) trouvé(s) sur {tours.length} au total
+                {activeFiltersCount > 0 && (
+                  <span className="ml-2 text-primary font-medium">
+                    • {activeFiltersCount} filtre(s) actif(s)
+                  </span>
+                )}
+              </div>
+            </motion.div>
             {loading ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {[1, 2, 3, 4, 5, 6].map((i) => (
@@ -146,7 +342,7 @@ export default function Tours() {
                   <p className="text-gray-600">{error}</p>
                 </div>
               </motion.div>
-            ) : tours.length > 0 ? (
+            ) : filteredTours.length > 0 ? (
               <>
                 <motion.div 
                   className="text-center mb-12"
@@ -155,7 +351,7 @@ export default function Tours() {
                   transition={{ duration: 0.5 }}
                 >
                   <h2 className="text-3xl font-heading font-bold mb-4">
-                    {tours.length} Tours Disponibles
+                    {filteredTours.length} Tour{filteredTours.length > 1 ? 's' : ''} Disponible{filteredTours.length > 1 ? 's' : ''}
                   </h2>
                   <p className="text-gray-600 max-w-2xl mx-auto">
                     Explorez nos excursions soigneusement sélectionnées pour découvrir la vraie Thaïlande
@@ -168,7 +364,7 @@ export default function Tours() {
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.5, delay: 0.2 }}
                 >
-                  {tours.map((tour, index) => (
+                  {filteredTours.map((tour, index) => (
                     <motion.div
                       key={tour.id}
                       initial={{ opacity: 0, y: 20 }}
