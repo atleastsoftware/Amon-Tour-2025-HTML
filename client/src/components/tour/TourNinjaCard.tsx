@@ -12,10 +12,10 @@ interface TourNinjaCardProps {
 
 export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
   const handleCardClick = () => {
-    if (tour.bookingUrl) {
-      window.open(tour.bookingUrl, '_blank', 'noopener,noreferrer');
-    } else if (tour.detailsUrl) {
+    if (tour.detailsUrl) {
       window.open(tour.detailsUrl, '_blank', 'noopener,noreferrer');
+    } else if (tour.bookingUrl) {
+      window.open(tour.bookingUrl, '_blank', 'noopener,noreferrer');
     }
   };
 
@@ -92,25 +92,31 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
 
           {(tour.bookingUrl || tour.detailsUrl) && (
             <div className="flex gap-2">
-              {tour.bookingUrl && (
+              {tour.detailsUrl && (
                 <motion.button
-                  onClick={() => window.open(tour.bookingUrl, '_blank', 'noopener,noreferrer')}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    window.open(tour.detailsUrl, '_blank', 'noopener,noreferrer');
+                  }}
                   className="flex-1 bg-primary text-white py-2 px-4 rounded-md font-medium text-sm hover:bg-primary-dark transition-colors flex items-center justify-center"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Book Now
+                  Voir détails
+                  <ExternalLink size={12} className="ml-1" />
                 </motion.button>
               )}
-              {tour.detailsUrl && (
+              {tour.bookingUrl && (
                 <motion.button
-                  onClick={() => window.open(tour.detailsUrl, '_blank', 'noopener,noreferrer')}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    window.open(tour.bookingUrl, '_blank', 'noopener,noreferrer');
+                  }}
                   className="flex-1 bg-secondary text-white py-2 px-4 rounded-md font-medium text-sm hover:bg-secondary-dark transition-colors flex items-center justify-center"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  More Info
-                  <ExternalLink size={12} className="ml-1" />
+                  Réserver
                 </motion.button>
               )}
             </div>
