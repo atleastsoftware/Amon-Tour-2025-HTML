@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { MapPin, Clock, ExternalLink, Search, Filter, X } from "lucide-react";
 import { formatTHB } from "@/lib/utils";
-import TourModal from "@/components/tour/TourModal";
+
 
 interface TourNinjaTour {
   id: string;
@@ -52,9 +52,7 @@ export default function Tours() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   
-  // Modal state
-  const [selectedTour, setSelectedTour] = useState<TourNinjaTour | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+
   
   // Filtres
   const [searchTerm, setSearchTerm] = useState("");
@@ -94,13 +92,7 @@ export default function Tours() {
   }, []);
 
   const handleTourClick = (tour: TourNinjaTour) => {
-    setSelectedTour(tour);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedTour(null);
+    window.location.href = `/tour/${tour.id}`;
   };
 
   const formatDuration = (duration: number) => {
@@ -660,16 +652,7 @@ export default function Tours() {
       </main>
       
       <Footer />
-      
-      {/* Modal pour afficher les détails des tours */}
-      {selectedTour && (
-        <TourModal
-          isOpen={isModalOpen}
-          onClose={handleCloseModal}
-          tourId={selectedTour.id}
-          tourName={selectedTour.name}
-        />
-      )}
+
     </>
   );
 }

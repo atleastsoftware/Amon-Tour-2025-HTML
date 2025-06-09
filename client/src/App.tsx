@@ -6,7 +6,7 @@ import Tours from "@/pages/tours";
 import Experiences from "@/pages/experiences";
 import TourCards from "@/pages/tour-cards";
 import Stays from "@/pages/stays";
-import TourDetails from "@/pages/tour-details";
+import TourIframe from "@/pages/tour-iframe";
 import TourView from "@/pages/tour-view";
 import CustomTour from "@/pages/custom-tour";
 import BookTour from "@/pages/book-tour";
@@ -30,7 +30,7 @@ function Router() {
       <Route path="/experiences" component={Experiences} />
       <Route path="/tour-cards" component={TourCards} />
       <Route path="/stays" component={Stays} />
-      <Route path="/tour/:id" component={TourDetails} />
+      <Route path="/tour/:id" component={TourIframe} />
       <Route path="/custom-tour" component={CustomTour} />
       <Route path="/book-tour/:id" component={BookTour} />
       <Route path="/booking" component={BookingIframe} />
