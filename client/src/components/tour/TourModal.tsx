@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { X, ExternalLink, Loader2 } from "lucide-react";
+import { X, Loader2 } from "lucide-react";
 
 interface TourModalProps {
   isOpen: boolean;
@@ -56,40 +56,29 @@ export default function TourModal({ isOpen, onClose, tourId, tourName }: TourMod
           onClick={onClose}
         >
           <motion.div
-            className="fixed inset-4 bg-white rounded-lg shadow-2xl overflow-hidden"
+            className="fixed inset-2 md:inset-6 bg-white rounded-lg shadow-2xl overflow-hidden"
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.95, opacity: 0 }}
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-4 border-b bg-gray-50">
+            <div className="flex items-center justify-between p-3 border-b bg-gray-50">
               <h2 className="text-lg font-semibold text-gray-900 truncate">
                 {tourName || "Détails du tour"}
               </h2>
               
-              <div className="flex items-center gap-2">
-                <Button
-                  onClick={handleOpenExternal}
-                  variant="outline"
-                  size="sm"
-                >
-                  <ExternalLink className="h-4 w-4 mr-2" />
-                  Ouvrir dans un nouvel onglet
-                </Button>
-                
-                <Button
-                  onClick={onClose}
-                  variant="outline"
-                  size="sm"
-                >
-                  <X className="h-4 w-4" />
-                </Button>
-              </div>
+              <Button
+                onClick={onClose}
+                variant="outline"
+                size="sm"
+              >
+                <X className="h-4 w-4" />
+              </Button>
             </div>
 
             {/* Contenu */}
-            <div className="relative h-full" style={{ height: 'calc(100% - 73px)' }}>
+            <div className="relative" style={{ height: 'calc(100% - 61px)' }}>
               {isLoading && (
                 <div className="absolute inset-0 flex items-center justify-center bg-white z-10">
                   <div className="text-center">
@@ -107,9 +96,8 @@ export default function TourModal({ isOpen, onClose, tourId, tourName }: TourMod
                     </div>
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">Erreur de chargement</h3>
                     <p className="text-gray-600 mb-4">{error}</p>
-                    <Button onClick={handleOpenExternal} variant="outline">
-                      <ExternalLink className="h-4 w-4 mr-2" />
-                      Ouvrir dans un nouvel onglet
+                    <Button onClick={onClose} variant="outline">
+                      Fermer
                     </Button>
                   </div>
                 </div>
