@@ -1,0 +1,74 @@
+GET https://www.tourninja.io/api/public/tours/legacy?companyId=2
+Endpoint Sécurisé :
+
+GET https://www.tourninja.io/api/public/tours?apiKey=tourninja-showcase-2-amontour&companyId=2
+NOUVELLES DONNÉES ENRICHIES
+L'API retourne maintenant 21 tours avec 16 destinations authentiques :
+
+{
+  "success": true,
+  "tours": [
+    {
+      "id": "PIGyavyKHL",
+      "name": "Semi Private - Koh Phi Phi in the morning",
+      "title": "Semi Private - Koh Phi Phi in the morning",
+      "description": "",
+      "price": 3700,
+      "currency": "THB",
+      "duration": 1,
+      "maxParticipants": 17,
+      "destination": "Koh Phi Phi",
+      "slug": "semi-private-koh-phi-phi-in-the-morning",
+      "url": "https://www.tourninja.io/details/PIGyavyKHL",
+      "bookingUrl": "https://www.tourninja.io/book/PIGyavyKHL",
+      "detailsUrl": "https://www.tourninja.io/details/PIGyavyKHL",
+      "primaryImage": null,
+      "images": [],
+      "priceTable": null,
+      "childrenPrice": null,
+      "tourTiming": "",
+      "tourType": "",
+      "features": {
+        "hasPickup": false,
+        "hasLunch": false,
+        "boatType": null,
+        "tourType": null,
+        "isCustomStay": false
+      }
+    }
+  ]
+}
+DESTINATIONS DISPONIBLES (16 uniques)
+Koh Phi Phi (4 tours) - Îles paradisiaques
+Phang Nga Bay (3 tours) - Baie emblématique James Bond
+Koh Hong (3 tours) - Archipel lagons turquoise
+Koh Mook (2 tours) - Île authentique Trang
+Ao Nang, Railay, Thalane, Ao Luk, Krabi, Laem Sak (1 tour chacun)
+NOUVELLES FONCTIONNALITÉS D'INTÉGRATION
+Filtrage par destination : Utilise le champ destination
+URLs SEO-friendly : Utilise le champ slug pour navigation
+Gestion prix dynamique : Vérifie priceTable pour tours privés
+Prix enfants : Utilise childrenPrice si disponible
+Timing tours : Affiche tourTiming (matin/après-midi)
+Caractéristiques : Exploite l'objet features
+EXEMPLE D'INTÉGRATION AVANCÉE
+// Récupération avec cache 6h
+const response = await fetch('https://www.tourninja.io/api/public/tours/legacy?companyId=2');
+const data = await response.json();
+// Groupement par destination
+const toursByDestination = data.tours.reduce((acc, tour) => {
+  const dest = tour.destination || 'Autres';
+  if (!acc[dest]) acc[dest] = [];
+  acc[dest].push(tour);
+  return acc;
+}, {});
+// Affichage prix intelligent
+const displayPrice = (tour) => {
+  if (tour.priceTable) return "À partir de " + Math.min(...tour.priceTable.map(p => p.price)) + " THB";
+  if (tour.price > 0) return tour.price + " THB";
+  return "Prix sur demande";
+};
+RÉSERVATION ET NAVIGATION
+Page détail : tour.url ou tour.detailsUrl
+Réservation directe : tour.bookingUrl
+URL locale : /tours/${tour.slug} (redirige vers Tour Ninja)

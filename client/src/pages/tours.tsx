@@ -19,12 +19,25 @@ interface TourNinjaTour {
   price: number;
   currency: string;
   duration: number;
+  maxParticipants?: number;
   destination?: string;
+  slug?: string;
+  url?: string;
+  bookingUrl?: string;
+  detailsUrl?: string;
   primaryImage?: string;
   images?: string[];
-  url?: string;
-  detailsUrl?: string;
-  slug?: string;
+  priceTable?: Array<{ price: number; [key: string]: any }>;
+  childrenPrice?: number;
+  tourTiming?: string;
+  tourType?: string;
+  features?: {
+    hasPickup?: boolean;
+    hasLunch?: boolean;
+    boatType?: string;
+    tourType?: string;
+    isCustomStay?: boolean;
+  };
 }
 
 interface ApiResponse {
@@ -43,6 +56,8 @@ export default function Tours() {
   const [priceRange, setPriceRange] = useState<string>("all");
   const [durationFilter, setDurationFilter] = useState<string>("all");
   const [destinationFilter, setDestinationFilter] = useState<string>("all");
+  const [timingFilter, setTimingFilter] = useState<string>("all");
+  const [featuresFilter, setFeaturesFilter] = useState<string>("all");
   const [showFilters, setShowFilters] = useState(false);
 
   useEffect(() => {
@@ -90,10 +105,23 @@ export default function Tours() {
     return duration === 1 ? "1 jour" : `${duration} jours`;
   };
 
+  // Logique d'affichage prix intelligente
+  const displayPrice = (tour: TourNinjaTour) => {
+    if (tour.priceTable && tour.priceTable.length > 0) {
+      const minPrice = Math.min(...tour.priceTable.map(p => p.price));
+      return `À partir de ${formatTHB(minPrice)}`;
+    }
+    if (tour.price > 0) {
+      return formatTHB(tour.price);
+    }
+    return "Prix sur demande";
+  };
+
   // Extraire les options de filtre dynamiquement des données de l'API
   const filterOptions = useMemo(() => {
     const destinations = Array.from(new Set(tours.map(tour => tour.destination).filter(Boolean))) as string[];
     const durations = Array.from(new Set(tours.map(tour => tour.duration).filter(Boolean)));
+    const timings = Array.from(new Set(tours.map(tour => tour.tourTiming).filter(Boolean))) as string[];
     const priceRanges = [
       { value: "0-2000", label: "0 - 2,000 THB" },
       { value: "2000-4000", label: "2,000 - 4,000 THB" },
@@ -101,8 +129,13 @@ export default function Tours() {
       { value: "6000+", label: "6,000+ THB" },
       { value: "free", label: "Prix sur demande" }
     ];
+    const features = [
+      { value: "pickup", label: "Transport inclus" },
+      { value: "lunch", label: "Déjeuner inclus" },
+      { value: "private", label: "Tour privé disponible" }
+    ];
     
-    return { destinations, durations, priceRanges };
+    return { destinations, durations, timings, priceRanges, features };
   }, [tours]);
 
   // Appliquer tous les filtres
@@ -115,16 +148,21 @@ export default function Tours() {
         tour.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         tour.destination?.toLowerCase().includes(searchTerm.toLowerCase());
 
-      // Filtre de prix
+      // Filtre de prix (en utilisant la logique de prix intelligente)
       const matchesPrice = (() => {
         if (priceRange === "all") return true;
-        if (priceRange === "free") return tour.price === 0;
+        if (priceRange === "free") return tour.price === 0 && (!tour.priceTable || tour.priceTable.length === 0);
         
         const [min, max] = priceRange.split("-").map(p => p.replace("+", ""));
         const minPrice = parseInt(min);
         const maxPrice = max ? parseInt(max) : Infinity;
         
-        return tour.price >= minPrice && tour.price < maxPrice;
+        // Utiliser le prix minimum si priceTable existe
+        const tourPrice = tour.priceTable && tour.priceTable.length > 0 
+          ? Math.min(...tour.priceTable.map(p => p.price))
+          : tour.price;
+        
+        return tourPrice >= minPrice && tourPrice < maxPrice;
       })();
 
       // Filtre de durée
@@ -135,9 +173,26 @@ export default function Tours() {
       const matchesDestination = destinationFilter === "all" || 
         tour.destination === destinationFilter;
 
-      return matchesSearch && matchesPrice && matchesDuration && matchesDestination;
+      // Filtre de timing
+      const matchesTiming = timingFilter === "all" || 
+        tour.tourTiming === timingFilter;
+
+      // Filtre de caractéristiques
+      const matchesFeatures = (() => {
+        if (featuresFilter === "all") return true;
+        if (!tour.features) return false;
+        
+        switch (featuresFilter) {
+          case "pickup": return tour.features.hasPickup === true;
+          case "lunch": return tour.features.hasLunch === true;
+          case "private": return tour.priceTable && tour.priceTable.length > 0;
+          default: return true;
+        }
+      })();
+
+      return matchesSearch && matchesPrice && matchesDuration && matchesDestination && matchesTiming && matchesFeatures;
     });
-  }, [tours, searchTerm, priceRange, durationFilter, destinationFilter]);
+  }, [tours, searchTerm, priceRange, durationFilter, destinationFilter, timingFilter, featuresFilter]);
 
   // Fonction pour réinitialiser tous les filtres
   const clearFilters = () => {
@@ -145,10 +200,12 @@ export default function Tours() {
     setPriceRange("all");
     setDurationFilter("all");
     setDestinationFilter("all");
+    setTimingFilter("all");
+    setFeaturesFilter("all");
   };
 
   // Compter les filtres actifs
-  const activeFiltersCount = [searchTerm, priceRange, durationFilter, destinationFilter]
+  const activeFiltersCount = [searchTerm, priceRange, durationFilter, destinationFilter, timingFilter, featuresFilter]
     .filter(filter => filter !== "" && filter !== "all").length;
 
   return (
@@ -243,7 +300,7 @@ export default function Tours() {
                   transition={{ duration: 0.3 }}
                   className="bg-gray-50 rounded-lg p-6 border"
                 >
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
                     {/* Filtre par prix */}
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -298,6 +355,46 @@ export default function Tours() {
                           {filterOptions.destinations.sort().map(destination => (
                             <SelectItem key={destination} value={destination}>
                               {destination}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    {/* Filtre par timing */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Horaire
+                      </label>
+                      <Select value={timingFilter} onValueChange={setTimingFilter}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Tous les horaires" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="all">Tous les horaires</SelectItem>
+                          {filterOptions.timings.sort().map(timing => (
+                            <SelectItem key={timing} value={timing}>
+                              {timing}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    {/* Filtre par caractéristiques */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Services
+                      </label>
+                      <Select value={featuresFilter} onValueChange={setFeaturesFilter}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Tous les services" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="all">Tous les services</SelectItem>
+                          {filterOptions.features.map(feature => (
+                            <SelectItem key={feature.value} value={feature.value}>
+                              {feature.label}
                             </SelectItem>
                           ))}
                         </SelectContent>
