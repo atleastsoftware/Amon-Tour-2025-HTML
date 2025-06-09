@@ -119,7 +119,25 @@ export default function Tours() {
 
   // Extraire les options de filtre dynamiquement des données de l'API
   const filterOptions = useMemo(() => {
-    const destinations = Array.from(new Set(tours.map(tour => tour.destination).filter(Boolean))) as string[];
+    // Extraire les destinations depuis les noms des tours
+    const destinationKeywords = tours.map(tour => {
+      const name = tour.name.toLowerCase();
+      if (name.includes('phi phi')) return 'Koh Phi Phi';
+      if (name.includes('phang nga')) return 'Phang Nga Bay';
+      if (name.includes('koh hong')) return 'Koh Hong';
+      if (name.includes('koh mook')) return 'Koh Mook';
+      if (name.includes('railay')) return 'Railay';
+      if (name.includes('ao nang')) return 'Ao Nang';
+      if (name.includes('thalane')) return 'Thalane';
+      if (name.includes('ao luk')) return 'Ao Luk';
+      if (name.includes('krabi')) return 'Krabi';
+      if (name.includes('laem sak')) return 'Laem Sak';
+      if (name.includes('koh kradan')) return 'Koh Kradan';
+      if (name.includes('koh ngaï')) return 'Koh Ngaï';
+      return null;
+    }).filter(Boolean);
+    
+    const destinations = Array.from(new Set(destinationKeywords)) as string[];
     const durations = Array.from(new Set(tours.map(tour => tour.duration).filter(Boolean)));
     const timings = Array.from(new Set(tours.map(tour => tour.tourTiming).filter(Boolean))) as string[];
     const priceRanges = [
@@ -145,8 +163,7 @@ export default function Tours() {
       const matchesSearch = searchTerm === "" || 
         tour.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         tour.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        tour.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        tour.destination?.toLowerCase().includes(searchTerm.toLowerCase());
+        tour.description?.toLowerCase().includes(searchTerm.toLowerCase());
 
       // Filtre de prix (en utilisant la logique de prix intelligente)
       const matchesPrice = (() => {
@@ -169,9 +186,26 @@ export default function Tours() {
       const matchesDuration = durationFilter === "all" || 
         tour.duration.toString() === durationFilter;
 
-      // Filtre de destination
+      // Filtre de destination (basé sur l'extraction depuis le nom)
+      const getDestinationFromName = (tourName: string) => {
+        const name = tourName.toLowerCase();
+        if (name.includes('phi phi')) return 'Koh Phi Phi';
+        if (name.includes('phang nga')) return 'Phang Nga Bay';
+        if (name.includes('koh hong')) return 'Koh Hong';
+        if (name.includes('koh mook')) return 'Koh Mook';
+        if (name.includes('railay')) return 'Railay';
+        if (name.includes('ao nang')) return 'Ao Nang';
+        if (name.includes('thalane')) return 'Thalane';
+        if (name.includes('ao luk')) return 'Ao Luk';
+        if (name.includes('krabi')) return 'Krabi';
+        if (name.includes('laem sak')) return 'Laem Sak';
+        if (name.includes('koh kradan')) return 'Koh Kradan';
+        if (name.includes('koh ngaï')) return 'Koh Ngaï';
+        return null;
+      };
+      
       const matchesDestination = destinationFilter === "all" || 
-        tour.destination === destinationFilter;
+        getDestinationFromName(tour.name) === destinationFilter;
 
       // Filtre de timing
       const matchesTiming = timingFilter === "all" || 
@@ -515,12 +549,30 @@ export default function Tours() {
                           )}
                           
                           <div className="flex items-center justify-between text-sm text-gray-500 mb-3">
-                            {tour.destination && (
-                              <div className="flex items-center">
-                                <MapPin size={14} className="mr-1" />
-                                {tour.destination}
-                              </div>
-                            )}
+                            {(() => {
+                              const destination = (() => {
+                                const name = tour.name.toLowerCase();
+                                if (name.includes('phi phi')) return 'Koh Phi Phi';
+                                if (name.includes('phang nga')) return 'Phang Nga Bay';
+                                if (name.includes('koh hong')) return 'Koh Hong';
+                                if (name.includes('koh mook')) return 'Koh Mook';
+                                if (name.includes('railay')) return 'Railay';
+                                if (name.includes('ao nang')) return 'Ao Nang';
+                                if (name.includes('thalane')) return 'Thalane';
+                                if (name.includes('ao luk')) return 'Ao Luk';
+                                if (name.includes('krabi')) return 'Krabi';
+                                if (name.includes('laem sak')) return 'Laem Sak';
+                                if (name.includes('koh kradan')) return 'Koh Kradan';
+                                if (name.includes('koh ngaï')) return 'Koh Ngaï';
+                                return 'Krabi, Thaïlande';
+                              })();
+                              return destination && (
+                                <div className="flex items-center">
+                                  <MapPin size={14} className="mr-1" />
+                                  {destination}
+                                </div>
+                              );
+                            })()}
                             
                             <div className="flex items-center">
                               <Clock size={14} className="mr-1" />
