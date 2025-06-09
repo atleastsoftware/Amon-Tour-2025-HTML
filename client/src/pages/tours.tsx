@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
+import { useLocation } from "wouter";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
@@ -47,6 +48,7 @@ interface ApiResponse {
 }
 
 export default function Tours() {
+  const [, setLocation] = useLocation();
   const [tours, setTours] = useState<TourNinjaTour[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -89,16 +91,8 @@ export default function Tours() {
   }, []);
 
   const handleTourClick = (tour: TourNinjaTour) => {
-    // Prioriser le slug pour les routes internes, sinon utiliser l'URL externe
-    if (tour.slug) {
-      window.location.href = `/tour/${tour.slug}`;
-    } else if (tour.url) {
-      window.open(tour.url, '_blank', 'noopener,noreferrer');
-    } else if (tour.detailsUrl) {
-      window.open(tour.detailsUrl, '_blank', 'noopener,noreferrer');
-    } else {
-      window.open(`https://www.tourninja.io/details/${tour.id}`, '_blank', 'noopener,noreferrer');
-    }
+    // Navigation vers la page de détails avec iframe intégrée
+    setLocation(`/tour/${tour.id}`);
   };
 
   const formatDuration = (duration: number) => {

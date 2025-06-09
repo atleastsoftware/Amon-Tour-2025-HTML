@@ -30,7 +30,7 @@ function Router() {
       <Route path="/experiences" component={Experiences} />
       <Route path="/tour-cards" component={TourCards} />
       <Route path="/stays" component={Stays} />
-      <Route path="/tours/:id" component={TourDetails} />
+      <Route path="/tour/:id" component={TourDetails} />
       <Route path="/custom-tour" component={CustomTour} />
       <Route path="/book-tour/:id" component={BookTour} />
       <Route path="/booking" component={BookingIframe} />
