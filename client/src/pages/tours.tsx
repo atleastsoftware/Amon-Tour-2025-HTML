@@ -446,6 +446,25 @@ export default function Tours() {
                   ))}
                 </motion.div>
               </>
+            ) : tours.length > 0 ? (
+              <motion.div 
+                className="text-center py-16"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <div className="mx-auto w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-6">
+                  <Search className="h-10 w-10 text-gray-400" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">Aucun tour ne correspond à vos critères</h3>
+                <p className="text-gray-600 mb-6">
+                  Essayez de modifier vos filtres pour découvrir plus d'options.
+                </p>
+                <Button onClick={clearFilters} variant="outline">
+                  <X className="h-4 w-4 mr-2" />
+                  Réinitialiser les filtres
+                </Button>
+              </motion.div>
             ) : (
               <motion.div 
                 className="text-center py-12"
