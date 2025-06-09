@@ -2,7 +2,6 @@ import { Switch, Route } from "wouter";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
-import Tours from "@/pages/tours";
 import Experiences from "@/pages/experiences";
 import TourCards from "@/pages/tour-cards";
 import Stays from "@/pages/stays";
@@ -26,7 +25,6 @@ function Router() {
     <Switch>
       {/* Public Pages */}
       <Route path="/" component={Home} />
-      <Route path="/tours" component={Tours} />
       <Route path="/experiences" component={Experiences} />
       <Route path="/tour-cards" component={TourCards} />
       <Route path="/stays" component={Stays} />
