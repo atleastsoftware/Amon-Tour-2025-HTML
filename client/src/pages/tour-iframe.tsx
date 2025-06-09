@@ -69,7 +69,7 @@ export default function TourIframe() {
       
       <Header />
       
-      <main className="bg-white pt-16">
+      <main className="bg-white pt-0">
         {/* Header avec navigation */}
         <section className="bg-gray-50 border-b">
           <div className="container mx-auto px-4 py-3">
