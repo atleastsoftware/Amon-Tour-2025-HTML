@@ -226,25 +226,20 @@ export default function Tours() {
       
       <main>
         {/* Section iframe showcase */}
-        <section className="py-8">
-          <div className="container mx-auto px-4">
-            <iframe 
-              src="https://www.tourninja.io/showcase/2" 
-              width="100%" 
-              height="800px" 
-              style={{ 
-                border: 'none', 
-                borderRadius: '8px' 
-              }}
-              title="Tours Showcase"
-              scrolling="auto"
-            />
-          </div>
+        <section className="h-screen">
+          <iframe 
+            src="https://www.tourninja.io/showcase/2" 
+            width="100%" 
+            height="100%" 
+            style={{ 
+              border: 'none'
+            }}
+            title="Tours Showcase"
+            scrolling="auto"
+          />
         </section>
 
       </main>
-      
-      <Footer />
 
     </>
   );
