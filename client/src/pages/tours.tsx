@@ -64,31 +64,9 @@ export default function Tours() {
   const [showFilters, setShowFilters] = useState(false);
 
   useEffect(() => {
-    const fetchTours = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch('/api/proxy/tours');
-        
-        if (!response.ok) {
-          throw new Error(`Erreur API: ${response.status}`);
-        }
-
-        const data = await response.json();
-        
-        if (data.success && data.data) {
-          setTours(data.data);
-        } else {
-          setError("Aucun tour disponible");
-        }
-      } catch (err) {
-        console.error("Erreur lors du chargement des tours:", err);
-        setError("Impossible de charger les tours");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchTours();
+    // Suppression de l'appel API - plus de données affichées
+    setLoading(false);
+    setTours([]);
   }, []);
 
   const handleTourClick = (tour: TourNinjaTour) => {
