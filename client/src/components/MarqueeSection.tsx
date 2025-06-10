@@ -4,54 +4,72 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 export default function MarqueeSection() {
-  // Tours avec images depuis l'iframe Tour Ninja (showcase/2)
-  const tourNinjaTours = [
+  // Tours réels de l'iframe Tour Ninja showcase/2
+  const iframeTours = [
     { 
+      id: "1",
       name: "Phi Phi Islands Speed Boat Tour", 
-      price: "2,500", 
+      price: 2500, 
+      currency: "THB",
       location: "Krabi",
-      image: "/attached_assets/phi-phi-islands-island-summertime-vacation-wallpaper-preview_1749533936281.jpg",
-      duration: "Full Day"
+      images: ["/attached_assets/phi-phi-islands-island-summertime-vacation-wallpaper-preview_1749533936281.jpg"],
+      duration: "Full Day",
+      shortDescription: "Découvrez les îles paradisiaques de Phi Phi en speedboat"
     },
     { 
+      id: "2",
       name: "James Bond Island Day Trip", 
-      price: "3,200", 
+      price: 3200, 
+      currency: "THB",
       location: "Phang Nga",
-      image: "/attached_assets/DJI_20241115104455_0160_D-min.jpeg",
-      duration: "8 hours"
+      images: ["/attached_assets/DJI_20241115104455_0160_D-min.jpeg"],
+      duration: "8 hours",
+      shortDescription: "Visitez l'île emblématique de James Bond à Phang Nga"
     },
     { 
+      id: "3",
       name: "Phuket City & Temple Tour", 
-      price: "1,800", 
+      price: 1800, 
+      currency: "THB",
       location: "Phuket",
-      image: "/attached_assets/IMG_2114.png",
-      duration: "Half Day"
+      images: ["/attached_assets/IMG_2114.png"],
+      duration: "Half Day",
+      shortDescription: "Explorez la culture et les temples de Phuket"
     },
     { 
+      id: "4",
       name: "Emerald Cave Kayaking", 
-      price: "2,800", 
+      price: 2800, 
+      currency: "THB",
       location: "Krabi",
-      image: "/attached_assets/phi-phi-islands-island-summertime-vacation-wallpaper-preview_1749529793245.jpg",
-      duration: "6 hours"
+      images: ["/attached_assets/phi-phi-islands-island-summertime-vacation-wallpaper-preview_1749529793245.jpg"],
+      duration: "6 hours",
+      shortDescription: "Kayak dans la grotte d'émeraude mystique"
     },
     { 
+      id: "5",
       name: "Elephant Sanctuary Visit", 
-      price: "2,200", 
+      price: 2200, 
+      currency: "THB",
       location: "Phuket",
-      image: "/attached_assets/phi-phi-islands-island-summertime-vacation-wallpaper-preview_1749534394180.jpg",
-      duration: "5 hours"
+      images: ["/attached_assets/phi-phi-islands-island-summertime-vacation-wallpaper-preview_1749534394180.jpg"],
+      duration: "5 hours",
+      shortDescription: "Rencontrez les éléphants dans leur sanctuaire naturel"
     },
     { 
+      id: "6",
       name: "4 Islands Tour by Longtail", 
-      price: "1,900", 
+      price: 1900, 
+      currency: "THB",
       location: "Krabi",
-      image: "/attached_assets/phi-phi-islands-island-summertime-vacation-wallpaper-preview_1749533936281.jpg",
-      duration: "7 hours"
+      images: ["/attached_assets/phi-phi-islands-island-summertime-vacation-wallpaper-preview_1749533936281.jpg"],
+      duration: "7 hours",
+      shortDescription: "Tour traditionnel des 4 îles en bateau longtail"
     }
   ];
 
   // Dupliquer les tours pour un défilement continu
-  const duplicatedTours = [...tourNinjaTours, ...tourNinjaTours];
+  const duplicatedTours = [...iframeTours, ...iframeTours];
 
   return (
     <div className="bg-gradient-to-r from-blue-900 to-blue-800 py-6 overflow-hidden">
@@ -61,7 +79,7 @@ export default function MarqueeSection() {
       <motion.div 
         className="flex"
         animate={{ 
-          x: [0, -100 * tourNinjaTours.length + "%"] 
+          x: [0, -50 + "%"] 
         }}
         transition={{ 
           duration: 60,
@@ -70,11 +88,11 @@ export default function MarqueeSection() {
         }}
       >
         {duplicatedTours.map((tour, index) => (
-          <Link key={`${tour.name}-${index}`} href="/tours">
+          <Link key={`${tour.id}-${index}`} href="/tours">
             <Card className="mx-3 w-80 flex-shrink-0 overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer">
               <div className="relative h-48">
                 <img 
-                  src={tour.image} 
+                  src={tour.images[0]} 
                   alt={tour.name}
                   className="w-full h-full object-cover"
                 />
@@ -86,7 +104,7 @@ export default function MarqueeSection() {
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-3">
                   <div className="text-white">
                     <div className="inline-block px-2 py-1 rounded-full bg-secondary text-sm font-medium">
-                      À partir de {tour.price} THB
+                      À partir de {tour.price} {tour.currency}
                     </div>
                   </div>
                 </div>
@@ -96,6 +114,7 @@ export default function MarqueeSection() {
                 <div className="flex items-center text-gray-600">
                   <span className="text-sm">📍 {tour.location}</span>
                 </div>
+                <p className="text-xs text-gray-500 mt-1 line-clamp-2">{tour.shortDescription}</p>
               </CardContent>
             </Card>
           </Link>
