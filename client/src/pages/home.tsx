@@ -217,13 +217,13 @@ export default function Home() {
           
           <div className="container mx-auto px-4 py-8">
             <div className="text-center">
-              <Link href="/tours">
+              <Link href="/tours?from=banner">
                 <motion.span 
                   className="bg-primary text-white px-8 py-3 rounded-lg font-heading font-semibold hover:bg-primary-dark transition-colors inline-block cursor-pointer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  View All Tours
+                  Voir Tous Nos Tours
                 </motion.span>
               </Link>
             </div>
