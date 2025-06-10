@@ -228,7 +228,7 @@ export default function Tours() {
         {/* Hero Banner */}
         <section className="relative h-[50vh] bg-cover bg-center" 
                  style={{ 
-                   backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(/attached_assets/phi-phi-islands-island-summertime-vacation-wallpaper-preview_1749529793245.jpg)"
+                   backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(/attached_assets/phi-phi-islands-island-summertime-vacation-wallpaper-preview_1749533936281.jpg)"
                  }}>
           <div className="absolute inset-0 flex items-center justify-center text-center px-4">
             <div className="max-w-3xl">
