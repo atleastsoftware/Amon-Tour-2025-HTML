@@ -225,6 +225,33 @@ export default function Tours() {
       <Header />
       
       <main>
+        {/* Hero Banner */}
+        <section className="relative h-[50vh] bg-cover bg-center" 
+                 style={{ 
+                   backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(/attached_assets/phi-phi-islands-island-summertime-vacation-wallpaper-preview_1749533936281.jpg)"
+                 }}>
+          <div className="absolute inset-0 flex items-center justify-center text-center px-4">
+            <div className="max-w-3xl">
+              <motion.h1 
+                className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-4"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                Nos Tours en Thaïlande
+              </motion.h1>
+              <motion.p 
+                className="text-xl text-white max-w-2xl mx-auto"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                Découvrez des excursions authentiques et personnalisées
+              </motion.p>
+            </div>
+          </div>
+        </section>
+
         {/* Section iframe showcase */}
         <section className="h-screen">
           <iframe 
