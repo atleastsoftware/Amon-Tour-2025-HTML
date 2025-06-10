@@ -232,11 +232,23 @@ export default function Tours() {
                  }}>
           <div className="absolute inset-0 flex items-center justify-center text-center px-4">
             <div className="max-w-3xl">
+              <motion.div
+                className="mb-6"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+              >
+                <img
+                  src="/attached_assets/phi-phi-islands-island-summertime-vacation-wallpaper-preview_1749533936281.jpg"
+                  alt="Îles Phi Phi"
+                  className="w-48 h-32 object-cover rounded-lg shadow-lg mx-auto"
+                />
+              </motion.div>
               <motion.h1 
                 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-4"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
               >
                 Nos Tours en Thaïlande
               </motion.h1>
@@ -244,7 +256,7 @@ export default function Tours() {
                 className="text-xl text-white max-w-2xl mx-auto"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
               >
                 Découvrez des excursions authentiques et personnalisées
               </motion.p>
