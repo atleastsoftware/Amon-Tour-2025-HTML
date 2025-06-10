@@ -252,6 +252,22 @@ export default function Tours() {
           </div>
         </section>
 
+        {/* Section iframe showcase */}
+        <section className="py-8">
+          <div className="container mx-auto px-4">
+            <iframe 
+              src="https://cde80561-c0db-4534-be3c-2648dce69f2c-00-3e1vlysnatw4g.spock.replit.dev/showcase/2" 
+              width="100%" 
+              height="800px" 
+              style={{ 
+                border: 'none', 
+                borderRadius: '8px' 
+              }}
+              title="Tours Showcase"
+              scrolling="auto"
+            />
+          </div>
+        </section>
 
       </main>
       
