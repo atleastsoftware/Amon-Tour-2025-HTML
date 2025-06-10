@@ -200,21 +200,23 @@ export default function Home() {
         <Features />
         
         {/* Tour Ninja Banner Section */}
-        <section id="tours" className="py-8">
-          <div className="container mx-auto px-4">
+        <section id="tours" className="py-0">
+          <div className="w-full">
             <iframe 
               src="https://www.tourninja.io/iframe/banner/2" 
               width="100%" 
-              height="400px" 
+              height="500px" 
               style={{ 
-                border: 'none', 
-                borderRadius: '8px' 
+                border: 'none'
               }}
               title="Tours Banner"
               scrolling="no"
+              loading="lazy"
             />
-            
-            <div className="text-center mt-8">
+          </div>
+          
+          <div className="container mx-auto px-4 py-8">
+            <div className="text-center">
               <Link href="/tours">
                 <motion.span 
                   className="bg-primary text-white px-8 py-3 rounded-lg font-heading font-semibold hover:bg-primary-dark transition-colors inline-block cursor-pointer"
