@@ -144,9 +144,12 @@ export default function TourCardItem({
                 className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
               />
             ) : (
-              <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                <span className="text-gray-400">No image</span>
-              </div>
+              <iframe 
+                src="https://www.tourninja.io/showcase/2" 
+                className="w-full h-full border-0"
+                title="Tour Ninja Showcase"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              />
             )}
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
               <div className="flex items-center gap-2">
