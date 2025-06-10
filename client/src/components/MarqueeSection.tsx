@@ -91,11 +91,7 @@ export default function MarqueeSection() {
           <Link key={`${tour.id}-${index}`} href="/tours">
             <Card className="mx-3 w-80 flex-shrink-0 overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer">
               <div className="relative h-48">
-                <img 
-                  src={tour.images[0]} 
-                  alt={tour.name}
-                  className="w-full h-full object-cover"
-                />
+
                 <div className="absolute top-2 right-2">
                   <Badge className="bg-primary text-white">
                     {tour.duration}
