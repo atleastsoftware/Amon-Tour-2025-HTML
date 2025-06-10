@@ -207,11 +207,14 @@ export default function Home() {
               width="100%" 
               height="500px" 
               style={{ 
-                border: 'none'
+                border: 'none',
+                minHeight: '500px'
               }}
               title="Tours Banner"
               scrolling="no"
               loading="lazy"
+              allow="popups popups-to-escape-sandbox"
+              sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox allow-top-navigation"
             />
           </div>
           

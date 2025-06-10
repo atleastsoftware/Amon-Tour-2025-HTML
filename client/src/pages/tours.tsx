@@ -232,10 +232,13 @@ export default function Tours() {
             width="100%" 
             height="100%" 
             style={{ 
-              border: 'none'
+              border: 'none',
+              minHeight: '100vh'
             }}
             title="Tours Showcase"
             scrolling="auto"
+            allow="popups popups-to-escape-sandbox"
+            sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox allow-top-navigation allow-forms"
           />
         </section>
 
