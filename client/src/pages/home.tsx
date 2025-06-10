@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import SearchBar from "@/components/layout/SearchBar";
+
 import SEO from "@/components/layout/SEO";
 import Hero from "@/components/home/Hero";
 import Features from "@/components/home/Features";
@@ -175,8 +175,6 @@ export default function Home() {
       
       <main>
         <Hero />
-        
-        <SearchBar />
         
         {/* Section description */}
         <section className="py-20">
