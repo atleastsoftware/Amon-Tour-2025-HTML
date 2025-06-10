@@ -21,7 +21,7 @@ import TourCard from "@/components/tour/TourCard";
 import TourCardItem, { TourCardItemProps } from "@/components/tour/TourCardItem";
 import { useTourNinja } from "@/hooks/useTourNinja";
 import { Link } from "wouter";
-import MarqueeSection from "@/components/MarqueeSection";
+
 
 export default function Home() {
   const [, setLocation] = useLocation();
@@ -198,9 +198,6 @@ export default function Home() {
         </section>
         
         <Features />
-        
-        {/* Bandeau défilant des tours */}
-        <MarqueeSection />
         
         {/* Popular Tours Section */}
         <section id="tours" className="py-16">
