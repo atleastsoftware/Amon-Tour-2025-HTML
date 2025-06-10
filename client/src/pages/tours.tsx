@@ -613,17 +613,21 @@ export default function Tours() {
                 </Button>
               </motion.div>
             ) : (
-              <motion.div 
-                className="text-center py-12"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
-              >
-                <div className="max-w-md mx-auto">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">Aucun tour disponible actuellement</h3>
-                  <p className="text-gray-600">Nos tours seront bientôt disponibles. Revenez nous voir !</p>
-                </div>
-              </motion.div>
+              <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto' }}>
+                <iframe 
+                  src="http://localhost:5000/embed/links/2" 
+                  width="100%" 
+                  height="700px" 
+                  style={{ 
+                    border: 'none', 
+                    borderRadius: '12px', 
+                    boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15)', 
+                    display: 'block' 
+                  }}
+                  title="Tour Cards"
+                  scrolling="auto"
+                />
+              </div>
             )}
           </div>
         </section>
