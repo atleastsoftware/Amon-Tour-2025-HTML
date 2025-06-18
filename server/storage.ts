@@ -609,7 +609,7 @@ export class DatabaseStorage implements IStorage {
     return {
       ...result.post,
       category: result.category || undefined,
-      tags: tags.map(t => t.tag).filter(Boolean)
+      tags: tags.map(t => t.tag).filter((tag): tag is BlogTag => tag !== null)
     };
   }
 
@@ -634,7 +634,7 @@ export class DatabaseStorage implements IStorage {
     return {
       ...result.post,
       category: result.category || undefined,
-      tags: tags.map(t => t.tag).filter(Boolean)
+      tags: tags.map(t => t.tag).filter((tag): tag is BlogTag => tag !== null)
     };
   }
 

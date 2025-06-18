@@ -81,13 +81,25 @@ export default function BlogPage() {
     <div className="min-h-screen">
       <Header />
       <div className="bg-gray-50">
-        {/* Hero Section */}
-        <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
-          <div className="container mx-auto px-4 text-center">
+        {/* Hero Section with Background Image */}
+        <section 
+          className="relative py-32 text-white rounded-b-xl overflow-hidden"
+          style={{
+            backgroundImage: 'url("https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80")',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        >
+          {/* Dark translucent overlay */}
+          <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+          
+          {/* Content */}
+          <div className="relative container mx-auto px-4 text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
               Travel Blog
             </h1>
-            <p className="text-xl md:text-2xl max-w-3xl mx-auto">
+            <p className="text-xl md:text-2xl max-w-3xl mx-auto opacity-90">
               Discover the best of Thailand through our travel guides, tips, and local insights
             </p>
           </div>
