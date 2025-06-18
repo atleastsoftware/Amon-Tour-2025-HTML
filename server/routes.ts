@@ -7,7 +7,10 @@ import {
   insertContactMessageSchema,
   insertTourAvailabilitySchema,
   insertReservationSchema,
-  insertTourCardSchema
+  insertTourCardSchema,
+  insertBlogCategorySchema,
+  insertBlogTagSchema,
+  insertBlogPostSchema
 } from "@shared/schema";
 import { createPaymentIntent, createOrRetrieveCustomer } from "./stripe";
 import { upload, getPublicFileUrl } from "./upload";
@@ -642,6 +645,303 @@ Crawl-delay: 1`;
     } catch (error) {
       console.error("Error deleting tour card:", error);
       res.status(500).json({ message: "Failed to delete tour card", error: String(error) });
+    }
+  });
+
+  // ===== BLOG MANAGEMENT API ROUTES =====
+
+  // Blog Categories
+  app.get("/api/blog/categories", async (req, res) => {
+    try {
+      const categories = await storage.getBlogCategories();
+      res.json(categories);
+    } catch (error) {
+      console.error("Error fetching blog categories:", error);
+      res.status(500).json({ message: "Failed to fetch categories", error: String(error) });
+    }
+  });
+
+  app.post("/api/blog/categories", requireAuth, async (req, res) => {
+    try {
+      const categoryData = insertBlogCategorySchema.parse(req.body);
+      const category = await storage.createBlogCategory(categoryData);
+      res.status(201).json(category);
+    } catch (error: any) {
+      console.error("Error creating blog category:", error);
+      res.status(400).json({ 
+        message: "Invalid category data", 
+        error: error.errors || error.message || String(error) 
+      });
+    }
+  });
+
+  app.put("/api/blog/categories/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid category ID" });
+      }
+
+      const categoryData = insertBlogCategorySchema.parse(req.body);
+      const category = await storage.updateBlogCategory(id, categoryData);
+      
+      if (!category) {
+        return res.status(404).json({ message: "Category not found" });
+      }
+      
+      res.json(category);
+    } catch (error: any) {
+      console.error("Error updating blog category:", error);
+      res.status(400).json({ 
+        message: "Invalid category data", 
+        error: error.errors || error.message || String(error) 
+      });
+    }
+  });
+
+  app.delete("/api/blog/categories/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid category ID" });
+      }
+
+      const result = await storage.deleteBlogCategory(id);
+      if (!result) {
+        return res.status(404).json({ message: "Category not found" });
+      }
+      
+      res.json({ message: "Category deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting blog category:", error);
+      res.status(500).json({ message: "Failed to delete category", error: String(error) });
+    }
+  });
+
+  // Blog Tags
+  app.get("/api/blog/tags", async (req, res) => {
+    try {
+      const tags = await storage.getBlogTags();
+      res.json(tags);
+    } catch (error) {
+      console.error("Error fetching blog tags:", error);
+      res.status(500).json({ message: "Failed to fetch tags", error: String(error) });
+    }
+  });
+
+  app.post("/api/blog/tags", requireAuth, async (req, res) => {
+    try {
+      const tagData = insertBlogTagSchema.parse(req.body);
+      const tag = await storage.createBlogTag(tagData);
+      res.status(201).json(tag);
+    } catch (error: any) {
+      console.error("Error creating blog tag:", error);
+      res.status(400).json({ 
+        message: "Invalid tag data", 
+        error: error.errors || error.message || String(error) 
+      });
+    }
+  });
+
+  app.put("/api/blog/tags/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid tag ID" });
+      }
+
+      const tagData = insertBlogTagSchema.parse(req.body);
+      const tag = await storage.updateBlogTag(id, tagData);
+      
+      if (!tag) {
+        return res.status(404).json({ message: "Tag not found" });
+      }
+      
+      res.json(tag);
+    } catch (error: any) {
+      console.error("Error updating blog tag:", error);
+      res.status(400).json({ 
+        message: "Invalid tag data", 
+        error: error.errors || error.message || String(error) 
+      });
+    }
+  });
+
+  app.delete("/api/blog/tags/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid tag ID" });
+      }
+
+      const result = await storage.deleteBlogTag(id);
+      if (!result) {
+        return res.status(404).json({ message: "Tag not found" });
+      }
+      
+      res.json({ message: "Tag deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting blog tag:", error);
+      res.status(500).json({ message: "Failed to delete tag", error: String(error) });
+    }
+  });
+
+  // Blog Posts
+  app.get("/api/blog/posts", async (req, res) => {
+    try {
+      const { status, category, tag, search } = req.query;
+      const filters = {
+        status: status as string,
+        category: category as string,
+        tag: tag as string,
+        search: search as string
+      };
+      
+      const posts = await storage.getBlogPosts(filters);
+      res.json(posts);
+    } catch (error) {
+      console.error("Error fetching blog posts:", error);
+      res.status(500).json({ message: "Failed to fetch posts", error: String(error) });
+    }
+  });
+
+  app.get("/api/blog/posts/published", async (req, res) => {
+    try {
+      const { category, tag, search } = req.query;
+      const filters = {
+        category: category as string,
+        tag: tag as string,
+        search: search as string
+      };
+      
+      const posts = await storage.getPublishedBlogPosts(filters);
+      res.json(posts);
+    } catch (error) {
+      console.error("Error fetching published blog posts:", error);
+      res.status(500).json({ message: "Failed to fetch posts", error: String(error) });
+    }
+  });
+
+  app.get("/api/blog/posts/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid post ID" });
+      }
+
+      const post = await storage.getBlogPost(id);
+      if (!post) {
+        return res.status(404).json({ message: "Post not found" });
+      }
+      
+      res.json(post);
+    } catch (error) {
+      console.error("Error fetching blog post:", error);
+      res.status(500).json({ message: "Failed to fetch post", error: String(error) });
+    }
+  });
+
+  app.get("/api/blog/posts/slug/:slug", async (req, res) => {
+    try {
+      const slug = req.params.slug;
+      const post = await storage.getBlogPostBySlug(slug);
+      
+      if (!post) {
+        return res.status(404).json({ message: "Post not found" });
+      }
+      
+      res.json(post);
+    } catch (error) {
+      console.error("Error fetching blog post by slug:", error);
+      res.status(500).json({ message: "Failed to fetch post", error: String(error) });
+    }
+  });
+
+  app.get("/api/blog/posts/:id/related", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid post ID" });
+      }
+
+      const limit = req.query.limit ? parseInt(req.query.limit as string) : 3;
+      const relatedPosts = await storage.getRelatedBlogPosts(id, limit);
+      res.json(relatedPosts);
+    } catch (error) {
+      console.error("Error fetching related blog posts:", error);
+      res.status(500).json({ message: "Failed to fetch related posts", error: String(error) });
+    }
+  });
+
+  app.post("/api/blog/posts", requireAuth, async (req, res) => {
+    try {
+      const postData = insertBlogPostSchema.parse(req.body);
+      const post = await storage.createBlogPost(postData);
+      res.status(201).json(post);
+    } catch (error: any) {
+      console.error("Error creating blog post:", error);
+      res.status(400).json({ 
+        message: "Invalid post data", 
+        error: error.errors || error.message || String(error) 
+      });
+    }
+  });
+
+  app.put("/api/blog/posts/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid post ID" });
+      }
+
+      const postData = insertBlogPostSchema.parse(req.body);
+      const post = await storage.updateBlogPost(id, postData);
+      
+      if (!post) {
+        return res.status(404).json({ message: "Post not found" });
+      }
+      
+      res.json(post);
+    } catch (error: any) {
+      console.error("Error updating blog post:", error);
+      res.status(400).json({ 
+        message: "Invalid post data", 
+        error: error.errors || error.message || String(error) 
+      });
+    }
+  });
+
+  app.delete("/api/blog/posts/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid post ID" });
+      }
+
+      const result = await storage.deleteBlogPost(id);
+      if (!result) {
+        return res.status(404).json({ message: "Post not found" });
+      }
+      
+      res.json({ message: "Post deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting blog post:", error);
+      res.status(500).json({ message: "Failed to delete post", error: String(error) });
+    }
+  });
+
+  // Image upload for blog posts
+  app.post("/api/blog/upload-image", requireAuth, upload.single('image'), (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ message: "No image file provided" });
+      }
+
+      const imageUrl = getPublicFileUrl(req.file.filename);
+      res.json({ imageUrl });
+    } catch (error) {
+      console.error("Error uploading blog image:", error);
+      res.status(500).json({ message: "Failed to upload image", error: String(error) });
     }
   });
 

@@ -563,7 +563,7 @@ export class DatabaseStorage implements IStorage {
     }
 
     if (conditions.length > 0) {
-      query = query.where(and(...conditions));
+      query = query.where(and(...conditions)) as any;
     }
 
     const results = await query.orderBy(desc(blogPosts.createdAt));
@@ -580,7 +580,7 @@ export class DatabaseStorage implements IStorage {
         return {
           ...result.post,
           category: result.category || undefined,
-          tags: tags.map(t => t.tag).filter(Boolean)
+          tags: tags.map(t => t.tag).filter(Boolean) as BlogTag[]
         };
       })
     );
