@@ -198,7 +198,24 @@ export default function Home() {
         <Features />
         
         {/* Tour Ninja Banner Section */}
-        <section id="tours" className="py-0">
+        <section id="tours" className="py-16 bg-white">
+          <div className="container mx-auto px-4 text-center mb-8">
+            <motion.div
+              initial={{ y: -20, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
+                Some ideas for your next trip
+              </h2>
+              <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                Explore our most popular tours, carefully designed to help you discover the best of Thailand.
+              </p>
+            </motion.div>
+          </div>
+          
           <div className="w-full">
             <iframe 
               src="https://www.tourninja.io/iframe/banner/2" 
