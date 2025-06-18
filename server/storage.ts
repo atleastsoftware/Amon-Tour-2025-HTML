@@ -206,10 +206,10 @@ export class DatabaseStorage implements IStorage {
     
     const [request] = await db
       .insert(customTourRequests)
-      .values({
+      .values([{
         ...insertRequest,
-        interests: interests
-      })
+        interests: interests as string[]
+      }])
       .returning();
     return request;
   }
@@ -296,10 +296,15 @@ export class DatabaseStorage implements IStorage {
       data.totalAmount = price * data.numberOfPeople;
     }
     
+    // Ensure totalAmount is defined
+    if (data.totalAmount === undefined) {
+      data.totalAmount = 0;
+    }
+    
     // Create the reservation
     const [reservation] = await db
       .insert(reservations)
-      .values(data)
+      .values([data])
       .returning();
       
     // Update the current bookings count for this availability
@@ -363,7 +368,7 @@ export class DatabaseStorage implements IStorage {
   async createTourCard(tourCardData: InsertTourCard): Promise<TourCard> {
     const [tourCard] = await db
       .insert(tourCards)
-      .values(tourCardData)
+      .values([tourCardData])
       .returning();
     return tourCard;
   }
