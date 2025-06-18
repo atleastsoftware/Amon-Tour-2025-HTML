@@ -111,18 +111,23 @@ export default function BlogPostPage() {
             {/* Article Header */}
             <article className="bg-white rounded-lg shadow-lg overflow-hidden">
               {/* Cover Image */}
-              <div className="relative h-64 md:h-96">
-                <img
-                  src={post.coverImage}
-                  alt={post.title}
-                  className="w-full h-full object-cover"
-                />
-                {post.category && (
-                  <Badge className="absolute top-4 left-4 bg-blue-600">
-                    {post.category.name}
-                  </Badge>
-                )}
-              </div>
+              {post.coverImage && (
+                <div className="relative h-64 md:h-96">
+                  <img
+                    src={post.coverImage}
+                    alt={post.title}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                    }}
+                  />
+                  {post.category && (
+                    <Badge className="absolute top-4 left-4 bg-blue-600">
+                      {post.category.name}
+                    </Badge>
+                  )}
+                </div>
+              )}
 
               {/* Content */}
               <div className="p-8">

@@ -55,6 +55,7 @@ const blogPostSchema = z.object({
   title: z.string().min(1, "Title is required"),
   content: z.string().min(1, "Content is required"),
   excerpt: z.string().optional(),
+  coverImage: z.string().url("Please enter a valid image URL").optional().or(z.literal("")),
   authorName: z.string().min(1, "Author name is required"),
   status: z.enum(["draft", "published"]),
   categoryId: z.number().optional(),
@@ -68,6 +69,7 @@ interface BlogPost {
   slug: string;
   content: string;
   excerpt?: string;
+  coverImage?: string;
   status: "draft" | "published";
   authorName: string;
   createdAt: string;
@@ -195,6 +197,7 @@ export default function AdminBlogNew() {
       title: "",
       content: "",
       excerpt: "",
+      coverImage: "",
       authorName: "Admin",
       status: "draft",
     },
@@ -207,6 +210,7 @@ export default function AdminBlogNew() {
       title: "",
       content: "",
       excerpt: "",
+      coverImage: "",
       authorName: "Admin",
       status: "draft",
     },
@@ -219,6 +223,7 @@ export default function AdminBlogNew() {
       title: post.title,
       content: post.content,
       excerpt: post.excerpt || "",
+      coverImage: post.coverImage || "",
       authorName: post.authorName,
       status: post.status,
       categoryId: post.categoryId,
@@ -378,6 +383,20 @@ export default function AdminBlogNew() {
 
               <FormField
                 control={createForm.control}
+                name="coverImage"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Cover Image URL</FormLabel>
+                    <FormControl>
+                      <Input {...field} placeholder="https://example.com/image.jpg" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={createForm.control}
                 name="content"
                 render={({ field }) => (
                   <FormItem>
@@ -483,6 +502,20 @@ export default function AdminBlogNew() {
                     <FormLabel>Excerpt</FormLabel>
                     <FormControl>
                       <Textarea {...field} placeholder="Brief description" rows={2} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={editForm.control}
+                name="coverImage"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Cover Image URL</FormLabel>
+                    <FormControl>
+                      <Input {...field} placeholder="https://example.com/image.jpg" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
