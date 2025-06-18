@@ -52,32 +52,44 @@ export default function About() {
             </div>
           </div>
           <div className="order-1 lg:order-2">
-            <div className="relative">
-              <img 
-                src={amonTourTeam} 
-                alt="Amon Tour team with clients on a beautiful Thai beach" 
-                className="w-full h-auto rounded-lg shadow-lg"
-              />
-              <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-lg hidden md:block">
-                <div className="flex items-center space-x-2">
-                  <div className="flex">
-                    <i className="fas fa-star text-yellow-400"></i>
-                    <i className="fas fa-star text-yellow-400"></i>
-                    <i className="fas fa-star text-yellow-400"></i>
-                    <i className="fas fa-star text-yellow-400"></i>
-                    <i className="fas fa-star text-yellow-400"></i>
+            <div className="space-y-6">
+              {/* Family Photo */}
+              <div className="relative">
+                <img 
+                  src="/family-photo.png" 
+                  alt="Amon Tour family - Éric, Margaux, Gabriel, and Raphaël on a Thai beach" 
+                  className="w-full h-auto rounded-lg shadow-lg"
+                />
+              </div>
+              
+              {/* Team Photo */}
+              <div className="relative">
+                <img 
+                  src={amonTourTeam} 
+                  alt="Amon Tour team with clients on a beautiful Thai beach" 
+                  className="w-full h-auto rounded-lg shadow-lg"
+                />
+                <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-lg hidden md:block">
+                  <div className="flex items-center space-x-2">
+                    <div className="flex">
+                      <i className="fas fa-star text-yellow-400"></i>
+                      <i className="fas fa-star text-yellow-400"></i>
+                      <i className="fas fa-star text-yellow-400"></i>
+                      <i className="fas fa-star text-yellow-400"></i>
+                      <i className="fas fa-star text-yellow-400"></i>
+                    </div>
+                    <span className="font-semibold">5.0/5</span>
                   </div>
-                  <span className="font-semibold">5.0/5</span>
+                  <p className="text-sm text-gray-600">80 reviews on Google</p>
+                  <a 
+                    href="https://www.google.com/search?q=%E0%B8%AD%E0%B8%A1%E0%B8%A3%E0%B8%97%E0%B8%B1%E0%B8%A7%E0%B8%A3%E0%B9%8C+Reviews" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-xs text-primary hover:underline mt-1 inline-block"
+                  >
+                    See all reviews
+                  </a>
                 </div>
-                <p className="text-sm text-gray-600">80 reviews on Google</p>
-                <a 
-                  href="https://www.google.com/search?q=%E0%B8%AD%E0%B8%A1%E0%B8%A3%E0%B8%97%E0%B8%B1%E0%B8%A7%E0%B8%A3%E0%B9%8C+Reviews" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-xs text-primary hover:underline mt-1 inline-block"
-                >
-                  See all reviews
-                </a>
               </div>
             </div>
           </div>
