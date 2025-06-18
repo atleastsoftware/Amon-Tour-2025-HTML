@@ -196,12 +196,14 @@ export const blogPostTags = pgTable("blog_post_tags", {
 // Blog schema validations
 export const insertBlogCategorySchema = createInsertSchema(blogCategories).omit({
   id: true,
+  slug: true,
   createdAt: true,
   updatedAt: true,
 });
 
 export const insertBlogTagSchema = createInsertSchema(blogTags).omit({
   id: true,
+  slug: true,
   createdAt: true,
 });
 

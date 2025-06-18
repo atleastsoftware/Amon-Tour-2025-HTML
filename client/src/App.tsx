@@ -25,6 +25,9 @@ import GroupCorporate from "@/pages/group-corporate";
 import Brochure from "@/pages/brochure";
 import VillasKrabi from "@/pages/villas-krabi";
 import Contact from "@/pages/contact";
+import Blog from "@/pages/blog";
+import BlogPost from "@/pages/blog-post";
+import AdminBlog from "@/pages/admin-blog";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 
 function Router() {
@@ -52,6 +55,10 @@ function Router() {
       <Route path="/villas-krabi" component={VillasKrabi} />
       <Route path="/contact" component={Contact} />
       
+      {/* Blog Pages */}
+      <Route path="/blog" component={Blog} />
+      <Route path="/blog/:slug" component={BlogPost} />
+      
       {/* Legal Pages */}
       <Route path="/legal-notice" component={LegalNotice} />
       <Route path="/privacy-policy" component={PrivacyPolicy} />
@@ -60,6 +67,7 @@ function Router() {
       {/* Admin Pages */}
       <Route path="/admin-login" component={AdminLogin} />
       <Route path="/admin" component={Admin} />
+      <Route path="/admin/blog" component={AdminBlog} />
       <Route path="/tour-card-builder" component={TourCardBuilder} />
       
       {/* Fallback to 404 */}
