@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import { ImagePlus, FileText, BookOpen, Mail } from "lucide-react";
+import { ImagePlus, FileText, BookOpen, Mail, Users } from "lucide-react";
 
 export default function AdminPage() {
   const { isAuthenticated, isLoading: authLoading } = useIsAuthenticated();
@@ -42,7 +42,7 @@ export default function AdminPage() {
             </p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             <Card className="overflow-hidden">
               <CardHeader className="bg-primary/5 pb-4">
                 <CardTitle className="flex items-center gap-2">
@@ -110,6 +110,29 @@ export default function AdminPage() {
                   onClick={() => setLocation('/admin-newsletter')}
                 >
                   Manage Newsletter
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="overflow-hidden">
+              <CardHeader className="bg-primary/5 pb-4">
+                <CardTitle className="flex items-center gap-2">
+                  <Users className="h-5 w-5" />
+                  Custom Tour Requests
+                </CardTitle>
+                <CardDescription>
+                  Manage custom tour inquiries and requests
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="pt-6">
+                <p className="mb-4 text-sm text-muted-foreground">
+                  View and manage custom tour requests from customers. Track status, respond to inquiries, and export data.
+                </p>
+                <Button 
+                  className="w-full" 
+                  onClick={() => setLocation('/admin-custom-tours')}
+                >
+                  Manage Requests
                 </Button>
               </CardContent>
             </Card>
