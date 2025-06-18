@@ -9,27 +9,37 @@ export function WhatsAppButton() {
   
   // Pulse animation effect
   useEffect(() => {
+    let interval: NodeJS.Timeout;
+    
     const pulseAnimation = async () => {
       if (!isHovered) {
-        await controls.start({
-          scale: 1.05,
-          transition: { duration: 0.5 }
-        });
-        await controls.start({
-          scale: 1,
-          transition: { duration: 0.5 }
-        });
+        try {
+          await controls.start({
+            scale: 1.05,
+            transition: { duration: 0.5 }
+          });
+          await controls.start({
+            scale: 1,
+            transition: { duration: 0.5 }
+          });
+        } catch (error) {
+          // Ignore animation errors if component unmounts
+        }
       }
     };
 
     // Start pulse animation after 3 seconds, repeat every 15 seconds
     const timeout = setTimeout(() => {
       pulseAnimation();
-      const interval = setInterval(pulseAnimation, 15000);
-      return () => clearInterval(interval);
+      interval = setInterval(pulseAnimation, 15000);
     }, 3000);
 
-    return () => clearTimeout(timeout);
+    return () => {
+      clearTimeout(timeout);
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
   }, [controls, isHovered]);
   
   return (
