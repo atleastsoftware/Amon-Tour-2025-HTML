@@ -109,7 +109,6 @@ export const insertTourAvailabilitySchema = createInsertSchema(tourAvailability)
   id: true,
   createdAt: true,
   updatedAt: true,
-  currentBookings: true,
 });
 
 // Créer le schéma de base
