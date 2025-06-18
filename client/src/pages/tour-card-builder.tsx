@@ -120,9 +120,17 @@ export default function TourCardBuilder() {
       <Header />
       <div className="container mx-auto p-4 pt-20 pb-16">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
-          <div>
-            <h1 className="text-3xl font-heading font-bold">TourCard Builder</h1>
-            <p className="text-gray-600">Créez facilement des fiches pour vos tours et séjours</p>
+          <div className="flex items-center gap-4">
+            <Link href="/admin">
+              <Button variant="outline" size="sm">
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Back to Admin
+              </Button>
+            </Link>
+            <div>
+              <h1 className="text-3xl font-heading font-bold">TourCard Builder</h1>
+              <p className="text-gray-600">Créez facilement des fiches pour vos tours et séjours</p>
+            </div>
           </div>
           <Button variant="outline" onClick={handleLogout}>Déconnexion</Button>
         </div>

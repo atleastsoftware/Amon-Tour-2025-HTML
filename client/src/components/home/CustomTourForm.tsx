@@ -30,6 +30,7 @@ import { Button } from "@/components/ui/button";
 const customTourSchema = z.object({
   name: z.string().min(2, { message: "Full Name is required" }),
   email: z.string().email({ message: "Invalid email" }),
+  phoneNumber: z.string().min(8, { message: "Phone number is required" }),
   adults: z.string().min(1, { message: "Please enter number of adults" }),
   kids: z.string().optional(),
   dateRange: z.string().optional(),
@@ -50,6 +51,7 @@ export default function CustomTourForm() {
     defaultValues: {
       name: "",
       email: "",
+      phoneNumber: "",
       adults: "",
       kids: "",
       dateRange: "",
@@ -169,6 +171,23 @@ export default function CustomTourForm() {
                         </FormItem>
                       )}
                     />
+                  </div>
+                  
+                  <FormField
+                    control={form.control}
+                    name="phoneNumber"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Phone Number *</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Your phone number" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   </div>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
