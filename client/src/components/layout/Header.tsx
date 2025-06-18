@@ -19,16 +19,20 @@ type NavLinkProps = {
   onClick?: () => void;
 };
 
-const NavLink = ({ href, isActive, children, onClick }: NavLinkProps) => {
+const NavLink = ({ href, isActive, children, onClick, isHomePage, scrolled }: NavLinkProps & { isHomePage?: boolean; scrolled?: boolean }) => {
+  const textColor = isHomePage && !scrolled 
+    ? isActive 
+      ? "text-primary drop-shadow-lg" 
+      : "text-white hover:text-primary drop-shadow-lg"
+    : isActive 
+      ? "text-primary" 
+      : "text-neutral-700 hover:text-primary";
+
   return (
     <Link href={href}>
       <motion.span
         onClick={onClick}
-        className={`font-heading font-semibold transition-colors cursor-pointer relative ${
-          isActive 
-            ? "text-primary" 
-            : "text-neutral-700 hover:text-primary"
-        }`}
+        className={`font-heading font-semibold transition-colors cursor-pointer relative ${textColor}`}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.98 }}
       >
@@ -120,7 +124,9 @@ export default function Header() {
         {/* Mobile Menu Button */}
         <motion.button 
           onClick={toggleMobileMenu}
-          className="md:hidden text-neutral-700 focus:outline-none"
+          className={`md:hidden focus:outline-none ${
+            isHomePage && !scrolled ? 'text-white' : 'text-neutral-700'
+          }`}
           aria-label="Toggle menu"
           whileTap={{ scale: 0.9 }}
           whileHover={{ scale: 1.1 }}
@@ -157,20 +163,20 @@ export default function Header() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <NavLink href="/" isActive={location === '/'}>
+          <NavLink href="/" isActive={location === '/'} isHomePage={isHomePage} scrolled={scrolled}>
             Home
           </NavLink>
-          <NavLink href="/tours" isActive={location === '/tours'}>
+          <NavLink href="/tours" isActive={location === '/tours'} isHomePage={isHomePage} scrolled={scrolled}>
             Tours
           </NavLink>
-          <NavLink href="/experiences" isActive={location === '/experiences'}>
+          <NavLink href="/experiences" isActive={location === '/experiences'} isHomePage={isHomePage} scrolled={scrolled}>
             Journey
           </NavLink>
           {/* Menu Séjour temporairement masqué */}
           {/* <NavLink href="/stays" isActive={location === '/stays'}>
             Séjour
           </NavLink> */}
-          <NavLink href="/custom-tour" isActive={location === '/custom-tour'}>
+          <NavLink href="/custom-tour" isActive={location === '/custom-tour'} isHomePage={isHomePage} scrolled={scrolled}>
             Custom Tour
           </NavLink>
           
@@ -182,7 +188,11 @@ export default function Header() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div 
-            className="md:hidden bg-white border-t border-gray-200 px-4 py-3 overflow-hidden"
+            className={`md:hidden border-t px-4 py-3 overflow-hidden ${
+              isHomePage && !scrolled 
+                ? 'bg-black/80 backdrop-blur-md border-white/20' 
+                : 'bg-white border-gray-200'
+            }`}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -194,20 +204,20 @@ export default function Header() {
               animate={{ y: 0 }}
               transition={{ duration: 0.3, delay: 0.1 }}
             >
-              <NavLink href="/" isActive={location === '/'} onClick={closeMobileMenu}>
+              <NavLink href="/" isActive={location === '/'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
                 Home
               </NavLink>
-              <NavLink href="/tours" isActive={location === '/tours'} onClick={closeMobileMenu}>
+              <NavLink href="/tours" isActive={location === '/tours'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
                 Tours
               </NavLink>
-              <NavLink href="/experiences" isActive={location === '/experiences'} onClick={closeMobileMenu}>
+              <NavLink href="/experiences" isActive={location === '/experiences'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
                 Journey
               </NavLink>
               {/* Menu Séjour temporairement masqué */}
               {/* <NavLink href="/stays" isActive={location === '/stays'} onClick={closeMobileMenu}>
                 Séjour
               </NavLink> */}
-              <NavLink href="/custom-tour" isActive={location === '/custom-tour'} onClick={closeMobileMenu}>
+              <NavLink href="/custom-tour" isActive={location === '/custom-tour'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
                 Custom Tour
               </NavLink>
 
