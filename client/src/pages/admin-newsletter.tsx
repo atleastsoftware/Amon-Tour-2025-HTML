@@ -94,9 +94,20 @@ export default function AdminNewsletterPage() {
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-between items-center mb-8">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Newsletter Management</h1>
-              <p className="text-gray-600 mt-2">Manage newsletter subscriptions and export subscriber lists</p>
+            <div className="flex items-center gap-4">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setLocation('/admin')}
+                className="flex items-center gap-2"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                Back to Admin
+              </Button>
+              <div>
+                <h1 className="text-3xl font-bold text-gray-900">Newsletter Management</h1>
+                <p className="text-gray-600 mt-2">Manage newsletter subscriptions and export subscriber lists</p>
+              </div>
             </div>
             <Button onClick={handleExport} className="flex items-center gap-2">
               <Download className="w-4 h-4" />

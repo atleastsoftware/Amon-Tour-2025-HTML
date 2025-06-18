@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import * as React from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -15,7 +15,8 @@ import {
   Tag,
   Filter,
   MoreHorizontal,
-  X
+  X,
+  ArrowLeft
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -117,6 +118,7 @@ export default function AdminBlogPage() {
   const [showCategoryModal, setShowCategoryModal] = useState(false);
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
   const queryClient = useQueryClient();
 
   const { data: posts = [], isLoading } = useQuery<BlogPost[]>({
@@ -292,9 +294,20 @@ export default function AdminBlogPage() {
         <div className="bg-white border-b">
           <div className="container mx-auto px-4 py-6">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-              <div>
-                <h1 className="text-3xl font-bold text-gray-900">Blog Management</h1>
-                <p className="text-gray-600 mt-1">Manage your articles, categories and tags</p>
+              <div className="flex items-center gap-4">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setLocation('/admin')}
+                  className="flex items-center gap-2"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                  Back to Admin
+                </Button>
+                <div>
+                  <h1 className="text-3xl font-bold text-gray-900">Blog Management</h1>
+                  <p className="text-gray-600 mt-1">Manage your articles, categories and tags</p>
+                </div>
               </div>
               <div className="flex gap-3">
                 <Button variant="outline" onClick={() => setShowCategoryModal(true)}>

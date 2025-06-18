@@ -317,7 +317,7 @@ export class DatabaseStorage implements IStorage {
     // Create the reservation
     const [reservation] = await db
       .insert(reservations)
-      .values(data)
+      .values([data])
       .returning();
       
     // Update the current bookings count for this availability
@@ -381,7 +381,7 @@ export class DatabaseStorage implements IStorage {
   async createTourCard(tourCardData: InsertTourCard): Promise<TourCard> {
     const [tourCard] = await db
       .insert(tourCards)
-      .values(tourCardData)
+      .values([tourCardData])
       .returning();
     return tourCard;
   }
