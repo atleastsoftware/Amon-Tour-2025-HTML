@@ -1,0 +1,76 @@
+📘 Objective:
+Create a full-featured but lightweight blog management system for the Amon Tour website. It must include:
+
+---
+
+## 🧑‍💼 ADMIN INTERFACE (/admin/blog)
+
+1. Blog Dashboard:
+- List of all blog posts with title, status (Published/Draft), category, and last updated date
+- Search/filter bar (optional)
+- Actions: Edit, Delete, Preview
+- Button: “+ New Post”
+
+2. Post Editor (Create/Edit):
+- Fields: Title, Slug (auto-generated, editable), Cover Image (upload), Excerpt, Content (WYSIWYG), Category (dropdown), Tags (optional), Status (Draft / Published), Publish Date (optional)
+- Save as draft, Preview, and Publish buttons
+- Only one admin role required (no multi-user system needed for now)
+
+3. Categories & Tags:
+- Ability to create/edit/delete categories and tags
+- Tags are optional, categories are required
+- Tags should autocomplete when typing
+- Admin can assign one or more categories/tags per post
+
+4. Post Status:
+- Draft / Published toggle
+- Optional: Schedule a future publish date
+- No need for analytics, versioning, or detailed permissions at this stage
+
+5. Security:
+- Admin panel must be protected with login (basic auth or session)
+- Only admin role is required (no editor/author management)
+
+---
+
+## 📰 PUBLIC PAGES
+
+1. /blog
+- Displays a list/grid of all published blog posts
+- Each post card includes: cover image, title, excerpt, category, date, “Read more” button
+- Responsive design (grid on desktop, stacked on mobile)
+- Only show posts marked as "Published"
+
+2. /blog/:slug
+- Displays full content of a single blog post
+- Includes: title, cover image, date, category, content, optional tags, optional author name
+- "← Back to blog" button or breadcrumb
+- Optional: related posts at the bottom based on category or tag
+
+---
+
+## 🔍 SEARCH & FILTERS
+
+On the /blog page:
+
+1. Add a search bar:
+- Allows users to search blog posts by title, excerpt, content, and tags
+- Filters results in real-time or on submit
+
+2. Add tag or category filters:
+- Display all available tags or categories as buttons or pills
+- When selected, the blog list updates to show only matching articles
+- Active filters should be visually highlighted
+
+---
+
+## 🎨 DESIGN & INTEGRATION
+
+- Everything must be fully responsive (desktop & mobile)
+- The visual design must match the Amon Tour website (same typography, buttons, spacing, and color palette)
+- Blog posts must load quickly, with clean URLs (example: /blog/krabi-travel-tips)
+
+---
+
+No analytics, no comment system, and no user roles management needed at this stage.
+Focus on clean content management, publication flow, and smooth user experience.

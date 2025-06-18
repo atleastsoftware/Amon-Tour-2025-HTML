@@ -153,5 +153,76 @@ export const insertTourCardSchema = createInsertSchema(tourCards).omit({
   createdAt: true,
 });
 
+// Blog system tables
+export const blogPostStatusEnum = pgEnum("blog_post_status", ["draft", "published"]);
+
+export const blogCategories = pgTable("blog_categories", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull().unique(),
+  slug: text("slug").notNull().unique(),
+  description: text("description"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const blogTags = pgTable("blog_tags", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull().unique(),
+  slug: text("slug").notNull().unique(),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const blogPosts = pgTable("blog_posts", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  slug: text("slug").notNull().unique(),
+  excerpt: text("excerpt"),
+  content: text("content").notNull(),
+  coverImage: text("cover_image"),
+  categoryId: integer("category_id").references(() => blogCategories.id, { onDelete: "set null" }),
+  status: blogPostStatusEnum("status").notNull().default("draft"),
+  publishDate: timestamp("publish_date"),
+  authorName: text("author_name").default("Amon Tour"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const blogPostTags = pgTable("blog_post_tags", {
+  id: serial("id").primaryKey(),
+  postId: integer("post_id").notNull().references(() => blogPosts.id, { onDelete: "cascade" }),
+  tagId: integer("tag_id").notNull().references(() => blogTags.id, { onDelete: "cascade" }),
+});
+
+// Blog schema validations
+export const insertBlogCategorySchema = createInsertSchema(blogCategories).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertBlogTagSchema = createInsertSchema(blogTags).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertBlogPostSchema = createInsertSchema(blogPosts).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+}).extend({
+  tagIds: z.array(z.number()).optional(),
+});
+
 export type InsertTourCard = z.infer<typeof insertTourCardSchema>;
 export type TourCard = typeof tourCards.$inferSelect;
+
+export type InsertBlogCategory = z.infer<typeof insertBlogCategorySchema>;
+export type BlogCategory = typeof blogCategories.$inferSelect;
+
+export type InsertBlogTag = z.infer<typeof insertBlogTagSchema>;
+export type BlogTag = typeof blogTags.$inferSelect;
+
+export type InsertBlogPost = z.infer<typeof insertBlogPostSchema>;
+export type BlogPost = typeof blogPosts.$inferSelect;
+
+export type BlogPostTag = typeof blogPostTags.$inferSelect;

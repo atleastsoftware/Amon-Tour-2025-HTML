@@ -6,6 +6,10 @@ import {
   tourAvailability,
   reservations,
   tourCards,
+  blogCategories,
+  blogTags,
+  blogPosts,
+  blogPostTags,
   type User,
   type InsertUser,
   type Tour,
@@ -20,11 +24,18 @@ import {
   type InsertReservation,
   type TourCard,
   type InsertTourCard,
+  type BlogCategory,
+  type InsertBlogCategory,
+  type BlogTag,
+  type InsertBlogTag,
+  type BlogPost,
+  type InsertBlogPost,
+  type BlogPostTag,
 } from "@shared/schema";
 import fs from "fs";
 import path from "path";
 import { db } from "./db";
-import { eq, sql } from "drizzle-orm";
+import { eq, sql, and, or, like, desc, asc } from "drizzle-orm";
 
 export interface IStorage {
   // User operations
@@ -72,6 +83,30 @@ export interface IStorage {
   getTourCard(id: string): Promise<TourCard | undefined>;
   updateTourCard(id: string, data: Partial<InsertTourCard>): Promise<TourCard | undefined>;
   deleteTourCard(id: string): Promise<boolean>;
+  
+  // Blog category operations
+  createBlogCategory(category: InsertBlogCategory): Promise<BlogCategory>;
+  getBlogCategories(): Promise<BlogCategory[]>;
+  getBlogCategory(id: number): Promise<BlogCategory | undefined>;
+  updateBlogCategory(id: number, data: Partial<InsertBlogCategory>): Promise<BlogCategory | undefined>;
+  deleteBlogCategory(id: number): Promise<boolean>;
+  
+  // Blog tag operations
+  createBlogTag(tag: InsertBlogTag): Promise<BlogTag>;
+  getBlogTags(): Promise<BlogTag[]>;
+  getBlogTag(id: number): Promise<BlogTag | undefined>;
+  updateBlogTag(id: number, data: Partial<InsertBlogTag>): Promise<BlogTag | undefined>;
+  deleteBlogTag(id: number): Promise<boolean>;
+  
+  // Blog post operations
+  createBlogPost(post: InsertBlogPost): Promise<BlogPost>;
+  getBlogPosts(filters?: { status?: string; category?: string; tag?: string; search?: string }): Promise<(BlogPost & { category?: BlogCategory; tags?: BlogTag[] })[]>;
+  getPublishedBlogPosts(filters?: { category?: string; tag?: string; search?: string }): Promise<(BlogPost & { category?: BlogCategory; tags?: BlogTag[] })[]>;
+  getBlogPost(id: number): Promise<(BlogPost & { category?: BlogCategory; tags?: BlogTag[] }) | undefined>;
+  getBlogPostBySlug(slug: string): Promise<(BlogPost & { category?: BlogCategory; tags?: BlogTag[] }) | undefined>;
+  updateBlogPost(id: number, data: Partial<InsertBlogPost>): Promise<BlogPost | undefined>;
+  deleteBlogPost(id: number): Promise<boolean>;
+  getRelatedBlogPosts(postId: number, limit?: number): Promise<(BlogPost & { category?: BlogCategory })[]>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -385,6 +420,303 @@ export class DatabaseStorage implements IStorage {
       .where(eq(tourCards.id, id))
       .returning();
     return !!deletedTourCard;
+  }
+
+  // Blog Category Operations
+  async createBlogCategory(categoryData: InsertBlogCategory): Promise<BlogCategory> {
+    const slug = categoryData.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    const [category] = await db
+      .insert(blogCategories)
+      .values({ ...categoryData, slug })
+      .returning();
+    return category;
+  }
+
+  async getBlogCategories(): Promise<BlogCategory[]> {
+    return db.select().from(blogCategories).orderBy(asc(blogCategories.name));
+  }
+
+  async getBlogCategory(id: number): Promise<BlogCategory | undefined> {
+    const [category] = await db
+      .select()
+      .from(blogCategories)
+      .where(eq(blogCategories.id, id));
+    return category;
+  }
+
+  async updateBlogCategory(id: number, data: Partial<InsertBlogCategory>): Promise<BlogCategory | undefined> {
+    const updateData: Record<string, any> = { ...data };
+    if (data.name) {
+      updateData.slug = data.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    }
+    updateData.updatedAt = new Date();
+
+    const [category] = await db
+      .update(blogCategories)
+      .set(updateData)
+      .where(eq(blogCategories.id, id))
+      .returning();
+    return category;
+  }
+
+  async deleteBlogCategory(id: number): Promise<boolean> {
+    const [deletedCategory] = await db
+      .delete(blogCategories)
+      .where(eq(blogCategories.id, id))
+      .returning();
+    return !!deletedCategory;
+  }
+
+  // Blog Tag Operations
+  async createBlogTag(tagData: InsertBlogTag): Promise<BlogTag> {
+    const slug = tagData.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    const [tag] = await db
+      .insert(blogTags)
+      .values({ ...tagData, slug })
+      .returning();
+    return tag;
+  }
+
+  async getBlogTags(): Promise<BlogTag[]> {
+    return db.select().from(blogTags).orderBy(asc(blogTags.name));
+  }
+
+  async getBlogTag(id: number): Promise<BlogTag | undefined> {
+    const [tag] = await db
+      .select()
+      .from(blogTags)
+      .where(eq(blogTags.id, id));
+    return tag;
+  }
+
+  async updateBlogTag(id: number, data: Partial<InsertBlogTag>): Promise<BlogTag | undefined> {
+    const updateData: Record<string, any> = { ...data };
+    if (data.name) {
+      updateData.slug = data.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    }
+
+    const [tag] = await db
+      .update(blogTags)
+      .set(updateData)
+      .where(eq(blogTags.id, id))
+      .returning();
+    return tag;
+  }
+
+  async deleteBlogTag(id: number): Promise<boolean> {
+    const [deletedTag] = await db
+      .delete(blogTags)
+      .where(eq(blogTags.id, id))
+      .returning();
+    return !!deletedTag;
+  }
+
+  // Blog Post Operations
+  async createBlogPost(postData: InsertBlogPost): Promise<BlogPost> {
+    const slug = postData.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    const { tagIds, ...insertData } = postData;
+    
+    const [post] = await db
+      .insert(blogPosts)
+      .values({ ...insertData, slug })
+      .returning();
+
+    // Handle tag associations
+    if (tagIds && tagIds.length > 0) {
+      const tagAssociations = tagIds.map(tagId => ({
+        postId: post.id,
+        tagId
+      }));
+      await db.insert(blogPostTags).values(tagAssociations);
+    }
+
+    return post;
+  }
+
+  async getBlogPosts(filters?: { status?: string; category?: string; tag?: string; search?: string }): Promise<(BlogPost & { category?: BlogCategory; tags?: BlogTag[] })[]> {
+    let query = db
+      .select({
+        post: blogPosts,
+        category: blogCategories,
+      })
+      .from(blogPosts)
+      .leftJoin(blogCategories, eq(blogPosts.categoryId, blogCategories.id));
+
+    const conditions = [];
+    
+    if (filters?.status) {
+      conditions.push(eq(blogPosts.status, filters.status as any));
+    }
+    
+    if (filters?.category) {
+      conditions.push(eq(blogCategories.slug, filters.category));
+    }
+    
+    if (filters?.search) {
+      conditions.push(
+        or(
+          like(blogPosts.title, `%${filters.search}%`),
+          like(blogPosts.excerpt, `%${filters.search}%`),
+          like(blogPosts.content, `%${filters.search}%`)
+        )
+      );
+    }
+
+    if (conditions.length > 0) {
+      query = query.where(and(...conditions));
+    }
+
+    const results = await query.orderBy(desc(blogPosts.createdAt));
+
+    // Get tags for each post
+    const postsWithTags = await Promise.all(
+      results.map(async (result) => {
+        const tags = await db
+          .select({ tag: blogTags })
+          .from(blogPostTags)
+          .leftJoin(blogTags, eq(blogPostTags.tagId, blogTags.id))
+          .where(eq(blogPostTags.postId, result.post.id));
+
+        return {
+          ...result.post,
+          category: result.category || undefined,
+          tags: tags.map(t => t.tag).filter(Boolean)
+        };
+      })
+    );
+
+    return postsWithTags;
+  }
+
+  async getPublishedBlogPosts(filters?: { category?: string; tag?: string; search?: string }): Promise<(BlogPost & { category?: BlogCategory; tags?: BlogTag[] })[]> {
+    return this.getBlogPosts({ ...filters, status: 'published' });
+  }
+
+  async getBlogPost(id: number): Promise<(BlogPost & { category?: BlogCategory; tags?: BlogTag[] }) | undefined> {
+    const [result] = await db
+      .select({
+        post: blogPosts,
+        category: blogCategories,
+      })
+      .from(blogPosts)
+      .leftJoin(blogCategories, eq(blogPosts.categoryId, blogCategories.id))
+      .where(eq(blogPosts.id, id));
+
+    if (!result) return undefined;
+
+    const tags = await db
+      .select({ tag: blogTags })
+      .from(blogPostTags)
+      .leftJoin(blogTags, eq(blogPostTags.tagId, blogTags.id))
+      .where(eq(blogPostTags.postId, result.post.id));
+
+    return {
+      ...result.post,
+      category: result.category || undefined,
+      tags: tags.map(t => t.tag).filter(Boolean)
+    };
+  }
+
+  async getBlogPostBySlug(slug: string): Promise<(BlogPost & { category?: BlogCategory; tags?: BlogTag[] }) | undefined> {
+    const [result] = await db
+      .select({
+        post: blogPosts,
+        category: blogCategories,
+      })
+      .from(blogPosts)
+      .leftJoin(blogCategories, eq(blogPosts.categoryId, blogCategories.id))
+      .where(eq(blogPosts.slug, slug));
+
+    if (!result) return undefined;
+
+    const tags = await db
+      .select({ tag: blogTags })
+      .from(blogPostTags)
+      .leftJoin(blogTags, eq(blogPostTags.tagId, blogTags.id))
+      .where(eq(blogPostTags.postId, result.post.id));
+
+    return {
+      ...result.post,
+      category: result.category || undefined,
+      tags: tags.map(t => t.tag).filter(Boolean)
+    };
+  }
+
+  async updateBlogPost(id: number, data: Partial<InsertBlogPost>): Promise<BlogPost | undefined> {
+    const { tagIds, ...updateData } = data;
+    
+    if (data.title) {
+      updateData.slug = data.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    }
+    updateData.updatedAt = new Date();
+
+    const [post] = await db
+      .update(blogPosts)
+      .set(updateData)
+      .where(eq(blogPosts.id, id))
+      .returning();
+
+    // Update tag associations if provided
+    if (tagIds !== undefined) {
+      // Remove existing associations
+      await db.delete(blogPostTags).where(eq(blogPostTags.postId, id));
+      
+      // Add new associations
+      if (tagIds.length > 0) {
+        const tagAssociations = tagIds.map(tagId => ({
+          postId: id,
+          tagId
+        }));
+        await db.insert(blogPostTags).values(tagAssociations);
+      }
+    }
+
+    return post;
+  }
+
+  async deleteBlogPost(id: number): Promise<boolean> {
+    // Delete tag associations first
+    await db.delete(blogPostTags).where(eq(blogPostTags.postId, id));
+    
+    // Delete the post
+    const [deletedPost] = await db
+      .delete(blogPosts)
+      .where(eq(blogPosts.id, id))
+      .returning();
+    return !!deletedPost;
+  }
+
+  async getRelatedBlogPosts(postId: number, limit = 3): Promise<(BlogPost & { category?: BlogCategory })[]> {
+    const currentPost = await this.getBlogPost(postId);
+    if (!currentPost) return [];
+
+    let query = db
+      .select({
+        post: blogPosts,
+        category: blogCategories,
+      })
+      .from(blogPosts)
+      .leftJoin(blogCategories, eq(blogPosts.categoryId, blogCategories.id))
+      .where(
+        and(
+          eq(blogPosts.status, 'published'),
+          sql`${blogPosts.id} != ${postId}`
+        )
+      );
+
+    // Prefer posts from the same category
+    if (currentPost.categoryId) {
+      query = query.where(eq(blogPosts.categoryId, currentPost.categoryId));
+    }
+
+    const results = await query
+      .orderBy(desc(blogPosts.createdAt))
+      .limit(limit);
+
+    return results.map(result => ({
+      ...result.post,
+      category: result.category || undefined
+    }));
   }
 }
 
