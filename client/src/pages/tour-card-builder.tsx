@@ -7,6 +7,8 @@ import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { ArrowLeft } from "lucide-react";
+import { Link } from "wouter";
 import TourCardForm from "@/components/admin/TourCardForm";
 import TourCardDisplay from "@/components/admin/TourCardDisplay";
 import QuickTourCardCreator from "@/components/admin/QuickTourCardCreator";
