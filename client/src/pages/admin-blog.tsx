@@ -61,6 +61,9 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import SEO from "@/components/layout/SEO";
 
 interface BlogPost {
   id: number;
@@ -98,8 +101,8 @@ interface BlogTag {
 const blogPostSchema = z.object({
   title: z.string().min(1, "Title is required"),
   content: z.string().min(1, "Content is required"),
-  excerpt: z.string().optional(),
-  coverImage: z.string().url().optional().or(z.literal("")),
+  excerpt: z.string().optional().or(z.literal("")),
+  coverImage: z.string().optional().or(z.literal("")),
   categoryId: z.number().optional(),
   status: z.enum(["draft", "published"]).default("draft"),
   authorName: z.string().min(1, "Author name is required"),
@@ -277,28 +280,35 @@ export default function AdminBlogPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white border-b">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Blog Management</h1>
-              <p className="text-gray-600 mt-1">Manage your articles, categories and tags</p>
-            </div>
-            <div className="flex gap-3">
-              <Button variant="outline" onClick={() => setShowCategoryModal(true)}>
-                <Tag className="mr-2 h-4 w-4" />
-                Categories & Tags
-              </Button>
-              <Button onClick={() => setShowPostModal(true)}>
-                <Plus className="mr-2 h-4 w-4" />
-                New Article
-              </Button>
+    <>
+      <SEO 
+        title="Blog Management - Amon Tour Admin"
+        description="Manage blog posts, categories and content for Amon Tour"
+      />
+      <Header />
+      
+      <div className="min-h-screen bg-gray-50">
+        {/* Admin Header */}
+        <div className="bg-white border-b">
+          <div className="container mx-auto px-4 py-6">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div>
+                <h1 className="text-3xl font-bold text-gray-900">Blog Management</h1>
+                <p className="text-gray-600 mt-1">Manage your articles, categories and tags</p>
+              </div>
+              <div className="flex gap-3">
+                <Button variant="outline" onClick={() => setShowCategoryModal(true)}>
+                  <Tag className="mr-2 h-4 w-4" />
+                  Categories & Tags
+                </Button>
+                <Button onClick={() => setShowPostModal(true)}>
+                  <Plus className="mr-2 h-4 w-4" />
+                  New Article
+                </Button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
       <div className="container mx-auto px-4 py-8">
         {/* Statistics Cards */}
@@ -666,6 +676,10 @@ export default function AdminBlogPage() {
           </Form>
         </DialogContent>
       </Dialog>
-    </div>
+      </div>
+      </div>
+      
+      <Footer />
+    </>
   );
 }
