@@ -159,10 +159,10 @@ export class DatabaseStorage implements IStorage {
         console.log("Handling duplicate key error by using custom query");
         // Get the highest ID from the tours table and increment it
         const [{ max }] = await db.select({ 
-          max: sql`MAX(${tours.id})` 
+          max: sql<number>`MAX(${tours.id})` 
         }).from(tours);
         
-        const nextId = (max || 0) + 1;
+        const nextId = (Number(max) || 0) + 1;
         console.log(`Next available ID: ${nextId}`);
         
         // Reset the sequence to the next available ID
@@ -221,7 +221,7 @@ export class DatabaseStorage implements IStorage {
   async createContactMessage(insertMessage: InsertContactMessage): Promise<ContactMessage> {
     const [message] = await db
       .insert(contactMessages)
-      .values(insertMessage)
+      .values([insertMessage])
       .returning();
     return message;
   }
@@ -678,26 +678,25 @@ export class DatabaseStorage implements IStorage {
     const currentPost = await this.getBlogPost(postId);
     if (!currentPost) return [];
 
-    let query = db
+    // Build where conditions
+    const baseConditions = [
+      eq(blogPosts.status, 'published'),
+      sql`${blogPosts.id} != ${postId}`
+    ];
+
+    // Add category condition if available
+    if (currentPost.categoryId) {
+      baseConditions.push(eq(blogPosts.categoryId, currentPost.categoryId));
+    }
+
+    const results = await db
       .select({
         post: blogPosts,
         category: blogCategories,
       })
       .from(blogPosts)
       .leftJoin(blogCategories, eq(blogPosts.categoryId, blogCategories.id))
-      .where(
-        and(
-          eq(blogPosts.status, 'published'),
-          sql`${blogPosts.id} != ${postId}`
-        )
-      );
-
-    // Prefer posts from the same category
-    if (currentPost.categoryId) {
-      query = query.where(eq(blogPosts.categoryId, currentPost.categoryId));
-    }
-
-    const results = await query
+      .where(and(...baseConditions))
       .orderBy(desc(blogPosts.createdAt))
       .limit(limit);
 
