@@ -6,6 +6,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 
 interface BlogPost {
   id: number;
@@ -44,7 +46,7 @@ export default function BlogPage() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedTag, setSelectedTag] = useState("");
 
-  const { data: posts = [], isLoading: postsLoading } = useQuery({
+  const { data: posts = [], isLoading } = useQuery<BlogPost[]>({
     queryKey: ["/api/blog/posts/published", { search: searchQuery, category: selectedCategory, tag: selectedTag }],
   });
 
@@ -58,11 +60,10 @@ export default function BlogPage() {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    // Search is handled by the query dependency
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("fr-FR", {
+    return new Date(dateString).toLocaleDateString("en-US", {
       year: "numeric",
       month: "long",
       day: "numeric",
@@ -78,74 +79,81 @@ export default function BlogPage() {
   const activeFiltersCount = [searchQuery, selectedCategory, selectedTag].filter(Boolean).length;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
-      {/* Hero Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Blog Amon Tour
-            </h1>
-            <p className="text-xl md:text-2xl text-blue-100 mb-8">
-              Découvrez nos conseils, récits de voyage et guides pour explorer la Thaïlande
-            </p>
-            
-            {/* Search Bar */}
-            <form onSubmit={handleSearch} className="max-w-2xl mx-auto">
-              <div className="relative">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-                <Input
-                  type="text"
-                  placeholder="Rechercher des articles..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-12 pr-4 py-3 text-lg rounded-full border-0 shadow-lg focus:ring-2 focus:ring-blue-300"
-                />
-              </div>
-            </form>
+    <div className="min-h-screen">
+      <Header />
+      <div className="bg-gradient-to-b from-blue-50 to-white">
+        {/* Hero Section */}
+        <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto text-center">
+              <h1 className="text-4xl md:text-5xl font-bold mb-6">
+                Amon Tour Blog
+              </h1>
+              <p className="text-xl md:text-2xl text-blue-100 mb-8">
+                Discover travel tips, guides and insights for exploring Thailand
+              </p>
+              
+              {/* Search Bar */}
+              <form onSubmit={handleSearch} className="max-w-2xl mx-auto">
+                <div className="relative">
+                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                  <Input
+                    type="text"
+                    placeholder="Search articles..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-12 pr-4 py-3 text-lg rounded-full border-0 shadow-lg focus:ring-2 focus:ring-blue-300"
+                  />
+                </div>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="container mx-auto px-4 py-12">
-        <div className="flex flex-col lg:flex-row gap-12">
-          {/* Sidebar */}
-          <div className="lg:w-1/4">
-            <div className="sticky top-8 space-y-8">
-              {/* Categories Filter */}
-              <div className="bg-white rounded-lg shadow-md p-6">
-                <h3 className="text-lg font-semibold mb-4 text-gray-800">Catégories</h3>
-                <div className="space-y-2">
-                  <Button
-                    variant={selectedCategory === "" ? "default" : "ghost"}
-                    className="w-full justify-start"
-                    onClick={() => setSelectedCategory("")}
-                  >
-                    Toutes les catégories
-                  </Button>
-                  {categories.map((category) => (
-                    <Button
-                      key={category.id}
-                      variant={selectedCategory === category.slug ? "default" : "ghost"}
-                      className="w-full justify-start"
-                      onClick={() => setSelectedCategory(category.slug)}
-                    >
-                      {category.name}
-                    </Button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Tags Filter */}
-              {tags.length > 0 && (
+        <div className="container mx-auto px-4 py-12">
+          <div className="flex flex-col lg:flex-row gap-12">
+            {/* Sidebar */}
+            <div className="lg:w-1/4">
+              <div className="sticky top-8 space-y-8">
+                {/* Categories Filter */}
                 <div className="bg-white rounded-lg shadow-md p-6">
-                  <h3 className="text-lg font-semibold mb-4 text-gray-800">Tags</h3>
+                  <h3 className="text-lg font-semibold text-gray-800 mb-4">Categories</h3>
+                  <div className="space-y-2">
+                    <button
+                      onClick={() => setSelectedCategory("")}
+                      className={`w-full text-left px-3 py-2 rounded-md transition-colors ${
+                        selectedCategory === "" 
+                          ? "bg-blue-100 text-blue-800 font-medium" 
+                          : "text-gray-600 hover:bg-gray-100"
+                      }`}
+                    >
+                      All Categories
+                    </button>
+                    {categories.map((category) => (
+                      <button
+                        key={category.id}
+                        onClick={() => setSelectedCategory(category.slug)}
+                        className={`w-full text-left px-3 py-2 rounded-md transition-colors ${
+                          selectedCategory === category.slug 
+                            ? "bg-blue-100 text-blue-800 font-medium" 
+                            : "text-gray-600 hover:bg-gray-100"
+                        }`}
+                      >
+                        {category.name}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Tags Filter */}
+                <div className="bg-white rounded-lg shadow-md p-6">
+                  <h3 className="text-lg font-semibold text-gray-800 mb-4">Tags</h3>
                   <div className="flex flex-wrap gap-2">
                     {tags.map((tag) => (
                       <Badge
                         key={tag.id}
                         variant={selectedTag === tag.slug ? "default" : "secondary"}
-                        className="cursor-pointer hover:bg-blue-100"
+                        className="cursor-pointer hover:bg-blue-100 transition-colors"
                         onClick={() => setSelectedTag(selectedTag === tag.slug ? "" : tag.slug)}
                       >
                         <Tag className="h-3 w-3 mr-1" />
@@ -154,118 +162,116 @@ export default function BlogPage() {
                     ))}
                   </div>
                 </div>
-              )}
 
-              {/* Clear Filters */}
-              {activeFiltersCount > 0 && (
-                <div className="bg-white rounded-lg shadow-md p-6">
-                  <Button
-                    variant="outline"
-                    onClick={clearFilters}
-                    className="w-full"
-                  >
-                    Effacer les filtres ({activeFiltersCount})
-                  </Button>
-                </div>
-              )}
+                {/* Clear Filters */}
+                {activeFiltersCount > 0 && (
+                  <div className="bg-white rounded-lg shadow-md p-6">
+                    <Button
+                      onClick={clearFilters}
+                      variant="outline"
+                      className="w-full"
+                    >
+                      Clear Filters ({activeFiltersCount})
+                    </Button>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
 
-          {/* Main Content */}
-          <div className="lg:w-3/4">
-            {postsLoading ? (
-              <div className="text-center py-12">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-                <p className="mt-4 text-gray-600">Chargement des articles...</p>
-              </div>
-            ) : posts.length === 0 ? (
-              <div className="text-center py-12">
-                <h3 className="text-xl font-semibold text-gray-800 mb-4">
-                  Aucun article trouvé
-                </h3>
-                <p className="text-gray-600 mb-6">
-                  Essayez de modifier vos critères de recherche ou explorez nos catégories.
-                </p>
-                <Button onClick={clearFilters} variant="outline">
-                  Voir tous les articles
-                </Button>
-              </div>
-            ) : (
-              <>
-                <div className="flex justify-between items-center mb-8">
-                  <h2 className="text-2xl font-bold text-gray-800">
-                    {posts.length} article{posts.length > 1 ? "s" : ""} trouvé{posts.length > 1 ? "s" : ""}
-                  </h2>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {posts.map((post: BlogPost) => (
-                    <Card key={post.id} className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                      {post.coverImage && (
-                        <div className="aspect-video overflow-hidden">
-                          <img
-                            src={post.coverImage}
-                            alt={post.title}
-                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                          />
-                        </div>
-                      )}
-                      
-                      <CardHeader className="pb-3">
-                        <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
-                          <Calendar className="h-4 w-4" />
-                          {formatDate(post.createdAt)}
-                          {post.category && (
-                            <>
-                              <span>•</span>
-                              <Badge variant="secondary">{post.category.name}</Badge>
-                            </>
-                          )}
-                        </div>
-                        <h3 className="text-xl font-semibold line-clamp-2 hover:text-blue-600 transition-colors">
-                          {post.title}
-                        </h3>
+            {/* Main Content */}
+            <div className="lg:w-3/4">
+              {isLoading ? (
+                <div className="grid md:grid-cols-2 gap-8">
+                  {[...Array(6)].map((_, i) => (
+                    <Card key={i} className="overflow-hidden animate-pulse">
+                      <div className="h-48 bg-gray-200"></div>
+                      <CardHeader>
+                        <div className="h-4 bg-gray-200 rounded mb-2"></div>
+                        <div className="h-4 bg-gray-200 rounded w-3/4"></div>
                       </CardHeader>
-
-                      <CardContent className="pb-4">
-                        {post.excerpt && (
-                          <p className="text-gray-600 line-clamp-3 mb-4">
-                            {post.excerpt}
-                          </p>
-                        )}
-                        
-                        {post.tags && post.tags.length > 0 && (
-                          <div className="flex flex-wrap gap-1">
-                            {post.tags.slice(0, 3).map((tag) => (
-                              <Badge key={tag.id} variant="outline" className="text-xs">
-                                {tag.name}
-                              </Badge>
-                            ))}
-                            {post.tags.length > 3 && (
-                              <Badge variant="outline" className="text-xs">
-                                +{post.tags.length - 3}
-                              </Badge>
-                            )}
-                          </div>
-                        )}
-                      </CardContent>
-
-                      <CardFooter className="pt-0">
-                        <Link href={`/blog/${post.slug}`} className="w-full">
-                          <Button className="w-full group">
-                            Lire l'article
-                            <ChevronRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                          </Button>
-                        </Link>
-                      </CardFooter>
                     </Card>
                   ))}
                 </div>
-              </>
-            )}
+              ) : (
+                <>
+                  <div className="flex justify-between items-center mb-8">
+                    <h2 className="text-2xl font-bold text-gray-800">
+                      {(posts as BlogPost[]).length} {(posts as BlogPost[]).length === 1 ? 'article' : 'articles'} found
+                    </h2>
+                  </div>
+
+                  {(posts as BlogPost[]).length === 0 ? (
+                    <div className="text-center py-12">
+                      <div className="text-gray-400 text-6xl mb-4">📝</div>
+                      <h3 className="text-xl font-semibold text-gray-600 mb-2">No articles found</h3>
+                      <p className="text-gray-500">Try adjusting your search or filters</p>
+                    </div>
+                  ) : (
+                    <div className="grid md:grid-cols-2 gap-8">
+                      {(posts as BlogPost[]).map((post) => (
+                        <Card key={post.id} className="overflow-hidden hover:shadow-xl transition-shadow group">
+                          <div className="relative overflow-hidden">
+                            <img
+                              src={post.coverImage}
+                              alt={post.title}
+                              className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                            />
+                            {post.category && (
+                              <Badge className="absolute top-4 left-4 bg-blue-600">
+                                {post.category.name}
+                              </Badge>
+                            )}
+                          </div>
+                          
+                          <CardHeader>
+                            <h3 className="text-xl font-semibold text-gray-800 group-hover:text-blue-600 transition-colors line-clamp-2">
+                              {post.title}
+                            </h3>
+                            <div className="flex items-center text-sm text-gray-500 space-x-4">
+                              <div className="flex items-center">
+                                <Calendar className="h-4 w-4 mr-1" />
+                                {formatDate(post.createdAt)}
+                              </div>
+                              <div className="flex items-center">
+                                <span>{post.authorName}</span>
+                              </div>
+                            </div>
+                          </CardHeader>
+                          
+                          <CardContent>
+                            <p className="text-gray-600 line-clamp-3 mb-4">
+                              {post.excerpt}
+                            </p>
+                            {post.tags && post.tags.length > 0 && (
+                              <div className="flex flex-wrap gap-2">
+                                {post.tags.map((tag) => (
+                                  <Badge key={tag.id} variant="secondary" className="text-xs">
+                                    {tag.name}
+                                  </Badge>
+                                ))}
+                              </div>
+                            )}
+                          </CardContent>
+                          
+                          <CardFooter>
+                            <Link href={`/blog/${post.slug}`} className="w-full">
+                              <Button className="w-full group-hover:bg-blue-700 transition-colors">
+                                Read Article
+                                <ChevronRight className="h-4 w-4 ml-2" />
+                              </Button>
+                            </Link>
+                          </CardFooter>
+                        </Card>
+                      ))}
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
