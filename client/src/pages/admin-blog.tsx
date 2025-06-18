@@ -71,7 +71,7 @@ export default function AdminBlogPage() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
-  const { data: posts = [], isLoading } = useQuery({
+  const { data: posts = [], isLoading } = useQuery<BlogPost[]>({
     queryKey: ["/api/blog/posts", { 
       search: searchQuery || undefined,
       status: statusFilter !== "all" ? statusFilter : undefined,
@@ -90,21 +90,21 @@ export default function AdminBlogPage() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/blog/posts"] });
       toast({
-        title: "Article supprimé",
-        description: "L'article a été supprimé avec succès.",
+        title: "Post deleted",
+        description: "The blog post has been deleted successfully.",
       });
     },
     onError: (error) => {
       toast({
-        title: "Erreur",
-        description: "Impossible de supprimer l'article.",
+        title: "Error",
+        description: "Unable to delete the blog post.",
         variant: "destructive",
       });
     },
   });
 
   const handleDeletePost = async (postId: number) => {
-    if (window.confirm("Êtes-vous sûr de vouloir supprimer cet article ?")) {
+    if (window.confirm("Are you sure you want to delete this blog post?")) {
       deletePostMutation.mutate(postId);
     }
   };
