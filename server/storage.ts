@@ -361,17 +361,9 @@ export class DatabaseStorage implements IStorage {
 
   // TourCard operations
   async createTourCard(tourCardData: InsertTourCard): Promise<TourCard> {
-    // Create an array of the values to insert
     const [tourCard] = await db
       .insert(tourCards)
-      .values({
-        title: tourCardData.title,
-        description: tourCardData.description,
-        price: tourCardData.price,
-        currency: tourCardData.currency,
-        customLink: tourCardData.customLink,
-        images: tourCardData.images,
-      })
+      .values(tourCardData)
       .returning();
     return tourCard;
   }

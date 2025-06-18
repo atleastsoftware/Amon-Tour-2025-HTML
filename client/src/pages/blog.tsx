@@ -121,35 +121,40 @@ export default function BlogPage() {
                 />
               </div>
 
-              {/* Filters */}
-              <div className="flex flex-wrap gap-3 items-center">
-                {/* Categories */}
-                <div className="flex flex-wrap gap-2">
-                  <Button
-                    variant={selectedCategory === "" ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setSelectedCategory("")}
-                  >
-                    All Categories
-                  </Button>
-                  {categories.map((category) => (
+              {/* Filters - Mobile Optimized */}
+              <div className="w-full lg:w-auto">
+                {/* Categories - Horizontal scroll on mobile */}
+                <div className="mb-3">
+                  <div className="flex gap-2 overflow-x-auto pb-2 px-4 md:px-0" style={{scrollbarWidth: 'none', msOverflowStyle: 'none'}}>
                     <Button
-                      key={category.id}
-                      variant={selectedCategory === category.slug ? "default" : "outline"}
+                      variant={selectedCategory === "" ? "default" : "outline"}
                       size="sm"
-                      onClick={() => setSelectedCategory(category.slug)}
+                      className="whitespace-nowrap"
+                      onClick={() => setSelectedCategory("")}
                     >
-                      {category.name}
+                      All Categories
                     </Button>
-                  ))}
+                    {categories.map((category) => (
+                      <Button
+                        key={category.id}
+                        variant={selectedCategory === category.slug ? "default" : "outline"}
+                        size="sm"
+                        className="whitespace-nowrap"
+                        onClick={() => setSelectedCategory(category.slug)}
+                      >
+                        🏝️ {category.name}
+                      </Button>
+                    ))}
+                  </div>
                 </div>
 
-                {/* Tags */}
+                {/* Tags - Horizontal scroll on mobile */}
                 {tags.length > 0 && (
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex gap-2 overflow-x-auto pb-2 px-4 md:px-0" style={{scrollbarWidth: 'none', msOverflowStyle: 'none'}}>
                     <Button
                       variant={selectedTag === "" ? "secondary" : "outline"}
                       size="sm"
+                      className="whitespace-nowrap"
                       onClick={() => setSelectedTag("")}
                     >
                       All Tags
@@ -159,6 +164,7 @@ export default function BlogPage() {
                         key={tag.id}
                         variant={selectedTag === tag.slug ? "secondary" : "outline"}
                         size="sm"
+                        className="whitespace-nowrap"
                         onClick={() => setSelectedTag(tag.slug)}
                       >
                         <Tag className="h-3 w-3 mr-1" />
@@ -191,26 +197,26 @@ export default function BlogPage() {
             ) : filteredPosts.length > 0 ? (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {filteredPosts.map((post) => (
-                  <Card key={post.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-                    <div className="relative h-48">
+                  <Card key={post.id} className="overflow-hidden rounded-xl shadow-md hover:shadow-lg transition-all duration-300 group">
+                    <div className="relative h-48 overflow-hidden">
                       <img
                         src={post.coverImage}
                         alt={post.title}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                       {post.category && (
-                        <Badge className="absolute top-3 left-3 bg-blue-600">
-                          {post.category.name}
+                        <Badge className="absolute top-3 left-3 bg-blue-600 text-white">
+                          🏝️ {post.category.name}
                         </Badge>
                       )}
                     </div>
-                    <CardHeader>
-                      <h3 className="text-xl font-bold line-clamp-2 hover:text-blue-600 transition-colors">
+                    <CardHeader className="pb-3">
+                      <h3 className="text-xl font-semibold line-clamp-2 hover:text-blue-600 transition-colors">
                         <Link href={`/blog/${post.slug}`}>
                           {post.title}
                         </Link>
                       </h3>
-                      <div className="flex items-center text-sm text-gray-600 space-x-4">
+                      <div className="flex items-center text-sm text-gray-500 space-x-4">
                         <div className="flex items-center">
                           <Calendar className="h-4 w-4 mr-1" />
                           {formatDate(post.createdAt)}
@@ -221,8 +227,8 @@ export default function BlogPage() {
                         </div>
                       </div>
                     </CardHeader>
-                    <CardContent>
-                      <p className="text-gray-600 line-clamp-3 mb-4">
+                    <CardContent className="pt-0">
+                      <p className="text-gray-600 line-clamp-3 mb-4 leading-relaxed">
                         {post.excerpt}
                       </p>
                       
@@ -230,8 +236,13 @@ export default function BlogPage() {
                       {post.tags && post.tags.length > 0 && (
                         <div className="flex flex-wrap gap-2 mb-4">
                           {post.tags.slice(0, 3).map((tag) => (
-                            <Badge key={tag.id} variant="secondary" className="text-xs">
-                              {tag.name}
+                            <Badge 
+                              key={tag.id} 
+                              variant="outline" 
+                              className="text-xs cursor-pointer hover:bg-blue-50 hover:border-blue-200 transition-colors"
+                              onClick={() => setSelectedTag(tag.slug)}
+                            >
+                              📸 {tag.name}
                             </Badge>
                           ))}
                         </div>
