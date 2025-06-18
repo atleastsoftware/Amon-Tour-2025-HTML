@@ -228,3 +228,27 @@ export type InsertBlogPost = z.infer<typeof insertBlogPostSchema>;
 export type BlogPost = typeof blogPosts.$inferSelect;
 
 export type BlogPostTag = typeof blogPostTags.$inferSelect;
+
+// Newsletter subscription table
+export const newsletterSubscriptions = pgTable("newsletter_subscriptions", {
+  id: serial("id").primaryKey(),
+  email: text("email").notNull().unique(),
+  subscribedAt: timestamp("subscribed_at").defaultNow(),
+  confirmed: boolean("confirmed").default(false),
+  unsubscribed: boolean("unsubscribed").default(false),
+  confirmationToken: text("confirmation_token"),
+  language: text("language").default("en"),
+});
+
+export const insertNewsletterSubscriptionSchema = createInsertSchema(newsletterSubscriptions).omit({
+  id: true,
+  subscribedAt: true,
+  confirmed: true,
+  unsubscribed: true,
+  confirmationToken: true,
+}).extend({
+  email: z.string().email("Valid email address is required"),
+});
+
+export type InsertNewsletterSubscription = z.infer<typeof insertNewsletterSubscriptionSchema>;
+export type NewsletterSubscription = typeof newsletterSubscriptions.$inferSelect;

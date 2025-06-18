@@ -1,0 +1,85 @@
+🎯 Objective:
+Create a complete, secure, and responsive newsletter subscription system for the Amon Tour website, including database, API, admin panel, and frontend integration.
+
+---
+
+## 📦 1. DATABASE STRUCTURE
+
+Create a PostgreSQL table called `newsletter_subscriptions` with the following fields:
+
+- id (primary key, auto-increment)
+- email (unique, required)
+- subscribed_at (timestamp, default: now)
+- confirmed (boolean, default: false)
+- unsubscribed (boolean, default: false)
+- confirmation_token (nullable, for double opt-in flow)
+- language (optional, to prepare for multilingual emails)
+
+Ensure proper indexing on `email` and `confirmation_token`.
+
+---
+
+## 🔌 2. API ENDPOINTS
+
+Create the following API routes:
+
+1. `POST /api/newsletter/subscribe`
+- Receives `{ email }` in body
+- Validates email using Zod
+- Checks for existing subscription
+- If not confirmed, re-sends confirmation
+- Saves token and sends confirmation email (you can simulate this with a console.log or endpoint for now)
+
+2. `GET /api/newsletter/confirm?token=...`
+- Validates token
+- If valid, sets `confirmed = true`
+
+3. `POST /api/newsletter/unsubscribe`
+- Receives `{ email }`
+- Marks `unsubscribed = true`
+
+Ensure all routes are protected against abuse (rate-limit or captcha ready)
+
+---
+
+## 🛠️ 3. ADMIN PANEL PAGE
+
+Create a new protected admin route `/admin/newsletter` with:
+
+- A full list of subscribers:
+  - Email
+  - Subscribed date
+  - Confirmed (yes/no)
+  - Unsubscribed (yes/no)
+
+- Filters:
+  - Show only confirmed
+  - Show unsubscribed
+  - Sort by date
+
+- Export button:
+  - Exports all confirmed emails to CSV
+
+- Responsive design for mobile
+
+Access to this panel must require admin login.
+
+---
+
+## 📨 4. FRONTEND INTEGRATION
+
+Update the footer of the homepage and any other existing location with newsletter fields to make them functional.
+
+- Connect the email input in the footer to the `POST /api/newsletter/subscribe` route
+- Display a clear success message:
+  - “Thank you! Please check your email to confirm your subscription.”
+- Handle and display errors (already subscribed, invalid email, etc.)
+- Keep the existing style and layout of the footer, but improve UX with feedback states (loading, error, success)
+
+---
+
+## 🎨 5. DESIGN & USER EXPERIENCE
+
+- Admin panel must follow the Amon Tour design system (colors, fonts, spacing)
+- Footer field must be responsive and accessible
+- All messages and feedback must be styled in a user-friendly way (ex: small success alert below the field)

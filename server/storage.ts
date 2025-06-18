@@ -10,6 +10,7 @@ import {
   blogTags,
   blogPosts,
   blogPostTags,
+  newsletterSubscriptions,
   type User,
   type InsertUser,
   type Tour,
@@ -31,6 +32,8 @@ import {
   type BlogPost,
   type InsertBlogPost,
   type BlogPostTag,
+  type NewsletterSubscription,
+  type InsertNewsletterSubscription,
 } from "@shared/schema";
 import fs from "fs";
 import path from "path";
@@ -107,6 +110,15 @@ export interface IStorage {
   updateBlogPost(id: number, data: Partial<InsertBlogPost>): Promise<BlogPost | undefined>;
   deleteBlogPost(id: number): Promise<boolean>;
   getRelatedBlogPosts(postId: number, limit?: number): Promise<(BlogPost & { category?: BlogCategory })[]>;
+  
+  // Newsletter subscription operations
+  createNewsletterSubscription(subscription: InsertNewsletterSubscription): Promise<NewsletterSubscription>;
+  getNewsletterSubscriptions(filters?: { confirmed?: boolean; unsubscribed?: boolean }): Promise<NewsletterSubscription[]>;
+  getNewsletterSubscriptionByEmail(email: string): Promise<NewsletterSubscription | undefined>;
+  getNewsletterSubscriptionByToken(token: string): Promise<NewsletterSubscription | undefined>;
+  updateNewsletterSubscription(id: number, data: Partial<NewsletterSubscription>): Promise<NewsletterSubscription | undefined>;
+  confirmNewsletterSubscription(token: string): Promise<NewsletterSubscription | undefined>;
+  unsubscribeNewsletter(email: string): Promise<boolean>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -709,6 +721,85 @@ export class DatabaseStorage implements IStorage {
       ...result.post,
       category: result.category || undefined
     }));
+  }
+
+  // Newsletter Subscription Operations
+  async createNewsletterSubscription(subscriptionData: InsertNewsletterSubscription): Promise<NewsletterSubscription> {
+    // Generate a unique confirmation token
+    const confirmationToken = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    
+    const [subscription] = await db
+      .insert(newsletterSubscriptions)
+      .values({ ...subscriptionData, confirmationToken })
+      .returning();
+    
+    // In a real app, you would send a confirmation email here
+    console.log(`Newsletter subscription created for ${subscription.email}. Confirmation token: ${confirmationToken}`);
+    
+    return subscription;
+  }
+
+  async getNewsletterSubscriptions(filters?: { confirmed?: boolean; unsubscribed?: boolean }): Promise<NewsletterSubscription[]> {
+    let query = db.select().from(newsletterSubscriptions);
+    
+    const conditions = [];
+    
+    if (filters?.confirmed !== undefined) {
+      conditions.push(eq(newsletterSubscriptions.confirmed, filters.confirmed));
+    }
+    
+    if (filters?.unsubscribed !== undefined) {
+      conditions.push(eq(newsletterSubscriptions.unsubscribed, filters.unsubscribed));
+    }
+    
+    if (conditions.length > 0) {
+      query = query.where(and(...conditions)) as any;
+    }
+    
+    return query.orderBy(desc(newsletterSubscriptions.subscribedAt));
+  }
+
+  async getNewsletterSubscriptionByEmail(email: string): Promise<NewsletterSubscription | undefined> {
+    const [subscription] = await db
+      .select()
+      .from(newsletterSubscriptions)
+      .where(eq(newsletterSubscriptions.email, email));
+    return subscription;
+  }
+
+  async getNewsletterSubscriptionByToken(token: string): Promise<NewsletterSubscription | undefined> {
+    const [subscription] = await db
+      .select()
+      .from(newsletterSubscriptions)
+      .where(eq(newsletterSubscriptions.confirmationToken, token));
+    return subscription;
+  }
+
+  async updateNewsletterSubscription(id: number, data: Partial<NewsletterSubscription>): Promise<NewsletterSubscription | undefined> {
+    const [subscription] = await db
+      .update(newsletterSubscriptions)
+      .set(data)
+      .where(eq(newsletterSubscriptions.id, id))
+      .returning();
+    return subscription;
+  }
+
+  async confirmNewsletterSubscription(token: string): Promise<NewsletterSubscription | undefined> {
+    const [subscription] = await db
+      .update(newsletterSubscriptions)
+      .set({ confirmed: true, confirmationToken: null })
+      .where(eq(newsletterSubscriptions.confirmationToken, token))
+      .returning();
+    return subscription;
+  }
+
+  async unsubscribeNewsletter(email: string): Promise<boolean> {
+    const [subscription] = await db
+      .update(newsletterSubscriptions)
+      .set({ unsubscribed: true })
+      .where(eq(newsletterSubscriptions.email, email))
+      .returning();
+    return !!subscription;
   }
 }
 
