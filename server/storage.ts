@@ -207,12 +207,8 @@ export class DatabaseStorage implements IStorage {
     const [request] = await db
       .insert(customTourRequests)
       .values({
-        name: insertRequest.name,
-        email: insertRequest.email,
-        travelers: insertRequest.travelers,
-        duration: insertRequest.duration,
-        interests: interests,
-        message: insertRequest.message
+        ...insertRequest,
+        interests: interests
       })
       .returning();
     return request;
@@ -646,9 +642,9 @@ export class DatabaseStorage implements IStorage {
     const { tagIds, ...updateData } = data;
     
     if (data.title) {
-      updateData.slug = data.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      (updateData as any).slug = data.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
     }
-    updateData.updatedAt = new Date();
+    (updateData as any).updatedAt = new Date();
 
     const [post] = await db
       .update(blogPosts)

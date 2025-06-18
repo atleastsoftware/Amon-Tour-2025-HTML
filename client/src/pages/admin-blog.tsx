@@ -280,7 +280,7 @@ export default function AdminBlogPage() {
   };
 
   return (
-    <>
+    <div>
       <SEO 
         title="Blog Management - Amon Tour Admin"
         description="Manage blog posts, categories and content for Amon Tour"
@@ -676,8 +676,9 @@ export default function AdminBlogPage() {
             </DialogContent>
           </Dialog>
         </div>
+      </div>
         
-        <Footer />
-      </>
-    );
+      <Footer />
+    </div>
+  );
 }
