@@ -130,7 +130,7 @@ export default function CustomTourForm() {
             {/* Image Side */}
             <div className="h-64 md:h-auto relative">
               <img 
-                src="/attached_assets/image_1750230400869.png" 
+                src="/catamaran-cruise.png" 
                 alt="Catamaran cruise in Thailand" 
                 className="w-full h-full object-cover"
               />
