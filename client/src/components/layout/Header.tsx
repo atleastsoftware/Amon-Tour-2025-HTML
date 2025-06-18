@@ -51,6 +51,19 @@ export default function Header() {
   const logout = useLogout();
   const [scrolled, setScrolled] = useState(false);
   const isBookingPage = location.startsWith('/booking');
+  const isHomePage = location === '/';
+
+  // Track scroll position for header transparency
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+
+    if (isHomePage) {
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+    }
+  }, [isHomePage]);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -64,8 +77,16 @@ export default function Header() {
     logout.mutate();
   };
 
+  const headerClasses = isHomePage
+    ? `fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+        scrolled 
+          ? 'bg-white/95 backdrop-blur-md shadow-lg py-4' 
+          : 'bg-transparent py-6'
+      }`
+    : 'bg-white py-6';
+
   return (
-    <header className="bg-white py-6">
+    <header className={headerClasses}>
       {/* Main Navigation */}
       <nav className="container mx-auto px-4 flex justify-between items-center">
         {/* Logo */}
