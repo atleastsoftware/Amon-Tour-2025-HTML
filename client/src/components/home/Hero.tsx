@@ -110,7 +110,7 @@ export default function Hero() {
                   Authentic Thailand Awaits
                 </h3>
                 <p className="text-white/90 mb-6 drop-shadow-sm">
-                  Experience the real Thailand with our expertly crafted tours, 
+                  Experience the real Krabi with our expertly crafted tours, 
                   taking you beyond the tourist trails to discover hidden gems.
                 </p>
                 <div className="flex justify-center space-x-4 text-sm text-white/80">
