@@ -21,15 +21,23 @@ export const tours = pgTable("tours", {
   featured: boolean("featured").default(false),
 });
 
+// Status enum for custom tour requests
+export const customTourStatusEnum = pgEnum("custom_tour_status", ["new", "in_progress", "archived"]);
+
 export const customTourRequests = pgTable("custom_tour_requests", {
   id: serial("id").primaryKey(),
-  name: text("name").notNull(),
+  fullName: text("full_name").notNull(),
   email: text("email").notNull(),
-  travelers: text("travelers").notNull(),
+  phoneNumber: text("phone_number").notNull(),
+  numberOfAdults: integer("number_of_adults").notNull().default(1),
+  numberOfKids: integer("number_of_kids").notNull().default(0),
+  tripDates: text("trip_dates"), // Store as string for flexibility
   duration: text("duration").notNull(),
-  interests: json("interests").notNull().$type<string[]>(),
+  interests: json("interests").$type<string[]>().default([]),
   message: text("message").notNull(),
+  status: customTourStatusEnum("status").notNull().default("new"),
   createdAt: timestamp("created_at").defaultNow(),
+  archivedAt: timestamp("archived_at"),
 });
 
 export const contactMessages = pgTable("contact_messages", {
@@ -95,11 +103,6 @@ export const insertTourSchema = createInsertSchema(tours).omit({
   id: true,
 });
 
-export const insertCustomTourRequestSchema = createInsertSchema(customTourRequests).omit({
-  id: true,
-  createdAt: true,
-});
-
 export const insertContactMessageSchema = createInsertSchema(contactMessages).omit({
   id: true,
   createdAt: true,
@@ -134,9 +137,6 @@ export type User = typeof users.$inferSelect;
 
 export type InsertTour = z.infer<typeof insertTourSchema>;
 export type Tour = typeof tours.$inferSelect;
-
-export type InsertCustomTourRequest = z.infer<typeof insertCustomTourRequestSchema>;
-export type CustomTourRequest = typeof customTourRequests.$inferSelect;
 
 export type InsertContactMessage = z.infer<typeof insertContactMessageSchema>;
 export type ContactMessage = typeof contactMessages.$inferSelect;
@@ -252,3 +252,24 @@ export const insertNewsletterSubscriptionSchema = createInsertSchema(newsletterS
 
 export type InsertNewsletterSubscription = z.infer<typeof insertNewsletterSubscriptionSchema>;
 export type NewsletterSubscription = typeof newsletterSubscriptions.$inferSelect;
+
+// Custom tour request schema validation
+export const insertCustomTourRequestSchema = createInsertSchema(customTourRequests).omit({
+  id: true,
+  createdAt: true,
+  archivedAt: true,
+}).extend({
+  fullName: z.string().min(1, "Full name is required"),
+  email: z.string().email("Valid email address is required"),
+  phoneNumber: z.string().min(1, "Phone number is required"),
+  numberOfAdults: z.number().min(1, "At least 1 adult is required"),
+  numberOfKids: z.number().min(0, "Number of kids cannot be negative"),
+  tripDates: z.string().optional(),
+  duration: z.string().min(1, "Duration is required"),
+  interests: z.array(z.string()).default([]),
+  message: z.string().min(1, "Message is required"),
+  status: z.enum(["new", "in_progress", "archived"]).default("new"),
+});
+
+export type InsertCustomTourRequest = z.infer<typeof insertCustomTourRequestSchema>;
+export type CustomTourRequest = typeof customTourRequests.$inferSelect;

@@ -57,7 +57,12 @@ export interface IStorage {
   
   // Custom tour request operations
   createCustomTourRequest(request: InsertCustomTourRequest): Promise<CustomTourRequest>;
-  getCustomTourRequests(): Promise<CustomTourRequest[]>;
+  getCustomTourRequests(filters?: { status?: string; search?: string; sort?: string }): Promise<CustomTourRequest[]>;
+  getCustomTourRequest(id: number): Promise<CustomTourRequest | undefined>;
+  updateCustomTourRequest(id: number, data: Partial<CustomTourRequest>): Promise<CustomTourRequest | undefined>;
+  updateCustomTourRequestStatus(id: number, status: 'new' | 'in_progress' | 'archived'): Promise<CustomTourRequest | undefined>;
+  deleteCustomTourRequest(id: number): Promise<boolean>;
+  getNewCustomTourRequestsCount(): Promise<number>;
   
   // Contact message operations
   createContactMessage(message: InsertContactMessage): Promise<ContactMessage>;

@@ -1,0 +1,112 @@
+🎯 Objective:
+Make the "Create Your Custom Journey" form fully functional. This includes setting up the backend (API + database), saving requests, and creating a complete admin interface to manage and respond to custom tour inquiries.
+
+---
+
+## 1. 🗃 DATABASE STRUCTURE
+
+Create a PostgreSQL table: `custom_tour_requests` with the following fields:
+
+- id (primary key)
+- full_name (text, required)
+- email (text, required)
+- phone_number (text, required)
+- number_of_adults (integer)
+- number_of_kids (integer)
+- trip_dates (date range or string)
+- duration (text or enum)
+- interests (JSON or array of tags)
+- message (text)
+- status (enum: "new", "in_progress", "archived")
+- created_at (timestamp default now)
+- archived_at (nullable timestamp)
+
+---
+
+## 2. 🔌 API ENDPOINTS
+
+Create the following endpoints:
+
+1. `POST /api/custom-tour`  
+- Receives form data from the frontend  
+- Validates with Zod (name, email, phone required)  
+- Saves to `custom_tour_requests` table  
+
+2. `GET /api/custom-tour`  
+- Returns all requests  
+- Supports query params: `?status=new`, `?search=email`, `?sort=date`  
+
+3. `PUT /api/custom-tour/:id`  
+- Updates request status (mark as in_progress / archived)  
+
+4. `DELETE /api/custom-tour/:id`  
+- Deletes a request  
+
+5. `POST /api/custom-tour/:id/reply`  
+- Sends an email or logs message to the user based on contact method  
+- Accepts message body  
+
+6. `GET /api/custom-tour/export`  
+- Exports all (or filtered) requests to CSV
+
+---
+
+## 3. 🖥 ADMIN PANEL – `/admin/custom-tours`
+
+Create a new admin route with the following interface:
+
+### A. Dashboard View:
+- Table of all requests with:
+  - Name, Email, Phone, Date, Status
+  - Actions: View, Reply, Archive, Delete
+
+### B. Modal for reading messages:
+- Show all request details in a modal popup
+- Include button: "Reply via email" (triggers mailto: link)
+- Include button: "Call" (tel: link with the phone number)
+- Allow changing status from within the modal
+
+### C. Features to include:
+- ✅ Filter by status (New, In progress, Archived)
+- ✅ Search by email or name
+- ✅ Sort by date
+- ✅ Pagination if >10 entries
+- ✅ Export to CSV
+- ✅ Deletion confirmation
+- ✅ Notification badge if new unprocessed requests exist
+
+---
+
+## 4. 🌐 FRONTEND FORM INTEGRATION
+
+Update the "Create Your Custom Journey" form (homepage or dedicated section):
+
+- ✅ Add `Phone Number` field (required)
+- ✅ On submit:
+  - Send form data to `POST /api/custom-tour`
+  - Show success message: “🎉 Your request has been sent. We will get back to you shortly.”
+  - Handle error messages (invalid email, missing phone, etc.)
+- ✅ Form must be responsive and match the existing Amon Tour design
+
+---
+
+## 5. 🧩 ADMIN INTEGRATION
+
+- Add a new button in `/admin` panel:  
+  **🛎️ Manage Custom Tour Requests**  
+- This should link to `/admin/custom-tours`
+- If there are new (unread) requests, display a red notification badge
+
+---
+
+## 6. DESIGN & UX
+
+- Admin interface must follow Amon Tour style guide (same typography, colors, buttons)
+- Ensure mobile responsiveness
+- Modals and notifications should be smooth and accessible
+- Feedback messages in the form (success/error/loading)
+
+---
+
+🔐 Access to admin panel must be restricted to authenticated users (same system as blog/newsletter panel).
+
