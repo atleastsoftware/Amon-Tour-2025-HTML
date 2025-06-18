@@ -99,9 +99,7 @@ export default function BlogPage() {
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
               Travel Blog
             </h1>
-            <p className="text-xl md:text-2xl max-w-3xl mx-auto opacity-90">
-              Discover the best of Thailand through our travel guides, tips, and local insights
-            </p>
+            <p className="text-xl md:text-2xl max-w-3xl mx-auto opacity-90">Discover the best of Krabi through our travel guides, tips, and local insights</p>
           </div>
         </section>
 
