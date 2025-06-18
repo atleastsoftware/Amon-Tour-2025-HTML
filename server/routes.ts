@@ -876,28 +876,11 @@ Crawl-delay: 1`;
 
   app.post("/api/blog/posts", requireAuth, async (req, res) => {
     try {
-      console.log("=== BLOG POST CREATION DEBUG ===");
-      console.log("Request body:", JSON.stringify(req.body, null, 2));
-      
       const postData = insertBlogPostSchema.parse(req.body);
-      console.log("Parsed post data:", JSON.stringify(postData, null, 2));
-      
       const post = await storage.createBlogPost(postData);
-      console.log("Created post:", JSON.stringify(post, null, 2));
-      
       res.status(201).json(post);
     } catch (error: any) {
-      console.error("=== BLOG POST CREATION ERROR ===");
-      console.error("Error type:", typeof error);
-      console.error("Error name:", error.name);
-      console.error("Error message:", error.message);
-      console.error("Error stack:", error.stack);
-      console.error("Error details:", error);
-      
-      if (error.errors) {
-        console.error("Validation errors:", JSON.stringify(error.errors, null, 2));
-      }
-      
+      console.error("Error creating blog post:", error);
       res.status(400).json({ 
         message: "Invalid post data", 
         error: error.errors || error.message || String(error) 

@@ -528,49 +528,24 @@ export class DatabaseStorage implements IStorage {
 
   // Blog Post Operations
   async createBlogPost(postData: InsertBlogPost): Promise<BlogPost> {
-    console.log("=== STORAGE: createBlogPost START ===");
-    console.log("Input postData:", JSON.stringify(postData, null, 2));
+    const slug = postData.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    const { tagIds, ...insertData } = postData;
     
-    try {
-      const slug = postData.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-      console.log("Generated slug:", slug);
-      
-      const { tagIds, ...insertData } = postData;
-      console.log("Insert data (without tagIds):", JSON.stringify(insertData, null, 2));
-      console.log("Tag IDs:", tagIds);
+    const [post] = await db
+      .insert(blogPosts)
+      .values({ ...insertData, slug })
+      .returning();
 
-      const finalData = { ...insertData, slug };
-      console.log("Final data for insertion:", JSON.stringify(finalData, null, 2));
-      
-      const [post] = await db
-        .insert(blogPosts)
-        .values(finalData)
-        .returning();
-      
-      console.log("Inserted post:", JSON.stringify(post, null, 2));
-
-      // Handle tag associations
-      if (tagIds && tagIds.length > 0) {
-        console.log("Processing tag associations...");
-        const tagAssociations = tagIds.map(tagId => ({
-          postId: post.id,
-          tagId
-        }));
-        console.log("Tag associations to insert:", JSON.stringify(tagAssociations, null, 2));
-        
-        await db.insert(blogPostTags).values(tagAssociations);
-        console.log("Tag associations inserted successfully");
-      }
-
-      console.log("=== STORAGE: createBlogPost SUCCESS ===");
-      return post;
-    } catch (error: any) {
-      console.error("=== STORAGE: createBlogPost ERROR ===");
-      console.error("Error details:", error);
-      console.error("Error message:", error.message);
-      console.error("Error stack:", error.stack);
-      throw error;
+    // Handle tag associations
+    if (tagIds && tagIds.length > 0) {
+      const tagAssociations = tagIds.map(tagId => ({
+        postId: post.id,
+        tagId
+      }));
+      await db.insert(blogPostTags).values(tagAssociations);
     }
+
+    return post;
   }
 
   async getBlogPosts(filters?: { status?: string; category?: string; tag?: string; search?: string }): Promise<(BlogPost & { category?: BlogCategory; tags?: BlogTag[] })[]> {
@@ -683,92 +658,47 @@ export class DatabaseStorage implements IStorage {
   }
 
   async updateBlogPost(id: number, data: Partial<InsertBlogPost>): Promise<BlogPost | undefined> {
-    console.log("=== STORAGE: updateBlogPost START ===");
-    console.log("Post ID:", id);
-    console.log("Update data:", JSON.stringify(data, null, 2));
+    const { tagIds, ...updateData } = data;
     
-    try {
-      const { tagIds, ...updateData } = data;
-      console.log("Update data (without tagIds):", JSON.stringify(updateData, null, 2));
-      console.log("Tag IDs:", tagIds);
-      
-      if (data.title) {
-        (updateData as any).slug = data.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-        console.log("Generated new slug:", (updateData as any).slug);
-      }
-      (updateData as any).updatedAt = new Date();
-      console.log("Final update data:", JSON.stringify(updateData, null, 2));
-
-      const [post] = await db
-        .update(blogPosts)
-        .set(updateData)
-        .where(eq(blogPosts.id, id))
-        .returning();
-      
-      console.log("Updated post result:", JSON.stringify(post, null, 2));
-
-      // Update tag associations if provided
-      if (tagIds !== undefined) {
-        console.log("Updating tag associations...");
-        
-        // Remove existing associations
-        await db.delete(blogPostTags).where(eq(blogPostTags.postId, id));
-        console.log("Removed existing tag associations");
-        
-        // Add new associations
-        if (tagIds.length > 0) {
-          const tagAssociations = tagIds.map(tagId => ({
-            postId: id,
-            tagId
-          }));
-          console.log("New tag associations:", JSON.stringify(tagAssociations, null, 2));
-          
-          await db.insert(blogPostTags).values(tagAssociations);
-          console.log("Inserted new tag associations");
-        }
-      }
-
-      console.log("=== STORAGE: updateBlogPost SUCCESS ===");
-      return post;
-    } catch (error: any) {
-      console.error("=== STORAGE: updateBlogPost ERROR ===");
-      console.error("Error details:", error);
-      console.error("Error message:", error.message);
-      console.error("Error stack:", error.stack);
-      throw error;
+    if (data.title) {
+      (updateData as any).slug = data.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
     }
+    (updateData as any).updatedAt = new Date();
+
+    const [post] = await db
+      .update(blogPosts)
+      .set(updateData)
+      .where(eq(blogPosts.id, id))
+      .returning();
+
+    // Update tag associations if provided
+    if (tagIds !== undefined) {
+      // Remove existing associations
+      await db.delete(blogPostTags).where(eq(blogPostTags.postId, id));
+      
+      // Add new associations
+      if (tagIds.length > 0) {
+        const tagAssociations = tagIds.map(tagId => ({
+          postId: id,
+          tagId
+        }));
+        await db.insert(blogPostTags).values(tagAssociations);
+      }
+    }
+
+    return post;
   }
 
   async deleteBlogPost(id: number): Promise<boolean> {
-    console.log("=== STORAGE: deleteBlogPost START ===");
-    console.log("Post ID to delete:", id);
+    // Delete tag associations first
+    await db.delete(blogPostTags).where(eq(blogPostTags.postId, id));
     
-    try {
-      // Delete tag associations first
-      console.log("Deleting tag associations...");
-      await db.delete(blogPostTags).where(eq(blogPostTags.postId, id));
-      console.log("Tag associations deleted");
-      
-      // Delete the post
-      console.log("Deleting blog post...");
-      const [deletedPost] = await db
-        .delete(blogPosts)
-        .where(eq(blogPosts.id, id))
-        .returning();
-      
-      console.log("Deleted post result:", JSON.stringify(deletedPost, null, 2));
-      const success = !!deletedPost;
-      console.log("Deletion success:", success);
-      
-      console.log("=== STORAGE: deleteBlogPost SUCCESS ===");
-      return success;
-    } catch (error: any) {
-      console.error("=== STORAGE: deleteBlogPost ERROR ===");
-      console.error("Error details:", error);
-      console.error("Error message:", error.message);
-      console.error("Error stack:", error.stack);
-      throw error;
-    }
+    // Delete the post
+    const [deletedPost] = await db
+      .delete(blogPosts)
+      .where(eq(blogPosts.id, id))
+      .returning();
+    return !!deletedPost;
   }
 
   async getRelatedBlogPosts(postId: number, limit = 3): Promise<(BlogPost & { category?: BlogCategory })[]> {
