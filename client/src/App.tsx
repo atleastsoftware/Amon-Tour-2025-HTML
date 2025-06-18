@@ -29,6 +29,7 @@ import Blog from "@/pages/blog";
 import BlogPost from "@/pages/blog-post";
 import AdminBlog from "@/pages/admin-blog";
 import AdminNewsletter from "@/pages/admin-newsletter";
+import AdminCustomTours from "@/pages/admin-custom-tours";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 
 function Router() {
@@ -70,6 +71,7 @@ function Router() {
       <Route path="/admin" component={Admin} />
       <Route path="/admin-blog" component={AdminBlog} />
       <Route path="/admin-newsletter" component={AdminNewsletter} />
+      <Route path="/admin-custom-tours" component={AdminCustomTours} />
       <Route path="/tour-card-builder" component={TourCardBuilder} />
       
       {/* Fallback to 404 */}

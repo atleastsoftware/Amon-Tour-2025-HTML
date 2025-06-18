@@ -233,7 +233,7 @@ export class DatabaseStorage implements IStorage {
   }
   
   async getCustomTourRequests(filters?: { status?: string; search?: string; sort?: string }): Promise<CustomTourRequest[]> {
-    let whereConditions: any[] = [];
+    const whereConditions: any[] = [];
     
     if (filters?.status) {
       whereConditions.push(eq(customTourRequests.status, filters.status as any));
@@ -249,16 +249,15 @@ export class DatabaseStorage implements IStorage {
       );
     }
     
-    let query = db.select().from(customTourRequests);
+    const baseQuery = db.select().from(customTourRequests);
     
     if (whereConditions.length > 0) {
-      query = query.where(and(...whereConditions));
+      return baseQuery
+        .where(and(...whereConditions))
+        .orderBy(desc(customTourRequests.createdAt));
     }
     
-    // Default sort by created date, newest first
-    query = query.orderBy(desc(customTourRequests.createdAt));
-    
-    return query;
+    return baseQuery.orderBy(desc(customTourRequests.createdAt));
   }
 
   async getCustomTourRequest(id: number): Promise<CustomTourRequest | undefined> {
