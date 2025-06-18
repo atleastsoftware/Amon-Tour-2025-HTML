@@ -28,6 +28,7 @@ import Contact from "@/pages/contact";
 import Blog from "@/pages/blog";
 import BlogPost from "@/pages/blog-post";
 import AdminBlog from "@/pages/admin-blog";
+import AdminNewsletter from "@/pages/admin-newsletter";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 
 function Router() {

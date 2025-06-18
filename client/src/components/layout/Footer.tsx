@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { FadeInWhenVisible, SlideUpWhenVisible, StaggerChildren, StaggerItem } from "@/components/ui/animations";
+import NewsletterSubscription from "@/components/newsletter/NewsletterSubscription";
 import logoA from "@/assets/logo-a.png";
 import { 
   Facebook, 
@@ -188,24 +189,7 @@ export default function Footer() {
             <p className="font-heading text-center mb-3">
               Subscribe to receive our special offers and travel tips.
             </p>
-            <form className="mb-4" onSubmit={(e) => e.preventDefault()}>
-              <div className="flex justify-center">
-                <input 
-                  type="email" 
-                  placeholder="Your email" 
-                  className="px-4 py-2 rounded-l-md w-full max-w-xs text-gray-800 focus:outline-none"
-                />
-                <motion.button 
-                  type="submit" 
-                  className="bg-secondary px-4 py-2 rounded-r-md hover:bg-secondary-dark transition-colors"
-                  aria-label="Subscribe"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <i className="fas fa-paper-plane"></i>
-                </motion.button>
-              </div>
-            </form>
+            <NewsletterSubscription />
             <p className="font-heading text-center text-sm">
               We respect your privacy. Unsubscribe at any time.
             </p>

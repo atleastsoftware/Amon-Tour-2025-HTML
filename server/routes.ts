@@ -10,7 +10,8 @@ import {
   insertTourCardSchema,
   insertBlogCategorySchema,
   insertBlogTagSchema,
-  insertBlogPostSchema
+  insertBlogPostSchema,
+  insertNewsletterSubscriptionSchema
 } from "@shared/schema";
 import { createPaymentIntent, createOrRetrieveCustomer } from "./stripe";
 import { upload, getPublicFileUrl } from "./upload";
@@ -942,6 +943,157 @@ Crawl-delay: 1`;
     } catch (error) {
       console.error("Error uploading blog image:", error);
       res.status(500).json({ message: "Failed to upload image", error: String(error) });
+    }
+  });
+
+  // ===== NEWSLETTER SUBSCRIPTION API ROUTES =====
+
+  // Newsletter subscription with rate limiting
+  const newsletterLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 5, // Limit each IP to 5 requests per windowMs
+    message: { message: "Too many subscription attempts, please try again later." },
+    standardHeaders: true,
+    legacyHeaders: false,
+  });
+
+  app.post("/api/newsletter/subscribe", newsletterLimiter, async (req, res) => {
+    try {
+      const subscriptionData = insertNewsletterSubscriptionSchema.parse(req.body);
+      
+      // Check if email already exists
+      const existingSubscription = await storage.getNewsletterSubscriptionByEmail(subscriptionData.email);
+      
+      if (existingSubscription) {
+        if (existingSubscription.confirmed && !existingSubscription.unsubscribed) {
+          return res.status(400).json({ message: "Email is already subscribed to our newsletter." });
+        }
+        
+        if (existingSubscription.unsubscribed) {
+          // Re-activate subscription
+          await storage.updateNewsletterSubscription(existingSubscription.id, {
+            unsubscribed: false,
+            confirmed: false,
+            confirmationToken: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+          });
+          return res.json({ message: "Welcome back! Please check your email to confirm your subscription." });
+        }
+        
+        if (!existingSubscription.confirmed) {
+          // Re-send confirmation
+          const newToken = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+          await storage.updateNewsletterSubscription(existingSubscription.id, {
+            confirmationToken: newToken
+          });
+          console.log(`Newsletter confirmation re-sent for ${subscriptionData.email}. Token: ${newToken}`);
+          return res.json({ message: "Confirmation email has been sent again. Please check your inbox." });
+        }
+      }
+      
+      // Create new subscription
+      const subscription = await storage.createNewsletterSubscription(subscriptionData);
+      res.status(201).json({ 
+        message: "Thank you for subscribing! Please check your email to confirm your subscription.",
+        subscriptionId: subscription.id
+      });
+    } catch (error: any) {
+      console.error("Error creating newsletter subscription:", error);
+      res.status(400).json({ 
+        message: "Invalid subscription data", 
+        error: error.errors || error.message || String(error) 
+      });
+    }
+  });
+
+  app.get("/api/newsletter/confirm", async (req, res) => {
+    try {
+      const { token } = req.query;
+      
+      if (!token || typeof token !== 'string') {
+        return res.status(400).json({ message: "Invalid confirmation token." });
+      }
+      
+      const subscription = await storage.confirmNewsletterSubscription(token);
+      
+      if (!subscription) {
+        return res.status(404).json({ message: "Invalid or expired confirmation token." });
+      }
+      
+      res.json({ 
+        message: "Your subscription has been confirmed successfully! Welcome to our newsletter.",
+        email: subscription.email
+      });
+    } catch (error) {
+      console.error("Error confirming newsletter subscription:", error);
+      res.status(500).json({ message: "Failed to confirm subscription", error: String(error) });
+    }
+  });
+
+  app.post("/api/newsletter/unsubscribe", async (req, res) => {
+    try {
+      const { email } = req.body;
+      
+      if (!email || typeof email !== 'string') {
+        return res.status(400).json({ message: "Email address is required." });
+      }
+      
+      const result = await storage.unsubscribeNewsletter(email);
+      
+      if (!result) {
+        return res.status(404).json({ message: "Email address not found in our subscription list." });
+      }
+      
+      res.json({ message: "You have been successfully unsubscribed from our newsletter." });
+    } catch (error) {
+      console.error("Error unsubscribing from newsletter:", error);
+      res.status(500).json({ message: "Failed to unsubscribe", error: String(error) });
+    }
+  });
+
+  // Admin newsletter management routes
+  app.get("/api/admin/newsletter/subscriptions", requireAuth, async (req, res) => {
+    try {
+      const { confirmed, unsubscribed } = req.query;
+      const filters: any = {};
+      
+      if (confirmed !== undefined) {
+        filters.confirmed = confirmed === 'true';
+      }
+      
+      if (unsubscribed !== undefined) {
+        filters.unsubscribed = unsubscribed === 'true';
+      }
+      
+      const subscriptions = await storage.getNewsletterSubscriptions(filters);
+      res.json(subscriptions);
+    } catch (error) {
+      console.error("Error fetching newsletter subscriptions:", error);
+      res.status(500).json({ message: "Failed to fetch subscriptions", error: String(error) });
+    }
+  });
+
+  // Export confirmed emails to CSV
+  app.get("/api/admin/newsletter/export", requireAuth, async (req, res) => {
+    try {
+      const confirmedSubscriptions = await storage.getNewsletterSubscriptions({ 
+        confirmed: true, 
+        unsubscribed: false 
+      });
+      
+      // Create CSV content
+      const csvHeaders = 'Email,Subscribed Date,Language\n';
+      const csvData = confirmedSubscriptions.map(sub => 
+        `${sub.email},${sub.subscribedAt?.toISOString().split('T')[0] || ''},${sub.language || 'en'}`
+      ).join('\n');
+      
+      const csvContent = csvHeaders + csvData;
+      
+      res.setHeader('Content-Type', 'text/csv');
+      res.setHeader('Content-Disposition', 'attachment; filename="newsletter-subscribers.csv"');
+      res.send(csvContent);
+    } catch (error) {
+      console.error("Error exporting newsletter subscriptions:", error);
+      res.status(500).json({ message: "Failed to export subscriptions", error: String(error) });
     }
   });
 
