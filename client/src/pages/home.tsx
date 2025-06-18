@@ -172,7 +172,6 @@ export default function Home() {
         }}
       />
       <Header />
-      
       <main>
         <Hero />
         
@@ -206,9 +205,7 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
-                Some ideas for your next trip
-              </h2>
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">Our Popular Experiences</h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
               <p className="text-gray-600 max-w-2xl mx-auto">
                 Explore our most popular tours, carefully designed to help you discover the best of Thailand.
@@ -264,7 +261,6 @@ export default function Home() {
         
         <CallToAction />
       </main>
-      
       <Footer />
     </>
   );
