@@ -48,7 +48,7 @@ export const tourCards = pgTable("tour_cards", {
   price: integer("price").notNull(),
   currency: text("currency").notNull().default("THB"),
   customLink: text("custom_link").notNull(),
-  images: json("images").notNull().$type<string[]>(),
+  images: text("images").array().notNull(),
   type: text("type").notNull().default("experience"), // "tour" ou "experience"
   tags: json("tags").$type<string[]>().default([]), // Tags pour catégoriser (villes, îles, etc.)
   createdAt: timestamp("created_at").defaultNow(),

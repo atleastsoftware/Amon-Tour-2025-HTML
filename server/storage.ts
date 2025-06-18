@@ -312,10 +312,15 @@ export class DatabaseStorage implements IStorage {
     // Ensure totalAmount is properly defined
     const totalAmount = data.totalAmount ?? 0;
     
-    // Create the reservation
+    // Create the reservation with proper data structure
+    const reservationData = {
+      ...data,
+      totalAmount,
+    };
+    
     const [reservation] = await db
       .insert(reservations)
-      .values(data)
+      .values([reservationData])
       .returning();
       
     // Update the current bookings count for this availability
@@ -377,9 +382,15 @@ export class DatabaseStorage implements IStorage {
 
   // TourCard operations
   async createTourCard(tourCardData: InsertTourCard): Promise<TourCard> {
+    // Ensure images is a proper array
+    const cardData = {
+      ...tourCardData,
+      images: Array.isArray(tourCardData.images) ? tourCardData.images : []
+    };
+    
     const [tourCard] = await db
       .insert(tourCards)
-      .values(tourCardData)
+      .values(cardData)
       .returning();
     return tourCard;
   }
