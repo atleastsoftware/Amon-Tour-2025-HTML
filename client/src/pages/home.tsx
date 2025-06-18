@@ -216,7 +216,7 @@ export default function Home() {
             </motion.div>
           </div>
           
-          <div className="w-full">
+          <div className="w-full relative">
             <iframe 
               src="https://www.tourninja.io/iframe/banner/2" 
               width="100%" 
@@ -231,6 +231,8 @@ export default function Home() {
               allow="popups popups-to-escape-sandbox"
               sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox allow-top-navigation"
             />
+            {/* Overlay to hide the iframe's header section */}
+            <div className="absolute top-0 left-0 w-full h-32 bg-white z-10"></div>
           </div>
           
           <div className="container mx-auto px-4 py-8">
