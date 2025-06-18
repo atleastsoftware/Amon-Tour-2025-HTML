@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link } from "wouter";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { 
   Plus, 
   Search, 
@@ -10,7 +13,8 @@ import {
   Calendar, 
   Tag,
   Filter,
-  MoreHorizontal
+  MoreHorizontal,
+  X
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -38,6 +42,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 
@@ -64,10 +84,30 @@ interface BlogCategory {
   slug: string;
 }
 
+interface BlogTag {
+  id: number;
+  name: string;
+  slug: string;
+}
+
+const blogPostSchema = z.object({
+  title: z.string().min(1, "Title is required"),
+  content: z.string().min(1, "Content is required"),
+  excerpt: z.string().optional(),
+  coverImage: z.string().url().optional().or(z.literal("")),
+  categoryId: z.number().optional(),
+  status: z.enum(["draft", "published"]).default("draft"),
+  authorName: z.string().min(1, "Author name is required"),
+  tagIds: z.array(z.number()).optional(),
+});
+
 export default function AdminBlogPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [categoryFilter, setCategoryFilter] = useState("all");
+  const [showPostModal, setShowPostModal] = useState(false);
+  const [showCategoryModal, setShowCategoryModal] = useState(false);
+  const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -81,6 +121,54 @@ export default function AdminBlogPage() {
 
   const { data: categories = [] } = useQuery<BlogCategory[]>({
     queryKey: ["/api/blog/categories"],
+  });
+
+  const { data: tags = [] } = useQuery<BlogTag[]>({
+    queryKey: ["/api/blog/tags"],
+  });
+
+  const createPostMutation = useMutation({
+    mutationFn: async (data: z.infer<typeof blogPostSchema>) => {
+      return await apiRequest("/api/blog/posts", "POST", data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/blog/posts"] });
+      setShowPostModal(false);
+      setEditingPost(null);
+      toast({
+        title: "Post created",
+        description: "The blog post has been created successfully.",
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: "Unable to create the blog post.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const updatePostMutation = useMutation({
+    mutationFn: async ({ id, data }: { id: number; data: z.infer<typeof blogPostSchema> }) => {
+      return await apiRequest(`/api/blog/posts/${id}`, "PUT", data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/blog/posts"] });
+      setShowPostModal(false);
+      setEditingPost(null);
+      toast({
+        title: "Post updated",
+        description: "The blog post has been updated successfully.",
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: "Unable to update the blog post.",
+        variant: "destructive",
+      });
+    },
   });
 
   const deletePostMutation = useMutation({
@@ -106,6 +194,33 @@ export default function AdminBlogPage() {
   const handleDeletePost = async (postId: number) => {
     if (window.confirm("Are you sure you want to delete this blog post?")) {
       deletePostMutation.mutate(postId);
+    }
+  };
+
+  const handleEditPost = (post: BlogPost) => {
+    setEditingPost(post);
+    setShowPostModal(true);
+  };
+
+  const form = useForm<z.infer<typeof blogPostSchema>>({
+    resolver: zodResolver(blogPostSchema),
+    defaultValues: {
+      title: editingPost?.title || "",
+      content: editingPost?.content || "",
+      excerpt: editingPost?.excerpt || "",
+      coverImage: editingPost?.coverImage || "",
+      categoryId: editingPost?.category?.id || undefined,
+      status: editingPost?.status || "draft",
+      authorName: editingPost?.authorName || "Amon Tour Team",
+      tagIds: editingPost?.tags?.map(tag => tag.id) || [],
+    },
+  });
+
+  const onSubmit = (data: z.infer<typeof blogPostSchema>) => {
+    if (editingPost) {
+      updatePostMutation.mutate({ id: editingPost.id, data });
+    } else {
+      createPostMutation.mutate(data);
     }
   };
 
@@ -136,22 +251,18 @@ export default function AdminBlogPage() {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Gestion du Blog</h1>
-              <p className="text-gray-600 mt-1">Gérez vos articles, catégories et tags</p>
+              <h1 className="text-3xl font-bold text-gray-900">Blog Management</h1>
+              <p className="text-gray-600 mt-1">Manage your articles, categories and tags</p>
             </div>
             <div className="flex gap-3">
-              <Link href="/admin-blog/categories">
-                <Button variant="outline">
-                  <Tag className="mr-2 h-4 w-4" />
-                  Catégories & Tags
-                </Button>
-              </Link>
-              <Link href="/admin-blog/new">
-                <Button>
-                  <Plus className="mr-2 h-4 w-4" />
-                  Nouvel Article
-                </Button>
-              </Link>
+              <Button variant="outline" onClick={() => setShowCategoryModal(true)}>
+                <Tag className="mr-2 h-4 w-4" />
+                Categories & Tags
+              </Button>
+              <Button onClick={() => setShowPostModal(true)}>
+                <Plus className="mr-2 h-4 w-4" />
+                New Article
+              </Button>
             </div>
           </div>
         </div>
