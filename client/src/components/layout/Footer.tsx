@@ -135,53 +135,50 @@ export default function Footer() {
           <div>
             <h4 className="font-heading font-bold text-lg mb-3 text-center">Useful Links</h4>
             <div className="flex flex-col items-center space-y-2">
-              <Link href="/">
-                <motion.span 
-                  className="font-heading hover:text-secondary transition-colors cursor-pointer"
-                  whileHover={{ y: -2 }}
-                >
-                  Home
-                </motion.span>
-              </Link>
-              <Link href="/tours">
-                <motion.span 
-                  className="font-heading hover:text-secondary transition-colors cursor-pointer"
-                  whileHover={{ y: -2 }}
-                >
-                  Our Tours
-                </motion.span>
-              </Link>
-              <Link href="/#about">
-                <motion.span 
-                  className="font-heading hover:text-secondary transition-colors cursor-pointer"
-                  whileHover={{ y: -2 }}
-                >
-                  About Us
-                </motion.span>
-              </Link>
-              <Link href="/custom-tour">
-                <motion.span 
-                  className="font-heading hover:text-secondary transition-colors cursor-pointer"
-                  whileHover={{ y: -2 }}
-                >
-                  Custom Tour
-                </motion.span>
-              </Link>
               <motion.a 
-                href="https://wa.me/66653496445" 
+                href="/brochure" 
+                className="font-heading hover:text-secondary transition-colors"
+                whileHover={{ y: -2 }}
+              >
+                Our brochure
+              </motion.a>
+              <motion.a 
+                href="/krabi-celebration" 
+                className="font-heading hover:text-secondary transition-colors"
+                whileHover={{ y: -2 }}
+              >
+                Krabi Celebration
+              </motion.a>
+              <motion.a 
+                href="https://www.facebook.com/thefungardenkrabi/" 
                 className="font-heading hover:text-secondary transition-colors"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ y: -2 }}
               >
-                WhatsApp
+                Fun Garden
               </motion.a>
-              <motion.span
-                className="font-heading hover:text-secondary transition-colors cursor-pointer"
+              <motion.a 
+                href="/villas-krabi" 
+                className="font-heading hover:text-secondary transition-colors"
                 whileHover={{ y: -2 }}
               >
-                What they say about us
-              </motion.span>
+                Villas in Krabi
+              </motion.a>
+              <motion.a 
+                href="/become-partner" 
+                className="font-heading hover:text-secondary transition-colors"
+                whileHover={{ y: -2 }}
+              >
+                Become Partner
+              </motion.a>
+              <motion.a 
+                href="/group-corporate" 
+                className="font-heading hover:text-secondary transition-colors"
+                whileHover={{ y: -2 }}
+              >
+                Group & Corporate
+              </motion.a>
             </div>
           </div>
           
