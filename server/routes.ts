@@ -981,6 +981,44 @@ Crawl-delay: 1`;
     }
   });
 
+  // Export custom tour requests to CSV (admin only) - Must come before parameterized routes
+  app.get("/api/custom-tour/export", requireAuth, async (req, res) => {
+    try {
+      const { status } = req.query;
+      const filters: any = {};
+      if (status) filters.status = status as string;
+      
+      const requests = await storage.getCustomTourRequests(filters);
+      
+      // Create CSV content
+      const csvHeaders = 'ID,Full Name,Email,Phone,Adults,Kids,Trip Dates,Duration,Interests,Message,Status,Created Date\n';
+      const csvData = requests.map(request => {
+        const interests = Array.isArray(request.interests) ? request.interests.join('; ') : '';
+        return `${request.id},"${request.fullName}","${request.email}","${request.phoneNumber}",${request.numberOfAdults},${request.numberOfKids},"${request.tripDates || ''}","${request.duration}","${interests}","${request.message.replace(/"/g, '""')}","${request.status}","${request.createdAt?.toISOString().split('T')[0] || ''}"`;
+      }).join('\n');
+      
+      const csvContent = csvHeaders + csvData;
+      
+      res.setHeader('Content-Type', 'text/csv');
+      res.setHeader('Content-Disposition', 'attachment; filename="custom-tour-requests.csv"');
+      res.send(csvContent);
+    } catch (error) {
+      console.error("Error exporting custom tour requests:", error);
+      res.status(500).json({ message: "Failed to export requests", error: String(error) });
+    }
+  });
+
+  // Get count of new custom tour requests (for admin notifications)
+  app.get("/api/custom-tour/count/new", requireAuth, async (req, res) => {
+    try {
+      const count = await storage.getNewCustomTourRequestsCount();
+      res.json({ count });
+    } catch (error) {
+      console.error("Error getting new custom tour requests count:", error);
+      res.status(500).json({ message: "Failed to get count", error: String(error) });
+    }
+  });
+
   // Get single custom tour request (admin only)
   app.get("/api/custom-tour/:id", requireAuth, async (req, res) => {
     try {
@@ -1043,44 +1081,6 @@ Crawl-delay: 1`;
     } catch (error) {
       console.error("Error deleting custom tour request:", error);
       res.status(500).json({ message: "Failed to delete request", error: String(error) });
-    }
-  });
-
-  // Export custom tour requests to CSV (admin only)
-  app.get("/api/custom-tour/export", requireAuth, async (req, res) => {
-    try {
-      const { status } = req.query;
-      const filters: any = {};
-      if (status) filters.status = status as string;
-      
-      const requests = await storage.getCustomTourRequests(filters);
-      
-      // Create CSV content
-      const csvHeaders = 'ID,Full Name,Email,Phone,Adults,Kids,Trip Dates,Duration,Interests,Message,Status,Created Date\n';
-      const csvData = requests.map(request => {
-        const interests = Array.isArray(request.interests) ? request.interests.join('; ') : '';
-        return `${request.id},"${request.fullName}","${request.email}","${request.phoneNumber}",${request.numberOfAdults},${request.numberOfKids},"${request.tripDates || ''}","${request.duration}","${interests}","${request.message.replace(/"/g, '""')}","${request.status}","${request.createdAt?.toISOString().split('T')[0] || ''}"`;
-      }).join('\n');
-      
-      const csvContent = csvHeaders + csvData;
-      
-      res.setHeader('Content-Type', 'text/csv');
-      res.setHeader('Content-Disposition', 'attachment; filename="custom-tour-requests.csv"');
-      res.send(csvContent);
-    } catch (error) {
-      console.error("Error exporting custom tour requests:", error);
-      res.status(500).json({ message: "Failed to export requests", error: String(error) });
-    }
-  });
-
-  // Get count of new custom tour requests (for admin notifications)
-  app.get("/api/custom-tour/count/new", requireAuth, async (req, res) => {
-    try {
-      const count = await storage.getNewCustomTourRequestsCount();
-      res.json({ count });
-    } catch (error) {
-      console.error("Error getting new custom tour requests count:", error);
-      res.status(500).json({ message: "Failed to get count", error: String(error) });
     }
   });
 
