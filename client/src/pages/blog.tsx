@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
-import { Search, Calendar, Tag, ChevronRight } from "lucide-react";
+import { Search, Calendar, User, Tag } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
@@ -42,12 +42,12 @@ interface BlogTag {
 }
 
 export default function BlogPage() {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedTag, setSelectedTag] = useState("");
 
-  const { data: posts = [], isLoading } = useQuery<BlogPost[]>({
-    queryKey: ["/api/blog/posts/published", { search: searchQuery, category: selectedCategory, tag: selectedTag }],
+  const { data: posts = [], isLoading: postsLoading } = useQuery<BlogPost[]>({
+    queryKey: ["/api/blog/posts/published", { search: searchTerm, category: selectedCategory, tag: selectedTag }],
   });
 
   const { data: categories = [] } = useQuery<BlogCategory[]>({
@@ -58,10 +58,6 @@ export default function BlogPage() {
     queryKey: ["/api/blog/tags"],
   });
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-  };
-
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("en-US", {
       year: "numeric",
@@ -70,206 +66,193 @@ export default function BlogPage() {
     });
   };
 
-  const clearFilters = () => {
-    setSearchQuery("");
-    setSelectedCategory("");
-    setSelectedTag("");
-  };
-
-  const activeFiltersCount = [searchQuery, selectedCategory, selectedTag].filter(Boolean).length;
+  const filteredPosts = posts.filter(post => {
+    const matchesSearch = !searchTerm || 
+      post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      post.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    const matchesCategory = !selectedCategory || post.category?.slug === selectedCategory;
+    const matchesTag = !selectedTag || post.tags?.some(tag => tag.slug === selectedTag);
+    
+    return matchesSearch && matchesCategory && matchesTag;
+  });
 
   return (
     <div className="min-h-screen">
       <Header />
-      <div className="bg-gradient-to-b from-blue-50 to-white">
+      <div className="bg-gray-50">
         {/* Hero Section */}
-        <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                Amon Tour Blog
-              </h1>
-              <p className="text-xl md:text-2xl text-blue-100 mb-8">
-                Discover travel tips, guides and insights for exploring Thailand
-              </p>
-              
-              {/* Search Bar */}
-              <form onSubmit={handleSearch} className="max-w-2xl mx-auto">
-                <div className="relative">
-                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-                  <Input
-                    type="text"
-                    placeholder="Search articles..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-12 pr-4 py-3 text-lg rounded-full border-0 shadow-lg focus:ring-2 focus:ring-blue-300"
-                  />
-                </div>
-              </form>
-            </div>
+        <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
+          <div className="container mx-auto px-4 text-center">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+              Travel Blog
+            </h1>
+            <p className="text-xl md:text-2xl max-w-3xl mx-auto">
+              Discover the best of Thailand through our travel guides, tips, and local insights
+            </p>
           </div>
-        </div>
+        </section>
 
-        <div className="container mx-auto px-4 py-12">
-          <div className="flex flex-col lg:flex-row gap-12">
-            {/* Sidebar */}
-            <div className="lg:w-1/4">
-              <div className="sticky top-8 space-y-8">
-                {/* Categories Filter */}
-                <div className="bg-white rounded-lg shadow-md p-6">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-4">Categories</h3>
-                  <div className="space-y-2">
-                    <button
-                      onClick={() => setSelectedCategory("")}
-                      className={`w-full text-left px-3 py-2 rounded-md transition-colors ${
-                        selectedCategory === "" 
-                          ? "bg-blue-100 text-blue-800 font-medium" 
-                          : "text-gray-600 hover:bg-gray-100"
-                      }`}
+        {/* Filters Section */}
+        <section className="py-8 bg-white border-b">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
+              {/* Search */}
+              <div className="relative w-full lg:w-96">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <Input
+                  type="text"
+                  placeholder="Search articles..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10"
+                />
+              </div>
+
+              {/* Filters */}
+              <div className="flex flex-wrap gap-3 items-center">
+                {/* Categories */}
+                <div className="flex flex-wrap gap-2">
+                  <Button
+                    variant={selectedCategory === "" ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setSelectedCategory("")}
+                  >
+                    All Categories
+                  </Button>
+                  {categories.map((category) => (
+                    <Button
+                      key={category.id}
+                      variant={selectedCategory === category.slug ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setSelectedCategory(category.slug)}
                     >
-                      All Categories
-                    </button>
-                    {categories.map((category) => (
-                      <button
-                        key={category.id}
-                        onClick={() => setSelectedCategory(category.slug)}
-                        className={`w-full text-left px-3 py-2 rounded-md transition-colors ${
-                          selectedCategory === category.slug 
-                            ? "bg-blue-100 text-blue-800 font-medium" 
-                            : "text-gray-600 hover:bg-gray-100"
-                        }`}
-                      >
-                        {category.name}
-                      </button>
-                    ))}
-                  </div>
+                      {category.name}
+                    </Button>
+                  ))}
                 </div>
 
-                {/* Tags Filter */}
-                <div className="bg-white rounded-lg shadow-md p-6">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-4">Tags</h3>
+                {/* Tags */}
+                {tags.length > 0 && (
                   <div className="flex flex-wrap gap-2">
-                    {tags.map((tag) => (
-                      <Badge
+                    <Button
+                      variant={selectedTag === "" ? "secondary" : "outline"}
+                      size="sm"
+                      onClick={() => setSelectedTag("")}
+                    >
+                      All Tags
+                    </Button>
+                    {tags.slice(0, 5).map((tag) => (
+                      <Button
                         key={tag.id}
-                        variant={selectedTag === tag.slug ? "default" : "secondary"}
-                        className="cursor-pointer hover:bg-blue-100 transition-colors"
-                        onClick={() => setSelectedTag(selectedTag === tag.slug ? "" : tag.slug)}
+                        variant={selectedTag === tag.slug ? "secondary" : "outline"}
+                        size="sm"
+                        onClick={() => setSelectedTag(tag.slug)}
                       >
                         <Tag className="h-3 w-3 mr-1" />
                         {tag.name}
-                      </Badge>
+                      </Button>
                     ))}
-                  </div>
-                </div>
-
-                {/* Clear Filters */}
-                {activeFiltersCount > 0 && (
-                  <div className="bg-white rounded-lg shadow-md p-6">
-                    <Button
-                      onClick={clearFilters}
-                      variant="outline"
-                      className="w-full"
-                    >
-                      Clear Filters ({activeFiltersCount})
-                    </Button>
                   </div>
                 )}
               </div>
             </div>
-
-            {/* Main Content */}
-            <div className="lg:w-3/4">
-              {isLoading ? (
-                <div className="grid md:grid-cols-2 gap-8">
-                  {[...Array(6)].map((_, i) => (
-                    <Card key={i} className="overflow-hidden animate-pulse">
-                      <div className="h-48 bg-gray-200"></div>
-                      <CardHeader>
-                        <div className="h-4 bg-gray-200 rounded mb-2"></div>
-                        <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-                      </CardHeader>
-                    </Card>
-                  ))}
-                </div>
-              ) : (
-                <>
-                  <div className="flex justify-between items-center mb-8">
-                    <h2 className="text-2xl font-bold text-gray-800">
-                      {(posts as BlogPost[]).length} {(posts as BlogPost[]).length === 1 ? 'article' : 'articles'} found
-                    </h2>
-                  </div>
-
-                  {(posts as BlogPost[]).length === 0 ? (
-                    <div className="text-center py-12">
-                      <div className="text-gray-400 text-6xl mb-4">📝</div>
-                      <h3 className="text-xl font-semibold text-gray-600 mb-2">No articles found</h3>
-                      <p className="text-gray-500">Try adjusting your search or filters</p>
-                    </div>
-                  ) : (
-                    <div className="grid md:grid-cols-2 gap-8">
-                      {(posts as BlogPost[]).map((post) => (
-                        <Card key={post.id} className="overflow-hidden hover:shadow-xl transition-shadow group">
-                          <div className="relative overflow-hidden">
-                            <img
-                              src={post.coverImage}
-                              alt={post.title}
-                              className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                            />
-                            {post.category && (
-                              <Badge className="absolute top-4 left-4 bg-blue-600">
-                                {post.category.name}
-                              </Badge>
-                            )}
-                          </div>
-                          
-                          <CardHeader>
-                            <h3 className="text-xl font-semibold text-gray-800 group-hover:text-blue-600 transition-colors line-clamp-2">
-                              {post.title}
-                            </h3>
-                            <div className="flex items-center text-sm text-gray-500 space-x-4">
-                              <div className="flex items-center">
-                                <Calendar className="h-4 w-4 mr-1" />
-                                {formatDate(post.createdAt)}
-                              </div>
-                              <div className="flex items-center">
-                                <span>{post.authorName}</span>
-                              </div>
-                            </div>
-                          </CardHeader>
-                          
-                          <CardContent>
-                            <p className="text-gray-600 line-clamp-3 mb-4">
-                              {post.excerpt}
-                            </p>
-                            {post.tags && post.tags.length > 0 && (
-                              <div className="flex flex-wrap gap-2">
-                                {post.tags.map((tag) => (
-                                  <Badge key={tag.id} variant="secondary" className="text-xs">
-                                    {tag.name}
-                                  </Badge>
-                                ))}
-                              </div>
-                            )}
-                          </CardContent>
-                          
-                          <CardFooter>
-                            <Link href={`/blog/${post.slug}`} className="w-full">
-                              <Button className="w-full group-hover:bg-blue-700 transition-colors">
-                                Read Article
-                                <ChevronRight className="h-4 w-4 ml-2" />
-                              </Button>
-                            </Link>
-                          </CardFooter>
-                        </Card>
-                      ))}
-                    </div>
-                  )}
-                </>
-              )}
-            </div>
           </div>
-        </div>
+        </section>
+
+        {/* Blog Posts */}
+        <section className="py-12">
+          <div className="container mx-auto px-4">
+            {postsLoading ? (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {[...Array(6)].map((_, i) => (
+                  <div key={i} className="animate-pulse">
+                    <div className="bg-gray-200 h-48 rounded-t-lg"></div>
+                    <div className="bg-white p-6 rounded-b-lg shadow-md">
+                      <div className="h-6 bg-gray-200 rounded mb-3"></div>
+                      <div className="h-4 bg-gray-200 rounded w-3/4 mb-3"></div>
+                      <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : filteredPosts.length > 0 ? (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {filteredPosts.map((post) => (
+                  <Card key={post.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+                    <div className="relative h-48">
+                      <img
+                        src={post.coverImage}
+                        alt={post.title}
+                        className="w-full h-full object-cover"
+                      />
+                      {post.category && (
+                        <Badge className="absolute top-3 left-3 bg-blue-600">
+                          {post.category.name}
+                        </Badge>
+                      )}
+                    </div>
+                    <CardHeader>
+                      <h3 className="text-xl font-bold line-clamp-2 hover:text-blue-600 transition-colors">
+                        <Link href={`/blog/${post.slug}`}>
+                          {post.title}
+                        </Link>
+                      </h3>
+                      <div className="flex items-center text-sm text-gray-600 space-x-4">
+                        <div className="flex items-center">
+                          <Calendar className="h-4 w-4 mr-1" />
+                          {formatDate(post.createdAt)}
+                        </div>
+                        <div className="flex items-center">
+                          <User className="h-4 w-4 mr-1" />
+                          {post.authorName}
+                        </div>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-gray-600 line-clamp-3 mb-4">
+                        {post.excerpt}
+                      </p>
+                      
+                      {/* Tags */}
+                      {post.tags && post.tags.length > 0 && (
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          {post.tags.slice(0, 3).map((tag) => (
+                            <Badge key={tag.id} variant="secondary" className="text-xs">
+                              {tag.name}
+                            </Badge>
+                          ))}
+                        </div>
+                      )}
+
+                      <Link href={`/blog/${post.slug}`}>
+                        <Button className="w-full">
+                          Read More
+                        </Button>
+                      </Link>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <h3 className="text-2xl font-bold text-gray-800 mb-4">No Articles Found</h3>
+                <p className="text-gray-600 mb-6">
+                  Try adjusting your search criteria or browse all articles.
+                </p>
+                <Button
+                  onClick={() => {
+                    setSearchTerm("");
+                    setSelectedCategory("");
+                    setSelectedTag("");
+                  }}
+                >
+                  Clear Filters
+                </Button>
+              </div>
+            )}
+          </div>
+        </section>
       </div>
       <Footer />
     </div>

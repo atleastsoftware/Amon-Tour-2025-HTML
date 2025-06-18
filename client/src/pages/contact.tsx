@@ -44,52 +44,16 @@ export default function Contact() {
         {/* Main Content */}
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            <div className="max-w-4xl mx-auto">
               
-              {/* Map Section */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-              >
-                <h2 className="font-heading font-bold text-2xl md:text-3xl mb-6">
-                  Visit Our Office
-                </h2>
-                <div className="bg-gray-100 rounded-lg overflow-hidden shadow-md h-80 lg:h-96">
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3939.4855!2d98.82767!3d8.03534!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30503b7c1ab2e30d%3A0x1c3dd573c96c2a0a!2sAmon%20Tour!5e0!3m2!1sen!2sth!4v1699999999999!5m2!1sen!2sth"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    title="Amon Tour Office Location in Ao Nang, Krabi"
-                  ></iframe>
-                </div>
-                <div className="mt-4 p-4 bg-neutral-50 rounded-lg">
-                  <div className="flex items-start space-x-3">
-                    <MapPin className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                    <div>
-                      <p className="font-heading font-semibold text-primary">Our Location</p>
-                      <p className="text-gray-600 text-sm">
-                        242 Moo1 Ao Nang<br />
-                        Krabi, Thailand
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-
               {/* Contact Information */}
               <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                <h2 className="font-heading font-bold text-2xl md:text-3xl mb-6">
+                <h2 className="font-heading font-bold text-2xl md:text-3xl mb-6 text-center">
                   Get In Touch
                 </h2>
                 <p className="text-gray-600 mb-8">
