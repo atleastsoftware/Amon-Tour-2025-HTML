@@ -19,6 +19,11 @@ import LegalNotice from "@/pages/legal-notice";
 import PrivacyPolicy from "@/pages/privacy-policy";
 import TermsConditions from "@/pages/terms-conditions";
 import ExternalStays from "@/pages/external-stays";
+import KrabiCelebration from "@/pages/krabi-celebration";
+import BecomePartner from "@/pages/become-partner";
+import GroupCorporate from "@/pages/group-corporate";
+import Brochure from "@/pages/brochure";
+import VillasKrabi from "@/pages/villas-krabi";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 
 function Router() {
@@ -37,6 +42,13 @@ function Router() {
       <Route path="/tour-view" component={TourView} />
       <Route path="/payment-complete" component={PaymentComplete} />
       <Route path="/external-stays" component={ExternalStays} />
+      
+      {/* New Pages */}
+      <Route path="/krabi-celebration" component={KrabiCelebration} />
+      <Route path="/become-partner" component={BecomePartner} />
+      <Route path="/group-corporate" component={GroupCorporate} />
+      <Route path="/brochure" component={Brochure} />
+      <Route path="/villas-krabi" component={VillasKrabi} />
       
       {/* Legal Pages */}
       <Route path="/legal-notice" component={LegalNotice} />

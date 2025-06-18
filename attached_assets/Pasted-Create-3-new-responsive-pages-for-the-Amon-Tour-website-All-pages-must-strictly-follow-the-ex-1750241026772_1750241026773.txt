@@ -1,0 +1,64 @@
+Create 3 new responsive pages for the Amon Tour website.
+
+⚠️ All pages must strictly follow the existing design system and branding:
+- Use the same header and footer
+- Respect current typography, colors, spacing, icons, and button styles
+- Ensure consistency across all devices (mobile-first)
+
+---
+
+1. **Krabi Celebration** (Destination Wedding Page)
+
+Purpose:
+Promote destination wedding services in Krabi for international couples.
+
+Sections:
+- Hero section: romantic beach wedding image or video + title
+- “Why get married in Krabi?” – benefits and inspiration
+- Our Wedding Services: planning, decoration, accommodation, ceremony, photography, dinner
+- Example Packages: Beach Ceremony, Private Villa Wedding, Jungle Wedding, Luxury Event
+- Wedding Gallery (carousel or image grid)
+- Contact Form: Full Name, Email, Desired Date, Number of Guests, Message
+
+Visual style:
+Elegant, romantic, tropical atmosphere — soft colors, large visuals, emotional appeal.
+
+---
+
+2. **Become Partner** (Affiliate & B2B Contact Page)
+
+Purpose:
+Invite professional partners (agencies, influencers, hotels, tour desks) to collaborate with Amon Tour.
+
+Sections:
+- Hero section: professional partnership visual + title
+- Why partner with Amon Tour: commissions, transparency, local team, easy onboarding
+- Ideal partners: travel agents, bloggers, hotels, concierge services (with icons or badges)
+- (Optional) Testimonials or featured partners
+- Contact Form: Name, Company, Email, Website (optional), Message
+
+Visual style:
+Clean, trustworthy, professional, with business appeal.
+
+---
+
+3. **Group & Corporate** (Group Travel & Corporate Booking Page)
+
+Purpose:
+Offer tailor-made experiences for groups (corporate retreats, schools, team-building, yoga groups, etc.)
+
+Sections:
+- Hero: group activity photo (island tour, kayaking, nature, etc.)
+- “Tailored group experiences in Krabi” – intro paragraph
+- What we offer: logistics, on-site support, custom planning
+- Sample Group Activities: Private Boat Tour, Snorkeling, Cooking Class, Wellness Retreat
+- Target audiences: companies, student trips, weddings, seminars
+- Contact Form: Name, Group Type, Number of People, Dates, Message
+
+Visual style:
+Professional yet friendly and inspiring. Clear layout, easy to read and navigate.
+
+---
+
+🧩 Notes:
+- All 3 pages must be SEO-friendly and mobile-

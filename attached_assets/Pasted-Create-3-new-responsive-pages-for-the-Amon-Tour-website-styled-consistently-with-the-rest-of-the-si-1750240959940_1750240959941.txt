@@ -1,0 +1,58 @@
+Create 3 new responsive pages for the Amon Tour website, styled consistently with the rest of the site (same header, footer, typography, spacing, and button styles). Each page must include a unique hero section, structured sections, and a dedicated contact form.
+
+---
+
+1. **Krabi Celebration** (Wedding Page)
+
+Purpose:
+Promote destination wedding services in Krabi for international couples.
+
+Sections:
+- Hero section: romantic beach wedding image or video + title
+- “Why get married in Krabi?” – benefits and inspiration
+- Our Wedding Services: planning, decoration, accommodation, ceremony, photo/video, dinner
+- Example Packages: Beach Ceremony, Private Villa Wedding, Jungle Experience, Luxury Event
+- Wedding Gallery (image carousel or grid)
+- Contact Form: Full name, Email, Date, Number of guests, Message
+
+Style:
+Elegant, romantic, tropical atmosphere. Use soft colors and large visuals.
+
+---
+
+2. **Become Partner** (Affiliate & B2B Contact Page)
+
+Purpose:
+Invite agencies, concierges, influencers, and tourism professionals to collaborate.
+
+Sections:
+- Hero section: partner network visual + title
+- Why partner with Amon Tour: commissions, personal support, local expertise
+- Ideal partners: travel agents, bloggers, hotels, tour desks, influencers (icons or visuals)
+- Testimonials (optional block)
+- Contact Form: Name, Company Name, Email, Website (optional), Message
+
+Style:
+Professional, modern, clean. Emphasis on trust and collaboration.
+
+---
+
+3. **Group & Corporate** (Group Travel & Corporate Booking Page)
+
+Purpose:
+Offer custom group trips (team-building, wellness retreats, student groups, etc.)
+
+Sections:
+- Hero: group activity photo (kayaking, island trip, etc.)
+- Intro: “Tailored group experiences in Krabi”
+- What we offer: customized logistics, dedicated contact person, on-the-ground support
+- Sample Group Experiences: Private Tour, Snorkeling Trip, Cooking Class, Retreat
+- Optional: List of past group types (companies, schools, retreats)
+- Contact Form: Name, Group type, Number of people, Date(s), Message
+
+Style:
+Structured, professional but friendly. Focus on service and organization.
+
+---
+
+Make all 3 pages SEO-friendly, mobile-first, and well integrated into the site navigation (accessible from footer and header if needed).

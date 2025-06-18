@@ -1,0 +1,339 @@
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import SEO from "@/components/layout/SEO";
+import { Handshake, TrendingUp, Users, Shield, Globe, Star } from "lucide-react";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+
+export default function BecomePartner() {
+  return (
+    <>
+      <SEO 
+        title="Become Partner - Join Amon Tour Network"
+        description="Partner with Amon Tour and grow your business. Attractive commissions, transparent processes, and local expertise for travel agents, hotels, and influencers."
+        keywords="travel partner thailand, tour operator partnership, travel agent commission, affiliate program krabi, b2b travel thailand"
+      />
+      <Header />
+      
+      <main>
+        {/* Hero Section */}
+        <section className="relative h-[60vh] overflow-hidden">
+          <div className="absolute inset-0 bg-black/40 z-10"></div>
+          <div className="absolute inset-0 z-0">
+            <img 
+              src="/uploads/tours/tour-1745996624172-231261635.jpeg" 
+              alt="Professional partnership with Amon Tour" 
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div className="container mx-auto px-4 relative z-20 h-full flex flex-col justify-center items-center text-center text-white">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <Handshake className="w-16 h-16 text-secondary mx-auto mb-6" />
+              <h1 className="font-heading font-bold text-4xl md:text-5xl mb-6">
+                Become Our Partner
+              </h1>
+              <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-8">
+                Join our professional network and grow your business with Thailand's premier local tour operator.
+              </p>
+              <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-white">
+                Start Partnership
+              </Button>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Why Partner with Us */}
+        <section className="py-16 bg-white">
+          <div className="container mx-auto px-4">
+            <motion.div 
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">
+                Why Partner with Amon Tour?
+              </h2>
+              <div className="w-20 h-1 bg-secondary mx-auto mb-6"></div>
+              <p className="text-gray-600 max-w-3xl mx-auto text-lg">
+                We provide the tools, support, and expertise you need to offer exceptional Thailand experiences to your clients.
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {[
+                {
+                  icon: <TrendingUp className="w-8 h-8" />,
+                  title: "Attractive Commissions",
+                  description: "Competitive commission rates with transparent payment terms and reliable monthly payouts."
+                },
+                {
+                  icon: <Shield className="w-8 h-8" />,
+                  title: "Complete Transparency",
+                  description: "Real-time booking tracking, clear reporting, and honest communication throughout our partnership."
+                },
+                {
+                  icon: <Users className="w-8 h-8" />,
+                  title: "Local Expertise",
+                  description: "Our experienced local team ensures authentic experiences and exceptional service for your clients."
+                },
+                {
+                  icon: <Globe className="w-8 h-8" />,
+                  title: "Easy Integration",
+                  description: "Quick onboarding process with marketing materials and ongoing support to get you started fast."
+                }
+              ].map((benefit, index) => (
+                <motion.div
+                  key={index}
+                  className="text-center"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                >
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 text-primary">
+                    {benefit.icon}
+                  </div>
+                  <h3 className="font-heading font-bold text-xl mb-3">{benefit.title}</h3>
+                  <p className="text-gray-600">{benefit.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Ideal Partners */}
+        <section className="py-16 bg-neutral-50">
+          <div className="container mx-auto px-4">
+            <motion.div 
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">
+                Ideal Partners
+              </h2>
+              <div className="w-20 h-1 bg-secondary mx-auto mb-6"></div>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                We welcome partnerships with various types of businesses and professionals in the travel industry.
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                {
+                  icon: <Globe className="w-12 h-12" />,
+                  title: "Travel Agencies",
+                  description: "International and domestic travel agencies looking to offer authentic Thailand experiences",
+                  badge: "High Volume"
+                },
+                {
+                  icon: <Star className="w-12 h-12" />,
+                  title: "Travel Bloggers & Influencers",
+                  description: "Content creators with engaged audiences interested in Southeast Asia travel",
+                  badge: "Content Partners"
+                },
+                {
+                  icon: <Users className="w-12 h-12" />,
+                  title: "Hotels & Resorts",
+                  description: "Accommodations wanting to offer curated local experiences to their guests",
+                  badge: "Guest Services"
+                },
+                {
+                  icon: <Shield className="w-12 h-12" />,
+                  title: "Concierge Services",
+                  description: "Luxury concierge and personal travel assistants serving high-end clientele",
+                  badge: "Premium"
+                }
+              ].map((partner, index) => (
+                <motion.div
+                  key={index}
+                  className="bg-white p-6 rounded-lg shadow-md relative"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                >
+                  <div className="absolute top-4 right-4">
+                    <span className="bg-secondary/10 text-secondary px-2 py-1 rounded-full text-xs font-medium">
+                      {partner.badge}
+                    </span>
+                  </div>
+                  <div className="text-primary mb-4">
+                    {partner.icon}
+                  </div>
+                  <h3 className="font-heading font-bold text-lg mb-3">{partner.title}</h3>
+                  <p className="text-gray-600 text-sm">{partner.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Partnership Benefits */}
+        <section className="py-16 bg-white">
+          <div className="container mx-auto px-4">
+            <motion.div 
+              className="max-w-4xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="text-center mb-12">
+                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">
+                  What You Get as Our Partner
+                </h2>
+                <div className="w-20 h-1 bg-secondary mx-auto mb-6"></div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-6">
+                  <div className="flex items-start space-x-4">
+                    <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                      <TrendingUp className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-heading font-bold text-lg mb-2">Competitive Commission Structure</h3>
+                      <p className="text-gray-600">Earn up to 15% commission on bookings with performance-based bonuses for top partners.</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-4">
+                    <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Globe className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-heading font-bold text-lg mb-2">Marketing Support</h3>
+                      <p className="text-gray-600">High-quality photos, videos, brochures, and web content to promote our experiences.</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-4">
+                    <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Users className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-heading font-bold text-lg mb-2">Dedicated Support</h3>
+                      <p className="text-gray-600">Personal account manager and 24/7 support for urgent inquiries and bookings.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-6">
+                  <div className="flex items-start space-x-4">
+                    <div className="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Shield className="w-5 h-5 text-secondary" />
+                    </div>
+                    <div>
+                      <h3 className="font-heading font-bold text-lg mb-2">Booking Platform Access</h3>
+                      <p className="text-gray-600">Easy-to-use online portal for real-time availability, instant confirmations, and booking management.</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-4">
+                    <div className="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Star className="w-5 h-5 text-secondary" />
+                    </div>
+                    <div>
+                      <h3 className="font-heading font-bold text-lg mb-2">Training & Education</h3>
+                      <p className="text-gray-600">Regular webinars, destination training, and product updates to enhance your selling skills.</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-4">
+                    <div className="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Handshake className="w-5 h-5 text-secondary" />
+                    </div>
+                    <div>
+                      <h3 className="font-heading font-bold text-lg mb-2">Flexible Terms</h3>
+                      <p className="text-gray-600">No exclusive requirements - work with us alongside other tour operators as it suits your business.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Contact Form */}
+        <section className="py-16 bg-neutral-50">
+          <div className="container mx-auto px-4">
+            <motion.div 
+              className="max-w-2xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="text-center mb-8">
+                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">
+                  Start Your Partnership Today
+                </h2>
+                <div className="w-20 h-1 bg-secondary mx-auto mb-6"></div>
+                <p className="text-gray-600">
+                  Ready to grow your business with us? Fill out the form below and our partnership team will contact you within 24 hours.
+                </p>
+              </div>
+
+              <form className="bg-white p-8 rounded-lg shadow-md space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="name">Full Name *</Label>
+                    <Input id="name" placeholder="Your full name" required />
+                  </div>
+                  <div>
+                    <Label htmlFor="company">Company Name *</Label>
+                    <Input id="company" placeholder="Your company name" required />
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="email">Email Address *</Label>
+                    <Input id="email" type="email" placeholder="your@email.com" required />
+                  </div>
+                  <div>
+                    <Label htmlFor="website">Website (Optional)</Label>
+                    <Input id="website" type="url" placeholder="https://yourwebsite.com" />
+                  </div>
+                </div>
+
+                <div>
+                  <Label htmlFor="partnerType">Type of Business *</Label>
+                  <Input id="partnerType" placeholder="e.g., Travel Agency, Hotel, Blogger, Concierge Service" required />
+                </div>
+
+                <div>
+                  <Label htmlFor="message">Tell Us About Your Business *</Label>
+                  <Textarea 
+                    id="message" 
+                    placeholder="Describe your business, target market, expected volume, and how you plan to promote our services..."
+                    rows={5}
+                    required
+                  />
+                </div>
+
+                <Button type="submit" className="w-full bg-secondary hover:bg-secondary/90">
+                  Submit Partnership Application
+                </Button>
+              </form>
+            </motion.div>
+          </div>
+        </section>
+      </main>
+      
+      <Footer />
+    </>
+  );
+}
