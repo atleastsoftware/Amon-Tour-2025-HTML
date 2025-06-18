@@ -163,6 +163,11 @@ export default function Header() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
+          {!isHomePage && (
+            <NavLink href="/" isActive={false} isHomePage={isHomePage} scrolled={scrolled}>
+              Home
+            </NavLink>
+          )}
           <NavLink href="/tours" isActive={location === '/tours'} isHomePage={isHomePage} scrolled={scrolled}>
             Experiences
           </NavLink>
@@ -175,8 +180,6 @@ export default function Header() {
           <NavLink href="/contact" isActive={location === '/contact'} isHomePage={isHomePage} scrolled={scrolled}>
             Contact
           </NavLink>
-          
-
         </motion.div>
       </nav>
       
@@ -200,6 +203,11 @@ export default function Header() {
               animate={{ y: 0 }}
               transition={{ duration: 0.3, delay: 0.1 }}
             >
+              {!isHomePage && (
+                <NavLink href="/" isActive={false} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
+                  Home
+                </NavLink>
+              )}
               <NavLink href="/tours" isActive={location === '/tours'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
                 Experiences
               </NavLink>
@@ -212,9 +220,6 @@ export default function Header() {
               <NavLink href="/contact" isActive={location === '/contact'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
                 Contact
               </NavLink>
-
-              
-
             </motion.div>
           </motion.div>
         )}

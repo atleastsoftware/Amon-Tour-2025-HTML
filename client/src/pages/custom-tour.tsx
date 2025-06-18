@@ -2,6 +2,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
 import CustomTourForm from "@/components/home/CustomTourForm";
+import { Route, Home, Users } from "lucide-react";
 
 export default function CustomTour() {
   return (
@@ -50,7 +51,7 @@ export default function CustomTour() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="bg-white p-6 rounded-lg shadow-md">
                 <div className="w-14 h-14 bg-primary-light rounded-full flex items-center justify-center mb-4 mx-auto">
-                  <i className="fas fa-route text-white text-2xl"></i>
+                  <Route className="text-white w-7 h-7" />
                 </div>
                 <h3 className="font-heading font-bold text-xl mb-2 text-center">Flexible Itinerary</h3>
                 <p className="text-gray-600 text-center">
@@ -60,7 +61,7 @@ export default function CustomTour() {
               
               <div className="bg-white p-6 rounded-lg shadow-md">
                 <div className="w-14 h-14 bg-primary-light rounded-full flex items-center justify-center mb-4 mx-auto">
-                  <i className="fas fa-home text-white text-2xl"></i>
+                  <Home className="text-white w-7 h-7" />
                 </div>
                 <h3 className="font-heading font-bold text-xl mb-2 text-center">Tailored Accommodations</h3>
                 <p className="text-gray-600 text-center">
@@ -70,7 +71,7 @@ export default function CustomTour() {
               
               <div className="bg-white p-6 rounded-lg shadow-md">
                 <div className="w-14 h-14 bg-primary-light rounded-full flex items-center justify-center mb-4 mx-auto">
-                  <i className="fas fa-user-friends text-white text-2xl"></i>
+                  <Users className="text-white w-7 h-7" />
                 </div>
                 <h3 className="font-heading font-bold text-xl mb-2 text-center">Personalized Support</h3>
                 <p className="text-gray-600 text-center">

@@ -33,7 +33,6 @@ const customTourSchema = z.object({
   adults: z.string().min(1, { message: "Please enter number of adults" }),
   kids: z.string().optional(),
   dateRange: z.string().optional(),
-  periodByMonth: z.string().optional(),
   duration: z.string().min(1, { message: "Please select the duration" }),
   interests: z.array(z.string()).min(1, { message: "Select at least one interest" }),
   message: z.string().min(10, { message: "Please describe your ideal trip (minimum 10 characters)" }),
@@ -54,7 +53,6 @@ export default function CustomTourForm() {
       adults: "",
       kids: "",
       dateRange: "",
-      periodByMonth: "",
       duration: "",
       interests: [],
       message: "",
@@ -257,69 +255,32 @@ export default function CustomTourForm() {
                     )}
                   />
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <FormField
-                      control={form.control}
-                      name="periodByMonth"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Period by month</FormLabel>
-                          <Select 
-                            onValueChange={field.onChange} 
-                            defaultValue={field.value}
-                          >
-                            <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Select preferred month" />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              <SelectItem value="january">January</SelectItem>
-                              <SelectItem value="february">February</SelectItem>
-                              <SelectItem value="march">March</SelectItem>
-                              <SelectItem value="april">April</SelectItem>
-                              <SelectItem value="may">May</SelectItem>
-                              <SelectItem value="june">June</SelectItem>
-                              <SelectItem value="july">July</SelectItem>
-                              <SelectItem value="august">August</SelectItem>
-                              <SelectItem value="september">September</SelectItem>
-                              <SelectItem value="october">October</SelectItem>
-                              <SelectItem value="november">November</SelectItem>
-                              <SelectItem value="december">December</SelectItem>
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <FormField
-                      control={form.control}
-                      name="duration"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Approximate duration</FormLabel>
-                          <Select 
-                            onValueChange={field.onChange} 
-                            defaultValue={field.value}
-                          >
-                            <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Select duration" />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              <SelectItem value="1-3">1-3 days</SelectItem>
-                              <SelectItem value="4-7">4-7 days</SelectItem>
-                              <SelectItem value="8-14">8-14 days</SelectItem>
-                              <SelectItem value="15+">15+ days</SelectItem>
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
+                  <FormField
+                    control={form.control}
+                    name="duration"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Approximate duration</FormLabel>
+                        <Select 
+                          onValueChange={field.onChange} 
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select duration" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="1-3">1-3 days</SelectItem>
+                            <SelectItem value="4-7">4-7 days</SelectItem>
+                            <SelectItem value="8-14">8-14 days</SelectItem>
+                            <SelectItem value="15+">15+ days</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                   
                   <FormField
                     control={form.control}
