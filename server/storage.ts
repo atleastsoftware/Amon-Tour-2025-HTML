@@ -458,7 +458,8 @@ export class DatabaseStorage implements IStorage {
     // Ensure images is a proper array
     const cardData = {
       ...tourCardData,
-      images: Array.isArray(tourCardData.images) ? tourCardData.images : []
+      images: Array.isArray(tourCardData.images) ? tourCardData.images : [],
+      tags: Array.isArray(tourCardData.tags) ? tourCardData.tags as string[] : []
     };
     
     const [tourCard] = await db

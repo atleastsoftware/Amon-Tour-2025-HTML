@@ -69,7 +69,7 @@ export default function CustomTourForm() {
         email: data.email,
         phoneNumber: data.phoneNumber,
         numberOfAdults: parseInt(data.adults) || 1,
-        numberOfKids: parseInt(data.kids) || 0,
+        numberOfKids: parseInt(data.kids || "0") || 0,
         tripDates: data.dateRange,
         duration: data.duration,
         interests: data.interests,
