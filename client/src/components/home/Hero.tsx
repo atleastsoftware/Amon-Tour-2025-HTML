@@ -54,23 +54,34 @@ export default function Hero() {
             >
               <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight text-white drop-shadow-lg">
                 Your exclusive experiences <br/>
-                <span className="text-primary drop-shadow-lg">in </span>THAILAND
+                <span className="text-primary drop-shadow-lg">in Krabi – </span>THAILAND
               </h1>
               
               <p className="text-white/90 mb-8 text-lg drop-shadow-md">
-                Discover amazing places away from mass tourism.<br/>
-                Krabi, Khao Sok, Koh Mook and many more destinations.
+                Discover amazing places away from mass tourism in Krabi.<br/>
+                And also Khao Sok, Koh Mook and many more destinations.
               </p>
               
-              <Link href="/tours">
-                <motion.span 
-                  className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  See our offer
-                </motion.span>
-              </Link>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link href="/tours">
+                  <motion.span 
+                    className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    See our offer
+                  </motion.span>
+                </Link>
+                <Link href="/custom-tour">
+                  <motion.span 
+                    className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    Custom your trip
+                  </motion.span>
+                </Link>
+              </div>
             </motion.div>
           </div>
           

@@ -163,21 +163,17 @@ export default function Header() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <NavLink href="/" isActive={location === '/'} isHomePage={isHomePage} scrolled={scrolled}>
-            Home
-          </NavLink>
           <NavLink href="/tours" isActive={location === '/tours'} isHomePage={isHomePage} scrolled={scrolled}>
-            Tours
+            Experiences
           </NavLink>
           <NavLink href="/experiences" isActive={location === '/experiences'} isHomePage={isHomePage} scrolled={scrolled}>
-            Journey
+            Trip
           </NavLink>
-          {/* Menu Séjour temporairement masqué */}
-          {/* <NavLink href="/stays" isActive={location === '/stays'}>
-            Séjour
-          </NavLink> */}
-          <NavLink href="/custom-tour" isActive={location === '/custom-tour'} isHomePage={isHomePage} scrolled={scrolled}>
-            Custom Tour
+          <NavLink href="/blog" isActive={location === '/blog'} isHomePage={isHomePage} scrolled={scrolled}>
+            Blog
+          </NavLink>
+          <NavLink href="/contact" isActive={location === '/contact'} isHomePage={isHomePage} scrolled={scrolled}>
+            Contact
           </NavLink>
           
 
@@ -204,21 +200,17 @@ export default function Header() {
               animate={{ y: 0 }}
               transition={{ duration: 0.3, delay: 0.1 }}
             >
-              <NavLink href="/" isActive={location === '/'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
-                Home
-              </NavLink>
               <NavLink href="/tours" isActive={location === '/tours'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
-                Tours
+                Experiences
               </NavLink>
               <NavLink href="/experiences" isActive={location === '/experiences'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
-                Journey
+                Trip
               </NavLink>
-              {/* Menu Séjour temporairement masqué */}
-              {/* <NavLink href="/stays" isActive={location === '/stays'} onClick={closeMobileMenu}>
-                Séjour
-              </NavLink> */}
-              <NavLink href="/custom-tour" isActive={location === '/custom-tour'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
-                Custom Tour
+              <NavLink href="/blog" isActive={location === '/blog'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
+                Blog
+              </NavLink>
+              <NavLink href="/contact" isActive={location === '/contact'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
+                Contact
               </NavLink>
 
               
