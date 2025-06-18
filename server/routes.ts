@@ -965,35 +965,23 @@ Crawl-delay: 1`;
       const existingSubscription = await storage.getNewsletterSubscriptionByEmail(subscriptionData.email);
       
       if (existingSubscription) {
-        if (existingSubscription.confirmed && !existingSubscription.unsubscribed) {
-          return res.status(400).json({ message: "Email is already subscribed to our newsletter." });
+        if (!existingSubscription.unsubscribed) {
+          return res.status(400).json({ message: "This email is already registered to our newsletter." });
         }
         
-        if (existingSubscription.unsubscribed) {
-          // Re-activate subscription
-          await storage.updateNewsletterSubscription(existingSubscription.id, {
-            unsubscribed: false,
-            confirmed: false,
-            confirmationToken: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
-          });
-          return res.json({ message: "Welcome back! Please check your email to confirm your subscription." });
-        }
-        
-        if (!existingSubscription.confirmed) {
-          // Re-send confirmation
-          const newToken = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-          await storage.updateNewsletterSubscription(existingSubscription.id, {
-            confirmationToken: newToken
-          });
-          console.log(`Newsletter confirmation re-sent for ${subscriptionData.email}. Token: ${newToken}`);
-          return res.json({ message: "Confirmation email has been sent again. Please check your inbox." });
-        }
+        // Re-activate subscription if unsubscribed
+        await storage.updateNewsletterSubscription(existingSubscription.id, {
+          unsubscribed: false,
+          confirmed: true,
+          confirmationToken: null
+        });
+        return res.json({ message: "Welcome back! You have been successfully subscribed to our newsletter." });
       }
       
-      // Create new subscription
-      const subscription = await storage.createNewsletterSubscription(subscriptionData);
+      // Create new subscription - automatically confirmed
+      const subscription = await storage.createNewsletterSubscriptionConfirmed(subscriptionData);
       res.status(201).json({ 
-        message: "Thank you for subscribing! Please check your email to confirm your subscription.",
+        message: "Thank you for subscribing! You have been successfully added to our newsletter.",
         subscriptionId: subscription.id
       });
     } catch (error: any) {

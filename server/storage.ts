@@ -113,6 +113,7 @@ export interface IStorage {
   
   // Newsletter subscription operations
   createNewsletterSubscription(subscription: InsertNewsletterSubscription): Promise<NewsletterSubscription>;
+  createNewsletterSubscriptionConfirmed(subscription: InsertNewsletterSubscription): Promise<NewsletterSubscription>;
   getNewsletterSubscriptions(filters?: { confirmed?: boolean; unsubscribed?: boolean }): Promise<NewsletterSubscription[]>;
   getNewsletterSubscriptionByEmail(email: string): Promise<NewsletterSubscription | undefined>;
   getNewsletterSubscriptionByToken(token: string): Promise<NewsletterSubscription | undefined>;
@@ -735,6 +736,21 @@ export class DatabaseStorage implements IStorage {
     
     // In a real app, you would send a confirmation email here
     console.log(`Newsletter subscription created for ${subscription.email}. Confirmation token: ${confirmationToken}`);
+    
+    return subscription;
+  }
+
+  async createNewsletterSubscriptionConfirmed(subscriptionData: InsertNewsletterSubscription): Promise<NewsletterSubscription> {
+    const [subscription] = await db
+      .insert(newsletterSubscriptions)
+      .values({ 
+        ...subscriptionData, 
+        confirmed: true,
+        confirmationToken: null
+      })
+      .returning();
+    
+    console.log(`Newsletter subscription confirmed immediately for ${subscription.email}`);
     
     return subscription;
   }

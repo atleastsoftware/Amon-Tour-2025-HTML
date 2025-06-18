@@ -7,7 +7,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useToast } from "@/hooks/use-toast";
-import { Download, Search, Users, CheckCircle, XCircle, Clock } from "lucide-react";
+import { Download, Search, Users, CheckCircle, XCircle, Clock, ArrowLeft } from "lucide-react";
+import { useLocation } from "wouter";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
@@ -25,6 +26,7 @@ export default function AdminNewsletterPage() {
   const [statusFilter, setStatusFilter] = useState("all");
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const [, setLocation] = useLocation();
 
   const { data: subscriptions = [], isLoading } = useQuery<NewsletterSubscription[]>({
     queryKey: ["/api/admin/newsletter/subscriptions", { 

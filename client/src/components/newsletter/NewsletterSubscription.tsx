@@ -32,7 +32,7 @@ export default function NewsletterSubscription() {
       
       toast({
         title: "Subscription Successful!",
-        description: "Thank you for subscribing! Please check your email to confirm your subscription.",
+        description: "Thank you for subscribing! You have been successfully added to our newsletter.",
         variant: "default",
       });
       
@@ -42,8 +42,8 @@ export default function NewsletterSubscription() {
     } catch (error: any) {
       let errorMessage = "Please try again later.";
       
-      if (error.message.includes("already subscribed")) {
-        errorMessage = "This email is already subscribed to our newsletter.";
+      if (error.message.includes("already registered")) {
+        errorMessage = "This email is already registered to our newsletter.";
       } else if (error.message.includes("valid email")) {
         errorMessage = "Please enter a valid email address.";
       } else if (error.message.includes("Too many")) {
