@@ -24,6 +24,7 @@ import BecomePartner from "@/pages/become-partner";
 import GroupCorporate from "@/pages/group-corporate";
 import Brochure from "@/pages/brochure";
 import VillasKrabi from "@/pages/villas-krabi";
+import Contact from "@/pages/contact";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 
 function Router() {
@@ -49,6 +50,7 @@ function Router() {
       <Route path="/group-corporate" component={GroupCorporate} />
       <Route path="/brochure" component={Brochure} />
       <Route path="/villas-krabi" component={VillasKrabi} />
+      <Route path="/contact" component={Contact} />
       
       {/* Legal Pages */}
       <Route path="/legal-notice" component={LegalNotice} />
