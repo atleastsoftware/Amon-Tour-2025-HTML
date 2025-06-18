@@ -25,7 +25,7 @@ export default function Features() {
           {/* Feature 1 */}
           <StaggerItem>
             <motion.div 
-              className="bg-white p-6 pt-16 rounded-lg shadow-md text-center flex flex-col items-center relative overflow-hidden"
+              className="bg-white p-6 rounded-lg shadow-md text-center flex flex-col items-center relative"
               whileHover={{ 
                 y: -10, 
                 boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
@@ -33,13 +33,13 @@ export default function Features() {
               transition={{ type: "spring", stiffness: 300 }}
             >
               <motion.div 
-                className="w-16 h-16 bg-primary rounded-full flex items-center justify-center absolute top-4 left-1/2 transform -translate-x-1/2 shadow-lg"
+                className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-4 shadow-lg"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <Users size={28} className="text-white" />
               </motion.div>
-              <h3 className="font-heading font-bold text-xl mb-2 mt-2">Private Tours</h3>
+              <h3 className="font-heading font-bold text-xl mb-2">Private Tours</h3>
               <p className="text-gray-600">Experience a unique journey with our English or French-speaking guides and private vehicles.</p>
               
               <motion.div 
@@ -85,7 +85,7 @@ export default function Features() {
           {/* Feature 2 */}
           <StaggerItem>
             <motion.div 
-              className="bg-white p-6 pt-16 rounded-lg shadow-md text-center flex flex-col items-center relative overflow-hidden"
+              className="bg-white p-6 rounded-lg shadow-md text-center flex flex-col items-center relative"
               whileHover={{ 
                 y: -10, 
                 boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
@@ -93,13 +93,13 @@ export default function Features() {
               transition={{ type: "spring", stiffness: 300 }}
             >
               <motion.div 
-                className="w-16 h-16 bg-primary rounded-full flex items-center justify-center absolute top-4 left-1/2 transform -translate-x-1/2 shadow-lg"
+                className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-4 shadow-lg"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <Compass size={28} className="text-white" />
               </motion.div>
-              <h3 className="font-heading font-bold text-xl mb-2 mt-2">Customized Itineraries</h3>
+              <h3 className="font-heading font-bold text-xl mb-2">Customized Itineraries</h3>
               <p className="text-gray-600">Create your own journey based on your desires, your pace, and your interests.</p>
               
               <motion.div 
@@ -145,7 +145,7 @@ export default function Features() {
           {/* Feature 3 */}
           <StaggerItem>
             <motion.div 
-              className="bg-white p-6 pt-16 rounded-lg shadow-md text-center flex flex-col items-center relative overflow-hidden"
+              className="bg-white p-6 rounded-lg shadow-md text-center flex flex-col items-center relative"
               whileHover={{ 
                 y: -10, 
                 boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
@@ -153,13 +153,13 @@ export default function Features() {
               transition={{ type: "spring", stiffness: 300 }}
             >
               <motion.div 
-                className="w-16 h-16 bg-primary rounded-full flex items-center justify-center absolute top-4 left-1/2 transform -translate-x-1/2 shadow-lg"
+                className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-4 shadow-lg"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <Sparkles size={28} className="text-white" />
               </motion.div>
-              <h3 className="font-heading font-bold text-xl mb-2 mt-2">Authentic Experiences</h3>
+              <h3 className="font-heading font-bold text-xl mb-2">Authentic Experiences</h3>
               <p className="text-gray-600">Discover destinations off the beaten path and immerse yourself in the local culture.</p>
               
               <motion.div 
