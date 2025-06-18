@@ -85,9 +85,7 @@ export default function AdminBlogPage() {
 
   const deletePostMutation = useMutation({
     mutationFn: async (postId: number) => {
-      await apiRequest(`/api/blog/posts/${postId}`, {
-        method: "DELETE",
-      });
+      await apiRequest(`/api/blog/posts/${postId}`, "DELETE");
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/blog/posts"] });

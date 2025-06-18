@@ -67,7 +67,7 @@ function Router() {
       {/* Admin Pages */}
       <Route path="/admin-login" component={AdminLogin} />
       <Route path="/admin" component={Admin} />
-      <Route path="/admin/blog" component={AdminBlog} />
+      <Route path="/admin-blog" component={AdminBlog} />
       <Route path="/tour-card-builder" component={TourCardBuilder} />
       
       {/* Fallback to 404 */}
