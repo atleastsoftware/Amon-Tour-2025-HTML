@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import { ImagePlus, FileText, BookOpen } from "lucide-react";
+import { ImagePlus, FileText, BookOpen, Mail } from "lucide-react";
 
 export default function AdminPage() {
   const { isAuthenticated, isLoading: authLoading } = useIsAuthenticated();
@@ -94,28 +94,23 @@ export default function AdminPage() {
             <Card className="overflow-hidden">
               <CardHeader className="bg-primary/5 pb-4">
                 <CardTitle className="flex items-center gap-2">
-                  <FileText className="h-5 w-5" />
-                  User Guide
+                  <Mail className="h-5 w-5" />
+                  Newsletter Management
                 </CardTitle>
                 <CardDescription>
-                  How to use the admin panel
+                  Manage newsletter subscriptions and exports
                 </CardDescription>
               </CardHeader>
               <CardContent className="pt-6">
-                <div className="space-y-4">
-                  <div className="grid grid-cols-[25px_1fr] gap-2">
-                    <div className="bg-primary text-primary-foreground rounded-full h-5 w-5 flex items-center justify-center text-xs font-bold">1</div>
-                    <p className="text-sm">Fill out forms with title, description and price</p>
-                  </div>
-                  <div className="grid grid-cols-[25px_1fr] gap-2">
-                    <div className="bg-primary text-primary-foreground rounded-full h-5 w-5 flex items-center justify-center text-xs font-bold">2</div>
-                    <p className="text-sm">Upload up to 3 images to illustrate the tour</p>
-                  </div>
-                  <div className="grid grid-cols-[25px_1fr] gap-2">
-                    <div className="bg-primary text-primary-foreground rounded-full h-5 w-5 flex items-center justify-center text-xs font-bold">3</div>
-                    <p className="text-sm">Add a custom link (optional) to redirect to a specific page</p>
-                  </div>
-                </div>
+                <p className="mb-4 text-sm text-muted-foreground">
+                  View all newsletter subscribers, manage confirmations, filter by status, and export subscriber lists to CSV.
+                </p>
+                <Button 
+                  className="w-full" 
+                  onClick={() => setLocation('/admin-newsletter')}
+                >
+                  Manage Newsletter
+                </Button>
               </CardContent>
             </Card>
           </div>
