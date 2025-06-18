@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import * as React from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link } from "wouter";
 import { useForm } from "react-hook-form";
@@ -65,7 +66,11 @@ interface BlogPost {
   id: number;
   title: string;
   slug: string;
+  content: string;
+  excerpt?: string;
+  coverImage?: string;
   status: "draft" | "published";
+  authorName: string;
   createdAt: string;
   updatedAt: string;
   category?: {
@@ -205,16 +210,43 @@ export default function AdminBlogPage() {
   const form = useForm<z.infer<typeof blogPostSchema>>({
     resolver: zodResolver(blogPostSchema),
     defaultValues: {
-      title: editingPost?.title || "",
-      content: editingPost?.content || "",
-      excerpt: editingPost?.excerpt || "",
-      coverImage: editingPost?.coverImage || "",
-      categoryId: editingPost?.category?.id || undefined,
-      status: editingPost?.status || "draft",
-      authorName: editingPost?.authorName || "Amon Tour Team",
-      tagIds: editingPost?.tags?.map(tag => tag.id) || [],
+      title: "",
+      content: "",
+      excerpt: "",
+      coverImage: "",
+      categoryId: undefined,
+      status: "draft",
+      authorName: "Amon Tour Team",
+      tagIds: [],
     },
   });
+
+  // Update form when editing post changes
+  useEffect(() => {
+    if (editingPost) {
+      form.reset({
+        title: editingPost.title,
+        content: editingPost.content,
+        excerpt: editingPost.excerpt || "",
+        coverImage: editingPost.coverImage || "",
+        categoryId: editingPost.category?.id,
+        status: editingPost.status,
+        authorName: editingPost.authorName,
+        tagIds: editingPost.tags?.map(tag => tag.id) || [],
+      });
+    } else {
+      form.reset({
+        title: "",
+        content: "",
+        excerpt: "",
+        coverImage: "",
+        categoryId: undefined,
+        status: "draft",
+        authorName: "Amon Tour Team",
+        tagIds: [],
+      });
+    }
+  }, [editingPost, form]);
 
   const onSubmit = (data: z.infer<typeof blogPostSchema>) => {
     if (editingPost) {
@@ -438,11 +470,9 @@ export default function AdminBlogPage() {
                                   Prévisualiser
                                 </Link>
                               </DropdownMenuItem>
-                              <DropdownMenuItem asChild>
-                                <Link href={`/admin-blog/edit/${post.id}`}>
-                                  <Edit className="mr-2 h-4 w-4" />
-                                  Modifier
-                                </Link>
+                              <DropdownMenuItem onClick={() => handleEditPost(post)}>
+                                <Edit className="mr-2 h-4 w-4" />
+                                Edit
                               </DropdownMenuItem>
                               <DropdownMenuSeparator />
                               <DropdownMenuItem 
@@ -464,6 +494,178 @@ export default function AdminBlogPage() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Blog Post Modal */}
+      <Dialog open={showPostModal} onOpenChange={(open) => {
+        setShowPostModal(open);
+        if (!open) {
+          setEditingPost(null);
+          form.reset();
+        }
+      }}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>
+              {editingPost ? "Edit Blog Post" : "Create New Blog Post"}
+            </DialogTitle>
+          </DialogHeader>
+          
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <div className="grid grid-cols-2 gap-4">
+                <FormField
+                  control={form.control}
+                  name="title"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Title</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Enter blog post title..." {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                
+                <FormField
+                  control={form.control}
+                  name="authorName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Author</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Author name..." {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <FormField
+                control={form.control}
+                name="excerpt"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Excerpt</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Brief description of the blog post..."
+                        className="resize-none"
+                        rows={3}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="content"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Content</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Write your blog post content here..."
+                        className="resize-none"
+                        rows={12}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <div className="grid grid-cols-2 gap-4">
+                <FormField
+                  control={form.control}
+                  name="coverImage"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Cover Image URL</FormLabel>
+                      <FormControl>
+                        <Input placeholder="https://example.com/image.jpg" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="categoryId"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Category</FormLabel>
+                      <Select onValueChange={(value) => field.onChange(Number(value))} value={field.value?.toString()}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select category" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {categories.map((category) => (
+                            <SelectItem key={category.id} value={category.id.toString()}>
+                              {category.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <FormField
+                control={form.control}
+                name="status"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Status</FormLabel>
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select status" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="draft">Draft</SelectItem>
+                        <SelectItem value="published">Published</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <div className="flex justify-end space-x-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setShowPostModal(false)}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  type="submit"
+                  disabled={createPostMutation.isPending || updatePostMutation.isPending}
+                >
+                  {createPostMutation.isPending || updatePostMutation.isPending
+                    ? "Saving..."
+                    : editingPost
+                    ? "Update Post"
+                    : "Create Post"}
+                </Button>
+              </div>
+            </form>
+          </Form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
