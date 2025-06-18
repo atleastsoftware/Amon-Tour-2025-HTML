@@ -26,9 +26,13 @@ import {
 import { Button } from "@/components/ui/button";
 
 const customTourSchema = z.object({
-  name: z.string().min(2, { message: "Name is required" }),
+  name: z.string().min(2, { message: "Full Name is required" }),
   email: z.string().email({ message: "Invalid email" }),
-  travelers: z.string().min(1, { message: "Please select the number of travelers" }),
+  adults: z.string().min(1, { message: "Please enter number of adults" }),
+  kids: z.string().optional(),
+  dateFrom: z.string().optional(),
+  dateTo: z.string().optional(),
+  periodByMonth: z.string().optional(),
   duration: z.string().min(1, { message: "Please select the duration" }),
   interests: z.array(z.string()).min(1, { message: "Select at least one interest" }),
   message: z.string().min(10, { message: "Please describe your ideal trip (minimum 10 characters)" }),
@@ -45,7 +49,11 @@ export default function CustomTourForm() {
     defaultValues: {
       name: "",
       email: "",
-      travelers: "",
+      adults: "",
+      kids: "",
+      dateFrom: "",
+      dateTo: "",
+      periodByMonth: "",
       duration: "",
       interests: [],
       message: "",
@@ -112,7 +120,7 @@ export default function CustomTourForm() {
                       name="name"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Full Name</FormLabel>
+                          <FormLabel>Full Name *</FormLabel>
                           <FormControl>
                             <Input placeholder="Your name" {...field} />
                           </FormControl>
@@ -125,7 +133,7 @@ export default function CustomTourForm() {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Email</FormLabel>
+                          <FormLabel>Email *</FormLabel>
                           <FormControl>
                             <Input placeholder="Your email" {...field} />
                           </FormControl>
@@ -138,24 +146,122 @@ export default function CustomTourForm() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <FormField
                       control={form.control}
-                      name="travelers"
+                      name="adults"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Number of Travelers</FormLabel>
+                          <FormLabel>Number of adults</FormLabel>
                           <Select 
                             onValueChange={field.onChange} 
                             defaultValue={field.value}
                           >
                             <FormControl>
                               <SelectTrigger>
-                                <SelectValue placeholder="Select" />
+                                <SelectValue placeholder="Select number of adults" />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                              <SelectItem value="1-2">1-2 people</SelectItem>
-                              <SelectItem value="3-5">3-5 people</SelectItem>
-                              <SelectItem value="6-10">6-10 people</SelectItem>
-                              <SelectItem value="11+">11+ people</SelectItem>
+                              <SelectItem value="1">1 adult</SelectItem>
+                              <SelectItem value="2">2 adults</SelectItem>
+                              <SelectItem value="3">3 adults</SelectItem>
+                              <SelectItem value="4">4 adults</SelectItem>
+                              <SelectItem value="5">5 adults</SelectItem>
+                              <SelectItem value="6+">6+ adults</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="kids"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Number of kids (under 12 years old)</FormLabel>
+                          <Select 
+                            onValueChange={field.onChange} 
+                            defaultValue={field.value}
+                          >
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select number of kids" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="0">No kids</SelectItem>
+                              <SelectItem value="1">1 kid</SelectItem>
+                              <SelectItem value="2">2 kids</SelectItem>
+                              <SelectItem value="3">3 kids</SelectItem>
+                              <SelectItem value="4">4 kids</SelectItem>
+                              <SelectItem value="5+">5+ kids</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="dateFrom"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Date of trip: From</FormLabel>
+                          <FormControl>
+                            <Input type="date" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="dateTo"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>To</FormLabel>
+                          <FormControl>
+                            <Input type="date" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="periodByMonth"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Period by month</FormLabel>
+                          <Select 
+                            onValueChange={field.onChange} 
+                            defaultValue={field.value}
+                          >
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select preferred month" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="january">January</SelectItem>
+                              <SelectItem value="february">February</SelectItem>
+                              <SelectItem value="march">March</SelectItem>
+                              <SelectItem value="april">April</SelectItem>
+                              <SelectItem value="may">May</SelectItem>
+                              <SelectItem value="june">June</SelectItem>
+                              <SelectItem value="july">July</SelectItem>
+                              <SelectItem value="august">August</SelectItem>
+                              <SelectItem value="september">September</SelectItem>
+                              <SelectItem value="october">October</SelectItem>
+                              <SelectItem value="november">November</SelectItem>
+                              <SelectItem value="december">December</SelectItem>
                             </SelectContent>
                           </Select>
                           <FormMessage />
@@ -168,14 +274,14 @@ export default function CustomTourForm() {
                       name="duration"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Approximate Duration</FormLabel>
+                          <FormLabel>Approximate duration</FormLabel>
                           <Select 
                             onValueChange={field.onChange} 
                             defaultValue={field.value}
                           >
                             <FormControl>
                               <SelectTrigger>
-                                <SelectValue placeholder="Select" />
+                                <SelectValue placeholder="Select duration" />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
