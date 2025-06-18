@@ -64,7 +64,18 @@ export default function CustomTourForm() {
   const onSubmit = async (data: CustomTourFormData) => {
     setIsSubmitting(true);
     try {
-      await apiRequest("POST", "/api/custom-tour-requests", data);
+      const requestData = {
+        fullName: data.name,
+        email: data.email,
+        phoneNumber: data.phoneNumber,
+        numberOfAdults: parseInt(data.adults) || 1,
+        numberOfKids: parseInt(data.kids) || 0,
+        tripDates: data.dateRange,
+        duration: data.duration,
+        interests: data.interests,
+        message: data.message
+      };
+      await apiRequest("POST", "/api/custom-tour", requestData);
       
       toast({
         title: "Request sent",

@@ -74,7 +74,7 @@ export default function AdminCustomTours() {
     queryKey: ["/api/custom-tour", { status: statusFilter, search: searchQuery }],
     queryFn: async () => {
       const params = new URLSearchParams();
-      if (statusFilter) params.append("status", statusFilter);
+      if (statusFilter && statusFilter !== "all") params.append("status", statusFilter);
       if (searchQuery) params.append("search", searchQuery);
       
       const response = await fetch(`/api/custom-tour?${params}`, {
@@ -152,7 +152,7 @@ export default function AdminCustomTours() {
   const handleExport = async () => {
     try {
       const params = new URLSearchParams();
-      if (statusFilter) params.append("status", statusFilter);
+      if (statusFilter && statusFilter !== "all") params.append("status", statusFilter);
       
       const response = await fetch(`/api/custom-tour/export?${params}`, {
         credentials: "include",
@@ -253,7 +253,7 @@ export default function AdminCustomTours() {
                       <SelectValue placeholder="Filter by status" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">All Status</SelectItem>
+                      <SelectItem value="all">All Status</SelectItem>
                       <SelectItem value="new">New</SelectItem>
                       <SelectItem value="in_progress">In Progress</SelectItem>
                       <SelectItem value="archived">Archived</SelectItem>
