@@ -72,19 +72,6 @@ export default function Hero() {
                     See our offer
                   </motion.span>
                 </Link>
-                <motion.span 
-                  className="bg-secondary text-white px-8 py-3 mt-4 rounded hover:bg-secondary-dark transition-colors cursor-pointer inline-block shadow-lg"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => {
-                    const whoWeAreSection = document.getElementById('who-we-are');
-                    if (whoWeAreSection) {
-                      whoWeAreSection.scrollIntoView({ behavior: 'smooth' });
-                    }
-                  }}
-                >
-                  About us
-                </motion.span>
                 <Link href="/custom-tour">
                   <motion.span 
                     className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg"
