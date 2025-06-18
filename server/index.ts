@@ -6,6 +6,7 @@ import { db } from "./db";
 import { eq } from "drizzle-orm";
 import { users } from "@shared/schema";
 import { migrateTours } from "./migration";
+import bcrypt from "bcrypt";
 
 // Function to ensure admin user exists
 async function ensureAdminUser() {
@@ -16,11 +17,14 @@ async function ensureAdminUser() {
     if (!existingAdmin) {
       // Create admin user if it doesn't exist
       log("Creating admin user");
+      const hashedPassword = await bcrypt.hash("admin123", 10);
       await storage.createUser({
         username: "admin",
-        password: "admin123", // In a real app, this would be hashed
+        password: hashedPassword,
       });
-      log("Admin user created successfully");
+      log("Admin user created successfully - Username: admin, Password: admin123");
+    } else {
+      log("Admin user already exists");
     }
   } catch (error) {
     log(`Error ensuring admin user: ${error}`);
