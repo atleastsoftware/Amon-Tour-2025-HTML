@@ -5,30 +5,19 @@ export default function About() {
   return (
     <section id="about" className="py-16 bg-neutral-light thai-pattern">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-          {/* Family Photo */}
-          <div className="lg:col-span-1 order-1 lg:order-1">
-            <div className="relative mb-6">
-              <img 
-                src="/family-founders.png" 
-                alt="Éric, Margaux, Gabriel, and Raphaël - the founders family" 
-                className="w-full h-auto rounded-lg shadow-lg"
-              />
-              <div className="mt-3 text-center">
-                <p className="text-sm text-gray-600 italic">
-                  We are Éric, Margaux, Gabriel, and Raphaël, a French family living in Krabi, southern Thailand, since 2013.
-                </p>
-              </div>
-            </div>
-          </div>
-          
-          {/* Text Content */}
-          <div className="lg:col-span-1 order-3 lg:order-2">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="order-2 lg:order-1">
             <h2 className="font-heading font-bold text-3xl md:text-4xl mb-6">
               Who We Are
             </h2>
+            <p className="text-gray-700 mb-4">
+              We are Éric, Margaux, Gabriel, and Raphaël, a French family living in Krabi, southern Thailand, since 2013.
+            </p>
+            <p className="text-gray-700 mb-6">
+              From our life here, we created Amon Tour — a small, independent travel agency built on a simple idea: personally welcome our travelers to Krabi and offer them a different way to experience Thailand.
+            </p>
             
-            <h3 className="font-heading font-semibold text-xl mb-3">
+            <h3 className="font-heading font-semibold text-2xl mt-6 mb-3">
               Deep Local Roots
             </h3>
             <p className="text-gray-700 mb-4">
@@ -38,7 +27,13 @@ export default function About() {
               You're not booking a generic tour — you're being welcomed, guided, and cared for by people who live here, who know the tides, the seasons, the crowds to avoid, and the hidden gems worth discovering.
             </p>
             
-            <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-3 sm:space-y-0 sm:space-x-4">
+            <h3 className="font-heading font-semibold text-2xl mt-6 mb-3">
+              Our Concept
+            </h3>
+            <p className="text-gray-700 mb-6">
+              Combine the warmth and proximity of a local agency in Krabi with the expertise of a tailor-made travel designer for all of Thailand. At Amon Tour, you're supported before, during, and after your trip. You're in contact with real people – a face, a voice, a team – not a call center or an algorithm. We're here, on the ground, to make your trip a seamless, personal, and unforgettable experience.
+            </p>
+            <div className="flex items-center space-x-4">
               <a 
                 href="https://wa.me/66653496445" 
                 target="_blank"
@@ -56,9 +51,7 @@ export default function About() {
               </Link>
             </div>
           </div>
-          
-          {/* Team Photo */}
-          <div className="lg:col-span-1 order-2 lg:order-3">
+          <div className="order-1 lg:order-2">
             <div className="relative">
               <img 
                 src={amonTourTeam} 
