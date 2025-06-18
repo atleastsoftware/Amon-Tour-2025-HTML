@@ -37,96 +37,97 @@ export default function Footer() {
           {/* Contact Column */}
           <div>
             <h4 className="font-heading font-bold text-lg mb-3 text-center">Contact</h4>
-            <ul className="space-y-2">
-              <motion.li 
-                className="flex items-center justify-center"
-                whileHover={{ y: -2 }}
-              >
-                <a 
-                  href="tel:+66653496445" 
-                  className="font-heading hover:text-secondary transition-colors"
-                >
-                  T: +66 65 349 6445
-                </a>
-              </motion.li>
-              <motion.li 
-                className="flex items-center justify-center"
-                whileHover={{ y: -2 }}
-              >
-                <a 
-                  href="mailto:info@amon-tour.com" 
-                  className="font-heading hover:text-secondary transition-colors"
-                >
-                  E: info@amon-tour.com
-                </a>
-              </motion.li>
-              <motion.li 
-                className="flex items-center justify-center mt-6"
-              >
-                <div className="flex space-x-4">
-                  <motion.a 
-                    href="#" 
-                    className="text-white hover:text-secondary transition-colors"
-                    whileHover={{ scale: 1.2 }}
-                    whileTap={{ scale: 0.9 }}
-                    aria-label="Facebook"
-                  >
-                    <i className="fab fa-facebook-f"></i>
-                  </motion.a>
-                  <motion.a 
-                    href="#" 
-                    className="text-white hover:text-secondary transition-colors"
-                    whileHover={{ scale: 1.2 }}
-                    whileTap={{ scale: 0.9 }}
-                    aria-label="Twitter"
-                  >
-                    <i className="fab fa-twitter"></i>
-                  </motion.a>
-                  <motion.a 
-                    href="#" 
-                    className="text-white hover:text-secondary transition-colors"
-                    whileHover={{ scale: 1.2 }}
-                    whileTap={{ scale: 0.9 }}
-                    aria-label="Pinterest"
-                  >
-                    <i className="fab fa-pinterest-p"></i>
-                  </motion.a>
-                  <motion.a 
-                    href="#" 
-                    className="text-white hover:text-secondary transition-colors"
-                    whileHover={{ scale: 1.2 }}
-                    whileTap={{ scale: 0.9 }}
-                    aria-label="TikTok"
-                  >
-                    <i className="fab fa-tiktok"></i>
-                  </motion.a>
-                </div>
-              </motion.li>
-            </ul>
-            
-            {/* Hidden Info on Mobile */}
-            <div className="md:hidden mt-6">
-              <p className="text-center mb-4">
-                Amon Tour is a brand of:<br />
+            <div className="space-y-2 text-center">
+              <p className="text-sm mb-3">
+                <strong>Amon Tour is a brand of:</strong><br />
                 Flame BB Co., Ltd.<br />
                 242 Moo1 Tombol Ao Nang<br/>
                 81180 Krabi, Thailand
               </p>
-              <p className="text-center">
+              
+              <p className="mb-3">
                 <span className="bg-secondary/20 text-white px-2 py-1 rounded-full text-xs">
-                  License TAT: 34/01995
+                  TAT License: 34/01995
                 </span>
               </p>
-              <p className="text-center mt-2">
-                <span className="text-xs">
-                  <i className="fab fa-whatsapp mr-1"></i> WhatsApp: +66 65 349 6445
-                </span>
-              </p>
-              <p className="text-center mt-1">
-                <span className="text-xs">
-                  <i className="fab fa-line mr-1"></i> Line ID: amontour
-                </span>
-              </p>
+              
+              <motion.div 
+                className="space-y-1"
+                whileHover={{ y: -2 }}
+              >
+                <p>
+                  <a 
+                    href="mailto:info@amon-tour.com" 
+                    className="font-heading hover:text-secondary transition-colors"
+                  >
+                    info@amon-tour.com
+                  </a>
+                </p>
+                <p>
+                  <a 
+                    href="tel:+66962166559" 
+                    className="font-heading hover:text-secondary transition-colors"
+                  >
+                    Tel: +66 (0)96 216 6559
+                  </a>
+                </p>
+                <p>
+                  <a 
+                    href="https://wa.me/66653496445" 
+                    className="font-heading hover:text-secondary transition-colors"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i className="fab fa-whatsapp mr-1"></i> WhatsApp: +66 65 349 6445
+                  </a>
+                </p>
+                <p>
+                  <span className="font-heading">
+                    <i className="fab fa-line mr-1"></i> Line ID: amontour
+                  </span>
+                </p>
+              </motion.div>
+              
+              <motion.div 
+                className="flex justify-center space-x-4 mt-6"
+              >
+                <motion.a 
+                  href="#" 
+                  className="text-white hover:text-secondary transition-colors"
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.9 }}
+                  aria-label="Facebook"
+                >
+                  <i className="fab fa-facebook-f"></i>
+                </motion.a>
+                <motion.a 
+                  href="#" 
+                  className="text-white hover:text-secondary transition-colors"
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.9 }}
+                  aria-label="Twitter"
+                >
+                  <i className="fab fa-twitter"></i>
+                </motion.a>
+                <motion.a 
+                  href="#" 
+                  className="text-white hover:text-secondary transition-colors"
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.9 }}
+                  aria-label="Pinterest"
+                >
+                  <i className="fab fa-pinterest-p"></i>
+                </motion.a>
+                <motion.a 
+                  href="#" 
+                  className="text-white hover:text-secondary transition-colors"
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.9 }}
+                  aria-label="TikTok"
+                >
+                  <i className="fab fa-tiktok"></i>
+                </motion.a>
+              </motion.div>
             </div>
           </div>
           
