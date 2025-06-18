@@ -44,7 +44,7 @@ type CustomTourFormData = z.infer<typeof customTourSchema>;
 export default function CustomTourForm() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const datePickerRef = useRef<HTMLInputElement>(null);
+  const datePickerRef = useRef<HTMLInputElement | null>(null);
 
   const form = useForm<CustomTourFormData>({
     resolver: zodResolver(customTourSchema),
@@ -97,11 +97,11 @@ export default function CustomTourForm() {
   useEffect(() => {
     if (datePickerRef.current) {
       const fp = flatpickr(datePickerRef.current, {
-        mode: "range",
+        mode: "range" as const,
         dateFormat: "d/m/Y",
         allowInput: false,
         clickOpens: true,
-        onChange: (selectedDates) => {
+        onChange: (selectedDates: Date[]) => {
           if (selectedDates.length === 2) {
             const startDate = selectedDates[0];
             const endDate = selectedDates[1];
@@ -114,7 +114,7 @@ export default function CustomTourForm() {
             form.setValue('dateRange', '');
           }
         }
-      });
+      } as any);
 
       return () => {
         fp.destroy();
