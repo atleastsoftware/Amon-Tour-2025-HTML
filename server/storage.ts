@@ -221,7 +221,7 @@ export class DatabaseStorage implements IStorage {
   async createContactMessage(insertMessage: InsertContactMessage): Promise<ContactMessage> {
     const [message] = await db
       .insert(contactMessages)
-      .values([insertMessage])
+      .values(insertMessage)
       .returning();
     return message;
   }
