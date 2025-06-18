@@ -38,7 +38,7 @@ import {
 import fs from "fs";
 import path from "path";
 import { db } from "./db";
-import { eq, sql, and, or, like, desc, asc } from "drizzle-orm";
+import { eq, sql, and, or, like, desc, asc, ilike, count } from "drizzle-orm";
 
 export interface IStorage {
   // User operations
@@ -232,8 +232,77 @@ export class DatabaseStorage implements IStorage {
     return request;
   }
   
-  async getCustomTourRequests(): Promise<CustomTourRequest[]> {
-    return db.select().from(customTourRequests);
+  async getCustomTourRequests(filters?: { status?: string; search?: string; sort?: string }): Promise<CustomTourRequest[]> {
+    let whereConditions: any[] = [];
+    
+    if (filters?.status) {
+      whereConditions.push(eq(customTourRequests.status, filters.status as any));
+    }
+    
+    if (filters?.search) {
+      const searchTerm = `%${filters.search}%`;
+      whereConditions.push(
+        or(
+          like(customTourRequests.fullName, searchTerm),
+          like(customTourRequests.email, searchTerm)
+        )
+      );
+    }
+    
+    let query = db.select().from(customTourRequests);
+    
+    if (whereConditions.length > 0) {
+      query = query.where(and(...whereConditions));
+    }
+    
+    // Default sort by created date, newest first
+    query = query.orderBy(desc(customTourRequests.createdAt));
+    
+    return query;
+  }
+
+  async getCustomTourRequest(id: number): Promise<CustomTourRequest | undefined> {
+    const [request] = await db
+      .select()
+      .from(customTourRequests)
+      .where(eq(customTourRequests.id, id));
+    return request || undefined;
+  }
+
+  async updateCustomTourRequest(id: number, data: Partial<CustomTourRequest>): Promise<CustomTourRequest | undefined> {
+    const [updatedRequest] = await db
+      .update(customTourRequests)
+      .set(data)
+      .where(eq(customTourRequests.id, id))
+      .returning();
+    return updatedRequest || undefined;
+  }
+
+  async updateCustomTourRequestStatus(id: number, status: 'new' | 'in_progress' | 'archived'): Promise<CustomTourRequest | undefined> {
+    const updateData: any = { status };
+    if (status === 'archived') {
+      updateData.archivedAt = new Date();
+    }
+    
+    const [updatedRequest] = await db
+      .update(customTourRequests)
+      .set(updateData)
+      .where(eq(customTourRequests.id, id))
+      .returning();
+    return updatedRequest || undefined;
+  }
+
+  async deleteCustomTourRequest(id: number): Promise<boolean> {
+    await db.delete(customTourRequests).where(eq(customTourRequests.id, id));
+    return true;
+  }
+
+  async getNewCustomTourRequestsCount(): Promise<number> {
+    const [result] = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(customTourRequests)
+      .where(eq(customTourRequests.status, 'new'));
+    return Number(result.count);
   }
   
   async createContactMessage(insertMessage: InsertContactMessage): Promise<ContactMessage> {

@@ -946,6 +946,144 @@ Crawl-delay: 1`;
     }
   });
 
+  // ===== CUSTOM TOUR REQUEST API ROUTES =====
+
+  // Create custom tour request
+  app.post("/api/custom-tour", async (req, res) => {
+    try {
+      const requestData = insertCustomTourRequestSchema.parse(req.body);
+      const customTourRequest = await storage.createCustomTourRequest(requestData);
+      res.status(201).json(customTourRequest);
+    } catch (error: any) {
+      console.error("Error creating custom tour request:", error);
+      res.status(400).json({ 
+        message: "Invalid request data", 
+        error: error.errors || error.message || String(error) 
+      });
+    }
+  });
+
+  // Get all custom tour requests (admin only)
+  app.get("/api/custom-tour", requireAuth, async (req, res) => {
+    try {
+      const { status, search, sort } = req.query;
+      const filters: any = {};
+      
+      if (status) filters.status = status as string;
+      if (search) filters.search = search as string;
+      if (sort) filters.sort = sort as string;
+      
+      const requests = await storage.getCustomTourRequests(filters);
+      res.json(requests);
+    } catch (error) {
+      console.error("Error fetching custom tour requests:", error);
+      res.status(500).json({ message: "Failed to fetch requests", error: String(error) });
+    }
+  });
+
+  // Get single custom tour request (admin only)
+  app.get("/api/custom-tour/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid request ID" });
+      }
+
+      const request = await storage.getCustomTourRequest(id);
+      if (!request) {
+        return res.status(404).json({ message: "Request not found" });
+      }
+      
+      res.json(request);
+    } catch (error) {
+      console.error("Error fetching custom tour request:", error);
+      res.status(500).json({ message: "Failed to fetch request", error: String(error) });
+    }
+  });
+
+  // Update custom tour request status (admin only)
+  app.put("/api/custom-tour/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid request ID" });
+      }
+
+      const { status } = req.body;
+      if (!status || !['new', 'in_progress', 'archived'].includes(status)) {
+        return res.status(400).json({ message: "Invalid status" });
+      }
+
+      const updatedRequest = await storage.updateCustomTourRequestStatus(id, status);
+      if (!updatedRequest) {
+        return res.status(404).json({ message: "Request not found" });
+      }
+      
+      res.json(updatedRequest);
+    } catch (error) {
+      console.error("Error updating custom tour request:", error);
+      res.status(500).json({ message: "Failed to update request", error: String(error) });
+    }
+  });
+
+  // Delete custom tour request (admin only)
+  app.delete("/api/custom-tour/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid request ID" });
+      }
+
+      const deleted = await storage.deleteCustomTourRequest(id);
+      if (!deleted) {
+        return res.status(404).json({ message: "Request not found" });
+      }
+      
+      res.json({ message: "Request deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting custom tour request:", error);
+      res.status(500).json({ message: "Failed to delete request", error: String(error) });
+    }
+  });
+
+  // Export custom tour requests to CSV (admin only)
+  app.get("/api/custom-tour/export", requireAuth, async (req, res) => {
+    try {
+      const { status } = req.query;
+      const filters: any = {};
+      if (status) filters.status = status as string;
+      
+      const requests = await storage.getCustomTourRequests(filters);
+      
+      // Create CSV content
+      const csvHeaders = 'ID,Full Name,Email,Phone,Adults,Kids,Trip Dates,Duration,Interests,Message,Status,Created Date\n';
+      const csvData = requests.map(request => {
+        const interests = Array.isArray(request.interests) ? request.interests.join('; ') : '';
+        return `${request.id},"${request.fullName}","${request.email}","${request.phoneNumber}",${request.numberOfAdults},${request.numberOfKids},"${request.tripDates || ''}","${request.duration}","${interests}","${request.message.replace(/"/g, '""')}","${request.status}","${request.createdAt?.toISOString().split('T')[0] || ''}"`;
+      }).join('\n');
+      
+      const csvContent = csvHeaders + csvData;
+      
+      res.setHeader('Content-Type', 'text/csv');
+      res.setHeader('Content-Disposition', 'attachment; filename="custom-tour-requests.csv"');
+      res.send(csvContent);
+    } catch (error) {
+      console.error("Error exporting custom tour requests:", error);
+      res.status(500).json({ message: "Failed to export requests", error: String(error) });
+    }
+  });
+
+  // Get count of new custom tour requests (for admin notifications)
+  app.get("/api/custom-tour/count/new", requireAuth, async (req, res) => {
+    try {
+      const count = await storage.getNewCustomTourRequestsCount();
+      res.json({ count });
+    } catch (error) {
+      console.error("Error getting new custom tour requests count:", error);
+      res.status(500).json({ message: "Failed to get count", error: String(error) });
+    }
+  });
+
   // ===== NEWSLETTER SUBSCRIPTION API ROUTES =====
 
   // Newsletter subscription with rate limiting
