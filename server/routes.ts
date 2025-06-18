@@ -891,39 +891,20 @@ Crawl-delay: 1`;
   app.put("/api/blog/posts/:id", requireAuth, async (req, res) => {
     try {
       const id = parseInt(req.params.id);
-      console.log("=== BLOG POST UPDATE DEBUG ===");
-      console.log("Post ID:", id);
-      console.log("Request body:", JSON.stringify(req.body, null, 2));
-      
       if (isNaN(id)) {
-        console.log("Invalid post ID provided:", req.params.id);
         return res.status(400).json({ message: "Invalid post ID" });
       }
 
       const postData = insertBlogPostSchema.parse(req.body);
-      console.log("Parsed post data:", JSON.stringify(postData, null, 2));
-      
       const post = await storage.updateBlogPost(id, postData);
-      console.log("Updated post result:", JSON.stringify(post, null, 2));
       
       if (!post) {
-        console.log("Post not found with ID:", id);
         return res.status(404).json({ message: "Post not found" });
       }
       
       res.json(post);
     } catch (error: any) {
-      console.error("=== BLOG POST UPDATE ERROR ===");
-      console.error("Error type:", typeof error);
-      console.error("Error name:", error.name);
-      console.error("Error message:", error.message);
-      console.error("Error stack:", error.stack);
-      console.error("Error details:", error);
-      
-      if (error.errors) {
-        console.error("Validation errors:", JSON.stringify(error.errors, null, 2));
-      }
-      
+      console.error("Error updating blog post:", error);
       res.status(400).json({ 
         message: "Invalid post data", 
         error: error.errors || error.message || String(error) 
@@ -934,31 +915,18 @@ Crawl-delay: 1`;
   app.delete("/api/blog/posts/:id", requireAuth, async (req, res) => {
     try {
       const id = parseInt(req.params.id);
-      console.log("=== BLOG POST DELETE DEBUG ===");
-      console.log("Post ID to delete:", id);
-      
       if (isNaN(id)) {
-        console.log("Invalid post ID provided:", req.params.id);
         return res.status(400).json({ message: "Invalid post ID" });
       }
 
       const result = await storage.deleteBlogPost(id);
-      console.log("Delete operation result:", result);
-      
       if (!result) {
-        console.log("Post not found or deletion failed for ID:", id);
         return res.status(404).json({ message: "Post not found" });
       }
       
       res.json({ message: "Post deleted successfully" });
     } catch (error: any) {
-      console.error("=== BLOG POST DELETE ERROR ===");
-      console.error("Error type:", typeof error);
-      console.error("Error name:", error.name);
-      console.error("Error message:", error.message);
-      console.error("Error stack:", error.stack);
-      console.error("Error details:", error);
-      
+      console.error("Error deleting blog post:", error);
       res.status(500).json({ message: "Failed to delete post", error: String(error) });
     }
   });

@@ -27,7 +27,7 @@ import VillasKrabi from "@/pages/villas-krabi";
 import Contact from "@/pages/contact";
 import Blog from "@/pages/blog";
 import BlogPost from "@/pages/blog-post";
-import AdminBlog from "@/pages/admin-blog";
+import AdminBlog from "@/pages/admin-blog-new";
 import AdminNewsletter from "@/pages/admin-newsletter";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 
