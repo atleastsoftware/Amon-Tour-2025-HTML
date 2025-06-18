@@ -209,6 +209,7 @@ export const insertBlogTagSchema = createInsertSchema(blogTags).omit({
 
 export const insertBlogPostSchema = createInsertSchema(blogPosts).omit({
   id: true,
+  slug: true,
   createdAt: true,
   updatedAt: true,
 }).extend({
