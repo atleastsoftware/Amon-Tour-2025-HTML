@@ -196,18 +196,23 @@ export default function BlogPage() {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {filteredPosts.map((post) => (
                   <Card key={post.id} className="overflow-hidden rounded-xl shadow-md hover:shadow-lg transition-all duration-300 group">
-                    <div className="relative h-48 overflow-hidden">
-                      <img
-                        src={post.coverImage}
-                        alt={post.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                      {post.category && (
-                        <Badge className="absolute top-3 left-3 bg-blue-600 text-white">
-                          🏝️ {post.category.name}
-                        </Badge>
-                      )}
-                    </div>
+                    {post.coverImage && (
+                      <div className="relative h-48 overflow-hidden">
+                        <img
+                          src={post.coverImage}
+                          alt={post.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          onError={(e) => {
+                            e.currentTarget.style.display = 'none';
+                          }}
+                        />
+                        {post.category && (
+                          <Badge className="absolute top-3 left-3 bg-blue-600 text-white">
+                            🏝️ {post.category.name}
+                          </Badge>
+                        )}
+                      </div>
+                    )}
                     <CardHeader className="pb-3">
                       <h3 className="text-xl font-semibold line-clamp-2 hover:text-blue-600 transition-colors">
                         <Link href={`/blog/${post.slug}`}>

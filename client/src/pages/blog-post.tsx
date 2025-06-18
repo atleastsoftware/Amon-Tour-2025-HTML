@@ -193,13 +193,18 @@ export default function BlogPostPage() {
                 <div className="grid md:grid-cols-2 gap-6">
                   {(relatedPosts as any[]).slice(0, 2).map((relatedPost: any) => (
                     <Card key={relatedPost.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-                      <div className="relative h-48">
-                        <img
-                          src={relatedPost.coverImage}
-                          alt={relatedPost.title}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
+                      {relatedPost.coverImage && (
+                        <div className="relative h-48">
+                          <img
+                            src={relatedPost.coverImage}
+                            alt={relatedPost.title}
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              e.currentTarget.style.display = 'none';
+                            }}
+                          />
+                        </div>
+                      )}
                       <CardHeader>
                         <h3 className="text-lg font-semibold line-clamp-2">
                           {relatedPost.title}
