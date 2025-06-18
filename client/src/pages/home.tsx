@@ -207,9 +207,7 @@ export default function Home() {
             >
               <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">Our Popular Experiences</h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Explore our most popular tours, carefully designed to help you discover the best of Thailand.
-              </p>
+              <p className="text-gray-600 max-w-2xl mx-auto">Explore our most popular experiences, carefully designed to help you discover the best of Thailand.</p>
             </motion.div>
           </div>
           
