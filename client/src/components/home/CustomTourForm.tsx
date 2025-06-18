@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
+import flatpickr from "flatpickr";
+import "flatpickr/dist/flatpickr.min.css";
 
 import {
   Form,
@@ -30,8 +32,7 @@ const customTourSchema = z.object({
   email: z.string().email({ message: "Invalid email" }),
   adults: z.string().min(1, { message: "Please enter number of adults" }),
   kids: z.string().optional(),
-  dateFrom: z.string().optional(),
-  dateTo: z.string().optional(),
+  dateRange: z.string().optional(),
   periodByMonth: z.string().optional(),
   duration: z.string().min(1, { message: "Please select the duration" }),
   interests: z.array(z.string()).min(1, { message: "Select at least one interest" }),
@@ -43,6 +44,7 @@ type CustomTourFormData = z.infer<typeof customTourSchema>;
 export default function CustomTourForm() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const datePickerRef = useRef<HTMLInputElement>(null);
 
   const form = useForm<CustomTourFormData>({
     resolver: zodResolver(customTourSchema),
@@ -51,8 +53,7 @@ export default function CustomTourForm() {
       email: "",
       adults: "",
       kids: "",
-      dateFrom: "",
-      dateTo: "",
+      dateRange: "",
       periodByMonth: "",
       duration: "",
       interests: [],
@@ -91,6 +92,35 @@ export default function CustomTourForm() {
     { id: "wellness", label: "Wellness & Spa" },
     { id: "shopping", label: "Shopping" },
   ];
+
+  // Initialize flatpickr
+  useEffect(() => {
+    if (datePickerRef.current) {
+      const fp = flatpickr(datePickerRef.current, {
+        mode: "range",
+        dateFormat: "d/m/Y",
+        allowInput: false,
+        clickOpens: true,
+        onChange: (selectedDates) => {
+          if (selectedDates.length === 2) {
+            const startDate = selectedDates[0];
+            const endDate = selectedDates[1];
+            const formattedRange = `${startDate.toLocaleDateString('en-GB')} - ${endDate.toLocaleDateString('en-GB')}`;
+            form.setValue('dateRange', formattedRange);
+          } else if (selectedDates.length === 1) {
+            const startDate = selectedDates[0];
+            form.setValue('dateRange', startDate.toLocaleDateString('en-GB'));
+          } else {
+            form.setValue('dateRange', '');
+          }
+        }
+      });
+
+      return () => {
+        fp.destroy();
+      };
+    }
+  }, [form]);
 
   return (
     <section id="custom" className="py-16">
@@ -203,35 +233,29 @@ export default function CustomTourForm() {
                     />
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <FormField
-                      control={form.control}
-                      name="dateFrom"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Date of trip: From</FormLabel>
-                          <FormControl>
-                            <Input type="date" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <FormField
-                      control={form.control}
-                      name="dateTo"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>To</FormLabel>
-                          <FormControl>
-                            <Input type="date" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
+                  <FormField
+                    control={form.control}
+                    name="dateRange"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Date of trip</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Select trip dates"
+                            value={field.value}
+                            onChange={field.onChange}
+                            ref={(el) => {
+                              datePickerRef.current = el;
+                              if (field.ref) field.ref(el);
+                            }}
+                            readOnly
+                            className="cursor-pointer"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <FormField
