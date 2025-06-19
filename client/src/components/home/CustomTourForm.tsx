@@ -266,7 +266,7 @@ export default function CustomTourForm() {
                     name="dateRange"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Date of trip</FormLabel>
+                        <FormLabel>Dates of trip</FormLabel>
                         <FormControl>
                           <Input
                             placeholder="Select trip dates"
