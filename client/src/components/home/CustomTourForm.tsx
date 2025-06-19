@@ -34,7 +34,7 @@ const customTourSchema = z.object({
   adults: z.string().min(1, { message: "Please enter number of adults" }),
   kids: z.string().optional(),
   dateRange: z.string().optional(),
-  duration: z.string().min(1, { message: "Please select the duration" }),
+  duration: z.string().optional(),
   interests: z.array(z.string()).min(1, { message: "Select at least one interest" }),
   message: z.string().min(10, { message: "Please describe your ideal trip (minimum 10 characters)" }),
 });
