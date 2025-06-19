@@ -55,7 +55,7 @@ interface CustomTourRequest {
   numberOfAdults: number;
   numberOfKids: number;
   tripDates?: string;
-  duration: string;
+  duration?: string;
   interests: string[];
   message: string;
   status: 'new' | 'in_progress' | 'archived';

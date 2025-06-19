@@ -37,7 +37,17 @@ const customTourSchema = z.object({
   duration: z.string().optional(),
   interests: z.array(z.string()).min(1, { message: "Select at least one interest" }),
   message: z.string().min(10, { message: "Please describe your ideal trip (minimum 10 characters)" }),
-});
+}).refine(
+  (data) => {
+    // At least one of dateRange or duration must be provided
+    return (data.dateRange && data.dateRange.trim() !== "") || 
+           (data.duration && data.duration.trim() !== "");
+  },
+  {
+    message: "Please provide either your trip dates or an approximate duration.",
+    path: ["dateRange"], // This will show the error on the dateRange field
+  }
+);
 
 type CustomTourFormData = z.infer<typeof customTourSchema>;
 

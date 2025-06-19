@@ -32,7 +32,7 @@ export const customTourRequests = pgTable("custom_tour_requests", {
   numberOfAdults: integer("number_of_adults").notNull().default(1),
   numberOfKids: integer("number_of_kids").notNull().default(0),
   tripDates: text("trip_dates"), // Store as string for flexibility
-  duration: text("duration").notNull(),
+  duration: text("duration"), // Made optional
   interests: json("interests").$type<string[]>().default([]),
   message: text("message").notNull(),
   status: customTourStatusEnum("status").notNull().default("new"),
@@ -265,11 +265,21 @@ export const insertCustomTourRequestSchema = createInsertSchema(customTourReques
   numberOfAdults: z.number().min(1, "At least 1 adult is required"),
   numberOfKids: z.number().min(0, "Number of kids cannot be negative"),
   tripDates: z.string().optional(),
-  duration: z.string().min(1, "Duration is required"),
+  duration: z.string().optional(),
   interests: z.array(z.string()).default([]),
   message: z.string().min(1, "Message is required"),
   status: z.enum(["new", "in_progress", "archived"]).default("new"),
-});
+}).refine(
+  (data) => {
+    // At least one of tripDates or duration must be provided
+    return (data.tripDates && data.tripDates.trim() !== "") || 
+           (data.duration && data.duration.trim() !== "");
+  },
+  {
+    message: "Please provide either your trip dates or an approximate duration.",
+    path: ["tripDates"],
+  }
+);
 
 export type InsertCustomTourRequest = z.infer<typeof insertCustomTourRequestSchema>;
 export type CustomTourRequest = typeof customTourRequests.$inferSelect;
