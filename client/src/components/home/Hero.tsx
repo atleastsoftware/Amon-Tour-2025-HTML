@@ -30,7 +30,6 @@ export default function Hero() {
         {/* Additional overlay for better text readability */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
       </div>
-
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex flex-col md:flex-row items-center gap-10">
           {/* Left content - Title and description */}
@@ -77,9 +76,7 @@ export default function Hero() {
                     className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.98 }}
-                  >
-                    Create Your Custom Journey
-                  </motion.span>
+                  >Custom your trip</motion.span>
                 </Link>
               </div>
             </motion.div>
