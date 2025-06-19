@@ -290,7 +290,7 @@ export default function CustomTourForm() {
                     name="duration"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Approximate duration</FormLabel>
+                        <FormLabel>Or approximate duration</FormLabel>
                         <Select 
                           onValueChange={field.onChange} 
                           defaultValue={field.value}
