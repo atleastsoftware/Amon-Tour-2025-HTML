@@ -11,7 +11,6 @@ import SEO from "@/components/layout/SEO";
 import Hero from "@/components/home/Hero";
 import Features from "@/components/home/Features";
 import About from "@/components/home/About";
-import Interests from "@/components/home/Interests";
 import CustomTourCta from "@/components/home/CustomTourCta";
 import Testimonials from "@/components/home/Testimonials";
 import TourNinjaSection from "@/components/tour/TourNinjaSection";
@@ -247,11 +246,9 @@ export default function Home() {
         
         <CustomTourCta />
         
-        <Interests />
+        <TourNinjaSection />
         
         <About />
-        
-        <TourNinjaSection />
         
         <Testimonials />
         
