@@ -157,7 +157,7 @@ export default function CustomTourForm() {
               />
               <div className="absolute inset-0 bg-gradient-to-r from-primary/70 to-transparent flex flex-col justify-center p-8 text-white">
                 <h3 className="font-heading font-bold text-3xl mb-3">Create Your Custom Trip</h3>
-                <p className="max-w-xs">Tell us about your wishes and we'll design a tour tailored to your preferences.</p>
+                <p className="max-w-xs">Your travel story starts with your dreams – let us write the rest.</p>
               </div>
             </div>
             
