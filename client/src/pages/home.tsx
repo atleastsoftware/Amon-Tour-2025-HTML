@@ -236,9 +236,7 @@ export default function Home() {
                   className="bg-primary text-white px-8 py-3 rounded-lg font-heading font-semibold hover:bg-primary-dark transition-colors inline-block cursor-pointer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
-                >
-                  Voir Tous Nos Tours
-                </motion.span>
+                >View All Our Tours</motion.span>
               </Link>
             </div>
           </div>
