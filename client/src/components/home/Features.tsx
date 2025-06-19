@@ -15,9 +15,7 @@ export default function Features() {
           >
             <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">Why Choose Us</h2>
             <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Our commitment is to provide the best travel experience at Krabi (and more!) with our personalized services.
-            </p>
+            <p className="text-gray-600 max-w-2xl mx-auto">Experience an exclusive private day trip with our English or French-speaking and certified guides</p>
           </motion.div>
         </div>
         

@@ -33,7 +33,7 @@ export default function Hero() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex flex-col md:flex-row items-center gap-10">
           {/* Left content - Title and description */}
-          <div className="w-full md:w-1/2">
+          <div className="w-full">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ 
@@ -82,51 +82,7 @@ export default function Hero() {
             </motion.div>
           </div>
           
-          {/* Right content - Floating content overlay */}
-          <div className="w-full md:w-1/2">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ 
-                opacity: 1, 
-                scale: 1,
-                y: [0, -8, 0],
-                transition: {
-                  scale: { duration: 0.6, delay: 0.2 },
-                  opacity: { duration: 0.6, delay: 0.2 },
-                  y: {
-                    repeat: Infinity,
-                    duration: 4,
-                    ease: "easeInOut"
-                  }
-                }
-              }}
-              className="rounded-lg overflow-hidden bg-white/10 backdrop-blur-sm p-6 border border-white/20"
-            >
-              <div className="text-center text-white">
-                <h3 className="text-2xl font-heading font-semibold mb-4 drop-shadow-md">
-                  Authentic Thailand Awaits
-                </h3>
-                <p className="text-white/90 mb-6 drop-shadow-sm">
-                  Experience the real Krabi with our expertly crafted tours, 
-                  taking you beyond the tourist trails to discover hidden gems.
-                </p>
-                <div className="flex justify-center space-x-4 text-sm text-white/80">
-                  <div className="text-center">
-                    <div className="font-semibold text-lg text-primary">50+</div>
-                    <div>Tours Available</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="font-semibold text-lg text-primary">1000+</div>
-                    <div>Happy Travelers</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="font-semibold text-lg text-primary">5★</div>
-                    <div>Average Rating</div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
+          
         </div>
       </div>
     </section>
