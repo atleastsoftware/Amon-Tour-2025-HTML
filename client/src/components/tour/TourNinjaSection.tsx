@@ -43,7 +43,7 @@ export default function TourNinjaSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">Some Ideas for Your Next Trip</h2>
+            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">Some Ideas For Your Next Trip</h2>
             <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
             <p className="text-gray-600 max-w-2xl mx-auto">Get inspired by our custom-designed travel experiences</p>
             {(cached || fallback) && (
