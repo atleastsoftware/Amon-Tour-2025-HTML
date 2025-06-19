@@ -171,8 +171,8 @@ export default function Header() {
           <NavLink href="/tours" isActive={location === '/tours'} isHomePage={isHomePage} scrolled={scrolled}>
             Experiences
           </NavLink>
-          <NavLink href="/experiences" isActive={location === '/experiences'} isHomePage={isHomePage} scrolled={scrolled}>
-            Trip
+          <NavLink href="/custom-tour" isActive={location === '/custom-tour'} isHomePage={isHomePage} scrolled={scrolled}>
+            Custom Trip
           </NavLink>
           <NavLink href="/blog" isActive={location === '/blog'} isHomePage={isHomePage} scrolled={scrolled}>
             Blog
@@ -211,8 +211,8 @@ export default function Header() {
               <NavLink href="/tours" isActive={location === '/tours'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
                 Experiences
               </NavLink>
-              <NavLink href="/experiences" isActive={location === '/experiences'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
-                Trip
+              <NavLink href="/custom-tour" isActive={location === '/custom-tour'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
+                Custom Trip
               </NavLink>
               <NavLink href="/blog" isActive={location === '/blog'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
                 Blog
