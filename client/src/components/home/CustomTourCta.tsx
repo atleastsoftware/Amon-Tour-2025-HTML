@@ -32,15 +32,19 @@ export default function CustomTourCta() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/custom-tour">
-                <motion.span 
-                  className="bg-primary text-white px-8 py-3 rounded cursor-pointer inline-block"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  About us
-                </motion.span>
-              </Link>
+              <motion.button 
+                className="bg-primary text-white px-8 py-3 rounded cursor-pointer"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => {
+                  const whoWeAreSection = document.getElementById('who-we-are');
+                  if (whoWeAreSection) {
+                    whoWeAreSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+              >
+                About us
+              </motion.button>
               <a 
                 href="https://wa.me/66653496445" 
                 target="_blank"
