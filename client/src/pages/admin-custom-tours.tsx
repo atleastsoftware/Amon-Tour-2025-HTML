@@ -284,7 +284,7 @@ export default function AdminCustomTours() {
                         <TableHead>Name</TableHead>
                         <TableHead>Contact</TableHead>
                         <TableHead>Travelers</TableHead>
-                        <TableHead>Duration</TableHead>
+                        <TableHead>Dates/Duration</TableHead>
                         <TableHead>Status</TableHead>
                         <TableHead>Date</TableHead>
                         <TableHead>Actions</TableHead>
@@ -313,7 +313,19 @@ export default function AdminCustomTours() {
                               {request.numberOfKids > 0 && `, ${request.numberOfKids}K`}
                             </div>
                           </TableCell>
-                          <TableCell>{request.duration}</TableCell>
+                          <TableCell>
+                            {request.tripDates ? (
+                              <div className="text-sm">
+                                <span className="text-gray-600">Dates:</span> {request.tripDates}
+                              </div>
+                            ) : request.duration ? (
+                              <div className="text-sm">
+                                <span className="text-gray-600">Duration:</span> {request.duration} days
+                              </div>
+                            ) : (
+                              <span className="text-gray-400">Not specified</span>
+                            )}
+                          </TableCell>
                           <TableCell>{getStatusBadge(request.status)}</TableCell>
                           <TableCell>{formatDate(request.createdAt)}</TableCell>
                           <TableCell>
@@ -393,7 +405,7 @@ export default function AdminCustomTours() {
               </div>
 
               {/* Trip Details */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="text-sm font-medium text-gray-700">Adults</label>
                   <p className="text-lg">{selectedRequest.numberOfAdults}</p>
@@ -402,18 +414,29 @@ export default function AdminCustomTours() {
                   <label className="text-sm font-medium text-gray-700">Kids</label>
                   <p className="text-lg">{selectedRequest.numberOfKids}</p>
                 </div>
-                <div>
-                  <label className="text-sm font-medium text-gray-700">Duration</label>
-                  <p className="text-lg">{selectedRequest.duration}</p>
-                </div>
               </div>
 
-              {selectedRequest.tripDates && (
-                <div>
-                  <label className="text-sm font-medium text-gray-700">Trip Dates</label>
-                  <p>{selectedRequest.tripDates}</p>
-                </div>
-              )}
+              {/* Trip Timing */}
+              <div className="space-y-3">
+                {selectedRequest.tripDates && (
+                  <div>
+                    <label className="text-sm font-medium text-gray-700">Trip Dates</label>
+                    <p className="text-lg">{selectedRequest.tripDates}</p>
+                  </div>
+                )}
+                {selectedRequest.duration && (
+                  <div>
+                    <label className="text-sm font-medium text-gray-700">Duration</label>
+                    <p className="text-lg">{selectedRequest.duration} days</p>
+                  </div>
+                )}
+                {!selectedRequest.tripDates && !selectedRequest.duration && (
+                  <div>
+                    <label className="text-sm font-medium text-gray-700">Trip Timing</label>
+                    <p className="text-gray-500">Not specified</p>
+                  </div>
+                )}
+              </div>
 
               {/* Interests */}
               {selectedRequest.interests && selectedRequest.interests.length > 0 && (
