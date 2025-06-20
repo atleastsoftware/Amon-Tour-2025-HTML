@@ -172,9 +172,10 @@ export default function Home() {
       />
       <Header />
       <main>
+        {/* 1. Hero section */}
         <Hero />
         
-        {/* Section description */}
+        {/* 2. Intro paragraph */}
         <section className="py-20">
           <div className="container mx-auto px-4 max-w-4xl text-center">
             <motion.div
@@ -193,9 +194,7 @@ export default function Home() {
           </div>
         </section>
         
-        <Features />
-        
-        {/* Tour Ninja Banner Section */}
+        {/* 3. Our Popular Experiences */}
         <section id="tours" className="py-16 bg-white">
           <div className="container mx-auto px-4 text-center mb-8">
             <motion.div
@@ -242,15 +241,20 @@ export default function Home() {
           </div>
         </section>
         
-        <CustomTourCta />
+        {/* 4. Create Your Custom Trip */}
+        <CustomTourForm />
         
+        {/* 5. Some Ideas For Your Next Trip */}
         <TourNinjaSection />
         
+        {/* 6. Why Choose Us */}
+        <Features />
+        
+        {/* 7. Who We Are */}
         <About />
         
+        {/* 8. Our Travelers' Reviews */}
         <Testimonials />
-        
-        <CustomTourForm />
         
         <CallToAction />
       </main>
