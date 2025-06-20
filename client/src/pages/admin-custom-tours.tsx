@@ -440,17 +440,33 @@ export default function AdminCustomTours() {
                 )}
               </div>
 
-              {/* Interests */}
-              {selectedRequest.interests && selectedRequest.interests.length > 0 && (
-                <div>
-                  <label className="text-sm font-medium text-gray-700">Interests</label>
-                  <div className="flex flex-wrap gap-2 mt-1">
-                    {selectedRequest.interests.map((interest, index) => (
-                      <Badge key={index} variant="secondary">{interest}</Badge>
-                    ))}
-                  </div>
+              {/* Trip Types */}
+              <div>
+                <label className="text-sm font-medium text-gray-700">Trip Types</label>
+                <div className="flex flex-wrap gap-2 mt-1">
+                  {selectedRequest.tripTypes && selectedRequest.tripTypes.length > 0 ? (
+                    selectedRequest.tripTypes.map((tripType, index) => (
+                      <Badge key={index} variant="secondary">{tripType}</Badge>
+                    ))
+                  ) : (
+                    <span className="text-gray-500 text-sm">No trip types selected</span>
+                  )}
                 </div>
-              )}
+              </div>
+
+              {/* Destinations */}
+              <div>
+                <label className="text-sm font-medium text-gray-700">Destinations</label>
+                <div className="flex flex-wrap gap-2 mt-1">
+                  {selectedRequest.destinations && selectedRequest.destinations.length > 0 ? (
+                    selectedRequest.destinations.map((destination, index) => (
+                      <Badge key={index} variant="outline">{destination}</Badge>
+                    ))
+                  ) : (
+                    <span className="text-gray-500 text-sm">No destinations selected</span>
+                  )}
+                </div>
+              </div>
 
               {/* Message */}
               <div>
