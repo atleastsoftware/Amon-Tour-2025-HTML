@@ -57,6 +57,8 @@ interface CustomTourRequest {
   tripDates?: string;
   duration?: string;
   interests: string[];
+  tripTypes: string[];
+  destinations: string[];
   message: string;
   status: 'new' | 'in_progress' | 'archived';
   createdAt: string;

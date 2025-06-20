@@ -1,5 +1,6 @@
 import express, { type Express, type Request, type Response } from "express";
 import { createServer, type Server } from "http";
+import { z } from "zod";
 import { storage } from "./storage";
 import { 
   insertTourSchema, 
@@ -951,11 +952,59 @@ Crawl-delay: 1`;
   // Create custom tour request
   app.post("/api/custom-tour", async (req, res) => {
     try {
-      const requestData = insertCustomTourRequestSchema.parse(req.body);
+      // Enhanced validation schema
+      const customTourRequestSchema = z.object({
+        fullName: z.string().min(1, "Full name is required"),
+        email: z.string().email("Invalid email address"),
+        phoneNumber: z.string().min(1, "Phone number is required"),
+        numberOfAdults: z.number().min(1, "At least one adult is required"),
+        numberOfKids: z.number().min(0, "Number of kids cannot be negative"),
+        tripDates: z.string().optional(),
+        duration: z.string().optional(),
+        tripTypes: z.array(z.string()).optional(),
+        destinations: z.array(z.string()).optional(),
+        message: z.string().min(1, "Message is required"),
+      }).refine(
+        (data: any) => {
+          return (data.tripDates && data.tripDates.trim() !== "") || 
+                 (data.duration && data.duration.trim() !== "");
+        },
+        {
+          message: "Please provide either your trip dates or an approximate duration.",
+          path: ["tripDates"],
+        }
+      ).refine(
+        (data: any) => {
+          return (data.tripTypes && data.tripTypes.length > 0) || 
+                 (data.destinations && data.destinations.length > 0);
+        },
+        {
+          message: "Please select at least one trip type or destination.",
+          path: ["tripTypes"],
+        }
+      );
+
+      const validatedData = customTourRequestSchema.parse(req.body);
+      
+      // Add default values for storage interface compatibility
+      const requestData = {
+        ...validatedData,
+        interests: [], // Keep for backward compatibility
+        status: "new" as const,
+        tripTypes: validatedData.tripTypes || [],
+        destinations: validatedData.destinations || []
+      };
+      
       const customTourRequest = await storage.createCustomTourRequest(requestData);
       res.status(201).json(customTourRequest);
     } catch (error: any) {
       console.error("Error creating custom tour request:", error);
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({
+          message: "Invalid request data",
+          error: error.errors
+        });
+      }
       res.status(400).json({ 
         message: "Invalid request data", 
         error: error.errors || error.message || String(error) 
@@ -991,10 +1040,11 @@ Crawl-delay: 1`;
       const requests = await storage.getCustomTourRequests(filters);
       
       // Create CSV content
-      const csvHeaders = 'ID,Full Name,Email,Phone,Adults,Kids,Trip Dates,Duration,Interests,Message,Status,Created Date\n';
+      const csvHeaders = 'ID,Full Name,Email,Phone,Adults,Kids,Trip Dates,Duration,Trip Types,Destinations,Message,Status,Created Date\n';
       const csvData = requests.map(request => {
-        const interests = Array.isArray(request.interests) ? request.interests.join('; ') : '';
-        return `${request.id},"${request.fullName}","${request.email}","${request.phoneNumber}",${request.numberOfAdults},${request.numberOfKids},"${request.tripDates || ''}","${request.duration}","${interests}","${request.message.replace(/"/g, '""')}","${request.status}","${request.createdAt?.toISOString().split('T')[0] || ''}"`;
+        const tripTypes = Array.isArray(request.tripTypes) ? request.tripTypes.join('; ') : '';
+        const destinations = Array.isArray(request.destinations) ? request.destinations.join('; ') : '';
+        return `${request.id},"${request.fullName}","${request.email}","${request.phoneNumber}",${request.numberOfAdults},${request.numberOfKids},"${request.tripDates || ''}","${request.duration || ''}","${tripTypes}","${destinations}","${request.message.replace(/"/g, '""')}","${request.status}","${request.createdAt?.toISOString().split('T')[0] || ''}"`;
       }).join('\n');
       
       const csvContent = csvHeaders + csvData;
