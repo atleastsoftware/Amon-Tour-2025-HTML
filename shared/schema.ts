@@ -34,6 +34,8 @@ export const customTourRequests = pgTable("custom_tour_requests", {
   tripDates: text("trip_dates"), // Store as string for flexibility
   duration: text("duration"), // Made optional
   interests: json("interests").$type<string[]>().default([]),
+  tripTypes: json("trip_types").$type<string[]>().default([]),
+  destinations: json("destinations").$type<string[]>().default([]),
   message: text("message").notNull(),
   status: customTourStatusEnum("status").notNull().default("new"),
   createdAt: timestamp("created_at").defaultNow(),

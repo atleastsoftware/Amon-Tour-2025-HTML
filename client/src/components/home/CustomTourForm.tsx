@@ -35,7 +35,8 @@ const customTourSchema = z.object({
   kids: z.string().optional(),
   dateRange: z.string().optional(),
   duration: z.string().optional(),
-  interests: z.array(z.string()).min(1, { message: "Select at least one interest" }),
+  tripTypes: z.array(z.string()).optional(),
+  destinations: z.array(z.string()).optional(),
   message: z.string().min(10, { message: "Please describe your ideal trip (minimum 10 characters)" }),
 }).refine(
   (data) => {
@@ -46,6 +47,16 @@ const customTourSchema = z.object({
   {
     message: "Please provide either your trip dates or an approximate duration.",
     path: ["dateRange"], // This will show the error on the dateRange field
+  }
+).refine(
+  (data) => {
+    // At least one trip type or destination must be selected
+    return (data.tripTypes && data.tripTypes.length > 0) || 
+           (data.destinations && data.destinations.length > 0);
+  },
+  {
+    message: "Please select at least one trip type or destination.",
+    path: ["tripTypes"],
   }
 );
 
@@ -66,7 +77,8 @@ export default function CustomTourForm() {
       kids: "",
       dateRange: "",
       duration: "",
-      interests: [],
+      tripTypes: [],
+      destinations: [],
       message: "",
     },
   });
@@ -82,7 +94,8 @@ export default function CustomTourForm() {
         numberOfKids: parseInt(data.kids || "0") || 0,
         tripDates: data.dateRange,
         duration: data.duration,
-        interests: data.interests,
+        tripTypes: data.tripTypes || [],
+        destinations: data.destinations || [],
         message: data.message
       };
       await apiRequest("POST", "/api/custom-tour", requestData);
@@ -105,13 +118,22 @@ export default function CustomTourForm() {
     }
   };
 
-  const interestOptions = [
+  const tripTypeOptions = [
     { id: "culture", label: "Culture & History" },
     { id: "nature", label: "Nature & Adventure" },
     { id: "beaches", label: "Beaches & Islands" },
-    { id: "food", label: "Gastronomy" },
-    { id: "wellness", label: "Wellness & Spa" },
-    { id: "shopping", label: "Shopping" },
+    { id: "family", label: "Family trip" },
+    { id: "group", label: "Group trip" },
+    { id: "wedding", label: "Wedding & Honeymoon" },
+  ];
+
+  const destinationOptions = [
+    { id: "khaosok", label: "Khao Sok" },
+    { id: "krabi", label: "Krabi" },
+    { id: "kohmook", label: "Koh Mook" },
+    { id: "bangkok", label: "Bangkok" },
+    { id: "chiangmai", label: "Chiang Mai" },
+    { id: "others", label: "Others destinations" },
   ];
 
   // Initialize flatpickr
@@ -322,20 +344,21 @@ export default function CustomTourForm() {
                     )}
                   />
                   
+                  {/* Trip Types */}
                   <FormField
                     control={form.control}
-                    name="interests"
+                    name="tripTypes"
                     render={() => (
                       <FormItem>
                         <div className="mb-4">
-                          <FormLabel>Interests</FormLabel>
+                          <FormLabel>Trip Types</FormLabel>
                         </div>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                          {interestOptions.map((option) => (
+                          {tripTypeOptions.map((option) => (
                             <FormField
                               key={option.id}
                               control={form.control}
-                              name="interests"
+                              name="tripTypes"
                               render={({ field }) => {
                                 return (
                                   <FormItem
@@ -347,7 +370,56 @@ export default function CustomTourForm() {
                                         checked={field.value?.includes(option.id)}
                                         onCheckedChange={(checked) => {
                                           return checked
-                                            ? field.onChange([...field.value, option.id])
+                                            ? field.onChange([...(field.value || []), option.id])
+                                            : field.onChange(
+                                                field.value?.filter(
+                                                  (value) => value !== option.id
+                                                )
+                                              );
+                                        }}
+                                      />
+                                    </FormControl>
+                                    <FormLabel className="font-normal cursor-pointer">
+                                      {option.label}
+                                    </FormLabel>
+                                  </FormItem>
+                                );
+                              }}
+                            />
+                          ))}
+                        </div>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  {/* Destinations */}
+                  <FormField
+                    control={form.control}
+                    name="destinations"
+                    render={() => (
+                      <FormItem>
+                        <div className="mb-4">
+                          <FormLabel>Destinations</FormLabel>
+                        </div>
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                          {destinationOptions.map((option) => (
+                            <FormField
+                              key={option.id}
+                              control={form.control}
+                              name="destinations"
+                              render={({ field }) => {
+                                return (
+                                  <FormItem
+                                    key={option.id}
+                                    className="flex flex-row items-start space-x-3 space-y-0"
+                                  >
+                                    <FormControl>
+                                      <Checkbox
+                                        checked={field.value?.includes(option.id)}
+                                        onCheckedChange={(checked) => {
+                                          return checked
+                                            ? field.onChange([...(field.value || []), option.id])
                                             : field.onChange(
                                                 field.value?.filter(
                                                   (value) => value !== option.id
