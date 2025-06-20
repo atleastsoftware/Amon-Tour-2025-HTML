@@ -71,6 +71,25 @@ export default function AdminCustomTours() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
+  // Mapping for trip types and destinations display
+  const tripTypeLabels: Record<string, string> = {
+    "culture": "Culture & History",
+    "nature": "Nature & Adventure", 
+    "beaches": "Beaches & Islands",
+    "family": "Family trip",
+    "group": "Group trip",
+    "wedding": "Wedding & Honeymoon"
+  };
+
+  const destinationLabels: Record<string, string> = {
+    "khaosok": "Khao Sok",
+    "krabi": "Krabi",
+    "kohmook": "Koh Mook",
+    "bangkok": "Bangkok", 
+    "chiangmai": "Chiang Mai",
+    "others": "Others destinations"
+  };
+
   // Fetch custom tour requests
   const { data: requests = [], isLoading } = useQuery<CustomTourRequest[]>({
     queryKey: ["/api/custom-tour", { status: statusFilter, search: searchQuery }],
@@ -446,7 +465,9 @@ export default function AdminCustomTours() {
                 <div className="flex flex-wrap gap-2 mt-1">
                   {selectedRequest.tripTypes && selectedRequest.tripTypes.length > 0 ? (
                     selectedRequest.tripTypes.map((tripType, index) => (
-                      <Badge key={index} variant="secondary">{tripType}</Badge>
+                      <Badge key={index} variant="secondary">
+                        {tripTypeLabels[tripType] || tripType}
+                      </Badge>
                     ))
                   ) : (
                     <span className="text-gray-500 text-sm">No trip types selected</span>
@@ -460,7 +481,9 @@ export default function AdminCustomTours() {
                 <div className="flex flex-wrap gap-2 mt-1">
                   {selectedRequest.destinations && selectedRequest.destinations.length > 0 ? (
                     selectedRequest.destinations.map((destination, index) => (
-                      <Badge key={index} variant="outline">{destination}</Badge>
+                      <Badge key={index} variant="outline">
+                        {destinationLabels[destination] || destination}
+                      </Badge>
                     ))
                   ) : (
                     <span className="text-gray-500 text-sm">No destinations selected</span>

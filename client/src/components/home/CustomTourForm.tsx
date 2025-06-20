@@ -30,6 +30,7 @@ import { Button } from "@/components/ui/button";
 const customTourSchema = z.object({
   name: z.string().min(2, { message: "Full Name is required" }),
   email: z.string().email({ message: "Invalid email" }),
+  countryCode: z.string().min(1, { message: "Country code is required" }),
   phoneNumber: z.string().min(8, { message: "Phone number is required" }),
   adults: z.string().min(1, { message: "Please enter number of adults" }),
   kids: z.string().optional(),
@@ -72,6 +73,7 @@ export default function CustomTourForm() {
     defaultValues: {
       name: "",
       email: "",
+      countryCode: "+33", // Default to France
       phoneNumber: "",
       adults: "",
       kids: "",
@@ -89,7 +91,7 @@ export default function CustomTourForm() {
       const requestData = {
         fullName: data.name,
         email: data.email,
-        phoneNumber: data.phoneNumber,
+        phoneNumber: `${data.countryCode} ${data.phoneNumber}`,
         numberOfAdults: parseInt(data.adults) || 1,
         numberOfKids: parseInt(data.kids || "0") || 0,
         tripDates: data.dateRange,
@@ -134,6 +136,31 @@ export default function CustomTourForm() {
     { id: "bangkok", label: "Bangkok" },
     { id: "chiangmai", label: "Chiang Mai" },
     { id: "others", label: "Others destinations" },
+  ];
+
+  const countryCodeOptions = [
+    { code: "+33", country: "France", flag: "🇫🇷" },
+    { code: "+66", country: "Thailand", flag: "🇹🇭" },
+    { code: "+1", country: "USA/Canada", flag: "🇺🇸" },
+    { code: "+44", country: "UK", flag: "🇬🇧" },
+    { code: "+49", country: "Germany", flag: "🇩🇪" },
+    { code: "+34", country: "Spain", flag: "🇪🇸" },
+    { code: "+39", country: "Italy", flag: "🇮🇹" },
+    { code: "+32", country: "Belgium", flag: "🇧🇪" },
+    { code: "+31", country: "Netherlands", flag: "🇳🇱" },
+    { code: "+41", country: "Switzerland", flag: "🇨🇭" },
+    { code: "+43", country: "Austria", flag: "🇦🇹" },
+    { code: "+351", country: "Portugal", flag: "🇵🇹" },
+    { code: "+46", country: "Sweden", flag: "🇸🇪" },
+    { code: "+47", country: "Norway", flag: "🇳🇴" },
+    { code: "+45", country: "Denmark", flag: "🇩🇰" },
+    { code: "+358", country: "Finland", flag: "🇫🇮" },
+    { code: "+61", country: "Australia", flag: "🇦🇺" },
+    { code: "+64", country: "New Zealand", flag: "🇳🇿" },
+    { code: "+81", country: "Japan", flag: "🇯🇵" },
+    { code: "+82", country: "South Korea", flag: "🇰🇷" },
+    { code: "+86", country: "China", flag: "🇨🇳" },
+    { code: "+91", country: "India", flag: "🇮🇳" },
   ];
 
   // Initialize flatpickr
@@ -216,19 +243,51 @@ export default function CustomTourForm() {
                     />
                   </div>
                   
-                  <FormField
-                    control={form.control}
-                    name="phoneNumber"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Phone Number *</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Your phone number" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                  {/* Phone Number with Country Code */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="countryCode"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Country Code *</FormLabel>
+                          <Select 
+                            onValueChange={field.onChange} 
+                            defaultValue={field.value}
+                          >
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Code" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {countryCodeOptions.map((option) => (
+                                <SelectItem key={option.code} value={option.code}>
+                                  {option.flag} {option.code}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <div className="md:col-span-2">
+                      <FormField
+                        control={form.control}
+                        name="phoneNumber"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>WhatsApp Number *</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Your WhatsApp number" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   </div>
