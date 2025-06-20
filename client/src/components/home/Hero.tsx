@@ -67,9 +67,7 @@ export default function Hero() {
                     className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.98 }}
-                  >
-                    See our offer
-                  </motion.span>
+                  >See our offers</motion.span>
                 </Link>
                 <Link href="/custom-tour">
                   <motion.span 
