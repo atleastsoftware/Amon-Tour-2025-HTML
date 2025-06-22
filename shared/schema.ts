@@ -9,16 +9,7 @@ export const users = pgTable("users", {
   password: text("password").notNull(),
 });
 
-// Session storage table for basic session management
-export const sessions = pgTable(
-  "sessions",
-  {
-    sid: varchar("sid").primaryKey(),
-    sess: json("sess").notNull(),
-    expire: timestamp("expire").notNull(),
-  },
-  (table) => [index("IDX_session_expire").on(table.expire)],
-);
+// Sessions removed - public site only
 
 export const tours = pgTable("tours", {
   id: serial("id").primaryKey(),

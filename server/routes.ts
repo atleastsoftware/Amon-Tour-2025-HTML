@@ -17,45 +17,15 @@ import {
 import { createPaymentIntent, createOrRetrieveCustomer } from "./stripe";
 import { upload, getPublicFileUrl } from "./upload";
 import path from "path";
-import session from "express-session";
-import MemoryStore from "memorystore";
-import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcrypt";
 import rateLimit from "express-rate-limit";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Setup session store
-  const SessionStore = MemoryStore(session);
-  app.use(
-    session({
-      secret: process.env.SESSION_SECRET || "senthang-siam-tour-secret",
-      resave: false,
-      saveUninitialized: false,
-      cookie: { 
-        secure: process.env.NODE_ENV === "production", 
-        maxAge: 86400000, // 24 hours
-        httpOnly: true,   // Prevent client-side JS from reading the cookie
-        sameSite: 'lax'   // CSRF protection
-      },
-      store: new SessionStore({ checkPeriod: 86400000 }), // 24 hours
-    })
-  );
   
-  // Configure rate limiting for login attempts
-  const loginLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 5, // 5 attempts per windowMs
-    message: { message: "Too many login attempts, please try again later" },
-    standardHeaders: true,
-    legacyHeaders: false,
-  });
-
-  // Authentication middleware
+  // Simple authentication middleware for admin routes only
   const requireAuth = (req: Request, res: Response, next: Function) => {
-    if (req.session && req.session.user) {
-      return next();
-    }
-    return res.status(401).json({ message: "Unauthorized" });
+    // For now, no authentication required - public site
+    return res.status(401).json({ message: "Authentication disabled - public site" });
   };
 
   // Serve uploaded files
@@ -146,8 +116,8 @@ Crawl-delay: 1`;
     res.send(robotsTxt);
   });
   
-  // Authentication routes
-  app.post("/api/login", loginLimiter, async (req, res) => {
+  // Disabled authentication routes for public site
+  app.post("/api/login", async (req, res) => {
     const { username, password } = req.body;
     
     if (!username || !password) {
