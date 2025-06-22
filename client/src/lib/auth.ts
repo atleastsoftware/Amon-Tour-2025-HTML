@@ -1,34 +1,26 @@
-// Public site - no authentication needed
-// This file provides dummy authentication hooks for components that still reference them
+// PUBLIC SITE ONLY - NO AUTHENTICATION
+// All authentication functions disabled for public showcase
 
-export const useLogin = () => {
-  return {
-    mutate: () => {},
-    isPending: false,
-    error: null
-  };
-};
+export const useLogin = () => ({
+  mutate: () => console.warn('Authentication disabled - public site'),
+  isPending: false,
+  error: null
+});
 
-export const useLogout = () => {
-  return {
-    mutate: () => {},
-    isPending: false,
-    error: null
-  };
-};
+export const useLogout = () => ({
+  mutate: () => console.warn('Authentication disabled - public site'),
+  isPending: false,
+  error: null
+});
 
-export const useUser = () => {
-  return {
-    data: null,
-    isLoading: false,
-    error: null
-  };
-};
+export const useUser = () => ({
+  data: null,
+  isLoading: false,
+  error: null
+});
 
-export const useIsAuthenticated = () => {
-  return {
-    isAuthenticated: false,
-    isLoading: false,
-    user: null
-  };
-};
+export const useIsAuthenticated = () => ({
+  isAuthenticated: false,
+  isLoading: false,
+  user: null
+});
