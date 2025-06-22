@@ -1,12 +1,11 @@
 {
-  "name": "Amon Tour - Authentic Thailand Travel Experiences",
+  "name": "Amon Tour Thailand",
   "short_name": "Amon Tour",
-  "description": "Discover authentic Thailand with expert-guided private tours, cultural experiences, and personalized journeys",
+  "description": "Authentic Thailand Travel Experiences - Private Tours & Cultural Journeys",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#1B4D72",
-  "orientation": "portrait-primary",
   "icons": [
     {
       "src": "/favicon-16x16.png",
@@ -22,11 +21,11 @@
       "src": "/apple-touch-icon.png",
       "sizes": "180x180",
       "type": "image/png"
+    },
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
-  ],
-  "categories": ["travel", "tourism", "lifestyle"],
-  "lang": "en",
-  "scope": "/",
-  "related_applications": [],
-  "prefer_related_applications": false
+  ]
 }
