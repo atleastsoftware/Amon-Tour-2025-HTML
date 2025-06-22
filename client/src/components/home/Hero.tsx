@@ -3,25 +3,42 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FadeInWhenVisible, SlideUpWhenVisible, StaggerChildren, StaggerItem } from "@/components/ui/animations";
 import { useState, useEffect } from "react";
 import heroImage from "@/assets/DJI_20241115104455_0160_D-min.jpeg";
-import backgroundVideo from "@/assets/catamaran-cruise-background.mp4";
+// Use direct path to video file that will be served by Express
+const backgroundVideo = "/attached_assets/Catamaran cruise around Ao Nang local islands_1750216800850.mp4";
 
 export default function Hero() {
   return (
     <section id="hero" className="relative pt-32 pb-20 min-h-screen flex items-center overflow-hidden">
-      {/* Video Background Section - Limited to Hero section */}
+      {/* Video Background Section with Fallback Image */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
+        {/* Fallback Image */}
+        <img
+          src={heroImage}
+          alt="Beautiful Krabi landscape"
+          className="absolute top-0 left-0 w-full h-full object-cover"
+        />
+        
+        {/* Video Overlay */}
         <video
           autoPlay
           muted
           loop
           playsInline
+          preload="metadata"
           className="absolute top-0 left-0 w-full h-full object-cover"
           style={{ 
             minWidth: '100%', 
             minHeight: '100%'
           }}
+          onLoadStart={() => console.log('Video loading started')}
+          onCanPlay={() => console.log('Video can play')}
+          onError={(e) => {
+            console.log('Video failed to load, using fallback image');
+            e.currentTarget.style.display = 'none';
+          }}
         >
           <source src={backgroundVideo} type="video/mp4" />
+          Your browser does not support the video tag.
         </video>
         
         {/* Gradient Overlay */}

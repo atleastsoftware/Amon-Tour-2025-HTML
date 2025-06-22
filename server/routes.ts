@@ -60,6 +60,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Serve uploaded files
   app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
+  
+  // Serve attached assets (images, videos, etc.)
+  app.use('/attached_assets', express.static(path.join(process.cwd(), 'attached_assets'), {
+    setHeaders: (res, path) => {
+      if (path.endsWith('.mp4') || path.endsWith('.mov') || path.endsWith('.avi')) {
+        res.setHeader('Content-Type', 'video/mp4');
+        res.setHeader('Accept-Ranges', 'bytes');
+      }
+    }
+  }));
 
   // SEO Routes
   app.get('/sitemap.xml', async (req, res) => {
