@@ -194,10 +194,8 @@ Crawl-delay: 1`;
   });
   
   app.get("/api/me", (req, res) => {
-    if (!req.session.user) {
-      return res.status(401).json({ message: "Not authenticated" });
-    }
-    res.json(req.session.user);
+    // Public site - no user authentication
+    return res.status(401).json({ message: "Public site" });
   });
 
   // Image upload route

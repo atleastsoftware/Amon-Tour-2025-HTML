@@ -1,46 +1,33 @@
-import { apiRequest } from "./queryClient";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+// Public site - no authentication needed
+// This file provides dummy authentication hooks for components that still reference them
 
 export const useLogin = () => {
-  const queryClient = useQueryClient();
-  
-  return useMutation({
-    mutationFn: async (credentials: { username: string; password: string }) => {
-      const res = await apiRequest('POST', '/api/login', credentials);
-      return await res.json();
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/me'] });
-    },
-  });
+  return {
+    mutate: () => {},
+    isPending: false,
+    error: null
+  };
 };
 
 export const useLogout = () => {
-  const queryClient = useQueryClient();
-  
-  return useMutation({
-    mutationFn: async () => {
-      const res = await apiRequest('POST', '/api/logout');
-      return await res.json();
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/me'] });
-    },
-  });
+  return {
+    mutate: () => {},
+    isPending: false,
+    error: null
+  };
 };
 
 export const useUser = () => {
-  return useQuery({
-    queryKey: ['/api/me'],
-    retry: false,
-    enabled: false, // Disable automatic queries
-    queryFn: () => null, // Return null instead of making API calls
-  });
+  return {
+    data: null,
+    isLoading: false,
+    error: null
+  };
 };
 
 export const useIsAuthenticated = () => {
   return {
-    isAuthenticated: false, // Always return false for public site
+    isAuthenticated: false,
     isLoading: false,
     user: null
   };
