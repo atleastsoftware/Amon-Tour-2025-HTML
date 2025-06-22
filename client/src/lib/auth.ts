@@ -33,18 +33,15 @@ export const useUser = () => {
   return useQuery({
     queryKey: ['/api/me'],
     retry: false,
-    onError: () => {
-      // Silent error on 401
-      return null;
-    },
+    enabled: false, // Disable automatic queries
+    queryFn: () => null, // Return null instead of making API calls
   });
 };
 
 export const useIsAuthenticated = () => {
-  const { data, isLoading } = useUser();
   return {
-    isAuthenticated: !!data,
-    isLoading,
-    user: data
+    isAuthenticated: false, // Always return false for public site
+    isLoading: false,
+    user: null
   };
 };

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { useIsAuthenticated, useLogout } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -51,8 +50,6 @@ const NavLink = ({ href, isActive, children, onClick, isHomePage, scrolled }: Na
 export default function Header() {
   const [location] = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { isAuthenticated } = useIsAuthenticated();
-  const logout = useLogout();
   const [scrolled, setScrolled] = useState(false);
   const isBookingPage = location.startsWith('/booking');
   const isHomePage = location === '/';
@@ -77,9 +74,7 @@ export default function Header() {
     setIsMobileMenuOpen(false);
   };
 
-  const handleLogout = () => {
-    logout.mutate();
-  };
+
 
   const headerClasses = isHomePage
     ? `fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
