@@ -63,10 +63,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // Serve attached assets (images, videos, etc.)
   app.use('/attached_assets', express.static(path.join(process.cwd(), 'attached_assets'), {
-    setHeaders: (res, path) => {
-      if (path.endsWith('.mp4') || path.endsWith('.mov') || path.endsWith('.avi')) {
+    maxAge: '1d', // Cache for 1 day
+    setHeaders: (res, filePath) => {
+      if (filePath.endsWith('.mp4') || filePath.endsWith('.mov') || filePath.endsWith('.avi')) {
         res.setHeader('Content-Type', 'video/mp4');
         res.setHeader('Accept-Ranges', 'bytes');
+        res.setHeader('Cache-Control', 'public, max-age=86400'); // Cache video for 1 day
+      }
+      if (filePath.endsWith('.jpg') || filePath.endsWith('.jpeg') || filePath.endsWith('.png')) {
+        res.setHeader('Cache-Control', 'public, max-age=604800'); // Cache images for 1 week
       }
     }
   }));

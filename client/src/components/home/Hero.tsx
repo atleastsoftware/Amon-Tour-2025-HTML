@@ -3,10 +3,23 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FadeInWhenVisible, SlideUpWhenVisible, StaggerChildren, StaggerItem } from "@/components/ui/animations";
 import { useState, useEffect } from "react";
 import heroImage from "@/assets/DJI_20241115104455_0160_D-min.jpeg";
-// Use direct path to video file that will be served by Express
-const backgroundVideo = "/attached_assets/Catamaran cruise around Ao Nang local islands_1750216800850.mp4";
+
+// Use direct path to video file that will be served by Express  
+const backgroundVideo = "/attached_assets/Catamaran%20cruise%20around%20Ao%20Nang%20local%20islands_1750216800850.mp4";
 
 export default function Hero() {
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const [videoError, setVideoError] = useState(false);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+
+  useEffect(() => {
+    // Delay video loading to improve initial page load
+    const timer = setTimeout(() => {
+      setShouldLoadVideo(true);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <section id="hero" className="relative pt-32 pb-20 min-h-screen flex items-center overflow-hidden">
       {/* Video Background Section with Fallback Image */}
@@ -18,28 +31,41 @@ export default function Hero() {
           className="absolute top-0 left-0 w-full h-full object-cover"
         />
         
-        {/* Video Overlay */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          className="absolute top-0 left-0 w-full h-full object-cover"
-          style={{ 
-            minWidth: '100%', 
-            minHeight: '100%'
-          }}
-          onLoadStart={() => console.log('Video loading started')}
-          onCanPlay={() => console.log('Video can play')}
-          onError={(e) => {
-            console.log('Video failed to load, using fallback image');
-            e.currentTarget.style.display = 'none';
-          }}
-        >
-          <source src={backgroundVideo} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+        {/* Video Overlay with lazy loading and better error handling */}
+        {shouldLoadVideo && !videoError && (
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000 ${
+              videoLoaded ? 'opacity-100' : 'opacity-0'
+            }`}
+            style={{ 
+              minWidth: '100%', 
+              minHeight: '100%'
+            }}
+            onLoadStart={() => {
+              console.log('Video loading started:', backgroundVideo);
+            }}
+            onCanPlay={(e) => {
+              console.log('Video can play - showing video');
+              setVideoLoaded(true);
+            }}
+            onLoadedData={() => {
+              console.log('Video loaded successfully');
+              setVideoLoaded(true);
+            }}
+            onError={(e) => {
+              console.error('Video failed to load - using image fallback');
+              setVideoError(true);
+              setVideoLoaded(false);
+            }}
+          >
+            <source src={backgroundVideo} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        )}
         
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
