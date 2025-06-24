@@ -1,0 +1,195 @@
+10:35:41 PM [express] GET /api/me 304 in 72ms :: {"id":1,"username":"admin"}
+Error fetching partnership requests: error: column "contact_name" does not exist
+    at file:///home/runner/workspace/node_modules/@neondatabase/serverless/index.mjs:1345:74
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async NeonPreparedQuery.execute (/home/runner/workspace/node_modules/src/neon-serverless/session.ts:102:18)
+    at async <anonymous> (/home/runner/workspace/server/routes.ts:1238:24) {
+  length: 112,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '14',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3722',
+  routine: 'errorMissingColumn'
+}
+Error fetching group requests: error: column "contact_name" does not exist
+    at file:///home/runner/workspace/node_modules/@neondatabase/serverless/index.mjs:1345:74
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async NeonPreparedQuery.execute (/home/runner/workspace/node_modules/src/neon-serverless/session.ts:102:18)
+    at async <anonymous> (/home/runner/workspace/server/routes.ts:1317:24) {
+  length: 112,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '14',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3722',
+  routine: 'errorMissingColumn'
+}
+10:35:42 PM [express] GET /api/krabi-celebration 304 in 414ms :: [{"id":4,"name":"Samy","email":"arck…
+10:35:42 PM [express] GET /api/partnership-requests 500 in 385ms :: {"message":"Failed to fetch reque…
+10:35:42 PM [express] GET /api/group-requests 500 in 391ms :: {"message":"Failed to fetch requests","…
+10:35:42 PM [express] GET /api/custom-tour-requests 304 in 383ms :: [{"id":11,"fullName":"Test France…
+10:35:42 PM [express] GET /api/admin/newsletter/subscriptions 304 in 383ms :: [{"id":3,"email":"arcko…
+10:39:41 PM [express] GET /api/krabi-celebration 304 in 2389ms :: [{"id":4,"name":"Samy","email":"arc…
+10:39:54 PM [express] PATCH /api/krabi-celebration/4 200 in 393ms :: {"id":4,"name":"Samy","email":"a…
+10:39:55 PM [express] GET /api/krabi-celebration 200 in 148ms :: [{"id":4,"name":"Samy","email":"arck…
+10:39:57 PM [express] PATCH /api/krabi-celebration/4 200 in 152ms :: {"id":4,"name":"Samy","email":"a…
+10:39:58 PM [express] GET /api/krabi-celebration 304 in 152ms :: [{"id":4,"name":"Samy","email":"arck…
+Krabi Celebration - Received request: {
+  "name": "Samy",
+  "email": "arckoeln@gmail.com",
+  "celebrationType": "ddqwd",
+  "guests": "7",
+  "date": "2025-07-05",
+  "budget": "15000",
+  "description": "ddddddddddddddddddddddddddddddddddddddddd"
+}
+Krabi Celebration - Validated data: {
+  "name": "Samy",
+  "email": "arckoeln@gmail.com",
+  "celebrationType": "ddqwd",
+  "guests": 7,
+  "date": "2025-07-05",
+  "budget": "15000",
+  "description": "ddddddddddddddddddddddddddddddddddddddddd"
+}
+Krabi Celebration - Created request with ID: 5
+10:40:35 PM [express] POST /api/krabi-celebration 201 in 423ms :: {"message":"Krabi Celebration reque…
+10:40:48 PM [express] GET /api/me 304 in 75ms :: {"id":1,"username":"admin"}
+10:40:49 PM [express] GET /api/krabi-celebration 200 in 384ms :: [{"id":5,"name":"Samy","email":"arck…
+Group Corporate - Received request: {
+  "companyName": "",
+  "contactName": "dqwdqwd",
+  "email": "",
+  "phone": "",
+  "groupSize": 0,
+  "travelDates": "",
+  "budget": "",
+  "description": ""
+}
+Group Corporate - Error: ZodError: [
+  {
+    "code": "too_small",
+    "minimum": 1,
+    "type": "string",
+    "inclusive": true,
+    "exact": false,
+    "message": "Company name is required",
+    "path": [
+      "companyName"
+    ]
+  },
+  {
+    "validation": "email",
+    "code": "invalid_string",
+    "message": "Valid email address is required",
+    "path": [
+      "email"
+    ]
+  },
+  {
+    "code": "too_small",
+    "minimum": 1,
+    "type": "number",
+    "inclusive": true,
+    "exact": false,
+    "message": "Group size is required",
+    "path": [
+      "groupSize"
+    ]
+  }
+]
+    at get error [as error] (file:///home/runner/workspace/node_modules/zod/lib/index.mjs:587:31)
+    at ZodObject.parse (file:///home/runner/workspace/node_modules/zod/lib/index.mjs:663:22)
+    at <anonymous> (/home/runner/workspace/server/routes.ts:1289:52)
+    at Layer.handle [as handle_request] (/home/runner/workspace/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/runner/workspace/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/runner/workspace/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/runner/workspace/node_modules/express/lib/router/layer.js:95:5)
+    at /home/runner/workspace/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/runner/workspace/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/runner/workspace/node_modules/express/lib/router/index.js:280:10)
+    at <anonymous> (/home/runner/workspace/server/index.ts:84:3)
+    at Layer.handle [as handle_request] (/home/runner/workspace/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/runner/workspace/node_modules/express/lib/router/index.js:328:13)
+    at /home/runner/workspace/node_modules/express/lib/router/index.js:286:9
+    at Function.process_params (/home/runner/workspace/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/runner/workspace/node_modules/express/lib/router/index.js:280:10)
+    at /home/runner/workspace/node_modules/express-session/index.js:514:7
+    at /home/runner/workspace/node_modules/connect-pg-simple/index.js:370:18
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  issues: [
+    {
+      code: 'too_small',
+      minimum: 1,
+      type: 'string',
+      inclusive: true,
+      exact: false,
+      message: 'Company name is required',
+      path: [Array]
+    },
+    {
+      validation: 'email',
+      code: 'invalid_string',
+      message: 'Valid email address is required',
+      path: [Array]
+    },
+    {
+      code: 'too_small',
+      minimum: 1,
+      type: 'number',
+      inclusive: true,
+      exact: false,
+      message: 'Group size is required',
+      path: [Array]
+    }
+  ],
+  addIssue: [Function (anonymous)],
+  addIssues: [Function (anonymous)],
+  errors: [
+    {
+      code: 'too_small',
+      minimum: 1,
+      type: 'string',
+      inclusive: true,
+      exact: false,
+      message: 'Company name is required',
+      path: [Array]
+    },
+    {
+      validation: 'email',
+      code: 'invalid_string',
+      message: 'Valid email address is required',
+      path: [Array]
+    },
+    {
+      code: 'too_small',
+      minimum: 1,
+      type: 'number',
+      inclusive: true,
+      exact: false,
+      message: 'Group size is required',
+      path: [Array]
+    }
+  ]
+}
