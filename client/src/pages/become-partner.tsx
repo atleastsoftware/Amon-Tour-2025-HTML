@@ -1,23 +1,12 @@
-import { useState } from "react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
-import { Handshake, TrendingUp, Users, Shield, Globe, Star, CheckCircle } from "lucide-react";
+import { Handshake, TrendingUp, Users, Shield, Globe, Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-
-interface FormData {
-  companyName: string;
-  contactName: string;
-  email: string;
-  phone: string;
-  website: string;
-  partnershipType: string;
-  description: string;
-}
 
 export default function BecomePartner() {
   const [formData, setFormData] = useState<FormData>({
@@ -91,7 +80,6 @@ export default function BecomePartner() {
       </>
     );
   }
-
   return (
     <>
       <SEO 
@@ -130,17 +118,150 @@ export default function BecomePartner() {
                 className="bg-primary hover:bg-primary/90 text-white"
                 onClick={() => {
                   const formSection = document.getElementById('partnership-form');
-                  formSection?.scrollIntoView({ behavior: 'smooth' });
+                  if (formSection) {
+                    formSection.scrollIntoView({ behavior: 'smooth' });
+                  }
                 }}
               >
-                Start Partnership Application
+                Start Partnership
               </Button>
             </motion.div>
           </div>
         </section>
 
-        {/* Partnership Form Section */}
-        <section id="partnership-form" className="py-16 bg-gray-50">
+        {/* Why Partner with Us */}
+        <section className="py-16 bg-white">
+          <div className="container mx-auto px-4">
+            <motion.div 
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">
+                Why Partner with Amon Tour?
+              </h2>
+              <div className="w-20 h-1 bg-secondary mx-auto mb-6"></div>
+              <p className="text-gray-600 max-w-3xl mx-auto text-lg">
+                We provide the tools, support, and expertise you need to offer exceptional Thailand experiences to your clients.
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {[
+                {
+                  icon: <TrendingUp className="w-8 h-8" />,
+                  title: "Attractive Commissions",
+                  description: "Competitive commission rates with transparent payment terms and reliable monthly payouts."
+                },
+                {
+                  icon: <Shield className="w-8 h-8" />,
+                  title: "Complete Transparency",
+                  description: "Real-time booking tracking, clear reporting, and honest communication throughout our partnership."
+                },
+                {
+                  icon: <Users className="w-8 h-8" />,
+                  title: "Local Expertise",
+                  description: "Our experienced local team ensures authentic experiences and exceptional service for your clients."
+                },
+                {
+                  icon: <Globe className="w-8 h-8" />,
+                  title: "Easy Integration",
+                  description: "Quick onboarding process with marketing materials and ongoing support to get you started fast."
+                }
+              ].map((benefit, index) => (
+                <motion.div
+                  key={index}
+                  className="text-center"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                >
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 text-primary">
+                    {benefit.icon}
+                  </div>
+                  <h3 className="font-heading font-bold text-xl mb-3">{benefit.title}</h3>
+                  <p className="text-gray-600">{benefit.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Ideal Partners */}
+        <section className="py-16 bg-neutral-50">
+          <div className="container mx-auto px-4">
+            <motion.div 
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">
+                Ideal Partners
+              </h2>
+              <div className="w-20 h-1 bg-secondary mx-auto mb-6"></div>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                We welcome partnerships with various types of businesses and professionals in the travel industry.
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                {
+                  icon: <Globe className="w-12 h-12" />,
+                  title: "Travel Agencies & Travel Planners",
+                  description: "Travel Agencies and Travel Planners looking to offer authentic and exclusive experiences in South Thailand.",
+                  badge: "High Volume"
+                },
+                {
+                  icon: <Star className="w-12 h-12" />,
+                  title: "Travel Bloggers & Influencers",
+                  description: "Content creators with engaged audiences interested in Southeast Asia travel",
+                  badge: "Content Partners"
+                },
+                {
+                  icon: <Users className="w-12 h-12" />,
+                  title: "Hotels & Resorts",
+                  description: "Accommodations wanting to offer curated local experiences to their guests",
+                  badge: "Guest Services"
+                },
+                {
+                  icon: <Shield className="w-12 h-12" />,
+                  title: "Concierge Services",
+                  description: "Luxury concierge and personal travel assistants serving high-end clientele",
+                  badge: "Premium"
+                }
+              ].map((partner, index) => (
+                <motion.div
+                  key={index}
+                  className="bg-white p-6 rounded-lg shadow-md relative"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                >
+                  <div className="absolute top-4 right-4">
+                    <span className="bg-secondary/10 text-secondary px-2 py-1 rounded-full text-xs font-medium">
+                      {partner.badge}
+                    </span>
+                  </div>
+                  <div className="text-primary mb-4">
+                    {partner.icon}
+                  </div>
+                  <h3 className="font-heading font-bold text-lg mb-3">{partner.title}</h3>
+                  <p className="text-gray-600 text-sm">{partner.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Partnership Benefits */}
+        <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
             <motion.div 
               className="max-w-4xl mx-auto"
@@ -149,121 +270,142 @@ export default function BecomePartner() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
+              <div className="text-center mb-12">
+                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">
+                  What You Get as Our Partner
+                </h2>
+                <div className="w-20 h-1 bg-secondary mx-auto mb-6"></div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-6">
+                  <div className="flex items-start space-x-4">
+                    <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                      <TrendingUp className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-heading font-bold text-lg mb-2">Competitive Commission Structure</h3>
+                      <p className="text-gray-600">Earn up to 15% commission on bookings with performance-based bonuses for top partners.</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-4">
+                    <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Globe className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-heading font-bold text-lg mb-2">Marketing Support</h3>
+                      <p className="text-gray-600">High-quality photos, videos, brochures, and web content to promote our experiences.</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-4">
+                    <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Users className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-heading font-bold text-lg mb-2">Dedicated Support</h3>
+                      <p className="text-gray-600">Personal account manager and 24/7 support for urgent inquiries and bookings.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-6">
+                  <div className="flex items-start space-x-4">
+                    <div className="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Shield className="w-5 h-5 text-secondary" />
+                    </div>
+                    <div>
+                      <h3 className="font-heading font-bold text-lg mb-2">Booking Platform Access</h3>
+                      <p className="text-gray-600">Easy-to-use online portal for real-time availability, instant confirmations, and booking management.</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-4">
+                    <div className="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Star className="w-5 h-5 text-secondary" />
+                    </div>
+                    <div>
+                      <h3 className="font-heading font-bold text-lg mb-2">Training & Education</h3>
+                      <p className="text-gray-600">Regular webinars, destination training, and product updates to enhance your selling skills.</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-4">
+                    <div className="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Handshake className="w-5 h-5 text-secondary" />
+                    </div>
+                    <div>
+                      <h3 className="font-heading font-bold text-lg mb-2">Flexible Terms</h3>
+                      <p className="text-gray-600">No exclusive requirements - work with us alongside other tour operators as it suits your business.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Contact Form */}
+        <section id="partnership-form" className="py-16 bg-neutral-50">
+          <div className="container mx-auto px-4">
+            <motion.div 
+              className="max-w-2xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
               <div className="text-center mb-8">
                 <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">
-                  Partnership Application
+                  Start Your Partnership Today
                 </h2>
                 <div className="w-20 h-1 bg-secondary mx-auto mb-6"></div>
                 <p className="text-gray-600">
-                  Complete the form below to start your partnership journey with Amon Tour
+                  Ready to grow your business with us? Fill out the form below and our partnership team will contact you within 24 hours.
                 </p>
               </div>
 
-              <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md space-y-6">
+              <form className="bg-white p-8 rounded-lg shadow-md space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="companyName">Company Name *</Label>
-                    <Input 
-                      id="companyName" 
-                      name="companyName"
-                      value={formData.companyName}
-                      onChange={handleInputChange}
-                      placeholder="Your company name" 
-                      required 
-                    />
+                    <Label htmlFor="name">Full Name *</Label>
+                    <Input id="name" placeholder="Your full name" required />
                   </div>
                   <div>
-                    <Label htmlFor="contactName">Contact Person *</Label>
-                    <Input 
-                      id="contactName" 
-                      name="contactName"
-                      value={formData.contactName}
-                      onChange={handleInputChange}
-                      placeholder="Your full name" 
-                      required 
-                    />
+                    <Label htmlFor="company">Company Name *</Label>
+                    <Input id="company" placeholder="Your company name" required />
                   </div>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="email">Email *</Label>
-                    <Input 
-                      id="email" 
-                      name="email"
-                      type="email" 
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      placeholder="your@company.com" 
-                      required 
-                    />
+                    <Label htmlFor="email">Email Address *</Label>
+                    <Input id="email" type="email" placeholder="your@email.com" required />
                   </div>
                   <div>
-                    <Label htmlFor="phone">Phone Number</Label>
-                    <Input 
-                      id="phone" 
-                      name="phone"
-                      type="tel" 
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      placeholder="+66 XX XXX XXXX" 
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="website">Website (if any)</Label>
-                    <Input 
-                      id="website" 
-                      name="website"
-                      type="url" 
-                      value={formData.website}
-                      onChange={handleInputChange}
-                      placeholder="https://yourcompany.com" 
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="partnershipType">Partnership Type *</Label>
-                    <select
-                      id="partnershipType"
-                      name="partnershipType"
-                      value={formData.partnershipType}
-                      onChange={handleInputChange}
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                      required
-                    >
-                      <option value="">Select partnership type</option>
-                      <option value="agent">Travel Agent</option>
-                      <option value="operator">Tour Operator</option>
-                      <option value="hotel">Hotel/Accommodation</option>
-                      <option value="restaurant">Restaurant/Service</option>
-                      <option value="transport">Transportation</option>
-                      <option value="activity">Activity Provider</option>
-                      <option value="other">Other</option>
-                    </select>
+                    <Label htmlFor="website">Website (Optional)</Label>
+                    <Input id="website" type="url" placeholder="https://yourwebsite.com" />
                   </div>
                 </div>
 
                 <div>
-                  <Label htmlFor="description">Partnership Proposal *</Label>
+                  <Label htmlFor="partnerType">Type of Business *</Label>
+                  <Input id="partnerType" placeholder="e.g., Travel Agency, Hotel, Blogger, Concierge Service" required />
+                </div>
+
+                <div>
+                  <Label htmlFor="message">Tell Us About Your Business *</Label>
                   <Textarea 
-                    id="description" 
-                    name="description"
-                    value={formData.description}
-                    onChange={handleInputChange}
-                    placeholder="Describe your company, services, and how you envision our partnership. What value can we bring to each other?"
+                    id="message" 
+                    placeholder="Describe your business, target market, expected volume, and how you plan to promote our services..."
                     rows={5}
                     required
                   />
                 </div>
 
-                <Button 
-                  type="submit" 
-                  disabled={isSubmitting}
-                  className="w-full bg-primary hover:bg-primary/90 text-white"
-                >
-                  {isSubmitting ? 'Sending...' : 'Send Partnership Proposal'}
+                <Button type="submit" className="w-full bg-primary hover:bg-primary/90">
+                  Submit Partnership Application
                 </Button>
               </form>
             </motion.div>

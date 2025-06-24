@@ -1,24 +1,12 @@
-import { useState } from "react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
-import { Users, Target, Calendar, Award, Building, GraduationCap, CheckCircle } from "lucide-react";
+import { Users, Target, Calendar, Award, Building, GraduationCap } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-
-interface FormData {
-  companyName: string;
-  contactName: string;
-  email: string;
-  phone: string;
-  groupSize: string;
-  travelDates: string;
-  budget: string;
-  description: string;
-}
 
 export default function GroupCorporate() {
   const [formData, setFormData] = useState<FormData>({
@@ -96,7 +84,6 @@ export default function GroupCorporate() {
       </>
     );
   }
-
   return (
     <>
       <SEO 
@@ -135,20 +122,247 @@ export default function GroupCorporate() {
                 className="bg-primary hover:bg-primary/90 text-white"
                 onClick={() => {
                   const formSection = document.getElementById('group-form');
-                  formSection?.scrollIntoView({ behavior: 'smooth' });
+                  if (formSection) {
+                    formSection.scrollIntoView({ behavior: 'smooth' });
+                  }
                 }}
               >
-                Request Group Quote
+                Plan Your Group Event
               </Button>
             </motion.div>
           </div>
         </section>
 
-        {/* Group Form Section */}
-        <section id="group-form" className="py-16 bg-gray-50">
+        {/* Introduction */}
+        <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
             <motion.div 
-              className="max-w-4xl mx-auto"
+              className="max-w-4xl mx-auto text-center"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-6">
+                Tailored Group Experiences in Krabi
+              </h2>
+              <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
+              <p className="text-gray-600 text-lg leading-relaxed">
+                Whether you're planning a corporate retreat, educational trip, team-building event, or special celebration, 
+                our experienced team creates memorable experiences that bring groups together in Thailand's most stunning destination. 
+                From logistics coordination to on-site support, we handle every detail so you can focus on your objectives.
+              </p>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* What We Offer */}
+        <section className="py-16 bg-neutral-50">
+          <div className="container mx-auto px-4">
+            <motion.div 
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">
+                What We Offer
+              </h2>
+              <div className="w-20 h-1 bg-secondary mx-auto mb-6"></div>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                Comprehensive group travel solutions designed to exceed your expectations and achieve your goals.
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[
+                {
+                  icon: <Calendar className="w-8 h-8" />,
+                  title: "Complete Logistics",
+                  description: "Transportation, accommodation, dining, and activity coordination from arrival to departure."
+                },
+                {
+                  icon: <Users className="w-8 h-8" />,
+                  title: "On-Site Support",
+                  description: "Dedicated local team members to ensure smooth execution and handle any requirements."
+                },
+                {
+                  icon: <Target className="w-8 h-8" />,
+                  title: "Custom Planning",
+                  description: "Tailored itineraries designed around your group's objectives, interests, and budget."
+                }
+              ].map((offer, index) => (
+                <motion.div
+                  key={index}
+                  className="bg-white p-6 rounded-lg shadow-md text-center"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                >
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 text-primary">
+                    {offer.icon}
+                  </div>
+                  <h3 className="font-heading font-bold text-xl mb-3">{offer.title}</h3>
+                  <p className="text-gray-600">{offer.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Sample Activities */}
+        <section className="py-16 bg-white">
+          <div className="container mx-auto px-4">
+            <motion.div 
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">
+                Sample Group Activities
+              </h2>
+              <div className="w-20 h-1 bg-secondary mx-auto mb-6"></div>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                Choose from our curated activities or let us design unique experiences for your group.
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                {
+                  title: "Private Boat Tour",
+                  description: "Exclusive island-hopping experience with snorkeling, beach time, and Thai lunch",
+                  highlights: ["4 Islands Tour", "Private longtail boat", "Snorkeling equipment", "Traditional lunch"]
+                },
+                {
+                  title: "Team Building Adventure",
+                  description: "Challenging outdoor activities designed to strengthen team bonds and communication",
+                  highlights: ["Rock climbing", "Kayak challenges", "Problem-solving games", "Group reflection"]
+                },
+                {
+                  title: "Thai Cooking Class",
+                  description: "Interactive culinary experience learning authentic Thai recipes together",
+                  highlights: ["Market visit", "Hands-on cooking", "Recipe booklet", "Group dining"]
+                },
+                {
+                  title: "Wellness Retreat",
+                  description: "Relaxation and mindfulness activities in Krabi's natural setting",
+                  highlights: ["Yoga sessions", "Meditation", "Spa treatments", "Healthy meals"]
+                }
+              ].map((activity, index) => (
+                <motion.div
+                  key={index}
+                  className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                >
+                  <h3 className="font-heading font-bold text-lg mb-3 text-primary">{activity.title}</h3>
+                  <p className="text-gray-600 mb-4 text-sm">{activity.description}</p>
+                  <ul className="space-y-1">
+                    {activity.highlights.map((highlight, i) => (
+                      <li key={i} className="text-sm text-gray-600 flex items-center">
+                        <div className="w-2 h-2 bg-secondary rounded-full mr-2"></div>
+                        {highlight}
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Target Audiences */}
+        <section className="py-16 bg-neutral-50">
+          <div className="container mx-auto px-4">
+            <motion.div 
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">
+                Who We Serve
+              </h2>
+              <div className="w-20 h-1 bg-secondary mx-auto mb-6"></div>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                We specialize in creating meaningful experiences for diverse groups with varying objectives and requirements.
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[
+                {
+                  icon: <Building className="w-12 h-12" />,
+                  title: "Corporate Groups",
+                  description: "Executive retreats, team building, company incentive trips, and leadership development programs",
+                  size: "10-100+ participants"
+                },
+                {
+                  icon: <GraduationCap className="w-12 h-12" />,
+                  title: "Educational Trips",
+                  description: "Student groups, university programs, cultural exchanges, and educational tours",
+                  size: "15-50 students"
+                },
+                {
+                  icon: <Users className="w-12 h-12" />,
+                  title: "Special Interest Groups",
+                  description: "Wedding parties, yoga retreats, photography tours, and celebration events",
+                  size: "8-30 participants"
+                },
+                {
+                  icon: <Award className="w-12 h-12" />,
+                  title: "Conferences & Seminars",
+                  description: "Business conferences, workshops, training sessions, and professional meetings",
+                  size: "20-200+ attendees"
+                },
+                {
+                  icon: <Target className="w-12 h-12" />,
+                  title: "Wellness Groups",
+                  description: "Health and wellness retreats, fitness groups, mindfulness programs, and spa experiences",
+                  size: "6-25 participants"
+                },
+                {
+                  icon: <Calendar className="w-12 h-12" />,
+                  title: "Social Clubs",
+                  description: "Travel clubs, hobby groups, family reunions, and friend gatherings",
+                  size: "8-40 people"
+                }
+              ].map((audience, index) => (
+                <motion.div
+                  key={index}
+                  className="bg-white p-6 rounded-lg shadow-md"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                >
+                  <div className="text-primary mb-4">
+                    {audience.icon}
+                  </div>
+                  <h3 className="font-heading font-bold text-lg mb-2">{audience.title}</h3>
+                  <p className="text-gray-600 text-sm mb-3">{audience.description}</p>
+                  <div className="text-xs text-secondary font-medium bg-secondary/10 px-2 py-1 rounded-full inline-block">
+                    {audience.size}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Contact Form */}
+        <section id="group-form" className="py-16 bg-white">
+          <div className="container mx-auto px-4">
+            <motion.div 
+              className="max-w-2xl mx-auto"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -156,121 +370,60 @@ export default function GroupCorporate() {
             >
               <div className="text-center mb-8">
                 <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">
-                  Group Travel Request
+                  Plan Your Group Experience
                 </h2>
                 <div className="w-20 h-1 bg-secondary mx-auto mb-6"></div>
                 <p className="text-gray-600">
-                  Tell us about your group and we'll create a customized proposal for your Thailand adventure
+                  Tell us about your group and objectives, and we'll create a customized proposal for your Krabi experience.
                 </p>
               </div>
 
-              <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md space-y-6">
+              <form className="bg-neutral-50 p-8 rounded-lg shadow-md space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="companyName">Company/Organization Name *</Label>
-                    <Input 
-                      id="companyName" 
-                      name="companyName"
-                      value={formData.companyName}
-                      onChange={handleInputChange}
-                      placeholder="Your company name" 
-                      required 
-                    />
+                    <Label htmlFor="contactName">Contact Name *</Label>
+                    <Input id="contactName" placeholder="Your full name" required />
                   </div>
                   <div>
-                    <Label htmlFor="contactName">Contact Person *</Label>
-                    <Input 
-                      id="contactName" 
-                      name="contactName"
-                      value={formData.contactName}
-                      onChange={handleInputChange}
-                      placeholder="Your full name" 
-                      required 
-                    />
+                    <Label htmlFor="email">Email Address *</Label>
+                    <Input id="email" type="email" placeholder="your@email.com" required />
                   </div>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="email">Email *</Label>
-                    <Input 
-                      id="email" 
-                      name="email"
-                      type="email" 
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      placeholder="your@company.com" 
-                      required 
-                    />
+                    <Label htmlFor="groupType">Group Type *</Label>
+                    <Input id="groupType" placeholder="e.g., Corporate, Educational, Wedding" required />
                   </div>
                   <div>
-                    <Label htmlFor="phone">Phone Number</Label>
-                    <Input 
-                      id="phone" 
-                      name="phone"
-                      type="tel" 
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      placeholder="+66 XX XXX XXXX" 
-                    />
+                    <Label htmlFor="groupSize">Number of People *</Label>
+                    <Input id="groupSize" type="number" placeholder="Approximate group size" required />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="groupSize">Group Size *</Label>
-                    <Input 
-                      id="groupSize" 
-                      name="groupSize"
-                      type="number" 
-                      value={formData.groupSize}
-                      onChange={handleInputChange}
-                      placeholder="Number of participants" 
-                      required 
-                    />
+                    <Label htmlFor="travelDates">Preferred Travel Dates</Label>
+                    <Input id="travelDates" placeholder="e.g., March 2024 or flexible" />
                   </div>
                   <div>
-                    <Label htmlFor="travelDates">Preferred Travel Dates</Label>
-                    <Input 
-                      id="travelDates" 
-                      name="travelDates"
-                      value={formData.travelDates}
-                      onChange={handleInputChange}
-                      placeholder="e.g: March 15-22, 2025" 
-                    />
+                    <Label htmlFor="duration">Duration</Label>
+                    <Input id="duration" placeholder="e.g., 3 days, 1 week" />
                   </div>
                 </div>
 
                 <div>
-                  <Label htmlFor="budget">Estimated Budget per Person</Label>
-                  <Input 
-                    id="budget" 
-                    name="budget"
-                    value={formData.budget}
-                    onChange={handleInputChange}
-                    placeholder="e.g: 15,000-25,000 THB" 
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="description">Travel Requirements & Preferences *</Label>
+                  <Label htmlFor="objectives">Group Objectives & Requirements *</Label>
                   <Textarea 
-                    id="description" 
-                    name="description"
-                    value={formData.description}
-                    onChange={handleInputChange}
-                    placeholder="Tell us about your group's interests, preferred activities, accommodation level, dietary requirements, and any special needs..."
+                    id="objectives" 
+                    placeholder="Describe your group's goals, interests, budget range, special requirements, preferred activities, and any specific needs..."
                     rows={5}
                     required
                   />
                 </div>
 
-                <Button 
-                  type="submit" 
-                  disabled={isSubmitting}
-                  className="w-full bg-primary hover:bg-primary/90 text-white"
-                >
-                  {isSubmitting ? 'Sending...' : 'Request Group Quote'}
+                <Button type="submit" className="w-full bg-primary hover:bg-primary/90">
+                  Request Group Proposal
                 </Button>
               </form>
             </motion.div>
