@@ -90,13 +90,13 @@ export default function NewsletterSubscription() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           disabled={isSubmitting}
-          className="px-4 py-2 rounded-l-md w-full max-w-xs text-gray-800 focus:outline-none focus:ring-2 focus:ring-secondary disabled:opacity-50 disabled:cursor-not-allowed"
+          className="px-4 py-2 rounded-l-md w-full max-w-xs text-gray-800 focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed"
           required
         />
         <motion.button 
           type="submit" 
           disabled={isSubmitting || !email.trim()}
-          className="bg-secondary px-4 py-2 rounded-r-md hover:bg-secondary-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="bg-primary px-4 py-2 rounded-r-md hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           aria-label="Subscribe to newsletter"
           whileHover={!isSubmitting ? { scale: 1.05 } : {}}
           whileTap={!isSubmitting ? { scale: 0.95 } : {}}
