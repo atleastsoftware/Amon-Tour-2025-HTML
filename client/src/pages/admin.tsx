@@ -125,71 +125,72 @@ export default function AdminPage() {
             </Card>
 
             <Card className="overflow-hidden">
-              <CardHeader className="bg-primary/5 pb-4">
-                <CardTitle className="flex items-center gap-2">
+              <CardHeader className="bg-purple-500/10 pb-4">
+                <CardTitle className="flex items-center gap-2 text-purple-700">
                   <BookOpen className="h-5 w-5" />
-                  Blog Management
+                  Gestion du blog
                 </CardTitle>
                 <CardDescription>
-                  Manage blog posts, categories and tags
+                  Créer et modifier les articles
                 </CardDescription>
               </CardHeader>
-              <CardContent className="pt-6">
-                <p className="mb-4 text-sm text-muted-foreground">
-                  Create and manage blog posts, organize content with categories and tags.
-                  Published posts will appear on the blog section.
-                </p>
+              <CardContent className="pt-4">
                 <Button 
-                  className="w-full" 
+                  className="w-full bg-purple-600 hover:bg-purple-700" 
                   onClick={() => setLocation('/admin-blog')}
                 >
-                  Manage Blog
+                  Gérer le blog
                 </Button>
               </CardContent>
             </Card>
             
-            <Card className="overflow-hidden">
-              <CardHeader className="bg-primary/5 pb-4">
-                <CardTitle className="flex items-center gap-2">
-                  <Mail className="h-5 w-5" />
-                  Newsletter Management
+            <Card 
+              className="overflow-hidden cursor-pointer hover:shadow-lg transition-all duration-300 relative"
+              onClick={() => setLocation("/admin-newsletter")}
+            >
+              {(newsletterUnconfirmed?.length || 0) > 0 && (
+                <Badge 
+                  variant="destructive" 
+                  className="absolute -top-2 -right-2 h-6 w-6 rounded-full p-0 flex items-center justify-center text-xs z-10"
+                >
+                  {newsletterUnconfirmed?.length}
+                </Badge>
+              )}
+              <CardHeader className="bg-orange-500/10 pb-4">
+                <CardTitle className="flex items-center gap-2 text-orange-700">
+                  <Newspaper className="h-5 w-5" />
+                  Newsletter
                 </CardTitle>
                 <CardDescription>
-                  Manage newsletter subscriptions and exports
+                  Gérer les abonnements newsletter
                 </CardDescription>
               </CardHeader>
-              <CardContent className="pt-6">
-                <p className="mb-4 text-sm text-muted-foreground">
-                  View all newsletter subscribers, manage confirmations, filter by status, and export subscriber lists to CSV.
-                </p>
+              <CardContent className="pt-4">
                 <Button 
-                  className="w-full" 
+                  className="w-full bg-orange-600 hover:bg-orange-700" 
                   onClick={() => setLocation('/admin-newsletter')}
                 >
-                  Manage Newsletter
+                  Gérer la newsletter
                 </Button>
               </CardContent>
             </Card>
 
             <Card className="overflow-hidden">
-              <CardHeader className="bg-primary/5 pb-4">
-                <CardTitle className="flex items-center gap-2">
-                  <Users className="h-5 w-5" />
-                  Custom Tour Requests
+              <CardHeader className="bg-teal-500/10 pb-4">
+                <CardTitle className="flex items-center gap-2 text-teal-700">
+                  <ImagePlus className="h-5 w-5" />
+                  Cartes de tours
                 </CardTitle>
                 <CardDescription>
-                  Manage custom tour inquiries and requests
+                  Créer et gérer les cartes de présentation
                 </CardDescription>
               </CardHeader>
-              <CardContent className="pt-6">
-                <p className="mb-4 text-sm text-muted-foreground">
-                  View and manage custom tour requests from customers. Track status, respond to inquiries, and export data.
-                </p>
+              <CardContent className="pt-4">
                 <Button 
-                  className="w-full" 
-                  onClick={() => setLocation('/admin-custom-tours')}
+                  className="w-full bg-teal-600 hover:bg-teal-700" 
+                  onClick={() => setLocation('/tour-card-builder')}
                 >
-                  Manage Requests
+                  Créateur de cartes
                 </Button>
               </CardContent>
             </Card>
