@@ -27,23 +27,7 @@ export default function About() {
               You're not booking a generic tour — you're being welcomed, guided, and cared for by people who live here, who know the tides, the seasons, the crowds to avoid, and the hidden gems worth discovering.
             </p>
             
-            {/* New section with expats title and separator */}
-            <div className="text-center my-8">
-              <h3 className="font-heading font-bold text-2xl mb-4">
-                When expats welcome you in their host country
-              </h3>
-              <div className="flex justify-center mb-6">
-                <img 
-                  src="/attached_assets/image_1750743570045.png" 
-                  alt="Section separator" 
-                  className="h-auto max-w-full"
-                />
-              </div>
-            </div>
-            
-            <p className="text-gray-700 mb-6">
-              This is a family-run travel agency that combines the organization of exclusive activities with the creation of tailor-made trips throughout the country. Our goal is to offer an immersive experience, far from mass tourism, with personalized service for every traveler — as if we were welcoming our own family or friends.
-            </p>
+
 
             <h3 className="font-heading font-semibold text-2xl mt-6 mb-3">
               Our Concept

@@ -184,6 +184,16 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-6">
+                When expats welcome you in their host country
+              </h2>
+              <div className="flex justify-center mb-8">
+                <img 
+                  src="/attached_assets/image_1750743570045.png" 
+                  alt="Section separator" 
+                  className="h-auto max-w-full"
+                />
+              </div>
               <p className="text-lg text-gray-700 leading-relaxed">
                 This is a family-run travel agency that combines the organization of exclusive activities 
                 with the creation of tailor-made trips throughout the country.
