@@ -9,6 +9,81 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 
 export default function GroupCorporate() {
+  const [formData, setFormData] = useState<FormData>({
+    companyName: '',
+    contactName: '',
+    email: '',
+    phone: '',
+    groupSize: '',
+    travelDates: '',
+    budget: '',
+    description: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    try {
+      const response = await fetch('/api/group-corporate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          groupSize: parseInt(formData.groupSize) || 0
+        }),
+        credentials: 'include',
+      });
+
+      if (!response.ok) {
+        throw new Error('Erreur lors de l\'envoi');
+      }
+
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error('Erreur:', error);
+      alert('Une erreur est survenue lors de l\'envoi de votre demande. Veuillez réessayer.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  if (isSubmitted) {
+    return (
+      <>
+        <Header />
+        <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white pt-24 pb-16">
+          <div className="container mx-auto px-4 text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="max-w-2xl mx-auto"
+            >
+              <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-6" />
+              <h1 className="text-3xl font-heading font-bold mb-4">Group Request Sent!</h1>
+              <p className="text-gray-600 mb-8">
+                Thank you for your group travel inquiry. We have received your request and our team will prepare a customized proposal for your group. We will contact you within 24-48 hours with detailed options and pricing.
+              </p>
+              <Button onClick={() => window.location.href = '/'} className="bg-primary hover:bg-primary/90">
+                Return to Homepage
+              </Button>
+            </motion.div>
+          </div>
+        </div>
+        <Footer />
+      </>
+    );
+  }
   return (
     <>
       <SEO 

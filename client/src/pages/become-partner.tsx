@@ -9,6 +9,77 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 
 export default function BecomePartner() {
+  const [formData, setFormData] = useState<FormData>({
+    companyName: '',
+    contactName: '',
+    email: '',
+    phone: '',
+    website: '',
+    partnershipType: '',
+    description: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    try {
+      const response = await fetch('/api/become-partner', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+        credentials: 'include',
+      });
+
+      if (!response.ok) {
+        throw new Error('Erreur lors de l\'envoi');
+      }
+
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error('Erreur:', error);
+      alert('Une erreur est survenue lors de l\'envoi de votre demande. Veuillez réessayer.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  if (isSubmitted) {
+    return (
+      <>
+        <Header />
+        <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white pt-24 pb-16">
+          <div className="container mx-auto px-4 text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="max-w-2xl mx-auto"
+            >
+              <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-6" />
+              <h1 className="text-3xl font-heading font-bold mb-4">Partnership Request Sent!</h1>
+              <p className="text-gray-600 mb-8">
+                Thank you for your interest in partnering with Amon Tour. We have received your proposal and our partnership team will review it carefully. We will get back to you within 2-3 business days.
+              </p>
+              <Button onClick={() => window.location.href = '/'} className="bg-primary hover:bg-primary/90">
+                Return to Homepage
+              </Button>
+            </motion.div>
+          </div>
+        </div>
+        <Footer />
+      </>
+    );
+  }
   return (
     <>
       <SEO 

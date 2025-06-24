@@ -325,61 +325,7 @@ export default function Admin() {
                 </Card>
               </motion.div>
 
-              {/* Messages de contact */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.7 }}
-              >
-                <Card 
-                  className="group hover:shadow-lg transition-all duration-300 cursor-pointer border-0 bg-gradient-to-r from-green-500 to-green-600 shadow-md hover:shadow-xl hover:scale-105 relative"
-                  onClick={() => setLocation('/admin-custom-tours')}
-                >
-                  <CardHeader className="text-white">
-                    <div className="flex items-center space-x-3">
-                      <div className="p-2 bg-white/20 rounded-lg">
-                        <Mail className="h-6 w-6" />
-                      </div>
-                      <div>
-                        <CardTitle className="text-lg font-heading">Messages de contact</CardTitle>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="text-white/90">
-                    <CardDescription className="text-white/80">
-                      Consulter et répondre aux messages
-                    </CardDescription>
-                  </CardContent>
-                </Card>
-              </motion.div>
 
-              {/* Paramètres */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.8 }}
-              >
-                <Card 
-                  className="group hover:shadow-lg transition-all duration-300 cursor-pointer border-0 bg-gradient-to-r from-gray-500 to-gray-600 shadow-md hover:shadow-xl hover:scale-105 relative"
-                  onClick={() => setLocation('/admin-custom-tours')}
-                >
-                  <CardHeader className="text-white">
-                    <div className="flex items-center space-x-3">
-                      <div className="p-2 bg-white/20 rounded-lg">
-                        <Settings className="h-6 w-6" />
-                      </div>
-                      <div>
-                        <CardTitle className="text-lg font-heading">Paramètres</CardTitle>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="text-white/90">
-                    <CardDescription className="text-white/80">
-                      Configuration et préférences
-                    </CardDescription>
-                  </CardContent>
-                </Card>
-              </motion.div>
             </div>
           </motion.div>
         </div>
