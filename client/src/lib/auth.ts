@@ -1,26 +1,57 @@
-// PUBLIC SITE ONLY - NO AUTHENTICATION
-// All authentication functions disabled for public showcase
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
 
-export const useLogin = () => ({
-  mutate: () => console.warn('Authentication disabled - public site'),
-  isPending: false,
-  error: null
-});
+interface LoginCredentials {
+  username: string;
+  password: string;
+}
 
-export const useLogout = () => ({
-  mutate: () => console.warn('Authentication disabled - public site'),
-  isPending: false,
-  error: null
-});
+interface User {
+  id: number;
+  username: string;
+}
 
-export const useUser = () => ({
-  data: null,
-  isLoading: false,
-  error: null
-});
+export const useLogin = () => {
+  const queryClient = useQueryClient();
+  
+  return useMutation({
+    mutationFn: async (credentials: LoginCredentials) => {
+      const response = await apiRequest("POST", "/api/login", credentials);
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/me"] });
+    },
+  });
+};
 
-export const useIsAuthenticated = () => ({
-  isAuthenticated: false,
-  isLoading: false,
-  user: null
-});
+export const useLogout = () => {
+  const queryClient = useQueryClient();
+  
+  return useMutation({
+    mutationFn: async () => {
+      const response = await apiRequest("POST", "/api/logout");
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/me"] });
+    },
+  });
+};
+
+export const useUser = () => {
+  return useQuery<User | null>({
+    queryKey: ["/api/me"],
+    retry: false,
+  });
+};
+
+export const useIsAuthenticated = () => {
+  const { data: user, isLoading } = useUser();
+  
+  return {
+    isAuthenticated: !!user,
+    isLoading,
+    user,
+  };
+};
