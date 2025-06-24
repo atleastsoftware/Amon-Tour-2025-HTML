@@ -17,12 +17,12 @@ async function ensureAdminUser() {
     if (!existingAdmin) {
       // Create admin user if it doesn't exist
       log("Creating admin user");
-      const hashedPassword = await bcrypt.hash("admin123", 10);
+      const hashedPassword = await bcrypt.hash("admin123456", 10);
       await storage.createUser({
         username: "admin",
         password: hashedPassword,
       });
-      log("Admin user created successfully - Username: admin, Password: admin123");
+      log("Admin user created successfully - Username: admin, Password: admin123456");
     } else {
       log("Admin user already exists");
     }
