@@ -125,6 +125,30 @@ export interface IStorage {
   updateNewsletterSubscription(id: number, data: Partial<NewsletterSubscription>): Promise<NewsletterSubscription | undefined>;
   confirmNewsletterSubscription(token: string): Promise<NewsletterSubscription | undefined>;
   unsubscribeNewsletter(email: string): Promise<boolean>;
+  
+  // Krabi Celebration Requests operations
+  createKrabiCelebrationRequest(request: InsertKrabiCelebrationRequest): Promise<KrabiCelebrationRequest>;
+  getKrabiCelebrationRequests(filters?: { read?: boolean }): Promise<KrabiCelebrationRequest[]>;
+  getKrabiCelebrationRequest(id: number): Promise<KrabiCelebrationRequest | undefined>;
+  updateKrabiCelebrationRequest(id: number, data: Partial<KrabiCelebrationRequest>): Promise<KrabiCelebrationRequest | undefined>;
+  deleteKrabiCelebrationRequest(id: number): Promise<boolean>;
+  markKrabiCelebrationRequestAsRead(id: number): Promise<KrabiCelebrationRequest | undefined>;
+  
+  // Partnership Requests operations
+  createPartnershipRequest(request: InsertPartnershipRequest): Promise<PartnershipRequest>;
+  getPartnershipRequests(filters?: { read?: boolean }): Promise<PartnershipRequest[]>;
+  getPartnershipRequest(id: number): Promise<PartnershipRequest | undefined>;
+  updatePartnershipRequest(id: number, data: Partial<PartnershipRequest>): Promise<PartnershipRequest | undefined>;
+  deletePartnershipRequest(id: number): Promise<boolean>;
+  markPartnershipRequestAsRead(id: number): Promise<PartnershipRequest | undefined>;
+  
+  // Group Requests operations
+  createGroupRequest(request: InsertGroupRequest): Promise<GroupRequest>;
+  getGroupRequests(filters?: { read?: boolean }): Promise<GroupRequest[]>;
+  getGroupRequest(id: number): Promise<GroupRequest | undefined>;
+  updateGroupRequest(id: number, data: Partial<GroupRequest>): Promise<GroupRequest | undefined>;
+  deleteGroupRequest(id: number): Promise<boolean>;
+  markGroupRequestAsRead(id: number): Promise<GroupRequest | undefined>;
 }
 
 export class DatabaseStorage implements IStorage {

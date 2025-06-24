@@ -288,3 +288,82 @@ export const insertCustomTourRequestSchema = createInsertSchema(customTourReques
 
 export type InsertCustomTourRequest = z.infer<typeof insertCustomTourRequestSchema>;
 export type CustomTourRequest = typeof customTourRequests.$inferSelect;
+
+// Krabi Celebration Requests
+export const krabiCelebrationRequests = pgTable("krabi_celebration_requests", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(),
+  email: varchar("email", { length: 255 }).notNull(),
+  celebrationType: varchar("celebration_type", { length: 100 }).notNull(),
+  guests: integer("guests").notNull(),
+  date: varchar("date", { length: 100 }).notNull(),
+  budget: varchar("budget", { length: 100 }),
+  description: text("description"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  read: boolean("read").default(false).notNull(),
+});
+
+export type KrabiCelebrationRequest = typeof krabiCelebrationRequests.$inferSelect;
+export const insertKrabiCelebrationRequestSchema = createInsertSchema(krabiCelebrationRequests).omit({
+  id: true,
+  createdAt: true,
+}).extend({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Valid email address is required"),
+  celebrationType: z.string().min(1, "Celebration type is required"),
+  guests: z.number().min(1, "Number of guests is required"),
+  date: z.string().min(1, "Date is required"),
+});
+export type InsertKrabiCelebrationRequest = z.infer<typeof insertKrabiCelebrationRequestSchema>;
+
+// Partnership Requests
+export const partnershipRequests = pgTable("partnership_requests", {
+  id: serial("id").primaryKey(),
+  fullName: varchar("full_name", { length: 255 }).notNull(),
+  companyName: varchar("company_name", { length: 255 }).notNull(),
+  email: varchar("email", { length: 255 }).notNull(),
+  website: varchar("website", { length: 255 }),
+  businessType: varchar("business_type", { length: 100 }).notNull(),
+  description: text("description"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  read: boolean("read").default(false).notNull(),
+});
+
+export type PartnershipRequest = typeof partnershipRequests.$inferSelect;
+export const insertPartnershipRequestSchema = createInsertSchema(partnershipRequests).omit({
+  id: true,
+  createdAt: true,
+}).extend({
+  fullName: z.string().min(1, "Full name is required"),
+  companyName: z.string().min(1, "Company name is required"),
+  email: z.string().email("Valid email address is required"),
+  businessType: z.string().min(1, "Business type is required"),
+});
+export type InsertPartnershipRequest = z.infer<typeof insertPartnershipRequestSchema>;
+
+// Group Requests
+export const groupRequests = pgTable("group_requests", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(),
+  email: varchar("email", { length: 255 }).notNull(),
+  groupType: varchar("group_type", { length: 100 }).notNull(),
+  people: integer("people").notNull(),
+  dates: varchar("dates", { length: 255 }).notNull(),
+  duration: varchar("duration", { length: 100 }),
+  requirements: text("requirements"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  read: boolean("read").default(false).notNull(),
+});
+
+export type GroupRequest = typeof groupRequests.$inferSelect;
+export const insertGroupRequestSchema = createInsertSchema(groupRequests).omit({
+  id: true,
+  createdAt: true,
+}).extend({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Valid email address is required"),
+  groupType: z.string().min(1, "Group type is required"),
+  people: z.number().min(1, "Number of people is required"),
+  dates: z.string().min(1, "Dates are required"),
+});
+export type InsertGroupRequest = z.infer<typeof insertGroupRequestSchema>;
