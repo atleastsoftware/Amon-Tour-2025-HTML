@@ -122,7 +122,8 @@ STRIPE_SECRET_KEY=your_stripe_key (optional)
 ```
 
 ## Changelog
-- June 24, 2025. Initial setup
+- June 24, 2025: Initial setup
+- June 24, 2025: Integrated complete backend system for 3 public forms (Krabi Celebration, Partnership, Group/Corporate) with full admin management interface, database tables, API endpoints, and notification system
 
 ## User Preferences
 
