@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
+import heroImage from "@assets/IMG_3481_1750762525398.jpeg";
 import image1 from "@assets/image_1750757024713.png";
 import image2 from "@assets/image_1750757043237.png";
 import image3 from "@assets/image_1750757064524.png";
@@ -16,9 +17,9 @@ export default function KrabiCelebration() {
   return (
     <>
       <SEO 
-        title="Krabi Celebration - Des moments uniques dans un cadre d'exception"
-        description="Laissez-vous séduire par la magie de Krabi et créez des souvenirs inoubliables avec Krabi Celebration. Mariages intimes, dîners romantiques et célébrations sur mesure en Thaïlande."
-        keywords="krabi celebration, mariage thailande, diner romantique krabi, celebration mariage destination, organisateur mariage thailande, ceremonie plage privee"
+        title="Krabi Celebration - Unique Moments in Exceptional Settings"
+        description="Let yourself be enchanted by the magic of Krabi and create unforgettable memories with Krabi Celebration. Intimate weddings, romantic dinners and tailor-made celebrations in Thailand."
+        keywords="krabi celebration, thailand wedding, romantic dinner krabi, destination wedding celebration, thailand wedding planner, private beach ceremony"
       />
       <Header />
       
@@ -28,8 +29,8 @@ export default function KrabiCelebration() {
           <div className="absolute inset-0 bg-black/30 z-10"></div>
           <div className="absolute inset-0 z-0">
             <img 
-              src={image3}
-              alt="Cérémonie de mariage romantique sur plage à Krabi" 
+              src={heroImage}
+              alt="Krabi Celebration - Unique moments in exceptional settings" 
               className="w-full h-full object-cover"
             />
           </div>
@@ -44,7 +45,7 @@ export default function KrabiCelebration() {
                 Krabi Celebration
               </h1>
               <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-8">
-                Des moments uniques dans un cadre d'exception
+                Unique moments in an exceptional setting
               </p>
               <Button 
                 size="lg" 
@@ -56,7 +57,7 @@ export default function KrabiCelebration() {
                   }
                 }}
               >
-                Planifiez Votre Célébration
+                Plan Your Celebration
               </Button>
             </motion.div>
           </div>
@@ -73,14 +74,14 @@ export default function KrabiCelebration() {
               transition={{ duration: 0.6 }}
             >
               <h2 className="font-heading font-bold text-3xl md:text-4xl mb-6">
-                Créez des Souvenirs Inoubliables
+                Create Unforgettable Memories
               </h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
               <p className="text-gray-600 text-lg leading-relaxed mb-8">
-                Laissez-vous séduire par la magie de Krabi et créez des souvenirs inoubliables avec Krabi Celebration, notre service exclusif dédié aux événements d'exception. Fort de notre expertise régionale et de notre passion pour l'authenticité thaïlandaise, nous orchestrons des célébrations sur mesure qui transforment vos rêves en réalité.
+                Let yourself be enchanted by the magic of Krabi and create unforgettable memories with Krabi Celebration, our exclusive service dedicated to exceptional events. With our regional expertise and passion for Thai authenticity, we orchestrate tailor-made celebrations that transform your dreams into reality.
               </p>
               <p className="text-gray-600 text-lg leading-relaxed">
-                Que vous souhaitiez faire votre demande en mariage sur une plage secrète, célébrer votre union dans un cadre naturel époustouflant, ou simplement partager un dîner romantique sous les étoiles, Krabi Celebration met son savoir-faire et sa créativité à votre service pour créer des expériences véritablement uniques.
+                Whether you want to propose on a secret beach, celebrate your union in a breathtaking natural setting, or simply share a romantic dinner under the stars, Krabi Celebration puts its expertise and creativity at your service to create truly unique experiences.
               </p>
             </motion.div>
           </div>
@@ -97,16 +98,16 @@ export default function KrabiCelebration() {
               transition={{ duration: 0.6 }}
             >
               <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">
-                Nos Expériences de Célébration
+                Our Celebration Experiences
               </h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-6"></div>
               <p className="text-gray-600 max-w-2xl mx-auto">
-                Choisissez parmi nos expériences signature ou laissez-nous créer quelque chose de complètement unique pour vous.
+                Choose from our signature experiences or let us create something completely unique for you.
               </p>
             </motion.div>
 
             <div className="space-y-16">
-              {/* Dîner Romantique */}
+              {/* Romantic Dinner */}
               <motion.div
                 className="bg-white rounded-lg shadow-md overflow-hidden"
                 initial={{ opacity: 0, y: 20 }}
@@ -118,53 +119,53 @@ export default function KrabiCelebration() {
                   <div className="relative h-64 lg:h-auto">
                     <img 
                       src={image4}
-                      alt="Dîner romantique sur plage privée"
+                      alt="Romantic dinner on private beach"
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute top-4 left-4">
                       <span className="bg-secondary text-white px-3 py-1 rounded-full text-sm font-medium">
-                        🌅 Expérience Romantique
+                        🌅 Romantic Experience
                       </span>
                     </div>
                   </div>
                   <div className="p-8">
                     <h3 className="font-heading font-bold text-2xl mb-4">
-                      Le Dîner Romantique sur Plage Privée
+                      Romantic Dinner on Private Beach
                     </h3>
                     <p className="text-gray-600 mb-4 italic">
-                      L'expérience parfaite pour les âmes romantiques
+                      The perfect experience for romantic souls
                     </p>
                     <p className="text-gray-600 mb-4">
-                      Évadez-vous vers une plage secrète près de la baie de Thalane, véritable joyau caché aux falaises multicolores que peu de voyageurs connaissent. Votre soirée commence par une navigation romantique au coucher du soleil vers ce paradis préservé.
+                      Escape to a secret beach near Thalane Bay, a true hidden gem with colorful cliffs that few travelers know about. Your evening begins with a romantic sunset cruise to this preserved paradise.
                     </p>
                     <div className="space-y-2 mb-6">
                       <div className="flex items-start text-sm text-gray-600">
                         <MapPin className="w-4 h-4 mr-2 text-primary mt-0.5 flex-shrink-0" />
-                        <span><strong>Le cadre :</strong> Plage privée face au coucher de soleil, installation bambou avec coussins traditionnels, éclairage aux flambeaux et décoration florale soignée</span>
+                        <span><strong>The setting:</strong> Private beach facing the sunset, bamboo installation with traditional cushions, torch lighting and refined floral decoration</span>
                       </div>
                       <div className="flex items-start text-sm text-gray-600">
                         <Gift className="w-4 h-4 mr-2 text-primary mt-0.5 flex-shrink-0" />
-                        <span><strong>Le menu :</strong> Buffet raffiné de spécialités thaïes avec fruits de mer grillés au barbecue, riz frit aux légumes, curry Massaman authentique, poisson en papillote, et plateau de fruits tropicaux</span>
+                        <span><strong>The menu:</strong> Refined buffet of Thai specialties with grilled seafood, vegetable fried rice, authentic Massaman curry, fish in foil, and tropical fruit platter</span>
                       </div>
                       <div className="flex items-start text-sm text-gray-600">
                         <Users className="w-4 h-4 mr-2 text-primary mt-0.5 flex-shrink-0" />
-                        <span><strong>L'équipe :</strong> Capitaine thaï, cuisinière locale, guide professionnel et maître d'hôtel français en uniforme</span>
+                        <span><strong>The team:</strong> Thai captain, local cook, professional guide and French maître d'hôtel in uniform</span>
                       </div>
                     </div>
                     <div className="border-t pt-4">
                       <div className="flex justify-between items-center mb-2">
-                        <span className="text-2xl font-bold text-primary">22 000 THB</span>
-                        <span className="text-sm text-gray-500">pour 2 personnes</span>
+                        <span className="text-2xl font-bold text-primary">22,000 THB</span>
+                        <span className="text-sm text-gray-500">for 2 people</span>
                       </div>
                       <p className="text-xs text-gray-500">
-                        Options : Photographe professionnel (+8 000 THB), Champagne (+2 500 THB)
+                        Options: Professional photographer (+8,000 THB), Champagne (+2,500 THB)
                       </p>
                     </div>
                   </div>
                 </div>
               </motion.div>
 
-              {/* Mariage Intime */}
+              {/* Intimate Beach Wedding */}
               <motion.div
                 className="bg-white rounded-lg shadow-md overflow-hidden"
                 initial={{ opacity: 0, y: 20 }}
@@ -176,49 +177,49 @@ export default function KrabiCelebration() {
                   <div className="relative h-64 lg:h-auto order-2 lg:order-1">
                     <img 
                       src={image2}
-                      alt="Mariage intime sur la plage"
+                      alt="Intimate beach wedding"
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute top-4 left-4">
                       <span className="bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">
-                        💍 Mariage Intime
+                        💍 Intimate Wedding
                       </span>
                     </div>
                   </div>
                   <div className="p-8 order-1 lg:order-2">
                     <h3 className="font-heading font-bold text-2xl mb-4">
-                      Mariage intime sur la plage
+                      Intimate Beach Wedding
                     </h3>
                     <p className="text-gray-600 mb-4 italic">
-                      La cérémonie de vos rêves face à la baie de Phang Nga
+                      The ceremony of your dreams facing Phang Nga Bay
                     </p>
                     <p className="text-gray-600 mb-4">
-                      Commencez par une cérémonie de bénédiction traditionnelle au monastère Wat Nong Chik avec un moine bouddhiste, puis rejoignez la magnifique plage de Thalane pour célébrer votre union dans un cadre idyllique.
+                      Begin with a traditional blessing ceremony at Wat Nong Chik monastery with a Buddhist monk, then join the magnificent Thalane beach to celebrate your union in an idyllic setting.
                     </p>
                     <div className="space-y-2 mb-6">
                       <div className="flex items-start text-sm text-gray-600">
                         <Clock className="w-4 h-4 mr-2 text-primary mt-0.5 flex-shrink-0" />
-                        <span><strong>Le programme :</strong> Cérémonie bouddhiste (16h), célébration sur plage avec échange de vœux, dîner romantique aux chandelles et envolée de lanternes traditionnelles</span>
+                        <span><strong>The program:</strong> Buddhist ceremony (4 PM), beach celebration with vow exchange, romantic candlelit dinner and traditional lantern release</span>
                       </div>
                       <div className="flex items-start text-sm text-gray-600">
                         <Heart className="w-4 h-4 mr-2 text-primary mt-0.5 flex-shrink-0" />
-                        <span><strong>Inclus :</strong> Bouquet et boutonnière, décoration bambou complète, certificat de mariage souvenir, maître de cérémonie français, et dîner au restaurant "Bac à Sable"</span>
+                        <span><strong>Included:</strong> Bouquet and boutonnière, complete bamboo decoration, souvenir wedding certificate, French master of ceremony, and dinner at "Bac à Sable" restaurant</span>
                       </div>
                     </div>
                     <div className="border-t pt-4">
                       <div className="flex justify-between items-center mb-2">
-                        <span className="text-2xl font-bold text-primary">19 500 THB</span>
-                        <span className="text-sm text-gray-500">pour 2 personnes</span>
+                        <span className="text-2xl font-bold text-primary">19,500 THB</span>
+                        <span className="text-sm text-gray-500">for 2 people</span>
                       </div>
                       <p className="text-xs text-gray-500">
-                        Options : Photographe professionnel, champagne et vins supplémentaires
+                        Options: Professional photographer, champagne and additional wines
                       </p>
                     </div>
                   </div>
                 </div>
               </motion.div>
 
-              {/* Mariage Jardins Secrets */}
+              {/* Secret Gardens Wedding */}
               <motion.div
                 className="bg-white rounded-lg shadow-md overflow-hidden"
                 initial={{ opacity: 0, y: 20 }}
@@ -230,43 +231,43 @@ export default function KrabiCelebration() {
                   <div className="relative h-64 lg:h-auto">
                     <img 
                       src={image1}
-                      alt="Mariage dans les jardins secrets d'Ao Nammao"
+                      alt="Wedding in the secret gardens of Ao Nammao"
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute top-4 left-4">
                       <span className="bg-secondary text-white px-3 py-1 rounded-full text-sm font-medium">
-                        🌿 Jardins Secrets
+                        🌿 Secret Gardens
                       </span>
                     </div>
                   </div>
                   <div className="p-8">
                     <h3 className="font-heading font-bold text-2xl mb-4">
-                      Mariage sur la plage dans les jardins secrets d'Ao Nammao
+                      Beach Wedding in Ao Nammao Secret Gardens
                     </h3>
                     <p className="text-gray-600 mb-4">
-                      Imaginez une cérémonie magique dans un jardin tropical au bord de la mer, suivie d'une soirée festive, gourmande et élégante... Dans un lieu confidentiel à Ao Nammao, entre deux villas de charme et un restaurant les pieds dans le sable, vivez une journée inoubliable entourés de ceux que vous aimez.
+                      Imagine a magical ceremony in a tropical garden by the sea, followed by an elegant, gourmet and festive evening... In a confidential location in Ao Nammao, between two charming villas and a beachfront restaurant, live an unforgettable day surrounded by those you love.
                     </p>
                     <div className="space-y-2 mb-6">
                       <div className="flex items-start text-sm text-gray-600">
                         <MapPin className="w-4 h-4 mr-2 text-primary mt-0.5 flex-shrink-0" />
-                        <span><strong>Le concept :</strong> Un mariage intime et raffiné entre plage et jardin, au cœur d'un environnement naturel préservé</span>
+                        <span><strong>The concept:</strong> An intimate and refined wedding between beach and garden, in the heart of a preserved natural environment</span>
                       </div>
                       <div className="flex items-start text-sm text-gray-600">
                         <Gift className="w-4 h-4 mr-2 text-primary mt-0.5 flex-shrink-0" />
-                        <span><strong>Inclus :</strong> 2 villas de 2 chambres avec piscine et un grand jardin en bord de plage, structure en bambou fleurie, photographe, gâteau de mariage, installation complète, maître de cérémonie, DJ professionnel, vin d'honneur, bar à cocktail, spectacle de feu, dîner les pieds dans le sable</span>
+                        <span><strong>Included:</strong> 2 villas with 2 bedrooms and pool plus large beachfront garden, flowered bamboo structure, photographer, wedding cake, complete installation, master of ceremony, professional DJ, cocktail hour, cocktail bar, fire show, dinner on the beach</span>
                       </div>
                     </div>
                     <div className="border-t pt-4">
                       <div className="flex justify-between items-center">
-                        <span className="text-lg font-bold text-primary">Tarif sur Demande</span>
-                        <span className="text-sm text-gray-500">Contactez-nous</span>
+                        <span className="text-lg font-bold text-primary">Price on Request</span>
+                        <span className="text-sm text-gray-500">Contact us</span>
                       </div>
                     </div>
                   </div>
                 </div>
               </motion.div>
 
-              {/* Célébration Jungle */}
+              {/* Jungle Celebration */}
               <motion.div
                 className="bg-white rounded-lg shadow-md overflow-hidden"
                 initial={{ opacity: 0, y: 20 }}
@@ -276,46 +277,44 @@ export default function KrabiCelebration() {
               >
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
                   <div className="relative h-64 lg:h-auto order-2 lg:order-1">
-                    <div className="w-full h-full bg-gradient-to-br from-green-600 to-green-800 flex items-center justify-center">
-                      <div className="text-center text-white">
-                        <Sparkles className="w-16 h-16 mx-auto mb-4" />
-                        <p className="text-lg font-semibold">Montagne de l'Esprit</p>
-                        <p className="text-sm">Chong Pli</p>
-                      </div>
-                    </div>
+                    <img 
+                      src={image3}
+                      alt="Jungle celebration at Mountain of Spirit"
+                      className="w-full h-full object-cover"
+                    />
                     <div className="absolute top-4 left-4">
                       <span className="bg-green-600 text-white px-3 py-1 rounded-full text-sm font-medium">
-                        🌴 Célébration Jungle
+                        🌴 Jungle Celebration
                       </span>
                     </div>
                   </div>
                   <div className="p-8 order-1 lg:order-2">
                     <h3 className="font-heading font-bold text-2xl mb-4">
-                      Célébration dans la Jungle
+                      Jungle Celebration
                     </h3>
                     <p className="text-gray-600 mb-4 italic">
-                      Un mariage spectaculaire pour jusqu'à 200 invités
+                      A spectacular wedding for up to 200 guests
                     </p>
                     <p className="text-gray-600 mb-4">
-                      Découvrez la "Montagne de l'Esprit" à Chong Pli, un jardin tropical luxuriant niché au pied d'impressionnantes falaises calcaires. Ce lieu magique, refuge naturel de la communauté locale, offre un cadre unique mêlant grottes mystérieuses et végétation tropicale.
+                      Discover the "Mountain of Spirit" in Chong Pli, a lush tropical garden nestled at the foot of impressive limestone cliffs. This magical place, a natural refuge of the local community, offers a unique setting mixing mysterious caves and tropical vegetation.
                     </p>
                     <div className="space-y-2 mb-6">
                       <div className="flex items-start text-sm text-gray-600">
                         <Users className="w-4 h-4 mr-2 text-primary mt-0.5 flex-shrink-0" />
-                        <span><strong>Le concept :</strong> Une "Garden party" jusqu'à 200 invités pour une soirée inoubliable entre jungle et pic karstique</span>
+                        <span><strong>The concept:</strong> A "Garden party" for up to 200 guests for an unforgettable evening between jungle and karst peak</span>
                       </div>
                       <div className="flex items-start text-sm text-gray-600">
                         <Gift className="w-4 h-4 mr-2 text-primary mt-0.5 flex-shrink-0" />
-                        <span><strong>Services inclus :</strong> Location du lieu, photographe 3h, gâteau de mariage, installation complète, maître de cérémonie anglophone, DJ professionnel, Buffet de spécialités Thaï, bar à smoothies et cocktails et soirée dansante jusqu'à 2h du matin</span>
+                        <span><strong>Services included:</strong> Venue rental, photographer 3h, wedding cake, complete installation, English-speaking master of ceremony, professional DJ, Thai specialty buffet, smoothie and cocktail bar and dance party until 2 AM</span>
                       </div>
                     </div>
                     <div className="border-t pt-4">
                       <div className="flex justify-between items-center mb-2">
-                        <span className="text-xl font-bold text-primary">À partir de 4 900 THB</span>
-                        <span className="text-sm text-gray-500">par personne</span>
+                        <span className="text-xl font-bold text-primary">From 4,900 THB</span>
+                        <span className="text-sm text-gray-500">per person</span>
                       </div>
                       <p className="text-xs text-gray-500">
-                        Exemple pour 50 invités
+                        Example for 50 guests
                       </p>
                     </div>
                   </div>
@@ -325,7 +324,7 @@ export default function KrabiCelebration() {
           </div>
         </section>
 
-        {/* Pourquoi Choisir Krabi Celebration */}
+        {/* Why Choose Krabi Celebration */}
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
             <motion.div 
@@ -336,7 +335,7 @@ export default function KrabiCelebration() {
               transition={{ duration: 0.6 }}
             >
               <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">
-                Pourquoi Choisir Krabi Celebration ?
+                Why Choose Krabi Celebration?
               </h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-6"></div>
             </motion.div>
@@ -345,28 +344,28 @@ export default function KrabiCelebration() {
               {[
                 {
                   icon: <MapPin className="w-8 h-8" />,
-                  title: "Expertise locale",
-                  description: "Connaissance approfondie des plus beaux sites secrets de Krabi"
+                  title: "Local Expertise",
+                  description: "In-depth knowledge of Krabi's most beautiful secret sites"
                 },
                 {
                   icon: <Heart className="w-8 h-8" />,
-                  title: "Service personnalisé",
-                  description: "Chaque événement est unique et adapté à vos souhaits"
+                  title: "Personalized Service",
+                  description: "Each event is unique and adapted to your wishes"
                 },
                 {
                   icon: <Users className="w-8 h-8" />,
-                  title: "Équipe multilingue",
-                  description: "Personnel français, anglais et thaï pour un service d'exception"
+                  title: "Multilingual Team",
+                  description: "French, English and Thai staff for exceptional service"
                 },
                 {
                   icon: <Star className="w-8 h-8" />,
-                  title: "Authenticité garantie",
-                  description: "Expériences ancrées dans la culture thaïlandaise"
+                  title: "Guaranteed Authenticity",
+                  description: "Experiences rooted in Thai culture"
                 },
                 {
                   icon: <Sparkles className="w-8 h-8" />,
-                  title: "Logistique complète",
-                  description: "De la conception à la réalisation, nous gérons tout"
+                  title: "Complete Logistics",
+                  description: "From conception to realization, we manage everything"
                 }
               ].map((item, index) => (
                 <motion.div
@@ -400,66 +399,66 @@ export default function KrabiCelebration() {
             >
               <div className="text-center mb-8">
                 <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">
-                  Planifiez Votre Célébration
+                  Plan Your Celebration
                 </h2>
                 <div className="w-20 h-1 bg-secondary mx-auto mb-6"></div>
                 <p className="text-gray-600">
-                  Contactez-nous dès aujourd'hui pour transformer vos rêves en souvenirs éternels à Krabi !
+                  Contact us today to transform your dreams into eternal memories in Krabi!
                 </p>
               </div>
 
               <form className="bg-white p-8 rounded-lg shadow-md space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="fullName">Nom Complet *</Label>
-                    <Input id="fullName" placeholder="Votre nom complet" required />
+                    <Label htmlFor="fullName">Full Name *</Label>
+                    <Input id="fullName" placeholder="Your full name" required />
                   </div>
                   <div>
                     <Label htmlFor="email">Email *</Label>
-                    <Input id="email" type="email" placeholder="votre@email.com" required />
+                    <Input id="email" type="email" placeholder="your@email.com" required />
                   </div>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="eventType">Type de Célébration *</Label>
-                    <Input id="eventType" placeholder="ex: Mariage, Demande en mariage, Anniversaire" required />
+                    <Label htmlFor="eventType">Type of Celebration *</Label>
+                    <Input id="eventType" placeholder="e.g: Wedding, Proposal, Anniversary" required />
                   </div>
                   <div>
-                    <Label htmlFor="guestCount">Nombre d'Invités</Label>
-                    <Input id="guestCount" type="number" placeholder="Nombre approximatif" />
+                    <Label htmlFor="guestCount">Number of Guests</Label>
+                    <Input id="guestCount" type="number" placeholder="Approximate number" />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="desiredDate">Date Souhaitée</Label>
+                    <Label htmlFor="desiredDate">Desired Date</Label>
                     <Input id="desiredDate" type="date" />
                   </div>
                   <div>
-                    <Label htmlFor="budget">Budget Envisagé</Label>
-                    <Input id="budget" placeholder="ex: 20 000-50 000 THB" />
+                    <Label htmlFor="budget">Expected Budget</Label>
+                    <Input id="budget" placeholder="e.g: 20,000-50,000 THB" />
                   </div>
                 </div>
 
                 <div>
-                  <Label htmlFor="message">Décrivez-nous Votre Célébration de Rêve *</Label>
+                  <Label htmlFor="message">Describe Your Dream Celebration *</Label>
                   <Textarea 
                     id="message" 
-                    placeholder="Décrivez votre vision, le style souhaité, vos préférences de lieu et toute exigence particulière..."
+                    placeholder="Describe your vision, desired style, location preferences and any special requirements..."
                     rows={5}
                     required
                   />
                 </div>
 
                 <Button type="submit" className="w-full bg-primary hover:bg-primary/90">
-                  Envoyer ma Demande de Célébration
+                  Send My Celebration Request
                 </Button>
               </form>
 
               <div className="text-center mt-8">
                 <p className="text-gray-600 text-sm">
-                  <strong>Krabi Celebration</strong> - Une division d'Amon Tour
+                  <strong>Krabi Celebration</strong> - A division of Amon Tour
                 </p>
               </div>
             </motion.div>
