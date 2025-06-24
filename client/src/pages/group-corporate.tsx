@@ -42,7 +42,16 @@ export default function GroupCorporate() {
               <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-8">
                 Tailored group experiences in Krabi for corporate retreats, team building, educational trips, and special events.
               </p>
-              <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-white">
+              <Button 
+                size="lg" 
+                className="bg-primary hover:bg-primary/90 text-white"
+                onClick={() => {
+                  const formSection = document.getElementById('group-form');
+                  if (formSection) {
+                    formSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+              >
                 Plan Your Group Event
               </Button>
             </motion.div>
@@ -338,7 +347,7 @@ export default function GroupCorporate() {
                   />
                 </div>
 
-                <Button type="submit" className="w-full bg-secondary hover:bg-secondary/90">
+                <Button type="submit" className="w-full bg-primary hover:bg-primary/90">
                   Request Group Proposal
                 </Button>
               </form>

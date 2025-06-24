@@ -94,7 +94,7 @@ export default function Brochure() {
                   <p className="text-gray-600 mb-6">
                     Guide complet de nos circuits et expériences en français, idéal pour les voyageurs francophones.
                   </p>
-                  <Button className="bg-secondary hover:bg-secondary/90">
+                  <Button className="bg-primary hover:bg-primary/90">
                     <Download className="w-4 h-4 mr-2" />
                     Télécharger PDF Français
                   </Button>

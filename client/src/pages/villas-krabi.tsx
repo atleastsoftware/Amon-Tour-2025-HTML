@@ -69,7 +69,7 @@ export default function VillasKrabi() {
                 <p className="text-gray-600 mb-6">
                   Download our comprehensive guide featuring luxury villas with detailed descriptions, amenities, pricing, and stunning photography.
                 </p>
-                <Button className="bg-secondary hover:bg-secondary/90">
+                <Button className="bg-primary hover:bg-primary/90">
                   <Download className="w-4 h-4 mr-2" />
                   Download Villa Guide
                 </Button>

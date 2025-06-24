@@ -42,7 +42,16 @@ export default function KrabiCelebration() {
               <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-8">
                 Say "I Do" in Paradise. Create unforgettable memories with your dream destination wedding in Krabi's tropical paradise.
               </p>
-              <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-white">
+              <Button 
+                size="lg" 
+                className="bg-primary hover:bg-primary/90 text-white"
+                onClick={() => {
+                  const formSection = document.getElementById('wedding-form');
+                  if (formSection) {
+                    formSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+              >
                 Plan Your Dream Wedding
               </Button>
             </motion.div>
@@ -298,7 +307,7 @@ export default function KrabiCelebration() {
                   />
                 </div>
 
-                <Button type="submit" className="w-full bg-secondary hover:bg-secondary/90">
+                <Button type="submit" className="w-full bg-primary hover:bg-primary/90">
                   Send Wedding Inquiry
                 </Button>
               </form>
