@@ -84,7 +84,7 @@ export default function About() {
                   </div>
                   <p className="text-sm text-gray-600">80 reviews on Google</p>
                   <a 
-                    href="https://www.google.com/search?q=%E0%B8%AD%E0%B8%A1%E0%B8%A3%E0%B8%97%E0%B8%B1%E0%B8%A7%E0%B8%A3%E0%B9%8C+Reviews" 
+                    href="https://maps.app.goo.gl/fe17kgt89d64kAHs7" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="text-xs text-primary hover:underline mt-1 inline-block"

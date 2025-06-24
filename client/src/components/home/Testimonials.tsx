@@ -105,7 +105,7 @@ export default function Testimonials() {
           
           <div className="text-center mt-6">
             <a 
-              href="https://www.google.com/search?q=%E0%B8%AD%E0%B8%A1%E0%B8%A3%E0%B8%97%E0%B8%B1%E0%B8%A7%E0%B8%A3%E0%B9%8C+Reviews" 
+              href="https://maps.app.goo.gl/fe17kgt89d64kAHs7" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-primary hover:underline font-medium inline-flex items-center"

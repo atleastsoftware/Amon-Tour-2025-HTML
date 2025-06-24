@@ -38,7 +38,7 @@ export default function Features() {
                 <Users size={28} className="text-white" />
               </motion.div>
               <h3 className="font-heading font-bold text-xl mb-2">Private Tours</h3>
-              <p className="text-gray-600">Experience a unique journey with our English or French-speaking guides and private vehicles.</p>
+              <p className="text-gray-600">Experience an exclusive day trip with our professional guides and private vehicles.</p>
               
               <motion.div 
                 className="mt-4 grid grid-cols-3 gap-2"
