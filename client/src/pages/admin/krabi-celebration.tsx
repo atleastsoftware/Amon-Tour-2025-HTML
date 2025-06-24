@@ -41,6 +41,7 @@ interface KrabiCelebrationRequest {
   id: number;
   name: string;
   email: string;
+  whatsapp?: string;
   celebrationType: string;
   guests: number;
   date: string;

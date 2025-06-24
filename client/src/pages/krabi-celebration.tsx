@@ -18,6 +18,7 @@ import image4 from "@assets/image_1750757080473.png";
 interface FormData {
   name: string;
   email: string;
+  whatsapp: string;
   celebrationType: string;
   guests: string;
   date: string;
@@ -30,6 +31,7 @@ export default function KrabiCelebration() {
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
+    whatsapp: '',
     celebrationType: '',
     guests: '',
     date: '',
@@ -79,6 +81,7 @@ export default function KrabiCelebration() {
       setFormData({
         name: '',
         email: '',
+        whatsapp: '',
         celebrationType: '',
         guests: '',
         date: '',

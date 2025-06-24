@@ -294,6 +294,7 @@ export const krabiCelebrationRequests = pgTable("krabi_celebration_requests", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 255 }).notNull(),
   email: varchar("email", { length: 255 }).notNull(),
+  whatsapp: varchar("whatsapp", { length: 50 }),
   celebrationType: varchar("celebration_type", { length: 100 }).notNull(),
   guests: integer("guests").notNull(),
   date: varchar("date", { length: 100 }).notNull(),
