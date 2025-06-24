@@ -42,7 +42,16 @@ export default function BecomePartner() {
               <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-8">
                 Join our professional network and grow your business with Thailand's premier local tour operator.
               </p>
-              <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-white">
+              <Button 
+                size="lg" 
+                className="bg-primary hover:bg-primary/90 text-white"
+                onClick={() => {
+                  const formSection = document.getElementById('partnership-form');
+                  if (formSection) {
+                    formSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+              >
                 Start Partnership
               </Button>
             </motion.div>
@@ -133,8 +142,8 @@ export default function BecomePartner() {
               {[
                 {
                   icon: <Globe className="w-12 h-12" />,
-                  title: "Travel Agencies",
-                  description: "International and domestic travel agencies looking to offer authentic Thailand experiences",
+                  title: "Travel Agencies & Travel Planners",
+                  description: "Travel Agencies and Travel Planners looking to offer authentic and exclusive experiences in South Thailand.",
                   badge: "High Volume"
                 },
                 {
@@ -267,7 +276,7 @@ export default function BecomePartner() {
         </section>
 
         {/* Contact Form */}
-        <section className="py-16 bg-neutral-50">
+        <section id="partnership-form" className="py-16 bg-neutral-50">
           <div className="container mx-auto px-4">
             <motion.div 
               className="max-w-2xl mx-auto"
@@ -324,7 +333,7 @@ export default function BecomePartner() {
                   />
                 </div>
 
-                <Button type="submit" className="w-full bg-secondary hover:bg-secondary/90">
+                <Button type="submit" className="w-full bg-primary hover:bg-primary/90">
                   Submit Partnership Application
                 </Button>
               </form>

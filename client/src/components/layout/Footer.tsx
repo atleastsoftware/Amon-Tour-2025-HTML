@@ -93,8 +93,10 @@ export default function Footer() {
                 className="flex justify-center space-x-4 mt-6"
               >
                 <motion.a 
-                  href="#" 
+                  href="https://web.facebook.com/amontourthailand" 
                   className="text-white hover:text-secondary transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   whileHover={{ scale: 1.2 }}
                   whileTap={{ scale: 0.9 }}
                   aria-label="Facebook"
@@ -102,31 +104,26 @@ export default function Footer() {
                   <i className="fab fa-facebook-f"></i>
                 </motion.a>
                 <motion.a 
-                  href="#" 
+                  href="https://www.instagram.com/amontourthailand/" 
                   className="text-white hover:text-secondary transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   whileHover={{ scale: 1.2 }}
                   whileTap={{ scale: 0.9 }}
-                  aria-label="Twitter"
+                  aria-label="Instagram"
                 >
-                  <i className="fab fa-twitter"></i>
+                  <i className="fab fa-instagram"></i>
                 </motion.a>
                 <motion.a 
-                  href="#" 
+                  href="https://www.youtube.com/@amontour4949" 
                   className="text-white hover:text-secondary transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   whileHover={{ scale: 1.2 }}
                   whileTap={{ scale: 0.9 }}
-                  aria-label="Pinterest"
+                  aria-label="YouTube"
                 >
-                  <i className="fab fa-pinterest-p"></i>
-                </motion.a>
-                <motion.a 
-                  href="#" 
-                  className="text-white hover:text-secondary transition-colors"
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.9 }}
-                  aria-label="TikTok"
-                >
-                  <i className="fab fa-tiktok"></i>
+                  <i className="fab fa-youtube"></i>
                 </motion.a>
               </motion.div>
             </div>
