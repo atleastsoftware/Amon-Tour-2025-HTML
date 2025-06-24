@@ -319,11 +319,12 @@ export type InsertKrabiCelebrationRequest = z.infer<typeof insertKrabiCelebratio
 // Partnership Requests
 export const partnershipRequests = pgTable("partnership_requests", {
   id: serial("id").primaryKey(),
-  fullName: varchar("full_name", { length: 255 }).notNull(),
+  contactName: varchar("contact_name", { length: 255 }).notNull(),
   companyName: varchar("company_name", { length: 255 }).notNull(),
   email: varchar("email", { length: 255 }).notNull(),
+  phone: varchar("phone", { length: 50 }),
   website: varchar("website", { length: 255 }),
-  businessType: varchar("business_type", { length: 100 }).notNull(),
+  partnershipType: varchar("partnership_type", { length: 100 }).notNull(),
   description: text("description"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   read: boolean("read").default(false).notNull(),
@@ -334,23 +335,24 @@ export const insertPartnershipRequestSchema = createInsertSchema(partnershipRequ
   id: true,
   createdAt: true,
 }).extend({
-  fullName: z.string().min(1, "Full name is required"),
+  contactName: z.string().min(1, "Contact name is required"),
   companyName: z.string().min(1, "Company name is required"),
   email: z.string().email("Valid email address is required"),
-  businessType: z.string().min(1, "Business type is required"),
+  partnershipType: z.string().min(1, "Partnership type is required"),
 });
 export type InsertPartnershipRequest = z.infer<typeof insertPartnershipRequestSchema>;
 
 // Group Requests
 export const groupRequests = pgTable("group_requests", {
   id: serial("id").primaryKey(),
-  name: varchar("name", { length: 255 }).notNull(),
+  contactName: varchar("contact_name", { length: 255 }).notNull(),
+  companyName: varchar("company_name", { length: 255 }).notNull(),
   email: varchar("email", { length: 255 }).notNull(),
-  groupType: varchar("group_type", { length: 100 }).notNull(),
-  people: integer("people").notNull(),
-  dates: varchar("dates", { length: 255 }).notNull(),
-  duration: varchar("duration", { length: 100 }),
-  requirements: text("requirements"),
+  phone: varchar("phone", { length: 50 }),
+  groupSize: integer("group_size").notNull(),
+  travelDates: varchar("travel_dates", { length: 255 }),
+  budget: varchar("budget", { length: 100 }),
+  description: text("description"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   read: boolean("read").default(false).notNull(),
 });
@@ -360,10 +362,9 @@ export const insertGroupRequestSchema = createInsertSchema(groupRequests).omit({
   id: true,
   createdAt: true,
 }).extend({
-  name: z.string().min(1, "Name is required"),
+  contactName: z.string().min(1, "Contact name is required"),
+  companyName: z.string().min(1, "Company name is required"),
   email: z.string().email("Valid email address is required"),
-  groupType: z.string().min(1, "Group type is required"),
-  people: z.number().min(1, "Number of people is required"),
-  dates: z.string().min(1, "Dates are required"),
+  groupSize: z.number().min(1, "Group size is required"),
 });
 export type InsertGroupRequest = z.infer<typeof insertGroupRequestSchema>;
