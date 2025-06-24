@@ -9,6 +9,17 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 
+interface FormData {
+  companyName: string;
+  contactName: string;
+  email: string;
+  phone: string;
+  groupSize: string;
+  travelDates: string;
+  budget: string;
+  description: string;
+}
+
 export default function GroupCorporate() {
   const [formData, setFormData] = useState<FormData>({
     companyName: '',
@@ -33,7 +44,7 @@ export default function GroupCorporate() {
     setIsSubmitting(true);
     
     try {
-      const response = await fetch('/api/group-corporate', {
+      const response = await fetch('/api/group-requests', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

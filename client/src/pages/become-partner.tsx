@@ -9,6 +9,16 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 
+interface FormData {
+  companyName: string;
+  contactName: string;
+  email: string;
+  phone: string;
+  website: string;
+  partnershipType: string;
+  description: string;
+}
+
 export default function BecomePartner() {
   const [formData, setFormData] = useState<FormData>({
     companyName: '',
@@ -32,7 +42,7 @@ export default function BecomePartner() {
     setIsSubmitting(true);
     
     try {
-      const response = await fetch('/api/become-partner', {
+      const response = await fetch('/api/partnership-requests', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
