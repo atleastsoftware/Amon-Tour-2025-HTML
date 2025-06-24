@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Heart, MapPin, Camera, Users, Sparkles, Clock, Gift, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
@@ -13,7 +15,89 @@ import image2 from "@assets/image_1750757043237.png";
 import image3 from "@assets/image_1750757064524.png";
 import image4 from "@assets/image_1750757080473.png";
 
+interface FormData {
+  name: string;
+  email: string;
+  celebrationType: string;
+  guests: string;
+  date: string;
+  budget: string;
+  description: string;
+}
+
 export default function KrabiCelebration() {
+  const { toast } = useToast();
+  const [formData, setFormData] = useState<FormData>({
+    name: '',
+    email: '',
+    celebrationType: '',
+    guests: '',
+    date: '',
+    budget: '',
+    description: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    console.log('Krabi Celebration - Submitting form:', formData);
+    
+    try {
+      const response = await fetch('/api/krabi-celebration', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      console.log('Krabi Celebration - Response status:', response.status);
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Krabi Celebration - Error response:', errorText);
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log('Krabi Celebration - Success result:', result);
+      
+      toast({
+        title: "Request Sent Successfully!",
+        description: "Thank you for your interest in Krabi Celebration. We'll contact you within 24 hours to discuss your dream celebration.",
+        duration: 5000,
+      });
+
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        celebrationType: '',
+        guests: '',
+        date: '',
+        budget: '',
+        description: ''
+      });
+
+    } catch (error) {
+      console.error('Krabi Celebration - Submit error:', error);
+      toast({
+        title: "Error Sending Request",
+        description: "There was a problem sending your request. Please try again or contact us directly.",
+        variant: "destructive",
+        duration: 5000,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <>
       <SEO 

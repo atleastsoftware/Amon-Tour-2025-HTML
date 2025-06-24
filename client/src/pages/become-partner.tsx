@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { useToast } from "@/hooks/use-toast";
 
 interface FormData {
   companyName: string;
@@ -20,6 +21,7 @@ interface FormData {
 }
 
 export default function BecomePartner() {
+  const { toast } = useToast();
   const [formData, setFormData] = useState<FormData>({
     companyName: '',
     contactName: '',
@@ -30,7 +32,6 @@ export default function BecomePartner() {
     description: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -40,6 +41,8 @@ export default function BecomePartner() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    
+    console.log('Partnership - Submitting form:', formData);
     
     try {
       const response = await fetch('/api/partnership-requests', {
