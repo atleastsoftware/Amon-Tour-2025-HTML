@@ -14,6 +14,7 @@ import BookingIframe from "@/pages/booking-iframe";
 import PaymentComplete from "@/pages/payment-complete";
 import AdminLogin from "@/pages/admin-login";
 import Admin from "@/pages/admin";
+import AdminDashboard from "@/pages/admin/admin-dashboard";
 import TourCardBuilder from "@/pages/tour-card-builder";
 import AdminKrabiCelebration from "@/pages/admin/krabi-celebration";
 import AdminPartnershipRequests from "@/pages/admin/partnership-requests";
@@ -71,7 +72,10 @@ function Router() {
       
       {/* Admin Pages */}
       <Route path="/admin-login" component={AdminLogin} />
-      <Route path="/admin" component={Admin} />
+      <Route path="/admin" component={AdminDashboard} />
+      <Route path="/admin/krabi-celebration" component={AdminKrabiCelebration} />
+      <Route path="/admin/partnership-requests" component={AdminPartnershipRequests} />
+      <Route path="/admin/group-requests" component={AdminGroupRequests} />
       <Route path="/admin-blog" component={AdminBlog} />
       <Route path="/admin-newsletter" component={AdminNewsletter} />
       <Route path="/admin-custom-tours" component={AdminCustomTours} />

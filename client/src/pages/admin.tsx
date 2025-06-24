@@ -72,14 +72,17 @@ export default function AdminPage() {
       <div className="container mx-auto p-4 pt-20 pb-16">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-heading font-bold">Administration</h1>
-          <Button variant="outline" onClick={handleLogout}>Logout</Button>
+          <Button variant="outline" onClick={handleLogout}>
+            <LogOut className="h-4 w-4 mr-2" />
+            Logout
+          </Button>
         </div>
         
         <div className="grid gap-6">
           <div className="text-center">
             <h2 className="text-2xl font-heading font-semibold mb-2">Admin Management</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Manage your tour cards and blog content from this central admin panel.
+              Gérez tous les formulaires et contenus depuis ce panneau d'administration centralisé.
             </p>
           </div>
           
@@ -102,8 +105,10 @@ export default function AdminPage() {
                   Demandes personnalisées
                 </CardTitle>
                 <CardDescription>
-                  Add new tour cards with images and details
+                  Gérer les demandes de tours sur mesure
                 </CardDescription>
+              </CardHeader>
+              <CardContent className="pt-4">
               </CardHeader>
               <CardContent className="pt-6">
                 <p className="mb-4 text-sm text-muted-foreground">
