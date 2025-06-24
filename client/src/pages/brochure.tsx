@@ -76,7 +76,17 @@ export default function Brochure() {
                   <p className="text-gray-600 mb-6">
                     Complete guide to our tours and experiences in English, perfect for international travelers.
                   </p>
-                  <Button className="bg-primary hover:bg-primary/90">
+                  <Button 
+                    className="bg-primary hover:bg-primary/90"
+                    onClick={() => {
+                      const link = document.createElement('a');
+                      link.href = '/attached_assets/Brochure Amon Tour 2025-2026 VEP_1750754812526.pdf';
+                      link.download = 'Amon Tour Brochure 2025-2026 English.pdf';
+                      document.body.appendChild(link);
+                      link.click();
+                      document.body.removeChild(link);
+                    }}
+                  >
                     <Download className="w-4 h-4 mr-2" />
                     Download English PDF
                   </Button>
@@ -94,7 +104,17 @@ export default function Brochure() {
                   <p className="text-gray-600 mb-6">
                     Guide complet de nos circuits et expériences en français, idéal pour les voyageurs francophones.
                   </p>
-                  <Button className="bg-primary hover:bg-primary/90">
+                  <Button 
+                    className="bg-primary hover:bg-primary/90"
+                    onClick={() => {
+                      const link = document.createElement('a');
+                      link.href = '/attached_assets/Brochure Amon Tour 2025-2026 VFP_1750754812525.pdf';
+                      link.download = 'Amon Tour Brochure 2025-2026 Français.pdf';
+                      document.body.appendChild(link);
+                      link.click();
+                      document.body.removeChild(link);
+                    }}
+                  >
                     <Download className="w-4 h-4 mr-2" />
                     Télécharger PDF Français
                   </Button>
