@@ -255,7 +255,7 @@ export default function KrabiCelebration() {
         </section>
 
         {/* Contact Form */}
-        <section className="py-16 bg-neutral-50">
+        <section id="wedding-form" className="py-16 bg-neutral-50">
           <div className="container mx-auto px-4">
             <motion.div 
               className="max-w-2xl mx-auto"

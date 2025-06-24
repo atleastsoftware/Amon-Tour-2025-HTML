@@ -284,7 +284,7 @@ export default function GroupCorporate() {
         </section>
 
         {/* Contact Form */}
-        <section className="py-16 bg-white">
+        <section id="group-form" className="py-16 bg-white">
           <div className="container mx-auto px-4">
             <motion.div 
               className="max-w-2xl mx-auto"
