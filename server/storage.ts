@@ -11,6 +11,9 @@ import {
   blogPosts,
   blogPostTags,
   newsletterSubscriptions,
+  krabiCelebrationRequests,
+  partnershipRequests,
+  groupRequests,
   type User,
   type InsertUser,
   type Tour,
@@ -34,6 +37,12 @@ import {
   type BlogPostTag,
   type NewsletterSubscription,
   type InsertNewsletterSubscription,
+  type KrabiCelebrationRequest,
+  type InsertKrabiCelebrationRequest,
+  type PartnershipRequest,
+  type InsertPartnershipRequest,
+  type GroupRequest,
+  type InsertGroupRequest,
 } from "@shared/schema";
 import fs from "fs";
 import path from "path";
@@ -923,6 +932,162 @@ export class DatabaseStorage implements IStorage {
       .where(eq(newsletterSubscriptions.email, email))
       .returning();
     return !!subscription;
+  }
+
+  // Krabi Celebration Requests operations
+  async createKrabiCelebrationRequest(request: InsertKrabiCelebrationRequest): Promise<KrabiCelebrationRequest> {
+    const [created] = await db
+      .insert(krabiCelebrationRequests)
+      .values(request)
+      .returning();
+    return created;
+  }
+
+  async getKrabiCelebrationRequests(filters?: { read?: boolean }): Promise<KrabiCelebrationRequest[]> {
+    let query = db.select().from(krabiCelebrationRequests);
+    
+    if (filters?.read !== undefined) {
+      query = query.where(eq(krabiCelebrationRequests.read, filters.read));
+    }
+    
+    return query.orderBy(desc(krabiCelebrationRequests.createdAt));
+  }
+
+  async getKrabiCelebrationRequest(id: number): Promise<KrabiCelebrationRequest | undefined> {
+    const [request] = await db
+      .select()
+      .from(krabiCelebrationRequests)
+      .where(eq(krabiCelebrationRequests.id, id));
+    return request;
+  }
+
+  async updateKrabiCelebrationRequest(id: number, data: Partial<KrabiCelebrationRequest>): Promise<KrabiCelebrationRequest | undefined> {
+    const [updated] = await db
+      .update(krabiCelebrationRequests)
+      .set(data)
+      .where(eq(krabiCelebrationRequests.id, id))
+      .returning();
+    return updated;
+  }
+
+  async deleteKrabiCelebrationRequest(id: number): Promise<boolean> {
+    try {
+      await db
+        .delete(krabiCelebrationRequests)
+        .where(eq(krabiCelebrationRequests.id, id));
+      return true;
+    } catch (error) {
+      console.error("Error deleting krabi celebration request:", error);
+      return false;
+    }
+  }
+
+  async markKrabiCelebrationRequestAsRead(id: number): Promise<KrabiCelebrationRequest | undefined> {
+    return this.updateKrabiCelebrationRequest(id, { read: true });
+  }
+
+  // Partnership Requests operations
+  async createPartnershipRequest(request: InsertPartnershipRequest): Promise<PartnershipRequest> {
+    const [created] = await db
+      .insert(partnershipRequests)
+      .values(request)
+      .returning();
+    return created;
+  }
+
+  async getPartnershipRequests(filters?: { read?: boolean }): Promise<PartnershipRequest[]> {
+    let query = db.select().from(partnershipRequests);
+    
+    if (filters?.read !== undefined) {
+      query = query.where(eq(partnershipRequests.read, filters.read));
+    }
+    
+    return query.orderBy(desc(partnershipRequests.createdAt));
+  }
+
+  async getPartnershipRequest(id: number): Promise<PartnershipRequest | undefined> {
+    const [request] = await db
+      .select()
+      .from(partnershipRequests)
+      .where(eq(partnershipRequests.id, id));
+    return request;
+  }
+
+  async updatePartnershipRequest(id: number, data: Partial<PartnershipRequest>): Promise<PartnershipRequest | undefined> {
+    const [updated] = await db
+      .update(partnershipRequests)
+      .set(data)
+      .where(eq(partnershipRequests.id, id))
+      .returning();
+    return updated;
+  }
+
+  async deletePartnershipRequest(id: number): Promise<boolean> {
+    try {
+      await db
+        .delete(partnershipRequests)
+        .where(eq(partnershipRequests.id, id));
+      return true;
+    } catch (error) {
+      console.error("Error deleting partnership request:", error);
+      return false;
+    }
+  }
+
+  async markPartnershipRequestAsRead(id: number): Promise<PartnershipRequest | undefined> {
+    return this.updatePartnershipRequest(id, { read: true });
+  }
+
+  // Group Requests operations
+  async createGroupRequest(request: InsertGroupRequest): Promise<GroupRequest> {
+    const [created] = await db
+      .insert(groupRequests)
+      .values(request)
+      .returning();
+    return created;
+  }
+
+  async getGroupRequests(filters?: { read?: boolean }): Promise<GroupRequest[]> {
+    let query = db.select().from(groupRequests);
+    
+    if (filters?.read !== undefined) {
+      query = query.where(eq(groupRequests.read, filters.read));
+    }
+    
+    return query.orderBy(desc(groupRequests.createdAt));
+  }
+
+  async getGroupRequest(id: number): Promise<GroupRequest | undefined> {
+    const [request] = await db
+      .select()
+      .from(groupRequests)
+      .where(eq(groupRequests.id, id));
+    return request;
+  }
+
+  async updateGroupRequest(id: number, data: Partial<GroupRequest>): Promise<GroupRequest | undefined> {
+    const [updated] = await db
+      .update(groupRequests)
+      .set(data)
+      .where(eq(groupRequests.id, id))
+      .returning();
+    return updated;
+  }
+
+  async deleteGroupRequest(id: number): Promise<boolean> {
+    try {
+      await db
+        .delete(groupRequests)
+        .where(eq(groupRequests.id, id));
+      return true;
+    } catch (error) {
+      console.error("Error deleting group request:", error);
+      return false;
+    }
+  }
+
+  async markGroupRequestAsRead(id: number): Promise<GroupRequest | undefined> {
+    return this.updateGroupRequest(id, { read: true });
   }
 }
 

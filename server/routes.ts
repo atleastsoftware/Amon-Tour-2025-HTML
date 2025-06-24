@@ -12,7 +12,10 @@ import {
   insertBlogCategorySchema,
   insertBlogTagSchema,
   insertBlogPostSchema,
-  insertNewsletterSubscriptionSchema
+  insertNewsletterSubscriptionSchema,
+  insertKrabiCelebrationRequestSchema,
+  insertPartnershipRequestSchema,
+  insertGroupRequestSchema,
 } from "@shared/schema";
 import { createPaymentIntent, createOrRetrieveCustomer } from "./stripe";
 import { upload, getPublicFileUrl } from "./upload";
@@ -24,8 +27,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // Simple authentication middleware for admin routes only
   const requireAuth = (req: Request, res: Response, next: Function) => {
-    // For now, no authentication required - public site
-    return res.status(401).json({ message: "Authentication disabled - public site" });
+    if (req.session && req.session.user) {
+      return next();
+    }
+    return res.status(401).json({ message: "Authentication required" });
   };
 
   // Serve uploaded files
