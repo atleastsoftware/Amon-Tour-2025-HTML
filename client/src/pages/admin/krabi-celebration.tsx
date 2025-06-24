@@ -287,6 +287,10 @@ export default function AdminKrabiCelebration() {
                   <p className="text-gray-900">{selectedRequest.email}</p>
                 </div>
                 <div>
+                  <label className="text-sm font-medium text-gray-700">WhatsApp</label>
+                  <p className="text-gray-900">{selectedRequest.whatsapp || 'Non renseigné'}</p>
+                </div>
+                <div>
                   <label className="text-sm font-medium text-gray-700">Type de célébration</label>
                   <p className="text-gray-900">{selectedRequest.celebrationType}</p>
                 </div>

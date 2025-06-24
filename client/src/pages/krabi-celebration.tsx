@@ -520,6 +520,18 @@ export default function KrabiCelebration() {
                     />
                   </div>
                 </div>
+
+                <div>
+                  <Label htmlFor="whatsapp">WhatsApp (with country code)</Label>
+                  <Input 
+                    id="whatsapp" 
+                    name="whatsapp"
+                    type="tel"
+                    value={formData.whatsapp}
+                    onChange={handleInputChange}
+                    placeholder="+33 6 XX XX XX XX or +66 XX XXX XXXX" 
+                  />
+                </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
