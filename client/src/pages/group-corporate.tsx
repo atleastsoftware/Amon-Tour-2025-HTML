@@ -441,8 +441,8 @@ export default function GroupCorporate() {
                   />
                 </div>
 
-                <Button type="submit" className="w-full bg-primary hover:bg-primary/90">
-                  Request Group Proposal
+                <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={isSubmitting}>
+                  {isSubmitting ? 'Sending...' : 'Request Group Proposal'}
                 </Button>
               </form>
             </motion.div>

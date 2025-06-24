@@ -407,52 +407,96 @@ export default function KrabiCelebration() {
                 </p>
               </div>
 
-              <form className="bg-white p-8 rounded-lg shadow-md space-y-6">
+              <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="fullName">Full Name *</Label>
-                    <Input id="fullName" placeholder="Your full name" required />
+                    <Label htmlFor="name">Full Name *</Label>
+                    <Input 
+                      id="name" 
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      placeholder="Your full name" 
+                      required 
+                    />
                   </div>
                   <div>
                     <Label htmlFor="email">Email *</Label>
-                    <Input id="email" type="email" placeholder="your@email.com" required />
+                    <Input 
+                      id="email" 
+                      name="email"
+                      type="email" 
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      placeholder="your@email.com" 
+                      required 
+                    />
                   </div>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="eventType">Type of Celebration *</Label>
-                    <Input id="eventType" placeholder="e.g: Wedding, Proposal, Anniversary" required />
+                    <Label htmlFor="celebrationType">Type of Celebration *</Label>
+                    <Input 
+                      id="celebrationType" 
+                      name="celebrationType"
+                      value={formData.celebrationType}
+                      onChange={handleInputChange}
+                      placeholder="e.g: Wedding, Proposal, Anniversary" 
+                      required 
+                    />
                   </div>
                   <div>
-                    <Label htmlFor="guestCount">Number of Guests</Label>
-                    <Input id="guestCount" type="number" placeholder="Approximate number" />
+                    <Label htmlFor="guests">Number of Guests</Label>
+                    <Input 
+                      id="guests" 
+                      name="guests"
+                      type="number" 
+                      value={formData.guests}
+                      onChange={handleInputChange}
+                      placeholder="Approximate number" 
+                    />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="desiredDate">Desired Date</Label>
-                    <Input id="desiredDate" type="date" />
+                    <Label htmlFor="date">Desired Date</Label>
+                    <Input 
+                      id="date" 
+                      name="date"
+                      type="date" 
+                      value={formData.date}
+                      onChange={handleInputChange}
+                    />
                   </div>
                   <div>
                     <Label htmlFor="budget">Expected Budget</Label>
-                    <Input id="budget" placeholder="e.g: 20,000-50,000 THB" />
+                    <Input 
+                      id="budget" 
+                      name="budget"
+                      value={formData.budget}
+                      onChange={handleInputChange}
+                      placeholder="e.g: 20,000-50,000 THB" 
+                    />
                   </div>
                 </div>
 
                 <div>
-                  <Label htmlFor="message">Describe Your Dream Celebration *</Label>
+                  <Label htmlFor="description">Describe Your Dream Celebration *</Label>
                   <Textarea 
-                    id="message" 
+                    id="description" 
+                    name="description"
+                    value={formData.description}
+                    onChange={handleInputChange}
                     placeholder="Describe your vision, desired style, location preferences and any special requirements..."
                     rows={5}
                     required
                   />
                 </div>
 
-                <Button type="submit" className="w-full bg-primary hover:bg-primary/90">
-                  Send My Celebration Request
+                <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={isSubmitting}>
+                  {isSubmitting ? 'Sending...' : 'Send My Celebration Request'}
                 </Button>
               </form>
 

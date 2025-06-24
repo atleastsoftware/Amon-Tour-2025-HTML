@@ -429,8 +429,8 @@ export default function BecomePartner() {
                   />
                 </div>
 
-                <Button type="submit" className="w-full bg-primary hover:bg-primary/90">
-                  Submit Partnership Application
+                <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={isSubmitting}>
+                  {isSubmitting ? 'Sending...' : 'Submit Partnership Application'}
                 </Button>
               </form>
             </motion.div>
