@@ -39,13 +39,14 @@ import Footer from "@/components/layout/Footer";
 
 interface GroupRequest {
   id: number;
-  name: string;
+  contactName: string;
+  companyName: string;
   email: string;
-  groupType: string;
-  people: number;
-  dates: string;
-  duration?: string;
-  requirements?: string;
+  phone?: string;
+  groupSize: number;
+  travelDates?: string;
+  budget?: string;
+  description?: string;
   read: boolean;
   createdAt: string;
 }
@@ -200,9 +201,9 @@ export default function AdminGroupRequests() {
                       <TableRow>
                         <TableHead>Statut</TableHead>
                         <TableHead>Contact</TableHead>
-                        <TableHead>Type de groupe</TableHead>
+                        <TableHead>Entreprise</TableHead>
                         <TableHead>Participants</TableHead>
-                        <TableHead>Dates</TableHead>
+                        <TableHead>Dates de voyage</TableHead>
                         <TableHead>Reçu le</TableHead>
                         <TableHead>Actions</TableHead>
                       </TableRow>
@@ -217,10 +218,10 @@ export default function AdminGroupRequests() {
                               <Badge variant="secondary">Lu</Badge>
                             )}
                           </TableCell>
-                          <TableCell className="font-medium">{request.name}</TableCell>
-                          <TableCell>{request.groupType}</TableCell>
-                          <TableCell>{request.people} personnes</TableCell>
-                          <TableCell>{request.dates}</TableCell>
+                          <TableCell className="font-medium">{request.contactName}</TableCell>
+                          <TableCell>{request.companyName}</TableCell>
+                          <TableCell>{request.groupSize} personnes</TableCell>
+                          <TableCell>{request.travelDates || 'Non précisées'}</TableCell>
                           <TableCell>
                             {new Date(request.createdAt).toLocaleDateString('fr-FR')}
                           </TableCell>
@@ -279,39 +280,38 @@ export default function AdminGroupRequests() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="text-sm font-medium text-gray-700">Nom du contact</label>
-                  <p className="text-gray-900">{selectedRequest.name}</p>
+                  <p className="text-gray-900">{selectedRequest.contactName}</p>
                 </div>
                 <div>
                   <label className="text-sm font-medium text-gray-700">Email</label>
                   <p className="text-gray-900">{selectedRequest.email}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Type de groupe</label>
-                  <p className="text-gray-900">{selectedRequest.groupType}</p>
+                  <label className="text-sm font-medium text-gray-700">Entreprise/Organisation</label>
+                  <p className="text-gray-900">{selectedRequest.companyName}</p>
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-gray-700">Téléphone</label>
+                  <p className="text-gray-900">{selectedRequest.phone || 'Non renseigné'}</p>
                 </div>
                 <div>
                   <label className="text-sm font-medium text-gray-700">Nombre de participants</label>
                   <p className="text-gray-900 flex items-center gap-1">
                     <Users className="h-4 w-4" />
-                    {selectedRequest.people} personnes
+                    {selectedRequest.groupSize} personnes
                   </p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Dates souhaitées</label>
+                  <label className="text-sm font-medium text-gray-700">Budget</label>
+                  <p className="text-gray-900">{selectedRequest.budget || 'Non précisé'}</p>
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-gray-700">Dates de voyage souhaitées</label>
                   <p className="text-gray-900 flex items-center gap-1">
                     <Calendar className="h-4 w-4" />
-                    {selectedRequest.dates}
+                    {selectedRequest.travelDates || 'Non précisées'}
                   </p>
                 </div>
-                {selectedRequest.duration && (
-                  <div>
-                    <label className="text-sm font-medium text-gray-700">Durée</label>
-                    <p className="text-gray-900 flex items-center gap-1">
-                      <Clock className="h-4 w-4" />
-                      {selectedRequest.duration}
-                    </p>
-                  </div>
-                )}
               </div>
               
               {selectedRequest.requirements && (

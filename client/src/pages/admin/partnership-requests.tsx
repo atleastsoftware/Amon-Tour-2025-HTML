@@ -39,11 +39,12 @@ import Footer from "@/components/layout/Footer";
 
 interface PartnershipRequest {
   id: number;
-  fullName: string;
+  contactName: string;
   companyName: string;
   email: string;
+  phone?: string;
   website?: string;
-  businessType: string;
+  partnershipType: string;
   description?: string;
   read: boolean;
   createdAt: string;
@@ -216,9 +217,9 @@ export default function AdminPartnershipRequests() {
                               <Badge variant="secondary">Lu</Badge>
                             )}
                           </TableCell>
-                          <TableCell className="font-medium">{request.fullName}</TableCell>
+                          <TableCell className="font-medium">{request.contactName}</TableCell>
                           <TableCell>{request.companyName}</TableCell>
-                          <TableCell>{request.businessType}</TableCell>
+                          <TableCell>{request.partnershipType}</TableCell>
                           <TableCell>
                             {request.website ? (
                               <a 
@@ -291,7 +292,7 @@ export default function AdminPartnershipRequests() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="text-sm font-medium text-gray-700">Nom du contact</label>
-                  <p className="text-gray-900">{selectedRequest.fullName}</p>
+                  <p className="text-gray-900">{selectedRequest.contactName}</p>
                 </div>
                 <div>
                   <label className="text-sm font-medium text-gray-700">Email</label>
@@ -305,11 +306,15 @@ export default function AdminPartnershipRequests() {
                   </p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Type d'activité</label>
+                  <label className="text-sm font-medium text-gray-700">Type de partenariat</label>
                   <p className="text-gray-900 flex items-center gap-1">
                     <Briefcase className="h-4 w-4" />
-                    {selectedRequest.businessType}
+                    {selectedRequest.partnershipType}
                   </p>
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-gray-700">Téléphone</label>
+                  <p className="text-gray-900">{selectedRequest.phone || 'Non renseigné'}</p>
                 </div>
                 {selectedRequest.website && (
                   <div className="col-span-2">
