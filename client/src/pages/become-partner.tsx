@@ -411,23 +411,60 @@ export default function BecomePartner() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="email">Email Address *</Label>
-                    <Input id="email" type="email" placeholder="your@email.com" required />
+                    <Input 
+                      id="email" 
+                      name="email"
+                      type="email" 
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      placeholder="your@email.com" 
+                      required 
+                    />
                   </div>
                   <div>
                     <Label htmlFor="website">Website (Optional)</Label>
-                    <Input id="website" type="url" placeholder="https://yourwebsite.com" />
+                    <Input 
+                      id="website" 
+                      name="website"
+                      type="url" 
+                      value={formData.website}
+                      onChange={handleInputChange}
+                      placeholder="https://yourwebsite.com" 
+                    />
                   </div>
                 </div>
 
                 <div>
-                  <Label htmlFor="partnerType">Type of Business *</Label>
-                  <Input id="partnerType" placeholder="e.g., Travel Agency, Hotel, Blogger, Concierge Service" required />
+                  <Label htmlFor="phone">Phone Number</Label>
+                  <Input 
+                    id="phone" 
+                    name="phone"
+                    type="tel"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    placeholder="+66 XX XXX XXXX" 
+                  />
                 </div>
 
                 <div>
-                  <Label htmlFor="message">Tell Us About Your Business *</Label>
+                  <Label htmlFor="partnershipType">Type of Business *</Label>
+                  <Input 
+                    id="partnershipType" 
+                    name="partnershipType"
+                    value={formData.partnershipType}
+                    onChange={handleInputChange}
+                    placeholder="e.g., Travel Agency, Hotel, Blogger, Concierge Service" 
+                    required 
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="description">Tell Us About Your Business *</Label>
                   <Textarea 
-                    id="message" 
+                    id="description" 
+                    name="description"
+                    value={formData.description}
+                    onChange={handleInputChange}
                     placeholder="Describe your business, target market, expected volume, and how you plan to promote our services..."
                     rows={5}
                     required

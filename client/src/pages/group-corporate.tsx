@@ -411,37 +411,90 @@ export default function GroupCorporate() {
                   </div>
                   <div>
                     <Label htmlFor="email">Email Address *</Label>
-                    <Input id="email" type="email" placeholder="your@email.com" required />
+                    <Input 
+                      id="email" 
+                      name="email"
+                      type="email" 
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      placeholder="your@email.com" 
+                      required 
+                    />
                   </div>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="groupType">Group Type *</Label>
-                    <Input id="groupType" placeholder="e.g., Corporate, Educational, Wedding" required />
+                    <Label htmlFor="companyName">Company/Organization *</Label>
+                    <Input 
+                      id="companyName" 
+                      name="companyName"
+                      value={formData.companyName}
+                      onChange={handleInputChange}
+                      placeholder="Your company or organization name" 
+                      required 
+                    />
                   </div>
                   <div>
-                    <Label htmlFor="groupSize">Number of People *</Label>
-                    <Input id="groupSize" type="number" placeholder="Approximate group size" required />
+                    <Label htmlFor="phone">Phone Number</Label>
+                    <Input 
+                      id="phone" 
+                      name="phone"
+                      type="tel"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      placeholder="+66 XX XXX XXXX" 
+                    />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="travelDates">Preferred Travel Dates</Label>
-                    <Input id="travelDates" placeholder="e.g., March 2024 or flexible" />
+                    <Label htmlFor="groupSize">Number of People *</Label>
+                    <Input 
+                      id="groupSize" 
+                      name="groupSize"
+                      type="number" 
+                      value={formData.groupSize}
+                      onChange={handleInputChange}
+                      placeholder="Approximate group size" 
+                      required 
+                    />
                   </div>
                   <div>
-                    <Label htmlFor="duration">Duration</Label>
-                    <Input id="duration" placeholder="e.g., 3 days, 1 week" />
+                    <Label htmlFor="travelDates">Preferred Travel Dates</Label>
+                    <Input 
+                      id="travelDates" 
+                      name="travelDates"
+                      value={formData.travelDates}
+                      onChange={handleInputChange}
+                      placeholder="e.g., March 2024 or flexible" 
+                    />
                   </div>
                 </div>
 
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="budget">Budget Range</Label>
+                    <Input 
+                      id="budget" 
+                      name="budget"
+                      value={formData.budget}
+                      onChange={handleInputChange}
+                      placeholder="e.g., 50,000 - 100,000 THB" 
+                    />
+                  </div>
+                  <div></div>
+                </div>
+
                 <div>
-                  <Label htmlFor="objectives">Group Objectives & Requirements *</Label>
+                  <Label htmlFor="description">Group Objectives & Requirements *</Label>
                   <Textarea 
-                    id="objectives" 
-                    placeholder="Describe your group's goals, interests, budget range, special requirements, preferred activities, and any specific needs..."
+                    id="description" 
+                    name="description"
+                    value={formData.description}
+                    onChange={handleInputChange}
+                    placeholder="Describe your group's goals, interests, special requirements, preferred activities, and any specific needs..."
                     rows={5}
                     required
                   />
