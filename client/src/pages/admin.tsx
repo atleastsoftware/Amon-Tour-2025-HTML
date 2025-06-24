@@ -1,16 +1,57 @@
 import { useEffect } from "react";
 import { useLocation } from "wouter";
 import { useIsAuthenticated, useLogout } from "@/lib/auth";
+import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import { ImagePlus, FileText, BookOpen, Mail, Users } from "lucide-react";
+import { 
+  ImagePlus, 
+  FileText, 
+  BookOpen, 
+  Mail, 
+  Users, 
+  Calendar,
+  PartyPopper,
+  Handshake,
+  UsersIcon,
+  Newspaper,
+  Settings,
+  LogOut 
+} from "lucide-react";
 
 export default function AdminPage() {
   const { isAuthenticated, isLoading: authLoading } = useIsAuthenticated();
   const [, setLocation] = useLocation();
   const logout = useLogout();
+
+  // Fetch unread counts for notifications
+  const { data: krabiUnread = [] } = useQuery({
+    queryKey: ["/api/krabi-celebration", { read: false }],
+    enabled: isAuthenticated,
+  });
+
+  const { data: partnershipUnread = [] } = useQuery({
+    queryKey: ["/api/partnership-requests", { read: false }],
+    enabled: isAuthenticated,
+  });
+
+  const { data: groupUnread = [] } = useQuery({
+    queryKey: ["/api/group-requests", { read: false }],
+    enabled: isAuthenticated,
+  });
+
+  const { data: customTourUnread = [] } = useQuery({
+    queryKey: ["/api/custom-tour-requests", { status: "new" }],
+    enabled: isAuthenticated,
+  });
+
+  const { data: newsletterUnconfirmed = [] } = useQuery({
+    queryKey: ["/api/admin/newsletter/subscriptions", { confirmed: false }],
+    enabled: isAuthenticated,
+  });
 
   useEffect(() => {
     if (!authLoading && !isAuthenticated) {
@@ -42,12 +83,23 @@ export default function AdminPage() {
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="overflow-hidden">
-              <CardHeader className="bg-primary/5 pb-4">
-                <CardTitle className="flex items-center gap-2">
-                  <ImagePlus className="h-5 w-5" />
-                  Create Tour Cards
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Card 
+              className="overflow-hidden cursor-pointer hover:shadow-lg transition-all duration-300 relative"
+              onClick={() => setLocation("/admin/custom-tours")}
+            >
+              {(customTourUnread?.length || 0) > 0 && (
+                <Badge 
+                  variant="destructive" 
+                  className="absolute -top-2 -right-2 h-6 w-6 rounded-full p-0 flex items-center justify-center text-xs z-10"
+                >
+                  {customTourUnread?.length}
+                </Badge>
+              )}
+              <CardHeader className="bg-blue-500/10 pb-4">
+                <CardTitle className="flex items-center gap-2 text-blue-700">
+                  <Calendar className="h-5 w-5" />
+                  Demandes personnalisées
                 </CardTitle>
                 <CardDescription>
                   Add new tour cards with images and details
