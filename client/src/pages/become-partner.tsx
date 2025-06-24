@@ -377,15 +377,29 @@ export default function BecomePartner() {
                 </p>
               </div>
 
-              <form className="bg-white p-8 rounded-lg shadow-md space-y-6">
+              <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="name">Full Name *</Label>
-                    <Input id="name" placeholder="Your full name" required />
+                    <Label htmlFor="contactName">Full Name *</Label>
+                    <Input 
+                      id="contactName" 
+                      name="contactName"
+                      value={formData.contactName}
+                      onChange={handleInputChange}
+                      placeholder="Your full name" 
+                      required 
+                    />
                   </div>
                   <div>
-                    <Label htmlFor="company">Company Name *</Label>
-                    <Input id="company" placeholder="Your company name" required />
+                    <Label htmlFor="companyName">Company Name *</Label>
+                    <Input 
+                      id="companyName" 
+                      name="companyName"
+                      value={formData.companyName}
+                      onChange={handleInputChange}
+                      placeholder="Your company name" 
+                      required 
+                    />
                   </div>
                 </div>
                 

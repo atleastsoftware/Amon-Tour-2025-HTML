@@ -390,11 +390,18 @@ export default function GroupCorporate() {
                 </p>
               </div>
 
-              <form className="bg-neutral-50 p-8 rounded-lg shadow-md space-y-6">
+              <form onSubmit={handleSubmit} className="bg-neutral-50 p-8 rounded-lg shadow-md space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="contactName">Contact Name *</Label>
-                    <Input id="contactName" placeholder="Your full name" required />
+                    <Input 
+                      id="contactName" 
+                      name="contactName"
+                      value={formData.contactName}
+                      onChange={handleInputChange}
+                      placeholder="Your full name" 
+                      required 
+                    />
                   </div>
                   <div>
                     <Label htmlFor="email">Email Address *</Label>
