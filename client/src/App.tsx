@@ -72,7 +72,7 @@ function Router() {
       
       {/* Admin Pages */}
       <Route path="/admin-login" component={AdminLogin} />
-      <Route path="/admin" component={AdminDashboard} />
+      <Route path="/admin" component={Admin} />
       <Route path="/admin/krabi-celebration" component={AdminKrabiCelebration} />
       <Route path="/admin/partnership-requests" component={AdminPartnershipRequests} />
       <Route path="/admin/group-requests" component={AdminGroupRequests} />

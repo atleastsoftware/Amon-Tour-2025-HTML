@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { motion } from "framer-motion";
 import { 
   ImagePlus, 
   FileText, 
@@ -22,7 +23,7 @@ import {
   LogOut 
 } from "lucide-react";
 
-export default function AdminPage() {
+export default function Admin() {
   const { isAuthenticated, isLoading: authLoading } = useIsAuthenticated();
   const [, setLocation] = useLocation();
   const logout = useLogout();
@@ -69,135 +70,320 @@ export default function AdminPage() {
   return (
     <>
       <Header />
-      <div className="container mx-auto p-4 pt-20 pb-16">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-heading font-bold">Administration</h1>
-          <Button variant="outline" onClick={handleLogout}>
-            <LogOut className="h-4 w-4 mr-2" />
-            Logout
-          </Button>
-        </div>
-        
-        <div className="grid gap-6">
-          <div className="text-center">
-            <h2 className="text-2xl font-heading font-semibold mb-2">Admin Management</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Gérez tous les formulaires et contenus depuis ce panneau d'administration centralisé.
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <Card 
-              className="overflow-hidden cursor-pointer hover:shadow-lg transition-all duration-300 relative"
-              onClick={() => setLocation("/admin/custom-tours")}
-            >
-              {(customTourUnread?.length || 0) > 0 && (
-                <Badge 
-                  variant="destructive" 
-                  className="absolute -top-2 -right-2 h-6 w-6 rounded-full p-0 flex items-center justify-center text-xs z-10"
-                >
-                  {customTourUnread?.length}
-                </Badge>
-              )}
-              <CardHeader className="bg-blue-500/10 pb-4">
-                <CardTitle className="flex items-center gap-2 text-blue-700">
-                  <Calendar className="h-5 w-5" />
-                  Demandes personnalisées
-                </CardTitle>
-                <CardDescription>
-                  Gérer les demandes de tours sur mesure
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="pt-4">
-              </CardHeader>
-              <CardContent className="pt-6">
-                <p className="mb-4 text-sm text-muted-foreground">
-                  Create custom tour cards with title, description, price, and up to 3 images per card. 
-                  Cards will automatically appear on the website.
-                </p>
-                <Button 
-                  className="w-full" 
-                  onClick={() => setLocation('/tour-card-builder')}
-                >
-                  Access Card Builder
-                </Button>
-              </CardContent>
-            </Card>
+      <div className="min-h-screen bg-gray-50 pt-24 pb-16">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="flex justify-between items-center mb-8">
+              <div>
+                <h1 className="text-3xl font-heading font-bold text-gray-900">Administration</h1>
+                <p className="text-gray-600 mt-2">Panneau de gestion centralisé</p>
+              </div>
+              <Button variant="outline" onClick={handleLogout} className="flex items-center gap-2">
+                <LogOut className="h-4 w-4" />
+                Déconnexion
+              </Button>
+            </div>
 
-            <Card className="overflow-hidden">
-              <CardHeader className="bg-purple-500/10 pb-4">
-                <CardTitle className="flex items-center gap-2 text-purple-700">
-                  <BookOpen className="h-5 w-5" />
-                  Gestion du blog
-                </CardTitle>
-                <CardDescription>
-                  Créer et modifier les articles
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="pt-4">
-                <Button 
-                  className="w-full bg-purple-600 hover:bg-purple-700" 
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {/* Demandes personnalisées */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0 }}
+              >
+                <Card 
+                  className="group hover:shadow-lg transition-all duration-300 cursor-pointer border-0 bg-gradient-to-r from-blue-500 to-blue-600 shadow-md hover:shadow-xl hover:scale-105 relative"
+                  onClick={() => setLocation('/admin-custom-tours')}
+                >
+                  {(customTourUnread?.length || 0) > 0 && (
+                    <Badge 
+                      variant="destructive" 
+                      className="absolute -top-2 -right-2 h-6 w-6 rounded-full p-0 flex items-center justify-center text-xs z-10"
+                    >
+                      {customTourUnread?.length}
+                    </Badge>
+                  )}
+                  <CardHeader className="text-white">
+                    <div className="flex items-center space-x-3">
+                      <div className="p-2 bg-white/20 rounded-lg">
+                        <Calendar className="h-6 w-6" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-lg font-heading">Demandes personnalisées</CardTitle>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="text-white/90">
+                    <CardDescription className="text-white/80">
+                      Gérer les demandes de tours sur mesure
+                    </CardDescription>
+                  </CardContent>
+                </Card>
+              </motion.div>
+
+              {/* Krabi Celebration */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+              >
+                <Card 
+                  className="group hover:shadow-lg transition-all duration-300 cursor-pointer border-0 bg-gradient-to-r from-pink-500 to-pink-600 shadow-md hover:shadow-xl hover:scale-105 relative"
+                  onClick={() => setLocation('/admin/krabi-celebration')}
+                >
+                  {(krabiUnread?.length || 0) > 0 && (
+                    <Badge 
+                      variant="destructive" 
+                      className="absolute -top-2 -right-2 h-6 w-6 rounded-full p-0 flex items-center justify-center text-xs z-10"
+                    >
+                      {krabiUnread?.length}
+                    </Badge>
+                  )}
+                  <CardHeader className="text-white">
+                    <div className="flex items-center space-x-3">
+                      <div className="p-2 bg-white/20 rounded-lg">
+                        <PartyPopper className="h-6 w-6" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-lg font-heading">Krabi Celebration</CardTitle>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="text-white/90">
+                    <CardDescription className="text-white/80">
+                      Demandes d'événements spéciaux
+                    </CardDescription>
+                  </CardContent>
+                </Card>
+              </motion.div>
+
+              {/* Partenariats */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                <Card 
+                  className="group hover:shadow-lg transition-all duration-300 cursor-pointer border-0 bg-gradient-to-r from-indigo-500 to-indigo-600 shadow-md hover:shadow-xl hover:scale-105 relative"
+                  onClick={() => setLocation('/admin/partnership-requests')}
+                >
+                  {(partnershipUnread?.length || 0) > 0 && (
+                    <Badge 
+                      variant="destructive" 
+                      className="absolute -top-2 -right-2 h-6 w-6 rounded-full p-0 flex items-center justify-center text-xs z-10"
+                    >
+                      {partnershipUnread?.length}
+                    </Badge>
+                  )}
+                  <CardHeader className="text-white">
+                    <div className="flex items-center space-x-3">
+                      <div className="p-2 bg-white/20 rounded-lg">
+                        <Handshake className="h-6 w-6" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-lg font-heading">Partenariats</CardTitle>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="text-white/90">
+                    <CardDescription className="text-white/80">
+                      Propositions de collaboration
+                    </CardDescription>
+                  </CardContent>
+                </Card>
+              </motion.div>
+
+              {/* Groupes & Entreprises */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+              >
+                <Card 
+                  className="group hover:shadow-lg transition-all duration-300 cursor-pointer border-0 bg-gradient-to-r from-amber-500 to-amber-600 shadow-md hover:shadow-xl hover:scale-105 relative"
+                  onClick={() => setLocation('/admin/group-requests')}
+                >
+                  {(groupUnread?.length || 0) > 0 && (
+                    <Badge 
+                      variant="destructive" 
+                      className="absolute -top-2 -right-2 h-6 w-6 rounded-full p-0 flex items-center justify-center text-xs z-10"
+                    >
+                      {groupUnread?.length}
+                    </Badge>
+                  )}
+                  <CardHeader className="text-white">
+                    <div className="flex items-center space-x-3">
+                      <div className="p-2 bg-white/20 rounded-lg">
+                        <UsersIcon className="h-6 w-6" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-lg font-heading">Groupes & Entreprises</CardTitle>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="text-white/90">
+                    <CardDescription className="text-white/80">
+                      Demandes de groupes et corporates
+                    </CardDescription>
+                  </CardContent>
+                </Card>
+              </motion.div>
+
+              {/* Blog */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+              >
+                <Card 
+                  className="group hover:shadow-lg transition-all duration-300 cursor-pointer border-0 bg-gradient-to-r from-purple-500 to-purple-600 shadow-md hover:shadow-xl hover:scale-105 relative"
                   onClick={() => setLocation('/admin-blog')}
                 >
-                  Gérer le blog
-                </Button>
-              </CardContent>
-            </Card>
-            
-            <Card 
-              className="overflow-hidden cursor-pointer hover:shadow-lg transition-all duration-300 relative"
-              onClick={() => setLocation("/admin-newsletter")}
-            >
-              {(newsletterUnconfirmed?.length || 0) > 0 && (
-                <Badge 
-                  variant="destructive" 
-                  className="absolute -top-2 -right-2 h-6 w-6 rounded-full p-0 flex items-center justify-center text-xs z-10"
-                >
-                  {newsletterUnconfirmed?.length}
-                </Badge>
-              )}
-              <CardHeader className="bg-orange-500/10 pb-4">
-                <CardTitle className="flex items-center gap-2 text-orange-700">
-                  <Newspaper className="h-5 w-5" />
-                  Newsletter
-                </CardTitle>
-                <CardDescription>
-                  Gérer les abonnements newsletter
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="pt-4">
-                <Button 
-                  className="w-full bg-orange-600 hover:bg-orange-700" 
+                  <CardHeader className="text-white">
+                    <div className="flex items-center space-x-3">
+                      <div className="p-2 bg-white/20 rounded-lg">
+                        <BookOpen className="h-6 w-6" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-lg font-heading">Gestion du blog</CardTitle>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="text-white/90">
+                    <CardDescription className="text-white/80">
+                      Créer et modifier les articles
+                    </CardDescription>
+                  </CardContent>
+                </Card>
+              </motion.div>
+
+              {/* Newsletter */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+              >
+                <Card 
+                  className="group hover:shadow-lg transition-all duration-300 cursor-pointer border-0 bg-gradient-to-r from-orange-500 to-orange-600 shadow-md hover:shadow-xl hover:scale-105 relative"
                   onClick={() => setLocation('/admin-newsletter')}
                 >
-                  Gérer la newsletter
-                </Button>
-              </CardContent>
-            </Card>
+                  {(newsletterUnconfirmed?.length || 0) > 0 && (
+                    <Badge 
+                      variant="destructive" 
+                      className="absolute -top-2 -right-2 h-6 w-6 rounded-full p-0 flex items-center justify-center text-xs z-10"
+                    >
+                      {newsletterUnconfirmed?.length}
+                    </Badge>
+                  )}
+                  <CardHeader className="text-white">
+                    <div className="flex items-center space-x-3">
+                      <div className="p-2 bg-white/20 rounded-lg">
+                        <Newspaper className="h-6 w-6" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-lg font-heading">Newsletter</CardTitle>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="text-white/90">
+                    <CardDescription className="text-white/80">
+                      Gérer les abonnements newsletter
+                    </CardDescription>
+                  </CardContent>
+                </Card>
+              </motion.div>
 
-            <Card className="overflow-hidden">
-              <CardHeader className="bg-teal-500/10 pb-4">
-                <CardTitle className="flex items-center gap-2 text-teal-700">
-                  <ImagePlus className="h-5 w-5" />
-                  Cartes de tours
-                </CardTitle>
-                <CardDescription>
-                  Créer et gérer les cartes de présentation
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="pt-4">
-                <Button 
-                  className="w-full bg-teal-600 hover:bg-teal-700" 
+              {/* Cartes de tours */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
+              >
+                <Card 
+                  className="group hover:shadow-lg transition-all duration-300 cursor-pointer border-0 bg-gradient-to-r from-teal-500 to-teal-600 shadow-md hover:shadow-xl hover:scale-105 relative"
                   onClick={() => setLocation('/tour-card-builder')}
                 >
-                  Créateur de cartes
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
+                  <CardHeader className="text-white">
+                    <div className="flex items-center space-x-3">
+                      <div className="p-2 bg-white/20 rounded-lg">
+                        <ImagePlus className="h-6 w-6" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-lg font-heading">Cartes de tours</CardTitle>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="text-white/90">
+                    <CardDescription className="text-white/80">
+                      Créer et gérer les cartes de présentation
+                    </CardDescription>
+                  </CardContent>
+                </Card>
+              </motion.div>
+
+              {/* Messages de contact */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.7 }}
+              >
+                <Card 
+                  className="group hover:shadow-lg transition-all duration-300 cursor-pointer border-0 bg-gradient-to-r from-green-500 to-green-600 shadow-md hover:shadow-xl hover:scale-105 relative"
+                  onClick={() => setLocation('/admin-custom-tours')}
+                >
+                  <CardHeader className="text-white">
+                    <div className="flex items-center space-x-3">
+                      <div className="p-2 bg-white/20 rounded-lg">
+                        <Mail className="h-6 w-6" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-lg font-heading">Messages de contact</CardTitle>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="text-white/90">
+                    <CardDescription className="text-white/80">
+                      Consulter et répondre aux messages
+                    </CardDescription>
+                  </CardContent>
+                </Card>
+              </motion.div>
+
+              {/* Paramètres */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.8 }}
+              >
+                <Card 
+                  className="group hover:shadow-lg transition-all duration-300 cursor-pointer border-0 bg-gradient-to-r from-gray-500 to-gray-600 shadow-md hover:shadow-xl hover:scale-105 relative"
+                  onClick={() => setLocation('/admin-custom-tours')}
+                >
+                  <CardHeader className="text-white">
+                    <div className="flex items-center space-x-3">
+                      <div className="p-2 bg-white/20 rounded-lg">
+                        <Settings className="h-6 w-6" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-lg font-heading">Paramètres</CardTitle>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="text-white/90">
+                    <CardDescription className="text-white/80">
+                      Configuration et préférences
+                    </CardDescription>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            </div>
+          </motion.div>
         </div>
       </div>
-      
       <Footer />
     </>
   );
