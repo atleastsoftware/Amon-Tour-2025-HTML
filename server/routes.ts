@@ -1124,6 +1124,242 @@ Crawl-delay: 1`;
     }
   });
 
+  // ===== FORM SUBMISSION API ROUTES =====
+
+  // Krabi Celebration Requests
+  app.post("/api/krabi-celebration", async (req, res) => {
+    try {
+      console.log("Krabi Celebration - Received request:", JSON.stringify(req.body, null, 2));
+      
+      const requestData = insertKrabiCelebrationRequestSchema.parse({
+        ...req.body,
+        guests: parseInt(req.body.guests) || 0
+      });
+      
+      console.log("Krabi Celebration - Validated data:", JSON.stringify(requestData, null, 2));
+      
+      const request = await storage.createKrabiCelebrationRequest(requestData);
+      
+      console.log("Krabi Celebration - Created request with ID:", request.id);
+      
+      res.status(201).json({ 
+        message: "Krabi Celebration request submitted successfully",
+        id: request.id 
+      });
+    } catch (error: any) {
+      console.error("Krabi Celebration - Error:", error);
+      res.status(400).json({ 
+        message: "Invalid request data", 
+        error: error.errors || error.message || String(error) 
+      });
+    }
+  });
+
+  app.get("/api/krabi-celebration", requireAuth, async (req, res) => {
+    try {
+      const { read } = req.query;
+      const filters = read !== undefined ? { read: read === 'true' } : undefined;
+      const requests = await storage.getKrabiCelebrationRequests(filters);
+      res.json(requests);
+    } catch (error) {
+      console.error("Error fetching krabi celebration requests:", error);
+      res.status(500).json({ message: "Failed to fetch requests", error: String(error) });
+    }
+  });
+
+  app.patch("/api/krabi-celebration/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid request ID" });
+      }
+
+      const updatedRequest = await storage.updateKrabiCelebrationRequest(id, req.body);
+      if (!updatedRequest) {
+        return res.status(404).json({ message: "Request not found" });
+      }
+
+      res.json(updatedRequest);
+    } catch (error) {
+      console.error("Error updating krabi celebration request:", error);
+      res.status(500).json({ message: "Failed to update request", error: String(error) });
+    }
+  });
+
+  app.delete("/api/krabi-celebration/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid request ID" });
+      }
+
+      const deleted = await storage.deleteKrabiCelebrationRequest(id);
+      if (!deleted) {
+        return res.status(404).json({ message: "Request not found" });
+      }
+
+      res.json({ message: "Request deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting krabi celebration request:", error);
+      res.status(500).json({ message: "Failed to delete request", error: String(error) });
+    }
+  });
+
+  // Partnership Requests
+  app.post("/api/partnership-requests", async (req, res) => {
+    try {
+      console.log("Partnership - Received request:", JSON.stringify(req.body, null, 2));
+      
+      const requestData = insertPartnershipRequestSchema.parse(req.body);
+      
+      console.log("Partnership - Validated data:", JSON.stringify(requestData, null, 2));
+      
+      const request = await storage.createPartnershipRequest(requestData);
+      
+      console.log("Partnership - Created request with ID:", request.id);
+      
+      res.status(201).json({ 
+        message: "Partnership request submitted successfully",
+        id: request.id 
+      });
+    } catch (error: any) {
+      console.error("Partnership - Error:", error);
+      res.status(400).json({ 
+        message: "Invalid request data", 
+        error: error.errors || error.message || String(error) 
+      });
+    }
+  });
+
+  app.get("/api/partnership-requests", requireAuth, async (req, res) => {
+    try {
+      const { read } = req.query;
+      const filters = read !== undefined ? { read: read === 'true' } : undefined;
+      const requests = await storage.getPartnershipRequests(filters);
+      res.json(requests);
+    } catch (error) {
+      console.error("Error fetching partnership requests:", error);
+      res.status(500).json({ message: "Failed to fetch requests", error: String(error) });
+    }
+  });
+
+  app.patch("/api/partnership-requests/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid request ID" });
+      }
+
+      const updatedRequest = await storage.updatePartnershipRequest(id, req.body);
+      if (!updatedRequest) {
+        return res.status(404).json({ message: "Request not found" });
+      }
+
+      res.json(updatedRequest);
+    } catch (error) {
+      console.error("Error updating partnership request:", error);
+      res.status(500).json({ message: "Failed to update request", error: String(error) });
+    }
+  });
+
+  app.delete("/api/partnership-requests/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid request ID" });
+      }
+
+      const deleted = await storage.deletePartnershipRequest(id);
+      if (!deleted) {
+        return res.status(404).json({ message: "Request not found" });
+      }
+
+      res.json({ message: "Request deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting partnership request:", error);
+      res.status(500).json({ message: "Failed to delete request", error: String(error) });
+    }
+  });
+
+  // Group Requests
+  app.post("/api/group-requests", async (req, res) => {
+    try {
+      console.log("Group Corporate - Received request:", JSON.stringify(req.body, null, 2));
+      
+      const requestData = insertGroupRequestSchema.parse({
+        ...req.body,
+        groupSize: parseInt(req.body.groupSize) || 0
+      });
+      
+      console.log("Group Corporate - Validated data:", JSON.stringify(requestData, null, 2));
+      
+      const request = await storage.createGroupRequest(requestData);
+      
+      console.log("Group Corporate - Created request with ID:", request.id);
+      
+      res.status(201).json({ 
+        message: "Group request submitted successfully",
+        id: request.id 
+      });
+    } catch (error: any) {
+      console.error("Group Corporate - Error:", error);
+      res.status(400).json({ 
+        message: "Invalid request data", 
+        error: error.errors || error.message || String(error) 
+      });
+    }
+  });
+
+  app.get("/api/group-requests", requireAuth, async (req, res) => {
+    try {
+      const { read } = req.query;
+      const filters = read !== undefined ? { read: read === 'true' } : undefined;
+      const requests = await storage.getGroupRequests(filters);
+      res.json(requests);
+    } catch (error) {
+      console.error("Error fetching group requests:", error);
+      res.status(500).json({ message: "Failed to fetch requests", error: String(error) });
+    }
+  });
+
+  app.patch("/api/group-requests/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid request ID" });
+      }
+
+      const updatedRequest = await storage.updateGroupRequest(id, req.body);
+      if (!updatedRequest) {
+        return res.status(404).json({ message: "Request not found" });
+      }
+
+      res.json(updatedRequest);
+    } catch (error) {
+      console.error("Error updating group request:", error);
+      res.status(500).json({ message: "Failed to update request", error: String(error) });
+    }
+  });
+
+  app.delete("/api/group-requests/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid request ID" });
+      }
+
+      const deleted = await storage.deleteGroupRequest(id);
+      if (!deleted) {
+        return res.status(404).json({ message: "Request not found" });
+      }
+
+      res.json({ message: "Request deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting group request:", error);
+      res.status(500).json({ message: "Failed to delete request", error: String(error) });
+    }
+  });
+
   // ===== NEWSLETTER SUBSCRIPTION API ROUTES =====
 
   // Newsletter subscription with rate limiting

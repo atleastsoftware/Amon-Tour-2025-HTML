@@ -59,46 +59,49 @@ export default function GroupCorporate() {
         credentials: 'include',
       });
 
+      console.log('Group Corporate - Response status:', response.status);
+      
       if (!response.ok) {
-        throw new Error('Erreur lors de l\'envoi');
+        const errorText = await response.text();
+        console.error('Group Corporate - Error response:', errorText);
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      setIsSubmitted(true);
+      const result = await response.json();
+      console.log('Group Corporate - Success result:', result);
+      
+      toast({
+        title: "Group Request Sent!",
+        description: "Thank you for your group inquiry. Our team will create a customized proposal and contact you within 24 hours.",
+        duration: 5000,
+      });
+
+      // Reset form
+      setFormData({
+        companyName: '',
+        contactName: '',
+        email: '',
+        phone: '',
+        groupSize: '',
+        travelDates: '',
+        budget: '',
+        description: ''
+      });
+
     } catch (error) {
-      console.error('Erreur:', error);
-      alert('Une erreur est survenue lors de l\'envoi de votre demande. Veuillez réessayer.');
+      console.error('Group Corporate - Submit error:', error);
+      toast({
+        title: "Error Sending Request",
+        description: "There was a problem sending your group request. Please try again or contact us directly.",
+        variant: "destructive",
+        duration: 5000,
+      });
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  if (isSubmitted) {
-    return (
-      <>
-        <Header />
-        <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white pt-24 pb-16">
-          <div className="container mx-auto px-4 text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="max-w-2xl mx-auto"
-            >
-              <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-6" />
-              <h1 className="text-3xl font-heading font-bold mb-4">Group Request Sent!</h1>
-              <p className="text-gray-600 mb-8">
-                Thank you for your group travel inquiry. We have received your request and our team will prepare a customized proposal for your group. We will contact you within 24-48 hours with detailed options and pricing.
-              </p>
-              <Button onClick={() => window.location.href = '/'} className="bg-primary hover:bg-primary/90">
-                Return to Homepage
-              </Button>
-            </motion.div>
-          </div>
-        </div>
-        <Footer />
-      </>
-    );
-  }
+
   return (
     <>
       <SEO 
