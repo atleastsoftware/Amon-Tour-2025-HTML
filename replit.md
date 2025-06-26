@@ -119,12 +119,15 @@ TOUR_NINJA_COMPANY_ID=your_company_id
 COMPANY_NAME=Amon Tour
 SESSION_SECRET=your_secret
 STRIPE_SECRET_KEY=your_stripe_key (optional)
+SENDGRID_API_KEY=your_sendgrid_key (for email notifications)
 ```
 
 ## Changelog
 - June 24, 2025: Initial setup
 - June 24, 2025: Integrated complete backend system for 3 public forms (Krabi Celebration, Partnership, Group/Corporate) with full admin management interface, database tables, API endpoints, and notification system
 - June 24, 2025: Fixed critical form submission issues - resolved database schema mismatches, corrected field name mappings between frontend forms and backend validation, added comprehensive error handling and logging, implemented toast notifications for user feedback
+- June 24, 2025: Added WhatsApp field to Krabi Celebration form and admin panel - updated database schema, form interface, and admin display with international phone number support
+- June 24, 2025: Implemented automatic email notification system using SendGrid - admin receives instant alerts for all form submissions (Krabi Celebration, Partnership, Group Corporate) with detailed information, plus confirmation emails sent to clients
 
 ## User Preferences
 
