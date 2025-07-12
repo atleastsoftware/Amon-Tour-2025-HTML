@@ -1582,6 +1582,11 @@ Crawl-delay: 1`;
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 seconds timeout
       
+      // Create HTTPS agent that ignores certificate validation
+      const httpsAgent = new (await import('https')).Agent({
+        rejectUnauthorized: false
+      });
+      
       const response = await fetch(
         `https://tourninja.io/api/public/tour-links/2`,
         {
@@ -1590,7 +1595,9 @@ Crawl-delay: 1`;
             'Content-Type': 'application/json',
             'User-Agent': 'AmonTour-Website/1.0'
           },
-          signal: controller.signal
+          signal: controller.signal,
+          // @ts-ignore - Required for Replit environment
+          agent: httpsAgent
         }
       );
       
