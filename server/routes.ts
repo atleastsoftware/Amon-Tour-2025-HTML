@@ -1582,12 +1582,15 @@ Crawl-delay: 1`;
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 seconds timeout
       
-      // Create HTTPS agent that ignores certificate validation
-      const httpsAgent = new (await import('https')).Agent({
+      // Use node-fetch with custom agent for SSL issues
+      const nodeFetch = (await import('node-fetch')).default;
+      const https = await import('https');
+      
+      const httpsAgent = new https.Agent({
         rejectUnauthorized: false
       });
       
-      const response = await fetch(
+      const response = await nodeFetch(
         `https://tourninja.io/api/public/tour-links/2`,
         {
           method: 'GET',
@@ -1596,7 +1599,6 @@ Crawl-delay: 1`;
             'User-Agent': 'AmonTour-Website/1.0'
           },
           signal: controller.signal,
-          // @ts-ignore - Required for Replit environment
           agent: httpsAgent
         }
       );
@@ -1677,10 +1679,14 @@ Crawl-delay: 1`;
         });
       }
       
-      res.status(500).json({ 
-        success: false,
-        message: "Failed to fetch tours from Tour Ninja", 
-        error: process.env.NODE_ENV === 'development' ? String(error) : 'Internal server error'
+      // Return empty array to prevent site from breaking
+      console.log("Tour Ninja API unavailable, returning empty array");
+      res.json({ 
+        success: true,
+        data: [],
+        cached: false,
+        message: "Tour Ninja API temporarily unavailable", 
+        error: process.env.NODE_ENV === 'development' ? String(error) : undefined
       });
     }
   });
