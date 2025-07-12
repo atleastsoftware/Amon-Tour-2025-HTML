@@ -1575,7 +1575,7 @@ Crawl-delay: 1`;
       }
 
       console.log("Fetching fresh data from Tour Ninja API", {
-        url: `https://www.tourninja.io/api/public/tours/legacy?companyId=${companyId}`,
+        url: `https://tourninja.io/api/public/tour-links/2`,
         environment: process.env.NODE_ENV,
         hostname: req.hostname
       });
@@ -1583,7 +1583,7 @@ Crawl-delay: 1`;
       const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 seconds timeout
       
       const response = await fetch(
-        `https://www.tourninja.io/api/public/tours/legacy?companyId=${companyId}`,
+        `https://tourninja.io/api/public/tour-links/2`,
         {
           method: 'GET',
           headers: {
@@ -1604,7 +1604,30 @@ Crawl-delay: 1`;
       
       // Extract and enhance tours data from the API response  
       let tours = [];
-      if (apiResponse.success && Array.isArray(apiResponse.tours)) {
+      
+      // The new API returns an array directly
+      if (Array.isArray(apiResponse)) {
+        tours = apiResponse.map((tour: any) => ({
+          id: tour.id || tour._id,
+          name: tour.name || tour.title,
+          description: tour.description || tour.content || '',
+          shortDescription: tour.shortDescription || tour.excerpt || '',
+          images: tour.images || [],
+          primaryImage: tour.primaryImage || tour.image || (tour.images && tour.images[0]) || null,
+          price: tour.price || 0,
+          currency: tour.currency || 'THB',
+          duration: tour.duration || '',
+          location: tour.location || 'Krabi, Thailand',
+          bookingUrl: tour.bookingUrl || tour.url || `https://tourninja.io/book/${tour.id || tour._id}`,
+          detailsUrl: tour.detailsUrl || tour.url || `https://tourninja.io/tour/${tour.id || tour._id}`,
+          externalId: tour.externalId || tour.id || tour._id,
+          isActive: tour.isActive !== false,
+          category: tour.category || '',
+          tags: tour.tags || [],
+          maxGuests: tour.maxGuests || 0,
+          minGuests: tour.minGuests || 0,
+        }));
+      } else if (apiResponse.success && Array.isArray(apiResponse.tours)) {
         tours = apiResponse.tours.map((tour: any) => ({
           ...tour,
           // Ensure we have proper image fallback
