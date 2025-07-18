@@ -1580,7 +1580,7 @@ Crawl-delay: 1`;
         hostname: req.hostname
       });
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 seconds timeout
+      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 seconds timeout
       
       // Use node-fetch with custom agent for SSL issues
       const nodeFetch = (await import('node-fetch')).default;
@@ -1595,6 +1595,7 @@ Crawl-delay: 1`;
         {
           method: 'GET',
           headers: {
+            'Accept': 'application/json',
             'Content-Type': 'application/json',
             'User-Agent': 'AmonTour-Website/1.0'
           },
@@ -1605,11 +1606,24 @@ Crawl-delay: 1`;
       
       clearTimeout(timeoutId);
 
+      console.log("Tour Ninja API Response Status:", response.status, response.statusText);
+      
       if (!response.ok) {
-        throw new Error(`Tour Ninja API error: ${response.status} ${response.statusText}`);
+        const errorText = await response.text();
+        console.error("Tour Ninja API Error Response:", errorText);
+        throw new Error(`Tour Ninja API error: ${response.status} ${response.statusText} - ${errorText}`);
       }
 
-      const apiResponse = await response.json();
+      const responseText = await response.text();
+      console.log("Tour Ninja API Raw Response:", responseText.substring(0, 500));
+      
+      let apiResponse;
+      try {
+        apiResponse = JSON.parse(responseText);
+      } catch (e) {
+        console.error("Failed to parse Tour Ninja response:", e);
+        throw new Error("Invalid JSON response from Tour Ninja API");
+      }
       
       // Extract and enhance tours data from the API response  
       let tours = [];
@@ -1678,12 +1692,20 @@ Crawl-delay: 1`;
       
       // Return empty array to prevent site from breaking
       console.log("Tour Ninja API unavailable, returning empty array");
+      
+      // Add a message about the API status
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      const isServerError = errorMessage.includes('500') || errorMessage.includes('Internal Server Error');
+      
       res.json({ 
         success: true,
         data: [],
         cached: false,
-        message: "Tour Ninja API temporarily unavailable", 
-        error: process.env.NODE_ENV === 'development' ? String(error) : undefined
+        message: isServerError 
+          ? "Tour Ninja service is temporarily down for maintenance" 
+          : "Tour Ninja API temporarily unavailable", 
+        apiStatus: isServerError ? "server_error" : "unavailable",
+        error: process.env.NODE_ENV === 'development' ? errorMessage : undefined
       });
     }
   });

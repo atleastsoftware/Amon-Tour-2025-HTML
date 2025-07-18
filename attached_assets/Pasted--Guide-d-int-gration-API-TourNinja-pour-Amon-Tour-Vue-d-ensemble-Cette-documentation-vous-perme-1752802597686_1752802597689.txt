@@ -1,0 +1,754 @@
+# Guide d'intégration API TourNinja pour Amon Tour
+
+## Vue d'ensemble
+Cette documentation vous permet d'intégrer facilement l'API publique TourNinja optimisée sur votre site web Amon Tour pour afficher vos tours et excursions.
+
+## Informations d'accès
+
+### URL de l'API
+```
+https://www.tourninja.io/api/public/tours
+```
+
+### Paramètres requis
+- `apiKey`: `tourninja-showcase-2-amontour`
+- `companyId`: `2`
+
+### URL complète
+```
+https://www.tourninja.io/api/public/tours?apiKey=tourninja-showcase-2-amontour&companyId=2
+```
+
+## Intégration JavaScript simple
+
+### Option 1: Affichage de base avec JavaScript vanilla
+
+```html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tours Amon Tour</title>
+    <style>
+        .tours-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .tour-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .tour-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        .tour-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 10px 0;
+            color: #2c3e50;
+        }
+        .tour-description {
+            color: #666;
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+        .tour-price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin: 10px 0;
+        }
+        .tour-details {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+        .book-button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        .book-button:hover {
+            background-color: #2980b9;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 18px;
+            color: #666;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="tours-container" class="loading">
+        Chargement des tours...
+    </div>
+
+    <script>
+        // Configuration API
+        const API_CONFIG = {
+            url: 'https://www.tourninja.io/api/public/tours',
+            apiKey: 'tourninja-showcase-2-amontour',
+            companyId: '2'
+        };
+
+        // Fonction pour charger les tours
+        async function loadTours() {
+            const container = document.getElementById('tours-container');
+            
+            try {
+                // Construire l'URL avec les paramètres
+                const url = `${API_CONFIG.url}?apiKey=${API_CONFIG.apiKey}&companyId=${API_CONFIG.companyId}`;
+                
+                // Appel à l'API
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Erreur HTTP: ${response.status}`);
+                }
+
+                const data = await response.json();
+                
+                if (data.success && data.tours) {
+                    displayTours(data.tours);
+                } else {
+                    throw new Error('Format de réponse invalide');
+                }
+                
+            } catch (error) {
+                console.error('Erreur lors du chargement des tours:', error);
+                container.innerHTML = `
+                    <div class="error">
+                        Erreur lors du chargement des tours. Veuillez réessayer plus tard.
+                        <br><small>Détails: ${error.message}</small>
+                    </div>
+                `;
+            }
+        }
+
+        // Fonction pour afficher les tours
+        function displayTours(tours) {
+            const container = document.getElementById('tours-container');
+            container.className = 'tours-container';
+            
+            if (tours.length === 0) {
+                container.innerHTML = '<div class="loading">Aucun tour disponible pour le moment.</div>';
+                return;
+            }
+
+            const toursHTML = tours.map(tour => `
+                <div class="tour-card">
+                    ${tour.image ? `<img src="${tour.image}" alt="${tour.name}" class="tour-image" onerror="this.style.display='none'">` : ''}
+                    <h3 class="tour-title">${tour.name}</h3>
+                    <p class="tour-description">${tour.description}</p>
+                    <div class="tour-price">${tour.price} ${tour.currency}</div>
+                    <div class="tour-details">
+                        <span>Durée: ${tour.duration} jour${tour.duration > 1 ? 's' : ''}</span>
+                        <span>Max: ${tour.maxParticipants} pers.</span>
+                        <span>Type: ${tour.type}</span>
+                    </div>
+                    <button class="book-button" onclick="bookTour('${tour.id}')">
+                        Réserver maintenant
+                    </button>
+                </div>
+            `).join('');
+
+            container.innerHTML = toursHTML;
+        }
+
+        // Fonction pour rediriger vers la réservation
+        function bookTour(tourId) {
+            const bookingUrl = `${tour.bookingUrl}`;
+            window.open(bookingUrl, '_blank');
+        }
+
+        // Charger les tours au chargement de la page
+        document.addEventListener('DOMContentLoaded', loadTours);
+    </script>
+</body>
+</html>
+```
+
+### Option 2: Intégration avec jQuery
+
+```html
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Configuration API
+    const API_CONFIG = {
+        url: 'https://www.tourninja.io/api/public/tours',
+        apiKey: 'tourninja-showcase-2-amontour',
+        companyId: '2'
+    };
+
+    // Charger les tours
+    function loadTours() {
+        const url = `${API_CONFIG.url}?apiKey=${API_CONFIG.apiKey}&companyId=${API_CONFIG.companyId}`;
+        
+        $.ajax({
+            url: url,
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                if (data.success && data.tours) {
+                    displayTours(data.tours);
+                } else {
+                    $('#tours-container').html('<div class="error">Erreur lors du chargement des tours</div>');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Erreur API:', error);
+                $('#tours-container').html('<div class="error">Erreur de connexion à l\'API</div>');
+            }
+        });
+    }
+
+    // Afficher les tours
+    function displayTours(tours) {
+        const container = $('#tours-container');
+        container.empty();
+        
+        tours.forEach(function(tour) {
+            const tourCard = $(`
+                <div class="tour-card">
+                    ${tour.image ? `<img src="${tour.image}" alt="${tour.name}" class="tour-image">` : ''}
+                    <h3 class="tour-title">${tour.name}</h3>
+                    <p class="tour-description">${tour.description}</p>
+                    <div class="tour-price">${tour.price} ${tour.currency}</div>
+                    <div class="tour-details">
+                        <span>Durée: ${tour.duration} jour${tour.duration > 1 ? 's' : ''}</span>
+                        <span>Max: ${tour.maxParticipants} pers.</span>
+                        <span>Type: ${tour.type}</span>
+                    </div>
+                    <button class="book-button" data-tour-id="${tour.id}">
+                        Réserver maintenant
+                    </button>
+                </div>
+            `);
+            container.append(tourCard);
+        });
+
+        // Gestionnaire de clic pour les boutons de réservation
+        $('.book-button').click(function() {
+            const tourId = $(this).data('tour-id');
+            const bookingUrl = `https://www.tourninja.io/book/${tourId}`;
+            window.open(bookingUrl, '_blank');
+        });
+    }
+
+    // Charger les tours
+    loadTours();
+});
+</script>
+```
+
+### Option 3: Widget intégrable
+
+```html
+<!-- Widget TourNinja - À intégrer dans votre site -->
+<div id="tourninja-widget" data-company="2" data-api-key="tourninja-showcase-2-amontour"></div>
+<script>
+(function() {
+    const widget = document.getElementById('tourninja-widget');
+    const companyId = widget.dataset.company;
+    const apiKey = widget.dataset.apiKey;
+    
+    // CSS intégré
+    const style = document.createElement('style');
+    style.textContent = `
+        #tourninja-widget {
+            font-family: Arial, sans-serif;
+        }
+        #tourninja-widget .tour-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        #tourninja-widget .tour-item {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        #tourninja-widget .tour-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        #tourninja-widget .tour-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        #tourninja-widget .tour-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 10px 0;
+            color: #333;
+        }
+        #tourninja-widget .tour-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin: 10px 0;
+        }
+        #tourninja-widget .tour-button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 14px;
+        }
+        #tourninja-widget .tour-button:hover {
+            background: #2980b9;
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // Charger les tours
+    fetch(`https://www.tourninja.io/api/public/tours?apiKey=${apiKey}&companyId=${companyId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success && data.tours) {
+                const toursHTML = data.tours.map(tour => `
+                    <div class="tour-item">
+                        ${tour.image ? `<img src="${tour.image}" alt="${tour.name}" class="tour-image">` : ''}
+                        <div class="tour-title">${tour.name}</div>
+                        <div class="tour-price">${tour.price} ${tour.currency}</div>
+                        <button class="tour-button" onclick="window.open('${tour.bookingUrl}', '_blank')">
+                            Réserver
+                        </button>
+                    </div>
+                `).join('');
+                
+                widget.innerHTML = `<div class="tour-grid">${toursHTML}</div>`;
+            } else {
+                widget.innerHTML = '<div>Erreur lors du chargement des tours</div>';
+            }
+        })
+        .catch(error => {
+            console.error('Erreur TourNinja:', error);
+            widget.innerHTML = '<div>Tours temporairement indisponibles</div>';
+        });
+})();
+</script>
+```
+
+## Format de réponse API
+
+L'API retourne un objet JSON avec cette structure :
+
+```json
+{
+  "success": true,
+  "tours": [
+    {
+      "id": "_LkIo_9vyF",
+      "name": "Koh Phi Phi & Ao Nang's local islands",
+      "description": "Head for the legendary islands of Koh Phi Phi...",
+      "price": 2500,
+      "currency": "THB",
+      "duration": 2,
+      "maxParticipants": 12,
+      "image": "https://www.tourninja.io/uploads/presentation-images/...",
+      "bookingUrl": "https://www.tourninja.io/book/_LkIo_9vyF",
+      "type": "private"
+    }
+  ],
+  "company": {
+    "id": "2",
+    "name": "Amon Tour"
+  },
+  "metadata": {
+    "count": 10,
+    "timestamp": "2025-07-18T01:32:14.000Z",
+    "processingTime": "2469ms"
+  }
+}
+```
+
+## Gestion des erreurs
+
+```javascript
+// Exemple de gestion d'erreur robuste
+async function loadToursWithErrorHandling() {
+    try {
+        const response = await fetch(API_URL, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json'
+            },
+            timeout: 10000 // 10 secondes
+        });
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        
+        if (!data.success) {
+            throw new Error('API a retourné une erreur');
+        }
+        
+        return data.tours;
+        
+    } catch (error) {
+        console.error('Erreur chargement tours:', error);
+        
+        // Afficher un message d'erreur utilisateur
+        document.getElementById('tours-container').innerHTML = `
+            <div class="error-message">
+                <h3>Tours temporairement indisponibles</h3>
+                <p>Nous rencontrons des difficultés techniques. Veuillez réessayer dans quelques minutes.</p>
+                <button onclick="loadToursWithErrorHandling()">Réessayer</button>
+            </div>
+        `;
+        
+        return [];
+    }
+}
+```
+
+## Optimisations recommandées
+
+### 1. Mise en cache
+```javascript
+// Cache les résultats pendant 1 heure
+const CACHE_DURATION = 60 * 60 * 1000; // 1 heure en millisecondes
+
+function getCachedTours() {
+    const cached = localStorage.getItem('tourninja_tours');
+    if (cached) {
+        const data = JSON.parse(cached);
+        if (Date.now() - data.timestamp < CACHE_DURATION) {
+            return data.tours;
+        }
+    }
+    return null;
+}
+
+function setCachedTours(tours) {
+    localStorage.setItem('tourninja_tours', JSON.stringify({
+        tours: tours,
+        timestamp: Date.now()
+    }));
+}
+```
+
+### 2. Chargement progressif
+```javascript
+// Afficher un placeholder pendant le chargement
+function showLoadingState() {
+    const container = document.getElementById('tours-container');
+    container.innerHTML = `
+        <div class="loading-grid">
+            ${Array(6).fill(0).map(() => `
+                <div class="loading-card">
+                    <div class="loading-image"></div>
+                    <div class="loading-title"></div>
+                    <div class="loading-price"></div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+```
+
+## Support et maintenance
+
+- **API optimisée** : Réponse ultra-rapide (< 5KB)
+- **Limite** : 10 tours les plus récents
+- **Cache recommandé** : 1 heure
+- **Support** : hubnang@tourninja.io
+
+## Exemple complet d'intégration
+
+Copiez et personnalisez ce code pour votre site Amon Tour :
+
+```html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nos Tours - Amon Tour</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #333;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .tours-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .tour-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .tour-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+        
+        .tour-image {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+        }
+        
+        .tour-content {
+            padding: 1.5rem;
+        }
+        
+        .tour-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #2d3748;
+        }
+        
+        .tour-description {
+            color: #718096;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .tour-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: #a0aec0;
+        }
+        
+        .tour-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #e53e3e;
+            margin-bottom: 1rem;
+        }
+        
+        .book-button {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .book-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(79, 172, 254, 0.3);
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 4rem 0;
+        }
+        
+        .loading-spinner {
+            border: 4px solid #f3f4f6;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error {
+            background: #fed7d7;
+            color: #c53030;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        @media (max-width: 768px) {
+            .tours-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1>Nos Tours & Excursions</h1>
+            <p>Découvrez les merveilles de la Thaïlande avec Amon Tour</p>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div id="tours-container" class="loading">
+            <div class="loading-spinner"></div>
+            <p>Chargement de nos tours...</p>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const API_URL = 'https://www.tourninja.io/api/public/tours?apiKey=tourninja-showcase-2-amontour&companyId=2';
+        
+        // Charger les tours
+        async function loadTours() {
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
+                
+                if (data.success && data.tours) {
+                    displayTours(data.tours);
+                } else {
+                    throw new Error('Données invalides');
+                }
+                
+            } catch (error) {
+                console.error('Erreur:', error);
+                document.getElementById('tours-container').innerHTML = `
+                    <div class="error">
+                        <h3>Erreur de chargement</h3>
+                        <p>Impossible de charger les tours. Veuillez réessayer plus tard.</p>
+                        <button onclick="loadTours()" style="margin-top: 1rem; padding: 0.5rem 1rem; background: #667eea; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                            Réessayer
+                        </button>
+                    </div>
+                `;
+            }
+        }
+        
+        // Afficher les tours
+        function displayTours(tours) {
+            const container = document.getElementById('tours-container');
+            
+            if (tours.length === 0) {
+                container.innerHTML = '<div class="loading">Aucun tour disponible actuellement.</div>';
+                return;
+            }
+            
+            const toursHTML = tours.map(tour => `
+                <div class="tour-card">
+                    ${tour.image ? `<img src="${tour.image}" alt="${tour.name}" class="tour-image">` : ''}
+                    <div class="tour-content">
+                        <h3 class="tour-title">${tour.name}</h3>
+                        <p class="tour-description">${tour.description}</p>
+                        <div class="tour-meta">
+                            <span>${tour.duration} jour${tour.duration > 1 ? 's' : ''}</span>
+                            <span>Max ${tour.maxParticipants} personnes</span>
+                            <span>Tour ${tour.type}</span>
+                        </div>
+                        <div class="tour-price">${tour.price.toLocaleString()} ${tour.currency}</div>
+                        <button class="book-button" onclick="bookTour('${tour.id}')">
+                            Réserver maintenant
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            
+            container.innerHTML = `<div class="tours-grid">${toursHTML}</div>`;
+        }
+        
+        // Réservation
+        function bookTour(tourId) {
+            window.open(`https://www.tourninja.io/book/${tourId}`, '_blank');
+        }
+        
+        // Charger au démarrage
+        document.addEventListener('DOMContentLoaded', loadTours);
+    </script>
+</body>
+</html>
+```
