@@ -1575,7 +1575,7 @@ Crawl-delay: 1`;
       }
 
       console.log("Fetching fresh data from Tour Ninja API", {
-        url: `https://tourninja.io/api/public/tour-links/2`,
+        url: `https://www.tourninja.io/api/public/tours?apiKey=${apiKey}&companyId=${companyId}`,
         environment: process.env.NODE_ENV,
         hostname: req.hostname
       });
@@ -1591,7 +1591,7 @@ Crawl-delay: 1`;
       });
       
       const response = await nodeFetch(
-        `https://tourninja.io/api/public/tour-links/2`,
+        `https://www.tourninja.io/api/public/tours?apiKey=${apiKey}&companyId=${companyId}`,
         {
           method: 'GET',
           headers: {
@@ -1614,9 +1614,9 @@ Crawl-delay: 1`;
       // Extract and enhance tours data from the API response  
       let tours = [];
       
-      // The new API returns an array directly
-      if (Array.isArray(apiResponse)) {
-        tours = apiResponse.map((tour: any) => ({
+      // The API returns an object with tours array
+      if (apiResponse.tours && Array.isArray(apiResponse.tours)) {
+        tours = apiResponse.tours.map((tour: any) => ({
           id: tour.id || tour._id,
           name: tour.name || tour.title,
           description: tour.description || tour.content || '',
@@ -1627,8 +1627,8 @@ Crawl-delay: 1`;
           currency: tour.currency || 'THB',
           duration: tour.duration || '',
           location: tour.location || 'Krabi, Thailand',
-          bookingUrl: tour.bookingUrl || tour.url || `https://tourninja.io/book/${tour.id || tour._id}`,
-          detailsUrl: tour.detailsUrl || tour.url || `https://tourninja.io/tour/${tour.id || tour._id}`,
+          bookingUrl: tour.bookingUrl || tour.url || `https://www.tourninja.io/tour/${tour.id}`,
+          detailsUrl: tour.detailsUrl || tour.url || `https://www.tourninja.io/tour/${tour.id}`,
           externalId: tour.externalId || tour.id || tour._id,
           isActive: tour.isActive !== false,
           category: tour.category || '',
@@ -1636,19 +1636,16 @@ Crawl-delay: 1`;
           maxGuests: tour.maxGuests || 0,
           minGuests: tour.minGuests || 0,
         }));
-      } else if (apiResponse.success && Array.isArray(apiResponse.tours)) {
-        tours = apiResponse.tours.map((tour: any) => ({
+      } else if (Array.isArray(apiResponse)) {
+        // Fallback if API returns array directly
+        tours = apiResponse.map((tour: any) => ({
           ...tour,
-          // Ensure we have proper image fallback
           primaryImage: tour.primaryImage || (tour.images && tour.images[0]) || null,
-          // Add bookingUrl if not present
-          bookingUrl: tour.bookingUrl || `https://www.tourninja.io/book/${tour.id}`,
-          // Ensure detailsUrl for more information
-          detailsUrl: tour.url || `https://www.tourninja.io/details/${tour.id}`,
-          // Add location for consistency
+          bookingUrl: tour.bookingUrl || `https://www.tourninja.io/tour/${tour.id}`,
+          detailsUrl: tour.url || `https://www.tourninja.io/tour/${tour.id}`,
           location: tour.location || 'Krabi, Thailand'
         }));
-      } else if (Array.isArray(apiResponse.data)) {
+      } else if (apiResponse.data && Array.isArray(apiResponse.data)) {
         tours = apiResponse.data;
       }
       
