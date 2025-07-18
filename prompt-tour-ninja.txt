@@ -1,0 +1,41 @@
+**RAPPORT TECHNIQUE - PROBLÈME D'AFFICHAGE DES IMAGES EN PRODUCTION**
+
+**Contexte:**
+Site web : https://amontour.replit.dev/tours
+Intégration: Iframe showcase Tour Ninja (https://www.tourninja.io/showcase/2)
+
+**Problème identifié:**
+Les images de présentation des tours ne s'affichent pas dans l'iframe en production, alors qu'elles fonctionnent correctement en développement local.
+
+**Analyse technique:**
+
+1. **API fonctionnelle:**
+   - L'API Tour Ninja répond correctement (200 OK)
+   - Les données sont récupérées avec succès
+   - Les URLs des images sont valides et accessibles
+
+2. **Test de l'image:**
+   ```bash
+   curl -I "https://www.tourninja.io/uploads/presentation-images/presentation-1750654855078-769234335.jpeg"
+   ```
+   Résultat: 200 OK avec headers CORS appropriés
+   - access-control-allow-origin: *
+   - cross-origin-resource-policy: cross-origin
+
+3. **Problème suspecté:**
+   - L'iframe showcase fonctionne en local mais pas en production
+   - Possible problème de sécurité ou de configuration côté serveur Tour Ninja
+   - Le domaine replit.dev pourrait être bloqué ou traité différemment
+
+**URLs testées:**
+- Développement: http://localhost:5000/tours ✅ (fonctionne)
+- Production: https://amontour.replit.dev/tours ❌ (images manquantes)
+
+**Solution demandée:**
+Vérifier la configuration du showcase Tour Ninja pour les domaines Replit (.replit.dev) et s'assurer que les images s'affichent correctement dans l'iframe en production.
+
+**Environnement:**
+- Domaine de production: amontour.replit.dev
+- Iframe source: https://www.tourninja.io/showcase/2
+- Company ID: 2
+- API Key: tourninja-showcase-2-amontour

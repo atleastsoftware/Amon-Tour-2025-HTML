@@ -79,9 +79,28 @@ export default function Header() {
     : 'bg-white py-6';
 
   return (
-    <header className={headerClasses}>
-      {/* Main Navigation */}
-      <nav className="container mx-auto px-4 flex justify-between items-center">
+    <>
+      {/* Notification Header */}
+      <div 
+        style={{
+          background: '#f5c400',
+          color: '#000',
+          textAlign: 'center',
+          padding: '10px',
+          fontWeight: 'bold',
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 60
+        }}
+      >
+        📢 L'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr
+      </div>
+      
+      <header className={headerClasses} style={{ top: '50px' }}>
+        {/* Main Navigation */}
+        <nav className="container mx-auto px-4 flex justify-between items-center">
         {/* Logo */}
         <Link href="/">
           <motion.div
@@ -214,5 +233,6 @@ export default function Header() {
         )}
       </AnimatePresence>
     </header>
+    </>
   );
 }

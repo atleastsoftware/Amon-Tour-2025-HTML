@@ -28,6 +28,7 @@ interface TourNinjaTour {
   detailsUrl?: string;
   primaryImage?: string;
   images?: string[];
+  image?: string;
   priceTable?: Array<{ price: number; [key: string]: any }>;
   childrenPrice?: number;
   tourTiming?: string;
@@ -64,9 +65,28 @@ export default function Tours() {
   const [showFilters, setShowFilters] = useState(false);
 
   useEffect(() => {
-    // Suppression de l'appel API - plus de données affichées
-    setLoading(false);
-    setTours([]);
+    const fetchTours = async () => {
+      try {
+        const response = await fetch('/api/proxy/tours');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        
+        if (data.success && data.data) {
+          setTours(data.data);
+        } else {
+          setError(data.message || 'Erreur lors du chargement des tours');
+        }
+      } catch (err) {
+        console.error('Erreur lors du chargement des tours:', err);
+        setError('Erreur lors du chargement des tours');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTours();
   }, []);
 
   const handleTourClick = (tour: TourNinjaTour) => {
