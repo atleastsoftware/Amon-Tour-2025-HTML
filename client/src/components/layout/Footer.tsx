@@ -66,10 +66,18 @@ export default function Footer() {
                 </p>
                 <p>
                   <a 
-                    href="tel:+66962166559" 
+                    href="tel:+66625748788" 
                     className="font-heading hover:text-secondary transition-colors"
                   >
-                    Tel: +66 (0)96 216 6559
+                    Operations manager: +66 (0)6 2574 8788
+                  </a>
+                </p>
+                <p>
+                  <a 
+                    href="tel:+66804634691" 
+                    className="font-heading hover:text-secondary transition-colors"
+                  >
+                    Travel Advisor Manager: +66 (0)8 0463 4691
                   </a>
                 </p>
                 <p>
