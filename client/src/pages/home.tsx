@@ -213,28 +213,90 @@ export default function Home() {
             </motion.div>
           </div>
           
-          <div className="w-full relative">
-            <iframe 
-              src="https://www.tourninja.io/iframe/banner/2" 
-              width="100%" 
-              height="500px" 
-              style={{ 
-                border: 'none',
-                minHeight: '500px'
-              }}
-              title="Tours Banner"
-              scrolling="no"
-              loading="lazy"
-              allow="popups popups-to-escape-sandbox"
-              sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox allow-top-navigation"
-            />
-            {/* Overlay to hide the iframe's header section */}
-            <div className="absolute top-0 left-0 w-full h-32 bg-white z-10"></div>
+          {/* Tour Ninja Tours Display */}
+          <div className="container mx-auto px-4">
+            {tourNinjaLoading ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[...Array(6)].map((_, i) => (
+                  <div key={i} className="bg-gray-200 rounded-xl h-80 animate-pulse" />
+                ))}
+              </div>
+            ) : tourNinjaTours.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                {tourNinjaTours.slice(0, 6).map((tour: any, index: number) => (
+                  <motion.div
+                    key={tour.id}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
+                  >
+                    <div className="relative h-48 bg-gradient-to-br from-blue-200 to-blue-300">
+                      {tour.primaryImage ? (
+                        <img 
+                          src={tour.primaryImage} 
+                          alt={tour.name}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.style.display = 'none';
+                          }}
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <FiChevronRight className="h-16 w-16 text-blue-400" />
+                        </div>
+                      )}
+                      <div className="absolute top-4 left-4">
+                        <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                          {tour.price > 0 ? `${tour.price.toLocaleString()} THB` : 'Prix sur demande'}
+                        </span>
+                      </div>
+                      <div className="absolute top-4 right-4">
+                        <span className="bg-white/90 text-gray-800 px-2 py-1 rounded-full text-xs">
+                          {tour.duration} jour{Number(tour.duration) > 1 ? 's' : ''}
+                        </span>
+                      </div>
+                    </div>
+                    
+                    <div className="p-6">
+                      <h3 className="text-lg font-bold text-gray-800 mb-3 line-clamp-2">
+                        {tour.name}
+                      </h3>
+                      
+                      {tour.shortDescription && (
+                        <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                          {tour.shortDescription}
+                        </p>
+                      )}
+                      
+                      <button 
+                        onClick={() => {
+                          if (tour.bookingUrl) {
+                            window.open(tour.bookingUrl, '_blank');
+                          }
+                        }}
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
+                      >
+                        Voir les détails
+                        <FiChevronRight className="h-4 w-4" />
+                      </button>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <p className="text-gray-600 mb-4">Nos expériences sont temporairement indisponibles</p>
+                <p className="text-sm text-gray-500">L'API Tour Ninja est en cours de maintenance</p>
+              </div>
+            )}
           </div>
           
           <div className="container mx-auto px-4 py-8">
             <div className="text-center">
-              <Link href="/tours?from=banner">
+              <Link href="/tours">
                 <motion.span 
                   className="bg-primary text-white px-8 py-3 rounded-lg font-heading font-semibold hover:bg-primary-dark transition-colors inline-block cursor-pointer"
                   whileHover={{ scale: 1.05 }}
