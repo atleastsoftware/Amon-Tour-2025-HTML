@@ -28,11 +28,9 @@ export default function Tours() {
     if (isLoading) return "Chargement...";
     if (error) return `Erreur API: ${error}`;
     if (!success) return "API indisponible";
-    if (cached) return "Données en cache";
-    if (fallback) return "Données de secours";
     if (tours.length === 0) return "⚠️ API Tour Ninja temporairement indisponible";
     return `✅ ${tours.length} tours chargés depuis Tour Ninja`;
-  }, [isLoading, error, success, cached, fallback, tours.length]);
+  }, [isLoading, error, success, tours.length]);
 
   const handleTourDetails = (tour: TourNinjaTour) => {
     if (tour.detailsUrl) {
