@@ -1539,7 +1539,7 @@ Crawl-delay: 1`;
       console.log("Tour Ninja API Call:", {
         apiKey,
         companyId,
-        fullUrl: `https://www.tourninja.io/api/public/tours?apiKey=${apiKey}&companyId=${companyId}`
+        fullUrl: `https://www.tourninja.io/api/public/tours?apiKey=${apiKey}&companyId=${companyId}&limit=100`
       });
       const allowedDomain = process.env.COMPANY_DOMAIN;
       
@@ -1663,6 +1663,15 @@ Crawl-delay: 1`;
       }
       
       console.log(`Tour Ninja API: Successfully processed ${tours.length} tours`);
+      console.log("Tour Ninja API Full Response Structure:", {
+        hasToursArray: !!apiResponse.tours,
+        toursArrayLength: apiResponse.tours ? apiResponse.tours.length : 0,
+        isDirectArray: Array.isArray(apiResponse),
+        directArrayLength: Array.isArray(apiResponse) ? apiResponse.length : 0,
+        hasDataProperty: !!apiResponse.data,
+        dataLength: apiResponse.data ? apiResponse.data.length : 0,
+        allKeys: Object.keys(apiResponse)
+      });
       
       // Update cache
       tourCache.data = tours;
