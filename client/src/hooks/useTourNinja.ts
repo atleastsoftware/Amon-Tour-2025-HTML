@@ -42,16 +42,16 @@ export function useTourNinja() {
     refetchOnWindowFocus: false,
   });
 
-  // Log for debugging deployment issues
-  if (process.env.NODE_ENV === 'production') {
-    console.log('Tour Ninja API response in production:', {
-      hasResponse: !!response,
-      hasData: !!(response?.data),
-      dataLength: response?.data?.length || 0,
-      success: response?.success,
-      error: error?.message
-    });
-  }
+  // Log for debugging
+  console.log('Tour Ninja hook debug:', {
+    hasResponse: !!response,
+    hasData: !!(response?.data),
+    dataLength: response?.data?.length || 0,
+    success: response?.success,
+    isLoading,
+    error: error?.message,
+    firstTour: response?.data?.[0]?.name
+  });
 
   return {
     tours: response?.data || [],
