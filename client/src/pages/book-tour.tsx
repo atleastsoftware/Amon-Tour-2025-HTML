@@ -549,7 +549,7 @@ export default function BookTour() {
           <h1 className="font-heading font-bold text-2xl mb-4">Erreur</h1>
           <p className="mb-6">ID de tour invalide.</p>
           <Button asChild>
-            <a href="/tours">Retour aux tours</a>
+            <a href="/tours">Back to tours</a>
           </Button>
         </div>
         <Footer />
@@ -568,11 +568,11 @@ export default function BookTour() {
           onClick={() => navigate(`/tours/${tourId}`)}
         >
           <ArrowLeft className="mr-2 h-4 w-4" />
-          Retour aux détails du tour
+          Back to tour details
         </Button>
         
         <h1 className="font-heading font-bold text-3xl mb-8">
-          Réserver votre tour{tourLoading ? "" : `: ${tour?.title}`}
+          Book your tour{tourLoading ? "" : `: ${tour?.title}`}
         </h1>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

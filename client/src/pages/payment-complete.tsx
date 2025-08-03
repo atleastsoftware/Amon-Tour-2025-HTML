@@ -82,10 +82,10 @@ export default function PaymentComplete() {
             </p>
             <div className="flex gap-4">
               <Button onClick={() => navigate("/")}>
-                Retour à l'accueil
+                Back to home
               </Button>
               <Button variant="outline" onClick={() => navigate("/tours")}>
-                Voir d'autres tours
+                View other tours
               </Button>
             </div>
           </div>
@@ -102,7 +102,7 @@ export default function PaymentComplete() {
             </p>
             <div className="flex gap-4">
               <Button onClick={() => navigate("/")}>
-                Retour à l'accueil
+                Back to home
               </Button>
             </div>
           </div>
@@ -124,10 +124,10 @@ export default function PaymentComplete() {
             )}
             <div className="flex gap-4">
               <Button onClick={() => navigate("/tours")}>
-                Retourner aux tours
+                Back to tours
               </Button>
               <Button variant="outline" onClick={() => window.history.back()}>
-                Réessayer
+                Try again
               </Button>
             </div>
           </div>

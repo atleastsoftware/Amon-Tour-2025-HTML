@@ -297,18 +297,18 @@ export default function Home() {
                           }}
                           className="flex-1 border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
                         >
-                          Détails
+                          Details
                           <FiChevronRight className="h-3 w-3" />
                         </button>
                         <button 
                           onClick={() => {
                             if (tour.bookingUrl) {
-                              openIframe(tour.bookingUrl, `Réservation - ${tour.name}`);
+                              openIframe(tour.bookingUrl, `Booking - ${tour.name}`);
                             }
                           }}
                           className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
                         >
-                          Réserver
+                          Book
                           <FiChevronRight className="h-3 w-3" />
                         </button>
                       </div>

@@ -53,7 +53,7 @@ export default function TourDetails() {
             <p className="text-gray-600 mb-6">{error}</p>
             <Button onClick={handleBack} variant="outline">
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Retour aux tours
+              Back to tours
             </Button>
           </div>
         </main>
@@ -78,7 +78,7 @@ export default function TourDetails() {
             <div className="flex items-center justify-between">
               <Button onClick={handleBack} variant="outline" size="sm">
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                Retour aux tours
+                Back to tours
               </Button>
               
               <Button onClick={handleOpenExternal} variant="outline" size="sm">

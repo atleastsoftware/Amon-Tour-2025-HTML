@@ -648,10 +648,10 @@ export default function AvailabilityManager() {
                   variant="outline" 
                   onClick={() => setIsCreateDialogOpen(false)}
                 >
-                  Annuler
+                  Cancel
                 </Button>
                 <Button type="submit" disabled={createAvailability.isPending}>
-                  {createAvailability.isPending ? "Création..." : "Créer la disponibilité"}
+                  {createAvailability.isPending ? "Creating..." : "Create availability"}
                 </Button>
               </DialogFooter>
             </form>
@@ -743,7 +743,7 @@ export default function AvailabilityManager() {
                   variant="outline" 
                   onClick={() => setIsEditDialogOpen(false)}
                 >
-                  Annuler
+                  Cancel
                 </Button>
                 <Button type="submit" disabled={updateAvailability.isPending}>
                   {updateAvailability.isPending ? "Mise à jour..." : "Mettre à jour"}
@@ -758,7 +758,7 @@ export default function AvailabilityManager() {
       <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
         <DialogContent className="sm:max-w-[450px]">
           <DialogHeader>
-            <DialogTitle>Confirmer la suppression</DialogTitle>
+            <DialogTitle>Confirm deletion</DialogTitle>
             <DialogDescription>
               Êtes-vous sûr de vouloir supprimer cette disponibilité ?
               {selectedAvailability?.currentBookings !== undefined && selectedAvailability.currentBookings > 0 && (
@@ -786,7 +786,7 @@ export default function AvailabilityManager() {
               variant="outline" 
               onClick={() => setIsDeleteDialogOpen(false)}
             >
-              Annuler
+              Cancel
             </Button>
             <Button 
               variant="destructive" 
@@ -803,7 +803,7 @@ export default function AvailabilityManager() {
       <Dialog open={isBulkCreateDialogOpen} onOpenChange={setIsBulkCreateDialogOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Créer des disponibilités en masse</DialogTitle>
+            <DialogTitle>Create bulk availabilities</DialogTitle>
             <DialogDescription>
               Activez tous les jours pour les prochains mois en un seul clic.
             </DialogDescription>
@@ -946,13 +946,13 @@ export default function AvailabilityManager() {
                   variant="outline"
                   onClick={() => setIsBulkCreateDialogOpen(false)}
                 >
-                  Annuler
+                  Cancel
                 </Button>
                 <Button 
                   type="submit"
                   disabled={createBulkAvailabilities.isPending || isCreatingBulk}
                 >
-                  {createBulkAvailabilities.isPending || isCreatingBulk ? "Création en cours..." : "Créer les disponibilités"}
+                  {createBulkAvailabilities.isPending || isCreatingBulk ? "Creating..." : "Create availabilities"}
                 </Button>
               </DialogFooter>
             </form>

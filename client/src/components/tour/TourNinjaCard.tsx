@@ -110,14 +110,14 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
                   onClick={(e) => {
                     e.stopPropagation();
                     if (tour.detailsUrl) {
-                      openIframe(tour.detailsUrl, `Détails - ${tour.name}`);
+                      openIframe(tour.detailsUrl, `Details - ${tour.name}`);
                     }
                   }}
                   className="flex-1 bg-primary text-white py-2 px-4 rounded-md font-medium text-sm hover:bg-primary-dark transition-colors flex items-center justify-center"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Voir détails
+                  View details
                   <ExternalLink size={12} className="ml-1" />
                 </motion.button>
               )}
@@ -126,14 +126,14 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
                   onClick={(e) => {
                     e.stopPropagation();
                     if (tour.bookingUrl) {
-                      openIframe(tour.bookingUrl, `Réservation - ${tour.name}`);
+                      openIframe(tour.bookingUrl, `Booking - ${tour.name}`);
                     }
                   }}
                   className="flex-1 bg-secondary text-white py-2 px-4 rounded-md font-medium text-sm hover:bg-secondary-dark transition-colors flex items-center justify-center"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Réserver
+                  Book
                 </motion.button>
               )}
             </div>

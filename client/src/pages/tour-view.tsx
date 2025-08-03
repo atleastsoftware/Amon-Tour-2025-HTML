@@ -98,7 +98,7 @@ export default function TourView() {
           onClick={() => window.history.back()}
         >
           <ArrowLeft className="mr-2 h-4 w-4" />
-          Retour
+          Back
         </Button>
         
         <div className="bg-white rounded-xl shadow-md overflow-hidden">

@@ -303,9 +303,9 @@ export default function TourCardEditModal({
         </div>
         
         <DialogFooter>
-          <Button variant="outline" onClick={onClose}>Annuler</Button>
+          <Button variant="outline" onClick={onClose}>Cancel</Button>
           <Button onClick={handleSave} disabled={isLoading}>
-            {isLoading ? "Enregistrement..." : "Enregistrer"}
+            {isLoading ? "Saving..." : "Save"}
           </Button>
         </DialogFooter>
       </DialogContent>

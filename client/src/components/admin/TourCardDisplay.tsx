@@ -126,7 +126,7 @@ export default function TourCardDisplay({ tourCard, onDelete, onUpdate }: TourCa
             className="w-full" 
             onClick={() => window.open(tourCard.customLink, '_blank')}
           >
-            Réserver maintenant <ExternalLink className="ml-2 h-4 w-4" />
+            Book now <ExternalLink className="ml-2 h-4 w-4" />
           </Button>
           
           <div className="flex gap-2">

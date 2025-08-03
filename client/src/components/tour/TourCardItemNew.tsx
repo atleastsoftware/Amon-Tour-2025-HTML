@@ -125,7 +125,7 @@ export default function TourCardItem({
                 onClick={() => setIsBookingOpen(true)}
               >
                 <ExternalLink className="h-4 w-4 mr-1" />
-                Réserver
+                Book
               </Button>
             </div>
           </CardContent>

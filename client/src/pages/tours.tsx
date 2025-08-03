@@ -341,14 +341,14 @@ export default function Tours() {
                           variant="outline"
                           className="flex-1 border-blue-600 text-blue-600 hover:bg-blue-50"
                         >
-                          Voir détails
+                          View details
                           <ExternalLink className="h-4 w-4 ml-2" />
                         </Button>
                         <Button 
                           onClick={() => handleTourBooking(tour)}
                           className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
                         >
-                          Réserver
+                          Book
                           <ExternalLink className="h-4 w-4 ml-2" />
                         </Button>
                       </div>

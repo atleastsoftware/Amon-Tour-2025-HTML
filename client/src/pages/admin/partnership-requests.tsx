@@ -155,7 +155,7 @@ export default function AdminPartnershipRequests() {
                   className="flex items-center gap-2"
                 >
                   <ArrowLeft className="h-4 w-4" />
-                  Retour
+                  Back
                 </Button>
                 <div className="flex items-center gap-3">
                   <Handshake className="h-8 w-8 text-indigo-600" />
@@ -177,7 +177,7 @@ export default function AdminPartnershipRequests() {
                   onClick={() => setShowUnreadOnly(!showUnreadOnly)}
                   className="flex items-center gap-2"
                 >
-                  {showUnreadOnly ? "Voir toutes" : "Non lues seulement"}
+                  {showUnreadOnly ? "View all" : "Unread only"}
                 </Button>
               </div>
             </div>

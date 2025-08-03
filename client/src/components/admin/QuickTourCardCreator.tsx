@@ -238,7 +238,7 @@ export default function QuickTourCardCreator({ onSuccess }: QuickTourCardCreator
               
               <div className="pt-2">
                 <Button onClick={createTourCard} className="w-full">
-                  Créer la fiche de tour
+                  Create tour card
                 </Button>
                 <div className="text-xs text-center mt-2 text-gray-500">
                   Note: Vous pourrez modifier tous les détails après la création

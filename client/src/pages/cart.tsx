@@ -25,12 +25,12 @@ export default function Cart() {
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link href="/tours">
               <Button className="min-w-[200px]">
-                Découvrir nos Tours
+                Discover our Tours
               </Button>
             </Link>
             <Link href="/experiences">
               <Button variant="outline" className="min-w-[200px]">
-                Explorer nos Séjours
+                Explore our Stays
               </Button>
             </Link>
           </div>

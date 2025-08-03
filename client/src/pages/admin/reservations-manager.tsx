@@ -192,12 +192,12 @@ export default function ReservationsManager() {
               onClick={handleLogout}
             >
               <LogOut className="mr-2 h-4 w-4" />
-              Déconnexion
+              Logout
             </Button>
             <Link href="/admin/dashboard">
               <span className="text-white hover:text-gray-200 transition-colors cursor-pointer">
                 <ChevronLeft className="mr-2 h-4 w-4 inline" />
-                Retour au tableau de bord
+                Back to dashboard
               </span>
             </Link>
           </div>
@@ -275,27 +275,27 @@ export default function ReservationsManager() {
                                 <DropdownMenuContent>
                                   <DropdownMenuItem onClick={() => openDetailsDialog(reservation)}>
                                     <Eye className="h-4 w-4 mr-2" />
-                                    Voir détails
+                                    View details
                                   </DropdownMenuItem>
                                   
                                   {reservation.status === "pending" && (
                                     <DropdownMenuItem onClick={() => openStatusDialog(reservation, "confirmed")}>
                                       <Check className="h-4 w-4 mr-2 text-green-600" />
-                                      Confirmer
+                                      Confirm
                                     </DropdownMenuItem>
                                   )}
                                   
                                   {reservation.status === "confirmed" && (
                                     <DropdownMenuItem onClick={() => openStatusDialog(reservation, "completed")}>
                                       <Check className="h-4 w-4 mr-2 text-blue-600" />
-                                      Marquer comme terminée
+                                      Mark as completed
                                     </DropdownMenuItem>
                                   )}
                                   
                                   {(reservation.status === "pending" || reservation.status === "confirmed") && (
                                     <DropdownMenuItem onClick={() => openStatusDialog(reservation, "cancelled")}>
                                       <X className="h-4 w-4 mr-2 text-red-600" />
-                                      Annuler
+                                      Cancel
                                     </DropdownMenuItem>
                                   )}
                                 </DropdownMenuContent>
@@ -420,7 +420,7 @@ export default function ReservationsManager() {
                     }}
                   >
                     <X className="h-4 w-4 mr-1" />
-                    Annuler
+                    Cancel
                   </Button>
                 )}
               </div>
@@ -436,7 +436,7 @@ export default function ReservationsManager() {
                     }}
                   >
                     <Check className="h-4 w-4 mr-1" />
-                    Confirmer
+                    Confirm
                   </Button>
                 )}
                 
@@ -458,8 +458,8 @@ export default function ReservationsManager() {
           <DialogHeader>
             <DialogTitle>Modifier le statut de la réservation</DialogTitle>
             <DialogDescription>
-              {selectedStatus === "confirmed" && "Confirmer cette réservation ?"}
-              {selectedStatus === "cancelled" && "Annuler cette réservation ?"}
+              {selectedStatus === "confirmed" && "Confirm this reservation?"}
+              {selectedStatus === "cancelled" && "Cancel this reservation?"}
               {selectedStatus === "completed" && "Marquer cette réservation comme terminée ?"}
             </DialogDescription>
           </DialogHeader>
@@ -496,7 +496,7 @@ export default function ReservationsManager() {
               variant="outline" 
               onClick={() => setIsStatusDialogOpen(false)}
             >
-              Annuler
+              Cancel
             </Button>
             
             <Button 
@@ -504,10 +504,10 @@ export default function ReservationsManager() {
               onClick={confirmStatusChange} 
               disabled={updateReservationStatus.isPending}
             >
-              {updateReservationStatus.isPending ? "Mise à jour..." : (
-                selectedStatus === "confirmed" ? "Confirmer" : 
-                selectedStatus === "cancelled" ? "Annuler la réservation" : 
-                "Marquer comme terminée"
+              {updateReservationStatus.isPending ? "Updating..." : (
+                selectedStatus === "confirmed" ? "Confirm" : 
+                selectedStatus === "cancelled" ? "Cancel reservation" : 
+                "Mark as completed"
               )}
             </Button>
           </DialogFooter>
