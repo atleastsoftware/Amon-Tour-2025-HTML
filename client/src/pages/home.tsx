@@ -41,12 +41,6 @@ export default function Home() {
   // Get Tour Ninja tours
   const { tours: tourNinjaTours = [], isLoading: tourNinjaLoading } = useTourNinja();
   
-  // Debug logs
-  console.log('Home page debug:', {
-    tourNinjaToursLength: tourNinjaTours.length,
-    tourNinjaLoading,
-    firstTour: tourNinjaTours[0]?.name
-  });
   
   // Convert Tour Ninja tours to TourCardItem format
   const tourNinjaCards: TourCardItemProps[] = tourNinjaTours.map((tour: any) => ({
@@ -231,38 +225,98 @@ export default function Home() {
                 ))}
               </div>
             ) : tourNinjaTours.length > 0 ? (
-              <div className="mb-8">
-                <div className="bg-blue-100 text-blue-800 p-4 rounded mb-4">
-                  <strong>Debug:</strong> {tourNinjaTours.length} tours détectés
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {tourNinjaTours.map((tour: any, index: number) => (
-                    <div
-                      key={tour.id || index}
-                      className="bg-white rounded-xl shadow-lg border p-4"
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                {tourNinjaTours.slice(0, 6).map((tour: any, index: number) => (
+                  <motion.div
+                    key={tour.id}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
+                  >
+                    <div 
+                      className="relative h-48 bg-gradient-to-br from-blue-200 to-blue-300 cursor-pointer"
+                      onClick={() => {
+                        if (tour.presentationUrl) {
+                          openIframe(tour.presentationUrl, `Présentation - ${tour.name}`);
+                        }
+                      }}
                     >
-                      <h3 className="font-bold text-lg mb-2">{tour.name}</h3>
-                      <p className="text-gray-600 mb-2">{tour.price} {tour.currency}</p>
-                      <p className="text-sm text-gray-500">{tour.duration} jours</p>
-                      <button 
+                      {tour.primaryImage ? (
+                        <img 
+                          src={tour.primaryImage} 
+                          alt={tour.name}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.style.display = 'none';
+                          }}
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <FiChevronRight className="h-16 w-16 text-blue-400" />
+                        </div>
+                      )}
+                      <div className="absolute top-4 left-4">
+                        <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                          {tour.price > 0 ? `${tour.price.toLocaleString()} THB` : 'Prix sur demande'}
+                        </span>
+                      </div>
+                      <div className="absolute top-4 right-4">
+                        <span className="bg-white/90 text-gray-800 px-2 py-1 rounded-full text-xs">
+                          {tour.duration} jour{Number(tour.duration) > 1 ? 's' : ''}
+                        </span>
+                      </div>
+                    </div>
+                    
+                    <div className="p-6">
+                      <h3 
+                        className="text-lg font-bold text-gray-800 mb-3 line-clamp-2 cursor-pointer hover:text-blue-600 transition-colors"
                         onClick={() => {
                           if (tour.presentationUrl) {
                             openIframe(tour.presentationUrl, `Présentation - ${tour.name}`);
                           }
                         }}
-                        className="mt-2 bg-blue-600 text-white px-3 py-1 rounded text-sm"
                       >
-                        Voir détails
-                      </button>
+                        {tour.name}
+                      </h3>
+                      
+                      {tour.shortDescription && (
+                        <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                          {tour.shortDescription}
+                        </p>
+                      )}
+                      
+                      <div className="flex gap-2">
+                        <button 
+                          onClick={() => {
+                            if (tour.detailsUrl) {
+                              openIframe(tour.detailsUrl, `Détails - ${tour.name}`);
+                            }
+                          }}
+                          className="flex-1 border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
+                        >
+                          Détails
+                          <FiChevronRight className="h-3 w-3" />
+                        </button>
+                        <button 
+                          onClick={() => {
+                            if (tour.bookingUrl) {
+                              openIframe(tour.bookingUrl, `Réservation - ${tour.name}`);
+                            }
+                          }}
+                          className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
+                        >
+                          Réserver
+                          <FiChevronRight className="h-3 w-3" />
+                        </button>
+                      </div>
                     </div>
-                  ))}
-                </div>
+                  </motion.div>
+                ))}
               </div>
-            ) : (
-              <div className="text-center py-4">
-                {/* Garde l'espace pour les liens si nécessaire */}
-              </div>
-            )}
+            ) : null}
           </div>
           
           <div className="container mx-auto px-4 py-8">
