@@ -359,11 +359,15 @@ export default function Tours() {
             </motion.div>
           ) : (
             <div className="text-center py-8">
-              {hasActiveFilters && (
+              {tours.length === 0 && !hasActiveFilters ? (
+                <div className="space-y-4">
+                  {/* Pas de tours disponibles - garde l'espace propre */}
+                </div>
+              ) : hasActiveFilters ? (
                 <Button onClick={clearFilters} variant="outline">
                   Effacer les filtres
                 </Button>
-              )}
+              ) : null}
             </div>
           )}
         </section>

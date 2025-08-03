@@ -315,7 +315,11 @@ export default function Home() {
                   </motion.div>
                 ))}
               </div>
-            ) : null}
+            ) : (
+              <div className="text-center py-4">
+                {/* Garde l'espace pour les liens si nécessaire */}
+              </div>
+            )}
           </div>
           
           <div className="container mx-auto px-4 py-8">
