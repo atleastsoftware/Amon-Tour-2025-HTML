@@ -167,15 +167,6 @@ export default function Hero() {
           </video>
         )}
         
-        {/* Indicateur de qualité de connexion pour debug */}
-        {process.env.NODE_ENV === 'development' && (
-          <div className="absolute top-4 right-4 bg-black/50 text-white p-2 rounded text-xs z-20 max-w-xs">
-            <div>Connection: {connectionQuality} | Mobile: {isMobile ? 'Yes' : 'No'}</div>
-            <div>Video: {videoLoaded ? 'Loaded' : shouldLoadVideo ? 'Loading...' : 'Disabled'}</div>
-            <div>Source: {currentVideoSrc === backgroundVideo ? 'Optimized (6MB)' : 'Original (40MB)'}</div>
-            <div>Fallback attempted: {attemptedFallback ? 'Yes' : 'No'}</div>
-          </div>
-        )}
         
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
