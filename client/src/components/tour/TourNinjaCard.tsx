@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { MapPin, Clock, ExternalLink } from "lucide-react";
 import { TourNinjaTour } from "@/hooks/useTourNinja";
 import { formatTHB } from "@/lib/utils";
+import { useIframe } from "@/contexts/IframeContext";
 
 interface TourNinjaCardProps {
   tour: TourNinjaTour;
@@ -11,13 +12,15 @@ interface TourNinjaCardProps {
 }
 
 export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
+  const { openIframe } = useIframe();
+  
   const handleCardClick = () => {
     if (tour.presentationUrl) {
-      window.open(tour.presentationUrl, '_blank', 'noopener,noreferrer');
+      openIframe(tour.presentationUrl, `Présentation - ${tour.name}`);
     } else if (tour.detailsUrl) {
-      window.open(tour.detailsUrl, '_blank', 'noopener,noreferrer');
+      openIframe(tour.detailsUrl, `Détails - ${tour.name}`);
     } else if (tour.bookingUrl) {
-      window.open(tour.bookingUrl, '_blank', 'noopener,noreferrer');
+      openIframe(tour.bookingUrl, `Réservation - ${tour.name}`);
     }
   };
 
@@ -70,7 +73,7 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
               onClick={(e) => {
                 e.stopPropagation();
                 if (tour.presentationUrl) {
-                  window.open(tour.presentationUrl, '_blank', 'noopener,noreferrer');
+                  openIframe(tour.presentationUrl, `Présentation - ${tour.name}`);
                 }
               }}
             >
@@ -106,7 +109,9 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
                 <motion.button
                   onClick={(e) => {
                     e.stopPropagation();
-                    window.open(tour.detailsUrl, '_blank', 'noopener,noreferrer');
+                    if (tour.detailsUrl) {
+                      openIframe(tour.detailsUrl, `Détails - ${tour.name}`);
+                    }
                   }}
                   className="flex-1 bg-primary text-white py-2 px-4 rounded-md font-medium text-sm hover:bg-primary-dark transition-colors flex items-center justify-center"
                   whileHover={{ scale: 1.02 }}
@@ -120,7 +125,9 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
                 <motion.button
                   onClick={(e) => {
                     e.stopPropagation();
-                    window.open(tour.bookingUrl, '_blank', 'noopener,noreferrer');
+                    if (tour.bookingUrl) {
+                      openIframe(tour.bookingUrl, `Réservation - ${tour.name}`);
+                    }
                   }}
                   className="flex-1 bg-secondary text-white py-2 px-4 rounded-md font-medium text-sm hover:bg-secondary-dark transition-colors flex items-center justify-center"
                   whileHover={{ scale: 1.02 }}

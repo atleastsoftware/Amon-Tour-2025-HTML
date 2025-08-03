@@ -20,6 +20,7 @@ import TourCard from "@/components/tour/TourCard";
 import TourCardItem, { TourCardItemProps } from "@/components/tour/TourCardItem";
 import { useTourNinja } from "@/hooks/useTourNinja";
 import { Link } from "wouter";
+import { useIframe } from "@/contexts/IframeContext";
 
 
 export default function Home() {
@@ -27,6 +28,7 @@ export default function Home() {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [maxScroll, setMaxScroll] = useState(0);
+  const { openIframe } = useIframe();
   
   const { data: featuredTours, isLoading: isLoadingTours } = useQuery<Tour[]>({
     queryKey: ['/api/tours/featured'],
@@ -236,7 +238,7 @@ export default function Home() {
                       className="relative h-48 bg-gradient-to-br from-blue-200 to-blue-300 cursor-pointer"
                       onClick={() => {
                         if (tour.presentationUrl) {
-                          window.open(tour.presentationUrl, '_blank');
+                          openIframe(tour.presentationUrl, `Présentation - ${tour.name}`);
                         }
                       }}
                     >
@@ -272,7 +274,7 @@ export default function Home() {
                         className="text-lg font-bold text-gray-800 mb-3 line-clamp-2 cursor-pointer hover:text-blue-600 transition-colors"
                         onClick={() => {
                           if (tour.presentationUrl) {
-                            window.open(tour.presentationUrl, '_blank');
+                            openIframe(tour.presentationUrl, `Présentation - ${tour.name}`);
                           }
                         }}
                       >
@@ -289,7 +291,7 @@ export default function Home() {
                         <button 
                           onClick={() => {
                             if (tour.detailsUrl) {
-                              window.open(tour.detailsUrl, '_blank');
+                              openIframe(tour.detailsUrl, `Détails - ${tour.name}`);
                             }
                           }}
                           className="flex-1 border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
@@ -300,7 +302,7 @@ export default function Home() {
                         <button 
                           onClick={() => {
                             if (tour.bookingUrl) {
-                              window.open(tour.bookingUrl, '_blank');
+                              openIframe(tour.bookingUrl, `Réservation - ${tour.name}`);
                             }
                           }}
                           className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"

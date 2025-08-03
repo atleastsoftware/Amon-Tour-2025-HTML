@@ -12,9 +12,11 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { MapPin, Clock, ExternalLink, Search, Filter, X, AlertCircle } from "lucide-react";
 import { formatTHB } from "@/lib/utils";
 import { useTourNinja, type TourNinjaTour } from "@/hooks/useTourNinja";
+import { useIframe } from "@/contexts/IframeContext";
 
 export default function Tours() {
   const { tours, isLoading, error, success, cached, fallback } = useTourNinja();
+  const { openIframe } = useIframe();
   
   // Filtres
   const [searchTerm, setSearchTerm] = useState("");
@@ -26,19 +28,19 @@ export default function Tours() {
 
   const handleTourDetails = (tour: TourNinjaTour) => {
     if (tour.detailsUrl) {
-      window.open(tour.detailsUrl, '_blank');
+      openIframe(tour.detailsUrl, `Details - ${tour.name}`);
     }
   };
 
   const handleTourPresentation = (tour: TourNinjaTour) => {
     if (tour.presentationUrl) {
-      window.open(tour.presentationUrl, '_blank');
+      openIframe(tour.presentationUrl, `Presentation - ${tour.name}`);
     }
   };
 
   const handleTourBooking = (tour: TourNinjaTour) => {
     if (tour.bookingUrl) {
-      window.open(tour.bookingUrl, '_blank');
+      openIframe(tour.bookingUrl, `Reservation - ${tour.name}`);
     }
   };
 

@@ -35,6 +35,8 @@ import AdminBlog from "@/pages/admin-blog";
 import AdminNewsletter from "@/pages/admin-newsletter";
 import AdminCustomTours from "@/pages/admin-custom-tours";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
+import { IframeProvider } from "@/contexts/IframeContext";
+import IframeModal from "@/components/ui/IframeModal";
 
 function Router() {
   return (
@@ -90,8 +92,11 @@ function Router() {
 function App() {
   return (
     <TooltipProvider>
-      <Router />
-      <WhatsAppButton />
+      <IframeProvider>
+        <Router />
+        <WhatsAppButton />
+        <IframeModal />
+      </IframeProvider>
     </TooltipProvider>
   );
 }
