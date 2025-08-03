@@ -320,15 +320,7 @@ export default function Home() {
           </div>
           
           <div className="container mx-auto px-4 py-8">
-            <div className="text-center space-y-4">
-              {/* Test d'iframe */}
-              <button
-                onClick={() => openIframe('https://www.google.com', 'Test Iframe')}
-                className="bg-red-500 text-white px-4 py-2 rounded mr-4"
-              >
-                🧪 Test Iframe
-              </button>
-              
+            <div className="text-center">
               <Link href="/tours">
                 <motion.span 
                   className="bg-primary text-white px-8 py-3 rounded-lg font-heading font-semibold hover:bg-primary-dark transition-colors inline-block cursor-pointer"
