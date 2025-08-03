@@ -1,24 +1,91 @@
 import { Link } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { FadeInWhenVisible, SlideUpWhenVisible, StaggerChildren, StaggerItem } from "@/components/ui/animations";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import heroImage from "@/assets/DJI_20241115104455_0160_D-min.jpeg";
 
-// Use direct path to video file that will be served by Express  
-const backgroundVideo = "/attached_assets/Catamaran%20cruise%20around%20Ao%20Nang%20local%20islands_1750216800850.mp4";
+// Use optimized video (6MB instead of 40MB) for better loading performance
+const backgroundVideo = "/attached_assets/hero-video-optimized.mp4";
+const fallbackVideo = "/attached_assets/Catamaran%20cruise%20around%20Ao%20Nang%20local%20islands_1750216800850.mp4";
+
+// Variable d'environnement pour désactiver complètement la vidéo en production si nécessaire
+const DISABLE_VIDEO_IN_PRODUCTION = import.meta.env.VITE_DISABLE_HERO_VIDEO === 'true';
+const IS_PRODUCTION = import.meta.env.MODE === 'production';
+
+// Fonction pour détecter la qualité de connexion
+const getConnectionQuality = () => {
+  // @ts-ignore
+  const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  if (!connection) return 'unknown';
+  
+  // Si la connexion est lente (2G, slow-2g) ou limitée, ne pas charger la vidéo
+  if (connection.effectiveType === '2g' || connection.effectiveType === 'slow-2g') {
+    return 'slow';
+  }
+  
+  // Si on est sur une connexion limitée (économie de données)
+  if (connection.saveData) {
+    return 'limited';
+  }
+  
+  return 'good';
+};
+
+// Fonction pour détecter si on est sur mobile
+const isMobileDevice = () => {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+         window.innerWidth <= 768;
+};
 
 export default function Hero() {
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+  const [connectionQuality, setConnectionQuality] = useState('unknown');
+  const [isMobile, setIsMobile] = useState(false);
+  const [currentVideoSrc, setCurrentVideoSrc] = useState(backgroundVideo);
+  const [attemptedFallback, setAttemptedFallback] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const loadTimeoutRef = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
-    // Delay video loading to improve initial page load
-    const timer = setTimeout(() => {
-      setShouldLoadVideo(true);
-    }, 1000);
+    // Détection de la qualité de connexion et du device
+    const quality = getConnectionQuality();
+    const mobile = isMobileDevice();
+    
+    setConnectionQuality(quality);
+    setIsMobile(mobile);
+    
+    console.log('Connection quality:', quality, 'Mobile:', mobile);
+    
+    // Ne charger la vidéo que si :
+    // - La vidéo n'est pas désactivée en production
+    // - ET la connexion est bonne ET ce n'est pas un mobile
+    // - OU si l'utilisateur a explicitement une bonne connexion
+    const shouldLoad = !(IS_PRODUCTION && DISABLE_VIDEO_IN_PRODUCTION) && quality === 'good' && !mobile;
+    
+    if (shouldLoad) {
+      // Delay video loading to improve initial page load
+      const timer = setTimeout(() => {
+        setShouldLoadVideo(true);
+        
+        // Timeout de sécurité : si la vidéo ne se charge pas en 10 secondes, abandon
+        loadTimeoutRef.current = setTimeout(() => {
+          console.log('Video loading timeout - falling back to image');
+          setVideoError(true);
+          setShouldLoadVideo(false);
+        }, 10000);
+      }, 2000); // Augmenté à 2 secondes pour laisser le temps à la page de se charger
 
-    return () => clearTimeout(timer);
+      return () => {
+        clearTimeout(timer);
+        if (loadTimeoutRef.current) {
+          clearTimeout(loadTimeoutRef.current);
+        }
+      };
+    } else {
+      console.log('Video loading skipped due to connection/device constraints');
+    }
   }, []);
   return (
     <section id="hero" className="relative pt-32 pb-20 min-h-screen flex items-center overflow-hidden">
@@ -31,13 +98,15 @@ export default function Hero() {
           className="absolute top-0 left-0 w-full h-full object-cover"
         />
         
-        {/* Video Overlay with lazy loading and better error handling */}
+        {/* Video Overlay with intelligent loading and comprehensive fallback */}
         {shouldLoadVideo && !videoError && (
           <video
+            ref={videoRef}
             autoPlay
             muted
             loop
             playsInline
+            preload="none" // Charge seulement quand nécessaire
             className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000 ${
               videoLoaded ? 'opacity-100' : 'opacity-0'
             }`}
@@ -51,20 +120,61 @@ export default function Hero() {
             onCanPlay={(e) => {
               console.log('Video can play - showing video');
               setVideoLoaded(true);
+              // Nettoyer le timeout de sécurité
+              if (loadTimeoutRef.current) {
+                clearTimeout(loadTimeoutRef.current);
+              }
             }}
             onLoadedData={() => {
               console.log('Video loaded successfully');
               setVideoLoaded(true);
+              // Nettoyer le timeout de sécurité
+              if (loadTimeoutRef.current) {
+                clearTimeout(loadTimeoutRef.current);
+              }
             }}
             onError={(e) => {
-              console.error('Video failed to load - using image fallback');
+              console.error('Video failed to load:', currentVideoSrc, e);
+              
+              // Si on n'a pas encore essayé la vidéo de fallback et qu'on était sur la vidéo optimisée
+              if (!attemptedFallback && currentVideoSrc === backgroundVideo) {
+                console.log('Tentative avec la vidéo originale en fallback...');
+                setAttemptedFallback(true);
+                setCurrentVideoSrc(fallbackVideo);
+                setVideoLoaded(false);
+                setVideoError(false);
+                return;
+              }
+              
+              // Si même la vidéo de fallback échoue, utiliser l'image
+              console.error('Toutes les vidéos ont échoué - utilisation de l\'image de fallback');
               setVideoError(true);
               setVideoLoaded(false);
+              // Nettoyer le timeout de sécurité
+              if (loadTimeoutRef.current) {
+                clearTimeout(loadTimeoutRef.current);
+              }
+            }}
+            onStalled={() => {
+              console.warn('Video stalled - may switch to fallback');
+            }}
+            onSuspend={() => {
+              console.warn('Video suspended - may switch to fallback');
             }}
           >
-            <source src={backgroundVideo} type="video/mp4" />
+            <source src={currentVideoSrc} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
+        )}
+        
+        {/* Indicateur de qualité de connexion pour debug */}
+        {process.env.NODE_ENV === 'development' && (
+          <div className="absolute top-4 right-4 bg-black/50 text-white p-2 rounded text-xs z-20 max-w-xs">
+            <div>Connection: {connectionQuality} | Mobile: {isMobile ? 'Yes' : 'No'}</div>
+            <div>Video: {videoLoaded ? 'Loaded' : shouldLoadVideo ? 'Loading...' : 'Disabled'}</div>
+            <div>Source: {currentVideoSrc === backgroundVideo ? 'Optimized (6MB)' : 'Original (40MB)'}</div>
+            <div>Fallback attempted: {attemptedFallback ? 'Yes' : 'No'}</div>
+          </div>
         )}
         
         {/* Gradient Overlay */}
