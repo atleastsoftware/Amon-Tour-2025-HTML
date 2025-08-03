@@ -235,7 +235,7 @@ export default function Tours() {
                   <SelectItem value="all">Toutes durées</SelectItem>
                   {filterOptions.durations.map(duration => (
                     <SelectItem key={duration} value={duration.toString()}>
-                      {duration} jour{duration > 1 ? 's' : ''}
+                      {duration} jour{Number(duration) > 1 ? 's' : ''}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -314,7 +314,7 @@ export default function Tours() {
                       <div className="absolute top-4 right-4">
                         <Badge variant="secondary" className="bg-white/90 text-gray-800">
                           <Clock className="h-3 w-3 mr-1" />
-                          {tour.duration} jour{tour.duration > 1 ? 's' : ''}
+                          {tour.duration} jour{Number(tour.duration) > 1 ? 's' : ''}
                         </Badge>
                       </div>
                     </div>

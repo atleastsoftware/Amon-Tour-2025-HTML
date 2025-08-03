@@ -1535,6 +1535,12 @@ Crawl-delay: 1`;
     try {
       const apiKey = "tourninja-showcase-2-amontour";
       const companyId = "2";
+      
+      console.log("Tour Ninja API Call:", {
+        apiKey,
+        companyId,
+        fullUrl: `https://www.tourninja.io/api/public/tours?apiKey=${apiKey}&companyId=${companyId}`
+      });
       const allowedDomain = process.env.COMPANY_DOMAIN;
       
       // Security: Verify domain if configured (disabled for deployment debugging)
@@ -1582,25 +1588,17 @@ Crawl-delay: 1`;
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 seconds timeout
       
-      // Use node-fetch with custom agent for SSL issues
+      // Simple fetch call as recommended
       const nodeFetch = (await import('node-fetch')).default;
-      const https = await import('https');
-      
-      const httpsAgent = new https.Agent({
-        rejectUnauthorized: false
-      });
       
       const response = await nodeFetch(
         `https://www.tourninja.io/api/public/tours?apiKey=${apiKey}&companyId=${companyId}`,
         {
           method: 'GET',
           headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'User-Agent': 'AmonTour-Website/1.0'
+            'Accept': 'application/json'
           },
-          signal: controller.signal,
-          agent: httpsAgent
+          signal: controller.signal
         }
       );
       
