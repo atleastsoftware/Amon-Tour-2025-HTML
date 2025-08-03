@@ -1,0 +1,86 @@
+🔄 MISE À JOUR CRITIQUE - API TourNinja Août 2025
+
+L'API TourNinja a été mise à jour avec des changements importants. Veuillez appliquer immédiatement ces modifications :
+
+⚡ Changements Obligatoires
+1. Système d'Images - CHANGEMENT MAJEUR
+// ❌ ANCIEN (ne fonctionne plus)
+tour.presentationImage
+// ✅ NOUVEAU (obligatoire)
+tour.image // Contient la première photo du tableau photos[]
+2. Structure Company
+// ❌ ANCIEN
+company.companyId
+// ✅ NOUVEAU
+company.id
+3. URLs de Réservation
+// ✅ NOUVEAU - Toujours défini maintenant
+tour.bookingUrl // URL complète garantie
+🔗 Endpoints Mis à Jour
+API Sécurisée (RECOMMANDÉE)
+GET /api/public/tours?apiKey=tourninja-showcase-2-amontour&companyId=2
+API Legacy (Fallback)
+GET /api/public/tours/legacy?companyId=2
+📊 Nouvelle Structure des Données
+{
+  "success": true,
+  "tours": [
+    {
+      "id": "token_unique",
+      "name": "Nom du tour",
+      "description": "Description (150 char max)",
+      "price": 2500,
+      "currency": "THB",
+      "duration": 1,
+      "maxParticipants": 12,
+      "image": "https://www.tourninja.io/api/image-proxy/image.jpg",
+      "bookingUrl": "https://www.tourninja.io/book/token",
+      "type": "private"
+    }
+  ],
+  "company": {
+    "id": 2,
+    "name": "amontour"
+  }
+}
+🚨 Gestion d'Erreurs de Maintenance
+Si vous recevez :
+
+{"success":true,"data":[],"message":"Tour Ninja service is temporarily down for maintenance","apiStatus":"server_error"}
+Actions à prendre :
+
+Réessayer avec l'API Legacy : /api/public/tours/legacy?companyId=2
+Afficher un message : "Nos tours se chargent, veuillez patienter..."
+Réessayer toutes les 30 secondes
+Si échec persistant, afficher les tours en cache ou message d'indisponibilité temporaire
+🔧 Implémentation Immédiate
+Mettez à jour votre code JavaScript MAINTENANT :
+
+// Nouvelle logique d'affichage des images
+function displayTourImage(tour) {
+  return tour.image || '/images/placeholder-tour.jpg';
+}
+// Nouvelle gestion d'erreurs
+async function fetchTours() {
+  try {
+    const response = await fetch('/api/public/tours?apiKey=tourninja-showcase-2-amontour&companyId=2');
+    const data = await response.json();
+    
+    if (data.apiStatus === 'server_error') {
+      // Essayer l'API Legacy
+      return await fetchToursLegacy();
+    }
+    
+    return data.tours;
+  } catch (error) {
+    return await fetchToursLegacy();
+  }
+}
+✅ Actions Immédiates Requises
+Remplacer toutes les références à presentationImage par image
+Utiliser company.id au lieu de company.companyId
+Ajouter la gestion d'erreurs pour les messages de maintenance
+Tester l'affichage des images avec les nouvelles URLs
+Implémenter le fallback vers l'API Legacy
+⚠️ URGENT : Ces changements sont obligatoires pour que votre site continue de fonctionner correctement.
+
