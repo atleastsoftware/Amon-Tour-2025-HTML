@@ -12,7 +12,9 @@ interface TourNinjaCardProps {
 
 export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
   const handleCardClick = () => {
-    if (tour.detailsUrl) {
+    if (tour.presentationUrl) {
+      window.open(tour.presentationUrl, '_blank', 'noopener,noreferrer');
+    } else if (tour.detailsUrl) {
       window.open(tour.detailsUrl, '_blank', 'noopener,noreferrer');
     } else if (tour.bookingUrl) {
       window.open(tour.bookingUrl, '_blank', 'noopener,noreferrer');
@@ -63,7 +65,15 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
 
         <CardContent className="p-4 flex flex-col justify-between h-full">
           <div>
-            <h3 className="font-heading font-semibold text-lg mb-2 line-clamp-2">
+            <h3 
+              className="font-heading font-semibold text-lg mb-2 line-clamp-2 cursor-pointer hover:text-blue-600 transition-colors"
+              onClick={(e) => {
+                e.stopPropagation();
+                if (tour.presentationUrl) {
+                  window.open(tour.presentationUrl, '_blank', 'noopener,noreferrer');
+                }
+              }}
+            >
               {tour.name}
             </h3>
             

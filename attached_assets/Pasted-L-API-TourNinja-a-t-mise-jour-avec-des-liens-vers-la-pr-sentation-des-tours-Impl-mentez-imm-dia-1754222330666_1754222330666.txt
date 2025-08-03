@@ -1,0 +1,59 @@
+L'API TourNinja a été mise à jour avec des liens vers la présentation des tours. Implémentez immédiatement ces nouveaux champs :
+
+⚡ NOUVEAUX CHAMPS DISPONIBLES
+Chaque tour contient maintenant 3 types de liens :
+
+{
+  "id": "token_unique",
+  "name": "Nom du tour",
+  "bookingUrl": "https://www.tourninja.io/book/token",
+  "detailsUrl": "https://www.tourninja.io/details/token",
+  "presentationUrl": "https://www.tourninja.io/details/token"
+}
+🔗 Utilisation des Liens
+1. bookingUrl - Réservation directe
+// Bouton "Réserver maintenant"
+<a href={tour.bookingUrl}>Réserver ce tour</a>
+2. detailsUrl - Présentation complète
+// Bouton "Voir les détails" ou "En savoir plus"
+<a href={tour.detailsUrl}>Voir la présentation</a>
+3. presentationUrl - Alternative pour présentation
+// Lien titre ou image cliquable
+<a href={tour.presentationUrl}>{tour.name}</a>
+📱 Implémentation Recommandée
+function TourCard({ tour }) {
+  return (
+    <div className="tour-card">
+      <h3>
+        <a href={tour.presentationUrl}>{tour.name}</a>
+      </h3>
+      <img 
+        src={tour.image} 
+        onClick={() => window.open(tour.detailsUrl)}
+        style={{ cursor: 'pointer' }}
+      />
+      <p>{tour.description}</p>
+      <div className="tour-actions">
+        <a href={tour.detailsUrl} className="btn-details">
+          Voir les détails
+        </a>
+        <a href={tour.bookingUrl} className="btn-booking">
+          Réserver - {tour.price} {tour.currency}
+        </a>
+      </div>
+    </div>
+  );
+}
+✅ Actions Immédiates
+Ajouter des boutons "Voir les détails" avec detailsUrl
+Rendre cliquables les titres et images avec presentationUrl
+Conserver les boutons de réservation avec bookingUrl
+Tester que tous les liens fonctionnent correctement
+🎯 Résultat Attendu
+Chaque tour doit maintenant avoir :
+
+Titre cliquable → Présentation
+Image cliquable → Présentation
+Bouton "Voir détails" → Présentation
+Bouton "Réserver" → Réservation
+⚡ URGENT : Ces liens de présentation sont maintenant disponibles et doivent être utilisés pour améliorer l'expérience utilisateur.

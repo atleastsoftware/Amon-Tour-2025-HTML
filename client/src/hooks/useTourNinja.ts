@@ -14,6 +14,7 @@ export interface TourNinjaTour {
   location: string;
   bookingUrl?: string;
   detailsUrl?: string;
+  presentationUrl?: string;
   externalId: string;
   isActive: boolean;
   category?: string;

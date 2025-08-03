@@ -232,7 +232,14 @@ export default function Home() {
                     transition={{ duration: 0.6, delay: index * 0.1 }}
                     className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
                   >
-                    <div className="relative h-48 bg-gradient-to-br from-blue-200 to-blue-300">
+                    <div 
+                      className="relative h-48 bg-gradient-to-br from-blue-200 to-blue-300 cursor-pointer"
+                      onClick={() => {
+                        if (tour.presentationUrl) {
+                          window.open(tour.presentationUrl, '_blank');
+                        }
+                      }}
+                    >
                       {tour.primaryImage ? (
                         <img 
                           src={tour.primaryImage} 
@@ -261,7 +268,14 @@ export default function Home() {
                     </div>
                     
                     <div className="p-6">
-                      <h3 className="text-lg font-bold text-gray-800 mb-3 line-clamp-2">
+                      <h3 
+                        className="text-lg font-bold text-gray-800 mb-3 line-clamp-2 cursor-pointer hover:text-blue-600 transition-colors"
+                        onClick={() => {
+                          if (tour.presentationUrl) {
+                            window.open(tour.presentationUrl, '_blank');
+                          }
+                        }}
+                      >
                         {tour.name}
                       </h3>
                       
@@ -271,17 +285,30 @@ export default function Home() {
                         </p>
                       )}
                       
-                      <button 
-                        onClick={() => {
-                          if (tour.bookingUrl) {
-                            window.open(tour.bookingUrl, '_blank');
-                          }
-                        }}
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
-                      >
-                        Voir les détails
-                        <FiChevronRight className="h-4 w-4" />
-                      </button>
+                      <div className="flex gap-2">
+                        <button 
+                          onClick={() => {
+                            if (tour.detailsUrl) {
+                              window.open(tour.detailsUrl, '_blank');
+                            }
+                          }}
+                          className="flex-1 border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
+                        >
+                          Détails
+                          <FiChevronRight className="h-3 w-3" />
+                        </button>
+                        <button 
+                          onClick={() => {
+                            if (tour.bookingUrl) {
+                              window.open(tour.bookingUrl, '_blank');
+                            }
+                          }}
+                          className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
+                        >
+                          Réserver
+                          <FiChevronRight className="h-3 w-3" />
+                        </button>
+                      </div>
                     </div>
                   </motion.div>
                 ))}

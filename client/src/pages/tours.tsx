@@ -34,7 +34,19 @@ export default function Tours() {
     return `✅ ${tours.length} tours chargés depuis Tour Ninja`;
   }, [isLoading, error, success, cached, fallback, tours.length]);
 
-  const handleTourClick = (tour: TourNinjaTour) => {
+  const handleTourDetails = (tour: TourNinjaTour) => {
+    if (tour.detailsUrl) {
+      window.open(tour.detailsUrl, '_blank');
+    }
+  };
+
+  const handleTourPresentation = (tour: TourNinjaTour) => {
+    if (tour.presentationUrl) {
+      window.open(tour.presentationUrl, '_blank');
+    }
+  };
+
+  const handleTourBooking = (tour: TourNinjaTour) => {
     if (tour.bookingUrl) {
       window.open(tour.bookingUrl, '_blank');
     }
@@ -290,7 +302,10 @@ export default function Tours() {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                 >
                   <Card className="h-full bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden">
-                    <div className="relative h-64 bg-gradient-to-br from-blue-200 to-blue-300">
+                    <div 
+                      className="relative h-64 bg-gradient-to-br from-blue-200 to-blue-300 cursor-pointer"
+                      onClick={() => handleTourPresentation(tour)}
+                    >
                       {tour.primaryImage ? (
                         <img 
                           src={tour.primaryImage} 
@@ -320,7 +335,10 @@ export default function Tours() {
                     </div>
                     
                     <CardContent className="p-6">
-                      <h3 className="text-xl font-bold text-gray-800 mb-3 line-clamp-2">
+                      <h3 
+                        className="text-xl font-bold text-gray-800 mb-3 line-clamp-2 cursor-pointer hover:text-blue-600 transition-colors"
+                        onClick={() => handleTourPresentation(tour)}
+                      >
                         {tour.name}
                       </h3>
                       
@@ -335,13 +353,23 @@ export default function Tours() {
                         {tour.location}
                       </div>
                       
-                      <Button 
-                        onClick={() => handleTourClick(tour)}
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-                      >
-                        Voir les détails
-                        <ExternalLink className="h-4 w-4 ml-2" />
-                      </Button>
+                      <div className="flex gap-2">
+                        <Button 
+                          onClick={() => handleTourDetails(tour)}
+                          variant="outline"
+                          className="flex-1 border-blue-600 text-blue-600 hover:bg-blue-50"
+                        >
+                          Voir détails
+                          <ExternalLink className="h-4 w-4 ml-2" />
+                        </Button>
+                        <Button 
+                          onClick={() => handleTourBooking(tour)}
+                          className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
+                        >
+                          Réserver
+                          <ExternalLink className="h-4 w-4 ml-2" />
+                        </Button>
+                      </div>
                     </CardContent>
                   </Card>
                 </motion.div>
