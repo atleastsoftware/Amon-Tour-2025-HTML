@@ -23,14 +23,6 @@ export default function Tours() {
   const [destinationFilter, setDestinationFilter] = useState<string>("all");
   const [showFilters, setShowFilters] = useState(false);
 
-  // Affichage du status de l'API pour debug
-  const apiStatus = useMemo(() => {
-    if (isLoading) return "Chargement...";
-    if (error) return `Erreur API: ${error}`;
-    if (!success) return "API indisponible";
-    if (tours.length === 0) return "⚠️ API Tour Ninja temporairement indisponible";
-    return `✅ ${tours.length} tours chargés depuis Tour Ninja`;
-  }, [isLoading, error, success, tours.length]);
 
   const handleTourDetails = (tour: TourNinjaTour) => {
     if (tour.detailsUrl) {
@@ -180,16 +172,6 @@ export default function Tours() {
             >
               Découvrez la beauté exceptionnelle de Krabi et du sud de la Thaïlande
             </motion.p>
-            
-            {/* Status API */}
-            <div className="max-w-md mx-auto">
-              <Alert className={`${tours.length > 0 ? 'border-green-400 bg-green-50' : 'border-yellow-400 bg-yellow-50'}`}>
-                <AlertCircle className="h-4 w-4" />
-                <AlertDescription className="text-gray-800">
-                  {apiStatus}
-                </AlertDescription>
-              </Alert>
-            </div>
           </div>
         </section>
 
