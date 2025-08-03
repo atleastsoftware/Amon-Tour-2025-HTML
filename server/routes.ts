@@ -1581,7 +1581,7 @@ Crawl-delay: 1`;
       }
 
       console.log("Fetching fresh data from Tour Ninja API", {
-        url: `https://www.tourninja.io/api/public/tours?apiKey=${apiKey}&companyId=${companyId}`,
+        url: `https://www.tourninja.io/api/public/tours?apiKey=${apiKey}&companyId=${companyId}&limit=100`,
         environment: process.env.NODE_ENV,
         hostname: req.hostname
       });
@@ -1592,7 +1592,7 @@ Crawl-delay: 1`;
       const nodeFetch = (await import('node-fetch')).default;
       
       const response = await nodeFetch(
-        `https://www.tourninja.io/api/public/tours?apiKey=${apiKey}&companyId=${companyId}`,
+        `https://www.tourninja.io/api/public/tours?apiKey=${apiKey}&companyId=${companyId}&limit=100`,
         {
           method: 'GET',
           headers: {
