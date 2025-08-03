@@ -358,28 +358,12 @@ export default function Tours() {
               ))}
             </motion.div>
           ) : (
-            <div className="text-center py-16">
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="max-w-md mx-auto"
-              >
-                <AlertCircle className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                  {tours.length === 0 ? "Chargement des expériences en cours" : "Aucun tour trouvé"}
-                </h3>
-                <p className="text-gray-600 mb-6">
-                  {tours.length === 0 
-                    ? "Chargement des expériences en cours. Nos tours locaux restent disponibles sur la page d'accueil."
-                    : "Essayez de modifier vos critères de recherche pour voir plus de résultats."
-                  }
-                </p>
-                {hasActiveFilters && (
-                  <Button onClick={clearFilters} variant="outline">
-                    Effacer les filtres
-                  </Button>
-                )}
-              </motion.div>
+            <div className="text-center py-8">
+              {hasActiveFilters && (
+                <Button onClick={clearFilters} variant="outline">
+                  Effacer les filtres
+                </Button>
+              )}
             </div>
           )}
         </section>

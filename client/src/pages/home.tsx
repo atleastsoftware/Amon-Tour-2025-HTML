@@ -315,12 +315,7 @@ export default function Home() {
                   </motion.div>
                 ))}
               </div>
-            ) : (
-              <div className="text-center py-12">
-                <p className="text-gray-600 mb-4">Nos expériences sont en cours de chargement</p>
-                <p className="text-sm text-gray-500">Veuillez patienter quelques instants</p>
-              </div>
-            )}
+            ) : null}
           </div>
           
           <div className="container mx-auto px-4 py-8">
