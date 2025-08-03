@@ -225,7 +225,7 @@ export default function Home() {
               </div>
             ) : tourNinjaTours.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                {tourNinjaTours.slice(0, 6).map((tour: any, index: number) => (
+                {tourNinjaTours.map((tour: any, index: number) => (
                   <motion.div
                     key={tour.id}
                     initial={{ opacity: 0, y: 30 }}
