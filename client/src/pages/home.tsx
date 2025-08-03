@@ -317,8 +317,8 @@ export default function Home() {
               </div>
             ) : (
               <div className="text-center py-12">
-                <p className="text-gray-600 mb-4">Nos expériences sont temporairement indisponibles</p>
-                <p className="text-sm text-gray-500">L'API Tour Ninja est en cours de maintenance</p>
+                <p className="text-gray-600 mb-4">Nos expériences sont en cours de chargement</p>
+                <p className="text-sm text-gray-500">Veuillez patienter quelques instants</p>
               </div>
             )}
           </div>

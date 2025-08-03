@@ -366,11 +366,11 @@ export default function Tours() {
               >
                 <AlertCircle className="h-16 w-16 text-gray-400 mx-auto mb-4" />
                 <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                  {tours.length === 0 ? "Service temporairement indisponible" : "Aucun tour trouvé"}
+                  {tours.length === 0 ? "Chargement des expériences en cours" : "Aucun tour trouvé"}
                 </h3>
                 <p className="text-gray-600 mb-6">
                   {tours.length === 0 
-                    ? "L'API Tour Ninja est actuellement en maintenance. Nos tours locaux restent disponibles sur la page d'accueil."
+                    ? "Chargement des expériences en cours. Nos tours locaux restent disponibles sur la page d'accueil."
                     : "Essayez de modifier vos critères de recherche pour voir plus de résultats."
                   }
                 </p>
