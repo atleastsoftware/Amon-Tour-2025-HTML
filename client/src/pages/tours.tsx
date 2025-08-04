@@ -149,8 +149,8 @@ export default function Tours() {
   return (
     <>
       <SEO 
-        title="Nos Expériences | Amon Tour"
-        description="Découvrez notre sélection d'expériences uniques à Krabi et dans le sud de la Thaïlande. Tours en bateau, aventures culturelles et moments inoubliables."
+        title="Our Experiences | Amon Tour"
+        description="Discover our selection of unique experiences in Krabi and southern Thailand. Boat tours, cultural adventures and unforgettable moments."
       />
       <Header />
       
@@ -164,7 +164,7 @@ export default function Tours() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              Nos Expériences
+              Our Experiences
             </motion.h1>
             <motion.p 
               className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto"
@@ -172,7 +172,7 @@ export default function Tours() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              Découvrez la beauté exceptionnelle de Krabi et du sud de la Thaïlande
+              Discover the exceptional beauty of Krabi and southern Thailand
             </motion.p>
           </div>
         </section>
