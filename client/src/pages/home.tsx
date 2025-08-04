@@ -216,9 +216,9 @@ export default function Home() {
             </motion.div>
           </div>
           
-          {/* Tour Ninja Tours Display */}
+          {/* Tour Ninja Tours Display with Fallback to Local Tours */}
           <div className="container mx-auto px-4">
-            {tourNinjaLoading ? (
+            {(tourNinjaLoading || isLoadingTours) ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {[...Array(6)].map((_, i) => (
                   <div key={i} className="bg-gray-200 rounded-xl h-80 animate-pulse" />
@@ -316,7 +316,99 @@ export default function Home() {
                   </motion.div>
                 ))}
               </div>
-            ) : null}
+            ) : featuredTours && featuredTours.length > 0 ? (
+              // Fallback to local tours when Tour Ninja API is unavailable
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                {featuredTours.slice(0, 6).map((tour: Tour, index: number) => (
+                  <motion.div
+                    key={tour.id}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
+                  >
+                    <div 
+                      className="relative h-48 bg-gradient-to-br from-blue-200 to-blue-300 cursor-pointer"
+                      onClick={() => setLocation(`/tours/${tour.id}`)}
+                    >
+                      {tour.images && tour.images.length > 0 ? (
+                        <img 
+                          src={tour.images[0]} 
+                          alt={tour.title}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.style.display = 'none';
+                          }}
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <FiChevronRight className="h-16 w-16 text-blue-400" />
+                        </div>
+                      )}
+                      <div className="absolute top-4 left-4">
+                        <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                          {tour.price > 0 ? `${tour.price.toLocaleString()} THB` : 'Prix sur demande'}
+                        </span>
+                      </div>
+                      <div className="absolute top-4 right-4">
+                        <span className="bg-white/90 text-gray-800 px-2 py-1 rounded-full text-xs">
+                          {tour.duration || '1'} jour{Number(tour.duration || 1) > 1 ? 's' : ''}
+                        </span>
+                      </div>
+                    </div>
+                    
+                    <div className="p-6">
+                      <h3 
+                        className="text-lg font-bold text-gray-800 mb-3 line-clamp-2 cursor-pointer hover:text-blue-600 transition-colors"
+                        onClick={() => setLocation(`/tours/${tour.id}`)}
+                      >
+                        {tour.title}
+                      </h3>
+                      
+                      {tour.description && (
+                        <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                          {tour.description.substring(0, 120)}...
+                        </p>
+                      )}
+                      
+                      <div className="flex gap-2">
+                        <button 
+                          onClick={() => setLocation(`/tours/${tour.id}`)}
+                          className="flex-1 border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
+                        >
+                          Details
+                          <FiChevronRight className="h-3 w-3" />
+                        </button>
+                        <button 
+                          onClick={() => setLocation(`/book-tour?tourId=${tour.id}`)}
+                          className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
+                        >
+                          Book
+                          <FiChevronRight className="h-3 w-3" />
+                        </button>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+              <div className="text-center mt-8">
+                <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 max-w-2xl mx-auto">
+                  <p className="text-amber-800 text-sm">
+                    🌟 Showing local tours. Our full tour selection is temporarily unavailable.
+                  </p>
+                </div>
+              </div>
+            ) : (
+              // No tours available at all
+              <div className="text-center py-12">
+                <div className="bg-gray-50 border border-gray-200 rounded-lg p-8 max-w-md mx-auto">
+                  <p className="text-gray-600 mb-4">Our tour selection is temporarily unavailable.</p>
+                  <p className="text-sm text-gray-500">Please check back later or contact us directly.</p>
+                </div>
+              </div>
+            )}
           </div>
           
           <div className="container mx-auto px-4 py-8">
