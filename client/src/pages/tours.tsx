@@ -303,11 +303,6 @@ export default function Tours() {
                           <MapPin className="h-16 w-16 text-blue-400" />
                         </div>
                       )}
-                      <div className="absolute top-4 left-4">
-                        <Badge className="bg-blue-600 text-white">
-                          {displayPrice(tour)}
-                        </Badge>
-                      </div>
                       <div className="absolute top-4 right-4">
                         <Badge variant="secondary" className="bg-white/90 text-gray-800">
                           <Clock className="h-3 w-3 mr-1" />
