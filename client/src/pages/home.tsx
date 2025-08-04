@@ -258,11 +258,6 @@ export default function Home() {
                           <FiChevronRight className="h-16 w-16 text-blue-400" />
                         </div>
                       )}
-                      <div className="absolute top-4 left-4">
-                        <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                          {tour.price > 0 ? `${tour.price.toLocaleString()} THB` : 'Prix sur demande'}
-                        </span>
-                      </div>
                       <div className="absolute top-4 right-4">
                         <span className="bg-white/90 text-gray-800 px-2 py-1 rounded-full text-xs">
                           {tour.duration} jour{Number(tour.duration) > 1 ? 's' : ''}
