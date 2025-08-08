@@ -1718,6 +1718,96 @@ Crawl-delay: 1`;
     }
   });
 
+  // Tour Showcase endpoint - Get specific tour by token from TourNinja
+  app.get("/api/public/tour-showcase/:token", async (req, res) => {
+    try {
+      const { token } = req.params;
+      const apiKey = process.env.TOUR_NINJA_API_KEY;
+      const companyId = process.env.TOUR_NINJA_COMPANY_ID;
+
+      if (!apiKey || !companyId) {
+        return res.status(500).json({ 
+          message: "Tour Ninja API credentials not configured"
+        });
+      }
+
+      if (!token) {
+        return res.status(400).json({ 
+          message: "Tour token is required"
+        });
+      }
+
+      console.log("Tour Ninja Showcase API Call:", {
+        token,
+        apiKey,
+        companyId,
+        fullUrl: `https://www.tourninja.io/api/public/tour-showcase/${token}?apiKey=${apiKey}&companyId=${companyId}`
+      });
+
+      const nodeFetch = (await import('node-fetch')).default;
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000);
+      
+      const response = await nodeFetch(
+        `https://www.tourninja.io/api/public/tour-showcase/${token}?apiKey=${apiKey}&companyId=${companyId}`,
+        {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json'
+          },
+          signal: controller.signal
+        }
+      );
+      
+      clearTimeout(timeoutId);
+
+      console.log("Tour Ninja Showcase API Response Status:", response.status, response.statusText);
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Tour Ninja Showcase API Error Response:", errorText);
+        return res.status(response.status).json({ 
+          message: `Tour not found or API error: ${response.statusText}`,
+          error: errorText
+        });
+      }
+
+      const responseText = await response.text();
+      console.log("Tour Ninja Showcase API Raw Response:", responseText.substring(0, 500));
+      
+      let apiResponse;
+      try {
+        apiResponse = JSON.parse(responseText);
+      } catch (e) {
+        console.error("Failed to parse Tour Ninja showcase response:", e);
+        return res.status(500).json({ 
+          message: "Invalid JSON response from Tour Ninja API"
+        });
+      }
+
+      // Return the tour showcase data
+      return res.json({
+        success: true,
+        data: apiResponse,
+        timestamp: Date.now()
+      });
+
+    } catch (error: any) {
+      console.error("Error fetching tour showcase from Tour Ninja:", error);
+      
+      if (error.name === 'AbortError') {
+        return res.status(408).json({ 
+          message: "Tour Ninja API request timeout"
+        });
+      }
+      
+      return res.status(500).json({ 
+        message: "Failed to fetch tour showcase",
+        error: error.message
+      });
+    }
+  });
+
   // Cache management route (admin only)
   app.post("/api/proxy/tours/refresh", requireAuth, async (req, res) => {
     try {
