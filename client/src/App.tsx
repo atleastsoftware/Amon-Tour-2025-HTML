@@ -8,6 +8,7 @@ import TourCards from "@/pages/tour-cards";
 import Stays from "@/pages/stays";
 import TourIframe from "@/pages/tour-iframe";
 import TourView from "@/pages/tour-view";
+import TourShowcase from "@/pages/tour-showcase";
 import CustomTour from "@/pages/custom-tour";
 import BookTour from "@/pages/book-tour";
 import BookingIframe from "@/pages/booking-iframe";
@@ -47,7 +48,7 @@ function Router() {
       <Route path="/experiences" component={Experiences} />
       <Route path="/tour-cards" component={TourCards} />
       <Route path="/stays" component={Stays} />
-      <Route path="/tour/:id" component={TourIframe} />
+      <Route path="/tour/:token" component={TourShowcase} />
       <Route path="/custom-tour" component={CustomTour} />
       <Route path="/book-tour/:id" component={BookTour} />
       <Route path="/booking" component={BookingIframe} />

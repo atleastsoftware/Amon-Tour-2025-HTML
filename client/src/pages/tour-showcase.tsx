@@ -55,7 +55,10 @@ interface TourShowcaseParams {
   token: string;
 }
 
-export default function TourShowcase({ params }: { params: TourShowcaseParams }) {
+export default function TourShowcase() {
+  const [, navigate] = useLocation();
+  const pathname = window.location.pathname;
+  const token = pathname.split('/').pop() || '';
   const [, setLocation] = useLocation();
   const { openIframe } = useIframe();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -65,7 +68,7 @@ export default function TourShowcase({ params }: { params: TourShowcaseParams })
     data: TourShowcaseData;
     timestamp: number;
   }>({
-    queryKey: [`/api/public/tour-showcase/${params.token}`],
+    queryKey: [`/api/public/tour-showcase/${token}`],
     retry: false,
   });
 
@@ -136,9 +139,9 @@ export default function TourShowcase({ params }: { params: TourShowcaseParams })
       <SEO 
         title={metadata?.title || `${tour.name} | Amon Tour`}
         description={metadata?.description || tour.shortDescription || tour.description}
-        image={metadata?.image || tour.primaryImage || tour.images[0]}
-        url={metadata?.url || `https://www.amon-tour.com/tour/${params.token}`}
-        keywords={metadata?.keywords || []}
+        ogImage={metadata?.image || tour.primaryImage || tour.images[0]}
+        canonicalUrl={metadata?.url || `https://www.amon-tour.com/tour/${token}`}
+        keywords={metadata?.keywords?.join(', ') || ''}
       />
       <Header />
       
