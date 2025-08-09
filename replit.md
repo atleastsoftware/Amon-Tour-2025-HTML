@@ -128,6 +128,8 @@ SENDGRID_API_KEY=your_sendgrid_key (for email notifications)
 - June 24, 2025: Fixed critical form submission issues - resolved database schema mismatches, corrected field name mappings between frontend forms and backend validation, added comprehensive error handling and logging, implemented toast notifications for user feedback
 - June 24, 2025: Added WhatsApp field to Krabi Celebration form and admin panel - updated database schema, form interface, and admin display with international phone number support
 - June 24, 2025: Implemented automatic email notification system using SendGrid - admin receives instant alerts for all form submissions (Krabi Celebration, Partnership, Group Corporate) with detailed information, plus confirmation emails sent to clients
+- August 9, 2025: Completed comprehensive Tour Ninja image diagnostics and fixes - resolved image loading issues through improved error handling, increased proxy timeout, and enhanced fallback displays. All Tour Ninja images now display properly with elegant fallbacks.
+- August 9, 2025: Implemented automatic browser translation system using IP geolocation - detects French-speaking visitors (FR, BE, CH, CA) and triggers native browser translators automatically. Admin interface at `/admin-translation` for configuration and testing.
 
 ## User Preferences
 

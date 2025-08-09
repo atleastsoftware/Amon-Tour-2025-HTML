@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -13,6 +14,7 @@ interface TourNinjaCardProps {
 
 export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
   const { openIframe } = useIframe();
+  const [imageError, setImageError] = useState(false);
   
   const handleCardClick = () => {
     if (tour.presentationUrl) {
@@ -35,24 +37,28 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
     >
       <Card className="h-full cursor-pointer hover:shadow-lg transition-shadow overflow-hidden group">
         <div className="relative">
-          {(tour.primaryImage || tour.images?.[0]) ? (
+          {!imageError && (tour.primaryImage || tour.images?.[0]) ? (
             <div className="h-48 overflow-hidden">
               <img
                 src={tour.primaryImage || tour.images[0]}
                 alt={tour.name}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = 'none';
+                onLoad={() => setImageError(false)}
+                onError={() => {
+                  console.warn(`Failed to load image for tour ${tour.name}:`, tour.primaryImage);
+                  setImageError(true);
                 }}
               />
             </div>
           ) : (
-            <div className="h-48 bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center">
-              <div className="text-blue-600 text-center p-4">
+            <div className="h-48 bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center relative overflow-hidden">
+              <div className="absolute inset-0 bg-black/20"></div>
+              <div className="text-white text-center p-4 relative z-10">
                 <MapPin className="w-8 h-8 mx-auto mb-2" />
-                <span className="text-sm">Krabi, Thailand</span>
+                <span className="text-sm font-medium">Krabi, Thailand</span>
+                <div className="text-xs opacity-80 mt-1">Image de présentation</div>
               </div>
+              <div className="absolute inset-0 bg-gradient-to-br from-transparent to-blue-800/30"></div>
             </div>
           )}
           

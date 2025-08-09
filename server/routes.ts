@@ -1546,7 +1546,7 @@ Crawl-delay: 1`;
       }
 
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000);
+      const timeoutId = setTimeout(() => controller.abort(), 15000); // Increased timeout for slow Unsplash images
       
       const nodeFetch = (await import('node-fetch')).default;
       const response = await nodeFetch(imageUrl, {
