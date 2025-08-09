@@ -1717,7 +1717,8 @@ Crawl-delay: 1`;
         apiStatus: "connection_issue",
         error: process.env.NODE_ENV === 'development' ? String(error) : undefined
       });
-          description: "Découvrez les îles paradisiaques de Phi Phi et les îles locales d'Ao Nang. Plongez dans des eaux cristallines, explorez des plages de sable blanc et admirez des formations rocheuses spectaculaires.",
+    }
+  });
           shortDescription: "Excursion d'une journée vers les îles paradisiaques de Phi Phi et Ao Nang",
           images: ["https://images.unsplash.com/photo-1544551763-46a013bb70d5"],
           primaryImage: "https://images.unsplash.com/photo-1544551763-46a013bb70d5",
