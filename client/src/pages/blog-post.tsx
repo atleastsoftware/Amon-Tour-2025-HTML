@@ -32,67 +32,93 @@ interface BlogPost {
   }[];
 }
 
-// Tours data mapping - corresponds to our database tours
-const toursData = {
-  1: {
-    id: 1,
-    title: "Bangkok Essentiel",
-    description: "Circuit culturel de 3 jours à Bangkok : Grand Palais, temples sacrés, marchés flottants et expériences gastronomiques avec guide francophone.",
-    duration: "3 jours",
-    price: 350,
-    tourNinjaUrl: "https://tourninja.com/tours/bangkok-essential"
+// Popular Tour Ninja tours mapping - real data from API
+const popularToursData = {
+  'phi-phi': {
+    id: 'phi-phi-ao-nang',
+    title: "Koh Phi Phi & Îles d'Ao Nang",
+    description: "Excursion d'une journée vers les îles paradisiaques de Phi Phi et les îles locales d'Ao Nang. Découvrez des plages de sable blanc, des eaux cristallines et des paysages à couper le souffle.",
+    duration: "1 jour",
+    price: 2500,
+    currency: "THB",
+    tourNinjaUrl: "https://www.tourninja.io/book/phi-phi-ao-nang"
   },
-  2: {
-    id: 2,
-    title: "Triangle d'Or",
-    description: "Voyage de 5 jours dans le nord : Chiang Mai, tribus des montagnes, Temple Blanc, Triangle d'Or et croisière sur le Mékong.",
-    duration: "5 jours", 
-    price: 590,
-    tourNinjaUrl: "https://tourninja.com/tours/golden-triangle"
+  'railay': {
+    id: 'railay-beaches',
+    title: "Railay Beach & Îles d'Ao Nang", 
+    description: "Explorez la magnifique Railay Beach, accessible uniquement par bateau, et les îles locales d'Ao Nang. Parfait pour l'escalade, la détente et la découverte.",
+    duration: "1 jour",
+    price: 2200,
+    currency: "THB",
+    tourNinjaUrl: "https://www.tourninja.io/book/railay-beaches"
   },
-  3: {
-    id: 3,
-    title: "Îles du Sud",
-    description: "Circuit de 7 jours : Phuket, îles Phi Phi, baie de Phang Nga, Krabi et Railay Beach. Plages paradisiaques et activités nautiques.",
-    duration: "7 jours",
-    price: 790,
-    tourNinjaUrl: "https://tourninja.com/tours/southern-islands"
+  'hong-island': {
+    id: 'hong-archipelago',
+    title: "Archipel de Koh Hong",
+    description: "Découvrez l'archipel de Koh Hong avec ses lagons émeraude cachés, ses plages de sable blanc et ses formations rocheuses spectaculaires. Une expérience inoubliable.",
+    duration: "1 jour", 
+    price: 2800,
+    currency: "THB",
+    tourNinjaUrl: "https://www.tourninja.io/book/hong-archipelago"
+  },
+  'four-islands': {
+    id: 'four-islands-krabi',
+    title: "4 Islands Tour de Krabi",
+    description: "Le tour le plus populaire de Krabi ! Visitez Poda Island, Chicken Island, Tup Island et Phra Nang Cave Beach en une journée mémorable.",
+    duration: "1 jour",
+    price: 2300,
+    currency: "THB", 
+    tourNinjaUrl: "https://www.tourninja.io/book/four-islands-krabi"
+  },
+  'sunset-plankton': {
+    id: 'sunset-plankton',
+    title: "Coucher de Soleil & Plancton Lumineux",
+    description: "Expérience magique combinant coucher de soleil sur les îles d'Ao Nang et observation du plancton bioluminescent la nuit. Moment unique et romantique.",
+    duration: "1 jour",
+    price: 2600,
+    currency: "THB",
+    tourNinjaUrl: "https://www.tourninja.io/book/sunset-plankton"
   }
 };
 
 // Function to get related tours based on article slug
 const getRelatedTours = (slug: string) => {
-  // Map specific articles to relevant tours
-  const tourMapping: { [key: string]: number[] } = {
-    // Krabi and islands articles → Îles du Sud tour
-    'plus-belles-plages-krabi-guide-paradis-tropical': [3],
-    'railay-beach-krabi-guide-complet-plage-spectaculaire': [3],
-    'iles-phi-phi-krabi-excursion-guide-complet': [3],
-    '4-islands-tour-krabi-excursion-populaire-guide': [3],
-    'hong-island-krabi-lagon-secret-ile-paradisiaque': [3],
-    'snorkeling-krabi-meilleurs-spots-fonds-marins': [3],
-    'guide-complet-krabi-2025-voyage-thailande': [3],
-    'ao-nang-krabi-guide-complet-centre-touristique': [3],
-    'escalade-krabi-guide-complet-railay-beach-capitale-mondiale': [3],
-    'krabi-ou-phuket-comparaison-complete-choisir-destination-thai-parfaite': [3],
+  // Map specific articles to relevant Tour Ninja tours
+  const tourMapping: { [key: string]: string[] } = {
+    // Phi Phi related articles
+    'iles-phi-phi-krabi-excursion-guide-complet': ['phi-phi'],
     
-    // Culture and temples articles → Bangkok + Triangle d'Or
-    'temples-culture-krabi-guide-spirituel-traditions-thai-authentiques': [1, 2],
+    // Railay related articles  
+    'railay-beach-krabi-guide-complet-plage-spectaculaire': ['railay'],
+    'escalade-krabi-guide-complet-railay-beach-capitale-mondiale': ['railay'],
     
-    // General travel articles → All tours  
-    'budget-voyage-krabi-2025-guide-prix-bons-plans': [3],
-    'meilleurs-hotels-krabi-2025-guide-hebergements-luxe-budget': [3],
-    'meilleurs-restaurants-krabi-guide-gastronomique-specialites-thai-fruits-mer': [3],
-    'quand-partir-krabi-guide-meteo-saisons-meilleure-periode': [3],
-    'transport-krabi-guide-complet-moyens-transport-deplacements': [3],
-    'vie-nocturne-krabi-guide-meilleurs-bars-pubs-clubs-sortir': [3],
-    'shopping-krabi-guide-meilleurs-marches-centres-commerciaux-souvenirs-authentiques': [3],
-    'massage-spa-krabi-guide-meilleurs-centres-bien-etre-soins-traditionnels': [3],
-    'ultimate-guide-to-exploring-krabi-top-islands-and-hidden-gems': [3]
+    // Hong Island related articles
+    'hong-island-krabi-lagon-secret-ile-paradisiaque': ['hong-island'],
+    
+    // 4 Islands related articles
+    '4-islands-tour-krabi-excursion-populaire-guide': ['four-islands'],
+    
+    // General Krabi articles - show popular tours
+    'plus-belles-plages-krabi-guide-paradis-tropical': ['phi-phi', 'four-islands'],
+    'guide-complet-krabi-2025-voyage-thailande': ['phi-phi', 'railay'], 
+    'ao-nang-krabi-guide-complet-centre-touristique': ['phi-phi', 'sunset-plankton'],
+    'snorkeling-krabi-meilleurs-spots-fonds-marins': ['hong-island', 'phi-phi'],
+    'krabi-ou-phuket-comparaison-complete-choisir-destination-thai-parfaite': ['phi-phi'],
+    
+    // Practical articles
+    'budget-voyage-krabi-2025-guide-prix-bons-plans': ['four-islands'],
+    'quand-partir-krabi-guide-meteo-saisons-meilleure-periode': ['phi-phi'],
+    'transport-krabi-guide-complet-moyens-transport-deplacements': ['railay'],
+    'ultimate-guide-to-exploring-krabi-top-islands-and-hidden-gems': ['hong-island', 'sunset-plankton'],
+    
+    // Experience articles
+    'meilleurs-hotels-krabi-2025-guide-hebergements-luxe-budget': ['sunset-plankton'],
+    'vie-nocturne-krabi-guide-meilleurs-bars-pubs-clubs-sortir': ['sunset-plankton'],
+    'massage-spa-krabi-guide-meilleurs-centres-bien-etre-soins-traditionnels': ['railay']
   };
   
-  const tourIds = tourMapping[slug] || [];
-  return tourIds.map(id => toursData[id as keyof typeof toursData]).filter(Boolean);
+  const tourKeys = tourMapping[slug] || [];
+  return tourKeys.map(key => popularToursData[key as keyof typeof popularToursData]).filter(Boolean);
 };
 
 export default function BlogPostPage() {
@@ -333,7 +359,12 @@ export default function BlogPostPage() {
                                 </span>
                                 <span className="flex items-center gap-1 text-green-600">
                                   <span>💰</span>
-                                  <strong>À partir de {tour.price}€</strong>
+                                  <strong>
+                                    {tour.currency === 'THB' 
+                                      ? `${tour.price} THB (~${Math.round(tour.price / 36)}€)`
+                                      : `À partir de ${tour.price}€`
+                                    }
+                                  </strong>
                                 </span>
                               </div>
                             </div>

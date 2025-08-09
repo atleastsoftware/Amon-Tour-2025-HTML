@@ -1,0 +1,75 @@
+https://www.tourninja.io/api/public/tours/legacy?companyId=2
+📊 DONNÉES DISPONIBLES
+L'API retourne 19 tours actifs d'Amontour avec toutes les informations nécessaires :
+
+Structure des données :
+
+{
+  "success": true,
+  "tours": [
+    {
+      "id": "token_unique",
+      "name": "Nom du tour",
+      "description": "Description complète...",
+      "price": 2500,
+      "currency": "THB",
+      "duration": 1,
+      "maxParticipants": 12,
+      "primaryImage": "URL_de_l_image",
+      "bookingUrl": "https://www.tourninja.io/book/token",
+      "detailsUrl": "https://www.tourninja.io/details/token",
+      "destination": "Krabi Province",
+      "tourType": "private",
+      "slug": "nom-du-tour-optimise"
+    }
+  ],
+  "count": 19,
+  "legacy": true
+}
+🎯 TOURS DISPONIBLES
+Koh Phi Phi & Ao Nang's local islands
+Koh Phi Phi and Sunset
+Semi Private - Koh Phi Phi on morning
+Catamaran day trip - Ao Nang's local islands
+Phang Nga Bay : Koh Kudu and Koh Hong
+Ao Nang's local islands sunset and plankton
+Railay & Ao Nang's local islands
+Koh Hong Archipelago
+Koh Hong & Ao Nang's local islands Sunset and Plankton
+Thalane - Kayaking & natural pools
+Et 9 autres tours...
+💻 CODE D'INTÉGRATION
+JavaScript/Fetch :
+
+fetch('https://www.tourninja.io/api/public/tours/legacy?companyId=2')
+  .then(response => response.json())
+  .then(data => {
+    console.log(`${data.tours.length} tours disponibles`);
+    data.tours.forEach(tour => {
+      console.log(`${tour.name} - ${tour.price} ${tour.currency}`);
+    });
+  });
+PHP/cURL :
+
+$url = 'https://www.tourninja.io/api/public/tours/legacy?companyId=2';
+$response = file_get_contents($url);
+$data = json_decode($response, true);
+foreach ($data['tours'] as $tour) {
+    echo $tour['name'] . " - " . $tour['price'] . " " . $tour['currency'] . "\n";
+}
+🔄 URLS DE RÉSERVATION
+Chaque tour a une URL de réservation directe :
+
+https://www.tourninja.io/book/{token}
+📱 COMPATIBILITÉ
+✅ CORS activé pour tous les domaines
+✅ Compatible tous navigateurs
+✅ Fonctionne sur mobile et desktop
+✅ Pas d'authentification requise
+✅ Réponse en JSON standard
+⚡ PERFORMANCE
+Temps de réponse : ~1 seconde
+19 tours disponibles
+Cache automatique pour optimiser la vitesse
+🛠️ SUPPORT
+Si tu as besoin de modifications ou d'aide supplémentaire, l'API est entièrement opérationnelle et les données sont mises à jour en temps réel depuis le CRM Tour Ninja.

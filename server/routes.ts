@@ -1580,8 +1580,11 @@ Crawl-delay: 1`;
         });
       }
 
-      console.log("Fetching fresh data from Tour Ninja API", {
-        url: `https://www.tourninja.io/api/public/tours?apiKey=${apiKey}&companyId=${companyId}&limit=100`,
+      // Use the legacy API endpoint that actually works
+      const legacyUrl = `https://www.tourninja.io/api/public/tours/legacy?companyId=${companyId}`;
+      
+      console.log("Fetching fresh data from Tour Ninja Legacy API", {
+        url: legacyUrl,
         environment: process.env.NODE_ENV,
         hostname: req.hostname
       });
@@ -1591,58 +1594,58 @@ Crawl-delay: 1`;
       // Simple fetch call as recommended
       const nodeFetch = (await import('node-fetch')).default;
       
-      const response = await nodeFetch(
-        `https://www.tourninja.io/api/public/tours?apiKey=${apiKey}&companyId=${companyId}&limit=100`,
-        {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json'
-          },
-          signal: controller.signal
-        }
-      );
+      const response = await nodeFetch(legacyUrl, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json'
+        },
+        signal: controller.signal
+      });
       
       clearTimeout(timeoutId);
 
-      console.log("Tour Ninja API Response Status:", response.status, response.statusText);
+      console.log("Tour Ninja Legacy API Response Status:", response.status, response.statusText);
       
       if (!response.ok) {
         const errorText = await response.text();
-        console.error("Tour Ninja API Error Response:", errorText);
-        throw new Error(`Tour Ninja API error: ${response.status} ${response.statusText} - ${errorText}`);
+        console.error("Tour Ninja Legacy API Error Response:", errorText);
+        throw new Error(`Tour Ninja Legacy API error: ${response.status} ${response.statusText} - ${errorText}`);
       }
 
       const responseText = await response.text();
-      console.log("Tour Ninja API Raw Response:", responseText.substring(0, 500));
+      console.log("Tour Ninja Legacy API Raw Response:", responseText.substring(0, 500));
       
       let apiResponse;
       try {
         apiResponse = JSON.parse(responseText);
       } catch (e) {
-        console.error("Failed to parse Tour Ninja response:", e);
-        throw new Error("Invalid JSON response from Tour Ninja API");
+        console.error("Failed to parse Tour Ninja Legacy response:", e);
+        throw new Error("Invalid JSON response from Tour Ninja Legacy API");
       }
       
-      // Extract and enhance tours data from the API response  
+      // Extract and enhance tours data from the legacy API response  
       let tours = [];
       
-      // The API returns an object with tours array (August 2025 API structure)
-      if (apiResponse.tours && Array.isArray(apiResponse.tours)) {
+      // The legacy API returns an object with tours array
+      if (apiResponse.success && apiResponse.tours && Array.isArray(apiResponse.tours)) {
         tours = apiResponse.tours.map((tour: any) => ({
           id: tour.id,
           name: tour.name,
           description: tour.description || '',
           shortDescription: tour.description ? tour.description.substring(0, 150) + '...' : '',
-          images: tour.image ? [tour.image] : [],
-          primaryImage: tour.image || null,
+          images: tour.primaryImage ? [tour.primaryImage] : [],
+          primaryImage: tour.primaryImage || null,
           price: tour.price || 0,
           currency: tour.currency || 'THB',
           duration: tour.duration || 1,
-          location: tour.location || 'Krabi, Thailand',
+          location: tour.destination || 'Krabi, Thailand',
           bookingUrl: tour.bookingUrl || `https://www.tourninja.io/book/${tour.id}`,
           detailsUrl: tour.detailsUrl || `https://www.tourninja.io/details/${tour.id}`,
-          presentationUrl: tour.presentationUrl || tour.detailsUrl || `https://www.tourninja.io/details/${tour.id}`,
+          presentationUrl: tour.detailsUrl || `https://www.tourninja.io/details/${tour.id}`,
           externalId: tour.id,
+          slug: tour.slug || tour.name?.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+          tourType: tour.tourType || 'group',
+          maxParticipants: tour.maxParticipants || 12,
           isActive: true,
           category: tour.type || '',
           tags: [],
