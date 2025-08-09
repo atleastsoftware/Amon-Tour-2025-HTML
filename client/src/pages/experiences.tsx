@@ -6,6 +6,8 @@ import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
 import TourCardItem, { TourCardItemProps } from "@/components/tour/TourCardItem";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { 
   FadeInWhenVisible, 
@@ -101,6 +103,184 @@ export default function Experiences() {
             </div>
           </div>
         </FadeInWhenVisible>
+        
+        {/* Featured Tours Section - Tour Ninja Integration */}
+        <section className="py-16 bg-gradient-to-b from-blue-50 to-white">
+          <div className="container mx-auto px-4">
+            <FadeInWhenVisible>
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                  Tours Guidés Recommandés
+                </h2>
+                <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                  Découvrez nos circuits organisés avec guides francophones pour une expérience authentique de la Thaïlande
+                </p>
+              </div>
+            </FadeInWhenVisible>
+            
+            <StaggerChildren className="grid md:grid-cols-3 gap-8 mb-16">
+              {/* Bangkok Essentiel */}
+              <StaggerItem>
+                <Card className="h-full hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                  <CardHeader className="p-0">
+                    <div className="relative h-48 bg-gradient-to-r from-orange-400 to-red-500">
+                      <img 
+                        src="https://images.unsplash.com/photo-1528181304800-259b08848526?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+                        alt="Bangkok temples et palais - Tour guidé" 
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-black bg-opacity-20"></div>
+                      <div className="absolute top-4 left-4">
+                        <span className="bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                          Culture & Histoire
+                        </span>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="p-6">
+                    <h3 className="text-xl font-bold text-gray-800 mb-3">Bangkok Essentiel</h3>
+                    <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                      Circuit culturel de 3 jours : Grand Palais, temples sacrés, marchés flottants et gastronomie avec guide francophone expert.
+                    </p>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-blue-600 font-semibold">3 jours</span>
+                      <span className="text-green-600 font-bold text-lg">À partir de 350€</span>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button 
+                        className="flex-1 bg-blue-600 hover:bg-blue-700"
+                        onClick={() => window.open('https://tourninja.com/tours/bangkok-essential', '_blank')}
+                      >
+                        Voir Détails
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        className="flex-1"
+                        onClick={() => window.location.href = '/contact?tour=Bangkok Essentiel'}
+                      >
+                        Réserver
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </StaggerItem>
+
+              {/* Triangle d'Or */}
+              <StaggerItem>
+                <Card className="h-full hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                  <CardHeader className="p-0">
+                    <div className="relative h-48 bg-gradient-to-r from-green-400 to-blue-500">
+                      <img 
+                        src="https://images.unsplash.com/photo-1551016988-eb38968b55d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+                        alt="Triangle d'Or Nord Thaïlande - Chiang Mai et tribus" 
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-black bg-opacity-20"></div>
+                      <div className="absolute top-4 left-4">
+                        <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                          Nord & Aventure
+                        </span>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="p-6">
+                    <h3 className="text-xl font-bold text-gray-800 mb-3">Triangle d'Or</h3>
+                    <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                      Voyage de 5 jours : Chiang Mai, tribus des montagnes, Temple Blanc, Triangle d'Or et croisière sur le Mékong.
+                    </p>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-blue-600 font-semibold">5 jours</span>
+                      <span className="text-green-600 font-bold text-lg">À partir de 590€</span>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button 
+                        className="flex-1 bg-blue-600 hover:bg-blue-700"
+                        onClick={() => window.open('https://tourninja.com/tours/golden-triangle', '_blank')}
+                      >
+                        Voir Détails
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        className="flex-1"
+                        onClick={() => window.location.href = '/contact?tour=Triangle d\'Or'}
+                      >
+                        Réserver
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </StaggerItem>
+
+              {/* Îles du Sud */}
+              <StaggerItem>
+                <Card className="h-full hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                  <CardHeader className="p-0">
+                    <div className="relative h-48 bg-gradient-to-r from-cyan-400 to-blue-500">
+                      <img 
+                        src="https://images.unsplash.com/photo-1552465011-1c479c548c28?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+                        alt="Îles du Sud Thaïlande - Krabi Phi Phi Railay" 
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-black bg-opacity-20"></div>
+                      <div className="absolute top-4 left-4">
+                        <span className="bg-cyan-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                          Plages & Îles
+                        </span>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="p-6">
+                    <h3 className="text-xl font-bold text-gray-800 mb-3">Îles du Sud</h3>
+                    <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                      Circuit de 7 jours : Phuket, îles Phi Phi, baie de Phang Nga, Krabi et Railay Beach. Plages paradisiaques et activités nautiques.
+                    </p>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-blue-600 font-semibold">7 jours</span>
+                      <span className="text-green-600 font-bold text-lg">À partir de 790€</span>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button 
+                        className="flex-1 bg-blue-600 hover:bg-blue-700"
+                        onClick={() => window.open('https://tourninja.com/tours/southern-islands', '_blank')}
+                      >
+                        Voir Détails
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        className="flex-1"
+                        onClick={() => window.location.href = '/contact?tour=Îles du Sud'}
+                      >
+                        Réserver
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </StaggerItem>
+            </StaggerChildren>
+            
+            {/* Call to Action */}
+            <FadeInWhenVisible>
+              <div className="bg-blue-600 text-white rounded-xl p-8 text-center">
+                <h3 className="text-2xl font-bold mb-4">Besoin d'un Circuit Personnalisé ?</h3>
+                <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
+                  Nos experts locaux créent des itinéraires sur mesure selon vos envies et votre budget. 
+                  Contactez-nous pour organiser votre voyage de rêve en Thaïlande.
+                </p>
+                <Button 
+                  size="lg" 
+                  variant="secondary"
+                  className="bg-white text-blue-600 hover:bg-gray-100"
+                  onClick={() => window.location.href = '/contact?subject=Circuit Personnalisé'}
+                >
+                  Demander un Devis Gratuit
+                </Button>
+              </div>
+            </FadeInWhenVisible>
+          </div>
+        </section>
         
         {/* Experiences List */}
         <section className="py-16">

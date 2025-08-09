@@ -32,6 +32,69 @@ interface BlogPost {
   }[];
 }
 
+// Tours data mapping - corresponds to our database tours
+const toursData = {
+  1: {
+    id: 1,
+    title: "Bangkok Essentiel",
+    description: "Circuit culturel de 3 jours à Bangkok : Grand Palais, temples sacrés, marchés flottants et expériences gastronomiques avec guide francophone.",
+    duration: "3 jours",
+    price: 350,
+    tourNinjaUrl: "https://tourninja.com/tours/bangkok-essential"
+  },
+  2: {
+    id: 2,
+    title: "Triangle d'Or",
+    description: "Voyage de 5 jours dans le nord : Chiang Mai, tribus des montagnes, Temple Blanc, Triangle d'Or et croisière sur le Mékong.",
+    duration: "5 jours", 
+    price: 590,
+    tourNinjaUrl: "https://tourninja.com/tours/golden-triangle"
+  },
+  3: {
+    id: 3,
+    title: "Îles du Sud",
+    description: "Circuit de 7 jours : Phuket, îles Phi Phi, baie de Phang Nga, Krabi et Railay Beach. Plages paradisiaques et activités nautiques.",
+    duration: "7 jours",
+    price: 790,
+    tourNinjaUrl: "https://tourninja.com/tours/southern-islands"
+  }
+};
+
+// Function to get related tours based on article slug
+const getRelatedTours = (slug: string) => {
+  // Map specific articles to relevant tours
+  const tourMapping: { [key: string]: number[] } = {
+    // Krabi and islands articles → Îles du Sud tour
+    'plus-belles-plages-krabi-guide-paradis-tropical': [3],
+    'railay-beach-krabi-guide-complet-plage-spectaculaire': [3],
+    'iles-phi-phi-krabi-excursion-guide-complet': [3],
+    '4-islands-tour-krabi-excursion-populaire-guide': [3],
+    'hong-island-krabi-lagon-secret-ile-paradisiaque': [3],
+    'snorkeling-krabi-meilleurs-spots-fonds-marins': [3],
+    'guide-complet-krabi-2025-voyage-thailande': [3],
+    'ao-nang-krabi-guide-complet-centre-touristique': [3],
+    'escalade-krabi-guide-complet-railay-beach-capitale-mondiale': [3],
+    'krabi-ou-phuket-comparaison-complete-choisir-destination-thai-parfaite': [3],
+    
+    // Culture and temples articles → Bangkok + Triangle d'Or
+    'temples-culture-krabi-guide-spirituel-traditions-thai-authentiques': [1, 2],
+    
+    // General travel articles → All tours  
+    'budget-voyage-krabi-2025-guide-prix-bons-plans': [3],
+    'meilleurs-hotels-krabi-2025-guide-hebergements-luxe-budget': [3],
+    'meilleurs-restaurants-krabi-guide-gastronomique-specialites-thai-fruits-mer': [3],
+    'quand-partir-krabi-guide-meteo-saisons-meilleure-periode': [3],
+    'transport-krabi-guide-complet-moyens-transport-deplacements': [3],
+    'vie-nocturne-krabi-guide-meilleurs-bars-pubs-clubs-sortir': [3],
+    'shopping-krabi-guide-meilleurs-marches-centres-commerciaux-souvenirs-authentiques': [3],
+    'massage-spa-krabi-guide-meilleurs-centres-bien-etre-soins-traditionnels': [3],
+    'ultimate-guide-to-exploring-krabi-top-islands-and-hidden-gems': [3]
+  };
+  
+  const tourIds = tourMapping[slug] || [];
+  return tourIds.map(id => toursData[id as keyof typeof toursData]).filter(Boolean);
+};
+
 export default function BlogPostPage() {
   const [, params] = useRoute("/blog/:slug");
   
@@ -177,7 +240,7 @@ export default function BlogPostPage() {
                     title={post.title}
                     className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                     loading="eager"
-                    fetchpriority="high"
+                    fetchPriority="high"
                     onError={(e) => {
                       e.currentTarget.style.display = 'none';
                     }}
@@ -245,6 +308,72 @@ export default function BlogPostPage() {
                     return <p key={index} className="mb-4 text-gray-700 leading-relaxed">{paragraph}</p>;
                   })}
                 </div>
+                
+                {/* Related Tours Section - SEO optimized call-to-action */}
+                {getRelatedTours(post.slug).length > 0 && (
+                  <div className="mt-12 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-200 shadow-sm">
+                    <h3 className="text-xl font-bold text-blue-900 mb-4 flex items-center gap-2">
+                      <span>🌴</span>
+                      Tours Recommandés par Amon Tour
+                    </h3>
+                    <p className="text-gray-700 mb-6 text-sm">
+                      Découvrez nos circuits guidés pour vivre ces expériences avec nos experts locaux
+                    </p>
+                    <div className="space-y-4">
+                      {getRelatedTours(post.slug).map((tour) => (
+                        <div key={tour.id} className="bg-white p-5 rounded-lg shadow-sm border hover:shadow-md transition-shadow">
+                          <div className="flex justify-between items-start gap-4">
+                            <div className="flex-1">
+                              <h4 className="font-bold text-gray-800 mb-2 text-lg">{tour.title}</h4>
+                              <p className="text-gray-600 text-sm mb-3 leading-relaxed">{tour.description}</p>
+                              <div className="flex items-center gap-4 text-sm">
+                                <span className="flex items-center gap-1 text-blue-600">
+                                  <span>⏱️</span>
+                                  <strong>{tour.duration}</strong>
+                                </span>
+                                <span className="flex items-center gap-1 text-green-600">
+                                  <span>💰</span>
+                                  <strong>À partir de {tour.price}€</strong>
+                                </span>
+                              </div>
+                            </div>
+                            <div className="flex flex-col gap-2">
+                              <a 
+                                href={tour.tourNinjaUrl} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-colors text-center shadow-sm"
+                                aria-label={`Voir détails et réserver ${tour.title}`}
+                              >
+                                Voir Détails
+                              </a>
+                              <a 
+                                href={`/contact?tour=${encodeURIComponent(tour.title)}`}
+                                className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg text-sm font-medium transition-colors text-center"
+                                aria-label={`Contacter pour ${tour.title}`}
+                              >
+                                Réserver
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mt-6 p-4 bg-blue-100 rounded-lg">
+                      <div className="flex items-start gap-3">
+                        <span className="text-blue-600 text-lg">💡</span>
+                        <div>
+                          <p className="font-semibold text-blue-900 mb-1">Pourquoi choisir Amon Tour ?</p>
+                          <ul className="text-sm text-blue-800 space-y-1">
+                            <li>• <strong>Guides francophones experts</strong> - Découverte authentique avec explications détaillées</li>
+                            <li>• <strong>Groupes réduits</strong> - Experience personnalisée et de qualité</li>
+                            <li>• <strong>Réservation sécurisée</strong> - Paiement protégé et annulation flexible</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </article>
 
