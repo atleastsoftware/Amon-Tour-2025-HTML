@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { Helmet } from "react-helmet";
 
 interface BlogPost {
   id: number;
@@ -16,6 +17,9 @@ interface BlogPost {
   coverImage: string;
   createdAt: string;
   authorName: string;
+  metaDescription?: string;
+  metaKeywords?: string;
+  imageAltText?: string;
   category?: {
     id: number;
     name: string;
@@ -98,6 +102,60 @@ export default function BlogPostPage() {
 
   return (
     <div className="min-h-screen">
+      <Helmet>
+        <title>{post.title} | Amon Tour - Guide Krabi Thaïlande</title>
+        <meta name="description" content={post.metaDescription || post.excerpt} />
+        <meta name="keywords" content={post.metaKeywords || `Krabi, Thaïlande, ${post.title}`} />
+        
+        {/* Open Graph Meta Tags for Social Media */}
+        <meta property="og:title" content={`${post.title} | Amon Tour`} />
+        <meta property="og:description" content={post.metaDescription || post.excerpt} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={`https://amon-tour.com/blog/${post.slug}`} />
+        {post.coverImage && (
+          <meta property="og:image" content={`https://amon-tour.com${post.coverImage}`} />
+        )}
+        
+        {/* Twitter Card Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${post.title} | Amon Tour`} />
+        <meta name="twitter:description" content={post.metaDescription || post.excerpt} />
+        {post.coverImage && (
+          <meta name="twitter:image" content={`https://amon-tour.com${post.coverImage}`} />
+        )}
+        
+        {/* Article Schema.org Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": post.title,
+            "description": post.metaDescription || post.excerpt,
+            "image": post.coverImage ? `https://amon-tour.com${post.coverImage}` : undefined,
+            "author": {
+              "@type": "Organization",
+              "name": "Amon Tour",
+              "url": "https://amon-tour.com"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Amon Tour",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://amon-tour.com/logo.png"
+              }
+            },
+            "datePublished": post.createdAt,
+            "dateModified": post.createdAt,
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": `https://amon-tour.com/blog/${post.slug}`
+            },
+            "articleSection": post.category?.name || "Guide Voyage",
+            "keywords": post.metaKeywords ? post.metaKeywords.split(', ') : undefined
+          })}
+        </script>
+      </Helmet>
       <Header />
       <div className="bg-gray-50">
         <div className="container mx-auto px-4 py-12">
@@ -110,19 +168,23 @@ export default function BlogPostPage() {
 
             {/* Article Header */}
             <article className="bg-white rounded-lg shadow-lg overflow-hidden">
-              {/* Cover Image */}
+              {/* Cover Image - SEO Optimized */}
               {post.coverImage && (
-                <div className="relative h-64 md:h-96">
+                <div className="relative h-64 md:h-96 overflow-hidden">
                   <img
                     src={post.coverImage}
-                    alt={post.title}
-                    className="w-full h-full object-cover"
+                    alt={post.imageAltText || `Guide Krabi - ${post.title} | Amon Tour`}
+                    title={post.title}
+                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                    loading="eager"
+                    fetchpriority="high"
                     onError={(e) => {
                       e.currentTarget.style.display = 'none';
                     }}
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
                   {post.category && (
-                    <Badge className="absolute top-4 left-4 bg-blue-600">
+                    <Badge className="absolute top-4 left-4 bg-blue-600 shadow-lg">
                       {post.category.name}
                     </Badge>
                   )}

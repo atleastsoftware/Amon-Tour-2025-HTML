@@ -17,6 +17,9 @@ interface BlogPost {
   coverImage: string;
   createdAt: string;
   authorName: string;
+  metaDescription?: string;
+  metaKeywords?: string;
+  imageAltText?: string;
   category?: {
     id: number;
     name: string;
