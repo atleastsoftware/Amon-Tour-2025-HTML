@@ -1507,7 +1507,7 @@ Crawl-delay: 1`;
     TTL: 6 * 60 * 60 * 1000 // 6 hours in milliseconds
   };
 
-  // Clear cache to force fresh data fetch with legacy endpoint
+  // Clear cache to force fresh data fetch with presentation images
   tourCache.data = null;
   tourCache.timestamp = 0;
 
@@ -1678,30 +1678,42 @@ Crawl-delay: 1`;
       
       // The legacy API returns an object with tours array - structure confirmed by Tour Ninja agent
       if (apiResponse.success && apiResponse.tours && Array.isArray(apiResponse.tours)) {
-        tours = apiResponse.tours.map((tour: any) => ({
-          id: tour.id,
-          name: tour.name || tour.title,
-          description: tour.description || '',
-          shortDescription: tour.description ? tour.description.substring(0, 150) + '...' : '',
-          images: tour.images || (tour.primaryImage ? [tour.primaryImage] : []),
-          primaryImage: tour.primaryImage ? `/api/proxy/image?url=${encodeURIComponent(tour.primaryImage)}` : null,
-          price: tour.price || 0,
-          currency: tour.currency || 'THB',
-          duration: tour.duration || 1,
-          location: tour.destination || 'Krabi, Thailand',
-          bookingUrl: tour.bookingUrl || tour.url || `https://www.tourninja.io/book/${tour.id}`,
-          detailsUrl: tour.detailsUrl || tour.url || `https://www.tourninja.io/details/${tour.id}`,
-          presentationUrl: tour.detailsUrl || tour.url || `https://www.tourninja.io/details/${tour.id}`,
-          externalId: tour.id,
-          slug: tour.slug || tour.name?.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-          tourType: tour.tourType || 'group',
-          maxParticipants: tour.maxParticipants || 12,
-          isActive: true,
-          category: tour.category || '',
-          tags: tour.tags || [],
-          maxGuests: tour.maxParticipants || 12,
-          minGuests: 1,
-        }));
+        tours = apiResponse.tours.map((tour: any) => {
+          // Build specific presentation image URL for each tour
+          const presentationImageUrl = `https://www.tourninja.io/api/image-proxy/${tour.id}/presentation`;
+          const fallbackImageUrl = tour.primaryImage;
+          
+          console.log(`Tour ${tour.name}: Trying presentation URL ${presentationImageUrl}`);
+          
+          return {
+            id: tour.id,
+            name: tour.name || tour.title,
+            description: tour.description || '',
+            shortDescription: tour.description ? tour.description.substring(0, 150) + '...' : '',
+            images: tour.images || (tour.primaryImage ? [tour.primaryImage] : []),
+            // Try presentation image first, fallback to original
+            primaryImage: `/api/proxy/image?url=${encodeURIComponent(presentationImageUrl)}`,
+            fallbackImage: fallbackImageUrl ? `/api/proxy/image?url=${encodeURIComponent(fallbackImageUrl)}` : null,
+            presentationImageUrl: presentationImageUrl,
+            originalPrimaryImage: tour.primaryImage,
+            price: tour.price || 0,
+            currency: tour.currency || 'THB',
+            duration: tour.duration || 1,
+            location: tour.destination || 'Krabi, Thailand',
+            bookingUrl: tour.bookingUrl || tour.url || `https://www.tourninja.io/book/${tour.id}`,
+            detailsUrl: tour.detailsUrl || tour.url || `https://www.tourninja.io/details/${tour.id}`,
+            presentationUrl: tour.detailsUrl || tour.url || `https://www.tourninja.io/details/${tour.id}`,
+            externalId: tour.id,
+            slug: tour.slug || tour.name?.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+            tourType: tour.tourType || 'group',
+            maxParticipants: tour.maxParticipants || 12,
+            isActive: true,
+            category: tour.category || '',
+            tags: tour.tags || [],
+            maxGuests: tour.maxParticipants || 12,
+            minGuests: 1,
+          };
+        });
       } else if (Array.isArray(apiResponse)) {
         // Legacy: Fallback if API returns array directly
         tours = apiResponse.map((tour: any) => ({

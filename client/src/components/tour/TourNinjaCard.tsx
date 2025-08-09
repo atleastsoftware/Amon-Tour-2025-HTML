@@ -43,10 +43,21 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
                 src={tour.primaryImage || tour.images[0]}
                 alt={tour.name}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                onLoad={() => setImageError(false)}
-                onError={() => {
-                  console.warn(`Failed to load image for tour ${tour.name}:`, tour.primaryImage);
-                  setImageError(true);
+                onLoad={() => {
+                  setImageError(false);
+                  console.log(`✅ Successfully loaded presentation image for tour ${tour.name}`);
+                }}
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  console.warn(`❌ Failed to load presentation image for tour ${tour.name}:`, tour.primaryImage);
+                  
+                  // Try fallback image if available
+                  if ((tour as any).fallbackImage && target.src !== (tour as any).fallbackImage) {
+                    console.log(`🔄 Trying fallback image for tour ${tour.name}:`, (tour as any).fallbackImage);
+                    target.src = (tour as any).fallbackImage;
+                  } else {
+                    setImageError(true);
+                  }
                 }}
               />
             </div>
