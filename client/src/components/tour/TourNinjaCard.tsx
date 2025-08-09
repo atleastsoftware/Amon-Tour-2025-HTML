@@ -45,16 +45,18 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 onLoad={() => {
                   setImageError(false);
-                  console.log(`✅ Successfully loaded presentation image for tour ${tour.name}`);
+                  const imageType = tour.customImage ? 'image personnalisée' : 'image TourNinja';
+                  console.log(`✅ Successfully loaded ${imageType} for tour ${tour.name}`);
                 }}
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  console.warn(`❌ Failed to load presentation image for tour ${tour.name}:`, tour.primaryImage);
+                  const imageType = tour.customImage ? 'image personnalisée' : 'image TourNinja';
+                  console.warn(`❌ Failed to load ${imageType} for tour ${tour.name}:`, tour.primaryImage);
                   
-                  // Try fallback image if available
-                  if ((tour as any).fallbackImage && target.src !== (tour as any).fallbackImage) {
-                    console.log(`🔄 Trying fallback image for tour ${tour.name}:`, (tour as any).fallbackImage);
-                    target.src = (tour as any).fallbackImage;
+                  // If custom image failed, try original TourNinja image
+                  if (tour.customImage && target.src === tour.customImage && tour.images?.[0]) {
+                    console.log(`🔄 Trying original TourNinja image for tour ${tour.name}:`, tour.images[0]);
+                    target.src = tour.images[0];
                   } else {
                     setImageError(true);
                   }
@@ -73,13 +75,18 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
             </div>
           )}
           
-          <div className="absolute top-3 right-3">
+          <div className="absolute top-3 right-3 flex flex-col gap-2">
             <Badge variant="secondary" className="bg-white/90 text-primary font-semibold">
               {tour.price > 0 
                 ? (tour.currency === 'THB' ? formatTHB(tour.price) : `${tour.price} ${tour.currency || 'THB'}`)
                 : 'Prix sur demande'
               }
             </Badge>
+            {tour.customImage && (
+              <Badge variant="default" className="bg-gold text-white text-xs font-medium">
+                Image personnalisée
+              </Badge>
+            )}
           </div>
         </div>
 

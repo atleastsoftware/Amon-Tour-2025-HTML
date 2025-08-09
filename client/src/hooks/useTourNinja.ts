@@ -8,6 +8,7 @@ export interface TourNinjaTour {
   shortDescription?: string;
   images: string[];
   primaryImage?: string;
+  customImage?: string; // Added for image overrides
   price: number;
   currency: string;
   duration: string;
@@ -42,17 +43,48 @@ export function useTourNinja() {
     refetchOnWindowFocus: false,
   });
 
+  // Fetch image overrides
+  const { data: imageOverrides, isLoading: overridesLoading } = useQuery({
+    queryKey: ['/api/tour-ninja-image-overrides'],
+    retry: false,
+    staleTime: 10 * 60 * 1000, // 10 minutes
+    enabled: !!(response?.data && response.data.length > 0), // Only fetch overrides if we have tours
+  });
+
+  // Apply image overrides to tours using useMemo for performance
+  const [toursWithOverrides, setToursWithOverrides] = useState<TourNinjaTour[]>([]);
+  
+  useEffect(() => {
+    if (!response?.data) {
+      setToursWithOverrides([]);
+      return;
+    }
+
+    const processedTours = response.data.map(tour => {
+      const override = (imageOverrides as any[])?.find(
+        (override: any) => override.tourNinjaId === tour.id && override.isActive
+      );
+      
+      return {
+        ...tour,
+        customImage: override?.customImageUrl,
+        primaryImage: override?.customImageUrl || tour.primaryImage
+      };
+    });
+    
+    setToursWithOverrides(processedTours);
+  }, [response?.data, imageOverrides]);
 
   return {
-    tours: response?.data || [],
-    isLoading,
+    tours: toursWithOverrides,
+    isLoading: isLoading || overridesLoading,
     error,
     refetch,
     cached: response?.cached || false,
     fallback: response?.fallback || false,
     success: response?.success || false,
     message: response?.message,
-    count: response?.data?.length || 0
+    count: toursWithOverrides?.length || 0
   };
 }
 

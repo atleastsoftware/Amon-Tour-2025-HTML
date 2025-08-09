@@ -1918,6 +1918,19 @@ Crawl-delay: 1`;
     }
   });
 
+  // Get all Tour Ninja image overrides (public endpoint for frontend use)
+  app.get("/api/tour-ninja-image-overrides", async (req, res) => {
+    try {
+      const overrides = await storage.getTourNinjaImageOverrides();
+      // Only return active overrides for public consumption
+      const activeOverrides = overrides.filter(override => override.isActive);
+      res.json(activeOverrides);
+    } catch (error) {
+      console.error("Error fetching Tour Ninja image overrides:", error);
+      res.status(500).json({ message: "Failed to fetch image overrides", error: String(error) });
+    }
+  });
+
   // Get Tour Ninja image override by tour ID (public endpoint for frontend use)
   app.get("/api/tour-ninja-images/:tourId", async (req, res) => {
     try {
