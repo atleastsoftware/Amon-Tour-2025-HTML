@@ -50,7 +50,9 @@ export function useTourNinja() {
     refetch,
     cached: response?.cached || false,
     fallback: response?.fallback || false,
-    success: response?.success || false
+    success: response?.success || false,
+    message: response?.message,
+    count: response?.data?.length || 0
   };
 }
 

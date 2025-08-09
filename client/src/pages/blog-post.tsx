@@ -32,52 +32,52 @@ interface BlogPost {
   }[];
 }
 
-// Popular Tour Ninja tours mapping - real data from API
+// Popular Tour Ninja tours mapping - real tokens from API
 const popularToursData = {
   'phi-phi': {
-    id: 'phi-phi-ao-nang',
-    title: "Koh Phi Phi & Îles d'Ao Nang",
+    id: '_LkIo_9vyF',
+    title: "Koh Phi Phi & Ao Nang's local islands",
     description: "Excursion d'une journée vers les îles paradisiaques de Phi Phi et les îles locales d'Ao Nang. Découvrez des plages de sable blanc, des eaux cristallines et des paysages à couper le souffle.",
     duration: "1 jour",
     price: 2500,
     currency: "THB",
-    tourNinjaUrl: "https://www.tourninja.io/book/phi-phi-ao-nang"
+    tourNinjaUrl: "https://www.tourninja.io/book/_LkIo_9vyF"
   },
   'railay': {
-    id: 'railay-beaches',
-    title: "Railay Beach & Îles d'Ao Nang", 
+    id: '8avSq2JCG8',
+    title: "Railay & Ao Nang's local islands", 
     description: "Explorez la magnifique Railay Beach, accessible uniquement par bateau, et les îles locales d'Ao Nang. Parfait pour l'escalade, la détente et la découverte.",
     duration: "1 jour",
-    price: 2200,
+    price: 2500,
     currency: "THB",
-    tourNinjaUrl: "https://www.tourninja.io/book/railay-beaches"
+    tourNinjaUrl: "https://www.tourninja.io/book/8avSq2JCG8"
   },
   'hong-island': {
-    id: 'hong-archipelago',
-    title: "Archipel de Koh Hong",
+    id: '9Pw3VgOKha',
+    title: "Koh Hong Archipelago",
     description: "Découvrez l'archipel de Koh Hong avec ses lagons émeraude cachés, ses plages de sable blanc et ses formations rocheuses spectaculaires. Une expérience inoubliable.",
     duration: "1 jour", 
-    price: 2800,
+    price: 2500,
     currency: "THB",
-    tourNinjaUrl: "https://www.tourninja.io/book/hong-archipelago"
-  },
-  'four-islands': {
-    id: 'four-islands-krabi',
-    title: "4 Islands Tour de Krabi",
-    description: "Le tour le plus populaire de Krabi ! Visitez Poda Island, Chicken Island, Tup Island et Phra Nang Cave Beach en une journée mémorable.",
-    duration: "1 jour",
-    price: 2300,
-    currency: "THB", 
-    tourNinjaUrl: "https://www.tourninja.io/book/four-islands-krabi"
+    tourNinjaUrl: "https://www.tourninja.io/book/9Pw3VgOKha"
   },
   'sunset-plankton': {
-    id: 'sunset-plankton',
-    title: "Coucher de Soleil & Plancton Lumineux",
+    id: 'IGdQFwdJK8',
+    title: "Koh Hong & Ao Nang's local islands Sunset and Plankton",
     description: "Expérience magique combinant coucher de soleil sur les îles d'Ao Nang et observation du plancton bioluminescent la nuit. Moment unique et romantique.",
     duration: "1 jour",
-    price: 2600,
+    price: 2500,
     currency: "THB",
-    tourNinjaUrl: "https://www.tourninja.io/book/sunset-plankton"
+    tourNinjaUrl: "https://www.tourninja.io/book/IGdQFwdJK8"
+  },
+  'catamaran': {
+    id: 'Wmx1GfDdXL',
+    title: "Catamaran day trip - Ao Nang's local islands",
+    description: "Croisière luxueuse en catamaran vers les îles locales d'Ao Nang. Une expérience premium avec confort et élégance.",
+    duration: "1 jour",
+    price: 3500,
+    currency: "THB",
+    tourNinjaUrl: "https://www.tourninja.io/book/Wmx1GfDdXL"
   }
 };
 
