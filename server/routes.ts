@@ -1701,13 +1701,22 @@ Crawl-delay: 1`;
         });
       }
       
-      // Return actual Tour Ninja data (confirmed by agent) as fallback while API connection issues persist
-      console.log("Tour Ninja API connection issue, returning actual tour data provided by Tour Ninja agent");
+      // Log the exact error for debugging
+      console.log("Tour Ninja API Error Details:", {
+        status: error instanceof Error ? error.message : String(error),
+        timestamp: new Date().toISOString(),
+        url: 'https://www.tourninja.io/api/public/tours/legacy?companyId=2'
+      });
       
-      const realTourNinjaData = [
-        {
-          id: "_LkIo_9vyF",
-          name: "Koh Phi Phi & Ao Nang's local islands",
+      // Return empty array until API connection is resolved - no fallback data
+      res.json({ 
+        success: true,
+        data: [],
+        cached: false,
+        message: "Tour Ninja API connection en cours de résolution", 
+        apiStatus: "connection_issue",
+        error: process.env.NODE_ENV === 'development' ? String(error) : undefined
+      });
           description: "Découvrez les îles paradisiaques de Phi Phi et les îles locales d'Ao Nang. Plongez dans des eaux cristallines, explorez des plages de sable blanc et admirez des formations rocheuses spectaculaires.",
           shortDescription: "Excursion d'une journée vers les îles paradisiaques de Phi Phi et Ao Nang",
           images: ["https://images.unsplash.com/photo-1544551763-46a013bb70d5"],
