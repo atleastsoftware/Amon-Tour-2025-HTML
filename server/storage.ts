@@ -14,6 +14,7 @@ import {
   krabiCelebrationRequests,
   partnershipRequests,
   groupRequests,
+  tourNinjaImageOverrides,
   type User,
   type InsertUser,
   type Tour,
@@ -43,6 +44,8 @@ import {
   type InsertPartnershipRequest,
   type GroupRequest,
   type InsertGroupRequest,
+  type TourNinjaImageOverride,
+  type InsertTourNinjaImageOverride,
 } from "@shared/schema";
 import fs from "fs";
 import path from "path";
@@ -158,6 +161,15 @@ export interface IStorage {
   updateGroupRequest(id: number, data: Partial<GroupRequest>): Promise<GroupRequest | undefined>;
   deleteGroupRequest(id: number): Promise<boolean>;
   markGroupRequestAsRead(id: number): Promise<GroupRequest | undefined>;
+  
+  // Tour Ninja Image Override operations
+  createTourNinjaImageOverride(override: InsertTourNinjaImageOverride): Promise<TourNinjaImageOverride>;
+  getTourNinjaImageOverrides(): Promise<TourNinjaImageOverride[]>;
+  getTourNinjaImageOverride(id: number): Promise<TourNinjaImageOverride | undefined>;
+  getTourNinjaImageOverrideByTourId(tourNinjaId: string): Promise<TourNinjaImageOverride | undefined>;
+  updateTourNinjaImageOverride(id: number, data: Partial<InsertTourNinjaImageOverride>): Promise<TourNinjaImageOverride | undefined>;
+  deleteTourNinjaImageOverride(id: number): Promise<boolean>;
+  toggleTourNinjaImageOverride(id: number): Promise<TourNinjaImageOverride | undefined>;
 }
 
 export class DatabaseStorage implements IStorage {

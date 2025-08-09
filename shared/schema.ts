@@ -258,6 +258,27 @@ export const insertNewsletterSubscriptionSchema = createInsertSchema(newsletterS
 export type InsertNewsletterSubscription = z.infer<typeof insertNewsletterSubscriptionSchema>;
 export type NewsletterSubscription = typeof newsletterSubscriptions.$inferSelect;
 
+// Tour Ninja Image Override table
+export const tourNinjaImageOverrides = pgTable("tour_ninja_image_overrides", {
+  id: serial("id").primaryKey(),
+  tourNinjaId: text("tour_ninja_id").notNull().unique(),
+  tourName: text("tour_name").notNull(),
+  customImageUrl: text("custom_image_url").notNull(),
+  originalImageUrl: text("original_image_url"),
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const insertTourNinjaImageOverrideSchema = createInsertSchema(tourNinjaImageOverrides).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export type InsertTourNinjaImageOverride = z.infer<typeof insertTourNinjaImageOverrideSchema>;
+export type TourNinjaImageOverride = typeof tourNinjaImageOverrides.$inferSelect;
+
 // Custom tour request schema validation
 export const insertCustomTourRequestSchema = createInsertSchema(customTourRequests).omit({
   id: true,
