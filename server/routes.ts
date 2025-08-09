@@ -1583,8 +1583,8 @@ Crawl-delay: 1`;
   // Secure Tour Ninja API proxy route
   app.get("/api/proxy/tours", async (req, res) => {
     try {
-      const apiKey = "tourninja-showcase-2-amontour";
-      const companyId = "2";
+      const apiKey = process.env.TOUR_NINJA_API_KEY || "tourninja-showcase-2-amontour";
+      const companyId = process.env.TOUR_NINJA_COMPANY_ID || "2";
       
       console.log("Tour Ninja API Call:", {
         apiKey,
@@ -1630,47 +1630,88 @@ Crawl-delay: 1`;
         });
       }
 
-      // Use the legacy API endpoint that actually works
-      const legacyUrl = `https://www.tourninja.io/api/public/tours/legacy?companyId=${companyId}`;
+      // Try both API endpoints for maximum compatibility
+      const useApiKey = process.env.TOUR_NINJA_API_KEY && process.env.TOUR_NINJA_COMPANY_ID;
+      const primaryUrl = useApiKey 
+        ? `https://www.tourninja.io/api/public/tours?apiKey=${apiKey}&companyId=${companyId}&limit=100`
+        : `https://www.tourninja.io/api/public/tours/legacy?companyId=${companyId}`;
+      const fallbackUrl = `https://www.tourninja.io/api/public/tours/legacy?companyId=${companyId}`;
       
-      console.log("Fetching fresh data from Tour Ninja Legacy API", {
-        url: legacyUrl,
+      console.log("Fetching fresh data from Tour Ninja API", {
+        url: primaryUrl,
+        useApiKey,
         environment: process.env.NODE_ENV,
         hostname: req.hostname
       });
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 seconds timeout
+      
+      let response;
+      let controller = new AbortController();
+      let timeoutId = setTimeout(() => controller.abort(), 30000); // 30 seconds timeout
       
       // Simple fetch call as recommended
       const nodeFetch = (await import('node-fetch')).default;
       
-      const response = await nodeFetch(legacyUrl, {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json'
-        },
-        signal: controller.signal
-      });
+      try {
+        response = await nodeFetch(primaryUrl, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json'
+          },
+          signal: controller.signal
+        });
+        
+        if (!response.ok && useApiKey) {
+          console.log("Primary API failed, trying fallback URL:", fallbackUrl);
+          clearTimeout(timeoutId);
+          controller = new AbortController();
+          timeoutId = setTimeout(() => controller.abort(), 30000);
+          
+          response = await nodeFetch(fallbackUrl, {
+            method: 'GET',
+            headers: {
+              'Accept': 'application/json'
+            },
+            signal: controller.signal
+          });
+        }
+      } catch (error) {
+        if (useApiKey) {
+          console.log("Primary API errored, trying fallback URL:", fallbackUrl);
+          clearTimeout(timeoutId);
+          controller = new AbortController();
+          timeoutId = setTimeout(() => controller.abort(), 30000);
+          
+          response = await nodeFetch(fallbackUrl, {
+            method: 'GET',
+            headers: {
+              'Accept': 'application/json'
+            },
+            signal: controller.signal
+          });
+        } else {
+          throw error;
+        }
+      }
       
       clearTimeout(timeoutId);
 
-      console.log("Tour Ninja Legacy API Response Status:", response.status, response.statusText);
+      console.log("Tour Ninja API Response Status:", response.status, response.statusText);
       
       if (!response.ok) {
         const errorText = await response.text();
-        console.error("Tour Ninja Legacy API Error Response:", errorText);
-        throw new Error(`Tour Ninja Legacy API error: ${response.status} ${response.statusText} - ${errorText}`);
+        console.error("Tour Ninja API Error Response:", errorText);
+        throw new Error(`Tour Ninja API error: ${response.status} ${response.statusText} - ${errorText}`);
       }
 
       const responseText = await response.text();
-      console.log("Tour Ninja Legacy API Raw Response:", responseText.substring(0, 500));
+      console.log("Tour Ninja API Raw Response:", responseText.substring(0, 500));
       
       let apiResponse;
       try {
         apiResponse = JSON.parse(responseText);
       } catch (e) {
-        console.error("Failed to parse Tour Ninja Legacy response:", e);
-        throw new Error("Invalid JSON response from Tour Ninja Legacy API");
+        console.error("Failed to parse Tour Ninja API response:", e);
+        throw new Error("Invalid JSON response from Tour Ninja API");
       }
       
       // Extract and enhance tours data from the legacy API response  
