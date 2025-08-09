@@ -1101,6 +1101,76 @@ export class DatabaseStorage implements IStorage {
   async markGroupRequestAsRead(id: number): Promise<GroupRequest | undefined> {
     return this.updateGroupRequest(id, { read: true });
   }
+
+  // Tour Ninja Image Override operations
+  async createTourNinjaImageOverride(override: InsertTourNinjaImageOverride): Promise<TourNinjaImageOverride> {
+    const [created] = await db
+      .insert(tourNinjaImageOverrides)
+      .values({
+        ...override,
+        updatedAt: new Date()
+      })
+      .returning();
+    return created;
+  }
+
+  async getTourNinjaImageOverrides(): Promise<TourNinjaImageOverride[]> {
+    return db.select().from(tourNinjaImageOverrides).orderBy(desc(tourNinjaImageOverrides.createdAt));
+  }
+
+  async getTourNinjaImageOverride(id: number): Promise<TourNinjaImageOverride | undefined> {
+    const [override] = await db
+      .select()
+      .from(tourNinjaImageOverrides)
+      .where(eq(tourNinjaImageOverrides.id, id));
+    return override || undefined;
+  }
+
+  async getTourNinjaImageOverrideByTourId(tourNinjaId: string): Promise<TourNinjaImageOverride | undefined> {
+    const [override] = await db
+      .select()
+      .from(tourNinjaImageOverrides)
+      .where(and(
+        eq(tourNinjaImageOverrides.tourNinjaId, tourNinjaId),
+        eq(tourNinjaImageOverrides.isActive, true)
+      ));
+    return override || undefined;
+  }
+
+  async updateTourNinjaImageOverride(id: number, data: Partial<InsertTourNinjaImageOverride>): Promise<TourNinjaImageOverride | undefined> {
+    const [updated] = await db
+      .update(tourNinjaImageOverrides)
+      .set({
+        ...data,
+        updatedAt: new Date()
+      })
+      .where(eq(tourNinjaImageOverrides.id, id))
+      .returning();
+    return updated || undefined;
+  }
+
+  async deleteTourNinjaImageOverride(id: number): Promise<boolean> {
+    const result = await db
+      .delete(tourNinjaImageOverrides)
+      .where(eq(tourNinjaImageOverrides.id, id))
+      .returning({ id: tourNinjaImageOverrides.id });
+    return result.length > 0;
+  }
+
+  async toggleTourNinjaImageOverride(id: number): Promise<TourNinjaImageOverride | undefined> {
+    const current = await this.getTourNinjaImageOverride(id);
+    if (!current) return undefined;
+    
+    const [updated] = await db
+      .update(tourNinjaImageOverrides)
+      .set({ 
+        isActive: !current.isActive,
+        updatedAt: new Date()
+      })
+      .where(eq(tourNinjaImageOverrides.id, id))
+      .returning();
+    return updated || undefined;
+  }
 }
 
 export const storage = new DatabaseStorage();

@@ -11,11 +11,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { MapPin, Clock, ExternalLink, Search, Filter, X, AlertCircle } from "lucide-react";
 import { formatTHB } from "@/lib/utils";
-import { useTourNinja, type TourNinjaTour } from "@/hooks/useTourNinja";
+import { useTourNinjaWithCustomImages, type TourNinjaTour } from "@/hooks/useTourNinja";
 import { useIframe } from "@/contexts/IframeContext";
 
 export default function Tours() {
-  const { tours, isLoading, error, success, cached, fallback } = useTourNinja();
+  const { tours, isLoading, error, success, cached, fallback } = useTourNinjaWithCustomImages();
   const { openIframe } = useIframe();
   
   // Filtres

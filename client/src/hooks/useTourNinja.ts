@@ -56,6 +56,36 @@ export function useTourNinja() {
   };
 }
 
+// Enhanced hook that includes custom image overrides
+export function useTourNinjaWithCustomImages() {
+  const tourQuery = useTourNinja();
+  
+  const { data: imageOverrides, isLoading: overridesLoading } = useQuery({
+    queryKey: ["/api/admin/tour-ninja-images"],
+    retry: false,
+  });
+
+  const enhancedTours = tourQuery.tours?.map((tour: TourNinjaTour) => {
+    const override = (imageOverrides as any)?.find((img: any) => 
+      img.tourNinjaId === tour.id.toString() && img.isActive
+    );
+    
+    return {
+      ...tour,
+      primaryImage: override?.customImageUrl || tour.primaryImage,
+      customImage: override?.customImageUrl || null,
+      originalImage: tour.primaryImage
+    };
+  }) || [];
+
+  return {
+    ...tourQuery,
+    tours: enhancedTours,
+    imageOverrides,
+    isLoading: tourQuery.isLoading || overridesLoading
+  };
+}
+
 // Hook alternatif pour appel direct (si vous préférez ne pas passer par le proxy)
 export function useTourNinjaDirect(apiKey?: string, companyId?: string) {
   const [tours, setTours] = useState<TourNinjaTour[]>([]);

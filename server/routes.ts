@@ -16,6 +16,7 @@ import {
   insertKrabiCelebrationRequestSchema,
   insertPartnershipRequestSchema,
   insertGroupRequestSchema,
+  insertTourNinjaImageOverrideSchema,
 } from "@shared/schema";
 import { createPaymentIntent, createOrRetrieveCustomer } from "./stripe";
 import { upload, getPublicFileUrl } from "./upload";
@@ -1792,6 +1793,133 @@ Crawl-delay: 1`;
     } catch (error) {
       console.error("Error fetching tour showcase:", error);
       res.status(500).json({ message: "Server error" });
+    }
+  });
+
+  // ===== TOUR NINJA IMAGE OVERRIDE API ROUTES =====
+
+  // Get all Tour Ninja image overrides
+  app.get("/api/admin/tour-ninja-images", requireAuth, async (req, res) => {
+    try {
+      const overrides = await storage.getTourNinjaImageOverrides();
+      res.json(overrides);
+    } catch (error) {
+      console.error("Error fetching Tour Ninja image overrides:", error);
+      res.status(500).json({ message: "Failed to fetch image overrides", error: String(error) });
+    }
+  });
+
+  // Create new Tour Ninja image override
+  app.post("/api/admin/tour-ninja-images", requireAuth, upload.single('image'), async (req, res) => {
+    try {
+      const { tourNinjaId, tourName, originalImageUrl } = req.body;
+      
+      if (!req.file) {
+        return res.status(400).json({ message: "Image file is required" });
+      }
+
+      const overrideData = insertTourNinjaImageOverrideSchema.parse({
+        tourNinjaId,
+        tourName,
+        customImageUrl: getPublicFileUrl(req.file.filename),
+        originalImageUrl: originalImageUrl || null
+      });
+
+      const override = await storage.createTourNinjaImageOverride(overrideData);
+      res.status(201).json(override);
+    } catch (error: any) {
+      console.error("Error creating Tour Ninja image override:", error);
+      res.status(400).json({ 
+        message: "Failed to create image override", 
+        error: error.errors || error.message || String(error) 
+      });
+    }
+  });
+
+  // Update Tour Ninja image override
+  app.put("/api/admin/tour-ninja-images/:id", requireAuth, upload.single('image'), async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid override ID" });
+      }
+
+      const updateData: any = {};
+      
+      if (req.body.tourName) updateData.tourName = req.body.tourName;
+      if (req.body.originalImageUrl) updateData.originalImageUrl = req.body.originalImageUrl;
+      if (req.body.isActive !== undefined) updateData.isActive = req.body.isActive === 'true';
+      
+      if (req.file) {
+        updateData.customImageUrl = getPublicFileUrl(req.file.filename);
+      }
+
+      const updatedOverride = await storage.updateTourNinjaImageOverride(id, updateData);
+      if (!updatedOverride) {
+        return res.status(404).json({ message: "Image override not found" });
+      }
+
+      res.json(updatedOverride);
+    } catch (error) {
+      console.error("Error updating Tour Ninja image override:", error);
+      res.status(500).json({ message: "Failed to update image override", error: String(error) });
+    }
+  });
+
+  // Toggle Tour Ninja image override active status
+  app.patch("/api/admin/tour-ninja-images/:id/toggle", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid override ID" });
+      }
+
+      const updatedOverride = await storage.toggleTourNinjaImageOverride(id);
+      if (!updatedOverride) {
+        return res.status(404).json({ message: "Image override not found" });
+      }
+
+      res.json(updatedOverride);
+    } catch (error) {
+      console.error("Error toggling Tour Ninja image override:", error);
+      res.status(500).json({ message: "Failed to toggle image override", error: String(error) });
+    }
+  });
+
+  // Delete Tour Ninja image override
+  app.delete("/api/admin/tour-ninja-images/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid override ID" });
+      }
+
+      const deleted = await storage.deleteTourNinjaImageOverride(id);
+      if (!deleted) {
+        return res.status(404).json({ message: "Image override not found" });
+      }
+
+      res.json({ message: "Image override deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting Tour Ninja image override:", error);
+      res.status(500).json({ message: "Failed to delete image override", error: String(error) });
+    }
+  });
+
+  // Get Tour Ninja image override by tour ID (public endpoint for frontend use)
+  app.get("/api/tour-ninja-images/:tourId", async (req, res) => {
+    try {
+      const { tourId } = req.params;
+      const override = await storage.getTourNinjaImageOverrideByTourId(tourId);
+      
+      if (!override) {
+        return res.status(404).json({ message: "No image override found for this tour" });
+      }
+
+      res.json(override);
+    } catch (error) {
+      console.error("Error fetching Tour Ninja image override by tour ID:", error);
+      res.status(500).json({ message: "Failed to fetch image override", error: String(error) });
     }
   });
 
