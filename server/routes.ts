@@ -1530,6 +1530,55 @@ Crawl-delay: 1`;
     });
   });
 
+  // Image proxy for Tour Ninja images
+  app.get('/api/proxy/image', async (req, res) => {
+    try {
+      const imageUrl = req.query.url as string;
+      
+      if (!imageUrl) {
+        return res.status(400).json({ error: 'Image URL required' });
+      }
+
+      // Only allow Tour Ninja image URLs for security
+      if (!imageUrl.includes('tourninja.io')) {
+        return res.status(403).json({ error: 'Unauthorized image source' });
+      }
+
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000);
+      
+      const nodeFetch = (await import('node-fetch')).default;
+      const response = await nodeFetch(imageUrl, {
+        signal: controller.signal,
+        headers: {
+          'User-Agent': 'Amon-Tour/1.0'
+        }
+      });
+      
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        return res.status(404).json({ error: 'Image not found' });
+      }
+
+      // Forward the content type and cache headers
+      const contentType = response.headers.get('content-type');
+      if (contentType) {
+        res.set('Content-Type', contentType);
+      }
+      
+      res.set('Cache-Control', 'public, max-age=3600'); // Cache for 1 hour
+      res.set('Access-Control-Allow-Origin', '*');
+      
+      // Stream the image
+      response.body?.pipe(res);
+      
+    } catch (error) {
+      console.error('Image proxy error:', error);
+      res.status(500).json({ error: 'Failed to proxy image' });
+    }
+  });
+
   // Secure Tour Ninja API proxy route
   app.get("/api/proxy/tours", async (req, res) => {
     try {
@@ -1609,83 +1658,7 @@ Crawl-delay: 1`;
       if (!response.ok) {
         const errorText = await response.text();
         console.error("Tour Ninja Legacy API Error Response:", errorText);
-        
-        // TEMPORARY: Return sample data for SEO testing while API is being fixed
-        console.log("API still returning 500 - using sample data for SEO demonstration");
-        const sampleTours = [
-          {
-            id: "demo-1",
-            name: "4 îles en Speed Boat depuis Krabi",
-            description: "Découvrez les plus belles îles autour de Krabi lors d'une excursion d'une journée complète. Visitez Koh Poda, Koh Tub, Koh Mor et Chicken Island avec snorkeling et déjeuner inclus.",
-            shortDescription: "Excursion d'une journée aux 4 îles emblématiques de Krabi avec snorkeling et déjeuner.",
-            images: ["https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800"],
-            primaryImage: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800",
-            price: 1500,
-            currency: "THB",
-            duration: 8,
-            location: "Krabi, Thaïlande",
-            bookingUrl: "https://www.tourninja.io/book/demo-1",
-            detailsUrl: "https://www.tourninja.io/details/demo-1",
-            presentationUrl: "https://www.tourninja.io/details/demo-1",
-            slug: "4-iles-speed-boat-krabi",
-            tourType: "group",
-            maxParticipants: 15,
-            category: "Îles",
-            tags: ["speed boat", "snorkeling", "îles"],
-            isActive: true
-          },
-          {
-            id: "demo-2", 
-            name: "Phi Phi Island Tour depuis Krabi",
-            description: "Visitez les célèbres îles Phi Phi en bateau depuis Krabi. Découvrez Maya Bay, Pileh Lagoon, Viking Cave et profitez du snorkeling dans des eaux cristallines.",
-            shortDescription: "Excursion aux îles Phi Phi avec Maya Bay, snorkeling et déjeuner sur la plage.",
-            images: ["https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=800"],
-            primaryImage: "https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=800",
-            price: 2200,
-            currency: "THB", 
-            duration: 10,
-            location: "Krabi, Thaïlande",
-            bookingUrl: "https://www.tourninja.io/book/demo-2",
-            detailsUrl: "https://www.tourninja.io/details/demo-2",
-            presentationUrl: "https://www.tourninja.io/details/demo-2",
-            slug: "phi-phi-island-tour-krabi",
-            tourType: "group",
-            maxParticipants: 20,
-            category: "Îles",
-            tags: ["phi phi", "maya bay", "snorkeling"],
-            isActive: true
-          },
-          {
-            id: "demo-3",
-            name: "Railay Beach et Grottes depuis Krabi", 
-            description: "Explorez les plages paradisiaques de Railay et les grottes mystérieuses de Krabi. Escalade optionnelle, détente sur la plage et visite de Phra Nang Cave.",
-            shortDescription: "Découverte de Railay Beach et des grottes avec options d'escalade et détente.",
-            images: ["https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800"],
-            primaryImage: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800",
-            price: 1200,
-            currency: "THB",
-            duration: 6,
-            location: "Krabi, Thaïlande", 
-            bookingUrl: "https://www.tourninja.io/book/demo-3",
-            detailsUrl: "https://www.tourninja.io/details/demo-3",
-            presentationUrl: "https://www.tourninja.io/details/demo-3",
-            slug: "railay-beach-grottes-krabi",
-            tourType: "group",
-            maxParticipants: 12,
-            category: "Plages",
-            tags: ["railay", "escalade", "grottes"],
-            isActive: true
-          }
-        ];
-        
-        return res.json({
-          success: true,
-          data: sampleTours,
-          cached: false,
-          message: "Données de démonstration - API Tour Ninja en cours de réparation",
-          apiStatus: "demo_mode",
-          timestamp: Date.now()
-        });
+        throw new Error(`Tour Ninja Legacy API error: ${response.status} ${response.statusText} - ${errorText}`);
       }
 
       const responseText = await response.text();
@@ -1710,7 +1683,7 @@ Crawl-delay: 1`;
           description: tour.description || '',
           shortDescription: tour.description ? tour.description.substring(0, 150) + '...' : '',
           images: tour.images || (tour.primaryImage ? [tour.primaryImage] : []),
-          primaryImage: tour.primaryImage || null,
+          primaryImage: tour.primaryImage ? `/api/proxy/image?url=${encodeURIComponent(tour.primaryImage)}` : null,
           price: tour.price || 0,
           currency: tour.currency || 'THB',
           duration: tour.duration || 1,
