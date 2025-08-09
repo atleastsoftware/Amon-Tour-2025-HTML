@@ -21,7 +21,8 @@ import {
   Newspaper,
   Settings,
   LogOut,
-  Image
+  Image,
+  Globe
 } from "lucide-react";
 
 export default function Admin() {
@@ -326,11 +327,39 @@ export default function Admin() {
                 </Card>
               </motion.div>
 
-              {/* Cartes de tours */}
+              {/* Traduction Automatique */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.7 }}
+              >
+                <Card 
+                  className="group hover:shadow-lg transition-all duration-300 cursor-pointer border-0 bg-gradient-to-r from-emerald-500 to-emerald-600 shadow-md hover:shadow-xl hover:scale-105 relative"
+                  onClick={() => setLocation('/admin-translation')}
+                >
+                  <CardHeader className="text-white">
+                    <div className="flex items-center space-x-3">
+                      <div className="p-2 bg-white/20 rounded-lg">
+                        <Globe className="h-6 w-6" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-lg font-heading">Traduction Auto</CardTitle>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="text-white/90">
+                    <CardDescription className="text-white/80">
+                      Gérer la traduction automatique par IP
+                    </CardDescription>
+                  </CardContent>
+                </Card>
+              </motion.div>
+
+              {/* Cartes de tours */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.8 }}
               >
                 <Card 
                   className="group hover:shadow-lg transition-all duration-300 cursor-pointer border-0 bg-gradient-to-r from-teal-500 to-teal-600 shadow-md hover:shadow-xl hover:scale-105 relative"
