@@ -130,6 +130,7 @@ SENDGRID_API_KEY=your_sendgrid_key (for email notifications)
 - June 24, 2025: Implemented automatic email notification system using SendGrid - admin receives instant alerts for all form submissions (Krabi Celebration, Partnership, Group Corporate) with detailed information, plus confirmation emails sent to clients
 - August 9, 2025: Completed comprehensive Tour Ninja image diagnostics and fixes - resolved image loading issues through improved error handling, increased proxy timeout, and enhanced fallback displays. All Tour Ninja images now display properly with elegant fallbacks.
 - August 9, 2025: Implemented automatic browser translation system using IP geolocation - detects French-speaking visitors (FR, BE, CH, CA) and triggers native browser translators automatically. Admin interface at `/admin-translation` for configuration and testing.
+- August 9, 2025: Successfully implemented authentic TourNinja presentation images - replaced generic Unsplash fallbacks with real tour-specific presentation images via `/api/image-proxy/{tourId}/presentation` URLs. All 18 tours now display their authentic promotional images as configured in TourNinja dashboard.
 
 ## User Preferences
 
