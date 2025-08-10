@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { Button } from "@/components/ui/button";
@@ -8,9 +8,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { Upload, Eye, EyeOff, Edit, Trash2, Plus, Image as ImageIcon } from "lucide-react";
+import { Upload, Eye, EyeOff, Edit, Trash2, Plus, Image as ImageIcon, Camera, Sparkles, Check, X, Search, Filter } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { TourNinjaImageOverride } from "@shared/schema";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { Progress } from "@/components/ui/progress";
 
 export default function AdminTourNinjaImages() {
   const { toast } = useToast();
@@ -18,11 +21,17 @@ export default function AdminTourNinjaImages() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [editingOverride, setEditingOverride] = useState<TourNinjaImageOverride | null>(null);
   const [showNewDialog, setShowNewDialog] = useState(false);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [dragActive, setDragActive] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterStatus, setFilterStatus] = useState<"all" | "active" | "inactive">("all");
   const [newOverrideForm, setNewOverrideForm] = useState({
     tourNinjaId: "",
     tourName: "",
     originalImageUrl: "",
-    image: null as File | null
+    image: null as File | null,
+    description: ""
   });
 
   // Fetch image overrides
@@ -38,6 +47,55 @@ export default function AdminTourNinjaImages() {
   });
 
   const tours = (tourNinjaData as any)?.data || [];
+
+  // Drag & Drop handlers
+  const handleDrag = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === "dragenter" || e.type === "dragover") {
+      setDragActive(true);
+    } else if (e.type === "dragleave") {
+      setDragActive(false);
+    }
+  }, []);
+
+  const handleDrop = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      handleFileSelect(e.dataTransfer.files[0]);
+    }
+  }, []);
+
+  const handleFileSelect = useCallback((file: File) => {
+    if (file.type.startsWith('image/')) {
+      setNewOverrideForm(prev => ({ ...prev, image: file }));
+      const reader = new FileReader();
+      reader.onload = (e) => setImagePreview(e.target?.result as string);
+      reader.readAsDataURL(file);
+      toast({
+        title: "Image sélectionnée",
+        description: `${file.name} prête à être téléchargée`,
+      });
+    } else {
+      toast({
+        title: "Erreur",
+        description: "Veuillez sélectionner un fichier image valide",
+        variant: "destructive",
+      });
+    }
+  }, [toast]);
+
+  // Filter tours based on search and status
+  const filteredOverrides = ((overrides as TourNinjaImageOverride[]) || []).filter((override: TourNinjaImageOverride) => {
+    const matchesSearch = override.tourName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         override.tourNinjaId.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesStatus = filterStatus === "all" || 
+                         (filterStatus === "active" && override.isActive) ||
+                         (filterStatus === "inactive" && !override.isActive);
+    return matchesSearch && matchesStatus;
+  });
 
   // Create override mutation
   const createMutation = useMutation({
@@ -60,8 +118,10 @@ export default function AdminTourNinjaImages() {
         tourNinjaId: "",
         tourName: "",
         originalImageUrl: "",
-        image: null
+        image: null,
+        description: ""
       });
+      setImagePreview(null);
     },
     onError: (error) => {
       toast({
@@ -102,9 +162,7 @@ export default function AdminTourNinjaImages() {
   // Toggle override mutation
   const toggleMutation = useMutation({
     mutationFn: async (id: number) => {
-      return apiRequest(`/api/admin/tour-ninja-images/${id}/toggle`, {
-        method: "PATCH",
-      });
+      return apiRequest(`/api/admin/tour-ninja-images/${id}/toggle`, "PATCH");
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/tour-ninja-images"] });
@@ -125,9 +183,7 @@ export default function AdminTourNinjaImages() {
   // Delete override mutation
   const deleteMutation = useMutation({
     mutationFn: async (id: number) => {
-      return apiRequest(`/api/admin/tour-ninja-images/${id}`, {
-        method: "DELETE",
-      });
+      return apiRequest(`/api/admin/tour-ninja-images/${id}`, "DELETE");
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/tour-ninja-images"] });
@@ -201,69 +257,184 @@ export default function AdminTourNinjaImages() {
         </div>
         <Dialog open={showNewDialog} onOpenChange={setShowNewDialog}>
           <DialogTrigger asChild>
-            <Button className="bg-blue-600 hover:bg-blue-700">
-              <Plus className="w-4 h-4 mr-2" />
-              Ajouter Image
+            <Button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 shadow-lg">
+              <Sparkles className="w-4 h-4 mr-2" />
+              Ajouter Image Personnalisée
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-md">
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>Ajouter Image Personnalisée</DialogTitle>
+              <DialogTitle className="flex items-center gap-2 text-xl">
+                <Camera className="w-5 h-5 text-blue-600" />
+                Personnaliser Image de Tour
+              </DialogTitle>
             </DialogHeader>
-            <div className="space-y-4">
-              <div>
-                <Label htmlFor="tour-select">Tour</Label>
-                <select
-                  id="tour-select"
-                  className="w-full p-2 border border-gray-300 rounded-md"
+            
+            <div className="space-y-6">
+              {/* Tour Selection */}
+              <div className="space-y-2">
+                <Label htmlFor="tour-select" className="text-sm font-medium">Sélectionner le tour</Label>
+                <Select
                   value={newOverrideForm.tourNinjaId}
-                  onChange={(e) => {
-                    const selectedTour = tours.find((t: any) => t.id.toString() === e.target.value);
+                  onValueChange={(value) => {
+                    const selectedTour = tours.find((t: any) => t.id.toString() === value);
                     setNewOverrideForm({
                       ...newOverrideForm,
-                      tourNinjaId: e.target.value,
+                      tourNinjaId: value,
                       tourName: selectedTour?.name || "",
                       originalImageUrl: selectedTour?.primaryImage || ""
                     });
                   }}
                 >
-                  <option value="">Sélectionner un tour...</option>
-                  {getToursWithoutOverrides().map((tour: any) => (
-                    <option key={tour.id} value={tour.id}>
-                      {tour.name}
-                    </option>
-                  ))}
-                </select>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Choisir un tour..." />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {getToursWithoutOverrides().map((tour: any) => (
+                      <SelectItem key={tour.id} value={tour.id.toString()}>
+                        <div className="flex items-center gap-2">
+                          <ImageIcon className="w-4 h-4 text-gray-400" />
+                          {tour.name}
+                        </div>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
-              
-              <div>
-                <Label htmlFor="image-file">Image personnalisée *</Label>
-                <Input
-                  id="image-file"
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    setNewOverrideForm({
-                      ...newOverrideForm,
-                      image: file || null
-                    });
-                  }}
+
+              {/* Image Upload Zone */}
+              <div className="space-y-2">
+                <Label className="text-sm font-medium">Télécharger votre image</Label>
+                <div
+                  className={`relative border-2 border-dashed rounded-lg p-8 text-center transition-all duration-200 ${
+                    dragActive 
+                      ? 'border-blue-500 bg-blue-50' 
+                      : 'border-gray-300 hover:border-gray-400'
+                  }`}
+                  onDragEnter={handleDrag}
+                  onDragLeave={handleDrag}
+                  onDragOver={handleDrag}
+                  onDrop={handleDrop}
+                >
+                  {imagePreview ? (
+                    <div className="space-y-4">
+                      <div className="relative w-full h-48 rounded-lg overflow-hidden bg-gray-100">
+                        <img
+                          src={imagePreview}
+                          alt="Prévisualisation"
+                          className="w-full h-full object-cover"
+                        />
+                        <Button
+                          variant="destructive"
+                          size="sm"
+                          className="absolute top-2 right-2"
+                          onClick={() => {
+                            setImagePreview(null);
+                            setNewOverrideForm(prev => ({ ...prev, image: null }));
+                          }}
+                        >
+                          <X className="w-4 h-4" />
+                        </Button>
+                      </div>
+                      <p className="text-sm text-green-600 font-medium">
+                        <Check className="w-4 h-4 inline mr-1" />
+                        Image prête à être téléchargée
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      <div className="flex justify-center">
+                        <Upload className={`w-12 h-12 ${dragActive ? 'text-blue-500' : 'text-gray-400'}`} />
+                      </div>
+                      <div>
+                        <p className="text-lg font-medium text-gray-700">
+                          {dragActive ? 'Déposez votre image ici' : 'Glissez-déposez votre image ici'}
+                        </p>
+                        <p className="text-sm text-gray-500">ou</p>
+                        <Button
+                          variant="outline"
+                          className="mt-2"
+                          onClick={() => fileInputRef.current?.click()}
+                        >
+                          Parcourir les fichiers
+                        </Button>
+                      </div>
+                      <p className="text-xs text-gray-400">
+                        Formats supportés: JPG, PNG, WebP (max 10MB)
+                      </p>
+                    </div>
+                  )}
+                  
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) handleFileSelect(file);
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* Description Optional */}
+              <div className="space-y-2">
+                <Label htmlFor="description" className="text-sm font-medium">Description (optionnel)</Label>
+                <Textarea
+                  id="description"
+                  placeholder="Ajoutez une description de votre image personnalisée..."
+                  value={newOverrideForm.description}
+                  onChange={(e) => setNewOverrideForm(prev => ({ ...prev, description: e.target.value }))}
+                  className="resize-none"
+                  rows={3}
                 />
               </div>
 
-              <div className="flex gap-2">
+              {/* Upload Progress */}
+              {createMutation.isPending && (
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span>Téléchargement en cours...</span>
+                    <span>75%</span>
+                  </div>
+                  <Progress value={75} className="w-full" />
+                </div>
+              )}
+
+              {/* Action Buttons */}
+              <div className="flex gap-3 pt-4">
                 <Button
                   onClick={handleCreateOverride}
-                  disabled={createMutation.isPending}
-                  className="flex-1"
+                  disabled={createMutation.isPending || !newOverrideForm.tourNinjaId || !newOverrideForm.image}
+                  className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800"
                 >
-                  {createMutation.isPending ? "Ajout..." : "Ajouter"}
+                  {createMutation.isPending ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                      Téléchargement...
+                    </>
+                  ) : (
+                    <>
+                      <Check className="w-4 h-4 mr-2" />
+                      Ajouter l'image
+                    </>
+                  )}
                 </Button>
                 <Button
                   variant="outline"
-                  onClick={() => setShowNewDialog(false)}
-                  className="flex-1"
+                  onClick={() => {
+                    setShowNewDialog(false);
+                    setImagePreview(null);
+                    setNewOverrideForm({
+                      tourNinjaId: "",
+                      tourName: "",
+                      originalImageUrl: "",
+                      image: null,
+                      description: ""
+                    });
+                  }}
+                  className="px-6"
                 >
                   Annuler
                 </Button>
@@ -271,6 +442,50 @@ export default function AdminTourNinjaImages() {
             </div>
           </DialogContent>
         </Dialog>
+      </div>
+
+      {/* Search and Filters */}
+      <div className="bg-white p-4 rounded-lg border shadow-sm">
+        <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex-1 relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+            <Input
+              placeholder="Rechercher par nom de tour ou ID..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10"
+            />
+          </div>
+          <div className="flex gap-2">
+            <Select value={filterStatus} onValueChange={(value: "all" | "active" | "inactive") => setFilterStatus(value)}>
+              <SelectTrigger className="w-[150px]">
+                <Filter className="w-4 h-4 mr-2" />
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Tous les statuts</SelectItem>
+                <SelectItem value="active">Images actives</SelectItem>
+                <SelectItem value="inactive">Images inactives</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+        {(searchTerm || filterStatus !== "all") && (
+          <div className="mt-3 text-sm text-gray-600">
+            {filteredOverrides.length} résultat(s) trouvé(s)
+            {searchTerm && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setSearchTerm("")}
+                className="ml-2 h-6 px-2"
+              >
+                <X className="w-3 h-3 mr-1" />
+                Effacer
+              </Button>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Statistics */}
@@ -298,8 +513,9 @@ export default function AdminTourNinjaImages() {
       </div>
 
       {/* Overrides Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {(overrides as TourNinjaImageOverride[])?.map((override: TourNinjaImageOverride) => (
+      {filteredOverrides.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredOverrides.map((override: TourNinjaImageOverride) => (
           <Card key={override.id} className="overflow-hidden">
             <div className="relative h-48 bg-gray-100">
               <img
@@ -355,16 +571,50 @@ export default function AdminTourNinjaImages() {
               </div>
             </CardContent>
           </Card>
-        ))}
-      </div>
-
-      {(overrides as TourNinjaImageOverride[])?.length === 0 && (
-        <Alert>
-          <ImageIcon className="h-4 w-4" />
-          <AlertDescription>
-            Aucune image personnalisée configurée. Ajoutez des images pour remplacer celles de Tour Ninja.
-          </AlertDescription>
-        </Alert>
+          ))}
+        </div>
+      ) : (
+        <div className="text-center py-16">
+          {searchTerm || filterStatus !== "all" ? (
+            <div className="space-y-4">
+              <div className="w-20 h-20 mx-auto bg-gray-100 rounded-full flex items-center justify-center">
+                <Search className="w-8 h-8 text-gray-400" />
+              </div>
+              <div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Aucun résultat trouvé</h3>
+                <p className="text-gray-500 mb-4">Aucune image ne correspond à vos critères de recherche.</p>
+                <Button 
+                  variant="outline" 
+                  onClick={() => {
+                    setSearchTerm("");
+                    setFilterStatus("all");
+                  }}
+                >
+                  Effacer les filtres
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-6">
+              <div className="w-24 h-24 mx-auto bg-gradient-to-br from-blue-100 to-blue-200 rounded-full flex items-center justify-center">
+                <ImageIcon className="w-12 h-12 text-blue-600" />
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">Aucune image personnalisée</h3>
+                <p className="text-gray-500 mb-6 max-w-md mx-auto">
+                  Commencez à personnaliser vos tours en ajoutant vos propres images pour remplacer celles de Tour Ninja.
+                </p>
+                <Button 
+                  className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800"
+                  onClick={() => setShowNewDialog(true)}
+                >
+                  <Sparkles className="w-4 h-4 mr-2" />
+                  Ajouter votre première image
+                </Button>
+              </div>
+            </div>
+          )}
+        </div>
       )}
 
       {/* Edit Dialog */}
