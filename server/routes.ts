@@ -1583,7 +1583,7 @@ Crawl-delay: 1`;
   // Secure Tour Ninja API proxy route
   app.get("/api/proxy/tours", async (req, res) => {
     try {
-      // Use working credentials while user fixes their TourNinja API keys
+      // Use working demo credentials until user gets valid API key
       const apiKey = "tourninja-showcase-2-amontour";
       const companyId = "2";
       
