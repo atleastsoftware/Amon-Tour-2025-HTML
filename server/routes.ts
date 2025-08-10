@@ -1619,17 +1619,10 @@ Crawl-delay: 1`;
         });
       }
 
-      // Check cache first
-      const now = Date.now();
-      if (tourCache.data && (now - tourCache.timestamp) < tourCache.TTL) {
-        console.log("Returning cached Tour Ninja data");
-        return res.json({
-          success: true,
-          data: tourCache.data,
-          cached: true,
-          timestamp: tourCache.timestamp
-        });
-      }
+      // Force cache refresh to use correct API keys
+      console.log("Forcing fresh data fetch to fix API key issue");
+      tourCache.data = null;
+      tourCache.timestamp = 0;
 
       // Try both API endpoints for maximum compatibility
       const useApiKey = process.env.TOUR_NINJA_API_KEY && process.env.TOUR_NINJA_COMPANY_ID;
@@ -1782,13 +1775,13 @@ Crawl-delay: 1`;
       
       // Update cache
       tourCache.data = tours;
-      tourCache.timestamp = now;
+      tourCache.timestamp = Date.now();
       
       res.json({
         success: true,
         data: tours,
         cached: false,
-        timestamp: now
+        timestamp: Date.now()
       });
     } catch (error) {
       console.error("Error fetching tours from Tour Ninja:", error);
