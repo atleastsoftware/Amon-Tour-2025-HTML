@@ -232,9 +232,34 @@ export default function AdminTourNinjaImages() {
   };
 
   const getToursWithoutOverrides = () => {
+    // Si overrides n'est pas encore chargé (erreur d'auth), montrer tous les tours
+    if (!overrides || (overrides as any)?.message === "Authentication required") {
+      return tours;
+    }
+    // Sinon, filtrer les tours qui ont déjà des overrides
     const overrideIds = new Set((overrides as TourNinjaImageOverride[])?.map((o: TourNinjaImageOverride) => o.tourNinjaId) || []);
     return tours.filter((tour: any) => !overrideIds.has(tour.id.toString()));
   };
+
+  // Check authentication first
+  if (overrides && (overrides as any)?.message === "Authentication required") {
+    return (
+      <div className="p-6">
+        <div className="flex items-center justify-center h-64">
+          <div className="text-center space-y-4">
+            <div className="text-lg font-medium text-red-600">Authentification requise</div>
+            <p className="text-gray-600">Vous devez vous connecter pour accéder à cette page.</p>
+            <Button 
+              onClick={() => window.location.href = '/admin-login'}
+              className="bg-blue-600 hover:bg-blue-700"
+            >
+              Se connecter
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (
@@ -290,16 +315,40 @@ export default function AdminTourNinjaImages() {
                     <SelectValue placeholder="Choisir un tour..." />
                   </SelectTrigger>
                   <SelectContent>
-                    {getToursWithoutOverrides().map((tour: any) => (
-                      <SelectItem key={tour.id} value={tour.id.toString()}>
-                        <div className="flex items-center gap-2">
-                          <ImageIcon className="w-4 h-4 text-gray-400" />
-                          {tour.name}
-                        </div>
+                    {tours.length > 0 ? (
+                      tours.filter((tour: any) => {
+                        // Si overrides n'est pas encore chargé (erreur d'auth), montrer tous les tours
+                        if (!overrides || (overrides as any)?.message === "Authentication required") {
+                          return true;
+                        }
+                        // Sinon, filtrer les tours qui ont déjà des overrides
+                        const overrideIds = new Set((overrides as TourNinjaImageOverride[])?.map((o: TourNinjaImageOverride) => o.tourNinjaId) || []);
+                        return !overrideIds.has(tour.id.toString());
+                      }).map((tour: any) => (
+                        <SelectItem key={tour.id} value={tour.id.toString()}>
+                          <div className="flex items-center gap-2">
+                            <ImageIcon className="w-4 h-4 text-gray-400" />
+                            {tour.name}
+                          </div>
+                        </SelectItem>
+                      ))
+                    ) : (
+                      <SelectItem value="no-tours" disabled>
+                        Aucun tour disponible
                       </SelectItem>
-                    ))}
+                    )}
                   </SelectContent>
                 </Select>
+                
+                {/* Debug info */}
+                <div className="text-xs text-gray-500 mt-1">
+                  Debug: {tours.length} tours chargés
+                  {overrides && (overrides as any)?.message && (
+                    <span className="text-orange-600 ml-2">
+                      Auth: {(overrides as any).message}
+                    </span>
+                  )}
+                </div>
               </div>
 
               {/* Image Upload Zone */}
