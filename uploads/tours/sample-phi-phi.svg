@@ -1,0 +1,13 @@
+
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#4A90E2"/>
+  <text x="50%" y="40%" text-anchor="middle" fill="white" font-size="16" font-family="Arial">
+    EXEMPLE PERSONNALISÉ
+  </text>
+  <text x="50%" y="60%" text-anchor="middle" fill="white" font-size="12" font-family="Arial">
+    Koh Phi Phi Adventure
+  </text>
+  <text x="50%" y="80%" text-anchor="middle" fill="white" font-size="10" font-family="Arial">
+    (Remplacez par vos vraies images)
+  </text>
+</svg>
