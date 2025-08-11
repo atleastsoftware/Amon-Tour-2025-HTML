@@ -293,6 +293,8 @@ export const insertCustomTourRequestSchema = createInsertSchema(customTourReques
   tripDates: z.string().optional(),
   duration: z.string().optional(),
   interests: z.array(z.string()).default([]),
+  tripTypes: z.array(z.string()).default([]),
+  destinations: z.array(z.string()).default([]),
   message: z.string().min(1, "Message is required"),
   status: z.enum(["new", "in_progress", "archived"]).default("new"),
 }).refine(

@@ -271,7 +271,7 @@ export class DatabaseStorage implements IStorage {
       .insert(customTourRequests)
       .values({
         ...insertRequest,
-        interests: interests as string[]
+        interests: interests
       })
       .returning();
     return request;
@@ -956,13 +956,14 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getKrabiCelebrationRequests(filters?: { read?: boolean }): Promise<KrabiCelebrationRequest[]> {
-    let query = db.select().from(krabiCelebrationRequests);
-    
     if (filters?.read !== undefined) {
-      query = query.where(eq(krabiCelebrationRequests.read, filters.read));
+      return await db.select().from(krabiCelebrationRequests)
+        .where(eq(krabiCelebrationRequests.read, filters.read))
+        .orderBy(desc(krabiCelebrationRequests.createdAt));
     }
     
-    return query.orderBy(desc(krabiCelebrationRequests.createdAt));
+    return await db.select().from(krabiCelebrationRequests)
+      .orderBy(desc(krabiCelebrationRequests.createdAt));
   }
 
   async getKrabiCelebrationRequest(id: number): Promise<KrabiCelebrationRequest | undefined> {
@@ -1008,13 +1009,14 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getPartnershipRequests(filters?: { read?: boolean }): Promise<PartnershipRequest[]> {
-    let query = db.select().from(partnershipRequests);
-    
     if (filters?.read !== undefined) {
-      query = query.where(eq(partnershipRequests.read, filters.read));
+      return await db.select().from(partnershipRequests)
+        .where(eq(partnershipRequests.read, filters.read))
+        .orderBy(desc(partnershipRequests.createdAt));
     }
     
-    return query.orderBy(desc(partnershipRequests.createdAt));
+    return await db.select().from(partnershipRequests)
+      .orderBy(desc(partnershipRequests.createdAt));
   }
 
   async getPartnershipRequest(id: number): Promise<PartnershipRequest | undefined> {
@@ -1060,13 +1062,14 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getGroupRequests(filters?: { read?: boolean }): Promise<GroupRequest[]> {
-    let query = db.select().from(groupRequests);
-    
     if (filters?.read !== undefined) {
-      query = query.where(eq(groupRequests.read, filters.read));
+      return await db.select().from(groupRequests)
+        .where(eq(groupRequests.read, filters.read))
+        .orderBy(desc(groupRequests.createdAt));
     }
     
-    return query.orderBy(desc(groupRequests.createdAt));
+    return await db.select().from(groupRequests)
+      .orderBy(desc(groupRequests.createdAt));
   }
 
   async getGroupRequest(id: number): Promise<GroupRequest | undefined> {
