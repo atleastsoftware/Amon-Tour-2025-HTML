@@ -100,7 +100,8 @@ function App() {
       <IframeProvider>
         <Router />
         <WhatsAppButton />
-        <IframeModal />
+        {/* IframeModal temporairement désactivée - utilisant la nouvelle page tour-view */}
+        {/* <IframeModal /> */}
       </IframeProvider>
     </TooltipProvider>
   );

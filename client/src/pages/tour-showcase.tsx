@@ -9,7 +9,7 @@ import SEO from "@/components/layout/SEO";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { useIframe } from "@/contexts/IframeContext";
+// import { useIframe } from "@/contexts/IframeContext"; // Remplacé par navigation directe
 
 interface TourShowcaseData {
   tour: {
@@ -60,7 +60,7 @@ export default function TourShowcase() {
   const pathname = window.location.pathname;
   const token = pathname.split('/').pop() || '';
   const [, setLocation] = useLocation();
-  const { openIframe } = useIframe();
+  // const { openIframe } = useIframe(); // Remplacé par navigation directe
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
   const { data: showcaseData, isLoading, error } = useQuery<{
@@ -78,14 +78,15 @@ export default function TourShowcase() {
 
   const handleBookNow = () => {
     if (tour?.bookingUrl) {
-      // Toujours ouvrir la réservation en iframe sur amon-tour.com
-      openIframe(tour.bookingUrl, `Booking - ${tour.name}`);
+      // Navigation vers page dédiée avec iframe intégré
+      window.location.href = `/tour-view/${encodeURIComponent(tour.id)}?url=${encodeURIComponent(tour.bookingUrl)}&title=${encodeURIComponent(tour.name)}`;
     }
   };
 
   const handleViewDetails = () => {
     if (tour?.detailsUrl) {
-      openIframe(tour.detailsUrl, `Details - ${tour.name}`);
+      // Navigation vers page dédiée avec iframe intégré
+      window.location.href = `/tour-view/${encodeURIComponent(tour.id)}?url=${encodeURIComponent(tour.detailsUrl)}&title=${encodeURIComponent(tour.name)}`;
     }
   };
 
