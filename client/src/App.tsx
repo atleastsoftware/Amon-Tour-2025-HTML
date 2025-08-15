@@ -54,7 +54,7 @@ function Router() {
       <Route path="/custom-tour" component={CustomTour} />
       <Route path="/book-tour/:id" component={BookTour} />
       <Route path="/booking" component={BookingIframe} />
-      <Route path="/tour-view" component={TourView} />
+      <Route path="/tour-view/:tourId" component={TourView} />
       <Route path="/payment-complete" component={PaymentComplete} />
       <Route path="/external-stays" component={ExternalStays} />
       

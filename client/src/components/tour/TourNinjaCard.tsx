@@ -18,11 +18,12 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
   
   const handleCardClick = () => {
     if (tour.presentationUrl) {
-      openIframe(tour.presentationUrl, `Présentation - ${tour.name}`);
+      // Navigation vers page dédiée avec iframe intégré
+      window.location.href = `/tour-view/${encodeURIComponent(tour.id)}?url=${encodeURIComponent(tour.presentationUrl)}&title=${encodeURIComponent(tour.name)}`;
     } else if (tour.detailsUrl) {
-      openIframe(tour.detailsUrl, `Détails - ${tour.name}`);
+      window.location.href = `/tour-view/${encodeURIComponent(tour.id)}?url=${encodeURIComponent(tour.detailsUrl)}&title=${encodeURIComponent(tour.name)}`;
     } else if (tour.bookingUrl) {
-      openIframe(tour.bookingUrl, `Réservation - ${tour.name}`);
+      window.location.href = `/tour-view/${encodeURIComponent(tour.id)}?url=${encodeURIComponent(tour.bookingUrl)}&title=${encodeURIComponent(tour.name)}`;
     }
   };
 

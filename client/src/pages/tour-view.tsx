@@ -1,87 +1,106 @@
 import { useEffect, useState } from 'react';
-import { useLocation, Link } from 'wouter';
+import { useLocation, useRoute } from 'wouter';
 import Footer from '@/components/layout/Footer';
 import Header from '@/components/layout/Header';
-import HeaderSimple from '@/components/layout/HeaderSimple';
+import SEO from '@/components/layout/SEO';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Loader2 } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Badge } from '@/components/ui/badge';
-import { formatTHB } from '@/lib/utils';
 
 export default function TourView() {
   const [, setLocation] = useLocation();
-  const [tour, setTour] = useState<any>(null);
+  const [match, params] = useRoute('/tour-view/:tourId');
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [error, setError] = useState<string | null>(null);
+  const [iframeUrl, setIframeUrl] = useState<string>('');
+  const [tourTitle, setTourTitle] = useState<string>('Détails du tour');
+  
+  const tourId = params?.tourId;
 
   useEffect(() => {
-    // Récupérer les paramètres de l'URL
-    const params = new URLSearchParams(window.location.search);
-    const tourData = params.get('tourData');
-
-    if (!tourData) {
-      // Si pas de données de tour, on redirige vers la page des tours
-      setLocation('/tours');
+    if (!match || !tourId) {
+      setError("Tour ID manquant");
+      setIsLoading(false);
       return;
     }
 
-    try {
-      // Décodage des données du tour depuis l'URL
-      const decodedData = JSON.parse(decodeURIComponent(tourData));
-      setTour(decodedData);
-    } catch (error) {
-      console.error("Erreur lors du décodage des données du tour:", error);
-      setLocation('/tours');
+    // Récupérer les paramètres URL et title depuis l'URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const url = urlParams.get('url');
+    const title = urlParams.get('title');
+
+    if (!url) {
+      setError("URL de l'iframe manquante");
+      setIsLoading(false);
       return;
+    }
+
+    setIframeUrl(decodeURIComponent(url));
+    if (title) {
+      setTourTitle(decodeURIComponent(title));
     }
     
-    // Simule un petit délai de chargement pour une meilleure transition
+    // Simuler un délai de chargement
     setTimeout(() => {
       setIsLoading(false);
-    }, 300);
-  }, [setLocation]);
+    }, 500);
+  }, [match, tourId]);
 
-  // Navigation dans la galerie d'images
-  const navigateGallery = (direction: 'next' | 'prev') => {
-    if (!tour || !tour.images || tour.images.length <= 1) return;
-    
-    if (direction === 'next') {
-      setCurrentImageIndex((prevIndex) => 
-        prevIndex + 1 >= tour.images.length ? 0 : prevIndex + 1
-      );
-    } else {
-      setCurrentImageIndex((prevIndex) => 
-        prevIndex - 1 < 0 ? tour.images.length - 1 : prevIndex - 1
-      );
-    }
+  const handleBack = () => {
+    setLocation('/tours');
   };
-  
-  // Formatage du prix selon la devise
-  const formatPrice = (price: number, currency: string) => {
-    switch (currency) {
-      case 'THB':
-        return formatTHB(price);
-      case 'EUR':
-        return `€${price}`;
-      case 'USD':
-        return `$${price}`;
-      default:
-        return `${price} ${currency}`;
+
+  const handleOpenExternal = () => {
+    if (iframeUrl) {
+      window.open(iframeUrl, '_blank', 'noopener,noreferrer');
     }
   };
 
-  if (isLoading || !tour) {
+  // Gestion d'erreur
+  if (error) {
     return (
       <>
-        <HeaderSimple />
-        <div className="container mx-auto px-4 py-16 flex items-center justify-center min-h-[60vh]">
-          <div className="animate-pulse">
-            <div className="w-32 h-32 bg-gray-200 rounded-full flex items-center justify-center">
-              <span className="text-gray-400">Loading...</span>
-            </div>
+        <SEO 
+          title="Erreur - Tour non trouvé | Amon Tour"
+          description="Le tour demandé n'a pas été trouvé."
+        />
+        <Header />
+        <main className="min-h-screen bg-gray-50 pt-20">
+          <div className="container mx-auto px-4 py-16 text-center">
+            <h1 className="text-2xl font-bold text-gray-900 mb-4">Erreur</h1>
+            <p className="text-gray-600 mb-6">{error}</p>
+            <Button onClick={handleBack} variant="outline">
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Retour aux tours
+            </Button>
           </div>
-        </div>
+        </main>
+        <Footer />
+      </>
+    );
+  }
+
+  // État de chargement
+  if (isLoading) {
+    return (
+      <>
+        <SEO 
+          title={`${tourTitle} | Amon Tour`}
+          description="Chargement des détails du tour..."
+        />
+        <Header />
+        <main className="min-h-screen bg-gray-50 pt-20">
+          <div className="container mx-auto px-4 py-16">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="flex flex-col items-center justify-center min-h-[60vh]"
+            >
+              <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4 text-primary" />
+              <p className="text-gray-600">Chargement des détails du tour...</p>
+            </motion.div>
+          </div>
+        </main>
         <Footer />
       </>
     );
@@ -89,123 +108,74 @@ export default function TourView() {
 
   return (
     <>
-      <HeaderSimple />
+      <SEO 
+        title={`${tourTitle} | Amon Tour`}
+        description="Découvrez tous les détails de ce tour authentique en Thaïlande."
+      />
       
-      <main className="container mx-auto px-4 py-8">
-        <Button
-          variant="outline"
-          className="mb-6 flex items-center"
-          onClick={() => window.history.back()}
-        >
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back
-        </Button>
-        
-        <div className="bg-white rounded-xl shadow-md overflow-hidden">
-          {/* Gallery */}
-          <div className="relative aspect-[16/9] overflow-hidden">
-            {tour.images && tour.images.length > 0 ? (
-              <>
-                <img 
-                  src={tour.images[currentImageIndex]} 
-                  alt={`${tour.title} image ${currentImageIndex + 1}`}
-                  className="w-full h-full object-cover"
-                />
-                
-                {/* Image indicators */}
-                {tour.images.length > 1 && (
-                  <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-1.5">
-                    {tour.images.map((_: string, index: number) => (
-                      <button
-                        key={index}
-                        className={`w-2 h-2 rounded-full ${
-                          index === currentImageIndex 
-                            ? 'bg-white' 
-                            : 'bg-white/50'
-                        }`}
-                        onClick={() => setCurrentImageIndex(index)}
-                      />
-                    ))}
-                  </div>
-                )}
-                
-                {/* Image navigation buttons */}
-                {tour.images.length > 1 && (
-                  <>
-                    <button 
-                      className="absolute left-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-black/30 hover:bg-black/50 text-white"
-                      onClick={() => navigateGallery('prev')}
-                    >
-                      <ChevronLeft className="h-6 w-6" />
-                    </button>
-                    <button 
-                      className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-black/30 hover:bg-black/50 text-white"
-                      onClick={() => navigateGallery('next')}
-                    >
-                      <ChevronRight className="h-6 w-6" />
-                    </button>
-                  </>
-                )}
-              </>
-            ) : (
-              <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                <span className="text-gray-400">No images available</span>
-              </div>
-            )}
-            
-            {/* Price and type badges */}
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
-              <div className="flex items-center gap-2 flex-wrap">
-                <div className="inline-block px-4 py-2 rounded-full bg-primary text-white font-medium text-base">
-                  From {formatPrice(tour.price, tour.currency)}
-                </div>
-                <div className={`inline-block px-4 py-2 rounded-full font-medium text-sm ${
-                  tour.type === "tour" 
-                    ? "bg-blue-600 text-white" 
-                    : "bg-amber-500 text-white"
-                }`}>
-                  {tour.type === "tour" ? "Tour" : "Experience"}
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          {/* Content */}
-          <div className="p-6">
-            <h1 className="text-2xl font-heading font-bold">{tour.title}</h1>
-            
-            {/* Tags */}
-            {tour.tags && tour.tags.length > 0 && (
-              <div className="flex flex-wrap gap-1.5 mt-4">
-                {tour.tags.map((tag: string, index: number) => (
-                  <Badge key={index} variant="outline" className="text-xs px-2.5 py-1 bg-gray-50">
-                    {tag}
-                  </Badge>
-                ))}
-              </div>
-            )}
-            
-            {/* Description */}
-            {tour.description && (
-              <div className="mt-4 text-base">
-                <p className="text-gray-700">{tour.description}</p>
-              </div>
-            )}
-            
-            {/* Booking button */}
-            <div className="mt-6">
-              <Button
-                className="w-full py-6 text-base"
-                onClick={() => {
-                  window.location.href = `/booking?link=${encodeURIComponent(tour.customLink)}&title=${encodeURIComponent(tour.title)}&type=${encodeURIComponent(tour.type)}`;
-                }}
-              >
-                <ExternalLink className="h-5 w-5 mr-2" />
-                Book Now
+      <Header />
+      
+      <main className="bg-white pt-20">
+        {/* Header avec navigation */}
+        <section className="bg-gray-50 border-b">
+          <div className="container mx-auto px-4 py-4">
+            <div className="flex items-center justify-between">
+              <Button onClick={handleBack} variant="outline" size="sm">
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Retour aux tours
               </Button>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleOpenExternal}
+                  className="flex items-center gap-2"
+                >
+                  <ExternalLink className="h-4 w-4" />
+                  Ouvrir dans un nouvel onglet
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
+        </section>
+
+        {/* Titre du tour */}
+        <section className="bg-white border-b">
+          <div className="container mx-auto px-4 py-6">
+            <motion.h1 
+              className="text-2xl md:text-3xl font-heading font-bold text-gray-900"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              {tourTitle}
+            </motion.h1>
+            <p className="text-gray-600 mt-2">
+              Présenté par Tour Ninja • Réservation sécurisée
+            </p>
+          </div>
+        </section>
+
+        {/* Iframe intégré */}
+        <section className="bg-white">
+          <motion.div 
+            className="w-full"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+          >
+            {iframeUrl && (
+              <iframe
+                src={iframeUrl}
+                className="w-full border-0"
+                style={{ height: 'calc(100vh - 300px)', minHeight: '600px' }}
+                title={tourTitle}
+                loading="lazy"
+                sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
+              />
+            )}
+          </motion.div>
+        </section>
       </main>
       
       <Footer />
