@@ -24,6 +24,57 @@ import path from "path";
 import bcrypt from "bcrypt";
 import rateLimit from "express-rate-limit";
 
+// Fonctions utilitaires pour l'intégration Tour Ninja
+function parseCustomDate(dateString: string): string {
+  try {
+    // Gérer les formats de date flexibles
+    if (dateString.includes(' - ')) {
+      // Format range de dates: "15/03/2025 - 22/03/2025"
+      const startDate = dateString.split(' - ')[0];
+      return convertToISO(startDate);
+    } else if (dateString.includes('/')) {
+      // Format date simple: "15/03/2025"
+      return convertToISO(dateString);
+    } else {
+      // Format texte libre, garder tel quel
+      return dateString;
+    }
+  } catch (error) {
+    // En cas d'erreur, retourner la chaîne originale
+    return dateString;
+  }
+}
+
+function convertToISO(dateStr: string): string {
+  // Convertir dd/mm/yyyy vers yyyy-mm-dd
+  const parts = dateStr.split('/');
+  if (parts.length === 3) {
+    const [day, month, year] = parts;
+    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+  }
+  return dateStr;
+}
+
+function parseDuration(duration: string): number | undefined {
+  try {
+    // Extraire le nombre de jours de la durée
+    if (duration.includes('1-3')) return 2; // Moyenne
+    if (duration.includes('4-7')) return 5; // Moyenne
+    if (duration.includes('8-14')) return 10; // Moyenne
+    if (duration.includes('15+')) return 15; // Minimum
+    
+    // Essayer d'extraire un nombre direct
+    const match = duration.match(/(\d+)/);
+    if (match) {
+      return parseInt(match[1]);
+    }
+    
+    return undefined;
+  } catch (error) {
+    return undefined;
+  }
+}
+
 export async function registerRoutes(app: Express): Promise<Server> {
   
   // Simple authentication middleware for admin routes only
@@ -986,8 +1037,88 @@ Crawl-delay: 1`;
         destinations: validatedData.destinations || []
       };
       
+      // Sauvegarder localement d'abord
       const customTourRequest = await storage.createCustomTourRequest(requestData);
-      res.status(201).json(customTourRequest);
+      
+      // Intégration Tour Ninja
+      try {
+        const tourNinjaApiKey = process.env.TOUR_NINJA_API_KEY;
+        const companyId = process.env.TOUR_NINJA_COMPANY_ID || "amontour";
+        
+        if (tourNinjaApiKey) {
+          console.log("🚀 Sending custom tour request to Tour Ninja API...");
+          
+          // Préparer les données pour Tour Ninja selon leur format
+          const tourNinjaData = {
+            customerName: validatedData.fullName,
+            customerEmail: validatedData.email,
+            phone: validatedData.phoneNumber,
+            whatsapp: validatedData.phoneNumber, // Même numéro pour WhatsApp
+            adults: validatedData.numberOfAdults,
+            children: validatedData.numberOfKids,
+            startDate: validatedData.tripDates ? parseCustomDate(validatedData.tripDates) : undefined,
+            duration: validatedData.duration ? parseDuration(validatedData.duration) : undefined,
+            interests: validatedData.tripTypes || [],
+            travelTypes: validatedData.tripTypes || [],
+            destinations: validatedData.destinations || [],
+            message: validatedData.message,
+            companyId: companyId,
+            sourceApi: "amontour-website"
+          };
+
+          // Appel à l'API Tour Ninja
+          const tourNinjaResponse = await fetch('https://www.tourninja.io/api/custom-tour-requests', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${tourNinjaApiKey}`
+            },
+            body: JSON.stringify(tourNinjaData)
+          });
+
+          if (tourNinjaResponse.ok) {
+            const tourNinjaResult = await tourNinjaResponse.json();
+            console.log("✅ Tour Ninja API - Request sent successfully:", tourNinjaResult.requestId);
+            
+            // Mettre à jour notre demande locale avec l'ID de Tour Ninja
+            if (tourNinjaResult.requestId) {
+              // On pourrait ajouter un champ tourNinjaRequestId dans notre schéma si nécessaire
+              console.log(`📋 Tour Ninja Reference: ${tourNinjaResult.requestId}`);
+            }
+            
+            // Retourner la réponse avec l'information Tour Ninja
+            res.status(201).json({
+              ...customTourRequest,
+              tourNinjaStatus: "sent",
+              tourNinjaRequestId: tourNinjaResult.requestId,
+              estimatedResponseTime: tourNinjaResult.estimatedResponseTime
+            });
+          } else {
+            console.error("❌ Tour Ninja API Error:", await tourNinjaResponse.text());
+            // Continuer même si Tour Ninja échoue
+            res.status(201).json({
+              ...customTourRequest,
+              tourNinjaStatus: "failed",
+              tourNinjaError: "API call failed"
+            });
+          }
+        } else {
+          console.log("⚠️  Tour Ninja API key not configured, skipping integration");
+          res.status(201).json({
+            ...customTourRequest,
+            tourNinjaStatus: "skipped",
+            reason: "API key not configured"
+          });
+        }
+      } catch (tourNinjaError) {
+        console.error("❌ Tour Ninja integration error:", tourNinjaError);
+        // Continuer même si l'intégration Tour Ninja échoue
+        res.status(201).json({
+          ...customTourRequest,
+          tourNinjaStatus: "error",
+          tourNinjaError: String(tourNinjaError)
+        });
+      }
     } catch (error: any) {
       console.error("Error creating custom tour request:", error);
       if (error instanceof z.ZodError) {
