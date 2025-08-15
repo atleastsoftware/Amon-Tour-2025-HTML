@@ -141,52 +141,32 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
             </div>
           </div>
 
-          {(tour.bookingUrl || tour.detailsUrl) && (
-            <div className="flex gap-2">
-              {tour.detailsUrl && (
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    console.log('🔥 CLICK DETECTED! View Details clicked for tour:', tour.name, tour.id, tour.detailsUrl);
-                    alert('TEST: Button clicked for ' + tour.name);
-                    if (tour.detailsUrl) {
-                      const targetUrl = `/tour-view/${encodeURIComponent(tour.id)}?url=${encodeURIComponent(tour.detailsUrl)}&title=${encodeURIComponent(tour.name)}`;
-                      console.log('🔥 Navigating to:', targetUrl);
-                      setLocation(targetUrl);
-                    } else {
-                      console.error('❌ No detailsUrl found for tour:', tour.name);
-                    }
-                  }}
-                  className="flex-1 bg-red-600 text-white py-3 px-4 rounded-md font-bold text-sm hover:bg-red-700 transition-colors flex items-center justify-center border-2 border-yellow-400"
-                  style={{ zIndex: 1000, position: 'relative' }}
-                >
-                  🔥 TEST VIEW DETAILS 🔥
-                  <ExternalLink size={12} className="ml-1" />
-                </button>
-              )}
-              {tour.bookingUrl && (
-                <motion.button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    console.log('Book button clicked for tour:', tour.name, tour.bookingUrl);
-                    if (tour.bookingUrl) {
-                      const targetUrl = `/tour-view/${encodeURIComponent(tour.id)}?url=${encodeURIComponent(tour.bookingUrl)}&title=${encodeURIComponent(tour.name)}`;
-                      console.log('Book navigation to:', targetUrl);
-                      setLocation(targetUrl);
-                    } else {
-                      console.error('No bookingUrl found for tour:', tour.name);
-                    }
-                  }}
-                  className="flex-1 bg-secondary text-white py-2 px-4 rounded-md font-medium text-sm hover:bg-secondary-dark transition-colors flex items-center justify-center"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  Book
-                </motion.button>
-              )}
-            </div>
-          )}
+          <div className="flex gap-2 mt-4">
+            <button
+              onClick={() => {
+                const url = tour.detailsUrl || tour.presentationUrl;
+                if (url) {
+                  setLocation(`/tour-view/${encodeURIComponent(tour.id)}?url=${encodeURIComponent(url)}&title=${encodeURIComponent(tour.name)}`);
+                }
+              }}
+              className="flex-1 bg-blue-600 text-white py-2.5 px-4 rounded-lg font-medium text-sm hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+            >
+              <span>Voir les détails</span>
+              <ExternalLink size={14} />
+            </button>
+            
+            {tour.bookingUrl && (
+              <button
+                onClick={() => {
+                  setLocation(`/tour-view/${encodeURIComponent(tour.id)}?url=${encodeURIComponent(tour.bookingUrl)}&title=${encodeURIComponent(tour.name)}`);
+                }}
+                className="flex-1 bg-gold text-white py-2.5 px-4 rounded-lg font-medium text-sm hover:bg-yellow-600 transition-colors flex items-center justify-center gap-2"
+              >
+                <span>Réserver</span>
+                <ExternalLink size={14} />
+              </button>
+            )}
+          </div>
         </CardContent>
       </Card>
     </motion.div>
