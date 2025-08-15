@@ -15,13 +15,26 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
   const [imageError, setImageError] = useState(false);
   
   const handleCardClick = () => {
+    console.log('Card clicked for tour:', tour.name, {
+      presentationUrl: tour.presentationUrl,
+      detailsUrl: tour.detailsUrl,
+      bookingUrl: tour.bookingUrl
+    });
     if (tour.presentationUrl) {
       // Navigation vers page dédiée avec iframe intégré
-      window.location.href = `/tour-view/${encodeURIComponent(tour.id)}?url=${encodeURIComponent(tour.presentationUrl)}&title=${encodeURIComponent(tour.name)}`;
+      const targetUrl = `/tour-view/${encodeURIComponent(tour.id)}?url=${encodeURIComponent(tour.presentationUrl)}&title=${encodeURIComponent(tour.name)}`;
+      console.log('Card navigation to:', targetUrl);
+      window.location.href = targetUrl;
     } else if (tour.detailsUrl) {
-      window.location.href = `/tour-view/${encodeURIComponent(tour.id)}?url=${encodeURIComponent(tour.detailsUrl)}&title=${encodeURIComponent(tour.name)}`;
+      const targetUrl = `/tour-view/${encodeURIComponent(tour.id)}?url=${encodeURIComponent(tour.detailsUrl)}&title=${encodeURIComponent(tour.name)}`;
+      console.log('Card navigation to:', targetUrl);
+      window.location.href = targetUrl;
     } else if (tour.bookingUrl) {
-      window.location.href = `/tour-view/${encodeURIComponent(tour.id)}?url=${encodeURIComponent(tour.bookingUrl)}&title=${encodeURIComponent(tour.name)}`;
+      const targetUrl = `/tour-view/${encodeURIComponent(tour.id)}?url=${encodeURIComponent(tour.bookingUrl)}&title=${encodeURIComponent(tour.name)}`;
+      console.log('Card navigation to:', targetUrl);
+      window.location.href = targetUrl;
+    } else {
+      console.log('No URL available for tour:', tour.name);
     }
   };
 
@@ -132,8 +145,13 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
                 <motion.button
                   onClick={(e) => {
                     e.stopPropagation();
+                    console.log('View Details clicked for tour:', tour.name, tour.id, tour.detailsUrl);
                     if (tour.detailsUrl) {
-                      window.location.href = `/tour-view/${encodeURIComponent(tour.id)}?url=${encodeURIComponent(tour.detailsUrl)}&title=${encodeURIComponent(tour.name)}`;
+                      const targetUrl = `/tour-view/${encodeURIComponent(tour.id)}?url=${encodeURIComponent(tour.detailsUrl)}&title=${encodeURIComponent(tour.name)}`;
+                      console.log('Navigating to:', targetUrl);
+                      window.location.href = targetUrl;
+                    } else {
+                      console.error('No detailsUrl found for tour:', tour.name);
                     }
                   }}
                   className="flex-1 bg-primary text-white py-2 px-4 rounded-md font-medium text-sm hover:bg-primary-dark transition-colors flex items-center justify-center"
@@ -148,8 +166,13 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
                 <motion.button
                   onClick={(e) => {
                     e.stopPropagation();
+                    console.log('Book button clicked for tour:', tour.name, tour.bookingUrl);
                     if (tour.bookingUrl) {
-                      window.location.href = `/tour-view/${encodeURIComponent(tour.id)}?url=${encodeURIComponent(tour.bookingUrl)}&title=${encodeURIComponent(tour.name)}`;
+                      const targetUrl = `/tour-view/${encodeURIComponent(tour.id)}?url=${encodeURIComponent(tour.bookingUrl)}&title=${encodeURIComponent(tour.name)}`;
+                      console.log('Book navigation to:', targetUrl);
+                      window.location.href = targetUrl;
+                    } else {
+                      console.error('No bookingUrl found for tour:', tour.name);
                     }
                   }}
                   className="flex-1 bg-secondary text-white py-2 px-4 rounded-md font-medium text-sm hover:bg-secondary-dark transition-colors flex items-center justify-center"
