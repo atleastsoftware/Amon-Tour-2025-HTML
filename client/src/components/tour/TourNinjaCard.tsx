@@ -5,7 +5,6 @@ import { Badge } from "@/components/ui/badge";
 import { MapPin, Clock, ExternalLink } from "lucide-react";
 import { TourNinjaTour } from "@/hooks/useTourNinja";
 import { formatTHB } from "@/lib/utils";
-import { useIframe } from "@/contexts/IframeContext";
 
 interface TourNinjaCardProps {
   tour: TourNinjaTour;
@@ -13,7 +12,6 @@ interface TourNinjaCardProps {
 }
 
 export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
-  const { openIframe } = useIframe();
   const [imageError, setImageError] = useState(false);
   
   const handleCardClick = () => {
@@ -98,7 +96,7 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
               onClick={(e) => {
                 e.stopPropagation();
                 if (tour.presentationUrl) {
-                  openIframe(tour.presentationUrl, `Présentation - ${tour.name}`);
+                  window.location.href = `/tour-view/${encodeURIComponent(tour.id)}?url=${encodeURIComponent(tour.presentationUrl)}&title=${encodeURIComponent(tour.name)}`;
                 }
               }}
             >
@@ -135,7 +133,7 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
                   onClick={(e) => {
                     e.stopPropagation();
                     if (tour.detailsUrl) {
-                      openIframe(tour.detailsUrl, `Details - ${tour.name}`);
+                      window.location.href = `/tour-view/${encodeURIComponent(tour.id)}?url=${encodeURIComponent(tour.detailsUrl)}&title=${encodeURIComponent(tour.name)}`;
                     }
                   }}
                   className="flex-1 bg-primary text-white py-2 px-4 rounded-md font-medium text-sm hover:bg-primary-dark transition-colors flex items-center justify-center"
@@ -151,7 +149,7 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
                   onClick={(e) => {
                     e.stopPropagation();
                     if (tour.bookingUrl) {
-                      openIframe(tour.bookingUrl, `Booking - ${tour.name}`);
+                      window.location.href = `/tour-view/${encodeURIComponent(tour.id)}?url=${encodeURIComponent(tour.bookingUrl)}&title=${encodeURIComponent(tour.name)}`;
                     }
                   }}
                   className="flex-1 bg-secondary text-white py-2 px-4 rounded-md font-medium text-sm hover:bg-secondary-dark transition-colors flex items-center justify-center"
