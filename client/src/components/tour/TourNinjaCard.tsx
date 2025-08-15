@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { MapPin, Clock, ExternalLink } from "lucide-react";
 import { TourNinjaTour } from "@/hooks/useTourNinja";
 import { formatTHB } from "@/lib/utils";
+import { useLocation } from "wouter";
 
 interface TourNinjaCardProps {
   tour: TourNinjaTour;
@@ -13,6 +14,7 @@ interface TourNinjaCardProps {
 
 export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
   const [imageError, setImageError] = useState(false);
+  const [, setLocation] = useLocation();
   
   const handleCardClick = () => {
     console.log('Card clicked for tour:', tour.name, {
@@ -24,15 +26,15 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
       // Navigation vers page dédiée avec iframe intégré
       const targetUrl = `/tour-view/${encodeURIComponent(tour.id)}?url=${encodeURIComponent(tour.presentationUrl)}&title=${encodeURIComponent(tour.name)}`;
       console.log('Card navigation to:', targetUrl);
-      window.location.href = targetUrl;
+      setLocation(targetUrl);
     } else if (tour.detailsUrl) {
       const targetUrl = `/tour-view/${encodeURIComponent(tour.id)}?url=${encodeURIComponent(tour.detailsUrl)}&title=${encodeURIComponent(tour.name)}`;
       console.log('Card navigation to:', targetUrl);
-      window.location.href = targetUrl;
+      setLocation(targetUrl);
     } else if (tour.bookingUrl) {
       const targetUrl = `/tour-view/${encodeURIComponent(tour.id)}?url=${encodeURIComponent(tour.bookingUrl)}&title=${encodeURIComponent(tour.name)}`;
       console.log('Card navigation to:', targetUrl);
-      window.location.href = targetUrl;
+      setLocation(targetUrl);
     } else {
       console.log('No URL available for tour:', tour.name);
     }
@@ -149,12 +151,12 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
                     if (tour.detailsUrl) {
                       const targetUrl = `/tour-view/${encodeURIComponent(tour.id)}?url=${encodeURIComponent(tour.detailsUrl)}&title=${encodeURIComponent(tour.name)}`;
                       console.log('Navigating to:', targetUrl);
-                      window.location.href = targetUrl;
+                      setLocation(targetUrl);
                     } else {
                       console.error('No detailsUrl found for tour:', tour.name);
                     }
                   }}
-                  className="flex-1 bg-primary text-white py-2 px-4 rounded-md font-medium text-sm hover:bg-primary-dark transition-colors flex items-center justify-center"
+                  className="flex-1 bg-primary text-white py-2 px-4 rounded-md font-medium text-sm hover:bg-blue-700 transition-colors flex items-center justify-center"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -170,7 +172,7 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
                     if (tour.bookingUrl) {
                       const targetUrl = `/tour-view/${encodeURIComponent(tour.id)}?url=${encodeURIComponent(tour.bookingUrl)}&title=${encodeURIComponent(tour.name)}`;
                       console.log('Book navigation to:', targetUrl);
-                      window.location.href = targetUrl;
+                      setLocation(targetUrl);
                     } else {
                       console.error('No bookingUrl found for tour:', tour.name);
                     }
