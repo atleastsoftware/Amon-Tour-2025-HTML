@@ -144,25 +144,26 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
           {(tour.bookingUrl || tour.detailsUrl) && (
             <div className="flex gap-2">
               {tour.detailsUrl && (
-                <motion.button
+                <button
                   onClick={(e) => {
+                    e.preventDefault();
                     e.stopPropagation();
-                    console.log('View Details clicked for tour:', tour.name, tour.id, tour.detailsUrl);
+                    console.log('🔥 CLICK DETECTED! View Details clicked for tour:', tour.name, tour.id, tour.detailsUrl);
+                    alert('TEST: Button clicked for ' + tour.name);
                     if (tour.detailsUrl) {
                       const targetUrl = `/tour-view/${encodeURIComponent(tour.id)}?url=${encodeURIComponent(tour.detailsUrl)}&title=${encodeURIComponent(tour.name)}`;
-                      console.log('Navigating to:', targetUrl);
+                      console.log('🔥 Navigating to:', targetUrl);
                       setLocation(targetUrl);
                     } else {
-                      console.error('No detailsUrl found for tour:', tour.name);
+                      console.error('❌ No detailsUrl found for tour:', tour.name);
                     }
                   }}
-                  className="flex-1 bg-primary text-white py-2 px-4 rounded-md font-medium text-sm hover:bg-blue-700 transition-colors flex items-center justify-center"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  className="flex-1 bg-red-600 text-white py-3 px-4 rounded-md font-bold text-sm hover:bg-red-700 transition-colors flex items-center justify-center border-2 border-yellow-400"
+                  style={{ zIndex: 1000, position: 'relative' }}
                 >
-                  View details
+                  🔥 TEST VIEW DETAILS 🔥
                   <ExternalLink size={12} className="ml-1" />
-                </motion.button>
+                </button>
               )}
               {tour.bookingUrl && (
                 <motion.button
