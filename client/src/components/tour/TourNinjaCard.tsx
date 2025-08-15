@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { MapPin, Clock, ExternalLink } from "lucide-react";
 import { TourNinjaTour } from "@/hooks/useTourNinja";
 import { formatTHB } from "@/lib/utils";
-import { useLocation } from "wouter";
+import { useIframe } from "@/contexts/IframeContext";
 
 interface TourNinjaCardProps {
   tour: TourNinjaTour;
@@ -13,30 +13,16 @@ interface TourNinjaCardProps {
 }
 
 export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
+  const { openIframe } = useIframe();
   const [imageError, setImageError] = useState(false);
-  const [, setLocation] = useLocation();
   
   const handleCardClick = () => {
-    console.log('Card clicked for tour:', tour.name, {
-      presentationUrl: tour.presentationUrl,
-      detailsUrl: tour.detailsUrl,
-      bookingUrl: tour.bookingUrl
-    });
     if (tour.presentationUrl) {
-      // Navigation vers page dédiée avec iframe intégré
-      const targetUrl = `/tour-view/${encodeURIComponent(tour.id)}?url=${encodeURIComponent(tour.presentationUrl)}&title=${encodeURIComponent(tour.name)}`;
-      console.log('Card navigation to:', targetUrl);
-      setLocation(targetUrl);
+      openIframe(tour.presentationUrl, `Présentation - ${tour.name}`);
     } else if (tour.detailsUrl) {
-      const targetUrl = `/tour-view/${encodeURIComponent(tour.id)}?url=${encodeURIComponent(tour.detailsUrl)}&title=${encodeURIComponent(tour.name)}`;
-      console.log('Card navigation to:', targetUrl);
-      setLocation(targetUrl);
+      openIframe(tour.detailsUrl, `Détails - ${tour.name}`);
     } else if (tour.bookingUrl) {
-      const targetUrl = `/tour-view/${encodeURIComponent(tour.id)}?url=${encodeURIComponent(tour.bookingUrl)}&title=${encodeURIComponent(tour.name)}`;
-      console.log('Card navigation to:', targetUrl);
-      setLocation(targetUrl);
-    } else {
-      console.log('No URL available for tour:', tour.name);
+      openIframe(tour.bookingUrl, `Réservation - ${tour.name}`);
     }
   };
 
@@ -111,7 +97,7 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
               onClick={(e) => {
                 e.stopPropagation();
                 if (tour.presentationUrl) {
-                  window.location.href = `/tour-view/${encodeURIComponent(tour.id)}?url=${encodeURIComponent(tour.presentationUrl)}&title=${encodeURIComponent(tour.name)}`;
+                  openIframe(tour.presentationUrl, `Présentation - ${tour.name}`);
                 }
               }}
             >
@@ -141,32 +127,41 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
             </div>
           </div>
 
-          <div className="flex gap-2 mt-4">
-            <button
-              onClick={() => {
-                const url = tour.detailsUrl || tour.presentationUrl;
-                if (url) {
-                  setLocation(`/tour-view/${encodeURIComponent(tour.id)}?url=${encodeURIComponent(url)}&title=${encodeURIComponent(tour.name)}`);
-                }
-              }}
-              className="flex-1 bg-blue-600 text-white py-2.5 px-4 rounded-lg font-medium text-sm hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
-            >
-              <span>Voir les détails</span>
-              <ExternalLink size={14} />
-            </button>
-            
-            {tour.bookingUrl && (
-              <button
-                onClick={() => {
-                  setLocation(`/tour-view/${encodeURIComponent(tour.id)}?url=${encodeURIComponent(tour.bookingUrl)}&title=${encodeURIComponent(tour.name)}`);
-                }}
-                className="flex-1 bg-gold text-white py-2.5 px-4 rounded-lg font-medium text-sm hover:bg-yellow-600 transition-colors flex items-center justify-center gap-2"
-              >
-                <span>Réserver</span>
-                <ExternalLink size={14} />
-              </button>
-            )}
-          </div>
+          {(tour.bookingUrl || tour.detailsUrl) && (
+            <div className="flex gap-2">
+              {tour.detailsUrl && (
+                <motion.button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (tour.detailsUrl) {
+                      openIframe(tour.detailsUrl, `Details - ${tour.name}`);
+                    }
+                  }}
+                  className="flex-1 bg-primary text-white py-2 px-4 rounded-md font-medium text-sm hover:bg-primary-dark transition-colors flex items-center justify-center"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  View details
+                  <ExternalLink size={12} className="ml-1" />
+                </motion.button>
+              )}
+              {tour.bookingUrl && (
+                <motion.button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (tour.bookingUrl) {
+                      openIframe(tour.bookingUrl, `Booking - ${tour.name}`);
+                    }
+                  }}
+                  className="flex-1 bg-secondary text-white py-2 px-4 rounded-md font-medium text-sm hover:bg-secondary-dark transition-colors flex items-center justify-center"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Book
+                </motion.button>
+              )}
+            </div>
+          )}
         </CardContent>
       </Card>
     </motion.div>
