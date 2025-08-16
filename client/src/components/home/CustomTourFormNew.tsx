@@ -41,12 +41,12 @@ export default function CustomTourForm() {
         fullName: data.name,
         email: data.email,
         phoneNumber: `${data.countryCode.replace(/[^+\d]/g, '')} ${data.phoneNumber}`,
-        numberOfAdults: 2,
-        numberOfKids: 0,
+        numberOfAdults: "2",
+        numberOfKids: "0",
         tripDates: "",
-        duration: "",
-        tripTypes: [],
-        destinations: [],
+        duration: "1 week",
+        tripTypes: ["adventure"],
+        destinations: ["krabi"],
         message: data.message
       };
 
