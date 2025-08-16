@@ -89,85 +89,15 @@ export default function CustomTourForm() {
               </div>
             </div>
             
-            {/* Form Side - Liquid Glass Design */}
-            <div className="relative backdrop-blur-xl bg-black/80 text-white p-8 rounded-3xl border border-white/10 shadow-2xl">
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/5 to-transparent pointer-events-none"></div>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="relative z-10 space-y-6">
-                {/* Name and Email Row */}
-                <div className="grid grid-cols-1 gap-4">
-                  <div>
-                    <Input
-                      placeholder="Your name"
-                      {...form.register("name")}
-                      className="bg-white/95 backdrop-blur-sm text-black placeholder-gray-500 border-0 rounded-2xl h-12 px-4 shadow-lg focus:shadow-xl transition-all duration-300 focus:ring-2 focus:ring-blue-400/50"
-                    />
-                    {form.formState.errors.name && (
-                      <p className="text-red-400 text-sm mt-1">{form.formState.errors.name.message}</p>
-                    )}
-                  </div>
-                  <div>
-                    <Input
-                      placeholder="Your email"
-                      type="email"
-                      {...form.register("email")}
-                      className="bg-white/95 backdrop-blur-sm text-black placeholder-gray-500 border-0 rounded-2xl h-12 px-4 shadow-lg focus:shadow-xl transition-all duration-300 focus:ring-2 focus:ring-blue-400/50"
-                    />
-                    {form.formState.errors.email && (
-                      <p className="text-red-400 text-sm mt-1">{form.formState.errors.email.message}</p>
-                    )}
-                  </div>
-                </div>
-                
-                {/* Phone Row */}
-                <div className="grid grid-cols-3 gap-4">
-                  <div>
-                    <Select value={form.watch("countryCode")} onValueChange={(value) => form.setValue("countryCode", value)}>
-                      <SelectTrigger className="bg-white/95 backdrop-blur-sm text-black border-0 rounded-2xl h-12 px-4 shadow-lg focus:shadow-xl transition-all duration-300 focus:ring-2 focus:ring-blue-400/50">
-                        <SelectValue placeholder="FR +33" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-white/95 backdrop-blur-lg border-0 rounded-2xl shadow-2xl">
-                        <SelectItem value="FR +33">FR +33</SelectItem>
-                        <SelectItem value="US +1">US +1</SelectItem>
-                        <SelectItem value="UK +44">UK +44</SelectItem>
-                        <SelectItem value="TH +66">TH +66</SelectItem>
-                        <SelectItem value="DE +49">DE +49</SelectItem>
-                        <SelectItem value="ES +34">ES +34</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="col-span-2">
-                    <Input
-                      placeholder="Your WhatsApp number"
-                      {...form.register("phoneNumber")}
-                      className="bg-white/95 backdrop-blur-sm text-black placeholder-gray-500 border-0 rounded-2xl h-12 px-4 shadow-lg focus:shadow-xl transition-all duration-300 focus:ring-2 focus:ring-blue-400/50"
-                    />
-                    {form.formState.errors.phoneNumber && (
-                      <p className="text-red-400 text-sm mt-1">{form.formState.errors.phoneNumber.message}</p>
-                    )}
-                  </div>
-                </div>
-                
-                {/* Message */}
-                <div>
-                  <Textarea
-                    placeholder="Tell us what you would like to see and do during your journey..."
-                    {...form.register("message")}
-                    className="bg-white/95 backdrop-blur-sm text-black placeholder-gray-500 border-0 rounded-2xl min-h-[100px] resize-none p-4 shadow-lg focus:shadow-xl transition-all duration-300 focus:ring-2 focus:ring-blue-400/50"
-                  />
-                  {form.formState.errors.message && (
-                    <p className="text-red-400 text-sm mt-1">{form.formState.errors.message.message}</p>
-                  )}
-                </div>
-
-                {/* Submit Button */}
-                <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:opacity-50 text-white py-4 rounded-2xl font-medium text-base transition-all duration-300 shadow-lg hover:shadow-xl backdrop-blur-sm border border-blue-400/20"
-                >
-                  {isSubmitting ? "Sending your request..." : "Send my request"}
-                </Button>
-              </form>
+            {/* Tour Ninja Widget */}
+            <div className="w-full">
+              <iframe 
+                src="https://www.tourninja.io/amon-tour-styled"
+                width="100%" 
+                height="600"
+                style={{ border: 0, borderRadius: '24px' }}
+                title="Tour Ninja Booking Widget"
+              />
             </div>
           </div>
         </div>
