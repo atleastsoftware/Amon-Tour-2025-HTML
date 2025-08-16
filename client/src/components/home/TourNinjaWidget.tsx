@@ -11,7 +11,7 @@ export default function TourNinjaWidget({ className }: TourNinjaWidgetProps) {
         <iframe 
           src="https://www.tourninja.io/amon-tour-styled"
           width="100%" 
-          height="600"
+          height="800"
           style={{ border: 0, borderRadius: '24px' }}
           title="Tour Ninja Booking Widget"
         />
