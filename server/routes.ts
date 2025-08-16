@@ -1086,6 +1086,12 @@ Crawl-delay: 1`;
             body: JSON.stringify(tourNinjaData)
           });
 
+          if (!tourNinjaResponse.ok) {
+            const errorText = await tourNinjaResponse.text();
+            console.error("❌ Tour Ninja HTTP Error:", tourNinjaResponse.status, errorText);
+            throw new Error(`HTTP ${tourNinjaResponse.status}: ${errorText}`);
+          }
+          
           const tourNinjaResult = await tourNinjaResponse.json();
           console.log("📥 Tour Ninja Response:", JSON.stringify(tourNinjaResult, null, 2));
 
