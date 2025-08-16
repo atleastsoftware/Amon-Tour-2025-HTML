@@ -110,15 +110,15 @@ export default function TourNinjaWidget({ className = "" }: TourNinjaWidgetProps
 
   return (
     <div className={`tour-ninja-container ${className}`}>
-      <div className="bg-black text-white p-8 rounded-lg">
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <div className="bg-black text-white p-6 rounded-lg">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           {/* Name and Email Row */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <Input
                 placeholder="Your name"
                 {...form.register("fullName")}
-                className="bg-white text-black placeholder-gray-500 border-0 rounded-lg"
+                className="bg-white text-black placeholder-gray-500 border-0 rounded-lg h-12 px-4"
               />
               {form.formState.errors.fullName && (
                 <p className="text-red-400 text-sm mt-1">{form.formState.errors.fullName.message}</p>
@@ -129,7 +129,7 @@ export default function TourNinjaWidget({ className = "" }: TourNinjaWidgetProps
                 placeholder="Your email"
                 type="email"
                 {...form.register("email")}
-                className="bg-white text-black placeholder-gray-500 border-0 rounded-lg"
+                className="bg-white text-black placeholder-gray-500 border-0 rounded-lg h-12 px-4"
               />
               {form.formState.errors.email && (
                 <p className="text-red-400 text-sm mt-1">{form.formState.errors.email.message}</p>
@@ -141,10 +141,10 @@ export default function TourNinjaWidget({ className = "" }: TourNinjaWidgetProps
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <Select value={form.watch("countryCode")} onValueChange={(value) => form.setValue("countryCode", value)}>
-                <SelectTrigger className="bg-white text-black border-0 rounded-lg">
-                  <SelectValue placeholder="Country" />
+                <SelectTrigger className="bg-white text-black border-0 rounded-lg h-12 px-4">
+                  <SelectValue placeholder="FR +33" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-white">
                   <SelectItem value="FR +33">FR +33</SelectItem>
                   <SelectItem value="US +1">US +1</SelectItem>
                   <SelectItem value="UK +44">UK +44</SelectItem>
@@ -158,7 +158,7 @@ export default function TourNinjaWidget({ className = "" }: TourNinjaWidgetProps
               <Input
                 placeholder="Your WhatsApp number"
                 {...form.register("phoneNumber")}
-                className="bg-white text-black placeholder-gray-500 border-0 rounded-lg"
+                className="bg-white text-black placeholder-gray-500 border-0 rounded-lg h-12 px-4"
               />
               {form.formState.errors.phoneNumber && (
                 <p className="text-red-400 text-sm mt-1">{form.formState.errors.phoneNumber.message}</p>
@@ -170,10 +170,10 @@ export default function TourNinjaWidget({ className = "" }: TourNinjaWidgetProps
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <Select value={form.watch("numberOfAdults")} onValueChange={(value) => form.setValue("numberOfAdults", value)}>
-                <SelectTrigger className="bg-white text-black border-0 rounded-lg">
+                <SelectTrigger className="bg-white text-black border-0 rounded-lg h-12 px-4">
                   <SelectValue placeholder="Select number of adults" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-white">
                   <SelectItem value="1">1 Adult</SelectItem>
                   <SelectItem value="2">2 Adults</SelectItem>
                   <SelectItem value="3">3 Adults</SelectItem>
@@ -187,10 +187,10 @@ export default function TourNinjaWidget({ className = "" }: TourNinjaWidgetProps
             </div>
             <div>
               <Select value={form.watch("numberOfKids")} onValueChange={(value) => form.setValue("numberOfKids", value)}>
-                <SelectTrigger className="bg-white text-black border-0 rounded-lg">
+                <SelectTrigger className="bg-white text-black border-0 rounded-lg h-12 px-4">
                   <SelectValue placeholder="Select number of kids" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-white">
                   <SelectItem value="0">No kids</SelectItem>
                   <SelectItem value="1">1 Kid</SelectItem>
                   <SelectItem value="2">2 Kids</SelectItem>
@@ -206,17 +206,17 @@ export default function TourNinjaWidget({ className = "" }: TourNinjaWidgetProps
             <Input
               placeholder="Select trip dates"
               {...form.register("tripDates")}
-              className="bg-white text-black placeholder-gray-500 border-0 rounded-lg"
+              className="bg-white text-black placeholder-gray-500 border-0 rounded-lg h-12 px-4"
             />
           </div>
 
           {/* Duration */}
           <div>
             <Select value={form.watch("duration")} onValueChange={(value) => form.setValue("duration", value)}>
-              <SelectTrigger className="bg-white text-black border-0 rounded-lg">
+              <SelectTrigger className="bg-white text-black border-0 rounded-lg h-12 px-4">
                 <SelectValue placeholder="Select duration" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-white">
                 <SelectItem value="3 days">3 Days</SelectItem>
                 <SelectItem value="5 days">5 Days</SelectItem>
                 <SelectItem value="7 days">1 Week</SelectItem>
@@ -229,18 +229,18 @@ export default function TourNinjaWidget({ className = "" }: TourNinjaWidgetProps
           </div>
 
           {/* Trip Types Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             {tripTypeOptions.map((option) => (
-              <div key={option.id} className="flex items-center space-x-2">
+              <div key={option.id} className="flex items-center space-x-3">
                 <Checkbox
                   id={option.id}
                   checked={selectedTripTypes.includes(option.id)}
                   onCheckedChange={(checked) => handleTripTypeChange(option.id, checked as boolean)}
-                  className="border-blue-400 data-[state=checked]:bg-blue-500"
+                  className="border-blue-400 data-[state=checked]:bg-blue-500 data-[state=checked]:border-blue-500 w-4 h-4"
                 />
                 <label
                   htmlFor={option.id}
-                  className="text-sm text-white cursor-pointer"
+                  className="text-sm text-white cursor-pointer select-none"
                 >
                   {option.label}
                 </label>
@@ -253,7 +253,7 @@ export default function TourNinjaWidget({ className = "" }: TourNinjaWidgetProps
             <Textarea
               placeholder="Tell us what you would like to see and do during your journey..."
               {...form.register("message")}
-              className="bg-white text-black placeholder-gray-500 border-0 rounded-lg min-h-[120px] resize-none"
+              className="bg-white text-black placeholder-gray-500 border-0 rounded-lg min-h-[120px] resize-none p-4"
             />
             {form.formState.errors.message && (
               <p className="text-red-400 text-sm mt-1">{form.formState.errors.message.message}</p>
@@ -264,7 +264,7 @@ export default function TourNinjaWidget({ className = "" }: TourNinjaWidgetProps
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-medium text-lg"
+            className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white py-4 rounded-lg font-medium text-base transition-colors"
           >
             {isSubmitting ? "Sending your request..." : "Send my request"}
           </Button>
