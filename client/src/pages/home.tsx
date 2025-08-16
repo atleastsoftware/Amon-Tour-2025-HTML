@@ -14,7 +14,7 @@ import About from "@/components/home/About";
 import CustomTourCta from "@/components/home/CustomTourCta";
 import Testimonials from "@/components/home/Testimonials";
 import TourNinjaSection from "@/components/tour/TourNinjaSection";
-import CustomTourForm from "@/components/home/CustomTourForm";
+import CustomTourForm from "@/components/home/CustomTourFormNew";
 import CallToAction from "@/components/home/CallToAction";
 import TourCard from "@/components/tour/TourCard";
 import TourCardItem, { TourCardItemProps } from "@/components/tour/TourCardItem";

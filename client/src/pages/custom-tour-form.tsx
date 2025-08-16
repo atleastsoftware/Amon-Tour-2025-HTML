@@ -1,7 +1,7 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
-import CustomTourForm from "@/components/home/CustomTourForm";
+import CustomTourForm from "@/components/home/CustomTourFormNew";
 import { MapPin, Building2, HeadphonesIcon } from "lucide-react";
 
 export default function CustomTourFormPage() {
