@@ -1,74 +1,280 @@
 import { useState } from 'react';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { useToast } from "@/hooks/use-toast";
+import { apiRequest } from "@/lib/queryClient";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+
+const tourNinjaFormSchema = z.object({
+  fullName: z.string().min(2, "Name is required"),
+  email: z.string().email("Invalid email address"),
+  countryCode: z.string().min(1, "Country code required"),
+  phoneNumber: z.string().min(8, "Phone number required"),
+  numberOfAdults: z.string().min(1, "Number of adults required"),
+  numberOfKids: z.string().optional(),
+  tripDates: z.string().optional(),
+  duration: z.string().optional(),
+  tripTypes: z.array(z.string()).optional(),
+  message: z.string().min(10, "Please tell us about your ideal journey (minimum 10 characters)"),
+});
+
+type TourNinjaFormData = z.infer<typeof tourNinjaFormSchema>;
 
 interface TourNinjaWidgetProps {
   className?: string;
 }
 
 export default function TourNinjaWidget({ className = "" }: TourNinjaWidgetProps) {
-  const [isLoading, setIsLoading] = useState(true);
-  const [hasError, setHasError] = useState(false);
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedTripTypes, setSelectedTripTypes] = useState<string[]>([]);
 
-  const handleIframeLoad = () => {
-    setIsLoading(false);
-    setHasError(false);
-    console.log('✅ Tour Ninja iframe loaded successfully');
+  const form = useForm<TourNinjaFormData>({
+    resolver: zodResolver(tourNinjaFormSchema),
+    defaultValues: {
+      fullName: "",
+      email: "",
+      countryCode: "FR +33",
+      phoneNumber: "",
+      numberOfAdults: "",
+      numberOfKids: "",
+      tripDates: "",
+      duration: "",
+      tripTypes: [],
+      message: "",
+    },
+  });
+
+  const tripTypeOptions = [
+    { id: "culture", label: "Culture & Heritage" },
+    { id: "nature", label: "Nature & Wildlife" },
+    { id: "beaches", label: "Beaches & Islands" },
+    { id: "adventure", label: "Adventure & Sports" },
+    { id: "food", label: "Food & Culinary" },
+    { id: "wellness", label: "Wellness & Spa" }
+  ];
+
+  const handleTripTypeChange = (typeId: string, checked: boolean) => {
+    let newTypes = [...selectedTripTypes];
+    if (checked) {
+      newTypes.push(typeId);
+    } else {
+      newTypes = newTypes.filter(t => t !== typeId);
+    }
+    setSelectedTripTypes(newTypes);
+    form.setValue("tripTypes", newTypes);
   };
 
-  const handleIframeError = () => {
-    setIsLoading(false);
-    setHasError(true);
-    console.error('❌ Tour Ninja iframe failed to load');
+  const onSubmit = async (data: TourNinjaFormData) => {
+    setIsSubmitting(true);
+    try {
+      const requestData = {
+        fullName: data.fullName,
+        email: data.email,
+        phoneNumber: `${data.countryCode.replace(/[^+\d]/g, '')} ${data.phoneNumber}`,
+        numberOfAdults: parseInt(data.numberOfAdults),
+        numberOfKids: data.numberOfKids ? parseInt(data.numberOfKids) : 0,
+        tripDates: data.tripDates || "",
+        duration: data.duration || "",
+        tripTypes: selectedTripTypes,
+        destinations: [],
+        message: data.message
+      };
+
+      await apiRequest("POST", "/api/custom-tour", requestData);
+      
+      toast({
+        title: "Request sent successfully",
+        description: "Your custom tour request has been received. We will contact you within 24-48 hours to discuss your travel project.",
+        variant: "default",
+      });
+      
+      form.reset();
+      setSelectedTripTypes([]);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      toast({
+        title: "Error",
+        description: "There was a problem submitting your request. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <div className={`tour-ninja-container ${className}`}>
-      {/* Iframe Container */}
-      <div className="relative min-h-[800px] w-full bg-white rounded-lg overflow-hidden border border-gray-200">
-        {isLoading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-gray-50 z-10">
-            <div className="text-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-              <p className="text-gray-600 font-medium">Loading Tour Ninja Booking System...</p>
-              <p className="text-sm text-gray-500 mt-2">
-                Please wait while we load the advanced booking interface
-              </p>
+      <div className="bg-black text-white p-8 rounded-lg">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          {/* Name and Email Row */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Input
+                placeholder="Your name"
+                {...form.register("fullName")}
+                className="bg-white text-black placeholder-gray-500 border-0 rounded-lg"
+              />
+              {form.formState.errors.fullName && (
+                <p className="text-red-400 text-sm mt-1">{form.formState.errors.fullName.message}</p>
+              )}
+            </div>
+            <div>
+              <Input
+                placeholder="Your email"
+                type="email"
+                {...form.register("email")}
+                className="bg-white text-black placeholder-gray-500 border-0 rounded-lg"
+              />
+              {form.formState.errors.email && (
+                <p className="text-red-400 text-sm mt-1">{form.formState.errors.email.message}</p>
+              )}
             </div>
           </div>
-        )}
-        
-        {hasError ? (
-          <div className="flex items-center justify-center h-96 bg-red-50">
-            <div className="text-center">
-              <div className="text-red-500 text-4xl mb-4">⚠️</div>
-              <p className="text-red-600 font-medium">Unable to load Tour Ninja widget</p>
-              <p className="text-sm text-red-500 mt-2">
-                Please use the alternative booking form below
-              </p>
+
+          {/* Phone Row */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <Select value={form.watch("countryCode")} onValueChange={(value) => form.setValue("countryCode", value)}>
+                <SelectTrigger className="bg-white text-black border-0 rounded-lg">
+                  <SelectValue placeholder="Country" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="FR +33">FR +33</SelectItem>
+                  <SelectItem value="US +1">US +1</SelectItem>
+                  <SelectItem value="UK +44">UK +44</SelectItem>
+                  <SelectItem value="TH +66">TH +66</SelectItem>
+                  <SelectItem value="DE +49">DE +49</SelectItem>
+                  <SelectItem value="ES +34">ES +34</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="md:col-span-2">
+              <Input
+                placeholder="Your WhatsApp number"
+                {...form.register("phoneNumber")}
+                className="bg-white text-black placeholder-gray-500 border-0 rounded-lg"
+              />
+              {form.formState.errors.phoneNumber && (
+                <p className="text-red-400 text-sm mt-1">{form.formState.errors.phoneNumber.message}</p>
+              )}
             </div>
           </div>
-        ) : (
-          <iframe
-            src="https://www.tourninja.io/amon-tour-widget.html"
-            className="w-full h-[800px] border-0"
-            onLoad={handleIframeLoad}
-            onError={handleIframeError}
-            title="Tour Ninja Booking Widget"
-            sandbox="allow-scripts allow-forms allow-same-origin allow-popups"
-          />
-        )}
+
+          {/* Adults and Kids Row */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Select value={form.watch("numberOfAdults")} onValueChange={(value) => form.setValue("numberOfAdults", value)}>
+                <SelectTrigger className="bg-white text-black border-0 rounded-lg">
+                  <SelectValue placeholder="Select number of adults" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="1">1 Adult</SelectItem>
+                  <SelectItem value="2">2 Adults</SelectItem>
+                  <SelectItem value="3">3 Adults</SelectItem>
+                  <SelectItem value="4">4 Adults</SelectItem>
+                  <SelectItem value="5">5+ Adults</SelectItem>
+                </SelectContent>
+              </Select>
+              {form.formState.errors.numberOfAdults && (
+                <p className="text-red-400 text-sm mt-1">{form.formState.errors.numberOfAdults.message}</p>
+              )}
+            </div>
+            <div>
+              <Select value={form.watch("numberOfKids")} onValueChange={(value) => form.setValue("numberOfKids", value)}>
+                <SelectTrigger className="bg-white text-black border-0 rounded-lg">
+                  <SelectValue placeholder="Select number of kids" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="0">No kids</SelectItem>
+                  <SelectItem value="1">1 Kid</SelectItem>
+                  <SelectItem value="2">2 Kids</SelectItem>
+                  <SelectItem value="3">3 Kids</SelectItem>
+                  <SelectItem value="4">4+ Kids</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          {/* Trip Dates */}
+          <div>
+            <Input
+              placeholder="Select trip dates"
+              {...form.register("tripDates")}
+              className="bg-white text-black placeholder-gray-500 border-0 rounded-lg"
+            />
+          </div>
+
+          {/* Duration */}
+          <div>
+            <Select value={form.watch("duration")} onValueChange={(value) => form.setValue("duration", value)}>
+              <SelectTrigger className="bg-white text-black border-0 rounded-lg">
+                <SelectValue placeholder="Select duration" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="3 days">3 Days</SelectItem>
+                <SelectItem value="5 days">5 Days</SelectItem>
+                <SelectItem value="7 days">1 Week</SelectItem>
+                <SelectItem value="10 days">10 Days</SelectItem>
+                <SelectItem value="14 days">2 Weeks</SelectItem>
+                <SelectItem value="21 days">3 Weeks</SelectItem>
+                <SelectItem value="30 days">1 Month</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Trip Types Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {tripTypeOptions.map((option) => (
+              <div key={option.id} className="flex items-center space-x-2">
+                <Checkbox
+                  id={option.id}
+                  checked={selectedTripTypes.includes(option.id)}
+                  onCheckedChange={(checked) => handleTripTypeChange(option.id, checked as boolean)}
+                  className="border-blue-400 data-[state=checked]:bg-blue-500"
+                />
+                <label
+                  htmlFor={option.id}
+                  className="text-sm text-white cursor-pointer"
+                >
+                  {option.label}
+                </label>
+              </div>
+            ))}
+          </div>
+
+          {/* Message */}
+          <div>
+            <Textarea
+              placeholder="Tell us what you would like to see and do during your journey..."
+              {...form.register("message")}
+              className="bg-white text-black placeholder-gray-500 border-0 rounded-lg min-h-[120px] resize-none"
+            />
+            {form.formState.errors.message && (
+              <p className="text-red-400 text-sm mt-1">{form.formState.errors.message.message}</p>
+            )}
+          </div>
+
+          {/* Submit Button */}
+          <Button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-medium text-lg"
+          >
+            {isSubmitting ? "Sending your request..." : "Send my request"}
+          </Button>
+        </form>
       </div>
       
-      {/* Fallback Message */}
+      {/* Info Message */}
       <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
         <p className="text-sm text-blue-800">
-          <strong>Having trouble loading the booking widget?</strong> You can also{' '}
-          <a href="/custom-tour-form" className="text-blue-600 hover:text-blue-700 underline">
-            use our alternative booking form
-          </a>{' '}
-          or contact us directly at{' '}
-          <a href="mailto:info@amontour.com" className="text-blue-600 hover:text-blue-700 underline">
-            info@amontour.com
-          </a>
+          <strong>Your request will be processed immediately.</strong> Our local experts will contact you within 24-48 hours to discuss your personalized Thailand adventure.
         </p>
       </div>
     </div>
