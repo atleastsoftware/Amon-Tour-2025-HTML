@@ -1037,10 +1037,10 @@ Crawl-delay: 1`;
         destinations: validatedData.destinations || []
       };
       
-      // Sauvegarder localement d'abord
-      const customTourRequest = await storage.createCustomTourRequest(requestData);
+      // Envoyer directement vers Tour Ninja d'abord (action principale)
+      let tourNinjaSent = false;
+      let tourNinjaError = null;
       
-      // Intégration Tour Ninja
       try {
         const tourNinjaApiKey = process.env.TOUR_NINJA_API_KEY;
         const companyId = process.env.TOUR_NINJA_COMPANY_ID || "amontour";
@@ -1097,40 +1097,40 @@ Crawl-delay: 1`;
 
           if (tourNinjaResult.success) {
             console.log("✅ Tour Ninja API - Request sent successfully:", tourNinjaResult.requestId);
+            tourNinjaSent = true;
             
-            // Retourner la réponse avec l'information Tour Ninja
-            res.status(201).json({
-              ...customTourRequest,
-              tourNinjaStatus: "sent",
+            // Réponse de succès immédiate - pas de stockage local nécessaire
+            return res.status(200).json({
+              success: true,
+              message: "Your custom tour request has been sent successfully to our booking system! We will contact you within 24-48 hours to discuss your personalized Thailand adventure.",
               tourNinjaRequestId: tourNinjaResult.requestId,
-              estimatedResponseTime: tourNinjaResult.estimatedResponseTime,
-              tourNinjaData: tourNinjaResult.data
+              tourNinjaStatus: "sent"
             });
           } else {
             console.error("❌ Tour Ninja API Error:", tourNinjaResult);
-            // Continuer même si Tour Ninja échoue
-            res.status(201).json({
-              ...customTourRequest,
-              tourNinjaStatus: "failed",
-              tourNinjaError: tourNinjaResult.message || "API call failed"
-            });
+            tourNinjaError = tourNinjaResult.message || "API call failed";
           }
         } else {
-          console.log("⚠️  Tour Ninja API key not configured, skipping integration");
-          res.status(201).json({
-            ...customTourRequest,
-            tourNinjaStatus: "skipped",
-            reason: "API key not configured"
-          });
+          console.log("⚠️ Tour Ninja API key not configured");
+          tourNinjaError = "API key not configured";
         }
-      } catch (tourNinjaError) {
-        console.error("❌ Tour Ninja integration error:", tourNinjaError);
-        // Tour Ninja confirme un problème temporaire côté serveur (2-4h de résolution)
-        res.status(201).json({
-          ...customTourRequest,
-          tourNinjaStatus: "temporary_error",
-          tourNinjaError: "Tour Ninja API temporarily unavailable - will retry automatically",
-          message: "Your request has been saved. We'll process it with Tour Ninja once their service is restored."
+      } catch (error: any) {
+        console.error("❌ Tour Ninja integration error:", error);
+        tourNinjaError = error.message;
+      }
+      
+      // Si Tour Ninja n'a pas fonctionné, sauvegarder localement comme fallback
+      if (!tourNinjaSent) {
+        console.log("⚠️ Tour Ninja unavailable, storing request locally as backup");
+        const customTourRequest = await storage.createCustomTourRequest(requestData);
+        
+        return res.status(200).json({
+          success: true,
+          message: "Your request has been received and stored for manual processing. We will contact you within 24-48 hours to discuss your personalized Thailand adventure.",
+          localId: customTourRequest.id,
+          tourNinjaStatus: "failed",
+          tourNinjaError,
+          note: "Our booking system is temporarily unavailable, but your request is safely stored."
         });
       }
     } catch (error: any) {
