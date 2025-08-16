@@ -37,6 +37,7 @@ import AdminNewsletter from "@/pages/admin-newsletter";
 import AdminCustomTours from "@/pages/admin-custom-tours";
 import AdminTourNinjaImages from "@/pages/admin-tour-ninja-images";
 import AdminTranslation from "@/pages/admin-translation";
+import TourNinjaWidget from "@/pages/tour-ninja-widget";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 import { IframeProvider } from "@/contexts/IframeContext";
 import IframeModal from "@/components/ui/IframeModal";
@@ -52,6 +53,7 @@ function Router() {
       <Route path="/stays" component={Stays} />
       <Route path="/tour/:token" component={TourShowcase} />
       <Route path="/custom-tour" component={CustomTour} />
+      <Route path="/tour-ninja-widget" component={TourNinjaWidget} />
       <Route path="/book-tour/:id" component={BookTour} />
       <Route path="/booking" component={BookingIframe} />
       <Route path="/tour-view" component={TourView} />

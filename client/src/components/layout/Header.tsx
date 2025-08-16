@@ -182,6 +182,9 @@ export default function Header() {
           <NavLink href="/custom-tour" isActive={location === '/custom-tour'} isHomePage={isHomePage} scrolled={scrolled}>
             Custom Trip
           </NavLink>
+          <NavLink href="/tour-ninja-widget" isActive={location === '/tour-ninja-widget'} isHomePage={isHomePage} scrolled={scrolled}>
+            Book Now
+          </NavLink>
           <NavLink href="/blog" isActive={location === '/blog'} isHomePage={isHomePage} scrolled={scrolled}>
             Blog
           </NavLink>
@@ -221,6 +224,9 @@ export default function Header() {
               </NavLink>
               <NavLink href="/custom-tour" isActive={location === '/custom-tour'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
                 Custom Trip
+              </NavLink>
+              <NavLink href="/tour-ninja-widget" isActive={location === '/tour-ninja-widget'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
+                Book Now
               </NavLink>
               <NavLink href="/blog" isActive={location === '/blog'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
                 Blog
