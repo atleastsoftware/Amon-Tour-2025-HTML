@@ -1048,58 +1048,65 @@ Crawl-delay: 1`;
         if (tourNinjaApiKey) {
           console.log("🚀 Sending custom tour request to Tour Ninja API...");
           
-          // Préparer les données pour Tour Ninja selon leur format
+          // Préparer les données pour Tour Ninja selon leur format exact
           const tourNinjaData = {
+            // Champs requis (minimum)
             customerName: validatedData.fullName,
             customerEmail: validatedData.email,
+            adults: validatedData.numberOfAdults,
+            
+            // Champs optionnels
+            children: validatedData.numberOfKids,
             phone: validatedData.phoneNumber,
             whatsapp: validatedData.phoneNumber, // Même numéro pour WhatsApp
-            adults: validatedData.numberOfAdults,
-            children: validatedData.numberOfKids,
             startDate: validatedData.tripDates ? parseCustomDate(validatedData.tripDates) : undefined,
             duration: validatedData.duration ? parseDuration(validatedData.duration) : undefined,
             interests: validatedData.tripTypes || [],
             travelTypes: validatedData.tripTypes || [],
             destinations: validatedData.destinations || [],
-            message: validatedData.message,
-            companyId: companyId,
-            sourceApi: "amontour-website"
+            message: validatedData.message
           };
 
-          // Appel à l'API Tour Ninja
+          // Nettoyer les valeurs undefined pour éviter les erreurs
+          Object.keys(tourNinjaData).forEach(key => {
+            if ((tourNinjaData as any)[key] === undefined) {
+              delete (tourNinjaData as any)[key];
+            }
+          });
+
+          console.log("📤 Tour Ninja Data:", JSON.stringify(tourNinjaData, null, 2));
+
+          // Appel à l'API Tour Ninja avec la nouvelle configuration
           const tourNinjaResponse = await fetch('https://www.tourninja.io/api/custom-tour-requests', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': `Bearer ${tourNinjaApiKey}`
+              'Authorization': `Bearer amontour-api-key-2025`
             },
             body: JSON.stringify(tourNinjaData)
           });
 
-          if (tourNinjaResponse.ok) {
-            const tourNinjaResult = await tourNinjaResponse.json();
+          const tourNinjaResult = await tourNinjaResponse.json();
+          console.log("📥 Tour Ninja Response:", JSON.stringify(tourNinjaResult, null, 2));
+
+          if (tourNinjaResult.success) {
             console.log("✅ Tour Ninja API - Request sent successfully:", tourNinjaResult.requestId);
-            
-            // Mettre à jour notre demande locale avec l'ID de Tour Ninja
-            if (tourNinjaResult.requestId) {
-              // On pourrait ajouter un champ tourNinjaRequestId dans notre schéma si nécessaire
-              console.log(`📋 Tour Ninja Reference: ${tourNinjaResult.requestId}`);
-            }
             
             // Retourner la réponse avec l'information Tour Ninja
             res.status(201).json({
               ...customTourRequest,
               tourNinjaStatus: "sent",
               tourNinjaRequestId: tourNinjaResult.requestId,
-              estimatedResponseTime: tourNinjaResult.estimatedResponseTime
+              estimatedResponseTime: tourNinjaResult.estimatedResponseTime,
+              tourNinjaData: tourNinjaResult.data
             });
           } else {
-            console.error("❌ Tour Ninja API Error:", await tourNinjaResponse.text());
+            console.error("❌ Tour Ninja API Error:", tourNinjaResult);
             // Continuer même si Tour Ninja échoue
             res.status(201).json({
               ...customTourRequest,
               tourNinjaStatus: "failed",
-              tourNinjaError: "API call failed"
+              tourNinjaError: tourNinjaResult.message || "API call failed"
             });
           }
         } else {
