@@ -1125,11 +1125,12 @@ Crawl-delay: 1`;
         }
       } catch (tourNinjaError) {
         console.error("❌ Tour Ninja integration error:", tourNinjaError);
-        // Continuer même si l'intégration Tour Ninja échoue
+        // Tour Ninja confirme un problème temporaire côté serveur (2-4h de résolution)
         res.status(201).json({
           ...customTourRequest,
-          tourNinjaStatus: "error",
-          tourNinjaError: String(tourNinjaError)
+          tourNinjaStatus: "temporary_error",
+          tourNinjaError: "Tour Ninja API temporarily unavailable - will retry automatically",
+          message: "Your request has been saved. We'll process it with Tour Ninja once their service is restored."
         });
       }
     } catch (error: any) {

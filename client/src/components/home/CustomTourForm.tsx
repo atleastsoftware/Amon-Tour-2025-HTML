@@ -103,8 +103,8 @@ export default function CustomTourForm() {
       await apiRequest("POST", "/api/custom-tour", requestData);
       
       toast({
-        title: "Request sent",
-        description: "We will contact you very soon to discuss your travel project.",
+        title: "Request sent successfully",
+        description: "Your custom tour request has been received. We will contact you within 24-48 hours to discuss your travel project.",
         variant: "default",
       });
       
