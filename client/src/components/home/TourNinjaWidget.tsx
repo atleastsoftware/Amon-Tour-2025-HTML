@@ -1,85 +1,61 @@
-import { useEffect, useRef } from 'react';
-
-declare global {
-  interface Window {
-    TourNinjaWidget: any;
-  }
-}
+import { useState } from 'react';
 
 interface TourNinjaWidgetProps {
   className?: string;
 }
 
 export default function TourNinjaWidget({ className = "" }: TourNinjaWidgetProps) {
-  const widgetRef = useRef<HTMLDivElement>(null);
-  const scriptLoaded = useRef(false);
-  const widgetInitialized = useRef(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
 
-  useEffect(() => {
-    const initializeWidget = () => {
-      if (window.TourNinjaWidget && widgetRef.current && !widgetInitialized.current) {
-        try {
-          new window.TourNinjaWidget('tour-ninja-widget-embedded', {
-            tourName: 'Amon Tour Experience',
-            primaryColor: '#1e73be', // Couleur principale du site
-            language: 'en'
-          });
-          widgetInitialized.current = true;
-          console.log('✅ Tour Ninja Widget initialized successfully');
-        } catch (error) {
-          console.error('❌ Error initializing Tour Ninja widget:', error);
-        }
-      }
-    };
+  const handleIframeLoad = () => {
+    setIsLoading(false);
+    setHasError(false);
+    console.log('✅ Tour Ninja iframe loaded successfully');
+  };
 
-    if (scriptLoaded.current) {
-      initializeWidget();
-      return;
-    }
-
-    // Créer le script dynamiquement
-    const script = document.createElement('script');
-    script.src = 'https://www.tourninja.io/amon-tour-widget.html';
-    script.async = true;
-    script.onload = () => {
-      scriptLoaded.current = true;
-      console.log('✅ Tour Ninja script loaded');
-      initializeWidget();
-    };
-
-    script.onerror = () => {
-      console.error('❌ Error loading Tour Ninja script');
-    };
-
-    document.head.appendChild(script);
-
-    return () => {
-      // Nettoyage lors du démontage du composant
-      if (script.parentNode) {
-        script.parentNode.removeChild(script);
-      }
-      scriptLoaded.current = false;
-      widgetInitialized.current = false;
-    };
-  }, []);
+  const handleIframeError = () => {
+    setIsLoading(false);
+    setHasError(true);
+    console.error('❌ Tour Ninja iframe failed to load');
+  };
 
   return (
     <div className={`tour-ninja-container ${className}`}>
-      <div 
-        id="tour-ninja-widget-embedded" 
-        ref={widgetRef}
-        className="min-h-[800px] w-full bg-white rounded-lg overflow-hidden"
-      >
-        {/* Loading State */}
-        <div className="flex items-center justify-center h-96 bg-gray-50">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-            <p className="text-gray-600 font-medium">Loading Tour Ninja Booking System...</p>
-            <p className="text-sm text-gray-500 mt-2">
-              Please wait while we load the advanced booking interface
-            </p>
+      {/* Iframe Container */}
+      <div className="relative min-h-[800px] w-full bg-white rounded-lg overflow-hidden border border-gray-200">
+        {isLoading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-gray-50 z-10">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+              <p className="text-gray-600 font-medium">Loading Tour Ninja Booking System...</p>
+              <p className="text-sm text-gray-500 mt-2">
+                Please wait while we load the advanced booking interface
+              </p>
+            </div>
           </div>
-        </div>
+        )}
+        
+        {hasError ? (
+          <div className="flex items-center justify-center h-96 bg-red-50">
+            <div className="text-center">
+              <div className="text-red-500 text-4xl mb-4">⚠️</div>
+              <p className="text-red-600 font-medium">Unable to load Tour Ninja widget</p>
+              <p className="text-sm text-red-500 mt-2">
+                Please use the alternative booking form below
+              </p>
+            </div>
+          </div>
+        ) : (
+          <iframe
+            src="https://www.tourninja.io/amon-tour-widget.html"
+            className="w-full h-[800px] border-0"
+            onLoad={handleIframeLoad}
+            onError={handleIframeError}
+            title="Tour Ninja Booking Widget"
+            sandbox="allow-scripts allow-forms allow-same-origin allow-popups"
+          />
+        )}
       </div>
       
       {/* Fallback Message */}
