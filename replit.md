@@ -135,6 +135,7 @@ SENDGRID_API_KEY=your_sendgrid_key (for email notifications)
 - August 16, 2025: Implemented Tour Ninja custom tour request integration - backend API integration ready with proper data mapping, error handling, and authentication. System saves all requests locally and automatically forwards to Tour Ninja once their API is restored (confirmed temporary server issue on their side, 2-4h resolution time).
 - August 16, 2025: Applied liquid glass design to custom tour forms - replaced hard black borders with Apple-inspired transparent backdrop-blur effects, rounded corners (rounded-3xl), subtle gradients, and smooth transitions. Both /custom-tour and landing page forms now feature modern glass morphism styling with improved user experience.
 - August 16, 2025: Replaced custom forms with authentic Tour Ninja booking widget - integrated official Tour Ninja iframe (https://www.tourninja.io/amon-tour-styled) on both /custom-tour and landing page, providing direct booking functionality through Tour Ninja's system. Removed local form processing in favor of Tour Ninja's native booking flow.
+- August 16, 2025: Added message listener for Tour Ninja widget - system now attempts to capture form submissions from the Tour Ninja iframe and save them locally as backup, providing dual tracking (Tour Ninja + local admin dashboard) for better request management.
 
 ## User Preferences
 
