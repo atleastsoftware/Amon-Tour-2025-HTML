@@ -1,7 +1,7 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
-import TourNinjaWidget from "@/components/home/TourNinjaWidget";
+import CustomTourForm from "@/components/home/CustomTourForm";
 import { MapPin, Building2, HeadphonesIcon } from "lucide-react";
 
 export default function CustomTour() {
@@ -82,24 +82,8 @@ export default function CustomTour() {
           </div>
         </section>
         
-        {/* Tour Ninja Widget */}
-        <section className="py-16 bg-white">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
-                Book Your Custom Tour
-              </h2>
-              <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Use our advanced booking system powered by Tour Ninja to create and book your perfect Thai adventure.
-              </p>
-            </div>
-            
-            <div className="max-w-4xl mx-auto">
-              <TourNinjaWidget className="shadow-lg" />
-            </div>
-          </div>
-        </section>
+        {/* Custom Tour Form */}
+        <CustomTourForm />
       </main>
       
       <Footer />
