@@ -43,8 +43,9 @@ export default function TourDetails() {
     return (
       <>
         <SEO 
-          title="Erreur - Tour non trouvé | Amon Tour"
-          description="Le tour demandé n'a pas été trouvé."
+          title="Tour Not Found | Amon Tour"
+          description="The requested tour could not be found. Browse our available authentic Thailand experiences."
+          canonicalUrl="https://amon-tour.com/tours"
         />
         <Header />
         <main className="min-h-screen bg-gray-50 pt-20">
@@ -65,8 +66,15 @@ export default function TourDetails() {
   return (
     <>
       <SEO 
-        title="Détails du Tour | Amon Tour"
-        description="Découvrez tous les détails de ce tour authentique en Thaïlande."
+        title="Tour Details | Authentic Thailand Experience | Amon Tour"
+        description="Discover complete details of this authentic Thailand tour. Expert guides, personalized service, and unforgettable experiences in Krabi and southern Thailand."
+        keywords="thailand tour details, krabi experience details, authentic thai tour, private tour thailand, island tour booking"
+        canonicalUrl={`https://amon-tour.com/tour/${tourId}`}
+        breadcrumbs={[
+          { name: "Home", url: "/" },
+          { name: "Tours & Experiences", url: "/tours" },
+          { name: "Tour Details", url: `/tour/${tourId}` }
+        ]}
       />
       
       <Header />

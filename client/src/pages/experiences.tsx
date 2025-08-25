@@ -42,6 +42,28 @@ export default function Experiences() {
         description="Immerse yourself in authentic Thailand experiences with Amon Tour. Cultural journeys, local traditions, culinary adventures, and hidden gems away from tourist crowds. Personalized experiences crafted by locals."
         keywords="thailand cultural experiences, authentic thai adventures, cultural immersion thailand, local experiences thailand, thailand culinary tours, traditional thai experiences, cultural journeys thailand, authentic local guides"
         canonicalUrl="https://amon-tour.com/experiences"
+        breadcrumbs={[
+          { name: "Home", url: "/" },
+          { name: "Experiences", url: "/experiences" }
+        ]}
+        faqSchema={[
+          {
+            question: "What makes a cultural experience authentic with Amon Tour?",
+            answer: "Our cultural experiences are designed by locals who live in Thailand and have deep connections with communities. We avoid tourist traps and focus on genuine interactions, traditional practices, and immersive learning opportunities that respect local customs."
+          },
+          {
+            question: "Can cultural experiences be adapted for different interests?",
+            answer: "Absolutely! We customize cultural experiences based on your interests - whether you're passionate about cooking, art, spirituality, history, or local crafts. Each experience is tailored to provide meaningful connections with Thai culture."
+          },
+          {
+            question: "Do cultural experiences include food and cooking activities?",
+            answer: "Many of our cultural experiences include authentic culinary components - from market visits and cooking classes to traditional meal sharing with local families. Food is an essential part of Thai culture we love to share."
+          },
+          {
+            question: "Are cultural experiences suitable for solo travelers?",
+            answer: "Yes! Cultural experiences are perfect for solo travelers looking for authentic connections. Our guides facilitate meaningful interactions and ensure you feel comfortable while experiencing genuine Thai hospitality."
+          }
+        ]}
         structuredData={{
           "@context": "https://schema.org",
           "@type": "ItemList",

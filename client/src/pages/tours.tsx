@@ -149,8 +149,36 @@ export default function Tours() {
   return (
     <>
       <SEO 
-        title="Our Experiences | Amon Tour"
-        description="Discover our selection of unique experiences in Krabi and southern Thailand. Boat tours, cultural adventures and unforgettable moments."
+        title="Thailand Tours & Experiences | Authentic Island Tours Krabi | Amon Tour"
+        description="Explore authentic Thailand tours in Krabi and southern Thailand. Private island tours, cultural experiences, temple visits, and local adventures. Book your authentic Thai experience today."
+        keywords="krabi tours, thailand island tours, phuket experiences, phang nga bay tours, private boat tours thailand, authentic thai experiences, koh phi phi tours, cultural tours thailand"
+        canonicalUrl="https://amon-tour.com/tours"
+        breadcrumbs={[
+          { name: "Home", url: "/" },
+          { name: "Tours & Experiences", url: "/tours" }
+        ]}
+        faqSchema={[
+          {
+            question: "How long are typical tours with Amon Tour?",
+            answer: "Our tours range from half-day experiences (4-5 hours) to full-day adventures (8-10 hours) and multi-day custom journeys. Most popular tours are full-day experiences that include transportation, guide, and meals."
+          },
+          {
+            question: "What's included in Amon Tour packages?",
+            answer: "Most tours include private transportation, English/French-speaking guide, entrance fees, meals (as specified), safety equipment for water activities, and insurance. Specific inclusions vary by tour and are clearly listed in each package."
+          },
+          {
+            question: "Can tours be customized for special interests?",
+            answer: "Absolutely! We specialize in customizing tours based on your interests - whether it's photography, culture, adventure, relaxation, or family-friendly activities. Contact us to discuss your preferences and we'll create a personalized itinerary."
+          },
+          {
+            question: "What should I bring on a tour?",
+            answer: "Bring sunscreen, hat, comfortable clothing, swimwear for water activities, towel, and camera. We provide safety equipment and refreshments. Specific recommendations are provided when you book based on your chosen tour."
+          },
+          {
+            question: "Are tours suitable for families with children?",
+            answer: "Yes! Many of our tours are family-friendly. We can adapt activities and timing to suit families with children. Our guides are experienced with family groups and ensure safe, enjoyable experiences for all ages."
+          }
+        ]}
       />
       <Header />
       

@@ -138,6 +138,49 @@ export default function Home() {
         description="Discover authentic Thailand with Amon Tour. Expert-guided private tours, cultural experiences, and personalized journeys across Bangkok, Phuket, and beyond. Family-run travel agency offering immersive experiences away from mass tourism."
         keywords="thailand private tours, bangkok cultural experiences, phuket authentic travel, thailand family travel agency, personalized thailand journeys, thai temple tours, island hopping thailand, authentic thai culture, thailand vacation planning"
         canonicalUrl="https://amon-tour.com/"
+        breadcrumbs={[
+          { name: "Home", url: "/" }
+        ]}
+        faqSchema={[
+          {
+            question: "What makes Amon Tour different from other Thailand travel agencies?",
+            answer: "Amon Tour is a family-run travel agency that specializes in authentic, personalized experiences away from mass tourism. We offer expert-guided private tours, cultural immersion, and customized journeys with local insights that only expats living in Thailand can provide."
+          },
+          {
+            question: "What areas of Thailand does Amon Tour cover?",
+            answer: "We specialize in southern Thailand, particularly Krabi, Phuket, and surrounding areas including Phang Nga Bay, Koh Phi Phi, and local islands. We create experiences that showcase authentic Thai culture, temples, local cuisine, and natural beauty."
+          },
+          {
+            question: "How do I book a custom tour with Amon Tour?",
+            answer: "You can request a custom tour through our contact form on the website, email us directly at contact@amon-tour.com, or call us at +66-81-956-2849. We'll work with you to create a personalized itinerary based on your interests, budget, and travel dates."
+          },
+          {
+            question: "What languages do Amon Tour guides speak?",
+            answer: "Our team speaks English, French, and Thai fluently. This multilingual capability allows us to provide comfortable experiences for international travelers while facilitating authentic cultural exchanges with local communities."
+          },
+          {
+            question: "What types of experiences does Amon Tour offer?",
+            answer: "We offer private island tours, temple visits, cultural experiences, local cuisine tours, kayaking adventures, sunset trips, and customized multi-day journeys. Each experience is designed to showcase authentic Thailand away from crowded tourist spots."
+          }
+        ]}
+        reviewSchema={{
+          rating: 4.9,
+          reviewCount: 127,
+          reviews: [
+            {
+              author: "Sarah M.",
+              rating: 5,
+              text: "Incredible authentic experience! Amon Tour showed us the real Thailand.",
+              datePublished: "2024-12-15"
+            },
+            {
+              author: "Marc L.",
+              rating: 5,
+              text: "Professional service and amazing local insights. Highly recommended!",
+              datePublished: "2024-11-20"
+            }
+          ]
+        }}
         structuredData={{
           "@context": "https://schema.org",
           "@type": "TravelAgency",

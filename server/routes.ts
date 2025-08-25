@@ -56,6 +56,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get('/sitemap.xml', async (req, res) => {
     try {
       const baseUrl = 'https://amon-tour.com';
+      const languages = ['en', 'fr', 'th'];
+      
       const staticPages = [
         { url: '/', changefreq: 'daily', priority: '1.0' },
         { url: '/tours', changefreq: 'weekly', priority: '0.9' },
@@ -63,6 +65,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         { url: '/stays', changefreq: 'weekly', priority: '0.8' },
         { url: '/external-stays', changefreq: 'weekly', priority: '0.7' },
         { url: '/custom-tour', changefreq: 'monthly', priority: '0.7' },
+        { url: '/blog', changefreq: 'weekly', priority: '0.6' },
+        { url: '/contact', changefreq: 'monthly', priority: '0.5' },
         { url: '/privacy-policy', changefreq: 'yearly', priority: '0.3' },
         { url: '/terms-conditions', changefreq: 'yearly', priority: '0.3' },
         { url: '/legal-notice', changefreq: 'yearly', priority: '0.3' }
@@ -80,13 +84,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const allUrls = [...staticPages, ...tourUrls];
       
       const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${allUrls.map(page => `  <url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+${allUrls.map(page => {
+  const alternateLinks = languages.map(lang => 
+    `    <xhtml:link rel="alternate" hreflang="${lang}" href="${baseUrl}${page.url}" />`
+  ).join('\n');
+  
+  return `  <url>
     <loc>${baseUrl}${page.url}</loc>
     <changefreq>${page.changefreq}</changefreq>
     <priority>${page.priority}</priority>
     ${'lastmod' in page ? `<lastmod>${page.lastmod}</lastmod>` : ''}
-  </url>`).join('\n')}
+${alternateLinks}
+  </url>`;
+}).join('\n')}
 </urlset>`;
 
       res.set('Content-Type', 'application/xml');
