@@ -59,10 +59,10 @@ export default function AdminAppearance() {
     secondary: "#E6B64C"
   });
   const [menuItems, setMenuItems] = useState([
-    { id: 1, name: "Accueil", url: "/", hasSubmenu: false, children: [] },
-    { id: 2, name: "Tours", url: "/tours", hasSubmenu: false, children: [] },
-    { id: 3, name: "Expériences", url: "/experiences", hasSubmenu: false, children: [] },
-    { id: 4, name: "À propos", url: "/about", hasSubmenu: false, children: [] },
+    { id: 1, name: "Home", url: "/", hasSubmenu: false, children: [] },
+    { id: 2, name: "Experiences", url: "/experiences", hasSubmenu: false, children: [] },
+    { id: 3, name: "Custom Trip", url: "/custom-tour", hasSubmenu: false, children: [] },
+    { id: 4, name: "Blog", url: "/blog", hasSubmenu: false, children: [] },
     { id: 5, name: "Contact", url: "/contact", hasSubmenu: false, children: [] }
   ]);
   const [draggedItem, setDraggedItem] = useState<number | null>(null);
@@ -445,17 +445,22 @@ export default function AdminAppearance() {
                               {/* Logo actuel s'il existe */}
                               <div className="mt-2 p-4 bg-gray-50 rounded-lg">
                                 <div className="flex items-center gap-4 mb-4">
-                                  <img 
-                                    src="/attached_assets/amon-tour-logo.png" 
-                                    alt="Logo actuel Amon Tour" 
-                                    className="h-12 w-auto"
-                                    onError={(e) => {
-                                      (e.target as HTMLImageElement).style.display = 'none';
-                                    }}
-                                  />
+                                  <div className="flex items-center gap-2">
+                                    <img 
+                                      src="/attached_assets/logo.png" 
+                                      alt="Logo actuel Amon Tour" 
+                                      className="h-8 w-auto"
+                                      onError={(e) => {
+                                        const target = e.target as HTMLImageElement;
+                                        target.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0iIzFlNzNiZSIvPgo8dGV4dCB4PSIxNiIgeT0iMjAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5BPC90ZXh0Pgo8L3N2Zz4K";
+                                        target.className = "h-8 w-8";
+                                      }}
+                                    />
+                                    <span className="text-xl font-bold text-[#1e73be]">Amon Tour</span>
+                                  </div>
                                   <div>
                                     <p className="font-medium">Logo actuel</p>
-                                    <p className="text-sm text-gray-600">Amon Tour</p>
+                                    <p className="text-sm text-gray-600">Logo + texte Amon Tour</p>
                                   </div>
                                 </div>
                               </div>
