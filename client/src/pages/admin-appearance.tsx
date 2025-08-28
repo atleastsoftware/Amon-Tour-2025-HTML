@@ -797,7 +797,7 @@ export default function AdminAppearance() {
                                   className="font-medium text-lg min-h-[60px] p-2 bg-white border rounded outline-none focus:ring-2 focus:ring-blue-500"
                                   style={{ lineHeight: '1.5' }}
                                   dangerouslySetInnerHTML={{
-                                    __html: 'Your exclusive experiences in <span style="color: #1e73be;">Krabi</span> – <span style="color: #E6B64C;">THAILAND</span>'
+                                    __html: 'Your exclusive experiences <span style="color: #1e73be;">in Krabi –</span> <span style="color: #000000;">THAILAND</span>'
                                   }}
                                 />
                                 <div className="flex items-center gap-3 mt-3 pt-3 border-t">
@@ -814,9 +814,7 @@ export default function AdminAppearance() {
                                         }
                                       }}
                                     />
-                                  </div>
-                                  <div className="text-sm text-gray-600 flex-1">
-                                    💡 <strong>Instructions :</strong> Sélectionnez une partie du texte avec votre souris, puis choisissez une couleur pour l'appliquer
+                                    <span className="text-xs px-2 py-1 bg-gray-200 rounded font-mono">#1e73be</span>
                                   </div>
                                   <Button 
                                     variant="outline" 
@@ -830,6 +828,9 @@ export default function AdminAppearance() {
                                   >
                                     Réinitialiser
                                   </Button>
+                                </div>
+                                <div className="text-sm text-gray-600 mt-2">
+                                  💡 <strong>Instructions :</strong> Sélectionnez une partie du texte avec votre souris, puis choisissez une couleur pour l'appliquer
                                 </div>
                               </div>
                             </div>
@@ -1107,75 +1108,13 @@ export default function AdminAppearance() {
 
                         <Separator />
 
-                        {/* Copyright & Mentions */}
+                        {/* Copyright */}
                         <div>
-                          <h4 className="font-semibold mb-4">Copyright & Mentions</h4>
+                          <h4 className="font-semibold mb-4">Copyright</h4>
                           <div className="space-y-3">
                             <div>
                               <Label>Texte de copyright</Label>
                               <Input defaultValue="© 2024 Amon Tour. All rights reserved." />
-                            </div>
-                            <div>
-                              <Label>Liens légaux</Label>
-                              <div className="grid grid-cols-3 gap-3">
-                                <div>
-                                  <Label className="text-sm">Legal Notice</Label>
-                                  <select className="w-full px-3 py-2 border rounded-md" defaultValue="/legal-notice">
-                                    <option value="/">Accueil</option>
-                                    <option value="/experiences">Experiences</option>
-                                    <option value="/custom-tour">Custom Trip</option>
-                                    <option value="/blog">Blog</option>
-                                    <option value="/contact">Contact</option>
-                                    <option value="/our-brochure">Our brochure</option>
-                                    <option value="/krabi-celebration">Krabi Celebration</option>
-                                    <option value="/fun-garden">Fun Garden</option>
-                                    <option value="/villas-in-krabi">Villas in Krabi</option>
-                                    <option value="/become-partner">Become Partner</option>
-                                    <option value="/group-corporate">Group & Corporate</option>
-                                    <option value="/legal-notice">Legal Notice</option>
-                                    <option value="/privacy-policy">Privacy Policy</option>
-                                    <option value="/terms-conditions">Terms & Conditions</option>
-                                  </select>
-                                </div>
-                                <div>
-                                  <Label className="text-sm">Privacy Policy</Label>
-                                  <select className="w-full px-3 py-2 border rounded-md" defaultValue="/privacy-policy">
-                                    <option value="/">Accueil</option>
-                                    <option value="/experiences">Experiences</option>
-                                    <option value="/custom-tour">Custom Trip</option>
-                                    <option value="/blog">Blog</option>
-                                    <option value="/contact">Contact</option>
-                                    <option value="/our-brochure">Our brochure</option>
-                                    <option value="/krabi-celebration">Krabi Celebration</option>
-                                    <option value="/fun-garden">Fun Garden</option>
-                                    <option value="/villas-in-krabi">Villas in Krabi</option>
-                                    <option value="/become-partner">Become Partner</option>
-                                    <option value="/group-corporate">Group & Corporate</option>
-                                    <option value="/legal-notice">Legal Notice</option>
-                                    <option value="/privacy-policy">Privacy Policy</option>
-                                    <option value="/terms-conditions">Terms & Conditions</option>
-                                  </select>
-                                </div>
-                                <div>
-                                  <Label className="text-sm">Terms & Conditions</Label>
-                                  <select className="w-full px-3 py-2 border rounded-md" defaultValue="/terms-conditions">
-                                    <option value="/">Accueil</option>
-                                    <option value="/experiences">Experiences</option>
-                                    <option value="/custom-tour">Custom Trip</option>
-                                    <option value="/blog">Blog</option>
-                                    <option value="/contact">Contact</option>
-                                    <option value="/our-brochure">Our brochure</option>
-                                    <option value="/krabi-celebration">Krabi Celebration</option>
-                                    <option value="/fun-garden">Fun Garden</option>
-                                    <option value="/villas-in-krabi">Villas in Krabi</option>
-                                    <option value="/become-partner">Become Partner</option>
-                                    <option value="/group-corporate">Group & Corporate</option>
-                                    <option value="/legal-notice">Legal Notice</option>
-                                    <option value="/privacy-policy">Privacy Policy</option>
-                                    <option value="/terms-conditions">Terms & Conditions</option>
-                                  </select>
-                                </div>
-                              </div>
                             </div>
                           </div>
                         </div>
@@ -1192,321 +1131,559 @@ export default function AdminAppearance() {
 
                   {/* Pages & Contenu */}
                   <TabsContent value="pages-content" className="space-y-6">
-                    {/* Page d'accueil - Blocs complexes */}
+                    
+                    {/* Pages principales - Accueil + Menu */}
                     <Card>
                       <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                           <Home className="h-5 w-5" />
-                          Page d'accueil - Sections et blocs
+                          Pages principales - Accueil + Menu
                         </CardTitle>
-                        <p className="text-sm text-gray-600">Gérez les différents blocs de contenu de votre page d'accueil</p>
+                        <p className="text-sm text-gray-600">Pages visibles dans l'accueil et le menu principal</p>
                       </CardHeader>
-                      <CardContent>
-                        <div className="space-y-6">
-                          {(contentBlocks as any[])?.filter((block: any) => block.pageLocation === 'home').length > 0 ? 
-                            (contentBlocks as any[]).filter((block: any) => block.pageLocation === 'home').map((block: any) => (
-                              <div key={block.id} className="border rounded-lg p-4 space-y-4">
-                                <div className="flex items-center justify-between">
-                                  <div>
-                                    <h4 className="font-semibold">{block.title}</h4>
-                                    <p className="text-sm text-gray-600">{block.subtitle}</p>
-                                    <Badge variant="outline" className="mt-2">{block.identifier}</Badge>
-                                  </div>
-                                  <div className="flex items-center gap-2">
-                                    <Switch defaultChecked={block.isActive} />
-                                    <Dialog>
-                                      <DialogTrigger asChild>
-                                        <Button variant="outline" size="sm">
-                                          <Edit className="h-4 w-4 mr-2" />
-                                          Modifier
-                                        </Button>
-                                      </DialogTrigger>
-                                      <DialogContent className="max-w-3xl">
-                                        <DialogHeader>
-                                          <DialogTitle>Modifier le bloc : {block.title}</DialogTitle>
-                                        </DialogHeader>
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                          <div className="space-y-4">
-                                            <div>
-                                              <Label>Titre principal</Label>
-                                              <Input defaultValue={block.title} />
-                                            </div>
-                                            <div>
-                                              <Label>Sous-titre</Label>
-                                              <Input defaultValue={block.subtitle} />
-                                            </div>
-                                            <div>
-                                              <Label>Description</Label>
-                                              <Textarea defaultValue={block.content} rows={4} />
-                                            </div>
-                                            <div>
-                                              <Label>Texte du bouton (optionnel)</Label>
-                                              <Input defaultValue={block.ctaText} />
-                                            </div>
-                                            <div>
-                                              <Label>Lien du bouton (optionnel)</Label>
-                                              <Input defaultValue={block.ctaUrl} />
-                                            </div>
-                                          </div>
-                                          <div className="space-y-4">
-                                            <div>
-                                              <Label>Image du bloc</Label>
-                                              <div className="mt-2">
-                                                {block.imageUrl && (
-                                                  <img 
-                                                    src={block.imageUrl} 
-                                                    alt={block.title} 
-                                                    className="w-full h-32 object-cover rounded border mb-2"
-                                                  />
-                                                )}
-                                                <Button variant="outline" size="sm" className="w-full">
-                                                  <Upload className="h-4 w-4 mr-2" />
-                                                  {block.imageUrl ? "Changer l'image" : "Ajouter une image"}
-                                                </Button>
-                                              </div>
-                                            </div>
-                                            <div>
-                                              <Label>Ordre d'affichage</Label>
-                                              <Input type="number" defaultValue={block.displayOrder} />
-                                            </div>
-                                            <div className="flex items-center gap-2">
-                                              <Switch defaultChecked={block.isActive} />
-                                              <Label>Bloc actif</Label>
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div className="flex justify-end pt-4">
-                                          <Button>Sauvegarder les modifications</Button>
-                                        </div>
-                                      </DialogContent>
-                                    </Dialog>
-                                  </div>
-                                </div>
-                                
-                                {/* Preview du bloc */}
-                                <div className="bg-gray-50 rounded p-4 border-l-4 border-blue-500">
-                                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                                    <div>
-                                      <span className="font-medium">Contenu:</span>
-                                      <p className="text-gray-600 mt-1 line-clamp-2">{block.content}</p>
-                                    </div>
-                                    <div>
-                                      <span className="font-medium">Image:</span>
-                                      <p className="text-gray-600 mt-1">{block.imageUrl ? "✅ Image définie" : "❌ Aucune image"}</p>
-                                    </div>
-                                    <div>
-                                      <span className="font-medium">Action:</span>
-                                      <p className="text-gray-600 mt-1">{block.ctaText ? `"${block.ctaText}"` : "Aucun bouton"}</p>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            )) : (
-                              <div className="text-center py-8 text-gray-500">
-                                <Layout className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-                                <p>Aucun bloc de contenu trouvé pour la page d'accueil</p>
-                              </div>
-                            )
-                          }
+                      <CardContent className="space-y-6">
+                        
+                        {/* Page d'accueil avec sections spécifiques */}
+                        <div className="border rounded-lg p-4">
+                          <h4 className="font-semibold mb-4 text-lg">🏠 Page d'Accueil - Sections</h4>
                           
-                          <Dialog>
-                            <DialogTrigger asChild>
-                              <Button variant="outline" className="w-full">
-                                <Plus className="h-4 w-4 mr-2" />
-                                Ajouter un nouveau bloc à la page d'accueil
-                              </Button>
-                            </DialogTrigger>
-                            <DialogContent className="max-w-3xl">
-                              <DialogHeader>
-                                <DialogTitle>Créer un nouveau bloc pour la page d'accueil</DialogTitle>
-                              </DialogHeader>
-                              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div className="space-y-4">
-                                  <div>
-                                    <Label>Titre principal</Label>
-                                    <Input placeholder="Titre de votre bloc" />
-                                  </div>
-                                  <div>
-                                    <Label>Sous-titre</Label>
-                                    <Input placeholder="Sous-titre du bloc" />
-                                  </div>
-                                  <div>
-                                    <Label>Description</Label>
-                                    <Textarea placeholder="Description du contenu..." rows={4} />
-                                  </div>
-                                  <div>
-                                    <Label>Texte du bouton (optionnel)</Label>
-                                    <Input placeholder="Ex: En savoir plus" />
-                                  </div>
-                                  <div>
-                                    <Label>Lien du bouton (optionnel)</Label>
-                                    <Input placeholder="Ex: /about" />
-                                  </div>
-                                </div>
-                                <div className="space-y-4">
-                                  <div>
-                                    <Label>Identifiant du bloc</Label>
-                                    <Input placeholder="Ex: hero_section" />
-                                  </div>
-                                  <div>
-                                    <Label>Ordre d'affichage</Label>
-                                    <Input type="number" defaultValue="1" />
-                                  </div>
-                                  <div className="flex items-center gap-2">
-                                    <Switch defaultChecked />
-                                    <Label>Activer le bloc</Label>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="flex justify-end pt-4">
-                                <Button>Créer le bloc</Button>
-                              </div>
-                            </DialogContent>
-                          </Dialog>
-                        </div>
-                      </CardContent>
-                    </Card>
-
-                    {/* Autres pages - Contenu simple */}
-                    <Card>
-                      <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                          <FileText className="h-5 w-5" />
-                          Autres pages - Contenu simple
-                        </CardTitle>
-                        <p className="text-sm text-gray-600">Modifiez le titre, l'image et la description des autres pages</p>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-4">
-                          {/* Page Contact */}
-                          <div className="border rounded-lg p-4">
-                            <div className="flex items-center justify-between mb-4">
+                          {/* Section: Experts welcome you */}
+                          <div className="space-y-4 mb-6 p-4 bg-blue-50 rounded">
+                            <h5 className="font-medium">Experts welcome you in the host country</h5>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                               <div>
-                                <h4 className="font-semibold">Page Contact</h4>
-                                <p className="text-sm text-gray-600">Personnalisez l'en-tête de la page contact</p>
+                                <Label>Titre de la section</Label>
+                                <Input defaultValue="Experts welcome you in the host country" />
                               </div>
-                              <Dialog>
-                                <DialogTrigger asChild>
-                                  <Button variant="outline" size="sm">
-                                    <Edit className="h-4 w-4 mr-2" />
-                                    Modifier
-                                  </Button>
-                                </DialogTrigger>
-                                <DialogContent>
-                                  <DialogHeader>
-                                    <DialogTitle>Modifier la page Contact</DialogTitle>
-                                  </DialogHeader>
-                                  <div className="space-y-4">
-                                    <div>
-                                      <Label>Titre principal</Label>
-                                      <Input defaultValue="Contactez-nous" />
-                                    </div>
-                                    <div>
-                                      <Label>Sous-titre</Label>
-                                      <Input defaultValue="Prêt à vivre l'aventure thaïlandaise ?" />
-                                    </div>
-                                    <div>
-                                      <Label>Description</Label>
-                                      <Textarea 
-                                        defaultValue="Notre équipe est là pour répondre à toutes vos questions et vous aider à planifier le voyage parfait en Thaïlande."
-                                        rows={3}
-                                      />
-                                    </div>
-                                    <div>
-                                      <Label>Image d'en-tête</Label>
-                                      <Button variant="outline" className="w-full">
-                                        <Upload className="h-4 w-4 mr-2" />
-                                        Choisir une image
-                                      </Button>
-                                    </div>
-                                    <Button className="w-full">Sauvegarder</Button>
-                                  </div>
-                                </DialogContent>
-                              </Dialog>
+                              <div>
+                                <Label>Sous-titre</Label>
+                                <Input defaultValue="Découvrez la Thaïlande avec nos experts locaux" />
+                              </div>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                              <div>
+                                <Label>Annonces à mettre en avant</Label>
+                                <select className="w-full px-3 py-2 border rounded-md">
+                                  <option>Sélectionner les tours</option>
+                                  <option>Krabi Adventures</option>
+                                  <option>Phi Phi Experience</option>
+                                  <option>Jungle Trekking</option>
+                                </select>
+                              </div>
+                              <div>
+                                <Label>Nombre d'annonces visibles</Label>
+                                <Input type="number" defaultValue="3" />
+                              </div>
+                              <div>
+                                <Label>Description courte</Label>
+                                <Input defaultValue="Nos meilleurs guides vous accompagnent" />
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Section: Our popular experiences */}
+                          <div className="space-y-4 mb-6 p-4 bg-green-50 rounded">
+                            <h5 className="font-medium">Our popular experiences</h5>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div>
+                                <Label>Titre de la section</Label>
+                                <Input defaultValue="Our popular experiences" />
+                              </div>
+                              <div>
+                                <Label>Sous-titre</Label>
+                                <Input defaultValue="Les expériences les plus demandées" />
+                              </div>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div>
+                                <Label>Annonces à mettre en avant</Label>
+                                <select className="w-full px-3 py-2 border rounded-md">
+                                  <option>Sélectionner les tours populaires</option>
+                                  <option>Island Hopping</option>
+                                  <option>Temple Visits</option>
+                                  <option>Cooking Classes</option>
+                                </select>
+                              </div>
+                              <div>
+                                <Label>Description</Label>
+                                <Input defaultValue="Découvrez nos expériences les plus appréciées" />
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Section: Create your custom trip */}
+                          <div className="space-y-4 mb-6 p-4 bg-yellow-50 rounded">
+                            <h5 className="font-medium">Create your custom trip</h5>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div>
+                                <Label>Titre du formulaire</Label>
+                                <Input defaultValue="Create your custom trip" />
+                              </div>
+                              <div>
+                                <Label>Description d'introduction</Label>
+                                <Input defaultValue="Créez votre voyage sur mesure" />
+                              </div>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                              <div>
+                                <Label>Options de destination</Label>
+                                <Textarea defaultValue="Krabi, Phi Phi Islands, Phuket, Bangkok" rows={2} />
+                              </div>
+                              <div>
+                                <Label>Types d'activités</Label>
+                                <Textarea defaultValue="Adventure, Culture, Relaxation, Food" rows={2} />
+                              </div>
+                              <div>
+                                <Label>Durées proposées</Label>
+                                <Textarea defaultValue="3 jours, 5 jours, 7 jours, 10 jours" rows={2} />
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Section: Some ideas for your next trip */}
+                          <div className="space-y-4 mb-6 p-4 bg-purple-50 rounded">
+                            <h5 className="font-medium">Some ideas for your next trip</h5>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div>
+                                <Label>Titre de la section</Label>
+                                <Input defaultValue="Some ideas for your next trip" />
+                              </div>
+                              <div>
+                                <Label>Sous-titre</Label>
+                                <Input defaultValue="Inspirations pour vos prochaines aventures" />
+                              </div>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                              <div>
+                                <Label>Idées à mettre en avant</Label>
+                                <select className="w-full px-3 py-2 border rounded-md">
+                                  <option>Sélectionner les suggestions</option>
+                                  <option>Romantic Getaways</option>
+                                  <option>Adventure Tours</option>
+                                  <option>Cultural Immersion</option>
+                                </select>
+                              </div>
+                              <div>
+                                <Label>Nombre d'idées visibles</Label>
+                                <Input type="number" defaultValue="4" />
+                              </div>
+                              <div>
+                                <Label>Description</Label>
+                                <Input defaultValue="Laissez-vous inspirer par nos suggestions" />
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Section: Why choose us */}
+                          <div className="space-y-4 mb-6 p-4 bg-orange-50 rounded">
+                            <h5 className="font-medium">Why choose us</h5>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div>
+                                <Label>Titre de la section</Label>
+                                <Input defaultValue="Why choose us" />
+                              </div>
+                              <div>
+                                <Label>Sous-titre</Label>
+                                <Input defaultValue="Pourquoi choisir Amon Tour" />
+                              </div>
+                            </div>
+                            <div>
+                              <Label>Contenu principal</Label>
+                              <Textarea 
+                                defaultValue="Experts locaux, expériences authentiques, service personnalisé, guides expérimentés, prix transparents, support 24/7"
+                                rows={3}
+                              />
+                            </div>
+                          </div>
+
+                          {/* Section: Who we are */}
+                          <div className="space-y-4 mb-4 p-4 bg-gray-50 rounded">
+                            <h5 className="font-medium">Who we are</h5>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div>
+                                <Label>Titre de la section</Label>
+                                <Input defaultValue="Who we are" />
+                              </div>
+                              <div>
+                                <Label>Sous-titre</Label>
+                                <Input defaultValue="Qui nous sommes" />
+                              </div>
+                            </div>
+                            <div>
+                              <Label>Notre présentation</Label>
+                              <Textarea 
+                                defaultValue="Amon Tour est une agence de voyage spécialisée dans la découverte authentique de la Thaïlande. Depuis plus de 10 ans, nous créons des expériences uniques dans le sud de la Thaïlande."
+                                rows={3}
+                              />
+                            </div>
+                          </div>
+                        </div>
+
+                        <Separator />
+
+                        {/* Pages du menu principal */}
+                        <div className="space-y-4">
+                          <h4 className="font-semibold text-lg">📱 Pages du Menu Principal</h4>
+                          
+                          {/* Page Experiences */}
+                          <div className="border rounded-lg p-4">
+                            <h5 className="font-medium mb-3">🌊 Page Expériences</h5>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                              <div>
+                                <Label>Photo d'en-tête</Label>
+                                <Button variant="outline" className="w-full">
+                                  <Upload className="h-4 w-4 mr-2" />
+                                  Choisir une image
+                                </Button>
+                              </div>
+                              <div>
+                                <Label>Titre principal</Label>
+                                <Input defaultValue="Nos Expériences" />
+                              </div>
+                              <div>
+                                <Label>Description</Label>
+                                <Input defaultValue="Aventures authentiques en Thaïlande" />
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Page Custom Trip */}
+                          <div className="border rounded-lg p-4">
+                            <h5 className="font-medium mb-3">🎯 Page Custom Trip</h5>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                              <div>
+                                <Label>Photo d'en-tête</Label>
+                                <Button variant="outline" className="w-full">
+                                  <Upload className="h-4 w-4 mr-2" />
+                                  Choisir une image
+                                </Button>
+                              </div>
+                              <div>
+                                <Label>Titre principal</Label>
+                                <Input defaultValue="Voyage sur mesure" />
+                              </div>
+                              <div>
+                                <Label>Description</Label>
+                                <Input defaultValue="Créez votre voyage personnalisé" />
+                              </div>
                             </div>
                           </div>
 
                           {/* Page Blog */}
                           <div className="border rounded-lg p-4">
-                            <div className="flex items-center justify-between mb-4">
+                            <h5 className="font-medium mb-3">📝 Page Blog</h5>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                               <div>
-                                <h4 className="font-semibold">Page Blog</h4>
-                                <p className="text-sm text-gray-600">Personnalisez l'en-tête de votre blog</p>
+                                <Label>Photo d'en-tête</Label>
+                                <Button variant="outline" className="w-full">
+                                  <Upload className="h-4 w-4 mr-2" />
+                                  Choisir une image
+                                </Button>
                               </div>
-                              <Dialog>
-                                <DialogTrigger asChild>
-                                  <Button variant="outline" size="sm">
-                                    <Edit className="h-4 w-4 mr-2" />
-                                    Modifier
-                                  </Button>
-                                </DialogTrigger>
-                                <DialogContent>
-                                  <DialogHeader>
-                                    <DialogTitle>Modifier la page Blog</DialogTitle>
-                                  </DialogHeader>
-                                  <div className="space-y-4">
-                                    <div>
-                                      <Label>Titre principal</Label>
-                                      <Input defaultValue="Blog - Découvertes en Thaïlande" />
-                                    </div>
-                                    <div>
-                                      <Label>Sous-titre</Label>
-                                      <Input defaultValue="Inspiration, conseils et connaissances d'initiés" />
-                                    </div>
-                                    <div>
-                                      <Label>Description</Label>
-                                      <Textarea 
-                                        defaultValue="Découvrez les joyaux cachés de la Thaïlande à travers nos articles de voyage."
-                                        rows={3}
-                                      />
-                                    </div>
-                                    <Button className="w-full">Sauvegarder</Button>
-                                  </div>
-                                </DialogContent>
-                              </Dialog>
+                              <div>
+                                <Label>Titre principal</Label>
+                                <Input defaultValue="Blog - Découvertes en Thaïlande" />
+                              </div>
+                              <div>
+                                <Label>Description</Label>
+                                <Input defaultValue="Inspiration, conseils et connaissances d'initiés" />
+                              </div>
                             </div>
                           </div>
 
-                          {/* Page Expériences */}
+                          {/* Page Contact */}
                           <div className="border rounded-lg p-4">
-                            <div className="flex items-center justify-between mb-4">
+                            <h5 className="font-medium mb-3">📞 Page Contact</h5>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                               <div>
-                                <h4 className="font-semibold">Page Expériences</h4>
-                                <p className="text-sm text-gray-600">Personnalisez la présentation de vos tours</p>
+                                <Label>Photo d'en-tête</Label>
+                                <Button variant="outline" className="w-full">
+                                  <Upload className="h-4 w-4 mr-2" />
+                                  Choisir une image
+                                </Button>
                               </div>
-                              <Dialog>
-                                <DialogTrigger asChild>
-                                  <Button variant="outline" size="sm">
-                                    <Edit className="h-4 w-4 mr-2" />
-                                    Modifier
-                                  </Button>
-                                </DialogTrigger>
-                                <DialogContent>
-                                  <DialogHeader>
-                                    <DialogTitle>Modifier la page Expériences</DialogTitle>
-                                  </DialogHeader>
-                                  <div className="space-y-4">
-                                    <div>
-                                      <Label>Titre principal</Label>
-                                      <Input defaultValue="Nos Expériences" />
-                                    </div>
-                                    <div>
-                                      <Label>Sous-titre</Label>
-                                      <Input defaultValue="Aventures authentiques en Thaïlande" />
-                                    </div>
-                                    <div>
-                                      <Label>Description</Label>
-                                      <Textarea 
-                                        defaultValue="Explorez notre sélection d'expériences uniques pour découvrir la vraie Thaïlande."
-                                        rows={3}
-                                      />
-                                    </div>
-                                    <Button className="w-full">Sauvegarder</Button>
-                                  </div>
-                                </DialogContent>
-                              </Dialog>
+                              <div>
+                                <Label>Titre principal</Label>
+                                <Input defaultValue="Contactez-nous" />
+                              </div>
+                              <div>
+                                <Label>Description</Label>
+                                <Input defaultValue="Prêt à vivre l'aventure thaïlandaise ?" />
+                              </div>
                             </div>
                           </div>
+                        </div>
+
+                        <div className="flex justify-end">
+                          <Button onClick={() => toast({ title: "Pages principales sauvegardées" })}>
+                            <Save className="h-4 w-4 mr-2" />
+                            Sauvegarder les pages principales
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    {/* Pages secondaires - Footer */}
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                          <FileText className="h-5 w-5" />
+                          Pages secondaires - Footer
+                        </CardTitle>
+                        <p className="text-sm text-gray-600">Pages accessibles depuis le footer du site</p>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        
+                        {/* Our brochure */}
+                        <div className="border rounded-lg p-4">
+                          <h5 className="font-medium mb-3">📋 Our brochure</h5>
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                              <Label>Photo d'en-tête</Label>
+                              <Button variant="outline" className="w-full">
+                                <Upload className="h-4 w-4 mr-2" />
+                                Choisir une image
+                              </Button>
+                            </div>
+                            <div>
+                              <Label>Titre principal</Label>
+                              <Input defaultValue="Notre brochure" />
+                            </div>
+                            <div>
+                              <Label>Description</Label>
+                              <Input defaultValue="Découvrez toutes nos offres" />
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Krabi Celebration */}
+                        <div className="border rounded-lg p-4">
+                          <h5 className="font-medium mb-3">🎉 Krabi Celebration</h5>
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                              <Label>Photo d'en-tête</Label>
+                              <Button variant="outline" className="w-full">
+                                <Upload className="h-4 w-4 mr-2" />
+                                Choisir une image
+                              </Button>
+                            </div>
+                            <div>
+                              <Label>Titre principal</Label>
+                              <Input defaultValue="Krabi Celebration" />
+                            </div>
+                            <div>
+                              <Label>Description</Label>
+                              <Input defaultValue="Célébrez vos événements spéciaux" />
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Fun Garden */}
+                        <div className="border rounded-lg p-4">
+                          <h5 className="font-medium mb-3">🌺 Fun Garden</h5>
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                              <Label>Photo d'en-tête</Label>
+                              <Button variant="outline" className="w-full">
+                                <Upload className="h-4 w-4 mr-2" />
+                                Choisir une image
+                              </Button>
+                            </div>
+                            <div>
+                              <Label>Titre principal</Label>
+                              <Input defaultValue="Fun Garden" />
+                            </div>
+                            <div>
+                              <Label>Description</Label>
+                              <Input defaultValue="Jardin tropical et activités familiales" />
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Villas in Krabi */}
+                        <div className="border rounded-lg p-4">
+                          <h5 className="font-medium mb-3">🏨 Villas in Krabi</h5>
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                              <Label>Photo d'en-tête</Label>
+                              <Button variant="outline" className="w-full">
+                                <Upload className="h-4 w-4 mr-2" />
+                                Choisir une image
+                              </Button>
+                            </div>
+                            <div>
+                              <Label>Titre principal</Label>
+                              <Input defaultValue="Villas in Krabi" />
+                            </div>
+                            <div>
+                              <Label>Description</Label>
+                              <Input defaultValue="Hébergements de luxe à Krabi" />
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Become Partner */}
+                        <div className="border rounded-lg p-4">
+                          <h5 className="font-medium mb-3">🤝 Become Partner</h5>
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                              <Label>Photo d'en-tête</Label>
+                              <Button variant="outline" className="w-full">
+                                <Upload className="h-4 w-4 mr-2" />
+                                Choisir une image
+                              </Button>
+                            </div>
+                            <div>
+                              <Label>Titre principal</Label>
+                              <Input defaultValue="Become Partner" />
+                            </div>
+                            <div>
+                              <Label>Description</Label>
+                              <Input defaultValue="Rejoignez notre réseau de partenaires" />
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Group & Corporate */}
+                        <div className="border rounded-lg p-4">
+                          <h5 className="font-medium mb-3">👥 Group & Corporate</h5>
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                              <Label>Photo d'en-tête</Label>
+                              <Button variant="outline" className="w-full">
+                                <Upload className="h-4 w-4 mr-2" />
+                                Choisir une image
+                              </Button>
+                            </div>
+                            <div>
+                              <Label>Titre principal</Label>
+                              <Input defaultValue="Group & Corporate" />
+                            </div>
+                            <div>
+                              <Label>Description</Label>
+                              <Input defaultValue="Voyages de groupe et événements d'entreprise" />
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="flex justify-end">
+                          <Button onClick={() => toast({ title: "Pages secondaires sauvegardées" })}>
+                            <Save className="h-4 w-4 mr-2" />
+                            Sauvegarder les pages secondaires
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    {/* Pages mentions légales */}
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                          <Settings className="h-5 w-5" />
+                          Pages mentions légales
+                        </CardTitle>
+                        <p className="text-sm text-gray-600">Pages juridiques et légales du site</p>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        
+                        {/* Legal Notice */}
+                        <div className="border rounded-lg p-4">
+                          <h5 className="font-medium mb-3">⚖️ Legal Notice</h5>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                              <Label>Titre de la page</Label>
+                              <Input defaultValue="Mentions légales" />
+                            </div>
+                            <div>
+                              <Label>Lien de redirection</Label>
+                              <select className="w-full px-3 py-2 border rounded-md" defaultValue="/legal-notice">
+                                <option value="/">Accueil</option>
+                                <option value="/experiences">Experiences</option>
+                                <option value="/custom-tour">Custom Trip</option>
+                                <option value="/blog">Blog</option>
+                                <option value="/contact">Contact</option>
+                                <option value="/legal-notice">Legal Notice</option>
+                                <option value="/privacy-policy">Privacy Policy</option>
+                                <option value="/terms-conditions">Terms & Conditions</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div>
+                            <Label>Contenu principal</Label>
+                            <Textarea 
+                              defaultValue="Informations légales sur la société Amon Tour, numéro d'enregistrement, adresse, responsabilité, etc."
+                              rows={2}
+                            />
+                          </div>
+                        </div>
+
+                        {/* Privacy Policy */}
+                        <div className="border rounded-lg p-4">
+                          <h5 className="font-medium mb-3">🔒 Privacy Policy</h5>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                              <Label>Titre de la page</Label>
+                              <Input defaultValue="Politique de confidentialité" />
+                            </div>
+                            <div>
+                              <Label>Lien de redirection</Label>
+                              <select className="w-full px-3 py-2 border rounded-md" defaultValue="/privacy-policy">
+                                <option value="/">Accueil</option>
+                                <option value="/experiences">Experiences</option>
+                                <option value="/custom-tour">Custom Trip</option>
+                                <option value="/blog">Blog</option>
+                                <option value="/contact">Contact</option>
+                                <option value="/legal-notice">Legal Notice</option>
+                                <option value="/privacy-policy">Privacy Policy</option>
+                                <option value="/terms-conditions">Terms & Conditions</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div>
+                            <Label>Contenu principal</Label>
+                            <Textarea 
+                              defaultValue="Politique de traitement des données personnelles, cookies, respect RGPD, etc."
+                              rows={2}
+                            />
+                          </div>
+                        </div>
+
+                        {/* Terms & Conditions */}
+                        <div className="border rounded-lg p-4">
+                          <h5 className="font-medium mb-3">📜 Terms & Conditions</h5>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                              <Label>Titre de la page</Label>
+                              <Input defaultValue="Conditions générales d'utilisation" />
+                            </div>
+                            <div>
+                              <Label>Lien de redirection</Label>
+                              <select className="w-full px-3 py-2 border rounded-md" defaultValue="/terms-conditions">
+                                <option value="/">Accueil</option>
+                                <option value="/experiences">Experiences</option>
+                                <option value="/custom-tour">Custom Trip</option>
+                                <option value="/blog">Blog</option>
+                                <option value="/contact">Contact</option>
+                                <option value="/legal-notice">Legal Notice</option>
+                                <option value="/privacy-policy">Privacy Policy</option>
+                                <option value="/terms-conditions">Terms & Conditions</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div>
+                            <Label>Contenu principal</Label>
+                            <Textarea 
+                              defaultValue="Conditions d'utilisation du site, conditions de vente, annulation, remboursement, etc."
+                              rows={2}
+                            />
+                          </div>
+                        </div>
+
+                        <div className="flex justify-end">
+                          <Button onClick={() => toast({ title: "Pages légales sauvegardées" })}>
+                            <Save className="h-4 w-4 mr-2" />
+                            Sauvegarder les pages légales
+                          </Button>
                         </div>
                       </CardContent>
                     </Card>
