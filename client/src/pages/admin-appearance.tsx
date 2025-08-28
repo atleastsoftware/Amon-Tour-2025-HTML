@@ -524,136 +524,271 @@ export default function AdminAppearance() {
 
                   {/* Header & Footer */}
                   <TabsContent value="header-footer" className="space-y-6">
-                    {/* Header Configuration */}
+                    {/* 1. Barre d'annonce */}
                     <Card>
                       <CardHeader>
                         <CardTitle className="flex items-center gap-2">
-                          <Layout className="h-5 w-5" />
-                          Configuration du Header
+                          <Navigation className="h-5 w-5" />
+                          Barre d'annonce
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-6">
-                        {/* Logo et Navigation */}
-                        <div>
-                          <h3 className="text-lg font-semibold mb-4">Logo et Navigation</h3>
-                          <div className="space-y-4">
-                            {/* Navigation Menu */}
+                        <div className="flex items-center justify-between">
+                          <Label>Activer la barre d'annonce</Label>
+                          <Switch defaultChecked />
+                        </div>
+                        
+                        <div className="space-y-4">
+                          <div>
+                            <Label>Texte de l'annonce</Label>
+                            <Input
+                              defaultValue="⚠️ L'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr"
+                              className="mt-1"
+                            />
+                          </div>
+                          
+                          <div className="grid grid-cols-2 gap-4">
                             <div>
-                              <Label>Menu de navigation principal</Label>
-                              <div className="mt-2 space-y-2">
-                                {menuItems.map((item) => (
-                                  <div 
-                                    key={item.id} 
-                                    className="flex items-center justify-between p-3 border rounded-lg bg-white"
-                                    draggable
-                                    onDragStart={() => handleMenuDragStart(item.id)}
-                                    onDragOver={handleMenuDragOver}
-                                    onDrop={(e) => handleMenuDrop(e, item.id)}
-                                  >
-                                    <div className="flex items-center gap-3">
-                                      <GripVertical className="h-4 w-4 text-gray-400 cursor-grab" />
-                                      <span className="font-medium">{item.name}</span>
-                                      <span className="text-sm text-gray-500">{item.url}</span>
-                                    </div>
-                                    <div className="flex items-center gap-2">
-                                      <Dialog>
-                                        <DialogTrigger asChild>
-                                          <Button variant="ghost" size="sm">
-                                            <Edit className="h-4 w-4" />
-                                          </Button>
-                                        </DialogTrigger>
-                                        <DialogContent>
-                                          <DialogHeader>
-                                            <DialogTitle>Modifier {item.name}</DialogTitle>
-                                          </DialogHeader>
-                                          <div className="space-y-4">
-                                            <div>
-                                              <Label>Nom du menu</Label>
-                                              <Input defaultValue={item.name} />
-                                            </div>
-                                            <div>
-                                              <Label>URL</Label>
-                                              <Input defaultValue={item.url} />
-                                            </div>
-                                            <Button className="w-full">Sauvegarder</Button>
-                                          </div>
-                                        </DialogContent>
-                                      </Dialog>
-                                      <Button 
-                                        variant="ghost" 
-                                        size="sm"
-                                        onClick={() => deleteMenuItem(item.id)}
-                                      >
-                                        <Trash2 className="h-4 w-4" />
-                                      </Button>
-                                    </div>
-                                  </div>
-                                ))}
+                              <Label>Couleur de fond</Label>
+                              <div className="flex items-center gap-2 mt-1">
+                                <Input type="color" defaultValue="#fbbf24" className="w-16 h-10 p-1" />
+                                <Input defaultValue="#fbbf24" className="flex-1" />
                               </div>
-                              <Button 
-                                variant="outline" 
-                                className="w-full mt-3"
-                                onClick={addMenuItem}
-                              >
-                                <Plus className="h-4 w-4 mr-2" />
-                                Ajouter un lien de navigation
-                              </Button>
                             </div>
-
-                            {/* CTA Buttons */}
                             <div>
-                              <Label>Boutons d'action dans le header</Label>
-                              <div className="mt-2 space-y-3">
-                                <div className="flex items-center gap-3 p-3 border rounded-lg">
-                                  <span className="font-medium">Bouton principal</span>
-                                  <Input placeholder="Texte du bouton" defaultValue="Réserver maintenant" className="flex-1" />
-                                  <Input placeholder="URL" defaultValue="/custom-tour" className="flex-1" />
-                                  <Button variant="ghost" size="sm">
-                                    <Edit className="h-4 w-4" />
-                                  </Button>
-                                </div>
-                                <div className="flex items-center gap-3 p-3 border rounded-lg">
-                                  <span className="font-medium">Bouton secondaire</span>
-                                  <Input placeholder="Texte du bouton" defaultValue="Contactez-nous" className="flex-1" />
-                                  <Input placeholder="URL" defaultValue="/contact" className="flex-1" />
-                                  <Button variant="ghost" size="sm">
-                                    <Edit className="h-4 w-4" />
-                                  </Button>
-                                </div>
+                              <Label>Couleur du texte</Label>
+                              <div className="flex items-center gap-2 mt-1">
+                                <Input type="color" defaultValue="#000000" className="w-16 h-10 p-1" />
+                                <Input defaultValue="#000000" className="flex-1" />
                               </div>
+                            </div>
+                          </div>
+
+                          {/* Aperçu instantané */}
+                          <div>
+                            <Label>Aperçu</Label>
+                            <div 
+                              className="mt-2 p-3 text-center text-sm font-medium rounded border"
+                              style={{ 
+                                backgroundColor: "#fbbf24",
+                                color: "#000000"
+                              }}
+                            >
+                              ⚠️ L'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr
                             </div>
                           </div>
                         </div>
 
-                        <Separator />
+                        <div className="flex justify-end">
+                          <Button onClick={() => toast({ title: "Barre d'annonce sauvegardée" })}>
+                            <Save className="h-4 w-4 mr-2" />
+                            Sauvegarder
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
 
-                        {/* Barre d'annonce */}
-                        <div>
-                          <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-lg font-semibold">Barre d'annonce</h3>
-                            <Switch defaultChecked />
-                          </div>
-                          <div className="space-y-3">
-                            <div>
-                              <Label>Texte de l'annonce</Label>
-                              <Input
-                                defaultValue="🎉 Nouvelles expériences disponibles - Découvrez nos tours exclusifs !"
-                                className="mt-1"
-                              />
-                            </div>
-                            <div className="grid grid-cols-2 gap-4">
-                              <div>
-                                <Label>Couleur de fond</Label>
-                                <div className="flex items-center gap-2 mt-1">
-                                  <Input type="color" defaultValue="#1e73be" className="w-16 h-10 p-1" />
-                                  <Input defaultValue="#1e73be" className="flex-1" />
+                    {/* 2. Menu de navigation */}
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                          <Layout className="h-5 w-5" />
+                          Menu de navigation
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-6">
+                        <div className="space-y-3">
+                          {menuItems.map((item) => (
+                            <div 
+                              key={item.id} 
+                              className="flex items-center justify-between p-3 border rounded-lg bg-white"
+                              draggable
+                              onDragStart={() => handleMenuDragStart(item.id)}
+                              onDragOver={handleMenuDragOver}
+                              onDrop={(e) => handleMenuDrop(e, item.id)}
+                            >
+                              <div className="flex items-center gap-3">
+                                <GripVertical className="h-4 w-4 text-gray-400 cursor-grab" />
+                                <div>
+                                  <span className="font-medium">{item.name}</span>
+                                  <div className="text-sm text-gray-500">{item.url}</div>
                                 </div>
                               </div>
-                              <div>
-                                <Label>Couleur du texte</Label>
-                                <div className="flex items-center gap-2 mt-1">
-                                  <Input type="color" defaultValue="#ffffff" className="w-16 h-10 p-1" />
-                                  <Input defaultValue="#ffffff" className="flex-1" />
+                              <div className="flex items-center gap-2">
+                                <Dialog>
+                                  <DialogTrigger asChild>
+                                    <Button variant="outline" size="sm">
+                                      <Edit className="h-4 w-4 mr-2" />
+                                      Modifier
+                                    </Button>
+                                  </DialogTrigger>
+                                  <DialogContent>
+                                    <DialogHeader>
+                                      <DialogTitle>Modifier {item.name}</DialogTitle>
+                                    </DialogHeader>
+                                    <div className="space-y-4">
+                                      <div>
+                                        <Label>Nom du menu</Label>
+                                        <Input defaultValue={item.name} />
+                                      </div>
+                                      <div>
+                                        <Label>Lien de redirection</Label>
+                                        <Input defaultValue={item.url} />
+                                      </div>
+                                      <div>
+                                        <Label>Catégorie parent (optionnel)</Label>
+                                        <select className="w-full px-3 py-2 border rounded-md">
+                                          <option value="">Aucune (menu principal)</option>
+                                          <option value="services">Services</option>
+                                          <option value="about">À propos</option>
+                                        </select>
+                                      </div>
+                                      <Button className="w-full">Sauvegarder</Button>
+                                    </div>
+                                  </DialogContent>
+                                </Dialog>
+                                <Button 
+                                  variant="ghost" 
+                                  size="sm"
+                                  onClick={() => deleteMenuItem(item.id)}
+                                >
+                                  <Trash2 className="h-4 w-4" />
+                                </Button>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        
+                        <div className="grid grid-cols-2 gap-3">
+                          <Dialog>
+                            <DialogTrigger asChild>
+                              <Button variant="outline" className="w-full">
+                                <Plus className="h-4 w-4 mr-2" />
+                                Ajouter un lien
+                              </Button>
+                            </DialogTrigger>
+                            <DialogContent>
+                              <DialogHeader>
+                                <DialogTitle>Ajouter un lien de navigation</DialogTitle>
+                              </DialogHeader>
+                              <div className="space-y-4">
+                                <div>
+                                  <Label>Nom du menu</Label>
+                                  <Input placeholder="Ex: Nos services" />
+                                </div>
+                                <div>
+                                  <Label>Lien de redirection</Label>
+                                  <Input placeholder="Ex: /services" />
+                                </div>
+                                <div>
+                                  <Label>Catégorie parent (optionnel)</Label>
+                                  <select className="w-full px-3 py-2 border rounded-md">
+                                    <option value="">Aucune (menu principal)</option>
+                                    <option value="services">Services</option>
+                                    <option value="about">À propos</option>
+                                  </select>
+                                </div>
+                                <Button className="w-full">Créer le lien</Button>
+                              </div>
+                            </DialogContent>
+                          </Dialog>
+                          
+                          <Dialog>
+                            <DialogTrigger asChild>
+                              <Button variant="outline" className="w-full">
+                                <Plus className="h-4 w-4 mr-2" />
+                                Créer sous-catégorie
+                              </Button>
+                            </DialogTrigger>
+                            <DialogContent>
+                              <DialogHeader>
+                                <DialogTitle>Créer une sous-catégorie</DialogTitle>
+                              </DialogHeader>
+                              <div className="space-y-4">
+                                <div>
+                                  <Label>Nom de la catégorie</Label>
+                                  <Input placeholder="Ex: Services premium" />
+                                </div>
+                                <div>
+                                  <Label>Catégorie parent</Label>
+                                  <select className="w-full px-3 py-2 border rounded-md">
+                                    <option value="services">Services</option>
+                                    <option value="about">À propos</option>
+                                  </select>
+                                </div>
+                                <Button className="w-full">Créer la catégorie</Button>
+                              </div>
+                            </DialogContent>
+                          </Dialog>
+                        </div>
+
+                        <div className="flex justify-end">
+                          <Button onClick={() => toast({ title: "Menu sauvegardé avec succès" })}>
+                            <Save className="h-4 w-4 mr-2" />
+                            Sauvegarder le menu
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    {/* 3. Header principal */}
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                          <Home className="h-5 w-5" />
+                          Header principal
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-6">
+                        <div className="space-y-4">
+                          <div>
+                            <Label>Titre principal</Label>
+                            <div className="mt-2 space-y-2">
+                              <Input defaultValue="Your exclusive experiences" />
+                              <p className="text-sm text-gray-600">
+                                Conseil : Pour mettre des mots en couleur, utilisez des balises comme : 
+                                Your exclusive &lt;span class="text-blue-400"&gt;experiences&lt;/span&gt;
+                              </p>
+                            </div>
+                          </div>
+                          
+                          <div>
+                            <Label>Sous-titre coloré</Label>
+                            <Input defaultValue="in Krabi — THAILAND" />
+                          </div>
+                          
+                          <div>
+                            <Label>Description</Label>
+                            <Textarea 
+                              defaultValue="Discover amazing places away from mass tourism in Krabi. And also Khao Sok, Koh Mook and many more destinations."
+                              rows={3}
+                            />
+                          </div>
+
+                          <Separator />
+
+                          <div>
+                            <h4 className="font-semibold mb-4">Boutons d'action</h4>
+                            <div className="space-y-3">
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-3 border rounded-lg">
+                                <div>
+                                  <Label>Bouton principal</Label>
+                                  <Input placeholder="Texte du bouton" defaultValue="See our offers" />
+                                </div>
+                                <div>
+                                  <Label>Lien de redirection</Label>
+                                  <Input placeholder="URL" defaultValue="/experiences" />
+                                </div>
+                              </div>
+                              
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-3 border rounded-lg">
+                                <div>
+                                  <Label>Bouton secondaire</Label>
+                                  <Input placeholder="Texte du bouton" defaultValue="Custom your trip" />
+                                </div>
+                                <div>
+                                  <Label>Lien de redirection</Label>
+                                  <Input placeholder="URL" defaultValue="/custom-tour" />
                                 </div>
                               </div>
                             </div>
@@ -663,45 +798,72 @@ export default function AdminAppearance() {
                         <div className="flex justify-end">
                           <Button onClick={() => toast({ title: "Header sauvegardé avec succès" })}>
                             <Save className="h-4 w-4 mr-2" />
-                            Sauvegarder le Header
+                            Sauvegarder le header
                           </Button>
                         </div>
                       </CardContent>
                     </Card>
 
-                    {/* Footer Configuration */}
+                    {/* 4. Footer */}
                     <Card>
                       <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                           <Layout className="h-5 w-5" />
-                          Configuration du Footer
+                          Footer
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                          {/* Colonne 1 - À propos */}
+                          {/* Contact */}
                           <div>
-                            <h4 className="font-semibold mb-4">Section "À propos"</h4>
+                            <h4 className="font-semibold mb-4">Contact</h4>
                             <div className="space-y-3">
                               <div>
-                                <Label>Titre</Label>
-                                <Input defaultValue="Amon Tour" />
+                                <Label>Titre de la section</Label>
+                                <Input defaultValue="Contact" />
                               </div>
                               <div>
                                 <Label>Description</Label>
                                 <Textarea 
-                                  defaultValue="Votre spécialiste des expériences authentiques en Thaïlande. Découvrez Krabi et le sud de la Thaïlande avec des guides locaux passionnés."
+                                  defaultValue="Amon Tour is a brand of:&#10;Flame BB Co., Ltd.&#10;242 Moo1 Tombol Ao Nang&#10;81180 Krabi, Thailand"
                                   rows={4}
                                 />
+                              </div>
+                              <div>
+                                <Label>Email</Label>
+                                <Input defaultValue="info@amon-tour.com" />
+                              </div>
+                              <div>
+                                <Label>Téléphone (Opérations)</Label>
+                                <Input defaultValue="Operations manager: +66 (0)6 2574 8788" />
+                              </div>
+                              <div>
+                                <Label>Téléphone (Travel Advisor)</Label>
+                                <Input defaultValue="Travel Advisor Manager: +66 (0)8 0463 4691" />
+                              </div>
+                              <div>
+                                <Label>WhatsApp</Label>
+                                <Input defaultValue="WhatsApp: +66 65 349 6445" />
+                              </div>
+                              <div>
+                                <Label>Line ID</Label>
+                                <Input defaultValue="Line ID: amontour" />
                               </div>
                             </div>
                           </div>
 
-                          {/* Colonne 2 - Liens rapides */}
+                          {/* Useful Links */}
                           <div>
-                            <h4 className="font-semibold mb-4">Liens rapides</h4>
+                            <h4 className="font-semibold mb-4">Useful Links</h4>
                             <div className="space-y-2">
-                              {["Nos expériences", "Voyage sur mesure", "À propos", "Blog", "Contact"].map((link, i) => (
+                              {[
+                                "Our brochure",
+                                "Krabi Celebration", 
+                                "Fun Garden",
+                                "Villas in Krabi",
+                                "Become Partner",
+                                "Group & Corporate"
+                              ].map((link, i) => (
                                 <div key={i} className="flex items-center gap-2">
                                   <Input defaultValue={link} className="flex-1" />
                                   <Button variant="ghost" size="sm">
@@ -716,28 +878,28 @@ export default function AdminAppearance() {
                             </div>
                           </div>
 
-                          {/* Colonne 3 - Contact & Réseaux sociaux */}
+                          {/* Newsletter */}
                           <div>
-                            <h4 className="font-semibold mb-4">Contact & Réseaux</h4>
+                            <h4 className="font-semibold mb-4">Newsletter</h4>
                             <div className="space-y-3">
                               <div>
-                                <Label>Email</Label>
-                                <Input defaultValue="contact@amon-tour.com" />
+                                <Label>Titre</Label>
+                                <Input defaultValue="Newsletter" />
                               </div>
                               <div>
-                                <Label>Téléphone</Label>
-                                <Input defaultValue="+66 (0) 75 123 4567" />
+                                <Label>Description</Label>
+                                <Textarea 
+                                  defaultValue="Subscribe to receive our special offers and travel tips."
+                                  rows={3}
+                                />
                               </div>
                               <div>
-                                <Label>Adresse</Label>
-                                <Textarea defaultValue="123 Krabi Street, Ao Nang, Krabi, 81180, Thaïlande" rows={2} />
+                                <Label>Placeholder email</Label>
+                                <Input defaultValue="Your email" />
                               </div>
                               <div>
-                                <Label>Réseaux sociaux</Label>
-                                <div className="flex gap-2 mt-1">
-                                  <Input placeholder="Facebook URL" defaultValue="https://facebook.com/amontour" />
-                                  <Input placeholder="Instagram URL" defaultValue="https://instagram.com/amon_tour" />
-                                </div>
+                                <Label>Texte de confidentialité</Label>
+                                <Input defaultValue="We respect your privacy. Unsubscribe at any time." />
                               </div>
                             </div>
                           </div>
@@ -745,17 +907,30 @@ export default function AdminAppearance() {
 
                         <Separator />
 
-                        {/* Copyright */}
+                        {/* Copyright & Mentions */}
                         <div>
                           <h4 className="font-semibold mb-4">Copyright & Mentions</h4>
                           <div className="space-y-3">
                             <div>
                               <Label>Texte de copyright</Label>
-                              <Input defaultValue="© 2024 Amon Tour. Tous droits réservés." />
+                              <Input defaultValue="© 2024 Amon Tour. All rights reserved." />
                             </div>
                             <div>
-                              <Label>Liens légaux (séparés par des virgules)</Label>
-                              <Input defaultValue="Mentions légales, Politique de confidentialité, CGV" />
+                              <Label>Liens légaux</Label>
+                              <div className="grid grid-cols-3 gap-3">
+                                <div>
+                                  <Label className="text-sm">Legal Notice</Label>
+                                  <Input defaultValue="/legal-notice" />
+                                </div>
+                                <div>
+                                  <Label className="text-sm">Privacy Policy</Label>
+                                  <Input defaultValue="/privacy-policy" />
+                                </div>
+                                <div>
+                                  <Label className="text-sm">Terms & Conditions</Label>
+                                  <Input defaultValue="/terms-conditions" />
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -763,7 +938,7 @@ export default function AdminAppearance() {
                         <div className="flex justify-end">
                           <Button onClick={() => toast({ title: "Footer sauvegardé avec succès" })}>
                             <Save className="h-4 w-4 mr-2" />
-                            Sauvegarder le Footer
+                            Sauvegarder le footer
                           </Button>
                         </div>
                       </CardContent>
