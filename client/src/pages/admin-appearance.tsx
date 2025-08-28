@@ -789,23 +789,48 @@ export default function AdminAppearance() {
                         <div className="space-y-4">
                           <div>
                             <Label>Titre principal</Label>
-                            <div className="mt-2 space-y-2">
-                              <Textarea 
-                                defaultValue="Your exclusive experiences in Krabi – THAILAND"
-                                rows={2}
-                                className="font-medium"
-                              />
-                              <div className="flex items-center gap-3 p-2 bg-gray-50 rounded">
-                                <div className="flex items-center gap-2">
-                                  <Button variant="outline" size="sm">
-                                    <Bold className="h-4 w-4" />
+                            <div className="mt-2 space-y-4">
+                              <div className="border rounded-lg p-4 bg-gray-50">
+                                <div 
+                                  contentEditable
+                                  suppressContentEditableWarning={true}
+                                  className="font-medium text-lg min-h-[60px] p-2 bg-white border rounded outline-none focus:ring-2 focus:ring-blue-500"
+                                  style={{ lineHeight: '1.5' }}
+                                  dangerouslySetInnerHTML={{
+                                    __html: 'Your exclusive experiences in <span style="color: #1e73be;">Krabi</span> – <span style="color: #E6B64C;">THAILAND</span>'
+                                  }}
+                                />
+                                <div className="flex items-center gap-3 mt-3 pt-3 border-t">
+                                  <div className="flex items-center gap-2">
+                                    <span className="text-sm font-medium">Couleur du texte :</span>
+                                    <Input 
+                                      type="color" 
+                                      defaultValue="#1e73be" 
+                                      className="w-12 h-8 p-1 cursor-pointer"
+                                      onChange={(e) => {
+                                        const selection = window.getSelection();
+                                        if (selection && selection.rangeCount > 0) {
+                                          document.execCommand('foreColor', false, e.target.value);
+                                        }
+                                      }}
+                                    />
+                                  </div>
+                                  <div className="text-sm text-gray-600 flex-1">
+                                    💡 <strong>Instructions :</strong> Sélectionnez une partie du texte avec votre souris, puis choisissez une couleur pour l'appliquer
+                                  </div>
+                                  <Button 
+                                    variant="outline" 
+                                    size="sm"
+                                    onClick={() => {
+                                      const editable = document.querySelector('[contentEditable="true"]');
+                                      if (editable) {
+                                        editable.innerHTML = 'Your exclusive experiences in Krabi – THAILAND';
+                                      }
+                                    }}
+                                  >
+                                    Réinitialiser
                                   </Button>
-                                  <Button variant="outline" size="sm">
-                                    <Italic className="h-4 w-4" />
-                                  </Button>
-                                  <Input type="color" defaultValue="#000000" className="w-12 h-8 p-1" />
                                 </div>
-                                <span className="text-sm text-gray-600">Éditeur de texte riche - sélectionnez le texte et utilisez les boutons</span>
                               </div>
                             </div>
                           </div>
@@ -1095,15 +1120,60 @@ export default function AdminAppearance() {
                               <div className="grid grid-cols-3 gap-3">
                                 <div>
                                   <Label className="text-sm">Legal Notice</Label>
-                                  <Input defaultValue="/legal-notice" />
+                                  <select className="w-full px-3 py-2 border rounded-md" defaultValue="/legal-notice">
+                                    <option value="/">Accueil</option>
+                                    <option value="/experiences">Experiences</option>
+                                    <option value="/custom-tour">Custom Trip</option>
+                                    <option value="/blog">Blog</option>
+                                    <option value="/contact">Contact</option>
+                                    <option value="/our-brochure">Our brochure</option>
+                                    <option value="/krabi-celebration">Krabi Celebration</option>
+                                    <option value="/fun-garden">Fun Garden</option>
+                                    <option value="/villas-in-krabi">Villas in Krabi</option>
+                                    <option value="/become-partner">Become Partner</option>
+                                    <option value="/group-corporate">Group & Corporate</option>
+                                    <option value="/legal-notice">Legal Notice</option>
+                                    <option value="/privacy-policy">Privacy Policy</option>
+                                    <option value="/terms-conditions">Terms & Conditions</option>
+                                  </select>
                                 </div>
                                 <div>
                                   <Label className="text-sm">Privacy Policy</Label>
-                                  <Input defaultValue="/privacy-policy" />
+                                  <select className="w-full px-3 py-2 border rounded-md" defaultValue="/privacy-policy">
+                                    <option value="/">Accueil</option>
+                                    <option value="/experiences">Experiences</option>
+                                    <option value="/custom-tour">Custom Trip</option>
+                                    <option value="/blog">Blog</option>
+                                    <option value="/contact">Contact</option>
+                                    <option value="/our-brochure">Our brochure</option>
+                                    <option value="/krabi-celebration">Krabi Celebration</option>
+                                    <option value="/fun-garden">Fun Garden</option>
+                                    <option value="/villas-in-krabi">Villas in Krabi</option>
+                                    <option value="/become-partner">Become Partner</option>
+                                    <option value="/group-corporate">Group & Corporate</option>
+                                    <option value="/legal-notice">Legal Notice</option>
+                                    <option value="/privacy-policy">Privacy Policy</option>
+                                    <option value="/terms-conditions">Terms & Conditions</option>
+                                  </select>
                                 </div>
                                 <div>
                                   <Label className="text-sm">Terms & Conditions</Label>
-                                  <Input defaultValue="/terms-conditions" />
+                                  <select className="w-full px-3 py-2 border rounded-md" defaultValue="/terms-conditions">
+                                    <option value="/">Accueil</option>
+                                    <option value="/experiences">Experiences</option>
+                                    <option value="/custom-tour">Custom Trip</option>
+                                    <option value="/blog">Blog</option>
+                                    <option value="/contact">Contact</option>
+                                    <option value="/our-brochure">Our brochure</option>
+                                    <option value="/krabi-celebration">Krabi Celebration</option>
+                                    <option value="/fun-garden">Fun Garden</option>
+                                    <option value="/villas-in-krabi">Villas in Krabi</option>
+                                    <option value="/become-partner">Become Partner</option>
+                                    <option value="/group-corporate">Group & Corporate</option>
+                                    <option value="/legal-notice">Legal Notice</option>
+                                    <option value="/privacy-policy">Privacy Policy</option>
+                                    <option value="/terms-conditions">Terms & Conditions</option>
+                                  </select>
                                 </div>
                               </div>
                             </div>
