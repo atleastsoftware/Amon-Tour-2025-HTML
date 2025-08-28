@@ -17,6 +17,10 @@ import {
   insertPartnershipRequestSchema,
   insertGroupRequestSchema,
   insertTourNinjaImageOverrideSchema,
+  insertSiteSettingSchema,
+  insertContentBlockSchema,
+  insertStaticPageSchema,
+  insertMediaLibrarySchema,
 } from "@shared/schema";
 import { createPaymentIntent, createOrRetrieveCustomer } from "./stripe";
 import { upload, getPublicFileUrl } from "./upload";
@@ -1991,6 +1995,438 @@ Crawl-delay: 1`;
     } catch (error) {
       console.error("Error fetching Tour Ninja image override by tour ID:", error);
       res.status(500).json({ message: "Failed to fetch image override", error: String(error) });
+    }
+  });
+
+  // ===== SITE APPEARANCE API ROUTES =====
+
+  // Site Settings routes
+  app.get("/api/admin/site-settings", requireAuth, async (req, res) => {
+    try {
+      const { section } = req.query;
+      const settings = await storage.getSiteSettings(section as string);
+      res.json(settings);
+    } catch (error) {
+      console.error("Error fetching site settings:", error);
+      res.status(500).json({ message: "Failed to fetch site settings", error: String(error) });
+    }
+  });
+
+  app.get("/api/admin/site-settings/:section/:key", requireAuth, async (req, res) => {
+    try {
+      const { section, key } = req.params;
+      const setting = await storage.getSiteSetting(section, key);
+      if (!setting) {
+        return res.status(404).json({ message: "Setting not found" });
+      }
+      res.json(setting);
+    } catch (error) {
+      console.error("Error fetching site setting:", error);
+      res.status(500).json({ message: "Failed to fetch site setting", error: String(error) });
+    }
+  });
+
+  app.post("/api/admin/site-settings", requireAuth, async (req, res) => {
+    try {
+      const settingData = insertSiteSettingSchema.parse(req.body);
+      const setting = await storage.createSiteSetting(settingData);
+      res.status(201).json(setting);
+    } catch (error: any) {
+      console.error("Error creating site setting:", error);
+      res.status(400).json({ 
+        message: "Invalid setting data", 
+        error: error.errors || error.message || String(error) 
+      });
+    }
+  });
+
+  app.put("/api/admin/site-settings/:section/:key", requireAuth, async (req, res) => {
+    try {
+      const { section, key } = req.params;
+      const { value } = req.body;
+      
+      if (!value) {
+        return res.status(400).json({ message: "Value is required" });
+      }
+
+      const setting = await storage.updateSiteSetting(section, key, value);
+      res.json(setting);
+    } catch (error) {
+      console.error("Error updating site setting:", error);
+      res.status(500).json({ message: "Failed to update site setting", error: String(error) });
+    }
+  });
+
+  app.delete("/api/admin/site-settings/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid setting ID" });
+      }
+
+      const deleted = await storage.deleteSiteSetting(id);
+      if (!deleted) {
+        return res.status(404).json({ message: "Setting not found" });
+      }
+
+      res.json({ message: "Setting deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting site setting:", error);
+      res.status(500).json({ message: "Failed to delete setting", error: String(error) });
+    }
+  });
+
+  // Content Blocks routes
+  app.get("/api/admin/content-blocks", requireAuth, async (req, res) => {
+    try {
+      const { pageLocation } = req.query;
+      const blocks = await storage.getContentBlocks(pageLocation as string);
+      res.json(blocks);
+    } catch (error) {
+      console.error("Error fetching content blocks:", error);
+      res.status(500).json({ message: "Failed to fetch content blocks", error: String(error) });
+    }
+  });
+
+  app.get("/api/admin/content-blocks/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid block ID" });
+      }
+
+      const block = await storage.getContentBlock(id);
+      if (!block) {
+        return res.status(404).json({ message: "Content block not found" });
+      }
+
+      res.json(block);
+    } catch (error) {
+      console.error("Error fetching content block:", error);
+      res.status(500).json({ message: "Failed to fetch content block", error: String(error) });
+    }
+  });
+
+  app.post("/api/admin/content-blocks", requireAuth, async (req, res) => {
+    try {
+      const blockData = insertContentBlockSchema.parse(req.body);
+      const block = await storage.createContentBlock(blockData);
+      res.status(201).json(block);
+    } catch (error: any) {
+      console.error("Error creating content block:", error);
+      res.status(400).json({ 
+        message: "Invalid block data", 
+        error: error.errors || error.message || String(error) 
+      });
+    }
+  });
+
+  app.put("/api/admin/content-blocks/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid block ID" });
+      }
+
+      const block = await storage.updateContentBlock(id, req.body);
+      if (!block) {
+        return res.status(404).json({ message: "Content block not found" });
+      }
+
+      res.json(block);
+    } catch (error) {
+      console.error("Error updating content block:", error);
+      res.status(500).json({ message: "Failed to update content block", error: String(error) });
+    }
+  });
+
+  app.patch("/api/admin/content-blocks/:id/toggle", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid block ID" });
+      }
+
+      const block = await storage.toggleContentBlock(id);
+      if (!block) {
+        return res.status(404).json({ message: "Content block not found" });
+      }
+
+      res.json(block);
+    } catch (error) {
+      console.error("Error toggling content block:", error);
+      res.status(500).json({ message: "Failed to toggle content block", error: String(error) });
+    }
+  });
+
+  app.delete("/api/admin/content-blocks/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid block ID" });
+      }
+
+      const deleted = await storage.deleteContentBlock(id);
+      if (!deleted) {
+        return res.status(404).json({ message: "Content block not found" });
+      }
+
+      res.json({ message: "Content block deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting content block:", error);
+      res.status(500).json({ message: "Failed to delete content block", error: String(error) });
+    }
+  });
+
+  // Static Pages routes
+  app.get("/api/admin/static-pages", requireAuth, async (req, res) => {
+    try {
+      const pages = await storage.getStaticPages();
+      res.json(pages);
+    } catch (error) {
+      console.error("Error fetching static pages:", error);
+      res.status(500).json({ message: "Failed to fetch static pages", error: String(error) });
+    }
+  });
+
+  app.get("/api/admin/static-pages/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid page ID" });
+      }
+
+      const page = await storage.getStaticPage(id);
+      if (!page) {
+        return res.status(404).json({ message: "Static page not found" });
+      }
+
+      res.json(page);
+    } catch (error) {
+      console.error("Error fetching static page:", error);
+      res.status(500).json({ message: "Failed to fetch static page", error: String(error) });
+    }
+  });
+
+  app.post("/api/admin/static-pages", requireAuth, async (req, res) => {
+    try {
+      const pageData = insertStaticPageSchema.parse(req.body);
+      const page = await storage.createStaticPage(pageData);
+      res.status(201).json(page);
+    } catch (error: any) {
+      console.error("Error creating static page:", error);
+      res.status(400).json({ 
+        message: "Invalid page data", 
+        error: error.errors || error.message || String(error) 
+      });
+    }
+  });
+
+  app.put("/api/admin/static-pages/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid page ID" });
+      }
+
+      const page = await storage.updateStaticPage(id, req.body);
+      if (!page) {
+        return res.status(404).json({ message: "Static page not found" });
+      }
+
+      res.json(page);
+    } catch (error) {
+      console.error("Error updating static page:", error);
+      res.status(500).json({ message: "Failed to update static page", error: String(error) });
+    }
+  });
+
+  app.patch("/api/admin/static-pages/:id/toggle", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid page ID" });
+      }
+
+      const page = await storage.toggleStaticPagePublished(id);
+      if (!page) {
+        return res.status(404).json({ message: "Static page not found" });
+      }
+
+      res.json(page);
+    } catch (error) {
+      console.error("Error toggling static page:", error);
+      res.status(500).json({ message: "Failed to toggle static page", error: String(error) });
+    }
+  });
+
+  app.delete("/api/admin/static-pages/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid page ID" });
+      }
+
+      const deleted = await storage.deleteStaticPage(id);
+      if (!deleted) {
+        return res.status(404).json({ message: "Static page not found" });
+      }
+
+      res.json({ message: "Static page deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting static page:", error);
+      res.status(500).json({ message: "Failed to delete static page", error: String(error) });
+    }
+  });
+
+  // Media Library routes
+  app.get("/api/admin/media-library", requireAuth, async (req, res) => {
+    try {
+      const { folder } = req.query;
+      const items = await storage.getMediaLibraryItems(folder as string);
+      res.json(items);
+    } catch (error) {
+      console.error("Error fetching media library items:", error);
+      res.status(500).json({ message: "Failed to fetch media library items", error: String(error) });
+    }
+  });
+
+  app.get("/api/admin/media-library/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid media ID" });
+      }
+
+      const item = await storage.getMediaLibraryItem(id);
+      if (!item) {
+        return res.status(404).json({ message: "Media item not found" });
+      }
+
+      res.json(item);
+    } catch (error) {
+      console.error("Error fetching media library item:", error);
+      res.status(500).json({ message: "Failed to fetch media library item", error: String(error) });
+    }
+  });
+
+  app.post("/api/admin/media-library", requireAuth, upload.single('file'), async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ message: "No file uploaded" });
+      }
+
+      const fileUrl = getPublicFileUrl(req.file.filename);
+      
+      const mediaData = {
+        filename: req.file.filename,
+        originalName: req.file.originalname,
+        fileUrl: fileUrl,
+        fileType: req.file.mimetype.startsWith('image/') ? 'image' : 
+                 req.file.mimetype.startsWith('video/') ? 'video' : 'document',
+        mimeType: req.file.mimetype,
+        fileSize: req.file.size,
+        altText: req.body.altText || '',
+        caption: req.body.caption || '',
+        folder: req.body.folder || 'general'
+      };
+
+      const item = await storage.createMediaLibraryItem(mediaData);
+      res.status(201).json(item);
+    } catch (error: any) {
+      console.error("Error uploading media file:", error);
+      res.status(400).json({ 
+        message: "Failed to upload media file", 
+        error: error.errors || error.message || String(error) 
+      });
+    }
+  });
+
+  app.put("/api/admin/media-library/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid media ID" });
+      }
+
+      const item = await storage.updateMediaLibraryItem(id, req.body);
+      if (!item) {
+        return res.status(404).json({ message: "Media item not found" });
+      }
+
+      res.json(item);
+    } catch (error) {
+      console.error("Error updating media library item:", error);
+      res.status(500).json({ message: "Failed to update media library item", error: String(error) });
+    }
+  });
+
+  app.patch("/api/admin/media-library/:id/used", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid media ID" });
+      }
+
+      const { isUsed } = req.body;
+      const item = await storage.markMediaAsUsed(id, isUsed);
+      if (!item) {
+        return res.status(404).json({ message: "Media item not found" });
+      }
+
+      res.json(item);
+    } catch (error) {
+      console.error("Error marking media as used:", error);
+      res.status(500).json({ message: "Failed to mark media as used", error: String(error) });
+    }
+  });
+
+  app.delete("/api/admin/media-library/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid media ID" });
+      }
+
+      const deleted = await storage.deleteMediaLibraryItem(id);
+      if (!deleted) {
+        return res.status(404).json({ message: "Media item not found" });
+      }
+
+      res.json({ message: "Media item deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting media library item:", error);
+      res.status(500).json({ message: "Failed to delete media library item", error: String(error) });
+    }
+  });
+
+  // Public routes for content blocks and static pages
+  app.get("/api/content-blocks/:pageLocation", async (req, res) => {
+    try {
+      const { pageLocation } = req.params;
+      const blocks = await storage.getContentBlocks(pageLocation);
+      // Only return active blocks for public consumption
+      const activeBlocks = blocks.filter(block => block.isActive);
+      res.json(activeBlocks);
+    } catch (error) {
+      console.error("Error fetching public content blocks:", error);
+      res.status(500).json({ message: "Failed to fetch content blocks", error: String(error) });
+    }
+  });
+
+  app.get("/api/static-pages/:slug", async (req, res) => {
+    try {
+      const { slug } = req.params;
+      const page = await storage.getStaticPageBySlug(slug);
+      
+      if (!page || !page.isPublished) {
+        return res.status(404).json({ message: "Page not found" });
+      }
+
+      res.json(page);
+    } catch (error) {
+      console.error("Error fetching public static page:", error);
+      res.status(500).json({ message: "Failed to fetch static page", error: String(error) });
     }
   });
 

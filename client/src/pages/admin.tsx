@@ -22,7 +22,8 @@ import {
   Settings,
   LogOut,
   Image,
-  Globe
+  Globe,
+  Palette
 } from "lucide-react";
 
 export default function Admin() {
@@ -84,10 +85,20 @@ export default function Admin() {
                 <h1 className="text-3xl font-heading font-bold text-gray-900">Administration</h1>
                 <p className="text-gray-600 mt-2">Panneau de gestion centralisé</p>
               </div>
-              <Button variant="outline" onClick={handleLogout} className="flex items-center gap-2">
-                <LogOut className="h-4 w-4" />
-                Déconnexion
-              </Button>
+              <div className="flex items-center gap-3">
+                <Button 
+                  variant="outline" 
+                  onClick={() => setLocation('/admin-appearance')} 
+                  className="flex items-center gap-2"
+                >
+                  <Palette className="h-4 w-4" />
+                  Apparence du site
+                </Button>
+                <Button variant="outline" onClick={handleLogout} className="flex items-center gap-2">
+                  <LogOut className="h-4 w-4" />
+                  Déconnexion
+                </Button>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

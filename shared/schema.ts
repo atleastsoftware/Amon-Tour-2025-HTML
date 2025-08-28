@@ -392,3 +392,99 @@ export const insertGroupRequestSchema = createInsertSchema(groupRequests).omit({
   groupSize: z.number().min(1, "Group size is required"),
 });
 export type InsertGroupRequest = z.infer<typeof insertGroupRequestSchema>;
+
+// Site Appearance Management System
+export const siteSettings = pgTable("site_settings", {
+  id: serial("id").primaryKey(),
+  section: text("section").notNull(), // "theme", "header", "footer", "navigation", "general"
+  key: text("key").notNull(),
+  value: text("value"),
+  type: text("type").notNull(), // "text", "image", "json", "boolean", "color"
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => ({
+  sectionKeyIdx: index("site_settings_section_key_idx").on(table.section, table.key),
+}));
+
+export const contentBlocks = pgTable("content_blocks", {
+  id: serial("id").primaryKey(),
+  identifier: text("identifier").notNull().unique(), // "hero_home", "about_section", etc.
+  title: text("title"),
+  subtitle: text("subtitle"),
+  content: text("content"), // HTML content
+  imageUrl: text("image_url"),
+  ctaText: text("cta_text"),
+  ctaUrl: text("cta_url"),
+  isActive: boolean("is_active").default(true),
+  displayOrder: integer("display_order").default(0),
+  pageLocation: text("page_location").notNull(), // "home", "tours", "about", "contact"
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const staticPages = pgTable("static_pages", {
+  id: serial("id").primaryKey(),
+  slug: text("slug").notNull().unique(),
+  title: text("title").notNull(),
+  metaTitle: text("meta_title"),
+  metaDescription: text("meta_description"),
+  content: text("content").notNull(), // Rich text content
+  isPublished: boolean("is_published").default(false),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const mediaLibrary = pgTable("media_library", {
+  id: serial("id").primaryKey(),
+  filename: text("filename").notNull(),
+  originalName: text("original_name").notNull(),
+  fileUrl: text("file_url").notNull(),
+  fileType: text("file_type").notNull(), // "image", "video", "document"
+  mimeType: text("mime_type").notNull(),
+  fileSize: integer("file_size").notNull(),
+  altText: text("alt_text"),
+  caption: text("caption"),
+  folder: text("folder").default("general"),
+  isUsed: boolean("is_used").default(false),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Schemas for validation
+export const insertSiteSettingSchema = createInsertSchema(siteSettings).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertContentBlockSchema = createInsertSchema(contentBlocks).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertStaticPageSchema = createInsertSchema(staticPages).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertMediaLibrarySchema = createInsertSchema(mediaLibrary).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+// Types
+export type InsertSiteSetting = z.infer<typeof insertSiteSettingSchema>;
+export type SiteSetting = typeof siteSettings.$inferSelect;
+
+export type InsertContentBlock = z.infer<typeof insertContentBlockSchema>;
+export type ContentBlock = typeof contentBlocks.$inferSelect;
+
+export type InsertStaticPage = z.infer<typeof insertStaticPageSchema>;
+export type StaticPage = typeof staticPages.$inferSelect;
+
+export type InsertMediaLibrary = z.infer<typeof insertMediaLibrarySchema>;
+export type MediaLibrary = typeof mediaLibrary.$inferSelect;

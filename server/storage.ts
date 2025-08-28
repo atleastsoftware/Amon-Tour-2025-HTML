@@ -15,6 +15,10 @@ import {
   partnershipRequests,
   groupRequests,
   tourNinjaImageOverrides,
+  siteSettings,
+  contentBlocks,
+  staticPages,
+  mediaLibrary,
   type User,
   type InsertUser,
   type Tour,
@@ -46,6 +50,14 @@ import {
   type InsertGroupRequest,
   type TourNinjaImageOverride,
   type InsertTourNinjaImageOverride,
+  type SiteSetting,
+  type InsertSiteSetting,
+  type ContentBlock,
+  type InsertContentBlock,
+  type StaticPage,
+  type InsertStaticPage,
+  type MediaLibrary,
+  type InsertMediaLibrary,
 } from "@shared/schema";
 import fs from "fs";
 import path from "path";
@@ -170,6 +182,39 @@ export interface IStorage {
   updateTourNinjaImageOverride(id: number, data: Partial<InsertTourNinjaImageOverride>): Promise<TourNinjaImageOverride | undefined>;
   deleteTourNinjaImageOverride(id: number): Promise<boolean>;
   toggleTourNinjaImageOverride(id: number): Promise<TourNinjaImageOverride | undefined>;
+
+  // Site Settings operations
+  createSiteSetting(setting: InsertSiteSetting): Promise<SiteSetting>;
+  getSiteSettings(section?: string): Promise<SiteSetting[]>;
+  getSiteSetting(section: string, key: string): Promise<SiteSetting | undefined>;
+  updateSiteSetting(section: string, key: string, value: string): Promise<SiteSetting | undefined>;
+  deleteSiteSetting(id: number): Promise<boolean>;
+
+  // Content Blocks operations
+  createContentBlock(block: InsertContentBlock): Promise<ContentBlock>;
+  getContentBlocks(pageLocation?: string): Promise<ContentBlock[]>;
+  getContentBlock(id: number): Promise<ContentBlock | undefined>;
+  getContentBlockByIdentifier(identifier: string): Promise<ContentBlock | undefined>;
+  updateContentBlock(id: number, data: Partial<InsertContentBlock>): Promise<ContentBlock | undefined>;
+  deleteContentBlock(id: number): Promise<boolean>;
+  toggleContentBlock(id: number): Promise<ContentBlock | undefined>;
+
+  // Static Pages operations
+  createStaticPage(page: InsertStaticPage): Promise<StaticPage>;
+  getStaticPages(): Promise<StaticPage[]>;
+  getStaticPage(id: number): Promise<StaticPage | undefined>;
+  getStaticPageBySlug(slug: string): Promise<StaticPage | undefined>;
+  updateStaticPage(id: number, data: Partial<InsertStaticPage>): Promise<StaticPage | undefined>;
+  deleteStaticPage(id: number): Promise<boolean>;
+  toggleStaticPagePublished(id: number): Promise<StaticPage | undefined>;
+
+  // Media Library operations
+  createMediaLibraryItem(item: InsertMediaLibrary): Promise<MediaLibrary>;
+  getMediaLibraryItems(folder?: string): Promise<MediaLibrary[]>;
+  getMediaLibraryItem(id: number): Promise<MediaLibrary | undefined>;
+  updateMediaLibraryItem(id: number, data: Partial<InsertMediaLibrary>): Promise<MediaLibrary | undefined>;
+  deleteMediaLibraryItem(id: number): Promise<boolean>;
+  markMediaAsUsed(id: number, isUsed: boolean): Promise<MediaLibrary | undefined>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -1171,6 +1216,271 @@ export class DatabaseStorage implements IStorage {
         updatedAt: new Date()
       })
       .where(eq(tourNinjaImageOverrides.id, id))
+      .returning();
+    return updated || undefined;
+  }
+
+  // Site Settings operations
+  async createSiteSetting(setting: InsertSiteSetting): Promise<SiteSetting> {
+    const [created] = await db
+      .insert(siteSettings)
+      .values({
+        ...setting,
+        updatedAt: new Date()
+      })
+      .returning();
+    return created;
+  }
+
+  async getSiteSettings(section?: string): Promise<SiteSetting[]> {
+    if (section) {
+      return db.select().from(siteSettings).where(eq(siteSettings.section, section));
+    }
+    return db.select().from(siteSettings).orderBy(siteSettings.section, siteSettings.key);
+  }
+
+  async getSiteSetting(section: string, key: string): Promise<SiteSetting | undefined> {
+    const [setting] = await db
+      .select()
+      .from(siteSettings)
+      .where(and(
+        eq(siteSettings.section, section),
+        eq(siteSettings.key, key)
+      ));
+    return setting || undefined;
+  }
+
+  async updateSiteSetting(section: string, key: string, value: string): Promise<SiteSetting | undefined> {
+    // Try to update first
+    const [updated] = await db
+      .update(siteSettings)
+      .set({ 
+        value,
+        updatedAt: new Date()
+      })
+      .where(and(
+        eq(siteSettings.section, section),
+        eq(siteSettings.key, key)
+      ))
+      .returning();
+    
+    // If no update happened, create new setting
+    if (!updated) {
+      return this.createSiteSetting({
+        section,
+        key,
+        value,
+        type: 'text'
+      });
+    }
+    
+    return updated;
+  }
+
+  async deleteSiteSetting(id: number): Promise<boolean> {
+    const result = await db
+      .delete(siteSettings)
+      .where(eq(siteSettings.id, id))
+      .returning({ id: siteSettings.id });
+    return result.length > 0;
+  }
+
+  // Content Blocks operations
+  async createContentBlock(block: InsertContentBlock): Promise<ContentBlock> {
+    const [created] = await db
+      .insert(contentBlocks)
+      .values({
+        ...block,
+        updatedAt: new Date()
+      })
+      .returning();
+    return created;
+  }
+
+  async getContentBlocks(pageLocation?: string): Promise<ContentBlock[]> {
+    if (pageLocation) {
+      return db.select().from(contentBlocks)
+        .where(eq(contentBlocks.pageLocation, pageLocation))
+        .orderBy(contentBlocks.displayOrder, contentBlocks.id);
+    }
+    return db.select().from(contentBlocks).orderBy(contentBlocks.pageLocation, contentBlocks.displayOrder);
+  }
+
+  async getContentBlock(id: number): Promise<ContentBlock | undefined> {
+    const [block] = await db
+      .select()
+      .from(contentBlocks)
+      .where(eq(contentBlocks.id, id));
+    return block || undefined;
+  }
+
+  async getContentBlockByIdentifier(identifier: string): Promise<ContentBlock | undefined> {
+    const [block] = await db
+      .select()
+      .from(contentBlocks)
+      .where(eq(contentBlocks.identifier, identifier));
+    return block || undefined;
+  }
+
+  async updateContentBlock(id: number, data: Partial<InsertContentBlock>): Promise<ContentBlock | undefined> {
+    const [updated] = await db
+      .update(contentBlocks)
+      .set({
+        ...data,
+        updatedAt: new Date()
+      })
+      .where(eq(contentBlocks.id, id))
+      .returning();
+    return updated || undefined;
+  }
+
+  async deleteContentBlock(id: number): Promise<boolean> {
+    const result = await db
+      .delete(contentBlocks)
+      .where(eq(contentBlocks.id, id))
+      .returning({ id: contentBlocks.id });
+    return result.length > 0;
+  }
+
+  async toggleContentBlock(id: number): Promise<ContentBlock | undefined> {
+    const current = await this.getContentBlock(id);
+    if (!current) return undefined;
+    
+    const [updated] = await db
+      .update(contentBlocks)
+      .set({ 
+        isActive: !current.isActive,
+        updatedAt: new Date()
+      })
+      .where(eq(contentBlocks.id, id))
+      .returning();
+    return updated || undefined;
+  }
+
+  // Static Pages operations
+  async createStaticPage(page: InsertStaticPage): Promise<StaticPage> {
+    const [created] = await db
+      .insert(staticPages)
+      .values({
+        ...page,
+        updatedAt: new Date()
+      })
+      .returning();
+    return created;
+  }
+
+  async getStaticPages(): Promise<StaticPage[]> {
+    return db.select().from(staticPages).orderBy(staticPages.title);
+  }
+
+  async getStaticPage(id: number): Promise<StaticPage | undefined> {
+    const [page] = await db
+      .select()
+      .from(staticPages)
+      .where(eq(staticPages.id, id));
+    return page || undefined;
+  }
+
+  async getStaticPageBySlug(slug: string): Promise<StaticPage | undefined> {
+    const [page] = await db
+      .select()
+      .from(staticPages)
+      .where(eq(staticPages.slug, slug));
+    return page || undefined;
+  }
+
+  async updateStaticPage(id: number, data: Partial<InsertStaticPage>): Promise<StaticPage | undefined> {
+    const [updated] = await db
+      .update(staticPages)
+      .set({
+        ...data,
+        updatedAt: new Date()
+      })
+      .where(eq(staticPages.id, id))
+      .returning();
+    return updated || undefined;
+  }
+
+  async deleteStaticPage(id: number): Promise<boolean> {
+    const result = await db
+      .delete(staticPages)
+      .where(eq(staticPages.id, id))
+      .returning({ id: staticPages.id });
+    return result.length > 0;
+  }
+
+  async toggleStaticPagePublished(id: number): Promise<StaticPage | undefined> {
+    const current = await this.getStaticPage(id);
+    if (!current) return undefined;
+    
+    const [updated] = await db
+      .update(staticPages)
+      .set({ 
+        isPublished: !current.isPublished,
+        updatedAt: new Date()
+      })
+      .where(eq(staticPages.id, id))
+      .returning();
+    return updated || undefined;
+  }
+
+  // Media Library operations
+  async createMediaLibraryItem(item: InsertMediaLibrary): Promise<MediaLibrary> {
+    const [created] = await db
+      .insert(mediaLibrary)
+      .values({
+        ...item,
+        updatedAt: new Date()
+      })
+      .returning();
+    return created;
+  }
+
+  async getMediaLibraryItems(folder?: string): Promise<MediaLibrary[]> {
+    if (folder) {
+      return db.select().from(mediaLibrary)
+        .where(eq(mediaLibrary.folder, folder))
+        .orderBy(desc(mediaLibrary.createdAt));
+    }
+    return db.select().from(mediaLibrary).orderBy(desc(mediaLibrary.createdAt));
+  }
+
+  async getMediaLibraryItem(id: number): Promise<MediaLibrary | undefined> {
+    const [item] = await db
+      .select()
+      .from(mediaLibrary)
+      .where(eq(mediaLibrary.id, id));
+    return item || undefined;
+  }
+
+  async updateMediaLibraryItem(id: number, data: Partial<InsertMediaLibrary>): Promise<MediaLibrary | undefined> {
+    const [updated] = await db
+      .update(mediaLibrary)
+      .set({
+        ...data,
+        updatedAt: new Date()
+      })
+      .where(eq(mediaLibrary.id, id))
+      .returning();
+    return updated || undefined;
+  }
+
+  async deleteMediaLibraryItem(id: number): Promise<boolean> {
+    const result = await db
+      .delete(mediaLibrary)
+      .where(eq(mediaLibrary.id, id))
+      .returning({ id: mediaLibrary.id });
+    return result.length > 0;
+  }
+
+  async markMediaAsUsed(id: number, isUsed: boolean): Promise<MediaLibrary | undefined> {
+    const [updated] = await db
+      .update(mediaLibrary)
+      .set({ 
+        isUsed,
+        updatedAt: new Date()
+      })
+      .where(eq(mediaLibrary.id, id))
       .returning();
     return updated || undefined;
   }
