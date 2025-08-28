@@ -35,7 +35,8 @@ import {
   Plus,
   GripVertical,
   ChevronDown,
-  ChevronRight
+  ChevronRight,
+  Home
 } from "lucide-react";
 import { useLocation } from "wouter";
 import Header from "@/components/layout/Header";
@@ -294,17 +295,17 @@ export default function AdminAppearance() {
                           <Palette className="h-4 w-4" />
                           Thème & Design
                         </TabsTrigger>
-                        <TabsTrigger value="navigation" className="justify-start gap-2 py-3">
-                          <Navigation className="h-4 w-4" />
-                          Navigation & Menus
-                        </TabsTrigger>
-                        <TabsTrigger value="pages" className="justify-start gap-2 py-3">
-                          <FileText className="h-4 w-4" />
-                          Pages statiques
-                        </TabsTrigger>
-                        <TabsTrigger value="blocks" className="justify-start gap-2 py-3">
+                        <TabsTrigger value="header-footer" className="justify-start gap-2 py-3">
                           <Layout className="h-4 w-4" />
-                          Sections & Blocs
+                          Header & Footer
+                        </TabsTrigger>
+                        <TabsTrigger value="pages-content" className="justify-start gap-2 py-3">
+                          <FileText className="h-4 w-4" />
+                          Pages & Contenu
+                        </TabsTrigger>
+                        <TabsTrigger value="legal" className="justify-start gap-2 py-3">
+                          <Settings className="h-4 w-4" />
+                          Mentions légales
                         </TabsTrigger>
                         <TabsTrigger value="media" className="justify-start gap-2 py-3">
                           <FolderOpen className="h-4 w-4" />
@@ -521,16 +522,111 @@ export default function AdminAppearance() {
                     </Card>
                   </TabsContent>
 
-                  {/* Navigation & Menus */}
-                  <TabsContent value="navigation" className="space-y-6">
+                  {/* Header & Footer */}
+                  <TabsContent value="header-footer" className="space-y-6">
+                    {/* Header Configuration */}
                     <Card>
                       <CardHeader>
                         <CardTitle className="flex items-center gap-2">
-                          <Navigation className="h-5 w-5" />
-                          Navigation & Menus
+                          <Layout className="h-5 w-5" />
+                          Configuration du Header
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-6">
+                        {/* Logo et Navigation */}
+                        <div>
+                          <h3 className="text-lg font-semibold mb-4">Logo et Navigation</h3>
+                          <div className="space-y-4">
+                            {/* Navigation Menu */}
+                            <div>
+                              <Label>Menu de navigation principal</Label>
+                              <div className="mt-2 space-y-2">
+                                {menuItems.map((item) => (
+                                  <div 
+                                    key={item.id} 
+                                    className="flex items-center justify-between p-3 border rounded-lg bg-white"
+                                    draggable
+                                    onDragStart={() => handleMenuDragStart(item.id)}
+                                    onDragOver={handleMenuDragOver}
+                                    onDrop={(e) => handleMenuDrop(e, item.id)}
+                                  >
+                                    <div className="flex items-center gap-3">
+                                      <GripVertical className="h-4 w-4 text-gray-400 cursor-grab" />
+                                      <span className="font-medium">{item.name}</span>
+                                      <span className="text-sm text-gray-500">{item.url}</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                      <Dialog>
+                                        <DialogTrigger asChild>
+                                          <Button variant="ghost" size="sm">
+                                            <Edit className="h-4 w-4" />
+                                          </Button>
+                                        </DialogTrigger>
+                                        <DialogContent>
+                                          <DialogHeader>
+                                            <DialogTitle>Modifier {item.name}</DialogTitle>
+                                          </DialogHeader>
+                                          <div className="space-y-4">
+                                            <div>
+                                              <Label>Nom du menu</Label>
+                                              <Input defaultValue={item.name} />
+                                            </div>
+                                            <div>
+                                              <Label>URL</Label>
+                                              <Input defaultValue={item.url} />
+                                            </div>
+                                            <Button className="w-full">Sauvegarder</Button>
+                                          </div>
+                                        </DialogContent>
+                                      </Dialog>
+                                      <Button 
+                                        variant="ghost" 
+                                        size="sm"
+                                        onClick={() => deleteMenuItem(item.id)}
+                                      >
+                                        <Trash2 className="h-4 w-4" />
+                                      </Button>
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                              <Button 
+                                variant="outline" 
+                                className="w-full mt-3"
+                                onClick={addMenuItem}
+                              >
+                                <Plus className="h-4 w-4 mr-2" />
+                                Ajouter un lien de navigation
+                              </Button>
+                            </div>
+
+                            {/* CTA Buttons */}
+                            <div>
+                              <Label>Boutons d'action dans le header</Label>
+                              <div className="mt-2 space-y-3">
+                                <div className="flex items-center gap-3 p-3 border rounded-lg">
+                                  <span className="font-medium">Bouton principal</span>
+                                  <Input placeholder="Texte du bouton" defaultValue="Réserver maintenant" className="flex-1" />
+                                  <Input placeholder="URL" defaultValue="/custom-tour" className="flex-1" />
+                                  <Button variant="ghost" size="sm">
+                                    <Edit className="h-4 w-4" />
+                                  </Button>
+                                </div>
+                                <div className="flex items-center gap-3 p-3 border rounded-lg">
+                                  <span className="font-medium">Bouton secondaire</span>
+                                  <Input placeholder="Texte du bouton" defaultValue="Contactez-nous" className="flex-1" />
+                                  <Input placeholder="URL" defaultValue="/contact" className="flex-1" />
+                                  <Button variant="ghost" size="sm">
+                                    <Edit className="h-4 w-4" />
+                                  </Button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <Separator />
+
                         {/* Barre d'annonce */}
                         <div>
                           <div className="flex items-center justify-between mb-4">
@@ -539,27 +635,109 @@ export default function AdminAppearance() {
                           </div>
                           <div className="space-y-3">
                             <div>
-                              <Label htmlFor="announcement-text">Texte de l'annonce</Label>
+                              <Label>Texte de l'annonce</Label>
                               <Input
-                                id="announcement-text"
-                                defaultValue="⚠️ L'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr"
+                                defaultValue="🎉 Nouvelles expériences disponibles - Découvrez nos tours exclusifs !"
                                 className="mt-1"
                               />
                             </div>
-                            <div>
-                              <Label htmlFor="announcement-color">Couleur de fond</Label>
-                              <div className="flex items-center gap-2 mt-1">
-                                <Input
-                                  type="color"
-                                  id="announcement-color"
-                                  defaultValue="#fbbf24"
-                                  className="w-16 h-10 p-1 border rounded"
+                            <div className="grid grid-cols-2 gap-4">
+                              <div>
+                                <Label>Couleur de fond</Label>
+                                <div className="flex items-center gap-2 mt-1">
+                                  <Input type="color" defaultValue="#1e73be" className="w-16 h-10 p-1" />
+                                  <Input defaultValue="#1e73be" className="flex-1" />
+                                </div>
+                              </div>
+                              <div>
+                                <Label>Couleur du texte</Label>
+                                <div className="flex items-center gap-2 mt-1">
+                                  <Input type="color" defaultValue="#ffffff" className="w-16 h-10 p-1" />
+                                  <Input defaultValue="#ffffff" className="flex-1" />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="flex justify-end">
+                          <Button onClick={() => toast({ title: "Header sauvegardé avec succès" })}>
+                            <Save className="h-4 w-4 mr-2" />
+                            Sauvegarder le Header
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    {/* Footer Configuration */}
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                          <Layout className="h-5 w-5" />
+                          Configuration du Footer
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-6">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                          {/* Colonne 1 - À propos */}
+                          <div>
+                            <h4 className="font-semibold mb-4">Section "À propos"</h4>
+                            <div className="space-y-3">
+                              <div>
+                                <Label>Titre</Label>
+                                <Input defaultValue="Amon Tour" />
+                              </div>
+                              <div>
+                                <Label>Description</Label>
+                                <Textarea 
+                                  defaultValue="Votre spécialiste des expériences authentiques en Thaïlande. Découvrez Krabi et le sud de la Thaïlande avec des guides locaux passionnés."
+                                  rows={4}
                                 />
-                                <Input
-                                  placeholder="#fbbf24"
-                                  defaultValue="#fbbf24"
-                                  className="flex-1"
-                                />
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Colonne 2 - Liens rapides */}
+                          <div>
+                            <h4 className="font-semibold mb-4">Liens rapides</h4>
+                            <div className="space-y-2">
+                              {["Nos expériences", "Voyage sur mesure", "À propos", "Blog", "Contact"].map((link, i) => (
+                                <div key={i} className="flex items-center gap-2">
+                                  <Input defaultValue={link} className="flex-1" />
+                                  <Button variant="ghost" size="sm">
+                                    <Edit className="h-4 w-4" />
+                                  </Button>
+                                </div>
+                              ))}
+                              <Button variant="outline" size="sm" className="w-full mt-2">
+                                <Plus className="h-4 w-4 mr-2" />
+                                Ajouter un lien
+                              </Button>
+                            </div>
+                          </div>
+
+                          {/* Colonne 3 - Contact & Réseaux sociaux */}
+                          <div>
+                            <h4 className="font-semibold mb-4">Contact & Réseaux</h4>
+                            <div className="space-y-3">
+                              <div>
+                                <Label>Email</Label>
+                                <Input defaultValue="contact@amon-tour.com" />
+                              </div>
+                              <div>
+                                <Label>Téléphone</Label>
+                                <Input defaultValue="+66 (0) 75 123 4567" />
+                              </div>
+                              <div>
+                                <Label>Adresse</Label>
+                                <Textarea defaultValue="123 Krabi Street, Ao Nang, Krabi, 81180, Thaïlande" rows={2} />
+                              </div>
+                              <div>
+                                <Label>Réseaux sociaux</Label>
+                                <div className="flex gap-2 mt-1">
+                                  <Input placeholder="Facebook URL" defaultValue="https://facebook.com/amontour" />
+                                  <Input placeholder="Instagram URL" defaultValue="https://instagram.com/amon_tour" />
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -567,209 +745,362 @@ export default function AdminAppearance() {
 
                         <Separator />
 
-                        {/* Menu principal */}
+                        {/* Copyright */}
                         <div>
-                          <h3 className="text-lg font-semibold mb-4">Menu principal</h3>
+                          <h4 className="font-semibold mb-4">Copyright & Mentions</h4>
                           <div className="space-y-3">
-                            {menuItems.map((item) => (
-                              <div 
-                                key={item.id} 
-                                className="flex items-center justify-between p-3 border rounded-lg bg-white"
-                                draggable
-                                onDragStart={() => handleMenuDragStart(item.id)}
-                                onDragOver={handleMenuDragOver}
-                                onDrop={(e) => handleMenuDrop(e, item.id)}
-                              >
-                                <div className="flex items-center gap-3">
-                                  <GripVertical className="h-4 w-4 text-gray-400 cursor-grab" />
-                                  <div className="w-2 h-2 bg-gray-400 rounded-full" />
-                                  <div>
-                                    <span className="font-medium">{item.name}</span>
-                                    <div className="text-sm text-gray-500">{item.url}</div>
-                                  </div>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                  <Dialog>
-                                    <DialogTrigger asChild>
-                                      <Button variant="ghost" size="sm">
-                                        <Edit className="h-4 w-4" />
-                                      </Button>
-                                    </DialogTrigger>
-                                    <DialogContent>
-                                      <DialogHeader>
-                                        <DialogTitle>Modifier l'élément de menu</DialogTitle>
-                                      </DialogHeader>
-                                      <div className="space-y-4">
-                                        <div>
-                                          <Label htmlFor="menu-name">Nom du menu</Label>
-                                          <Input
-                                            id="menu-name"
-                                            defaultValue={item.name}
-                                            onBlur={(e) => editMenuItem(item.id, e.target.value, item.url)}
-                                          />
-                                        </div>
-                                        <div>
-                                          <Label htmlFor="menu-url">URL</Label>
-                                          <Input
-                                            id="menu-url"
-                                            defaultValue={item.url}
-                                            onBlur={(e) => editMenuItem(item.id, item.name, e.target.value)}
-                                          />
-                                        </div>
-                                        <Button className="w-full">Sauvegarder</Button>
-                                      </div>
-                                    </DialogContent>
-                                  </Dialog>
-                                  <Button 
-                                    variant="ghost" 
-                                    size="sm"
-                                    onClick={() => deleteMenuItem(item.id)}
-                                  >
-                                    <Trash2 className="h-4 w-4" />
-                                  </Button>
-                                </div>
-                              </div>
-                            ))}
+                            <div>
+                              <Label>Texte de copyright</Label>
+                              <Input defaultValue="© 2024 Amon Tour. Tous droits réservés." />
+                            </div>
+                            <div>
+                              <Label>Liens légaux (séparés par des virgules)</Label>
+                              <Input defaultValue="Mentions légales, Politique de confidentialité, CGV" />
+                            </div>
                           </div>
-                          <Button 
-                            variant="outline" 
-                            className="w-full mt-3"
-                            onClick={addMenuItem}
-                          >
-                            <Plus className="h-4 w-4 mr-2" />
-                            Ajouter un élément de menu
-                          </Button>
                         </div>
 
                         <div className="flex justify-end">
-                          <Button 
-                            className="flex items-center gap-2"
-                            onClick={() => toast({ title: "Navigation sauvegardée avec succès" })}
-                          >
-                            <Save className="h-4 w-4" />
-                            Sauvegarder la navigation
+                          <Button onClick={() => toast({ title: "Footer sauvegardé avec succès" })}>
+                            <Save className="h-4 w-4 mr-2" />
+                            Sauvegarder le Footer
                           </Button>
                         </div>
                       </CardContent>
                     </Card>
                   </TabsContent>
 
-                  {/* Pages statiques */}
-                  <TabsContent value="pages" className="space-y-6">
+                  {/* Pages & Contenu */}
+                  <TabsContent value="pages-content" className="space-y-6">
+                    {/* Page d'accueil - Blocs complexes */}
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                          <Home className="h-5 w-5" />
+                          Page d'accueil - Sections et blocs
+                        </CardTitle>
+                        <p className="text-sm text-gray-600">Gérez les différents blocs de contenu de votre page d'accueil</p>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="space-y-6">
+                          {(contentBlocks as any[])?.filter((block: any) => block.pageLocation === 'home').length > 0 ? 
+                            (contentBlocks as any[]).filter((block: any) => block.pageLocation === 'home').map((block: any) => (
+                              <div key={block.id} className="border rounded-lg p-4 space-y-4">
+                                <div className="flex items-center justify-between">
+                                  <div>
+                                    <h4 className="font-semibold">{block.title}</h4>
+                                    <p className="text-sm text-gray-600">{block.subtitle}</p>
+                                    <Badge variant="outline" className="mt-2">{block.identifier}</Badge>
+                                  </div>
+                                  <div className="flex items-center gap-2">
+                                    <Switch defaultChecked={block.isActive} />
+                                    <Dialog>
+                                      <DialogTrigger asChild>
+                                        <Button variant="outline" size="sm">
+                                          <Edit className="h-4 w-4 mr-2" />
+                                          Modifier
+                                        </Button>
+                                      </DialogTrigger>
+                                      <DialogContent className="max-w-3xl">
+                                        <DialogHeader>
+                                          <DialogTitle>Modifier le bloc : {block.title}</DialogTitle>
+                                        </DialogHeader>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                          <div className="space-y-4">
+                                            <div>
+                                              <Label>Titre principal</Label>
+                                              <Input defaultValue={block.title} />
+                                            </div>
+                                            <div>
+                                              <Label>Sous-titre</Label>
+                                              <Input defaultValue={block.subtitle} />
+                                            </div>
+                                            <div>
+                                              <Label>Description</Label>
+                                              <Textarea defaultValue={block.content} rows={4} />
+                                            </div>
+                                            <div>
+                                              <Label>Texte du bouton (optionnel)</Label>
+                                              <Input defaultValue={block.ctaText} />
+                                            </div>
+                                            <div>
+                                              <Label>Lien du bouton (optionnel)</Label>
+                                              <Input defaultValue={block.ctaUrl} />
+                                            </div>
+                                          </div>
+                                          <div className="space-y-4">
+                                            <div>
+                                              <Label>Image du bloc</Label>
+                                              <div className="mt-2">
+                                                {block.imageUrl && (
+                                                  <img 
+                                                    src={block.imageUrl} 
+                                                    alt={block.title} 
+                                                    className="w-full h-32 object-cover rounded border mb-2"
+                                                  />
+                                                )}
+                                                <Button variant="outline" size="sm" className="w-full">
+                                                  <Upload className="h-4 w-4 mr-2" />
+                                                  {block.imageUrl ? "Changer l'image" : "Ajouter une image"}
+                                                </Button>
+                                              </div>
+                                            </div>
+                                            <div>
+                                              <Label>Ordre d'affichage</Label>
+                                              <Input type="number" defaultValue={block.displayOrder} />
+                                            </div>
+                                            <div className="flex items-center gap-2">
+                                              <Switch defaultChecked={block.isActive} />
+                                              <Label>Bloc actif</Label>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div className="flex justify-end pt-4">
+                                          <Button>Sauvegarder les modifications</Button>
+                                        </div>
+                                      </DialogContent>
+                                    </Dialog>
+                                  </div>
+                                </div>
+                                
+                                {/* Preview du bloc */}
+                                <div className="bg-gray-50 rounded p-4 border-l-4 border-blue-500">
+                                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                                    <div>
+                                      <span className="font-medium">Contenu:</span>
+                                      <p className="text-gray-600 mt-1 line-clamp-2">{block.content}</p>
+                                    </div>
+                                    <div>
+                                      <span className="font-medium">Image:</span>
+                                      <p className="text-gray-600 mt-1">{block.imageUrl ? "✅ Image définie" : "❌ Aucune image"}</p>
+                                    </div>
+                                    <div>
+                                      <span className="font-medium">Action:</span>
+                                      <p className="text-gray-600 mt-1">{block.ctaText ? `"${block.ctaText}"` : "Aucun bouton"}</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            )) : (
+                              <div className="text-center py-8 text-gray-500">
+                                <Layout className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+                                <p>Aucun bloc de contenu trouvé pour la page d'accueil</p>
+                              </div>
+                            )
+                          }
+                          
+                          <Dialog>
+                            <DialogTrigger asChild>
+                              <Button variant="outline" className="w-full">
+                                <Plus className="h-4 w-4 mr-2" />
+                                Ajouter un nouveau bloc à la page d'accueil
+                              </Button>
+                            </DialogTrigger>
+                            <DialogContent className="max-w-3xl">
+                              <DialogHeader>
+                                <DialogTitle>Créer un nouveau bloc pour la page d'accueil</DialogTitle>
+                              </DialogHeader>
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="space-y-4">
+                                  <div>
+                                    <Label>Titre principal</Label>
+                                    <Input placeholder="Titre de votre bloc" />
+                                  </div>
+                                  <div>
+                                    <Label>Sous-titre</Label>
+                                    <Input placeholder="Sous-titre du bloc" />
+                                  </div>
+                                  <div>
+                                    <Label>Description</Label>
+                                    <Textarea placeholder="Description du contenu..." rows={4} />
+                                  </div>
+                                  <div>
+                                    <Label>Texte du bouton (optionnel)</Label>
+                                    <Input placeholder="Ex: En savoir plus" />
+                                  </div>
+                                  <div>
+                                    <Label>Lien du bouton (optionnel)</Label>
+                                    <Input placeholder="Ex: /about" />
+                                  </div>
+                                </div>
+                                <div className="space-y-4">
+                                  <div>
+                                    <Label>Identifiant du bloc</Label>
+                                    <Input placeholder="Ex: hero_section" />
+                                  </div>
+                                  <div>
+                                    <Label>Ordre d'affichage</Label>
+                                    <Input type="number" defaultValue="1" />
+                                  </div>
+                                  <div className="flex items-center gap-2">
+                                    <Switch defaultChecked />
+                                    <Label>Activer le bloc</Label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="flex justify-end pt-4">
+                                <Button>Créer le bloc</Button>
+                              </div>
+                            </DialogContent>
+                          </Dialog>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    {/* Autres pages - Contenu simple */}
                     <Card>
                       <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                           <FileText className="h-5 w-5" />
-                          Pages statiques
+                          Autres pages - Contenu simple
                         </CardTitle>
+                        <p className="text-sm text-gray-600">Modifiez le titre, l'image et la description des autres pages</p>
                       </CardHeader>
                       <CardContent>
                         <div className="space-y-4">
-                          {(staticPages as any[])?.length > 0 ? (staticPages as any[]).map((page: any) => (
-                            <div key={page.id} className="flex items-center justify-between p-4 border rounded-lg">
+                          {/* Page Contact */}
+                          <div className="border rounded-lg p-4">
+                            <div className="flex items-center justify-between mb-4">
                               <div>
-                                <h4 className="font-medium">{page.title}</h4>
-                                <p className="text-sm text-gray-600">
-                                  Slug: /{page.slug} • Dernière modification : {new Date(page.updatedAt).toLocaleDateString()}
-                                </p>
+                                <h4 className="font-semibold">Page Contact</h4>
+                                <p className="text-sm text-gray-600">Personnalisez l'en-tête de la page contact</p>
                               </div>
-                              <div className="flex items-center gap-2">
-                                <Badge variant={page.isPublished ? "default" : "secondary"}>
-                                  {page.isPublished ? "Publié" : "Brouillon"}
-                                </Badge>
-                                <Dialog>
-                                  <DialogTrigger asChild>
-                                    <Button variant="outline" size="sm">
-                                      <Edit className="h-4 w-4 mr-2" />
-                                      Modifier
-                                    </Button>
-                                  </DialogTrigger>
-                                  <DialogContent className="max-w-2xl">
-                                    <DialogHeader>
-                                      <DialogTitle>Modifier la page : {page.title}</DialogTitle>
-                                    </DialogHeader>
-                                    <div className="space-y-4">
-                                      <div>
-                                        <Label>Titre de la page</Label>
-                                        <Input defaultValue={page.title} />
-                                      </div>
-                                      <div>
-                                        <Label>Slug (URL)</Label>
-                                        <Input defaultValue={page.slug} />
-                                      </div>
-                                      <div>
-                                        <Label>Contenu</Label>
-                                        <Textarea 
-                                          defaultValue={page.content}
-                                          rows={10}
-                                          className="min-h-[200px]"
-                                        />
-                                      </div>
-                                      <div className="flex items-center gap-2">
-                                        <Switch defaultChecked={page.isPublished} />
-                                        <Label>Publier cette page</Label>
-                                      </div>
-                                      <Button className="w-full">Sauvegarder les modifications</Button>
+                              <Dialog>
+                                <DialogTrigger asChild>
+                                  <Button variant="outline" size="sm">
+                                    <Edit className="h-4 w-4 mr-2" />
+                                    Modifier
+                                  </Button>
+                                </DialogTrigger>
+                                <DialogContent>
+                                  <DialogHeader>
+                                    <DialogTitle>Modifier la page Contact</DialogTitle>
+                                  </DialogHeader>
+                                  <div className="space-y-4">
+                                    <div>
+                                      <Label>Titre principal</Label>
+                                      <Input defaultValue="Contactez-nous" />
                                     </div>
-                                  </DialogContent>
-                                </Dialog>
+                                    <div>
+                                      <Label>Sous-titre</Label>
+                                      <Input defaultValue="Prêt à vivre l'aventure thaïlandaise ?" />
+                                    </div>
+                                    <div>
+                                      <Label>Description</Label>
+                                      <Textarea 
+                                        defaultValue="Notre équipe est là pour répondre à toutes vos questions et vous aider à planifier le voyage parfait en Thaïlande."
+                                        rows={3}
+                                      />
+                                    </div>
+                                    <div>
+                                      <Label>Image d'en-tête</Label>
+                                      <Button variant="outline" className="w-full">
+                                        <Upload className="h-4 w-4 mr-2" />
+                                        Choisir une image
+                                      </Button>
+                                    </div>
+                                    <Button className="w-full">Sauvegarder</Button>
+                                  </div>
+                                </DialogContent>
+                              </Dialog>
+                            </div>
+                          </div>
+
+                          {/* Page Blog */}
+                          <div className="border rounded-lg p-4">
+                            <div className="flex items-center justify-between mb-4">
+                              <div>
+                                <h4 className="font-semibold">Page Blog</h4>
+                                <p className="text-sm text-gray-600">Personnalisez l'en-tête de votre blog</p>
                               </div>
+                              <Dialog>
+                                <DialogTrigger asChild>
+                                  <Button variant="outline" size="sm">
+                                    <Edit className="h-4 w-4 mr-2" />
+                                    Modifier
+                                  </Button>
+                                </DialogTrigger>
+                                <DialogContent>
+                                  <DialogHeader>
+                                    <DialogTitle>Modifier la page Blog</DialogTitle>
+                                  </DialogHeader>
+                                  <div className="space-y-4">
+                                    <div>
+                                      <Label>Titre principal</Label>
+                                      <Input defaultValue="Blog - Découvertes en Thaïlande" />
+                                    </div>
+                                    <div>
+                                      <Label>Sous-titre</Label>
+                                      <Input defaultValue="Inspiration, conseils et connaissances d'initiés" />
+                                    </div>
+                                    <div>
+                                      <Label>Description</Label>
+                                      <Textarea 
+                                        defaultValue="Découvrez les joyaux cachés de la Thaïlande à travers nos articles de voyage."
+                                        rows={3}
+                                      />
+                                    </div>
+                                    <Button className="w-full">Sauvegarder</Button>
+                                  </div>
+                                </DialogContent>
+                              </Dialog>
                             </div>
-                          )) : (
-                            <div className="text-center py-8 text-gray-500">
-                              <FileText className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-                              <p>Aucune page statique trouvée</p>
+                          </div>
+
+                          {/* Page Expériences */}
+                          <div className="border rounded-lg p-4">
+                            <div className="flex items-center justify-between mb-4">
+                              <div>
+                                <h4 className="font-semibold">Page Expériences</h4>
+                                <p className="text-sm text-gray-600">Personnalisez la présentation de vos tours</p>
+                              </div>
+                              <Dialog>
+                                <DialogTrigger asChild>
+                                  <Button variant="outline" size="sm">
+                                    <Edit className="h-4 w-4 mr-2" />
+                                    Modifier
+                                  </Button>
+                                </DialogTrigger>
+                                <DialogContent>
+                                  <DialogHeader>
+                                    <DialogTitle>Modifier la page Expériences</DialogTitle>
+                                  </DialogHeader>
+                                  <div className="space-y-4">
+                                    <div>
+                                      <Label>Titre principal</Label>
+                                      <Input defaultValue="Nos Expériences" />
+                                    </div>
+                                    <div>
+                                      <Label>Sous-titre</Label>
+                                      <Input defaultValue="Aventures authentiques en Thaïlande" />
+                                    </div>
+                                    <div>
+                                      <Label>Description</Label>
+                                      <Textarea 
+                                        defaultValue="Explorez notre sélection d'expériences uniques pour découvrir la vraie Thaïlande."
+                                        rows={3}
+                                      />
+                                    </div>
+                                    <Button className="w-full">Sauvegarder</Button>
+                                  </div>
+                                </DialogContent>
+                              </Dialog>
                             </div>
-                          )}
+                          </div>
                         </div>
-                        <Dialog>
-                          <DialogTrigger asChild>
-                            <Button variant="outline" className="w-full mt-4">
-                              <Plus className="h-4 w-4 mr-2" />
-                              Créer une nouvelle page
-                            </Button>
-                          </DialogTrigger>
-                          <DialogContent className="max-w-2xl">
-                            <DialogHeader>
-                              <DialogTitle>Créer une nouvelle page</DialogTitle>
-                            </DialogHeader>
-                            <div className="space-y-4">
-                              <div>
-                                <Label>Titre de la page</Label>
-                                <Input placeholder="Titre de votre page" />
-                              </div>
-                              <div>
-                                <Label>Slug (URL)</Label>
-                                <Input placeholder="url-de-votre-page" />
-                              </div>
-                              <div>
-                                <Label>Contenu</Label>
-                                <Textarea 
-                                  placeholder="Contenu de votre page..."
-                                  rows={10}
-                                  className="min-h-[200px]"
-                                />
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <Switch />
-                                <Label>Publier immédiatement</Label>
-                              </div>
-                              <Button className="w-full">Créer la page</Button>
-                            </div>
-                          </DialogContent>
-                        </Dialog>
                       </CardContent>
                     </Card>
                   </TabsContent>
 
-                  {/* Sections & Blocs */}
-                  <TabsContent value="blocks" className="space-y-6">
+                  {/* Mentions légales */}
+                  <TabsContent value="legal" className="space-y-6">
                     <Card>
                       <CardHeader>
                         <CardTitle className="flex items-center gap-2">
-                          <Layout className="h-5 w-5" />
-                          Sections & Blocs de contenu
+                          <Settings className="h-5 w-5" />
+                          Mentions légales et pages juridiques
                         </CardTitle>
+                        <p className="text-sm text-gray-600">Gérez vos pages légales, convictions et obligations légales</p>
                       </CardHeader>
                       <CardContent>
                         <div className="space-y-4">
