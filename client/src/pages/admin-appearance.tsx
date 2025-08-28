@@ -542,7 +542,7 @@ export default function AdminAppearance() {
                           <div>
                             <Label>Texte de l'annonce</Label>
                             <Input
-                              defaultValue="⚠️ L'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr"
+                              defaultValue="📢 L'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr"
                               className="mt-1"
                             />
                           </div>
@@ -574,7 +574,7 @@ export default function AdminAppearance() {
                                 color: "#000000"
                               }}
                             >
-                              ⚠️ L'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr
+                              📢 L'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr
                             </div>
                           </div>
                         </div>
@@ -639,8 +639,11 @@ export default function AdminAppearance() {
                                         <Label>Catégorie parent (optionnel)</Label>
                                         <select className="w-full px-3 py-2 border rounded-md">
                                           <option value="">Aucune (menu principal)</option>
-                                          <option value="services">Services</option>
-                                          <option value="about">À propos</option>
+                                          <option value="home">Home</option>
+                                          <option value="experiences">Experiences</option>
+                                          <option value="custom-trip">Custom Trip</option>
+                                          <option value="blog">Blog</option>
+                                          <option value="contact">Contact</option>
                                         </select>
                                       </div>
                                       <Button className="w-full">Sauvegarder</Button>
@@ -684,8 +687,11 @@ export default function AdminAppearance() {
                                   <Label>Catégorie parent (optionnel)</Label>
                                   <select className="w-full px-3 py-2 border rounded-md">
                                     <option value="">Aucune (menu principal)</option>
-                                    <option value="services">Services</option>
-                                    <option value="about">À propos</option>
+                                    <option value="home">Home</option>
+                                    <option value="experiences">Experiences</option>
+                                    <option value="custom-trip">Custom Trip</option>
+                                    <option value="blog">Blog</option>
+                                    <option value="contact">Contact</option>
                                   </select>
                                 </div>
                                 <Button className="w-full">Créer le lien</Button>
@@ -712,8 +718,11 @@ export default function AdminAppearance() {
                                 <div>
                                   <Label>Catégorie parent</Label>
                                   <select className="w-full px-3 py-2 border rounded-md">
-                                    <option value="services">Services</option>
-                                    <option value="about">À propos</option>
+                                    <option value="home">Home</option>
+                                    <option value="experiences">Experiences</option>
+                                    <option value="custom-trip">Custom Trip</option>
+                                    <option value="blog">Blog</option>
+                                    <option value="contact">Contact</option>
                                   </select>
                                 </div>
                                 <Button className="w-full">Créer la catégorie</Button>
@@ -744,21 +753,17 @@ export default function AdminAppearance() {
                           <div>
                             <Label>Titre principal</Label>
                             <div className="mt-2 space-y-2">
-                              <Input defaultValue="Your exclusive experiences" />
-                              <p className="text-sm text-gray-600">
-                                Conseil : Pour mettre des mots en couleur, utilisez des balises comme : 
-                                Your exclusive &lt;span class="text-blue-400"&gt;experiences&lt;/span&gt;
-                              </p>
+                              <Input defaultValue="Your exclusive experiences in Krabi – THAILAND" />
+                              <div className="flex items-center gap-3">
+                                <Label className="text-sm">Couleur pour "in Krabi"</Label>
+                                <Input type="color" defaultValue="#3b82f6" className="w-16 h-8 p-1" />
+                                <span className="text-sm text-gray-600">Prévisualisation avec couleur en direct</span>
+                              </div>
                             </div>
                           </div>
                           
                           <div>
-                            <Label>Sous-titre coloré</Label>
-                            <Input defaultValue="in Krabi — THAILAND" />
-                          </div>
-                          
-                          <div>
-                            <Label>Description</Label>
+                            <Label>Sous-titre</Label>
                             <Textarea 
                               defaultValue="Discover amazing places away from mass tourism in Krabi. And also Khao Sok, Koh Mook and many more destinations."
                               rows={3}
@@ -777,7 +782,13 @@ export default function AdminAppearance() {
                                 </div>
                                 <div>
                                   <Label>Lien de redirection</Label>
-                                  <Input placeholder="URL" defaultValue="/experiences" />
+                                  <select className="w-full px-3 py-2 border rounded-md" defaultValue="/experiences">
+                                    <option value="/">Accueil</option>
+                                    <option value="/experiences">Experiences</option>
+                                    <option value="/custom-tour">Custom Trip</option>
+                                    <option value="/blog">Blog</option>
+                                    <option value="/contact">Contact</option>
+                                  </select>
                                 </div>
                               </div>
                               
@@ -788,7 +799,13 @@ export default function AdminAppearance() {
                                 </div>
                                 <div>
                                   <Label>Lien de redirection</Label>
-                                  <Input placeholder="URL" defaultValue="/custom-tour" />
+                                  <select className="w-full px-3 py-2 border rounded-md" defaultValue="/custom-tour">
+                                    <option value="/">Accueil</option>
+                                    <option value="/experiences">Experiences</option>
+                                    <option value="/custom-tour">Custom Trip</option>
+                                    <option value="/blog">Blog</option>
+                                    <option value="/contact">Contact</option>
+                                  </select>
                                 </div>
                               </div>
                             </div>
@@ -816,7 +833,6 @@ export default function AdminAppearance() {
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                           {/* Contact */}
                           <div>
-                            <h4 className="font-semibold mb-4">Contact</h4>
                             <div className="space-y-3">
                               <div>
                                 <Label>Titre de la section</Label>
@@ -828,6 +844,10 @@ export default function AdminAppearance() {
                                   defaultValue="Amon Tour is a brand of:&#10;Flame BB Co., Ltd.&#10;242 Moo1 Tombol Ao Nang&#10;81180 Krabi, Thailand"
                                   rows={4}
                                 />
+                              </div>
+                              <div>
+                                <Label>TAT License</Label>
+                                <Input defaultValue="TAT License: 34/01995" />
                               </div>
                               <div>
                                 <Label>Email</Label>
@@ -849,12 +869,32 @@ export default function AdminAppearance() {
                                 <Label>Line ID</Label>
                                 <Input defaultValue="Line ID: amontour" />
                               </div>
+                              <div>
+                                <Label>Réseaux sociaux</Label>
+                                <div className="space-y-2">
+                                  <div className="flex items-center gap-2">
+                                    <span className="text-sm w-20">Facebook:</span>
+                                    <Input placeholder="Lien Facebook" defaultValue="https://facebook.com/amontour" />
+                                  </div>
+                                  <div className="flex items-center gap-2">
+                                    <span className="text-sm w-20">Instagram:</span>
+                                    <Input placeholder="Lien Instagram" defaultValue="https://instagram.com/amon_tour" />
+                                  </div>
+                                  <div className="flex items-center gap-2">
+                                    <span className="text-sm w-20">YouTube:</span>
+                                    <Input placeholder="Lien YouTube" defaultValue="https://youtube.com/amontour" />
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
 
                           {/* Useful Links */}
                           <div>
-                            <h4 className="font-semibold mb-4">Useful Links</h4>
+                            <div className="mb-4">
+                              <Label>Titre de la section</Label>
+                              <Input defaultValue="Useful Links" />
+                            </div>
                             <div className="space-y-2">
                               {[
                                 "Our brochure",
@@ -880,12 +920,11 @@ export default function AdminAppearance() {
 
                           {/* Newsletter */}
                           <div>
-                            <h4 className="font-semibold mb-4">Newsletter</h4>
+                            <div className="mb-4">
+                              <Label>Titre de la section</Label>
+                              <Input defaultValue="Newsletter" />
+                            </div>
                             <div className="space-y-3">
-                              <div>
-                                <Label>Titre</Label>
-                                <Input defaultValue="Newsletter" />
-                              </div>
                               <div>
                                 <Label>Description</Label>
                                 <Textarea 
