@@ -45,7 +45,8 @@ import {
   AlignCenter,
   AlignRight,
   Undo2,
-  Redo2
+  Redo2,
+  Scale
 } from "lucide-react";
 import { useLocation } from "wouter";
 import Header from "@/components/layout/Header";
@@ -68,6 +69,23 @@ export default function AdminAppearance() {
     legalNotice: false,
     privacyPolicy: false,
     termsConditions: false
+  });
+
+  // Main pages collapse state
+  const [mainPagesOpen, setMainPagesOpen] = useState({
+    experiences: false,
+    customTrip: false,
+    blog: false,
+    contact: false
+  });
+
+  // Secondary pages collapse state
+  const [secondaryPagesOpen, setSecondaryPagesOpen] = useState({
+    brochure: false,
+    krabiCelebration: false,
+    villasKrabi: false,
+    becomePartner: false,
+    groupCorporate: false
   });
 
   // Page titles state for dynamic linking
@@ -1279,287 +1297,110 @@ export default function AdminAppearance() {
                   {/* Pages & Contenu */}
                   <TabsContent value="pages-content" className="space-y-6">
                     
-                    {/* Pages principales - Accueil + Menu */}
+                    {/* CADRE 1: Pages principales */}
                     <Card>
                       <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                           <Home className="h-5 w-5" />
-                          Pages principales - Accueil + Menu
+                          Pages principales
                         </CardTitle>
-                        <p className="text-sm text-gray-600">Pages visibles dans l'accueil et le menu principal</p>
+                        <p className="text-sm text-gray-600">Gérez les pages du menu principal</p>
                       </CardHeader>
-                      <CardContent className="space-y-6">
+                      <CardContent className="space-y-4">
                         
-                        {/* Page d'accueil avec sections spécifiques */}
-                        <div className="border rounded-lg p-4">
-                          <h4 className="font-semibold mb-4 text-lg">🏠 Page d'Accueil - Sections</h4>
-                          
-                          {/* Section: Experts welcome you */}
-                          <div className="space-y-4 mb-6 p-4 bg-blue-50 rounded">
-                            <h5 className="font-medium">Experts welcome you in the host country</h5>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                              <div>
-                                <Label>Titre de la section</Label>
-                                <Input defaultValue="Experts welcome you in the host country" />
-                              </div>
-                              <div>
-                                <Label>Sous-titre</Label>
-                                <Input defaultValue="Découvrez la Thaïlande avec nos experts locaux" />
-                              </div>
-                            </div>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                              <div>
-                                <Label>Annonces à mettre en avant</Label>
-                                <select className="w-full px-3 py-2 border rounded-md">
-                                  <option>Sélectionner les tours</option>
-                                  <option>Krabi Adventures</option>
-                                  <option>Phi Phi Experience</option>
-                                  <option>Jungle Trekking</option>
-                                </select>
-                              </div>
-                              <div>
-                                <Label>Nombre d'annonces visibles</Label>
-                                <Input type="number" defaultValue="3" />
-                              </div>
-                              <div>
-                                <Label>Description courte</Label>
-                                <Input defaultValue="Nos meilleurs guides vous accompagnent" />
-                              </div>
-                            </div>
+                        {/* Page d'Accueil - Redirection vers Header/Footer */}
+                        <div className="border rounded-lg p-4 bg-blue-50">
+                          <div className="flex items-center justify-between mb-3">
+                            <h5 className="font-medium flex items-center gap-2">
+                              🏠 Accueil
+                            </h5>
+                            <Badge variant="secondary">Page spéciale</Badge>
                           </div>
-
-                          {/* Section: Our popular experiences */}
-                          <div className="space-y-4 mb-6 p-4 bg-green-50 rounded">
-                            <h5 className="font-medium">Our popular experiences</h5>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                              <div>
-                                <Label>Titre de la section</Label>
-                                <Input defaultValue="Our popular experiences" />
-                              </div>
-                              <div>
-                                <Label>Sous-titre</Label>
-                                <Input defaultValue="Les expériences les plus demandées" />
-                              </div>
-                            </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                              <div>
-                                <Label>Annonces à mettre en avant</Label>
-                                <select className="w-full px-3 py-2 border rounded-md">
-                                  <option>Sélectionner les tours populaires</option>
-                                  <option>Island Hopping</option>
-                                  <option>Temple Visits</option>
-                                  <option>Cooking Classes</option>
-                                </select>
-                              </div>
-                              <div>
-                                <Label>Description</Label>
-                                <Input defaultValue="Découvrez nos expériences les plus appréciées" />
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Section: Create your custom trip */}
-                          <div className="space-y-4 mb-6 p-4 bg-yellow-50 rounded">
-                            <h5 className="font-medium">Create your custom trip</h5>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                              <div>
-                                <Label>Titre du formulaire</Label>
-                                <Input defaultValue="Create your custom trip" />
-                              </div>
-                              <div>
-                                <Label>Description d'introduction</Label>
-                                <Input defaultValue="Créez votre voyage sur mesure" />
-                              </div>
-                            </div>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                              <div>
-                                <Label>Options de destination</Label>
-                                <Textarea defaultValue="Krabi, Phi Phi Islands, Phuket, Bangkok" rows={2} />
-                              </div>
-                              <div>
-                                <Label>Types d'activités</Label>
-                                <Textarea defaultValue="Adventure, Culture, Relaxation, Food" rows={2} />
-                              </div>
-                              <div>
-                                <Label>Durées proposées</Label>
-                                <Textarea defaultValue="3 jours, 5 jours, 7 jours, 10 jours" rows={2} />
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Section: Some ideas for your next trip */}
-                          <div className="space-y-4 mb-6 p-4 bg-purple-50 rounded">
-                            <h5 className="font-medium">Some ideas for your next trip</h5>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                              <div>
-                                <Label>Titre de la section</Label>
-                                <Input defaultValue="Some ideas for your next trip" />
-                              </div>
-                              <div>
-                                <Label>Sous-titre</Label>
-                                <Input defaultValue="Inspirations pour vos prochaines aventures" />
-                              </div>
-                            </div>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                              <div>
-                                <Label>Idées à mettre en avant</Label>
-                                <select className="w-full px-3 py-2 border rounded-md">
-                                  <option>Sélectionner les suggestions</option>
-                                  <option>Romantic Getaways</option>
-                                  <option>Adventure Tours</option>
-                                  <option>Cultural Immersion</option>
-                                </select>
-                              </div>
-                              <div>
-                                <Label>Nombre d'idées visibles</Label>
-                                <Input type="number" defaultValue="4" />
-                              </div>
-                              <div>
-                                <Label>Description</Label>
-                                <Input defaultValue="Laissez-vous inspirer par nos suggestions" />
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Section: Why choose us */}
-                          <div className="space-y-4 mb-6 p-4 bg-orange-50 rounded">
-                            <h5 className="font-medium">Why choose us</h5>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                              <div>
-                                <Label>Titre de la section</Label>
-                                <Input defaultValue="Why choose us" />
-                              </div>
-                              <div>
-                                <Label>Sous-titre</Label>
-                                <Input defaultValue="Pourquoi choisir Amon Tour" />
-                              </div>
-                            </div>
-                            <div>
-                              <Label>Contenu principal</Label>
-                              <Textarea 
-                                defaultValue="Experts locaux, expériences authentiques, service personnalisé, guides expérimentés, prix transparents, support 24/7"
-                                rows={3}
-                              />
-                            </div>
-                          </div>
-
-                          {/* Section: Who we are */}
-                          <div className="space-y-4 mb-4 p-4 bg-gray-50 rounded">
-                            <h5 className="font-medium">Who we are</h5>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                              <div>
-                                <Label>Titre de la section</Label>
-                                <Input defaultValue="Who we are" />
-                              </div>
-                              <div>
-                                <Label>Sous-titre</Label>
-                                <Input defaultValue="Qui nous sommes" />
-                              </div>
-                            </div>
-                            <div>
-                              <Label>Notre présentation</Label>
-                              <Textarea 
-                                defaultValue="Amon Tour est une agence de voyage spécialisée dans la découverte authentique de la Thaïlande. Depuis plus de 10 ans, nous créons des expériences uniques dans le sud de la Thaïlande."
-                                rows={3}
-                              />
-                            </div>
-                          </div>
+                          <p className="text-sm text-gray-600 mb-3">
+                            La page d'accueil utilise les paramètres du header et footer. 
+                            Pour modifier l'apparence, utilisez l'onglet "En-tête & Pied de page".
+                          </p>
+                          <Button 
+                            variant="outline" 
+                            onClick={() => setActiveTab('header-footer')}
+                            className="w-full"
+                          >
+                            <Settings className="h-4 w-4 mr-2" />
+                            Configurer Header & Footer
+                          </Button>
                         </div>
 
-                        <Separator />
-
-                        {/* Pages du menu principal */}
-                        <div className="space-y-4">
-                          <h4 className="font-semibold text-lg">📱 Pages du Menu Principal</h4>
-                          
-                          {/* Page Experiences */}
-                          <div className="border rounded-lg p-4">
-                            <h5 className="font-medium mb-3">🌊 Page Expériences</h5>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                              <div>
-                                <Label>Photo d'en-tête</Label>
-                                <Button variant="outline" className="w-full">
-                                  <Upload className="h-4 w-4 mr-2" />
-                                  Choisir une image
-                                </Button>
-                              </div>
-                              <div>
-                                <Label>Titre principal</Label>
-                                <Input defaultValue="Nos Expériences" />
-                              </div>
-                              <div>
-                                <Label>Description</Label>
-                                <Input defaultValue="Aventures authentiques en Thaïlande" />
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Page Custom Trip */}
-                          <div className="border rounded-lg p-4">
-                            <h5 className="font-medium mb-3">🎯 Page Custom Trip</h5>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                              <div>
-                                <Label>Photo d'en-tête</Label>
-                                <Button variant="outline" className="w-full">
-                                  <Upload className="h-4 w-4 mr-2" />
-                                  Choisir une image
-                                </Button>
-                              </div>
-                              <div>
-                                <Label>Titre principal</Label>
-                                <Input defaultValue="Voyage sur mesure" />
-                              </div>
-                              <div>
-                                <Label>Description</Label>
-                                <Input defaultValue="Créez votre voyage personnalisé" />
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Page Blog */}
-                          <div className="border rounded-lg p-4">
-                            <h5 className="font-medium mb-3">📝 Page Blog</h5>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                              <div>
-                                <Label>Photo d'en-tête</Label>
-                                <Button variant="outline" className="w-full">
-                                  <Upload className="h-4 w-4 mr-2" />
-                                  Choisir une image
-                                </Button>
-                              </div>
-                              <div>
-                                <Label>Titre principal</Label>
-                                <Input defaultValue="Blog - Découvertes en Thaïlande" />
-                              </div>
-                              <div>
-                                <Label>Description</Label>
-                                <Input defaultValue="Inspiration, conseils et connaissances d'initiés" />
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Page Contact */}
-                          <div className="border rounded-lg p-4">
-                            <h5 className="font-medium mb-3">📞 Page Contact</h5>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                              <div>
-                                <Label>Photo d'en-tête</Label>
-                                <Button variant="outline" className="w-full">
-                                  <Upload className="h-4 w-4 mr-2" />
-                                  Choisir une image
-                                </Button>
-                              </div>
-                              <div>
-                                <Label>Titre principal</Label>
-                                <Input defaultValue="Contactez-nous" />
-                              </div>
-                              <div>
-                                <Label>Description</Label>
-                                <Input defaultValue="Prêt à vivre l'aventure thaïlandaise ?" />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                        {/* Dropdown Pages du Menu */}
+                        {[
+                          { 
+                            key: 'experiences', 
+                            title: 'Expériences', 
+                            icon: '🌊', 
+                            defaultTitle: 'Nos Expériences',
+                            defaultDesc: 'Découvrez nos aventures authentiques en Thaïlande'
+                          },
+                          { 
+                            key: 'customTrip', 
+                            title: 'Voyage sur mesure', 
+                            icon: '🎯', 
+                            defaultTitle: 'Voyage sur mesure',
+                            defaultDesc: 'Créez votre voyage personnalisé avec nos experts'
+                          },
+                          { 
+                            key: 'blog', 
+                            title: 'Blog', 
+                            icon: '📝', 
+                            defaultTitle: 'Blog - Découvertes en Thaïlande',
+                            defaultDesc: 'Conseils, inspiration et connaissances d\'initiés'
+                          },
+                          { 
+                            key: 'contact', 
+                            title: 'Contact', 
+                            icon: '📞', 
+                            defaultTitle: 'Contactez-nous',
+                            defaultDesc: 'Prêt à vivre l\'aventure thaïlandaise ?'
+                          }
+                        ].map((page) => (
+                          <Card key={page.key} className="border-2">
+                            <CardHeader 
+                              className="pb-3 cursor-pointer" 
+                              onClick={() => setMainPagesOpen(prev => ({...prev, [page.key]: !prev[page.key]}))}
+                            >
+                              <CardTitle className="text-lg flex items-center justify-between">
+                                <span className="flex items-center gap-2">
+                                  {page.icon} {page.title}
+                                </span>
+                                {mainPagesOpen[page.key] ? 
+                                  <ChevronUp className="h-5 w-5" /> : 
+                                  <ChevronDown className="h-5 w-5" />
+                                }
+                              </CardTitle>
+                            </CardHeader>
+                            {mainPagesOpen[page.key] && (
+                              <CardContent className="space-y-4">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                  <div>
+                                    <Label>Titre de la page</Label>
+                                    <Input defaultValue={page.defaultTitle} className="mt-1" />
+                                  </div>
+                                  <div>
+                                    <Label>Description de la page</Label>
+                                    <Input defaultValue={page.defaultDesc} className="mt-1" />
+                                  </div>
+                                </div>
+                                
+                                <div>
+                                  <Label>Image de header</Label>
+                                  <div className="mt-2 border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                                    <Upload className="h-8 w-8 mx-auto mb-2 text-gray-400" />
+                                    <p className="text-sm text-gray-600">Cliquez pour télécharger une image</p>
+                                    <p className="text-xs text-gray-400">Recommandé: 1200x400px</p>
+                                  </div>
+                                </div>
+                              </CardContent>
+                            )}
+                          </Card>
+                        ))}
 
                         <div className="flex justify-end">
                           <Button onClick={() => toast({ title: "Pages principales sauvegardées" })}>
@@ -1570,146 +1411,140 @@ export default function AdminAppearance() {
                       </CardContent>
                     </Card>
 
-                    {/* Pages secondaires - Footer */}
+                    {/* CADRE 2: Pages secondaires */}
                     <Card>
                       <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                           <FileText className="h-5 w-5" />
-                          Pages secondaires - Footer
+                          Pages secondaires
                         </CardTitle>
-                        <p className="text-sm text-gray-600">Pages accessibles depuis le footer du site</p>
+                        <p className="text-sm text-gray-600">Gérez les pages du footer et autres liens</p>
                       </CardHeader>
                       <CardContent className="space-y-4">
                         
-                        {/* Our brochure */}
-                        <div className="border rounded-lg p-4">
-                          <h5 className="font-medium mb-3">📋 Our brochure</h5>
-                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div>
-                              <Label>Photo d'en-tête</Label>
-                              <Button variant="outline" className="w-full">
-                                <Upload className="h-4 w-4 mr-2" />
-                                Choisir une image
-                              </Button>
-                            </div>
-                            <div>
-                              <Label>Titre principal</Label>
-                              <Input defaultValue="Notre brochure" />
-                            </div>
-                            <div>
-                              <Label>Description</Label>
-                              <Input defaultValue="Découvrez toutes nos offres" />
-                            </div>
+                        {/* Fun Garden - Lien externe */}
+                        <div className="border rounded-lg p-4 bg-orange-50">
+                          <div className="flex items-center justify-between mb-3">
+                            <h5 className="font-medium flex items-center gap-2">
+                              🌺 Fun Garden
+                            </h5>
+                            <Badge variant="outline">Lien externe</Badge>
                           </div>
+                          <div>
+                            <Label>URL de redirection</Label>
+                            <Input 
+                              defaultValue="https://www.facebook.com/thefungardenkrabi/" 
+                              className="mt-1 font-mono text-sm"
+                            />
+                          </div>
+                          <p className="text-xs text-gray-500 mt-1">
+                            Cette page redirige vers un site externe (Facebook)
+                          </p>
                         </div>
 
-                        {/* Krabi Celebration */}
-                        <div className="border rounded-lg p-4">
-                          <h5 className="font-medium mb-3">🎉 Krabi Celebration</h5>
-                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div>
-                              <Label>Photo d'en-tête</Label>
-                              <Button variant="outline" className="w-full">
-                                <Upload className="h-4 w-4 mr-2" />
-                                Choisir une image
-                              </Button>
-                            </div>
-                            <div>
-                              <Label>Titre principal</Label>
-                              <Input defaultValue="Krabi Celebration" />
-                            </div>
-                            <div>
-                              <Label>Description</Label>
-                              <Input defaultValue="Célébrez vos événements spéciaux" />
-                            </div>
-                          </div>
-                        </div>
+                        {/* Dropdown Pages Footer */}
+                        {[
+                          { 
+                            key: 'brochure', 
+                            title: 'Our Brochure', 
+                            icon: '📋', 
+                            defaultTitle: 'Notre Brochure',
+                            defaultDesc: 'Découvrez toutes nos offres et expériences'
+                          },
+                          { 
+                            key: 'krabiCelebration', 
+                            title: 'Krabi Celebration', 
+                            icon: '🎉', 
+                            defaultTitle: 'Krabi Celebration',
+                            defaultDesc: 'Célébrez vos événements spéciaux à Krabi'
+                          },
+                          { 
+                            key: 'villasKrabi', 
+                            title: 'Villas in Krabi', 
+                            icon: '🏨', 
+                            defaultTitle: 'Villas in Krabi',
+                            defaultDesc: 'Hébergements de luxe et villas exclusives'
+                          },
+                          { 
+                            key: 'becomePartner', 
+                            title: 'Become Partner', 
+                            icon: '🤝', 
+                            defaultTitle: 'Become Partner',
+                            defaultDesc: 'Rejoignez notre réseau de partenaires'
+                          },
+                          { 
+                            key: 'groupCorporate', 
+                            title: 'Group & Corporate', 
+                            icon: '👥', 
+                            defaultTitle: 'Group & Corporate',
+                            defaultDesc: 'Voyages de groupe et événements d\'entreprise'
+                          }
+                        ].map((page) => (
+                          <Card key={page.key} className="border-2">
+                            <CardHeader 
+                              className="pb-3 cursor-pointer" 
+                              onClick={() => setSecondaryPagesOpen(prev => ({...prev, [page.key]: !prev[page.key]}))}
+                            >
+                              <CardTitle className="text-lg flex items-center justify-between">
+                                <span className="flex items-center gap-2">
+                                  {page.icon} {page.title}
+                                </span>
+                                {secondaryPagesOpen[page.key] ? 
+                                  <ChevronUp className="h-5 w-5" /> : 
+                                  <ChevronDown className="h-5 w-5" />
+                                }
+                              </CardTitle>
+                            </CardHeader>
+                            {secondaryPagesOpen[page.key] && (
+                              <CardContent className="space-y-4">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                  <div>
+                                    <Label>Titre de la page</Label>
+                                    <Input defaultValue={page.defaultTitle} className="mt-1" />
+                                  </div>
+                                  <div>
+                                    <Label>Description de la page</Label>
+                                    <Input defaultValue={page.defaultDesc} className="mt-1" />
+                                  </div>
+                                </div>
+                                
+                                <div>
+                                  <Label>Image de header</Label>
+                                  <div className="mt-2 border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                                    <Upload className="h-8 w-8 mx-auto mb-2 text-gray-400" />
+                                    <p className="text-sm text-gray-600">Cliquez pour télécharger une image</p>
+                                    <p className="text-xs text-gray-400">Recommandé: 1200x400px</p>
+                                  </div>
+                                </div>
+                              </CardContent>
+                            )}
+                          </Card>
+                        ))}
 
-                        {/* Fun Garden */}
-                        <div className="border rounded-lg p-4">
-                          <h5 className="font-medium mb-3">🌺 Fun Garden</h5>
-                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div>
-                              <Label>Photo d'en-tête</Label>
-                              <Button variant="outline" className="w-full">
-                                <Upload className="h-4 w-4 mr-2" />
-                                Choisir une image
-                              </Button>
-                            </div>
-                            <div>
-                              <Label>Titre principal</Label>
-                              <Input defaultValue="Fun Garden" />
-                            </div>
-                            <div>
-                              <Label>Description</Label>
-                              <Input defaultValue="Jardin tropical et activités familiales" />
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Villas in Krabi */}
-                        <div className="border rounded-lg p-4">
-                          <h5 className="font-medium mb-3">🏨 Villas in Krabi</h5>
-                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div>
-                              <Label>Photo d'en-tête</Label>
-                              <Button variant="outline" className="w-full">
-                                <Upload className="h-4 w-4 mr-2" />
-                                Choisir une image
-                              </Button>
-                            </div>
-                            <div>
-                              <Label>Titre principal</Label>
-                              <Input defaultValue="Villas in Krabi" />
-                            </div>
-                            <div>
-                              <Label>Description</Label>
-                              <Input defaultValue="Hébergements de luxe à Krabi" />
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Become Partner */}
-                        <div className="border rounded-lg p-4">
-                          <h5 className="font-medium mb-3">🤝 Become Partner</h5>
-                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div>
-                              <Label>Photo d'en-tête</Label>
-                              <Button variant="outline" className="w-full">
-                                <Upload className="h-4 w-4 mr-2" />
-                                Choisir une image
-                              </Button>
-                            </div>
-                            <div>
-                              <Label>Titre principal</Label>
-                              <Input defaultValue="Become Partner" />
-                            </div>
-                            <div>
-                              <Label>Description</Label>
-                              <Input defaultValue="Rejoignez notre réseau de partenaires" />
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Group & Corporate */}
-                        <div className="border rounded-lg p-4">
-                          <h5 className="font-medium mb-3">👥 Group & Corporate</h5>
-                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div>
-                              <Label>Photo d'en-tête</Label>
-                              <Button variant="outline" className="w-full">
-                                <Upload className="h-4 w-4 mr-2" />
-                                Choisir une image
-                              </Button>
-                            </div>
-                            <div>
-                              <Label>Titre principal</Label>
-                              <Input defaultValue="Group & Corporate" />
-                            </div>
-                            <div>
-                              <Label>Description</Label>
-                              <Input defaultValue="Voyages de groupe et événements d'entreprise" />
-                            </div>
+                        {/* Section séparée pour les pages légales */}
+                        <Separator className="my-6" />
+                        <div>
+                          <h5 className="font-medium mb-3 text-gray-700">Pages légales</h5>
+                          <p className="text-sm text-gray-500 mb-4">
+                            Ces pages sont gérées dans la section "Mentions légales"
+                          </p>
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            {['Legal Notice', 'Privacy Policy', 'Terms & Conditions'].map((legal) => (
+                              <div key={legal} className="border border-gray-200 rounded-lg p-3 bg-gray-50">
+                                <div className="flex items-center gap-2 mb-2">
+                                  <Scale className="h-4 w-4 text-gray-500" />
+                                  <span className="text-sm font-medium">{legal}</span>
+                                </div>
+                                <Button 
+                                  variant="outline" 
+                                  size="sm"
+                                  onClick={() => setActiveTab('legal')}
+                                  className="w-full text-xs"
+                                >
+                                  Modifier dans Mentions légales
+                                </Button>
+                              </div>
+                            ))}
                           </div>
                         </div>
 
