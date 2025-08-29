@@ -1757,6 +1757,7 @@ export default function AdminAppearance() {
                                 <Input 
                                   value={pageTitles.legalNotice}
                                   onChange={(e) => setPageTitles(prev => ({...prev, legalNotice: e.target.value}))}
+                                  className="mt-1"
                                 />
                               </div>
                               
@@ -1770,11 +1771,19 @@ export default function AdminAppearance() {
                                       size="sm"
                                       onClick={() => {
                                         try {
-                                          if (document.queryCommandSupported('undo')) {
-                                            document.execCommand('undo', false, null);
+                                          const editableDiv = document.querySelector('[contenteditable="true"]:focus') || 
+                                                             document.querySelector('[contenteditable="true"]');
+                                          if (editableDiv) {
+                                            editableDiv.focus();
+                                            // Force undo with execCommand
+                                            if (document.execCommand('undo', false, null)) {
+                                              console.log('Undo executed');
+                                            } else {
+                                              console.log('Undo failed');
+                                            }
                                           }
                                         } catch (e) {
-                                          console.log('Undo not available');
+                                          console.log('Undo error:', e);
                                         }
                                       }}
                                       className="h-8 w-8 p-0"
@@ -1787,11 +1796,19 @@ export default function AdminAppearance() {
                                       size="sm"
                                       onClick={() => {
                                         try {
-                                          if (document.queryCommandSupported('redo')) {
-                                            document.execCommand('redo', false, null);
+                                          const editableDiv = document.querySelector('[contenteditable="true"]:focus') || 
+                                                             document.querySelector('[contenteditable="true"]');
+                                          if (editableDiv) {
+                                            editableDiv.focus();
+                                            // Force redo with execCommand
+                                            if (document.execCommand('redo', false, null)) {
+                                              console.log('Redo executed');
+                                            } else {
+                                              console.log('Redo failed');
+                                            }
                                           }
                                         } catch (e) {
-                                          console.log('Redo not available');
+                                          console.log('Redo error:', e);
                                         }
                                       }}
                                       className="h-8 w-8 p-0"
@@ -1911,12 +1928,15 @@ export default function AdminAppearance() {
                                           const selectedText = range.toString();
                                           
                                           if (selectedText) {
-                                            // Create a plain text span without any formatting
+                                            // Create a plain text span that explicitly resets all formatting
                                             const span = document.createElement('span');
                                             span.textContent = selectedText;
                                             span.style.fontWeight = 'normal';
-                                            span.style.fontSize = 'inherit';
+                                            span.style.fontSize = '16px'; // Force "The website" size
                                             span.style.fontStyle = 'normal';
+                                            span.style.fontFamily = 'inherit';
+                                            span.style.textDecoration = 'none';
+                                            span.style.color = 'inherit';
                                             
                                             range.deleteContents();
                                             range.insertNode(span);
@@ -2036,6 +2056,7 @@ export default function AdminAppearance() {
                                 <Input 
                                   value={pageTitles.privacyPolicy}
                                   onChange={(e) => setPageTitles(prev => ({...prev, privacyPolicy: e.target.value}))}
+                                  className="mt-1"
                                 />
                               </div>
                               
@@ -2049,11 +2070,19 @@ export default function AdminAppearance() {
                                       size="sm"
                                       onClick={() => {
                                         try {
-                                          if (document.queryCommandSupported('undo')) {
-                                            document.execCommand('undo', false, null);
+                                          const editableDiv = document.querySelector('[contenteditable="true"]:focus') || 
+                                                             document.querySelector('[contenteditable="true"]');
+                                          if (editableDiv) {
+                                            editableDiv.focus();
+                                            // Force undo with execCommand
+                                            if (document.execCommand('undo', false, null)) {
+                                              console.log('Undo executed');
+                                            } else {
+                                              console.log('Undo failed');
+                                            }
                                           }
                                         } catch (e) {
-                                          console.log('Undo not available');
+                                          console.log('Undo error:', e);
                                         }
                                       }}
                                       className="h-8 w-8 p-0"
@@ -2066,11 +2095,19 @@ export default function AdminAppearance() {
                                       size="sm"
                                       onClick={() => {
                                         try {
-                                          if (document.queryCommandSupported('redo')) {
-                                            document.execCommand('redo', false, null);
+                                          const editableDiv = document.querySelector('[contenteditable="true"]:focus') || 
+                                                             document.querySelector('[contenteditable="true"]');
+                                          if (editableDiv) {
+                                            editableDiv.focus();
+                                            // Force redo with execCommand
+                                            if (document.execCommand('redo', false, null)) {
+                                              console.log('Redo executed');
+                                            } else {
+                                              console.log('Redo failed');
+                                            }
                                           }
                                         } catch (e) {
-                                          console.log('Redo not available');
+                                          console.log('Redo error:', e);
                                         }
                                       }}
                                       className="h-8 w-8 p-0"
@@ -2190,12 +2227,15 @@ export default function AdminAppearance() {
                                           const selectedText = range.toString();
                                           
                                           if (selectedText) {
-                                            // Create a plain text span without any formatting
+                                            // Create a plain text span that explicitly resets all formatting
                                             const span = document.createElement('span');
                                             span.textContent = selectedText;
                                             span.style.fontWeight = 'normal';
-                                            span.style.fontSize = 'inherit';
+                                            span.style.fontSize = '16px'; // Force "The website" size
                                             span.style.fontStyle = 'normal';
+                                            span.style.fontFamily = 'inherit';
+                                            span.style.textDecoration = 'none';
+                                            span.style.color = 'inherit';
                                             
                                             range.deleteContents();
                                             range.insertNode(span);
@@ -2315,6 +2355,7 @@ export default function AdminAppearance() {
                                 <Input 
                                   value={pageTitles.termsConditions}
                                   onChange={(e) => setPageTitles(prev => ({...prev, termsConditions: e.target.value}))}
+                                  className="mt-1"
                                 />
                               </div>
                             
@@ -2328,11 +2369,19 @@ export default function AdminAppearance() {
                                       size="sm"
                                       onClick={() => {
                                         try {
-                                          if (document.queryCommandSupported('undo')) {
-                                            document.execCommand('undo', false, null);
+                                          const editableDiv = document.querySelector('[contenteditable="true"]:focus') || 
+                                                             document.querySelector('[contenteditable="true"]');
+                                          if (editableDiv) {
+                                            editableDiv.focus();
+                                            // Force undo with execCommand
+                                            if (document.execCommand('undo', false, null)) {
+                                              console.log('Undo executed');
+                                            } else {
+                                              console.log('Undo failed');
+                                            }
                                           }
                                         } catch (e) {
-                                          console.log('Undo not available');
+                                          console.log('Undo error:', e);
                                         }
                                       }}
                                       className="h-8 w-8 p-0"
@@ -2345,11 +2394,19 @@ export default function AdminAppearance() {
                                       size="sm"
                                       onClick={() => {
                                         try {
-                                          if (document.queryCommandSupported('redo')) {
-                                            document.execCommand('redo', false, null);
+                                          const editableDiv = document.querySelector('[contenteditable="true"]:focus') || 
+                                                             document.querySelector('[contenteditable="true"]');
+                                          if (editableDiv) {
+                                            editableDiv.focus();
+                                            // Force redo with execCommand
+                                            if (document.execCommand('redo', false, null)) {
+                                              console.log('Redo executed');
+                                            } else {
+                                              console.log('Redo failed');
+                                            }
                                           }
                                         } catch (e) {
-                                          console.log('Redo not available');
+                                          console.log('Redo error:', e);
                                         }
                                       }}
                                       className="h-8 w-8 p-0"
@@ -2469,12 +2526,15 @@ export default function AdminAppearance() {
                                           const selectedText = range.toString();
                                           
                                           if (selectedText) {
-                                            // Create a plain text span without any formatting
+                                            // Create a plain text span that explicitly resets all formatting
                                             const span = document.createElement('span');
                                             span.textContent = selectedText;
                                             span.style.fontWeight = 'normal';
-                                            span.style.fontSize = 'inherit';
+                                            span.style.fontSize = '16px'; // Force "The website" size
                                             span.style.fontStyle = 'normal';
+                                            span.style.fontFamily = 'inherit';
+                                            span.style.textDecoration = 'none';
+                                            span.style.color = 'inherit';
                                             
                                             range.deleteContents();
                                             range.insertNode(span);
