@@ -1582,252 +1582,303 @@ export default function AdminAppearance() {
                           <Settings className="h-5 w-5" />
                           Pages mentions légales
                         </CardTitle>
-                        <p className="text-sm text-gray-600">Pages juridiques et légales du site</p>
+                        <p className="text-sm text-gray-600">Gérez vos pages légales, convictions et obligations légales</p>
                       </CardHeader>
-                      <CardContent className="space-y-4">
+                      <CardContent className="space-y-6">
                         
                         {/* Legal Notice */}
-                        <div className="border rounded-lg p-4">
-                          <h5 className="font-medium mb-3">⚖️ Legal Notice</h5>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                              <Label>Titre de la page</Label>
-                              <Input defaultValue="Mentions légales" />
+                        <Card className="border-2">
+                          <CardHeader className="pb-3">
+                            <CardTitle className="text-lg flex items-center gap-2">
+                              ⚖️ Mentions légales
+                            </CardTitle>
+                          </CardHeader>
+                          <CardContent className="space-y-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div>
+                                <Label>Titre de la page</Label>
+                                <Input defaultValue="Mentions légales" />
+                              </div>
+                              <div>
+                                <Label>Sous-titre</Label>
+                                <Input defaultValue="Informations légales et juridiques" />
+                              </div>
                             </div>
+                            
                             <div>
-                              <Label>Lien de redirection</Label>
-                              <select className="w-full px-3 py-2 border rounded-md" defaultValue="/legal-notice">
-                                <option value="/">Accueil</option>
-                                <option value="/experiences">Experiences</option>
-                                <option value="/custom-tour">Custom Trip</option>
-                                <option value="/blog">Blog</option>
-                                <option value="/contact">Contact</option>
-                                <option value="/legal-notice">Legal Notice</option>
-                                <option value="/privacy-policy">Privacy Policy</option>
-                                <option value="/terms-conditions">Terms & Conditions</option>
-                              </select>
+                              <Label className="text-base font-medium">Contenu de la page</Label>
+                              <div className="mt-2 border rounded-lg">
+                                {/* Barre d'outils d'édition */}
+                                <div className="flex items-center gap-2 p-3 border-b bg-gray-50">
+                                  <Button variant="outline" size="sm">
+                                    <Bold className="h-4 w-4" />
+                                  </Button>
+                                  <Button variant="outline" size="sm">
+                                    <Italic className="h-4 w-4" />
+                                  </Button>
+                                  <Input type="color" defaultValue="#000000" className="w-12 h-8 p-1" />
+                                  <span className="text-xs px-2 py-1 bg-gray-200 rounded font-mono">#000000</span>
+                                  <div className="h-6 w-px bg-gray-300 mx-2"></div>
+                                  <select className="px-2 py-1 border rounded text-sm">
+                                    <option>Paragraphe</option>
+                                    <option>Titre 1</option>
+                                    <option>Titre 2</option>
+                                    <option>Titre 3</option>
+                                  </select>
+                                </div>
+                                
+                                {/* Zone d'édition */}
+                                <div 
+                                  contentEditable
+                                  suppressContentEditableWarning={true}
+                                  className="p-4 min-h-[300px] outline-none focus:ring-2 focus:ring-blue-500"
+                                  style={{ lineHeight: '1.6' }}
+                                  dangerouslySetInnerHTML={{
+                                    __html: `
+                                      <h2><strong>MENTIONS LÉGALES</strong></h2>
+                                      <p><strong>Raison sociale :</strong> Amon Tour Co., Ltd.</p>
+                                      <p><strong>Siège social :</strong> 123 Krabi Road, Krabi Town, 81000 Krabi, Thaïlande</p>
+                                      <p><strong>Numéro d'enregistrement :</strong> 0105559123456</p>
+                                      <p><strong>Licence TAT :</strong> 11/02345 (Tourism Authority of Thailand)</p>
+                                      <p><strong>Directeur de publication :</strong> M. Jean Dupont</p>
+                                      <p><strong>Contact :</strong> info@amon-tour.com | +66 75 123 456</p>
+                                      
+                                      <h3><strong>Hébergement du site</strong></h3>
+                                      <p>Ce site est hébergé par Replit, Inc.<br>
+                                      767 Bryant St, San Francisco, CA 94107, États-Unis</p>
+                                      
+                                      <h3><strong>Responsabilité</strong></h3>
+                                      <p>Les informations contenues sur ce site sont données à titre indicatif et peuvent être modifiées sans préavis. Amon Tour s'efforce de fournir des informations exactes et à jour, mais ne peut garantir l'exactitude, la complétude ou l'actualité des informations diffusées.</p>
+                                      
+                                      <h3><strong>Propriété intellectuelle</strong></h3>
+                                      <p>Tous les contenus présents sur ce site (textes, images, vidéos) sont la propriété exclusive d'Amon Tour sauf mention contraire. Toute reproduction, même partielle, est interdite sans autorisation préalable.</p>
+                                    `
+                                  }}
+                                />
+                              </div>
                             </div>
-                          </div>
-                          <div>
-                            <Label>Contenu principal</Label>
-                            <Textarea 
-                              defaultValue="Informations légales sur la société Amon Tour, numéro d'enregistrement, adresse, responsabilité, etc."
-                              rows={2}
-                            />
-                          </div>
-                        </div>
+                            
+                            <div className="flex justify-end">
+                              <Button>
+                                <Save className="h-4 w-4 mr-2" />
+                                Sauvegarder les mentions légales
+                              </Button>
+                            </div>
+                          </CardContent>
+                        </Card>
 
                         {/* Privacy Policy */}
-                        <div className="border rounded-lg p-4">
-                          <h5 className="font-medium mb-3">🔒 Privacy Policy</h5>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                              <Label>Titre de la page</Label>
-                              <Input defaultValue="Politique de confidentialité" />
+                        <Card className="border-2">
+                          <CardHeader className="pb-3">
+                            <CardTitle className="text-lg flex items-center gap-2">
+                              🔒 Politique de confidentialité
+                            </CardTitle>
+                          </CardHeader>
+                          <CardContent className="space-y-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div>
+                                <Label>Titre de la page</Label>
+                                <Input defaultValue="Politique de confidentialité" />
+                              </div>
+                              <div>
+                                <Label>Sous-titre</Label>
+                                <Input defaultValue="Protection de vos données personnelles" />
+                              </div>
                             </div>
+                            
                             <div>
-                              <Label>Lien de redirection</Label>
-                              <select className="w-full px-3 py-2 border rounded-md" defaultValue="/privacy-policy">
-                                <option value="/">Accueil</option>
-                                <option value="/experiences">Experiences</option>
-                                <option value="/custom-tour">Custom Trip</option>
-                                <option value="/blog">Blog</option>
-                                <option value="/contact">Contact</option>
-                                <option value="/legal-notice">Legal Notice</option>
-                                <option value="/privacy-policy">Privacy Policy</option>
-                                <option value="/terms-conditions">Terms & Conditions</option>
-                              </select>
+                              <Label className="text-base font-medium">Contenu de la page</Label>
+                              <div className="mt-2 border rounded-lg">
+                                {/* Barre d'outils d'édition */}
+                                <div className="flex items-center gap-2 p-3 border-b bg-gray-50">
+                                  <Button variant="outline" size="sm">
+                                    <Bold className="h-4 w-4" />
+                                  </Button>
+                                  <Button variant="outline" size="sm">
+                                    <Italic className="h-4 w-4" />
+                                  </Button>
+                                  <Input type="color" defaultValue="#000000" className="w-12 h-8 p-1" />
+                                  <span className="text-xs px-2 py-1 bg-gray-200 rounded font-mono">#000000</span>
+                                  <div className="h-6 w-px bg-gray-300 mx-2"></div>
+                                  <select className="px-2 py-1 border rounded text-sm">
+                                    <option>Paragraphe</option>
+                                    <option>Titre 1</option>
+                                    <option>Titre 2</option>
+                                    <option>Titre 3</option>
+                                  </select>
+                                </div>
+                                
+                                {/* Zone d'édition */}
+                                <div 
+                                  contentEditable
+                                  suppressContentEditableWarning={true}
+                                  className="p-4 min-h-[300px] outline-none focus:ring-2 focus:ring-blue-500"
+                                  style={{ lineHeight: '1.6' }}
+                                  dangerouslySetInnerHTML={{
+                                    __html: `
+                                      <h2><strong>POLITIQUE DE CONFIDENTIALITÉ</strong></h2>
+                                      <p><em>Dernière mise à jour : 15 janvier 2024</em></p>
+                                      
+                                      <h3><strong>1. Collecte des données</strong></h3>
+                                      <p>Amon Tour collecte les données personnelles suivantes :</p>
+                                      <ul>
+                                        <li>Nom, prénom, adresse e-mail</li>
+                                        <li>Numéro de téléphone et adresse postale</li>
+                                        <li>Informations de voyage et préférences</li>
+                                        <li>Données de navigation (cookies)</li>
+                                      </ul>
+                                      
+                                      <h3><strong>2. Utilisation des données</strong></h3>
+                                      <p>Vos données sont utilisées pour :</p>
+                                      <ul>
+                                        <li>Traiter vos réservations et demandes</li>
+                                        <li>Vous envoyer des informations sur nos services</li>
+                                        <li>Améliorer notre site web et nos services</li>
+                                        <li>Respecter nos obligations légales</li>
+                                      </ul>
+                                      
+                                      <h3><strong>3. Protection des données</strong></h3>
+                                      <p>Nous mettons en place des mesures techniques et organisationnelles appropriées pour protéger vos données contre l'accès non autorisé, la modification, la divulgation ou la destruction.</p>
+                                      
+                                      <h3><strong>4. Vos droits RGPD</strong></h3>
+                                      <p>Conformément au RGPD, vous disposez des droits suivants :</p>
+                                      <ul>
+                                        <li>Droit d'accès à vos données</li>
+                                        <li>Droit de rectification</li>
+                                        <li>Droit à l'effacement</li>
+                                        <li>Droit à la portabilité</li>
+                                        <li>Droit d'opposition</li>
+                                      </ul>
+                                      
+                                      <h3><strong>5. Contact</strong></h3>
+                                      <p>Pour exercer vos droits, contactez-nous à : <strong>privacy@amon-tour.com</strong></p>
+                                    `
+                                  }}
+                                />
+                              </div>
                             </div>
-                          </div>
-                          <div>
-                            <Label>Contenu principal</Label>
-                            <Textarea 
-                              defaultValue="Politique de traitement des données personnelles, cookies, respect RGPD, etc."
-                              rows={2}
-                            />
-                          </div>
-                        </div>
+                            
+                            <div className="flex justify-end">
+                              <Button>
+                                <Save className="h-4 w-4 mr-2" />
+                                Sauvegarder la politique de confidentialité
+                              </Button>
+                            </div>
+                          </CardContent>
+                        </Card>
 
                         {/* Terms & Conditions */}
-                        <div className="border rounded-lg p-4">
-                          <h5 className="font-medium mb-3">📜 Terms & Conditions</h5>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                              <Label>Titre de la page</Label>
-                              <Input defaultValue="Conditions générales d'utilisation" />
+                        <Card className="border-2">
+                          <CardHeader className="pb-3">
+                            <CardTitle className="text-lg flex items-center gap-2">
+                              📜 Conditions générales d'utilisation
+                            </CardTitle>
+                          </CardHeader>
+                          <CardContent className="space-y-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div>
+                                <Label>Titre de la page</Label>
+                                <Input defaultValue="Conditions générales d'utilisation" />
+                              </div>
+                              <div>
+                                <Label>Sous-titre</Label>
+                                <Input defaultValue="Conditions de vente et d'utilisation" />
+                              </div>
                             </div>
+                            
                             <div>
-                              <Label>Lien de redirection</Label>
-                              <select className="w-full px-3 py-2 border rounded-md" defaultValue="/terms-conditions">
-                                <option value="/">Accueil</option>
-                                <option value="/experiences">Experiences</option>
-                                <option value="/custom-tour">Custom Trip</option>
-                                <option value="/blog">Blog</option>
-                                <option value="/contact">Contact</option>
-                                <option value="/legal-notice">Legal Notice</option>
-                                <option value="/privacy-policy">Privacy Policy</option>
-                                <option value="/terms-conditions">Terms & Conditions</option>
-                              </select>
+                              <Label className="text-base font-medium">Contenu de la page</Label>
+                              <div className="mt-2 border rounded-lg">
+                                {/* Barre d'outils d'édition */}
+                                <div className="flex items-center gap-2 p-3 border-b bg-gray-50">
+                                  <Button variant="outline" size="sm">
+                                    <Bold className="h-4 w-4" />
+                                  </Button>
+                                  <Button variant="outline" size="sm">
+                                    <Italic className="h-4 w-4" />
+                                  </Button>
+                                  <Input type="color" defaultValue="#000000" className="w-12 h-8 p-1" />
+                                  <span className="text-xs px-2 py-1 bg-gray-200 rounded font-mono">#000000</span>
+                                  <div className="h-6 w-px bg-gray-300 mx-2"></div>
+                                  <select className="px-2 py-1 border rounded text-sm">
+                                    <option>Paragraphe</option>
+                                    <option>Titre 1</option>
+                                    <option>Titre 2</option>
+                                    <option>Titre 3</option>
+                                  </select>
+                                </div>
+                                
+                                {/* Zone d'édition */}
+                                <div 
+                                  contentEditable
+                                  suppressContentEditableWarning={true}
+                                  className="p-4 min-h-[300px] outline-none focus:ring-2 focus:ring-blue-500"
+                                  style={{ lineHeight: '1.6' }}
+                                  dangerouslySetInnerHTML={{
+                                    __html: `
+                                      <h2><strong>CONDITIONS GÉNÉRALES D'UTILISATION</strong></h2>
+                                      <p><em>Dernière mise à jour : 15 janvier 2024</em></p>
+                                      
+                                      <h3><strong>1. Objet</strong></h3>
+                                      <p>Les présentes conditions générales d'utilisation (CGU) régissent l'utilisation du site web d'Amon Tour et la vente de nos services touristiques en Thaïlande.</p>
+                                      
+                                      <h3><strong>2. Acceptation des conditions</strong></h3>
+                                      <p>En utilisant notre site web ou en réservant nos services, vous acceptez automatiquement l'intégralité des présentes conditions générales d'utilisation.</p>
+                                      
+                                      <h3><strong>3. Services proposés</strong></h3>
+                                      <p>Amon Tour propose les services suivants :</p>
+                                      <ul>
+                                        <li>Excursions et visites guidées en Thaïlande</li>
+                                        <li>Voyages sur mesure et circuits personnalisés</li>
+                                        <li>Conseil et accompagnement touristique</li>
+                                        <li>Réservation d'hébergements et transports</li>
+                                      </ul>
+                                      
+                                      <h3><strong>4. Tarifs et paiement</strong></h3>
+                                      <p>Tous nos prix sont indiqués en baht thaïlandais (THB) et comprennent toutes les taxes applicables. Un acompte de 30% est requis à la réservation, le solde étant dû 7 jours avant le départ.</p>
+                                      
+                                      <h3><strong>5. Annulation et remboursement</strong></h3>
+                                      <p>Politique d'annulation :</p>
+                                      <ul>
+                                        <li><strong>Plus de 30 jours :</strong> remboursement intégral</li>
+                                        <li><strong>15-30 jours :</strong> remboursement à 75%</li>
+                                        <li><strong>7-14 jours :</strong> remboursement à 50%</li>
+                                        <li><strong>Moins de 7 jours :</strong> aucun remboursement</li>
+                                      </ul>
+                                      
+                                      <h3><strong>6. Force majeure</strong></h3>
+                                      <p>Amon Tour ne peut être tenu responsable des annulations ou modifications dues à des événements de force majeure (catastrophes naturelles, conflits, pandémies, etc.).</p>
+                                      
+                                      <h3><strong>7. Responsabilité</strong></h3>
+                                      <p>Nous recommandons vivement la souscription d'une assurance voyage. Notre responsabilité est limitée au montant des services réservés.</p>
+                                      
+                                      <h3><strong>8. Contact</strong></h3>
+                                      <p>Pour toute question : <strong>info@amon-tour.com</strong> | +66 75 123 456</p>
+                                    `
+                                  }}
+                                />
+                              </div>
                             </div>
-                          </div>
-                          <div>
-                            <Label>Contenu principal</Label>
-                            <Textarea 
-                              defaultValue="Conditions d'utilisation du site, conditions de vente, annulation, remboursement, etc."
-                              rows={2}
-                            />
-                          </div>
-                        </div>
+                            
+                            <div className="flex justify-end">
+                              <Button>
+                                <Save className="h-4 w-4 mr-2" />
+                                Sauvegarder les conditions générales
+                              </Button>
+                            </div>
+                          </CardContent>
+                        </Card>
 
-                        <div className="flex justify-end">
-                          <Button onClick={() => toast({ title: "Pages légales sauvegardées" })}>
+                        <div className="flex justify-end mt-6">
+                          <Button onClick={() => toast({ title: "Toutes les pages légales sauvegardées" })}>
                             <Save className="h-4 w-4 mr-2" />
-                            Sauvegarder les pages légales
+                            Sauvegarder toutes les pages légales
                           </Button>
                         </div>
                       </CardContent>
                     </Card>
                   </TabsContent>
 
-                  {/* Mentions légales */}
-                  <TabsContent value="legal" className="space-y-6">
-                    <Card>
-                      <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                          <Settings className="h-5 w-5" />
-                          Mentions légales et pages juridiques
-                        </CardTitle>
-                        <p className="text-sm text-gray-600">Gérez vos pages légales, convictions et obligations légales</p>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-4">
-                          {(contentBlocks as any[])?.length > 0 ? (contentBlocks as any[]).map((block: any) => (
-                            <div key={block.id} className="flex items-center justify-between p-4 border rounded-lg">
-                              <div>
-                                <h4 className="font-medium">{block.title || block.identifier}</h4>
-                                <p className="text-sm text-gray-600">
-                                  Page : {block.pageLocation} • Ordre : {block.displayOrder}
-                                </p>
-                                {block.subtitle && (
-                                  <p className="text-sm text-gray-500 mt-1">{block.subtitle}</p>
-                                )}
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <Badge variant={block.isActive ? "default" : "secondary"}>
-                                  {block.isActive ? "Actif" : "Inactif"}
-                                </Badge>
-                                <Dialog>
-                                  <DialogTrigger asChild>
-                                    <Button variant="outline" size="sm">
-                                      <Edit className="h-4 w-4 mr-2" />
-                                      Modifier
-                                    </Button>
-                                  </DialogTrigger>
-                                  <DialogContent className="max-w-2xl">
-                                    <DialogHeader>
-                                      <DialogTitle>Modifier le bloc : {block.title || block.identifier}</DialogTitle>
-                                    </DialogHeader>
-                                    <div className="space-y-4">
-                                      <div>
-                                        <Label>Titre du bloc</Label>
-                                        <Input defaultValue={block.title} />
-                                      </div>
-                                      <div>
-                                        <Label>Sous-titre</Label>
-                                        <Input defaultValue={block.subtitle} />
-                                      </div>
-                                      <div>
-                                        <Label>Contenu</Label>
-                                        <Textarea 
-                                          defaultValue={block.content}
-                                          rows={6}
-                                        />
-                                      </div>
-                                      <div className="grid grid-cols-2 gap-4">
-                                        <div>
-                                          <Label>Page</Label>
-                                          <select className="w-full px-3 py-2 border rounded-md" defaultValue={block.pageLocation}>
-                                            <option value="home">Accueil</option>
-                                            <option value="tours">Tours</option>
-                                            <option value="about">À propos</option>
-                                            <option value="contact">Contact</option>
-                                          </select>
-                                        </div>
-                                        <div>
-                                          <Label>Ordre d'affichage</Label>
-                                          <Input type="number" defaultValue={block.displayOrder} />
-                                        </div>
-                                      </div>
-                                      <div className="flex items-center gap-2">
-                                        <Switch defaultChecked={block.isActive} />
-                                        <Label>Bloc actif</Label>
-                                      </div>
-                                      <Button className="w-full">Sauvegarder les modifications</Button>
-                                    </div>
-                                  </DialogContent>
-                                </Dialog>
-                              </div>
-                            </div>
-                          )) : (
-                            <div className="text-center py-8 text-gray-500">
-                              <Layout className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-                              <p>Aucun bloc de contenu trouvé</p>
-                            </div>
-                          )}
-                        </div>
-                        <Dialog>
-                          <DialogTrigger asChild>
-                            <Button variant="outline" className="w-full mt-4">
-                              <Plus className="h-4 w-4 mr-2" />
-                              Ajouter un nouveau bloc
-                            </Button>
-                          </DialogTrigger>
-                          <DialogContent className="max-w-2xl">
-                            <DialogHeader>
-                              <DialogTitle>Créer un nouveau bloc de contenu</DialogTitle>
-                            </DialogHeader>
-                            <div className="space-y-4">
-                              <div>
-                                <Label>Identifiant unique</Label>
-                                <Input placeholder="hero_section_accueil" />
-                              </div>
-                              <div>
-                                <Label>Titre du bloc</Label>
-                                <Input placeholder="Titre de votre bloc" />
-                              </div>
-                              <div>
-                                <Label>Sous-titre</Label>
-                                <Input placeholder="Sous-titre optionnel" />
-                              </div>
-                              <div>
-                                <Label>Contenu</Label>
-                                <Textarea 
-                                  placeholder="Contenu du bloc..."
-                                  rows={6}
-                                />
-                              </div>
-                              <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                  <Label>Page</Label>
-                                  <select className="w-full px-3 py-2 border rounded-md">
-                                    <option value="home">Accueil</option>
-                                    <option value="tours">Tours</option>
-                                    <option value="about">À propos</option>
-                                    <option value="contact">Contact</option>
-                                  </select>
-                                </div>
-                                <div>
-                                  <Label>Ordre d'affichage</Label>
-                                  <Input type="number" defaultValue={0} />
-                                </div>
-                              </div>
-                              <Button className="w-full">Créer le bloc</Button>
-                            </div>
-                          </DialogContent>
-                        </Dialog>
-                      </CardContent>
-                    </Card>
-                  </TabsContent>
 
                   {/* Médiathèque */}
                   <TabsContent value="media" className="space-y-6">
