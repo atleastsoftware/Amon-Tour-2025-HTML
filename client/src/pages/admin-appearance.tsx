@@ -36,6 +36,7 @@ import {
   GripVertical,
   ChevronDown,
   ChevronRight,
+  ChevronUp,
   Home,
   Bold,
   Italic,
@@ -65,6 +66,13 @@ export default function AdminAppearance() {
     legalNotice: false,
     privacyPolicy: false,
     termsConditions: false
+  });
+
+  // Page titles state for dynamic linking
+  const [pageTitles, setPageTitles] = useState({
+    legalNotice: "Legal Notice",
+    privacyPolicy: "Privacy Policy",
+    termsConditions: "Terms & Conditions"
   });
 
   // Form states
@@ -1607,10 +1615,10 @@ export default function AdminAppearance() {
                             onClick={() => setLegalSectionsOpen(prev => ({...prev, legalNotice: !prev.legalNotice}))}
                           >
                             <CardTitle className="text-lg flex items-center justify-between">
-                              <span>Mentions légales</span>
+                              <span className="flex items-center">Mentions légales</span>
                               {legalSectionsOpen.legalNotice ? 
-                                <ChevronDown className="h-5 w-5" /> : 
-                                <ChevronRight className="h-5 w-5" />
+                                <ChevronUp className="h-5 w-5" /> : 
+                                <ChevronDown className="h-5 w-5" />
                               }
                             </CardTitle>
                           </CardHeader>
@@ -1618,7 +1626,10 @@ export default function AdminAppearance() {
                             <CardContent className="space-y-4">
                               <div>
                                 <Label>Titre de la page</Label>
-                                <Input defaultValue="Legal Notice" />
+                                <Input 
+                                  value={pageTitles.legalNotice}
+                                  onChange={(e) => setPageTitles(prev => ({...prev, legalNotice: e.target.value}))}
+                                />
                               </div>
                               
                               <div>
@@ -1629,9 +1640,12 @@ export default function AdminAppearance() {
                                     <Button 
                                       variant="outline" 
                                       size="sm"
-                                      onClick={() => document.execCommand('bold', false)}
+                                      onClick={() => {
+                                        document.execCommand('bold', false);
+                                        document.execCommand('fontSize', false, '6');
+                                      }}
                                       className="h-8 w-8 p-0"
-                                      title="Gras"
+                                      title="Gras (style Flame BB)"
                                     >
                                       <Bold className="h-4 w-4" />
                                     </Button>
@@ -1689,18 +1703,24 @@ export default function AdminAppearance() {
                                     <Button 
                                       variant="outline" 
                                       size="sm"
-                                      onClick={() => document.execCommand('formatBlock', false, 'h2')}
+                                      onClick={() => {
+                                        document.execCommand('formatBlock', false, 'h2');
+                                        document.execCommand('fontSize', false, '5');
+                                      }}
                                       className="text-xs px-2 h-8"
-                                      title="Sous-titre"
+                                      title="Sous-titre (style Publisher)"
                                     >
                                       Sous-titre
                                     </Button>
                                     <Button 
                                       variant="outline" 
                                       size="sm"
-                                      onClick={() => document.execCommand('formatBlock', false, 'p')}
+                                      onClick={() => {
+                                        document.execCommand('formatBlock', false, 'p');
+                                        document.execCommand('fontSize', false, '3');
+                                      }}
                                       className="text-xs px-2 h-8"
-                                      title="Texte normal"
+                                      title="Texte normal (style The website)"
                                     >
                                       Texte
                                     </Button>
@@ -1713,20 +1733,29 @@ export default function AdminAppearance() {
                                       defaultValue="3"
                                     >
                                       <option value="2">10px</option>
-                                      <option value="3">14px</option>
+
                                       <option value="4">16px</option>
                                       <option value="5">18px</option>
                                       <option value="6">24px</option>
                                       <option value="7">32px</option>
                                     </select>
                                     
-                                    <Input 
-                                      type="color" 
-                                      defaultValue="#000000" 
-                                      className="w-8 h-8 p-1 border" 
-                                      onChange={(e) => document.execCommand('foreColor', false, e.target.value)}
-                                      title="Couleur du texte"
-                                    />
+                                    <div className="flex items-center gap-1">
+                                      <Input 
+                                        type="color" 
+                                        defaultValue="#000000" 
+                                        className="w-8 h-8 p-1 border" 
+                                        onChange={(e) => {
+                                          document.execCommand('foreColor', false, e.target.value);
+                                          const colorRef = e.target.parentElement?.querySelector('.color-ref');
+                                          if (colorRef) colorRef.textContent = e.target.value;
+                                        }}
+                                        title="Couleur du texte"
+                                      />
+                                      <div className="text-xs px-2 py-1 bg-gray-100 border rounded color-ref">
+                                        #000000
+                                      </div>
+                                    </div>
                                   </div>
                                   
                                   {/* Zone d'édition */}
@@ -1738,7 +1767,7 @@ export default function AdminAppearance() {
                                     dangerouslySetInnerHTML={{
                                       __html: `
                                         <div style="text-align: center; margin-bottom: 2rem;">
-                                          <h1 style="font-size: 2rem; font-weight: bold; margin-bottom: 1rem;">Legal Notice</h1>
+                                          <h1 style="font-size: 2rem; font-weight: bold; margin-bottom: 1rem;">${pageTitles.legalNotice}</h1>
                                         </div>
                                         
                                         <h2 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">Publisher</h2>
@@ -1792,10 +1821,10 @@ export default function AdminAppearance() {
                             onClick={() => setLegalSectionsOpen(prev => ({...prev, privacyPolicy: !prev.privacyPolicy}))}
                           >
                             <CardTitle className="text-lg flex items-center justify-between">
-                              <span>Politique de confidentialité</span>
+                              <span className="flex items-center">Politique de confidentialité</span>
                               {legalSectionsOpen.privacyPolicy ? 
-                                <ChevronDown className="h-5 w-5" /> : 
-                                <ChevronRight className="h-5 w-5" />
+                                <ChevronUp className="h-5 w-5" /> : 
+                                <ChevronDown className="h-5 w-5" />
                               }
                             </CardTitle>
                           </CardHeader>
@@ -1803,7 +1832,10 @@ export default function AdminAppearance() {
                             <CardContent className="space-y-4">
                               <div>
                                 <Label>Titre de la page</Label>
-                                <Input defaultValue="Privacy Policy" />
+                                <Input 
+                                  value={pageTitles.privacyPolicy}
+                                  onChange={(e) => setPageTitles(prev => ({...prev, privacyPolicy: e.target.value}))}
+                                />
                               </div>
                               
                               <div>
@@ -1814,9 +1846,12 @@ export default function AdminAppearance() {
                                     <Button 
                                       variant="outline" 
                                       size="sm"
-                                      onClick={() => document.execCommand('bold', false)}
+                                      onClick={() => {
+                                        document.execCommand('bold', false);
+                                        document.execCommand('fontSize', false, '6');
+                                      }}
                                       className="h-8 w-8 p-0"
-                                      title="Gras"
+                                      title="Gras (style Flame BB)"
                                     >
                                       <Bold className="h-4 w-4" />
                                     </Button>
@@ -1874,18 +1909,24 @@ export default function AdminAppearance() {
                                     <Button 
                                       variant="outline" 
                                       size="sm"
-                                      onClick={() => document.execCommand('formatBlock', false, 'h2')}
+                                      onClick={() => {
+                                        document.execCommand('formatBlock', false, 'h2');
+                                        document.execCommand('fontSize', false, '5');
+                                      }}
                                       className="text-xs px-2 h-8"
-                                      title="Sous-titre"
+                                      title="Sous-titre (style Publisher)"
                                     >
                                       Sous-titre
                                     </Button>
                                     <Button 
                                       variant="outline" 
                                       size="sm"
-                                      onClick={() => document.execCommand('formatBlock', false, 'p')}
+                                      onClick={() => {
+                                        document.execCommand('formatBlock', false, 'p');
+                                        document.execCommand('fontSize', false, '3');
+                                      }}
                                       className="text-xs px-2 h-8"
-                                      title="Texte normal"
+                                      title="Texte normal (style The website)"
                                     >
                                       Texte
                                     </Button>
@@ -1898,20 +1939,29 @@ export default function AdminAppearance() {
                                       defaultValue="3"
                                     >
                                       <option value="2">10px</option>
-                                      <option value="3">14px</option>
+
                                       <option value="4">16px</option>
                                       <option value="5">18px</option>
                                       <option value="6">24px</option>
                                       <option value="7">32px</option>
                                     </select>
                                     
-                                    <Input 
-                                      type="color" 
-                                      defaultValue="#000000" 
-                                      className="w-8 h-8 p-1 border" 
-                                      onChange={(e) => document.execCommand('foreColor', false, e.target.value)}
-                                      title="Couleur du texte"
-                                    />
+                                    <div className="flex items-center gap-1">
+                                      <Input 
+                                        type="color" 
+                                        defaultValue="#000000" 
+                                        className="w-8 h-8 p-1 border" 
+                                        onChange={(e) => {
+                                          document.execCommand('foreColor', false, e.target.value);
+                                          const colorRef = e.target.parentElement?.querySelector('.color-ref');
+                                          if (colorRef) colorRef.textContent = e.target.value;
+                                        }}
+                                        title="Couleur du texte"
+                                      />
+                                      <div className="text-xs px-2 py-1 bg-gray-100 border rounded color-ref">
+                                        #000000
+                                      </div>
+                                    </div>
                                   </div>
                                   
                                   {/* Zone d'édition */}
@@ -1923,7 +1973,7 @@ export default function AdminAppearance() {
                                     dangerouslySetInnerHTML={{
                                       __html: `
                                         <div style="text-align: center; margin-bottom: 2rem;">
-                                          <h1 style="font-size: 2rem; font-weight: bold; margin-bottom: 1rem;">Privacy Policy</h1>
+                                          <h1 style="font-size: 2rem; font-weight: bold; margin-bottom: 1rem;">${pageTitles.privacyPolicy}</h1>
                                         </div>
                                         
                                         <h2 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">Data Protection</h2>
@@ -2015,10 +2065,10 @@ export default function AdminAppearance() {
                             onClick={() => setLegalSectionsOpen(prev => ({...prev, termsConditions: !prev.termsConditions}))}
                           >
                             <CardTitle className="text-lg flex items-center justify-between">
-                              <span>Conditions générales d'utilisation</span>
+                              <span className="flex items-center">Conditions générales d'utilisation</span>
                               {legalSectionsOpen.termsConditions ? 
-                                <ChevronDown className="h-5 w-5" /> : 
-                                <ChevronRight className="h-5 w-5" />
+                                <ChevronUp className="h-5 w-5" /> : 
+                                <ChevronDown className="h-5 w-5" />
                               }
                             </CardTitle>
                           </CardHeader>
@@ -2026,7 +2076,10 @@ export default function AdminAppearance() {
                             <CardContent className="space-y-4">
                               <div>
                                 <Label>Titre de la page</Label>
-                                <Input defaultValue="Terms & Conditions" />
+                                <Input 
+                                  value={pageTitles.termsConditions}
+                                  onChange={(e) => setPageTitles(prev => ({...prev, termsConditions: e.target.value}))}
+                                />
                               </div>
                             
                               <div>
@@ -2037,9 +2090,12 @@ export default function AdminAppearance() {
                                     <Button 
                                       variant="outline" 
                                       size="sm"
-                                      onClick={() => document.execCommand('bold', false)}
+                                      onClick={() => {
+                                        document.execCommand('bold', false);
+                                        document.execCommand('fontSize', false, '6');
+                                      }}
                                       className="h-8 w-8 p-0"
-                                      title="Gras"
+                                      title="Gras (style Flame BB)"
                                     >
                                       <Bold className="h-4 w-4" />
                                     </Button>
@@ -2097,18 +2153,24 @@ export default function AdminAppearance() {
                                     <Button 
                                       variant="outline" 
                                       size="sm"
-                                      onClick={() => document.execCommand('formatBlock', false, 'h2')}
+                                      onClick={() => {
+                                        document.execCommand('formatBlock', false, 'h2');
+                                        document.execCommand('fontSize', false, '5');
+                                      }}
                                       className="text-xs px-2 h-8"
-                                      title="Sous-titre"
+                                      title="Sous-titre (style Publisher)"
                                     >
                                       Sous-titre
                                     </Button>
                                     <Button 
                                       variant="outline" 
                                       size="sm"
-                                      onClick={() => document.execCommand('formatBlock', false, 'p')}
+                                      onClick={() => {
+                                        document.execCommand('formatBlock', false, 'p');
+                                        document.execCommand('fontSize', false, '3');
+                                      }}
                                       className="text-xs px-2 h-8"
-                                      title="Texte normal"
+                                      title="Texte normal (style The website)"
                                     >
                                       Texte
                                     </Button>
@@ -2121,20 +2183,29 @@ export default function AdminAppearance() {
                                       defaultValue="3"
                                     >
                                       <option value="2">10px</option>
-                                      <option value="3">14px</option>
+
                                       <option value="4">16px</option>
                                       <option value="5">18px</option>
                                       <option value="6">24px</option>
                                       <option value="7">32px</option>
                                     </select>
                                     
-                                    <Input 
-                                      type="color" 
-                                      defaultValue="#000000" 
-                                      className="w-8 h-8 p-1 border" 
-                                      onChange={(e) => document.execCommand('foreColor', false, e.target.value)}
-                                      title="Couleur du texte"
-                                    />
+                                    <div className="flex items-center gap-1">
+                                      <Input 
+                                        type="color" 
+                                        defaultValue="#000000" 
+                                        className="w-8 h-8 p-1 border" 
+                                        onChange={(e) => {
+                                          document.execCommand('foreColor', false, e.target.value);
+                                          const colorRef = e.target.parentElement?.querySelector('.color-ref');
+                                          if (colorRef) colorRef.textContent = e.target.value;
+                                        }}
+                                        title="Couleur du texte"
+                                      />
+                                      <div className="text-xs px-2 py-1 bg-gray-100 border rounded color-ref">
+                                        #000000
+                                      </div>
+                                    </div>
                                   </div>
                                   
                                   {/* Zone d'édition */}
@@ -2146,7 +2217,7 @@ export default function AdminAppearance() {
                                     dangerouslySetInnerHTML={{
                                       __html: `
                                         <div style="text-align: center; margin-bottom: 2rem;">
-                                          <h1 style="font-size: 2rem; font-weight: bold; margin-bottom: 1rem;">Terms &amp; Conditions</h1>
+                                          <h1 style="font-size: 2rem; font-weight: bold; margin-bottom: 1rem;">${pageTitles.termsConditions}</h1>
                                         </div>
                                         
                                         <h2 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">1. General Terms</h2>
