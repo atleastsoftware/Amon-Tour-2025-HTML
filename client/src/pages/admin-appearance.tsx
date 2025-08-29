@@ -38,7 +38,11 @@ import {
   ChevronRight,
   Home,
   Bold,
-  Italic
+  Italic,
+  Underline,
+  AlignLeft,
+  AlignCenter,
+  AlignRight
 } from "lucide-react";
 import { useLocation } from "wouter";
 import Header from "@/components/layout/Header";
@@ -55,6 +59,13 @@ export default function AdminAppearance() {
 
   // Navigation tabs state
   const [activeTab, setActiveTab] = useState("theme");
+  
+  // Legal pages collapse state
+  const [legalSectionsOpen, setLegalSectionsOpen] = useState({
+    legalNotice: false,
+    privacyPolicy: false,
+    termsConditions: false
+  });
 
   // Form states
   const [themeColors, setThemeColors] = useState({
@@ -1591,500 +1602,633 @@ export default function AdminAppearance() {
                         
                         {/* Legal Notice */}
                         <Card className="border-2">
-                          <CardHeader className="pb-3">
-                            <CardTitle className="text-lg flex items-center gap-2">
-                              ⚖️ Legal Notice
+                          <CardHeader 
+                            className="pb-3 cursor-pointer" 
+                            onClick={() => setLegalSectionsOpen(prev => ({...prev, legalNotice: !prev.legalNotice}))}
+                          >
+                            <CardTitle className="text-lg flex items-center justify-between">
+                              <span>Mentions légales</span>
+                              {legalSectionsOpen.legalNotice ? 
+                                <ChevronDown className="h-5 w-5" /> : 
+                                <ChevronRight className="h-5 w-5" />
+                              }
                             </CardTitle>
                           </CardHeader>
-                          <CardContent className="space-y-4">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {legalSectionsOpen.legalNotice && (
+                            <CardContent className="space-y-4">
                               <div>
                                 <Label>Titre de la page</Label>
                                 <Input defaultValue="Legal Notice" />
                               </div>
+                              
                               <div>
-                                <Label>Sous-titre</Label>
-                                <Input defaultValue="Mentions légales et informations juridiques" />
-                              </div>
-                            </div>
-                            
-                            <div>
-                              <Label className="text-base font-medium">Contenu de la page</Label>
-                              <div className="mt-2 border rounded-lg">
-                                {/* Barre d'outils d'édition améliorée */}
-                                <div className="flex items-center gap-2 p-3 border-b bg-gray-50 flex-wrap">
-                                  <Button 
-                                    variant="outline" 
-                                    size="sm"
-                                    onClick={() => {
-                                      document.execCommand('bold', false);
-                                    }}
-                                  >
-                                    <Bold className="h-4 w-4" />
-                                  </Button>
-                                  <Button 
-                                    variant="outline" 
-                                    size="sm"
-                                    onClick={() => {
-                                      document.execCommand('italic', false);
-                                    }}
-                                  >
-                                    <Italic className="h-4 w-4" />
-                                  </Button>
-                                  <Button 
-                                    variant="outline" 
-                                    size="sm"
-                                    onClick={() => {
-                                      document.execCommand('underline', false);
-                                    }}
-                                  >
-                                    U
-                                  </Button>
-                                  <div className="h-6 w-px bg-gray-300 mx-1"></div>
-                                  <Button 
-                                    variant="outline" 
-                                    size="sm"
-                                    onClick={() => {
-                                      document.execCommand('justifyLeft', false);
-                                    }}
-                                  >
-                                    ←
-                                  </Button>
-                                  <Button 
-                                    variant="outline" 
-                                    size="sm"
-                                    onClick={() => {
-                                      document.execCommand('justifyCenter', false);
-                                    }}
-                                  >
-                                    ═
-                                  </Button>
-                                  <Button 
-                                    variant="outline" 
-                                    size="sm"
-                                    onClick={() => {
-                                      document.execCommand('justifyRight', false);
-                                    }}
-                                  >
-                                    →
-                                  </Button>
-                                  <div className="h-6 w-px bg-gray-300 mx-1"></div>
-                                  <select 
-                                    className="px-2 py-1 border rounded text-sm"
-                                    onChange={(e) => {
-                                      document.execCommand('formatBlock', false, e.target.value);
-                                    }}
-                                  >
-                                    <option value="p">Paragraphe</option>
-                                    <option value="h1">Titre 1</option>
-                                    <option value="h2">Titre 2</option>
-                                    <option value="h3">Titre 3</option>
-                                  </select>
-                                  <select 
-                                    className="px-2 py-1 border rounded text-sm"
-                                    onChange={(e) => {
-                                      document.execCommand('fontSize', false, e.target.value);
-                                    }}
-                                  >
-                                    <option value="3">12px</option>
-                                    <option value="4" selected>14px</option>
-                                    <option value="5">16px</option>
-                                    <option value="6">18px</option>
-                                    <option value="7">24px</option>
-                                  </select>
-                                  <Input 
-                                    type="color" 
-                                    defaultValue="#000000" 
-                                    className="w-12 h-8 p-1" 
-                                    onChange={(e) => {
-                                      document.execCommand('foreColor', false, e.target.value);
+                                <Label className="text-base font-medium">Contenu de la page</Label>
+                                <div className="mt-2 border rounded-lg">
+                                  {/* Barre d'outils d'édition améliorée */}
+                                  <div className="flex items-center gap-1 p-2 border-b bg-gray-50 flex-wrap">
+                                    <Button 
+                                      variant="outline" 
+                                      size="sm"
+                                      onClick={() => document.execCommand('bold', false)}
+                                      className="h-8 w-8 p-0"
+                                      title="Gras"
+                                    >
+                                      <Bold className="h-4 w-4" />
+                                    </Button>
+                                    <Button 
+                                      variant="outline" 
+                                      size="sm"
+                                      onClick={() => document.execCommand('italic', false)}
+                                      className="h-8 w-8 p-0"
+                                      title="Italique"
+                                    >
+                                      <Italic className="h-4 w-4" />
+                                    </Button>
+                                    <Button 
+                                      variant="outline" 
+                                      size="sm"
+                                      onClick={() => document.execCommand('underline', false)}
+                                      className="h-8 w-8 p-0"
+                                      title="Souligné"
+                                    >
+                                      <Underline className="h-4 w-4" />
+                                    </Button>
+                                    
+                                    <div className="h-6 w-px bg-gray-300 mx-1"></div>
+                                    
+                                    <Button 
+                                      variant="outline" 
+                                      size="sm"
+                                      onClick={() => document.execCommand('justifyLeft', false)}
+                                      className="h-8 w-8 p-0"
+                                      title="Aligner à gauche"
+                                    >
+                                      <AlignLeft className="h-4 w-4" />
+                                    </Button>
+                                    <Button 
+                                      variant="outline" 
+                                      size="sm"
+                                      onClick={() => document.execCommand('justifyCenter', false)}
+                                      className="h-8 w-8 p-0"
+                                      title="Centrer"
+                                    >
+                                      <AlignCenter className="h-4 w-4" />
+                                    </Button>
+                                    <Button 
+                                      variant="outline" 
+                                      size="sm"
+                                      onClick={() => document.execCommand('justifyRight', false)}
+                                      className="h-8 w-8 p-0"
+                                      title="Aligner à droite"
+                                    >
+                                      <AlignRight className="h-4 w-4" />
+                                    </Button>
+                                    
+                                    <div className="h-6 w-px bg-gray-300 mx-1"></div>
+                                    
+                                    <Button 
+                                      variant="outline" 
+                                      size="sm"
+                                      onClick={() => document.execCommand('formatBlock', false, 'h2')}
+                                      className="text-xs px-2 h-8"
+                                      title="Sous-titre"
+                                    >
+                                      Sous-titre
+                                    </Button>
+                                    <Button 
+                                      variant="outline" 
+                                      size="sm"
+                                      onClick={() => document.execCommand('formatBlock', false, 'p')}
+                                      className="text-xs px-2 h-8"
+                                      title="Texte normal"
+                                    >
+                                      Texte
+                                    </Button>
+                                    
+                                    <div className="h-6 w-px bg-gray-300 mx-1"></div>
+                                    
+                                    <select 
+                                      className="px-2 py-1 border rounded text-xs h-8"
+                                      onChange={(e) => document.execCommand('fontSize', false, e.target.value)}
+                                      defaultValue="3"
+                                    >
+                                      <option value="2">10px</option>
+                                      <option value="3">14px</option>
+                                      <option value="4">16px</option>
+                                      <option value="5">18px</option>
+                                      <option value="6">24px</option>
+                                      <option value="7">32px</option>
+                                    </select>
+                                    
+                                    <Input 
+                                      type="color" 
+                                      defaultValue="#000000" 
+                                      className="w-8 h-8 p-1 border" 
+                                      onChange={(e) => document.execCommand('foreColor', false, e.target.value)}
+                                      title="Couleur du texte"
+                                    />
+                                  </div>
+                                  
+                                  {/* Zone d'édition */}
+                                  <div 
+                                    contentEditable
+                                    suppressContentEditableWarning={true}
+                                    className="p-6 min-h-[400px] outline-none focus:ring-2 focus:ring-blue-500 prose max-w-none"
+                                    style={{ lineHeight: '1.6' }}
+                                    dangerouslySetInnerHTML={{
+                                      __html: `
+                                        <div style="text-align: center; margin-bottom: 2rem;">
+                                          <h1 style="font-size: 2rem; font-weight: bold; margin-bottom: 1rem;">Legal Notice</h1>
+                                        </div>
+                                        
+                                        <h2 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">Publisher</h2>
+                                        <p style="margin-bottom: 1rem;">The website amon-tour.com is produced by <strong>Flame BB Co., Ltd.</strong>, with a capital of 4,000,000 Thai Baht, registered with the Thai Ministry of Commerce (DBD) in Krabi under the number <strong>0815558001588</strong>, with its headquarters located at <strong>242 Moo1 – Na Thai – Ao Nang – 81000 Krabi – Thailand</strong>. The company holds a tourism license issued by the Thai Minister of Tourism (TAT) under the number <strong>34/01995</strong>.</p>
+                                        <p style="margin-bottom: 1rem;"><strong>Publication Director:</strong> Eric Mosnier-Thoumas in his capacity as Chief Executive Officer and website administrator.</p>
+                                        
+                                        <h2 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">Disclaimer</h2>
+                                        <p style="margin-bottom: 1rem;">Flame BB strives to ensure, to the best of its ability, the accuracy and updating of information distributed on this site, for which it reserves the right to correct, at any time and without notice, the content. However, Flame BB cannot guarantee the accuracy, precision or completeness of the information made available on this site.</p>
+                                        <p style="margin-bottom: 1rem;">Consequently, Flame BB disclaims all responsibility:</p>
+                                        <ul style="margin-bottom: 1rem; padding-left: 1.5rem;">
+                                          <li style="margin-bottom: 0.5rem;">for any interruption of the site</li>
+                                          <li style="margin-bottom: 0.5rem;">for the occurrence of bugs</li>
+                                          <li style="margin-bottom: 0.5rem;">for any inaccuracy or omission concerning information available on the site</li>
+                                          <li style="margin-bottom: 0.5rem;">for any damage resulting from a fraudulent intrusion by a third party having led to a modification of the information made available on the site</li>
+                                          <li style="margin-bottom: 0.5rem;">and more generally for any direct or indirect damage, whatever its causes, nature or consequences, including notably the costs that may arise from the acquisition of goods proposed on the site, loss of profits, customers, data, or any other loss of intangible assets that may occur due to anyone's access to the site or the impossibility of accessing it or the credit given to any information coming directly or indirectly from it.</li>
+                                        </ul>
+                                        
+                                        <h2 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">Protection of Personal Data</h2>
+                                        <p style="margin-bottom: 1rem;">Flame BB is committed to preserving the confidentiality of information that may be provided online by the internet user.</p>
+                                        <p style="margin-bottom: 1rem;">Any personal information that the internet user may be led to transmit to Flame BB for the use of certain services is subject to the provisions of Law No. 78-17 on Information Technology and Freedom of January 06, 1978. In this respect, the internet user has the right to access, rectify and delete personal information concerning him/her, which he/she can exercise at any time by sending a letter to:</p>
+                                        <address style="margin-bottom: 1rem; font-style: normal;">
+                                          <strong>Flame BB</strong><br>
+                                          242/1 Moo1 – Na Thai – Ao Nang<br>
+                                          81000 Krabi – Thailand
+                                        </address>
+                                        
+                                        <h2 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">Intellectual Property Rights of Flame BB</h2>
+                                        <p style="margin-bottom: 1rem;">Unless otherwise stated, all texts, photographs and other visuals on this site are the exclusive property of the author and are therefore protected by copyright.</p>
+                                        <p style="margin-bottom: 1rem;">Strict prohibition of copying, reproducing or redistributing this content in any form whatsoever.</p>
+                                        <p style="margin-bottom: 1rem;">Any use outside of this medium must be the subject of a written request.</p>
+                                      `
                                     }}
                                   />
                                 </div>
-                                
-                                {/* Zone d'édition */}
-                                <div 
-                                  contentEditable
-                                  suppressContentEditableWarning={true}
-                                  className="p-4 min-h-[300px] outline-none focus:ring-2 focus:ring-blue-500"
-                                  style={{ lineHeight: '1.6' }}
-                                  dangerouslySetInnerHTML={{
-                                    __html: `
-                                      <h2><strong>Publisher</strong></h2>
-                                      <p>The website amon-tour.com is produced by <strong>Flame BB Co., Ltd.</strong>, with a capital of 4,000,000 Thai Baht, registered with the Thai Ministry of Commerce (DBD) in Krabi under the number <strong>0815558001588</strong>, with its headquarters located at <strong>242 Moo1 – Na Thai – Ao Nang – 81000 Krabi – Thailand</strong>. The company holds a tourism license issued by the Thai Minister of Tourism (TAT) under the number <strong>34/01995</strong>.</p>
-                                      <p><strong>Publication Director:</strong> Eric Mosnier-Thoumas in his capacity as Chief Executive Officer and website administrator.</p>
-                                      
-                                      <h3><strong>Disclaimer</strong></h3>
-                                      <p>Flame BB strives to ensure, to the best of its ability, the accuracy and updating of information distributed on this site, for which it reserves the right to correct, at any time and without notice, the content. However, Flame BB cannot guarantee the accuracy, precision or completeness of the information made available on this site.</p>
-                                      <p>Consequently, Flame BB disclaims all responsibility:</p>
-                                      <ul>
-                                        <li>for any interruption of the site</li>
-                                        <li>for the occurrence of bugs</li>
-                                        <li>for any inaccuracy or omission concerning information available on the site</li>
-                                        <li>for any damage resulting from a fraudulent intrusion by a third party</li>
-                                      </ul>
-                                      
-                                      <h3><strong>Protection of Personal Data</strong></h3>
-                                      <p>Flame BB is committed to preserving the confidentiality of information that may be provided online by the internet user.</p>
-                                      
-                                      <h3><strong>Contact Information</strong></h3>
-                                      <p><strong>Flame BB</strong><br>
-                                      242/1 Moo1 – Na Thai – Ao Nang<br>
-                                      81000 Krabi – Thailand<br>
-                                      Email: info@amon-tour.com</p>
-                                    `
-                                  }}
-                                />
                               </div>
-                            </div>
-                            
-                            <div className="flex justify-end">
-                              <Button onClick={() => toast({ title: "Legal Notice sauvegardé" })}>
-                                <Save className="h-4 w-4 mr-2" />
-                                Sauvegarder Legal Notice
-                              </Button>
-                            </div>
-                          </CardContent>
+                              
+                              <div className="flex justify-end">
+                                <Button onClick={() => toast({ title: "Mentions légales sauvegardées" })}>
+                                  <Save className="h-4 w-4 mr-2" />
+                                  Sauvegarder
+                                </Button>
+                              </div>
+                            </CardContent>
+                          )}
                         </Card>
 
                         {/* Privacy Policy */}
                         <Card className="border-2">
-                          <CardHeader className="pb-3">
-                            <CardTitle className="text-lg flex items-center gap-2">
-                              🔒 Privacy Policy
+                          <CardHeader 
+                            className="pb-3 cursor-pointer" 
+                            onClick={() => setLegalSectionsOpen(prev => ({...prev, privacyPolicy: !prev.privacyPolicy}))}
+                          >
+                            <CardTitle className="text-lg flex items-center justify-between">
+                              <span>Politique de confidentialité</span>
+                              {legalSectionsOpen.privacyPolicy ? 
+                                <ChevronDown className="h-5 w-5" /> : 
+                                <ChevronRight className="h-5 w-5" />
+                              }
                             </CardTitle>
                           </CardHeader>
-                          <CardContent className="space-y-4">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {legalSectionsOpen.privacyPolicy && (
+                            <CardContent className="space-y-4">
                               <div>
                                 <Label>Titre de la page</Label>
                                 <Input defaultValue="Privacy Policy" />
                               </div>
+                              
                               <div>
-                                <Label>Sous-titre</Label>
-                                <Input defaultValue="Protection et gestion de vos données personnelles" />
-                              </div>
-                            </div>
-                            
-                            <div>
-                              <Label className="text-base font-medium">Contenu de la page</Label>
-                              <div className="mt-2 border rounded-lg">
-                                {/* Barre d'outils d'édition améliorée */}
-                                <div className="flex items-center gap-2 p-3 border-b bg-gray-50 flex-wrap">
-                                  <Button 
-                                    variant="outline" 
-                                    size="sm"
-                                    onClick={() => {
-                                      document.execCommand('bold', false);
-                                    }}
-                                  >
-                                    <Bold className="h-4 w-4" />
-                                  </Button>
-                                  <Button 
-                                    variant="outline" 
-                                    size="sm"
-                                    onClick={() => {
-                                      document.execCommand('italic', false);
-                                    }}
-                                  >
-                                    <Italic className="h-4 w-4" />
-                                  </Button>
-                                  <Button 
-                                    variant="outline" 
-                                    size="sm"
-                                    onClick={() => {
-                                      document.execCommand('underline', false);
-                                    }}
-                                  >
-                                    U
-                                  </Button>
-                                  <div className="h-6 w-px bg-gray-300 mx-1"></div>
-                                  <Button 
-                                    variant="outline" 
-                                    size="sm"
-                                    onClick={() => {
-                                      document.execCommand('justifyLeft', false);
-                                    }}
-                                  >
-                                    ←
-                                  </Button>
-                                  <Button 
-                                    variant="outline" 
-                                    size="sm"
-                                    onClick={() => {
-                                      document.execCommand('justifyCenter', false);
-                                    }}
-                                  >
-                                    ═
-                                  </Button>
-                                  <Button 
-                                    variant="outline" 
-                                    size="sm"
-                                    onClick={() => {
-                                      document.execCommand('justifyRight', false);
-                                    }}
-                                  >
-                                    →
-                                  </Button>
-                                  <div className="h-6 w-px bg-gray-300 mx-1"></div>
-                                  <select 
-                                    className="px-2 py-1 border rounded text-sm"
-                                    onChange={(e) => {
-                                      document.execCommand('formatBlock', false, e.target.value);
-                                    }}
-                                  >
-                                    <option value="p">Paragraphe</option>
-                                    <option value="h1">Titre 1</option>
-                                    <option value="h2">Titre 2</option>
-                                    <option value="h3">Titre 3</option>
-                                  </select>
-                                  <select 
-                                    className="px-2 py-1 border rounded text-sm"
-                                    onChange={(e) => {
-                                      document.execCommand('fontSize', false, e.target.value);
-                                    }}
-                                  >
-                                    <option value="3">12px</option>
-                                    <option value="4" selected>14px</option>
-                                    <option value="5">16px</option>
-                                    <option value="6">18px</option>
-                                    <option value="7">24px</option>
-                                  </select>
-                                  <Input 
-                                    type="color" 
-                                    defaultValue="#000000" 
-                                    className="w-12 h-8 p-1" 
-                                    onChange={(e) => {
-                                      document.execCommand('foreColor', false, e.target.value);
+                                <Label className="text-base font-medium">Contenu de la page</Label>
+                                <div className="mt-2 border rounded-lg">
+                                  {/* Barre d'outils d'édition améliorée */}
+                                  <div className="flex items-center gap-1 p-2 border-b bg-gray-50 flex-wrap">
+                                    <Button 
+                                      variant="outline" 
+                                      size="sm"
+                                      onClick={() => document.execCommand('bold', false)}
+                                      className="h-8 w-8 p-0"
+                                      title="Gras"
+                                    >
+                                      <Bold className="h-4 w-4" />
+                                    </Button>
+                                    <Button 
+                                      variant="outline" 
+                                      size="sm"
+                                      onClick={() => document.execCommand('italic', false)}
+                                      className="h-8 w-8 p-0"
+                                      title="Italique"
+                                    >
+                                      <Italic className="h-4 w-4" />
+                                    </Button>
+                                    <Button 
+                                      variant="outline" 
+                                      size="sm"
+                                      onClick={() => document.execCommand('underline', false)}
+                                      className="h-8 w-8 p-0"
+                                      title="Souligné"
+                                    >
+                                      <Underline className="h-4 w-4" />
+                                    </Button>
+                                    
+                                    <div className="h-6 w-px bg-gray-300 mx-1"></div>
+                                    
+                                    <Button 
+                                      variant="outline" 
+                                      size="sm"
+                                      onClick={() => document.execCommand('justifyLeft', false)}
+                                      className="h-8 w-8 p-0"
+                                      title="Aligner à gauche"
+                                    >
+                                      <AlignLeft className="h-4 w-4" />
+                                    </Button>
+                                    <Button 
+                                      variant="outline" 
+                                      size="sm"
+                                      onClick={() => document.execCommand('justifyCenter', false)}
+                                      className="h-8 w-8 p-0"
+                                      title="Centrer"
+                                    >
+                                      <AlignCenter className="h-4 w-4" />
+                                    </Button>
+                                    <Button 
+                                      variant="outline" 
+                                      size="sm"
+                                      onClick={() => document.execCommand('justifyRight', false)}
+                                      className="h-8 w-8 p-0"
+                                      title="Aligner à droite"
+                                    >
+                                      <AlignRight className="h-4 w-4" />
+                                    </Button>
+                                    
+                                    <div className="h-6 w-px bg-gray-300 mx-1"></div>
+                                    
+                                    <Button 
+                                      variant="outline" 
+                                      size="sm"
+                                      onClick={() => document.execCommand('formatBlock', false, 'h2')}
+                                      className="text-xs px-2 h-8"
+                                      title="Sous-titre"
+                                    >
+                                      Sous-titre
+                                    </Button>
+                                    <Button 
+                                      variant="outline" 
+                                      size="sm"
+                                      onClick={() => document.execCommand('formatBlock', false, 'p')}
+                                      className="text-xs px-2 h-8"
+                                      title="Texte normal"
+                                    >
+                                      Texte
+                                    </Button>
+                                    
+                                    <div className="h-6 w-px bg-gray-300 mx-1"></div>
+                                    
+                                    <select 
+                                      className="px-2 py-1 border rounded text-xs h-8"
+                                      onChange={(e) => document.execCommand('fontSize', false, e.target.value)}
+                                      defaultValue="3"
+                                    >
+                                      <option value="2">10px</option>
+                                      <option value="3">14px</option>
+                                      <option value="4">16px</option>
+                                      <option value="5">18px</option>
+                                      <option value="6">24px</option>
+                                      <option value="7">32px</option>
+                                    </select>
+                                    
+                                    <Input 
+                                      type="color" 
+                                      defaultValue="#000000" 
+                                      className="w-8 h-8 p-1 border" 
+                                      onChange={(e) => document.execCommand('foreColor', false, e.target.value)}
+                                      title="Couleur du texte"
+                                    />
+                                  </div>
+                                  
+                                  {/* Zone d'édition */}
+                                  <div 
+                                    contentEditable
+                                    suppressContentEditableWarning={true}
+                                    className="p-6 min-h-[400px] outline-none focus:ring-2 focus:ring-blue-500 prose max-w-none"
+                                    style={{ lineHeight: '1.6' }}
+                                    dangerouslySetInnerHTML={{
+                                      __html: `
+                                        <div style="text-align: center; margin-bottom: 2rem;">
+                                          <h1 style="font-size: 2rem; font-weight: bold; margin-bottom: 1rem;">Privacy Policy</h1>
+                                        </div>
+                                        
+                                        <h2 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">Data Protection</h2>
+                                        <p style="margin-bottom: 1rem;"><strong>Flame BB Co., Ltd.</strong> is committed to preserving the confidentiality of information that may be provided online by our website visitors and customers. This privacy policy explains how we collect, use, and protect your personal information.</p>
+                                        
+                                        <h2 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">Information Collection</h2>
+                                        <p style="margin-bottom: 1rem;">We may collect personal information such as:</p>
+                                        <ul style="margin-bottom: 1rem; padding-left: 1.5rem;">
+                                          <li style="margin-bottom: 0.25rem;">Name and contact details</li>
+                                          <li style="margin-bottom: 0.25rem;">Email address</li>
+                                          <li style="margin-bottom: 0.25rem;">Phone number</li>
+                                          <li style="margin-bottom: 0.25rem;">Travel preferences</li>
+                                          <li style="margin-bottom: 0.25rem;">Booking information</li>
+                                          <li style="margin-bottom: 0.25rem;">Payment details</li>
+                                        </ul>
+                                        <p style="margin-bottom: 1rem;">This information is collected when you:</p>
+                                        <ul style="margin-bottom: 1rem; padding-left: 1.5rem;">
+                                          <li style="margin-bottom: 0.25rem;">Make a reservation or booking</li>
+                                          <li style="margin-bottom: 0.25rem;">Request a custom tour</li>
+                                          <li style="margin-bottom: 0.25rem;">Subscribe to our newsletter</li>
+                                          <li style="margin-bottom: 0.25rem;">Contact us via our contact form or WhatsApp</li>
+                                        </ul>
+                                        
+                                        <h2 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">Use of Information</h2>
+                                        <p style="margin-bottom: 1rem;">The information we collect is used for:</p>
+                                        <ul style="margin-bottom: 1rem; padding-left: 1.5rem;">
+                                          <li style="margin-bottom: 0.25rem;">Processing your tour bookings and requests</li>
+                                          <li style="margin-bottom: 0.25rem;">Communicating with you about your travel arrangements</li>
+                                          <li style="margin-bottom: 0.25rem;">Providing customer support</li>
+                                          <li style="margin-bottom: 0.25rem;">Sending you promotional offers and newsletters (if you have opted in)</li>
+                                          <li style="margin-bottom: 0.25rem;">Improving our website and services</li>
+                                          <li style="margin-bottom: 0.25rem;">Complying with legal requirements</li>
+                                        </ul>
+                                        
+                                        <h2 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">Data Security</h2>
+                                        <p style="margin-bottom: 1rem;">We implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. However, no method of transmission over the Internet or electronic storage is 100% secure, and we cannot guarantee absolute security.</p>
+                                        
+                                        <h2 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">Data Retention</h2>
+                                        <p style="margin-bottom: 1rem;">We retain your personal information for as long as necessary to fulfill the purposes for which we collected it, including for the purposes of satisfying any legal, accounting, or reporting requirements.</p>
+                                        
+                                        <h2 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">Your Rights</h2>
+                                        <p style="margin-bottom: 1rem;">Under applicable data protection laws, you have rights regarding your personal data, including:</p>
+                                        <ul style="margin-bottom: 1rem; padding-left: 1.5rem;">
+                                          <li style="margin-bottom: 0.25rem;">The right to access your personal information</li>
+                                          <li style="margin-bottom: 0.25rem;">The right to correct inaccurate information</li>
+                                          <li style="margin-bottom: 0.25rem;">The right to request deletion of your information</li>
+                                          <li style="margin-bottom: 0.25rem;">The right to restrict or object to processing</li>
+                                          <li style="margin-bottom: 0.25rem;">The right to data portability</li>
+                                        </ul>
+                                        <p style="margin-bottom: 1rem;">To exercise these rights, please contact us at the address below.</p>
+                                        
+                                        <h2 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">Cookies</h2>
+                                        <p style="margin-bottom: 1rem;">Our website uses cookies to enhance your browsing experience. You can set your browser to refuse all or some browser cookies, but this may prevent some parts of our website from functioning properly.</p>
+                                        
+                                        <h2 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">Third-Party Links</h2>
+                                        <p style="margin-bottom: 1rem;">Our website may contain links to third-party websites. We are not responsible for the privacy practices or content of these websites. We encourage you to read the privacy policies of these websites.</p>
+                                        
+                                        <h2 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">Changes to This Policy</h2>
+                                        <p style="margin-bottom: 1rem;">We may update this privacy policy from time to time. We will notify you of any significant changes by posting the new policy on this page.</p>
+                                        
+                                        <h2 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">Contact Information</h2>
+                                        <p style="margin-bottom: 1rem;">If you have any questions about this privacy policy or our data practices, please contact us at:</p>
+                                        <address style="margin-bottom: 1rem; font-style: normal;">
+                                          <strong>Flame BB Co., Ltd.</strong><br>
+                                          242/1 Moo1 – Na Thai – Ao Nang<br>
+                                          81000 Krabi – Thailand<br>
+                                          Email: info@amon-tour.com
+                                        </address>
+                                      `
                                     }}
                                   />
                                 </div>
-                                
-                                {/* Zone d'édition */}
-                                <div 
-                                  contentEditable
-                                  suppressContentEditableWarning={true}
-                                  className="p-4 min-h-[300px] outline-none focus:ring-2 focus:ring-blue-500"
-                                  style={{ lineHeight: '1.6' }}
-                                  dangerouslySetInnerHTML={{
-                                    __html: `
-                                      <h2><strong>Data Protection</strong></h2>
-                                      <p><strong>Flame BB Co., Ltd.</strong> is committed to preserving the confidentiality of information that may be provided online by our website visitors and customers. This privacy policy explains how we collect, use, and protect your personal information.</p>
-                                      
-                                      <h3><strong>Information Collection</strong></h3>
-                                      <p>We may collect personal information such as:</p>
-                                      <ul>
-                                        <li>Name and contact details</li>
-                                        <li>Email address</li>
-                                        <li>Phone number</li>
-                                        <li>Travel preferences</li>
-                                        <li>Booking information</li>
-                                        <li>Payment details</li>
-                                      </ul>
-                                      
-                                      <h3><strong>Use of Information</strong></h3>
-                                      <p>The information we collect is used for:</p>
-                                      <ul>
-                                        <li>Processing your tour bookings and requests</li>
-                                        <li>Communicating with you about your travel arrangements</li>
-                                        <li>Providing customer support</li>
-                                        <li>Sending you promotional offers and newsletters (if you have opted in)</li>
-                                        <li>Improving our website and services</li>
-                                        <li>Complying with legal requirements</li>
-                                      </ul>
-                                      
-                                      <h3><strong>Your Rights</strong></h3>
-                                      <p>Under applicable data protection laws, you have rights regarding your personal data, including:</p>
-                                      <ul>
-                                        <li>The right to access your personal information</li>
-                                        <li>The right to correct inaccurate information</li>
-                                        <li>The right to request deletion of your information</li>
-                                        <li>The right to restrict or object to processing</li>
-                                        <li>The right to data portability</li>
-                                      </ul>
-                                      
-                                      <h3><strong>Contact Information</strong></h3>
-                                      <p><strong>Flame BB Co., Ltd.</strong><br>
-                                      242/1 Moo1 – Na Thai – Ao Nang<br>
-                                      81000 Krabi – Thailand<br>
-                                      Email: info@amon-tour.com</p>
-                                    `
-                                  }}
-                                />
                               </div>
-                            </div>
-                            
-                            <div className="flex justify-end">
-                              <Button onClick={() => toast({ title: "Privacy Policy sauvegardé" })}>
-                                <Save className="h-4 w-4 mr-2" />
-                                Sauvegarder Privacy Policy
-                              </Button>
-                            </div>
-                          </CardContent>
+                              
+                              <div className="flex justify-end">
+                                <Button onClick={() => toast({ title: "Politique de confidentialité sauvegardée" })}>
+                                  <Save className="h-4 w-4 mr-2" />
+                                  Sauvegarder
+                                </Button>
+                              </div>
+                            </CardContent>
+                          )}
                         </Card>
 
                         {/* Terms & Conditions */}
                         <Card className="border-2">
-                          <CardHeader className="pb-3">
-                            <CardTitle className="text-lg flex items-center gap-2">
-                              📜 Terms & Conditions
+                          <CardHeader 
+                            className="pb-3 cursor-pointer" 
+                            onClick={() => setLegalSectionsOpen(prev => ({...prev, termsConditions: !prev.termsConditions}))}
+                          >
+                            <CardTitle className="text-lg flex items-center justify-between">
+                              <span>Conditions générales d'utilisation</span>
+                              {legalSectionsOpen.termsConditions ? 
+                                <ChevronDown className="h-5 w-5" /> : 
+                                <ChevronRight className="h-5 w-5" />
+                              }
                             </CardTitle>
                           </CardHeader>
-                          <CardContent className="space-y-4">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {legalSectionsOpen.termsConditions && (
+                            <CardContent className="space-y-4">
                               <div>
                                 <Label>Titre de la page</Label>
                                 <Input defaultValue="Terms & Conditions" />
                               </div>
-                              <div>
-                                <Label>Sous-titre</Label>
-                                <Input defaultValue="Conditions générales d'utilisation et de vente" />
-                              </div>
-                            </div>
                             
-                            <div>
-                              <Label className="text-base font-medium">Contenu de la page</Label>
-                              <div className="mt-2 border rounded-lg">
-                                {/* Barre d'outils d'édition améliorée */}
-                                <div className="flex items-center gap-2 p-3 border-b bg-gray-50 flex-wrap">
-                                  <Button 
-                                    variant="outline" 
-                                    size="sm"
-                                    onClick={() => {
-                                      document.execCommand('bold', false);
-                                    }}
-                                  >
-                                    <Bold className="h-4 w-4" />
-                                  </Button>
-                                  <Button 
-                                    variant="outline" 
-                                    size="sm"
-                                    onClick={() => {
-                                      document.execCommand('italic', false);
-                                    }}
-                                  >
-                                    <Italic className="h-4 w-4" />
-                                  </Button>
-                                  <Button 
-                                    variant="outline" 
-                                    size="sm"
-                                    onClick={() => {
-                                      document.execCommand('underline', false);
-                                    }}
-                                  >
-                                    U
-                                  </Button>
-                                  <div className="h-6 w-px bg-gray-300 mx-1"></div>
-                                  <Button 
-                                    variant="outline" 
-                                    size="sm"
-                                    onClick={() => {
-                                      document.execCommand('justifyLeft', false);
-                                    }}
-                                  >
-                                    ←
-                                  </Button>
-                                  <Button 
-                                    variant="outline" 
-                                    size="sm"
-                                    onClick={() => {
-                                      document.execCommand('justifyCenter', false);
-                                    }}
-                                  >
-                                    ═
-                                  </Button>
-                                  <Button 
-                                    variant="outline" 
-                                    size="sm"
-                                    onClick={() => {
-                                      document.execCommand('justifyRight', false);
-                                    }}
-                                  >
-                                    →
-                                  </Button>
-                                  <div className="h-6 w-px bg-gray-300 mx-1"></div>
-                                  <select 
-                                    className="px-2 py-1 border rounded text-sm"
-                                    onChange={(e) => {
-                                      document.execCommand('formatBlock', false, e.target.value);
-                                    }}
-                                  >
-                                    <option value="p">Paragraphe</option>
-                                    <option value="h1">Titre 1</option>
-                                    <option value="h2">Titre 2</option>
-                                    <option value="h3">Titre 3</option>
-                                  </select>
-                                  <select 
-                                    className="px-2 py-1 border rounded text-sm"
-                                    onChange={(e) => {
-                                      document.execCommand('fontSize', false, e.target.value);
-                                    }}
-                                  >
-                                    <option value="3">12px</option>
-                                    <option value="4" selected>14px</option>
-                                    <option value="5">16px</option>
-                                    <option value="6">18px</option>
-                                    <option value="7">24px</option>
-                                  </select>
-                                  <Input 
-                                    type="color" 
-                                    defaultValue="#000000" 
-                                    className="w-12 h-8 p-1" 
-                                    onChange={(e) => {
-                                      document.execCommand('foreColor', false, e.target.value);
+                              <div>
+                                <Label className="text-base font-medium">Contenu de la page</Label>
+                                <div className="mt-2 border rounded-lg">
+                                  {/* Barre d'outils d'édition améliorée */}
+                                  <div className="flex items-center gap-1 p-2 border-b bg-gray-50 flex-wrap">
+                                    <Button 
+                                      variant="outline" 
+                                      size="sm"
+                                      onClick={() => document.execCommand('bold', false)}
+                                      className="h-8 w-8 p-0"
+                                      title="Gras"
+                                    >
+                                      <Bold className="h-4 w-4" />
+                                    </Button>
+                                    <Button 
+                                      variant="outline" 
+                                      size="sm"
+                                      onClick={() => document.execCommand('italic', false)}
+                                      className="h-8 w-8 p-0"
+                                      title="Italique"
+                                    >
+                                      <Italic className="h-4 w-4" />
+                                    </Button>
+                                    <Button 
+                                      variant="outline" 
+                                      size="sm"
+                                      onClick={() => document.execCommand('underline', false)}
+                                      className="h-8 w-8 p-0"
+                                      title="Souligné"
+                                    >
+                                      <Underline className="h-4 w-4" />
+                                    </Button>
+                                    
+                                    <div className="h-6 w-px bg-gray-300 mx-1"></div>
+                                    
+                                    <Button 
+                                      variant="outline" 
+                                      size="sm"
+                                      onClick={() => document.execCommand('justifyLeft', false)}
+                                      className="h-8 w-8 p-0"
+                                      title="Aligner à gauche"
+                                    >
+                                      <AlignLeft className="h-4 w-4" />
+                                    </Button>
+                                    <Button 
+                                      variant="outline" 
+                                      size="sm"
+                                      onClick={() => document.execCommand('justifyCenter', false)}
+                                      className="h-8 w-8 p-0"
+                                      title="Centrer"
+                                    >
+                                      <AlignCenter className="h-4 w-4" />
+                                    </Button>
+                                    <Button 
+                                      variant="outline" 
+                                      size="sm"
+                                      onClick={() => document.execCommand('justifyRight', false)}
+                                      className="h-8 w-8 p-0"
+                                      title="Aligner à droite"
+                                    >
+                                      <AlignRight className="h-4 w-4" />
+                                    </Button>
+                                    
+                                    <div className="h-6 w-px bg-gray-300 mx-1"></div>
+                                    
+                                    <Button 
+                                      variant="outline" 
+                                      size="sm"
+                                      onClick={() => document.execCommand('formatBlock', false, 'h2')}
+                                      className="text-xs px-2 h-8"
+                                      title="Sous-titre"
+                                    >
+                                      Sous-titre
+                                    </Button>
+                                    <Button 
+                                      variant="outline" 
+                                      size="sm"
+                                      onClick={() => document.execCommand('formatBlock', false, 'p')}
+                                      className="text-xs px-2 h-8"
+                                      title="Texte normal"
+                                    >
+                                      Texte
+                                    </Button>
+                                    
+                                    <div className="h-6 w-px bg-gray-300 mx-1"></div>
+                                    
+                                    <select 
+                                      className="px-2 py-1 border rounded text-xs h-8"
+                                      onChange={(e) => document.execCommand('fontSize', false, e.target.value)}
+                                      defaultValue="3"
+                                    >
+                                      <option value="2">10px</option>
+                                      <option value="3">14px</option>
+                                      <option value="4">16px</option>
+                                      <option value="5">18px</option>
+                                      <option value="6">24px</option>
+                                      <option value="7">32px</option>
+                                    </select>
+                                    
+                                    <Input 
+                                      type="color" 
+                                      defaultValue="#000000" 
+                                      className="w-8 h-8 p-1 border" 
+                                      onChange={(e) => document.execCommand('foreColor', false, e.target.value)}
+                                      title="Couleur du texte"
+                                    />
+                                  </div>
+                                  
+                                  {/* Zone d'édition */}
+                                  <div 
+                                    contentEditable
+                                    suppressContentEditableWarning={true}
+                                    className="p-6 min-h-[400px] outline-none focus:ring-2 focus:ring-blue-500 prose max-w-none"
+                                    style={{ lineHeight: '1.6' }}
+                                    dangerouslySetInnerHTML={{
+                                      __html: `
+                                        <div style="text-align: center; margin-bottom: 2rem;">
+                                          <h1 style="font-size: 2rem; font-weight: bold; margin-bottom: 1rem;">Terms &amp; Conditions</h1>
+                                        </div>
+                                        
+                                        <h2 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">1. General Terms</h2>
+                                        <p style="margin-bottom: 1rem;">These Terms and Conditions govern your use of the Amon Tour website and services provided by <strong>Flame BB Co., Ltd.</strong>, a company registered in Thailand with TAT license number <strong>34/01995</strong>.</p>
+                                        <p style="margin-bottom: 1rem;">By accessing our website or using our services, you agree to be bound by these Terms and Conditions. If you disagree with any part of these terms, please do not use our website or services.</p>
+                                        
+                                        <h2 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">2. Booking and Reservation</h2>
+                                        <p style="margin-bottom: 1rem;">2.1 All bookings are subject to availability and confirmation.</p>
+                                        <p style="margin-bottom: 1rem;">2.2 A booking is confirmed once we have received the required deposit or full payment, and you have received a confirmation email from us.</p>
+                                        <p style="margin-bottom: 1rem;">2.3 The person making the booking accepts these Terms and Conditions on behalf of all members of the party and is responsible for all payments due.</p>
+                                        <p style="margin-bottom: 1rem;">2.4 All information provided during the booking process must be accurate and complete.</p>
+                                        
+                                        <h2 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">3. Payment</h2>
+                                        <p style="margin-bottom: 1rem;">3.1 To secure a booking, a deposit of 30% of the total tour price is required, unless otherwise specified.</p>
+                                        <p style="margin-bottom: 1rem;">3.2 Full payment must be received at least 7 days before the tour date, unless otherwise agreed.</p>
+                                        <p style="margin-bottom: 1rem;">3.3 Payments can be made via the payment methods specified on our website or as communicated during the booking process.</p>
+                                        <p style="margin-bottom: 1rem;">3.4 All prices are quoted in Thai Baht (THB) unless otherwise specified.</p>
+                                        
+                                        <h2 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">4. Cancellation and Refund Policy</h2>
+                                        <p style="margin-bottom: 1rem;">4.1 Cancellation by Customer:</p>
+                                        <ul style="margin-bottom: 1rem; padding-left: 1.5rem;">
+                                          <li style="margin-bottom: 0.25rem;">More than 30 days before the tour date: Full refund minus administrative fees</li>
+                                          <li style="margin-bottom: 0.25rem;">15-30 days before the tour date: 70% refund</li>
+                                          <li style="margin-bottom: 0.25rem;">7-14 days before the tour date: 50% refund</li>
+                                          <li style="margin-bottom: 0.25rem;">Less than 7 days before the tour date: No refund</li>
+                                        </ul>
+                                        <p style="margin-bottom: 1rem;">4.2 Cancellation by Amon Tour:</p>
+                                        <p style="margin-bottom: 1rem;">If we need to cancel a tour due to unforeseen circumstances, adverse weather conditions, or insufficient participants, we will offer you an alternative date or a full refund.</p>
+                                        
+                                        <h2 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">5. Tour Modifications</h2>
+                                        <p style="margin-bottom: 1rem;">5.1 We reserve the right to modify tour itineraries, departure times, or duration due to weather conditions, safety concerns, or other circumstances beyond our control.</p>
+                                        <p style="margin-bottom: 1rem;">5.2 In such cases, we will make reasonable efforts to inform you as soon as possible.</p>
+                                        
+                                        <h2 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">6. Traveler's Responsibilities</h2>
+                                        <p style="margin-bottom: 1rem;">6.1 You are responsible for ensuring that you have valid documentation (passport, visa, etc.) required for your travel.</p>
+                                        <p style="margin-bottom: 1rem;">6.2 You must inform us of any medical conditions, dietary restrictions, or special requirements at the time of booking.</p>
+                                        <p style="margin-bottom: 1rem;">6.3 Travel insurance is strongly recommended for all participants.</p>
+                                        <p style="margin-bottom: 1rem;">6.4 You must comply with all instructions given by our tour guides and staff for safety purposes.</p>
+                                        
+                                        <h2 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">7. Limitation of Liability</h2>
+                                        <p style="margin-bottom: 1rem;">7.1 While we take all reasonable steps to ensure your safety, participation in tours and activities involves some inherent risk.</p>
+                                        <p style="margin-bottom: 1rem;">7.2 We are not liable for any injury, illness, death, loss, damage, expense, cost, or other claim of any description which results from:</p>
+                                        <ul style="margin-bottom: 1rem; padding-left: 1.5rem;">
+                                          <li style="margin-bottom: 0.25rem;">The acts or omissions of the person affected or any member of their party</li>
+                                          <li style="margin-bottom: 0.25rem;">The acts or omissions of a third party not connected with the provision of your tour</li>
+                                          <li style="margin-bottom: 0.25rem;">Unusual or unforeseeable circumstances beyond our control</li>
+                                          <li style="margin-bottom: 0.25rem;">An event which we or our suppliers could not have foreseen or forestalled even with all due care</li>
+                                        </ul>
+                                        
+                                        <h2 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">8. Copyright and Intellectual Property</h2>
+                                        <p style="margin-bottom: 1rem;">8.1 All content on our website, including text, graphics, logos, images, and software, is the property of Flame BB Co., Ltd. and is protected by copyright and intellectual property laws.</p>
+                                        <p style="margin-bottom: 1rem;">8.2 You may not reproduce, modify, distribute, or use any materials from our website without our prior written consent.</p>
+                                        
+                                        <h2 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">9. Website Use</h2>
+                                        <p style="margin-bottom: 1rem;">9.1 You may use our website for lawful purposes only.</p>
+                                        <p style="margin-bottom: 1rem;">9.2 You must not use our website in any way that causes, or may cause, damage to the website or impairment of the availability or accessibility of the website.</p>
+                                        
+                                        <h2 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">10. Governing Law</h2>
+                                        <p style="margin-bottom: 1rem;">These Terms and Conditions are governed by and construed in accordance with the laws of Thailand. Any disputes arising under these Terms and Conditions shall be subject to the exclusive jurisdiction of the courts of Thailand.</p>
+                                        
+                                        <h2 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">11. Contact Information</h2>
+                                        <p style="margin-bottom: 1rem;">If you have any questions about these Terms and Conditions, please contact us at:</p>
+                                        <address style="margin-bottom: 1rem; font-style: normal;">
+                                          <strong>Flame BB Co., Ltd.</strong><br>
+                                          242/1 Moo1 – Na Thai – Ao Nang<br>
+                                          81000 Krabi – Thailand<br>
+                                          Email: info@amon-tour.com
+                                        </address>
+                                      `
                                     }}
                                   />
                                 </div>
-                                
-                                {/* Zone d'édition */}
-                                <div 
-                                  contentEditable
-                                  suppressContentEditableWarning={true}
-                                  className="p-4 min-h-[300px] outline-none focus:ring-2 focus:ring-blue-500"
-                                  style={{ lineHeight: '1.6' }}
-                                  dangerouslySetInnerHTML={{
-                                    __html: `
-                                      <h2><strong>1. General Terms</strong></h2>
-                                      <p>These Terms and Conditions govern your use of the Amon Tour website and services provided by <strong>Flame BB Co., Ltd.</strong>, a company registered in Thailand with TAT license number <strong>34/01995</strong>.</p>
-                                      <p>By accessing our website or using our services, you agree to be bound by these Terms and Conditions. If you disagree with any part of these terms, please do not use our website or services.</p>
-                                      
-                                      <h3><strong>2. Booking and Reservation</strong></h3>
-                                      <p>2.1 All bookings are subject to availability and confirmation.</p>
-                                      <p>2.2 A booking is confirmed once we have received the required deposit or full payment, and you have received a confirmation email from us.</p>
-                                      <p>2.3 The person making the booking accepts these Terms and Conditions on behalf of all members of the party and is responsible for all payments due.</p>
-                                      
-                                      <h3><strong>3. Payment</strong></h3>
-                                      <p>3.1 To secure a booking, a deposit of 30% of the total tour price is required, unless otherwise specified.</p>
-                                      <p>3.2 Full payment must be received at least 7 days before the tour date, unless otherwise agreed.</p>
-                                      <p>3.3 All prices are quoted in Thai Baht (THB) unless otherwise specified.</p>
-                                      
-                                      <h3><strong>4. Cancellation and Refund Policy</strong></h3>
-                                      <p>4.1 Cancellation by Customer:</p>
-                                      <ul>
-                                        <li>More than 30 days before the tour date: Full refund minus administrative fees</li>
-                                        <li>15-30 days before the tour date: 70% refund</li>
-                                        <li>7-14 days before the tour date: 50% refund</li>
-                                        <li>Less than 7 days before the tour date: No refund</li>
-                                      </ul>
-                                      
-                                      <h3><strong>5. Contact Information</strong></h3>
-                                      <p><strong>Flame BB Co., Ltd.</strong><br>
-                                      242/1 Moo1 – Na Thai – Ao Nang<br>
-                                      81000 Krabi – Thailand<br>
-                                      Email: info@amon-tour.com</p>
-                                    `
-                                  }}
-                                />
                               </div>
-                            </div>
-                            
-                            <div className="flex justify-end">
-                              <Button onClick={() => toast({ title: "Terms & Conditions sauvegardé" })}>
-                                <Save className="h-4 w-4 mr-2" />
-                                Sauvegarder Terms & Conditions
-                              </Button>
-                            </div>
-                          </CardContent>
+                              
+                              <div className="flex justify-end">
+                                <Button onClick={() => toast({ title: "Conditions générales sauvegardées" })}>
+                                  <Save className="h-4 w-4 mr-2" />
+                                  Sauvegarder
+                                </Button>
+                              </div>
+                            </CardContent>
+                          )}
                         </Card>
 
                         <div className="flex justify-end mt-6">
