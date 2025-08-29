@@ -1902,7 +1902,7 @@ export default function AdminAppearance() {
                                           
                                           if (selectedText) {
                                             // Use execCommand for undo compatibility with custom Publisher styling
-                                            const publisherSpan = `<h2 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">${selectedText}</h2>`;
+                                            const publisherSpan = `<h2 class="font-heading text-2xl font-semibold mb-4">${selectedText}</h2>`;
                                             document.execCommand('insertHTML', false, publisherSpan);
                                           }
                                         }
@@ -2182,7 +2182,7 @@ export default function AdminAppearance() {
                                           
                                           if (selectedText) {
                                             // Use execCommand for undo compatibility with custom Publisher styling
-                                            const publisherSpan = `<h2 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">${selectedText}</h2>`;
+                                            const publisherSpan = `<h2 class="font-heading text-2xl font-semibold mb-4">${selectedText}</h2>`;
                                             document.execCommand('insertHTML', false, publisherSpan);
                                           }
                                         }
@@ -2462,7 +2462,7 @@ export default function AdminAppearance() {
                                           
                                           if (selectedText) {
                                             // Use execCommand for undo compatibility with custom Publisher styling
-                                            const publisherSpan = `<h2 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">${selectedText}</h2>`;
+                                            const publisherSpan = `<h2 class="font-heading text-2xl font-semibold mb-4">${selectedText}</h2>`;
                                             document.execCommand('insertHTML', false, publisherSpan);
                                           }
                                         }
