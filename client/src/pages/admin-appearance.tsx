@@ -1902,7 +1902,7 @@ export default function AdminAppearance() {
                                           
                                           if (selectedText) {
                                             // Use execCommand for undo compatibility with custom Publisher styling
-                                            const publisherSpan = `<span style="font-family: Publisher, serif; font-size: 1.25em; font-weight: 600;">${selectedText}</span>`;
+                                            const publisherSpan = `<span style="font-family: Publisher, serif; font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">${selectedText}</span>`;
                                             document.execCommand('insertHTML', false, publisherSpan);
                                           }
                                         }
@@ -2182,7 +2182,7 @@ export default function AdminAppearance() {
                                           
                                           if (selectedText) {
                                             // Use execCommand for undo compatibility with custom Publisher styling
-                                            const publisherSpan = `<span style="font-family: Publisher, serif; font-size: 1.25em; font-weight: 600;">${selectedText}</span>`;
+                                            const publisherSpan = `<span style="font-family: Publisher, serif; font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">${selectedText}</span>`;
                                             document.execCommand('insertHTML', false, publisherSpan);
                                           }
                                         }
@@ -2462,7 +2462,7 @@ export default function AdminAppearance() {
                                           
                                           if (selectedText) {
                                             // Use execCommand for undo compatibility with custom Publisher styling
-                                            const publisherSpan = `<span style="font-family: Publisher, serif; font-size: 1.25em; font-weight: 600;">${selectedText}</span>`;
+                                            const publisherSpan = `<span style="font-family: Publisher, serif; font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">${selectedText}</span>`;
                                             document.execCommand('insertHTML', false, publisherSpan);
                                           }
                                         }
