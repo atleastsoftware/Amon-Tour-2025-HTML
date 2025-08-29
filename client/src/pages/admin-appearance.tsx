@@ -1774,9 +1774,9 @@ export default function AdminAppearance() {
                                           const editableDiv = document.querySelector('[contenteditable="true"]:focus') || 
                                                              document.querySelector('[contenteditable="true"]');
                                           if (editableDiv) {
-                                            editableDiv.focus();
+                                            (editableDiv as HTMLElement).focus();
                                             // Force undo with execCommand
-                                            if (document.execCommand('undo', false, null)) {
+                                            if (document.execCommand('undo', false, undefined)) {
                                               console.log('Undo executed');
                                             } else {
                                               console.log('Undo failed');
@@ -1799,9 +1799,9 @@ export default function AdminAppearance() {
                                           const editableDiv = document.querySelector('[contenteditable="true"]:focus') || 
                                                              document.querySelector('[contenteditable="true"]');
                                           if (editableDiv) {
-                                            editableDiv.focus();
+                                            (editableDiv as HTMLElement).focus();
                                             // Force redo with execCommand
-                                            if (document.execCommand('redo', false, null)) {
+                                            if (document.execCommand('redo', false, undefined)) {
                                               console.log('Redo executed');
                                             } else {
                                               console.log('Redo failed');
@@ -1826,13 +1826,11 @@ export default function AdminAppearance() {
                                         const selection = window.getSelection();
                                         if (selection?.rangeCount) {
                                           const range = selection.getRangeAt(0);
-                                          const strong = document.createElement('strong');
-                                          try {
-                                            range.surroundContents(strong);
-                                          } catch {
-                                            strong.textContent = range.toString();
-                                            range.deleteContents();
-                                            range.insertNode(strong);
+                                          const selectedText = range.toString();
+                                          
+                                          if (selectedText) {
+                                            // Use execCommand for undo/redo compatibility
+                                            document.execCommand('insertHTML', false, `<strong style="font-weight: bold; font-family: 'Flame BB', sans-serif;">${selectedText}</strong>`);
                                           }
                                         }
                                       }}
@@ -1899,17 +1897,11 @@ export default function AdminAppearance() {
                                         const selection = window.getSelection();
                                         if (selection?.rangeCount) {
                                           const range = selection.getRangeAt(0);
-                                          const h2 = document.createElement('h2');
-                                          h2.style.fontSize = '1.5rem';
-                                          h2.style.fontWeight = '600';
-                                          h2.style.marginTop = '2rem';
-                                          h2.style.marginBottom = '1rem';
-                                          try {
-                                            range.surroundContents(h2);
-                                          } catch {
-                                            h2.textContent = range.toString();
-                                            range.deleteContents();
-                                            range.insertNode(h2);
+                                          const selectedText = range.toString();
+                                          
+                                          if (selectedText) {
+                                            // Use execCommand for undo/redo compatibility
+                                            document.execCommand('insertHTML', false, `<h2 style="font-size: 20px; font-weight: normal; font-family: 'Publisher', serif; margin-bottom: 0.5rem;">${selectedText}</h2>`);
                                           }
                                         }
                                       }}
@@ -1928,21 +1920,8 @@ export default function AdminAppearance() {
                                           const selectedText = range.toString();
                                           
                                           if (selectedText) {
-                                            // Create a plain text span that explicitly resets all formatting
-                                            const span = document.createElement('span');
-                                            span.textContent = selectedText;
-                                            span.style.fontWeight = 'normal';
-                                            span.style.fontSize = '16px'; // Force "The website" size
-                                            span.style.fontStyle = 'normal';
-                                            span.style.fontFamily = 'inherit';
-                                            span.style.textDecoration = 'none';
-                                            span.style.color = 'inherit';
-                                            
-                                            range.deleteContents();
-                                            range.insertNode(span);
-                                            
-                                            // Clear selection
-                                            selection.removeAllRanges();
+                                            // Use execCommand for undo/redo compatibility
+                                            document.execCommand('insertHTML', false, `<span style="font-weight: normal; font-size: 16px; font-style: normal; font-family: inherit; text-decoration: none; color: inherit;">${selectedText}</span>`);
                                           }
                                         }
                                       }}
@@ -1961,20 +1940,18 @@ export default function AdminAppearance() {
                                           const selectedText = range.toString();
                                           
                                           if (selectedText) {
-                                            const ul = document.createElement('ul');
-                                            ul.style.marginBottom = '1rem';
-                                            ul.style.paddingLeft = '1.5rem';
+                                            // Check if selection is already in a list item to toggle
+                                            const parentLi = range.commonAncestorContainer.nodeType === Node.TEXT_NODE 
+                                              ? range.commonAncestorContainer.parentElement?.closest('li')
+                                              : (range.commonAncestorContainer as Element)?.closest('li');
                                             
-                                            const li = document.createElement('li');
-                                            li.style.marginBottom = '0.5rem';
-                                            li.textContent = selectedText;
-                                            
-                                            ul.appendChild(li);
-                                            range.deleteContents();
-                                            range.insertNode(ul);
-                                            
-                                            // Clear selection
-                                            selection.removeAllRanges();
+                                            if (parentLi) {
+                                              // Remove from list - use execCommand for undo/redo
+                                              document.execCommand('insertHTML', false, selectedText);
+                                            } else {
+                                              // Add to list - use execCommand for undo/redo
+                                              document.execCommand('insertHTML', false, `<ul style="margin-bottom: 1rem; padding-left: 1.5rem;"><li style="margin-bottom: 0.5rem;">${selectedText}</li></ul>`);
+                                            }
                                           }
                                         }
                                       }}
@@ -2073,9 +2050,9 @@ export default function AdminAppearance() {
                                           const editableDiv = document.querySelector('[contenteditable="true"]:focus') || 
                                                              document.querySelector('[contenteditable="true"]');
                                           if (editableDiv) {
-                                            editableDiv.focus();
+                                            (editableDiv as HTMLElement).focus();
                                             // Force undo with execCommand
-                                            if (document.execCommand('undo', false, null)) {
+                                            if (document.execCommand('undo', false, undefined)) {
                                               console.log('Undo executed');
                                             } else {
                                               console.log('Undo failed');
@@ -2098,9 +2075,9 @@ export default function AdminAppearance() {
                                           const editableDiv = document.querySelector('[contenteditable="true"]:focus') || 
                                                              document.querySelector('[contenteditable="true"]');
                                           if (editableDiv) {
-                                            editableDiv.focus();
+                                            (editableDiv as HTMLElement).focus();
                                             // Force redo with execCommand
-                                            if (document.execCommand('redo', false, null)) {
+                                            if (document.execCommand('redo', false, undefined)) {
                                               console.log('Redo executed');
                                             } else {
                                               console.log('Redo failed');
@@ -2125,13 +2102,11 @@ export default function AdminAppearance() {
                                         const selection = window.getSelection();
                                         if (selection?.rangeCount) {
                                           const range = selection.getRangeAt(0);
-                                          const strong = document.createElement('strong');
-                                          try {
-                                            range.surroundContents(strong);
-                                          } catch {
-                                            strong.textContent = range.toString();
-                                            range.deleteContents();
-                                            range.insertNode(strong);
+                                          const selectedText = range.toString();
+                                          
+                                          if (selectedText) {
+                                            // Use execCommand for undo/redo compatibility
+                                            document.execCommand('insertHTML', false, `<strong style="font-weight: bold; font-family: 'Flame BB', sans-serif;">${selectedText}</strong>`);
                                           }
                                         }
                                       }}
@@ -2198,17 +2173,11 @@ export default function AdminAppearance() {
                                         const selection = window.getSelection();
                                         if (selection?.rangeCount) {
                                           const range = selection.getRangeAt(0);
-                                          const h2 = document.createElement('h2');
-                                          h2.style.fontSize = '1.5rem';
-                                          h2.style.fontWeight = '600';
-                                          h2.style.marginTop = '2rem';
-                                          h2.style.marginBottom = '1rem';
-                                          try {
-                                            range.surroundContents(h2);
-                                          } catch {
-                                            h2.textContent = range.toString();
-                                            range.deleteContents();
-                                            range.insertNode(h2);
+                                          const selectedText = range.toString();
+                                          
+                                          if (selectedText) {
+                                            // Use execCommand for undo/redo compatibility
+                                            document.execCommand('insertHTML', false, `<h2 style="font-size: 20px; font-weight: normal; font-family: 'Publisher', serif; margin-bottom: 0.5rem;">${selectedText}</h2>`);
                                           }
                                         }
                                       }}
@@ -2227,21 +2196,8 @@ export default function AdminAppearance() {
                                           const selectedText = range.toString();
                                           
                                           if (selectedText) {
-                                            // Create a plain text span that explicitly resets all formatting
-                                            const span = document.createElement('span');
-                                            span.textContent = selectedText;
-                                            span.style.fontWeight = 'normal';
-                                            span.style.fontSize = '16px'; // Force "The website" size
-                                            span.style.fontStyle = 'normal';
-                                            span.style.fontFamily = 'inherit';
-                                            span.style.textDecoration = 'none';
-                                            span.style.color = 'inherit';
-                                            
-                                            range.deleteContents();
-                                            range.insertNode(span);
-                                            
-                                            // Clear selection
-                                            selection.removeAllRanges();
+                                            // Use execCommand for undo/redo compatibility
+                                            document.execCommand('insertHTML', false, `<span style="font-weight: normal; font-size: 16px; font-style: normal; font-family: inherit; text-decoration: none; color: inherit;">${selectedText}</span>`);
                                           }
                                         }
                                       }}
@@ -2260,20 +2216,18 @@ export default function AdminAppearance() {
                                           const selectedText = range.toString();
                                           
                                           if (selectedText) {
-                                            const ul = document.createElement('ul');
-                                            ul.style.marginBottom = '1rem';
-                                            ul.style.paddingLeft = '1.5rem';
+                                            // Check if selection is already in a list item to toggle
+                                            const parentLi = range.commonAncestorContainer.nodeType === Node.TEXT_NODE 
+                                              ? range.commonAncestorContainer.parentElement?.closest('li')
+                                              : (range.commonAncestorContainer as Element)?.closest('li');
                                             
-                                            const li = document.createElement('li');
-                                            li.style.marginBottom = '0.5rem';
-                                            li.textContent = selectedText;
-                                            
-                                            ul.appendChild(li);
-                                            range.deleteContents();
-                                            range.insertNode(ul);
-                                            
-                                            // Clear selection
-                                            selection.removeAllRanges();
+                                            if (parentLi) {
+                                              // Remove from list - use execCommand for undo/redo
+                                              document.execCommand('insertHTML', false, selectedText);
+                                            } else {
+                                              // Add to list - use execCommand for undo/redo
+                                              document.execCommand('insertHTML', false, `<ul style="margin-bottom: 1rem; padding-left: 1.5rem;"><li style="margin-bottom: 0.5rem;">${selectedText}</li></ul>`);
+                                            }
                                           }
                                         }
                                       }}
@@ -2372,9 +2326,9 @@ export default function AdminAppearance() {
                                           const editableDiv = document.querySelector('[contenteditable="true"]:focus') || 
                                                              document.querySelector('[contenteditable="true"]');
                                           if (editableDiv) {
-                                            editableDiv.focus();
+                                            (editableDiv as HTMLElement).focus();
                                             // Force undo with execCommand
-                                            if (document.execCommand('undo', false, null)) {
+                                            if (document.execCommand('undo', false, undefined)) {
                                               console.log('Undo executed');
                                             } else {
                                               console.log('Undo failed');
@@ -2397,9 +2351,9 @@ export default function AdminAppearance() {
                                           const editableDiv = document.querySelector('[contenteditable="true"]:focus') || 
                                                              document.querySelector('[contenteditable="true"]');
                                           if (editableDiv) {
-                                            editableDiv.focus();
+                                            (editableDiv as HTMLElement).focus();
                                             // Force redo with execCommand
-                                            if (document.execCommand('redo', false, null)) {
+                                            if (document.execCommand('redo', false, undefined)) {
                                               console.log('Redo executed');
                                             } else {
                                               console.log('Redo failed');
@@ -2424,13 +2378,11 @@ export default function AdminAppearance() {
                                         const selection = window.getSelection();
                                         if (selection?.rangeCount) {
                                           const range = selection.getRangeAt(0);
-                                          const strong = document.createElement('strong');
-                                          try {
-                                            range.surroundContents(strong);
-                                          } catch {
-                                            strong.textContent = range.toString();
-                                            range.deleteContents();
-                                            range.insertNode(strong);
+                                          const selectedText = range.toString();
+                                          
+                                          if (selectedText) {
+                                            // Use execCommand for undo/redo compatibility
+                                            document.execCommand('insertHTML', false, `<strong style="font-weight: bold; font-family: 'Flame BB', sans-serif;">${selectedText}</strong>`);
                                           }
                                         }
                                       }}
@@ -2497,17 +2449,11 @@ export default function AdminAppearance() {
                                         const selection = window.getSelection();
                                         if (selection?.rangeCount) {
                                           const range = selection.getRangeAt(0);
-                                          const h2 = document.createElement('h2');
-                                          h2.style.fontSize = '1.5rem';
-                                          h2.style.fontWeight = '600';
-                                          h2.style.marginTop = '2rem';
-                                          h2.style.marginBottom = '1rem';
-                                          try {
-                                            range.surroundContents(h2);
-                                          } catch {
-                                            h2.textContent = range.toString();
-                                            range.deleteContents();
-                                            range.insertNode(h2);
+                                          const selectedText = range.toString();
+                                          
+                                          if (selectedText) {
+                                            // Use execCommand for undo/redo compatibility
+                                            document.execCommand('insertHTML', false, `<h2 style="font-size: 20px; font-weight: normal; font-family: 'Publisher', serif; margin-bottom: 0.5rem;">${selectedText}</h2>`);
                                           }
                                         }
                                       }}
@@ -2526,21 +2472,8 @@ export default function AdminAppearance() {
                                           const selectedText = range.toString();
                                           
                                           if (selectedText) {
-                                            // Create a plain text span that explicitly resets all formatting
-                                            const span = document.createElement('span');
-                                            span.textContent = selectedText;
-                                            span.style.fontWeight = 'normal';
-                                            span.style.fontSize = '16px'; // Force "The website" size
-                                            span.style.fontStyle = 'normal';
-                                            span.style.fontFamily = 'inherit';
-                                            span.style.textDecoration = 'none';
-                                            span.style.color = 'inherit';
-                                            
-                                            range.deleteContents();
-                                            range.insertNode(span);
-                                            
-                                            // Clear selection
-                                            selection.removeAllRanges();
+                                            // Use execCommand for undo/redo compatibility
+                                            document.execCommand('insertHTML', false, `<span style="font-weight: normal; font-size: 16px; font-style: normal; font-family: inherit; text-decoration: none; color: inherit;">${selectedText}</span>`);
                                           }
                                         }
                                       }}
@@ -2559,20 +2492,18 @@ export default function AdminAppearance() {
                                           const selectedText = range.toString();
                                           
                                           if (selectedText) {
-                                            const ul = document.createElement('ul');
-                                            ul.style.marginBottom = '1rem';
-                                            ul.style.paddingLeft = '1.5rem';
+                                            // Check if selection is already in a list item to toggle
+                                            const parentLi = range.commonAncestorContainer.nodeType === Node.TEXT_NODE 
+                                              ? range.commonAncestorContainer.parentElement?.closest('li')
+                                              : (range.commonAncestorContainer as Element)?.closest('li');
                                             
-                                            const li = document.createElement('li');
-                                            li.style.marginBottom = '0.5rem';
-                                            li.textContent = selectedText;
-                                            
-                                            ul.appendChild(li);
-                                            range.deleteContents();
-                                            range.insertNode(ul);
-                                            
-                                            // Clear selection
-                                            selection.removeAllRanges();
+                                            if (parentLi) {
+                                              // Remove from list - use execCommand for undo/redo
+                                              document.execCommand('insertHTML', false, selectedText);
+                                            } else {
+                                              // Add to list - use execCommand for undo/redo
+                                              document.execCommand('insertHTML', false, `<ul style="margin-bottom: 1rem; padding-left: 1.5rem;"><li style="margin-bottom: 0.5rem;">${selectedText}</li></ul>`);
+                                            }
                                           }
                                         }
                                       }}
