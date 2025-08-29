@@ -1823,18 +1823,17 @@ export default function AdminAppearance() {
                                       variant="outline" 
                                       size="sm"
                                       onClick={() => {
-                                        const selection = window.getSelection();
-                                        if (selection?.rangeCount) {
-                                          const range = selection.getRangeAt(0);
-                                          const strong = document.createElement('strong');
-                                          try {
-                                            range.surroundContents(strong);
-                                          } catch {
-                                            strong.textContent = range.toString();
-                                            range.deleteContents();
-                                            range.insertNode(strong);
-                                          }
-                                        }
+                                        // Use execCommand for undo/redo compatibility
+                                        document.execCommand('bold', false, null);
+                                        
+                                        // Apply custom Flame BB styling after execCommand
+                                        setTimeout(() => {
+                                          const strongElements = document.querySelectorAll('strong, b');
+                                          strongElements.forEach(el => {
+                                            el.style.fontFamily = 'Flame BB, sans-serif';
+                                            el.style.fontWeight = 'bold';
+                                          });
+                                        }, 10);
                                       }}
                                       className="h-8 w-8 p-0"
                                       title="Gras (style Flame BB)"
@@ -1899,17 +1898,12 @@ export default function AdminAppearance() {
                                         const selection = window.getSelection();
                                         if (selection?.rangeCount) {
                                           const range = selection.getRangeAt(0);
-                                          const h2 = document.createElement('h2');
-                                          h2.style.fontSize = '1.5rem';
-                                          h2.style.fontWeight = '600';
-                                          h2.style.marginTop = '2rem';
-                                          h2.style.marginBottom = '1rem';
-                                          try {
-                                            range.surroundContents(h2);
-                                          } catch {
-                                            h2.textContent = range.toString();
-                                            range.deleteContents();
-                                            range.insertNode(h2);
+                                          const selectedText = range.toString();
+                                          
+                                          if (selectedText) {
+                                            // Use execCommand for undo compatibility with custom Publisher styling
+                                            const publisherSpan = `<span style="font-family: Publisher, serif; font-size: 1.25em; font-weight: 600;">${selectedText}</span>`;
+                                            document.execCommand('insertHTML', false, publisherSpan);
                                           }
                                         }
                                       }}
@@ -1928,21 +1922,9 @@ export default function AdminAppearance() {
                                           const selectedText = range.toString();
                                           
                                           if (selectedText) {
-                                            // Create a plain text span that explicitly resets all formatting
-                                            const span = document.createElement('span');
-                                            span.textContent = selectedText;
-                                            span.style.fontWeight = 'normal';
-                                            span.style.fontSize = '16px'; // Force "The website" size
-                                            span.style.fontStyle = 'normal';
-                                            span.style.fontFamily = 'inherit';
-                                            span.style.textDecoration = 'none';
-                                            span.style.color = 'inherit';
-                                            
-                                            range.deleteContents();
-                                            range.insertNode(span);
-                                            
-                                            // Clear selection
-                                            selection.removeAllRanges();
+                                            // Use execCommand for undo compatibility
+                                            const normalSpan = `<span style="font-weight: normal; font-size: 16px; font-style: normal; font-family: inherit; text-decoration: none; color: inherit;">${selectedText}</span>`;
+                                            document.execCommand('insertHTML', false, normalSpan);
                                           }
                                         }
                                       }}
@@ -1961,25 +1943,24 @@ export default function AdminAppearance() {
                                           const selectedText = range.toString();
                                           
                                           if (selectedText) {
-                                            const ul = document.createElement('ul');
-                                            ul.style.marginBottom = '1rem';
-                                            ul.style.paddingLeft = '1.5rem';
+                                            // Check if we're already in a list item to toggle off
+                                            const parentLi = range.commonAncestorContainer.nodeType === Node.TEXT_NODE 
+                                              ? range.commonAncestorContainer.parentElement?.closest('li')
+                                              : range.commonAncestorContainer.closest('li');
                                             
-                                            const li = document.createElement('li');
-                                            li.style.marginBottom = '0.5rem';
-                                            li.textContent = selectedText;
-                                            
-                                            ul.appendChild(li);
-                                            range.deleteContents();
-                                            range.insertNode(ul);
-                                            
-                                            // Clear selection
-                                            selection.removeAllRanges();
+                                            if (parentLi) {
+                                              // Remove from list - extract just the text using execCommand
+                                              document.execCommand('insertHTML', false, selectedText);
+                                            } else {
+                                              // Add to list using execCommand for undo compatibility
+                                              const listHtml = `<ul style="margin-bottom: 1rem; padding-left: 1.5rem;"><li style="margin-bottom: 0.5rem;">${selectedText}</li></ul>`;
+                                              document.execCommand('insertHTML', false, listHtml);
+                                            }
                                           }
                                         }
                                       }}
                                       className="text-xs px-2 h-8"
-                                      title="Liste à puces"
+                                      title="Liste à puces (toggle)"
                                     >
                                       • Liste
                                     </Button>
@@ -2122,18 +2103,17 @@ export default function AdminAppearance() {
                                       variant="outline" 
                                       size="sm"
                                       onClick={() => {
-                                        const selection = window.getSelection();
-                                        if (selection?.rangeCount) {
-                                          const range = selection.getRangeAt(0);
-                                          const strong = document.createElement('strong');
-                                          try {
-                                            range.surroundContents(strong);
-                                          } catch {
-                                            strong.textContent = range.toString();
-                                            range.deleteContents();
-                                            range.insertNode(strong);
-                                          }
-                                        }
+                                        // Use execCommand for undo/redo compatibility
+                                        document.execCommand('bold', false, null);
+                                        
+                                        // Apply custom Flame BB styling after execCommand
+                                        setTimeout(() => {
+                                          const strongElements = document.querySelectorAll('strong, b');
+                                          strongElements.forEach(el => {
+                                            el.style.fontFamily = 'Flame BB, sans-serif';
+                                            el.style.fontWeight = 'bold';
+                                          });
+                                        }, 10);
                                       }}
                                       className="h-8 w-8 p-0"
                                       title="Gras (style Flame BB)"
@@ -2198,17 +2178,12 @@ export default function AdminAppearance() {
                                         const selection = window.getSelection();
                                         if (selection?.rangeCount) {
                                           const range = selection.getRangeAt(0);
-                                          const h2 = document.createElement('h2');
-                                          h2.style.fontSize = '1.5rem';
-                                          h2.style.fontWeight = '600';
-                                          h2.style.marginTop = '2rem';
-                                          h2.style.marginBottom = '1rem';
-                                          try {
-                                            range.surroundContents(h2);
-                                          } catch {
-                                            h2.textContent = range.toString();
-                                            range.deleteContents();
-                                            range.insertNode(h2);
+                                          const selectedText = range.toString();
+                                          
+                                          if (selectedText) {
+                                            // Use execCommand for undo compatibility with custom Publisher styling
+                                            const publisherSpan = `<span style="font-family: Publisher, serif; font-size: 1.25em; font-weight: 600;">${selectedText}</span>`;
+                                            document.execCommand('insertHTML', false, publisherSpan);
                                           }
                                         }
                                       }}
@@ -2227,21 +2202,9 @@ export default function AdminAppearance() {
                                           const selectedText = range.toString();
                                           
                                           if (selectedText) {
-                                            // Create a plain text span that explicitly resets all formatting
-                                            const span = document.createElement('span');
-                                            span.textContent = selectedText;
-                                            span.style.fontWeight = 'normal';
-                                            span.style.fontSize = '16px'; // Force "The website" size
-                                            span.style.fontStyle = 'normal';
-                                            span.style.fontFamily = 'inherit';
-                                            span.style.textDecoration = 'none';
-                                            span.style.color = 'inherit';
-                                            
-                                            range.deleteContents();
-                                            range.insertNode(span);
-                                            
-                                            // Clear selection
-                                            selection.removeAllRanges();
+                                            // Use execCommand for undo compatibility
+                                            const normalSpan = `<span style="font-weight: normal; font-size: 16px; font-style: normal; font-family: inherit; text-decoration: none; color: inherit;">${selectedText}</span>`;
+                                            document.execCommand('insertHTML', false, normalSpan);
                                           }
                                         }
                                       }}
@@ -2260,25 +2223,24 @@ export default function AdminAppearance() {
                                           const selectedText = range.toString();
                                           
                                           if (selectedText) {
-                                            const ul = document.createElement('ul');
-                                            ul.style.marginBottom = '1rem';
-                                            ul.style.paddingLeft = '1.5rem';
+                                            // Check if we're already in a list item to toggle off
+                                            const parentLi = range.commonAncestorContainer.nodeType === Node.TEXT_NODE 
+                                              ? range.commonAncestorContainer.parentElement?.closest('li')
+                                              : range.commonAncestorContainer.closest('li');
                                             
-                                            const li = document.createElement('li');
-                                            li.style.marginBottom = '0.5rem';
-                                            li.textContent = selectedText;
-                                            
-                                            ul.appendChild(li);
-                                            range.deleteContents();
-                                            range.insertNode(ul);
-                                            
-                                            // Clear selection
-                                            selection.removeAllRanges();
+                                            if (parentLi) {
+                                              // Remove from list - extract just the text using execCommand
+                                              document.execCommand('insertHTML', false, selectedText);
+                                            } else {
+                                              // Add to list using execCommand for undo compatibility
+                                              const listHtml = `<ul style="margin-bottom: 1rem; padding-left: 1.5rem;"><li style="margin-bottom: 0.5rem;">${selectedText}</li></ul>`;
+                                              document.execCommand('insertHTML', false, listHtml);
+                                            }
                                           }
                                         }
                                       }}
                                       className="text-xs px-2 h-8"
-                                      title="Liste à puces"
+                                      title="Liste à puces (toggle)"
                                     >
                                       • Liste
                                     </Button>
@@ -2421,18 +2383,17 @@ export default function AdminAppearance() {
                                       variant="outline" 
                                       size="sm"
                                       onClick={() => {
-                                        const selection = window.getSelection();
-                                        if (selection?.rangeCount) {
-                                          const range = selection.getRangeAt(0);
-                                          const strong = document.createElement('strong');
-                                          try {
-                                            range.surroundContents(strong);
-                                          } catch {
-                                            strong.textContent = range.toString();
-                                            range.deleteContents();
-                                            range.insertNode(strong);
-                                          }
-                                        }
+                                        // Use execCommand for undo/redo compatibility
+                                        document.execCommand('bold', false, null);
+                                        
+                                        // Apply custom Flame BB styling after execCommand
+                                        setTimeout(() => {
+                                          const strongElements = document.querySelectorAll('strong, b');
+                                          strongElements.forEach(el => {
+                                            el.style.fontFamily = 'Flame BB, sans-serif';
+                                            el.style.fontWeight = 'bold';
+                                          });
+                                        }, 10);
                                       }}
                                       className="h-8 w-8 p-0"
                                       title="Gras (style Flame BB)"
@@ -2497,17 +2458,12 @@ export default function AdminAppearance() {
                                         const selection = window.getSelection();
                                         if (selection?.rangeCount) {
                                           const range = selection.getRangeAt(0);
-                                          const h2 = document.createElement('h2');
-                                          h2.style.fontSize = '1.5rem';
-                                          h2.style.fontWeight = '600';
-                                          h2.style.marginTop = '2rem';
-                                          h2.style.marginBottom = '1rem';
-                                          try {
-                                            range.surroundContents(h2);
-                                          } catch {
-                                            h2.textContent = range.toString();
-                                            range.deleteContents();
-                                            range.insertNode(h2);
+                                          const selectedText = range.toString();
+                                          
+                                          if (selectedText) {
+                                            // Use execCommand for undo compatibility with custom Publisher styling
+                                            const publisherSpan = `<span style="font-family: Publisher, serif; font-size: 1.25em; font-weight: 600;">${selectedText}</span>`;
+                                            document.execCommand('insertHTML', false, publisherSpan);
                                           }
                                         }
                                       }}
@@ -2526,21 +2482,9 @@ export default function AdminAppearance() {
                                           const selectedText = range.toString();
                                           
                                           if (selectedText) {
-                                            // Create a plain text span that explicitly resets all formatting
-                                            const span = document.createElement('span');
-                                            span.textContent = selectedText;
-                                            span.style.fontWeight = 'normal';
-                                            span.style.fontSize = '16px'; // Force "The website" size
-                                            span.style.fontStyle = 'normal';
-                                            span.style.fontFamily = 'inherit';
-                                            span.style.textDecoration = 'none';
-                                            span.style.color = 'inherit';
-                                            
-                                            range.deleteContents();
-                                            range.insertNode(span);
-                                            
-                                            // Clear selection
-                                            selection.removeAllRanges();
+                                            // Use execCommand for undo compatibility
+                                            const normalSpan = `<span style="font-weight: normal; font-size: 16px; font-style: normal; font-family: inherit; text-decoration: none; color: inherit;">${selectedText}</span>`;
+                                            document.execCommand('insertHTML', false, normalSpan);
                                           }
                                         }
                                       }}
@@ -2559,25 +2503,24 @@ export default function AdminAppearance() {
                                           const selectedText = range.toString();
                                           
                                           if (selectedText) {
-                                            const ul = document.createElement('ul');
-                                            ul.style.marginBottom = '1rem';
-                                            ul.style.paddingLeft = '1.5rem';
+                                            // Check if we're already in a list item to toggle off
+                                            const parentLi = range.commonAncestorContainer.nodeType === Node.TEXT_NODE 
+                                              ? range.commonAncestorContainer.parentElement?.closest('li')
+                                              : range.commonAncestorContainer.closest('li');
                                             
-                                            const li = document.createElement('li');
-                                            li.style.marginBottom = '0.5rem';
-                                            li.textContent = selectedText;
-                                            
-                                            ul.appendChild(li);
-                                            range.deleteContents();
-                                            range.insertNode(ul);
-                                            
-                                            // Clear selection
-                                            selection.removeAllRanges();
+                                            if (parentLi) {
+                                              // Remove from list - extract just the text using execCommand
+                                              document.execCommand('insertHTML', false, selectedText);
+                                            } else {
+                                              // Add to list using execCommand for undo compatibility
+                                              const listHtml = `<ul style="margin-bottom: 1rem; padding-left: 1.5rem;"><li style="margin-bottom: 0.5rem;">${selectedText}</li></ul>`;
+                                              document.execCommand('insertHTML', false, listHtml);
+                                            }
                                           }
                                         }
                                       }}
                                       className="text-xs px-2 h-8"
-                                      title="Liste à puces"
+                                      title="Liste à puces (toggle)"
                                     >
                                       • Liste
                                     </Button>
