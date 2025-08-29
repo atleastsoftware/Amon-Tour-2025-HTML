@@ -1761,7 +1761,7 @@ export default function AdminAppearance() {
                               </div>
                               
                               <div>
-                                <Label className="text-base font-medium">Contenu de la page</Label>
+                                <Label className="text-sm font-medium">Contenu de la page</Label>
                                 <div className="mt-2 border rounded-lg">
                                   {/* Barre d'outils d'édition améliorée */}
                                   <div className="flex items-center gap-1 p-2 border-b bg-gray-50 flex-wrap">
@@ -1769,10 +1769,12 @@ export default function AdminAppearance() {
                                       variant="outline" 
                                       size="sm"
                                       onClick={() => {
-                                        const editableDiv = document.querySelector('[contenteditable="true"]');
-                                        if (editableDiv) {
-                                          editableDiv.focus();
-                                          document.execCommand('undo', false);
+                                        try {
+                                          if (document.queryCommandSupported('undo')) {
+                                            document.execCommand('undo', false, null);
+                                          }
+                                        } catch (e) {
+                                          console.log('Undo not available');
                                         }
                                       }}
                                       className="h-8 w-8 p-0"
@@ -1784,10 +1786,12 @@ export default function AdminAppearance() {
                                       variant="outline" 
                                       size="sm"
                                       onClick={() => {
-                                        const editableDiv = document.querySelector('[contenteditable="true"]');
-                                        if (editableDiv) {
-                                          editableDiv.focus();
-                                          document.execCommand('redo', false);
+                                        try {
+                                          if (document.queryCommandSupported('redo')) {
+                                            document.execCommand('redo', false, null);
+                                          }
+                                        } catch (e) {
+                                          console.log('Redo not available');
                                         }
                                       }}
                                       className="h-8 w-8 p-0"
@@ -1904,16 +1908,21 @@ export default function AdminAppearance() {
                                         const selection = window.getSelection();
                                         if (selection?.rangeCount) {
                                           const range = selection.getRangeAt(0);
-                                          const selectedElement = range.commonAncestorContainer.nodeType === Node.TEXT_NODE 
-                                            ? range.commonAncestorContainer.parentElement 
-                                            : range.commonAncestorContainer;
+                                          const selectedText = range.toString();
                                           
-                                          // Remove formatting from selection
-                                          if (selectedElement && selectedElement !== selectedElement.closest('[contenteditable]')) {
-                                            const textContent = range.toString();
-                                            const textNode = document.createTextNode(textContent);
+                                          if (selectedText) {
+                                            // Create a plain text span without any formatting
+                                            const span = document.createElement('span');
+                                            span.textContent = selectedText;
+                                            span.style.fontWeight = 'normal';
+                                            span.style.fontSize = 'inherit';
+                                            span.style.fontStyle = 'normal';
+                                            
                                             range.deleteContents();
-                                            range.insertNode(textNode);
+                                            range.insertNode(span);
+                                            
+                                            // Clear selection
+                                            selection.removeAllRanges();
                                           }
                                         }
                                       }}
@@ -1921,6 +1930,38 @@ export default function AdminAppearance() {
                                       title="Texte normal (style The website)"
                                     >
                                       Texte
+                                    </Button>
+                                    <Button 
+                                      variant="outline" 
+                                      size="sm"
+                                      onClick={() => {
+                                        const selection = window.getSelection();
+                                        if (selection?.rangeCount) {
+                                          const range = selection.getRangeAt(0);
+                                          const selectedText = range.toString();
+                                          
+                                          if (selectedText) {
+                                            const ul = document.createElement('ul');
+                                            ul.style.marginBottom = '1rem';
+                                            ul.style.paddingLeft = '1.5rem';
+                                            
+                                            const li = document.createElement('li');
+                                            li.style.marginBottom = '0.5rem';
+                                            li.textContent = selectedText;
+                                            
+                                            ul.appendChild(li);
+                                            range.deleteContents();
+                                            range.insertNode(ul);
+                                            
+                                            // Clear selection
+                                            selection.removeAllRanges();
+                                          }
+                                        }
+                                      }}
+                                      className="text-xs px-2 h-8"
+                                      title="Liste à puces"
+                                    >
+                                      • Liste
                                     </Button>
                                     
                                     <div className="flex items-center gap-1">
@@ -1999,7 +2040,7 @@ export default function AdminAppearance() {
                               </div>
                               
                               <div>
-                                <Label className="text-base font-medium">Contenu de la page</Label>
+                                <Label className="text-sm font-medium">Contenu de la page</Label>
                                 <div className="mt-2 border rounded-lg">
                                   {/* Barre d'outils d'édition améliorée */}
                                   <div className="flex items-center gap-1 p-2 border-b bg-gray-50 flex-wrap">
@@ -2007,10 +2048,12 @@ export default function AdminAppearance() {
                                       variant="outline" 
                                       size="sm"
                                       onClick={() => {
-                                        const editableDiv = document.querySelector('[contenteditable="true"]');
-                                        if (editableDiv) {
-                                          editableDiv.focus();
-                                          document.execCommand('undo', false);
+                                        try {
+                                          if (document.queryCommandSupported('undo')) {
+                                            document.execCommand('undo', false, null);
+                                          }
+                                        } catch (e) {
+                                          console.log('Undo not available');
                                         }
                                       }}
                                       className="h-8 w-8 p-0"
@@ -2022,10 +2065,12 @@ export default function AdminAppearance() {
                                       variant="outline" 
                                       size="sm"
                                       onClick={() => {
-                                        const editableDiv = document.querySelector('[contenteditable="true"]');
-                                        if (editableDiv) {
-                                          editableDiv.focus();
-                                          document.execCommand('redo', false);
+                                        try {
+                                          if (document.queryCommandSupported('redo')) {
+                                            document.execCommand('redo', false, null);
+                                          }
+                                        } catch (e) {
+                                          console.log('Redo not available');
                                         }
                                       }}
                                       className="h-8 w-8 p-0"
@@ -2142,16 +2187,21 @@ export default function AdminAppearance() {
                                         const selection = window.getSelection();
                                         if (selection?.rangeCount) {
                                           const range = selection.getRangeAt(0);
-                                          const selectedElement = range.commonAncestorContainer.nodeType === Node.TEXT_NODE 
-                                            ? range.commonAncestorContainer.parentElement 
-                                            : range.commonAncestorContainer;
+                                          const selectedText = range.toString();
                                           
-                                          // Remove formatting from selection
-                                          if (selectedElement && selectedElement !== selectedElement.closest('[contenteditable]')) {
-                                            const textContent = range.toString();
-                                            const textNode = document.createTextNode(textContent);
+                                          if (selectedText) {
+                                            // Create a plain text span without any formatting
+                                            const span = document.createElement('span');
+                                            span.textContent = selectedText;
+                                            span.style.fontWeight = 'normal';
+                                            span.style.fontSize = 'inherit';
+                                            span.style.fontStyle = 'normal';
+                                            
                                             range.deleteContents();
-                                            range.insertNode(textNode);
+                                            range.insertNode(span);
+                                            
+                                            // Clear selection
+                                            selection.removeAllRanges();
                                           }
                                         }
                                       }}
@@ -2159,6 +2209,38 @@ export default function AdminAppearance() {
                                       title="Texte normal (style The website)"
                                     >
                                       Texte
+                                    </Button>
+                                    <Button 
+                                      variant="outline" 
+                                      size="sm"
+                                      onClick={() => {
+                                        const selection = window.getSelection();
+                                        if (selection?.rangeCount) {
+                                          const range = selection.getRangeAt(0);
+                                          const selectedText = range.toString();
+                                          
+                                          if (selectedText) {
+                                            const ul = document.createElement('ul');
+                                            ul.style.marginBottom = '1rem';
+                                            ul.style.paddingLeft = '1.5rem';
+                                            
+                                            const li = document.createElement('li');
+                                            li.style.marginBottom = '0.5rem';
+                                            li.textContent = selectedText;
+                                            
+                                            ul.appendChild(li);
+                                            range.deleteContents();
+                                            range.insertNode(ul);
+                                            
+                                            // Clear selection
+                                            selection.removeAllRanges();
+                                          }
+                                        }
+                                      }}
+                                      className="text-xs px-2 h-8"
+                                      title="Liste à puces"
+                                    >
+                                      • Liste
                                     </Button>
                                     
                                     <div className="flex items-center gap-1">
@@ -2237,7 +2319,7 @@ export default function AdminAppearance() {
                               </div>
                             
                               <div>
-                                <Label className="text-base font-medium">Contenu de la page</Label>
+                                <Label className="text-sm font-medium">Contenu de la page</Label>
                                 <div className="mt-2 border rounded-lg">
                                   {/* Barre d'outils d'édition améliorée */}
                                   <div className="flex items-center gap-1 p-2 border-b bg-gray-50 flex-wrap">
@@ -2245,10 +2327,12 @@ export default function AdminAppearance() {
                                       variant="outline" 
                                       size="sm"
                                       onClick={() => {
-                                        const editableDiv = document.querySelector('[contenteditable="true"]');
-                                        if (editableDiv) {
-                                          editableDiv.focus();
-                                          document.execCommand('undo', false);
+                                        try {
+                                          if (document.queryCommandSupported('undo')) {
+                                            document.execCommand('undo', false, null);
+                                          }
+                                        } catch (e) {
+                                          console.log('Undo not available');
                                         }
                                       }}
                                       className="h-8 w-8 p-0"
@@ -2260,10 +2344,12 @@ export default function AdminAppearance() {
                                       variant="outline" 
                                       size="sm"
                                       onClick={() => {
-                                        const editableDiv = document.querySelector('[contenteditable="true"]');
-                                        if (editableDiv) {
-                                          editableDiv.focus();
-                                          document.execCommand('redo', false);
+                                        try {
+                                          if (document.queryCommandSupported('redo')) {
+                                            document.execCommand('redo', false, null);
+                                          }
+                                        } catch (e) {
+                                          console.log('Redo not available');
                                         }
                                       }}
                                       className="h-8 w-8 p-0"
@@ -2380,16 +2466,21 @@ export default function AdminAppearance() {
                                         const selection = window.getSelection();
                                         if (selection?.rangeCount) {
                                           const range = selection.getRangeAt(0);
-                                          const selectedElement = range.commonAncestorContainer.nodeType === Node.TEXT_NODE 
-                                            ? range.commonAncestorContainer.parentElement 
-                                            : range.commonAncestorContainer;
+                                          const selectedText = range.toString();
                                           
-                                          // Remove formatting from selection
-                                          if (selectedElement && selectedElement !== selectedElement.closest('[contenteditable]')) {
-                                            const textContent = range.toString();
-                                            const textNode = document.createTextNode(textContent);
+                                          if (selectedText) {
+                                            // Create a plain text span without any formatting
+                                            const span = document.createElement('span');
+                                            span.textContent = selectedText;
+                                            span.style.fontWeight = 'normal';
+                                            span.style.fontSize = 'inherit';
+                                            span.style.fontStyle = 'normal';
+                                            
                                             range.deleteContents();
-                                            range.insertNode(textNode);
+                                            range.insertNode(span);
+                                            
+                                            // Clear selection
+                                            selection.removeAllRanges();
                                           }
                                         }
                                       }}
@@ -2397,6 +2488,38 @@ export default function AdminAppearance() {
                                       title="Texte normal (style The website)"
                                     >
                                       Texte
+                                    </Button>
+                                    <Button 
+                                      variant="outline" 
+                                      size="sm"
+                                      onClick={() => {
+                                        const selection = window.getSelection();
+                                        if (selection?.rangeCount) {
+                                          const range = selection.getRangeAt(0);
+                                          const selectedText = range.toString();
+                                          
+                                          if (selectedText) {
+                                            const ul = document.createElement('ul');
+                                            ul.style.marginBottom = '1rem';
+                                            ul.style.paddingLeft = '1.5rem';
+                                            
+                                            const li = document.createElement('li');
+                                            li.style.marginBottom = '0.5rem';
+                                            li.textContent = selectedText;
+                                            
+                                            ul.appendChild(li);
+                                            range.deleteContents();
+                                            range.insertNode(ul);
+                                            
+                                            // Clear selection
+                                            selection.removeAllRanges();
+                                          }
+                                        }
+                                      }}
+                                      className="text-xs px-2 h-8"
+                                      title="Liste à puces"
+                                    >
+                                      • Liste
                                     </Button>
                                     
                                     <div className="flex items-center gap-1">
