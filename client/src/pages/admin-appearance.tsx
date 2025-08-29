@@ -77,6 +77,18 @@ export default function AdminAppearance() {
     termsConditions: "Terms & Conditions"
   });
 
+  // Function to sync title changes from content to input field
+  const handleContentChange = (pageType: 'legalNotice' | 'privacyPolicy' | 'termsConditions', event: any) => {
+    const target = event.target as HTMLElement;
+    const h1Element = target.querySelector('h1');
+    if (h1Element) {
+      const newTitle = h1Element.textContent || '';
+      if (newTitle !== pageTitles[pageType]) {
+        setPageTitles(prev => ({...prev, [pageType]: newTitle}));
+      }
+    }
+  };
+
   // Function to get dynamic HTML content
   const getDynamicContent = (page: 'legalNotice' | 'privacyPolicy' | 'termsConditions') => {
     const title = pageTitles[page];
@@ -1756,7 +1768,13 @@ export default function AdminAppearance() {
                                     <Button 
                                       variant="outline" 
                                       size="sm"
-                                      onClick={() => document.execCommand('undo', false)}
+                                      onClick={() => {
+                                        const editableDiv = document.querySelector('[contenteditable="true"]');
+                                        if (editableDiv) {
+                                          editableDiv.focus();
+                                          document.execCommand('undo', false);
+                                        }
+                                      }}
                                       className="h-8 w-8 p-0"
                                       title="Annuler"
                                     >
@@ -1765,7 +1783,13 @@ export default function AdminAppearance() {
                                     <Button 
                                       variant="outline" 
                                       size="sm"
-                                      onClick={() => document.execCommand('redo', false)}
+                                      onClick={() => {
+                                        const editableDiv = document.querySelector('[contenteditable="true"]');
+                                        if (editableDiv) {
+                                          editableDiv.focus();
+                                          document.execCommand('redo', false);
+                                        }
+                                      }}
                                       className="h-8 w-8 p-0"
                                       title="Refaire"
                                     >
@@ -1777,7 +1801,20 @@ export default function AdminAppearance() {
                                     <Button 
                                       variant="outline" 
                                       size="sm"
-                                      onClick={() => document.execCommand('bold', false)}
+                                      onClick={() => {
+                                        const selection = window.getSelection();
+                                        if (selection?.rangeCount) {
+                                          const range = selection.getRangeAt(0);
+                                          const strong = document.createElement('strong');
+                                          try {
+                                            range.surroundContents(strong);
+                                          } catch {
+                                            strong.textContent = range.toString();
+                                            range.deleteContents();
+                                            range.insertNode(strong);
+                                          }
+                                        }
+                                      }}
                                       className="h-8 w-8 p-0"
                                       title="Gras (style Flame BB)"
                                     >
@@ -1867,14 +1904,16 @@ export default function AdminAppearance() {
                                         const selection = window.getSelection();
                                         if (selection?.rangeCount) {
                                           const range = selection.getRangeAt(0);
-                                          const p = document.createElement('p');
-                                          p.style.marginBottom = '1rem';
-                                          try {
-                                            range.surroundContents(p);
-                                          } catch {
-                                            p.textContent = range.toString();
+                                          const selectedElement = range.commonAncestorContainer.nodeType === Node.TEXT_NODE 
+                                            ? range.commonAncestorContainer.parentElement 
+                                            : range.commonAncestorContainer;
+                                          
+                                          // Remove formatting from selection
+                                          if (selectedElement && selectedElement !== selectedElement.closest('[contenteditable]')) {
+                                            const textContent = range.toString();
+                                            const textNode = document.createTextNode(textContent);
                                             range.deleteContents();
-                                            range.insertNode(p);
+                                            range.insertNode(textNode);
                                           }
                                         }
                                       }}
@@ -1898,7 +1937,7 @@ export default function AdminAppearance() {
                                       />
                                       <Input 
                                         defaultValue="#000000" 
-                                        className="w-20 h-8 text-xs color-ref" 
+                                        className="w-24 h-8 text-xs color-ref" 
                                         onChange={(e) => {
                                           const colorPicker = e.target.parentElement?.querySelector('input[type="color"]') as HTMLInputElement;
                                           if (colorPicker && /^#[0-9A-Fa-f]{6}$/.test(e.target.value)) {
@@ -1917,6 +1956,7 @@ export default function AdminAppearance() {
                                     suppressContentEditableWarning={true}
                                     className="p-6 min-h-[400px] outline-none focus:ring-2 focus:ring-blue-500 prose max-w-none"
                                     style={{ lineHeight: '1.6' }}
+                                    onInput={(e) => handleContentChange('legalNotice', e)}
                                     dangerouslySetInnerHTML={{
                                       __html: getDynamicContent('legalNotice')
                                     }}
@@ -1966,7 +2006,13 @@ export default function AdminAppearance() {
                                     <Button 
                                       variant="outline" 
                                       size="sm"
-                                      onClick={() => document.execCommand('undo', false)}
+                                      onClick={() => {
+                                        const editableDiv = document.querySelector('[contenteditable="true"]');
+                                        if (editableDiv) {
+                                          editableDiv.focus();
+                                          document.execCommand('undo', false);
+                                        }
+                                      }}
                                       className="h-8 w-8 p-0"
                                       title="Annuler"
                                     >
@@ -1975,7 +2021,13 @@ export default function AdminAppearance() {
                                     <Button 
                                       variant="outline" 
                                       size="sm"
-                                      onClick={() => document.execCommand('redo', false)}
+                                      onClick={() => {
+                                        const editableDiv = document.querySelector('[contenteditable="true"]');
+                                        if (editableDiv) {
+                                          editableDiv.focus();
+                                          document.execCommand('redo', false);
+                                        }
+                                      }}
                                       className="h-8 w-8 p-0"
                                       title="Refaire"
                                     >
@@ -1987,7 +2039,20 @@ export default function AdminAppearance() {
                                     <Button 
                                       variant="outline" 
                                       size="sm"
-                                      onClick={() => document.execCommand('bold', false)}
+                                      onClick={() => {
+                                        const selection = window.getSelection();
+                                        if (selection?.rangeCount) {
+                                          const range = selection.getRangeAt(0);
+                                          const strong = document.createElement('strong');
+                                          try {
+                                            range.surroundContents(strong);
+                                          } catch {
+                                            strong.textContent = range.toString();
+                                            range.deleteContents();
+                                            range.insertNode(strong);
+                                          }
+                                        }
+                                      }}
                                       className="h-8 w-8 p-0"
                                       title="Gras (style Flame BB)"
                                     >
@@ -2077,14 +2142,16 @@ export default function AdminAppearance() {
                                         const selection = window.getSelection();
                                         if (selection?.rangeCount) {
                                           const range = selection.getRangeAt(0);
-                                          const p = document.createElement('p');
-                                          p.style.marginBottom = '1rem';
-                                          try {
-                                            range.surroundContents(p);
-                                          } catch {
-                                            p.textContent = range.toString();
+                                          const selectedElement = range.commonAncestorContainer.nodeType === Node.TEXT_NODE 
+                                            ? range.commonAncestorContainer.parentElement 
+                                            : range.commonAncestorContainer;
+                                          
+                                          // Remove formatting from selection
+                                          if (selectedElement && selectedElement !== selectedElement.closest('[contenteditable]')) {
+                                            const textContent = range.toString();
+                                            const textNode = document.createTextNode(textContent);
                                             range.deleteContents();
-                                            range.insertNode(p);
+                                            range.insertNode(textNode);
                                           }
                                         }
                                       }}
@@ -2108,7 +2175,7 @@ export default function AdminAppearance() {
                                       />
                                       <Input 
                                         defaultValue="#000000" 
-                                        className="w-20 h-8 text-xs color-ref" 
+                                        className="w-24 h-8 text-xs color-ref" 
                                         onChange={(e) => {
                                           const colorPicker = e.target.parentElement?.querySelector('input[type="color"]') as HTMLInputElement;
                                           if (colorPicker && /^#[0-9A-Fa-f]{6}$/.test(e.target.value)) {
@@ -2127,6 +2194,7 @@ export default function AdminAppearance() {
                                     suppressContentEditableWarning={true}
                                     className="p-6 min-h-[400px] outline-none focus:ring-2 focus:ring-blue-500 prose max-w-none"
                                     style={{ lineHeight: '1.6' }}
+                                    onInput={(e) => handleContentChange('privacyPolicy', e)}
                                     dangerouslySetInnerHTML={{
                                       __html: getDynamicContent('privacyPolicy')
                                     }}
@@ -2176,7 +2244,13 @@ export default function AdminAppearance() {
                                     <Button 
                                       variant="outline" 
                                       size="sm"
-                                      onClick={() => document.execCommand('undo', false)}
+                                      onClick={() => {
+                                        const editableDiv = document.querySelector('[contenteditable="true"]');
+                                        if (editableDiv) {
+                                          editableDiv.focus();
+                                          document.execCommand('undo', false);
+                                        }
+                                      }}
                                       className="h-8 w-8 p-0"
                                       title="Annuler"
                                     >
@@ -2185,7 +2259,13 @@ export default function AdminAppearance() {
                                     <Button 
                                       variant="outline" 
                                       size="sm"
-                                      onClick={() => document.execCommand('redo', false)}
+                                      onClick={() => {
+                                        const editableDiv = document.querySelector('[contenteditable="true"]');
+                                        if (editableDiv) {
+                                          editableDiv.focus();
+                                          document.execCommand('redo', false);
+                                        }
+                                      }}
                                       className="h-8 w-8 p-0"
                                       title="Refaire"
                                     >
@@ -2197,7 +2277,20 @@ export default function AdminAppearance() {
                                     <Button 
                                       variant="outline" 
                                       size="sm"
-                                      onClick={() => document.execCommand('bold', false)}
+                                      onClick={() => {
+                                        const selection = window.getSelection();
+                                        if (selection?.rangeCount) {
+                                          const range = selection.getRangeAt(0);
+                                          const strong = document.createElement('strong');
+                                          try {
+                                            range.surroundContents(strong);
+                                          } catch {
+                                            strong.textContent = range.toString();
+                                            range.deleteContents();
+                                            range.insertNode(strong);
+                                          }
+                                        }
+                                      }}
                                       className="h-8 w-8 p-0"
                                       title="Gras (style Flame BB)"
                                     >
@@ -2287,14 +2380,16 @@ export default function AdminAppearance() {
                                         const selection = window.getSelection();
                                         if (selection?.rangeCount) {
                                           const range = selection.getRangeAt(0);
-                                          const p = document.createElement('p');
-                                          p.style.marginBottom = '1rem';
-                                          try {
-                                            range.surroundContents(p);
-                                          } catch {
-                                            p.textContent = range.toString();
+                                          const selectedElement = range.commonAncestorContainer.nodeType === Node.TEXT_NODE 
+                                            ? range.commonAncestorContainer.parentElement 
+                                            : range.commonAncestorContainer;
+                                          
+                                          // Remove formatting from selection
+                                          if (selectedElement && selectedElement !== selectedElement.closest('[contenteditable]')) {
+                                            const textContent = range.toString();
+                                            const textNode = document.createTextNode(textContent);
                                             range.deleteContents();
-                                            range.insertNode(p);
+                                            range.insertNode(textNode);
                                           }
                                         }
                                       }}
@@ -2318,7 +2413,7 @@ export default function AdminAppearance() {
                                       />
                                       <Input 
                                         defaultValue="#000000" 
-                                        className="w-20 h-8 text-xs color-ref" 
+                                        className="w-24 h-8 text-xs color-ref" 
                                         onChange={(e) => {
                                           const colorPicker = e.target.parentElement?.querySelector('input[type="color"]') as HTMLInputElement;
                                           if (colorPicker && /^#[0-9A-Fa-f]{6}$/.test(e.target.value)) {
@@ -2337,6 +2432,7 @@ export default function AdminAppearance() {
                                     suppressContentEditableWarning={true}
                                     className="p-6 min-h-[400px] outline-none focus:ring-2 focus:ring-blue-500 prose max-w-none"
                                     style={{ lineHeight: '1.6' }}
+                                    onInput={(e) => handleContentChange('termsConditions', e)}
                                     dangerouslySetInnerHTML={{
                                       __html: getDynamicContent('termsConditions')
                                     }}
