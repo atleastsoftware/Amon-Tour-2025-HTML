@@ -111,7 +111,7 @@ function renderStylePreview(style: string, value: string): any {
     case 'address':
       return <div className="whitespace-pre-line">{value}</div>;
     case 'license_badge':
-      return <span className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs">{value}</span>;
+      return <span className="bg-secondary/20 text-white px-2 py-1 rounded-full text-xs">{value}</span>;
     case 'email':
       return <a href={`mailto:${value.replace(/^[^:]*:\s*/, '')}`} className="text-blue-600 underline">{value}</a>;
     case 'phone_with_title':
@@ -207,9 +207,6 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
                   placeholder="Label (for admin reference only)"
                   className="font-medium flex-1"
                 />
-                <Badge variant={getStyleBadgeVariant(item.style)}>
-                  {getStyleDisplayName(item.style)}
-                </Badge>
               </div>
               <div className="flex gap-1 ml-2">
                 <Button
@@ -253,14 +250,14 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="title">🏷️ Title (Bold)</SelectItem>
-                      <SelectItem value="text">📄 Text</SelectItem>
-                      <SelectItem value="address">🏠 Address</SelectItem>
-                      <SelectItem value="license_badge">🏅 License Badge</SelectItem>
-                      <SelectItem value="email">📧 Email</SelectItem>
-                      <SelectItem value="phone_with_title">📞 Phone w/ Title</SelectItem>
-                      <SelectItem value="whatsapp">💬 WhatsApp</SelectItem>
-                      <SelectItem value="line">📱 LINE ID</SelectItem>
+                      <SelectItem value="title">Title (Bold)</SelectItem>
+                      <SelectItem value="text">Text</SelectItem>
+                      <SelectItem value="address">Address</SelectItem>
+                      <SelectItem value="license_badge">License Badge</SelectItem>
+                      <SelectItem value="email">Email</SelectItem>
+                      <SelectItem value="phone_with_title">Phone w/ Title</SelectItem>
+                      <SelectItem value="whatsapp">WhatsApp</SelectItem>
+                      <SelectItem value="line">LINE ID</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -283,13 +280,6 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
                 </div>
               </div>
               
-              {/* Style Preview */}
-              <div className="bg-gray-50 p-3 rounded border-l-4 border-blue-500">
-                <Label className="text-xs text-gray-500 block mb-1">Preview on website:</Label>
-                <div className="text-sm">
-                  {renderStylePreview(item.style, item.value)}
-                </div>
-              </div>
             </div>
           </div>
         ))}
@@ -316,14 +306,14 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="title">🏷️ Title (Bold)</SelectItem>
-                  <SelectItem value="text">📄 Text</SelectItem>
-                  <SelectItem value="address">🏠 Address</SelectItem>
-                  <SelectItem value="license_badge">🏅 License Badge</SelectItem>
-                  <SelectItem value="email">📧 Email</SelectItem>
-                  <SelectItem value="phone_with_title">📞 Phone w/ Title</SelectItem>
-                  <SelectItem value="whatsapp">💬 WhatsApp</SelectItem>
-                  <SelectItem value="line">📱 LINE ID</SelectItem>
+                  <SelectItem value="title">Title (Bold)</SelectItem>
+                  <SelectItem value="text">Text</SelectItem>
+                  <SelectItem value="address">Address</SelectItem>
+                  <SelectItem value="license_badge">License Badge</SelectItem>
+                  <SelectItem value="email">Email</SelectItem>
+                  <SelectItem value="phone_with_title">Phone w/ Title</SelectItem>
+                  <SelectItem value="whatsapp">WhatsApp</SelectItem>
+                  <SelectItem value="line">LINE ID</SelectItem>
                 </SelectContent>
               </Select>
             </div>
