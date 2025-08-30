@@ -488,3 +488,98 @@ export type StaticPage = typeof staticPages.$inferSelect;
 
 export type InsertMediaLibrary = z.infer<typeof insertMediaLibrarySchema>;
 export type MediaLibrary = typeof mediaLibrary.$inferSelect;
+
+// Modular Page Builder System
+export const blockTypeEnum = pgEnum("block_type", [
+  "hero",          // Header/Hero avec image, titre, description, bouton optionnel
+  "text_image",    // Section texte + image
+  "advantages",    // Grille d'avantages avec icônes
+  "card_grid",     // Grille de cartes (tours, activités, etc.)
+  "form",          // Formulaires (custom tour, celebration, etc.)
+  "pdf_download",  // Téléchargement de PDF
+  "search_module", // Module de recherche
+  "gallery",       // Galerie d'images
+  "contact_info",  // Informations de contact
+  "interests",     // Section intérêts/destinations
+  "video_hero"     // Hero avec vidéo de fond
+]);
+
+// Configuration des pages
+export const pageConfigurations = pgTable("page_configurations", {
+  id: serial("id").primaryKey(),
+  pageSlug: text("page_slug").notNull().unique(), // "home", "experiences", "custom-tour", etc.
+  pageName: text("page_name").notNull(), // "Accueil", "Expériences", etc.
+  pageType: text("page_type").notNull(), // "main" ou "secondary"
+  isActive: boolean("is_active").default(true),
+  seoTitle: text("seo_title"),
+  seoDescription: text("seo_description"),
+  seoKeywords: text("seo_keywords"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Blocs de page individuels
+export const pageBlocks = pgTable("page_blocks", {
+  id: serial("id").primaryKey(),
+  pageId: integer("page_id").notNull().references(() => pageConfigurations.id, { onDelete: "cascade" }),
+  blockType: blockTypeEnum("block_type").notNull(),
+  blockOrder: integer("block_order").notNull().default(0),
+  identifier: text("identifier").notNull(), // "hero", "why_choose_us", etc.
+  title: text("title"),
+  subtitle: text("subtitle"),
+  description: text("description"),
+  content: text("content"), // Contenu HTML/Markdown
+  imageUrl: text("image_url"),
+  imageAlt: text("image_alt"),
+  ctaText: text("cta_text"),
+  ctaUrl: text("cta_url"),
+  ctaStyle: text("cta_style").default("primary"), // "primary", "secondary", "outline"
+  iconName: text("icon_name"), // Nom de l'icône Lucide
+  backgroundColor: text("background_color").default("white"),
+  configuration: json("configuration").$type<Record<string, any>>().default({}), // Config spécifique au bloc
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => ({
+  pageBlockOrderIdx: index("page_blocks_page_order_idx").on(table.pageId, table.blockOrder),
+}));
+
+// Templates de blocs réutilisables
+export const blockTemplates = pgTable("block_templates", {
+  id: serial("id").primaryKey(),
+  templateName: text("template_name").notNull().unique(),
+  blockType: blockTypeEnum("block_type").notNull(),
+  defaultConfiguration: json("default_configuration").$type<Record<string, any>>().default({}),
+  previewImage: text("preview_image"),
+  description: text("description"),
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+// Schemas pour les nouvelles tables
+export const insertPageConfigurationSchema = createInsertSchema(pageConfigurations).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertPageBlockSchema = createInsertSchema(pageBlocks).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertBlockTemplateSchema = createInsertSchema(blockTemplates).omit({
+  id: true,
+  createdAt: true,
+});
+
+// Types
+export type InsertPageConfiguration = z.infer<typeof insertPageConfigurationSchema>;
+export type PageConfiguration = typeof pageConfigurations.$inferSelect;
+
+export type InsertPageBlock = z.infer<typeof insertPageBlockSchema>;
+export type PageBlock = typeof pageBlocks.$inferSelect;
+
+export type InsertBlockTemplate = z.infer<typeof insertBlockTemplateSchema>;
+export type BlockTemplate = typeof blockTemplates.$inferSelect;

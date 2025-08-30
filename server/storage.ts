@@ -19,6 +19,9 @@ import {
   contentBlocks,
   staticPages,
   mediaLibrary,
+  pageConfigurations,
+  pageBlocks,
+  blockTemplates,
   type User,
   type InsertUser,
   type Tour,
@@ -58,6 +61,12 @@ import {
   type InsertStaticPage,
   type MediaLibrary,
   type InsertMediaLibrary,
+  type PageConfiguration,
+  type InsertPageConfiguration,
+  type PageBlock,
+  type InsertPageBlock,
+  type BlockTemplate,
+  type InsertBlockTemplate,
 } from "@shared/schema";
 import fs from "fs";
 import path from "path";
@@ -215,6 +224,27 @@ export interface IStorage {
   updateMediaLibraryItem(id: number, data: Partial<InsertMediaLibrary>): Promise<MediaLibrary | undefined>;
   deleteMediaLibraryItem(id: number): Promise<boolean>;
   markMediaAsUsed(id: number, isUsed: boolean): Promise<MediaLibrary | undefined>;
+  
+  // Page Configuration operations
+  getPageConfigurations(): Promise<PageConfiguration[]>;
+  getPageConfiguration(slug: string): Promise<PageConfiguration | undefined>;
+  createPageConfiguration(config: InsertPageConfiguration): Promise<PageConfiguration>;
+  updatePageConfiguration(id: number, data: Partial<InsertPageConfiguration>): Promise<PageConfiguration | undefined>;
+  
+  // Page Blocks operations
+  getPageBlocks(pageId: number): Promise<PageBlock[]>;
+  getPageBlocksBySlug(pageSlug: string): Promise<PageBlock[]>;
+  createPageBlock(block: InsertPageBlock): Promise<PageBlock>;
+  updatePageBlock(id: number, data: Partial<InsertPageBlock>): Promise<PageBlock | undefined>;
+  deletePageBlock(id: number): Promise<boolean>;
+  reorderPageBlocks(pageId: number, blockOrders: { blockId: number; order: number }[]): Promise<boolean>;
+  
+  // Block Templates operations
+  getBlockTemplates(): Promise<BlockTemplate[]>;
+  getBlockTemplate(id: number): Promise<BlockTemplate | undefined>;
+  createBlockTemplate(template: InsertBlockTemplate): Promise<BlockTemplate>;
+  updateBlockTemplate(id: number, data: Partial<InsertBlockTemplate>): Promise<BlockTemplate | undefined>;
+  deleteBlockTemplate(id: number): Promise<boolean>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -1483,6 +1513,148 @@ export class DatabaseStorage implements IStorage {
       .where(eq(mediaLibrary.id, id))
       .returning();
     return updated || undefined;
+  }
+
+  // Page Configuration operations
+  async getPageConfigurations(): Promise<PageConfiguration[]> {
+    return db.select().from(pageConfigurations).orderBy(asc(pageConfigurations.pageType), asc(pageConfigurations.pageName));
+  }
+
+  async getPageConfiguration(slug: string): Promise<PageConfiguration | undefined> {
+    const [config] = await db
+      .select()
+      .from(pageConfigurations)
+      .where(eq(pageConfigurations.pageSlug, slug));
+    return config || undefined;
+  }
+
+  async createPageConfiguration(config: InsertPageConfiguration): Promise<PageConfiguration> {
+    const [created] = await db
+      .insert(pageConfigurations)
+      .values({
+        ...config,
+        updatedAt: new Date()
+      })
+      .returning();
+    return created;
+  }
+
+  async updatePageConfiguration(id: number, data: Partial<InsertPageConfiguration>): Promise<PageConfiguration | undefined> {
+    const [updated] = await db
+      .update(pageConfigurations)
+      .set({
+        ...data,
+        updatedAt: new Date()
+      })
+      .where(eq(pageConfigurations.id, id))
+      .returning();
+    return updated || undefined;
+  }
+
+  // Page Blocks operations
+  async getPageBlocks(pageId: number): Promise<PageBlock[]> {
+    return db.select()
+      .from(pageBlocks)
+      .where(and(eq(pageBlocks.pageId, pageId), eq(pageBlocks.isActive, true)))
+      .orderBy(asc(pageBlocks.blockOrder));
+  }
+
+  async getPageBlocksBySlug(pageSlug: string): Promise<PageBlock[]> {
+    const config = await this.getPageConfiguration(pageSlug);
+    if (!config) return [];
+    return this.getPageBlocks(config.id);
+  }
+
+  async createPageBlock(block: InsertPageBlock): Promise<PageBlock> {
+    const [created] = await db
+      .insert(pageBlocks)
+      .values({
+        ...block,
+        updatedAt: new Date()
+      })
+      .returning();
+    return created;
+  }
+
+  async updatePageBlock(id: number, data: Partial<InsertPageBlock>): Promise<PageBlock | undefined> {
+    const [updated] = await db
+      .update(pageBlocks)
+      .set({
+        ...data,
+        updatedAt: new Date()
+      })
+      .where(eq(pageBlocks.id, id))
+      .returning();
+    return updated || undefined;
+  }
+
+  async deletePageBlock(id: number): Promise<boolean> {
+    const result = await db
+      .delete(pageBlocks)
+      .where(eq(pageBlocks.id, id))
+      .returning({ id: pageBlocks.id });
+    return result.length > 0;
+  }
+
+  async reorderPageBlocks(pageId: number, blockOrders: { blockId: number; order: number }[]): Promise<boolean> {
+    try {
+      await db.transaction(async (tx) => {
+        for (const { blockId, order } of blockOrders) {
+          await tx
+            .update(pageBlocks)
+            .set({ 
+              blockOrder: order,
+              updatedAt: new Date()
+            })
+            .where(and(eq(pageBlocks.id, blockId), eq(pageBlocks.pageId, pageId)));
+        }
+      });
+      return true;
+    } catch (error) {
+      console.error('Error reordering page blocks:', error);
+      return false;
+    }
+  }
+
+  // Block Templates operations
+  async getBlockTemplates(): Promise<BlockTemplate[]> {
+    return db.select()
+      .from(blockTemplates)
+      .where(eq(blockTemplates.isActive, true))
+      .orderBy(asc(blockTemplates.templateName));
+  }
+
+  async getBlockTemplate(id: number): Promise<BlockTemplate | undefined> {
+    const [template] = await db
+      .select()
+      .from(blockTemplates)
+      .where(eq(blockTemplates.id, id));
+    return template || undefined;
+  }
+
+  async createBlockTemplate(template: InsertBlockTemplate): Promise<BlockTemplate> {
+    const [created] = await db
+      .insert(blockTemplates)
+      .values(template)
+      .returning();
+    return created;
+  }
+
+  async updateBlockTemplate(id: number, data: Partial<InsertBlockTemplate>): Promise<BlockTemplate | undefined> {
+    const [updated] = await db
+      .update(blockTemplates)
+      .set(data)
+      .where(eq(blockTemplates.id, id))
+      .returning();
+    return updated || undefined;
+  }
+
+  async deleteBlockTemplate(id: number): Promise<boolean> {
+    const result = await db
+      .delete(blockTemplates)
+      .where(eq(blockTemplates.id, id))
+      .returning({ id: blockTemplates.id });
+    return result.length > 0;
   }
 }
 

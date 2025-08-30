@@ -21,6 +21,9 @@ import {
   insertContentBlockSchema,
   insertStaticPageSchema,
   insertMediaLibrarySchema,
+  insertPageConfigurationSchema,
+  insertPageBlockSchema,
+  insertBlockTemplateSchema,
 } from "@shared/schema";
 import { createPaymentIntent, createOrRetrieveCustomer } from "./stripe";
 import { upload, getPublicFileUrl } from "./upload";
@@ -2427,6 +2430,201 @@ Crawl-delay: 1`;
     } catch (error) {
       console.error("Error fetching public static page:", error);
       res.status(500).json({ message: "Failed to fetch static page", error: String(error) });
+    }
+  });
+
+  // Page Builder API Routes
+  
+  // Page configurations
+  app.get("/api/admin/page-configurations", requireAuth, async (req, res) => {
+    try {
+      const configs = await storage.getPageConfigurations();
+      res.json(configs);
+    } catch (error) {
+      console.error("Error fetching page configurations:", error);
+      res.status(500).json({ message: "Failed to fetch page configurations", error: String(error) });
+    }
+  });
+
+  app.get("/api/admin/page-configurations/:slug", requireAuth, async (req, res) => {
+    try {
+      const { slug } = req.params;
+      const config = await storage.getPageConfiguration(slug);
+      if (!config) {
+        return res.status(404).json({ message: "Page configuration not found" });
+      }
+      res.json(config);
+    } catch (error) {
+      console.error("Error fetching page configuration:", error);
+      res.status(500).json({ message: "Failed to fetch page configuration", error: String(error) });
+    }
+  });
+
+  app.post("/api/admin/page-configurations", requireAuth, async (req, res) => {
+    try {
+      const validatedData = insertPageConfigurationSchema.parse(req.body);
+      const config = await storage.createPageConfiguration(validatedData);
+      res.status(201).json(config);
+    } catch (error) {
+      console.error("Error creating page configuration:", error);
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Validation error", errors: error.errors });
+      }
+      res.status(500).json({ message: "Failed to create page configuration", error: String(error) });
+    }
+  });
+
+  app.put("/api/admin/page-configurations/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid page configuration ID" });
+      }
+
+      const validatedData = insertPageConfigurationSchema.partial().parse(req.body);
+      const config = await storage.updatePageConfiguration(id, validatedData);
+      
+      if (!config) {
+        return res.status(404).json({ message: "Page configuration not found" });
+      }
+
+      res.json(config);
+    } catch (error) {
+      console.error("Error updating page configuration:", error);
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Validation error", errors: error.errors });
+      }
+      res.status(500).json({ message: "Failed to update page configuration", error: String(error) });
+    }
+  });
+
+  // Page blocks
+  app.get("/api/admin/page-blocks/:pageSlug", requireAuth, async (req, res) => {
+    try {
+      const { pageSlug } = req.params;
+      const blocks = await storage.getPageBlocksBySlug(pageSlug);
+      res.json(blocks);
+    } catch (error) {
+      console.error("Error fetching page blocks:", error);
+      res.status(500).json({ message: "Failed to fetch page blocks", error: String(error) });
+    }
+  });
+
+  app.post("/api/admin/page-blocks", requireAuth, async (req, res) => {
+    try {
+      const validatedData = insertPageBlockSchema.parse(req.body);
+      const block = await storage.createPageBlock(validatedData);
+      res.status(201).json(block);
+    } catch (error) {
+      console.error("Error creating page block:", error);
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Validation error", errors: error.errors });
+      }
+      res.status(500).json({ message: "Failed to create page block", error: String(error) });
+    }
+  });
+
+  app.put("/api/admin/page-blocks/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid page block ID" });
+      }
+
+      const validatedData = insertPageBlockSchema.partial().parse(req.body);
+      const block = await storage.updatePageBlock(id, validatedData);
+      
+      if (!block) {
+        return res.status(404).json({ message: "Page block not found" });
+      }
+
+      res.json(block);
+    } catch (error) {
+      console.error("Error updating page block:", error);
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Validation error", errors: error.errors });
+      }
+      res.status(500).json({ message: "Failed to update page block", error: String(error) });
+    }
+  });
+
+  app.delete("/api/admin/page-blocks/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid page block ID" });
+      }
+
+      const deleted = await storage.deletePageBlock(id);
+      if (!deleted) {
+        return res.status(404).json({ message: "Page block not found" });
+      }
+
+      res.json({ message: "Page block deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting page block:", error);
+      res.status(500).json({ message: "Failed to delete page block", error: String(error) });
+    }
+  });
+
+  app.put("/api/admin/page-blocks/:pageId/reorder", requireAuth, async (req, res) => {
+    try {
+      const pageId = parseInt(req.params.pageId);
+      if (isNaN(pageId)) {
+        return res.status(400).json({ message: "Invalid page ID" });
+      }
+
+      const { blockOrders } = req.body;
+      if (!Array.isArray(blockOrders)) {
+        return res.status(400).json({ message: "Block orders must be an array" });
+      }
+
+      const success = await storage.reorderPageBlocks(pageId, blockOrders);
+      if (!success) {
+        return res.status(500).json({ message: "Failed to reorder blocks" });
+      }
+
+      res.json({ message: "Blocks reordered successfully" });
+    } catch (error) {
+      console.error("Error reordering page blocks:", error);
+      res.status(500).json({ message: "Failed to reorder page blocks", error: String(error) });
+    }
+  });
+
+  // Block templates
+  app.get("/api/admin/block-templates", requireAuth, async (req, res) => {
+    try {
+      const templates = await storage.getBlockTemplates();
+      res.json(templates);
+    } catch (error) {
+      console.error("Error fetching block templates:", error);
+      res.status(500).json({ message: "Failed to fetch block templates", error: String(error) });
+    }
+  });
+
+  app.post("/api/admin/block-templates", requireAuth, async (req, res) => {
+    try {
+      const validatedData = insertBlockTemplateSchema.parse(req.body);
+      const template = await storage.createBlockTemplate(validatedData);
+      res.status(201).json(template);
+    } catch (error) {
+      console.error("Error creating block template:", error);
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Validation error", errors: error.errors });
+      }
+      res.status(500).json({ message: "Failed to create block template", error: String(error) });
+    }
+  });
+
+  // Public API pour récupérer les blocs d'une page
+  app.get("/api/page-blocks/:pageSlug", async (req, res) => {
+    try {
+      const { pageSlug } = req.params;
+      const blocks = await storage.getPageBlocksBySlug(pageSlug);
+      res.json(blocks);
+    } catch (error) {
+      console.error("Error fetching public page blocks:", error);
+      res.status(500).json({ message: "Failed to fetch page blocks", error: String(error) });
     }
   });
 
