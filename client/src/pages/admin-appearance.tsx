@@ -1207,49 +1207,49 @@ export default function AdminAppearance() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4">
+    <div className="min-h-screen bg-gray-50 p-2 sm:p-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900 mb-2 flex items-center gap-3">
-                <Palette className="h-7 w-7 text-blue-600" />
-                Site Appearance Management
+        <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 mb-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:justify-between">
+            <div className="w-full sm:w-auto">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2 sm:gap-3">
+                <Palette className="h-6 w-6 sm:h-7 sm:w-7 text-blue-600 flex-shrink-0" />
+                <span className="truncate">Site Appearance</span>
               </h1>
-              <p className="text-gray-600">Customize your website theme, pages, and footer</p>
+              <p className="text-sm sm:text-base text-gray-600">Customize your website theme, pages, and footer</p>
             </div>
             <Button 
               variant="outline" 
               onClick={() => setLocation('/admin')}
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 w-full sm:w-auto"
             >
               <ArrowLeft className="w-4 h-4" />
-              Back to Admin
+              <span>Back to Admin</span>
             </Button>
           </div>
         </div>
 
         {/* Main Navigation */}
         <Tabs value={activeCategory} onValueChange={setActiveCategory} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="theme" className="flex items-center gap-2">
-              <Palette className="w-4 h-4" />
-              Theme
+          <TabsList className="grid w-full grid-cols-3 h-auto">
+            <TabsTrigger value="theme" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 sm:p-3 text-xs sm:text-sm">
+              <Palette className="w-4 h-4 flex-shrink-0" />
+              <span>Theme</span>
             </TabsTrigger>
-            <TabsTrigger value="pages" className="flex items-center gap-2">
-              <Layout className="w-4 h-4" />
-              Pages
+            <TabsTrigger value="pages" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 sm:p-3 text-xs sm:text-sm">
+              <Layout className="w-4 h-4 flex-shrink-0" />
+              <span>Pages</span>
             </TabsTrigger>
-            <TabsTrigger value="footer" className="flex items-center gap-2">
-              <Settings className="w-4 h-4" />
-              Footer
+            <TabsTrigger value="footer" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 sm:p-3 text-xs sm:text-sm">
+              <Settings className="w-4 h-4 flex-shrink-0" />
+              <span>Footer</span>
             </TabsTrigger>
           </TabsList>
 
           {/* Theme Management */}
           <TabsContent value="theme">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
               {/* Colors */}
               <Card>
                 <CardHeader>
@@ -1262,7 +1262,7 @@ export default function AdminAppearance() {
                 <CardContent className="space-y-4">
                   <div>
                     <Label htmlFor="primary-color">Primary Color</Label>
-                    <div className="flex items-center gap-3 mt-2">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 mt-2">
                       <Input
                         id="primary-color"
                         type="color"
@@ -1279,7 +1279,7 @@ export default function AdminAppearance() {
                   </div>
                   <div>
                     <Label htmlFor="secondary-color">Secondary Color</Label>
-                    <div className="flex items-center gap-3 mt-2">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 mt-2">
                       <Input
                         id="secondary-color"
                         type="color"
@@ -1922,7 +1922,7 @@ export default function AdminAppearance() {
 
           {/* Pages Management */}
           <TabsContent value="pages">
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 sm:gap-6">
               {/* Page Selector */}
               <Card className="lg:col-span-1">
                 <CardHeader>
@@ -2085,7 +2085,7 @@ export default function AdminAppearance() {
 
           {/* Footer Management */}
           <TabsContent value="footer">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
               {/* Contact Information */}
               <ContactInfoManager
                 siteSettings={siteSettings}
