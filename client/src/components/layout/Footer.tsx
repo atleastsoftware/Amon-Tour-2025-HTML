@@ -141,10 +141,16 @@ export default function Footer() {
     staleTime: 5 * 60 * 1000 // 5 minutes
   });
   
-  const contactInfo = siteSettings?.find((s: any) => s.key === 'footer_contact_info')?.value || [];
-  const usefulLinks = siteSettings?.find((s: any) => s.key === 'footer_useful_links')?.value || [];
-  const socialMedia = siteSettings?.find((s: any) => s.key === 'footer_social_media')?.value || [];
-  const newsletterConfig = siteSettings?.find((s: any) => s.key === 'footer_newsletter')?.value || {};
+  // Parse JSON data from database safely
+  const contactInfoRaw = Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.key === 'footer_contact_info')?.value : null;
+  const usefulLinksRaw = Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.key === 'footer_useful_links')?.value : null;
+  const socialMediaRaw = Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.key === 'footer_social_media')?.value : null;
+  const newsletterConfigRaw = Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.key === 'footer_newsletter')?.value : null;
+  
+  const contactInfo = contactInfoRaw ? (typeof contactInfoRaw === 'string' ? JSON.parse(contactInfoRaw) : contactInfoRaw) : [];
+  const usefulLinks = usefulLinksRaw ? (typeof usefulLinksRaw === 'string' ? JSON.parse(usefulLinksRaw) : usefulLinksRaw) : [];
+  const socialMedia = socialMediaRaw ? (typeof socialMediaRaw === 'string' ? JSON.parse(socialMediaRaw) : socialMediaRaw) : [];
+  const newsletterConfig = newsletterConfigRaw ? (typeof newsletterConfigRaw === 'string' ? JSON.parse(newsletterConfigRaw) : newsletterConfigRaw) : {};
   
   return (
     <footer className="bg-black text-white pt-8 pb-4">
