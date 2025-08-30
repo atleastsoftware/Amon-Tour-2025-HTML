@@ -59,6 +59,680 @@ interface SiteSetting {
   isActive: boolean;
 }
 
+// Dynamic Footer Management Components
+function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSettingMutation }: any) {
+  const getContactInfo = () => {
+    const setting = siteSettings.find((s: any) => s.section === 'footer' && s.key === 'contact_info');
+    if (setting?.value) {
+      try {
+        return JSON.parse(setting.value);
+      } catch (e) {
+        return [];
+      }
+    }
+    return [
+      { label: 'Company Name', value: 'Flame BB Co., Ltd. (Amon Tour)', type: 'text' },
+      { label: 'Address', value: '242 Moo1 Tombol Ao Nang\n81180 Krabi, Thailand', type: 'textarea' },
+      { label: 'Email', value: 'info@amon-tour.com', type: 'email' },
+      { label: 'Operations Manager', value: '+66 (0)6 2574 8788', type: 'tel' },
+      { label: 'Travel Advisor', value: '+66 (0)8 0463 4691', type: 'tel' },
+      { label: 'WhatsApp', value: '+66 65 349 6445', type: 'tel' },
+      { label: 'LINE ID', value: 'amontour', type: 'text' }
+    ];
+  };
+
+  const [contactInfo, setContactInfo] = useState(getContactInfo());
+  const [newItem, setNewItem] = useState({ label: '', value: '', type: 'text' });
+  const [editingIndex, setEditingIndex] = useState<number | null>(null);
+
+  const saveContactInfo = (newData: any[]) => {
+    setContactInfo(newData);
+    updateSiteSetting('footer', 'contact_info', JSON.stringify(newData));
+  };
+
+  const addContactInfo = () => {
+    if (newItem.label && newItem.value) {
+      const updated = [...contactInfo, newItem];
+      saveContactInfo(updated);
+      setNewItem({ label: '', value: '', type: 'text' });
+    }
+  };
+
+  const updateContactInfo = (index: number, field: string, value: string) => {
+    const updated = contactInfo.map((item: any, i: number) => 
+      i === index ? { ...item, [field]: value } : item
+    );
+    saveContactInfo(updated);
+  };
+
+  const deleteContactInfo = (index: number) => {
+    const updated = contactInfo.filter((_: any, i: number) => i !== index);
+    saveContactInfo(updated);
+  };
+
+  const moveContactInfo = (index: number, direction: 'up' | 'down') => {
+    const newIndex = direction === 'up' ? index - 1 : index + 1;
+    if (newIndex >= 0 && newIndex < contactInfo.length) {
+      const updated = [...contactInfo];
+      [updated[index], updated[newIndex]] = [updated[newIndex], updated[index]];
+      saveContactInfo(updated);
+    }
+  };
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <MapPin className="w-5 h-5" />
+          Contact Information
+        </CardTitle>
+        <CardDescription>Manage footer contact details</CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        {contactInfo.map((item: any, index: number) => (
+          <div key={index} className="border p-4 rounded-lg space-y-3">
+            <div className="flex items-center justify-between">
+              <Input
+                value={item.label}
+                onChange={(e) => updateContactInfo(index, 'label', e.target.value)}
+                placeholder="Label"
+                className="font-medium"
+              />
+              <div className="flex gap-2">
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => moveContactInfo(index, 'up')}
+                  disabled={index === 0}
+                >
+                  ↑
+                </Button>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => moveContactInfo(index, 'down')}
+                  disabled={index === contactInfo.length - 1}
+                >
+                  ↓
+                </Button>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="text-red-600"
+                  onClick={() => deleteContactInfo(index)}
+                >
+                  <Trash2 className="w-4 h-4" />
+                </Button>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <Select
+                value={item.type}
+                onValueChange={(value) => updateContactInfo(index, 'type', value)}
+              >
+                <SelectTrigger className="w-32">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="text">Text</SelectItem>
+                  <SelectItem value="email">Email</SelectItem>
+                  <SelectItem value="tel">Phone</SelectItem>
+                  <SelectItem value="textarea">Multi-line</SelectItem>
+                </SelectContent>
+              </Select>
+              {item.type === 'textarea' ? (
+                <Textarea
+                  value={item.value}
+                  onChange={(e) => updateContactInfo(index, 'value', e.target.value)}
+                  placeholder="Value"
+                  className="flex-1"
+                />
+              ) : (
+                <Input
+                  type={item.type}
+                  value={item.value}
+                  onChange={(e) => updateContactInfo(index, 'value', e.target.value)}
+                  placeholder="Value"
+                  className="flex-1"
+                />
+              )}
+            </div>
+          </div>
+        ))}
+        
+        {/* Add New Contact Info */}
+        <div className="border-2 border-dashed border-gray-300 p-4 rounded-lg space-y-3">
+          <div className="flex gap-3">
+            <Input
+              value={newItem.label}
+              onChange={(e) => setNewItem(prev => ({ ...prev, label: e.target.value }))}
+              placeholder="Label (e.g., Phone)"
+              className="flex-1"
+            />
+            <Select
+              value={newItem.type}
+              onValueChange={(value) => setNewItem(prev => ({ ...prev, type: value }))}
+            >
+              <SelectTrigger className="w-32">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="text">Text</SelectItem>
+                <SelectItem value="email">Email</SelectItem>
+                <SelectItem value="tel">Phone</SelectItem>
+                <SelectItem value="textarea">Multi-line</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          {newItem.type === 'textarea' ? (
+            <Textarea
+              value={newItem.value}
+              onChange={(e) => setNewItem(prev => ({ ...prev, value: e.target.value }))}
+              placeholder="Value"
+            />
+          ) : (
+            <Input
+              type={newItem.type}
+              value={newItem.value}
+              onChange={(e) => setNewItem(prev => ({ ...prev, value: e.target.value }))}
+              placeholder="Value"
+            />
+          )}
+          <Button onClick={addContactInfo} disabled={!newItem.label || !newItem.value}>
+            <Plus className="w-4 h-4 mr-2" />
+            Add Contact Info
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+function UsefulLinksManager({ siteSettings, updateSiteSetting, updateSiteSettingMutation, availablePages }: any) {
+  const getUsefulLinks = () => {
+    const setting = siteSettings.find((s: any) => s.section === 'footer' && s.key === 'useful_links');
+    if (setting?.value) {
+      try {
+        return JSON.parse(setting.value);
+      } catch (e) {
+        return [];
+      }
+    }
+    return [
+      { label: 'Download Brochure', url: '/brochure', type: 'custom' },
+      { label: 'Krabi Celebration', url: '/krabi-celebration', type: 'custom' },
+      { label: 'Become Partner', url: '/become-partner', type: 'custom' },
+      { label: 'Group & Corporate', url: '/group-corporate', type: 'custom' }
+    ];
+  };
+
+  const [usefulLinks, setUsefulLinks] = useState(getUsefulLinks());
+  const [newLink, setNewLink] = useState({ label: '', url: '', type: 'page' });
+
+  const saveUsefulLinks = (newData: any[]) => {
+    setUsefulLinks(newData);
+    updateSiteSetting('footer', 'useful_links', JSON.stringify(newData));
+  };
+
+  const addUsefulLink = () => {
+    if (newLink.label && newLink.url) {
+      const updated = [...usefulLinks, newLink];
+      saveUsefulLinks(updated);
+      setNewLink({ label: '', url: '', type: 'page' });
+    }
+  };
+
+  const updateUsefulLink = (index: number, field: string, value: string) => {
+    const updated = usefulLinks.map((item: any, i: number) => 
+      i === index ? { ...item, [field]: value } : item
+    );
+    saveUsefulLinks(updated);
+  };
+
+  const deleteUsefulLink = (index: number) => {
+    const updated = usefulLinks.filter((_: any, i: number) => i !== index);
+    saveUsefulLinks(updated);
+  };
+
+  const moveUsefulLink = (index: number, direction: 'up' | 'down') => {
+    const newIndex = direction === 'up' ? index - 1 : index + 1;
+    if (newIndex >= 0 && newIndex < usefulLinks.length) {
+      const updated = [...usefulLinks];
+      [updated[index], updated[newIndex]] = [updated[newIndex], updated[index]];
+      saveUsefulLinks(updated);
+    }
+  };
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <FileText className="w-5 h-5" />
+          Useful Links
+        </CardTitle>
+        <CardDescription>Manage footer navigation links</CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        {usefulLinks.map((link: any, index: number) => (
+          <div key={index} className="border p-4 rounded-lg space-y-3">
+            <div className="flex items-center justify-between">
+              <Input
+                value={link.label}
+                onChange={(e) => updateUsefulLink(index, 'label', e.target.value)}
+                placeholder="Link Text"
+                className="font-medium"
+              />
+              <div className="flex gap-2">
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => moveUsefulLink(index, 'up')}
+                  disabled={index === 0}
+                >
+                  ↑
+                </Button>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => moveUsefulLink(index, 'down')}
+                  disabled={index === usefulLinks.length - 1}
+                >
+                  ↓
+                </Button>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="text-red-600"
+                  onClick={() => deleteUsefulLink(index)}
+                >
+                  <Trash2 className="w-4 h-4" />
+                </Button>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <Select
+                value={link.type}
+                onValueChange={(value) => updateUsefulLink(index, 'type', value)}
+              >
+                <SelectTrigger className="w-32">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="page">Page</SelectItem>
+                  <SelectItem value="custom">Custom URL</SelectItem>
+                </SelectContent>
+              </Select>
+              {link.type === 'page' ? (
+                <Select
+                  value={link.url}
+                  onValueChange={(value) => updateUsefulLink(index, 'url', value)}
+                >
+                  <SelectTrigger className="flex-1">
+                    <SelectValue placeholder="Select page" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {availablePages.map((page: any) => (
+                      <SelectItem key={page.slug} value={`/${page.slug}`}>
+                        {page.name}
+                      </SelectItem>
+                    ))}
+                    <SelectItem value="/brochure">Download Brochure</SelectItem>
+                    <SelectItem value="/krabi-celebration">Krabi Celebration</SelectItem>
+                    <SelectItem value="/become-partner">Become Partner</SelectItem>
+                    <SelectItem value="/group-corporate">Group & Corporate</SelectItem>
+                  </SelectContent>
+                </Select>
+              ) : (
+                <Input
+                  value={link.url}
+                  onChange={(e) => updateUsefulLink(index, 'url', e.target.value)}
+                  placeholder="URL"
+                  className="flex-1"
+                />
+              )}
+            </div>
+          </div>
+        ))}
+        
+        {/* Add New Link */}
+        <div className="border-2 border-dashed border-gray-300 p-4 rounded-lg space-y-3">
+          <Input
+            value={newLink.label}
+            onChange={(e) => setNewLink(prev => ({ ...prev, label: e.target.value }))}
+            placeholder="Link Text (e.g., Privacy Policy)"
+          />
+          <div className="flex gap-3">
+            <Select
+              value={newLink.type}
+              onValueChange={(value) => setNewLink(prev => ({ ...prev, type: value }))}
+            >
+              <SelectTrigger className="w-32">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="page">Page</SelectItem>
+                <SelectItem value="custom">Custom URL</SelectItem>
+              </SelectContent>
+            </Select>
+            {newLink.type === 'page' ? (
+              <Select
+                value={newLink.url}
+                onValueChange={(value) => setNewLink(prev => ({ ...prev, url: value }))}
+              >
+                <SelectTrigger className="flex-1">
+                  <SelectValue placeholder="Select page" />
+                </SelectTrigger>
+                <SelectContent>
+                  {availablePages.map((page: any) => (
+                    <SelectItem key={page.slug} value={`/${page.slug}`}>
+                      {page.name}
+                    </SelectItem>
+                  ))}
+                  <SelectItem value="/brochure">Download Brochure</SelectItem>
+                  <SelectItem value="/krabi-celebration">Krabi Celebration</SelectItem>
+                  <SelectItem value="/become-partner">Become Partner</SelectItem>
+                  <SelectItem value="/group-corporate">Group & Corporate</SelectItem>
+                </SelectContent>
+              </Select>
+            ) : (
+              <Input
+                value={newLink.url}
+                onChange={(e) => setNewLink(prev => ({ ...prev, url: e.target.value }))}
+                placeholder="URL"
+                className="flex-1"
+              />
+            )}
+          </div>
+          <Button onClick={addUsefulLink} disabled={!newLink.label || !newLink.url}>
+            <Plus className="w-4 h-4 mr-2" />
+            Add Link
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+function SocialMediaManager({ siteSettings, updateSiteSetting, updateSiteSettingMutation }: any) {
+  const getSocialMedia = () => {
+    const setting = siteSettings.find((s: any) => s.section === 'footer' && s.key === 'social_media');
+    if (setting?.value) {
+      try {
+        return JSON.parse(setting.value);
+      } catch (e) {
+        return [];
+      }
+    }
+    return [
+      { name: 'Facebook', url: 'https://web.facebook.com/amontourthailand', icon: 'facebook' },
+      { name: 'Instagram', url: 'https://www.instagram.com/amontourthailand/', icon: 'instagram' },
+      { name: 'YouTube', url: 'https://www.youtube.com/@amontour4949', icon: 'youtube' }
+    ];
+  };
+
+  const [socialMedia, setSocialMedia] = useState(getSocialMedia());
+  const [newSocial, setNewSocial] = useState({ name: '', url: '', icon: 'globe' });
+
+  const saveSocialMedia = (newData: any[]) => {
+    setSocialMedia(newData);
+    updateSiteSetting('footer', 'social_media', JSON.stringify(newData));
+  };
+
+  const addSocialMedia = () => {
+    if (newSocial.name && newSocial.url) {
+      const updated = [...socialMedia, newSocial];
+      saveSocialMedia(updated);
+      setNewSocial({ name: '', url: '', icon: 'globe' });
+    }
+  };
+
+  const updateSocialMedia = (index: number, field: string, value: string) => {
+    const updated = socialMedia.map((item: any, i: number) => 
+      i === index ? { ...item, [field]: value } : item
+    );
+    saveSocialMedia(updated);
+  };
+
+  const deleteSocialMedia = (index: number) => {
+    const updated = socialMedia.filter((_: any, i: number) => i !== index);
+    saveSocialMedia(updated);
+  };
+
+  const moveSocialMedia = (index: number, direction: 'up' | 'down') => {
+    const newIndex = direction === 'up' ? index - 1 : index + 1;
+    if (newIndex >= 0 && newIndex < socialMedia.length) {
+      const updated = [...socialMedia];
+      [updated[index], updated[newIndex]] = [updated[newIndex], updated[index]];
+      saveSocialMedia(updated);
+    }
+  };
+
+  const socialIcons = [
+    { value: 'facebook', label: 'Facebook' },
+    { value: 'instagram', label: 'Instagram' },
+    { value: 'youtube', label: 'YouTube' },
+    { value: 'twitter', label: 'Twitter' },
+    { value: 'linkedin', label: 'LinkedIn' },
+    { value: 'tiktok', label: 'TikTok' },
+    { value: 'globe', label: 'Website' }
+  ];
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <Users className="w-5 h-5" />
+          Social Media
+        </CardTitle>
+        <CardDescription>Manage social media links</CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        {socialMedia.map((social: any, index: number) => (
+          <div key={index} className="border p-4 rounded-lg space-y-3">
+            <div className="flex items-center justify-between">
+              <Input
+                value={social.name}
+                onChange={(e) => updateSocialMedia(index, 'name', e.target.value)}
+                placeholder="Platform Name"
+                className="font-medium"
+              />
+              <div className="flex gap-2">
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => moveSocialMedia(index, 'up')}
+                  disabled={index === 0}
+                >
+                  ↑
+                </Button>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => moveSocialMedia(index, 'down')}
+                  disabled={index === socialMedia.length - 1}
+                >
+                  ↓
+                </Button>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="text-red-600"
+                  onClick={() => deleteSocialMedia(index)}
+                >
+                  <Trash2 className="w-4 h-4" />
+                </Button>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <Select
+                value={social.icon}
+                onValueChange={(value) => updateSocialMedia(index, 'icon', value)}
+              >
+                <SelectTrigger className="w-32">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {socialIcons.map((icon) => (
+                    <SelectItem key={icon.value} value={icon.value}>
+                      {icon.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <Input
+                value={social.url}
+                onChange={(e) => updateSocialMedia(index, 'url', e.target.value)}
+                placeholder="URL"
+                className="flex-1"
+              />
+            </div>
+          </div>
+        ))}
+        
+        {/* Add New Social Media */}
+        <div className="border-2 border-dashed border-gray-300 p-4 rounded-lg space-y-3">
+          <Input
+            value={newSocial.name}
+            onChange={(e) => setNewSocial(prev => ({ ...prev, name: e.target.value }))}
+            placeholder="Platform Name (e.g., TikTok)"
+          />
+          <div className="flex gap-3">
+            <Select
+              value={newSocial.icon}
+              onValueChange={(value) => setNewSocial(prev => ({ ...prev, icon: value }))}
+            >
+              <SelectTrigger className="w-32">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {socialIcons.map((icon) => (
+                  <SelectItem key={icon.value} value={icon.value}>
+                    {icon.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Input
+              value={newSocial.url}
+              onChange={(e) => setNewSocial(prev => ({ ...prev, url: e.target.value }))}
+              placeholder="URL"
+              className="flex-1"
+            />
+          </div>
+          <Button onClick={addSocialMedia} disabled={!newSocial.name || !newSocial.url}>
+            <Plus className="w-4 h-4 mr-2" />
+            Add Social Media
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+function NewsletterManager({ siteSettings, updateSiteSetting, updateSiteSettingMutation }: any) {
+  const getNewsletterConfig = () => {
+    const setting = siteSettings.find((s: any) => s.section === 'footer' && s.key === 'newsletter_config');
+    if (setting?.value) {
+      try {
+        return JSON.parse(setting.value);
+      } catch (e) {
+        return {};
+      }
+    }
+    return {
+      title: 'Newsletter',
+      description: 'Subscribe to receive our special offers and travel tips.',
+      privacy: 'We respect your privacy. Unsubscribe at any time.',
+      buttonText: 'Subscribe',
+      placeholderText: 'Enter your email',
+      enabled: true
+    };
+  };
+
+  const [newsletterConfig, setNewsletterConfig] = useState(getNewsletterConfig());
+
+  const saveNewsletterConfig = (newData: any) => {
+    setNewsletterConfig(newData);
+    updateSiteSetting('footer', 'newsletter_config', JSON.stringify(newData));
+  };
+
+  const updateNewsletterConfig = (field: string, value: any) => {
+    const updated = { ...newsletterConfig, [field]: value };
+    saveNewsletterConfig(updated);
+  };
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <Mail className="w-5 h-5" />
+          Newsletter
+        </CardTitle>
+        <CardDescription>Configure newsletter section</CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <div className="flex items-center justify-between">
+          <Label>Enable Newsletter</Label>
+          <Switch
+            checked={newsletterConfig.enabled}
+            onCheckedChange={(checked) => updateNewsletterConfig('enabled', checked)}
+          />
+        </div>
+        
+        <div>
+          <Label htmlFor="newsletter-title">Title</Label>
+          <Input
+            id="newsletter-title"
+            value={newsletterConfig.title}
+            onChange={(e) => updateNewsletterConfig('title', e.target.value)}
+            placeholder="Newsletter"
+          />
+        </div>
+        
+        <div>
+          <Label htmlFor="newsletter-description">Description</Label>
+          <Textarea
+            id="newsletter-description"
+            value={newsletterConfig.description}
+            onChange={(e) => updateNewsletterConfig('description', e.target.value)}
+            placeholder="Subscribe to receive..."
+          />
+        </div>
+        
+        <div>
+          <Label htmlFor="newsletter-placeholder">Email Placeholder</Label>
+          <Input
+            id="newsletter-placeholder"
+            value={newsletterConfig.placeholderText}
+            onChange={(e) => updateNewsletterConfig('placeholderText', e.target.value)}
+            placeholder="Enter your email"
+          />
+        </div>
+        
+        <div>
+          <Label htmlFor="newsletter-button">Button Text</Label>
+          <Input
+            id="newsletter-button"
+            value={newsletterConfig.buttonText}
+            onChange={(e) => updateNewsletterConfig('buttonText', e.target.value)}
+            placeholder="Subscribe"
+          />
+        </div>
+        
+        <div>
+          <Label htmlFor="newsletter-privacy">Privacy Text</Label>
+          <Input
+            id="newsletter-privacy"
+            value={newsletterConfig.privacy}
+            onChange={(e) => updateNewsletterConfig('privacy', e.target.value)}
+            placeholder="We respect your privacy..."
+          />
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
 export default function AdminAppearance() {
   const [, setLocation] = useLocation();
   const [activeCategory, setActiveCategory] = useState<string>('theme');
@@ -673,192 +1347,33 @@ export default function AdminAppearance() {
           <TabsContent value="footer">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Contact Information */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <MapPin className="w-5 h-5" />
-                    Contact Information
-                  </CardTitle>
-                  <CardDescription>Manage footer contact details</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div>
-                    <Label htmlFor="company-name">Company Name</Label>
-                    <Input
-                      id="company-name"
-                      value={getSiteSetting('footer', 'company_name') || 'Flame BB Co., Ltd. (Amon Tour)'}
-                      onChange={(e) => updateSiteSetting('footer', 'company_name', e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="address">Address</Label>
-                    <Textarea
-                      id="address"
-                      value={getSiteSetting('footer', 'address') || '242 Moo1 Tombol Ao Nang\n81180 Krabi, Thailand'}
-                      onChange={(e) => updateSiteSetting('footer', 'address', e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="email">Email</Label>
-                    <Input
-                      id="email"
-                      value={getSiteSetting('footer', 'email') || 'info@amon-tour.com'}
-                      onChange={(e) => updateSiteSetting('footer', 'email', e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="phone-operations">Operations Manager Phone</Label>
-                    <Input
-                      id="phone-operations"
-                      value={getSiteSetting('footer', 'phone_operations') || '+66 (0)6 2574 8788'}
-                      onChange={(e) => updateSiteSetting('footer', 'phone_operations', e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="phone-advisor">Travel Advisor Phone</Label>
-                    <Input
-                      id="phone-advisor"
-                      value={getSiteSetting('footer', 'phone_advisor') || '+66 (0)8 0463 4691'}
-                      onChange={(e) => updateSiteSetting('footer', 'phone_advisor', e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="whatsapp">WhatsApp</Label>
-                    <Input
-                      id="whatsapp"
-                      value={getSiteSetting('footer', 'whatsapp') || '+66 65 349 6445'}
-                      onChange={(e) => updateSiteSetting('footer', 'whatsapp', e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="line-id">LINE ID</Label>
-                    <Input
-                      id="line-id"
-                      value={getSiteSetting('footer', 'line_id') || 'amontour'}
-                      onChange={(e) => updateSiteSetting('footer', 'line_id', e.target.value)}
-                    />
-                  </div>
-                </CardContent>
-              </Card>
+              <ContactInfoManager
+                siteSettings={siteSettings}
+                updateSiteSetting={updateSiteSetting}
+                updateSiteSettingMutation={updateSiteSettingMutation}
+              />
 
               {/* Useful Links */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <FileText className="w-5 h-5" />
-                    Useful Links
-                  </CardTitle>
-                  <CardDescription>Manage footer navigation links</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div>
-                    <Label htmlFor="brochure-link">Brochure Link</Label>
-                    <Input
-                      id="brochure-link"
-                      value={getSiteSetting('footer', 'brochure_link') || '/brochure'}
-                      onChange={(e) => updateSiteSetting('footer', 'brochure_link', e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="krabi-celebration-link">Krabi Celebration Link</Label>
-                    <Input
-                      id="krabi-celebration-link"
-                      value={getSiteSetting('footer', 'krabi_celebration_link') || '/krabi-celebration'}
-                      onChange={(e) => updateSiteSetting('footer', 'krabi_celebration_link', e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="partner-link">Partner Link</Label>
-                    <Input
-                      id="partner-link"
-                      value={getSiteSetting('footer', 'partner_link') || '/become-partner'}
-                      onChange={(e) => updateSiteSetting('footer', 'partner_link', e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="group-corporate-link">Group & Corporate Link</Label>
-                    <Input
-                      id="group-corporate-link"
-                      value={getSiteSetting('footer', 'group_corporate_link') || '/group-corporate'}
-                      onChange={(e) => updateSiteSetting('footer', 'group_corporate_link', e.target.value)}
-                    />
-                  </div>
-                </CardContent>
-              </Card>
+              <UsefulLinksManager
+                siteSettings={siteSettings}
+                updateSiteSetting={updateSiteSetting}
+                updateSiteSettingMutation={updateSiteSettingMutation}
+                availablePages={availablePages}
+              />
 
               {/* Social Media */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Users className="w-5 h-5" />
-                    Social Media
-                  </CardTitle>
-                  <CardDescription>Manage social media links</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div>
-                    <Label htmlFor="facebook-url">Facebook URL</Label>
-                    <Input
-                      id="facebook-url"
-                      value={getSiteSetting('footer', 'facebook_url') || 'https://web.facebook.com/amontourthailand'}
-                      onChange={(e) => updateSiteSetting('footer', 'facebook_url', e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="instagram-url">Instagram URL</Label>
-                    <Input
-                      id="instagram-url"
-                      value={getSiteSetting('footer', 'instagram_url') || 'https://www.instagram.com/amontourthailand/'}
-                      onChange={(e) => updateSiteSetting('footer', 'instagram_url', e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="youtube-url">YouTube URL</Label>
-                    <Input
-                      id="youtube-url"
-                      value={getSiteSetting('footer', 'youtube_url') || 'https://www.youtube.com/@amontour4949'}
-                      onChange={(e) => updateSiteSetting('footer', 'youtube_url', e.target.value)}
-                    />
-                  </div>
-                </CardContent>
-              </Card>
+              <SocialMediaManager
+                siteSettings={siteSettings}
+                updateSiteSetting={updateSiteSetting}
+                updateSiteSettingMutation={updateSiteSettingMutation}
+              />
 
               {/* Newsletter */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Mail className="w-5 h-5" />
-                    Newsletter
-                  </CardTitle>
-                  <CardDescription>Configure newsletter section</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div>
-                    <Label htmlFor="newsletter-title">Newsletter Title</Label>
-                    <Input
-                      id="newsletter-title"
-                      value={getSiteSetting('footer', 'newsletter_title') || 'Newsletter'}
-                      onChange={(e) => updateSiteSetting('footer', 'newsletter_title', e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="newsletter-description">Newsletter Description</Label>
-                    <Textarea
-                      id="newsletter-description"
-                      value={getSiteSetting('footer', 'newsletter_description') || 'Subscribe to receive our special offers and travel tips.'}
-                      onChange={(e) => updateSiteSetting('footer', 'newsletter_description', e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="newsletter-privacy">Privacy Text</Label>
-                    <Input
-                      id="newsletter-privacy"
-                      value={getSiteSetting('footer', 'newsletter_privacy') || 'We respect your privacy. Unsubscribe at any time.'}
-                      onChange={(e) => updateSiteSetting('footer', 'newsletter_privacy', e.target.value)}
-                    />
-                  </div>
-                </CardContent>
-              </Card>
+              <NewsletterManager
+                siteSettings={siteSettings}
+                updateSiteSetting={updateSiteSetting}
+                updateSiteSettingMutation={updateSiteSettingMutation}
+              />
             </div>
           </TabsContent>
         </Tabs>
