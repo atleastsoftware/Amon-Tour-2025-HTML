@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { FadeInWhenVisible, SlideUpWhenVisible, StaggerChildren, StaggerItem } from "@/components/ui/animations";
 import NewsletterSubscription from "@/components/newsletter/NewsletterSubscription";
 import logoA from "@/assets/logo-a.png";
+import { useQuery } from '@tanstack/react-query';
 import { 
   Facebook, 
   Instagram, 
@@ -12,7 +13,139 @@ import {
   Clock
 } from "lucide-react";
 
+// Helper function to render contact info based on style
+function renderContactInfo(item: any) {
+  const { style, value } = item;
+  
+  if (!value) return null;
+  
+  switch (style) {
+    case 'title':
+      return (
+        <p className="text-sm mb-3">
+          <strong>{value}</strong>
+        </p>
+      );
+    
+    case 'text':
+      return (
+        <p className="text-sm mb-3">
+          {value}
+        </p>
+      );
+    
+    case 'address':
+      return (
+        <p className="text-sm mb-3">
+          {value.split('\n').map((line: string, idx: number) => (
+            <span key={idx}>
+              {line}
+              {idx < value.split('\n').length - 1 && <br />}
+            </span>
+          ))}
+        </p>
+      );
+    
+    case 'license_badge':
+      return (
+        <p className="mb-3">
+          <span className="bg-secondary/20 text-white px-2 py-1 rounded-full text-xs">
+            {value}
+          </span>
+        </p>
+      );
+    
+    case 'email':
+      return (
+        <motion.div
+          className="space-y-1"
+          whileHover={{ y: -2 }}
+        >
+          <p>
+            <a 
+              href={`mailto:${value}`}
+              className="font-heading hover:text-secondary transition-colors"
+            >
+              {value}
+            </a>
+          </p>
+        </motion.div>
+      );
+    
+    case 'phone_with_title':
+      const phoneNumber = value.replace(/^[^:]*:\s*/, '').replace(/\s/g, '').replace(/\(0\)/g, '');
+      return (
+        <motion.div
+          className="space-y-1"
+          whileHover={{ y: -2 }}
+        >
+          <p>
+            <a 
+              href={`tel:${phoneNumber}`}
+              className="font-heading hover:text-secondary transition-colors"
+            >
+              {value}
+            </a>
+          </p>
+        </motion.div>
+      );
+    
+    case 'whatsapp':
+      const whatsappNumber = value.replace(/^[^:]*:\s*/, '').replace(/\s/g, '').replace(/\(0\)/g, '').replace(/^\+/, '');
+      return (
+        <motion.div
+          className="space-y-1"
+          whileHover={{ y: -2 }}
+        >
+          <p>
+            <a 
+              href={`https://wa.me/${whatsappNumber}`}
+              className="font-heading hover:text-secondary transition-colors"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i className="fab fa-whatsapp mr-1"></i> {value}
+            </a>
+          </p>
+        </motion.div>
+      );
+    
+    case 'line':
+      const lineId = value.replace(/^[^:]*:\s*/, '');
+      return (
+        <motion.div
+          className="space-y-1"
+          whileHover={{ y: -2 }}
+        >
+          <p>
+            <span className="font-heading">
+              <i className="fab fa-line mr-1"></i> {value}
+            </span>
+          </p>
+        </motion.div>
+      );
+    
+    default:
+      return (
+        <p className="text-sm mb-3">
+          {value}
+        </p>
+      );
+  }
+}
+
 export default function Footer() {
+  // Fetch dynamic footer content
+  const { data: siteSettings } = useQuery({
+    queryKey: ['/api/admin/site-settings'],
+    staleTime: 5 * 60 * 1000 // 5 minutes
+  });
+  
+  const contactInfo = siteSettings?.find((s: any) => s.key === 'footer_contact_info')?.value || [];
+  const usefulLinks = siteSettings?.find((s: any) => s.key === 'footer_useful_links')?.value || [];
+  const socialMedia = siteSettings?.find((s: any) => s.key === 'footer_social_media')?.value || [];
+  const newsletterConfig = siteSettings?.find((s: any) => s.key === 'footer_newsletter')?.value || {};
+  
   return (
     <footer className="bg-black text-white pt-8 pb-4">
       <div className="container mx-auto px-4">
@@ -39,100 +172,31 @@ export default function Footer() {
           <div>
             <h4 className="font-heading font-bold text-lg mb-3 text-center">Contact</h4>
             <div className="space-y-2 text-center">
-              <p className="text-sm mb-3">
-                <strong>Amon Tour is a brand of:</strong><br />
-                Flame BB Co., Ltd.<br />
-                242 Moo1 Tombol Ao Nang<br/>
-                81180 Krabi, Thailand
-              </p>
+              {/* Dynamic Contact Information */}
+              {contactInfo.map((item: any, index: number) => (
+                <div key={index}>
+                  {renderContactInfo(item)}
+                </div>
+              ))}
               
-              <p className="mb-3">
-                <span className="bg-secondary/20 text-white px-2 py-1 rounded-full text-xs">
-                  TAT License: 34/01995
-                </span>
-              </p>
-              
-              <motion.div 
-                className="space-y-1"
-                whileHover={{ y: -2 }}
-              >
-                <p>
-                  <a 
-                    href="mailto:info@amon-tour.com" 
-                    className="font-heading hover:text-secondary transition-colors"
-                  >
-                    info@amon-tour.com
-                  </a>
-                </p>
-                <p>
-                  <a 
-                    href="tel:+66625748788" 
-                    className="font-heading hover:text-secondary transition-colors"
-                  >
-                    Operations manager: +66 (0)6 2574 8788
-                  </a>
-                </p>
-                <p>
-                  <a 
-                    href="tel:+66804634691" 
-                    className="font-heading hover:text-secondary transition-colors"
-                  >
-                    Travel Advisor Manager: +66 (0)8 0463 4691
-                  </a>
-                </p>
-                <p>
-                  <a 
-                    href="https://wa.me/66653496445" 
-                    className="font-heading hover:text-secondary transition-colors"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <i className="fab fa-whatsapp mr-1"></i> WhatsApp: +66 65 349 6445
-                  </a>
-                </p>
-                <p>
-                  <span className="font-heading">
-                    <i className="fab fa-line mr-1"></i> Line ID: amontour
-                  </span>
-                </p>
-              </motion.div>
-              
+              {/* Social Media Links */}
               <motion.div 
                 className="flex justify-center space-x-4 mt-6"
               >
-                <motion.a 
-                  href="https://web.facebook.com/amontourthailand" 
-                  className="text-white hover:text-secondary transition-colors"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.9 }}
-                  aria-label="Facebook"
-                >
-                  <i className="fab fa-facebook-f"></i>
-                </motion.a>
-                <motion.a 
-                  href="https://www.instagram.com/amontourthailand/" 
-                  className="text-white hover:text-secondary transition-colors"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.9 }}
-                  aria-label="Instagram"
-                >
-                  <i className="fab fa-instagram"></i>
-                </motion.a>
-                <motion.a 
-                  href="https://www.youtube.com/@amontour4949" 
-                  className="text-white hover:text-secondary transition-colors"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.9 }}
-                  aria-label="YouTube"
-                >
-                  <i className="fab fa-youtube"></i>
-                </motion.a>
+                {socialMedia.map((social: any, index: number) => (
+                  <motion.a 
+                    key={index}
+                    href={social.url}
+                    className="text-white hover:text-secondary transition-colors"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.9 }}
+                    aria-label={social.name}
+                  >
+                    <i className={`fab fa-${social.icon}`}></i>
+                  </motion.a>
+                ))}
               </motion.div>
             </div>
           </div>
@@ -141,64 +205,38 @@ export default function Footer() {
           <div>
             <h4 className="font-heading font-bold text-lg mb-3 text-center">Useful Links</h4>
             <div className="flex flex-col items-center space-y-2">
-              <motion.a 
-                href="/brochure" 
-                className="font-heading hover:text-secondary transition-colors"
-                whileHover={{ y: -2 }}
-              >
-                Our brochure
-              </motion.a>
-              <motion.a 
-                href="/krabi-celebration" 
-                className="font-heading hover:text-secondary transition-colors"
-                whileHover={{ y: -2 }}
-              >
-                Krabi Celebration
-              </motion.a>
-              <motion.a 
-                href="https://www.facebook.com/thefungardenkrabi/" 
-                className="font-heading hover:text-secondary transition-colors"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ y: -2 }}
-              >
-                Fun Garden
-              </motion.a>
-              <motion.a 
-                href="/villas-krabi" 
-                className="font-heading hover:text-secondary transition-colors"
-                whileHover={{ y: -2 }}
-              >
-                Villas in Krabi
-              </motion.a>
-              <motion.a 
-                href="/become-partner" 
-                className="font-heading hover:text-secondary transition-colors"
-                whileHover={{ y: -2 }}
-              >
-                Become Partner
-              </motion.a>
-              <motion.a 
-                href="/group-corporate" 
-                className="font-heading hover:text-secondary transition-colors"
-                whileHover={{ y: -2 }}
-              >
-                Group & Corporate
-              </motion.a>
+              {usefulLinks.map((link: any, index: number) => (
+                <motion.a 
+                  key={index}
+                  href={link.url}
+                  className="font-heading hover:text-secondary transition-colors"
+                  {...(link.url.startsWith('http') ? {
+                    target: "_blank",
+                    rel: "noopener noreferrer"
+                  } : {})}
+                  whileHover={{ y: -2 }}
+                >
+                  {link.text}
+                </motion.a>
+              ))}
             </div>
           </div>
           
           {/* Newsletter Column */}
-          <div>
-            <h4 className="font-heading font-bold text-lg mb-3 text-center">Newsletter</h4>
-            <p className="font-heading text-center mb-3">
-              Subscribe to receive our special offers and travel tips.
-            </p>
-            <NewsletterSubscription />
-            <p className="font-heading text-center text-sm">
-              We respect your privacy. Unsubscribe at any time.
-            </p>
-          </div>
+          {newsletterConfig.enabled !== false && (
+            <div>
+              <h4 className="font-heading font-bold text-lg mb-3 text-center">
+                {newsletterConfig.title || 'Newsletter'}
+              </h4>
+              <p className="font-heading text-center mb-3">
+                {newsletterConfig.description || 'Subscribe to receive our special offers and travel tips.'}
+              </p>
+              <NewsletterSubscription />
+              <p className="font-heading text-center text-sm">
+                {newsletterConfig.privacyText || 'We respect your privacy. Unsubscribe at any time.'}
+              </p>
+            </div>
+          )}
         </div>
         
         {/* Copyright */}

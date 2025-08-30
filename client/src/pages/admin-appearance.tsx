@@ -59,6 +59,72 @@ interface SiteSetting {
   isActive: boolean;
 }
 
+// Helper functions for footer management
+function getPlaceholderForStyle(style: string): string {
+  switch (style) {
+    case 'title': return 'e.g., Amon Tour is a brand of:';
+    case 'text': return 'e.g., Flame BB Co., Ltd.';
+    case 'address': return 'e.g., 242 Moo1 Tombol Ao Nang\n81180 Krabi, Thailand';
+    case 'license_badge': return 'e.g., TAT License: 34/01995';
+    case 'email': return 'e.g., info@amon-tour.com';
+    case 'phone_with_title': return 'e.g., Operations manager: +66 (0)6 2574 8788';
+    case 'whatsapp': return 'e.g., WhatsApp: +66 65 349 6445';
+    case 'line': return 'e.g., Line ID: amontour';
+    default: return 'Enter value';
+  }
+}
+
+function getStyleDisplayName(style: string): string {
+  switch (style) {
+    case 'title': return 'Title';
+    case 'text': return 'Text';
+    case 'address': return 'Address';
+    case 'license_badge': return 'Badge';
+    case 'email': return 'Email';
+    case 'phone_with_title': return 'Phone';
+    case 'whatsapp': return 'WhatsApp';
+    case 'line': return 'LINE';
+    default: return style;
+  }
+}
+
+function getStyleBadgeVariant(style: string): "default" | "secondary" | "destructive" | "outline" {
+  switch (style) {
+    case 'title': return 'default';
+    case 'license_badge': return 'secondary';
+    case 'email': return 'outline';
+    case 'phone_with_title': return 'outline';
+    case 'whatsapp': return 'secondary';
+    case 'line': return 'secondary';
+    default: return 'outline';
+  }
+}
+
+function renderStylePreview(style: string, value: string): any {
+  if (!value) return <span className="text-gray-400">No content</span>;
+  
+  switch (style) {
+    case 'title':
+      return <strong>{value}</strong>;
+    case 'text':
+      return <span>{value}</span>;
+    case 'address':
+      return <div className="whitespace-pre-line">{value}</div>;
+    case 'license_badge':
+      return <span className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs">{value}</span>;
+    case 'email':
+      return <a href={`mailto:${value.replace(/^[^:]*:\s*/, '')}`} className="text-blue-600 underline">{value}</a>;
+    case 'phone_with_title':
+      return <a href={`tel:${value.replace(/^[^:]*:\s*/, '').replace(/\s/g, '')}`} className="text-blue-600">{value}</a>;
+    case 'whatsapp':
+      return <span><i className="fab fa-whatsapp"></i> {value}</span>;
+    case 'line':
+      return <span><i className="fab fa-line"></i> {value}</span>;
+    default:
+      return <span>{value}</span>;
+  }
+}
+
 // Dynamic Footer Management Components
 function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSettingMutation }: any) {
   const getContactInfo = () => {
@@ -71,18 +137,20 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
       }
     }
     return [
-      { label: 'Company Name', value: 'Flame BB Co., Ltd. (Amon Tour)', type: 'text' },
-      { label: 'Address', value: '242 Moo1 Tombol Ao Nang\n81180 Krabi, Thailand', type: 'textarea' },
-      { label: 'Email', value: 'info@amon-tour.com', type: 'email' },
-      { label: 'Operations Manager', value: '+66 (0)6 2574 8788', type: 'tel' },
-      { label: 'Travel Advisor', value: '+66 (0)8 0463 4691', type: 'tel' },
-      { label: 'WhatsApp', value: '+66 65 349 6445', type: 'tel' },
-      { label: 'LINE ID', value: 'amontour', type: 'text' }
+      { label: 'Brand Introduction', value: 'Amon Tour is a brand of:', style: 'title' },
+      { label: 'Company Name', value: 'Flame BB Co., Ltd.', style: 'text' },
+      { label: 'Address', value: '242 Moo1 Tombol Ao Nang\n81180 Krabi, Thailand', style: 'address' },
+      { label: 'TAT License', value: 'TAT License: 34/01995', style: 'license_badge' },
+      { label: 'Email', value: 'info@amon-tour.com', style: 'email' },
+      { label: 'Operations Manager', value: 'Operations manager: +66 (0)6 2574 8788', style: 'phone_with_title' },
+      { label: 'Travel Advisor', value: 'Travel Advisor Manager: +66 (0)8 0463 4691', style: 'phone_with_title' },
+      { label: 'WhatsApp', value: 'WhatsApp: +66 65 349 6445', style: 'whatsapp' },
+      { label: 'LINE ID', value: 'Line ID: amontour', style: 'line' }
     ];
   };
 
   const [contactInfo, setContactInfo] = useState(getContactInfo());
-  const [newItem, setNewItem] = useState({ label: '', value: '', type: 'text' });
+  const [newItem, setNewItem] = useState({ label: '', value: '', style: 'text' });
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
 
   const saveContactInfo = (newData: any[]) => {
@@ -94,7 +162,7 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
     if (newItem.label && newItem.value) {
       const updated = [...contactInfo, newItem];
       saveContactInfo(updated);
-      setNewItem({ label: '', value: '', type: 'text' });
+      setNewItem({ label: '', value: '', style: 'text' });
     }
   };
 
@@ -132,18 +200,24 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
         {contactInfo.map((item: any, index: number) => (
           <div key={index} className="border p-4 rounded-lg space-y-3">
             <div className="flex items-center justify-between">
-              <Input
-                value={item.label}
-                onChange={(e) => updateContactInfo(index, 'label', e.target.value)}
-                placeholder="Label"
-                className="font-medium"
-              />
-              <div className="flex gap-2">
+              <div className="flex items-center gap-2 flex-1">
+                <Input
+                  value={item.label}
+                  onChange={(e) => updateContactInfo(index, 'label', e.target.value)}
+                  placeholder="Label (for admin reference only)"
+                  className="font-medium flex-1"
+                />
+                <Badge variant={getStyleBadgeVariant(item.style)}>
+                  {getStyleDisplayName(item.style)}
+                </Badge>
+              </div>
+              <div className="flex gap-1 ml-2">
                 <Button
                   size="sm"
                   variant="ghost"
                   onClick={() => moveContactInfo(index, 'up')}
                   disabled={index === 0}
+                  title="Move up"
                 >
                   ↑
                 </Button>
@@ -152,6 +226,7 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
                   variant="ghost"
                   onClick={() => moveContactInfo(index, 'down')}
                   disabled={index === contactInfo.length - 1}
+                  title="Move down"
                 >
                   ↓
                 </Button>
@@ -160,87 +235,119 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
                   variant="ghost"
                   className="text-red-600"
                   onClick={() => deleteContactInfo(index)}
+                  title="Delete"
                 >
                   <Trash2 className="w-4 h-4" />
                 </Button>
               </div>
             </div>
-            <div className="flex gap-3">
-              <Select
-                value={item.type}
-                onValueChange={(value) => updateContactInfo(index, 'type', value)}
-              >
-                <SelectTrigger className="w-32">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="text">Text</SelectItem>
-                  <SelectItem value="email">Email</SelectItem>
-                  <SelectItem value="tel">Phone</SelectItem>
-                  <SelectItem value="textarea">Multi-line</SelectItem>
-                </SelectContent>
-              </Select>
-              {item.type === 'textarea' ? (
-                <Textarea
-                  value={item.value}
-                  onChange={(e) => updateContactInfo(index, 'value', e.target.value)}
-                  placeholder="Value"
-                  className="flex-1"
-                />
-              ) : (
-                <Input
-                  type={item.type}
-                  value={item.value}
-                  onChange={(e) => updateContactInfo(index, 'value', e.target.value)}
-                  placeholder="Value"
-                  className="flex-1"
-                />
-              )}
+            <div className="space-y-3">
+              <div className="flex gap-3">
+                <div className="w-32">
+                  <Label className="text-xs text-gray-500">Display Style</Label>
+                  <Select
+                    value={item.style}
+                    onValueChange={(value) => updateContactInfo(index, 'style', value)}
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="title">🏷️ Title (Bold)</SelectItem>
+                      <SelectItem value="text">📄 Text</SelectItem>
+                      <SelectItem value="address">🏠 Address</SelectItem>
+                      <SelectItem value="license_badge">🏅 License Badge</SelectItem>
+                      <SelectItem value="email">📧 Email</SelectItem>
+                      <SelectItem value="phone_with_title">📞 Phone w/ Title</SelectItem>
+                      <SelectItem value="whatsapp">💬 WhatsApp</SelectItem>
+                      <SelectItem value="line">📱 LINE ID</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="flex-1">
+                  <Label className="text-xs text-gray-500">Content (appears on website)</Label>
+                  {item.style === 'address' ? (
+                    <Textarea
+                      value={item.value}
+                      onChange={(e) => updateContactInfo(index, 'value', e.target.value)}
+                      placeholder={getPlaceholderForStyle(item.style)}
+                      className="min-h-[60px]"
+                    />
+                  ) : (
+                    <Input
+                      value={item.value}
+                      onChange={(e) => updateContactInfo(index, 'value', e.target.value)}
+                      placeholder={getPlaceholderForStyle(item.style)}
+                    />
+                  )}
+                </div>
+              </div>
+              
+              {/* Style Preview */}
+              <div className="bg-gray-50 p-3 rounded border-l-4 border-blue-500">
+                <Label className="text-xs text-gray-500 block mb-1">Preview on website:</Label>
+                <div className="text-sm">
+                  {renderStylePreview(item.style, item.value)}
+                </div>
+              </div>
             </div>
           </div>
         ))}
         
         {/* Add New Contact Info */}
         <div className="border-2 border-dashed border-gray-300 p-4 rounded-lg space-y-3">
-          <div className="flex gap-3">
-            <Input
-              value={newItem.label}
-              onChange={(e) => setNewItem(prev => ({ ...prev, label: e.target.value }))}
-              placeholder="Label (e.g., Phone)"
-              className="flex-1"
-            />
-            <Select
-              value={newItem.type}
-              onValueChange={(value) => setNewItem(prev => ({ ...prev, type: value }))}
-            >
-              <SelectTrigger className="w-32">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="text">Text</SelectItem>
-                <SelectItem value="email">Email</SelectItem>
-                <SelectItem value="tel">Phone</SelectItem>
-                <SelectItem value="textarea">Multi-line</SelectItem>
-              </SelectContent>
-            </Select>
+          <h5 className="font-medium text-gray-700">Add New Contact Information</h5>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div>
+              <Label className="text-xs text-gray-500">Admin Label (for reference)</Label>
+              <Input
+                value={newItem.label}
+                onChange={(e) => setNewItem(prev => ({ ...prev, label: e.target.value }))}
+                placeholder="e.g., Fax Number"
+              />
+            </div>
+            <div>
+              <Label className="text-xs text-gray-500">Display Style</Label>
+              <Select
+                value={newItem.style}
+                onValueChange={(value) => setNewItem(prev => ({ ...prev, style: value }))}
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="title">🏷️ Title (Bold)</SelectItem>
+                  <SelectItem value="text">📄 Text</SelectItem>
+                  <SelectItem value="address">🏠 Address</SelectItem>
+                  <SelectItem value="license_badge">🏅 License Badge</SelectItem>
+                  <SelectItem value="email">📧 Email</SelectItem>
+                  <SelectItem value="phone_with_title">📞 Phone w/ Title</SelectItem>
+                  <SelectItem value="whatsapp">💬 WhatsApp</SelectItem>
+                  <SelectItem value="line">📱 LINE ID</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
-          {newItem.type === 'textarea' ? (
-            <Textarea
-              value={newItem.value}
-              onChange={(e) => setNewItem(prev => ({ ...prev, value: e.target.value }))}
-              placeholder="Value"
-            />
-          ) : (
-            <Input
-              type={newItem.type}
-              value={newItem.value}
-              onChange={(e) => setNewItem(prev => ({ ...prev, value: e.target.value }))}
-              placeholder="Value"
-            />
-          )}
-          <Button onClick={addContactInfo} disabled={!newItem.label || !newItem.value}>
+          <div>
+            <Label className="text-xs text-gray-500">Content (appears on website)</Label>
+            {newItem.style === 'address' ? (
+              <Textarea
+                value={newItem.value}
+                onChange={(e) => setNewItem(prev => ({ ...prev, value: e.target.value }))}
+                placeholder={getPlaceholderForStyle(newItem.style)}
+                className="min-h-[60px]"
+              />
+            ) : (
+              <Input
+                value={newItem.value}
+                onChange={(e) => setNewItem(prev => ({ ...prev, value: e.target.value }))}
+                placeholder={getPlaceholderForStyle(newItem.style)}
+              />
+            )}
+          </div>
+          <Button onClick={addContactInfo} disabled={!newItem.label || !newItem.value} className="w-full">
             <Plus className="w-4 h-4 mr-2" />
-            Add Contact Info
+            Add Contact Information
           </Button>
         </div>
       </CardContent>
