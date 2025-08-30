@@ -637,14 +637,14 @@ function SocialMediaManager({ siteSettings, updateSiteSetting, updateSiteSetting
   const [newSocial, setNewSocial] = useState({ url: '', icon: 'facebook' });
   
   const socialPlatforms = [
-    { name: 'Facebook', icon: 'facebook', label: '📘 Facebook' },
-    { name: 'Instagram', icon: 'instagram', label: '📷 Instagram' },
-    { name: 'YouTube', icon: 'youtube', label: '🎥 YouTube' },
-    { name: 'Twitter', icon: 'twitter', label: '🐦 Twitter' },
-    { name: 'LinkedIn', icon: 'linkedin', label: '💼 LinkedIn' },
-    { name: 'TikTok', icon: 'tiktok', label: '🎵 TikTok' },
-    { name: 'WhatsApp', icon: 'whatsapp', label: '💬 WhatsApp' },
-    { name: 'Telegram', icon: 'telegram', label: '✈️ Telegram' }
+    { name: 'Facebook', icon: 'facebook', label: 'Facebook' },
+    { name: 'Instagram', icon: 'instagram', label: 'Instagram' },
+    { name: 'YouTube', icon: 'youtube', label: 'YouTube' },
+    { name: 'Twitter', icon: 'twitter', label: 'Twitter' },
+    { name: 'LinkedIn', icon: 'linkedin', label: 'LinkedIn' },
+    { name: 'TikTok', icon: 'tiktok', label: 'TikTok' },
+    { name: 'WhatsApp', icon: 'whatsapp', label: 'WhatsApp' },
+    { name: 'Telegram', icon: 'telegram', label: 'Telegram' }
   ];
 
   const saveSocialMedia = (newData: any[]) => {
