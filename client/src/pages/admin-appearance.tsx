@@ -128,7 +128,7 @@ function renderStylePreview(style: string, value: string): any {
 // Dynamic Footer Management Components
 function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSettingMutation }: any) {
   const getContactInfo = () => {
-    const setting = siteSettings.find((s: any) => s.section === 'footer' && s.key === 'footer_contact_info');
+    const setting = siteSettings.find((s: any) => s.section === 'footer' && s.key === 'contact_info');
     if (setting?.value) {
       try {
         return JSON.parse(setting.value);
@@ -155,7 +155,7 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
 
   const saveContactInfo = (newData: any[]) => {
     setContactInfo(newData);
-    updateSiteSetting('footer', 'footer_contact_info', JSON.stringify(newData));
+    updateSiteSetting('footer', 'contact_info', JSON.stringify(newData));
   };
 
   const addContactInfo = () => {
@@ -375,7 +375,7 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
 
 function UsefulLinksManager({ siteSettings, updateSiteSetting, updateSiteSettingMutation, availablePages }: any) {
   const getUsefulLinks = () => {
-    const setting = siteSettings.find((s: any) => s.section === 'footer' && s.key === 'footer_useful_links');
+    const setting = siteSettings.find((s: any) => s.section === 'footer' && s.key === 'useful_links');
     if (setting?.value) {
       try {
         return JSON.parse(setting.value);
@@ -409,7 +409,7 @@ function UsefulLinksManager({ siteSettings, updateSiteSetting, updateSiteSetting
 
   const saveUsefulLinks = (newData: any[]) => {
     setUsefulLinks(newData);
-    updateSiteSetting('footer', 'footer_useful_links', JSON.stringify(newData));
+    updateSiteSetting('footer', 'useful_links', JSON.stringify(newData));
   };
 
   const addUsefulLink = () => {
@@ -618,7 +618,7 @@ function UsefulLinksManager({ siteSettings, updateSiteSetting, updateSiteSetting
 
 function SocialMediaManager({ siteSettings, updateSiteSetting, updateSiteSettingMutation }: any) {
   const getSocialMedia = () => {
-    const setting = siteSettings.find((s: any) => s.section === 'footer' && s.key === 'footer_social_media');
+    const setting = siteSettings.find((s: any) => s.section === 'footer' && s.key === 'social_media');
     if (setting?.value) {
       try {
         return JSON.parse(setting.value);
@@ -634,12 +634,12 @@ function SocialMediaManager({ siteSettings, updateSiteSetting, updateSiteSetting
   };
 
   const [socialMedia, setSocialMedia] = useState(getSocialMedia());
-  const [newSocial, setNewSocial] = useState({ url: '', icon: 'facebook-f' });
+  const [newSocial, setNewSocial] = useState({ url: '', icon: 'facebook' });
   
   const socialPlatforms = [
-    { name: 'Facebook', icon: 'facebook-f', label: '🔷 Facebook' },
-    { name: 'Instagram', icon: 'instagram', label: '📸 Instagram' },
-    { name: 'YouTube', icon: 'youtube', label: '▶️ YouTube' },
+    { name: 'Facebook', icon: 'facebook', label: '📘 Facebook' },
+    { name: 'Instagram', icon: 'instagram', label: '📷 Instagram' },
+    { name: 'YouTube', icon: 'youtube', label: '🎥 YouTube' },
     { name: 'Twitter', icon: 'twitter', label: '🐦 Twitter' },
     { name: 'LinkedIn', icon: 'linkedin', label: '💼 LinkedIn' },
     { name: 'TikTok', icon: 'tiktok', label: '🎵 TikTok' },
@@ -649,7 +649,7 @@ function SocialMediaManager({ siteSettings, updateSiteSetting, updateSiteSetting
 
   const saveSocialMedia = (newData: any[]) => {
     setSocialMedia(newData);
-    updateSiteSetting('footer', 'footer_social_media', JSON.stringify(newData));
+    updateSiteSetting('footer', 'social_media', JSON.stringify(newData));
   };
 
   const addSocialMedia = () => {
@@ -687,7 +687,18 @@ function SocialMediaManager({ siteSettings, updateSiteSetting, updateSiteSetting
   };
 
   const getSocialIcon = (iconName: string) => {
-    return <i className={`fab fa-${iconName} text-blue-600`}></i>;
+    const icons: any = {
+      facebook: '📘',
+      instagram: '📷',
+      youtube: '🎥',
+      twitter: '🐦',
+      linkedin: '💼',
+      tiktok: '🎵',
+      whatsapp: '💬',
+      telegram: '✈️',
+      globe: '🌐'
+    };
+    return icons[iconName] || '🌐';
   };
 
   return (
@@ -704,7 +715,7 @@ function SocialMediaManager({ siteSettings, updateSiteSetting, updateSiteSetting
           <div key={index} className="border p-4 rounded-lg space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 flex-1">
-                {getSocialIcon(social.icon)}
+                <span className="text-lg">{getSocialIcon(social.icon)}</span>
                 <span className="font-medium">{social.name}</span>
               </div>
               <div className="flex gap-2">
@@ -794,7 +805,7 @@ function SocialMediaManager({ siteSettings, updateSiteSetting, updateSiteSetting
             <div className="bg-gray-50 p-3 rounded border-l-4 border-blue-500">
               <Label className="text-xs text-gray-500 block mb-1">Preview on website:</Label>
               <div className="text-sm flex items-center gap-2">
-                {getSocialIcon(newSocial.icon)}
+                <span className="text-lg">{getSocialIcon(newSocial.icon)}</span>
                 <a 
                   href={newSocial.url}
                   className="text-blue-600 hover:text-blue-800"
@@ -819,7 +830,7 @@ function SocialMediaManager({ siteSettings, updateSiteSetting, updateSiteSetting
 
 function NewsletterManager({ siteSettings, updateSiteSetting, updateSiteSettingMutation }: any) {
   const getNewsletterConfig = () => {
-    const setting = siteSettings.find((s: any) => s.section === 'footer' && s.key === 'footer_newsletter');
+    const setting = siteSettings.find((s: any) => s.section === 'footer' && s.key === 'newsletter_config');
     if (setting?.value) {
       try {
         return JSON.parse(setting.value);
@@ -841,7 +852,7 @@ function NewsletterManager({ siteSettings, updateSiteSetting, updateSiteSettingM
 
   const saveNewsletterConfig = (newData: any) => {
     setNewsletterConfig(newData);
-    updateSiteSetting('footer', 'footer_newsletter', JSON.stringify(newData));
+    updateSiteSetting('footer', 'newsletter_config', JSON.stringify(newData));
   };
 
   const updateNewsletterConfig = (field: string, value: any) => {
