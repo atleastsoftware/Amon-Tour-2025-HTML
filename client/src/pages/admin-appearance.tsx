@@ -754,9 +754,9 @@ function SocialMediaManager({ siteSettings, updateSiteSetting, updateSiteSetting
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {socialIcons.map((icon) => (
-                    <SelectItem key={icon.value} value={icon.value}>
-                      {icon.label}
+                  {socialPlatforms.map((platform) => (
+                    <SelectItem key={platform.icon} value={platform.icon}>
+                      {platform.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
