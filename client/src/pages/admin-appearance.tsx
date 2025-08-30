@@ -335,6 +335,34 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
               />
             )}
           </div>
+          {/* Preview */}
+          {newItem.label && newItem.value && (
+            <div className="bg-gray-50 p-3 rounded border-l-4 border-blue-500">
+              <Label className="text-xs text-gray-500 block mb-1">Preview on website:</Label>
+              <div className="text-sm">
+                {newItem.style === 'phone_with_title' ? (
+                  <span>{newItem.label}: {newItem.value}</span>
+                ) : newItem.style === 'whatsapp' ? (
+                  <span>💬 {newItem.value}</span>
+                ) : newItem.style === 'line' ? (
+                  <span>💬 {newItem.value}</span>
+                ) : newItem.style === 'email' ? (
+                  <a href={`mailto:${newItem.value}`} className="text-blue-600">{newItem.value}</a>
+                ) : newItem.style === 'license_badge' ? (
+                  <div className="inline-block bg-white px-3 py-1 rounded-full border text-xs">
+                    {newItem.value}
+                  </div>
+                ) : newItem.style === 'title' ? (
+                  <div className="font-bold">{newItem.value}</div>
+                ) : newItem.style === 'address' ? (
+                  <div className="text-gray-700">{newItem.value}</div>
+                ) : (
+                  <span>{newItem.value}</span>
+                )}
+              </div>
+            </div>
+          )}
+          
           <Button onClick={addContactInfo} disabled={!newItem.label || !newItem.value} className="w-full">
             <Plus className="w-4 h-4 mr-2" />
             Add Contact Information
@@ -356,15 +384,28 @@ function UsefulLinksManager({ siteSettings, updateSiteSetting, updateSiteSetting
       }
     }
     return [
-      { label: 'Download Brochure', url: '/brochure', type: 'custom' },
-      { label: 'Krabi Celebration', url: '/krabi-celebration', type: 'custom' },
-      { label: 'Become Partner', url: '/become-partner', type: 'custom' },
-      { label: 'Group & Corporate', url: '/group-corporate', type: 'custom' }
+      { text: 'Our brochure', url: '/brochure', type: 'page' },
+      { text: 'Krabi Celebration', url: '/krabi-celebration', type: 'page' },
+      { text: 'Fun Garden', url: 'https://www.facebook.com/thefungardenkrabi/', type: 'custom' },
+      { text: 'Villas in Krabi', url: '/villas-krabi', type: 'page' },
+      { text: 'Become Partner', url: '/become-partner', type: 'page' },
+      { text: 'Group & Corporate', url: '/group-corporate', type: 'page' }
     ];
   };
 
   const [usefulLinks, setUsefulLinks] = useState(getUsefulLinks());
-  const [newLink, setNewLink] = useState({ label: '', url: '', type: 'page' });
+  const [newLink, setNewLink] = useState({ text: '', url: '', type: 'page' });
+  
+  const availablePagesInternal = [
+    { label: 'Our brochure', value: '/brochure' },
+    { label: 'Krabi Celebration', value: '/krabi-celebration' },
+    { label: 'Villas in Krabi', value: '/villas-krabi' },
+    { label: 'Become Partner', value: '/become-partner' },
+    { label: 'Group & Corporate', value: '/group-corporate' },
+    { label: 'Privacy Policy', value: '/privacy-policy' },
+    { label: 'Legal Notice', value: '/legal-notice' },
+    { label: 'Terms & Conditions', value: '/terms-conditions' }
+  ];
 
   const saveUsefulLinks = (newData: any[]) => {
     setUsefulLinks(newData);
@@ -372,10 +413,10 @@ function UsefulLinksManager({ siteSettings, updateSiteSetting, updateSiteSetting
   };
 
   const addUsefulLink = () => {
-    if (newLink.label && newLink.url) {
+    if (newLink.text && newLink.url) {
       const updated = [...usefulLinks, newLink];
       saveUsefulLinks(updated);
-      setNewLink({ label: '', url: '', type: 'page' });
+      setNewLink({ text: '', url: '', type: 'page' });
     }
   };
 
@@ -413,12 +454,15 @@ function UsefulLinksManager({ siteSettings, updateSiteSetting, updateSiteSetting
         {usefulLinks.map((link: any, index: number) => (
           <div key={index} className="border p-4 rounded-lg space-y-3">
             <div className="flex items-center justify-between">
-              <Input
-                value={link.label}
-                onChange={(e) => updateUsefulLink(index, 'label', e.target.value)}
-                placeholder="Link Text"
-                className="font-medium"
-              />
+              <div className="flex-1">
+                <Label className="text-xs text-gray-500">Content (appears on website)</Label>
+                <Input
+                  value={link.text}
+                  onChange={(e) => updateUsefulLink(index, 'text', e.target.value)}
+                  placeholder="e.g., Our brochure"
+                  className="font-medium"
+                />
+              </div>
               <div className="flex gap-2">
                 <Button
                   size="sm"
@@ -493,11 +537,14 @@ function UsefulLinksManager({ siteSettings, updateSiteSetting, updateSiteSetting
         
         {/* Add New Link */}
         <div className="border-2 border-dashed border-gray-300 p-4 rounded-lg space-y-3">
-          <Input
-            value={newLink.label}
-            onChange={(e) => setNewLink(prev => ({ ...prev, label: e.target.value }))}
-            placeholder="Link Text (e.g., Privacy Policy)"
-          />
+          <div>
+            <Label className="text-xs text-gray-500">Content (appears on website)</Label>
+            <Input
+              value={newLink.text}
+              onChange={(e) => setNewLink(prev => ({ ...prev, text: e.target.value }))}
+              placeholder="e.g., Our brochure"
+            />
+          </div>
           <div className="flex gap-3">
             <Select
               value={newLink.type}
@@ -540,7 +587,26 @@ function UsefulLinksManager({ siteSettings, updateSiteSetting, updateSiteSetting
               />
             )}
           </div>
-          <Button onClick={addUsefulLink} disabled={!newLink.label || !newLink.url}>
+          {/* Preview */}
+          {newLink.text && newLink.url && (
+            <div className="bg-gray-50 p-3 rounded border-l-4 border-blue-500">
+              <Label className="text-xs text-gray-500 block mb-1">Preview on website:</Label>
+              <div className="text-sm">
+                <a 
+                  href={newLink.url}
+                  className="text-blue-600 hover:text-blue-800 font-medium"
+                  {...(newLink.url.startsWith('http') ? {
+                    target: "_blank",
+                    rel: "noopener noreferrer"
+                  } : {})}
+                >
+                  {newLink.text}
+                </a>
+              </div>
+            </div>
+          )}
+          
+          <Button onClick={addUsefulLink} disabled={!newLink.text || !newLink.url} className="w-full">
             <Plus className="w-4 h-4 mr-2" />
             Add Link
           </Button>
@@ -568,7 +634,18 @@ function SocialMediaManager({ siteSettings, updateSiteSetting, updateSiteSetting
   };
 
   const [socialMedia, setSocialMedia] = useState(getSocialMedia());
-  const [newSocial, setNewSocial] = useState({ name: '', url: '', icon: 'globe' });
+  const [newSocial, setNewSocial] = useState({ url: '', icon: 'facebook' });
+  
+  const socialPlatforms = [
+    { name: 'Facebook', icon: 'facebook', label: '📘 Facebook' },
+    { name: 'Instagram', icon: 'instagram', label: '📷 Instagram' },
+    { name: 'YouTube', icon: 'youtube', label: '🎥 YouTube' },
+    { name: 'Twitter', icon: 'twitter', label: '🐦 Twitter' },
+    { name: 'LinkedIn', icon: 'linkedin', label: '💼 LinkedIn' },
+    { name: 'TikTok', icon: 'tiktok', label: '🎵 TikTok' },
+    { name: 'WhatsApp', icon: 'whatsapp', label: '💬 WhatsApp' },
+    { name: 'Telegram', icon: 'telegram', label: '✈️ Telegram' }
+  ];
 
   const saveSocialMedia = (newData: any[]) => {
     setSocialMedia(newData);
@@ -576,10 +653,15 @@ function SocialMediaManager({ siteSettings, updateSiteSetting, updateSiteSetting
   };
 
   const addSocialMedia = () => {
-    if (newSocial.name && newSocial.url) {
-      const updated = [...socialMedia, newSocial];
+    if (newSocial.url && newSocial.icon) {
+      const platformData = socialPlatforms.find(p => p.icon === newSocial.icon);
+      const updated = [...socialMedia, {
+        name: platformData?.name || 'Social',
+        url: newSocial.url,
+        icon: newSocial.icon
+      }];
       saveSocialMedia(updated);
-      setNewSocial({ name: '', url: '', icon: 'globe' });
+      setNewSocial({ url: '', icon: 'facebook' });
     }
   };
 
@@ -604,15 +686,20 @@ function SocialMediaManager({ siteSettings, updateSiteSetting, updateSiteSetting
     }
   };
 
-  const socialIcons = [
-    { value: 'facebook', label: 'Facebook' },
-    { value: 'instagram', label: 'Instagram' },
-    { value: 'youtube', label: 'YouTube' },
-    { value: 'twitter', label: 'Twitter' },
-    { value: 'linkedin', label: 'LinkedIn' },
-    { value: 'tiktok', label: 'TikTok' },
-    { value: 'globe', label: 'Website' }
-  ];
+  const getSocialIcon = (iconName: string) => {
+    const icons: any = {
+      facebook: '📘',
+      instagram: '📷',
+      youtube: '🎥',
+      twitter: '🐦',
+      linkedin: '💼',
+      tiktok: '🎵',
+      whatsapp: '💬',
+      telegram: '✈️',
+      globe: '🌐'
+    };
+    return icons[iconName] || '🌐';
+  };
 
   return (
     <Card>
@@ -627,12 +714,10 @@ function SocialMediaManager({ siteSettings, updateSiteSetting, updateSiteSetting
         {socialMedia.map((social: any, index: number) => (
           <div key={index} className="border p-4 rounded-lg space-y-3">
             <div className="flex items-center justify-between">
-              <Input
-                value={social.name}
-                onChange={(e) => updateSocialMedia(index, 'name', e.target.value)}
-                placeholder="Platform Name"
-                className="font-medium"
-              />
+              <div className="flex items-center gap-2 flex-1">
+                <span className="text-lg">{getSocialIcon(social.icon)}</span>
+                <span className="font-medium">{social.name}</span>
+              </div>
               <div className="flex gap-2">
                 <Button
                   size="sm"
@@ -688,35 +773,52 @@ function SocialMediaManager({ siteSettings, updateSiteSetting, updateSiteSetting
         
         {/* Add New Social Media */}
         <div className="border-2 border-dashed border-gray-300 p-4 rounded-lg space-y-3">
-          <Input
-            value={newSocial.name}
-            onChange={(e) => setNewSocial(prev => ({ ...prev, name: e.target.value }))}
-            placeholder="Platform Name (e.g., TikTok)"
-          />
-          <div className="flex gap-3">
+          <div>
+            <Label className="text-xs text-gray-500">Social Platform</Label>
             <Select
               value={newSocial.icon}
               onValueChange={(value) => setNewSocial(prev => ({ ...prev, icon: value }))}
             >
-              <SelectTrigger className="w-32">
-                <SelectValue />
+              <SelectTrigger>
+                <SelectValue placeholder="Select platform" />
               </SelectTrigger>
               <SelectContent>
-                {socialIcons.map((icon) => (
-                  <SelectItem key={icon.value} value={icon.value}>
-                    {icon.label}
+                {socialPlatforms.map((platform) => (
+                  <SelectItem key={platform.icon} value={platform.icon}>
+                    {platform.label}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
+          </div>
+          <div>
+            <Label className="text-xs text-gray-500">URL</Label>
             <Input
               value={newSocial.url}
               onChange={(e) => setNewSocial(prev => ({ ...prev, url: e.target.value }))}
-              placeholder="URL"
-              className="flex-1"
+              placeholder="https://..."
             />
           </div>
-          <Button onClick={addSocialMedia} disabled={!newSocial.name || !newSocial.url}>
+          
+          {/* Preview */}
+          {newSocial.url && newSocial.icon && (
+            <div className="bg-gray-50 p-3 rounded border-l-4 border-blue-500">
+              <Label className="text-xs text-gray-500 block mb-1">Preview on website:</Label>
+              <div className="text-sm flex items-center gap-2">
+                <span className="text-lg">{getSocialIcon(newSocial.icon)}</span>
+                <a 
+                  href={newSocial.url}
+                  className="text-blue-600 hover:text-blue-800"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {socialPlatforms.find(p => p.icon === newSocial.icon)?.name || 'Social'}
+                </a>
+              </div>
+            </div>
+          )}
+          
+          <Button onClick={addSocialMedia} disabled={!newSocial.url || !newSocial.icon} className="w-full">
             <Plus className="w-4 h-4 mr-2" />
             Add Social Media
           </Button>
