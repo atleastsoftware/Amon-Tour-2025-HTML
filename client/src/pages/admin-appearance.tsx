@@ -714,8 +714,7 @@ function SocialMediaManager({ siteSettings, updateSiteSetting, updateSiteSetting
         {socialMedia.map((social: any, index: number) => (
           <div key={index} className="border p-4 rounded-lg space-y-3">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 flex-1">
-                <span className="text-lg">{getSocialIcon(social.icon)}</span>
+              <div className="flex-1">
                 <span className="font-medium">{social.name}</span>
               </div>
               <div className="flex gap-2">
@@ -804,15 +803,14 @@ function SocialMediaManager({ siteSettings, updateSiteSetting, updateSiteSetting
           {newSocial.url && newSocial.icon && (
             <div className="bg-gray-50 p-3 rounded border-l-4 border-blue-500">
               <Label className="text-xs text-gray-500 block mb-1">Preview on website:</Label>
-              <div className="text-sm flex items-center gap-2">
-                <span className="text-lg">{getSocialIcon(newSocial.icon)}</span>
+              <div className="text-sm">
                 <a 
                   href={newSocial.url}
                   className="text-blue-600 hover:text-blue-800"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {socialPlatforms.find(p => p.icon === newSocial.icon)?.name || 'Social'}
+                  <i className={`fab fa-${newSocial.icon}`}></i>
                 </a>
               </div>
             </div>
