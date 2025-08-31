@@ -583,3 +583,32 @@ export type PageBlock = typeof pageBlocks.$inferSelect;
 
 export type InsertBlockTemplate = z.infer<typeof insertBlockTemplateSchema>;
 export type BlockTemplate = typeof blockTemplates.$inferSelect;
+
+// Navigation Menu Management System
+export const navigationMenuItems = pgTable("navigation_menu_items", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(), // Nom affiché dans le menu
+  url: text("url").notNull(), // Lien de redirection
+  displayOrder: integer("display_order").notNull().default(0), // Ordre d'affichage
+  parentId: integer("parent_id").references(() => navigationMenuItems.id, { onDelete: "cascade" }), // Pour les sous-menus
+  isActive: boolean("is_active").default(true),
+  iconName: text("icon_name"), // Icône optionnelle (Lucide)
+  description: text("description"), // Description pour l'admin
+  target: text("target").default("_self"), // "_self" ou "_blank"
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => ({
+  orderIdx: index("navigation_items_order_idx").on(table.displayOrder),
+  parentIdx: index("navigation_items_parent_idx").on(table.parentId),
+}));
+
+// Schema de validation pour les éléments de menu
+export const insertNavigationMenuItemSchema = createInsertSchema(navigationMenuItems).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+// Types
+export type InsertNavigationMenuItem = z.infer<typeof insertNavigationMenuItemSchema>;
+export type NavigationMenuItem = typeof navigationMenuItems.$inferSelect;

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -12,7 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { toast } from '@/hooks/use-toast';
-import { Edit, Plus, Trash2, Move, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Palette, Layout, Image, Type, FileText, MapPin, Mail, Users, Download, Star, Camera, ArrowLeft, Search, Video, Bell, MousePointer, Globe } from 'lucide-react';
+import { Edit, Plus, Trash2, Move, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Palette, Layout, Image, Type, FileText, MapPin, Mail, Users, Download, Star, Camera, ArrowLeft, Search, Video, Bell, MousePointer, Globe, Menu } from 'lucide-react';
 import { useLocation } from 'wouter';
 import { motion } from 'framer-motion';
 
@@ -57,6 +57,20 @@ interface SiteSetting {
   value: string;
   type: string;
   isActive: boolean;
+}
+
+interface NavigationMenuItem {
+  id: number;
+  name: string;
+  url: string;
+  displayOrder: number;
+  parentId?: number;
+  isActive: boolean;
+  iconName?: string;
+  description?: string;
+  target: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 // Helper functions for footer management
@@ -1485,7 +1499,7 @@ export default function AdminAppearance() {
 
         {/* Main Navigation */}
         <Tabs value={activeCategory} onValueChange={setActiveCategory} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3 h-auto">
+          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 h-auto">
             <TabsTrigger value="theme" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 sm:p-3 text-xs sm:text-sm">
               <Palette className="w-4 h-4 flex-shrink-0" />
               <span>Theme</span>
@@ -1493,6 +1507,10 @@ export default function AdminAppearance() {
             <TabsTrigger value="pages" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 sm:p-3 text-xs sm:text-sm">
               <Layout className="w-4 h-4 flex-shrink-0" />
               <span>Pages</span>
+            </TabsTrigger>
+            <TabsTrigger value="menu" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 sm:p-3 text-xs sm:text-sm">
+              <Menu className="w-4 h-4 flex-shrink-0" />
+              <span>Menu principal</span>
             </TabsTrigger>
             <TabsTrigger value="footer" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 sm:p-3 text-xs sm:text-sm">
               <Settings className="w-4 h-4 flex-shrink-0" />
@@ -2625,8 +2643,709 @@ export default function AdminAppearance() {
               />
             </div>
           </TabsContent>
+
+          {/* Menu Principal Management */}
+          <TabsContent value="menu">
+            <NavigationMenuManager />
+          </TabsContent>
         </Tabs>
       </div>
     </div>
+  );
+}
+
+// Navigation Menu Manager Component
+function NavigationMenuManager() {
+  const queryClient = useQueryClient();
+  const [editingItem, setEditingItem] = useState<NavigationMenuItem | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isPreviewMode, setIsPreviewMode] = useState(false);
+
+  // Fetch navigation menu items
+  const { data: menuItems = [], isLoading } = useQuery<NavigationMenuItem[]>({
+    queryKey: ['/api/admin/navigation-menu'],
+  });
+
+  // Create navigation menu item
+  const createMenuItemMutation = useMutation({
+    mutationFn: async (itemData: Partial<NavigationMenuItem>) => {
+      const response = await fetch('/api/admin/navigation-menu', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(itemData),
+      });
+      if (!response.ok) throw new Error('Failed to create menu item');
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/navigation-menu'] });
+      setIsDialogOpen(false);
+      setEditingItem(null);
+      toast({ title: "Success", description: "Menu item created successfully" });
+    },
+    onError: () => {
+      toast({ 
+        title: "Error", 
+        description: "Failed to create menu item",
+        variant: "destructive" 
+      });
+    },
+  });
+
+  // Update navigation menu item
+  const updateMenuItemMutation = useMutation({
+    mutationFn: async ({ id, data }: { id: number; data: Partial<NavigationMenuItem> }) => {
+      const response = await fetch(`/api/admin/navigation-menu/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) throw new Error('Failed to update menu item');
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/navigation-menu'] });
+      setIsDialogOpen(false);
+      setEditingItem(null);
+      toast({ title: "Success", description: "Menu item updated successfully" });
+    },
+    onError: () => {
+      toast({ 
+        title: "Error", 
+        description: "Failed to update menu item",
+        variant: "destructive" 
+      });
+    },
+  });
+
+  // Delete navigation menu item
+  const deleteMenuItemMutation = useMutation({
+    mutationFn: async (id: number) => {
+      const response = await fetch(`/api/admin/navigation-menu/${id}`, {
+        method: 'DELETE',
+        credentials: 'include',
+      });
+      if (!response.ok) throw new Error('Failed to delete menu item');
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/navigation-menu'] });
+      toast({ title: "Success", description: "Menu item deleted successfully" });
+    },
+    onError: () => {
+      toast({ 
+        title: "Error", 
+        description: "Failed to delete menu item",
+        variant: "destructive" 
+      });
+    },
+  });
+
+  // Reorder navigation menu item
+  const reorderMenuItemMutation = useMutation({
+    mutationFn: async ({ id, direction }: { id: number; direction: 'up' | 'down' }) => {
+      const response = await fetch(`/api/admin/navigation-menu/${id}/reorder`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ direction }),
+      });
+      if (!response.ok) throw new Error('Failed to reorder menu item');
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/navigation-menu'] });
+    },
+    onError: () => {
+      toast({ 
+        title: "Error", 
+        description: "Failed to reorder menu item",
+        variant: "destructive" 
+      });
+    },
+  });
+
+  // Handle save menu item
+  const handleSaveMenuItem = (formData: FormData) => {
+    const itemData = {
+      name: formData.get('name') as string,
+      url: formData.get('url') as string,
+      description: formData.get('description') as string,
+      iconName: formData.get('iconName') as string,
+      target: formData.get('target') as string || '_self',
+      isActive: formData.get('isActive') === 'on',
+      parentId: formData.get('parentId') ? parseInt(formData.get('parentId') as string) : undefined,
+      displayOrder: parseInt(formData.get('displayOrder') as string) || 0,
+    };
+
+    if (editingItem?.id) {
+      updateMenuItemMutation.mutate({ id: editingItem.id, data: itemData });
+    } else {
+      createMenuItemMutation.mutate(itemData);
+    }
+  };
+
+  // Toggle visibility
+  const toggleVisibility = (item: NavigationMenuItem) => {
+    updateMenuItemMutation.mutate({
+      id: item.id,
+      data: { isActive: !item.isActive }
+    });
+  };
+
+  // Organize menu items by parent/child relationships
+  const organizeMenuItems = (items: NavigationMenuItem[]) => {
+    const parentItems = items.filter(item => !item.parentId);
+    const childItems = items.filter(item => item.parentId);
+
+    return parentItems.map(parent => ({
+      ...parent,
+      children: childItems.filter(child => child.parentId === parent.id)
+    }));
+  };
+
+  const organizedItems = organizeMenuItems(menuItems);
+
+  return (
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
+        <div>
+          <h2 className="text-2xl font-bold">Menu Principal</h2>
+          <p className="text-gray-600">Gérez la navigation principale du site</p>
+        </div>
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            onClick={() => setIsPreviewMode(!isPreviewMode)}
+            className="flex items-center gap-2"
+          >
+            <Eye className="w-4 h-4" />
+            {isPreviewMode ? 'Masquer aperçu' : 'Voir aperçu'}
+          </Button>
+          <Button
+            onClick={() => {
+              setEditingItem(null);
+              setIsDialogOpen(true);
+            }}
+            className="flex items-center gap-2"
+          >
+            <Plus className="w-4 h-4" />
+            Ajouter élément
+          </Button>
+        </div>
+      </div>
+
+      {/* Preview Mode */}
+      {isPreviewMode && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Eye className="w-5 h-5" />
+              Aperçu du menu
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-wrap gap-4 p-4 bg-gray-50 rounded-lg">
+              {organizedItems.filter(item => item.isActive).map((item) => (
+                <div key={item.id} className="relative group">
+                  <a
+                    href={item.url}
+                    target={item.target}
+                    className="px-4 py-2 text-gray-700 hover:text-blue-600 transition-colors"
+                  >
+                    {item.iconName && (
+                      <Globe className="w-4 h-4 inline mr-2" />
+                    )}
+                    {item.name}
+                  </a>
+                  {item.children && item.children.length > 0 && (
+                    <div className="absolute top-full left-0 bg-white shadow-lg rounded-lg min-w-[200px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10">
+                      {item.children.filter(child => child.isActive).map((child) => (
+                        <a
+                          key={child.id}
+                          href={child.url}
+                          target={child.target}
+                          className="block px-4 py-2 text-gray-600 hover:text-blue-600 hover:bg-gray-50"
+                        >
+                          {child.iconName && (
+                            <Globe className="w-4 h-4 inline mr-2" />
+                          )}
+                          {child.name}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Menu Items List */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Menu className="w-5 h-5" />
+            Éléments du menu ({menuItems.length})
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {isLoading ? (
+            <div className="text-center py-8">Chargement...</div>
+          ) : organizedItems.length === 0 ? (
+            <div className="text-center py-8 text-gray-500">
+              Aucun élément de menu. Cliquez sur "Ajouter élément" pour commencer.
+            </div>
+          ) : (
+            <div className="space-y-2">
+              {organizedItems.map((item, index) => (
+                <MenuItemRow
+                  key={item.id}
+                  item={item}
+                  isFirst={index === 0}
+                  isLast={index === organizedItems.length - 1}
+                  onEdit={(item) => {
+                    setEditingItem(item);
+                    setIsDialogOpen(true);
+                  }}
+                  onDelete={(id) => deleteMenuItemMutation.mutate(id)}
+                  onReorder={(id, direction) => reorderMenuItemMutation.mutate({ id, direction })}
+                  onToggleVisibility={toggleVisibility}
+                  onAddChild={(parentId) => {
+                    setEditingItem({ parentId } as NavigationMenuItem);
+                    setIsDialogOpen(true);
+                  }}
+                />
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Create/Edit Dialog */}
+      <MenuItemDialog
+        isOpen={isDialogOpen}
+        onClose={() => {
+          setIsDialogOpen(false);
+          setEditingItem(null);
+        }}
+        editingItem={editingItem}
+        parentItems={organizedItems}
+        onSave={handleSaveMenuItem}
+        isLoading={createMenuItemMutation.isPending || updateMenuItemMutation.isPending}
+      />
+    </div>
+  );
+}
+
+// Menu Item Row Component
+function MenuItemRow({
+  item,
+  isFirst,
+  isLast,
+  onEdit,
+  onDelete,
+  onReorder,
+  onToggleVisibility,
+  onAddChild
+}: {
+  item: NavigationMenuItem & { children?: NavigationMenuItem[] };
+  isFirst: boolean;
+  isLast: boolean;
+  onEdit: (item: NavigationMenuItem) => void;
+  onDelete: (id: number) => void;
+  onReorder: (id: number, direction: 'up' | 'down') => void;
+  onToggleVisibility: (item: NavigationMenuItem) => void;
+  onAddChild: (parentId: number) => void;
+}) {
+  return (
+    <div className="space-y-1">
+      {/* Parent Item */}
+      <div className="flex items-center gap-3 p-3 border rounded-lg bg-white hover:bg-gray-50">
+        {/* Visibility Toggle */}
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => onToggleVisibility(item)}
+          className="p-1"
+        >
+          <EyeOff 
+            className={`w-4 h-4 ${item.isActive ? 'text-black' : 'text-red-500'}`}
+          />
+        </Button>
+
+        {/* Reorder Controls */}
+        <div className="flex flex-col">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => onReorder(item.id, 'up')}
+            disabled={isFirst}
+            className="p-1 h-5"
+          >
+            <ChevronUp className="w-3 h-3" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => onReorder(item.id, 'down')}
+            disabled={isLast}
+            className="p-1 h-5"
+          >
+            <ChevronDown className="w-3 h-3" />
+          </Button>
+        </div>
+
+        {/* Item Info */}
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2">
+            {item.iconName && <Globe className="w-4 h-4 text-gray-500" />}
+            <span className="font-medium">{item.name}</span>
+            <Badge variant={item.isActive ? "default" : "secondary"}>
+              {item.isActive ? "Visible" : "Masqué"}
+            </Badge>
+            {item.target === '_blank' && (
+              <Badge variant="outline">Nouvel onglet</Badge>
+            )}
+          </div>
+          <div className="text-sm text-gray-500 truncate">{item.url}</div>
+          {item.description && (
+            <div className="text-xs text-gray-400">{item.description}</div>
+          )}
+        </div>
+
+        {/* Actions */}
+        <div className="flex items-center gap-1">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => onAddChild(item.id)}
+            className="flex items-center gap-1"
+          >
+            <Plus className="w-3 h-3" />
+            Sous-menu
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => onEdit(item)}
+          >
+            <Edit className="w-3 h-3" />
+          </Button>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button variant="outline" size="sm">
+                <Trash2 className="w-3 h-3" />
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Supprimer l'élément</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Êtes-vous sûr de vouloir supprimer "{item.name}" ? 
+                  Cette action supprimera également tous les sous-éléments.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Annuler</AlertDialogCancel>
+                <AlertDialogAction onClick={() => onDelete(item.id)}>
+                  Supprimer
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </div>
+      </div>
+
+      {/* Child Items */}
+      {item.children && item.children.length > 0 && (
+        <div className="ml-8 space-y-1">
+          {item.children.map((child, childIndex) => (
+            <div 
+              key={child.id} 
+              className="flex items-center gap-3 p-2 border rounded bg-gray-50 hover:bg-gray-100"
+            >
+              {/* Child Visibility Toggle */}
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => onToggleVisibility(child)}
+                className="p-1"
+              >
+                <EyeOff 
+                  className={`w-3 h-3 ${child.isActive ? 'text-black' : 'text-red-500'}`}
+                />
+              </Button>
+
+              {/* Child Reorder Controls */}
+              <div className="flex flex-col">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => onReorder(child.id, 'up')}
+                  disabled={childIndex === 0}
+                  className="p-1 h-4"
+                >
+                  <ChevronUp className="w-2 h-2" />
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => onReorder(child.id, 'down')}
+                  disabled={childIndex === item.children!.length - 1}
+                  className="p-1 h-4"
+                >
+                  <ChevronDown className="w-2 h-2" />
+                </Button>
+              </div>
+
+              {/* Child Info */}
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  {child.iconName && <Globe className="w-3 h-3 text-gray-500" />}
+                  <span className="text-sm font-medium">{child.name}</span>
+                  <Badge variant={child.isActive ? "default" : "secondary"} className="text-xs">
+                    {child.isActive ? "Visible" : "Masqué"}
+                  </Badge>
+                </div>
+                <div className="text-xs text-gray-500 truncate">{child.url}</div>
+              </div>
+
+              {/* Child Actions */}
+              <div className="flex items-center gap-1">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => onEdit(child)}
+                >
+                  <Edit className="w-2 h-2" />
+                </Button>
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button variant="outline" size="sm">
+                      <Trash2 className="w-2 h-2" />
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Supprimer le sous-élément</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        Êtes-vous sûr de vouloir supprimer "{child.name}" ?
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Annuler</AlertDialogCancel>
+                      <AlertDialogAction onClick={() => onDelete(child.id)}>
+                        Supprimer
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Menu Item Dialog Component
+function MenuItemDialog({
+  isOpen,
+  onClose,
+  editingItem,
+  parentItems,
+  onSave,
+  isLoading
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  editingItem: NavigationMenuItem | null;
+  parentItems: NavigationMenuItem[];
+  onSave: (formData: FormData) => void;
+  isLoading: boolean;
+}) {
+  const [formData, setFormData] = useState({
+    name: '',
+    url: '',
+    description: '',
+    iconName: '',
+    target: '_self',
+    isActive: true,
+    parentId: '',
+    displayOrder: '0'
+  });
+
+  // Update form data when editing item changes
+  useEffect(() => {
+    if (editingItem) {
+      setFormData({
+        name: editingItem.name || '',
+        url: editingItem.url || '',
+        description: editingItem.description || '',
+        iconName: editingItem.iconName || '',
+        target: editingItem.target || '_self',
+        isActive: editingItem.isActive ?? true,
+        parentId: editingItem.parentId?.toString() || '',
+        displayOrder: editingItem.displayOrder?.toString() || '0'
+      });
+    } else {
+      setFormData({
+        name: '',
+        url: '',
+        description: '',
+        iconName: '',
+        target: '_self',
+        isActive: true,
+        parentId: '',
+        displayOrder: '0'
+      });
+    }
+  }, [editingItem]);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = new FormData(e.currentTarget);
+    onSave(form);
+  };
+
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-2xl">
+        <DialogHeader>
+          <DialogTitle>
+            {editingItem?.id ? 'Modifier' : 'Ajouter'} un élément de menu
+          </DialogTitle>
+          <DialogDescription>
+            Configurez les détails de l'élément de navigation
+          </DialogDescription>
+        </DialogHeader>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Name */}
+            <div className="space-y-2">
+              <Label htmlFor="name">Nom du menu *</Label>
+              <Input
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                placeholder="ex: Accueil, Expériences..."
+                required
+              />
+            </div>
+
+            {/* URL */}
+            <div className="space-y-2">
+              <Label htmlFor="url">Lien URL *</Label>
+              <Input
+                id="url"
+                name="url"
+                value={formData.url}
+                onChange={(e) => setFormData(prev => ({ ...prev, url: e.target.value }))}
+                placeholder="ex: /, /tours, /contact, https://..."
+                required
+              />
+            </div>
+
+            {/* Parent Menu */}
+            <div className="space-y-2">
+              <Label htmlFor="parentId">Menu parent (optionnel)</Label>
+              <Select name="parentId" value={formData.parentId} onValueChange={(value) => setFormData(prev => ({ ...prev, parentId: value }))}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Sélectionner un menu parent" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="">Aucun (menu principal)</SelectItem>
+                  {parentItems.map((parent) => (
+                    <SelectItem key={parent.id} value={parent.id.toString()}>
+                      {parent.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Target */}
+            <div className="space-y-2">
+              <Label htmlFor="target">Ouvrir dans</Label>
+              <Select name="target" value={formData.target} onValueChange={(value) => setFormData(prev => ({ ...prev, target: value }))}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="_self">Même onglet</SelectItem>
+                  <SelectItem value="_blank">Nouvel onglet</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Icon Name */}
+            <div className="space-y-2">
+              <Label htmlFor="iconName">Icône (optionnel)</Label>
+              <Input
+                id="iconName"
+                name="iconName"
+                value={formData.iconName}
+                onChange={(e) => setFormData(prev => ({ ...prev, iconName: e.target.value }))}
+                placeholder="ex: Home, Search, Mail..."
+              />
+            </div>
+
+            {/* Display Order */}
+            <div className="space-y-2">
+              <Label htmlFor="displayOrder">Ordre d'affichage</Label>
+              <Input
+                id="displayOrder"
+                name="displayOrder"
+                type="number"
+                value={formData.displayOrder}
+                onChange={(e) => setFormData(prev => ({ ...prev, displayOrder: e.target.value }))}
+                placeholder="0"
+              />
+            </div>
+          </div>
+
+          {/* Description */}
+          <div className="space-y-2">
+            <Label htmlFor="description">Description (optionnel)</Label>
+            <Textarea
+              id="description"
+              name="description"
+              value={formData.description}
+              onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
+              placeholder="Description interne pour l'administration"
+              rows={2}
+            />
+          </div>
+
+          {/* Active Switch */}
+          <div className="flex items-center space-x-2">
+            <Switch
+              id="isActive"
+              name="isActive"
+              checked={formData.isActive}
+              onCheckedChange={(checked) => setFormData(prev => ({ ...prev, isActive: checked }))}
+            />
+            <Label htmlFor="isActive">Élément visible</Label>
+          </div>
+
+          <div className="flex justify-end gap-2">
+            <Button type="button" variant="outline" onClick={onClose}>
+              Annuler
+            </Button>
+            <Button type="submit" disabled={isLoading}>
+              {isLoading ? 'Enregistrement...' : 'Enregistrer'}
+            </Button>
+          </div>
+        </form>
+      </DialogContent>
+    </Dialog>
   );
 }

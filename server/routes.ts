@@ -24,6 +24,7 @@ import {
   insertPageConfigurationSchema,
   insertPageBlockSchema,
   insertBlockTemplateSchema,
+  insertNavigationMenuItemSchema,
 } from "@shared/schema";
 import { createPaymentIntent, createOrRetrieveCustomer } from "./stripe";
 import { upload, getPublicFileUrl } from "./upload";
@@ -2625,6 +2626,131 @@ Crawl-delay: 1`;
     } catch (error) {
       console.error("Error fetching public page blocks:", error);
       res.status(500).json({ message: "Failed to fetch page blocks", error: String(error) });
+    }
+  });
+
+  // ===== NAVIGATION MENU MANAGEMENT API ROUTES =====
+
+  // Get all navigation menu items
+  app.get("/api/admin/navigation-menu", requireAuth, async (req, res) => {
+    try {
+      const items = await storage.getNavigationMenuItems();
+      res.json(items);
+    } catch (error) {
+      console.error("Error fetching navigation menu items:", error);
+      res.status(500).json({ message: "Failed to fetch navigation menu items", error: String(error) });
+    }
+  });
+
+  // Get single navigation menu item
+  app.get("/api/admin/navigation-menu/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid item ID" });
+      }
+
+      const item = await storage.getNavigationMenuItem(id);
+      if (!item) {
+        return res.status(404).json({ message: "Navigation menu item not found" });
+      }
+
+      res.json(item);
+    } catch (error) {
+      console.error("Error fetching navigation menu item:", error);
+      res.status(500).json({ message: "Failed to fetch navigation menu item", error: String(error) });
+    }
+  });
+
+  // Create navigation menu item
+  app.post("/api/admin/navigation-menu", requireAuth, async (req, res) => {
+    try {
+      const itemData = insertNavigationMenuItemSchema.parse(req.body);
+      const item = await storage.createNavigationMenuItem(itemData);
+      res.status(201).json(item);
+    } catch (error: any) {
+      console.error("Error creating navigation menu item:", error);
+      res.status(400).json({ 
+        message: "Invalid navigation menu item data", 
+        error: error.errors || error.message || String(error) 
+      });
+    }
+  });
+
+  // Update navigation menu item
+  app.put("/api/admin/navigation-menu/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid item ID" });
+      }
+
+      const item = await storage.updateNavigationMenuItem(id, req.body);
+      if (!item) {
+        return res.status(404).json({ message: "Navigation menu item not found" });
+      }
+
+      res.json(item);
+    } catch (error) {
+      console.error("Error updating navigation menu item:", error);
+      res.status(500).json({ message: "Failed to update navigation menu item", error: String(error) });
+    }
+  });
+
+  // Delete navigation menu item
+  app.delete("/api/admin/navigation-menu/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid item ID" });
+      }
+
+      const deleted = await storage.deleteNavigationMenuItem(id);
+      if (!deleted) {
+        return res.status(404).json({ message: "Navigation menu item not found" });
+      }
+
+      res.json({ message: "Navigation menu item deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting navigation menu item:", error);
+      res.status(500).json({ message: "Failed to delete navigation menu item", error: String(error) });
+    }
+  });
+
+  // Reorder navigation menu item (move up/down)
+  app.patch("/api/admin/navigation-menu/:id/reorder", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid item ID" });
+      }
+
+      const { direction } = req.body;
+      if (!['up', 'down'].includes(direction)) {
+        return res.status(400).json({ message: "Direction must be 'up' or 'down'" });
+      }
+
+      const item = await storage.reorderNavigationMenuItem(id, direction);
+      if (!item) {
+        return res.status(404).json({ message: "Navigation menu item not found" });
+      }
+
+      res.json(item);
+    } catch (error) {
+      console.error("Error reordering navigation menu item:", error);
+      res.status(500).json({ message: "Failed to reorder navigation menu item", error: String(error) });
+    }
+  });
+
+  // Public route to get active navigation menu items
+  app.get("/api/navigation-menu", async (req, res) => {
+    try {
+      const items = await storage.getNavigationMenuItems();
+      const activeItems = items.filter(item => item.isActive);
+      res.json(activeItems);
+    } catch (error) {
+      console.error("Error fetching public navigation menu items:", error);
+      res.status(500).json({ message: "Failed to fetch navigation menu items", error: String(error) });
     }
   });
 

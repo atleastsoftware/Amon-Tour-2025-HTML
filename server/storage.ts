@@ -22,6 +22,7 @@ import {
   pageConfigurations,
   pageBlocks,
   blockTemplates,
+  navigationMenuItems,
   type User,
   type InsertUser,
   type Tour,
@@ -67,11 +68,13 @@ import {
   type InsertPageBlock,
   type BlockTemplate,
   type InsertBlockTemplate,
+  type NavigationMenuItem,
+  type InsertNavigationMenuItem,
 } from "@shared/schema";
 import fs from "fs";
 import path from "path";
 import { db } from "./db";
-import { eq, sql, and, or, like, desc, asc, ilike, count } from "drizzle-orm";
+import { eq, sql, and, or, like, desc, asc, ilike, count, isNull } from "drizzle-orm";
 
 export interface IStorage {
   // User operations
@@ -1655,6 +1658,87 @@ export class DatabaseStorage implements IStorage {
       .where(eq(blockTemplates.id, id))
       .returning({ id: blockTemplates.id });
     return result.length > 0;
+  }
+
+  // Navigation Menu Management
+  async getNavigationMenuItems(): Promise<NavigationMenuItem[]> {
+    return db.select()
+      .from(navigationMenuItems)
+      .orderBy(asc(navigationMenuItems.displayOrder), asc(navigationMenuItems.id));
+  }
+
+  async getNavigationMenuItem(id: number): Promise<NavigationMenuItem | undefined> {
+    const [item] = await db.select()
+      .from(navigationMenuItems)
+      .where(eq(navigationMenuItems.id, id));
+    return item || undefined;
+  }
+
+  async createNavigationMenuItem(data: InsertNavigationMenuItem): Promise<NavigationMenuItem> {
+    const [item] = await db
+      .insert(navigationMenuItems)
+      .values(data)
+      .returning();
+    return item;
+  }
+
+  async updateNavigationMenuItem(id: number, data: Partial<InsertNavigationMenuItem>): Promise<NavigationMenuItem | undefined> {
+    const [item] = await db
+      .update(navigationMenuItems)
+      .set({ ...data, updatedAt: new Date() })
+      .where(eq(navigationMenuItems.id, id))
+      .returning();
+    return item || undefined;
+  }
+
+  async deleteNavigationMenuItem(id: number): Promise<boolean> {
+    const result = await db
+      .delete(navigationMenuItems)
+      .where(eq(navigationMenuItems.id, id))
+      .returning({ id: navigationMenuItems.id });
+    return result.length > 0;
+  }
+
+  async reorderNavigationMenuItem(id: number, direction: 'up' | 'down'): Promise<NavigationMenuItem | undefined> {
+    // Get current item
+    const currentItem = await this.getNavigationMenuItem(id);
+    if (!currentItem) return undefined;
+
+    // Get all items in same parent group
+    const allItems = await db.select()
+      .from(navigationMenuItems)
+      .where(currentItem.parentId 
+        ? eq(navigationMenuItems.parentId, currentItem.parentId) 
+        : isNull(navigationMenuItems.parentId)
+      )
+      .orderBy(asc(navigationMenuItems.displayOrder));
+
+    const currentIndex = allItems.findIndex(item => item.id === id);
+    if (currentIndex === -1) return undefined;
+
+    let targetIndex: number;
+    if (direction === 'up' && currentIndex > 0) {
+      targetIndex = currentIndex - 1;
+    } else if (direction === 'down' && currentIndex < allItems.length - 1) {
+      targetIndex = currentIndex + 1;
+    } else {
+      return currentItem; // No move needed
+    }
+
+    const targetItem = allItems[targetIndex];
+    
+    // Swap display orders
+    await db.transaction(async (tx) => {
+      await tx.update(navigationMenuItems)
+        .set({ displayOrder: targetItem.displayOrder, updatedAt: new Date() })
+        .where(eq(navigationMenuItems.id, currentItem.id));
+      
+      await tx.update(navigationMenuItems)
+        .set({ displayOrder: currentItem.displayOrder, updatedAt: new Date() })
+        .where(eq(navigationMenuItems.id, targetItem.id));
+    });
+
+    return await this.getNavigationMenuItem(id);
   }
 }
 
