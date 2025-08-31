@@ -2220,13 +2220,24 @@ export default function AdminAppearance() {
                         Drag and drop to reorder blocks. Each block represents a section of your page.
                       </CardDescription>
                     </div>
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <Button>
-                          <Plus className="w-4 h-4 mr-2" />
-                          Add Block
-                        </Button>
-                      </DialogTrigger>
+                    <div className="flex gap-2">
+                      <Button
+                        variant="outline"
+                        onClick={() => {
+                          const pageUrl = selectedPage === 'home' ? '/' : `/${selectedPage}`;
+                          window.open(pageUrl, '_blank');
+                        }}
+                      >
+                        <Eye className="w-4 h-4 mr-2" />
+                        Preview Page
+                      </Button>
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Button>
+                            <Plus className="w-4 h-4 mr-2" />
+                            Add Block
+                          </Button>
+                        </DialogTrigger>
                       <DialogContent>
                         <DialogHeader>
                           <DialogTitle>Add New Content Block</DialogTitle>
@@ -2290,6 +2301,7 @@ export default function AdminAppearance() {
                         </div>
                       </DialogContent>
                     </Dialog>
+                    </div>
                   </CardHeader>
                   
                   {/* Edit Block Modal */}
@@ -2399,33 +2411,45 @@ export default function AdminAppearance() {
                             <Label htmlFor="block-active">Block is active</Label>
                           </div>
                           
-                          <div className="flex justify-end space-x-2 pt-4">
+                          <div className="flex justify-between pt-4">
                             <Button variant="outline" onClick={() => setIsEditingBlock(false)}>
                               Cancel
                             </Button>
-                            <Button 
-                              onClick={() => {
-                                if (selectedBlock) {
-                                  updateBlockMutation.mutate({
-                                    id: selectedBlock.id,
-                                    updates: {
-                                      title: selectedBlock.title,
-                                      subtitle: selectedBlock.subtitle,
-                                      description: selectedBlock.description,
-                                      content: selectedBlock.content,
-                                      imageUrl: selectedBlock.imageUrl,
-                                      ctaText: selectedBlock.ctaText,
-                                      ctaUrl: selectedBlock.ctaUrl,
-                                      backgroundColor: selectedBlock.backgroundColor,
-                                      isActive: selectedBlock.isActive
-                                    }
-                                  });
-                                }
-                              }}
-                              disabled={updateBlockMutation.isPending}
-                            >
-                              {updateBlockMutation.isPending ? 'Saving...' : 'Save Changes'}
-                            </Button>
+                            <div className="flex space-x-2">
+                              <Button
+                                variant="secondary"
+                                onClick={() => {
+                                  const pageUrl = selectedPage === 'home' ? '/' : `/${selectedPage}`;
+                                  window.open(`${pageUrl}?preview=true`, '_blank');
+                                }}
+                              >
+                                <Eye className="w-4 h-4 mr-2" />
+                                Preview Page
+                              </Button>
+                              <Button 
+                                onClick={() => {
+                                  if (selectedBlock) {
+                                    updateBlockMutation.mutate({
+                                      id: selectedBlock.id,
+                                      updates: {
+                                        title: selectedBlock.title,
+                                        subtitle: selectedBlock.subtitle,
+                                        description: selectedBlock.description,
+                                        content: selectedBlock.content,
+                                        imageUrl: selectedBlock.imageUrl,
+                                        ctaText: selectedBlock.ctaText,
+                                        ctaUrl: selectedBlock.ctaUrl,
+                                        backgroundColor: selectedBlock.backgroundColor,
+                                        isActive: selectedBlock.isActive
+                                      }
+                                    });
+                                  }
+                                }}
+                                disabled={updateBlockMutation.isPending}
+                              >
+                                {updateBlockMutation.isPending ? 'Saving...' : 'Save Changes'}
+                              </Button>
+                            </div>
                           </div>
                         </div>
                       )}
