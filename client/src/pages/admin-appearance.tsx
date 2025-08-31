@@ -1150,6 +1150,9 @@ export default function AdminAppearance() {
   }
 
   const pageCategories = {
+    'Menu principal': [
+      { slug: 'navigation-menu', name: 'Menu principal' }
+    ],
     'Pages principales': [
       { slug: 'home', name: 'Home Page' },
       { slug: 'experiences', name: 'Experiences' },
@@ -2109,7 +2112,7 @@ export default function AdminAppearance() {
                   </Card>
                 )}
 
-              {/* Pop-up Settings */}
+                {selectedThemeSection === 'announcements' && (
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
@@ -2198,8 +2201,9 @@ export default function AdminAppearance() {
                   </div>
                 </CardContent>
               </Card>
+                )}
 
-              {/* Background Colors */}
+                {selectedThemeSection === 'backgrounds' && (
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
@@ -2288,6 +2292,7 @@ export default function AdminAppearance() {
                   </div>
                 </CardContent>
               </Card>
+                )}
               </div>
             </div>
           </TabsContent>
@@ -2306,22 +2311,6 @@ export default function AdminAppearance() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    {/* Menu Principal - Direct Access */}
-                    <div className="space-y-2">
-                      <Button
-                        variant={selectedPage === 'navigation-menu' ? 'default' : 'outline'}
-                        className="w-full justify-start text-sm h-10"
-                        onClick={() => setSelectedPage('navigation-menu')}
-                      >
-                        <Menu className="w-4 h-4 mr-2" />
-                        Menu principal
-                      </Button>
-                    </div>
-                    
-                    {/* Separator */}
-                    <div className="border-t my-4"></div>
-                    
-                    {/* Other Pages Categories */}
                     {Object.entries(pageCategories).map(([categoryName, pages]) => (
                       <div key={categoryName} className="space-y-2">
                         <Button
