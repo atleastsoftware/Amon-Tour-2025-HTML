@@ -12,7 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { toast } from '@/hooks/use-toast';
-import { Edit, Plus, Trash2, Move, Eye, Settings, Palette, Layout, Image, Type, FileText, MapPin, Mail, Users, Download, Star, Camera, ArrowLeft, Search, Video, Bell, MousePointer, Globe } from 'lucide-react';
+import { Edit, Plus, Trash2, Move, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Palette, Layout, Image, Type, FileText, MapPin, Mail, Users, Download, Star, Camera, ArrowLeft, Search, Video, Bell, MousePointer, Globe } from 'lucide-react';
 import { useLocation } from 'wouter';
 import { motion } from 'framer-motion';
 
@@ -936,6 +936,7 @@ export default function AdminAppearance() {
   const [selectedPage, setSelectedPage] = useState<string>('home');
   const [selectedBlock, setSelectedBlock] = useState<PageBlock | null>(null);
   const [isEditingBlock, setIsEditingBlock] = useState(false);
+  const [editingBlockId, setEditingBlockId] = useState<number | null>(null);
   const [newBlockType, setNewBlockType] = useState<string>('');
 
   const queryClient = useQueryClient();
@@ -1002,6 +1003,7 @@ export default function AdminAppearance() {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/page-blocks', selectedPage] });
       toast({ title: 'Block updated successfully' });
       setIsEditingBlock(false);
+      setEditingBlockId(null);
       setSelectedBlock(null);
     },
     onError: () => {
@@ -1021,6 +1023,45 @@ export default function AdminAppearance() {
     },
     onError: () => {
       toast({ title: 'Error deleting block', variant: 'destructive' });
+    }
+  });
+
+  // Move block mutation
+  const moveBlockMutation = useMutation({
+    mutationFn: (data: { blockId: number; direction: 'up' | 'down' }) => {
+      const block = pageBlocks.find(b => b.id === data.blockId);
+      if (!block) throw new Error('Block not found');
+      
+      const newOrder = data.direction === 'up' ? block.blockOrder - 1 : block.blockOrder + 1;
+      return fetch(`/api/admin/page-blocks/${data.blockId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ blockOrder: newOrder })
+      }).then(res => res.json());
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/page-blocks', selectedPage] });
+      toast({ title: 'Block moved successfully' });
+    },
+    onError: () => {
+      toast({ title: 'Error moving block', variant: 'destructive' });
+    }
+  });
+
+  // Toggle block visibility mutation
+  const toggleBlockVisibilityMutation = useMutation({
+    mutationFn: (data: { blockId: number; isActive: boolean }) =>
+      fetch(`/api/admin/page-blocks/${data.blockId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ isActive: data.isActive })
+      }).then(res => res.json()),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/page-blocks', selectedPage] });
+      toast({ title: 'Block visibility updated' });
+    },
+    onError: () => {
+      toast({ title: 'Error updating block visibility', variant: 'destructive' });
     }
   });
 
@@ -1139,7 +1180,7 @@ export default function AdminAppearance() {
       imageUrl: defaultData.imageUrl,
       ctaText: defaultData.ctaText,
       ctaUrl: defaultData.ctaUrl,
-      iconName: defaultData.iconName,
+      iconName: defaultData.iconName || '',
       backgroundColor: defaultData.backgroundColor || 'white',
       configuration: defaultData.configuration || {},
       isActive: true
@@ -1148,24 +1189,111 @@ export default function AdminAppearance() {
 
   const getDefaultContentForBlockType = (blockType: string) => {
     switch (blockType) {
-      case 'hero':
+      // Hero Sections
+      case 'hero_video':
         return {
           title: 'Discover the Hidden Gems of Krabi',
           subtitle: 'With Expert Local Guides',
           ctaText: 'Explore Tours',
           ctaUrl: '/experiences',
-          imageUrl: '/attached_assets/hero-image.jpg',
-          iconName: 'map-pin',
-          backgroundColor: 'white',
-          configuration: { hasButton: true }
+          imageUrl: '/attached_assets/hero-video-optimized.mp4',
+          configuration: { hasVideo: true, hasButton: true, overlay: 0.4 }
+        };
+      case 'hero_banner':
+        return {
+          title: 'Discover Thailand Experiences',
+          subtitle: 'Immerse yourself in authentic Thai culture with our unique experiences',
+          imageUrl: 'https://images.unsplash.com/photo-1604159129533-9d35777a0b07?q=80&w=1000&auto=format&fit=crop',
+          configuration: { height: '50vh', overlay: 0.5 }
+        };
+      case 'hero_simple':
+        return {
+          title: 'Create Your Custom Tour',
+          subtitle: "Tell us what you'd like to discover, and we'll create your personalized itinerary.",
+          imageUrl: '/uploads/tours/tour-1745996624172-231261635.jpeg',
+          configuration: { height: '40vh', overlay: 0.4 }
+        };
+        
+      // Content Sections  
+      case 'text_section':
+        return {
+          title: 'When expats welcome you in their host country',
+          content: 'This is a family-run travel agency that combines the organization of exclusive activities with the creation of tailor-made trips throughout the country. Our goal is to offer an immersive experience, far from mass tourism, with personalized service for every traveler — as if we were welcoming our own family or friends.',
+          configuration: { centered: true, maxWidth: '4xl' }
         };
       case 'text_image':
         return {
-          title: 'About Our Tours',
-          content: 'Experience the authentic Thailand with our carefully curated tours and local expertise.',
-          iconName: 'compass',
+          title: 'Who We Are',
+          content: 'We are Éric, Margaux, Gabriel, and Raphaël, a French family living in Krabi, southern Thailand, since 2013. From our life here, we created Amon Tour — a small, independent travel agency built on a simple idea: personally welcome our travelers to Krabi and offer them a different way to experience Thailand.',
+          imageUrl: '/family-photo.png',
           configuration: { alignment: 'left', imagePosition: 'right' }
         };
+      case 'about_company':
+        return {
+          title: 'Who We Are',
+          content: 'We are Éric, Margaux, Gabriel, and Raphaël, a French family living in Krabi, southern Thailand, since 2013.',
+          imageUrl: '/family-photo.png',
+          configuration: { showStats: true, layout: '2col' }
+        };
+        
+      // Interactive Sections
+      case 'tour_grid':
+        return {
+          title: 'Our Popular Experiences',
+          description: 'Step off the beaten path into carefully curated experiences beyond the tourist trail.',
+          configuration: { columns: 3, showFilters: false, limit: 6 }
+        };
+      case 'cards_grid':
+        return {
+          title: 'Featured Experiences',
+          configuration: { columns: 3, cardType: 'experience' }
+        };
+      case 'search_bar':
+        return {
+          title: 'Find Your Perfect Experience',
+          description: 'Search through our curated collection of authentic Thai experiences',
+          configuration: { placeholder: 'Search experiences...', showFilters: true }
+        };
+        
+      // Features & Layout
+      case 'features_3col':
+        return {
+          title: 'Why Choose Us',
+          description: 'Experience an exclusive private day trip with our English or French-speaking and certified guides.',
+          configuration: { 
+            columns: 3,
+            features: [
+              { title: 'Private Tours', description: 'Experience an exclusive day trip with our professional guides and private vehicles.', icon: 'users' },
+              { title: 'Local Expertise', description: 'Born and raised locals who know every hidden gem and authentic experience.', icon: 'compass' },
+              { title: 'Personalized Service', description: 'Tailored experiences designed just for you, away from mass tourism.', icon: 'sparkles' }
+            ]
+          }
+        };
+      case 'features_grid':
+        return {
+          title: 'Why Choose a Custom Tour?',
+          configuration: { 
+            columns: 3,
+            features: [
+              { title: 'Flexible Itinerary', description: 'Choose the destinations that interest you and set your own travel pace.', icon: 'map-pin' },
+              { title: 'Tailored Accommodations', description: 'Select accommodations that match your preferences and budget.', icon: 'building' },
+              { title: 'Personalized Support', description: 'Benefit from expert advice and an English-speaking guide for an authentic experience.', icon: 'headphones' }
+            ]
+          }
+        };
+      case 'testimonials':
+        return {
+          title: 'What Our Travelers Say',
+          configuration: { 
+            autoplay: true,
+            testimonials: [
+              { author: 'Sarah M.', text: 'Incredible authentic experience! Amon Tour showed us the real Thailand.', rating: 5 },
+              { author: 'Marc L.', text: 'Professional service and amazing local insights. Highly recommended!', rating: 5 }
+            ]
+          }
+        };
+        
+      // Contact & Forms
       case 'contact_form':
         return {
           title: 'Get in Touch',
@@ -1183,12 +1311,27 @@ export default function AdminAppearance() {
             submitText: 'Send Message'
           }
         };
-      case 'about_company':
+      case 'contact_cards':
         return {
-          title: 'About Amon Tour',
-          content: 'Born and raised in Krabi, we are your local experts for authentic Thai experiences.',
-          configuration: { showStats: true }
+          title: 'Get In Touch',
+          description: "Ready to explore Krabi? Contact us through any of the methods below. Our friendly team is here to answer your questions and help you plan an unforgettable experience.",
+          configuration: {
+            contacts: [
+              { type: 'email', value: 'info@amon-tour.com', icon: 'mail' },
+              { type: 'phone', value: '+66 (0)96 216 6559', icon: 'phone' },
+              { type: 'whatsapp', value: '+66 65 349 6445', icon: 'message-circle' },
+              { type: 'line', value: '@amontour', icon: 'message-circle' }
+            ]
+          }
         };
+      case 'custom_form':
+        return {
+          title: 'Plan Your Custom Experience',
+          description: 'Tell us about your dream Thailand adventure and we will create a personalized itinerary just for you.',
+          configuration: { formType: 'custom_tour' }
+        };
+        
+      // Call to Actions
       case 'cta_section':
         return {
           title: 'Ready to Start Your Adventure?',
@@ -1197,6 +1340,62 @@ export default function AdminAppearance() {
           ctaUrl: '/experiences',
           configuration: { style: 'primary' }
         };
+      case 'cta_banner':
+        return {
+          title: 'Create Your Perfect Custom Tour',
+          description: 'Ready for a personalized adventure?',
+          ctaText: 'Start Planning',
+          ctaUrl: '/custom-tour',
+          configuration: { style: 'banner', backgroundColor: '#1e73be' }
+        };
+        
+      // Media & Maps
+      case 'map_section':
+        return {
+          title: 'Find Us in Krabi',
+          description: 'Visit our office in Ao Nang or contact us for directions.',
+          configuration: { 
+            location: { lat: 8.0373, lng: 98.8278 },
+            showAddress: true,
+            address: 'Ao Nang, Mueang Krabi District, Krabi, Thailand'
+          }
+        };
+      case 'gallery':
+        return {
+          title: 'Experience Gallery',
+          description: 'See the beauty of Thailand through our tours',
+          configuration: { columns: 4, showLightbox: true }
+        };
+      case 'video_section':
+        return {
+          title: 'Experience Thailand Like Never Before',
+          description: 'Watch our latest adventure videos',
+          configuration: { autoplay: false, showControls: true }
+        };
+        
+      // Social & Newsletter
+      case 'newsletter':
+        return {
+          title: 'Stay Updated',
+          description: 'Get the latest travel tips and exclusive offers from Amon Tour',
+          configuration: {
+            placeholder: 'Enter your email',
+            buttonText: 'Subscribe',
+            privacy: 'We respect your privacy and never share your information.'
+          }
+        };
+      case 'social_media':
+        return {
+          title: 'Follow Our Adventures',
+          configuration: {
+            platforms: [
+              { name: 'facebook', url: 'https://www.facebook.com/amontour' },
+              { name: 'instagram', url: 'https://www.instagram.com/amontour' },
+              { name: 'youtube', url: 'https://www.youtube.com/amontour' }
+            ]
+          }
+        };
+        
       default:
         return {
           title: 'New Block',
@@ -1215,11 +1414,47 @@ export default function AdminAppearance() {
 
   const getBlockIcon = (blockType: string) => {
     switch (blockType) {
-      case 'hero': return <Star className="w-4 h-4" />;
+      // Hero Sections
+      case 'hero_video': return <Video className="w-4 h-4" />;
+      case 'hero_banner': return <Image className="w-4 h-4" />;
+      case 'hero_simple': return <Star className="w-4 h-4" />;
+      
+      // Content Sections
+      case 'text_section': return <Type className="w-4 h-4" />;
       case 'text_image': return <FileText className="w-4 h-4" />;
-      case 'contact_form': return <Mail className="w-4 h-4" />;
       case 'about_company': return <Users className="w-4 h-4" />;
+      
+      // Interactive Sections
+      case 'tour_grid': return <Layout className="w-4 h-4" />;
+      case 'cards_grid': return <Layout className="w-4 h-4" />;
+      case 'search_bar': return <Search className="w-4 h-4" />;
+      
+      // Features & Layout
+      case 'features_3col': return <Settings className="w-4 h-4" />;
+      case 'features_grid': return <Settings className="w-4 h-4" />;
+      case 'testimonials': return <Users className="w-4 h-4" />;
+      
+      // Contact & Forms
+      case 'contact_form': return <Mail className="w-4 h-4" />;
+      case 'contact_cards': return <Mail className="w-4 h-4" />;
+      case 'custom_form': return <FileText className="w-4 h-4" />;
+      
+      // Call to Actions
       case 'cta_section': return <Download className="w-4 h-4" />;
+      case 'cta_banner': return <Bell className="w-4 h-4" />;
+      
+      // Media & Maps
+      case 'map_section': return <MapPin className="w-4 h-4" />;
+      case 'gallery': return <Camera className="w-4 h-4" />;
+      case 'video_section': return <Video className="w-4 h-4" />;
+      
+      // Social & Newsletter
+      case 'newsletter': return <Mail className="w-4 h-4" />;
+      case 'social_media': return <Globe className="w-4 h-4" />;
+      
+      // Legacy support
+      case 'hero': return <Star className="w-4 h-4" />;
+      
       default: return <Layout className="w-4 h-4" />;
     }
   };
@@ -2006,11 +2241,43 @@ export default function AdminAppearance() {
                               <SelectValue placeholder="Select block type" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="hero">Hero/Header Section</SelectItem>
-                              <SelectItem value="text_image">Text & Image</SelectItem>
-                              <SelectItem value="contact_form">Contact Form</SelectItem>
+                              {/* Hero Sections */}
+                              <SelectItem value="hero_video">Hero with Video Background</SelectItem>
+                              <SelectItem value="hero_banner">Hero Banner with Image</SelectItem>
+                              <SelectItem value="hero_simple">Simple Hero Section</SelectItem>
+                              
+                              {/* Content Sections */}
+                              <SelectItem value="text_section">Text Section (Centered)</SelectItem>
+                              <SelectItem value="text_image">Text & Image (2 Columns)</SelectItem>
                               <SelectItem value="about_company">About Company</SelectItem>
+                              
+                              {/* Interactive Sections */}
+                              <SelectItem value="tour_grid">Tour Ninja Grid</SelectItem>
+                              <SelectItem value="cards_grid">Cards Grid</SelectItem>
+                              <SelectItem value="search_bar">Search Bar</SelectItem>
+                              
+                              {/* Features & Layout */}
+                              <SelectItem value="features_3col">Features (3 Columns)</SelectItem>
+                              <SelectItem value="features_grid">Features Grid</SelectItem>
+                              <SelectItem value="testimonials">Testimonials Carousel</SelectItem>
+                              
+                              {/* Contact & Forms */}
+                              <SelectItem value="contact_form">Contact Form</SelectItem>
+                              <SelectItem value="contact_cards">Contact Cards</SelectItem>
+                              <SelectItem value="custom_form">Custom Form</SelectItem>
+                              
+                              {/* Call to Actions */}
                               <SelectItem value="cta_section">Call to Action</SelectItem>
+                              <SelectItem value="cta_banner">CTA Banner</SelectItem>
+                              
+                              {/* Media & Maps */}
+                              <SelectItem value="map_section">Map Section</SelectItem>
+                              <SelectItem value="gallery">Image Gallery</SelectItem>
+                              <SelectItem value="video_section">Video Section</SelectItem>
+                              
+                              {/* Social & Newsletter */}
+                              <SelectItem value="newsletter">Newsletter Signup</SelectItem>
+                              <SelectItem value="social_media">Social Media Links</SelectItem>
                             </SelectContent>
                           </Select>
                           <Button 
@@ -2024,6 +2291,146 @@ export default function AdminAppearance() {
                       </DialogContent>
                     </Dialog>
                   </CardHeader>
+                  
+                  {/* Edit Block Modal */}
+                  <Dialog open={isEditingBlock} onOpenChange={setIsEditingBlock}>
+                    <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                      <DialogHeader>
+                        <DialogTitle>Edit Block: {selectedBlock?.blockType}</DialogTitle>
+                        <DialogDescription>
+                          Modify the content and settings for this block
+                        </DialogDescription>
+                      </DialogHeader>
+                      {selectedBlock && (
+                        <div className="space-y-4">
+                          <div className="grid grid-cols-2 gap-4">
+                            <div>
+                              <Label htmlFor="block-title">Title</Label>
+                              <Input
+                                id="block-title"
+                                value={selectedBlock.title || ''}
+                                onChange={(e) => setSelectedBlock({...selectedBlock, title: e.target.value})}
+                                placeholder="Block title"
+                              />
+                            </div>
+                            <div>
+                              <Label htmlFor="block-subtitle">Subtitle</Label>
+                              <Input
+                                id="block-subtitle"
+                                value={selectedBlock.subtitle || ''}
+                                onChange={(e) => setSelectedBlock({...selectedBlock, subtitle: e.target.value})}
+                                placeholder="Block subtitle"
+                              />
+                            </div>
+                          </div>
+                          
+                          <div>
+                            <Label htmlFor="block-description">Description</Label>
+                            <Textarea
+                              id="block-description"
+                              value={selectedBlock.description || ''}
+                              onChange={(e) => setSelectedBlock({...selectedBlock, description: e.target.value})}
+                              placeholder="Block description"
+                              rows={3}
+                            />
+                          </div>
+                          
+                          <div>
+                            <Label htmlFor="block-content">Content</Label>
+                            <Textarea
+                              id="block-content"
+                              value={selectedBlock.content || ''}
+                              onChange={(e) => setSelectedBlock({...selectedBlock, content: e.target.value})}
+                              placeholder="Block content"
+                              rows={4}
+                            />
+                          </div>
+                          
+                          <div className="grid grid-cols-2 gap-4">
+                            <div>
+                              <Label htmlFor="block-image">Image URL</Label>
+                              <Input
+                                id="block-image"
+                                value={selectedBlock.imageUrl || ''}
+                                onChange={(e) => setSelectedBlock({...selectedBlock, imageUrl: e.target.value})}
+                                placeholder="https://example.com/image.jpg"
+                              />
+                            </div>
+                            <div>
+                              <Label htmlFor="block-bg">Background Color</Label>
+                              <Input
+                                id="block-bg"
+                                type="color"
+                                value={selectedBlock.backgroundColor || '#ffffff'}
+                                onChange={(e) => setSelectedBlock({...selectedBlock, backgroundColor: e.target.value})}
+                              />
+                            </div>
+                          </div>
+                          
+                          {(selectedBlock.blockType.includes('cta') || selectedBlock.blockType.includes('hero')) && (
+                            <div className="grid grid-cols-2 gap-4">
+                              <div>
+                                <Label htmlFor="block-cta-text">Button Text</Label>
+                                <Input
+                                  id="block-cta-text"
+                                  value={selectedBlock.ctaText || ''}
+                                  onChange={(e) => setSelectedBlock({...selectedBlock, ctaText: e.target.value})}
+                                  placeholder="Call to action text"
+                                />
+                              </div>
+                              <div>
+                                <Label htmlFor="block-cta-url">Button URL</Label>
+                                <Input
+                                  id="block-cta-url"
+                                  value={selectedBlock.ctaUrl || ''}
+                                  onChange={(e) => setSelectedBlock({...selectedBlock, ctaUrl: e.target.value})}
+                                  placeholder="/link-destination"
+                                />
+                              </div>
+                            </div>
+                          )}
+                          
+                          <div className="flex items-center space-x-2">
+                            <Switch
+                              id="block-active"
+                              checked={selectedBlock.isActive}
+                              onCheckedChange={(checked) => setSelectedBlock({...selectedBlock, isActive: checked})}
+                            />
+                            <Label htmlFor="block-active">Block is active</Label>
+                          </div>
+                          
+                          <div className="flex justify-end space-x-2 pt-4">
+                            <Button variant="outline" onClick={() => setIsEditingBlock(false)}>
+                              Cancel
+                            </Button>
+                            <Button 
+                              onClick={() => {
+                                if (selectedBlock) {
+                                  updateBlockMutation.mutate({
+                                    id: selectedBlock.id,
+                                    updates: {
+                                      title: selectedBlock.title,
+                                      subtitle: selectedBlock.subtitle,
+                                      description: selectedBlock.description,
+                                      content: selectedBlock.content,
+                                      imageUrl: selectedBlock.imageUrl,
+                                      ctaText: selectedBlock.ctaText,
+                                      ctaUrl: selectedBlock.ctaUrl,
+                                      backgroundColor: selectedBlock.backgroundColor,
+                                      isActive: selectedBlock.isActive
+                                    }
+                                  });
+                                }
+                              }}
+                              disabled={updateBlockMutation.isPending}
+                            >
+                              {updateBlockMutation.isPending ? 'Saving...' : 'Save Changes'}
+                            </Button>
+                          </div>
+                        </div>
+                      )}
+                    </DialogContent>
+                  </Dialog>
                   <CardContent>
                     {loadingBlocks ? (
                       <div className="text-center py-12">
@@ -2059,15 +2466,66 @@ export default function AdminAppearance() {
                                 </Badge>
                               </div>
                               <div className="flex items-center gap-2">
-                                <Button size="sm" variant="ghost">
+                                {/* Toggle Visibility */}
+                                <Button 
+                                  size="sm" 
+                                  variant="ghost"
+                                  onClick={() => toggleBlockVisibilityMutation.mutate({
+                                    blockId: block.id,
+                                    isActive: !block.isActive
+                                  })}
+                                  className={block.isActive ? 'text-green-600' : 'text-gray-400'}
+                                  title={block.isActive ? 'Hide block' : 'Show block'}
+                                >
+                                  {block.isActive ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
+                                </Button>
+                                
+                                {/* Edit Button */}
+                                <Button 
+                                  size="sm" 
+                                  variant="ghost"
+                                  onClick={() => {
+                                    setSelectedBlock(block);
+                                    setEditingBlockId(block.id);
+                                    setIsEditingBlock(true);
+                                  }}
+                                  title="Edit block"
+                                >
                                   <Edit className="w-4 h-4" />
                                 </Button>
-                                <Button size="sm" variant="ghost" className="cursor-move">
-                                  <Move className="w-4 h-4" />
+                                
+                                {/* Move Up */}
+                                <Button 
+                                  size="sm" 
+                                  variant="ghost"
+                                  onClick={() => moveBlockMutation.mutate({
+                                    blockId: block.id,
+                                    direction: 'up'
+                                  })}
+                                  disabled={index === 0}
+                                  title="Move up"
+                                >
+                                  <ChevronUp className="w-4 h-4" />
                                 </Button>
+                                
+                                {/* Move Down */}
+                                <Button 
+                                  size="sm" 
+                                  variant="ghost"
+                                  onClick={() => moveBlockMutation.mutate({
+                                    blockId: block.id,
+                                    direction: 'down'
+                                  })}
+                                  disabled={index === pageBlocks.length - 1}
+                                  title="Move down"
+                                >
+                                  <ChevronDown className="w-4 h-4" />
+                                </Button>
+                                
+                                {/* Delete Button */}
                                 <AlertDialog>
                                   <AlertDialogTrigger asChild>
-                                    <Button size="sm" variant="ghost" className="text-red-600">
+                                    <Button size="sm" variant="ghost" className="text-red-600" title="Delete block">
                                       <Trash2 className="w-4 h-4" />
                                     </Button>
                                   </AlertDialogTrigger>
