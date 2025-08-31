@@ -944,6 +944,67 @@ function NewsletterManager({ siteSettings, updateSiteSetting, updateSiteSettingM
   );
 }
 
+function CopyrightManager({ siteSettings, updateSiteSetting, updateSiteSettingMutation }: any) {
+  const getCopyrightConfig = () => {
+    const setting = siteSettings.find((s: any) => s.section === 'footer' && s.key === 'copyright_config');
+    if (setting?.value) {
+      try {
+        return JSON.parse(setting.value);
+      } catch (e) {
+        return {};
+      }
+    }
+    return {
+      text: '© 2025 Flame BB Co., Ltd. (Amon Tour). All rights reserved.',
+      enabled: true
+    };
+  };
+
+  const [copyrightConfig, setCopyrightConfig] = useState(getCopyrightConfig());
+
+  const saveCopyrightConfig = (newData: any) => {
+    setCopyrightConfig(newData);
+    updateSiteSetting('footer', 'copyright_config', JSON.stringify(newData));
+  };
+
+  const updateCopyrightConfig = (field: string, value: any) => {
+    const updated = { ...copyrightConfig, [field]: value };
+    saveCopyrightConfig(updated);
+  };
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <FileText className="w-5 h-5" />
+          Copyright
+        </CardTitle>
+        <CardDescription>Configure copyright text</CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <div className="flex items-center justify-between">
+          <Label>Enable Copyright</Label>
+          <Switch
+            checked={copyrightConfig.enabled}
+            onCheckedChange={(checked) => updateCopyrightConfig('enabled', checked)}
+          />
+        </div>
+        
+        <div>
+          <Label htmlFor="copyright-text">Copyright Text</Label>
+          <Textarea
+            id="copyright-text"
+            value={copyrightConfig.text}
+            onChange={(e) => updateCopyrightConfig('text', e.target.value)}
+            placeholder="© 2025 Flame BB Co., Ltd. (Amon Tour). All rights reserved."
+            rows={3}
+          />
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
 export default function AdminAppearance() {
   const [, setLocation] = useLocation();
   const [activeCategory, setActiveCategory] = useState<string>('theme');
@@ -2801,7 +2862,8 @@ export default function AdminAppearance() {
                         { id: 'contact-info', label: 'Contact Information', icon: MapPin },
                         { id: 'useful-links', label: 'Useful Links', icon: Menu },
                         { id: 'social-media', label: 'Social Media', icon: Users },
-                        { id: 'newsletter', label: 'Newsletter', icon: Mail }
+                        { id: 'newsletter', label: 'Newsletter', icon: Mail },
+                        { id: 'copyright', label: 'Copyright', icon: FileText }
                       ].map(({ id, label, icon: Icon }) => (
                         <Button
                           key={id}
@@ -2847,6 +2909,14 @@ export default function AdminAppearance() {
 
                 {selectedFooterSection === 'newsletter' && (
                   <NewsletterManager
+                    siteSettings={siteSettings}
+                    updateSiteSetting={updateSiteSetting}
+                    updateSiteSettingMutation={updateSiteSettingMutation}
+                  />
+                )}
+
+                {selectedFooterSection === 'copyright' && (
+                  <CopyrightManager
                     siteSettings={siteSettings}
                     updateSiteSetting={updateSiteSetting}
                     updateSiteSettingMutation={updateSiteSettingMutation}
