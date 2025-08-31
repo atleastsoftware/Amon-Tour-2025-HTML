@@ -95,6 +95,15 @@ app.use((req, res, next) => {
   // Migrate tours from JSON to database
   await migrateTours();
   
+  // Seed authentic blocks for pages
+  try {
+    // Import locally to avoid dependency issues
+    const { seedAuthenticBlocks } = await import('./seeds/authentic-blocks');
+    await seedAuthenticBlocks();
+  } catch (error) {
+    log('Warning: Could not seed authentic blocks:', error);
+  }
+  
   const server = await registerRoutes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {

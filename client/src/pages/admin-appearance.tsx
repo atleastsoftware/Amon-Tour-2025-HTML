@@ -2296,12 +2296,12 @@ export default function AdminAppearance() {
                               {/* Hero Sections */}
                               <SelectItem value="hero_video">Hero with Video Background</SelectItem>
                               <SelectItem value="hero_banner">Hero Banner with Image</SelectItem>
-                              <SelectItem value="hero_simple">Simple Hero Section</SelectItem>
+                              <SelectItem value="hero">Simple Hero Section</SelectItem>
                               
                               {/* Content Sections */}
                               <SelectItem value="text_section">Text Section (Centered)</SelectItem>
                               <SelectItem value="text_image">Text & Image (2 Columns)</SelectItem>
-                              <SelectItem value="about_company">About Company</SelectItem>
+                              <SelectItem value="about_2col">About Company (2 Columns)</SelectItem>
                               
                               {/* Interactive Sections */}
                               <SelectItem value="tour_grid">Tour Ninja Grid</SelectItem>
@@ -2310,12 +2310,11 @@ export default function AdminAppearance() {
                               
                               {/* Features & Layout */}
                               <SelectItem value="features_3col">Features (3 Columns)</SelectItem>
-                              <SelectItem value="features_grid">Features Grid</SelectItem>
                               <SelectItem value="testimonials">Testimonials Carousel</SelectItem>
                               
                               {/* Contact & Forms */}
-                              <SelectItem value="contact_form">Contact Form</SelectItem>
                               <SelectItem value="contact_cards">Contact Cards</SelectItem>
+                              <SelectItem value="contact_info">Contact Information</SelectItem>
                               <SelectItem value="custom_form">Custom Form</SelectItem>
                               
                               {/* Call to Actions */}
@@ -2327,9 +2326,10 @@ export default function AdminAppearance() {
                               <SelectItem value="gallery">Image Gallery</SelectItem>
                               <SelectItem value="video_section">Video Section</SelectItem>
                               
-                              {/* Social & Newsletter */}
+                              {/* Utility & Social */}
                               <SelectItem value="newsletter">Newsletter Signup</SelectItem>
                               <SelectItem value="social_media">Social Media Links</SelectItem>
+                              <SelectItem value="pdf_download">PDF Download</SelectItem>
                             </SelectContent>
                           </Select>
                           <Button 

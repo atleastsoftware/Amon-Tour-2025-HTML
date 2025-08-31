@@ -491,17 +491,49 @@ export type MediaLibrary = typeof mediaLibrary.$inferSelect;
 
 // Modular Page Builder System
 export const blockTypeEnum = pgEnum("block_type", [
-  "hero",          // Header/Hero avec image, titre, description, bouton optionnel
-  "text_image",    // Section texte + image
-  "advantages",    // Grille d'avantages avec icônes
-  "card_grid",     // Grille de cartes (tours, activités, etc.)
-  "form",          // Formulaires (custom tour, celebration, etc.)
-  "pdf_download",  // Téléchargement de PDF
-  "search_module", // Module de recherche
-  "gallery",       // Galerie d'images
+  // Hero Sections
+  "hero_video",    // Hero avec vidéo de fond
+  "hero_banner",   // Hero avec image statique
+  "hero",          // Hero générique
+  
+  // Content Sections
+  "text_section",  // Section de texte centré avec titre
+  "text_image",    // Section texte + image (2 colonnes)
+  "about_2col",    // Section À propos 2 colonnes
+  
+  // Interactive Sections
+  "tour_grid",     // Grille de tours Tour Ninja
+  "cards_grid",    // Grille de cartes
+  "card_grid",     // Alias pour compatibilité
+  "search_bar",    // Barre de recherche
+  "search_module", // Module de recherche (alias)
+  
+  // Features & Layout
+  "features_3col", // 3 colonnes avec icônes
+  "advantages",    // Grille d'avantages (alias)
+  "testimonials",  // Carousel d'avis
+  
+  // Contact & Forms
+  "contact_cards", // Cartes de contact avec icônes
   "contact_info",  // Informations de contact
+  "custom_form",   // Formulaires personnalisés
+  "form",          // Alias pour compatibilité
+  
+  // Call to Actions
+  "cta_banner",    // Bannière d'appel à l'action
+  "cta_section",   // Section d'appel à l'action
+  
+  // Media & Maps
+  "map_section",   // Carte intégrée
+  "gallery",       // Galerie d'images
+  "video_section", // Section vidéo
+  "video_hero",    // Alias pour hero_video
+  
+  // Utility & Social
+  "newsletter",    // Inscription newsletter
+  "social_media",  // Liens sociaux
+  "pdf_download",  // Téléchargement de PDF
   "interests",     // Section intérêts/destinations
-  "video_hero"     // Hero avec vidéo de fond
 ]);
 
 // Configuration des pages
