@@ -1082,13 +1082,31 @@ export default function AdminAppearance() {
     );
   }
 
-  const availablePages = [
-    { slug: 'home', name: 'Home Page', type: 'main' },
-    { slug: 'experiences', name: 'Experiences', type: 'main' },
-    { slug: 'custom-tour', name: 'Custom Tour', type: 'main' },
-    { slug: 'contact-us', name: 'Contact Us', type: 'main' },
-    { slug: 'blog', name: 'Blog', type: 'main' }
-  ];
+  const pageCategories = {
+    'Pages principales': [
+      { slug: 'home', name: 'Home Page' },
+      { slug: 'experiences', name: 'Experiences' },
+      { slug: 'custom-tour', name: 'Custom Tour' },
+      { slug: 'contact', name: 'Contact Us' },
+      { slug: 'blog', name: 'Blog' }
+    ],
+    'Pages secondaires': [
+      { slug: 'tours', name: 'Tours' },
+      { slug: 'stays', name: 'Stays' },
+      { slug: 'external-stays', name: 'External Stays' },
+      { slug: 'villas-krabi', name: 'Villas Krabi' },
+      { slug: 'krabi-celebration', name: 'Krabi Celebration' },
+      { slug: 'become-partner', name: 'Become Partner' },
+      { slug: 'group-corporate', name: 'Group Corporate' },
+      { slug: 'brochure', name: 'Brochure' },
+      { slug: 'tour-cards', name: 'Tour Cards' }
+    ],
+    'Mentions légales': [
+      { slug: 'legal-notice', name: 'Legal Notice' },
+      { slug: 'privacy-policy', name: 'Privacy Policy' },
+      { slug: 'terms-conditions', name: 'Terms & Conditions' }
+    ]
+  };
 
   const handleCreateBlock = (blockType: string) => {
     if (!Array.isArray(pageConfigs)) {
@@ -1933,16 +1951,25 @@ export default function AdminAppearance() {
                   <CardDescription>Choose page to edit</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-2">
-                    {availablePages.map((page) => (
-                      <Button
-                        key={page.slug}
-                        variant={selectedPage === page.slug ? 'default' : 'outline'}
-                        className="w-full justify-start"
-                        onClick={() => setSelectedPage(page.slug)}
-                      >
-                        {page.name}
-                      </Button>
+                  <div className="space-y-4">
+                    {Object.entries(pageCategories).map(([categoryName, pages]) => (
+                      <div key={categoryName} className="space-y-2">
+                        <h4 className="font-medium text-sm text-gray-700 px-2 py-1 bg-gray-100 rounded">
+                          {categoryName}
+                        </h4>
+                        <div className="space-y-1 ml-2">
+                          {pages.map((page) => (
+                            <Button
+                              key={page.slug}
+                              variant={selectedPage === page.slug ? 'default' : 'outline'}
+                              className="w-full justify-start text-sm h-8"
+                              onClick={() => setSelectedPage(page.slug)}
+                            >
+                              {page.name}
+                            </Button>
+                          ))}
+                        </div>
+                      </div>
                     ))}
                   </div>
                 </CardContent>
@@ -2098,7 +2125,7 @@ export default function AdminAppearance() {
                 siteSettings={siteSettings}
                 updateSiteSetting={updateSiteSetting}
                 updateSiteSettingMutation={updateSiteSettingMutation}
-                availablePages={availablePages}
+                availablePages={Object.values(pageCategories).flat()}
               />
 
               {/* Social Media */}
