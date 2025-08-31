@@ -947,7 +947,17 @@ function NewsletterManager({ siteSettings, updateSiteSetting, updateSiteSettingM
 export default function AdminAppearance() {
   const [, setLocation] = useLocation();
   const [activeCategory, setActiveCategory] = useState<string>('theme');
-  const [selectedPage, setSelectedPage] = useState<string>('home');
+  const [selectedPage, setSelectedPage] = useState<string>('navigation-menu');
+  const [expandedCategories, setExpandedCategories] = useState<string[]>(['Menu principal']);
+
+  // Toggle category expansion
+  const toggleCategory = (categoryName: string) => {
+    setExpandedCategories(prev => 
+      prev.includes(categoryName) 
+        ? prev.filter(cat => cat !== categoryName)
+        : [...prev, categoryName]
+    );
+  };
   const [selectedBlock, setSelectedBlock] = useState<PageBlock | null>(null);
   const [isEditingBlock, setIsEditingBlock] = useState(false);
   const [editingBlockId, setEditingBlockId] = useState<number | null>(null);
@@ -1138,6 +1148,9 @@ export default function AdminAppearance() {
   }
 
   const pageCategories = {
+    'Menu principal': [
+      { slug: 'navigation-menu', name: 'Menu principal' }
+    ],
     'Pages principales': [
       { slug: 'home', name: 'Home Page' },
       { slug: 'experiences', name: 'Experiences' },
@@ -1499,7 +1512,7 @@ export default function AdminAppearance() {
 
         {/* Main Navigation */}
         <Tabs value={activeCategory} onValueChange={setActiveCategory} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 h-auto">
+          <TabsList className="grid w-full grid-cols-3 h-auto">
             <TabsTrigger value="theme" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 sm:p-3 text-xs sm:text-sm">
               <Palette className="w-4 h-4 flex-shrink-0" />
               <span>Theme</span>
@@ -1507,10 +1520,6 @@ export default function AdminAppearance() {
             <TabsTrigger value="pages" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 sm:p-3 text-xs sm:text-sm">
               <Layout className="w-4 h-4 flex-shrink-0" />
               <span>Pages</span>
-            </TabsTrigger>
-            <TabsTrigger value="menu" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 sm:p-3 text-xs sm:text-sm">
-              <Menu className="w-4 h-4 flex-shrink-0" />
-              <span>Menu principal</span>
             </TabsTrigger>
             <TabsTrigger value="footer" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 sm:p-3 text-xs sm:text-sm">
               <Settings className="w-4 h-4 flex-shrink-0" />
@@ -2207,21 +2216,32 @@ export default function AdminAppearance() {
                   <div className="space-y-4">
                     {Object.entries(pageCategories).map(([categoryName, pages]) => (
                       <div key={categoryName} className="space-y-2">
-                        <h4 className="font-medium text-sm text-gray-700 px-2 py-1 bg-gray-100 rounded">
-                          {categoryName}
-                        </h4>
-                        <div className="space-y-1 ml-2">
-                          {pages.map((page) => (
-                            <Button
-                              key={page.slug}
-                              variant={selectedPage === page.slug ? 'default' : 'outline'}
-                              className="w-full justify-start text-sm h-8"
-                              onClick={() => setSelectedPage(page.slug)}
-                            >
-                              {page.name}
-                            </Button>
-                          ))}
-                        </div>
+                        <Button
+                          variant="ghost"
+                          className="w-full justify-between font-medium text-sm text-gray-700 px-2 py-1 bg-gray-100 rounded h-8 hover:bg-gray-200"
+                          onClick={() => toggleCategory(categoryName)}
+                        >
+                          <span>{categoryName}</span>
+                          <ChevronDown 
+                            className={`w-4 h-4 transition-transform ${
+                              expandedCategories.includes(categoryName) ? 'rotate-180' : ''
+                            }`}
+                          />
+                        </Button>
+                        {expandedCategories.includes(categoryName) && (
+                          <div className="space-y-1 ml-2">
+                            {pages.map((page) => (
+                              <Button
+                                key={page.slug}
+                                variant={selectedPage === page.slug ? 'default' : 'outline'}
+                                className="w-full justify-start text-sm h-8"
+                                onClick={() => setSelectedPage(page.slug)}
+                              >
+                                {page.name}
+                              </Button>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>
@@ -2230,14 +2250,17 @@ export default function AdminAppearance() {
 
               {/* Page Content Blocks */}
               <div className="lg:col-span-3">
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between">
-                    <div>
-                      <CardTitle>Content Blocks for {selectedPage}</CardTitle>
-                      <CardDescription>
-                        Drag and drop to reorder blocks. Each block represents a section of your page.
-                      </CardDescription>
-                    </div>
+                {selectedPage === 'navigation-menu' ? (
+                  <NavigationMenuManager />
+                ) : (
+                  <Card>
+                    <CardHeader className="flex flex-row items-center justify-between">
+                      <div>
+                        <CardTitle>Content Blocks for {selectedPage}</CardTitle>
+                        <CardDescription>
+                          Drag and drop to reorder blocks. Each block represents a section of your page.
+                        </CardDescription>
+                      </div>
                     <div className="flex gap-2">
                       <Button
                         variant="outline"
@@ -2606,6 +2629,7 @@ export default function AdminAppearance() {
                     )}
                   </CardContent>
                 </Card>
+                )}
               </div>
             </div>
           </TabsContent>
@@ -2644,10 +2668,6 @@ export default function AdminAppearance() {
             </div>
           </TabsContent>
 
-          {/* Menu Principal Management */}
-          <TabsContent value="menu">
-            <NavigationMenuManager />
-          </TabsContent>
         </Tabs>
       </div>
     </div>
