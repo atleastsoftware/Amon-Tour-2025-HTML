@@ -458,7 +458,7 @@ function UsefulLinksManager({ siteSettings, updateSiteSetting, updateSiteSetting
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-sm sm:text-base">
+        <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
           <FileText className="w-4 h-4" />
           Useful Links
         </CardTitle>
@@ -718,7 +718,7 @@ function SocialMediaManager({ siteSettings, updateSiteSetting, updateSiteSetting
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-sm sm:text-base">
+        <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
           <Users className="w-4 h-4" />
           Social Media
         </CardTitle>
@@ -875,7 +875,7 @@ function NewsletterManager({ siteSettings, updateSiteSetting, updateSiteSettingM
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-sm sm:text-base">
+        <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
           <Mail className="w-4 h-4" />
           Newsletter
         </CardTitle>
@@ -975,7 +975,7 @@ function CopyrightManager({ siteSettings, updateSiteSetting, updateSiteSettingMu
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-sm sm:text-base">
+        <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
           <FileText className="w-4 h-4" />
           Copyright
         </CardTitle>
@@ -1575,16 +1575,16 @@ export default function AdminAppearance() {
         {/* Main Navigation */}
         <Tabs value={activeCategory} onValueChange={setActiveCategory} className="space-y-6">
           <TabsList className="grid w-full grid-cols-3 h-auto">
-            <TabsTrigger value="theme" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 sm:p-3 text-lg sm:text-xl lg:text-2xl font-semibold">
-              <Palette className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
+            <TabsTrigger value="theme" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 sm:p-3 text-base sm:text-lg font-semibold">
+              <Palette className="w-4 h-4 flex-shrink-0" />
               <span>Theme</span>
             </TabsTrigger>
-            <TabsTrigger value="pages" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 sm:p-3 text-lg sm:text-xl lg:text-2xl font-semibold">
-              <Layout className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
+            <TabsTrigger value="pages" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 sm:p-3 text-base sm:text-lg font-semibold">
+              <Layout className="w-4 h-4 flex-shrink-0" />
               <span>Pages</span>
             </TabsTrigger>
-            <TabsTrigger value="footer" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 sm:p-3 text-lg sm:text-xl lg:text-2xl font-semibold">
-              <Settings className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
+            <TabsTrigger value="footer" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 sm:p-3 text-base sm:text-lg font-semibold">
+              <Settings className="w-4 h-4 flex-shrink-0" />
               <span>Footer</span>
             </TabsTrigger>
           </TabsList>
@@ -1595,7 +1595,7 @@ export default function AdminAppearance() {
               {/* Theme Section Selector */}
               <Card className="lg:col-span-1">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-sm sm:text-base">
+                  <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                     <Palette className="w-4 h-4" />
                     Theme Settings
                   </CardTitle>
@@ -1676,7 +1676,7 @@ export default function AdminAppearance() {
                 {selectedThemeSection === 'colors' && (
                   <Card>
                     <CardHeader>
-                      <CardTitle className="flex items-center gap-2 text-sm sm:text-base">
+                      <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                         <Palette className="w-4 h-4" />
                         Colors
                       </CardTitle>
@@ -1786,7 +1786,7 @@ export default function AdminAppearance() {
                 {selectedThemeSection === 'typography' && (
                   <Card>
                     <CardHeader>
-                      <CardTitle className="flex items-center gap-2 text-sm sm:text-base">
+                      <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                         <Type className="w-4 h-4" />
                         Typography
                       </CardTitle>
@@ -1902,7 +1902,7 @@ export default function AdminAppearance() {
                 {selectedThemeSection === 'extended-colors' && (
                   <Card>
                     <CardHeader>
-                      <CardTitle className="flex items-center gap-2 text-sm sm:text-base">
+                      <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                         <Palette className="w-4 h-4" />
                         Extended Color Palette
                       </CardTitle>
@@ -1962,7 +1962,7 @@ export default function AdminAppearance() {
                 {selectedThemeSection === 'button-styles' && (
                   <Card>
                     <CardHeader>
-                      <CardTitle className="flex items-center gap-2 text-sm sm:text-base">
+                      <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                         <MousePointer className="w-4 h-4" />
                         Button Styles
                       </CardTitle>
@@ -2037,8 +2037,8 @@ export default function AdminAppearance() {
                 {selectedThemeSection === 'seo-metadata' && (
                   <Card>
                     <CardHeader>
-                      <CardTitle className="flex items-center gap-2">
-                        <Globe className="w-5 h-5" />
+                      <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+                        <Globe className="w-4 h-4" />
                         SEO & Metadata
                       </CardTitle>
                       <CardDescription>Global SEO settings and social media metadata</CardDescription>
@@ -2106,8 +2106,8 @@ export default function AdminAppearance() {
                 {selectedThemeSection === 'logo-favicon' && (
                   <Card>
                     <CardHeader>
-                      <CardTitle className="flex items-center gap-2">
-                        <Image className="w-5 h-5" />
+                      <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+                        <Image className="w-4 h-4" />
                         Logo & Favicon
                       </CardTitle>
                       <CardDescription>Manage site logos and favicon</CardDescription>
