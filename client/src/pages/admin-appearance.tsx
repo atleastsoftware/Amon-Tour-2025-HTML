@@ -1150,8 +1150,8 @@ export default function AdminAppearance() {
   }
 
   const pageCategories = {
-    'Menu principal': [
-      { slug: 'navigation-menu', name: 'Menu principal' }
+    'Menu': [
+      { slug: 'navigation-menu', name: 'Menu' }
     ],
     'Pages principales': [
       { slug: 'home', name: 'Home Page' },
@@ -2347,35 +2347,81 @@ export default function AdminAppearance() {
 
               {/* Page Content Blocks */}
               <div className="lg:col-span-3">
-                {selectedPage === 'navigation-menu' ? (
-                  <NavigationMenuManager />
-                ) : (
-                  <Card>
-                    <CardHeader className="flex flex-row items-center justify-between">
-                      <div>
-                        <CardTitle>Content Blocks for {selectedPage}</CardTitle>
-                        <CardDescription>
-                          Drag and drop to reorder blocks. Each block represents a section of your page.
-                        </CardDescription>
-                      </div>
+                <Card>
+                  <CardHeader className="flex flex-row items-center justify-between">
+                    <div>
+                      <CardTitle>
+                        {selectedPage === 'navigation-menu' ? 'Menu Navigation' : `Content Blocks for ${selectedPage}`}
+                      </CardTitle>
+                      <CardDescription>
+                        {selectedPage === 'navigation-menu' 
+                          ? 'Manage your website navigation menu items. Drag and drop to reorder.'
+                          : 'Drag and drop to reorder blocks. Each block represents a section of your page.'
+                        }
+                      </CardDescription>
+                    </div>
                     <div className="flex gap-2">
-                      <Button
-                        variant="outline"
-                        onClick={() => {
-                          const pageUrl = selectedPage === 'home' ? '/' : `/${selectedPage}`;
-                          window.open(pageUrl, '_blank');
-                        }}
-                      >
-                        <Eye className="w-4 h-4 mr-2" />
-                        Preview Page
-                      </Button>
-                      <Dialog>
-                        <DialogTrigger asChild>
-                          <Button>
-                            <Plus className="w-4 h-4 mr-2" />
-                            Add Block
+                      {selectedPage === 'navigation-menu' ? (
+                        <>
+                          <Button
+                            variant="outline"
+                            onClick={() => window.open('/', '_blank')}
+                          >
+                            <Eye className="w-4 h-4 mr-2" />
+                            Preview Menu
                           </Button>
-                        </DialogTrigger>
+                          <Button
+                            onClick={async () => {
+                              // Préremplir avec le menu réel du site
+                              const defaultMenuItems = [
+                                { name: 'Home', url: '/', order: 1, isActive: true },
+                                { name: 'Experiences', url: '/tours', order: 2, isActive: true },
+                                { name: 'Custom Trip', url: '/custom-tour', order: 3, isActive: true },
+                                { name: 'Blog', url: '/blog', order: 4, isActive: true },
+                                { name: 'Contact', url: '/contact', order: 5, isActive: true }
+                              ];
+                              
+                              for (const item of defaultMenuItems) {
+                                try {
+                                  await fetch('/api/admin/navigation-menu', {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    credentials: 'include',
+                                    body: JSON.stringify(item),
+                                  });
+                                } catch (error) {
+                                  console.error('Error creating menu item:', error);
+                                }
+                              }
+                              
+                              // Recharger les données du menu
+                              queryClient.invalidateQueries({ queryKey: ['/api/admin/navigation-menu'] });
+                              toast({ title: "Success", description: "Menu prérempli avec les éléments du site" });
+                            }}
+                          >
+                            <Plus className="w-4 h-4 mr-2" />
+                            Préremplir Menu
+                          </Button>
+                        </>
+                      ) : (
+                        <>
+                          <Button
+                            variant="outline"
+                            onClick={() => {
+                              const pageUrl = selectedPage === 'home' ? '/' : `/${selectedPage}`;
+                              window.open(pageUrl, '_blank');
+                            }}
+                          >
+                            <Eye className="w-4 h-4 mr-2" />
+                            Preview Page
+                          </Button>
+                          <Dialog>
+                            <DialogTrigger asChild>
+                              <Button>
+                                <Plus className="w-4 h-4 mr-2" />
+                                Add Block
+                              </Button>
+                            </DialogTrigger>
                       <DialogContent>
                         <DialogHeader>
                           <DialogTitle>Add New Content Block</DialogTitle>
@@ -2439,6 +2485,8 @@ export default function AdminAppearance() {
                         </div>
                       </DialogContent>
                     </Dialog>
+                        </>
+                      )}
                     </div>
                   </CardHeader>
                   
@@ -2594,7 +2642,9 @@ export default function AdminAppearance() {
                     </DialogContent>
                   </Dialog>
                   <CardContent>
-                    {loadingBlocks ? (
+                    {selectedPage === 'navigation-menu' ? (
+                      <NavigationMenuManager />
+                    ) : loadingBlocks ? (
                       <div className="text-center py-12">
                         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
                         <p className="text-gray-500">Loading blocks...</p>
@@ -2726,7 +2776,6 @@ export default function AdminAppearance() {
                     )}
                   </CardContent>
                 </Card>
-                )}
               </div>
             </div>
           </TabsContent>
@@ -2967,121 +3016,110 @@ function NavigationMenuManager() {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
-        <div>
-          <h2 className="text-2xl font-bold">Menu Principal</h2>
-          <p className="text-gray-600">Gérez la navigation principale du site</p>
-        </div>
-        <div className="flex gap-2">
-          <Button
-            variant="outline"
-            onClick={() => setIsPreviewMode(!isPreviewMode)}
-            className="flex items-center gap-2"
-          >
-            <Eye className="w-4 h-4" />
-            {isPreviewMode ? 'Masquer aperçu' : 'Voir aperçu'}
-          </Button>
-          <Button
-            onClick={() => {
-              setEditingItem(null);
-              setIsDialogOpen(true);
-            }}
-            className="flex items-center gap-2"
-          >
-            <Plus className="w-4 h-4" />
-            Ajouter élément
-          </Button>
-        </div>
+      {/* Action Buttons */}
+      <div className="flex gap-2 justify-end">
+        <Button
+          variant="outline"
+          onClick={() => setIsPreviewMode(!isPreviewMode)}
+          className="flex items-center gap-2"
+        >
+          <Eye className="w-4 h-4" />
+          {isPreviewMode ? 'Masquer aperçu' : 'Voir aperçu'}
+        </Button>
+        <Button
+          onClick={() => {
+            setEditingItem(null);
+            setIsDialogOpen(true);
+          }}
+          className="flex items-center gap-2"
+        >
+          <Plus className="w-4 h-4" />
+          Ajouter élément
+        </Button>
       </div>
 
       {/* Preview Mode */}
       {isPreviewMode && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Eye className="w-5 h-5" />
-              Aperçu du menu
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-wrap gap-4 p-4 bg-gray-50 rounded-lg">
-              {organizedItems.filter(item => item.isActive).map((item) => (
-                <div key={item.id} className="relative group">
-                  <a
-                    href={item.url}
-                    target={item.target}
-                    className="px-4 py-2 text-gray-700 hover:text-blue-600 transition-colors"
-                  >
-                    {item.iconName && (
-                      <Globe className="w-4 h-4 inline mr-2" />
-                    )}
-                    {item.name}
-                  </a>
-                  {item.children && item.children.length > 0 && (
-                    <div className="absolute top-full left-0 bg-white shadow-lg rounded-lg min-w-[200px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10">
-                      {item.children.filter(child => child.isActive).map((child) => (
-                        <a
-                          key={child.id}
-                          href={child.url}
-                          target={child.target}
-                          className="block px-4 py-2 text-gray-600 hover:text-blue-600 hover:bg-gray-50"
-                        >
-                          {child.iconName && (
-                            <Globe className="w-4 h-4 inline mr-2" />
-                          )}
-                          {child.name}
-                        </a>
-                      ))}
-                    </div>
+        <div className="border rounded-lg p-4 bg-gray-50">
+          <h4 className="text-sm font-medium flex items-center gap-2 mb-3">
+            <Eye className="w-4 h-4" />
+            Aperçu du menu
+          </h4>
+          <div className="flex flex-wrap gap-4">
+            {organizedItems.filter(item => item.isActive).map((item) => (
+              <div key={item.id} className="relative group">
+                <a
+                  href={item.url}
+                  target={item.target}
+                  className="px-4 py-2 text-gray-700 hover:text-blue-600 transition-colors"
+                >
+                  {item.iconName && (
+                    <Globe className="w-4 h-4 inline mr-2" />
                   )}
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+                  {item.name}
+                </a>
+                {item.children && item.children.length > 0 && (
+                  <div className="absolute top-full left-0 bg-white shadow-lg rounded-lg min-w-[200px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10">
+                    {item.children.filter(child => child.isActive).map((child) => (
+                      <a
+                        key={child.id}
+                        href={child.url}
+                        target={child.target}
+                        className="block px-4 py-2 text-gray-600 hover:text-blue-600 hover:bg-gray-50"
+                      >
+                        {child.iconName && (
+                          <Globe className="w-4 h-4 inline mr-2" />
+                        )}
+                        {child.name}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
       )}
 
       {/* Menu Items List */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Menu className="w-5 h-5" />
-            Éléments du menu ({menuItems.length})
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          {isLoading ? (
-            <div className="text-center py-8">Chargement...</div>
-          ) : organizedItems.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
-              Aucun élément de menu. Cliquez sur "Ajouter élément" pour commencer.
-            </div>
-          ) : (
-            <div className="space-y-2">
-              {organizedItems.map((item, index) => (
-                <MenuItemRow
-                  key={item.id}
-                  item={item}
-                  isFirst={index === 0}
-                  isLast={index === organizedItems.length - 1}
-                  onEdit={(item) => {
-                    setEditingItem(item);
-                    setIsDialogOpen(true);
-                  }}
-                  onDelete={(id) => deleteMenuItemMutation.mutate(id)}
-                  onReorder={(id, direction) => reorderMenuItemMutation.mutate({ id, direction })}
-                  onToggleVisibility={toggleVisibility}
-                  onAddChild={(parentId) => {
-                    setEditingItem({ parentId } as NavigationMenuItem);
-                    setIsDialogOpen(true);
-                  }}
-                />
-              ))}
-            </div>
-          )}
-        </CardContent>
-      </Card>
+      <div>
+        <h3 className="text-lg font-semibold flex items-center gap-2 mb-4">
+          <Menu className="w-5 h-5" />
+          Éléments du menu ({menuItems.length})
+        </h3>
+        {isLoading ? (
+          <div className="text-center py-8">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p className="text-gray-500">Chargement...</p>
+          </div>
+        ) : organizedItems.length === 0 ? (
+          <div className="text-center py-8 text-gray-500">
+            Aucun élément de menu. Cliquez sur "Ajouter élément" pour commencer.
+          </div>
+        ) : (
+          <div className="space-y-2">
+            {organizedItems.map((item, index) => (
+              <MenuItemRow
+                key={item.id}
+                item={item}
+                isFirst={index === 0}
+                isLast={index === organizedItems.length - 1}
+                onEdit={(item) => {
+                  setEditingItem(item);
+                  setIsDialogOpen(true);
+                }}
+                onDelete={(id) => deleteMenuItemMutation.mutate(id)}
+                onReorder={(id, direction) => reorderMenuItemMutation.mutate({ id, direction })}
+                onToggleVisibility={toggleVisibility}
+                onAddChild={(parentId) => {
+                  setEditingItem({ parentId } as NavigationMenuItem);
+                  setIsDialogOpen(true);
+                }}
+              />
+            ))}
+          </div>
+        )}
+      </div>
 
       {/* Create/Edit Dialog */}
       <MenuItemDialog
