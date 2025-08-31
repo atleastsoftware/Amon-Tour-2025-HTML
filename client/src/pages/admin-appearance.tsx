@@ -2045,71 +2045,72 @@ export default function AdminAppearance() {
                   </Card>
                 )}
 
-              {/* Logo & Favicon Management */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Image className="w-5 h-5" />
-                    Logo & Favicon
-                  </CardTitle>
-                  <CardDescription>Manage site logos and favicon</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div>
-                    <Label>Header Logo</Label>
-                    <Input
-                      placeholder="/src/assets/logo-a.png"
-                      value={JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": ""}').header_logo}
-                      onChange={(e) => {
-                        const current = JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": ""}');
-                        updateSiteSetting('theme', 'logo_settings', JSON.stringify({...current, header_logo: e.target.value}));
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <Label>Footer Logo</Label>
-                    <Input
-                      placeholder="/src/assets/logo-a.png"
-                      value={JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": ""}').footer_logo}
-                      onChange={(e) => {
-                        const current = JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": ""}');
-                        updateSiteSetting('theme', 'logo_settings', JSON.stringify({...current, footer_logo: e.target.value}));
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <Label>Favicon</Label>
-                    <Input
-                      placeholder="/favicon.ico"
-                      value={JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": ""}').favicon}
-                      onChange={(e) => {
-                        const current = JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": ""}');
-                        updateSiteSetting('theme', 'logo_settings', JSON.stringify({...current, favicon: e.target.value}));
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <Label>Logo Height</Label>
-                    <Select 
-                      value={JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"logo_height": "48px"}').logo_height}
-                      onValueChange={(value) => {
-                        const current = JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"logo_height": "48px"}');
-                        updateSiteSetting('theme', 'logo_settings', JSON.stringify({...current, logo_height: value}));
-                      }}
-                    >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="32px">Small (32px)</SelectItem>
-                        <SelectItem value="40px">Medium (40px)</SelectItem>
-                        <SelectItem value="48px">Large (48px)</SelectItem>
-                        <SelectItem value="64px">X-Large (64px)</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </CardContent>
-              </Card>
+                {selectedThemeSection === 'logo-favicon' && (
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <Image className="w-5 h-5" />
+                        Logo & Favicon
+                      </CardTitle>
+                      <CardDescription>Manage site logos and favicon</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div>
+                        <Label>Header Logo</Label>
+                        <Input
+                          placeholder="/src/assets/logo-a.png"
+                          value={JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": ""}').header_logo}
+                          onChange={(e) => {
+                            const current = JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": ""}');
+                            updateSiteSetting('theme', 'logo_settings', JSON.stringify({...current, header_logo: e.target.value}));
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <Label>Footer Logo</Label>
+                        <Input
+                          placeholder="/src/assets/logo-a.png"
+                          value={JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": ""}').footer_logo}
+                          onChange={(e) => {
+                            const current = JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": ""}');
+                            updateSiteSetting('theme', 'logo_settings', JSON.stringify({...current, footer_logo: e.target.value}));
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <Label>Favicon</Label>
+                        <Input
+                          placeholder="/favicon.ico"
+                          value={JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": ""}').favicon}
+                          onChange={(e) => {
+                            const current = JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": ""}');
+                            updateSiteSetting('theme', 'logo_settings', JSON.stringify({...current, favicon: e.target.value}));
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <Label>Logo Height</Label>
+                        <Select 
+                          value={JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"logo_height": "48px"}').logo_height}
+                          onValueChange={(value) => {
+                            const current = JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"logo_height": "48px"}');
+                            updateSiteSetting('theme', 'logo_settings', JSON.stringify({...current, logo_height: value}));
+                          }}
+                        >
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="32px">Small (32px)</SelectItem>
+                            <SelectItem value="40px">Medium (40px)</SelectItem>
+                            <SelectItem value="48px">Large (48px)</SelectItem>
+                            <SelectItem value="64px">X-Large (64px)</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
 
               {/* Pop-up Settings */}
               <Card>
@@ -2730,35 +2731,73 @@ export default function AdminAppearance() {
 
           {/* Footer Management */}
           <TabsContent value="footer">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-              {/* Contact Information */}
-              <ContactInfoManager
-                siteSettings={siteSettings}
-                updateSiteSetting={updateSiteSetting}
-                updateSiteSettingMutation={updateSiteSettingMutation}
-              />
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 sm:gap-6">
+              {/* Footer Navigation Menu */}
+              <div className="lg:col-span-1">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-lg">Footer Sections</CardTitle>
+                    <CardDescription>Manage footer content</CardDescription>
+                  </CardHeader>
+                  <CardContent className="p-2">
+                    <div className="space-y-1">
+                      {[
+                        { id: 'contact-info', label: 'Contact Information', icon: MapPin },
+                        { id: 'useful-links', label: 'Useful Links', icon: Menu },
+                        { id: 'social-media', label: 'Social Media', icon: Users },
+                        { id: 'newsletter', label: 'Newsletter', icon: Mail }
+                      ].map(({ id, label, icon: Icon }) => (
+                        <Button
+                          key={id}
+                          variant={selectedFooterSection === id ? "default" : "ghost"}
+                          size="sm"
+                          className="w-full justify-start gap-2 h-8 text-xs"
+                          onClick={() => setSelectedFooterSection(id)}
+                        >
+                          <Icon className="w-3 h-3" />
+                          {label}
+                        </Button>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
 
-              {/* Useful Links */}
-              <UsefulLinksManager
-                siteSettings={siteSettings}
-                updateSiteSetting={updateSiteSetting}
-                updateSiteSettingMutation={updateSiteSettingMutation}
-                availablePages={Object.values(pageCategories).flat()}
-              />
+              {/* Footer Section Content */}
+              <div className="lg:col-span-3">
+                {selectedFooterSection === 'contact-info' && (
+                  <ContactInfoManager
+                    siteSettings={siteSettings}
+                    updateSiteSetting={updateSiteSetting}
+                    updateSiteSettingMutation={updateSiteSettingMutation}
+                  />
+                )}
 
-              {/* Social Media */}
-              <SocialMediaManager
-                siteSettings={siteSettings}
-                updateSiteSetting={updateSiteSetting}
-                updateSiteSettingMutation={updateSiteSettingMutation}
-              />
+                {selectedFooterSection === 'useful-links' && (
+                  <UsefulLinksManager
+                    siteSettings={siteSettings}
+                    updateSiteSetting={updateSiteSetting}
+                    updateSiteSettingMutation={updateSiteSettingMutation}
+                    availablePages={Object.values(pageCategories).flat()}
+                  />
+                )}
 
-              {/* Newsletter */}
-              <NewsletterManager
-                siteSettings={siteSettings}
-                updateSiteSetting={updateSiteSetting}
-                updateSiteSettingMutation={updateSiteSettingMutation}
-              />
+                {selectedFooterSection === 'social-media' && (
+                  <SocialMediaManager
+                    siteSettings={siteSettings}
+                    updateSiteSetting={updateSiteSetting}
+                    updateSiteSettingMutation={updateSiteSettingMutation}
+                  />
+                )}
+
+                {selectedFooterSection === 'newsletter' && (
+                  <NewsletterManager
+                    siteSettings={siteSettings}
+                    updateSiteSetting={updateSiteSetting}
+                    updateSiteSettingMutation={updateSiteSettingMutation}
+                  />
+                )}
+              </div>
             </div>
           </TabsContent>
 
