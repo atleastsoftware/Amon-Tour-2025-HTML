@@ -949,6 +949,10 @@ export default function AdminAppearance() {
   const [activeCategory, setActiveCategory] = useState<string>('theme');
   const [selectedPage, setSelectedPage] = useState<string>('navigation-menu');
   const [expandedCategories, setExpandedCategories] = useState<string[]>(['Menu principal']);
+  
+  // New states for sub-section selection
+  const [selectedThemeSection, setSelectedThemeSection] = useState<string>('colors');
+  const [selectedFooterSection, setSelectedFooterSection] = useState<string>('contact-info');
 
   // Toggle category expansion
   const toggleCategory = (categoryName: string) => {
@@ -1529,7 +1533,66 @@ export default function AdminAppearance() {
 
           {/* Theme Management */}
           <TabsContent value="theme">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 sm:gap-6">
+              {/* Theme Section Selector */}
+              <Card className="lg:col-span-1">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Palette className="w-5 h-5" />
+                    Theme
+                  </CardTitle>
+                  <CardDescription>Choose section to customize</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    <Button
+                      variant={selectedThemeSection === 'colors' ? 'default' : 'outline'}
+                      className="w-full justify-start text-sm h-9"
+                      onClick={() => setSelectedThemeSection('colors')}
+                    >
+                      <Palette className="w-4 h-4 mr-2" />
+                      Colors
+                    </Button>
+                    <Button
+                      variant={selectedThemeSection === 'typography' ? 'default' : 'outline'}
+                      className="w-full justify-start text-sm h-9"
+                      onClick={() => setSelectedThemeSection('typography')}
+                    >
+                      <Type className="w-4 h-4 mr-2" />
+                      Typography
+                    </Button>
+                    <Button
+                      variant={selectedThemeSection === 'buttons' ? 'default' : 'outline'}
+                      className="w-full justify-start text-sm h-9"
+                      onClick={() => setSelectedThemeSection('buttons')}
+                    >
+                      <MousePointer className="w-4 h-4 mr-2" />
+                      Buttons
+                    </Button>
+                    <Button
+                      variant={selectedThemeSection === 'announcement' ? 'default' : 'outline'}
+                      className="w-full justify-start text-sm h-9"
+                      onClick={() => setSelectedThemeSection('announcement')}
+                    >
+                      <Bell className="w-4 h-4 mr-2" />
+                      Announcement Banner
+                    </Button>
+                    <Button
+                      variant={selectedThemeSection === 'seo' ? 'default' : 'outline'}
+                      className="w-full justify-start text-sm h-9"
+                      onClick={() => setSelectedThemeSection('seo')}
+                    >
+                      <Globe className="w-4 h-4 mr-2" />
+                      SEO & Metadata
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Theme Content */}
+              <div className="lg:col-span-3">
+                {selectedThemeSection === 'colors' && (
+                  <div className="space-y-6">
               {/* Colors */}
               <Card>
                 <CardHeader>
@@ -2208,7 +2271,7 @@ export default function AdminAppearance() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Layout className="w-5 h-5" />
-                    Select Page
+                    Pages
                   </CardTitle>
                   <CardDescription>Choose page to edit</CardDescription>
                 </CardHeader>
