@@ -101,7 +101,7 @@ app.use((req, res, next) => {
     const { seedAuthenticBlocks } = await import('./seeds/authentic-blocks');
     await seedAuthenticBlocks();
   } catch (error) {
-    log('Warning: Could not seed authentic blocks:', error);
+    log('Warning: Could not seed authentic blocks:', error instanceof Error ? error.message : String(error));
   }
   
   const server = await registerRoutes(app);

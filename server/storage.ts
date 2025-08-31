@@ -1675,11 +1675,16 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createNavigationMenuItem(data: InsertNavigationMenuItem): Promise<NavigationMenuItem> {
-    const [item] = await db
+    const result = await db
       .insert(navigationMenuItems)
       .values(data)
       .returning();
-    return item;
+    
+    if (!Array.isArray(result) || result.length === 0) {
+      throw new Error('Failed to create navigation menu item');
+    }
+    
+    return result[0] as NavigationMenuItem;
   }
 
   async updateNavigationMenuItem(id: number, data: Partial<InsertNavigationMenuItem>): Promise<NavigationMenuItem | undefined> {
