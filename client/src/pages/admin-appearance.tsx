@@ -204,7 +204,7 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-sm sm:text-base">
+        <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
           <MapPin className="w-4 h-4" />
           Contact Information
         </CardTitle>
@@ -1725,8 +1725,8 @@ export default function AdminAppearance() {
                   <div className="space-y-6">
                     <Card>
                       <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                          <Bell className="w-5 h-5" />
+                        <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+                          <Bell className="w-4 h-4" />
                           Announcement Banner
                         </CardTitle>
                         <CardDescription>Site-wide announcement banner</CardDescription>
@@ -2173,8 +2173,8 @@ export default function AdminAppearance() {
                 {selectedThemeSection === 'announcements' && (
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Bell className="w-5 h-5" />
+                  <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+                    <Bell className="w-4 h-4" />
                     Pop-up Announcements
                   </CardTitle>
                   <CardDescription>Promotional pop-ups and announcements</CardDescription>
@@ -2264,8 +2264,8 @@ export default function AdminAppearance() {
                 {selectedThemeSection === 'backgrounds' && (
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Palette className="w-5 h-5" />
+                  <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+                    <Palette className="w-4 h-4" />
                     Background Colors
                   </CardTitle>
                   <CardDescription>Section-specific background colors</CardDescription>
@@ -2361,8 +2361,8 @@ export default function AdminAppearance() {
               {/* Page Selector */}
               <Card className="lg:col-span-1">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Layout className="w-5 h-5" />
+                  <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+                    <Layout className="w-4 h-4" />
                     Select Page
                   </CardTitle>
                   <CardDescription>Choose page to edit</CardDescription>
@@ -2423,7 +2423,7 @@ export default function AdminAppearance() {
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between">
                     <div>
-                      <CardTitle>
+                      <CardTitle className="text-base sm:text-lg">
                         {selectedPage === 'navigation-menu' ? 'Menu Navigation' : `Content Blocks for ${selectedPage}`}
                       </CardTitle>
                       <CardDescription>
@@ -2860,7 +2860,7 @@ export default function AdminAppearance() {
               <div className="lg:col-span-1">
                 <Card>
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-sm sm:text-base">
+                    <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                       <Settings className="w-4 h-4" />
                       Footer Sections
                     </CardTitle>
