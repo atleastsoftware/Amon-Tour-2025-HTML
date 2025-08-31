@@ -949,6 +949,8 @@ export default function AdminAppearance() {
   const [activeCategory, setActiveCategory] = useState<string>('theme');
   const [selectedPage, setSelectedPage] = useState<string>('navigation-menu');
   const [expandedCategories, setExpandedCategories] = useState<string[]>(['Menu principal']);
+  const [selectedThemeSection, setSelectedThemeSection] = useState<string>('colors');
+  const [selectedFooterSection, setSelectedFooterSection] = useState<string>('contact-info');
 
   // Toggle category expansion
   const toggleCategory = (categoryName: string) => {
@@ -1426,6 +1428,8 @@ export default function AdminAppearance() {
       default:
         return {
           title: 'New Block',
+          iconName: '',
+          backgroundColor: 'white',
           configuration: {}
         };
     }
@@ -1529,428 +1533,517 @@ export default function AdminAppearance() {
 
           {/* Theme Management */}
           <TabsContent value="theme">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-              {/* Colors */}
-              <Card>
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 sm:gap-6">
+              {/* Theme Section Selector */}
+              <Card className="lg:col-span-1">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Palette className="w-5 h-5" />
-                    Colors
+                    Theme Settings
                   </CardTitle>
-                  <CardDescription>Customize your site's color scheme</CardDescription>
+                  <CardDescription>Choose theme section to edit</CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <div>
-                    <Label htmlFor="primary-color">Primary Color</Label>
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 mt-2">
-                      <Input
-                        id="primary-color"
-                        type="color"
-                        value={getSiteSetting('theme', 'primary_color') || '#1e73be'}
-                        onChange={(e) => updateSiteSetting('theme', 'primary_color', e.target.value)}
-                        className="w-20 h-10"
-                      />
-                      <Input
-                        value={getSiteSetting('theme', 'primary_color') || '#1e73be'}
-                        onChange={(e) => updateSiteSetting('theme', 'primary_color', e.target.value)}
-                        placeholder="#1e73be"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <Label htmlFor="secondary-color">Secondary Color</Label>
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 mt-2">
-                      <Input
-                        id="secondary-color"
-                        type="color"
-                        value={getSiteSetting('theme', 'secondary_color') || '#E6B64C'}
-                        onChange={(e) => updateSiteSetting('theme', 'secondary_color', e.target.value)}
-                        className="w-20 h-10"
-                      />
-                      <Input
-                        value={getSiteSetting('theme', 'secondary_color') || '#E6B64C'}
-                        onChange={(e) => updateSiteSetting('theme', 'secondary_color', e.target.value)}
-                        placeholder="#E6B64C"
-                      />
-                    </div>
+                <CardContent>
+                  <div className="space-y-2">
+                    <Button
+                      variant={selectedThemeSection === 'colors' ? 'default' : 'outline'}
+                      className="w-full justify-start text-sm h-8"
+                      onClick={() => setSelectedThemeSection('colors')}
+                    >
+                      <Palette className="w-4 h-4 mr-2" />
+                      Colors
+                    </Button>
+                    <Button
+                      variant={selectedThemeSection === 'typography' ? 'default' : 'outline'}
+                      className="w-full justify-start text-sm h-8"
+                      onClick={() => setSelectedThemeSection('typography')}
+                    >
+                      <Type className="w-4 h-4 mr-2" />
+                      Typography
+                    </Button>
+                    <Button
+                      variant={selectedThemeSection === 'extended-colors' ? 'default' : 'outline'}
+                      className="w-full justify-start text-sm h-8"
+                      onClick={() => setSelectedThemeSection('extended-colors')}
+                    >
+                      <Palette className="w-4 h-4 mr-2" />
+                      Extended Colors
+                    </Button>
+                    <Button
+                      variant={selectedThemeSection === 'button-styles' ? 'default' : 'outline'}
+                      className="w-full justify-start text-sm h-8"
+                      onClick={() => setSelectedThemeSection('button-styles')}
+                    >
+                      <MousePointer className="w-4 h-4 mr-2" />
+                      Button Styles
+                    </Button>
+                    <Button
+                      variant={selectedThemeSection === 'seo-metadata' ? 'default' : 'outline'}
+                      className="w-full justify-start text-sm h-8"
+                      onClick={() => setSelectedThemeSection('seo-metadata')}
+                    >
+                      <Globe className="w-4 h-4 mr-2" />
+                      SEO & Metadata
+                    </Button>
+                    <Button
+                      variant={selectedThemeSection === 'logo-favicon' ? 'default' : 'outline'}
+                      className="w-full justify-start text-sm h-8"
+                      onClick={() => setSelectedThemeSection('logo-favicon')}
+                    >
+                      <Image className="w-4 h-4 mr-2" />
+                      Logo & Favicon
+                    </Button>
+                    <Button
+                      variant={selectedThemeSection === 'backgrounds' ? 'default' : 'outline'}
+                      className="w-full justify-start text-sm h-8"
+                      onClick={() => setSelectedThemeSection('backgrounds')}
+                    >
+                      <Palette className="w-4 h-4 mr-2" />
+                      Backgrounds
+                    </Button>
+                    <Button
+                      variant={selectedThemeSection === 'announcements' ? 'default' : 'outline'}
+                      className="w-full justify-start text-sm h-8"
+                      onClick={() => setSelectedThemeSection('announcements')}
+                    >
+                      <Bell className="w-4 h-4 mr-2" />
+                      Announcements
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
 
-              {/* Announcement Banner */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Bell className="w-5 h-5" />
-                    Announcement Banner
-                  </CardTitle>
-                  <CardDescription>Site-wide announcement banner</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex items-center space-x-2">
-                    <Switch 
-                      id="banner-enabled"
-                      checked={JSON.parse(getSiteSetting('theme', 'announcement_banner') || '{"enabled": false}').enabled}
-                      onCheckedChange={(checked) => {
-                        const current = JSON.parse(getSiteSetting('theme', 'announcement_banner') || '{"enabled": false}');
-                        updateSiteSetting('theme', 'announcement_banner', JSON.stringify({...current, enabled: checked}));
-                      }}
-                    />
-                    <Label htmlFor="banner-enabled">Enable Banner</Label>
-                  </div>
-                  <div>
-                    <Label>Banner Text</Label>
-                    <Input
-                      placeholder="e.g., Special offer: 20% off all tours this month!"
-                      value={JSON.parse(getSiteSetting('theme', 'announcement_banner') || '{"text": ""}').text}
-                      onChange={(e) => {
-                        const current = JSON.parse(getSiteSetting('theme', 'announcement_banner') || '{"text": ""}');
-                        updateSiteSetting('theme', 'announcement_banner', JSON.stringify({...current, text: e.target.value}));
-                      }}
-                    />
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <Label>Background Color</Label>
-                      <Input
-                        type="color"
-                        value={JSON.parse(getSiteSetting('theme', 'announcement_banner') || '{"background_color": "#1e73be"}').background_color}
-                        onChange={(e) => {
-                          const current = JSON.parse(getSiteSetting('theme', 'announcement_banner') || '{"background_color": "#1e73be"}');
-                          updateSiteSetting('theme', 'announcement_banner', JSON.stringify({...current, background_color: e.target.value}));
-                        }}
-                      />
-                    </div>
-                    <div>
-                      <Label>Text Color</Label>
-                      <Input
-                        type="color"
-                        value={JSON.parse(getSiteSetting('theme', 'announcement_banner') || '{"text_color": "#ffffff"}').text_color}
-                        onChange={(e) => {
-                          const current = JSON.parse(getSiteSetting('theme', 'announcement_banner') || '{"text_color": "#ffffff"}');
-                          updateSiteSetting('theme', 'announcement_banner', JSON.stringify({...current, text_color: e.target.value}));
-                        }}
-                      />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+              {/* Theme Section Content */}
+              <div className="lg:col-span-3">
+                {selectedThemeSection === 'colors' && (
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <Palette className="w-5 h-5" />
+                        Colors
+                      </CardTitle>
+                      <CardDescription>Customize your site's primary color scheme</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div>
+                        <Label htmlFor="primary-color">Primary Color</Label>
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 mt-2">
+                          <Input
+                            id="primary-color"
+                            type="color"
+                            value={getSiteSetting('theme', 'primary_color') || '#1e73be'}
+                            onChange={(e) => updateSiteSetting('theme', 'primary_color', e.target.value)}
+                            className="w-20 h-10"
+                          />
+                          <Input
+                            value={getSiteSetting('theme', 'primary_color') || '#1e73be'}
+                            onChange={(e) => updateSiteSetting('theme', 'primary_color', e.target.value)}
+                            placeholder="#1e73be"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <Label htmlFor="secondary-color">Secondary Color</Label>
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 mt-2">
+                          <Input
+                            id="secondary-color"
+                            type="color"
+                            value={getSiteSetting('theme', 'secondary_color') || '#E6B64C'}
+                            onChange={(e) => updateSiteSetting('theme', 'secondary_color', e.target.value)}
+                            className="w-20 h-10"
+                          />
+                          <Input
+                            value={getSiteSetting('theme', 'secondary_color') || '#E6B64C'}
+                            onChange={(e) => updateSiteSetting('theme', 'secondary_color', e.target.value)}
+                            placeholder="#E6B64C"
+                          />
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
 
-              {/* Typography */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Type className="w-5 h-5" />
-                    Typography
-                  </CardTitle>
-                  <CardDescription>Font families and text styles</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div>
-                    <Label>Heading Font</Label>
-                    <Select 
-                      value={JSON.parse(getSiteSetting('theme', 'typography') || '{"heading_font": "Poppins"}').heading_font}
-                      onValueChange={(value) => {
-                        const current = JSON.parse(getSiteSetting('theme', 'typography') || '{"heading_font": "Poppins"}');
-                        updateSiteSetting('theme', 'typography', JSON.stringify({...current, heading_font: value}));
-                      }}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select heading font" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="Poppins">Poppins</SelectItem>
-                        <SelectItem value="Inter">Inter</SelectItem>
-                        <SelectItem value="Roboto">Roboto</SelectItem>
-                        <SelectItem value="Open Sans">Open Sans</SelectItem>
-                        <SelectItem value="Montserrat">Montserrat</SelectItem>
-                      </SelectContent>
-                    </Select>
+                {selectedThemeSection === 'announcements' && (
+                  <div className="space-y-6">
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                          <Bell className="w-5 h-5" />
+                          Announcement Banner
+                        </CardTitle>
+                        <CardDescription>Site-wide announcement banner</CardDescription>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div className="flex items-center space-x-2">
+                          <Switch 
+                            id="banner-enabled"
+                            checked={JSON.parse(getSiteSetting('theme', 'announcement_banner') || '{"enabled": false}').enabled}
+                            onCheckedChange={(checked) => {
+                              const current = JSON.parse(getSiteSetting('theme', 'announcement_banner') || '{"enabled": false}');
+                              updateSiteSetting('theme', 'announcement_banner', JSON.stringify({...current, enabled: checked}));
+                            }}
+                          />
+                          <Label htmlFor="banner-enabled">Enable Banner</Label>
+                        </div>
+                        <div>
+                          <Label>Banner Text</Label>
+                          <Input
+                            placeholder="🎉 Special Offer: 20% off all bookings this month!"
+                            value={JSON.parse(getSiteSetting('theme', 'announcement_banner') || '{"text": ""}').text}
+                            onChange={(e) => {
+                              const current = JSON.parse(getSiteSetting('theme', 'announcement_banner') || '{"text": ""}');
+                              updateSiteSetting('theme', 'announcement_banner', JSON.stringify({...current, text: e.target.value}));
+                            }}
+                          />
+                        </div>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <Label>Background Color</Label>
+                            <Input
+                              type="color"
+                              value={JSON.parse(getSiteSetting('theme', 'announcement_banner') || '{"background_color": "#1e73be"}').background_color}
+                              onChange={(e) => {
+                                const current = JSON.parse(getSiteSetting('theme', 'announcement_banner') || '{"background_color": "#1e73be"}');
+                                updateSiteSetting('theme', 'announcement_banner', JSON.stringify({...current, background_color: e.target.value}));
+                              }}
+                            />
+                          </div>
+                          <div>
+                            <Label>Text Color</Label>
+                            <Input
+                              type="color"
+                              value={JSON.parse(getSiteSetting('theme', 'announcement_banner') || '{"text_color": "#ffffff"}').text_color}
+                              onChange={(e) => {
+                                const current = JSON.parse(getSiteSetting('theme', 'announcement_banner') || '{"text_color": "#ffffff"}');
+                                updateSiteSetting('theme', 'announcement_banner', JSON.stringify({...current, text_color: e.target.value}));
+                              }}
+                            />
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
                   </div>
-                  <div>
-                    <Label>Body Font</Label>
-                    <Select 
-                      value={JSON.parse(getSiteSetting('theme', 'typography') || '{"body_font": "Inter"}').body_font}
-                      onValueChange={(value) => {
-                        const current = JSON.parse(getSiteSetting('theme', 'typography') || '{"body_font": "Inter"}');
-                        updateSiteSetting('theme', 'typography', JSON.stringify({...current, body_font: value}));
-                      }}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select body font" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="Inter">Inter</SelectItem>
-                        <SelectItem value="Poppins">Poppins</SelectItem>
-                        <SelectItem value="Roboto">Roboto</SelectItem>
-                        <SelectItem value="Open Sans">Open Sans</SelectItem>
-                        <SelectItem value="Lato">Lato</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="grid grid-cols-3 gap-4">
-                    <div>
-                      <Label>Heading Weight</Label>
-                      <Select 
-                        value={JSON.parse(getSiteSetting('theme', 'typography') || '{"heading_weight": "600"}').heading_weight}
-                        onValueChange={(value) => {
-                          const current = JSON.parse(getSiteSetting('theme', 'typography') || '{"heading_weight": "600"}');
-                          updateSiteSetting('theme', 'typography', JSON.stringify({...current, heading_weight: value}));
-                        }}
-                      >
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="400">Normal (400)</SelectItem>
-                          <SelectItem value="500">Medium (500)</SelectItem>
-                          <SelectItem value="600">Semi-bold (600)</SelectItem>
-                          <SelectItem value="700">Bold (700)</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div>
-                      <Label>Body Weight</Label>
-                      <Select 
-                        value={JSON.parse(getSiteSetting('theme', 'typography') || '{"body_weight": "400"}').body_weight}
-                        onValueChange={(value) => {
-                          const current = JSON.parse(getSiteSetting('theme', 'typography') || '{"body_weight": "400"}');
-                          updateSiteSetting('theme', 'typography', JSON.stringify({...current, body_weight: value}));
-                        }}
-                      >
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="300">Light (300)</SelectItem>
-                          <SelectItem value="400">Normal (400)</SelectItem>
-                          <SelectItem value="500">Medium (500)</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div>
-                      <Label>Base Size</Label>
-                      <Select 
-                        value={JSON.parse(getSiteSetting('theme', 'typography') || '{"base_size": "16px"}').base_size}
-                        onValueChange={(value) => {
-                          const current = JSON.parse(getSiteSetting('theme', 'typography') || '{"base_size": "16px"}');
-                          updateSiteSetting('theme', 'typography', JSON.stringify({...current, base_size: value}));
-                        }}
-                      >
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="14px">14px</SelectItem>
-                          <SelectItem value="16px">16px</SelectItem>
-                          <SelectItem value="18px">18px</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+                )}
 
-              {/* Color Palette Extended */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Palette className="w-5 h-5" />
-                    Extended Color Palette
-                  </CardTitle>
-                  <CardDescription>Complete color scheme for your site</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <Label>Background Color</Label>
-                      <Input
-                        type="color"
-                        value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}').background}
-                        onChange={(e) => {
-                          const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}');
-                          updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, background: e.target.value}));
-                        }}
-                      />
-                    </div>
-                    <div>
-                      <Label>Text Color</Label>
-                      <Input
-                        type="color"
-                        value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#1a1a1a"}').text}
-                        onChange={(e) => {
-                          const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#1a1a1a"}');
-                          updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, text: e.target.value}));
-                        }}
-                      />
-                    </div>
-                    <div>
-                      <Label>Success Color</Label>
-                      <Input
-                        type="color"
-                        value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"success": "#10b981"}').success}
-                        onChange={(e) => {
-                          const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"success": "#10b981"}');
-                          updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, success: e.target.value}));
-                        }}
-                      />
-                    </div>
-                    <div>
-                      <Label>Error Color</Label>
-                      <Input
-                        type="color"
-                        value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"error": "#ef4444"}').error}
-                        onChange={(e) => {
-                          const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"error": "#ef4444"}');
-                          updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, error: e.target.value}));
-                        }}
-                      />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+                {selectedThemeSection === 'typography' && (
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <Type className="w-5 h-5" />
+                        Typography
+                      </CardTitle>
+                      <CardDescription>Font families and text styles</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div>
+                        <Label>Heading Font</Label>
+                        <Select 
+                          value={JSON.parse(getSiteSetting('theme', 'typography') || '{"heading_font": "Poppins"}').heading_font}
+                          onValueChange={(value) => {
+                            const current = JSON.parse(getSiteSetting('theme', 'typography') || '{"heading_font": "Poppins"}');
+                            updateSiteSetting('theme', 'typography', JSON.stringify({...current, heading_font: value}));
+                          }}
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select heading font" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="Poppins">Poppins</SelectItem>
+                            <SelectItem value="Inter">Inter</SelectItem>
+                            <SelectItem value="Roboto">Roboto</SelectItem>
+                            <SelectItem value="Open Sans">Open Sans</SelectItem>
+                            <SelectItem value="Montserrat">Montserrat</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div>
+                        <Label>Body Font</Label>
+                        <Select 
+                          value={JSON.parse(getSiteSetting('theme', 'typography') || '{"body_font": "Inter"}').body_font}
+                          onValueChange={(value) => {
+                            const current = JSON.parse(getSiteSetting('theme', 'typography') || '{"body_font": "Inter"}');
+                            updateSiteSetting('theme', 'typography', JSON.stringify({...current, body_font: value}));
+                          }}
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select body font" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="Inter">Inter</SelectItem>
+                            <SelectItem value="Poppins">Poppins</SelectItem>
+                            <SelectItem value="Roboto">Roboto</SelectItem>
+                            <SelectItem value="Open Sans">Open Sans</SelectItem>
+                            <SelectItem value="Lato">Lato</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="grid grid-cols-3 gap-4">
+                        <div>
+                          <Label>Heading Weight</Label>
+                          <Select 
+                            value={JSON.parse(getSiteSetting('theme', 'typography') || '{"heading_weight": "600"}').heading_weight}
+                            onValueChange={(value) => {
+                              const current = JSON.parse(getSiteSetting('theme', 'typography') || '{"heading_weight": "600"}');
+                              updateSiteSetting('theme', 'typography', JSON.stringify({...current, heading_weight: value}));
+                            }}
+                          >
+                            <SelectTrigger>
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="400">Normal (400)</SelectItem>
+                              <SelectItem value="500">Medium (500)</SelectItem>
+                              <SelectItem value="600">Semi-bold (600)</SelectItem>
+                              <SelectItem value="700">Bold (700)</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div>
+                          <Label>Body Weight</Label>
+                          <Select 
+                            value={JSON.parse(getSiteSetting('theme', 'typography') || '{"body_weight": "400"}').body_weight}
+                            onValueChange={(value) => {
+                              const current = JSON.parse(getSiteSetting('theme', 'typography') || '{"body_weight": "400"}');
+                              updateSiteSetting('theme', 'typography', JSON.stringify({...current, body_weight: value}));
+                            }}
+                          >
+                            <SelectTrigger>
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="300">Light (300)</SelectItem>
+                              <SelectItem value="400">Normal (400)</SelectItem>
+                              <SelectItem value="500">Medium (500)</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div>
+                          <Label>Base Size</Label>
+                          <Select 
+                            value={JSON.parse(getSiteSetting('theme', 'typography') || '{"base_size": "16px"}').base_size}
+                            onValueChange={(value) => {
+                              const current = JSON.parse(getSiteSetting('theme', 'typography') || '{"base_size": "16px"}');
+                              updateSiteSetting('theme', 'typography', JSON.stringify({...current, base_size: value}));
+                            }}
+                          >
+                            <SelectTrigger>
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="14px">14px</SelectItem>
+                              <SelectItem value="16px">16px</SelectItem>
+                              <SelectItem value="18px">18px</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
 
-              {/* Button Styles */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <MousePointer className="w-5 h-5" />
-                    Button Styles
-                  </CardTitle>
-                  <CardDescription>Customize button appearance and behavior</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div>
-                    <Label>Border Radius</Label>
-                    <Select 
-                      value={JSON.parse(getSiteSetting('theme', 'button_styles') || '{"border_radius": "8px"}').border_radius}
-                      onValueChange={(value) => {
-                        const current = JSON.parse(getSiteSetting('theme', 'button_styles') || '{"border_radius": "8px"}');
-                        updateSiteSetting('theme', 'button_styles', JSON.stringify({...current, border_radius: value}));
-                      }}
-                    >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="0px">None (0px)</SelectItem>
-                        <SelectItem value="4px">Small (4px)</SelectItem>
-                        <SelectItem value="8px">Medium (8px)</SelectItem>
-                        <SelectItem value="12px">Large (12px)</SelectItem>
-                        <SelectItem value="50px">Pill (50px)</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div>
-                    <Label>Shadow Style</Label>
-                    <Select 
-                      value={JSON.parse(getSiteSetting('theme', 'button_styles') || '{"shadow": "medium"}').shadow}
-                      onValueChange={(value) => {
-                        const current = JSON.parse(getSiteSetting('theme', 'button_styles') || '{"shadow": "medium"}');
-                        updateSiteSetting('theme', 'button_styles', JSON.stringify({...current, shadow: value}));
-                      }}
-                    >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="none">No Shadow</SelectItem>
-                        <SelectItem value="small">Small Shadow</SelectItem>
-                        <SelectItem value="medium">Medium Shadow</SelectItem>
-                        <SelectItem value="large">Large Shadow</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div>
-                    <Label>Hover Effect</Label>
-                    <Select 
-                      value={JSON.parse(getSiteSetting('theme', 'button_styles') || '{"hover_effect": "scale"}').hover_effect}
-                      onValueChange={(value) => {
-                        const current = JSON.parse(getSiteSetting('theme', 'button_styles') || '{"hover_effect": "scale"}');
-                        updateSiteSetting('theme', 'button_styles', JSON.stringify({...current, hover_effect: value}));
-                      }}
-                    >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="none">None</SelectItem>
-                        <SelectItem value="scale">Scale Up</SelectItem>
-                        <SelectItem value="fade">Fade</SelectItem>
-                        <SelectItem value="shadow">Shadow Grow</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </CardContent>
-              </Card>
+                {selectedThemeSection === 'extended-colors' && (
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <Palette className="w-5 h-5" />
+                        Extended Color Palette
+                      </CardTitle>
+                      <CardDescription>Complete color scheme for your site</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <Label>Background Color</Label>
+                          <Input
+                            type="color"
+                            value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}').background}
+                            onChange={(e) => {
+                              const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}');
+                              updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, background: e.target.value}));
+                            }}
+                          />
+                        </div>
+                        <div>
+                          <Label>Text Color</Label>
+                          <Input
+                            type="color"
+                            value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#1a1a1a"}').text}
+                            onChange={(e) => {
+                              const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#1a1a1a"}');
+                              updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, text: e.target.value}));
+                            }}
+                          />
+                    </div>
+                        <div>
+                          <Label>Success Color</Label>
+                          <Input
+                            type="color"
+                            value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"success": "#10b981"}').success}
+                            onChange={(e) => {
+                              const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"success": "#10b981"}');
+                              updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, success: e.target.value}));
+                            }}
+                          />
+                        </div>
+                        <div>
+                          <Label>Error Color</Label>
+                          <Input
+                            type="color"
+                            value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"error": "#ef4444"}').error}
+                            onChange={(e) => {
+                              const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"error": "#ef4444"}');
+                              updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, error: e.target.value}));
+                            }}
+                          />
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
 
-              {/* SEO Metadata */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Globe className="w-5 h-5" />
-                    SEO & Metadata
-                  </CardTitle>
-                  <CardDescription>Global SEO settings and social media metadata</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div>
-                    <Label>Site Title</Label>
-                    <Input
-                      placeholder="Amon Tour - Authentic Thailand Travel Experience"
-                      value={JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"site_title": ""}').site_title}
-                      onChange={(e) => {
-                        const current = JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"site_title": ""}');
-                        updateSiteSetting('theme', 'seo_meta', JSON.stringify({...current, site_title: e.target.value}));
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <Label>Tagline</Label>
-                    <Input
-                      placeholder="Discover the hidden gems of Krabi and southern Thailand"
-                      value={JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"tagline": ""}').tagline}
-                      onChange={(e) => {
-                        const current = JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"tagline": ""}');
-                        updateSiteSetting('theme', 'seo_meta', JSON.stringify({...current, tagline: e.target.value}));
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <Label>Meta Description</Label>
-                    <Textarea
-                      placeholder="Experience authentic Thailand with Amon Tour. Discover Krabi's hidden islands, local culture, and unforgettable adventures."
-                      value={JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"meta_description": ""}').meta_description}
-                      onChange={(e) => {
-                        const current = JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"meta_description": ""}');
-                        updateSiteSetting('theme', 'seo_meta', JSON.stringify({...current, meta_description: e.target.value}));
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <Label>Keywords (comma-separated)</Label>
-                    <Input
-                      placeholder="Thailand travel, Krabi tours, authentic Thailand, island hopping"
-                      value={JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"meta_keywords": ""}').meta_keywords}
-                      onChange={(e) => {
-                        const current = JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"meta_keywords": ""}');
-                        updateSiteSetting('theme', 'seo_meta', JSON.stringify({...current, meta_keywords: e.target.value}));
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <Label>Open Graph Image URL</Label>
-                    <Input
-                      placeholder="/src/assets/hero-image.jpg"
-                      value={JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"og_image": ""}').og_image}
-                      onChange={(e) => {
-                        const current = JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"og_image": ""}');
-                        updateSiteSetting('theme', 'seo_meta', JSON.stringify({...current, og_image: e.target.value}));
-                      }}
-                    />
-                  </div>
-                </CardContent>
-              </Card>
+                {selectedThemeSection === 'button-styles' && (
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <MousePointer className="w-5 h-5" />
+                        Button Styles
+                      </CardTitle>
+                      <CardDescription>Customize button appearance and behavior</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div>
+                        <Label>Border Radius</Label>
+                        <Select 
+                          value={JSON.parse(getSiteSetting('theme', 'button_styles') || '{"border_radius": "8px"}').border_radius}
+                          onValueChange={(value) => {
+                            const current = JSON.parse(getSiteSetting('theme', 'button_styles') || '{"border_radius": "8px"}');
+                            updateSiteSetting('theme', 'button_styles', JSON.stringify({...current, border_radius: value}));
+                          }}
+                        >
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="0px">None (0px)</SelectItem>
+                            <SelectItem value="4px">Small (4px)</SelectItem>
+                            <SelectItem value="8px">Medium (8px)</SelectItem>
+                            <SelectItem value="12px">Large (12px)</SelectItem>
+                            <SelectItem value="50px">Pill (50px)</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div>
+                        <Label>Shadow Style</Label>
+                        <Select 
+                          value={JSON.parse(getSiteSetting('theme', 'button_styles') || '{"shadow": "medium"}').shadow}
+                          onValueChange={(value) => {
+                            const current = JSON.parse(getSiteSetting('theme', 'button_styles') || '{"shadow": "medium"}');
+                            updateSiteSetting('theme', 'button_styles', JSON.stringify({...current, shadow: value}));
+                          }}
+                        >
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="none">No Shadow</SelectItem>
+                            <SelectItem value="small">Small Shadow</SelectItem>
+                            <SelectItem value="medium">Medium Shadow</SelectItem>
+                            <SelectItem value="large">Large Shadow</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div>
+                        <Label>Hover Effect</Label>
+                        <Select 
+                          value={JSON.parse(getSiteSetting('theme', 'button_styles') || '{"hover_effect": "scale"}').hover_effect}
+                          onValueChange={(value) => {
+                            const current = JSON.parse(getSiteSetting('theme', 'button_styles') || '{"hover_effect": "scale"}');
+                            updateSiteSetting('theme', 'button_styles', JSON.stringify({...current, hover_effect: value}));
+                          }}
+                        >
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="none">None</SelectItem>
+                            <SelectItem value="scale">Scale Up</SelectItem>
+                            <SelectItem value="fade">Fade</SelectItem>
+                            <SelectItem value="shadow">Shadow Grow</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+
+                {selectedThemeSection === 'seo-metadata' && (
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <Globe className="w-5 h-5" />
+                        SEO & Metadata
+                      </CardTitle>
+                      <CardDescription>Global SEO settings and social media metadata</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div>
+                        <Label>Site Title</Label>
+                        <Input
+                          placeholder="Amon Tour - Authentic Thailand Travel Experience"
+                          value={JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"site_title": ""}').site_title}
+                          onChange={(e) => {
+                            const current = JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"site_title": ""}');
+                            updateSiteSetting('theme', 'seo_meta', JSON.stringify({...current, site_title: e.target.value}));
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <Label>Tagline</Label>
+                        <Input
+                          placeholder="Discover the hidden gems of Krabi and southern Thailand"
+                          value={JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"tagline": ""}').tagline}
+                          onChange={(e) => {
+                            const current = JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"tagline": ""}');
+                            updateSiteSetting('theme', 'seo_meta', JSON.stringify({...current, tagline: e.target.value}));
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <Label>Meta Description</Label>
+                        <Textarea
+                          placeholder="Experience authentic Thailand with Amon Tour. Discover Krabi's hidden islands, local culture, and unforgettable adventures."
+                          value={JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"meta_description": ""}').meta_description}
+                          onChange={(e) => {
+                            const current = JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"meta_description": ""}');
+                            updateSiteSetting('theme', 'seo_meta', JSON.stringify({...current, meta_description: e.target.value}));
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <Label>Keywords (comma-separated)</Label>
+                        <Input
+                          placeholder="Thailand travel, Krabi tours, authentic Thailand, island hopping"
+                          value={JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"meta_keywords": ""}').meta_keywords}
+                          onChange={(e) => {
+                            const current = JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"meta_keywords": ""}');
+                            updateSiteSetting('theme', 'seo_meta', JSON.stringify({...current, meta_keywords: e.target.value}));
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <Label>Open Graph Image URL</Label>
+                        <Input
+                          placeholder="/src/assets/hero-image.jpg"
+                          value={JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"og_image": ""}').og_image}
+                          onChange={(e) => {
+                            const current = JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"og_image": ""}');
+                            updateSiteSetting('theme', 'seo_meta', JSON.stringify({...current, og_image: e.target.value}));
+                          }}
+                        />
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
 
               {/* Logo & Favicon Management */}
               <Card>
@@ -2197,6 +2290,7 @@ export default function AdminAppearance() {
                   </div>
                 </CardContent>
               </Card>
+              </div>
             </div>
           </TabsContent>
 
