@@ -2498,10 +2498,10 @@ export default function AdminAppearance() {
                                     blockId: block.id,
                                     isActive: !block.isActive
                                   })}
-                                  className={block.isActive ? 'text-green-600' : 'text-gray-400'}
+                                  className={block.isActive ? 'text-black hover:text-red-600' : 'text-red-600'}
                                   title={block.isActive ? 'Hide block' : 'Show block'}
                                 >
-                                  {block.isActive ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
+                                  <EyeOff className="w-4 h-4" />
                                 </Button>
                                 
                                 {/* Edit Button */}
