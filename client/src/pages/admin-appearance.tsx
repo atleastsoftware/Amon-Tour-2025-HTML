@@ -2312,11 +2312,12 @@ export default function AdminAppearance() {
                     {Object.entries(pageCategories).map(([categoryName, pages]) => (
                       <div key={categoryName} className="space-y-2">
                         <Button
-                          variant="ghost"
-                          className="w-full justify-between font-medium text-sm text-gray-700 px-2 py-1 bg-gray-100 rounded h-8 hover:bg-gray-200"
+                          variant="outline"
+                          className="w-full justify-start text-sm h-8"
                           onClick={() => toggleCategory(categoryName)}
                         >
-                          <span>{categoryName}</span>
+                          <Layout className="w-4 h-4 mr-2" />
+                          <span className="flex-1 text-left">{categoryName}</span>
                           <ChevronDown 
                             className={`w-4 h-4 transition-transform ${
                               expandedCategories.includes(categoryName) ? 'rotate-180' : ''
@@ -2324,7 +2325,7 @@ export default function AdminAppearance() {
                           />
                         </Button>
                         {expandedCategories.includes(categoryName) && (
-                          <div className="space-y-1 ml-2">
+                          <div className="space-y-2 ml-2">
                             {pages.map((page) => (
                               <Button
                                 key={page.slug}
@@ -2332,6 +2333,7 @@ export default function AdminAppearance() {
                                 className="w-full justify-start text-sm h-8"
                                 onClick={() => setSelectedPage(page.slug)}
                               >
+                                <FileText className="w-4 h-4 mr-2" />
                                 {page.name}
                               </Button>
                             ))}
@@ -2736,11 +2738,14 @@ export default function AdminAppearance() {
               <div className="lg:col-span-1">
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-lg">Footer Sections</CardTitle>
+                    <CardTitle className="flex items-center gap-2">
+                      <Settings className="w-5 h-5" />
+                      Footer Sections
+                    </CardTitle>
                     <CardDescription>Manage footer content</CardDescription>
                   </CardHeader>
-                  <CardContent className="p-2">
-                    <div className="space-y-1">
+                  <CardContent>
+                    <div className="space-y-2">
                       {[
                         { id: 'contact-info', label: 'Contact Information', icon: MapPin },
                         { id: 'useful-links', label: 'Useful Links', icon: Menu },
@@ -2749,12 +2754,11 @@ export default function AdminAppearance() {
                       ].map(({ id, label, icon: Icon }) => (
                         <Button
                           key={id}
-                          variant={selectedFooterSection === id ? "default" : "ghost"}
-                          size="sm"
-                          className="w-full justify-start gap-2 h-8 text-xs"
+                          variant={selectedFooterSection === id ? "default" : "outline"}
+                          className="w-full justify-start text-sm h-8"
                           onClick={() => setSelectedFooterSection(id)}
                         >
-                          <Icon className="w-3 h-3" />
+                          <Icon className="w-4 h-4 mr-2" />
                           {label}
                         </Button>
                       ))}
