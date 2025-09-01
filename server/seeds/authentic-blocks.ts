@@ -138,19 +138,149 @@ export const authenticBlocksData = {
         }
       },
       {
-        blockType: 'hero',
+        blockType: 'form',
         blockOrder: 6,
         identifier: 'custom_tour_cta',
-        title: 'Ready for Your Dream Adventure?',
-        subtitle: 'Let us create a personalized tour just for you',
-        description: 'Every traveler is unique, and so should be every journey. Tell us your dreams, and we\'ll make them reality.',
-        ctaText: 'Plan My Custom Tour',
-        ctaUrl: '/custom-tour',
-        backgroundColor: 'bg-gradient-to-r from-blue-600 to-blue-800',
+        title: 'Create Your Custom Trip',
+        subtitle: 'Your travel story starts with your dreams – let us write the rest.',
+        description: 'Tell us about your dream Thailand adventure and we will create a personalized itinerary just for you.',
         configuration: {
-          style: 'gradient',
-          centered: true,
-          fullWidth: true
+          formType: 'custom_tour',
+          imageUrl: '/catamaran-cruise.png',
+          imageAlt: 'Catamaran cruise in Thailand',
+          showImage: true,
+          imagePosition: 'left',
+          fields: [
+            {
+              name: 'name',
+              label: 'Full Name *',
+              placeholder: 'Your name',
+              type: 'text',
+              required: true
+            },
+            {
+              name: 'email',
+              label: 'Email *',
+              placeholder: 'Your email',
+              type: 'email',
+              required: true
+            },
+            {
+              name: 'countryCode',
+              label: 'Country Code *',
+              type: 'select',
+              required: true,
+              defaultValue: '+33',
+              options: [
+                { value: '+33', label: '🇫🇷 +33' },
+                { value: '+66', label: '🇹🇭 +66' },
+                { value: '+1', label: '🇺🇸 +1' },
+                { value: '+44', label: '🇬🇧 +44' },
+                { value: '+49', label: '🇩🇪 +49' },
+                { value: '+34', label: '🇪🇸 +34' },
+                { value: '+39', label: '🇮🇹 +39' },
+                { value: '+32', label: '🇧🇪 +32' },
+                { value: '+31', label: '🇳🇱 +31' },
+                { value: '+41', label: '🇨🇭 +41' },
+                { value: '+43', label: '🇦🇹 +43' },
+                { value: '+351', label: '🇵🇹 +351' }
+              ]
+            },
+            {
+              name: 'phoneNumber',
+              label: 'WhatsApp Number *',
+              placeholder: 'Your WhatsApp number',
+              type: 'text',
+              required: true
+            },
+            {
+              name: 'adults',
+              label: 'Number of adults',
+              placeholder: 'Select number of adults',
+              type: 'select',
+              required: true,
+              options: [
+                { value: '1', label: '1 adult' },
+                { value: '2', label: '2 adults' },
+                { value: '3', label: '3 adults' },
+                { value: '4', label: '4 adults' },
+                { value: '5', label: '5 adults' },
+                { value: '6+', label: '6+ adults' }
+              ]
+            },
+            {
+              name: 'kids',
+              label: 'Number of kids (under 12 years old)',
+              placeholder: 'Select number of kids',
+              type: 'select',
+              required: false,
+              options: [
+                { value: '0', label: 'No kids' },
+                { value: '1', label: '1 kid' },
+                { value: '2', label: '2 kids' },
+                { value: '3', label: '3 kids' },
+                { value: '4', label: '4 kids' },
+                { value: '5+', label: '5+ kids' }
+              ]
+            },
+            {
+              name: 'dateRange',
+              label: 'Dates of trip',
+              placeholder: 'Select trip dates',
+              type: 'date',
+              required: false
+            },
+            {
+              name: 'duration',
+              label: 'Or approximate duration',
+              placeholder: 'Select duration',
+              type: 'select',
+              required: false,
+              options: [
+                { value: '1-3', label: '1-3 days' },
+                { value: '4-7', label: '4-7 days' },
+                { value: '8-14', label: '8-14 days' },
+                { value: '15+', label: '15+ days' }
+              ]
+            },
+            {
+              name: 'tripTypes',
+              label: 'Trip Types',
+              type: 'checkbox_group',
+              required: false,
+              options: [
+                { value: 'culture', label: 'Culture & History' },
+                { value: 'nature', label: 'Nature & Adventure' },
+                { value: 'beaches', label: 'Beaches & Islands' },
+                { value: 'family', label: 'Family trip' },
+                { value: 'group', label: 'Group trip' },
+                { value: 'wedding', label: 'Wedding & Honeymoon' }
+              ]
+            },
+            {
+              name: 'destinations',
+              label: 'Destinations',
+              type: 'checkbox_group',
+              required: false,
+              options: [
+                { value: 'khaosok', label: 'Khao Sok' },
+                { value: 'krabi', label: 'Krabi' },
+                { value: 'kohmook', label: 'Koh Mook' },
+                { value: 'bangkok', label: 'Bangkok' },
+                { value: 'chiangmai', label: 'Chiang Mai' },
+                { value: 'others', label: 'Others destinations' }
+              ]
+            },
+            {
+              name: 'message',
+              label: 'Describe your ideal trip',
+              placeholder: 'Tell us what you would like to see and do during your journey...',
+              type: 'textarea',
+              required: true,
+              rows: 4
+            }
+          ],
+          submitText: 'Send my request'
         }
       }
     ]
