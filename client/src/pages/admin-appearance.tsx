@@ -15,6 +15,7 @@ import { toast } from '@/hooks/use-toast';
 import { Edit, Plus, Trash2, Move, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Palette, Layout, Image, Type, FileText, MapPin, Mail, Users, Download, Star, Camera, ArrowLeft, Search, Video, Bell, MousePointer, Globe, Menu } from 'lucide-react';
 import { useLocation } from 'wouter';
 import { motion } from 'framer-motion';
+import logoAmon from "@/assets/logo-amon.png";
 
 interface PageConfiguration {
   id: number;
@@ -1816,6 +1817,46 @@ export default function AdminAppearance() {
                           </div>
                         </div>
                       </div>
+                      
+                      {/* Colors Preview */}
+                      <div className="mt-6 pt-6 border-t border-gray-200">
+                        <div className="flex items-center gap-2 mb-4">
+                          <Palette className="w-4 h-4" />
+                          <h3 className="text-base font-semibold">Color Preview</h3>
+                        </div>
+                        <div className="bg-gray-50 p-4 rounded-lg">
+                          <div className="grid grid-cols-4 gap-3">
+                            <div className="text-center">
+                              <div 
+                                className="w-12 h-12 rounded-lg mx-auto mb-2 border-2 border-gray-300"
+                                style={{ backgroundColor: getSiteSetting('theme', 'primary_color') || '#1e73be' }}
+                              ></div>
+                              <p className="text-xs font-medium">Primary</p>
+                            </div>
+                            <div className="text-center">
+                              <div 
+                                className="w-12 h-12 rounded-lg mx-auto mb-2 border-2 border-gray-300"
+                                style={{ backgroundColor: getSiteSetting('theme', 'secondary_color') || '#E6B64C' }}
+                              ></div>
+                              <p className="text-xs font-medium">Secondary</p>
+                            </div>
+                            <div className="text-center">
+                              <div 
+                                className="w-12 h-12 rounded-lg mx-auto mb-2 border-2 border-gray-300"
+                                style={{ backgroundColor: JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff", "backgroundFooter": "#000000"}').backgroundFooter }}
+                              ></div>
+                              <p className="text-xs font-medium">Footer BG</p>
+                            </div>
+                            <div className="text-center">
+                              <div 
+                                className="w-12 h-12 rounded-lg mx-auto mb-2 border-2 border-gray-300"
+                                style={{ backgroundColor: JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textMenu": "#374151", "backgroundMenu": "#ffffff"}').backgroundMenu }}
+                              ></div>
+                              <p className="text-xs font-medium">Menu BG</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </CardContent>
                   </Card>
                 )}
@@ -1826,55 +1867,77 @@ export default function AdminAppearance() {
                       <CardHeader>
                         <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                           <Bell className="w-4 h-4" />
-                          Announcement Banner
+                          Announcement Bar
                         </CardTitle>
-                        <CardDescription>Site-wide announcement banner</CardDescription>
+                        <CardDescription>Top notification bar (barre jaune actuelle)</CardDescription>
                       </CardHeader>
                       <CardContent className="space-y-4">
                         <div className="flex items-center space-x-2">
                           <Switch 
-                            id="banner-enabled"
-                            checked={JSON.parse(getSiteSetting('theme', 'announcement_banner') || '{"enabled": false}').enabled}
+                            id="notification-enabled"
+                            checked={JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"enabled": true}').enabled}
                             onCheckedChange={(checked) => {
-                              const current = JSON.parse(getSiteSetting('theme', 'announcement_banner') || '{"enabled": false}');
-                              updateSiteSetting('theme', 'announcement_banner', JSON.stringify({...current, enabled: checked}));
+                              const current = JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"enabled": true}');
+                              updateSiteSetting('theme', 'notification_bar', JSON.stringify({...current, enabled: checked}));
                             }}
                           />
-                          <Label htmlFor="banner-enabled">Enable Banner</Label>
+                          <Label htmlFor="notification-enabled">Enable Notification Bar</Label>
                         </div>
                         <div>
-                          <Label>Banner Text</Label>
+                          <Label>Notification Text</Label>
                           <Input
-                            placeholder="🎉 Special Offer: 20% off all bookings this month!"
-                            value={JSON.parse(getSiteSetting('theme', 'announcement_banner') || '{"text": ""}').text}
+                            placeholder="📢 L'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr"
+                            value={JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text": "📢 L\'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr"}').text}
                             onChange={(e) => {
-                              const current = JSON.parse(getSiteSetting('theme', 'announcement_banner') || '{"text": ""}');
-                              updateSiteSetting('theme', 'announcement_banner', JSON.stringify({...current, text: e.target.value}));
+                              const current = JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text": "📢 L\'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr"}');
+                              updateSiteSetting('theme', 'notification_bar', JSON.stringify({...current, text: e.target.value}));
                             }}
                           />
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                           <div>
                             <Label>Background Color</Label>
-                            <Input
-                              type="color"
-                              value={JSON.parse(getSiteSetting('theme', 'announcement_banner') || '{"background_color": "#1e73be"}').background_color}
-                              onChange={(e) => {
-                                const current = JSON.parse(getSiteSetting('theme', 'announcement_banner') || '{"background_color": "#1e73be"}');
-                                updateSiteSetting('theme', 'announcement_banner', JSON.stringify({...current, background_color: e.target.value}));
-                              }}
-                            />
+                            <div className="flex items-center gap-3">
+                              <Input
+                                type="color"
+                                value={JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"background_color": "#f5c400"}').background_color}
+                                onChange={(e) => {
+                                  const current = JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"background_color": "#f5c400"}');
+                                  updateSiteSetting('theme', 'notification_bar', JSON.stringify({...current, background_color: e.target.value}));
+                                }}
+                                className="w-20"
+                              />
+                              <Input
+                                value={JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"background_color": "#f5c400"}').background_color}
+                                onChange={(e) => {
+                                  const current = JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"background_color": "#f5c400"}');
+                                  updateSiteSetting('theme', 'notification_bar', JSON.stringify({...current, background_color: e.target.value}));
+                                }}
+                                placeholder="#f5c400"
+                              />
+                            </div>
                           </div>
                           <div>
                             <Label>Text Color</Label>
-                            <Input
-                              type="color"
-                              value={JSON.parse(getSiteSetting('theme', 'announcement_banner') || '{"text_color": "#ffffff"}').text_color}
-                              onChange={(e) => {
-                                const current = JSON.parse(getSiteSetting('theme', 'announcement_banner') || '{"text_color": "#ffffff"}');
-                                updateSiteSetting('theme', 'announcement_banner', JSON.stringify({...current, text_color: e.target.value}));
-                              }}
-                            />
+                            <div className="flex items-center gap-3">
+                              <Input
+                                type="color"
+                                value={JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text_color": "#000000"}').text_color}
+                                onChange={(e) => {
+                                  const current = JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text_color": "#000000"}');
+                                  updateSiteSetting('theme', 'notification_bar', JSON.stringify({...current, text_color: e.target.value}));
+                                }}
+                                className="w-20"
+                              />
+                              <Input
+                                value={JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text_color": "#000000"}').text_color}
+                                onChange={(e) => {
+                                  const current = JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text_color": "#000000"}');
+                                  updateSiteSetting('theme', 'notification_bar', JSON.stringify({...current, text_color: e.target.value}));
+                                }}
+                                placeholder="#000000"
+                              />
+                            </div>
                           </div>
                         </div>
                       </CardContent>
@@ -1994,6 +2057,34 @@ export default function AdminAppearance() {
                           </Select>
                         </div>
                       </div>
+                      
+                      {/* Typography Preview */}
+                      <div className="mt-6 pt-6 border-t border-gray-200">
+                        <div className="flex items-center gap-2 mb-4">
+                          <Type className="w-4 h-4" />
+                          <h3 className="text-base font-semibold">Preview</h3>
+                        </div>
+                        <div className="bg-gray-50 p-4 rounded-lg space-y-3">
+                          <div 
+                            style={{ 
+                              fontFamily: JSON.parse(getSiteSetting('theme', 'typography') || '{"heading_font": "Poppins"}').heading_font,
+                              fontWeight: JSON.parse(getSiteSetting('theme', 'typography') || '{"heading_weight": "600"}').heading_weight,
+                              fontSize: '24px'
+                            }}
+                          >
+                            Bienvenue chez Amon Tour
+                          </div>
+                          <div 
+                            style={{ 
+                              fontFamily: JSON.parse(getSiteSetting('theme', 'typography') || '{"body_font": "Inter"}').body_font,
+                              fontWeight: JSON.parse(getSiteSetting('theme', 'typography') || '{"body_weight": "400"}').body_weight,
+                              fontSize: JSON.parse(getSiteSetting('theme', 'typography') || '{"base_size": "16px"}').base_size
+                            }}
+                          >
+                            Découvrez les trésors cachés de Krabi et du sud de la Thaïlande avec nos expériences authentiques et personnalisées.
+                          </div>
+                        </div>
+                      </div>
                     </CardContent>
                   </Card>
                 )}
@@ -2068,6 +2159,56 @@ export default function AdminAppearance() {
                             <SelectItem value="shadow">Shadow Grow</SelectItem>
                           </SelectContent>
                         </Select>
+                      </div>
+                      
+                      {/* Button Styles Preview */}
+                      <div className="mt-6 pt-6 border-t border-gray-200">
+                        <div className="flex items-center gap-2 mb-4">
+                          <MousePointer className="w-4 h-4" />
+                          <h3 className="text-base font-semibold">Button Preview</h3>
+                        </div>
+                        <div className="bg-gray-50 p-4 rounded-lg space-y-3">
+                          <div className="flex flex-wrap gap-3">
+                            <button 
+                              className="px-4 py-2 text-white transition-all"
+                              style={{
+                                backgroundColor: getSiteSetting('theme', 'primary_color') || '#1e73be',
+                                borderRadius: JSON.parse(getSiteSetting('theme', 'button_styles') || '{"border_radius": "8px"}').border_radius,
+                                boxShadow: (() => {
+                                  const shadowStyle = JSON.parse(getSiteSetting('theme', 'button_styles') || '{"shadow": "medium"}').shadow;
+                                  const shadows = {
+                                    'none': 'none',
+                                    'small': '0 1px 2px 0 rgb(0 0 0 / 0.05)',
+                                    'medium': '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+                                    'large': '0 10px 15px -3px rgb(0 0 0 / 0.1)'
+                                  };
+                                  return shadows[shadowStyle as keyof typeof shadows] || '0 4px 6px -1px rgb(0 0 0 / 0.1)';
+                                })()
+                              }}
+                            >
+                              Primary Button
+                            </button>
+                            <button 
+                              className="px-4 py-2 border-2 transition-all"
+                              style={{
+                                borderColor: getSiteSetting('theme', 'primary_color') || '#1e73be',
+                                color: getSiteSetting('theme', 'primary_color') || '#1e73be',
+                                borderRadius: JSON.parse(getSiteSetting('theme', 'button_styles') || '{"border_radius": "8px"}').border_radius
+                              }}
+                            >
+                              Outline Button
+                            </button>
+                            <button 
+                              className="px-4 py-2 text-white transition-all"
+                              style={{
+                                backgroundColor: getSiteSetting('theme', 'secondary_color') || '#E6B64C',
+                                borderRadius: JSON.parse(getSiteSetting('theme', 'button_styles') || '{"border_radius": "8px"}').border_radius
+                              }}
+                            >
+                              Secondary Button
+                            </button>
+                          </div>
+                        </div>
                       </div>
                     </CardContent>
                   </Card>
@@ -2188,9 +2329,9 @@ export default function AdminAppearance() {
                       <div>
                         <Label>Logo Height</Label>
                         <Select 
-                          value={JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"logo_height": "48px"}').logo_height}
+                          value={JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"logo_height": "96px"}').logo_height}
                           onValueChange={(value) => {
-                            const current = JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"logo_height": "48px"}');
+                            const current = JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"logo_height": "96px"}');
                             updateSiteSetting('theme', 'logo_settings', JSON.stringify({...current, logo_height: value}));
                           }}
                         >
@@ -2204,6 +2345,47 @@ export default function AdminAppearance() {
                             <SelectItem value="64px">X-Large (64px)</SelectItem>
                           </SelectContent>
                         </Select>
+                      </div>
+                      
+                      {/* Logo Preview */}
+                      <div className="mt-6 pt-6 border-t border-gray-200">
+                        <div className="flex items-center gap-2 mb-4">
+                          <Image className="w-4 h-4" />
+                          <h3 className="text-base font-semibold">Logo Preview</h3>
+                        </div>
+                        <div className="bg-gray-50 p-4 rounded-lg space-y-4">
+                          <div className="text-center">
+                            <p className="text-sm font-medium mb-2">Current Logo Size</p>
+                            <div className="inline-block p-3 bg-white rounded-lg border">
+                              <img 
+                                src={logoAmon}
+                                alt="Logo Preview" 
+                                style={{ 
+                                  height: JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"logo_height": "96px"}').logo_height,
+                                  width: 'auto'
+                                }}
+                              />
+                            </div>
+                          </div>
+                          <div className="grid grid-cols-4 gap-2 text-center">
+                            <div>
+                              <img src={logoAmon} alt="32px" className="h-8 w-auto mx-auto mb-1" />
+                              <p className="text-xs">32px</p>
+                            </div>
+                            <div>
+                              <img src={logoAmon} alt="48px" className="h-12 w-auto mx-auto mb-1" />
+                              <p className="text-xs">48px</p>
+                            </div>
+                            <div>
+                              <img src={logoAmon} alt="64px" className="h-16 w-auto mx-auto mb-1" />
+                              <p className="text-xs">64px</p>
+                            </div>
+                            <div>
+                              <img src={logoAmon} alt="96px" className="h-24 w-auto mx-auto mb-1" />
+                              <p className="text-xs">96px</p>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </CardContent>
                   </Card>

@@ -3,6 +3,7 @@ import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useQuery } from '@tanstack/react-query';
 import logoAmon from "@/assets/logo-amon.png";
 
 type NavLinkProps = {
@@ -48,6 +49,19 @@ export default function Header() {
   const isBookingPage = location.startsWith('/booking');
   const isHomePage = location === '/';
 
+  // Fetch notification bar settings
+  const { data: siteSettings } = useQuery({
+    queryKey: ['/api/admin/site-settings'],
+    staleTime: 5 * 60 * 1000 // 5 minutes
+  });
+  
+  const notificationSettings = Array.isArray(siteSettings) 
+    ? siteSettings.find((s: any) => s.key === 'notification_bar')?.value 
+    : null;
+  const notificationConfig = notificationSettings 
+    ? (typeof notificationSettings === 'string' ? JSON.parse(notificationSettings) : notificationSettings) 
+    : { enabled: true, text: "📢 L'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr", background_color: "#f5c400", text_color: "#000000" };
+
   // Track scroll position for header transparency
   useEffect(() => {
     const handleScroll = () => {
@@ -80,23 +94,25 @@ export default function Header() {
 
   return (
     <>
-      {/* Notification Header */}
-      <div 
-        style={{
-          background: '#f5c400',
-          color: '#000',
-          textAlign: 'center',
-          padding: '10px',
-          fontWeight: 'bold',
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 60
-        }}
-      >
-        📢 L'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr
-      </div>
+      {/* Dynamic Notification Header */}
+      {notificationConfig.enabled && (
+        <div 
+          style={{
+            background: notificationConfig.background_color,
+            color: notificationConfig.text_color,
+            textAlign: 'center',
+            padding: '10px',
+            fontWeight: 'bold',
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            zIndex: 60
+          }}
+        >
+          {notificationConfig.text}
+        </div>
+      )}
       
       <header className={headerClasses} style={{ top: '50px' }}>
         {/* Main Navigation */}
