@@ -61,39 +61,66 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
       case 'hero':
       case 'video_hero':
         return (
-          <div className="h-full relative bg-black overflow-hidden">
-            {/* Simulation de la vidéo/image de fond */}
-            <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 via-blue-600 to-teal-700 opacity-90"></div>
-            <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60"></div>
+          <div className="h-full w-full relative bg-black overflow-hidden">
+            {/* Simulation réaliste de la vidéo de fond */}
+            <div className="absolute inset-0">
+              {/* Image de fond simulant la vidéo avec effet de mouvement */}
+              <div 
+                className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                style={{
+                  backgroundImage: `linear-gradient(45deg, #059669 0%, #0891b2 25%, #3b82f6 50%, #1e40af 75%, #1e3a8a 100%)`,
+                  animation: 'backgroundShift 8s ease-in-out infinite alternate'
+                }}
+              ></div>
+              
+              {/* Pattern pour simuler la texture vidéo */}
+              <div className="absolute inset-0 opacity-10">
+                <div className="w-full h-full bg-gradient-to-br from-transparent via-white/5 to-transparent"></div>
+              </div>
+              
+              {/* Overlays de dégradé comme sur le vrai héro */}
+              <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
+            </div>
             
-            {/* Contenu principal comme sur le vrai site */}
-            <div className="relative h-full flex items-center p-2 text-white">
-              <div className="flex-1">
-                <div className="text-xs font-bold mb-1 leading-tight text-white drop-shadow-lg">
-                  {block.title || "Your exclusive experiences"}
+            {/* Contenu principal reproduisant exactement le layout du vrai site */}
+            <div className="relative h-full flex items-center px-3 py-2">
+              <div className="flex-1 max-w-[75%]">
+                <h1 className="text-[11px] font-bold mb-1 leading-tight text-white drop-shadow-lg">
+                  {block.title || "Discover the Magic of Krabi"}
+                </h1>
+                <div className="text-[8px] opacity-90 mb-1 drop-shadow-md text-white">
+                  <span className="text-blue-300 font-semibold">Your Gateway to</span> Unforgettable Adventures
                 </div>
-                <div className="text-[9px] opacity-90 mb-1 drop-shadow-md">
-                  <span className="text-blue-300 font-semibold">in Krabi –</span> THAILAND
-                </div>
-                <div className="text-[8px] text-white/90 mb-2 leading-tight">
-                  {block.description || "Discover amazing places away from mass tourism in Krabi"}
-                </div>
+                <p className="text-[7px] text-white/90 mb-2 leading-tight">
+                  {block.description || "Experience the breathtaking beauty of Thailand's coastline"}
+                </p>
                 
-                {/* Boutons comme sur le vrai site */}
+                {/* Boutons reproduisant exactement le style du site */}
                 <div className="flex gap-1">
-                  <div className="bg-blue-500 text-[7px] px-1.5 py-0.5 rounded text-white shadow-md">
-                    See our offers
-                  </div>
-                  <div className="bg-blue-500 text-[7px] px-1.5 py-0.5 rounded text-white shadow-md">
-                    Custom your trip
-                  </div>
+                  <button className="bg-blue-600 hover:bg-blue-700 text-[6px] px-2 py-1 rounded text-white shadow-lg font-medium">
+                    {block.ctaText || "Explore Our Tours"}
+                  </button>
+                  <button className="bg-blue-600 hover:bg-blue-700 text-[6px] px-2 py-1 rounded text-white shadow-lg font-medium">
+                    Custom Trip
+                  </button>
                 </div>
               </div>
             </div>
             
-            {/* Indicateur vidéo */}
-            <div className="absolute top-1 right-1 bg-black/50 rounded px-1 py-0.5">
-              <div className="text-[6px] text-white">🎥 VIDEO</div>
+            {/* Indicateur vidéo avec point rouge animé */}
+            <div className="absolute top-1 right-1">
+              <div className="bg-black/60 rounded px-1.5 py-0.5 flex items-center gap-1">
+                <div className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></div>
+                <span className="text-[6px] text-white font-medium">VIDEO</span>
+              </div>
+            </div>
+            
+            {/* Barre de progression vidéo */}
+            <div className="absolute bottom-1 left-1 right-1">
+              <div className="bg-black/40 rounded h-0.5 overflow-hidden">
+                <div className="bg-blue-400 h-full w-1/3 animate-pulse"></div>
+              </div>
             </div>
           </div>
         );
@@ -272,7 +299,7 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
   };
 
   return (
-    <div className="relative h-32 overflow-hidden rounded-lg border bg-white">
+    <div className="relative overflow-hidden rounded-lg border bg-white" style={{ height: '128px', minHeight: '128px' }}>
       {renderVisualPreview()}
       <div className="absolute inset-0 bg-transparent pointer-events-none" />
     </div>

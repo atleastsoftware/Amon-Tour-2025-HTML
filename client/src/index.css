@@ -2,6 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Animation pour simuler le mouvement de la vidéo de fond */
+@keyframes backgroundShift {
+  0% {
+    background-position: 0% 0%;
+    transform: scale(1);
+  }
+  25% {
+    background-position: 25% 25%;
+    transform: scale(1.02);
+  }
+  50% {
+    background-position: 50% 50%;
+    transform: scale(1.01);
+  }
+  75% {
+    background-position: 75% 25%;
+    transform: scale(1.03);
+  }
+  100% {
+    background-position: 100% 0%;
+    transform: scale(1);
+  }
+}
+
 :root {
   --background: 0 0% 100%;
   --foreground: 20 14.3% 4.1%;
