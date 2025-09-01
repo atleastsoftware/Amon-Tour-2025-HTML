@@ -61,54 +61,54 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
       case 'hero':
       case 'video_hero':
         return (
-          <div className="h-full w-full relative bg-black overflow-hidden">
-            {/* Simulation réaliste de la vidéo de fond */}
-            <div className="absolute inset-0">
-              {/* Image de fond simulant la vidéo avec effet de mouvement */}
-              <div 
-                className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                style={{
-                  backgroundImage: `linear-gradient(45deg, #059669 0%, #0891b2 25%, #3b82f6 50%, #1e40af 75%, #1e3a8a 100%)`,
-                  animation: 'backgroundShift 8s ease-in-out infinite alternate'
-                }}
-              ></div>
-              
-              {/* Pattern pour simuler la texture vidéo */}
-              <div className="absolute inset-0 opacity-10">
-                <div className="w-full h-full bg-gradient-to-br from-transparent via-white/5 to-transparent"></div>
-              </div>
-              
-              {/* Overlays de dégradé comme sur le vrai héro */}
-              <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
-              <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
-            </div>
+          <div className="h-full w-full relative overflow-hidden">
+            {/* Image de fond exact du vrai héro */}
+            <div 
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+              style={{
+                backgroundImage: `url('/attached_assets/DJI_20241115104455_0160_D-min.jpeg')`,
+                animation: 'backgroundShift 8s ease-in-out infinite alternate'
+              }}
+            ></div>
             
-            {/* Contenu principal reproduisant exactement le layout du vrai site */}
+            {/* Simulation de la vidéo avec effet de mouvement subtil */}
+            <div 
+              className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 via-teal-600/20 to-blue-700/20 animate-pulse"
+              style={{ animationDuration: '3s' }}
+            ></div>
+            
+            {/* Overlays de dégradé EXACTEMENT comme sur le vrai site */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
+            
+            {/* Contenu EXACT du vrai site avec proportions fidèles */}
             <div className="relative h-full flex items-center px-3 py-2">
-              <div className="flex-1 max-w-[75%]">
-                <h1 className="text-[11px] font-bold mb-1 leading-tight text-white drop-shadow-lg">
-                  {block.title || "Discover the Magic of Krabi"}
+              <div className="flex-1 max-w-[80%]">
+                {/* Titre EXACT du vrai site */}
+                <h1 className="font-heading text-[10px] md:text-[11px] font-bold mb-1 leading-tight text-white drop-shadow-lg">
+                  {block.title || "Your exclusive experiences"} <br/>
+                  <span className="text-primary drop-shadow-lg">in Krabi –</span> THAILAND
                 </h1>
-                <div className="text-[8px] opacity-90 mb-1 drop-shadow-md text-white">
-                  <span className="text-blue-300 font-semibold">Your Gateway to</span> Unforgettable Adventures
-                </div>
-                <p className="text-[7px] text-white/90 mb-2 leading-tight">
-                  {block.description || "Experience the breathtaking beauty of Thailand's coastline"}
+                
+                {/* Description EXACTE du vrai site */}
+                <p className="text-white/90 mb-2 text-[7px] drop-shadow-md leading-tight">
+                  {block.description || "Discover amazing places away from mass tourism in Krabi."}<br/>
+                  And also Khao Sok, Koh Mook and many more destinations.
                 </p>
                 
-                {/* Boutons reproduisant exactement le style du site */}
-                <div className="flex gap-1">
-                  <button className="bg-blue-600 hover:bg-blue-700 text-[6px] px-2 py-1 rounded text-white shadow-lg font-medium">
-                    {block.ctaText || "Explore Our Tours"}
+                {/* Boutons EXACTS du vrai site avec style PRIMARY */}
+                <div className="flex gap-1 mt-2">
+                  <button className="bg-primary text-white text-[6px] px-2 py-1 rounded hover:bg-primary/90 transition-colors shadow-lg font-medium">
+                    See our offers
                   </button>
-                  <button className="bg-blue-600 hover:bg-blue-700 text-[6px] px-2 py-1 rounded text-white shadow-lg font-medium">
-                    Custom Trip
+                  <button className="bg-primary text-white text-[6px] px-2 py-1 rounded hover:bg-primary/90 transition-colors shadow-lg font-medium">
+                    Custom your trip
                   </button>
                 </div>
               </div>
             </div>
             
-            {/* Indicateur vidéo avec point rouge animé */}
+            {/* Indicateurs vidéo fidèles */}
             <div className="absolute top-1 right-1">
               <div className="bg-black/60 rounded px-1.5 py-0.5 flex items-center gap-1">
                 <div className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></div>
@@ -119,7 +119,7 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
             {/* Barre de progression vidéo */}
             <div className="absolute bottom-1 left-1 right-1">
               <div className="bg-black/40 rounded h-0.5 overflow-hidden">
-                <div className="bg-blue-400 h-full w-1/3 animate-pulse"></div>
+                <div className="bg-primary h-full w-1/3 animate-pulse"></div>
               </div>
             </div>
           </div>
