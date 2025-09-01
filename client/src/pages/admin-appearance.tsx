@@ -3418,13 +3418,6 @@ function NavigationMenuManager() {
     }
   };
 
-  // Toggle visibility
-  const toggleVisibility = (item: NavigationMenuItem) => {
-    updateMenuItemMutation.mutate({
-      id: item.id,
-      data: { isActive: !item.isActive }
-    });
-  };
 
   // Function to correct French menu items to English
   const correctFrenchToEnglish = async () => {
@@ -3500,6 +3493,7 @@ function NavigationMenuManager() {
         </div>
         
         <Button
+          type="button"
           onClick={() => {
             setEditingItem(null);
             setIsDialogOpen(true);
@@ -3541,7 +3535,6 @@ function NavigationMenuManager() {
                 }}
                 onDelete={(id) => deleteMenuItemMutation.mutate(id)}
                 onReorder={(id, direction) => reorderMenuItemMutation.mutate({ id, direction })}
-                onToggleVisibility={toggleVisibility}
                 onAddChild={(parentId) => {
                   setEditingItem({ parentId } as NavigationMenuItem);
                   setIsDialogOpen(true);
@@ -3576,7 +3569,6 @@ function MenuItemRow({
   onEdit,
   onDelete,
   onReorder,
-  onToggleVisibility,
   onAddChild
 }: {
   item: NavigationMenuItem & { children?: NavigationMenuItem[] };
@@ -3585,7 +3577,6 @@ function MenuItemRow({
   onEdit: (item: NavigationMenuItem) => void;
   onDelete: (id: number) => void;
   onReorder: (id: number, direction: 'up' | 'down') => void;
-  onToggleVisibility: (item: NavigationMenuItem) => void;
   onAddChild: (parentId: number) => void;
 }) {
   return (
@@ -3619,9 +3610,6 @@ function MenuItemRow({
           <div className="flex items-center gap-2">
             {item.iconName && <Globe className="w-4 h-4 text-gray-500" />}
             <span className="font-medium">{item.name}</span>
-            <Badge variant={item.isActive ? "default" : "secondary"}>
-              {item.isActive ? "Visible" : "Masqué"}
-            </Badge>
             {item.target === '_blank' && (
               <Badge variant="outline">Nouvel onglet</Badge>
             )}
@@ -3635,6 +3623,7 @@ function MenuItemRow({
         {/* Actions */}
         <div className="flex items-center gap-1">
           <Button
+            type="button"
             variant="outline"
             size="sm"
             onClick={() => onAddChild(item.id)}
@@ -3644,15 +3633,7 @@ function MenuItemRow({
             Sous-menu
           </Button>
           <Button
-            variant="outline"
-            size="sm"
-            onClick={() => onToggleVisibility(item)}
-            className="flex items-center gap-1"
-          >
-            <EyeOff className={`w-3 h-3 ${item.isActive ? 'text-green-600' : 'text-red-500'}`} />
-            {item.isActive ? 'Visible' : 'Masqué'}
-          </Button>
-          <Button
+            type="button"
             variant="outline"
             size="sm"
             onClick={() => onEdit(item)}
@@ -3661,7 +3642,7 @@ function MenuItemRow({
           </Button>
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <Button variant="outline" size="sm">
+              <Button type="button" variant="outline" size="sm">
                 <Trash2 className="w-3 h-3" />
               </Button>
             </AlertDialogTrigger>
@@ -3719,9 +3700,6 @@ function MenuItemRow({
                 <div className="flex items-center gap-2">
                   {child.iconName && <Globe className="w-3 h-3 text-gray-500" />}
                   <span className="text-sm font-medium">{child.name}</span>
-                  <Badge variant={child.isActive ? "default" : "secondary"} className="text-xs">
-                    {child.isActive ? "Visible" : "Masqué"}
-                  </Badge>
                 </div>
                 <div className="text-xs text-gray-500 truncate">{child.url}</div>
               </div>
@@ -3729,15 +3707,7 @@ function MenuItemRow({
               {/* Child Actions */}
               <div className="flex items-center gap-1">
                 <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => onToggleVisibility(child)}
-                  className="flex items-center gap-1"
-                >
-                  <EyeOff className={`w-2 h-2 ${child.isActive ? 'text-green-600' : 'text-red-500'}`} />
-                  <span className="text-xs">{child.isActive ? 'Visible' : 'Masqué'}</span>
-                </Button>
-                <Button
+                  type="button"
                   variant="outline"
                   size="sm"
                   onClick={() => onEdit(child)}
@@ -3746,7 +3716,7 @@ function MenuItemRow({
                 </Button>
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
-                    <Button variant="outline" size="sm">
+                    <Button type="button" variant="outline" size="sm">
                       <Trash2 className="w-2 h-2" />
                     </Button>
                   </AlertDialogTrigger>
