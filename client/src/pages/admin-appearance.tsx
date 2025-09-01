@@ -13,6 +13,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { toast } from '@/hooks/use-toast';
 import { Edit, Plus, Trash2, Move, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Palette, Layout, Image, Type, FileText, MapPin, Mail, Users, Download, Star, Camera, ArrowLeft, Search, Video, Bell, MousePointer, Globe, Menu } from 'lucide-react';
+import RealBlockPreview from '@/components/admin/RealBlockPreview';
 import { useLocation } from 'wouter';
 import { motion } from 'framer-motion';
 import logoAmon from "@/assets/logo-amon.png";
@@ -3066,7 +3067,7 @@ export default function AdminAppearance() {
                         <p className="text-gray-500">Loading blocks...</p>
                       </div>
                     ) : (
-                      <VisualPageEditor pageSlug={selectedPage} pageBlocks={pageBlocks} />
+                      <RealBlocksEditor pageSlug={selectedPage} pageBlocks={pageBlocks} />
                     )}
                   </CardContent>
                 </Card>
@@ -3837,7 +3838,145 @@ function MenuItemDialog({
   );
 }
 
-// Composant unifié d'édition visuelle des pages (basé sur l'Option 2)
+// Nouveau composant avec prévisualisations réelles et édition in-line
+function RealBlocksEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBlocks: PageBlock[] }) {
+  const queryClient = useQueryClient();
+
+  // Mutations pour les opérations sur les blocs
+  const updateBlockMutation = useMutation({
+    mutationFn: async ({ id, data }: { id: number; data: Partial<PageBlock> }) => {
+      const response = await fetch(`/api/admin/page-blocks/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) throw new Error('Failed to update block');
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/page-blocks', pageSlug] });
+      toast({
+        title: "Bloc sauvegardé",
+        description: "Les modifications ont été appliquées avec succès.",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Erreur",
+        description: "Impossible de sauvegarder les modifications.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const deleteBlockMutation = useMutation({
+    mutationFn: async (id: number) => {
+      const response = await fetch(`/api/admin/page-blocks/${id}`, { method: 'DELETE' });
+      if (!response.ok) throw new Error('Failed to delete block');
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/page-blocks', pageSlug] });
+      toast({
+        title: "Bloc supprimé",
+        description: "Le bloc a été supprimé avec succès.",
+      });
+    },
+  });
+
+  const reorderBlocksMutation = useMutation({
+    mutationFn: async (blocks: { id: number; blockOrder: number }[]) => {
+      const response = await fetch('/api/admin/page-blocks/reorder', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ blocks }),
+      });
+      if (!response.ok) throw new Error('Failed to reorder blocks');
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/page-blocks', pageSlug] });
+    },
+  });
+
+  const handleUpdateBlock = (id: number, data: Partial<PageBlock>) => {
+    updateBlockMutation.mutate({ id, data });
+  };
+
+  const handleDeleteBlock = (id: number) => {
+    if (window.confirm('Êtes-vous sûr de vouloir supprimer ce bloc ?')) {
+      deleteBlockMutation.mutate(id);
+    }
+  };
+
+  const handleMoveUp = (id: number) => {
+    const currentIndex = pageBlocks.findIndex(block => block.id === id);
+    if (currentIndex > 0) {
+      const updates = [
+        { id: pageBlocks[currentIndex].id, blockOrder: pageBlocks[currentIndex - 1].blockOrder },
+        { id: pageBlocks[currentIndex - 1].id, blockOrder: pageBlocks[currentIndex].blockOrder }
+      ];
+      reorderBlocksMutation.mutate(updates);
+    }
+  };
+
+  const handleMoveDown = (id: number) => {
+    const currentIndex = pageBlocks.findIndex(block => block.id === id);
+    if (currentIndex < pageBlocks.length - 1) {
+      const updates = [
+        { id: pageBlocks[currentIndex].id, blockOrder: pageBlocks[currentIndex + 1].blockOrder },
+        { id: pageBlocks[currentIndex + 1].id, blockOrder: pageBlocks[currentIndex].blockOrder }
+      ];
+      reorderBlocksMutation.mutate(updates);
+    }
+  };
+
+  const handleToggleVisibility = (id: number) => {
+    const block = pageBlocks.find(b => b.id === id);
+    if (block) {
+      handleUpdateBlock(id, { isActive: !block.isActive });
+    }
+  };
+
+  if (!pageBlocks.length) {
+    return (
+      <div className="text-center py-12">
+        <Layout className="w-12 h-12 mx-auto mb-4 text-gray-400" />
+        <h3 className="text-lg font-medium text-gray-900 mb-2">Aucun bloc trouvé</h3>
+        <p className="text-gray-500 mb-4">Cette page n'a pas encore de blocs de contenu.</p>
+        <Button>
+          <Plus className="w-4 h-4 mr-2" />
+          Ajouter un bloc
+        </Button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-4">
+      {pageBlocks.map((block) => (
+        <RealBlockPreview
+          key={block.id}
+          block={block}
+          onUpdate={handleUpdateBlock}
+          onDelete={handleDeleteBlock}
+          onMoveUp={handleMoveUp}
+          onMoveDown={handleMoveDown}
+          onToggleVisibility={handleToggleVisibility}
+        />
+      ))}
+      
+      {/* Bouton pour ajouter un nouveau bloc */}
+      <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 hover:bg-blue-50 transition-colors">
+        <Plus className="w-8 h-8 mx-auto mb-2 text-gray-400" />
+        <p className="text-gray-600 font-medium">Ajouter un nouveau bloc</p>
+        <p className="text-sm text-gray-500">Cliquez pour choisir un type de bloc</p>
+      </div>
+    </div>
+  );
+}
+
+// Ancien composant de fallback pour compatibilité (peut être supprimé plus tard)
 function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBlocks: PageBlock[] }) {
   const getPageTitle = (slug: string) => {
     const titles: Record<string, string> = {

@@ -576,6 +576,32 @@ export const pageBlocks = pgTable("page_blocks", {
   pageBlockOrderIdx: index("page_blocks_page_order_idx").on(table.pageId, table.blockOrder),
 }));
 
+// Table d'historique pour le versioning des blocs
+export const pageBlockHistory = pgTable("page_block_history", {
+  id: serial("id").primaryKey(),
+  blockId: integer("block_id").notNull().references(() => pageBlocks.id, { onDelete: "cascade" }),
+  version: integer("version").notNull().default(1), // Numéro de version
+  title: text("title"),
+  subtitle: text("subtitle"),
+  description: text("description"),
+  content: text("content"),
+  imageUrl: text("image_url"),
+  imageAlt: text("image_alt"),
+  ctaText: text("cta_text"),
+  ctaUrl: text("cta_url"),
+  ctaStyle: text("cta_style"),
+  iconName: text("icon_name"),
+  backgroundColor: text("background_color"),
+  configuration: json("configuration").$type<Record<string, any>>().default({}),
+  isActive: boolean("is_active"),
+  changeDescription: text("change_description"), // Description des changements
+  createdBy: text("created_by").default("admin"), // Qui a fait le changement
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => ({
+  blockVersionIdx: index("page_block_history_block_version_idx").on(table.blockId, table.version),
+  blockCreatedIdx: index("page_block_history_block_created_idx").on(table.blockId, table.createdAt),
+}));
+
 // Templates de blocs réutilisables
 export const blockTemplates = pgTable("block_templates", {
   id: serial("id").primaryKey(),
@@ -601,6 +627,11 @@ export const insertPageBlockSchema = createInsertSchema(pageBlocks).omit({
   updatedAt: true,
 });
 
+export const insertPageBlockHistorySchema = createInsertSchema(pageBlockHistory).omit({
+  id: true,
+  createdAt: true,
+});
+
 export const insertBlockTemplateSchema = createInsertSchema(blockTemplates).omit({
   id: true,
   createdAt: true,
@@ -612,6 +643,9 @@ export type PageConfiguration = typeof pageConfigurations.$inferSelect;
 
 export type InsertPageBlock = z.infer<typeof insertPageBlockSchema>;
 export type PageBlock = typeof pageBlocks.$inferSelect;
+
+export type InsertPageBlockHistory = z.infer<typeof insertPageBlockHistorySchema>;
+export type PageBlockHistory = typeof pageBlockHistory.$inferSelect;
 
 export type InsertBlockTemplate = z.infer<typeof insertBlockTemplateSchema>;
 export type BlockTemplate = typeof blockTemplates.$inferSelect;

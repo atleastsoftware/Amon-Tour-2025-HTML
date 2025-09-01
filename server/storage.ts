@@ -70,6 +70,9 @@ import {
   type InsertBlockTemplate,
   type NavigationMenuItem,
   type InsertNavigationMenuItem,
+  pageBlockHistory,
+  type PageBlockHistory,
+  type InsertPageBlockHistory,
 } from "@shared/schema";
 import fs from "fs";
 import path from "path";
@@ -1617,6 +1620,101 @@ export class DatabaseStorage implements IStorage {
       console.error('Error reordering page blocks:', error);
       return false;
     }
+  }
+
+  // Page Block History Management
+  async getPageBlockHistory(blockId: number): Promise<PageBlockHistory[]> {
+    return db.select()
+      .from(pageBlockHistory)
+      .where(eq(pageBlockHistory.blockId, blockId))
+      .orderBy(desc(pageBlockHistory.version));
+  }
+
+  async savePageBlockVersion(blockId: number, changeDescription: string): Promise<PageBlockHistory> {
+    // Get current block data
+    const [currentBlock] = await db.select()
+      .from(pageBlocks)
+      .where(eq(pageBlocks.id, blockId));
+      
+    if (!currentBlock) {
+      throw new Error('Page block not found');
+    }
+
+    // Get the next version number
+    const [lastVersion] = await db.select({ version: pageBlockHistory.version })
+      .from(pageBlockHistory)
+      .where(eq(pageBlockHistory.blockId, blockId))
+      .orderBy(desc(pageBlockHistory.version))
+      .limit(1);
+
+    const nextVersion = (lastVersion?.version || 0) + 1;
+
+    // Save current state to history
+    const [saved] = await db
+      .insert(pageBlockHistory)
+      .values({
+        blockId,
+        version: nextVersion,
+        title: currentBlock.title,
+        subtitle: currentBlock.subtitle,
+        description: currentBlock.description,
+        content: currentBlock.content,
+        imageUrl: currentBlock.imageUrl,
+        imageAlt: currentBlock.imageAlt,
+        ctaText: currentBlock.ctaText,
+        ctaUrl: currentBlock.ctaUrl,
+        ctaStyle: currentBlock.ctaStyle,
+        iconName: currentBlock.iconName,
+        backgroundColor: currentBlock.backgroundColor,
+        configuration: currentBlock.configuration,
+        isActive: currentBlock.isActive,
+        changeDescription,
+        createdBy: 'admin'
+      })
+      .returning();
+
+    return saved;
+  }
+
+  async restorePageBlockVersion(blockId: number, version: number): Promise<PageBlock | undefined> {
+    // Get the version to restore
+    const [versionData] = await db.select()
+      .from(pageBlockHistory)
+      .where(and(
+        eq(pageBlockHistory.blockId, blockId),
+        eq(pageBlockHistory.version, version)
+      ));
+
+    if (!versionData) {
+      return undefined;
+    }
+
+    // First save current state to history before restoring
+    await this.savePageBlockVersion(blockId, `Restored from version ${version}`);
+
+    // Update the block with the historical data
+    const [updated] = await db
+      .update(pageBlocks)
+      .set({
+        title: versionData.title,
+        subtitle: versionData.subtitle,
+        description: versionData.description,
+        content: versionData.content,
+        imageUrl: versionData.imageUrl,
+        imageAlt: versionData.imageAlt,
+        ctaText: versionData.ctaText,
+        ctaUrl: versionData.ctaUrl,
+        ctaStyle: versionData.ctaStyle,
+        iconName: versionData.iconName,
+        backgroundColor: versionData.backgroundColor,
+        configuration: versionData.configuration,
+        isActive: versionData.isActive,
+        updatedAt: new Date()
+      })
+      .where(eq(pageBlocks.id, blockId))
+      .returning();
+
+    return updated || undefined;
   }
 
   // Block Templates operations

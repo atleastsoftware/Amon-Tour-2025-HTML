@@ -2627,6 +2627,59 @@ Crawl-delay: 1`;
     }
   });
 
+  // Page Block History Management Routes
+  app.get("/api/admin/page-blocks/:id/history", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid page block ID" });
+      }
+
+      const history = await storage.getPageBlockHistory(id);
+      res.json(history);
+    } catch (error) {
+      console.error("Error fetching page block history:", error);
+      res.status(500).json({ message: "Failed to fetch page block history", error: String(error) });
+    }
+  });
+
+  app.post("/api/admin/page-blocks/:id/save-version", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid page block ID" });
+      }
+
+      const { changeDescription } = req.body;
+      const historyEntry = await storage.savePageBlockVersion(id, changeDescription || "Manual save");
+      res.status(201).json(historyEntry);
+    } catch (error) {
+      console.error("Error saving page block version:", error);
+      res.status(500).json({ message: "Failed to save page block version", error: String(error) });
+    }
+  });
+
+  app.post("/api/admin/page-blocks/:id/restore/:version", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const version = parseInt(req.params.version);
+      
+      if (isNaN(id) || isNaN(version)) {
+        return res.status(400).json({ message: "Invalid page block ID or version number" });
+      }
+
+      const restoredBlock = await storage.restorePageBlockVersion(id, version);
+      if (!restoredBlock) {
+        return res.status(404).json({ message: "Page block or version not found" });
+      }
+
+      res.json(restoredBlock);
+    } catch (error) {
+      console.error("Error restoring page block version:", error);
+      res.status(500).json({ message: "Failed to restore page block version", error: String(error) });
+    }
+  });
+
   // Block templates
   app.get("/api/admin/block-templates", requireAuth, async (req, res) => {
     try {
