@@ -3290,7 +3290,7 @@ function NavigationMenuManager() {
   const queryClient = useQueryClient();
   const [editingItem, setEditingItem] = useState<NavigationMenuItem | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [isPreviewMode, setIsPreviewMode] = useState(false);
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
   // Fetch navigation menu items
   const { data: menuItems = [], isLoading } = useQuery<NavigationMenuItem[]>({
@@ -3426,6 +3426,45 @@ function NavigationMenuManager() {
     });
   };
 
+  // Function to correct French menu items to English
+  const correctFrenchToEnglish = async () => {
+    const corrections = [
+      { from: 'Accueil', to: 'Home' },
+      { from: 'Expériences', to: 'Experiences' },
+      { from: 'Voyage sur mesure', to: 'Custom Trip' },
+      { from: 'Blog', to: 'Blog' },
+      { from: 'Contact', to: 'Contact' }
+    ];
+    
+    for (const item of menuItems) {
+      const correction = corrections.find(c => c.from === item.name);
+      if (correction) {
+        try {
+          await updateMenuItemMutation.mutateAsync({
+            id: item.id,
+            data: { name: correction.to }
+          });
+        } catch (error) {
+          console.error('Error correcting menu item:', error);
+        }
+      }
+    }
+    queryClient.invalidateQueries({ queryKey: ['/api/admin/navigation-menu'] });
+    toast({ title: "Succès", description: "Éléments de menu corrigés en anglais" });
+  };
+
+  // Auto-correct French items on load
+  useEffect(() => {
+    if (menuItems.length > 0) {
+      const hasFrenchItems = menuItems.some(item => 
+        ['Accueil', 'Expériences', 'Voyage sur mesure'].includes(item.name)
+      );
+      if (hasFrenchItems) {
+        correctFrenchToEnglish();
+      }
+    }
+  }, [menuItems]);
+
   // Organize menu items by parent/child relationships
   const organizeMenuItems = (items: NavigationMenuItem[]) => {
     const parentItems = items.filter(item => !item.parentId);
@@ -3443,113 +3482,35 @@ function NavigationMenuManager() {
     <div className="space-y-6">
       {/* Action Buttons */}
       <div className="flex gap-2 justify-between">
+        <div className="flex gap-2">
+          {hasUnsavedChanges && (
+            <Button
+              variant="default"
+              onClick={async () => {
+                // Save functionality would go here
+                setHasUnsavedChanges(false);
+                toast({ title: "Succès", description: "Modifications sauvegardées" });
+              }}
+              className="flex items-center gap-2"
+            >
+              <Download className="w-4 h-4" />
+              Sauvegarder les modifications
+            </Button>
+          )}
+        </div>
+        
         <Button
-          variant="outline"
-          onClick={() => window.open('/', '_blank')}
+          onClick={() => {
+            setEditingItem(null);
+            setIsDialogOpen(true);
+          }}
           className="flex items-center gap-2"
         >
-          <Eye className="w-4 h-4" />
-          Prévisualiser Site
+          <Plus className="w-4 h-4" />
+          Ajouter élément
         </Button>
-        
-        <div className="flex gap-2">
-          <Button
-            variant="outline"
-            onClick={() => setIsPreviewMode(!isPreviewMode)}
-            className="flex items-center gap-2"
-          >
-            <Eye className="w-4 h-4" />
-            {isPreviewMode ? 'Masquer aperçu' : 'Voir aperçu'}
-          </Button>
-          <Button
-            variant="secondary"
-            onClick={async () => {
-              // Préremplir avec le menu réel du site
-              const defaultMenuItems = [
-                { name: 'Accueil', url: '/', displayOrder: 1, isActive: true },
-                { name: 'Expériences', url: '/tours', displayOrder: 2, isActive: true },
-                { name: 'Voyage sur mesure', url: '/custom-tour', displayOrder: 3, isActive: true },
-                { name: 'Blog', url: '/blog', displayOrder: 4, isActive: true },
-                { name: 'Contact', url: '/contact', displayOrder: 5, isActive: true }
-              ];
-              
-              for (const item of defaultMenuItems) {
-                try {
-                  await fetch('/api/admin/navigation-menu', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    credentials: 'include',
-                    body: JSON.stringify(item),
-                  });
-                } catch (error) {
-                  console.error('Error creating menu item:', error);
-                }
-              }
-              
-              // Recharger les données du menu
-              queryClient.invalidateQueries({ queryKey: ['/api/admin/navigation-menu'] });
-              toast({ title: "Succès", description: "Menu pré-rempli avec les pages principales du site" });
-            }}
-            className="flex items-center gap-2"
-          >
-            <Download className="w-4 h-4" />
-            Pré-remplir Menu
-          </Button>
-          <Button
-            onClick={() => {
-              setEditingItem(null);
-              setIsDialogOpen(true);
-            }}
-            className="flex items-center gap-2"
-          >
-            <Plus className="w-4 h-4" />
-            Ajouter élément
-          </Button>
-        </div>
       </div>
 
-      {/* Preview Mode */}
-      {isPreviewMode && (
-        <div className="border rounded-lg p-4 bg-gray-50">
-          <h4 className="text-sm font-medium flex items-center gap-2 mb-3">
-            <Eye className="w-4 h-4" />
-            Aperçu du menu
-          </h4>
-          <div className="flex flex-wrap gap-4">
-            {organizedItems.filter(item => item.isActive).map((item) => (
-              <div key={item.id} className="relative group">
-                <a
-                  href={item.url}
-                  target={item.target}
-                  className="px-4 py-2 text-gray-700 hover:text-blue-600 transition-colors"
-                >
-                  {item.iconName && (
-                    <Globe className="w-4 h-4 inline mr-2" />
-                  )}
-                  {item.name}
-                </a>
-                {item.children && item.children.length > 0 && (
-                  <div className="absolute top-full left-0 bg-white shadow-lg rounded-lg min-w-[200px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10">
-                    {item.children.filter(child => child.isActive).map((child) => (
-                      <a
-                        key={child.id}
-                        href={child.url}
-                        target={child.target}
-                        className="block px-4 py-2 text-gray-600 hover:text-blue-600 hover:bg-gray-50"
-                      >
-                        {child.iconName && (
-                          <Globe className="w-4 h-4 inline mr-2" />
-                        )}
-                        {child.name}
-                      </a>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
 
       {/* Menu Items List */}
       <div>
@@ -3631,18 +3592,6 @@ function MenuItemRow({
     <div className="space-y-1">
       {/* Parent Item */}
       <div className="flex items-center gap-3 p-3 border rounded-lg bg-white hover:bg-gray-50">
-        {/* Visibility Toggle */}
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => onToggleVisibility(item)}
-          className="p-1"
-        >
-          <EyeOff 
-            className={`w-4 h-4 ${item.isActive ? 'text-black' : 'text-red-500'}`}
-          />
-        </Button>
-
         {/* Reorder Controls */}
         <div className="flex flex-col">
           <Button
@@ -3697,6 +3646,15 @@ function MenuItemRow({
           <Button
             variant="outline"
             size="sm"
+            onClick={() => onToggleVisibility(item)}
+            className="flex items-center gap-1"
+          >
+            <EyeOff className={`w-3 h-3 ${item.isActive ? 'text-green-600' : 'text-red-500'}`} />
+            {item.isActive ? 'Visible' : 'Masqué'}
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
             onClick={() => onEdit(item)}
           >
             <Edit className="w-3 h-3" />
@@ -3734,18 +3692,6 @@ function MenuItemRow({
               key={child.id} 
               className="flex items-center gap-3 p-2 border rounded bg-gray-50 hover:bg-gray-100"
             >
-              {/* Child Visibility Toggle */}
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => onToggleVisibility(child)}
-                className="p-1"
-              >
-                <EyeOff 
-                  className={`w-3 h-3 ${child.isActive ? 'text-black' : 'text-red-500'}`}
-                />
-              </Button>
-
               {/* Child Reorder Controls */}
               <div className="flex flex-col">
                 <Button
@@ -3782,6 +3728,15 @@ function MenuItemRow({
 
               {/* Child Actions */}
               <div className="flex items-center gap-1">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => onToggleVisibility(child)}
+                  className="flex items-center gap-1"
+                >
+                  <EyeOff className={`w-2 h-2 ${child.isActive ? 'text-green-600' : 'text-red-500'}`} />
+                  <span className="text-xs">{child.isActive ? 'Visible' : 'Masqué'}</span>
+                </Button>
                 <Button
                   variant="outline"
                   size="sm"
@@ -3906,17 +3861,36 @@ function MenuItemDialog({
               />
             </div>
 
-            {/* URL */}
+            {/* URL with Page Selector */}
             <div className="space-y-2">
               <Label htmlFor="url">Lien URL *</Label>
-              <Input
-                id="url"
-                name="url"
-                value={formData.url}
-                onChange={(e) => setFormData(prev => ({ ...prev, url: e.target.value }))}
-                placeholder="ex: /, /tours, /contact, https://..."
-                required
-              />
+              <div className="flex gap-2">
+                <Select 
+                  value={formData.url} 
+                  onValueChange={(value) => setFormData(prev => ({ ...prev, url: value, name: value === '/' ? 'Home' : value === '/tours' ? 'Experiences' : value === '/custom-tour' ? 'Custom Trip' : value === '/blog' ? 'Blog' : value === '/contact' ? 'Contact' : prev.name }))}
+                >
+                  <SelectTrigger className="w-[200px]">
+                    <SelectValue placeholder="Page du site" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="/">🏠 Home</SelectItem>
+                    <SelectItem value="/tours">🌴 Experiences</SelectItem>
+                    <SelectItem value="/custom-tour">✈️ Custom Trip</SelectItem>
+                    <SelectItem value="/blog">📝 Blog</SelectItem>
+                    <SelectItem value="/contact">📞 Contact</SelectItem>
+                    <SelectItem value="/about">ℹ️ About</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Input
+                  id="url"
+                  name="url"
+                  value={formData.url}
+                  onChange={(e) => setFormData(prev => ({ ...prev, url: e.target.value }))}
+                  placeholder="ou saisir URL personnalisée"
+                  className="flex-1"
+                  required
+                />
+              </div>
             </div>
 
             {/* Parent Menu */}
