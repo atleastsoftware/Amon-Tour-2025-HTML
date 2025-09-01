@@ -3856,21 +3856,33 @@ function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
 
     switch (block.blockType) {
       case 'video_hero':
+        // Bloc 1 : Header spécial de la page d'accueil (Image 1)
         return (
-          <div className="relative bg-gradient-to-r from-blue-600 to-blue-800 text-white p-8 rounded-lg overflow-hidden">
-            <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-            <div className="relative z-10 text-center">
-              <h1 className="text-4xl font-bold mb-4">{block.title}</h1>
-              <p className="text-xl opacity-90 mb-6">{block.subtitle}</p>
-              <p className="mb-6 opacity-80">{block.description}</p>
-              {block.ctaText && (
-                <button className="bg-white text-blue-600 px-8 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors">
-                  {block.ctaText}
+          <div className="relative bg-cover bg-center text-white rounded-lg overflow-hidden min-h-[500px]" 
+               style={{ backgroundImage: 'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("/attached_assets/krabi-hero.jpg")' }}>
+            <div className="absolute inset-0 flex flex-col justify-center items-start p-8 md:p-16">
+              <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                Your exclusive<br />
+                experiences<br />
+                <span className="text-blue-400">in Krabi</span>, THAILAND
+              </h1>
+              <p className="text-lg md:text-xl mb-4 max-w-lg">
+                Discover amazing places away from mass tourism in Krabi.
+              </p>
+              <p className="text-lg md:text-xl mb-8 max-w-lg">
+                And also Khao Sok, Koh Mook and many more destinations.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-colors">
+                  See our offers
                 </button>
-              )}
+                <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-colors">
+                  Custom your trip
+                </button>
+              </div>
             </div>
             <div className="absolute top-4 right-4 bg-black bg-opacity-50 text-white px-3 py-1 rounded text-sm">
-              🎥 Vidéo Hero
+              🏠 Hero Principal
             </div>
           </div>
         );
@@ -3891,31 +3903,83 @@ function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
         );
 
       case 'advantages':
+        // Bloc 6 : "Why Choose Us" avec 3 cartes + icônes (Image 6)
         const features = config.features || [
-          { title: 'Private Tours', description: 'Experience exclusive day trips with professional guides' },
-          { title: 'Customized Itineraries', description: 'Create your journey based on your interests' },
-          { title: 'Authentic Experiences', description: 'Discover hidden gems away from mass tourism' }
+          { 
+            title: 'Private Tours', 
+            description: 'Experience an exclusive day trip with our professional guides and private vehicles.',
+            subFeatures: [
+              { label: 'Private Car' },
+              { label: 'Guide' },
+              { label: 'Safety' }
+            ]
+          },
+          { 
+            title: 'Customized Itineraries', 
+            description: 'Create your own journey based on your desires, your pace, and your interests.',
+            subFeatures: [
+              { label: 'Custom Route' },
+              { label: 'Your Pace' },
+              { label: 'Your Interests' }
+            ]
+          },
+          { 
+            title: 'Authentic Experiences', 
+            description: 'Discover hidden gems and local secrets away from mass tourism.',
+            subFeatures: [
+              { label: 'Hidden Gems' },
+              { label: 'Local Guides' },
+              { label: 'Authentic' }
+            ]
+          }
         ];
+        
         return (
-          <div>
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold mb-4">{block.title}</h2>
-              <p className="text-gray-600">{block.subtitle}</p>
+          <div className="bg-white p-8 rounded-lg">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">Why Choose Us</h2>
+              <div className="w-16 h-1 bg-yellow-400 mx-auto mb-4"></div>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                Experience an exclusive private day trip with our English or French-speaking and certified guides.
+              </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <div className="space-y-12">
               {features.map((feature: any, i: number) => (
-                <div key={i} className="text-center p-6 bg-gray-50 rounded-lg">
-                  <div className="w-16 h-16 bg-blue-100 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <div className="w-8 h-8 bg-blue-600 rounded"></div>
+                <div key={i} className="text-center">
+                  {/* Icône principale */}
+                  <div className="w-20 h-20 bg-blue-600 rounded-full mx-auto mb-6 flex items-center justify-center">
+                    <div className="text-white text-2xl">
+                      {i === 0 && '👥'}
+                      {i === 1 && '🧭'}
+                      {i === 2 && '✨'}
+                    </div>
                   </div>
-                  <h3 className="font-semibold mb-2">{feature.title}</h3>
-                  <p className="text-gray-600 text-sm">{feature.description}</p>
+                  
+                  {/* Titre et description */}
+                  <h3 className="text-xl font-bold mb-4 text-gray-900">{feature.title}</h3>
+                  <p className="text-gray-600 mb-6 max-w-lg mx-auto">{feature.description}</p>
+                  
+                  {/* Sous-caractéristiques avec icônes */}
                   {feature.subFeatures && (
-                    <div className="flex justify-center gap-2 mt-3">
-                      {feature.subFeatures.slice(0, 3).map((sub: any, j: number) => (
-                        <span key={j} className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">
-                          {sub.label}
-                        </span>
+                    <div className="flex justify-center gap-8">
+                      {feature.subFeatures.map((sub: any, j: number) => (
+                        <div key={j} className="text-center">
+                          <div className="w-12 h-12 bg-blue-100 rounded-lg mx-auto mb-2 flex items-center justify-center">
+                            <div className="text-blue-600 text-lg">
+                              {sub.label === 'Private Car' && '🚗'}
+                              {sub.label === 'Guide' && '🗣️'}
+                              {sub.label === 'Safety' && '🛡️'}
+                              {sub.label === 'Custom Route' && '🗺️'}
+                              {sub.label === 'Your Pace' && '⏱️'}
+                              {sub.label === 'Your Interests' && '❤️'}
+                              {sub.label === 'Hidden Gems' && '🧭'}
+                              {sub.label === 'Local Guides' && '👨‍🏫'}
+                              {sub.label === 'Authentic' && '💎'}
+                            </div>
+                          </div>
+                          <p className="text-sm font-medium text-gray-700">{sub.label}</p>
+                        </div>
                       ))}
                     </div>
                   )}
@@ -3926,23 +3990,157 @@ function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
         );
 
       case 'text_image':
-        return (
-          <div className="bg-gray-50 p-8 rounded-lg">
-            <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl font-bold mb-4">{block.title}</h2>
-              <p className="text-lg text-gray-600 mb-6">{block.subtitle}</p>
-              <div className="bg-gray-200 h-64 rounded-lg mb-6 flex items-center justify-center">
-                <span className="text-gray-500">Image: {block.imageUrl || 'Pas d\'image définie'}</span>
+        // Bloc 2 : "When expats welcome you" (Image 2) 
+        if (block.identifier === 'about_amon_tour') {
+          return (
+            <div className="bg-white p-8 rounded-lg">
+              <div className="max-w-4xl mx-auto text-center">
+                <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
+                  When expats welcome you in their host country
+                </h2>
+                <div className="w-16 h-1 bg-yellow-400 mx-auto mb-8"></div>
+                <p className="text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto">
+                  This is a family-run travel agency that combines the organization of exclusive 
+                  activities with the creation of tailor-made trips throughout the country. Our goal is to offer an 
+                  immersive experience, far from mass tourism, with personalized service for every traveler — 
+                  as if we were welcoming our own family or friends.
+                </p>
               </div>
-              <p className="text-gray-700">{block.description || block.content}</p>
+            </div>
+          );
+        }
+        // Bloc 7 : "Who We Are" - Articles avec texte
+        return (
+          <div className="bg-white p-8 rounded-lg">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl font-bold mb-6 text-gray-900">Who We Are</h2>
+              
+              <p className="text-gray-700 mb-6 leading-relaxed">
+                We are Éric, Margaux, Gabriel, and Raphaël, a French family living in Krabi, southern Thailand, since 2013.
+              </p>
+              
+              <p className="text-gray-700 mb-8 leading-relaxed">
+                From our life here, we created Amon Tour — a small, independent travel agency built on a simple idea: 
+                personally welcome our travelers to Krabi and offer them a different way to experience Thailand.
+              </p>
+
+              <h3 className="text-2xl font-bold mb-4 text-gray-900">Deep Local Roots</h3>
+              <p className="text-gray-700 mb-6 leading-relaxed">
+                We live here year-round, in the heart of the region we love. This close connection to the destination 
+                allows us to offer exclusive experiences in Krabi, designed and guided by our team of professional 
+                local guides or trusted partners.
+              </p>
+
+              <p className="text-gray-700 mb-8 leading-relaxed">
+                You're not booking a generic tour — you're being welcomed, guided, and cared for by people who live 
+                here, who know the tides, the seasons, the crowds to avoid, and the hidden gems worth discovering.
+              </p>
+
+              <h3 className="text-2xl font-bold mb-4 text-gray-900">Our Concept</h3>
+              <p className="text-gray-700 leading-relaxed">
+                Combine the warmth and proximity of a local guide with professional organization.
+              </p>
             </div>
           </div>
         );
 
       case 'card_grid':
         const itemCount = config.displayCount || config.itemsPerPage || 6;
+        
+        // Bloc 3 : "Our Popular Experiences" (Image 3)
+        if (block.identifier === 'featured_tours') {
+          return (
+            <div className="bg-white p-8 rounded-lg">
+              <div className="text-center mb-8">
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">Our Popular Experiences</h2>
+                <div className="w-16 h-1 bg-yellow-400 mx-auto mb-4"></div>
+                <p className="text-gray-600 max-w-2xl mx-auto">
+                  Step off the beaten path into carefully curated experiences beyond the tourist trail.
+                </p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {Array.from({ length: Math.min(itemCount, 6) }).map((_, i) => (
+                  <div key={i} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                    <div className="relative">
+                      <div className="bg-blue-200 h-48 flex items-center justify-center">
+                        <span className="text-gray-600 text-sm">Image de présentation</span>
+                      </div>
+                      <div className="absolute top-3 right-3 bg-white px-2 py-1 rounded text-sm font-medium">
+                        1 jour
+                      </div>
+                    </div>
+                    <div className="p-4">
+                      <h3 className="font-semibold mb-2 text-gray-900">
+                        Private day trip to Phang Nga: Koh Kudu and Koh Roi
+                      </h3>
+                      <p className="text-sm text-gray-600 mb-3">
+                        Sail through the heart of Phang Nga Bay, a spectacular landscape reminiscent of Halong Bay...
+                      </p>
+                      <div className="flex justify-between items-center">
+                        <button className="text-blue-600 text-sm font-medium">Details ›</button>
+                        <button className="bg-blue-600 text-white px-4 py-2 rounded text-sm font-medium">Book ›</button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        }
+        
+        // Bloc 5 : "Some Ideas For Your Next Trip" (Image 5)
+        if (block.title?.includes('Ideas') || block.title?.includes('Next Trip')) {
+          return (
+            <div className="bg-gray-50 p-8 rounded-lg">
+              <div className="text-center mb-8">
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">Some Ideas For Your Next Trip</h2>
+                <div className="w-16 h-1 bg-yellow-400 mx-auto mb-4"></div>
+                <p className="text-gray-600 max-w-2xl mx-auto">
+                  Get inspired by our custom-designed travel experiences.
+                </p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {Array.from({ length: Math.min(itemCount, 3) }).map((_, i) => (
+                  <div key={i} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                    <div className="relative">
+                      <div className="bg-blue-400 h-64 flex flex-col items-center justify-center text-white p-6">
+                        <div className="absolute top-4 right-4 bg-white text-blue-600 px-3 py-1 rounded-full text-sm font-medium">
+                          ฿2,500.00
+                        </div>
+                        <div className="w-12 h-12 border-2 border-white rounded-full flex items-center justify-center mb-4">
+                          <div className="w-6 h-6 bg-white rounded-full"></div>
+                        </div>
+                        <div className="text-center">
+                          <p className="font-medium">Krabi, Thailand</p>
+                          <p className="text-sm opacity-90">Image de présentation</p>
+                        </div>
+                        <div className="absolute bottom-4 right-4 text-xs opacity-75">
+                          Image personnalisée
+                        </div>
+                      </div>
+                    </div>
+                    <div className="p-4">
+                      <h3 className="font-semibold mb-2 text-gray-900">
+                        Private day trip to Phang Nga: Koh Kudu and Koh Roi
+                      </h3>
+                      <p className="text-sm text-gray-600 mb-3">
+                        Sail through the heart of Phang Nga Bay, a spectacular landscape reminiscent of Halong Bay...
+                      </p>
+                      <div className="flex items-center text-xs text-gray-500">
+                        <span>📍 Krabi Province</span>
+                        <span className="ml-4">⏱️ 1</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        }
+
+        // Grille générique
         return (
-          <div>
+          <div className="bg-white p-8 rounded-lg">
             <div className="text-center mb-8">
               <h2 className="text-3xl font-bold mb-4">{block.title}</h2>
               <p className="text-gray-600">{block.subtitle}</p>
@@ -3959,35 +4157,45 @@ function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
                 </div>
               ))}
             </div>
-            {config.showPagination && (
-              <div className="text-center mt-6">
-                <span className="bg-gray-100 px-4 py-2 rounded">Pagination activée</span>
-              </div>
-            )}
           </div>
         );
 
       case 'gallery':
+        // Bloc 8 : "Our Traveler's Reviews" (Image 7)
         if (block.identifier === 'customer_reviews') {
           return (
-            <div className="bg-blue-50 p-8 rounded-lg">
+            <div className="bg-blue-600 text-white p-8 rounded-lg">
               <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold mb-4">{block.title}</h2>
-                <p className="text-gray-600">{block.subtitle}</p>
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Travelers' Reviews</h2>
+                <div className="w-16 h-1 bg-yellow-400 mx-auto mb-4"></div>
+                <p className="text-blue-100 max-w-2xl mx-auto">
+                  Discover the authentic experiences of our clients during their journeys with Amon Tour in Thailand.
+                </p>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {[1, 2, 3].map(i => (
-                  <div key={i} className="bg-white p-6 rounded-lg shadow-sm">
-                    <div className="flex items-center mb-4">
-                      <div className="w-12 h-12 bg-gray-200 rounded-full mr-3"></div>
-                      <div>
-                        <h4 className="font-medium">Client {i}</h4>
-                        <div className="flex text-yellow-400">★★★★★</div>
-                      </div>
-                    </div>
-                    <p className="text-gray-600 text-sm">"Excellent service et expérience inoubliable!"</p>
+              
+              {/* Note Google centrale */}
+              <div className="bg-white rounded-lg p-8 mb-8 text-center text-gray-900 max-w-md mx-auto">
+                <div className="flex justify-center mb-4 text-3xl">
+                  ⭐⭐⭐⭐⭐
+                </div>
+                <div className="text-4xl font-bold text-blue-600 mb-2">5.0 on Google</div>
+                <p className="text-gray-600">Based on 80 reviews</p>
+              </div>
+
+              {/* Témoignage affiché */}
+              <div className="bg-white rounded-lg p-6 text-gray-900 max-w-2xl mx-auto">
+                <div className="flex text-yellow-400 mb-4 text-lg">
+                  ⭐⭐⭐⭐⭐
+                </div>
+                <p className="italic mb-4 text-gray-700">
+                  "We spent 2 wonderful days with Eric and Margaux who showed us amazing places. A unique and authentic experience..."
+                </p>
+                <div className="flex items-center">
+                  <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold mr-3">
+                    S
                   </div>
-                ))}
+                  <span className="font-medium">Sophie L.</span>
+                </div>
               </div>
             </div>
           );
@@ -4033,6 +4241,74 @@ function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
         );
 
       case 'form':
+        // Bloc 4 : "Create Your Custom Trip" (Image 4)
+        if (block.title?.includes('Custom') || block.identifier?.includes('custom')) {
+          return (
+            <div className="bg-cover bg-center rounded-lg overflow-hidden" 
+                 style={{ backgroundImage: 'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("/attached_assets/custom-tour-hero.jpg")' }}>
+              <div className="p-8 text-white">
+                <div className="max-w-2xl mx-auto">
+                  {/* Header du formulaire */}
+                  <div className="text-center mb-8">
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4">Create Your Custom Trip</h2>
+                    <p className="text-lg text-blue-100">
+                      Your travel story starts with your dreams, let us write the rest.
+                    </p>
+                  </div>
+                  
+                  {/* Formulaire */}
+                  <div className="bg-white rounded-lg p-6 text-gray-900">
+                    <div className="space-y-4">
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Full Name *</label>
+                        <input 
+                          type="text" 
+                          placeholder="Your name" 
+                          className="w-full p-3 border border-gray-300 rounded-lg bg-gray-50"
+                        />
+                      </div>
+                      
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Email *</label>
+                        <input 
+                          type="email" 
+                          placeholder="Your email" 
+                          className="w-full p-3 border border-gray-300 rounded-lg bg-gray-50"
+                        />
+                      </div>
+                      
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Country Code *</label>
+                        <div className="flex items-center p-3 border border-gray-300 rounded-lg bg-gray-50">
+                          <span className="mr-2">🇫🇷</span>
+                          <span>+33</span>
+                          <span className="ml-auto">▼</span>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <label className="block text-sm font-medium mb-2">WhatsApp Number *</label>
+                        <input 
+                          type="tel" 
+                          placeholder="Your WhatsApp number" 
+                          className="w-full p-3 border border-gray-300 rounded-lg bg-gray-50"
+                        />
+                      </div>
+                    </div>
+                    
+                    <div className="text-center mt-6">
+                      <span className="text-sm text-gray-500">
+                        📋 Formulaire: Custom Trip Request
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        }
+        
+        // Formulaire de contact standard
         return (
           <div className="bg-gray-50 p-8 rounded-lg">
             <div className="max-w-2xl mx-auto">
