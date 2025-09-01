@@ -3879,7 +3879,7 @@ function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
         // Bloc 1 : Hero Principal - image de fond avec texte (proportions réduites)
         return (
           <div className="relative bg-cover bg-center text-white rounded-lg overflow-hidden h-80" 
-               style={{ backgroundImage: 'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("/attached_assets/IMG_6308_1756728739694.png")' }}>
+               style={{ backgroundImage: 'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80")' }}>
             
             {/* Contenu par-dessus l'image */}
             <div className="relative z-10 flex flex-col justify-center items-start p-6 h-full">
@@ -3932,31 +3932,31 @@ function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
           { 
             title: 'Private Tours', 
             description: 'Experience an exclusive day trip with our professional guides and private vehicles.',
-            icon: '🚗',
+            icon: 'Car',
             subFeatures: [
-              { label: 'Private Car', icon: '🚗' },
-              { label: 'Guide', icon: '👨‍🏫' },
-              { label: 'Safety', icon: '🛡️' }
+              { label: 'Private Car', icon: 'Car' },
+              { label: 'Guide', icon: 'User' },
+              { label: 'Safety', icon: 'Shield' }
             ]
           },
           { 
             title: 'Customized Itineraries', 
             description: 'Create your own journey based on your desires, your pace, and your interests.',
-            icon: '🗺️',
+            icon: 'Map',
             subFeatures: [
-              { label: 'Custom Route', icon: '🗺️' },
-              { label: 'Your Pace', icon: '⏱️' },
-              { label: 'Your Interests', icon: '❤️' }
+              { label: 'Custom Route', icon: 'Map' },
+              { label: 'Your Pace', icon: 'Clock' },
+              { label: 'Your Interests', icon: 'Heart' }
             ]
           },
           { 
             title: 'Authentic Experiences', 
             description: 'Discover hidden gems and local secrets away from mass tourism.',
-            icon: '💎',
+            icon: 'Gem',
             subFeatures: [
-              { label: 'Hidden Gems', icon: '🔍' },
-              { label: 'Local Guides', icon: '👥' },
-              { label: 'Authentic', icon: '✨' }
+              { label: 'Hidden Gems', icon: 'Search' },
+              { label: 'Local Guides', icon: 'Users' },
+              { label: 'Authentic', icon: 'Star' }
             ]
           }
         ];
@@ -3977,8 +3977,9 @@ function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
                 <div key={i} className="text-center">
                   {/* Icône principale */}
                   <div className="w-16 h-16 bg-blue-600 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <div className="text-white text-xl">
-                      {feature.icon}
+                    <div className="text-white">
+                      {/* Simuler icône Lucide */}
+                      <div className="w-8 h-8 bg-white rounded opacity-90"></div>
                     </div>
                   </div>
                   
@@ -3992,9 +3993,7 @@ function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
                       {feature.subFeatures.map((sub: any, j: number) => (
                         <div key={j} className="text-center">
                           <div className="w-8 h-8 bg-blue-100 rounded-lg mx-auto mb-1 flex items-center justify-center">
-                            <div className="text-blue-600 text-xs">
-                              {sub.icon}
-                            </div>
+                            <div className="w-4 h-4 bg-blue-600 rounded opacity-80"></div>
                           </div>
                           <p className="text-xs font-medium text-gray-700">{sub.label}</p>
                         </div>
@@ -4014,7 +4013,7 @@ function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
             <div className="bg-gray-50 p-6 rounded-lg">
               <div className="max-w-3xl mx-auto text-center">
                 <h2 className="text-2xl md:text-3xl font-bold mb-4 text-gray-900">
-                  When expats welcome you in their host country
+                  When expats welcome you<br />in their host country
                 </h2>
                 <div className="w-12 h-0.5 bg-yellow-400 mx-auto mb-6"></div>
                 <p className="text-base text-gray-700 leading-relaxed max-w-2xl mx-auto">
@@ -4027,16 +4026,17 @@ function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
             </div>
           );
         }
-        // Bloc 7 : "Who We Are" - Texte + Images alternant
+        // Bloc 7 : "Who We Are" - Texte à gauche, images à droite
         return (
           <div className="bg-white p-6 rounded-lg">
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-2xl md:text-3xl font-bold mb-4 text-gray-900 text-center">Who We Are</h2>
-              <div className="w-12 h-0.5 bg-yellow-400 mx-auto mb-6"></div>
+              <h2 className="text-2xl md:text-3xl font-bold mb-4 text-gray-900 text-left">Who We Are</h2>
+              <div className="w-12 h-0.5 bg-yellow-400 mb-6"></div>
               
-              {/* Section avec image famille */}
+              {/* Section avec image famille - Texte à gauche, image à droite */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center mb-8">
                 <div>
+                  <h3 className="text-base font-bold mb-3 text-gray-900 text-left">French Family in Thailand</h3>
                   <p className="text-sm text-gray-700 mb-4 leading-relaxed">
                     We are Éric, Margaux, Gabriel, and Raphaël, a French family living in Krabi, southern Thailand, since 2013.
                   </p>
@@ -4047,17 +4047,14 @@ function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
                   </p>
                 </div>
                 <div className="bg-blue-200 h-32 rounded-lg flex items-center justify-center">
-                  <span className="text-gray-600 text-xs">French Family in Thailand</span>
+                  <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="French Family" className="w-full h-full object-cover rounded-lg" />
                 </div>
               </div>
 
-              {/* Section Deep Local Roots avec image locale */}
+              {/* Section Deep Local Roots - Texte à gauche, image à droite */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center mb-8">
-                <div className="bg-blue-200 h-32 rounded-lg flex items-center justify-center lg:order-first">
-                  <span className="text-gray-600 text-xs">Local Guides & Landscapes</span>
-                </div>
                 <div>
-                  <h3 className="text-base font-bold mb-3 text-gray-900">Deep Local Roots</h3>
+                  <h3 className="text-base font-bold mb-3 text-gray-900 text-left">Deep Local Roots</h3>
                   <p className="text-sm text-gray-700 mb-3 leading-relaxed">
                     We live here year-round, in the heart of the region we love. This close connection to the destination 
                     allows us to offer exclusive experiences in Krabi, designed and guided by our team of professional 
@@ -4068,6 +4065,9 @@ function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
                     You're not booking a generic tour — you're being welcomed, guided, and cared for by people who live 
                     here, who know the tides, the seasons, the crowds to avoid, and the hidden gems worth discovering.
                   </p>
+                </div>
+                <div className="bg-blue-200 h-32 rounded-lg flex items-center justify-center">
+                  <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Local Guides" className="w-full h-full object-cover rounded-lg" />
                 </div>
               </div>
 
@@ -4109,7 +4109,7 @@ function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
                     </div>
                     <div className="p-3">
                       <h3 className="font-semibold mb-2 text-gray-900 text-sm">
-                        Private day trip to Phang Nga: Koh Kudu and Koh Roi
+                        Private day trip to Phang Nga Bay
                       </h3>
                       <p className="text-xs text-gray-600 mb-3 line-clamp-2">
                         Sail through the heart of Phang Nga Bay, a spectacular landscape reminiscent of Halong Bay...
@@ -4144,7 +4144,7 @@ function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
                   Get inspired by our custom-designed travel experiences.
                 </p>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {Array.from({ length: Math.min(itemCount, 20) }).map((_, i) => (
                   <div key={i} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
                     <div className="relative">
@@ -4166,7 +4166,7 @@ function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
                     </div>
                     <div className="p-3">
                       <h3 className="font-semibold mb-2 text-gray-900 text-sm">
-                        Private day trip to Phang Nga: Koh Kudu and Koh Roi
+                        Private day trip to Phang Nga Bay
                       </h3>
                       <p className="text-xs text-gray-600 mb-2 line-clamp-2">
                         Sail through the heart of Phang Nga Bay...
@@ -4206,20 +4206,21 @@ function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
         );
 
       case 'gallery':
-        // Bloc 8 : "Our Traveler's Reviews" - Bloc bleu avec contenu blanc dedans
+        // Bloc 8 : "Our Traveler's Reviews" - Titre/description sur fond bleu, contenu blanc séparé
         if (block.identifier === 'customer_reviews') {
           return (
             <div className="bg-blue-600 p-6 rounded-lg">
-              {/* Contenu blanc à l'intérieur */}
+              {/* Titre et description sur fond bleu */}
+              <div className="text-center mb-6 text-white">
+                <h2 className="text-2xl md:text-3xl font-bold mb-3">Our Travelers' Reviews</h2>
+                <div className="w-12 h-0.5 bg-yellow-400 mx-auto mb-3"></div>
+                <p className="max-w-xl mx-auto text-sm opacity-90">
+                  Discover the authentic experiences of our clients during their journeys with Amon Tour in Thailand.
+                </p>
+              </div>
+              
+              {/* Contenu blanc à l'intérieur - seulement les avis */}
               <div className="bg-white rounded-lg p-6">
-                <div className="text-center mb-6">
-                  <h2 className="text-2xl md:text-3xl font-bold mb-3 text-gray-900">Our Travelers' Reviews</h2>
-                  <div className="w-12 h-0.5 bg-yellow-400 mx-auto mb-3"></div>
-                  <p className="text-gray-600 max-w-xl mx-auto text-sm">
-                    Discover the authentic experiences of our clients during their journeys with Amon Tour in Thailand.
-                  </p>
-                </div>
-                
                 {/* Note Google en haut */}
                 <div className="text-center mb-6">
                   <div className="flex justify-center mb-2 text-2xl">
@@ -4309,41 +4310,36 @@ function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
         );
 
       case 'form':
-        // Bloc 4 : "Create Your Custom Trip" - Layout 2 colonnes réduit
+        // Bloc 4 : "Create Your Custom Trip" - Image gauche avec titre + formulaire complet droite
         if (block.title?.includes('Custom') || block.identifier?.includes('custom')) {
           return (
             <div className="bg-white p-6 rounded-lg">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
                 
-                {/* Section gauche avec titre, description et image */}
-                <div>
-                  <h2 className="text-2xl md:text-3xl font-bold mb-3 text-gray-900">
-                    Create Your Custom Trip
-                  </h2>
-                  <div className="w-12 h-0.5 bg-yellow-400 mb-4"></div>
-                  <p className="text-sm text-gray-700 mb-6 leading-relaxed">
-                    Your travel story starts with your dreams, let us write the rest. 
-                    Tell us about your perfect Thailand adventure, and we'll create 
-                    a completely personalized experience just for you.
-                  </p>
-                  
-                  {/* Image illustrative */}
-                  <div className="bg-blue-200 h-32 rounded-lg flex items-center justify-center">
-                    <span className="text-gray-600 text-xs">Custom Trip Planning</span>
+                {/* Section gauche - Image avec titre et description dedans */}
+                <div className="relative bg-cover bg-center rounded-lg overflow-hidden h-64" 
+                     style={{ backgroundImage: 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80")' }}>
+                  <div className="absolute inset-0 flex flex-col justify-center items-start p-6 text-white">
+                    <h2 className="text-xl font-bold mb-2">
+                      Create Your Custom Trip
+                    </h2>
+                    <p className="text-sm leading-relaxed">
+                      Your travel story starts with your dreams, let us write the rest.
+                    </p>
                   </div>
                 </div>
                 
-                {/* Section droite avec formulaire */}
+                {/* Section droite avec formulaire complet */}
                 <div className="bg-gray-50 rounded-lg p-4">
                   <h3 className="text-base font-semibold mb-4 text-gray-900">Tell us about your dream trip</h3>
                   
                   <div className="space-y-3">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       <div>
-                        <label className="block text-xs font-medium mb-1 text-gray-700">Nom *</label>
+                        <label className="block text-xs font-medium mb-1 text-gray-700">Full Name *</label>
                         <input 
                           type="text" 
-                          placeholder="Votre nom" 
+                          placeholder="Your name" 
                           className="w-full p-2 border border-gray-300 rounded bg-white text-sm"
                         />
                       </div>
@@ -4351,7 +4347,7 @@ function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
                         <label className="block text-xs font-medium mb-1 text-gray-700">Email *</label>
                         <input 
                           type="email" 
-                          placeholder="votre@email.com" 
+                          placeholder="your@email.com" 
                           className="w-full p-2 border border-gray-300 rounded bg-white text-sm"
                         />
                       </div>
@@ -4359,34 +4355,78 @@ function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       <div>
-                        <label className="block text-xs font-medium mb-1 text-gray-700">Téléphone *</label>
-                        <input 
-                          type="tel" 
-                          placeholder="+33 6 12 34 56 78" 
-                          className="w-full p-2 border border-gray-300 rounded bg-white text-sm"
-                        />
+                        <label className="block text-xs font-medium mb-1 text-gray-700">Number of Adults *</label>
+                        <select className="w-full p-2 border border-gray-300 rounded bg-white text-sm">
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3+</option>
+                        </select>
                       </div>
                       <div>
-                        <label className="block text-xs font-medium mb-1 text-gray-700">Dates souhaitées *</label>
+                        <label className="block text-xs font-medium mb-1 text-gray-700">Travel Dates *</label>
                         <input 
                           type="text" 
-                          placeholder="jj/mm/aaaa" 
+                          placeholder="dd/mm/yyyy" 
                           className="w-full p-2 border border-gray-300 rounded bg-white text-sm"
                         />
                       </div>
                     </div>
                     
                     <div>
-                      <label className="block text-xs font-medium mb-1 text-gray-700">Message *</label>
+                      <label className="block text-xs font-medium mb-1 text-gray-700">Trip Types *</label>
+                      <div className="grid grid-cols-2 gap-2">
+                        <label className="flex items-center text-xs">
+                          <input type="checkbox" className="mr-2" />
+                          Adventure
+                        </label>
+                        <label className="flex items-center text-xs">
+                          <input type="checkbox" className="mr-2" />
+                          Cultural
+                        </label>
+                        <label className="flex items-center text-xs">
+                          <input type="checkbox" className="mr-2" />
+                          Beach
+                        </label>
+                        <label className="flex items-center text-xs">
+                          <input type="checkbox" className="mr-2" />
+                          Luxury
+                        </label>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <label className="block text-xs font-medium mb-1 text-gray-700">Destinations *</label>
+                      <div className="grid grid-cols-2 gap-2">
+                        <label className="flex items-center text-xs">
+                          <input type="checkbox" className="mr-2" />
+                          Krabi
+                        </label>
+                        <label className="flex items-center text-xs">
+                          <input type="checkbox" className="mr-2" />
+                          Koh Phi Phi
+                        </label>
+                        <label className="flex items-center text-xs">
+                          <input type="checkbox" className="mr-2" />
+                          Khao Sok
+                        </label>
+                        <label className="flex items-center text-xs">
+                          <input type="checkbox" className="mr-2" />
+                          Other
+                        </label>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <label className="block text-xs font-medium mb-1 text-gray-700">Additional Details</label>
                       <textarea 
                         rows={3}
-                        placeholder="Décrivez votre voyage de rêve..." 
+                        placeholder="Tell us more about your dream trip..." 
                         className="w-full p-2 border border-gray-300 rounded bg-white text-sm"
                       ></textarea>
                     </div>
                     
                     <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded text-sm font-medium transition-colors">
-                      Envoyer ma demande
+                      Send My Custom Trip Request
                     </button>
                   </div>
                 </div>
