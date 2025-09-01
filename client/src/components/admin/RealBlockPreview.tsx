@@ -53,59 +53,194 @@ interface RealBlockPreviewProps {
 
 // Composant de prévisualisation miniaturisé des vrais composants
 function MiniaturizedComponent({ block }: { block: PageBlock }) {
-  const scale = 0.3; // Échelle réduite pour l'aperçu
-  
-  const renderRealComponent = () => {
+  const renderVisualPreview = () => {
     const config = block.configuration || {};
     
     switch (block.blockType) {
       case 'hero_main':
       case 'hero':
         return (
-          <div className="transform scale-30 origin-top-left w-[333%] h-[333%] overflow-hidden">
-            <Hero />
-          </div>
-        );
-        
-      case 'featured_tours':
-        return (
-          <div className="transform scale-30 origin-top-left w-[333%] h-[333%] overflow-hidden">
-            <TourNinjaSection />
-          </div>
-        );
-        
-      case 'about_amon_tour':
-      case 'about':
-        return (
-          <div className="transform scale-30 origin-top-left w-[333%] h-[333%] overflow-hidden">
-            <About />
+          <div className="h-full bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 flex items-center p-2 text-white">
+            <div className="flex-1">
+              <div className="text-xs font-bold mb-1 leading-tight">Your exclusive experiences in Krabi</div>
+              <div className="text-[10px] opacity-90 mb-2">Discover amazing places away from mass tourism</div>
+              <div className="flex gap-1">
+                <div className="bg-blue-400 text-[8px] px-2 py-1 rounded text-white">See offers</div>
+                <div className="bg-blue-400 text-[8px] px-2 py-1 rounded text-white">Custom trip</div>
+              </div>
+            </div>
+            <div className="w-8 h-8 bg-blue-400 rounded opacity-50"></div>
           </div>
         );
         
       case 'why_choose_us':
       case 'features':
         return (
-          <div className="transform scale-30 origin-top-left w-[333%] h-[333%] overflow-hidden">
-            <Features />
+          <div className="h-full bg-gray-50 p-2">
+            <div className="text-center mb-2">
+              <div className="text-[10px] font-bold">Why Choose Us</div>
+              <div className="w-4 h-0.5 bg-yellow-500 mx-auto mt-1"></div>
+            </div>
+            <div className="grid grid-cols-3 gap-1 h-16">
+              <div className="bg-white rounded p-1 text-center shadow-sm">
+                <div className="w-3 h-3 bg-blue-600 rounded-full mx-auto mb-1"></div>
+                <div className="text-[8px] font-semibold">Private Tours</div>
+              </div>
+              <div className="bg-white rounded p-1 text-center shadow-sm">
+                <div className="w-3 h-3 bg-blue-600 rounded-full mx-auto mb-1"></div>
+                <div className="text-[8px] font-semibold">Custom Routes</div>
+              </div>
+              <div className="bg-white rounded p-1 text-center shadow-sm">
+                <div className="w-3 h-3 bg-blue-600 rounded-full mx-auto mb-1"></div>
+                <div className="text-[8px] font-semibold">Authentic</div>
+              </div>
+            </div>
+          </div>
+        );
+        
+      case 'about_amon_tour':
+      case 'about':
+        return (
+          <div className="h-full bg-white p-2 flex gap-2">
+            <div className="flex-1">
+              <div className="text-[10px] font-bold mb-1">Who We Are</div>
+              <div className="text-[8px] text-gray-600 mb-1">French family living in Krabi since 2013</div>
+              <div className="text-[8px] text-gray-600 mb-2">Amon Tour - Independent travel agency</div>
+              <div className="flex gap-1">
+                <div className="bg-blue-600 text-[7px] text-white px-1 py-0.5 rounded">Contact</div>
+                <div className="text-[7px] text-blue-600">Journey →</div>
+              </div>
+            </div>
+            <div className="w-12 h-full bg-gray-200 rounded flex flex-col gap-1">
+              <div className="flex-1 bg-gradient-to-br from-blue-200 to-blue-300 rounded"></div>
+              <div className="flex-1 bg-gradient-to-br from-green-200 to-green-300 rounded"></div>
+            </div>
+          </div>
+        );
+        
+      case 'featured_tours':
+        return (
+          <div className="h-full bg-gray-50 p-2">
+            <div className="text-center mb-2">
+              <div className="text-[10px] font-bold">Featured Tours</div>
+              <div className="w-4 h-0.5 bg-yellow-500 mx-auto mt-1"></div>
+            </div>
+            <div className="grid grid-cols-3 gap-1 h-16">
+              <div className="bg-white rounded shadow-sm overflow-hidden">
+                <div className="h-6 bg-gradient-to-br from-blue-300 to-blue-500"></div>
+                <div className="p-1">
+                  <div className="text-[7px] font-semibold">Phi Phi</div>
+                  <div className="text-[6px] text-gray-600">$85</div>
+                </div>
+              </div>
+              <div className="bg-white rounded shadow-sm overflow-hidden">
+                <div className="h-6 bg-gradient-to-br from-green-300 to-green-500"></div>
+                <div className="p-1">
+                  <div className="text-[7px] font-semibold">Phang Nga</div>
+                  <div className="text-[6px] text-gray-600">$75</div>
+                </div>
+              </div>
+              <div className="bg-white rounded shadow-sm overflow-hidden">
+                <div className="h-6 bg-gradient-to-br from-orange-300 to-orange-500"></div>
+                <div className="p-1">
+                  <div className="text-[7px] font-semibold">Railay</div>
+                  <div className="text-[6px] text-gray-600">$60</div>
+                </div>
+              </div>
+            </div>
           </div>
         );
         
       case 'custom_tour_cta':
       case 'cta_section':
         return (
-          <div className="transform scale-30 origin-top-left w-[333%] h-[333%] overflow-hidden">
-            <CustomTourCta />
+          <div className="h-full bg-gradient-to-r from-yellow-400 to-yellow-500 p-2 text-center flex flex-col justify-center">
+            <div className="text-[10px] font-bold text-white mb-1">Create Your Perfect Journey</div>
+            <div className="text-[8px] text-white opacity-90 mb-2">Tell us your dreams, we'll make them reality</div>
+            <div className="bg-white text-yellow-600 text-[8px] px-2 py-1 rounded mx-auto font-semibold">
+              Start Planning
+            </div>
+          </div>
+        );
+        
+      case 'customer_reviews':
+      case 'testimonials':
+        return (
+          <div className="h-full bg-white p-2">
+            <div className="text-center mb-2">
+              <div className="text-[10px] font-bold">Customer Reviews</div>
+              <div className="w-4 h-0.5 bg-yellow-500 mx-auto mt-1"></div>
+            </div>
+            <div className="grid grid-cols-2 gap-1 h-16">
+              <div className="bg-gray-50 rounded p-1">
+                <div className="flex justify-center mb-1">
+                  <div className="text-[8px] text-yellow-500">★★★★★</div>
+                </div>
+                <div className="text-[7px] text-gray-600">"Amazing experience!"</div>
+                <div className="text-[6px] text-gray-500 mt-1">- Sarah M.</div>
+              </div>
+              <div className="bg-gray-50 rounded p-1">
+                <div className="flex justify-center mb-1">
+                  <div className="text-[8px] text-yellow-500">★★★★★</div>
+                </div>
+                <div className="text-[7px] text-gray-600">"Perfect trip!"</div>
+                <div className="text-[6px] text-gray-500 mt-1">- John D.</div>
+              </div>
+            </div>
+          </div>
+        );
+        
+      case 'contact_hero':
+        return (
+          <div className="h-full bg-gradient-to-br from-blue-600 to-blue-800 p-2 text-white text-center flex flex-col justify-center">
+            <div className="text-[10px] font-bold mb-1">Contact Us</div>
+            <div className="text-[8px] opacity-90">Get in touch for your perfect trip</div>
+          </div>
+        );
+        
+      case 'contact_methods':
+        return (
+          <div className="h-full bg-gray-50 p-2">
+            <div className="grid grid-cols-3 gap-1 h-full">
+              <div className="bg-white rounded p-1 text-center">
+                <div className="w-3 h-3 bg-green-500 rounded-full mx-auto mb-1"></div>
+                <div className="text-[7px] font-semibold">WhatsApp</div>
+              </div>
+              <div className="bg-white rounded p-1 text-center">
+                <div className="w-3 h-3 bg-blue-500 rounded-full mx-auto mb-1"></div>
+                <div className="text-[7px] font-semibold">Email</div>
+              </div>
+              <div className="bg-white rounded p-1 text-center">
+                <div className="w-3 h-3 bg-red-500 rounded-full mx-auto mb-1"></div>
+                <div className="text-[7px] font-semibold">Office</div>
+              </div>
+            </div>
+          </div>
+        );
+        
+      case 'contact_form':
+        return (
+          <div className="h-full bg-white p-2">
+            <div className="text-[9px] font-bold mb-2 text-center">Send Message</div>
+            <div className="space-y-1">
+              <div className="h-2 bg-gray-100 rounded"></div>
+              <div className="h-2 bg-gray-100 rounded"></div>
+              <div className="h-4 bg-gray-100 rounded"></div>
+              <div className="h-3 bg-blue-600 rounded text-center">
+                <div className="text-[7px] text-white pt-1">Send</div>
+              </div>
+            </div>
           </div>
         );
         
       default:
         return (
-          <div className="bg-gray-100 p-8 rounded-lg text-center">
-            <h3 className="font-semibold mb-2">{block.title || `Bloc ${block.blockType}`}</h3>
-            <p className="text-gray-600 text-sm">{block.description || "Preview of block content..."}</p>
-            <span className="inline-block mt-2 bg-gray-200 px-3 py-1 rounded text-xs">
-              Type: {block.blockType}
-            </span>
+          <div className="h-full bg-gray-100 p-2 text-center flex flex-col justify-center">
+            <div className="text-[10px] font-semibold mb-1">{block.title || `Bloc ${block.blockType}`}</div>
+            <div className="text-[8px] text-gray-600 mb-2">{block.description?.substring(0, 50) || "Aperçu du contenu..."}</div>
+            <div className="bg-gray-200 px-2 py-1 rounded text-[7px] mx-auto">
+              {block.blockType}
+            </div>
           </div>
         );
     }
@@ -113,7 +248,7 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
 
   return (
     <div className="relative h-32 overflow-hidden rounded-lg border bg-white">
-      {renderRealComponent()}
+      {renderVisualPreview()}
       <div className="absolute inset-0 bg-transparent pointer-events-none" />
     </div>
   );
