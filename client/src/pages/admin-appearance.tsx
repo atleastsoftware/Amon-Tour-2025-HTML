@@ -3856,11 +3856,26 @@ function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
 
     switch (block.blockType) {
       case 'video_hero':
-        // Bloc 1 : Header spécial de la page d'accueil (Image 1)
+        // Bloc 1 : Hero principal avec vraie vidéo (Image 1)
         return (
-          <div className="relative bg-cover bg-center text-white rounded-lg overflow-hidden min-h-[500px]" 
-               style={{ backgroundImage: 'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("/attached_assets/krabi-hero.jpg")' }}>
-            <div className="absolute inset-0 flex flex-col justify-center items-start p-8 md:p-16">
+          <div className="relative text-white rounded-lg overflow-hidden min-h-[500px]">
+            {/* Vidéo de fond */}
+            <video 
+              autoPlay 
+              muted 
+              loop 
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover"
+            >
+              <source src="/attached_assets/krabi-hero-video.mp4" type="video/mp4" />
+              <source src="/attached_assets/krabi-hero-video.webm" type="video/webm" />
+            </video>
+            
+            {/* Overlay sombre */}
+            <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+            
+            {/* Contenu par-dessus la vidéo */}
+            <div className="relative z-10 flex flex-col justify-center items-start p-8 md:p-16 h-full min-h-[500px]">
               <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
                 Your exclusive<br />
                 experiences<br />
@@ -3881,8 +3896,10 @@ function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
                 </button>
               </div>
             </div>
+            
+            {/* Indicateur de type de bloc */}
             <div className="absolute top-4 right-4 bg-black bg-opacity-50 text-white px-3 py-1 rounded text-sm">
-              🏠 Hero Principal
+              🎥 Hero Vidéo
             </div>
           </div>
         );
