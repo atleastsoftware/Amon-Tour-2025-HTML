@@ -2819,49 +2819,7 @@ export default function AdminAppearance() {
                       </CardDescription>
                     </div>
                     <div className="flex gap-2">
-                      {selectedPage === 'navigation-menu' ? (
-                        <>
-                          <Button
-                            variant="outline"
-                            onClick={() => window.open('/', '_blank')}
-                          >
-                            <Eye className="w-4 h-4 mr-2" />
-                            Preview Menu
-                          </Button>
-                          <Button
-                            onClick={async () => {
-                              // Préremplir avec le menu réel du site
-                              const defaultMenuItems = [
-                                { name: 'Home', url: '/', order: 1, isActive: true },
-                                { name: 'Experiences', url: '/tours', order: 2, isActive: true },
-                                { name: 'Custom Trip', url: '/custom-tour', order: 3, isActive: true },
-                                { name: 'Blog', url: '/blog', order: 4, isActive: true },
-                                { name: 'Contact', url: '/contact', order: 5, isActive: true }
-                              ];
-                              
-                              for (const item of defaultMenuItems) {
-                                try {
-                                  await fetch('/api/admin/navigation-menu', {
-                                    method: 'POST',
-                                    headers: { 'Content-Type': 'application/json' },
-                                    credentials: 'include',
-                                    body: JSON.stringify(item),
-                                  });
-                                } catch (error) {
-                                  console.error('Error creating menu item:', error);
-                                }
-                              }
-                              
-                              // Recharger les données du menu
-                              queryClient.invalidateQueries({ queryKey: ['/api/admin/navigation-menu'] });
-                              toast({ title: "Success", description: "Menu prérempli avec les éléments du site" });
-                            }}
-                          >
-                            <Plus className="w-4 h-4 mr-2" />
-                            Préremplir Menu
-                          </Button>
-                        </>
-                      ) : (
+                      {selectedPage !== 'navigation-menu' && (
                         <>
                           <Button
                             variant="outline"
@@ -3484,25 +3442,70 @@ function NavigationMenuManager() {
   return (
     <div className="space-y-6">
       {/* Action Buttons */}
-      <div className="flex gap-2 justify-end">
+      <div className="flex gap-2 justify-between">
         <Button
           variant="outline"
-          onClick={() => setIsPreviewMode(!isPreviewMode)}
+          onClick={() => window.open('/', '_blank')}
           className="flex items-center gap-2"
         >
           <Eye className="w-4 h-4" />
-          {isPreviewMode ? 'Masquer aperçu' : 'Voir aperçu'}
+          Prévisualiser Site
         </Button>
-        <Button
-          onClick={() => {
-            setEditingItem(null);
-            setIsDialogOpen(true);
-          }}
-          className="flex items-center gap-2"
-        >
-          <Plus className="w-4 h-4" />
-          Ajouter élément
-        </Button>
+        
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            onClick={() => setIsPreviewMode(!isPreviewMode)}
+            className="flex items-center gap-2"
+          >
+            <Eye className="w-4 h-4" />
+            {isPreviewMode ? 'Masquer aperçu' : 'Voir aperçu'}
+          </Button>
+          <Button
+            variant="secondary"
+            onClick={async () => {
+              // Préremplir avec le menu réel du site
+              const defaultMenuItems = [
+                { name: 'Accueil', url: '/', displayOrder: 1, isActive: true },
+                { name: 'Expériences', url: '/tours', displayOrder: 2, isActive: true },
+                { name: 'Voyage sur mesure', url: '/custom-tour', displayOrder: 3, isActive: true },
+                { name: 'Blog', url: '/blog', displayOrder: 4, isActive: true },
+                { name: 'Contact', url: '/contact', displayOrder: 5, isActive: true }
+              ];
+              
+              for (const item of defaultMenuItems) {
+                try {
+                  await fetch('/api/admin/navigation-menu', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify(item),
+                  });
+                } catch (error) {
+                  console.error('Error creating menu item:', error);
+                }
+              }
+              
+              // Recharger les données du menu
+              queryClient.invalidateQueries({ queryKey: ['/api/admin/navigation-menu'] });
+              toast({ title: "Succès", description: "Menu pré-rempli avec les pages principales du site" });
+            }}
+            className="flex items-center gap-2"
+          >
+            <Download className="w-4 h-4" />
+            Pré-remplir Menu
+          </Button>
+          <Button
+            onClick={() => {
+              setEditingItem(null);
+              setIsDialogOpen(true);
+            }}
+            className="flex items-center gap-2"
+          >
+            <Plus className="w-4 h-4" />
+            Ajouter élément
+          </Button>
+        </div>
       </div>
 
       {/* Preview Mode */}
