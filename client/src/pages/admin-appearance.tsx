@@ -1602,71 +1602,89 @@ export default function AdminAppearance() {
                   <CardDescription>Choose theme section to edit</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-2">
-                    <Button
-                      variant={selectedThemeSection === 'colors' ? 'default' : 'outline'}
-                      className="w-full justify-start text-sm h-8"
-                      onClick={() => setSelectedThemeSection('colors')}
-                    >
-                      <Palette className="w-4 h-4 mr-2" />
-                      Colors
-                    </Button>
-                    <Button
-                      variant={selectedThemeSection === 'typography' ? 'default' : 'outline'}
-                      className="w-full justify-start text-sm h-8"
-                      onClick={() => setSelectedThemeSection('typography')}
-                    >
-                      <Type className="w-4 h-4 mr-2" />
-                      Typography
-                    </Button>
-                    <Button
-                      variant={selectedThemeSection === 'extended-colors' ? 'default' : 'outline'}
-                      className="w-full justify-start text-sm h-8"
-                      onClick={() => setSelectedThemeSection('extended-colors')}
-                    >
-                      <Palette className="w-4 h-4 mr-2" />
-                      Extended Colors
-                    </Button>
-                    <Button
-                      variant={selectedThemeSection === 'button-styles' ? 'default' : 'outline'}
-                      className="w-full justify-start text-sm h-8"
-                      onClick={() => setSelectedThemeSection('button-styles')}
-                    >
-                      <MousePointer className="w-4 h-4 mr-2" />
-                      Button Styles
-                    </Button>
-                    <Button
-                      variant={selectedThemeSection === 'seo-metadata' ? 'default' : 'outline'}
-                      className="w-full justify-start text-sm h-8"
-                      onClick={() => setSelectedThemeSection('seo-metadata')}
-                    >
-                      <Globe className="w-4 h-4 mr-2" />
-                      SEO & Metadata
-                    </Button>
-                    <Button
-                      variant={selectedThemeSection === 'logo-favicon' ? 'default' : 'outline'}
-                      className="w-full justify-start text-sm h-8"
-                      onClick={() => setSelectedThemeSection('logo-favicon')}
-                    >
-                      <Image className="w-4 h-4 mr-2" />
-                      Logo & Favicon
-                    </Button>
-                    <Button
-                      variant={selectedThemeSection === 'backgrounds' ? 'default' : 'outline'}
-                      className="w-full justify-start text-sm h-8"
-                      onClick={() => setSelectedThemeSection('backgrounds')}
-                    >
-                      <Palette className="w-4 h-4 mr-2" />
-                      Backgrounds
-                    </Button>
-                    <Button
-                      variant={selectedThemeSection === 'announcements' ? 'default' : 'outline'}
-                      className="w-full justify-start text-sm h-8"
-                      onClick={() => setSelectedThemeSection('announcements')}
-                    >
-                      <Bell className="w-4 h-4 mr-2" />
-                      Announcements
-                    </Button>
+                  <div className="space-y-4">
+                    {/* Design Category */}
+                    <div>
+                      <h4 className="text-sm font-semibold text-muted-foreground mb-2 px-2">Design</h4>
+                      <div className="space-y-1">
+                        <Button
+                          variant={selectedThemeSection === 'colors' ? 'default' : 'outline'}
+                          className="w-full justify-start text-sm h-8"
+                          onClick={() => setSelectedThemeSection('colors')}
+                        >
+                          <Palette className="w-4 h-4 mr-2" />
+                          Colors
+                        </Button>
+                        <Button
+                          variant={selectedThemeSection === 'typography' ? 'default' : 'outline'}
+                          className="w-full justify-start text-sm h-8"
+                          onClick={() => setSelectedThemeSection('typography')}
+                        >
+                          <Type className="w-4 h-4 mr-2" />
+                          Typography
+                        </Button>
+                      </div>
+                    </div>
+
+                    {/* Separator */}
+                    <div className="border-t border-gray-200"></div>
+
+                    {/* Elements Category */}
+                    <div>
+                      <h4 className="text-sm font-semibold text-muted-foreground mb-2 px-2">Elements</h4>
+                      <div className="space-y-1">
+                        <Button
+                          variant={selectedThemeSection === 'button-styles' ? 'default' : 'outline'}
+                          className="w-full justify-start text-sm h-8"
+                          onClick={() => setSelectedThemeSection('button-styles')}
+                        >
+                          <MousePointer className="w-4 h-4 mr-2" />
+                          Button Styles
+                        </Button>
+                        <Button
+                          variant={selectedThemeSection === 'announcements' ? 'default' : 'outline'}
+                          className="w-full justify-start text-sm h-8"
+                          onClick={() => setSelectedThemeSection('announcements')}
+                        >
+                          <Bell className="w-4 h-4 mr-2" />
+                          Announcement Bar
+                        </Button>
+                        <Button
+                          variant={selectedThemeSection === 'backgrounds' ? 'default' : 'outline'}
+                          className="w-full justify-start text-sm h-8"
+                          onClick={() => setSelectedThemeSection('backgrounds')}
+                        >
+                          <Bell className="w-4 h-4 mr-2" />
+                          Pop-up Announcement
+                        </Button>
+                      </div>
+                    </div>
+
+                    {/* Separator */}
+                    <div className="border-t border-gray-200"></div>
+
+                    {/* Branding Category */}
+                    <div>
+                      <h4 className="text-sm font-semibold text-muted-foreground mb-2 px-2">Branding</h4>
+                      <div className="space-y-1">
+                        <Button
+                          variant={selectedThemeSection === 'logo-favicon' ? 'default' : 'outline'}
+                          className="w-full justify-start text-sm h-8"
+                          onClick={() => setSelectedThemeSection('logo-favicon')}
+                        >
+                          <Image className="w-4 h-4 mr-2" />
+                          Logo & Favicon
+                        </Button>
+                        <Button
+                          variant={selectedThemeSection === 'seo-metadata' ? 'default' : 'outline'}
+                          className="w-full justify-start text-sm h-8"
+                          onClick={() => setSelectedThemeSection('seo-metadata')}
+                        >
+                          <Globe className="w-4 h-4 mr-2" />
+                          SEO & Metadata
+                        </Button>
+                      </div>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
@@ -1680,7 +1698,7 @@ export default function AdminAppearance() {
                         <Palette className="w-4 h-4" />
                         Colors
                       </CardTitle>
-                      <CardDescription>Customize your site's primary color scheme</CardDescription>
+                      <CardDescription>Customize your site's primary and extended color scheme</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div>
@@ -1715,6 +1733,57 @@ export default function AdminAppearance() {
                             onChange={(e) => updateSiteSetting('theme', 'secondary_color', e.target.value)}
                             placeholder="#E6B64C"
                           />
+                        </div>
+                      </div>
+                      
+                      {/* Extended Color Palette */}
+                      <div className="mt-6 pt-6 border-t border-gray-200">
+                        <h3 className="text-sm font-medium mb-4">Extended Color Palette</h3>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <Label>Background Color</Label>
+                            <Input
+                              type="color"
+                              value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}').background}
+                              onChange={(e) => {
+                                const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}');
+                                updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, background: e.target.value}));
+                              }}
+                            />
+                          </div>
+                          <div>
+                            <Label>Text Color</Label>
+                            <Input
+                              type="color"
+                              value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#1a1a1a"}').text}
+                              onChange={(e) => {
+                                const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#1a1a1a"}');
+                                updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, text: e.target.value}));
+                              }}
+                            />
+                          </div>
+                          <div>
+                            <Label>Success Color</Label>
+                            <Input
+                              type="color"
+                              value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"success": "#10b981"}').success}
+                              onChange={(e) => {
+                                const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"success": "#10b981"}');
+                                updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, success: e.target.value}));
+                              }}
+                            />
+                          </div>
+                          <div>
+                            <Label>Error Color</Label>
+                            <Input
+                              type="color"
+                              value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"error": "#ef4444"}').error}
+                              onChange={(e) => {
+                                const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"error": "#ef4444"}');
+                                updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, error: e.target.value}));
+                              }}
+                            />
+                          </div>
                         </div>
                       </div>
                     </CardContent>
@@ -1893,66 +1962,6 @@ export default function AdminAppearance() {
                               <SelectItem value="18px">18px</SelectItem>
                             </SelectContent>
                           </Select>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
-
-                {selectedThemeSection === 'extended-colors' && (
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                        <Palette className="w-4 h-4" />
-                        Extended Color Palette
-                      </CardTitle>
-                      <CardDescription>Complete color scheme for your site</CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                      <div className="grid grid-cols-2 gap-4">
-                        <div>
-                          <Label>Background Color</Label>
-                          <Input
-                            type="color"
-                            value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}').background}
-                            onChange={(e) => {
-                              const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}');
-                              updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, background: e.target.value}));
-                            }}
-                          />
-                        </div>
-                        <div>
-                          <Label>Text Color</Label>
-                          <Input
-                            type="color"
-                            value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#1a1a1a"}').text}
-                            onChange={(e) => {
-                              const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#1a1a1a"}');
-                              updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, text: e.target.value}));
-                            }}
-                          />
-                    </div>
-                        <div>
-                          <Label>Success Color</Label>
-                          <Input
-                            type="color"
-                            value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"success": "#10b981"}').success}
-                            onChange={(e) => {
-                              const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"success": "#10b981"}');
-                              updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, success: e.target.value}));
-                            }}
-                          />
-                        </div>
-                        <div>
-                          <Label>Error Color</Label>
-                          <Input
-                            type="color"
-                            value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"error": "#ef4444"}').error}
-                            onChange={(e) => {
-                              const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"error": "#ef4444"}');
-                              updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, error: e.target.value}));
-                            }}
-                          />
                         </div>
                       </div>
                     </CardContent>
