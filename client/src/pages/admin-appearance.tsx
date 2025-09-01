@@ -1721,15 +1721,18 @@ export default function AdminAppearance() {
                       
                       {/* Extended Color Palette */}
                       <div className="mt-6 pt-6 border-t border-gray-200">
-                        <h3 className="text-sm font-medium mb-4">Extended Color Palette</h3>
+                        <CardTitle className="flex items-center gap-2 text-base sm:text-lg mb-4">
+                          <Palette className="w-4 h-4" />
+                          Extended Color Palette
+                        </CardTitle>
                         <div className="grid grid-cols-2 gap-4">
                           <div>
                             <Label>Text Color</Label>
                             <Input
                               type="color"
-                              value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#1a1a1a"}').text}
+                              value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}').text}
                               onChange={(e) => {
-                                const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#1a1a1a"}');
+                                const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}');
                                 updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, text: e.target.value}));
                               }}
                             />
@@ -1749,9 +1752,9 @@ export default function AdminAppearance() {
                             <Label>Text Menu</Label>
                             <Input
                               type="color"
-                              value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textMenu": "#1a1a1a"}').textMenu}
+                              value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textMenu": "#374151"}').textMenu}
                               onChange={(e) => {
-                                const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textMenu": "#1a1a1a"}');
+                                const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textMenu": "#374151"}');
                                 updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, textMenu: e.target.value}));
                               }}
                             />
@@ -1782,9 +1785,9 @@ export default function AdminAppearance() {
                             <Label>Background Footer</Label>
                             <Input
                               type="color"
-                              value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"backgroundFooter": "#1a1a1a"}').backgroundFooter}
+                              value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"backgroundFooter": "#000000"}').backgroundFooter}
                               onChange={(e) => {
-                                const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"backgroundFooter": "#1a1a1a"}');
+                                const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"backgroundFooter": "#000000"}');
                                 updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, backgroundFooter: e.target.value}));
                               }}
                             />
