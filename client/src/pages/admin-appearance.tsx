@@ -1724,17 +1724,6 @@ export default function AdminAppearance() {
                         <h3 className="text-sm font-medium mb-4">Extended Color Palette</h3>
                         <div className="grid grid-cols-2 gap-4">
                           <div>
-                            <Label>Background Color</Label>
-                            <Input
-                              type="color"
-                              value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}').background}
-                              onChange={(e) => {
-                                const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}');
-                                updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, background: e.target.value}));
-                              }}
-                            />
-                          </div>
-                          <div>
                             <Label>Text Color</Label>
                             <Input
                               type="color"
@@ -1746,13 +1735,57 @@ export default function AdminAppearance() {
                             />
                           </div>
                           <div>
-                            <Label>Success Color</Label>
+                            <Label>Background Color</Label>
                             <Input
                               type="color"
-                              value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"success": "#10b981"}').success}
+                              value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}').background}
                               onChange={(e) => {
-                                const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"success": "#10b981"}');
-                                updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, success: e.target.value}));
+                                const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}');
+                                updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, background: e.target.value}));
+                              }}
+                            />
+                          </div>
+                          <div>
+                            <Label>Text Menu</Label>
+                            <Input
+                              type="color"
+                              value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textMenu": "#1a1a1a"}').textMenu}
+                              onChange={(e) => {
+                                const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textMenu": "#1a1a1a"}');
+                                updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, textMenu: e.target.value}));
+                              }}
+                            />
+                          </div>
+                          <div>
+                            <Label>Background Menu</Label>
+                            <Input
+                              type="color"
+                              value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"backgroundMenu": "#ffffff"}').backgroundMenu}
+                              onChange={(e) => {
+                                const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"backgroundMenu": "#ffffff"}');
+                                updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, backgroundMenu: e.target.value}));
+                              }}
+                            />
+                          </div>
+                          <div>
+                            <Label>Text Footer</Label>
+                            <Input
+                              type="color"
+                              value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff"}').textFooter}
+                              onChange={(e) => {
+                                const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff"}');
+                                updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, textFooter: e.target.value}));
+                              }}
+                            />
+                          </div>
+                          <div>
+                            <Label>Background Footer</Label>
+                            <Input
+                              type="color"
+                              value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"backgroundFooter": "#1a1a1a"}').backgroundFooter}
+                              onChange={(e) => {
+                                const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"backgroundFooter": "#1a1a1a"}');
+                                updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, backgroundFooter: e.target.value}));
                               }}
                             />
                           </div>
@@ -1764,6 +1797,17 @@ export default function AdminAppearance() {
                               onChange={(e) => {
                                 const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"error": "#ef4444"}');
                                 updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, error: e.target.value}));
+                              }}
+                            />
+                          </div>
+                          <div>
+                            <Label>Success Color</Label>
+                            <Input
+                              type="color"
+                              value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"success": "#10b981"}').success}
+                              onChange={(e) => {
+                                const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"success": "#10b981"}');
+                                updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, success: e.target.value}));
                               }}
                             />
                           </div>
