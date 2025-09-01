@@ -1015,48 +1015,6 @@ export default function AdminAppearance() {
   const [selectedThemeSection, setSelectedThemeSection] = useState<string>('colors');
   const [selectedFooterSection, setSelectedFooterSection] = useState<string>('contact-info');
   
-  // États pour l'édition des blocs
-  const [editingBlock, setEditingBlock] = useState<PageBlock | null>(null);
-  const [editFormData, setEditFormData] = useState<any>({});
-
-  // Fonctions pour l'édition des blocs
-  const handleEditBlock = (block: PageBlock) => {
-    setEditingBlock(block);
-    setEditFormData({
-      title: block.title || '',
-      subtitle: block.subtitle || '',
-      description: block.description || '',
-      backgroundColor: block.backgroundColor || '',
-      textColor: block.textColor || '',
-      configuration: block.configuration || {}
-    });
-  };
-
-  const handleSaveBlock = async () => {
-    if (!editingBlock) return;
-    
-    try {
-      // Sauvegarder les modifications du bloc
-      // TODO: Implémenter la sauvegarde en base de données
-      toast({ 
-        title: "Bloc modifié !", 
-        description: "Les modifications ont été sauvegardées." 
-      });
-      setEditingBlock(null);
-      setEditFormData({});
-    } catch (error) {
-      toast({ 
-        title: "Erreur", 
-        description: "Impossible de sauvegarder les modifications.",
-        variant: "destructive"
-      });
-    }
-  };
-
-  const handleCancelEdit = () => {
-    setEditingBlock(null);
-    setEditFormData({});
-  };
 
   // Temporary states for preview system with save buttons
   const [tempTypography, setTempTypography] = useState<any>(null);
@@ -3882,6 +3840,48 @@ function MenuItemDialog({
 
 // Composant unifié d'édition visuelle des pages (basé sur l'Option 2)
 function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBlocks: PageBlock[] }) {
+  // États pour l'édition des blocs
+  const [editingBlock, setEditingBlock] = useState<PageBlock | null>(null);
+  const [editFormData, setEditFormData] = useState<any>({});
+
+  // Fonctions pour l'édition des blocs
+  const handleEditBlock = (block: PageBlock) => {
+    setEditingBlock(block);
+    setEditFormData({
+      title: block.title || '',
+      subtitle: block.subtitle || '',
+      description: block.description || '',
+      backgroundColor: block.backgroundColor || '',
+      configuration: block.configuration || {}
+    });
+  };
+
+  const handleSaveBlock = async () => {
+    if (!editingBlock) return;
+    
+    try {
+      // Sauvegarder les modifications du bloc
+      // TODO: Implémenter la sauvegarde en base de données
+      toast({ 
+        title: "Bloc modifié !", 
+        description: "Les modifications ont été sauvegardées." 
+      });
+      setEditingBlock(null);
+      setEditFormData({});
+    } catch (error) {
+      toast({ 
+        title: "Erreur", 
+        description: "Impossible de sauvegarder les modifications.",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const handleCancelEdit = () => {
+    setEditingBlock(null);
+    setEditFormData({});
+  };
+
   const getPageTitle = (slug: string) => {
     const titles: Record<string, string> = {
       'home': 'Page d\'Accueil',
