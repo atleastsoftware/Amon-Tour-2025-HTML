@@ -197,16 +197,11 @@ export default function CustomTourForm() {
       <div className="container mx-auto px-4">
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
           <div className="grid grid-cols-1 md:grid-cols-2">
-            {/* Image Side */}
-            <div className="h-64 md:h-auto relative">
-              <img 
-                src="/catamaran-cruise.png" 
-                alt="Catamaran cruise in Thailand" 
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/70 to-transparent flex flex-col justify-center p-8 text-white">
+            {/* Header Side */}
+            <div className="h-64 md:h-auto relative bg-gray-600">
+              <div className="flex flex-col justify-center p-8 text-white h-full">
                 <h3 className="font-heading font-bold text-3xl mb-3">Create Your Custom Trip</h3>
-                <p className="max-w-xs">Your travel story starts with your dreams – let us write the rest.</p>
+                <p className="max-w-xs">Your travel story starts with your dreams, let us write the rest.</p>
               </div>
             </div>
             
