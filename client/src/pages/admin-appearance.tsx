@@ -3060,6 +3060,12 @@ export default function AdminAppearance() {
                   <CardContent>
                     {selectedPage === 'navigation-menu' ? (
                       <NavigationMenuManager />
+                    ) : selectedPage === 'home' ? (
+                      <VisualPageEditor_Option1 pageSlug="home" pageBlocks={pageBlocks} />
+                    ) : selectedPage === 'experiences' ? (
+                      <VisualPageEditor_Option2 pageSlug="experiences" pageBlocks={pageBlocks} />
+                    ) : selectedPage === 'contact' ? (
+                      <VisualPageEditor_Option3 pageSlug="contact" pageBlocks={pageBlocks} />
                     ) : loadingBlocks ? (
                       <div className="text-center py-12">
                         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
@@ -3956,5 +3962,470 @@ function MenuItemDialog({
         </form>
       </DialogContent>
     </Dialog>
+  );
+}
+
+// OPTION 1: Aperçu en direct avec overlays (Page Home)
+function VisualPageEditor_Option1({ pageSlug, pageBlocks }: { pageSlug: string; pageBlocks: PageBlock[] }) {
+  const [hoveredBlock, setHoveredBlock] = useState<number | null>(null);
+  const [selectedBlock, setSelectedBlock] = useState<PageBlock | null>(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+  return (
+    <div className="space-y-4">
+      <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+        <h3 className="font-semibold text-blue-800 mb-2">
+          🎯 OPTION 1: Aperçu en direct avec overlays (Page Home)
+        </h3>
+        <p className="text-blue-700 text-sm">
+          Interface qui affiche le rendu réel du site avec des overlays d'édition flottants sur chaque bloc.
+          Survol → bordures colorées + icônes d'action.
+        </p>
+      </div>
+
+      <div className="relative border-2 border-dashed border-gray-300 rounded-lg bg-gray-50 min-h-[600px]">
+        {/* Header simulation */}
+        <div className="bg-white p-4 border-b">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">A</div>
+              <nav className="flex gap-4 text-sm">
+                <span className="text-blue-600 font-medium">Home</span>
+                <span className="text-gray-600">Experiences</span>
+                <span className="text-gray-600">Contact</span>
+              </nav>
+            </div>
+          </div>
+        </div>
+
+        {/* Page content with overlays */}
+        <div className="relative">
+          {pageBlocks.map((block, index) => (
+            <div
+              key={block.id}
+              className="relative group"
+              onMouseEnter={() => setHoveredBlock(block.id)}
+              onMouseLeave={() => setHoveredBlock(null)}
+            >
+              {/* Real content simulation */}
+              <div className={`p-8 ${block.backgroundColor === 'dark' ? 'bg-gray-900 text-white' : 'bg-white'} ${hoveredBlock === block.id ? 'ring-2 ring-blue-500 ring-opacity-50' : ''}`}>
+                {block.blockType === 'hero' && (
+                  <div className="text-center">
+                    <h1 className="text-4xl font-bold mb-4">{block.title || "Découvrez la Thaïlande Authentique"}</h1>
+                    <p className="text-xl text-gray-600 mb-6">{block.subtitle || "Expériences uniques avec Amon Tour"}</p>
+                    {block.ctaText && (
+                      <button className="bg-blue-600 text-white px-6 py-3 rounded-lg">
+                        {block.ctaText}
+                      </button>
+                    )}
+                  </div>
+                )}
+                
+                {block.blockType === 'card_grid' && (
+                  <div>
+                    <h2 className="text-3xl font-bold text-center mb-8">{block.title || "Nos Expériences Phares"}</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      {[1,2,3].map(i => (
+                        <div key={i} className="bg-gray-100 rounded-lg p-4 h-48">
+                          <div className="bg-gray-300 h-32 rounded mb-3"></div>
+                          <h3 className="font-semibold">Tour Example {i}</h3>
+                          <p className="text-sm text-gray-600">Description du tour...</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {block.blockType === 'advantages' && (
+                  <div>
+                    <h2 className="text-3xl font-bold text-center mb-8">{block.title || "Pourquoi Choisir Amon Tour"}</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      {['Expertise Locale', 'Expériences Authentiques', 'Service Premium'].map((advantage, i) => (
+                        <div key={i} className="text-center">
+                          <div className="w-16 h-16 bg-blue-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+                            <div className="w-8 h-8 bg-blue-600 rounded"></div>
+                          </div>
+                          <h3 className="font-semibold mb-2">{advantage}</h3>
+                          <p className="text-gray-600 text-sm">Description de l'avantage...</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {!['hero', 'card_grid', 'advantages'].includes(block.blockType) && (
+                  <div className="text-center py-8">
+                    <h3 className="text-xl font-semibold mb-2">{block.title || `Bloc ${block.blockType}`}</h3>
+                    <p className="text-gray-600">{block.description || "Contenu du bloc..."}</p>
+                  </div>
+                )}
+              </div>
+
+              {/* Overlay controls */}
+              {hoveredBlock === block.id && (
+                <div className="absolute inset-0 bg-blue-500 bg-opacity-10 pointer-events-none">
+                  <div className="absolute top-2 right-2 flex gap-1 pointer-events-auto">
+                    <button
+                      className="bg-white p-2 rounded-lg shadow-lg hover:bg-gray-50 transition-colors"
+                      onClick={() => {
+                        setSelectedBlock(block);
+                        setIsEditModalOpen(true);
+                      }}
+                      title="Modifier"
+                    >
+                      <Edit className="w-4 h-4 text-blue-600" />
+                    </button>
+                    <button
+                      className="bg-white p-2 rounded-lg shadow-lg hover:bg-gray-50 transition-colors"
+                      title="Masquer"
+                    >
+                      <EyeOff className="w-4 h-4 text-orange-600" />
+                    </button>
+                    <button
+                      className="bg-white p-2 rounded-lg shadow-lg hover:bg-gray-50 transition-colors"
+                      title="Déplacer"
+                    >
+                      <Move className="w-4 h-4 text-green-600" />
+                    </button>
+                    <button
+                      className="bg-white p-2 rounded-lg shadow-lg hover:bg-gray-50 transition-colors"
+                      title="Supprimer"
+                    >
+                      <Trash2 className="w-4 h-4 text-red-600" />
+                    </button>
+                  </div>
+                  <div className="absolute top-2 left-2 bg-white px-3 py-1 rounded-lg shadow-lg pointer-events-auto">
+                    <span className="text-sm font-medium text-gray-700">
+                      {block.blockType.replace('_', ' ')} #{block.blockOrder}
+                    </span>
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Edit Modal */}
+      <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Modifier le bloc</DialogTitle>
+          </DialogHeader>
+          {selectedBlock && (
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium mb-2">Titre</label>
+                <Input defaultValue={selectedBlock.title || ''} />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">Sous-titre</label>
+                <Input defaultValue={selectedBlock.subtitle || ''} />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">Description</label>
+                <Textarea defaultValue={selectedBlock.description || ''} />
+              </div>
+              <div className="flex justify-end gap-2">
+                <Button variant="outline" onClick={() => setIsEditModalOpen(false)}>Annuler</Button>
+                <Button>Sauvegarder</Button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+}
+
+// OPTION 2: Vue constructeur visuel (Page Experiences)
+function VisualPageEditor_Option2({ pageSlug, pageBlocks }: { pageSlug: string; pageBlocks: PageBlock[] }) {
+  return (
+    <div className="space-y-4">
+      <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+        <h3 className="font-semibold text-green-800 mb-2">
+          🔧 OPTION 2: Vue constructeur visuel (Page Experiences)
+        </h3>
+        <p className="text-green-700 text-sm">
+          Blocs affichés avec leurs vraies données mais avec des bordures et contrôles d'édition visibles.
+          Glisser-déposer pour réorganiser + boutons d'action sur les côtés.
+        </p>
+      </div>
+
+      <div className="space-y-3">
+        {pageBlocks.map((block, index) => (
+          <div key={block.id} className="border-2 border-blue-200 rounded-lg bg-white overflow-hidden">
+            {/* Block header with controls */}
+            <div className="bg-blue-50 px-4 py-3 border-b border-blue-200 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-6 h-6 bg-blue-600 rounded text-white text-xs flex items-center justify-center font-medium">
+                  {block.blockOrder}
+                </div>
+                <span className="font-medium text-blue-800">
+                  {block.title || `${block.blockType.replace('_', ' ')} Block`}
+                </span>
+                <Badge variant="outline" className="text-xs">
+                  {block.blockType}
+                </Badge>
+              </div>
+              <div className="flex items-center gap-2">
+                <Button size="sm" variant="ghost" title="Déplacer vers le haut">
+                  <ChevronUp className="w-4 h-4" />
+                </Button>
+                <Button size="sm" variant="ghost" title="Déplacer vers le bas">
+                  <ChevronDown className="w-4 h-4" />
+                </Button>
+                <Button size="sm" variant="ghost" title="Modifier">
+                  <Edit className="w-4 h-4" />
+                </Button>
+                <Button size="sm" variant="ghost" title="Masquer" className="text-orange-600">
+                  <EyeOff className="w-4 h-4" />
+                </Button>
+                <Button size="sm" variant="ghost" title="Supprimer" className="text-red-600">
+                  <Trash2 className="w-4 h-4" />
+                </Button>
+              </div>
+            </div>
+
+            {/* Block content preview */}
+            <div className="p-6">
+              {block.blockType === 'hero' && (
+                <div className="text-center bg-gradient-to-r from-blue-500 to-purple-600 text-white p-8 rounded-lg">
+                  <h1 className="text-3xl font-bold mb-4">{block.title || "Expériences Uniques en Thaïlande"}</h1>
+                  <p className="text-lg opacity-90 mb-6">{block.subtitle || "Découvrez les trésors cachés avec nos guides experts"}</p>
+                  {block.ctaText && (
+                    <button className="bg-white text-blue-600 px-6 py-2 rounded-lg font-medium">
+                      {block.ctaText}
+                    </button>
+                  )}
+                </div>
+              )}
+
+              {block.blockType === 'card_grid' && (
+                <div>
+                  <h2 className="text-2xl font-bold text-center mb-6">{block.title || "Toutes nos Expériences"}</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {[1,2,3,4,5,6].map(i => (
+                      <div key={i} className="border rounded-lg p-3">
+                        <div className="bg-gray-200 h-32 rounded mb-2"></div>
+                        <h3 className="font-medium text-sm">Tour Experience {i}</h3>
+                        <p className="text-xs text-gray-600">À partir de 2,500 THB</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {!['hero', 'card_grid'].includes(block.blockType) && (
+                <div className="bg-gray-50 p-4 rounded-lg text-center">
+                  <h3 className="font-semibold mb-2">{block.title || `Bloc ${block.blockType}`}</h3>
+                  <p className="text-gray-600 text-sm">{block.description || "Aperçu du contenu du bloc..."}</p>
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+
+        {/* Add new block button */}
+        <button className="w-full border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 hover:bg-blue-50 transition-colors">
+          <Plus className="w-8 h-8 mx-auto mb-2 text-gray-400" />
+          <p className="text-gray-600 font-medium">Ajouter un nouveau bloc</p>
+          <p className="text-sm text-gray-500">Cliquez pour choisir un type de bloc</p>
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// OPTION 3: Mode double-écran (Page Contact)
+function VisualPageEditor_Option3({ pageSlug, pageBlocks }: { pageSlug: string; pageBlocks: PageBlock[] }) {
+  const [selectedBlockId, setSelectedBlockId] = useState<number | null>(null);
+
+  return (
+    <div className="space-y-4">
+      <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
+        <h3 className="font-semibold text-purple-800 mb-2">
+          📱 OPTION 3: Mode double-écran (Page Contact)
+        </h3>
+        <p className="text-purple-700 text-sm">
+          Split-screen avec aperçu du site à gauche et liste des blocs à droite.
+          Synchronisation : clic sur un bloc → highlight dans l'aperçu.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-[600px]">
+        {/* Left: Site Preview */}
+        <div className="border rounded-lg bg-white overflow-hidden">
+          <div className="bg-gray-100 p-3 border-b">
+            <div className="flex items-center gap-2">
+              <div className="flex gap-1">
+                <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+              </div>
+              <div className="flex-1 bg-white rounded px-3 py-1 text-sm text-gray-600">
+                amontour.com/contact
+              </div>
+            </div>
+          </div>
+
+          <div className="h-full overflow-y-auto">
+            {pageBlocks.map((block) => (
+              <div
+                key={block.id}
+                className={`border-b ${selectedBlockId === block.id ? 'bg-purple-100 border-purple-300' : 'hover:bg-gray-50'} cursor-pointer transition-colors`}
+                onClick={() => setSelectedBlockId(selectedBlockId === block.id ? null : block.id)}
+              >
+                {block.blockType === 'hero' && (
+                  <div className="p-8 text-center bg-gradient-to-r from-teal-600 to-blue-600 text-white">
+                    <h1 className="text-3xl font-bold mb-4">{block.title || "Contactez-nous"}</h1>
+                    <p className="text-lg opacity-90">{block.subtitle || "Nous sommes là pour vous aider"}</p>
+                  </div>
+                )}
+
+                {block.blockType === 'contact_info' && (
+                  <div className="p-8">
+                    <h2 className="text-2xl font-bold mb-6 text-center">{block.title || "Nos Coordonnées"}</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-4">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                            <div className="w-5 h-5 bg-blue-600 rounded"></div>
+                          </div>
+                          <div>
+                            <p className="font-medium">Email</p>
+                            <p className="text-gray-600">contact@amontour.com</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                            <div className="w-5 h-5 bg-green-600 rounded"></div>
+                          </div>
+                          <div>
+                            <p className="font-medium">WhatsApp</p>
+                            <p className="text-gray-600">+66 XX XXX XXXX</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="space-y-4">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                            <div className="w-5 h-5 bg-orange-600 rounded"></div>
+                          </div>
+                          <div>
+                            <p className="font-medium">Téléphone</p>
+                            <p className="text-gray-600">+66 XX XXX XXXX</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+                            <div className="w-5 h-5 bg-red-600 rounded"></div>
+                          </div>
+                          <div>
+                            <p className="font-medium">Adresse</p>
+                            <p className="text-gray-600">Krabi, Thaïlande</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {block.blockType === 'form' && (
+                  <div className="p-8 bg-gray-50">
+                    <h2 className="text-2xl font-bold mb-6 text-center">{block.title || "Formulaire de Contact"}</h2>
+                    <div className="max-w-md mx-auto space-y-4">
+                      <div className="bg-white p-3 rounded border">Nom complet</div>
+                      <div className="bg-white p-3 rounded border">Email</div>
+                      <div className="bg-white p-3 rounded border h-20">Message</div>
+                      <button className="w-full bg-blue-600 text-white p-3 rounded">Envoyer</button>
+                    </div>
+                  </div>
+                )}
+
+                {!['hero', 'contact_info', 'form'].includes(block.blockType) && (
+                  <div className="p-8 text-center">
+                    <h3 className="font-semibold mb-2">{block.title || `Bloc ${block.blockType}`}</h3>
+                    <p className="text-gray-600">{block.description || "Contenu du bloc..."}</p>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Right: Blocks List */}
+        <div className="border rounded-lg bg-white overflow-hidden">
+          <div className="bg-gray-50 p-4 border-b">
+            <h3 className="font-semibold">Blocs de la page Contact</h3>
+            <p className="text-sm text-gray-600">Cliquez sur un bloc pour le mettre en évidence</p>
+          </div>
+
+          <div className="p-4 space-y-3 h-full overflow-y-auto">
+            {pageBlocks.map((block, index) => (
+              <div
+                key={block.id}
+                className={`border rounded-lg p-4 cursor-pointer transition-all ${
+                  selectedBlockId === block.id 
+                    ? 'border-purple-500 bg-purple-50 shadow-md' 
+                    : 'border-gray-200 hover:border-gray-300 hover:shadow-sm'
+                }`}
+                onClick={() => setSelectedBlockId(selectedBlockId === block.id ? null : block.id)}
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-blue-500 rounded text-white text-sm flex items-center justify-center font-medium">
+                      {block.blockOrder}
+                    </div>
+                    <div>
+                      <h4 className="font-medium">{block.title || `${block.blockType.replace('_', ' ')} Block`}</h4>
+                      <p className="text-sm text-gray-500">{block.blockType}</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-1">
+                    <Button size="sm" variant="ghost">
+                      <Edit className="w-4 h-4" />
+                    </Button>
+                    <Button size="sm" variant="ghost" className="text-red-600">
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Block preview thumbnail */}
+                <div className="bg-gray-100 rounded p-3 text-center">
+                  <div className="text-xs text-gray-600 mb-1">Aperçu</div>
+                  <div className="bg-white rounded p-2 text-xs">
+                    {block.title || "Contenu du bloc"}
+                  </div>
+                </div>
+
+                {selectedBlockId === block.id && (
+                  <div className="mt-3 pt-3 border-t border-purple-200">
+                    <div className="flex gap-2">
+                      <Button size="sm" variant="outline" className="flex-1">
+                        <Edit className="w-3 h-3 mr-1" />
+                        Modifier
+                      </Button>
+                      <Button size="sm" variant="outline">
+                        <Move className="w-3 h-3" />
+                      </Button>
+                      <Button size="sm" variant="outline" className="text-red-600">
+                        <Trash2 className="w-3 h-3" />
+                      </Button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+
+            <button className="w-full border-2 border-dashed border-purple-300 rounded-lg p-6 text-center hover:border-purple-400 hover:bg-purple-50 transition-colors">
+              <Plus className="w-6 h-6 mx-auto mb-2 text-purple-400" />
+              <p className="text-purple-600 font-medium text-sm">Ajouter un bloc</p>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
