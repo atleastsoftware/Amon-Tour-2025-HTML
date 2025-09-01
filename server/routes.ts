@@ -2592,6 +2592,41 @@ Crawl-delay: 1`;
     }
   });
 
+  // Get page blocks by page ID (for page builder)
+  app.get("/api/admin/page-blocks-by-page/:pageId", requireAuth, async (req, res) => {
+    try {
+      const pageId = parseInt(req.params.pageId);
+      if (isNaN(pageId)) {
+        return res.status(400).json({ message: "Invalid page ID" });
+      }
+      const blocks = await storage.getPageBlocks(pageId);
+      res.json(blocks);
+    } catch (error) {
+      console.error("Error fetching page blocks by page ID:", error);
+      res.status(500).json({ message: "Failed to fetch page blocks", error: String(error) });
+    }
+  });
+
+  // Update page blocks reorder with PATCH method
+  app.patch("/api/admin/page-blocks/reorder", requireAuth, async (req, res) => {
+    try {
+      const { blocks } = req.body;
+      if (!Array.isArray(blocks)) {
+        return res.status(400).json({ message: "Blocks must be an array" });
+      }
+
+      // Update each block's order
+      for (const blockUpdate of blocks) {
+        await storage.updatePageBlock(blockUpdate.id, { blockOrder: blockUpdate.blockOrder });
+      }
+
+      res.json({ message: "Blocks reordered successfully" });
+    } catch (error) {
+      console.error("Error reordering page blocks:", error);
+      res.status(500).json({ message: "Failed to reorder page blocks", error: String(error) });
+    }
+  });
+
   // Block templates
   app.get("/api/admin/block-templates", requireAuth, async (req, res) => {
     try {
