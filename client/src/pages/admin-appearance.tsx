@@ -1015,6 +1015,72 @@ export default function AdminAppearance() {
   const [selectedThemeSection, setSelectedThemeSection] = useState<string>('colors');
   const [selectedFooterSection, setSelectedFooterSection] = useState<string>('contact-info');
 
+  // Temporary states for preview system with save buttons
+  const [tempTypography, setTempTypography] = useState<any>(null);
+  const [tempColors, setTempColors] = useState<any>(null);
+  const [tempButtonStyles, setTempButtonStyles] = useState<any>(null);
+  const [tempLogoSettings, setTempLogoSettings] = useState<any>(null);
+  const [tempNotificationBar, setTempNotificationBar] = useState<any>(null);
+  const [tempPopupSettings, setTempPopupSettings] = useState<any>(null);
+
+  // Helper functions for temp settings with fallbacks
+  const getTempSetting = (section: string, key: string, tempState: any) => {
+    if (tempState) return tempState;
+    return JSON.parse(getSiteSetting(section, key) || '{}');
+  };
+
+  // Save functions for each section
+  const saveTypography = () => {
+    if (tempTypography) {
+      if (tempTypography.heading_font) updateSiteSetting('theme', 'heading_font', tempTypography.heading_font);
+      if (tempTypography.body_font) updateSiteSetting('theme', 'body_font', tempTypography.body_font);
+      setTempTypography(null);
+      toast({ title: "Typography sauvegardée !", description: "Les polices ont été appliquées au site." });
+    }
+  };
+
+  const saveColors = () => {
+    if (tempColors) {
+      if (tempColors.primary_color) updateSiteSetting('theme', 'primary_color', tempColors.primary_color);
+      if (tempColors.secondary_color) updateSiteSetting('theme', 'secondary_color', tempColors.secondary_color);
+      if (tempColors.color_palette) updateSiteSetting('theme', 'color_palette', JSON.stringify(tempColors.color_palette));
+      setTempColors(null);
+      toast({ title: "Couleurs sauvegardées !", description: "La palette de couleurs a été appliquée au site." });
+    }
+  };
+
+  const saveButtonStyles = () => {
+    if (tempButtonStyles) {
+      updateSiteSetting('theme', 'button_styles', JSON.stringify(tempButtonStyles));
+      setTempButtonStyles(null);
+      toast({ title: "Styles de boutons sauvegardés !", description: "Les nouveaux styles ont été appliqués." });
+    }
+  };
+
+  const saveLogoSettings = () => {
+    if (tempLogoSettings) {
+      updateSiteSetting('theme', 'logo_settings', JSON.stringify(tempLogoSettings));
+      setTempLogoSettings(null);
+      toast({ title: "Logos sauvegardés !", description: "Les nouveaux logos ont été appliqués au site." });
+    }
+  };
+
+  const saveNotificationBar = () => {
+    if (tempNotificationBar) {
+      updateSiteSetting('theme', 'notification_bar', JSON.stringify(tempNotificationBar));
+      setTempNotificationBar(null);
+      toast({ title: "Barre d'annonce sauvegardée !", description: "Les paramètres ont été appliqués." });
+    }
+  };
+
+  const savePopupSettings = () => {
+    if (tempPopupSettings) {
+      updateSiteSetting('theme', 'popup_settings', JSON.stringify(tempPopupSettings));
+      setTempPopupSettings(null);
+      toast({ title: "Pop-up sauvegardée !", description: "Les paramètres de pop-up ont été appliqués." });
+    }
+  };
+
   // Toggle category expansion
   const toggleCategory = (categoryName: string) => {
     setExpandedCategories(prev => 
@@ -1691,13 +1757,13 @@ export default function AdminAppearance() {
                           <Input
                             id="primary-color"
                             type="color"
-                            value={getSiteSetting('theme', 'primary_color') || '#1e73be'}
-                            onChange={(e) => updateSiteSetting('theme', 'primary_color', e.target.value)}
+                            value={tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#1e73be'}
+                            onChange={(e) => setTempColors((prev: any) => ({ ...prev, primary_color: e.target.value }))}
                             className="w-20 h-10"
                           />
                           <Input
-                            value={getSiteSetting('theme', 'primary_color') || '#1e73be'}
-                            onChange={(e) => updateSiteSetting('theme', 'primary_color', e.target.value)}
+                            value={tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#1e73be'}
+                            onChange={(e) => setTempColors((prev: any) => ({ ...prev, primary_color: e.target.value }))}
                             placeholder="#1e73be"
                           />
                         </div>
@@ -1708,13 +1774,13 @@ export default function AdminAppearance() {
                           <Input
                             id="secondary-color"
                             type="color"
-                            value={getSiteSetting('theme', 'secondary_color') || '#E6B64C'}
-                            onChange={(e) => updateSiteSetting('theme', 'secondary_color', e.target.value)}
+                            value={tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#E6B64C'}
+                            onChange={(e) => setTempColors((prev: any) => ({ ...prev, secondary_color: e.target.value }))}
                             className="w-20 h-10"
                           />
                           <Input
-                            value={getSiteSetting('theme', 'secondary_color') || '#E6B64C'}
-                            onChange={(e) => updateSiteSetting('theme', 'secondary_color', e.target.value)}
+                            value={tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#E6B64C'}
+                            onChange={(e) => setTempColors((prev: any) => ({ ...prev, secondary_color: e.target.value }))}
                             placeholder="#E6B64C"
                           />
                         </div>
@@ -1731,10 +1797,10 @@ export default function AdminAppearance() {
                             <Label>Text Color</Label>
                             <Input
                               type="color"
-                              value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}').text}
+                              value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}')).text}
                               onChange={(e) => {
-                                const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}');
-                                updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, text: e.target.value}));
+                                const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}');
+                                setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, text: e.target.value} }));
                               }}
                             />
                           </div>
@@ -1742,10 +1808,10 @@ export default function AdminAppearance() {
                             <Label>Background Color</Label>
                             <Input
                               type="color"
-                              value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}').background}
+                              value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}')).background}
                               onChange={(e) => {
-                                const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}');
-                                updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, background: e.target.value}));
+                                const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}');
+                                setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, background: e.target.value} }));
                               }}
                             />
                           </div>
@@ -1753,10 +1819,10 @@ export default function AdminAppearance() {
                             <Label>Text Menu</Label>
                             <Input
                               type="color"
-                              value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textMenu": "#374151"}').textMenu || '#374151'}
+                              value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textMenu": "#374151"}')).textMenu || '#374151'}
                               onChange={(e) => {
-                                const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff", "backgroundFooter": "#000000", "textMenu": "#374151", "backgroundMenu": "#ffffff"}');
-                                updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, textMenu: e.target.value}));
+                                const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff", "backgroundFooter": "#000000", "textMenu": "#374151", "backgroundMenu": "#ffffff"}');
+                                setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, textMenu: e.target.value} }));
                               }}
                             />
                           </div>
@@ -1764,10 +1830,10 @@ export default function AdminAppearance() {
                             <Label>Background Menu</Label>
                             <Input
                               type="color"
-                              value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"backgroundMenu": "#ffffff"}').backgroundMenu || '#ffffff'}
+                              value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"backgroundMenu": "#ffffff"}')).backgroundMenu || '#ffffff'}
                               onChange={(e) => {
-                                const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff", "backgroundFooter": "#000000", "textMenu": "#374151", "backgroundMenu": "#ffffff"}');
-                                updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, backgroundMenu: e.target.value}));
+                                const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff", "backgroundFooter": "#000000", "textMenu": "#374151", "backgroundMenu": "#ffffff"}');
+                                setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, backgroundMenu: e.target.value} }));
                               }}
                             />
                           </div>
@@ -1775,10 +1841,10 @@ export default function AdminAppearance() {
                             <Label>Text Footer</Label>
                             <Input
                               type="color"
-                              value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff"}').textFooter || '#ffffff'}
+                              value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff"}')).textFooter || '#ffffff'}
                               onChange={(e) => {
-                                const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff", "backgroundFooter": "#000000", "textMenu": "#374151", "backgroundMenu": "#ffffff"}');
-                                updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, textFooter: e.target.value}));
+                                const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff", "backgroundFooter": "#000000", "textMenu": "#374151", "backgroundMenu": "#ffffff"}');
+                                setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, textFooter: e.target.value} }));
                               }}
                             />
                           </div>
@@ -1786,10 +1852,10 @@ export default function AdminAppearance() {
                             <Label>Background Footer</Label>
                             <Input
                               type="color"
-                              value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"backgroundFooter": "#000000"}').backgroundFooter || '#000000'}
+                              value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"backgroundFooter": "#000000"}')).backgroundFooter || '#000000'}
                               onChange={(e) => {
-                                const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff", "backgroundFooter": "#000000", "textMenu": "#374151", "backgroundMenu": "#ffffff"}');
-                                updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, backgroundFooter: e.target.value}));
+                                const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff", "backgroundFooter": "#000000", "textMenu": "#374151", "backgroundMenu": "#ffffff"}');
+                                setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, backgroundFooter: e.target.value} }));
                               }}
                             />
                           </div>
@@ -1797,10 +1863,10 @@ export default function AdminAppearance() {
                             <Label>Error Color</Label>
                             <Input
                               type="color"
-                              value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"error": "#ef4444"}').error}
+                              value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"error": "#ef4444"}')).error}
                               onChange={(e) => {
-                                const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"error": "#ef4444"}');
-                                updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, error: e.target.value}));
+                                const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"error": "#ef4444"}');
+                                setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, error: e.target.value} }));
                               }}
                             />
                           </div>
@@ -1808,16 +1874,27 @@ export default function AdminAppearance() {
                             <Label>Success Color</Label>
                             <Input
                               type="color"
-                              value={JSON.parse(getSiteSetting('theme', 'color_palette') || '{"success": "#10b981"}').success}
+                              value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"success": "#10b981"}')).success}
                               onChange={(e) => {
-                                const current = JSON.parse(getSiteSetting('theme', 'color_palette') || '{"success": "#10b981"}');
-                                updateSiteSetting('theme', 'color_palette', JSON.stringify({...current, success: e.target.value}));
+                                const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"success": "#10b981"}');
+                                setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, success: e.target.value} }));
                               }}
                             />
                           </div>
                         </div>
                       </div>
                       
+                      {/* Save Button */}
+                      <div className="flex justify-end pt-4">
+                        <Button 
+                          onClick={saveColors} 
+                          disabled={!tempColors}
+                          className="bg-green-600 hover:bg-green-700"
+                        >
+                          💾 Sauvegarder Couleurs
+                        </Button>
+                      </div>
+
                       {/* Colors Preview */}
                       <div className="mt-6 pt-6 border-t border-gray-200">
                         <div className="flex items-center gap-2 mb-4">
@@ -1829,28 +1906,28 @@ export default function AdminAppearance() {
                             <div className="text-center">
                               <div 
                                 className="w-12 h-12 rounded-lg mx-auto mb-2 border-2 border-gray-300"
-                                style={{ backgroundColor: getSiteSetting('theme', 'primary_color') || '#1e73be' }}
+                                style={{ backgroundColor: tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#1e73be' }}
                               ></div>
                               <p className="text-xs font-medium">Primary</p>
                             </div>
                             <div className="text-center">
                               <div 
                                 className="w-12 h-12 rounded-lg mx-auto mb-2 border-2 border-gray-300"
-                                style={{ backgroundColor: getSiteSetting('theme', 'secondary_color') || '#E6B64C' }}
+                                style={{ backgroundColor: tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#E6B64C' }}
                               ></div>
                               <p className="text-xs font-medium">Secondary</p>
                             </div>
                             <div className="text-center">
                               <div 
                                 className="w-12 h-12 rounded-lg mx-auto mb-2 border-2 border-gray-300"
-                                style={{ backgroundColor: JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff", "backgroundFooter": "#000000"}').backgroundFooter }}
+                                style={{ backgroundColor: (tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff", "backgroundFooter": "#000000"}')).backgroundFooter }}
                               ></div>
                               <p className="text-xs font-medium">Footer BG</p>
                             </div>
                             <div className="text-center">
                               <div 
                                 className="w-12 h-12 rounded-lg mx-auto mb-2 border-2 border-gray-300"
-                                style={{ backgroundColor: JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textMenu": "#374151", "backgroundMenu": "#ffffff"}').backgroundMenu }}
+                                style={{ backgroundColor: (tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textMenu": "#374151", "backgroundMenu": "#ffffff"}')).backgroundMenu }}
                               ></div>
                               <p className="text-xs font-medium">Menu BG</p>
                             </div>
@@ -1875,10 +1952,9 @@ export default function AdminAppearance() {
                         <div className="flex items-center space-x-2">
                           <Switch 
                             id="notification-enabled"
-                            checked={JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"enabled": true}').enabled}
+                            checked={tempNotificationBar?.enabled ?? JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"enabled": true}').enabled}
                             onCheckedChange={(checked) => {
-                              const current = JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"enabled": true}');
-                              updateSiteSetting('theme', 'notification_bar', JSON.stringify({...current, enabled: checked}));
+                              setTempNotificationBar((prev: any) => ({ ...prev, enabled: checked }));
                             }}
                           />
                           <Label htmlFor="notification-enabled">Enable Notification Bar</Label>
@@ -1887,10 +1963,9 @@ export default function AdminAppearance() {
                           <Label>Notification Text</Label>
                           <Input
                             placeholder="📢 L'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr"
-                            value={JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text": "📢 L\'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr"}').text}
+                            value={tempNotificationBar?.text || JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text": "📢 L\'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr"}').text}
                             onChange={(e) => {
-                              const current = JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text": "📢 L\'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr"}');
-                              updateSiteSetting('theme', 'notification_bar', JSON.stringify({...current, text: e.target.value}));
+                              setTempNotificationBar((prev: any) => ({ ...prev, text: e.target.value }));
                             }}
                           />
                         </div>
@@ -1900,18 +1975,16 @@ export default function AdminAppearance() {
                             <div className="flex items-center gap-3">
                               <Input
                                 type="color"
-                                value={JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"background_color": "#f5c400"}').background_color}
+                                value={tempNotificationBar?.background_color || JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"background_color": "#f5c400"}').background_color}
                                 onChange={(e) => {
-                                  const current = JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"background_color": "#f5c400"}');
-                                  updateSiteSetting('theme', 'notification_bar', JSON.stringify({...current, background_color: e.target.value}));
+                                  setTempNotificationBar((prev: any) => ({ ...prev, background_color: e.target.value }));
                                 }}
                                 className="w-20"
                               />
                               <Input
-                                value={JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"background_color": "#f5c400"}').background_color}
+                                value={tempNotificationBar?.background_color || JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"background_color": "#f5c400"}').background_color}
                                 onChange={(e) => {
-                                  const current = JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"background_color": "#f5c400"}');
-                                  updateSiteSetting('theme', 'notification_bar', JSON.stringify({...current, background_color: e.target.value}));
+                                  setTempNotificationBar((prev: any) => ({ ...prev, background_color: e.target.value }));
                                 }}
                                 placeholder="#f5c400"
                               />
@@ -1922,22 +1995,56 @@ export default function AdminAppearance() {
                             <div className="flex items-center gap-3">
                               <Input
                                 type="color"
-                                value={JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text_color": "#000000"}').text_color}
+                                value={tempNotificationBar?.text_color || JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text_color": "#000000"}').text_color}
                                 onChange={(e) => {
-                                  const current = JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text_color": "#000000"}');
-                                  updateSiteSetting('theme', 'notification_bar', JSON.stringify({...current, text_color: e.target.value}));
+                                  setTempNotificationBar((prev: any) => ({ ...prev, text_color: e.target.value }));
                                 }}
                                 className="w-20"
                               />
                               <Input
-                                value={JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text_color": "#000000"}').text_color}
+                                value={tempNotificationBar?.text_color || JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text_color": "#000000"}').text_color}
                                 onChange={(e) => {
-                                  const current = JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text_color": "#000000"}');
-                                  updateSiteSetting('theme', 'notification_bar', JSON.stringify({...current, text_color: e.target.value}));
+                                  setTempNotificationBar((prev: any) => ({ ...prev, text_color: e.target.value }));
                                 }}
                                 placeholder="#000000"
                               />
                             </div>
+                          </div>
+                        </div>
+                        
+                        {/* Save Button */}
+                        <div className="flex justify-end pt-4">
+                          <Button 
+                            onClick={saveNotificationBar} 
+                            disabled={!tempNotificationBar}
+                            className="bg-green-600 hover:bg-green-700"
+                          >
+                            💾 Sauvegarder Announcement Bar
+                          </Button>
+                        </div>
+                        
+                        {/* Announcement Bar Preview */}
+                        <div className="mt-6 pt-6 border-t border-gray-200">
+                          <div className="flex items-center gap-2 mb-4">
+                            <Bell className="w-4 h-4" />
+                            <h3 className="text-base font-semibold">Announcement Bar Preview</h3>
+                          </div>
+                          <div className="bg-gray-100 p-4 rounded-lg">
+                            {JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"enabled": true}').enabled ? (
+                              <div 
+                                className="py-2 px-4 text-center text-sm font-medium rounded"
+                                style={{
+                                  backgroundColor: JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"background_color": "#f5c400"}').background_color,
+                                  color: JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text_color": "#000000"}').text_color
+                                }}
+                              >
+                                {JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text": "📢 L\'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr"}').text || "Votre message d'annonce apparaîtra ici"}
+                              </div>
+                            ) : (
+                              <div className="text-center text-gray-500 py-4">
+                                Barre d'annonce désactivée
+                              </div>
+                            )}
                           </div>
                         </div>
                       </CardContent>
@@ -1958,10 +2065,9 @@ export default function AdminAppearance() {
                       <div>
                         <Label>Heading Font</Label>
                         <Select 
-                          value={JSON.parse(getSiteSetting('theme', 'typography') || '{"heading_font": "Poppins"}').heading_font}
+                          value={tempTypography?.heading_font || JSON.parse(getSiteSetting('theme', 'typography') || '{"heading_font": "Poppins"}').heading_font}
                           onValueChange={(value) => {
-                            const current = JSON.parse(getSiteSetting('theme', 'typography') || '{"heading_font": "Poppins"}');
-                            updateSiteSetting('theme', 'typography', JSON.stringify({...current, heading_font: value}));
+                            setTempTypography((prev: any) => ({ ...prev, heading_font: value }));
                           }}
                         >
                           <SelectTrigger>
@@ -1979,10 +2085,9 @@ export default function AdminAppearance() {
                       <div>
                         <Label>Body Font</Label>
                         <Select 
-                          value={JSON.parse(getSiteSetting('theme', 'typography') || '{"body_font": "Inter"}').body_font}
+                          value={tempTypography?.body_font || JSON.parse(getSiteSetting('theme', 'typography') || '{"body_font": "Inter"}').body_font}
                           onValueChange={(value) => {
-                            const current = JSON.parse(getSiteSetting('theme', 'typography') || '{"body_font": "Inter"}');
-                            updateSiteSetting('theme', 'typography', JSON.stringify({...current, body_font: value}));
+                            setTempTypography((prev: any) => ({ ...prev, body_font: value }));
                           }}
                         >
                           <SelectTrigger>
@@ -2001,10 +2106,9 @@ export default function AdminAppearance() {
                         <div>
                           <Label>Heading Weight</Label>
                           <Select 
-                            value={JSON.parse(getSiteSetting('theme', 'typography') || '{"heading_weight": "600"}').heading_weight}
+                            value={tempTypography?.heading_weight || JSON.parse(getSiteSetting('theme', 'typography') || '{"heading_weight": "600"}').heading_weight}
                             onValueChange={(value) => {
-                              const current = JSON.parse(getSiteSetting('theme', 'typography') || '{"heading_weight": "600"}');
-                              updateSiteSetting('theme', 'typography', JSON.stringify({...current, heading_weight: value}));
+                              setTempTypography((prev: any) => ({ ...prev, heading_weight: value }));
                             }}
                           >
                             <SelectTrigger>
@@ -2021,10 +2125,9 @@ export default function AdminAppearance() {
                         <div>
                           <Label>Body Weight</Label>
                           <Select 
-                            value={JSON.parse(getSiteSetting('theme', 'typography') || '{"body_weight": "400"}').body_weight}
+                            value={tempTypography?.body_weight || JSON.parse(getSiteSetting('theme', 'typography') || '{"body_weight": "400"}').body_weight}
                             onValueChange={(value) => {
-                              const current = JSON.parse(getSiteSetting('theme', 'typography') || '{"body_weight": "400"}');
-                              updateSiteSetting('theme', 'typography', JSON.stringify({...current, body_weight: value}));
+                              setTempTypography((prev: any) => ({ ...prev, body_weight: value }));
                             }}
                           >
                             <SelectTrigger>
@@ -2040,10 +2143,9 @@ export default function AdminAppearance() {
                         <div>
                           <Label>Base Size</Label>
                           <Select 
-                            value={JSON.parse(getSiteSetting('theme', 'typography') || '{"base_size": "16px"}').base_size}
+                            value={tempTypography?.base_size || JSON.parse(getSiteSetting('theme', 'typography') || '{"base_size": "16px"}').base_size}
                             onValueChange={(value) => {
-                              const current = JSON.parse(getSiteSetting('theme', 'typography') || '{"base_size": "16px"}');
-                              updateSiteSetting('theme', 'typography', JSON.stringify({...current, base_size: value}));
+                              setTempTypography((prev: any) => ({ ...prev, base_size: value }));
                             }}
                           >
                             <SelectTrigger>
@@ -2058,6 +2160,17 @@ export default function AdminAppearance() {
                         </div>
                       </div>
                       
+                      {/* Save Button */}
+                      <div className="flex justify-end pt-4">
+                        <Button 
+                          onClick={saveTypography} 
+                          disabled={!tempTypography}
+                          className="bg-green-600 hover:bg-green-700"
+                        >
+                          💾 Sauvegarder Typography
+                        </Button>
+                      </div>
+                      
                       {/* Typography Preview */}
                       <div className="mt-6 pt-6 border-t border-gray-200">
                         <div className="flex items-center gap-2 mb-4">
@@ -2067,8 +2180,8 @@ export default function AdminAppearance() {
                         <div className="bg-gray-50 p-4 rounded-lg space-y-3">
                           <div 
                             style={{ 
-                              fontFamily: JSON.parse(getSiteSetting('theme', 'typography') || '{"heading_font": "Poppins"}').heading_font,
-                              fontWeight: JSON.parse(getSiteSetting('theme', 'typography') || '{"heading_weight": "600"}').heading_weight,
+                              fontFamily: tempTypography?.heading_font || JSON.parse(getSiteSetting('theme', 'typography') || '{"heading_font": "Poppins"}').heading_font,
+                              fontWeight: tempTypography?.heading_weight || JSON.parse(getSiteSetting('theme', 'typography') || '{"heading_weight": "600"}').heading_weight,
                               fontSize: '24px'
                             }}
                           >
@@ -2076,9 +2189,9 @@ export default function AdminAppearance() {
                           </div>
                           <div 
                             style={{ 
-                              fontFamily: JSON.parse(getSiteSetting('theme', 'typography') || '{"body_font": "Inter"}').body_font,
-                              fontWeight: JSON.parse(getSiteSetting('theme', 'typography') || '{"body_weight": "400"}').body_weight,
-                              fontSize: JSON.parse(getSiteSetting('theme', 'typography') || '{"base_size": "16px"}').base_size
+                              fontFamily: tempTypography?.body_font || JSON.parse(getSiteSetting('theme', 'typography') || '{"body_font": "Inter"}').body_font,
+                              fontWeight: tempTypography?.body_weight || JSON.parse(getSiteSetting('theme', 'typography') || '{"body_weight": "400"}').body_weight,
+                              fontSize: tempTypography?.base_size || JSON.parse(getSiteSetting('theme', 'typography') || '{"base_size": "16px"}').base_size
                             }}
                           >
                             Découvrez les trésors cachés de Krabi et du sud de la Thaïlande avec nos expériences authentiques et personnalisées.
@@ -2102,10 +2215,9 @@ export default function AdminAppearance() {
                       <div>
                         <Label>Border Radius</Label>
                         <Select 
-                          value={JSON.parse(getSiteSetting('theme', 'button_styles') || '{"border_radius": "8px"}').border_radius}
+                          value={tempButtonStyles?.border_radius || JSON.parse(getSiteSetting('theme', 'button_styles') || '{"border_radius": "8px"}').border_radius}
                           onValueChange={(value) => {
-                            const current = JSON.parse(getSiteSetting('theme', 'button_styles') || '{"border_radius": "8px"}');
-                            updateSiteSetting('theme', 'button_styles', JSON.stringify({...current, border_radius: value}));
+                            setTempButtonStyles((prev: any) => ({ ...prev, border_radius: value }));
                           }}
                         >
                           <SelectTrigger>
@@ -2123,10 +2235,9 @@ export default function AdminAppearance() {
                       <div>
                         <Label>Shadow Style</Label>
                         <Select 
-                          value={JSON.parse(getSiteSetting('theme', 'button_styles') || '{"shadow": "medium"}').shadow}
+                          value={tempButtonStyles?.shadow || JSON.parse(getSiteSetting('theme', 'button_styles') || '{"shadow": "medium"}').shadow}
                           onValueChange={(value) => {
-                            const current = JSON.parse(getSiteSetting('theme', 'button_styles') || '{"shadow": "medium"}');
-                            updateSiteSetting('theme', 'button_styles', JSON.stringify({...current, shadow: value}));
+                            setTempButtonStyles((prev: any) => ({ ...prev, shadow: value }));
                           }}
                         >
                           <SelectTrigger>
@@ -2143,10 +2254,9 @@ export default function AdminAppearance() {
                       <div>
                         <Label>Hover Effect</Label>
                         <Select 
-                          value={JSON.parse(getSiteSetting('theme', 'button_styles') || '{"hover_effect": "scale"}').hover_effect}
+                          value={tempButtonStyles?.hover_effect || JSON.parse(getSiteSetting('theme', 'button_styles') || '{"hover_effect": "scale"}').hover_effect}
                           onValueChange={(value) => {
-                            const current = JSON.parse(getSiteSetting('theme', 'button_styles') || '{"hover_effect": "scale"}');
-                            updateSiteSetting('theme', 'button_styles', JSON.stringify({...current, hover_effect: value}));
+                            setTempButtonStyles((prev: any) => ({ ...prev, hover_effect: value }));
                           }}
                         >
                           <SelectTrigger>
@@ -2159,6 +2269,17 @@ export default function AdminAppearance() {
                             <SelectItem value="shadow">Shadow Grow</SelectItem>
                           </SelectContent>
                         </Select>
+                      </div>
+                      
+                      {/* Save Button */}
+                      <div className="flex justify-end pt-4">
+                        <Button 
+                          onClick={saveButtonStyles} 
+                          disabled={!tempButtonStyles}
+                          className="bg-green-600 hover:bg-green-700"
+                        >
+                          💾 Sauvegarder Button Styles
+                        </Button>
                       </div>
                       
                       {/* Button Styles Preview */}
@@ -2290,99 +2411,191 @@ export default function AdminAppearance() {
                         <Image className="w-4 h-4" />
                         Logo & Favicon
                       </CardTitle>
-                      <CardDescription>Manage site logos and favicon</CardDescription>
+                      <CardDescription>Manage individual logos with upload/link and size controls</CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-4">
-                      <div>
-                        <Label>Header Logo</Label>
-                        <Input
-                          placeholder="/src/assets/logo-a.png"
-                          value={JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": ""}').header_logo}
-                          onChange={(e) => {
-                            const current = JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": ""}');
-                            updateSiteSetting('theme', 'logo_settings', JSON.stringify({...current, header_logo: e.target.value}));
-                          }}
-                        />
+                    <CardContent className="space-y-6">
+                      {/* Header Logo */}
+                      <div className="border rounded-lg p-4">
+                        <Label className="text-base font-semibold mb-3 block">Header Logo</Label>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <Label>Image URL/Path</Label>
+                            <Input
+                              placeholder="/src/assets/logo-amon.png"
+                              value={tempLogoSettings?.header_logo || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": "/src/assets/logo-amon.png"}').header_logo}
+                              onChange={(e) => {
+                                setTempLogoSettings((prev: any) => ({ ...prev, header_logo: e.target.value }));
+                              }}
+                            />
+                          </div>
+                          <div>
+                            <Label>Size</Label>
+                            <Select 
+                              value={tempLogoSettings?.header_logo_height || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo_height": "96px"}').header_logo_height}
+                              onValueChange={(value) => {
+                                setTempLogoSettings((prev: any) => ({ ...prev, header_logo_height: value }));
+                              }}
+                            >
+                              <SelectTrigger>
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="32px">Small (32px)</SelectItem>
+                                <SelectItem value="48px">Medium (48px)</SelectItem>
+                                <SelectItem value="64px">Large (64px)</SelectItem>
+                                <SelectItem value="96px">X-Large (96px)</SelectItem>
+                                <SelectItem value="128px">XX-Large (128px)</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
+                        </div>
                       </div>
-                      <div>
-                        <Label>Footer Logo</Label>
-                        <Input
-                          placeholder="/src/assets/logo-a.png"
-                          value={JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": ""}').footer_logo}
-                          onChange={(e) => {
-                            const current = JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": ""}');
-                            updateSiteSetting('theme', 'logo_settings', JSON.stringify({...current, footer_logo: e.target.value}));
-                          }}
-                        />
+
+                      {/* Footer Logo */}
+                      <div className="border rounded-lg p-4">
+                        <Label className="text-base font-semibold mb-3 block">Footer Logo</Label>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <Label>Image URL/Path</Label>
+                            <Input
+                              placeholder="/src/assets/logo-amon.png"
+                              value={tempLogoSettings?.footer_logo || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": "/src/assets/logo-amon.png"}').footer_logo}
+                              onChange={(e) => {
+                                setTempLogoSettings((prev: any) => ({ ...prev, footer_logo: e.target.value }));
+                              }}
+                            />
+                          </div>
+                          <div>
+                            <Label>Size</Label>
+                            <Select 
+                              value={tempLogoSettings?.footer_logo_height || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo_height": "64px"}').footer_logo_height}
+                              onValueChange={(value) => {
+                                setTempLogoSettings((prev: any) => ({ ...prev, footer_logo_height: value }));
+                              }}
+                            >
+                              <SelectTrigger>
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="24px">Small (24px)</SelectItem>
+                                <SelectItem value="32px">Medium (32px)</SelectItem>
+                                <SelectItem value="48px">Large (48px)</SelectItem>
+                                <SelectItem value="64px">X-Large (64px)</SelectItem>
+                                <SelectItem value="96px">XX-Large (96px)</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
+                        </div>
                       </div>
-                      <div>
-                        <Label>Favicon</Label>
-                        <Input
-                          placeholder="/favicon.ico"
-                          value={JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": ""}').favicon}
-                          onChange={(e) => {
-                            const current = JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": ""}');
-                            updateSiteSetting('theme', 'logo_settings', JSON.stringify({...current, favicon: e.target.value}));
-                          }}
-                        />
-                      </div>
-                      <div>
-                        <Label>Logo Height</Label>
-                        <Select 
-                          value={JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"logo_height": "96px"}').logo_height}
-                          onValueChange={(value) => {
-                            const current = JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"logo_height": "96px"}');
-                            updateSiteSetting('theme', 'logo_settings', JSON.stringify({...current, logo_height: value}));
-                          }}
-                        >
-                          <SelectTrigger>
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="32px">Small (32px)</SelectItem>
-                            <SelectItem value="40px">Medium (40px)</SelectItem>
-                            <SelectItem value="48px">Large (48px)</SelectItem>
-                            <SelectItem value="64px">X-Large (64px)</SelectItem>
-                          </SelectContent>
-                        </Select>
+
+                      {/* Favicon Logo */}
+                      <div className="border rounded-lg p-4">
+                        <Label className="text-base font-semibold mb-3 block">Favicon Logo</Label>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <Label>Image URL/Path</Label>
+                            <Input
+                              placeholder="/favicon.ico"
+                              value={tempLogoSettings?.favicon || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": "/favicon.ico"}').favicon}
+                              onChange={(e) => {
+                                setTempLogoSettings((prev: any) => ({ ...prev, favicon: e.target.value }));
+                              }}
+                            />
+                          </div>
+                          <div>
+                            <Label>Size</Label>
+                            <Select 
+                              value={tempLogoSettings?.favicon_size || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon_size": "32px"}').favicon_size}
+                              onValueChange={(value) => {
+                                setTempLogoSettings((prev: any) => ({ ...prev, favicon_size: value }));
+                              }}
+                            >
+                              <SelectTrigger>
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="16px">16x16px</SelectItem>
+                                <SelectItem value="24px">24x24px</SelectItem>
+                                <SelectItem value="32px">32x32px</SelectItem>
+                                <SelectItem value="48px">48x48px</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
+                        </div>
                       </div>
                       
-                      {/* Logo Preview */}
+                      {/* Save Button */}
+                      <div className="flex justify-end pt-4">
+                        <Button 
+                          onClick={saveLogoSettings} 
+                          disabled={!tempLogoSettings}
+                          className="bg-green-600 hover:bg-green-700"
+                        >
+                          💾 Sauvegarder Logo Settings
+                        </Button>
+                      </div>
+                      
+                      {/* Enhanced Logo Preview */}
                       <div className="mt-6 pt-6 border-t border-gray-200">
                         <div className="flex items-center gap-2 mb-4">
                           <Image className="w-4 h-4" />
                           <h3 className="text-base font-semibold">Logo Preview</h3>
                         </div>
-                        <div className="bg-gray-50 p-4 rounded-lg space-y-4">
-                          <div className="text-center">
-                            <p className="text-sm font-medium mb-2">Current Logo Size</p>
-                            <div className="inline-block p-3 bg-white rounded-lg border">
-                              <img 
-                                src={logoAmon}
-                                alt="Logo Preview" 
-                                style={{ 
-                                  height: JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"logo_height": "96px"}').logo_height,
-                                  width: 'auto'
-                                }}
-                              />
+                        <div className="bg-gray-50 p-4 rounded-lg space-y-6">
+                          {/* Header Logo Preview */}
+                          <div className="bg-white p-4 rounded border">
+                            <p className="text-sm font-medium mb-2">Header Logo</p>
+                            <div className="flex items-center justify-center min-h-[100px] bg-gray-50 rounded">
+                              {JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": "/src/assets/logo-amon.png"}').header_logo ? (
+                                <img 
+                                  src={JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": "/src/assets/logo-amon.png"}').header_logo.startsWith('/src/') ? logoAmon : JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": "/src/assets/logo-amon.png"}').header_logo}
+                                  alt="Header Logo" 
+                                  style={{ 
+                                    height: JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo_height": "96px"}').header_logo_height,
+                                    width: 'auto'
+                                  }}
+                                />
+                              ) : (
+                                <div className="text-gray-400 text-sm">Aucun logo header défini</div>
+                              )}
                             </div>
                           </div>
-                          <div className="grid grid-cols-4 gap-2 text-center">
-                            <div>
-                              <img src={logoAmon} alt="32px" className="h-8 w-auto mx-auto mb-1" />
-                              <p className="text-xs">32px</p>
+
+                          {/* Footer Logo Preview */}
+                          <div className="bg-black p-4 rounded border">
+                            <p className="text-sm font-medium mb-2 text-white">Footer Logo</p>
+                            <div className="flex items-center justify-center min-h-[80px] bg-gray-800 rounded">
+                              {JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": "/src/assets/logo-amon.png"}').footer_logo ? (
+                                <img 
+                                  src={JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": "/src/assets/logo-amon.png"}').footer_logo.startsWith('/src/') ? logoAmon : JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": "/src/assets/logo-amon.png"}').footer_logo}
+                                  alt="Footer Logo" 
+                                  style={{ 
+                                    height: JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo_height": "64px"}').footer_logo_height,
+                                    width: 'auto'
+                                  }}
+                                />
+                              ) : (
+                                <div className="text-gray-400 text-sm">Aucun logo footer défini</div>
+                              )}
                             </div>
-                            <div>
-                              <img src={logoAmon} alt="48px" className="h-12 w-auto mx-auto mb-1" />
-                              <p className="text-xs">48px</p>
-                            </div>
-                            <div>
-                              <img src={logoAmon} alt="64px" className="h-16 w-auto mx-auto mb-1" />
-                              <p className="text-xs">64px</p>
-                            </div>
-                            <div>
-                              <img src={logoAmon} alt="96px" className="h-24 w-auto mx-auto mb-1" />
-                              <p className="text-xs">96px</p>
+                          </div>
+
+                          {/* Favicon Logo Preview */}
+                          <div className="bg-white p-4 rounded border">
+                            <p className="text-sm font-medium mb-2">Favicon Logo</p>
+                            <div className="flex items-center justify-center min-h-[60px] bg-gray-100 rounded">
+                              {(tempLogoSettings?.favicon || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": "/favicon.ico"}').favicon) ? (
+                                <img 
+                                  src={(tempLogoSettings?.favicon || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": "/favicon.ico"}').favicon).startsWith('/src/') ? logoAmon : (tempLogoSettings?.favicon || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": "/favicon.ico"}').favicon)}
+                                  alt="Favicon" 
+                                  style={{ 
+                                    height: tempLogoSettings?.favicon_size || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon_size": "32px"}').favicon_size,
+                                    width: tempLogoSettings?.favicon_size || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon_size": "32px"}').favicon_size
+                                  }}
+                                />
+                              ) : (
+                                <div className="text-gray-400 text-sm">Aucun favicon défini</div>
+                              )}
                             </div>
                           </div>
                         </div>
@@ -2415,10 +2628,9 @@ export default function AdminAppearance() {
                       <div>
                         <Label>Pop-up Type</Label>
                         <Select 
-                          value={JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"type": "newsletter"}').type}
+                          value={tempPopupSettings?.type || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"type": "newsletter"}').type}
                           onValueChange={(value) => {
-                            const current = JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"type": "newsletter"}');
-                            updateSiteSetting('theme', 'popup_settings', JSON.stringify({...current, type: value}));
+                            setTempPopupSettings((prev: any) => ({ ...prev, type: value }));
                           }}
                         >
                           <SelectTrigger>
@@ -2435,10 +2647,9 @@ export default function AdminAppearance() {
                         <Label>Title</Label>
                         <Input
                           placeholder="Special Offer!"
-                          value={JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"title": ""}').title}
+                          value={tempPopupSettings?.title || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"title": ""}').title}
                           onChange={(e) => {
-                            const current = JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"title": ""}');
-                            updateSiteSetting('theme', 'popup_settings', JSON.stringify({...current, title: e.target.value}));
+                            setTempPopupSettings((prev: any) => ({ ...prev, title: e.target.value }));
                           }}
                         />
                       </div>
@@ -2446,10 +2657,9 @@ export default function AdminAppearance() {
                         <Label>Description</Label>
                         <Textarea
                           placeholder="Subscribe to our newsletter for exclusive travel tips and special offers."
-                          value={JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"description": ""}').description}
+                          value={tempPopupSettings?.description || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"description": ""}').description}
                           onChange={(e) => {
-                            const current = JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"description": ""}');
-                            updateSiteSetting('theme', 'popup_settings', JSON.stringify({...current, description: e.target.value}));
+                            setTempPopupSettings((prev: any) => ({ ...prev, description: e.target.value }));
                           }}
                         />
                       </div>
@@ -2458,10 +2668,9 @@ export default function AdminAppearance() {
                           <Label>Button Text</Label>
                           <Input
                             placeholder="Subscribe"
-                            value={JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"button_text": "Subscribe"}').button_text}
+                            value={tempPopupSettings?.button_text || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"button_text": "Subscribe"}').button_text}
                             onChange={(e) => {
-                              const current = JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"button_text": "Subscribe"}');
-                              updateSiteSetting('theme', 'popup_settings', JSON.stringify({...current, button_text: e.target.value}));
+                              setTempPopupSettings((prev: any) => ({ ...prev, button_text: e.target.value }));
                             }}
                           />
                         </div>
@@ -2476,6 +2685,52 @@ export default function AdminAppearance() {
                               updateSiteSetting('theme', 'popup_settings', JSON.stringify({...current, delay: parseInt(e.target.value) * 1000}));
                             }}
                           />
+                        </div>
+                      </div>
+                      
+                      {/* Save Button */}
+                      <div className="flex justify-end pt-4">
+                        <Button 
+                          onClick={savePopupSettings} 
+                          disabled={!tempPopupSettings}
+                          className="bg-green-600 hover:bg-green-700"
+                        >
+                          💾 Sauvegarder Pop-up Settings
+                        </Button>
+                      </div>
+                      
+                      {/* Pop-up Preview */}
+                      <div className="mt-6 pt-6 border-t border-gray-200">
+                        <div className="flex items-center gap-2 mb-4">
+                          <Bell className="w-4 h-4" />
+                          <h3 className="text-base font-semibold">Pop-up Preview</h3>
+                        </div>
+                        <div className="bg-gray-100 p-4 rounded-lg">
+                          {JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"enabled": false}').enabled ? (
+                            <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg p-6 border">
+                              <div className="text-center space-y-4">
+                                <h3 className="text-lg font-semibold">
+                                  {JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"title": "Special Offer!"}').title || "Special Offer!"}
+                                </h3>
+                                <p className="text-gray-600 text-sm">
+                                  {JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"description": "Subscribe to our newsletter for exclusive travel tips."}').description || "Subscribe to our newsletter for exclusive travel tips."}
+                                </p>
+                                <button 
+                                  className="px-6 py-2 text-white rounded font-medium"
+                                  style={{ backgroundColor: getSiteSetting('theme', 'primary_color') || '#1e73be' }}
+                                >
+                                  {JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"button_text": "Subscribe"}').button_text || "Subscribe"}
+                                </button>
+                                <p className="text-xs text-gray-400">
+                                  Apparaît après {(JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"delay": 5000}').delay / 1000) || 5} secondes
+                                </p>
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="text-center text-gray-500 py-8">
+                              Pop-up désactivée
+                            </div>
+                          )}
                         </div>
                       </div>
                     </CardContent>
