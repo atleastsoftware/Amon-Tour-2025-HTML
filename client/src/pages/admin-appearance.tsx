@@ -2209,186 +2209,95 @@ export default function AdminAppearance() {
                   </Card>
                 )}
 
-                {selectedThemeSection === 'announcements' && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                    <Bell className="w-4 h-4" />
-                    Pop-up Announcements
-                  </CardTitle>
-                  <CardDescription>Promotional pop-ups and announcements</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex items-center space-x-2">
-                    <Switch 
-                      id="popup-enabled"
-                      checked={JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"enabled": false}').enabled}
-                      onCheckedChange={(checked) => {
-                        const current = JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"enabled": false}');
-                        updateSiteSetting('theme', 'popup_settings', JSON.stringify({...current, enabled: checked}));
-                      }}
-                    />
-                    <Label htmlFor="popup-enabled">Enable Pop-ups</Label>
-                  </div>
-                  <div>
-                    <Label>Pop-up Type</Label>
-                    <Select 
-                      value={JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"type": "newsletter"}').type}
-                      onValueChange={(value) => {
-                        const current = JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"type": "newsletter"}');
-                        updateSiteSetting('theme', 'popup_settings', JSON.stringify({...current, type: value}));
-                      }}
-                    >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="newsletter">Newsletter Signup</SelectItem>
-                        <SelectItem value="promotion">Special Promotion</SelectItem>
-                        <SelectItem value="announcement">General Announcement</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div>
-                    <Label>Title</Label>
-                    <Input
-                      placeholder="Special Offer!"
-                      value={JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"title": ""}').title}
-                      onChange={(e) => {
-                        const current = JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"title": ""}');
-                        updateSiteSetting('theme', 'popup_settings', JSON.stringify({...current, title: e.target.value}));
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <Label>Description</Label>
-                    <Textarea
-                      placeholder="Subscribe to our newsletter for exclusive travel tips and special offers."
-                      value={JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"description": ""}').description}
-                      onChange={(e) => {
-                        const current = JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"description": ""}');
-                        updateSiteSetting('theme', 'popup_settings', JSON.stringify({...current, description: e.target.value}));
-                      }}
-                    />
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <Label>Button Text</Label>
-                      <Input
-                        placeholder="Subscribe"
-                        value={JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"button_text": "Subscribe"}').button_text}
-                        onChange={(e) => {
-                          const current = JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"button_text": "Subscribe"}');
-                          updateSiteSetting('theme', 'popup_settings', JSON.stringify({...current, button_text: e.target.value}));
-                        }}
-                      />
-                    </div>
-                    <div>
-                      <Label>Delay (seconds)</Label>
-                      <Input
-                        type="number"
-                        placeholder="5"
-                        value={JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"delay": 5000}').delay / 1000}
-                        onChange={(e) => {
-                          const current = JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"delay": 5000}');
-                          updateSiteSetting('theme', 'popup_settings', JSON.stringify({...current, delay: parseInt(e.target.value) * 1000}));
-                        }}
-                      />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-                )}
-
                 {selectedThemeSection === 'backgrounds' && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                    <Palette className="w-4 h-4" />
-                    Background Colors
-                  </CardTitle>
-                  <CardDescription>Section-specific background colors</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div>
-                    <Label>Hero Section Background</Label>
-                    <Input
-                      placeholder="linear-gradient(135deg, #1e73be 0%, #0c4a6e 100%)"
-                      value={JSON.parse(getSiteSetting('theme', 'background_colors') || '{"hero_bg": ""}').hero_bg}
-                      onChange={(e) => {
-                        const current = JSON.parse(getSiteSetting('theme', 'background_colors') || '{"hero_bg": ""}');
-                        updateSiteSetting('theme', 'background_colors', JSON.stringify({...current, hero_bg: e.target.value}));
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <Label>Page Background</Label>
-                    <div className="flex items-center gap-3">
-                      <Input
-                        type="color"
-                        value={JSON.parse(getSiteSetting('theme', 'background_colors') || '{"page_bg": "#ffffff"}').page_bg}
-                        onChange={(e) => {
-                          const current = JSON.parse(getSiteSetting('theme', 'background_colors') || '{"page_bg": "#ffffff"}');
-                          updateSiteSetting('theme', 'background_colors', JSON.stringify({...current, page_bg: e.target.value}));
-                        }}
-                        className="w-20"
-                      />
-                      <Input
-                        value={JSON.parse(getSiteSetting('theme', 'background_colors') || '{"page_bg": "#ffffff"}').page_bg}
-                        onChange={(e) => {
-                          const current = JSON.parse(getSiteSetting('theme', 'background_colors') || '{"page_bg": "#ffffff"}');
-                          updateSiteSetting('theme', 'background_colors', JSON.stringify({...current, page_bg: e.target.value}));
-                        }}
-                        placeholder="#ffffff"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <Label>Footer Background</Label>
-                    <div className="flex items-center gap-3">
-                      <Input
-                        type="color"
-                        value={JSON.parse(getSiteSetting('theme', 'background_colors') || '{"footer_bg": "#000000"}').footer_bg}
-                        onChange={(e) => {
-                          const current = JSON.parse(getSiteSetting('theme', 'background_colors') || '{"footer_bg": "#000000"}');
-                          updateSiteSetting('theme', 'background_colors', JSON.stringify({...current, footer_bg: e.target.value}));
-                        }}
-                        className="w-20"
-                      />
-                      <Input
-                        value={JSON.parse(getSiteSetting('theme', 'background_colors') || '{"footer_bg": "#000000"}').footer_bg}
-                        onChange={(e) => {
-                          const current = JSON.parse(getSiteSetting('theme', 'background_colors') || '{"footer_bg": "#000000"}');
-                          updateSiteSetting('theme', 'background_colors', JSON.stringify({...current, footer_bg: e.target.value}));
-                        }}
-                        placeholder="#000000"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <Label>Section Background</Label>
-                    <div className="flex items-center gap-3">
-                      <Input
-                        type="color"
-                        value={JSON.parse(getSiteSetting('theme', 'background_colors') || '{"section_bg": "#f8fafc"}').section_bg}
-                        onChange={(e) => {
-                          const current = JSON.parse(getSiteSetting('theme', 'background_colors') || '{"section_bg": "#f8fafc"}');
-                          updateSiteSetting('theme', 'background_colors', JSON.stringify({...current, section_bg: e.target.value}));
-                        }}
-                        className="w-20"
-                      />
-                      <Input
-                        value={JSON.parse(getSiteSetting('theme', 'background_colors') || '{"section_bg": "#f8fafc"}').section_bg}
-                        onChange={(e) => {
-                          const current = JSON.parse(getSiteSetting('theme', 'background_colors') || '{"section_bg": "#f8fafc"}');
-                          updateSiteSetting('theme', 'background_colors', JSON.stringify({...current, section_bg: e.target.value}));
-                        }}
-                        placeholder="#f8fafc"
-                      />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+                        <Bell className="w-4 h-4" />
+                        Pop-up Announcements
+                      </CardTitle>
+                      <CardDescription>Promotional pop-ups and announcements</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="flex items-center space-x-2">
+                        <Switch 
+                          id="popup-enabled"
+                          checked={JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"enabled": false}').enabled}
+                          onCheckedChange={(checked) => {
+                            const current = JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"enabled": false}');
+                            updateSiteSetting('theme', 'popup_settings', JSON.stringify({...current, enabled: checked}));
+                          }}
+                        />
+                        <Label htmlFor="popup-enabled">Enable Pop-ups</Label>
+                      </div>
+                      <div>
+                        <Label>Pop-up Type</Label>
+                        <Select 
+                          value={JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"type": "newsletter"}').type}
+                          onValueChange={(value) => {
+                            const current = JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"type": "newsletter"}');
+                            updateSiteSetting('theme', 'popup_settings', JSON.stringify({...current, type: value}));
+                          }}
+                        >
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="newsletter">Newsletter Signup</SelectItem>
+                            <SelectItem value="promotion">Special Promotion</SelectItem>
+                            <SelectItem value="announcement">General Announcement</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div>
+                        <Label>Title</Label>
+                        <Input
+                          placeholder="Special Offer!"
+                          value={JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"title": ""}').title}
+                          onChange={(e) => {
+                            const current = JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"title": ""}');
+                            updateSiteSetting('theme', 'popup_settings', JSON.stringify({...current, title: e.target.value}));
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <Label>Description</Label>
+                        <Textarea
+                          placeholder="Subscribe to our newsletter for exclusive travel tips and special offers."
+                          value={JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"description": ""}').description}
+                          onChange={(e) => {
+                            const current = JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"description": ""}');
+                            updateSiteSetting('theme', 'popup_settings', JSON.stringify({...current, description: e.target.value}));
+                          }}
+                        />
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <Label>Button Text</Label>
+                          <Input
+                            placeholder="Subscribe"
+                            value={JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"button_text": "Subscribe"}').button_text}
+                            onChange={(e) => {
+                              const current = JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"button_text": "Subscribe"}');
+                              updateSiteSetting('theme', 'popup_settings', JSON.stringify({...current, button_text: e.target.value}));
+                            }}
+                          />
+                        </div>
+                        <div>
+                          <Label>Delay (seconds)</Label>
+                          <Input
+                            type="number"
+                            placeholder="5"
+                            value={JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"delay": 5000}').delay / 1000}
+                            onChange={(e) => {
+                              const current = JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"delay": 5000}');
+                              updateSiteSetting('theme', 'popup_settings', JSON.stringify({...current, delay: parseInt(e.target.value) * 1000}));
+                            }}
+                          />
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
                 )}
               </div>
             </div>
