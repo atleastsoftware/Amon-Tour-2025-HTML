@@ -1010,12 +1010,22 @@ export default function AdminAppearance() {
   const [activeCategory, setActiveCategory] = useState<string>('theme');
   const [selectedPage, setSelectedPage] = useState<string>('navigation-menu');
   const [expandedCategories, setExpandedCategories] = useState<string[]>(['Menu principal']);
+  const [expandedThemeCategories, setExpandedThemeCategories] = useState<string[]>(['Design']);
   const [selectedThemeSection, setSelectedThemeSection] = useState<string>('colors');
   const [selectedFooterSection, setSelectedFooterSection] = useState<string>('contact-info');
 
   // Toggle category expansion
   const toggleCategory = (categoryName: string) => {
     setExpandedCategories(prev => 
+      prev.includes(categoryName) 
+        ? prev.filter(cat => cat !== categoryName)
+        : [...prev, categoryName]
+    );
+  };
+
+  // Toggle theme category expansion
+  const toggleThemeCategory = (categoryName: string) => {
+    setExpandedThemeCategories(prev => 
       prev.includes(categoryName) 
         ? prev.filter(cat => cat !== categoryName)
         : [...prev, categoryName]
@@ -1233,6 +1243,23 @@ export default function AdminAppearance() {
       { slug: 'legal-notice', name: 'Legal Notice' },
       { slug: 'privacy-policy', name: 'Privacy Policy' },
       { slug: 'terms-conditions', name: 'Terms & Conditions' }
+    ]
+  };
+
+  // Group theme sections by category
+  const themeCategories = {
+    'Design': [
+      { key: 'colors', name: 'Colors', icon: 'Palette' },
+      { key: 'typography', name: 'Typography', icon: 'Type' }
+    ],
+    'Elements': [
+      { key: 'button-styles', name: 'Button Styles', icon: 'MousePointer' },
+      { key: 'announcements', name: 'Announcement Bar', icon: 'Bell' },
+      { key: 'backgrounds', name: 'Pop-up Announcement', icon: 'Bell' }
+    ],
+    'Branding': [
+      { key: 'logo-favicon', name: 'Logo & Favicon', icon: 'Image' },
+      { key: 'seo-metadata', name: 'SEO & Metadata', icon: 'Globe' }
     ]
   };
 
@@ -1597,94 +1624,50 @@ export default function AdminAppearance() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                     <Palette className="w-4 h-4" />
-                    Theme Settings
+                    Page Settings
                   </CardTitle>
                   <CardDescription>Choose theme section to edit</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    {/* Design Category */}
-                    <div>
-                      <h4 className="text-sm font-semibold text-muted-foreground mb-2 px-2">Design</h4>
-                      <div className="space-y-1">
+                    {/* Theme Categories with Dropdown */}
+                    {Object.entries(themeCategories).map(([categoryName, sections]) => (
+                      <div key={categoryName} className="space-y-2">
                         <Button
-                          variant={selectedThemeSection === 'colors' ? 'default' : 'outline'}
+                          variant="outline"
                           className="w-full justify-start text-sm h-8"
-                          onClick={() => setSelectedThemeSection('colors')}
+                          onClick={() => toggleThemeCategory(categoryName)}
                         >
                           <Palette className="w-4 h-4 mr-2" />
-                          Colors
+                          <span className="flex-1 text-left">{categoryName}</span>
+                          <ChevronDown 
+                            className={`w-4 h-4 transition-transform ${
+                              expandedThemeCategories.includes(categoryName) ? 'rotate-180' : ''
+                            }`}
+                          />
                         </Button>
-                        <Button
-                          variant={selectedThemeSection === 'typography' ? 'default' : 'outline'}
-                          className="w-full justify-start text-sm h-8"
-                          onClick={() => setSelectedThemeSection('typography')}
-                        >
-                          <Type className="w-4 h-4 mr-2" />
-                          Typography
-                        </Button>
+                        {expandedThemeCategories.includes(categoryName) && (
+                          <div className="space-y-2 ml-2">
+                            {sections.map((section) => (
+                              <Button
+                                key={section.key}
+                                variant={selectedThemeSection === section.key ? 'default' : 'outline'}
+                                className="w-full justify-start text-sm h-8"
+                                onClick={() => setSelectedThemeSection(section.key)}
+                              >
+                                {section.icon === 'Palette' && <Palette className="w-4 h-4 mr-2" />}
+                                {section.icon === 'Type' && <Type className="w-4 h-4 mr-2" />}
+                                {section.icon === 'MousePointer' && <MousePointer className="w-4 h-4 mr-2" />}
+                                {section.icon === 'Bell' && <Bell className="w-4 h-4 mr-2" />}
+                                {section.icon === 'Image' && <Image className="w-4 h-4 mr-2" />}
+                                {section.icon === 'Globe' && <Globe className="w-4 h-4 mr-2" />}
+                                {section.name}
+                              </Button>
+                            ))}
+                          </div>
+                        )}
                       </div>
-                    </div>
-
-                    {/* Separator */}
-                    <div className="border-t border-gray-200"></div>
-
-                    {/* Elements Category */}
-                    <div>
-                      <h4 className="text-sm font-semibold text-muted-foreground mb-2 px-2">Elements</h4>
-                      <div className="space-y-1">
-                        <Button
-                          variant={selectedThemeSection === 'button-styles' ? 'default' : 'outline'}
-                          className="w-full justify-start text-sm h-8"
-                          onClick={() => setSelectedThemeSection('button-styles')}
-                        >
-                          <MousePointer className="w-4 h-4 mr-2" />
-                          Button Styles
-                        </Button>
-                        <Button
-                          variant={selectedThemeSection === 'announcements' ? 'default' : 'outline'}
-                          className="w-full justify-start text-sm h-8"
-                          onClick={() => setSelectedThemeSection('announcements')}
-                        >
-                          <Bell className="w-4 h-4 mr-2" />
-                          Announcement Bar
-                        </Button>
-                        <Button
-                          variant={selectedThemeSection === 'backgrounds' ? 'default' : 'outline'}
-                          className="w-full justify-start text-sm h-8"
-                          onClick={() => setSelectedThemeSection('backgrounds')}
-                        >
-                          <Bell className="w-4 h-4 mr-2" />
-                          Pop-up Announcement
-                        </Button>
-                      </div>
-                    </div>
-
-                    {/* Separator */}
-                    <div className="border-t border-gray-200"></div>
-
-                    {/* Branding Category */}
-                    <div>
-                      <h4 className="text-sm font-semibold text-muted-foreground mb-2 px-2">Branding</h4>
-                      <div className="space-y-1">
-                        <Button
-                          variant={selectedThemeSection === 'logo-favicon' ? 'default' : 'outline'}
-                          className="w-full justify-start text-sm h-8"
-                          onClick={() => setSelectedThemeSection('logo-favicon')}
-                        >
-                          <Image className="w-4 h-4 mr-2" />
-                          Logo & Favicon
-                        </Button>
-                        <Button
-                          variant={selectedThemeSection === 'seo-metadata' ? 'default' : 'outline'}
-                          className="w-full justify-start text-sm h-8"
-                          onClick={() => setSelectedThemeSection('seo-metadata')}
-                        >
-                          <Globe className="w-4 h-4 mr-2" />
-                          SEO & Metadata
-                        </Button>
-                      </div>
-                    </div>
+                    ))}
                   </div>
                 </CardContent>
               </Card>
@@ -2871,7 +2854,7 @@ export default function AdminAppearance() {
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                       <Settings className="w-4 h-4" />
-                      Footer Sections
+                      Footer Settings
                     </CardTitle>
                     <CardDescription>Manage footer content</CardDescription>
                   </CardHeader>
