@@ -59,17 +59,42 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
     switch (block.blockType) {
       case 'hero_main':
       case 'hero':
+      case 'video_hero':
         return (
-          <div className="h-full bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 flex items-center p-2 text-white">
-            <div className="flex-1">
-              <div className="text-xs font-bold mb-1 leading-tight">Your exclusive experiences in Krabi</div>
-              <div className="text-[10px] opacity-90 mb-2">Discover amazing places away from mass tourism</div>
-              <div className="flex gap-1">
-                <div className="bg-blue-400 text-[8px] px-2 py-1 rounded text-white">See offers</div>
-                <div className="bg-blue-400 text-[8px] px-2 py-1 rounded text-white">Custom trip</div>
+          <div className="h-full relative bg-black overflow-hidden">
+            {/* Simulation de la vidéo/image de fond */}
+            <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 via-blue-600 to-teal-700 opacity-90"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60"></div>
+            
+            {/* Contenu principal comme sur le vrai site */}
+            <div className="relative h-full flex items-center p-2 text-white">
+              <div className="flex-1">
+                <div className="text-xs font-bold mb-1 leading-tight text-white drop-shadow-lg">
+                  {block.title || "Your exclusive experiences"}
+                </div>
+                <div className="text-[9px] opacity-90 mb-1 drop-shadow-md">
+                  <span className="text-blue-300 font-semibold">in Krabi –</span> THAILAND
+                </div>
+                <div className="text-[8px] text-white/90 mb-2 leading-tight">
+                  {block.description || "Discover amazing places away from mass tourism in Krabi"}
+                </div>
+                
+                {/* Boutons comme sur le vrai site */}
+                <div className="flex gap-1">
+                  <div className="bg-blue-500 text-[7px] px-1.5 py-0.5 rounded text-white shadow-md">
+                    See our offers
+                  </div>
+                  <div className="bg-blue-500 text-[7px] px-1.5 py-0.5 rounded text-white shadow-md">
+                    Custom your trip
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="w-8 h-8 bg-blue-400 rounded opacity-50"></div>
+            
+            {/* Indicateur vidéo */}
+            <div className="absolute top-1 right-1 bg-black/50 rounded px-1 py-0.5">
+              <div className="text-[6px] text-white">🎥 VIDEO</div>
+            </div>
           </div>
         );
         
