@@ -4312,28 +4312,34 @@ function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
       case 'form':
         // Bloc 4 : "Create Your Custom Trip" - Image gauche avec titre + formulaire complet droite
         if (block.title?.includes('Custom') || block.identifier?.includes('custom')) {
+          const imageUrl = config.imageUrl || '/catamaran-cruise.png';
+          const imageAlt = config.imageAlt || 'Catamaran cruise in Thailand';
+          
           return (
             <div className="bg-white p-6 rounded-lg">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
                 
                 {/* Section gauche - Image avec titre et description dedans */}
                 <div className="relative bg-cover bg-center rounded-lg overflow-hidden h-64" 
-                     style={{ backgroundImage: 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80")' }}>
+                     style={{ backgroundImage: `linear-gradient(rgba(30, 115, 190, 0.7), rgba(30, 115, 190, 0.7)), url("${imageUrl}")` }}>
                   <div className="absolute inset-0 flex flex-col justify-center items-start p-6 text-white">
                     <h2 className="text-xl font-bold mb-2">
-                      Create Your Custom Trip
+                      {block.title || 'Create Your Custom Trip'}
                     </h2>
                     <p className="text-sm leading-relaxed">
-                      Your travel story starts with your dreams, let us write the rest.
+                      {block.subtitle || 'Your travel story starts with your dreams, let us write the rest.'}
                     </p>
                   </div>
                 </div>
                 
                 {/* Section droite avec formulaire complet */}
                 <div className="bg-gray-50 rounded-lg p-4">
-                  <h3 className="text-base font-semibold mb-4 text-gray-900">Tell us about your dream trip</h3>
+                  <h3 className="text-base font-semibold mb-4 text-gray-900">
+                    {block.description || 'Tell us about your dream trip'}
+                  </h3>
                   
                   <div className="space-y-3">
+                    {/* Full Name & Email */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       <div>
                         <label className="block text-xs font-medium mb-1 text-gray-700">Full Name *</label>
@@ -4347,86 +4353,158 @@ function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
                         <label className="block text-xs font-medium mb-1 text-gray-700">Email *</label>
                         <input 
                           type="email" 
-                          placeholder="your@email.com" 
+                          placeholder="Your email" 
                           className="w-full p-2 border border-gray-300 rounded bg-white text-sm"
                         />
                       </div>
                     </div>
                     
+                    {/* Country Code & WhatsApp */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                      <div>
+                        <label className="block text-xs font-medium mb-1 text-gray-700">Country Code *</label>
+                        <select className="w-full p-2 border border-gray-300 rounded bg-white text-sm">
+                          <option>🇫🇷 +33</option>
+                          <option>🇹🇭 +66</option>
+                          <option>🇺🇸 +1</option>
+                          <option>🇬🇧 +44</option>
+                          <option>🇩🇪 +49</option>
+                        </select>
+                      </div>
+                      <div className="md:col-span-2">
+                        <label className="block text-xs font-medium mb-1 text-gray-700">WhatsApp Number *</label>
+                        <input 
+                          type="text" 
+                          placeholder="Your WhatsApp number" 
+                          className="w-full p-2 border border-gray-300 rounded bg-white text-sm"
+                        />
+                      </div>
+                    </div>
+                    
+                    {/* Number of Adults & Kids */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       <div>
-                        <label className="block text-xs font-medium mb-1 text-gray-700">Number of Adults *</label>
+                        <label className="block text-xs font-medium mb-1 text-gray-700">Number of adults</label>
                         <select className="w-full p-2 border border-gray-300 rounded bg-white text-sm">
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3+</option>
+                          <option>Select number of adults</option>
+                          <option>1 adult</option>
+                          <option>2 adults</option>
+                          <option>3 adults</option>
+                          <option>4 adults</option>
+                          <option>5 adults</option>
+                          <option>6+ adults</option>
                         </select>
                       </div>
                       <div>
-                        <label className="block text-xs font-medium mb-1 text-gray-700">Travel Dates *</label>
+                        <label className="block text-xs font-medium mb-1 text-gray-700">Number of kids (under 12 years old)</label>
+                        <select className="w-full p-2 border border-gray-300 rounded bg-white text-sm">
+                          <option>Select number of kids</option>
+                          <option>No kids</option>
+                          <option>1 kid</option>
+                          <option>2 kids</option>
+                          <option>3 kids</option>
+                          <option>4 kids</option>
+                          <option>5+ kids</option>
+                        </select>
+                      </div>
+                    </div>
+                    
+                    {/* Dates & Duration */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-xs font-medium mb-1 text-gray-700">Dates of trip</label>
                         <input 
                           type="text" 
-                          placeholder="dd/mm/yyyy" 
+                          placeholder="Select trip dates" 
                           className="w-full p-2 border border-gray-300 rounded bg-white text-sm"
                         />
                       </div>
+                      <div>
+                        <label className="block text-xs font-medium mb-1 text-gray-700">Or approximate duration</label>
+                        <select className="w-full p-2 border border-gray-300 rounded bg-white text-sm">
+                          <option>Select duration</option>
+                          <option>1-3 days</option>
+                          <option>4-7 days</option>
+                          <option>8-14 days</option>
+                          <option>15+ days</option>
+                        </select>
+                      </div>
                     </div>
                     
+                    {/* Trip Types */}
                     <div>
-                      <label className="block text-xs font-medium mb-1 text-gray-700">Trip Types *</label>
-                      <div className="grid grid-cols-2 gap-2">
+                      <label className="block text-xs font-medium mb-2 text-gray-700">Trip Types</label>
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                         <label className="flex items-center text-xs">
                           <input type="checkbox" className="mr-2" />
-                          Adventure
+                          Culture & History
                         </label>
                         <label className="flex items-center text-xs">
                           <input type="checkbox" className="mr-2" />
-                          Cultural
+                          Nature & Adventure
                         </label>
                         <label className="flex items-center text-xs">
                           <input type="checkbox" className="mr-2" />
-                          Beach
+                          Beaches & Islands
                         </label>
                         <label className="flex items-center text-xs">
                           <input type="checkbox" className="mr-2" />
-                          Luxury
+                          Family trip
+                        </label>
+                        <label className="flex items-center text-xs">
+                          <input type="checkbox" className="mr-2" />
+                          Group trip
+                        </label>
+                        <label className="flex items-center text-xs">
+                          <input type="checkbox" className="mr-2" />
+                          Wedding & Honeymoon
                         </label>
                       </div>
                     </div>
                     
+                    {/* Destinations */}
                     <div>
-                      <label className="block text-xs font-medium mb-1 text-gray-700">Destinations *</label>
-                      <div className="grid grid-cols-2 gap-2">
-                        <label className="flex items-center text-xs">
-                          <input type="checkbox" className="mr-2" />
-                          Krabi
-                        </label>
-                        <label className="flex items-center text-xs">
-                          <input type="checkbox" className="mr-2" />
-                          Koh Phi Phi
-                        </label>
+                      <label className="block text-xs font-medium mb-2 text-gray-700">Destinations</label>
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                         <label className="flex items-center text-xs">
                           <input type="checkbox" className="mr-2" />
                           Khao Sok
                         </label>
                         <label className="flex items-center text-xs">
                           <input type="checkbox" className="mr-2" />
-                          Other
+                          Krabi
+                        </label>
+                        <label className="flex items-center text-xs">
+                          <input type="checkbox" className="mr-2" />
+                          Koh Mook
+                        </label>
+                        <label className="flex items-center text-xs">
+                          <input type="checkbox" className="mr-2" />
+                          Bangkok
+                        </label>
+                        <label className="flex items-center text-xs">
+                          <input type="checkbox" className="mr-2" />
+                          Chiang Mai
+                        </label>
+                        <label className="flex items-center text-xs">
+                          <input type="checkbox" className="mr-2" />
+                          Others destinations
                         </label>
                       </div>
                     </div>
                     
+                    {/* Message */}
                     <div>
-                      <label className="block text-xs font-medium mb-1 text-gray-700">Additional Details</label>
+                      <label className="block text-xs font-medium mb-1 text-gray-700">Describe your ideal trip</label>
                       <textarea 
-                        rows={3}
-                        placeholder="Tell us more about your dream trip..." 
+                        rows={4}
+                        placeholder="Tell us what you would like to see and do during your journey..." 
                         className="w-full p-2 border border-gray-300 rounded bg-white text-sm"
                       ></textarea>
                     </div>
                     
                     <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded text-sm font-medium transition-colors">
-                      Send My Custom Trip Request
+                      {config.submitText || 'Send my request'}
                     </button>
                   </div>
                 </div>
