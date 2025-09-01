@@ -3897,61 +3897,283 @@ function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
   const renderBlockContent = (block: PageBlock) => {
     const config = block.configuration as any || {};
 
+    // Tailles uniformes pour TOUS les blocs (proportionnalité parfaite)
+    const BLOCK_HEIGHT = "h-36"; // Hauteur uniforme 144px
+    const TITLE_SIZE = "text-sm font-bold"; // Taille titre uniforme
+    const TEXT_SIZE = "text-xs"; // Taille texte uniforme  
+    const BUTTON_SIZE = "px-2 py-1 text-xs"; // Taille bouton uniforme
+    const SPACING = "p-3"; // Espacement uniforme
+
     switch (block.blockType) {
-      case 'video_hero':
-        // Bloc 1 : Hero principal - Version réduite pour l'éditeur
+      case 'hero_video':
+        // BLOC 1: Video Hero (équivalent Hero.tsx)
         return (
-          <div className="relative bg-cover bg-center text-white rounded-lg overflow-hidden h-48" 
+          <div className={`relative bg-cover bg-center text-white rounded-lg overflow-hidden ${BLOCK_HEIGHT}`}
                style={{ backgroundImage: 'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("/attached_assets/krabi-hero.jpg")' }}>
-            
-            {/* Contenu réduit par-dessus l'image */}
-            <div className="relative z-10 flex flex-col justify-center items-start p-4 h-full">
-              <h1 className="text-lg font-bold mb-2 leading-tight">
+            <div className={`relative z-10 flex flex-col justify-center items-start ${SPACING} h-full`}>
+              <h1 className={`${TITLE_SIZE} mb-1 leading-tight text-white`}>
                 Your exclusive experiences<br />
                 <span className="text-blue-400">in Krabi</span> — THAILAND
               </h1>
-              <p className="text-xs mb-2 max-w-xs opacity-90">
+              <p className={`${TEXT_SIZE} mb-2 max-w-xs opacity-90 text-white`}>
                 Discover amazing places away from mass tourism...
               </p>
-              <div className="flex gap-2">
-                <button className="bg-blue-600 text-white px-3 py-1 rounded text-xs">
+              <div className="flex gap-1">
+                <button className={`bg-blue-600 text-white ${BUTTON_SIZE} rounded hover:bg-blue-700`}>
                   See our offers
                 </button>
-                <button className="bg-blue-600 text-white px-3 py-1 rounded text-xs">
+                <button className={`bg-blue-600 text-white ${BUTTON_SIZE} rounded hover:bg-blue-700`}>
                   Custom your trip
                 </button>
               </div>
             </div>
-            
-            {/* Indicateur de type de bloc */}
-            <div className="absolute top-2 right-2 bg-black bg-opacity-50 text-white px-2 py-1 rounded text-xs">
-              🏠 Hero Principal
+            <div className="absolute top-1 right-1 bg-black/50 text-white px-1 py-0.5 rounded text-xs">
+              Video Hero
             </div>
           </div>
         );
 
-      case 'hero':
-        const bgColor = block.backgroundColor?.includes('gradient') ? block.backgroundColor : 'bg-gradient-to-r from-blue-500 to-purple-600';
+      case 'text_section':
+        // BLOC 2: Text Section (section "When expats welcome you")
         return (
-          <div className={`text-center text-white p-8 rounded-lg ${bgColor}`}>
-            <h1 className="text-3xl font-bold mb-4">{block.title}</h1>
-            <p className="text-lg opacity-90 mb-6">{block.subtitle}</p>
-            {block.description && <p className="mb-6 opacity-80">{block.description}</p>}
-            {block.ctaText && (
-              <button className="bg-white text-blue-600 px-6 py-2 rounded-lg font-medium">
-                {block.ctaText}
-              </button>
-            )}
+          <div className={`bg-white ${SPACING} text-center rounded-lg border ${BLOCK_HEIGHT} flex flex-col justify-center`}>
+            <h2 className={`${TITLE_SIZE} mb-1`}>When expats welcome you in their host country</h2>
+            <div className="w-6 h-0.5 bg-yellow-500 mx-auto mb-2"></div>
+            <p className={`${TEXT_SIZE} text-gray-700 leading-relaxed`}>
+              This is a family-run travel agency that combines the organization of exclusive activities 
+              with the creation of tailor-made trips throughout the country...
+            </p>
+            <div className="absolute top-1 right-1 bg-gray-500 text-white px-1 py-0.5 rounded text-xs">
+              Text Section
+            </div>
           </div>
         );
 
-      case 'advantages':
-        // Bloc 6 : "Why Choose Us" - Version réduite avec 3 cartes compactes
-        const features = config.features || [
-          { 
-            title: 'Private Tours', 
-            description: 'Experience an exclusive day trip with our professional guides.',
-            subFeatures: [
+      case 'tours_grid':
+        // BLOC 3: Tours Grid (section "Our Popular Experiences")
+        return (
+          <div className={`bg-white ${SPACING} rounded-lg border ${BLOCK_HEIGHT} flex flex-col relative`}>
+            <div className="text-center mb-2">
+              <h2 className={`${TITLE_SIZE} mb-1`}>Our Popular Experiences</h2>
+              <div className="w-6 h-0.5 bg-yellow-500 mx-auto mb-1"></div>
+              <p className={`${TEXT_SIZE} text-gray-600`}>Step off the beaten path into curated experiences</p>
+            </div>
+            
+            <div className="grid grid-cols-3 gap-1 mb-2 flex-1">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="bg-gradient-to-br from-blue-200 to-blue-300 rounded flex items-center justify-center relative">
+                  <div className="text-center">
+                    <div className="w-4 h-3 bg-blue-400 rounded mx-auto mb-1 opacity-80"></div>
+                    <p className="text-xs text-blue-800 font-medium">Tour {i}</p>
+                  </div>
+                  <div className="absolute top-0.5 right-0.5 bg-white/90 px-1 rounded text-xs">1j</div>
+                </div>
+              ))}
+            </div>
+            
+            <div className="text-center">
+              <button className={`bg-blue-600 text-white ${BUTTON_SIZE} rounded hover:bg-blue-700`}>
+                View All Tours
+              </button>
+            </div>
+            <div className="absolute top-1 right-1 bg-blue-500 text-white px-1 py-0.5 rounded text-xs">
+              Tours Grid
+            </div>
+          </div>
+        );
+
+      case 'form_section':
+        // BLOC 4: Form Section (CustomTourForm.tsx)
+        return (
+          <div className={`bg-blue-50 ${SPACING} rounded-lg border border-blue-200 ${BLOCK_HEIGHT} flex flex-col relative`}>
+            <div className="text-center mb-2">
+              <h2 className={`${TITLE_SIZE} text-blue-900 mb-1`}>Create Your Custom Trip</h2>
+              <p className={`${TEXT_SIZE} text-blue-700 mb-2`}>
+                Tell us your desires and we'll create a unique journey just for you.
+              </p>
+            </div>
+            
+            <div className="space-y-1 flex-1">
+              <div className="flex gap-1">
+                <input className={`flex-1 px-1 py-0.5 ${TEXT_SIZE} border rounded`} placeholder="Destination" />
+                <input className={`flex-1 px-1 py-0.5 ${TEXT_SIZE} border rounded`} placeholder="Dates" />
+              </div>
+              <input className={`w-full px-1 py-0.5 ${TEXT_SIZE} border rounded`} placeholder="Budget" />
+              <textarea className={`w-full px-1 py-0.5 ${TEXT_SIZE} border rounded h-6 resize-none`} placeholder="Tell us about your dream trip..."></textarea>
+              <button className={`w-full bg-blue-600 text-white ${BUTTON_SIZE} rounded hover:bg-blue-700`}>
+                Send Request
+              </button>
+            </div>
+            <div className="absolute top-1 right-1 bg-blue-600 text-white px-1 py-0.5 rounded text-xs">
+              Form Section
+            </div>
+          </div>
+        );
+
+      case 'tours_suggestions':
+        // BLOC 5: Tours Suggestions (TourNinjaSection.tsx)
+        return (
+          <div className={`bg-gray-50 ${SPACING} rounded-lg border ${BLOCK_HEIGHT} flex flex-col relative`}>
+            <div className="text-center mb-2">
+              <h2 className={`${TITLE_SIZE} mb-1`}>Some Ideas For Your Next Trip</h2>
+              <div className="w-6 h-0.5 bg-yellow-500 mx-auto mb-1"></div>
+              <p className={`${TEXT_SIZE} text-gray-600`}>Get inspired by our custom-designed travel experiences</p>
+            </div>
+            
+            <div className="grid grid-cols-3 gap-1 flex-1">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="bg-white rounded shadow-sm overflow-hidden">
+                  <div className="relative bg-blue-400 h-8 flex items-center justify-center text-white">
+                    <div className="absolute top-0.5 right-0.5 bg-white text-blue-600 px-1 py-0.5 rounded text-xs">
+                      ฿2,500
+                    </div>
+                    <p className="text-xs">Krabi</p>
+                  </div>
+                  <div className="p-1">
+                    <h3 className="text-xs font-medium text-gray-900 mb-1">
+                      Day trip {i}
+                    </h3>
+                    <div className="flex items-center text-xs text-gray-500">
+                      <span>📍 Krabi</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="absolute top-1 right-1 bg-gray-600 text-white px-1 py-0.5 rounded text-xs">
+              Tours Suggestions
+            </div>
+          </div>
+        );
+
+      case 'icons_section':
+        // BLOC 6: Icons Section (Features.tsx - "Why Choose Us")
+        return (
+          <div className={`bg-neutral-100 ${SPACING} rounded-lg border ${BLOCK_HEIGHT} flex flex-col relative`}>
+            <div className="text-center mb-2">
+              <h2 className={`${TITLE_SIZE} mb-1`}>Why Choose Us</h2>
+              <div className="w-6 h-0.5 bg-yellow-500 mx-auto mb-1"></div>
+              <p className={`${TEXT_SIZE} text-gray-600`}>Experience exclusive private day trips with certified guides</p>
+            </div>
+            
+            <div className="grid grid-cols-3 gap-2 flex-1">
+              {[
+                { title: 'Private Tours', icon: '👥' },
+                { title: 'Customized', icon: '🧭' },
+                { title: 'Authentic', icon: '✨' }
+              ].map((feature, i) => (
+                <div key={i} className="text-center bg-white rounded p-1">
+                  <div className="w-6 h-6 bg-blue-600 rounded-full mx-auto mb-1 flex items-center justify-center">
+                    <span className="text-white text-xs">{feature.icon}</span>
+                  </div>
+                  <h3 className="text-xs font-bold mb-1">{feature.title}</h3>
+                  <div className="flex gap-1 justify-center">
+                    {[1, 2, 3].map((j) => (
+                      <div key={j} className="w-3 h-3 bg-blue-100 rounded flex items-center justify-center">
+                        <div className="w-1 h-1 bg-blue-600 rounded"></div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="absolute top-1 right-1 bg-green-600 text-white px-1 py-0.5 rounded text-xs">
+              Icons Section
+            </div>
+          </div>
+        );
+
+      case 'text_image':
+        // BLOC 7: Text + Image (About.tsx - "Who We Are")
+        return (
+          <div className={`bg-white ${SPACING} rounded-lg border ${BLOCK_HEIGHT} flex flex-col relative`}>
+            <div className="text-center mb-2">
+              <h2 className={`${TITLE_SIZE} mb-1`}>Who We Are</h2>
+              <div className="w-6 h-0.5 bg-yellow-500 mx-auto mb-1"></div>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-2 flex-1">
+              <div>
+                <p className={`${TEXT_SIZE} text-gray-700 mb-1`}>
+                  We are Éric, Margaux, Gabriel, and Raphaël, a French family living in Krabi since 2013.
+                </p>
+                <h3 className="text-xs font-bold mb-1">Deep Local Roots</h3>
+                <p className={`${TEXT_SIZE} text-gray-700`}>
+                  We live here year-round, offering exclusive experiences...
+                </p>
+              </div>
+              <div className="space-y-1">
+                <div className="bg-blue-200 h-8 rounded flex items-center justify-center">
+                  <span className="text-gray-600 text-xs">Family photo</span>
+                </div>
+                <div className="bg-blue-200 h-8 rounded flex items-center justify-center">
+                  <span className="text-gray-600 text-xs">Team photo</span>
+                </div>
+              </div>
+            </div>
+            <div className="absolute top-1 right-1 bg-purple-600 text-white px-1 py-0.5 rounded text-xs">
+              Text + Image
+            </div>
+          </div>
+        );
+
+      case 'reviews_section':
+        // BLOC 8: Reviews Section (Testimonials.tsx avec fond bleu)
+        return (
+          <div className={`bg-blue-600 ${SPACING} text-white rounded-lg ${BLOCK_HEIGHT} flex flex-col relative`}>
+            <div className="text-center mb-2">
+              <h2 className={`${TITLE_SIZE} mb-1 text-white`}>Our Travelers' Reviews</h2>
+              <div className="w-6 h-0.5 bg-yellow-400 mx-auto mb-1"></div>
+              <p className={`${TEXT_SIZE} text-white/90`}>Discover authentic experiences from our clients</p>
+            </div>
+            
+            {/* Container blanc à l'intérieur */}
+            <div className="bg-white rounded p-2 flex-1">
+              <div className="text-center mb-2">
+                <div className="flex justify-center mb-1 text-yellow-400">⭐⭐⭐⭐⭐</div>
+                <div className="text-xs font-bold text-gray-900">5.0 on Google</div>
+                <p className="text-xs text-gray-600">Based on 80 reviews</p>
+              </div>
+              
+              <div className="grid grid-cols-3 gap-1">
+                {[
+                  { name: "Sophie L.", initial: "S" },
+                  { name: "Marco T.", initial: "M" },
+                  { name: "Claire D.", initial: "C" }
+                ].map((testimonial, i) => (
+                  <div key={i} className="bg-gray-50 rounded p-1">
+                    <div className="flex text-yellow-400 mb-1 text-xs">⭐⭐⭐⭐⭐</div>
+                    <p className="text-xs text-gray-700 mb-1">"Amazing experience!"</p>
+                    <div className="flex items-center">
+                      <div className="w-3 h-3 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs mr-1">
+                        {testimonial.initial}
+                      </div>
+                      <span className="text-xs text-gray-900">{testimonial.name}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="absolute top-1 right-1 bg-red-600 text-white px-1 py-0.5 rounded text-xs">
+              Reviews Section
+            </div>
+          </div>
+        );
+
+      default:
+        return (
+          <div className={`bg-gray-100 ${SPACING} rounded-lg border ${BLOCK_HEIGHT} flex flex-col justify-center items-center relative`}>
+            <h3 className={`${TITLE_SIZE} mb-1`}>{block.title || `Bloc ${block.blockType}`}</h3>
+            <p className={`${TEXT_SIZE} text-gray-600`}>{block.description || "Aperçu du contenu du bloc..."}</p>
+            <div className="absolute top-1 right-1 bg-gray-600 text-white px-1 py-0.5 rounded text-xs">
+              {block.blockType}
+            </div>
+          </div>
+        );
+    }
+  };
+  return (
+    <div className="min-h-screen bg-gray-50 p-2 sm:p-4">
               { label: 'Private Car' },
               { label: 'Guide' },
               { label: 'Safety' }
