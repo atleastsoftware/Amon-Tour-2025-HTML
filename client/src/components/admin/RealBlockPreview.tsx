@@ -81,27 +81,27 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
             <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
             <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
             
-            {/* Contenu EXACT du vrai site avec proportions réelles */}
-            <div className="relative h-full flex items-center px-6 py-4">
-              <div className="flex-1 max-w-[70%]">
-                {/* Titre EXACT du vrai site avec taille plus réaliste */}
-                <h1 className="font-heading text-[16px] md:text-[18px] font-bold mb-3 leading-tight text-white drop-shadow-lg">
+            {/* Contenu EXACT du vrai site avec proportions vraiment réelles */}
+            <div className="relative h-full flex items-center px-8 py-6">
+              <div className="flex-1 max-w-[60%]">
+                {/* Titre EXACT du vrai site avec vraie taille */}
+                <h1 className="font-heading text-[22px] md:text-[26px] font-bold mb-4 leading-tight text-white drop-shadow-lg">
                   {block.title || "Your exclusive experiences"} <br/>
                   <span className="text-primary drop-shadow-lg">in Krabi –</span> THAILAND
                 </h1>
                 
-                {/* Description EXACTE du vrai site avec taille lisible */}
-                <p className="text-white/90 mb-4 text-[11px] drop-shadow-md leading-tight">
+                {/* Description EXACTE du vrai site avec vraie taille */}
+                <p className="text-white/90 mb-6 text-[14px] drop-shadow-md leading-relaxed">
                   {block.description || "Discover amazing places away from mass tourism in Krabi."}<br/>
                   And also Khao Sok, Koh Mook and many more destinations.
                 </p>
                 
-                {/* Boutons EXACTS du vrai site avec tailles proportionnelles */}
-                <div className="flex gap-2 mt-4">
-                  <button className="bg-primary text-white text-[9px] px-4 py-2 rounded hover:bg-primary/90 transition-colors shadow-lg font-medium">
+                {/* Boutons EXACTS du vrai site avec vraies tailles */}
+                <div className="flex gap-3 mt-6">
+                  <button className="bg-primary text-white text-[12px] px-6 py-3 rounded hover:bg-primary/90 transition-colors shadow-lg font-medium">
                     See our offers
                   </button>
-                  <button className="bg-primary text-white text-[9px] px-4 py-2 rounded hover:bg-primary/90 transition-colors shadow-lg font-medium">
+                  <button className="bg-primary text-white text-[12px] px-6 py-3 rounded hover:bg-primary/90 transition-colors shadow-lg font-medium">
                     Custom your trip
                   </button>
                 </div>
@@ -298,8 +298,21 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
     }
   };
 
+  // Blocs héros prennent toute la largeur comme sur le vrai site
+  const isHeroBlock = ['hero_main', 'hero', 'video_hero'].includes(block.blockType);
+  const previewHeight = isHeroBlock ? '300px' : '200px';
+  
   return (
-    <div className="relative overflow-hidden rounded-lg border bg-white" style={{ height: '200px', minHeight: '200px', aspectRatio: '16/9' }}>
+    <div 
+      className={`relative overflow-hidden rounded-lg border bg-white ${
+        isHeroBlock ? 'w-full' : ''
+      }`} 
+      style={{ 
+        height: previewHeight, 
+        minHeight: previewHeight,
+        ...(isHeroBlock ? { aspectRatio: '21/9' } : { aspectRatio: '16/9' })
+      }}
+    >
       {renderVisualPreview()}
       <div className="absolute inset-0 bg-transparent pointer-events-none" />
     </div>
