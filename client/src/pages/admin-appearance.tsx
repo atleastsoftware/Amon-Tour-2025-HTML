@@ -2293,10 +2293,10 @@ export default function AdminAppearance() {
                             <button 
                               className="px-4 py-2 text-white transition-all"
                               style={{
-                                backgroundColor: getSiteSetting('theme', 'primary_color') || '#1e73be',
-                                borderRadius: JSON.parse(getSiteSetting('theme', 'button_styles') || '{"border_radius": "8px"}').border_radius,
+                                backgroundColor: tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#1e73be',
+                                borderRadius: tempButtonStyles?.border_radius || JSON.parse(getSiteSetting('theme', 'button_styles') || '{"border_radius": "8px"}').border_radius,
                                 boxShadow: (() => {
-                                  const shadowStyle = JSON.parse(getSiteSetting('theme', 'button_styles') || '{"shadow": "medium"}').shadow;
+                                  const shadowStyle = tempButtonStyles?.shadow || JSON.parse(getSiteSetting('theme', 'button_styles') || '{"shadow": "medium"}').shadow;
                                   const shadows = {
                                     'none': 'none',
                                     'small': '0 1px 2px 0 rgb(0 0 0 / 0.05)',
