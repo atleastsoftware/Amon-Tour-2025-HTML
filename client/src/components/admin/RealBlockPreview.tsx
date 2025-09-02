@@ -220,6 +220,7 @@ interface RealBlockPreviewProps {
   onMoveUp: (id: number) => void;
   onMoveDown: (id: number) => void;
   onToggleVisibility: (id: number) => void;
+  onEditHero?: (id: number) => void;
 }
 
 
@@ -991,7 +992,8 @@ export default function RealBlockPreview({
   onDelete, 
   onMoveUp, 
   onMoveDown, 
-  onToggleVisibility 
+  onToggleVisibility,
+  onEditHero
 }: RealBlockPreviewProps) {
   const [showEditForm, setShowEditForm] = useState(false);
   const [previewData, setPreviewData] = useState(block);
@@ -1087,10 +1089,11 @@ export default function RealBlockPreview({
               size="sm"
               variant="secondary"
               onClick={() => {
-                if (block.identifier === 'hero_main_v2') {
-                  // Passer les données à MiniaturizedComponent pour l'édition Hero
-                  setShowEditForm(!showEditForm);
+                if (block.blockType === 'video_hero' && onEditHero) {
+                  // Utiliser le formulaire Hero spécialisé
+                  onEditHero(block.id);
                 } else {
+                  // Utiliser le formulaire d'édition standard
                   setShowEditForm(!showEditForm);
                 }
               }}
@@ -1150,7 +1153,7 @@ export default function RealBlockPreview({
 
       {/* Formulaire d'édition déroulant avec preview en temps réel */}
       {/* Masquer le formulaire générique pour le Hero qui a son propre formulaire intégré */}
-      {!(showEditForm && block.identifier === 'hero_main_v2') && (
+      {showEditForm && block.blockType !== 'video_hero' && (
         <BlockEditForm
           block={block}
           onSave={handleSaveChanges}

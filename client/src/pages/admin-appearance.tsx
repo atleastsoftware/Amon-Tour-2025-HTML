@@ -1140,6 +1140,31 @@ export default function AdminAppearance() {
     console.log('Toggle visibility block:', blockId);
   };
 
+  // Fonction pour charger les données du bloc Hero
+  const loadHeroData = (block: PageBlock) => {
+    const config = block.configuration || {};
+    setHeroEditData({
+      title: block.title || "Your exclusive experiences\nin Krabi – THAILAND",
+      titleColorPart: config.titleColorPart || "in Krabi –",
+      description: block.description || "Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations.",
+      imageUrl: block.imageUrl || "/attached_assets/DJI_20241115104455_0160_D-min.jpeg",
+      videoUrl: config.videoUrl || "/attached_assets/hero-video-optimized.mp4",
+      button1Text: block.ctaText || "See our offers",
+      button1Url: block.ctaUrl || "/tours",
+      button2Text: config.button2Text || "Custom your trip",
+      button2Url: config.button2Url || "/custom-tour"
+    });
+  };
+
+  // Fonction pour gérer l'édition Hero
+  const handleEditHero = (blockId: number) => {
+    const block = pageBlocks.find(b => b.id === blockId);
+    if (block) {
+      loadHeroData(block);
+      setEditingHeroBlockId(blockId);
+    }
+  };
+
   // Fonction pour sauvegarder les modifications Hero
   const saveHeroChanges = async () => {
     if (!editingHeroBlockId) return;
@@ -3204,7 +3229,16 @@ export default function AdminAppearance() {
                         <p className="text-gray-500">Loading blocks...</p>
                       </div>
                     ) : (
-                      <RealBlocksEditor pageSlug={selectedPage} pageBlocks={pageBlocks} />
+                      <RealBlocksEditor 
+                        pageSlug={selectedPage} 
+                        pageBlocks={pageBlocks}
+                        editingHeroBlockId={editingHeroBlockId}
+                        setEditingHeroBlockId={setEditingHeroBlockId}
+                        heroEditData={heroEditData}
+                        setHeroEditData={setHeroEditData}
+                        saveHeroChanges={saveHeroChanges}
+                        handleEditHero={handleEditHero}
+                      />
                     )}
                   </CardContent>
                 </Card>
@@ -3212,192 +3246,6 @@ export default function AdminAppearance() {
             </div>
           </TabsContent>
 
-          {/* Formulaire d'édition Hero Section */}
-          {editingHeroBlockId && (
-            <div className="mb-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Palette className="w-5 h-5" />
-                    Édition Hero Section
-                  </CardTitle>
-                  <CardDescription>
-                    Modifier le contenu de la section Hero avec prévisualisation en temps réel
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-2 gap-6">
-                    {/* Formulaire d'édition */}
-                    <div className="space-y-4">
-                      <div>
-                        <Label htmlFor="hero-title">Titre Principal</Label>
-                        <Textarea
-                          id="hero-title"
-                          value={heroEditData.title}
-                          onChange={(e) => setHeroEditData(prev => ({ ...prev, title: e.target.value }))}
-                          placeholder="Titre de la section Hero"
-                          rows={2}
-                        />
-                      </div>
-
-                      <div>
-                        <Label htmlFor="hero-colored-part">Partie du titre à colorer</Label>
-                        <Input
-                          id="hero-colored-part"
-                          value={heroEditData.titleColorPart}
-                          onChange={(e) => setHeroEditData(prev => ({ ...prev, titleColorPart: e.target.value }))}
-                          placeholder="Partie du titre en couleur"
-                        />
-                      </div>
-
-                      <div>
-                        <Label htmlFor="hero-description">Description</Label>
-                        <Textarea
-                          id="hero-description"
-                          value={heroEditData.description}
-                          onChange={(e) => setHeroEditData(prev => ({ ...prev, description: e.target.value }))}
-                          placeholder="Description de la section Hero"
-                          rows={3}
-                        />
-                      </div>
-
-                      <div>
-                        <Label htmlFor="hero-image">URL de l'image de fond</Label>
-                        <Input
-                          id="hero-image"
-                          type="url"
-                          value={heroEditData.imageUrl}
-                          onChange={(e) => setHeroEditData(prev => ({ ...prev, imageUrl: e.target.value }))}
-                          placeholder="https://example.com/image.jpg ou /attached_assets/image.jpg"
-                        />
-                      </div>
-
-                      <div>
-                        <Label htmlFor="hero-video">URL de la vidéo de fond (optionnel)</Label>
-                        <Input
-                          id="hero-video"
-                          type="url"
-                          value={heroEditData.videoUrl}
-                          onChange={(e) => setHeroEditData(prev => ({ ...prev, videoUrl: e.target.value }))}
-                          placeholder="https://example.com/video.mp4 ou /attached_assets/video.mp4"
-                        />
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-4">
-                        <div>
-                          <Label htmlFor="hero-button1-text">Bouton 1 - Texte</Label>
-                          <Input
-                            id="hero-button1-text"
-                            value={heroEditData.button1Text}
-                            onChange={(e) => setHeroEditData(prev => ({ ...prev, button1Text: e.target.value }))}
-                            placeholder="Texte du premier bouton"
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="hero-button1-url">Bouton 1 - Lien</Label>
-                          <Input
-                            id="hero-button1-url"
-                            value={heroEditData.button1Url}
-                            onChange={(e) => setHeroEditData(prev => ({ ...prev, button1Url: e.target.value }))}
-                            placeholder="/lien-du-bouton"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-4">
-                        <div>
-                          <Label htmlFor="hero-button2-text">Bouton 2 - Texte</Label>
-                          <Input
-                            id="hero-button2-text"
-                            value={heroEditData.button2Text}
-                            onChange={(e) => setHeroEditData(prev => ({ ...prev, button2Text: e.target.value }))}
-                            placeholder="Texte du deuxième bouton"
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="hero-button2-url">Bouton 2 - Lien</Label>
-                          <Input
-                            id="hero-button2-url"
-                            value={heroEditData.button2Url}
-                            onChange={(e) => setHeroEditData(prev => ({ ...prev, button2Url: e.target.value }))}
-                            placeholder="/lien-du-bouton-2"
-                          />
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Prévisualisation en temps réel */}
-                    <div>
-                      <Label>Prévisualisation en temps réel</Label>
-                      <div className="border rounded-lg p-4 bg-gray-50 overflow-hidden">
-                        <div 
-                          className="relative min-h-[300px] flex items-center justify-center text-white"
-                          style={{
-                            backgroundImage: heroEditData.imageUrl ? `url(${heroEditData.imageUrl})` : 'linear-gradient(135deg, #1e73be 0%, #0066cc 100%)',
-                            backgroundSize: 'cover',
-                            backgroundPosition: 'center',
-                            borderRadius: '8px'
-                          }}
-                        >
-                          {/* Overlay sombre */}
-                          <div className="absolute inset-0 bg-black bg-opacity-40 rounded-lg"></div>
-                          
-                          {/* Contenu de prévisualisation */}
-                          <div className="relative z-10 text-center max-w-2xl px-6">
-                            <h1 className="text-2xl font-bold mb-4">
-                              {heroEditData.title.split(heroEditData.titleColorPart).map((part, index) => (
-                                <span key={index}>
-                                  {index === 1 && heroEditData.titleColorPart ? (
-                                    <>
-                                      <span className="text-yellow-400">{heroEditData.titleColorPart}</span>
-                                      {part}
-                                    </>
-                                  ) : part}
-                                </span>
-                              ))}
-                            </h1>
-                            
-                            <p className="text-lg mb-6 opacity-90">
-                              {heroEditData.description}
-                            </p>
-                            
-                            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                              <button 
-                                className="px-6 py-3 bg-yellow-500 text-black font-semibold rounded-lg hover:bg-yellow-400 transition-colors"
-                              >
-                                {heroEditData.button1Text}
-                              </button>
-                              <button 
-                                className="px-6 py-3 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-black transition-colors"
-                              >
-                                {heroEditData.button2Text}
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Actions du formulaire */}
-                  <div className="flex justify-end gap-4 mt-6 pt-4 border-t">
-                    <Button
-                      variant="outline"
-                      onClick={() => setEditingHeroBlockId(null)}
-                    >
-                      Annuler
-                    </Button>
-                    <Button
-                      onClick={saveHeroChanges}
-                      className="bg-blue-600 hover:bg-blue-700"
-                    >
-                      Sauvegarder les modifications
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          )}
 
           {/* Footer Management */}
           <TabsContent value="footer">
@@ -4163,7 +4011,25 @@ function MenuItemDialog({
 }
 
 // Nouveau composant avec prévisualisations réelles et édition in-line
-function RealBlocksEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBlocks: PageBlock[] }) {
+function RealBlocksEditor({ 
+  pageSlug, 
+  pageBlocks, 
+  editingHeroBlockId, 
+  setEditingHeroBlockId, 
+  heroEditData, 
+  setHeroEditData, 
+  saveHeroChanges,
+  handleEditHero
+}: { 
+  pageSlug: string; 
+  pageBlocks: PageBlock[];
+  editingHeroBlockId: number | null;
+  setEditingHeroBlockId: (id: number | null) => void;
+  heroEditData: HeroEditData;
+  setHeroEditData: React.Dispatch<React.SetStateAction<HeroEditData>>;
+  saveHeroChanges: () => Promise<void>;
+  handleEditHero: (blockId: number) => void;
+}) {
   const queryClient = useQueryClient();
 
   // Mutations pour les opérations sur les blocs
@@ -4279,15 +4145,204 @@ function RealBlocksEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
   return (
     <div className="space-y-4">
       {pageBlocks.map((block) => (
-        <RealBlockPreview
-          key={block.id}
-          block={block}
-          onUpdate={handleUpdateBlock}
-          onDelete={handleDeleteBlock}
-          onMoveUp={handleMoveUp}
-          onMoveDown={handleMoveDown}
-          onToggleVisibility={handleToggleVisibility}
-        />
+        <div key={block.id}>
+          <RealBlockPreview
+            block={block}
+            onUpdate={handleUpdateBlock}
+            onDelete={handleDeleteBlock}
+            onMoveUp={handleMoveUp}
+            onMoveDown={handleMoveDown}
+            onToggleVisibility={handleToggleVisibility}
+            onEditHero={block.blockType === 'video_hero' ? handleEditHero : undefined}
+          />
+          
+          {/* Formulaire d'édition Hero Section */}
+          {editingHeroBlockId === block.id && block.blockType === 'video_hero' && (
+            <div className="mt-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Palette className="w-5 h-5" />
+                    Édition Hero Section
+                  </CardTitle>
+                  <CardDescription>
+                    Modifier le contenu de la section Hero avec prévisualisation en temps réel
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-2 gap-6">
+                    {/* Formulaire d'édition */}
+                    <div className="space-y-4">
+                      <div>
+                        <Label htmlFor="hero-title">Titre Principal</Label>
+                        <Textarea
+                          id="hero-title"
+                          value={heroEditData.title}
+                          onChange={(e) => setHeroEditData(prev => ({ ...prev, title: e.target.value }))}
+                          placeholder="Titre de la section Hero"
+                          rows={2}
+                        />
+                      </div>
+
+                      <div>
+                        <Label htmlFor="hero-colored-part">Partie du titre à colorer</Label>
+                        <Input
+                          id="hero-colored-part"
+                          value={heroEditData.titleColorPart}
+                          onChange={(e) => setHeroEditData(prev => ({ ...prev, titleColorPart: e.target.value }))}
+                          placeholder="Partie du titre en couleur"
+                        />
+                      </div>
+
+                      <div>
+                        <Label htmlFor="hero-description">Description</Label>
+                        <Textarea
+                          id="hero-description"
+                          value={heroEditData.description}
+                          onChange={(e) => setHeroEditData(prev => ({ ...prev, description: e.target.value }))}
+                          placeholder="Description de la section Hero"
+                          rows={3}
+                        />
+                      </div>
+
+                      <div>
+                        <Label htmlFor="hero-image">URL de l'image de fond</Label>
+                        <Input
+                          id="hero-image"
+                          type="url"
+                          value={heroEditData.imageUrl}
+                          onChange={(e) => setHeroEditData(prev => ({ ...prev, imageUrl: e.target.value }))}
+                          placeholder="https://example.com/image.jpg ou /attached_assets/image.jpg"
+                        />
+                      </div>
+
+                      <div>
+                        <Label htmlFor="hero-video">URL de la vidéo de fond (optionnel)</Label>
+                        <Input
+                          id="hero-video"
+                          type="url"
+                          value={heroEditData.videoUrl}
+                          onChange={(e) => setHeroEditData(prev => ({ ...prev, videoUrl: e.target.value }))}
+                          placeholder="https://example.com/video.mp4 ou /attached_assets/video.mp4"
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <Label htmlFor="hero-button1-text">Bouton 1 - Texte</Label>
+                          <Input
+                            id="hero-button1-text"
+                            value={heroEditData.button1Text}
+                            onChange={(e) => setHeroEditData(prev => ({ ...prev, button1Text: e.target.value }))}
+                            placeholder="Texte du premier bouton"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="hero-button1-url">Bouton 1 - Lien</Label>
+                          <Input
+                            id="hero-button1-url"
+                            value={heroEditData.button1Url}
+                            onChange={(e) => setHeroEditData(prev => ({ ...prev, button1Url: e.target.value }))}
+                            placeholder="/lien-du-bouton"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <Label htmlFor="hero-button2-text">Bouton 2 - Texte</Label>
+                          <Input
+                            id="hero-button2-text"
+                            value={heroEditData.button2Text}
+                            onChange={(e) => setHeroEditData(prev => ({ ...prev, button2Text: e.target.value }))}
+                            placeholder="Texte du deuxième bouton"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="hero-button2-url">Bouton 2 - Lien</Label>
+                          <Input
+                            id="hero-button2-url"
+                            value={heroEditData.button2Url}
+                            onChange={(e) => setHeroEditData(prev => ({ ...prev, button2Url: e.target.value }))}
+                            placeholder="/lien-du-bouton-2"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Prévisualisation en temps réel */}
+                    <div>
+                      <Label>Prévisualisation en temps réel</Label>
+                      <div className="border rounded-lg p-4 bg-gray-50 overflow-hidden">
+                        <div 
+                          className="relative min-h-[300px] flex items-center justify-center text-white"
+                          style={{
+                            backgroundImage: heroEditData.imageUrl ? `url(${heroEditData.imageUrl})` : 'linear-gradient(135deg, #1e73be 0%, #0066cc 100%)',
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                            borderRadius: '8px'
+                          }}
+                        >
+                          {/* Overlay sombre */}
+                          <div className="absolute inset-0 bg-black bg-opacity-40 rounded-lg"></div>
+                          
+                          {/* Contenu de prévisualisation */}
+                          <div className="relative z-10 text-center max-w-2xl px-6">
+                            <h1 className="text-2xl font-bold mb-4">
+                              {heroEditData.title.split(heroEditData.titleColorPart).map((part, index) => (
+                                <span key={index}>
+                                  {index === 1 && heroEditData.titleColorPart ? (
+                                    <>
+                                      <span className="text-yellow-400">{heroEditData.titleColorPart}</span>
+                                      {part}
+                                    </>
+                                  ) : part}
+                                </span>
+                              ))}
+                            </h1>
+                            
+                            <p className="text-lg mb-6 opacity-90">
+                              {heroEditData.description}
+                            </p>
+                            
+                            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                              <button 
+                                className="px-6 py-3 bg-yellow-500 text-black font-semibold rounded-lg hover:bg-yellow-400 transition-colors"
+                              >
+                                {heroEditData.button1Text}
+                              </button>
+                              <button 
+                                className="px-6 py-3 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-black transition-colors"
+                              >
+                                {heroEditData.button2Text}
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Actions du formulaire */}
+                  <div className="flex justify-end gap-4 mt-6 pt-4 border-t">
+                    <Button
+                      variant="outline"
+                      onClick={() => setEditingHeroBlockId(null)}
+                    >
+                      Annuler
+                    </Button>
+                    <Button
+                      onClick={saveHeroChanges}
+                      className="bg-blue-600 hover:bg-blue-700"
+                    >
+                      Sauvegarder les modifications
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+        </div>
       ))}
       
       {/* Bouton pour ajouter un nouveau bloc */}
