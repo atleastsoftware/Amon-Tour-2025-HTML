@@ -62,7 +62,7 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
       case 'hero':
       case 'video_hero':
         return (
-          <div className="w-full" style={{ height: '600px' }}>
+          <div className="w-full" style={{ height: '800px' }}>
             <iframe 
               src={`/preview/hero?t=${Date.now()}`} 
               className="w-full h-full border-0 rounded-lg overflow-hidden"
