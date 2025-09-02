@@ -69,7 +69,7 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
                   transform: 'scale(0.5)', 
                   transformOrigin: 'top left',
                   width: '200%', 
-                  height: '1000px'
+                  height: '900px'
                 }}
               >
                 <section className="relative pt-32 pb-20 min-h-screen flex items-center overflow-hidden">
@@ -940,9 +940,9 @@ export default function RealBlockPreview({
 
       {/* Prévisualisation visuelle miniaturisée et fidèle */}
       <div className="relative overflow-hidden bg-white" style={{ 
-        height: block.identifier === 'hero_main_v2' ? '500px' : 
+        height: block.identifier === 'hero_main_v2' ? '450px' : 
                 block.blockType.includes('hero') ? '800px' : '300px',
-        minHeight: '500px'
+        minHeight: block.identifier === 'hero_main_v2' ? '450px' : '300px'
       }}>
         <div className={block.blockType.includes('hero') ? "w-full h-full" : "transform scale-90 origin-top-left w-[111.11%] h-[111.11%]"}>
           <MiniaturizedComponent block={showEditForm ? previewData : block} />
