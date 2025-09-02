@@ -29,7 +29,7 @@ const SECTION_DEFINITIONS = {
   // Hero Sections - Grande hauteur avec média
   hero_main_v2: { 
     type: 'fullscreen', 
-    originalHeight: 650, 
+    originalHeight: 768, 
     expectedRatio: 'wide',
     contentDensity: 'sparse' 
   },
@@ -129,9 +129,9 @@ const PreviewWrapper = ({ identifier, children }: { identifier: string, children
   const scaleSettings = calculateOptimalPreviewScale(identifier, 450);
   
   if (identifier === 'hero_main_v2') {
-    // HERO: APPROCHE SPÉCIALE - CONTENEUR RÉDUIT SANS ESPACE BLANC
+    // HERO: APPROCHE SPÉCIALE - REMPLISSAGE TOTAL DU CONTENEUR PARENT
     return (
-      <div className="relative w-full h-[320px] overflow-hidden bg-gray-900">
+      <div className="relative w-full h-full overflow-hidden bg-gray-900">
         {/* Background étendu à tout le conteneur */}
         <div className="absolute inset-0 w-full h-full">
           <img
@@ -234,10 +234,10 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
           // WRAPPER UNIVERSEL APPLIQUÉ - BACKGROUND ÉTENDU AU CONTENEUR COMPLET
           return (
             <PreviewWrapper identifier="hero_main_v2">
-              <section className="relative pt-0 pb-0 h-full flex items-center overflow-hidden">
-                  {/* Content EXACT AVEC ANIMATION MOTION - MARGES RÉDUITES */}
-                  <div className="container mx-auto px-2 relative z-10">
-                    <div className="flex flex-col md:flex-row items-center gap-4">
+              <section className="relative pt-32 pb-20 min-h-screen flex items-center overflow-hidden">
+                  {/* Content EXACT AVEC ANIMATION MOTION - BACKGROUND GÉRÉ PAR WRAPPER */}
+                  <div className="container mx-auto px-4 relative z-10">
+                    <div className="flex flex-col md:flex-row items-center gap-10">
                       <div className="w-full">
                         <motion.div
                           initial={{ opacity: 0, y: 20 }}
@@ -1088,7 +1088,7 @@ export default function RealBlockPreview({
         </div>
       </div>
 
-      {/* Prévisualisation visuelle miniaturisée et fidèle */}
+      {/* Prévisualisation visuelle miniaturisée et fidèle - PADDING ÉLIMINÉ */}
       <div className="relative overflow-hidden bg-white" style={{ 
         height: block.identifier === 'hero_main_v2' ? '450px' : 
                 block.blockType.includes('hero') ? '800px' : '300px',
