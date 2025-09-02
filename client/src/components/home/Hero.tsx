@@ -58,8 +58,11 @@ export default function Hero() {
     
     console.log('Connection quality:', quality, 'Mobile:', mobile);
     
-    // Charger la vidéo plus librement - seulement éviter sur les très mauvaises connexions
-    const shouldLoad = !(IS_PRODUCTION && DISABLE_VIDEO_IN_PRODUCTION) && quality !== 'slow' && quality !== 'limited';
+    // Ne charger la vidéo que si :
+    // - La vidéo n'est pas désactivée en production
+    // - ET la connexion est bonne ET ce n'est pas un mobile
+    // - OU si l'utilisateur a explicitement une bonne connexion
+    const shouldLoad = !(IS_PRODUCTION && DISABLE_VIDEO_IN_PRODUCTION) && quality === 'good' && !mobile;
     
     if (shouldLoad) {
       // Delay video loading to improve initial page load
@@ -85,7 +88,7 @@ export default function Hero() {
     }
   }, []);
   return (
-    <section id="hero" className="relative pt-20 pb-16 min-h-screen flex items-center justify-center overflow-hidden">
+    <section id="hero" className="relative pt-32 pb-20 min-h-screen flex items-center overflow-hidden">
       {/* Video Background Section with Fallback Image */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
         {/* Fallback Image */}
@@ -171,9 +174,9 @@ export default function Hero() {
         {/* Additional overlay for better text readability */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
       </div>
-      <div className="container mx-auto px-4 relative z-10 flex items-center justify-center min-h-[80vh]">
-        <div className="flex flex-col items-center justify-center text-center max-w-4xl mx-auto">
-          {/* Content - Title and description */}
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="flex flex-col md:flex-row items-center gap-10">
+          {/* Left content - Title and description */}
           <div className="w-full">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -190,29 +193,29 @@ export default function Hero() {
                   }
                 }
               }}
-              className="max-w-4xl mx-auto"
+              className="max-w-xl"
             >
-              <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight text-white drop-shadow-lg text-center">
+              <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight text-white drop-shadow-lg">
                 Your exclusive experiences <br/>
                 <span className="text-primary drop-shadow-lg">in Krabi – </span>THAILAND
               </h1>
               
-              <p className="text-white/90 mb-8 text-lg drop-shadow-md text-center max-w-2xl mx-auto">
+              <p className="text-white/90 mb-8 text-lg drop-shadow-md">
                 Discover amazing places away from mass tourism in Krabi.<br/>
                 And also Khao Sok, Koh Mook and many more destinations.
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/tours">
                   <motion.span 
-                    className="bg-primary text-white px-8 py-3 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg"
+                    className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.98 }}
                   >See our offers</motion.span>
                 </Link>
                 <Link href="/custom-tour">
                   <motion.span 
-                    className="bg-primary text-white px-8 py-3 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg"
+                    className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.98 }}
                   >Custom your trip</motion.span>
