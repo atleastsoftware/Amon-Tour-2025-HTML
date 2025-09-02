@@ -63,10 +63,11 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
       case 'video_hero':
         return (
           <iframe 
-            src="/preview/hero" 
+            src={`/preview/hero?t=${Date.now()}`} 
             className="w-full border-0 rounded-lg overflow-hidden"
-            style={{ height: '1500px' }}
+            style={{ height: '700px' }}
             title="Hero Section Preview"
+            key={Date.now()}
           />
         );
         
