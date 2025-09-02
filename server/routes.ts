@@ -2886,7 +2886,7 @@ Crawl-delay: 1`;
         
         <!-- Content EXACT du vrai Hero.tsx -->
         <div class="container mx-auto px-4 relative z-10">
-            <div class="flex flex-col md:flex-row items-center gap-10">
+            <div class="flex flex-col md:flex-row items-start gap-10">
                 <div class="w-full">
                     <div class="max-w-xl">
                         <h1 class="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight text-white drop-shadow-lg">
