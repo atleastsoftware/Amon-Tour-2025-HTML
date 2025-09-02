@@ -85,23 +85,23 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
             </div>
             
             {/* Content */}
-            <div className="relative z-10 h-full flex items-center px-6">
-              <div className="w-full max-w-2xl">
-                <h1 className="font-heading text-lg md:text-xl lg:text-2xl mb-2 leading-tight tracking-tight text-white drop-shadow-lg">
+            <div className="relative z-10 h-full flex items-center px-4 py-6">
+              <div className="w-full max-w-xl">
+                <h1 className="font-heading text-xl md:text-2xl mb-3 leading-tight tracking-tight text-white drop-shadow-lg">
                   Your exclusive experiences<br/>
                   <span className="text-blue-400 drop-shadow-lg">in Krabi – </span>THAILAND
                 </h1>
                 
-                <p className="text-white/90 mb-3 text-xs drop-shadow-md">
+                <p className="text-white/90 mb-4 text-sm drop-shadow-md leading-relaxed">
                   Discover amazing places away from mass tourism in Krabi.<br/>
                   And also Khao Sok, Koh Mook and many more destinations.
                 </p>
                 
-                <div className="flex flex-col sm:flex-row gap-2">
-                  <div className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition-colors cursor-pointer inline-block shadow-lg text-xs">
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <div className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors cursor-pointer inline-block shadow-lg text-sm font-medium">
                     See our offers
                   </div>
-                  <div className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition-colors cursor-pointer inline-block shadow-lg text-xs">
+                  <div className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors cursor-pointer inline-block shadow-lg text-sm font-medium">
                     Custom your trip
                   </div>
                 </div>
@@ -906,7 +906,10 @@ export default function RealBlockPreview({
       </div>
 
       {/* Prévisualisation visuelle miniaturisée et fidèle */}
-      <div className="relative overflow-hidden bg-white" style={{ height: block.blockType.includes('hero') ? '800px' : '300px' }}>
+      <div className="relative overflow-hidden bg-white" style={{ 
+        height: block.identifier === 'hero_main_v2' ? '400px' : 
+                block.blockType.includes('hero') ? '800px' : '300px' 
+      }}>
         <div className={block.blockType.includes('hero') ? "w-full h-full" : "transform scale-90 origin-top-left w-[111.11%] h-[111.11%]"}>
           <MiniaturizedComponent block={showEditForm ? previewData : block} />
         </div>
