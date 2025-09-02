@@ -249,6 +249,12 @@ function MiniaturizedComponent({
 }) {
   // État pour l'édition Hero
   const [isEditingHero, setIsEditingHero] = useState(false);
+  
+  // Synchroniser l'état d'édition avec la prop isEditing
+  useEffect(() => {
+    console.log('🎯 Hero editing state changed:', { isEditing, blockId: block.identifier });
+    setIsEditingHero(isEditing);
+  }, [isEditing, block.identifier]);
   const [heroEditData, setHeroEditData] = useState<HeroEditData>({
     title: "Your exclusive experiences\nin Krabi – THAILAND",
     titleColorPart: "in Krabi –",
@@ -397,7 +403,7 @@ function MiniaturizedComponent({
                 </section>
                 
                 {/* Formulaire d'édition Hero */}
-                {isEditing && (
+                {isEditingHero && (
                   <div className="bg-white border-t border-gray-200 p-8 space-y-6">
                     <h3 className="text-xl font-semibold text-gray-800 mb-6 border-b pb-3">Édition Hero Section</h3>
                     
@@ -556,6 +562,7 @@ function MiniaturizedComponent({
                       <Button 
                         variant="outline"
                         onClick={() => {
+                          console.log('🚫 Annulation Hero');
                           setIsEditingHero(false);
                           onCancel();
                         }}
@@ -1348,8 +1355,9 @@ export default function RealBlockPreview({
               size="sm"
               variant="secondary"
               onClick={() => {
+                console.log('🔧 Bouton Modifier cliqué:', { blockId: block.identifier, currentState: showEditForm });
                 if (block.identifier === 'hero_main_v2') {
-                  // Passer les données à MiniaturizedComponent pour l'édition Hero
+                  console.log('🎯 Hero détecté - activation du formulaire spécialisé');
                   setShowEditForm(!showEditForm);
                 } else {
                   setShowEditForm(!showEditForm);
