@@ -88,26 +88,26 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
                 <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
               </div>
               
-              {/* Content POSITIONNÉ BAS + TAILLES SITE RÉEL PROPORTIONNELLES */}
+              {/* Content AVEC ANIMATION COMME LE SITE RÉEL */}
               <div className="relative z-10 px-6 pt-16 pb-8 flex-1 flex items-center justify-start">
                 <div className="w-full">
-                  <div className="max-w-lg">
-                    <h1 className="font-heading text-2xl md:text-3xl lg:text-4xl mb-5 leading-relaxed tracking-tight text-white drop-shadow-lg">
+                  <div className="max-w-lg animate-in slide-in-from-left-8 fade-in duration-1000">
+                    <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl mb-5 leading-none tracking-tight text-white drop-shadow-lg animate-in slide-in-from-left-12 fade-in duration-1200 delay-300">
                       Your exclusive <br/>
                       experiences <br/>
                       <span className="text-primary drop-shadow-lg">in Krabi – </span>THAILAND
                     </h1>
                     
-                    <p className="text-white/90 mb-6 text-base drop-shadow-md">
+                    <p className="text-white/90 mb-6 text-sm drop-shadow-md animate-in slide-in-from-left-8 fade-in duration-1000 delay-600">
                       Discover amazing places away from mass tourism in Krabi.<br/>
                       And also Khao Sok, Koh Mook and many more destinations.
                     </p>
                     
-                    <div className="flex flex-row gap-3">
-                      <span className="bg-primary text-white px-6 py-2.5 text-sm rounded shadow-lg">
+                    <div className="flex flex-row gap-3 animate-in slide-in-from-left-4 fade-in duration-800 delay-900">
+                      <span className="bg-primary text-white px-4 py-2 text-xs rounded shadow-lg hover:bg-primary-dark transition-colors">
                         See our offers
                       </span>
-                      <span className="bg-primary text-white px-6 py-2.5 text-sm rounded shadow-lg">
+                      <span className="bg-primary text-white px-4 py-2 text-xs rounded shadow-lg hover:bg-primary-dark transition-colors">
                         Custom your trip
                       </span>
                     </div>
