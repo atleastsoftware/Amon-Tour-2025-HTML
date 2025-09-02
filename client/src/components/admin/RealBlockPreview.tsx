@@ -129,9 +129,9 @@ const PreviewWrapper = ({ identifier, children }: { identifier: string, children
   const scaleSettings = calculateOptimalPreviewScale(identifier, 450);
   
   if (identifier === 'hero_main_v2') {
-    // HERO: APPROCHE SPÉCIALE - BACKGROUND ÉTENDU AU CONTENEUR COMPLET
+    // HERO: APPROCHE SPÉCIALE - REMPLISSAGE TOTAL DU CONTENEUR PARENT
     return (
-      <div className="relative w-full h-[450px] overflow-hidden bg-gray-900">
+      <div className="relative w-full h-full overflow-hidden bg-gray-900">
         {/* Background étendu à tout le conteneur */}
         <div className="absolute inset-0 w-full h-full">
           <img
