@@ -61,56 +61,69 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
       case 'hero':
         // VÉRIFIER SI C'EST LE BON BLOC AVEC L'IDENTIFIER
         if (block.identifier === 'hero_main_v2') {
-          // HERO ADAPTATIF - REMPLISSAGE COMPLET DU CONTENEUR SANS ESPACE
+          // HERO RÉDUIT PROPORTIONNELLEMENT - IDENTIQUE AU SITE MAIS ADAPTÉ AU CONTENEUR
           return (
-            <div className="relative w-full h-full flex flex-col bg-gray-900 overflow-hidden">
-              {/* Background Video qui remplit le conteneur */}
-              <div className="absolute inset-0 w-full h-full z-0">
-                <img
-                  src="/attached_assets/DJI_20241115104455_0160_D-min.jpeg"
-                  alt="Beautiful Krabi landscape"
-                  className="absolute top-0 left-0 w-full h-full object-cover"
-                />
-                <video
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="none"
-                  className="absolute top-0 left-0 w-full h-full object-cover opacity-100"
-                >
-                  <source src="/attached_assets/hero-video-optimized.mp4" type="video/mp4" />
-                  <source src="/attached_assets/Catamaran%20cruise%20around%20Ao%20Nang%20local%20islands_1750216800850.mp4" type="video/mp4" />
-                </video>
-                <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
-                <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
-              </div>
-              
-              {/* Content avec positionnement exactement comme le site */}
-              <div className="relative z-10 px-4 pt-8 pb-6 flex-1 flex items-start">
-                <div className="w-full">
-                  <div className="max-w-xl">
-                    <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl mb-6 leading-tight tracking-tight text-white drop-shadow-lg">
-                      Your exclusive <br/>
-                      experiences <br/>
-                      <span className="text-primary drop-shadow-lg">in Krabi – </span>THAILAND
-                    </h1>
-                    
-                    <p className="text-white/90 mb-8 text-lg drop-shadow-md">
-                      Discover amazing places away from mass tourism in Krabi.<br/>
-                      And also Khao Sok, Koh Mook and many more destinations.
-                    </p>
-                    
-                    <div className="flex flex-row gap-4">
-                      <span className="bg-primary text-white px-8 py-3 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg">
-                        See our offers
-                      </span>
-                      <span className="bg-primary text-white px-8 py-3 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg">
-                        Custom your trip
-                      </span>
+            <div className="relative w-full h-full overflow-hidden">
+              <div 
+                style={{ 
+                  transform: 'scale(0.4)', 
+                  transformOrigin: 'top left',
+                  width: '250%', 
+                  height: '250%'
+                }}
+              >
+                <section className="relative pt-32 pb-20 min-h-screen flex items-center overflow-hidden">
+                  {/* Background Video - IDENTIQUE AU SITE */}
+                  <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
+                    <img
+                      src="/attached_assets/DJI_20241115104455_0160_D-min.jpeg"
+                      alt="Beautiful Krabi landscape"
+                      className="absolute top-0 left-0 w-full h-full object-cover"
+                    />
+                    <video
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="none"
+                      className="absolute top-0 left-0 w-full h-full object-cover opacity-100"
+                    >
+                      <source src="/attached_assets/hero-video-optimized.mp4" type="video/mp4" />
+                      <source src="/attached_assets/Catamaran%20cruise%20around%20Ao%20Nang%20local%20islands_1750216800850.mp4" type="video/mp4" />
+                    </video>
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
+                  </div>
+                  
+                  {/* Content EXACTEMENT comme le site réel */}
+                  <div className="container mx-auto px-4 relative z-10">
+                    <div className="flex flex-col md:flex-row items-center gap-10">
+                      <div className="w-full">
+                        <div className="max-w-xl">
+                          <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight text-white drop-shadow-lg">
+                            Your exclusive <br/>
+                            experiences <br/>
+                            <span className="text-primary drop-shadow-lg">in Krabi – </span>THAILAND
+                          </h1>
+                          
+                          <p className="text-white/90 mb-8 text-lg drop-shadow-md">
+                            Discover amazing places away from mass tourism in Krabi.<br/>
+                            And also Khao Sok, Koh Mook and many more destinations.
+                          </p>
+                          
+                          <div className="flex flex-col sm:flex-row gap-4">
+                            <span className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg">
+                              See our offers
+                            </span>
+                            <span className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg">
+                              Custom your trip
+                            </span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </section>
               </div>
             </div>
           );
