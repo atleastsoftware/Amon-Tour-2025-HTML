@@ -244,6 +244,25 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
           </div>
         );
         
+      case 'text_image':
+      case 'when_expats':
+      case 'about_amon_tour':
+        return (
+          <div className="h-full bg-white p-2 flex gap-2">
+            <div className="flex-1">
+              <div className="text-[10px] font-bold mb-1">{block.title || "When expats welcome you in their host country"}</div>
+              <div className="text-[8px] text-gray-600 mb-1">{block.subtitle || "Your trusted partner for authentic Thailand experiences"}</div>
+              <div className="text-[7px] text-gray-600 mb-2">{block.description?.substring(0, 100) || "Based in beautiful Krabi, we are passionate locals who know every hidden corner..."}</div>
+              <div className="space-y-0.5">
+                <div className="text-[6px] text-gray-500">✓ English & French speaking guides</div>
+                <div className="text-[6px] text-gray-500">✓ Certified and licensed operators</div>
+                <div className="text-[6px] text-gray-500">✓ Support for local communities</div>
+              </div>
+            </div>
+            <div className="w-12 h-full bg-gradient-to-br from-blue-200 to-green-300 rounded flex-shrink-0"></div>
+          </div>
+        );
+
       case 'customer_reviews':
       case 'testimonials':
         return (
@@ -933,7 +952,7 @@ export default function RealBlockPreview({
 
       {/* Prévisualisation visuelle miniaturisée et fidèle */}
       <div className="relative overflow-hidden bg-white" style={{ height: '300px' }}>
-        <div className="transform scale-75 origin-top-left w-[133.33%] h-[133.33%]">
+        <div className="transform scale-90 origin-top-left w-[111.11%] h-[111.11%]">
           <MiniaturizedComponent block={showEditForm ? previewData : block} />
         </div>
         
