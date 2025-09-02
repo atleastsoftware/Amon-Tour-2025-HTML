@@ -128,18 +128,50 @@ const calculateOptimalPreviewScale = (identifier: string, containerHeight: numbe
 const PreviewWrapper = ({ identifier, children }: { identifier: string, children: React.ReactNode }) => {
   const scaleSettings = calculateOptimalPreviewScale(identifier, 450);
   
-  // HAUTEUR CONTENEUR AJUSTÉE POUR CONTENU VISIBLE RÉEL
-  let effectiveHeight: number;
-  
-  switch (identifier) {
-    case 'hero_main_v2':
-      // Hero: Hauteur pour TOUT LE CONTENU visible (titre + description + boutons)
-      effectiveHeight = Math.round(480 * scaleSettings.scale); // 480px = contenu complet
-      break;
-    default:
-      // Autres sections: hauteur standard
-      effectiveHeight = Math.round(parseInt(scaleSettings.height) * scaleSettings.scale);
+  if (identifier === 'hero_main_v2') {
+    // HERO: APPROCHE SPÉCIALE - BACKGROUND ÉTENDU AU CONTENEUR COMPLET
+    return (
+      <div className="relative w-full h-[450px] overflow-hidden bg-gray-900">
+        {/* Background étendu à tout le conteneur */}
+        <div className="absolute inset-0 w-full h-full">
+          <img
+            src="/attached_assets/DJI_20241115104455_0160_D-min.jpeg"
+            alt="Beautiful Krabi landscape"
+            className="absolute top-0 left-0 w-full h-full object-cover"
+          />
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="none"
+            className="absolute top-0 left-0 w-full h-full object-cover opacity-100"
+          >
+            <source src="/attached_assets/hero-video-optimized.mp4" type="video/mp4" />
+            <source src="/attached_assets/Catamaran%20cruise%20around%20Ao%20Nang%20local%20islands_1750216800850.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
+        </div>
+        
+        {/* Contenu réduit mais background complet */}
+        <div 
+          className="relative z-10"
+          style={{ 
+            transform: `scale(${scaleSettings.scale})`, 
+            transformOrigin: 'top left',
+            width: scaleSettings.width, 
+            height: scaleSettings.height
+          }}
+        >
+          {children}
+        </div>
+      </div>
+    );
   }
+  
+  // AUTRES SECTIONS: Wrapper standard
+  const effectiveHeight = Math.round(parseInt(scaleSettings.height) * scaleSettings.scale);
   
   return (
     <div 
@@ -199,33 +231,11 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
       case 'hero':
         // VÉRIFIER SI C'EST LE BON BLOC AVEC L'IDENTIFIER
         if (block.identifier === 'hero_main_v2') {
-          // WRAPPER UNIVERSEL APPLIQUÉ AVEC MÉTHODOLOGIE SYSTÉMATIQUE
+          // WRAPPER UNIVERSEL APPLIQUÉ - BACKGROUND ÉTENDU AU CONTENEUR COMPLET
           return (
             <PreviewWrapper identifier="hero_main_v2">
               <section className="relative pt-32 pb-20 min-h-screen flex items-center overflow-hidden">
-                  {/* Video Background - EXACT COPY */}
-                  <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
-                    <img
-                      src="/attached_assets/DJI_20241115104455_0160_D-min.jpeg"
-                      alt="Beautiful Krabi landscape"
-                      className="absolute top-0 left-0 w-full h-full object-cover"
-                    />
-                    <video
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      preload="none"
-                      className="absolute top-0 left-0 w-full h-full object-cover opacity-100"
-                    >
-                      <source src="/attached_assets/hero-video-optimized.mp4" type="video/mp4" />
-                      <source src="/attached_assets/Catamaran%20cruise%20around%20Ao%20Nang%20local%20islands_1750216800850.mp4" type="video/mp4" />
-                    </video>
-                    <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
-                    <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
-                  </div>
-                  
-                  {/* Content EXACT AVEC ANIMATION MOTION */}
+                  {/* Content EXACT AVEC ANIMATION MOTION - BACKGROUND GÉRÉ PAR WRAPPER */}
                   <div className="container mx-auto px-4 relative z-10">
                     <div className="flex flex-col md:flex-row items-center gap-10">
                       <div className="w-full">
