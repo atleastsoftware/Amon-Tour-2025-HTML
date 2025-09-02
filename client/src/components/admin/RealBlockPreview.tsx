@@ -59,66 +59,21 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
     
     switch (block.blockType) {
       case 'hero_main_v2':
-        // Copie EXACTE du code Hero mais mise à l'échelle pour la largeur disponible
+        // VRAIE MISE À L'ÉCHELLE : Composant Hero original réduit proportionnellement
         return (
-          <section className="relative py-4 flex items-start justify-start overflow-hidden w-full h-full">
-            {/* Background Video - IDENTIQUE à Hero.tsx */}
-            <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
-              {/* Fallback Image */}
-              <img 
-                src="/attached_assets/DJI_20241115104455_0160_D-min.jpeg" 
-                alt="Beautiful Krabi landscape" 
-                className="absolute top-0 left-0 w-full h-full object-cover" 
-              />
-              
-              {/* Video Overlay - IDENTIQUE à Hero.tsx */}
-              <video 
-                autoPlay 
-                muted 
-                loop 
-                playsInline 
-                preload="none" 
-                className="absolute top-0 left-0 w-full h-full object-cover"
-                style={{ minWidth: '100%', minHeight: '100%' }}
-              >
-                <source src="/attached_assets/hero-video-optimized.mp4" type="video/mp4" />
-                <source src="/attached_assets/Catamaran%20cruise%20around%20Ao%20Nang%20local%20islands_1750216800850.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-              
-              {/* Gradient overlays IDENTIQUES */}
-              <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
-              <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
+          <div className="relative w-full h-full overflow-hidden bg-gray-900">
+            <div 
+              className="absolute inset-0"
+              style={{ 
+                transform: 'scale(0.3)', 
+                transformOrigin: 'top left',
+                width: '333%', 
+                height: '333%'
+              }}
+            >
+              <Hero />
             </div>
-
-            {/* Content OPTIMISÉ pour preview compacte */}
-            <div className="container mx-auto px-3 relative z-10 pt-6">
-              <div className="flex flex-col items-start">
-                <div className="w-full">
-                  <div className="max-w-lg">
-                    <h1 className="font-heading text-lg md:text-xl mb-2 leading-tight tracking-tight text-white drop-shadow-lg">
-                      Your exclusive experiences <br/>
-                      <span className="text-primary drop-shadow-lg">in Krabi – </span>THAILAND
-                    </h1>
-                    
-                    <p className="text-white/90 mb-3 text-xs leading-relaxed drop-shadow-md">
-                      Discover amazing places away from mass tourism in Krabi.<br/>
-                      And also Khao Sok, Koh Mook and many more destinations.
-                    </p>
-                    
-                    <div className="flex flex-col sm:flex-row gap-2">
-                      <span className="bg-primary text-white px-4 py-1 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg text-xs">
-                        See our offers
-                      </span>
-                      <span className="bg-primary text-white px-4 py-1 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg text-xs">
-                        Custom your trip
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
+          </div>
         );
         
       case 'hero_main':
@@ -918,7 +873,7 @@ export default function RealBlockPreview({
 
       {/* Prévisualisation visuelle miniaturisée et fidèle */}
       <div className="relative overflow-hidden bg-white" style={{ 
-        height: block.identifier === 'hero_main_v2' ? '350px' : 
+        height: block.identifier === 'hero_main_v2' ? '300px' : 
                 block.blockType.includes('hero') ? '800px' : '300px' 
       }}>
         <div className={block.blockType.includes('hero') ? "w-full h-full" : "transform scale-90 origin-top-left w-[111.11%] h-[111.11%]"}>
