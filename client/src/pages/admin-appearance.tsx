@@ -1140,6 +1140,71 @@ export default function AdminAppearance() {
     console.log('Toggle visibility block:', blockId);
   };
 
+  // Fonction pour sauvegarder les modifications Hero
+  const saveHeroChanges = async () => {
+    if (!editingHeroBlockId) return;
+    
+    try {
+      const updateData = {
+        title: heroEditData.title,
+        description: heroEditData.description,
+        imageUrl: heroEditData.imageUrl,
+        ctaText: heroEditData.button1Text,
+        ctaUrl: heroEditData.button1Url,
+        configuration: {
+          titleColorPart: heroEditData.titleColorPart,
+          videoUrl: heroEditData.videoUrl,
+          button2Text: heroEditData.button2Text,
+          button2Url: heroEditData.button2Url
+        }
+      };
+      
+      const response = await fetch(`/api/admin/page-blocks/${editingHeroBlockId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updateData),
+      });
+      
+      if (!response.ok) throw new Error('Erreur de sauvegarde');
+      
+      setEditingHeroBlockId(null);
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/page-blocks', selectedPage] });
+      toast({ title: "Hero mis à jour avec succès!" });
+      
+    } catch (error) {
+      console.error('Erreur sauvegarde Hero:', error);
+      toast({ title: "Erreur lors de la sauvegarde", variant: "destructive" });
+    }
+  };
+
+  // Fonctions helper pour renderBlockContent
+  const getPageTitle = (slug: string) => {
+    const titles: Record<string, string> = {
+      'home': 'Page d\'Accueil',
+      'experiences': 'Page Expériences',
+      'contact': 'Page Contact',
+      'custom-tour': 'Page Voyage Sur Mesure',
+      'blog': 'Page Blog',
+      'stays': 'Page Hébergements'
+    };
+    return titles[slug] || slug;
+  };
+
+  const getBlockDisplayName = (blockType: string) => {
+    const displayNames: Record<string, string> = {
+      'video_hero': 'Hero avec Image',
+      'hero': 'Hero Simple',
+      'text_image': 'Texte + Images',
+      'card_grid': 'Grille de Cartes',
+      'advantages': 'Icônes + Avantages',
+      'form': 'Formulaire',
+      'gallery': 'Témoignages',
+      'contact_info': 'Infos Contact',
+      'search_module': 'Module Recherche'
+    };
+    return displayNames[blockType] || blockType.replace('_', ' ');
+  };
+
   // Toggle category expansion
   const toggleCategory = (categoryName: string) => {
     setExpandedCategories(prev => 
@@ -3146,6 +3211,193 @@ export default function AdminAppearance() {
               </div>
             </div>
           </TabsContent>
+
+          {/* Formulaire d'édition Hero Section */}
+          {editingHeroBlockId && (
+            <div className="mb-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Palette className="w-5 h-5" />
+                    Édition Hero Section
+                  </CardTitle>
+                  <CardDescription>
+                    Modifier le contenu de la section Hero avec prévisualisation en temps réel
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-2 gap-6">
+                    {/* Formulaire d'édition */}
+                    <div className="space-y-4">
+                      <div>
+                        <Label htmlFor="hero-title">Titre Principal</Label>
+                        <Textarea
+                          id="hero-title"
+                          value={heroEditData.title}
+                          onChange={(e) => setHeroEditData(prev => ({ ...prev, title: e.target.value }))}
+                          placeholder="Titre de la section Hero"
+                          rows={2}
+                        />
+                      </div>
+
+                      <div>
+                        <Label htmlFor="hero-colored-part">Partie du titre à colorer</Label>
+                        <Input
+                          id="hero-colored-part"
+                          value={heroEditData.titleColorPart}
+                          onChange={(e) => setHeroEditData(prev => ({ ...prev, titleColorPart: e.target.value }))}
+                          placeholder="Partie du titre en couleur"
+                        />
+                      </div>
+
+                      <div>
+                        <Label htmlFor="hero-description">Description</Label>
+                        <Textarea
+                          id="hero-description"
+                          value={heroEditData.description}
+                          onChange={(e) => setHeroEditData(prev => ({ ...prev, description: e.target.value }))}
+                          placeholder="Description de la section Hero"
+                          rows={3}
+                        />
+                      </div>
+
+                      <div>
+                        <Label htmlFor="hero-image">URL de l'image de fond</Label>
+                        <Input
+                          id="hero-image"
+                          type="url"
+                          value={heroEditData.imageUrl}
+                          onChange={(e) => setHeroEditData(prev => ({ ...prev, imageUrl: e.target.value }))}
+                          placeholder="https://example.com/image.jpg ou /attached_assets/image.jpg"
+                        />
+                      </div>
+
+                      <div>
+                        <Label htmlFor="hero-video">URL de la vidéo de fond (optionnel)</Label>
+                        <Input
+                          id="hero-video"
+                          type="url"
+                          value={heroEditData.videoUrl}
+                          onChange={(e) => setHeroEditData(prev => ({ ...prev, videoUrl: e.target.value }))}
+                          placeholder="https://example.com/video.mp4 ou /attached_assets/video.mp4"
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <Label htmlFor="hero-button1-text">Bouton 1 - Texte</Label>
+                          <Input
+                            id="hero-button1-text"
+                            value={heroEditData.button1Text}
+                            onChange={(e) => setHeroEditData(prev => ({ ...prev, button1Text: e.target.value }))}
+                            placeholder="Texte du premier bouton"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="hero-button1-url">Bouton 1 - Lien</Label>
+                          <Input
+                            id="hero-button1-url"
+                            value={heroEditData.button1Url}
+                            onChange={(e) => setHeroEditData(prev => ({ ...prev, button1Url: e.target.value }))}
+                            placeholder="/lien-du-bouton"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <Label htmlFor="hero-button2-text">Bouton 2 - Texte</Label>
+                          <Input
+                            id="hero-button2-text"
+                            value={heroEditData.button2Text}
+                            onChange={(e) => setHeroEditData(prev => ({ ...prev, button2Text: e.target.value }))}
+                            placeholder="Texte du deuxième bouton"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="hero-button2-url">Bouton 2 - Lien</Label>
+                          <Input
+                            id="hero-button2-url"
+                            value={heroEditData.button2Url}
+                            onChange={(e) => setHeroEditData(prev => ({ ...prev, button2Url: e.target.value }))}
+                            placeholder="/lien-du-bouton-2"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Prévisualisation en temps réel */}
+                    <div>
+                      <Label>Prévisualisation en temps réel</Label>
+                      <div className="border rounded-lg p-4 bg-gray-50 overflow-hidden">
+                        <div 
+                          className="relative min-h-[300px] flex items-center justify-center text-white"
+                          style={{
+                            backgroundImage: heroEditData.imageUrl ? `url(${heroEditData.imageUrl})` : 'linear-gradient(135deg, #1e73be 0%, #0066cc 100%)',
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                            borderRadius: '8px'
+                          }}
+                        >
+                          {/* Overlay sombre */}
+                          <div className="absolute inset-0 bg-black bg-opacity-40 rounded-lg"></div>
+                          
+                          {/* Contenu de prévisualisation */}
+                          <div className="relative z-10 text-center max-w-2xl px-6">
+                            <h1 className="text-2xl font-bold mb-4">
+                              {heroEditData.title.split(heroEditData.titleColorPart).map((part, index) => (
+                                <span key={index}>
+                                  {index === 1 && heroEditData.titleColorPart ? (
+                                    <>
+                                      <span className="text-yellow-400">{heroEditData.titleColorPart}</span>
+                                      {part}
+                                    </>
+                                  ) : part}
+                                </span>
+                              ))}
+                            </h1>
+                            
+                            <p className="text-lg mb-6 opacity-90">
+                              {heroEditData.description}
+                            </p>
+                            
+                            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                              <button 
+                                className="px-6 py-3 bg-yellow-500 text-black font-semibold rounded-lg hover:bg-yellow-400 transition-colors"
+                              >
+                                {heroEditData.button1Text}
+                              </button>
+                              <button 
+                                className="px-6 py-3 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-black transition-colors"
+                              >
+                                {heroEditData.button2Text}
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Actions du formulaire */}
+                  <div className="flex justify-end gap-4 mt-6 pt-4 border-t">
+                    <Button
+                      variant="outline"
+                      onClick={() => setEditingHeroBlockId(null)}
+                    >
+                      Annuler
+                    </Button>
+                    <Button
+                      onClick={saveHeroChanges}
+                      className="bg-blue-600 hover:bg-blue-700"
+                    >
+                      Sauvegarder les modifications
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
 
           {/* Footer Management */}
           <TabsContent value="footer">
