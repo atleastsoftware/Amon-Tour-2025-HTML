@@ -3978,6 +3978,8 @@ function RealBlocksEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
 
 // Ancien composant de fallback pour compatibilité (peut être supprimé plus tard)
 function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBlocks: PageBlock[] }) {
+  // État pour gérer l'édition des blocs
+  const [editingBlockId, setEditingBlockId] = useState<number | null>(null);
   const getPageTitle = (slug: string) => {
     const titles: Record<string, string> = {
       'home': 'Page d\'Accueil',
@@ -4006,8 +4008,40 @@ function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
   };
 
   const handleEditBlock = (block: PageBlock) => {
-    // TODO: Ouvrir le modal d'édition pour ce bloc
-    console.log('Edit block:', block);
+    console.log('🎯 Édition déclenchée pour le bloc:', block.identifier);
+    setEditingBlockId(block.id);
+  };
+
+  const handleSaveBlock = () => {
+    console.log('💾 Sauvegarde du bloc');
+    setEditingBlockId(null);
+  };
+
+  const handleCancelEdit = () => {
+    console.log('🚫 Annulation édition');
+    setEditingBlockId(null);
+  };
+
+  // Fonctions pour la compatibilité avec RealBlockPreview
+  const handleUpdateBlock = (id: number, updates: Partial<PageBlock>) => {
+    console.log('🔄 Mise à jour bloc:', { id, updates });
+    // Ici on peut ajouter la logique de sauvegarde si nécessaire
+  };
+
+  const handleDeleteBlock = (id: number) => {
+    console.log('🗑️ Suppression bloc:', id);
+  };
+
+  const handleMoveUp = (id: number) => {
+    console.log('⬆️ Déplacer vers le haut:', id);
+  };
+
+  const handleMoveDown = (id: number) => {
+    console.log('⬇️ Déplacer vers le bas:', id);
+  };
+
+  const handleToggleVisibility = (id: number) => {
+    console.log('👁️ Toggle visibilité:', id);
   };
 
   const renderBlockContent = (block: PageBlock) => {
@@ -4780,6 +4814,9 @@ function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
                 onMoveUp={handleMoveUp}
                 onMoveDown={handleMoveDown}
                 onToggleVisibility={handleToggleVisibility}
+                isEditing={editingBlockId === block.id}
+                onSave={handleSaveBlock}
+                onCancel={handleCancelEdit}
               />
             </div>
           </div>
