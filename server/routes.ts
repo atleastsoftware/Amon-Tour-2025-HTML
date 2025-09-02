@@ -2866,7 +2866,7 @@ Crawl-delay: 1`;
     </style>
 </head>
 <body>
-    <section class="relative pt-32 pb-20 min-h-screen flex items-center overflow-hidden">
+    <section class="relative py-12 h-auto flex items-center overflow-hidden" style="height: 400px;">
         <!-- Background Image EXACT du vrai Hero -->
         <div class="absolute inset-0 w-full h-full z-0 overflow-hidden">
             <img src="/attached_assets/DJI_20241115104455_0160_D-min.jpeg" alt="Beautiful Krabi landscape" class="absolute top-0 left-0 w-full h-full object-cover" />
@@ -2880,19 +2880,19 @@ Crawl-delay: 1`;
             <div class="flex flex-col md:flex-row items-center gap-10">
                 <div class="w-full">
                     <div class="max-w-xl">
-                        <h1 class="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight text-white drop-shadow-lg">
+                        <h1 class="font-heading text-2xl md:text-3xl lg:text-4xl mb-4 leading-tight tracking-tight text-white drop-shadow-lg">
                             Your exclusive experiences <br/>
                             <span class="text-primary drop-shadow-lg">in Krabi – </span>THAILAND
                         </h1>
                         
-                        <p class="text-white/90 mb-8 text-lg drop-shadow-md">
+                        <p class="text-white/90 mb-4 text-base drop-shadow-md">
                             Discover amazing places away from mass tourism in Krabi.<br/>
                             And also Khao Sok, Koh Mook and many more destinations.
                         </p>
                         
                         <div class="flex flex-col sm:flex-row gap-4">
-                            <div class="bg-primary text-white px-8 py-3 mt-4 rounded shadow-lg">See our offers</div>
-                            <div class="bg-primary text-white px-8 py-3 mt-4 rounded shadow-lg">Custom your trip</div>
+                            <div class="bg-primary text-white px-4 py-2 mt-2 rounded shadow-lg text-sm">See our offers</div>
+                            <div class="bg-primary text-white px-4 py-2 mt-2 rounded shadow-lg text-sm">Custom your trip</div>
                         </div>
                     </div>
                 </div>

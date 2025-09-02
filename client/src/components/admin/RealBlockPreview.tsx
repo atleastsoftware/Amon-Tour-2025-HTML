@@ -65,7 +65,7 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
           <iframe 
             src={`/preview/hero?t=${Date.now()}`} 
             className="w-full border-0 rounded-lg overflow-hidden"
-            style={{ height: '900px' }}
+            style={{ height: '400px' }}
             title="Hero Section Preview"
             key={Date.now()}
           />
