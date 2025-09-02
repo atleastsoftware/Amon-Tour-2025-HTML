@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -29,7 +29,7 @@ const SECTION_DEFINITIONS = {
   // Hero Sections - Grande hauteur avec média
   hero_main_v2: { 
     type: 'fullscreen', 
-    originalHeight: 768, 
+    originalHeight: 650, 
     expectedRatio: 'wide',
     contentDensity: 'sparse' 
   },
@@ -129,9 +129,9 @@ const PreviewWrapper = ({ identifier, children }: { identifier: string, children
   const scaleSettings = calculateOptimalPreviewScale(identifier, 450);
   
   if (identifier === 'hero_main_v2') {
-    // HERO: APPROCHE SPÉCIALE - REMPLISSAGE TOTAL DU CONTENEUR PARENT
+    // HERO: APPROCHE SPÉCIALE - BACKGROUND ÉTENDU AU CONTENEUR COMPLET
     return (
-      <div className="relative w-full h-full overflow-hidden bg-gray-900">
+      <div className="relative w-full h-[450px] overflow-hidden bg-gray-900">
         {/* Background étendu à tout le conteneur */}
         <div className="absolute inset-0 w-full h-full">
           <img
@@ -222,8 +222,120 @@ interface RealBlockPreviewProps {
   onToggleVisibility: (id: number) => void;
 }
 
-// Composant de prévisualisation miniaturisé des vrais composants
-function MiniaturizedComponent({ block }: { block: PageBlock }) {
+// Interface pour les données d'édition du Hero
+interface HeroEditData {
+  title: string;
+  titleColorPart: string; // Partie du titre à colorer
+  description: string;
+  imageUrl: string;
+  videoUrl: string;
+  button1Text: string;
+  button1Url: string;
+  button2Text: string;
+  button2Url: string;
+}
+
+// Composant de prévisualisation miniaturisé des vrais composants  
+function MiniaturizedComponent({ 
+  block, 
+  isEditing = false, 
+  onSave = () => {},
+  onCancel = () => {}
+}: { 
+  block: PageBlock;
+  isEditing?: boolean;
+  onSave?: () => void;
+  onCancel?: () => void;
+}) {
+  // État pour l'édition Hero
+  const [isEditingHero, setIsEditingHero] = useState(false);
+  const [heroEditData, setHeroEditData] = useState<HeroEditData>({
+    title: "Your exclusive experiences\nin Krabi – THAILAND",
+    titleColorPart: "in Krabi –",
+    description: "Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations.",
+    imageUrl: "/attached_assets/DJI_20241115104455_0160_D-min.jpeg",
+    videoUrl: "/attached_assets/hero-video-optimized.mp4",
+    button1Text: "See our offers",
+    button1Url: "/tours",
+    button2Text: "Custom your trip",
+    button2Url: "/custom-tour"
+  });
+
+  // Préremplir avec les données actuelles du bloc
+  useEffect(() => {
+    if (block.identifier === 'hero_main_v2') {
+      const config = block.configuration || {};
+      setHeroEditData({
+        title: block.title || "Your exclusive experiences\nin Krabi – THAILAND",
+        titleColorPart: config.titleColorPart || "in Krabi –",
+        description: block.description || "Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations.",
+        imageUrl: block.imageUrl || "/attached_assets/DJI_20241115104455_0160_D-min.jpeg",
+        videoUrl: config.videoUrl || "/attached_assets/hero-video-optimized.mp4",
+        button1Text: block.ctaText || "See our offers",
+        button1Url: block.ctaUrl || "/tours",
+        button2Text: config.button2Text || "Custom your trip",
+        button2Url: config.button2Url || "/custom-tour"
+      });
+    }
+  }, [block]);
+
+  // Fonction pour rendre le titre avec la partie colorée
+  const renderTitleWithColor = (title: string, colorPart: string) => {
+    if (!colorPart) return title;
+    
+    const parts = title.split(colorPart);
+    return (
+      <>
+        {parts[0]}
+        <span className="text-primary drop-shadow-lg">{colorPart}</span>
+        {parts[1]}
+      </>
+    );
+  };
+
+  // Fonction pour sauvegarder les modifications Hero
+  const saveHeroChanges = async () => {
+    try {
+      // Structurer les données pour la base de données
+      const updateData = {
+        title: heroEditData.title,
+        description: heroEditData.description,
+        imageUrl: heroEditData.imageUrl,
+        ctaText: heroEditData.button1Text,
+        ctaUrl: heroEditData.button1Url,
+        configuration: {
+          titleColorPart: heroEditData.titleColorPart,
+          videoUrl: heroEditData.videoUrl,
+          button2Text: heroEditData.button2Text,
+          button2Url: heroEditData.button2Url
+        }
+      };
+
+      // Envoyer à l'API
+      const response = await fetch(`/api/admin/page-blocks/${block.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updateData)
+      });
+
+      if (!response.ok) {
+        throw new Error('Erreur de sauvegarde');
+      }
+
+      setIsEditingHero(false);
+      onSave(); // Notifier le composant parent
+      toast({ title: "Hero mis à jour avec succès! Le site web a été mis à jour." });
+      
+      // Recharger pour voir les changements
+      window.location.reload();
+    } catch (error) {
+      console.error('Erreur sauvegarde Hero:', error);
+      toast({ title: "Erreur lors de la sauvegarde", variant: "destructive" });
+    }
+  };
+
   const renderVisualPreview = () => {
     const config = block.configuration || {};
     
@@ -257,14 +369,13 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
                           className="max-w-xl"
                         >
                           <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight text-white drop-shadow-lg">
-                            Your exclusive <br/>
-                            experiences <br/>
-                            <span className="text-primary drop-shadow-lg">in Krabi – </span>THAILAND
+                            {renderTitleWithColor(heroEditData.title, heroEditData.titleColorPart)}
                           </h1>
                           
                           <p className="text-white/90 mb-8 text-lg drop-shadow-md">
-                            Discover amazing places away from mass tourism in Krabi.<br/>
-                            And also Khao Sok, Koh Mook and many more destinations.
+                            {heroEditData.description.split('\n').map((line, index) => (
+                              <span key={index}>{line}{index < heroEditData.description.split('\n').length - 1 && <br/>}</span>
+                            ))}
                           </p>
                           
                           <div className="flex flex-col sm:flex-row gap-4">
@@ -272,18 +383,154 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
                               className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg"
                               whileHover={{ scale: 1.05 }}
                               whileTap={{ scale: 0.98 }}
-                            >See our offers</motion.span>
+                            >{heroEditData.button1Text}</motion.span>
                             <motion.span 
                               className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg"
                               whileHover={{ scale: 1.05 }}
                               whileTap={{ scale: 0.98 }}
-                            >Custom your trip</motion.span>
+                            >{heroEditData.button2Text}</motion.span>
                           </div>
                         </motion.div>
                       </div>
                     </div>
                   </div>
                 </section>
+                
+                {/* Formulaire d'édition Hero */}
+                {isEditing && (
+                  <div className="bg-white border-t border-gray-200 p-6 space-y-4 max-h-96 overflow-y-auto">
+                    <h3 className="text-lg font-semibold text-gray-800 mb-4">Édition Hero Section</h3>
+                    
+                    {/* Titre */}
+                    <div>
+                      <Label htmlFor="heroTitle">Titre</Label>
+                      <textarea
+                        id="heroTitle"
+                        value={heroEditData.title}
+                        onChange={(e) => setHeroEditData(prev => ({ ...prev, title: e.target.value }))}
+                        className="w-full p-2 border border-gray-300 rounded resize-none"
+                        rows={3}
+                        placeholder="Your exclusive experiences in Krabi – THAILAND"
+                      />
+                    </div>
+                    
+                    {/* Partie du titre à colorer */}
+                    <div>
+                      <Label htmlFor="titleColorPart">Partie du titre à mettre en bleu</Label>
+                      <input
+                        id="titleColorPart"
+                        type="text"
+                        value={heroEditData.titleColorPart}
+                        onChange={(e) => setHeroEditData(prev => ({ ...prev, titleColorPart: e.target.value }))}
+                        className="w-full p-2 border border-gray-300 rounded"
+                        placeholder="in Krabi –"
+                      />
+                    </div>
+                    
+                    {/* Description */}
+                    <div>
+                      <Label htmlFor="heroDescription">Description</Label>
+                      <textarea
+                        id="heroDescription"
+                        value={heroEditData.description}
+                        onChange={(e) => setHeroEditData(prev => ({ ...prev, description: e.target.value }))}
+                        className="w-full p-2 border border-gray-300 rounded resize-none"
+                        rows={4}
+                        placeholder="Discover amazing places away from mass tourism in Krabi.&#10;And also Khao Sok, Koh Mook and many more destinations."
+                      />
+                    </div>
+                    
+                    {/* URLs */}
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <Label htmlFor="heroImageUrl">URL de l'image</Label>
+                        <input
+                          id="heroImageUrl"
+                          type="text"
+                          value={heroEditData.imageUrl}
+                          onChange={(e) => setHeroEditData(prev => ({ ...prev, imageUrl: e.target.value }))}
+                          className="w-full p-2 border border-gray-300 rounded"
+                          placeholder="/chemin/vers/image.jpg"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="heroVideoUrl">URL de la vidéo</Label>
+                        <input
+                          id="heroVideoUrl"
+                          type="text"
+                          value={heroEditData.videoUrl}
+                          onChange={(e) => setHeroEditData(prev => ({ ...prev, videoUrl: e.target.value }))}
+                          className="w-full p-2 border border-gray-300 rounded"
+                          placeholder="/chemin/vers/video.mp4"
+                        />
+                      </div>
+                    </div>
+                    
+                    {/* Boutons */}
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="button1Text">Texte Bouton 1</Label>
+                        <input
+                          id="button1Text"
+                          type="text"
+                          value={heroEditData.button1Text}
+                          onChange={(e) => setHeroEditData(prev => ({ ...prev, button1Text: e.target.value }))}
+                          className="w-full p-2 border border-gray-300 rounded"
+                          placeholder="See our offers"
+                        />
+                        <Label htmlFor="button1Url">Lien Bouton 1</Label>
+                        <input
+                          id="button1Url"
+                          type="text"
+                          value={heroEditData.button1Url}
+                          onChange={(e) => setHeroEditData(prev => ({ ...prev, button1Url: e.target.value }))}
+                          className="w-full p-2 border border-gray-300 rounded"
+                          placeholder="/tours"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="button2Text">Texte Bouton 2</Label>
+                        <input
+                          id="button2Text"
+                          type="text"
+                          value={heroEditData.button2Text}
+                          onChange={(e) => setHeroEditData(prev => ({ ...prev, button2Text: e.target.value }))}
+                          className="w-full p-2 border border-gray-300 rounded"
+                          placeholder="Custom your trip"
+                        />
+                        <Label htmlFor="button2Url">Lien Bouton 2</Label>
+                        <input
+                          id="button2Url"
+                          type="text"
+                          value={heroEditData.button2Url}
+                          onChange={(e) => setHeroEditData(prev => ({ ...prev, button2Url: e.target.value }))}
+                          className="w-full p-2 border border-gray-300 rounded"
+                          placeholder="/custom-tour"
+                        />
+                      </div>
+                    </div>
+                    
+                    {/* Boutons d'action */}
+                    <div className="flex gap-2 pt-4 border-t">
+                      <Button 
+                        onClick={saveHeroChanges}
+                        className="bg-blue-600 hover:bg-blue-700 text-white"
+                      >
+                        <Save className="w-4 h-4 mr-2" />
+                        Sauvegarder
+                      </Button>
+                      <Button 
+                        variant="outline"
+                        onClick={() => {
+                          setIsEditingHero(false);
+                          onCancel();
+                        }}
+                      >
+                        Annuler
+                      </Button>
+                    </div>
+                  </div>
+                )}
             </PreviewWrapper>
           );
         }
@@ -1065,7 +1312,14 @@ export default function RealBlockPreview({
             <Button
               size="sm"
               variant="secondary"
-              onClick={() => setShowEditForm(!showEditForm)}
+              onClick={() => {
+                if (block.identifier === 'hero_main_v2') {
+                  // Passer les données à MiniaturizedComponent pour l'édition Hero
+                  setShowEditForm(!showEditForm);
+                } else {
+                  setShowEditForm(!showEditForm);
+                }
+              }}
               title="Modifier le bloc"
               className="h-7 w-7 p-0 bg-blue-500 hover:bg-blue-600 text-white border-0"
             >
@@ -1088,14 +1342,19 @@ export default function RealBlockPreview({
         </div>
       </div>
 
-      {/* Prévisualisation visuelle miniaturisée et fidèle - PADDING ÉLIMINÉ */}
+      {/* Prévisualisation visuelle miniaturisée et fidèle */}
       <div className="relative overflow-hidden bg-white" style={{ 
         height: block.identifier === 'hero_main_v2' ? '450px' : 
                 block.blockType.includes('hero') ? '800px' : '300px',
         minHeight: block.identifier === 'hero_main_v2' ? '450px' : '300px'
       }}>
         <div className={block.blockType.includes('hero') ? "w-full h-full" : "transform scale-90 origin-top-left w-[111.11%] h-[111.11%]"}>
-          <MiniaturizedComponent block={showEditForm ? previewData : block} />
+          <MiniaturizedComponent 
+            block={showEditForm ? previewData : block} 
+            isEditing={showEditForm && block.identifier === 'hero_main_v2'}
+            onSave={handleSaveChanges}
+            onCancel={handleCancelChanges}
+          />
         </div>
         
         {/* Overlay si bloc masqué */}
@@ -1119,15 +1378,18 @@ export default function RealBlockPreview({
       </div>
 
       {/* Formulaire d'édition déroulant avec preview en temps réel */}
-      <BlockEditForm
-        block={block}
-        onSave={handleSaveChanges}
-        onPreviewUpdate={handlePreviewUpdate}
-        isOpen={showEditForm}
-        onToggle={() => setShowEditForm(!showEditForm)}
-        hasUnsavedChanges={hasUnsavedChanges}
-        onCancel={handleCancelChanges}
-      />
+      {/* Masquer le formulaire générique pour le Hero qui a son propre formulaire intégré */}
+      {!(showEditForm && block.identifier === 'hero_main_v2') && (
+        <BlockEditForm
+          block={block}
+          onSave={handleSaveChanges}
+          onPreviewUpdate={handlePreviewUpdate}
+          isOpen={showEditForm}
+          onToggle={() => setShowEditForm(!showEditForm)}
+          hasUnsavedChanges={hasUnsavedChanges}
+          onCancel={handleCancelChanges}
+        />
+      )}
     </motion.div>
   );
 }
