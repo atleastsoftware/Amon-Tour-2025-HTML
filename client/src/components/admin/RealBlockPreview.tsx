@@ -65,7 +65,7 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
           <iframe 
             src="/preview/hero" 
             className="w-full border-0 rounded-lg overflow-hidden"
-            style={{ height: '1000px' }}
+            style={{ height: '1200px' }}
             title="Hero Section Preview"
           />
         );
@@ -159,7 +159,7 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
           <iframe 
             src="/preview/when-expats" 
             className="w-full border-0 rounded-lg overflow-hidden"
-            style={{ height: '400px' }}
+            style={{ height: '200px' }}
             title="When Expats Section Preview"
           />
         );
