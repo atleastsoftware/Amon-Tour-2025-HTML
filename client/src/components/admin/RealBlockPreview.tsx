@@ -59,19 +59,52 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
     
     switch (block.blockType) {
       case 'hero_main_v2':
-        // Nouveau bloc Hero avec composant React natif et mise à l'échelle automatique
+        // Version compacte spéciale pour preview avec tout le contenu visible
         return (
-          <div className="w-full h-full relative overflow-hidden bg-gradient-to-br from-slate-50 to-slate-100">
-            <div 
-              className="absolute inset-0 origin-top-left"
-              style={{ 
-                transform: 'scale(0.4)', 
-                width: '250%', 
-                height: '250%'
-              }}
-            >
-              <div className="w-full min-h-screen relative">
-                <Hero />
+          <div className="w-full h-full relative overflow-hidden">
+            {/* Background Video */}
+            <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
+              <img 
+                src="/attached_assets/DJI_20241115104455_0160_D-min.jpeg" 
+                alt="Krabi landscape" 
+                className="absolute top-0 left-0 w-full h-full object-cover" 
+              />
+              <video 
+                autoPlay 
+                muted 
+                loop 
+                playsInline 
+                className="absolute top-0 left-0 w-full h-full object-cover"
+                style={{ minWidth: '100%', minHeight: '100%' }}
+              >
+                <source src="/attached_assets/hero-video-optimized.mp4" type="video/mp4" />
+              </video>
+              {/* Gradients */}
+              <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
+            </div>
+            
+            {/* Content */}
+            <div className="relative z-10 h-full flex items-center px-6">
+              <div className="w-full max-w-2xl">
+                <h1 className="font-heading text-lg md:text-xl lg:text-2xl mb-2 leading-tight tracking-tight text-white drop-shadow-lg">
+                  Your exclusive experiences<br/>
+                  <span className="text-blue-400 drop-shadow-lg">in Krabi – </span>THAILAND
+                </h1>
+                
+                <p className="text-white/90 mb-3 text-xs drop-shadow-md">
+                  Discover amazing places away from mass tourism in Krabi.<br/>
+                  And also Khao Sok, Koh Mook and many more destinations.
+                </p>
+                
+                <div className="flex flex-col sm:flex-row gap-2">
+                  <div className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition-colors cursor-pointer inline-block shadow-lg text-xs">
+                    See our offers
+                  </div>
+                  <div className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition-colors cursor-pointer inline-block shadow-lg text-xs">
+                    Custom your trip
+                  </div>
+                </div>
               </div>
             </div>
           </div>
