@@ -407,7 +407,10 @@ function MiniaturizedComponent({
                 
                 {/* Formulaire d'édition Hero */}
                 {isEditingHero && (
-                  <div className="bg-white border-t border-gray-200 p-8 space-y-6">
+                  <div className="bg-red-500 border-t border-gray-200 p-8 space-y-6">
+                    <div className="bg-yellow-300 p-4 text-black font-bold">
+                      🧪 TEST VISUEL : SI VOUS VOYEZ CECI, LE FORMULAIRE FONCTIONNE !
+                    </div>
                     <h3 className="text-xl font-semibold text-gray-800 mb-6 border-b pb-3">Édition Hero Section</h3>
                     
                     {/* Layout en colonnes pour optimiser l'espace */}
