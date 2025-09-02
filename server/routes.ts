@@ -2866,7 +2866,7 @@ Crawl-delay: 1`;
     </style>
 </head>
 <body>
-    <section class="relative py-8 h-full flex items-center overflow-hidden" style="height: 100vh; max-height: 800px;">
+    <section class="relative py-4 h-full flex items-center overflow-hidden" style="height: 800px;">
         <!-- Background Video EXACT du vrai Hero -->
         <div class="absolute inset-0 w-full h-full z-0 overflow-hidden">
             <!-- Fallback Image -->
@@ -2885,23 +2885,23 @@ Crawl-delay: 1`;
         </div>
         
         <!-- Content EXACT du vrai Hero.tsx -->
-        <div class="container mx-auto px-4 relative z-10">
-            <div class="flex flex-col md:flex-row items-start gap-10">
+        <div class="container mx-auto px-4 relative z-10 h-full flex items-center">
+            <div class="flex flex-col md:flex-row items-start gap-6 w-full">
                 <div class="w-full">
-                    <div class="max-w-xl">
-                        <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl mb-4 leading-tight tracking-tight text-white drop-shadow-lg">
+                    <div class="max-w-lg">
+                        <h1 class="font-heading text-2xl md:text-3xl lg:text-4xl mb-3 leading-tight tracking-tight text-white drop-shadow-lg">
                             Your exclusive experiences <br/>
                             <span class="text-primary drop-shadow-lg">in Krabi – </span>THAILAND
                         </h1>
                         
-                        <p class="text-white/90 mb-6 text-base drop-shadow-md">
+                        <p class="text-white/90 mb-4 text-sm drop-shadow-md">
                             Discover amazing places away from mass tourism in Krabi.<br/>
                             And also Khao Sok, Koh Mook and many more destinations.
                         </p>
                         
-                        <div class="flex flex-col sm:flex-row gap-4">
-                            <div class="bg-primary text-white px-6 py-2 mt-3 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg text-sm">See our offers</div>
-                            <div class="bg-primary text-white px-6 py-2 mt-3 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg text-sm">Custom your trip</div>
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <div class="bg-primary text-white px-4 py-1.5 mt-2 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg text-xs">See our offers</div>
+                            <div class="bg-primary text-white px-4 py-1.5 mt-2 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg text-xs">Custom your trip</div>
                         </div>
                     </div>
                 </div>
