@@ -29,7 +29,7 @@ const SECTION_DEFINITIONS = {
   // Hero Sections - Grande hauteur avec média
   hero_main_v2: { 
     type: 'fullscreen', 
-    originalHeight: 480, // HAUTEUR RÉDUITE pour éliminer espace blanc
+    originalHeight: 650, 
     expectedRatio: 'wide',
     contentDensity: 'sparse' 
   },
@@ -124,19 +124,24 @@ const calculateOptimalPreviewScale = (identifier: string, containerHeight: numbe
   };
 };
 
-// 🎯 WRAPPER UNIVERSEL ADAPTATIF - CONTENEUR S'ADAPTE AU CONTENU
+// 🎯 WRAPPER UNIVERSEL POUR PRÉVISUALISATION PARFAITE
 const PreviewWrapper = ({ identifier, children }: { identifier: string, children: React.ReactNode }) => {
   const scaleSettings = calculateOptimalPreviewScale(identifier, 450);
   
+  // HAUTEUR CONTENEUR = HAUTEUR CONTENU REDIMENSIONNÉ (pas de débordement)
+  const containerHeight = Math.round(parseInt(scaleSettings.height) * scaleSettings.scale);
+  
   return (
-    <div className="relative w-full overflow-hidden bg-white">
+    <div 
+      className="relative w-full overflow-hidden bg-white"
+      style={{ height: `${containerHeight}px` }}
+    >
       <div 
         style={{ 
           transform: `scale(${scaleSettings.scale})`, 
           transformOrigin: 'top left',
           width: scaleSettings.width, 
-          height: scaleSettings.height,
-          display: 'block'
+          height: scaleSettings.height
         }}
       >
         {children}
