@@ -14,6 +14,19 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { toast } from '@/hooks/use-toast';
 import { Edit, Plus, Trash2, Move, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Palette, Layout, Image, Type, FileText, MapPin, Mail, Users, Download, Star, Camera, ArrowLeft, Search, Video, Bell, MousePointer, Globe, Menu } from 'lucide-react';
 import RealBlockPreview from '@/components/admin/RealBlockPreview';
+
+// Interface pour les données d'édition du Hero
+interface HeroEditData {
+  title: string;
+  titleColorPart: string;
+  description: string;
+  imageUrl: string;
+  videoUrl: string;
+  button1Text: string;
+  button1Url: string;
+  button2Text: string;
+  button2Url: string;
+}
 import { useLocation } from 'wouter';
 import { motion } from 'framer-motion';
 import logoAmon from "@/assets/logo-amon.png";
@@ -1103,6 +1116,20 @@ export default function AdminAppearance() {
   const [isEditingBlock, setIsEditingBlock] = useState(false);
   const [editingBlockId, setEditingBlockId] = useState<number | null>(null);
   const [newBlockType, setNewBlockType] = useState<string>('');
+  
+  // État pour l'édition Hero séparée
+  const [editingHeroBlockId, setEditingHeroBlockId] = useState<number | null>(null);
+  const [heroEditData, setHeroEditData] = useState<HeroEditData>({
+    title: "Your exclusive experiences\nin Krabi – THAILAND",
+    titleColorPart: "in Krabi –",
+    description: "Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations.",
+    imageUrl: "/attached_assets/DJI_20241115104455_0160_D-min.jpeg",
+    videoUrl: "/attached_assets/hero-video-optimized.mp4",
+    button1Text: "See our offers",
+    button1Url: "/tours",
+    button2Text: "Custom your trip",
+    button2Url: "/custom-tour"
+  });
 
   const queryClient = useQueryClient();
 
@@ -4005,11 +4032,60 @@ function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
     return displayNames[blockType] || blockType.replace('_', ' ');
   };
 
+  // Fonction pour sauvegarder les modifications Hero
+  const saveHeroChanges = async () => {
+    if (!editingHeroBlockId) return;
+    
+    try {
+      const updateData = {
+        title: heroEditData.title,
+        description: heroEditData.description,
+        imageUrl: heroEditData.imageUrl,
+        ctaText: heroEditData.button1Text,
+        ctaUrl: heroEditData.button1Url,
+        configuration: {
+          titleColorPart: heroEditData.titleColorPart,
+          videoUrl: heroEditData.videoUrl,
+          button2Text: heroEditData.button2Text,
+          button2Url: heroEditData.button2Url
+        }
+      };
+      
+      const response = await fetch(`/api/admin/page-blocks/${editingHeroBlockId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updateData),
+      });
+      
+      if (!response.ok) throw new Error('Erreur de sauvegarde');
+      
+      setEditingHeroBlockId(null);
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/page-blocks', selectedPage] });
+      toast({ title: "Hero mis à jour avec succès!" });
+      
+    } catch (error) {
+      console.error('Erreur sauvegarde Hero:', error);
+      toast({ title: "Erreur lors de la sauvegarde", variant: "destructive" });
+    }
+  };
+
   const handleEditBlock = (block: PageBlock) => {
-    // Gestion spéciale pour le Hero Section avec formulaire intégré
+    // Gestion spéciale pour le Hero Section avec dropdown séparé
     if (block.identifier === 'hero_main_v2') {
-      // Le Hero Section utilise son propre système d'édition intégré
-      // Le clic déclenche automatiquement l'édition via la prop isEditing
+      // Préremplir avec les données actuelles
+      const config = block.configuration || {};
+      setHeroEditData({
+        title: block.title || "Your exclusive experiences\nin Krabi – THAILAND",
+        titleColorPart: config.titleColorPart || "in Krabi –",
+        description: block.description || "Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations.",
+        imageUrl: block.imageUrl || "/attached_assets/DJI_20241115104455_0160_D-min.jpeg",
+        videoUrl: config.videoUrl || "/attached_assets/hero-video-optimized.mp4",
+        button1Text: block.ctaText || "See our offers",
+        button1Url: block.ctaUrl || "/tours",
+        button2Text: config.button2Text || "Custom your trip",
+        button2Url: config.button2Url || "/custom-tour"
+      });
+      setEditingHeroBlockId(block.id);
       return;
     }
     
@@ -4792,6 +4868,138 @@ function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
             </div>
           </div>
         ))}
+
+        {/* Formulaire d'édition Hero Section - Conteneur séparé */}
+        {editingHeroBlockId && (
+          <div className="border-2 border-green-500 rounded-lg bg-green-50 p-6">
+            <div className="mb-4 flex items-center justify-between">
+              <h3 className="text-lg font-semibold text-green-800 flex items-center gap-2">
+                <Edit className="w-5 h-5" />
+                Édition Hero Section
+              </h3>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setEditingHeroBlockId(null)}
+                className="text-gray-600"
+              >
+                ✕ Fermer
+              </Button>
+            </div>
+            
+            <div className="space-y-4">
+              {/* Titre principal */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium mb-2">Titre principal</label>
+                  <textarea
+                    value={heroEditData.title}
+                    onChange={(e) => setHeroEditData(prev => ({ ...prev, title: e.target.value }))}
+                    className="w-full p-3 border rounded-lg"
+                    rows={2}
+                    placeholder="Your exclusive experiences in Krabi..."
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2">Partie à colorer (bleu)</label>
+                  <input
+                    type="text"
+                    value={heroEditData.titleColorPart}
+                    onChange={(e) => setHeroEditData(prev => ({ ...prev, titleColorPart: e.target.value }))}
+                    className="w-full p-3 border rounded-lg"
+                    placeholder="in Krabi –"
+                  />
+                </div>
+              </div>
+
+              {/* Description */}
+              <div>
+                <label className="block text-sm font-medium mb-2">Description</label>
+                <textarea
+                  value={heroEditData.description}
+                  onChange={(e) => setHeroEditData(prev => ({ ...prev, description: e.target.value }))}
+                  className="w-full p-3 border rounded-lg"
+                  rows={3}
+                  placeholder="Discover amazing places away from mass tourism..."
+                />
+              </div>
+
+              {/* Images et Vidéo */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium mb-2">URL Image de fond</label>
+                  <input
+                    type="text"
+                    value={heroEditData.imageUrl}
+                    onChange={(e) => setHeroEditData(prev => ({ ...prev, imageUrl: e.target.value }))}
+                    className="w-full p-3 border rounded-lg"
+                    placeholder="/attached_assets/hero-image.jpg"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2">URL Vidéo de fond</label>
+                  <input
+                    type="text"
+                    value={heroEditData.videoUrl}
+                    onChange={(e) => setHeroEditData(prev => ({ ...prev, videoUrl: e.target.value }))}
+                    className="w-full p-3 border rounded-lg"
+                    placeholder="/attached_assets/hero-video.mp4"
+                  />
+                </div>
+              </div>
+
+              {/* Boutons */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium">Bouton 1 - Texte</label>
+                  <input
+                    type="text"
+                    value={heroEditData.button1Text}
+                    onChange={(e) => setHeroEditData(prev => ({ ...prev, button1Text: e.target.value }))}
+                    className="w-full p-3 border rounded-lg"
+                    placeholder="See our offers"
+                  />
+                  <label className="block text-sm font-medium">Bouton 1 - URL</label>
+                  <input
+                    type="text"
+                    value={heroEditData.button1Url}
+                    onChange={(e) => setHeroEditData(prev => ({ ...prev, button1Url: e.target.value }))}
+                    className="w-full p-3 border rounded-lg"
+                    placeholder="/tours"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium">Bouton 2 - Texte</label>
+                  <input
+                    type="text"
+                    value={heroEditData.button2Text}
+                    onChange={(e) => setHeroEditData(prev => ({ ...prev, button2Text: e.target.value }))}
+                    className="w-full p-3 border rounded-lg"
+                    placeholder="Custom your trip"
+                  />
+                  <label className="block text-sm font-medium">Bouton 2 - URL</label>
+                  <input
+                    type="text"
+                    value={heroEditData.button2Url}
+                    onChange={(e) => setHeroEditData(prev => ({ ...prev, button2Url: e.target.value }))}
+                    className="w-full p-3 border rounded-lg"
+                    placeholder="/custom-tour"
+                  />
+                </div>
+              </div>
+
+              {/* Boutons d'action */}
+              <div className="flex gap-3 pt-4 border-t">
+                <Button onClick={saveHeroChanges} className="bg-green-600 hover:bg-green-700">
+                  💾 Sauvegarder
+                </Button>
+                <Button variant="outline" onClick={() => setEditingHeroBlockId(null)}>
+                  Annuler
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Add new block button */}
         <button className="w-full border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 hover:bg-blue-50 transition-colors">

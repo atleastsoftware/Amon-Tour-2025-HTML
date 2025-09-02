@@ -215,9 +215,6 @@ interface PageBlock {
 
 interface RealBlockPreviewProps {
   block: PageBlock;
-  isEditing?: boolean;
-  onSave?: () => void;
-  onCancel?: () => void;
   onUpdate: (id: number, data: Partial<PageBlock>) => void;
   onDelete: (id: number) => void;
   onMoveUp: (id: number) => void;
@@ -225,128 +222,13 @@ interface RealBlockPreviewProps {
   onToggleVisibility: (id: number) => void;
 }
 
-// Interface pour les données d'édition du Hero
-interface HeroEditData {
-  title: string;
-  titleColorPart: string; // Partie du titre à colorer
-  description: string;
-  imageUrl: string;
-  videoUrl: string;
-  button1Text: string;
-  button1Url: string;
-  button2Text: string;
-  button2Url: string;
-}
 
 // Composant de prévisualisation miniaturisé des vrais composants  
 function MiniaturizedComponent({ 
-  block, 
-  isEditing = false, 
-  onSave = () => {},
-  onCancel = () => {}
+  block
 }: { 
   block: PageBlock;
-  isEditing?: boolean;
-  onSave?: () => void;
-  onCancel?: () => void;
 }) {
-  // État pour l'édition Hero
-  const [isEditingHero, setIsEditingHero] = useState(false);
-  
-  // Activer l'édition depuis le parent
-  useEffect(() => {
-    if (isEditing && block.identifier === 'hero_main_v2') {
-      setIsEditingHero(true);
-    } else if (!isEditing) {
-      setIsEditingHero(false);
-    }
-  }, [isEditing, block.identifier]);
-  const [heroEditData, setHeroEditData] = useState<HeroEditData>({
-    title: "Your exclusive experiences\nin Krabi – THAILAND",
-    titleColorPart: "in Krabi –",
-    description: "Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations.",
-    imageUrl: "/attached_assets/DJI_20241115104455_0160_D-min.jpeg",
-    videoUrl: "/attached_assets/hero-video-optimized.mp4",
-    button1Text: "See our offers",
-    button1Url: "/tours",
-    button2Text: "Custom your trip",
-    button2Url: "/custom-tour"
-  });
-
-  // Préremplir avec les données actuelles du bloc
-  useEffect(() => {
-    if (block.identifier === 'hero_main_v2') {
-      const config = block.configuration || {};
-      setHeroEditData({
-        title: block.title || "Your exclusive experiences\nin Krabi – THAILAND",
-        titleColorPart: config.titleColorPart || "in Krabi –",
-        description: block.description || "Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations.",
-        imageUrl: block.imageUrl || "/attached_assets/DJI_20241115104455_0160_D-min.jpeg",
-        videoUrl: config.videoUrl || "/attached_assets/hero-video-optimized.mp4",
-        button1Text: block.ctaText || "See our offers",
-        button1Url: block.ctaUrl || "/tours",
-        button2Text: config.button2Text || "Custom your trip",
-        button2Url: config.button2Url || "/custom-tour"
-      });
-    }
-  }, [block]);
-
-  // Fonction pour rendre le titre avec la partie colorée
-  const renderTitleWithColor = (title: string, colorPart: string) => {
-    if (!colorPart) return title;
-    
-    const parts = title.split(colorPart);
-    return (
-      <>
-        {parts[0]}
-        <span className="text-primary drop-shadow-lg">{colorPart}</span>
-        {parts[1]}
-      </>
-    );
-  };
-
-  // Fonction pour sauvegarder les modifications Hero
-  const saveHeroChanges = async () => {
-    try {
-      // Structurer les données pour la base de données
-      const updateData = {
-        title: heroEditData.title,
-        description: heroEditData.description,
-        imageUrl: heroEditData.imageUrl,
-        ctaText: heroEditData.button1Text,
-        ctaUrl: heroEditData.button1Url,
-        configuration: {
-          titleColorPart: heroEditData.titleColorPart,
-          videoUrl: heroEditData.videoUrl,
-          button2Text: heroEditData.button2Text,
-          button2Url: heroEditData.button2Url
-        }
-      };
-
-      // Envoyer à l'API
-      const response = await fetch(`/api/admin/page-blocks/${block.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updateData)
-      });
-
-      if (!response.ok) {
-        throw new Error('Erreur de sauvegarde');
-      }
-
-      setIsEditingHero(false);
-      onSave(); // Notifier le composant parent avec sauvegarde
-      toast({ title: "Hero mis à jour avec succès! Le site web a été mis à jour." });
-      
-      // Recharger pour voir les changements
-      window.location.reload();
-    } catch (error) {
-      console.error('Erreur sauvegarde Hero:', error);
-      toast({ title: "Erreur lors de la sauvegarde", variant: "destructive" });
-    }
-  };
 
   const renderVisualPreview = () => {
     const config = block.configuration || {};
@@ -381,12 +263,24 @@ function MiniaturizedComponent({
                           className="max-w-xl"
                         >
                           <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight text-white drop-shadow-lg">
-                            {renderTitleWithColor(heroEditData.title, heroEditData.titleColorPart)}
+                            {(() => {
+                              const title = block.title || "Your exclusive experiences\nin Krabi – THAILAND";
+                              const colorPart = config.titleColorPart || "in Krabi –";
+                              if (!colorPart) return title;
+                              const parts = title.split(colorPart);
+                              return (
+                                <>
+                                  {parts[0]}
+                                  <span className="text-primary drop-shadow-lg">{colorPart}</span>
+                                  {parts[1]}
+                                </>
+                              );
+                            })()}
                           </h1>
                           
                           <p className="text-white/90 mb-8 text-lg drop-shadow-md">
-                            {heroEditData.description.split('\n').map((line, index) => (
-                              <span key={index}>{line}{index < heroEditData.description.split('\n').length - 1 && <br/>}</span>
+                            {(block.description || "Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations.").split('\n').map((line, index) => (
+                              <span key={index}>{line}{index < (block.description || "").split('\n').length - 1 && <br/>}</span>
                             ))}
                           </p>
                           
@@ -395,12 +289,12 @@ function MiniaturizedComponent({
                               className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg"
                               whileHover={{ scale: 1.05 }}
                               whileTap={{ scale: 0.98 }}
-                            >{heroEditData.button1Text}</motion.span>
+                            >{block.ctaText || "See our offers"}</motion.span>
                             <motion.span 
                               className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg"
                               whileHover={{ scale: 1.05 }}
                               whileTap={{ scale: 0.98 }}
-                            >{heroEditData.button2Text}</motion.span>
+                            >{config.button2Text || "Custom your trip"}</motion.span>
                           </div>
                         </motion.div>
                       </div>
@@ -1242,9 +1136,6 @@ function BlockEditForm({
 
 export default function RealBlockPreview({ 
   block, 
-  isEditing = false,
-  onSave = () => {},
-  onCancel = () => {},
   onUpdate, 
   onDelete, 
   onMoveUp, 
