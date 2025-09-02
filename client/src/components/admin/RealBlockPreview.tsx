@@ -395,142 +395,6 @@ function MiniaturizedComponent({
                     </div>
                   </div>
                 </section>
-                
-                {/* Formulaire d'édition Hero */}
-                {isEditing && (
-                  <div className="bg-white border-t border-gray-200 p-6 space-y-4 max-h-96 overflow-y-auto">
-                    <h3 className="text-lg font-semibold text-gray-800 mb-4">Édition Hero Section</h3>
-                    
-                    {/* Titre */}
-                    <div>
-                      <Label htmlFor="heroTitle">Titre</Label>
-                      <textarea
-                        id="heroTitle"
-                        value={heroEditData.title}
-                        onChange={(e) => setHeroEditData(prev => ({ ...prev, title: e.target.value }))}
-                        className="w-full p-2 border border-gray-300 rounded resize-none"
-                        rows={3}
-                        placeholder="Your exclusive experiences in Krabi – THAILAND"
-                      />
-                    </div>
-                    
-                    {/* Partie du titre à colorer */}
-                    <div>
-                      <Label htmlFor="titleColorPart">Partie du titre à mettre en bleu</Label>
-                      <input
-                        id="titleColorPart"
-                        type="text"
-                        value={heroEditData.titleColorPart}
-                        onChange={(e) => setHeroEditData(prev => ({ ...prev, titleColorPart: e.target.value }))}
-                        className="w-full p-2 border border-gray-300 rounded"
-                        placeholder="in Krabi –"
-                      />
-                    </div>
-                    
-                    {/* Description */}
-                    <div>
-                      <Label htmlFor="heroDescription">Description</Label>
-                      <textarea
-                        id="heroDescription"
-                        value={heroEditData.description}
-                        onChange={(e) => setHeroEditData(prev => ({ ...prev, description: e.target.value }))}
-                        className="w-full p-2 border border-gray-300 rounded resize-none"
-                        rows={4}
-                        placeholder="Discover amazing places away from mass tourism in Krabi.&#10;And also Khao Sok, Koh Mook and many more destinations."
-                      />
-                    </div>
-                    
-                    {/* URLs */}
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="heroImageUrl">URL de l'image</Label>
-                        <input
-                          id="heroImageUrl"
-                          type="text"
-                          value={heroEditData.imageUrl}
-                          onChange={(e) => setHeroEditData(prev => ({ ...prev, imageUrl: e.target.value }))}
-                          className="w-full p-2 border border-gray-300 rounded"
-                          placeholder="/chemin/vers/image.jpg"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="heroVideoUrl">URL de la vidéo</Label>
-                        <input
-                          id="heroVideoUrl"
-                          type="text"
-                          value={heroEditData.videoUrl}
-                          onChange={(e) => setHeroEditData(prev => ({ ...prev, videoUrl: e.target.value }))}
-                          className="w-full p-2 border border-gray-300 rounded"
-                          placeholder="/chemin/vers/video.mp4"
-                        />
-                      </div>
-                    </div>
-                    
-                    {/* Boutons */}
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="button1Text">Texte Bouton 1</Label>
-                        <input
-                          id="button1Text"
-                          type="text"
-                          value={heroEditData.button1Text}
-                          onChange={(e) => setHeroEditData(prev => ({ ...prev, button1Text: e.target.value }))}
-                          className="w-full p-2 border border-gray-300 rounded"
-                          placeholder="See our offers"
-                        />
-                        <Label htmlFor="button1Url">Lien Bouton 1</Label>
-                        <input
-                          id="button1Url"
-                          type="text"
-                          value={heroEditData.button1Url}
-                          onChange={(e) => setHeroEditData(prev => ({ ...prev, button1Url: e.target.value }))}
-                          className="w-full p-2 border border-gray-300 rounded"
-                          placeholder="/tours"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="button2Text">Texte Bouton 2</Label>
-                        <input
-                          id="button2Text"
-                          type="text"
-                          value={heroEditData.button2Text}
-                          onChange={(e) => setHeroEditData(prev => ({ ...prev, button2Text: e.target.value }))}
-                          className="w-full p-2 border border-gray-300 rounded"
-                          placeholder="Custom your trip"
-                        />
-                        <Label htmlFor="button2Url">Lien Bouton 2</Label>
-                        <input
-                          id="button2Url"
-                          type="text"
-                          value={heroEditData.button2Url}
-                          onChange={(e) => setHeroEditData(prev => ({ ...prev, button2Url: e.target.value }))}
-                          className="w-full p-2 border border-gray-300 rounded"
-                          placeholder="/custom-tour"
-                        />
-                      </div>
-                    </div>
-                    
-                    {/* Boutons d'action */}
-                    <div className="flex gap-2 pt-4 border-t">
-                      <Button 
-                        onClick={saveHeroChanges}
-                        className="bg-blue-600 hover:bg-blue-700 text-white"
-                      >
-                        <Save className="w-4 h-4 mr-2" />
-                        Sauvegarder
-                      </Button>
-                      <Button 
-                        variant="outline"
-                        onClick={() => {
-                          setIsEditingHero(false);
-                          onCancel();
-                        }}
-                      >
-                        Annuler
-                      </Button>
-                    </div>
-                  </div>
-                )}
             </PreviewWrapper>
           );
         }
@@ -737,20 +601,158 @@ function MiniaturizedComponent({
   const previewHeight = isHeroBlock ? '400px' : '200px'; // Hauteur optimisée pour proportions
   
   return (
-    <div 
-      className={`relative overflow-hidden rounded-lg border bg-white ${
-        isHeroBlock ? 'w-full' : ''
-      }`} 
-      style={{ 
-        height: previewHeight, 
-        minHeight: previewHeight,
-        // Proportions rectangle horizontal comme sur le vrai site (16:9 landscape)
-        ...(isHeroBlock ? { width: '100%', aspectRatio: '16/9' } : { aspectRatio: '16/9' })
-      }}
-    >
-      {renderVisualPreview()}
-      <div className="absolute inset-0 bg-transparent pointer-events-none" />
-    </div>
+    <>
+      <div 
+        className={`relative overflow-hidden rounded-lg border bg-white ${
+          isHeroBlock ? 'w-full' : ''
+        }`} 
+        style={{ 
+          height: previewHeight, 
+          minHeight: previewHeight,
+          // Proportions rectangle horizontal comme sur le vrai site (16:9 landscape)
+          ...(isHeroBlock ? { width: '100%', aspectRatio: '16/9' } : { aspectRatio: '16/9' })
+        }}
+      >
+        {renderVisualPreview()}
+        <div className="absolute inset-0 bg-transparent pointer-events-none" />
+      </div>
+      
+      {/* Formulaire d'édition Hero - en dehors du PreviewWrapper pour éviter les problèmes de hauteur */}
+    {isEditing && block.identifier === 'hero_main_v2' && (
+      <div className="bg-white border-t border-gray-200 p-6 space-y-4 max-h-96 overflow-y-auto">
+        <h3 className="text-lg font-semibold text-gray-800 mb-4">Édition Hero Section</h3>
+        
+        {/* Titre */}
+        <div>
+          <Label htmlFor="heroTitle">Titre</Label>
+          <textarea
+            id="heroTitle"
+            value={heroEditData.title}
+            onChange={(e) => setHeroEditData(prev => ({ ...prev, title: e.target.value }))}
+            className="w-full p-2 border border-gray-300 rounded resize-none"
+            rows={3}
+            placeholder="Your exclusive experiences in Krabi – THAILAND"
+          />
+        </div>
+        
+        {/* Partie du titre à colorer */}
+        <div>
+          <Label htmlFor="titleColorPart">Partie du titre à mettre en bleu</Label>
+          <input
+            id="titleColorPart"
+            type="text"
+            value={heroEditData.titleColorPart}
+            onChange={(e) => setHeroEditData(prev => ({ ...prev, titleColorPart: e.target.value }))}
+            className="w-full p-2 border border-gray-300 rounded"
+            placeholder="in Krabi –"
+          />
+        </div>
+        
+        {/* Description */}
+        <div>
+          <Label htmlFor="heroDescription">Description</Label>
+          <textarea
+            id="heroDescription"
+            value={heroEditData.description}
+            onChange={(e) => setHeroEditData(prev => ({ ...prev, description: e.target.value }))}
+            className="w-full p-2 border border-gray-300 rounded resize-none"
+            rows={4}
+            placeholder="Discover amazing places away from mass tourism in Krabi.&#10;And also Khao Sok, Koh Mook and many more destinations."
+          />
+        </div>
+        
+        {/* URLs */}
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <Label htmlFor="heroImageUrl">URL de l'image</Label>
+            <input
+              id="heroImageUrl"
+              type="text"
+              value={heroEditData.imageUrl}
+              onChange={(e) => setHeroEditData(prev => ({ ...prev, imageUrl: e.target.value }))}
+              className="w-full p-2 border border-gray-300 rounded"
+              placeholder="/chemin/vers/image.jpg"
+            />
+          </div>
+          <div>
+            <Label htmlFor="heroVideoUrl">URL de la vidéo</Label>
+            <input
+              id="heroVideoUrl"
+              type="text"
+              value={heroEditData.videoUrl}
+              onChange={(e) => setHeroEditData(prev => ({ ...prev, videoUrl: e.target.value }))}
+              className="w-full p-2 border border-gray-300 rounded"
+              placeholder="/chemin/vers/video.mp4"
+            />
+          </div>
+        </div>
+        
+        {/* Boutons */}
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="button1Text">Texte Bouton 1</Label>
+            <input
+              id="button1Text"
+              type="text"
+              value={heroEditData.button1Text}
+              onChange={(e) => setHeroEditData(prev => ({ ...prev, button1Text: e.target.value }))}
+              className="w-full p-2 border border-gray-300 rounded"
+              placeholder="See our offers"
+            />
+            <Label htmlFor="button1Url">Lien Bouton 1</Label>
+            <input
+              id="button1Url"
+              type="text"
+              value={heroEditData.button1Url}
+              onChange={(e) => setHeroEditData(prev => ({ ...prev, button1Url: e.target.value }))}
+              className="w-full p-2 border border-gray-300 rounded"
+              placeholder="/tours"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="button2Text">Texte Bouton 2</Label>
+            <input
+              id="button2Text"
+              type="text"
+              value={heroEditData.button2Text}
+              onChange={(e) => setHeroEditData(prev => ({ ...prev, button2Text: e.target.value }))}
+              className="w-full p-2 border border-gray-300 rounded"
+              placeholder="Custom your trip"
+            />
+            <Label htmlFor="button2Url">Lien Bouton 2</Label>
+            <input
+              id="button2Url"
+              type="text"
+              value={heroEditData.button2Url}
+              onChange={(e) => setHeroEditData(prev => ({ ...prev, button2Url: e.target.value }))}
+              className="w-full p-2 border border-gray-300 rounded"
+              placeholder="/custom-tour"
+            />
+          </div>
+        </div>
+        
+        {/* Boutons d'action */}
+        <div className="flex gap-2 pt-4 border-t">
+          <Button 
+            onClick={saveHeroChanges}
+            className="bg-blue-600 hover:bg-blue-700 text-white"
+          >
+            <Save className="w-4 h-4 mr-2" />
+            Sauvegarder
+          </Button>
+          <Button 
+            variant="outline"
+            onClick={() => {
+              setIsEditingHero(false);
+              onCancel();
+            }}
+          >
+            Annuler
+          </Button>
+        </div>
+      </div>
+    )}
+    </>
   );
 }
 
