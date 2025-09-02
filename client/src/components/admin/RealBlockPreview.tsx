@@ -220,6 +220,9 @@ interface RealBlockPreviewProps {
   onMoveUp: (id: number) => void;
   onMoveDown: (id: number) => void;
   onToggleVisibility: (id: number) => void;
+  isEditing?: boolean;
+  onSave?: () => void;
+  onCancel?: () => void;
 }
 
 // Interface pour les données d'édition du Hero
