@@ -4006,8 +4006,16 @@ function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
   };
 
   const handleEditBlock = (block: PageBlock) => {
-    // TODO: Ouvrir le modal d'édition pour ce bloc
-    console.log('Edit block:', block);
+    // Gestion spéciale pour le Hero Section avec formulaire intégré
+    if (block.identifier === 'hero_main_v2') {
+      // Le Hero Section utilise son propre système d'édition intégré
+      // Le clic déclenche automatiquement l'édition via la prop isEditing
+      return;
+    }
+    
+    // Pour les autres blocs, utiliser le modal d'édition standard
+    setSelectedBlock(block);
+    setIsEditingBlock(true);
   };
 
   const renderBlockContent = (block: PageBlock) => {
@@ -4777,9 +4785,9 @@ function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
                 block={block}
                 onUpdate={handleUpdateBlock}
                 onDelete={handleDeleteBlock}
-                onMoveUp={handleMoveBlockUp}
-                onMoveDown={handleMoveBlockDown}
-                onToggleVisibility={handleToggleBlockVisibility}
+                onMoveUp={handleMoveUp}
+                onMoveDown={handleMoveDown}
+                onToggleVisibility={handleToggleVisibility}
               />
             </div>
           </div>

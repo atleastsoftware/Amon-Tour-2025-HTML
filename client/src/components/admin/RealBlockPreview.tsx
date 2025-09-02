@@ -215,6 +215,9 @@ interface PageBlock {
 
 interface RealBlockPreviewProps {
   block: PageBlock;
+  isEditing?: boolean;
+  onSave?: () => void;
+  onCancel?: () => void;
   onUpdate: (id: number, data: Partial<PageBlock>) => void;
   onDelete: (id: number) => void;
   onMoveUp: (id: number) => void;
@@ -249,6 +252,15 @@ function MiniaturizedComponent({
 }) {
   // État pour l'édition Hero
   const [isEditingHero, setIsEditingHero] = useState(false);
+  
+  // Activer l'édition depuis le parent
+  useEffect(() => {
+    if (isEditing && block.identifier === 'hero_main_v2') {
+      setIsEditingHero(true);
+    } else if (!isEditing) {
+      setIsEditingHero(false);
+    }
+  }, [isEditing, block.identifier]);
   const [heroEditData, setHeroEditData] = useState<HeroEditData>({
     title: "Your exclusive experiences\nin Krabi – THAILAND",
     titleColorPart: "in Krabi –",
@@ -325,7 +337,7 @@ function MiniaturizedComponent({
       }
 
       setIsEditingHero(false);
-      onSave(); // Notifier le composant parent
+      onSave(); // Notifier le composant parent avec sauvegarde
       toast({ title: "Hero mis à jour avec succès! Le site web a été mis à jour." });
       
       // Recharger pour voir les changements
@@ -603,7 +615,7 @@ function MiniaturizedComponent({
   return (
     <>
       <div 
-        className={`relative overflow-hidden rounded-lg border bg-white ${
+        className={`group relative overflow-hidden rounded-lg border bg-white ${
           isHeroBlock ? 'w-full' : ''
         }`} 
         style={{ 
@@ -614,19 +626,22 @@ function MiniaturizedComponent({
         }}
       >
         {renderVisualPreview()}
-        <div className="absolute inset-0 bg-transparent pointer-events-none" />
         
-        {/* Bouton Modifier Hero flottant - visible seulement pour Hero blocks */}
+        {/* Bouton Edit pour Hero Section */}
         {block.identifier === 'hero_main_v2' && !isEditingHero && (
-          <Button
-            onClick={() => setIsEditingHero(true)}
-            className="absolute top-4 right-4 bg-blue-600 hover:bg-blue-700 text-white shadow-lg z-10 pointer-events-auto"
-            size="sm"
-          >
-            <Edit className="w-4 h-4 mr-1" />
-            Modifier Hero
-          </Button>
+          <div className="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition-opacity pointer-events-none group-hover:pointer-events-auto">
+            <Button
+              onClick={() => setIsEditingHero(true)}
+              className="absolute top-4 right-4 bg-blue-600 hover:bg-blue-700 text-white shadow-lg pointer-events-auto"
+              size="sm"
+            >
+              <Edit className="w-4 h-4 mr-1" />
+              Modifier Hero
+            </Button>
+          </div>
         )}
+        
+        <div className="absolute inset-0 bg-transparent pointer-events-none" />
       </div>
       
       {/* Formulaire d'édition Hero - en dehors du PreviewWrapper pour éviter les problèmes de hauteur */}
@@ -1227,6 +1242,9 @@ function BlockEditForm({
 
 export default function RealBlockPreview({ 
   block, 
+  isEditing = false,
+  onSave = () => {},
+  onCancel = () => {},
   onUpdate, 
   onDelete, 
   onMoveUp, 
