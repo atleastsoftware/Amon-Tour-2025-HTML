@@ -64,8 +64,8 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
         return (
           <iframe 
             src="/preview/hero" 
-            className="w-full h-full border-0 rounded-lg overflow-hidden"
-            style={{ minHeight: '300px' }}
+            className="w-full border-0 rounded-lg overflow-hidden"
+            style={{ height: '400px' }}
             title="Hero Section Preview"
           />
         );
@@ -100,8 +100,8 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
         return (
           <iframe 
             src="/preview/about" 
-            className="w-full h-full border-0 rounded-lg overflow-hidden"
-            style={{ minHeight: '300px' }}
+            className="w-full border-0 rounded-lg overflow-hidden"
+            style={{ height: '350px' }}
             title="About Section Preview"
           />
         );
@@ -158,8 +158,8 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
         return (
           <iframe 
             src="/preview/when-expats" 
-            className="w-full h-full border-0 rounded-lg overflow-hidden"
-            style={{ minHeight: '200px' }}
+            className="w-full border-0 rounded-lg overflow-hidden"
+            style={{ height: '250px' }}
             title="When Expats Section Preview"
           />
         );
