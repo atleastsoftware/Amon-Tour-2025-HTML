@@ -4777,9 +4777,9 @@ function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
                 block={block}
                 onUpdate={handleUpdateBlock}
                 onDelete={handleDeleteBlock}
-                onMoveUp={handleMoveBlockUp}
-                onMoveDown={handleMoveBlockDown}
-                onToggleVisibility={handleToggleBlockVisibility}
+                onMoveUp={handleMoveUp}
+                onMoveDown={handleMoveDown}
+                onToggleVisibility={handleToggleVisibility}
               />
             </div>
           </div>
