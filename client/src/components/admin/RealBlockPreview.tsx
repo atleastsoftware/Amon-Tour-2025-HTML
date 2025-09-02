@@ -86,27 +86,29 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
                 <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
               </div>
               
-              {/* Content adaptatif au conteneur */}
-              <div className="relative z-10 p-6 flex-1 flex items-center">
-                <div className="w-full max-w-md">
-                  <h1 className="font-heading text-2xl md:text-3xl mb-3 leading-tight text-white drop-shadow-lg">
-                    Your exclusive <br/>
-                    experiences <br/>
-                    <span className="text-primary drop-shadow-lg">in Krabi – </span>THAILAND
-                  </h1>
-                  
-                  <p className="text-white/90 mb-4 text-sm drop-shadow-md">
-                    Discover amazing places away from mass tourism in Krabi.<br/>
-                    And also Khao Sok, Koh Mook and many more destinations.
-                  </p>
-                  
-                  <div className="flex flex-row gap-2">
-                    <span className="bg-primary text-white px-4 py-2 rounded text-sm inline-block shadow-lg">
-                      See our offers
-                    </span>
-                    <span className="bg-primary text-white px-4 py-2 rounded text-sm inline-block shadow-lg">
-                      Custom your trip
-                    </span>
+              {/* Content avec positionnement exactement comme le site */}
+              <div className="relative z-10 px-4 pt-8 pb-6 flex-1 flex items-start">
+                <div className="w-full">
+                  <div className="max-w-xl">
+                    <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl mb-6 leading-tight tracking-tight text-white drop-shadow-lg">
+                      Your exclusive <br/>
+                      experiences <br/>
+                      <span className="text-primary drop-shadow-lg">in Krabi – </span>THAILAND
+                    </h1>
+                    
+                    <p className="text-white/90 mb-8 text-lg drop-shadow-md">
+                      Discover amazing places away from mass tourism in Krabi.<br/>
+                      And also Khao Sok, Koh Mook and many more destinations.
+                    </p>
+                    
+                    <div className="flex flex-row gap-4">
+                      <span className="bg-primary text-white px-8 py-3 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg">
+                        See our offers
+                      </span>
+                      <span className="bg-primary text-white px-8 py-3 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg">
+                        Custom your trip
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
