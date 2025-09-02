@@ -61,7 +61,7 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
       case 'hero_main_v2':
         // Copie EXACTE du code Hero mais mise à l'échelle pour la largeur disponible
         return (
-          <section className="relative py-8 flex items-center overflow-hidden w-full h-full">
+          <section className="relative py-4 flex items-start justify-start overflow-hidden w-full h-full">
             {/* Background Video - IDENTIQUE à Hero.tsx */}
             <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
               {/* Fallback Image */}
@@ -91,26 +91,26 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
               <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
             </div>
 
-            {/* Content IDENTIQUE à Hero.tsx mais tailles adaptées */}
-            <div className="container mx-auto px-4 relative z-10">
-              <div className="flex flex-col md:flex-row items-center gap-10">
+            {/* Content OPTIMISÉ pour preview compacte */}
+            <div className="container mx-auto px-3 relative z-10 pt-6">
+              <div className="flex flex-col items-start">
                 <div className="w-full">
-                  <div className="max-w-xl">
-                    <h1 className="font-heading text-xl md:text-2xl lg:text-3xl mb-4 leading-tight tracking-tight text-white drop-shadow-lg">
+                  <div className="max-w-lg">
+                    <h1 className="font-heading text-lg md:text-xl mb-2 leading-tight tracking-tight text-white drop-shadow-lg">
                       Your exclusive experiences <br/>
                       <span className="text-primary drop-shadow-lg">in Krabi – </span>THAILAND
                     </h1>
                     
-                    <p className="text-white/90 mb-6 text-sm drop-shadow-md">
+                    <p className="text-white/90 mb-3 text-xs leading-relaxed drop-shadow-md">
                       Discover amazing places away from mass tourism in Krabi.<br/>
                       And also Khao Sok, Koh Mook and many more destinations.
                     </p>
                     
-                    <div className="flex flex-col sm:flex-row gap-4">
-                      <span className="bg-primary text-white px-6 py-2 mt-3 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg text-sm">
+                    <div className="flex flex-col sm:flex-row gap-2">
+                      <span className="bg-primary text-white px-4 py-1 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg text-xs">
                         See our offers
                       </span>
-                      <span className="bg-primary text-white px-6 py-2 mt-3 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg text-sm">
+                      <span className="bg-primary text-white px-4 py-1 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg text-xs">
                         Custom your trip
                       </span>
                     </div>
@@ -918,7 +918,7 @@ export default function RealBlockPreview({
 
       {/* Prévisualisation visuelle miniaturisée et fidèle */}
       <div className="relative overflow-hidden bg-white" style={{ 
-        height: block.identifier === 'hero_main_v2' ? '450px' : 
+        height: block.identifier === 'hero_main_v2' ? '350px' : 
                 block.blockType.includes('hero') ? '800px' : '300px' 
       }}>
         <div className={block.blockType.includes('hero') ? "w-full h-full" : "transform scale-90 origin-top-left w-[111.11%] h-[111.11%]"}>
