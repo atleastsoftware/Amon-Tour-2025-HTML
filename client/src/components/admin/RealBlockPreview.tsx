@@ -854,8 +854,8 @@ export default function RealBlockPreview({
       </div>
 
       {/* Prévisualisation visuelle miniaturisée et fidèle */}
-      <div className="relative overflow-hidden bg-white" style={{ height: block.blockType.includes('hero') ? '600px' : '300px' }}>
-        <div className="transform scale-90 origin-top-left w-[111.11%] h-[111.11%]">
+      <div className="relative overflow-hidden bg-white" style={{ height: block.blockType.includes('hero') ? '800px' : '300px' }}>
+        <div className={block.blockType.includes('hero') ? "w-full h-full" : "transform scale-90 origin-top-left w-[111.11%] h-[111.11%]"}>
           <MiniaturizedComponent block={showEditForm ? previewData : block} />
         </div>
         
