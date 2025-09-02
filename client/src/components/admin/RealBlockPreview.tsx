@@ -91,8 +91,8 @@ const calculateOptimalPreviewScale = (identifier: string, containerHeight: numbe
   
   switch (sectionDef.type) {
     case 'fullscreen':
-      // Hero/Fullscreen: Échelle RÉDUITE pour que tout rentre parfaitement
-      targetScale = containerHeight / sectionDef.originalHeight * 0.95; // 95% pour marge sécurité
+      // Hero/Fullscreen: Échelle EXACTE pour remplissage parfait sans débordement
+      targetScale = containerHeight / sectionDef.originalHeight; // Calcul précis 450/650 = 0.69
       break;
     case 'content':
       // Content: Échelle équilibrée pour lisibilité
@@ -128,8 +128,14 @@ const calculateOptimalPreviewScale = (identifier: string, containerHeight: numbe
 const PreviewWrapper = ({ identifier, children }: { identifier: string, children: React.ReactNode }) => {
   const scaleSettings = calculateOptimalPreviewScale(identifier, 450);
   
+  // HAUTEUR CONTENEUR = HAUTEUR CONTENU REDIMENSIONNÉ (pas de débordement)
+  const containerHeight = Math.round(parseInt(scaleSettings.height) * scaleSettings.scale);
+  
   return (
-    <div className="relative w-full h-full overflow-hidden bg-white">
+    <div 
+      className="relative w-full overflow-hidden bg-white"
+      style={{ height: `${containerHeight}px` }}
+    >
       <div 
         style={{ 
           transform: `scale(${scaleSettings.scale})`, 
