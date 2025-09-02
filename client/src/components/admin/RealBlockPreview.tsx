@@ -62,14 +62,24 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
       case 'video_hero':
         return (
           <div className="h-full w-full relative overflow-hidden">
-            {/* Image de fond exact du vrai héro */}
+            {/* Image de fond éditable ou vidéo */}
             <div 
               className="absolute inset-0 bg-cover bg-center bg-no-repeat"
               style={{
-                backgroundImage: `url('/attached_assets/DJI_20241115104455_0160_D-min.jpeg')`,
+                backgroundImage: `url('${block.imageUrl || '/attached_assets/DJI_20241115104455_0160_D-min.jpeg'}')`,
                 animation: 'backgroundShift 8s ease-in-out infinite alternate'
               }}
             ></div>
+            
+            {/* Indicateur de vidéo si URL configurée */}
+            {block.configuration?.videoUrl && (
+              <div className="absolute top-2 left-2">
+                <div className="bg-black/60 rounded px-2 py-1 flex items-center gap-2">
+                  <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                  <span className="text-[8px] text-white font-medium">VIDÉO: {block.configuration.videoUrl}</span>
+                </div>
+              </div>
+            )}
             
             {/* Simulation de la vidéo avec effet de mouvement subtil */}
             <div 
@@ -81,28 +91,36 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
             <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
             <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
             
-            {/* Contenu EXACT du vrai site avec proportions vraiment réelles */}
-            <div className="relative h-full flex items-center px-8 py-6">
-              <div className="flex-1 max-w-[60%]">
-                {/* Titre EXACT du vrai site avec vraie taille */}
-                <h1 className="font-heading text-[22px] md:text-[26px] font-bold mb-4 leading-tight text-white drop-shadow-lg">
+            {/* Contenu EXACT du vrai site avec toutes les valeurs éditables */}
+            <div className="relative h-full flex items-center px-4 py-6">
+              <div className="flex-1 max-w-xl">
+                {/* Titre EXACT avec vraies proportions du site */}
+                <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight text-white drop-shadow-lg">
                   {block.title || "Your exclusive experiences"} <br/>
-                  <span className="text-primary drop-shadow-lg">in Krabi –</span> THAILAND
+                  <span className="text-primary drop-shadow-lg">
+                    {block.configuration?.heroSubtitle || "in Krabi –"}
+                  </span> {block.configuration?.heroCountry || "THAILAND"}
                 </h1>
                 
-                {/* Description EXACTE du vrai site avec vraie taille */}
-                <p className="text-white/90 mb-6 text-[14px] drop-shadow-md leading-relaxed">
+                {/* Description EXACTE avec texte éditable */}
+                <p className="text-white/90 mb-8 text-lg drop-shadow-md">
                   {block.description || "Discover amazing places away from mass tourism in Krabi."}<br/>
-                  And also Khao Sok, Koh Mook and many more destinations.
+                  {block.configuration?.secondDescription || "And also Khao Sok, Koh Mook and many more destinations."}
                 </p>
                 
-                {/* Boutons EXACTS du vrai site avec vraies tailles */}
-                <div className="flex gap-3 mt-6">
-                  <button className="bg-primary text-white text-[12px] px-6 py-3 rounded hover:bg-primary/90 transition-colors shadow-lg font-medium">
-                    See our offers
+                {/* Boutons EXACTS avec textes et liens éditables */}
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <button 
+                    className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary/90 transition-colors shadow-lg font-medium"
+                    title={`Lien vers: ${block.configuration?.button1Url || '/tours'}`}
+                  >
+                    {block.configuration?.button1Text || "See our offers"}
                   </button>
-                  <button className="bg-primary text-white text-[12px] px-6 py-3 rounded hover:bg-primary/90 transition-colors shadow-lg font-medium">
-                    Custom your trip
+                  <button 
+                    className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary/90 transition-colors shadow-lg font-medium"
+                    title={`Lien vers: ${block.configuration?.button2Url || '/custom-tour'}`}
+                  >
+                    {block.configuration?.button2Text || "Custom your trip"}
                   </button>
                 </div>
               </div>
@@ -298,9 +316,9 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
     }
   };
 
-  // Blocs héros prennent toute la largeur comme sur le vrai site
+  // Blocs héros prennent toute la largeur avec proportions exactes du vrai site
   const isHeroBlock = ['hero_main', 'hero', 'video_hero'].includes(block.blockType);
-  const previewHeight = isHeroBlock ? '300px' : '200px';
+  const previewHeight = isHeroBlock ? '400px' : '200px'; // Hauteur réelle pour vraie correspondance
   
   return (
     <div 
@@ -310,6 +328,7 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
       style={{ 
         height: previewHeight, 
         minHeight: previewHeight,
+        // Proportions réelles des sections héros modernes
         ...(isHeroBlock ? { aspectRatio: '21/9' } : { aspectRatio: '16/9' })
       }}
     >
@@ -561,7 +580,103 @@ function BlockEditForm({ block, onSave, isOpen, onToggle }: {
                   />
                 </div>
                 
-                {/* CTA pour les blocs qui en ont */}
+                {/* Champs spécifiques pour video_hero - Correspondance parfaite avec la vraie section */}
+                {block.blockType === 'video_hero' && (
+                  <>
+                    <div>
+                      <Label htmlFor="heroSubtitle">Sous-titre du lieu</Label>
+                      <Input
+                        id="heroSubtitle"
+                        value={formData.configuration.heroSubtitle || ''}
+                        onChange={(e) => updateConfig('heroSubtitle', e.target.value)}
+                        placeholder="in Krabi –"
+                      />
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="heroCountry">Pays</Label>
+                      <Input
+                        id="heroCountry"
+                        value={formData.configuration.heroCountry || ''}
+                        onChange={(e) => updateConfig('heroCountry', e.target.value)}
+                        placeholder="THAILAND"
+                      />
+                    </div>
+                    
+                    <div className="md:col-span-2">
+                      <Label htmlFor="secondDescription">Description complémentaire</Label>
+                      <Textarea
+                        id="secondDescription"
+                        value={formData.configuration.secondDescription || ''}
+                        onChange={(e) => updateConfig('secondDescription', e.target.value)}
+                        placeholder="And also Khao Sok, Koh Mook and many more destinations."
+                        rows={2}
+                      />
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="button1Text">Texte du bouton 1</Label>
+                      <Input
+                        id="button1Text"
+                        value={formData.configuration.button1Text || ''}
+                        onChange={(e) => updateConfig('button1Text', e.target.value)}
+                        placeholder="See our offers"
+                      />
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="button1Url">URL du bouton 1</Label>
+                      <Input
+                        id="button1Url"
+                        value={formData.configuration.button1Url || ''}
+                        onChange={(e) => updateConfig('button1Url', e.target.value)}
+                        placeholder="/tours"
+                      />
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="button2Text">Texte du bouton 2</Label>
+                      <Input
+                        id="button2Text"
+                        value={formData.configuration.button2Text || ''}
+                        onChange={(e) => updateConfig('button2Text', e.target.value)}
+                        placeholder="Custom your trip"
+                      />
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="button2Url">URL du bouton 2</Label>
+                      <Input
+                        id="button2Url"
+                        value={formData.configuration.button2Url || ''}
+                        onChange={(e) => updateConfig('button2Url', e.target.value)}
+                        placeholder="/custom-tour"
+                      />
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="videoUrl">URL de la vidéo principale</Label>
+                      <Input
+                        id="videoUrl"
+                        value={formData.configuration.videoUrl || ''}
+                        onChange={(e) => updateConfig('videoUrl', e.target.value)}
+                        placeholder="/attached_assets/hero-video-optimized.mp4"
+                      />
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="fallbackVideoUrl">URL de la vidéo de fallback</Label>
+                      <Input
+                        id="fallbackVideoUrl"
+                        value={formData.configuration.fallbackVideoUrl || ''}
+                        onChange={(e) => updateConfig('fallbackVideoUrl', e.target.value)}
+                        placeholder="/attached_assets/Catamaran..."
+                      />
+                    </div>
+                  </>
+                )}
+
+                {/* CTA pour les autres types de blocs */}
                 {['hero', 'cta_section', 'custom_tour_cta'].includes(block.blockType) && (
                   <>
                     <div>
