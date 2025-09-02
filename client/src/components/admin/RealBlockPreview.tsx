@@ -59,9 +59,9 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
     
     switch (block.blockType) {
       case 'hero_main_v2':
-        // COPIE EXACTE du HTML Hero mais tailles optimisées pour 300px
+        // COPIE EXACTE du HTML Hero - TAILLES LISIBLES et conteneur adaptatif
         return (
-          <section className="relative h-full flex items-center overflow-hidden">
+          <section className="relative py-12 flex items-center overflow-hidden">
             {/* Background exact du Hero.tsx */}
             <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
               <img
@@ -86,26 +86,26 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
               <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
             </div>
             
-            {/* Content exact mais compact */}
+            {/* Content exact - TAILLES LISIBLES */}
             <div className="container mx-auto px-4 relative z-10">
-              <div className="flex flex-col md:flex-row items-center gap-4">
+              <div className="flex flex-col md:flex-row items-center gap-6">
                 <div className="w-full">
                   <div className="max-w-xl">
-                    <h1 className="font-heading text-sm md:text-base mb-2 leading-tight tracking-tight text-white drop-shadow-lg">
+                    <h1 className="font-heading text-2xl md:text-3xl mb-4 leading-tight tracking-tight text-white drop-shadow-lg">
                       Your exclusive experiences <br/>
                       <span className="text-primary drop-shadow-lg">in Krabi – </span>THAILAND
                     </h1>
                     
-                    <p className="text-white/90 mb-3 text-xs drop-shadow-md">
+                    <p className="text-white/90 mb-6 text-sm drop-shadow-md">
                       Discover amazing places away from mass tourism in Krabi.<br/>
                       And also Khao Sok, Koh Mook and many more destinations.
                     </p>
                     
-                    <div className="flex flex-col sm:flex-row gap-2">
-                      <span className="bg-primary text-white px-3 py-1 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg text-xs">
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <span className="bg-primary text-white px-6 py-2 mt-2 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg text-sm">
                         See our offers
                       </span>
-                      <span className="bg-primary text-white px-3 py-1 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg text-xs">
+                      <span className="bg-primary text-white px-6 py-2 mt-2 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg text-sm">
                         Custom your trip
                       </span>
                     </div>
@@ -913,8 +913,9 @@ export default function RealBlockPreview({
 
       {/* Prévisualisation visuelle miniaturisée et fidèle */}
       <div className="relative overflow-hidden bg-white" style={{ 
-        height: block.identifier === 'hero_main_v2' ? '300px' : 
-                block.blockType.includes('hero') ? '800px' : '300px' 
+        height: block.identifier === 'hero_main_v2' ? 'auto' : 
+                block.blockType.includes('hero') ? '800px' : '300px',
+        minHeight: block.identifier === 'hero_main_v2' ? '400px' : 'auto' 
       }}>
         <div className={block.blockType.includes('hero') ? "w-full h-full" : "transform scale-90 origin-top-left w-[111.11%] h-[111.11%]"}>
           <MiniaturizedComponent block={showEditForm ? previewData : block} />
