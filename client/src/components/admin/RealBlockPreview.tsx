@@ -76,13 +76,6 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
               {block.configuration?.videoUrl && (
                 <div className="absolute top-0 left-0 w-full h-full bg-black/20">
                   <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 via-teal-600/10 to-blue-700/10 animate-pulse" style={{ animationDuration: '3s' }}></div>
-                  {/* Indicateur de lecture vidéo */}
-                  <div className="absolute top-4 right-4">
-                    <div className="bg-black/60 rounded px-2 py-1 flex items-center gap-2">
-                      <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-                      <span className="text-[8px] text-white font-medium">LIVE VIDEO</span>
-                    </div>
-                  </div>
                 </div>
               )}
               
@@ -328,9 +321,9 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
     }
   };
 
-  // Blocs héros prennent les proportions EXACTES du vrai site
+  // Blocs héros avec proportions EXACTES du vrai site - rectangle horizontal
   const isHeroBlock = ['hero_main', 'hero', 'video_hero'].includes(block.blockType);
-  const previewHeight = isHeroBlock ? '600px' : '200px'; // Hauteur représentative du min-h-screen
+  const previewHeight = isHeroBlock ? '400px' : '200px'; // Hauteur optimisée pour proportions
   
   return (
     <div 
@@ -340,8 +333,8 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
       style={{ 
         height: previewHeight, 
         minHeight: previewHeight,
-        // Proportions réelles du vrai site - plus proche du viewport
-        ...(isHeroBlock ? { width: '100%' } : { aspectRatio: '16/9' })
+        // Proportions rectangle horizontal comme sur le vrai site (16:9 landscape)
+        ...(isHeroBlock ? { width: '100%', aspectRatio: '16/9' } : { aspectRatio: '16/9' })
       }}
     >
       {renderVisualPreview()}
