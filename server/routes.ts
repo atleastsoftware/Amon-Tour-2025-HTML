@@ -2867,9 +2867,18 @@ Crawl-delay: 1`;
 </head>
 <body>
     <section class="relative py-12 h-auto flex items-center overflow-hidden" style="height: 400px;">
-        <!-- Background Image EXACT du vrai Hero -->
+        <!-- Background Video EXACT du vrai Hero -->
         <div class="absolute inset-0 w-full h-full z-0 overflow-hidden">
+            <!-- Fallback Image -->
             <img src="/attached_assets/DJI_20241115104455_0160_D-min.jpeg" alt="Beautiful Krabi landscape" class="absolute top-0 left-0 w-full h-full object-cover" />
+            
+            <!-- Video Overlay (même logique que le vrai composant) -->
+            <video autoplay muted loop playsinline preload="none" class="absolute top-0 left-0 w-full h-full object-cover" style="min-width: 100%; min-height: 100%;">
+                <source src="/attached_assets/hero-video-optimized.mp4" type="video/mp4" />
+                <source src="/attached_assets/Catamaran%20cruise%20around%20Ao%20Nang%20local%20islands_1750216800850.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+            </video>
+            
             <!-- Gradient overlays EXACTS -->
             <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
             <div class="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
