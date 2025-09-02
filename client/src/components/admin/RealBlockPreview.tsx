@@ -58,20 +58,28 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
     const config = block.configuration || {};
     
     switch (block.blockType) {
-      case 'hero_main_v2':
-        // TEST VISUEL - CONTENU SIMPLE POUR VÉRIFIER L'AFFICHAGE
-        return (
-          <div className="relative w-full overflow-hidden bg-blue-600 text-white p-6" style={{ minHeight: '250px' }}>
-            <h2 className="text-xl font-bold mb-4">TEST HERO PREVIEW</h2>
-            <p className="mb-4">Vérification que les modifications s'appliquent correctement</p>
-            <div className="bg-yellow-500 text-black p-2 rounded">
-              Échelle: 18% - Si vous voyez ce message, les modifications fonctionnent
+      case 'hero':
+        // VÉRIFIER SI C'EST LE BON BLOC AVEC L'IDENTIFIER
+        if (block.identifier === 'hero_main_v2') {
+          // TEST VISUEL - CONTENU SIMPLE POUR VÉRIFIER L'AFFICHAGE
+          return (
+            <div className="relative w-full overflow-hidden bg-blue-600 text-white p-6" style={{ minHeight: '250px' }}>
+              <h2 className="text-xl font-bold mb-4">🎯 TEST HERO PREVIEW RÉUSSI !</h2>
+              <p className="mb-4">✅ Modifications s'appliquent correctement - blockType: hero</p>
+              <div className="bg-yellow-500 text-black p-2 rounded">
+                🔧 Identifier: {block.identifier} - Prêt pour la vraie preview !
+              </div>
             </div>
+          );
+        }
+        // Fallback pour d'autres heros
+        return (
+          <div className="bg-gray-100 p-4 h-32 flex items-center justify-center">
+            <span className="text-gray-600">Hero Standard</span>
           </div>
         );
         
       case 'hero_main':
-      case 'hero':
       case 'video_hero':
         return (
           <div className="w-full" style={{ height: '800px' }}>
