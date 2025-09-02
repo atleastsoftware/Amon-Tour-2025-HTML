@@ -62,7 +62,7 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
       case 'hero':
       case 'video_hero':
         return (
-          <div className="w-full" style={{ aspectRatio: '16/9' }}>
+          <div className="w-full" style={{ aspectRatio: '21/9' }}>
             <iframe 
               src={`/preview/hero?t=${Date.now()}`} 
               className="w-full h-full border-0 rounded-lg overflow-hidden"
