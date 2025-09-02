@@ -65,7 +65,7 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
           <iframe 
             src="/preview/hero" 
             className="w-full border-0 rounded-lg overflow-hidden"
-            style={{ height: '400px' }}
+            style={{ height: '600px' }}
             title="Hero Section Preview"
           />
         );
@@ -101,7 +101,7 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
           <iframe 
             src="/preview/about" 
             className="w-full border-0 rounded-lg overflow-hidden"
-            style={{ height: '350px' }}
+            style={{ height: '500px' }}
             title="About Section Preview"
           />
         );
@@ -159,7 +159,7 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
           <iframe 
             src="/preview/when-expats" 
             className="w-full border-0 rounded-lg overflow-hidden"
-            style={{ height: '250px' }}
+            style={{ height: '400px' }}
             title="When Expats Section Preview"
           />
         );
