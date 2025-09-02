@@ -63,34 +63,42 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
       case 'video_hero':
         return (
           <section className="relative h-full flex items-center overflow-hidden" style={{ minHeight: '300px' }}>
-            {/* STRUCTURE EXACTE du vrai Hero.tsx - Image/vidéo en arrière-plan */}
+            {/* STRUCTURE 100% IDENTIQUE au vrai Hero.tsx - Background absolu */}
             <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
               <img
                 src={block.imageUrl || '/attached_assets/DJI_20241115104455_0160_D-min.jpeg'}
                 alt="Beautiful Krabi landscape"
                 className="absolute top-0 left-0 w-full h-full object-cover"
               />
-              {/* Gradient Overlay EXACT du vrai site */}
+              {/* Gradient overlays EXACTS du vrai Hero.tsx */}
               <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
             </div>
             
-            {/* CONTENU PAR-DESSUS comme dans le vrai Hero.tsx */}
+            {/* Container et structure EXACTE du vrai Hero.tsx */}
             <div className="container mx-auto px-4 relative z-10">
-              <div className="max-w-md">
-                <h1 className="font-heading text-xl mb-2 leading-tight tracking-tight text-white drop-shadow-lg">
-                  {block.title || "Your exclusive experiences in Krabi – THAILAND"}
-                </h1>
-                
-                <p className="text-white/90 mb-3 text-xs drop-shadow-md leading-relaxed">
-                  {block.description || "Discover amazing places away from mass tourism in Krabi. And also Khao Sok, Koh Mook and many more destinations."}
-                </p>
-                
-                <div className="flex gap-1.5">
-                  <div className="bg-primary text-white px-2 py-1 rounded text-xs">
-                    {block.configuration?.button1Text || "See our offers"}
-                  </div>
-                  <div className="bg-primary text-white px-2 py-1 rounded text-xs">
-                    {block.configuration?.button2Text || "Custom your trip"}
+              <div className="flex flex-col md:flex-row items-center gap-10">
+                {/* UNE SEULE DIV comme dans le vrai Hero - pas deux colonnes ! */}
+                <div className="w-full">
+                  <div className="max-w-xl">
+                    <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight text-white drop-shadow-lg" style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>
+                      Your exclusive experiences <br/>
+                      <span className="text-primary drop-shadow-lg">in Krabi – </span>THAILAND
+                    </h1>
+                    
+                    <p className="text-white/90 mb-8 text-lg drop-shadow-md" style={{ fontSize: '0.7rem', marginBottom: '0.75rem' }}>
+                      Discover amazing places away from mass tourism in Krabi.<br/>
+                      And also Khao Sok, Koh Mook and many more destinations.
+                    </p>
+                    
+                    <div className="flex flex-col sm:flex-row gap-4" style={{ gap: '0.5rem' }}>
+                      <div className="bg-primary text-white px-8 py-3 mt-4 rounded shadow-lg" style={{ padding: '0.25rem 0.5rem', margin: '0', fontSize: '0.6rem' }}>
+                        See our offers
+                      </div>
+                      <div className="bg-primary text-white px-8 py-3 mt-4 rounded shadow-lg" style={{ padding: '0.25rem 0.5rem', margin: '0', fontSize: '0.6rem' }}>
+                        Custom your trip
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -200,19 +208,21 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
       case 'when_expats':
       case 'about_amon_tour':
         return (
-          <div className="h-full bg-white p-4">
-            {/* STRUCTURE EXACTE du vrai home.tsx ligne 225-245 - Section CENTRÉE */}
-            <div className="max-w-full text-center">
-              <h2 className="text-[12px] font-bold mb-2 text-gray-900">
-                {block.title || "When expats welcome you in their host country"}
-              </h2>
-              {/* Trait doré EXACT du vrai site */}
-              <div className="w-8 h-0.5 bg-yellow-400 mx-auto mb-3"></div>
-              <p className="text-[8px] text-gray-700 leading-relaxed">
-                {block.description || "This is a family-run travel agency that combines the organization of exclusive activities with the creation of tailor-made trips throughout the country. Our goal is to offer an immersive experience, far from mass tourism, with personalized service for every traveler — as if we were welcoming our own family or friends."}
-              </p>
+          <section className="h-full bg-white overflow-hidden">
+            {/* STRUCTURE 100% IDENTIQUE au vrai home.tsx lignes 225-245 */}
+            <div className="container mx-auto px-4 max-w-4xl text-center h-full flex items-center">
+              <div className="w-full">
+                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3" style={{ fontSize: '1rem', marginBottom: '0.25rem' }}>
+                  When expats welcome you in their host country
+                </h2>
+                {/* Trait doré EXACT : w-20 h-1 bg-secondary mx-auto mb-8 */}
+                <div className="w-20 h-1 bg-secondary mx-auto mb-8" style={{ width: '3rem', height: '0.125rem', marginBottom: '0.5rem' }}></div>
+                <p className="text-lg text-gray-700 leading-relaxed" style={{ fontSize: '0.7rem', lineHeight: '1.4' }}>
+                  This is a family-run travel agency that combines the organization of exclusive activities with the creation of tailor-made trips throughout the country. Our goal is to offer an immersive experience, far from mass tourism, with personalized service for every traveler — as if we were welcoming our own family or friends.
+                </p>
+              </div>
             </div>
-          </div>
+          </section>
         );
 
       case 'customer_reviews':
