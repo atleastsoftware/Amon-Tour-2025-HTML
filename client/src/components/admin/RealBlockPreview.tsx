@@ -90,7 +90,8 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
               <div className="relative z-10 p-6 flex-1 flex items-center">
                 <div className="w-full max-w-md">
                   <h1 className="font-heading text-2xl md:text-3xl mb-3 leading-tight text-white drop-shadow-lg">
-                    Your exclusive experiences <br/>
+                    Your exclusive <br/>
+                    experiences <br/>
                     <span className="text-primary drop-shadow-lg">in Krabi – </span>THAILAND
                   </h1>
                   
@@ -99,7 +100,7 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
                     And also Khao Sok, Koh Mook and many more destinations.
                   </p>
                   
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-row gap-2">
                     <span className="bg-primary text-white px-4 py-2 rounded text-sm inline-block shadow-lg">
                       See our offers
                     </span>
