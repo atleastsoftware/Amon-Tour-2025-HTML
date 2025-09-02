@@ -29,7 +29,7 @@ const SECTION_DEFINITIONS = {
   // Hero Sections - Grande hauteur avec média
   hero_main_v2: { 
     type: 'fullscreen', 
-    originalHeight: 650, 
+    originalHeight: 768, 
     expectedRatio: 'wide',
     contentDensity: 'sparse' 
   },
@@ -1088,7 +1088,7 @@ export default function RealBlockPreview({
         </div>
       </div>
 
-      {/* Prévisualisation visuelle miniaturisée et fidèle */}
+      {/* Prévisualisation visuelle miniaturisée et fidèle - PADDING ÉLIMINÉ */}
       <div className="relative overflow-hidden bg-white" style={{ 
         height: block.identifier === 'hero_main_v2' ? '450px' : 
                 block.blockType.includes('hero') ? '800px' : '300px',
