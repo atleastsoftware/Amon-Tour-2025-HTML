@@ -66,10 +66,10 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
             <div className="relative w-full overflow-hidden">
               <div 
                 style={{ 
-                  transform: 'scale(0.35)', 
+                  transform: 'scale(0.45)', 
                   transformOrigin: 'top left',
-                  width: '285%', 
-                  height: '1300px'
+                  width: '222%', 
+                  height: '1000px'
                 }}
               >
                 <section className="relative pt-32 pb-20 min-h-screen flex items-center overflow-hidden">
