@@ -404,13 +404,38 @@ function MiniaturizedComponent({
                     </div>
                   </div>
                 </section>
-                
-                {/* Formulaire d'édition Hero */}
-                {isEditingHero && (
-                  <div className="bg-red-500 border-t border-gray-200 p-8 space-y-6">
-                    <div className="bg-yellow-300 p-4 text-black font-bold">
-                      🧪 TEST VISUEL : SI VOUS VOYEZ CECI, LE FORMULAIRE FONCTIONNE !
-                    </div>
+            </PreviewWrapper>
+          );
+        }
+        
+        // Fallback pour d'autres heros
+        return (
+          <div className="bg-gray-100 p-4 h-32 flex items-center justify-center">
+            <span className="text-gray-600">Hero Standard</span>
+          </div>
+        );
+        
+      case 'hero_main':
+      case 'video_hero':
+        return (
+          <div>
+            <PreviewWrapper 
+              originalHeight={SECTION_DEFINITIONS.hero_main_v2?.originalHeight || 650}
+              contentType="fullscreen"
+            >
+              <div className="w-full" style={{ height: '800px' }}>
+                <iframe 
+                  src={`/preview/hero?t=${Date.now()}`} 
+                  className="w-full h-full border-0 rounded-lg overflow-hidden"
+                  title="Hero Section Preview"
+                  key={Date.now()}
+                />
+              </div>
+            </PreviewWrapper>
+            
+            {/* Formulaire d'édition Hero - ESPACE DÉDIÉ */}
+            {isEditingHero && (
+              <div className="mt-6 bg-white border border-gray-200 rounded-xl p-8 space-y-6 shadow-lg">
                     <h3 className="text-xl font-semibold text-gray-800 mb-6 border-b pb-3">Édition Hero Section</h3>
                     
                     {/* Layout en colonnes pour optimiser l'espace */}
