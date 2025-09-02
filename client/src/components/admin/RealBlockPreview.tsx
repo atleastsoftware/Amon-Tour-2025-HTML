@@ -89,21 +89,21 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
               </div>
               
               {/* Content AVEC ANIMATION COMME LE SITE RÉEL */}
-              <div className="relative z-10 px-6 pt-16 pb-8 flex-1 flex items-center justify-start">
+              <div className="relative z-10 px-6 pt-20 pb-8 flex-1 flex items-end justify-start">
                 <div className="w-full">
-                  <div className="max-w-lg animate-in slide-in-from-left-8 fade-in duration-1000">
-                    <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl mb-5 leading-none tracking-tight text-white drop-shadow-lg animate-in slide-in-from-left-12 fade-in duration-1200 delay-300">
+                  <div className="max-w-md">
+                    <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl mb-5 leading-none tracking-tight text-white drop-shadow-lg">
                       Your exclusive <br/>
                       experiences <br/>
                       <span className="text-primary drop-shadow-lg">in Krabi – </span>THAILAND
                     </h1>
                     
-                    <p className="text-white/90 mb-6 text-sm drop-shadow-md animate-in slide-in-from-left-8 fade-in duration-1000 delay-600">
+                    <p className="text-white/90 mb-6 text-sm drop-shadow-md">
                       Discover amazing places away from mass tourism in Krabi.<br/>
                       And also Khao Sok, Koh Mook and many more destinations.
                     </p>
                     
-                    <div className="flex flex-row gap-3 animate-in slide-in-from-left-4 fade-in duration-800 delay-900">
+                    <div className="flex flex-row gap-3">
                       <span className="bg-primary text-white px-4 py-2 text-xs rounded shadow-lg hover:bg-primary-dark transition-colors">
                         See our offers
                       </span>
@@ -920,9 +920,9 @@ export default function RealBlockPreview({
 
       {/* Prévisualisation visuelle miniaturisée et fidèle */}
       <div className="relative overflow-hidden bg-white" style={{ 
-        height: block.identifier === 'hero_main_v2' ? '400px' : 
+        height: block.identifier === 'hero_main_v2' ? '450px' : 
                 block.blockType.includes('hero') ? '800px' : '300px',
-        minHeight: block.identifier === 'hero_main_v2' ? '400px' : '300px'
+        minHeight: block.identifier === 'hero_main_v2' ? '450px' : '300px'
       }}>
         <div className={block.blockType.includes('hero') ? "w-full h-full" : "transform scale-90 origin-top-left w-[111.11%] h-[111.11%]"}>
           <MiniaturizedComponent block={showEditForm ? previewData : block} />
