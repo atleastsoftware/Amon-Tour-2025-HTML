@@ -84,47 +84,48 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
               <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
             </div>
             
-            {/* Structure EXACTE du vrai site */}
-            <div className="container mx-auto px-4 relative z-10">
-              <div className="flex flex-col md:flex-row items-center gap-10">
-                <div className="w-full">
-                  {/* Framer Motion animation EXACTE du vrai site */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ 
-                      opacity: 1, 
-                      y: 0,
-                      x: [0, 5, 0, -5, 0],
-                      transition: {
-                        y: { duration: 0.6 },
-                        x: {
-                          repeat: Infinity,
-                          duration: 5,
-                          ease: "easeInOut"
+            {/* Structure adaptée pour proportions de prévisualisation */}
+            <div className="relative z-10 h-full">
+              <div className="container mx-auto px-2 h-full flex items-center">
+                <div className="flex flex-col md:flex-row items-center gap-4 w-full">
+                  <div className="w-full">
+                    {/* Animation adaptée pour prévisualisation */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ 
+                        opacity: 1, 
+                        y: 0,
+                        x: [0, 2, 0, -2, 0],
+                        transition: {
+                          y: { duration: 0.6 },
+                          x: {
+                            repeat: Infinity,
+                            duration: 5,
+                            ease: "easeInOut"
+                          }
                         }
-                      }
-                    }}
-                    className="max-w-xl"
-                  >
-                    {/* Titre EXACT du vrai site */}
-                    <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight text-white drop-shadow-lg">
+                      }}
+                      className="max-w-md"
+                    >
+                      {/* Titre avec tailles PROPORTIONNELLES au container */}
+                    <h1 className="font-heading text-2xl md:text-3xl mb-3 leading-tight tracking-tight text-white drop-shadow-lg">
                       {block.title || "Your exclusive experiences"} <br/>
                       <span className="text-primary drop-shadow-lg">
                         {block.configuration?.heroSubtitle || "in Krabi – "}
                       </span>{block.configuration?.heroCountry || "THAILAND"}
                     </h1>
                     
-                    {/* Description EXACTE du vrai site */}
-                    <p className="text-white/90 mb-8 text-lg drop-shadow-md">
+                    {/* Description avec taille PROPORTIONNELLE */}
+                    <p className="text-white/90 mb-4 text-sm drop-shadow-md leading-relaxed">
                       {block.description || "Discover amazing places away from mass tourism in Krabi."}<br/>
                       {block.configuration?.secondDescription || "And also Khao Sok, Koh Mook and many more destinations."}
                     </p>
                     
-                    {/* Boutons EXACTS du vrai site avec vraies interactions */}
-                    <div className="flex flex-col sm:flex-row gap-4">
+                    {/* Boutons avec tailles PROPORTIONNELLES */}
+                    <div className="flex flex-col sm:flex-row gap-2">
                       <Link href={block.configuration?.button1Url || '/tours'}>
                         <motion.span 
-                          className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg"
+                          className="bg-primary text-white px-4 py-2 mt-2 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg text-sm"
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.98 }}
                         >
@@ -133,7 +134,7 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
                       </Link>
                       <Link href={block.configuration?.button2Url || '/custom-tour'}>
                         <motion.span 
-                          className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg"
+                          className="bg-primary text-white px-4 py-2 mt-2 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg text-sm"
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.98 }}
                         >
@@ -141,7 +142,8 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
                         </motion.span>
                       </Link>
                     </div>
-                  </motion.div>
+                    </motion.div>
+                  </div>
                 </div>
               </div>
             </div>
