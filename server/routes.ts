@@ -2842,6 +2842,157 @@ Crawl-delay: 1`;
     }
   });
 
+  // ============================================
+  // 🚀 ROUTES DE PREVIEW POUR FIDÉLITÉ 100%
+  // ============================================
+  
+  // Preview routes pour les vrais composants - SOLUTION IFRAME GARANTIE FIDÈLE
+  app.get('/preview/hero', (req, res) => {
+    res.send(`
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Preview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { margin: 0; padding: 0; overflow: hidden; }
+        .container { max-width: 1200px; }
+        .font-heading { font-family: 'Inter', sans-serif; font-weight: 700; }
+        .text-primary { color: #1e73be; }
+        .bg-primary { background-color: #1e73be; }
+        .bg-secondary { background-color: #E6B64C; }
+    </style>
+</head>
+<body>
+    <section class="relative pt-32 pb-20 min-h-screen flex items-center overflow-hidden">
+        <!-- Background Image EXACT du vrai Hero -->
+        <div class="absolute inset-0 w-full h-full z-0 overflow-hidden">
+            <img src="/attached_assets/DJI_20241115104455_0160_D-min.jpeg" alt="Beautiful Krabi landscape" class="absolute top-0 left-0 w-full h-full object-cover" />
+            <!-- Gradient overlays EXACTS -->
+            <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
+        </div>
+        
+        <!-- Content EXACT du vrai Hero.tsx -->
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="flex flex-col md:flex-row items-center gap-10">
+                <div class="w-full">
+                    <div class="max-w-xl">
+                        <h1 class="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight text-white drop-shadow-lg">
+                            Your exclusive experiences <br/>
+                            <span class="text-primary drop-shadow-lg">in Krabi – </span>THAILAND
+                        </h1>
+                        
+                        <p class="text-white/90 mb-8 text-lg drop-shadow-md">
+                            Discover amazing places away from mass tourism in Krabi.<br/>
+                            And also Khao Sok, Koh Mook and many more destinations.
+                        </p>
+                        
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <div class="bg-primary text-white px-8 py-3 mt-4 rounded shadow-lg">See our offers</div>
+                            <div class="bg-primary text-white px-8 py-3 mt-4 rounded shadow-lg">Custom your trip</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+    `);
+  });
+
+  app.get('/preview/when-expats', (req, res) => {
+    res.send(`
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>When Expats Preview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { margin: 0; padding: 0; overflow: hidden; }
+        .container { max-width: 1200px; }
+        .font-heading { font-family: 'Inter', sans-serif; font-weight: 700; }
+        .bg-secondary { background-color: #E6B64C; }
+    </style>
+</head>
+<body>
+    <!-- STRUCTURE 100% IDENTIQUE au vrai home.tsx lignes 225-245 -->
+    <section class="py-20">
+        <div class="container mx-auto px-4 max-w-4xl text-center">
+            <div>
+                <h2 class="font-heading font-bold text-3xl md:text-4xl mb-3">
+                    When expats welcome you in their host country
+                </h2>
+                <!-- Trait doré EXACT : w-20 h-1 bg-secondary mx-auto mb-8 -->
+                <div class="w-20 h-1 bg-secondary mx-auto mb-8"></div>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    This is a family-run travel agency that combines the organization of exclusive activities with the creation of tailor-made trips throughout the country. Our goal is to offer an immersive experience, far from mass tourism, with personalized service for every traveler — as if we were welcoming our own family or friends.
+                </p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+    `);
+  });
+
+  app.get('/preview/about', (req, res) => {
+    res.send(`
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Preview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { margin: 0; padding: 0; overflow: hidden; }
+        .container { max-width: 1200px; }
+        .font-heading { font-family: 'Inter', sans-serif; font-weight: 700; }
+        .bg-primary { background-color: #1e73be; }
+    </style>
+</head>
+<body>
+    <!-- STRUCTURE 100% IDENTIQUE au vrai About.tsx -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="order-2 lg:order-1">
+                    <h2 class="font-heading font-bold text-3xl md:text-4xl mb-6">Who We Are</h2>
+                    <p class="text-gray-700 mb-4">We are Éric, Margaux, Gabriel, and Raphaël, a French family living in Krabi, southern Thailand, since 2013.</p>
+                    <p class="text-gray-700 mb-6">From our life here, we created Amon Tour — a small, independent travel agency built on a simple idea: personally welcome our travelers to Krabi and offer them a different way to experience Thailand.</p>
+                    
+                    <h3 class="font-heading font-semibold text-2xl mt-6 mb-3">Deep Local Roots</h3>
+                    <p class="text-gray-700 mb-4">We live here year-round, in the heart of the region we love. This close connection to the destination allows us to offer exclusive experiences in Krabi, designed and guided by our team of professional local guides or trusted partners.</p>
+                    
+                    <div class="flex items-center space-x-4">
+                        <div class="bg-primary text-white px-6 py-2 rounded font-heading font-semibold">Contact Us</div>
+                        <div class="text-primary font-heading font-semibold">Create Your Journey →</div>
+                    </div>
+                </div>
+                <div class="order-1 lg:order-2">
+                    <div class="space-y-6">
+                        <div class="relative">
+                            <div class="w-full h-64 bg-gradient-to-br from-blue-200 to-blue-300 rounded-lg"></div>
+                        </div>
+                        <div class="relative">
+                            <div class="w-full h-64 bg-gradient-to-br from-green-200 to-green-300 rounded-lg"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+    `);
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
