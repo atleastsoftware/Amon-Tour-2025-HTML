@@ -11,6 +11,7 @@ import { ChevronDown, ChevronUp, Edit, Save, Undo2, History, Eye, EyeOff, ArrowU
 import { toast } from '@/hooks/use-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { Link } from 'wouter';
 
 // Import real components for miniaturized preview  
 import Hero from '@/components/home/Hero';
@@ -61,75 +62,97 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
       case 'hero':
       case 'video_hero':
         return (
-          <div className="h-full w-full relative overflow-hidden">
-            {/* Image/Vidéo de fond STATIQUE comme sur le vrai site - PAS d'animation */}
-            <img
-              src={block.imageUrl || '/attached_assets/DJI_20241115104455_0160_D-min.jpeg'}
-              alt="Hero background"
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-            
-            {/* Overlays de dégradé EXACTEMENT comme sur le vrai site */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
-            <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
-            
-            {/* Structure EXACTE du vrai site : container mx-auto px-4 */}
-            <div className="relative z-10 h-full">
-              <div className="container mx-auto px-4 h-full">
-                <div className="flex flex-col md:flex-row items-center gap-10 h-full">
-                  <div className="w-full">
-                    {/* Contenu avec animation EXACTE du vrai site - seul le contenu bouge */}
-                    <div 
-                      className="max-w-xl"
-                      style={{
-                        animation: 'textFloat 5s ease-in-out infinite'
-                      }}
-                    >
-                      {/* Titre EXACT du vrai site avec VRAIS textes par défaut */}
-                      <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight text-white drop-shadow-lg">
-                        {block.title || "Your exclusive experiences"} <br/>
-                        <span className="text-primary drop-shadow-lg">
-                          {block.configuration?.heroSubtitle || "in Krabi – "}
-                        </span>{block.configuration?.heroCountry || "THAILAND"}
-                      </h1>
-                      
-                      {/* Description EXACTE du vrai site */}
-                      <p className="text-white/90 mb-8 text-lg drop-shadow-md">
-                        {block.description || "Discover amazing places away from mass tourism in Krabi."}<br/>
-                        {block.configuration?.secondDescription || "And also Khao Sok, Koh Mook and many more destinations."}
-                      </p>
-                      
-                      {/* Boutons EXACTS du vrai site */}
-                      <div className="flex flex-col sm:flex-row gap-4">
-                        <span 
-                          className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg"
-                          title={`Lien vers: ${block.configuration?.button1Url || '/tours'}`}
-                        >
-                          {block.configuration?.button1Text || "See our offers"}
-                        </span>
-                        <span 
-                          className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg"
-                          title={`Lien vers: ${block.configuration?.button2Url || '/custom-tour'}`}
-                        >
-                          {block.configuration?.button2Text || "Custom your trip"}
-                        </span>
-                      </div>
+          <section className="relative pt-32 pb-20 min-h-screen flex items-center overflow-hidden">
+            {/* Video Background Section with Fallback Image - EXACT comme le vrai site */}
+            <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
+              {/* Fallback Image */}
+              <img
+                src={block.imageUrl || '/attached_assets/DJI_20241115104455_0160_D-min.jpeg'}
+                alt="Beautiful Krabi landscape"
+                className="absolute top-0 left-0 w-full h-full object-cover"
+              />
+              
+              {/* Simulation vidéo si URL configurée */}
+              {block.configuration?.videoUrl && (
+                <div className="absolute top-0 left-0 w-full h-full bg-black/20">
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 via-teal-600/10 to-blue-700/10 animate-pulse" style={{ animationDuration: '3s' }}></div>
+                  {/* Indicateur de lecture vidéo */}
+                  <div className="absolute top-4 right-4">
+                    <div className="bg-black/60 rounded px-2 py-1 flex items-center gap-2">
+                      <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                      <span className="text-[8px] text-white font-medium">LIVE VIDEO</span>
                     </div>
                   </div>
                 </div>
-              </div>
+              )}
+              
+              {/* Gradient Overlay EXACT du vrai site */}
+              <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
             </div>
             
-            {/* Indicateur de vidéo si configurée */}
-            {block.configuration?.videoUrl && (
-              <div className="absolute top-2 right-2">
-                <div className="bg-black/60 rounded px-2 py-1 flex items-center gap-1">
-                  <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-                  <span className="text-[8px] text-white font-medium">VIDEO</span>
+            {/* Structure EXACTE du vrai site */}
+            <div className="container mx-auto px-4 relative z-10">
+              <div className="flex flex-col md:flex-row items-center gap-10">
+                <div className="w-full">
+                  {/* Framer Motion animation EXACTE du vrai site */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ 
+                      opacity: 1, 
+                      y: 0,
+                      x: [0, 5, 0, -5, 0],
+                      transition: {
+                        y: { duration: 0.6 },
+                        x: {
+                          repeat: Infinity,
+                          duration: 5,
+                          ease: "easeInOut"
+                        }
+                      }
+                    }}
+                    className="max-w-xl"
+                  >
+                    {/* Titre EXACT du vrai site */}
+                    <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight text-white drop-shadow-lg">
+                      {block.title || "Your exclusive experiences"} <br/>
+                      <span className="text-primary drop-shadow-lg">
+                        {block.configuration?.heroSubtitle || "in Krabi – "}
+                      </span>{block.configuration?.heroCountry || "THAILAND"}
+                    </h1>
+                    
+                    {/* Description EXACTE du vrai site */}
+                    <p className="text-white/90 mb-8 text-lg drop-shadow-md">
+                      {block.description || "Discover amazing places away from mass tourism in Krabi."}<br/>
+                      {block.configuration?.secondDescription || "And also Khao Sok, Koh Mook and many more destinations."}
+                    </p>
+                    
+                    {/* Boutons EXACTS du vrai site avec vraies interactions */}
+                    <div className="flex flex-col sm:flex-row gap-4">
+                      <Link href={block.configuration?.button1Url || '/tours'}>
+                        <motion.span 
+                          className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          {block.configuration?.button1Text || "See our offers"}
+                        </motion.span>
+                      </Link>
+                      <Link href={block.configuration?.button2Url || '/custom-tour'}>
+                        <motion.span 
+                          className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          {block.configuration?.button2Text || "Custom your trip"}
+                        </motion.span>
+                      </Link>
+                    </div>
+                  </motion.div>
                 </div>
               </div>
-            )}
-          </div>
+            </div>
+          </section>
         );
         
       case 'why_choose_us':
@@ -305,9 +328,9 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
     }
   };
 
-  // Blocs héros prennent toute la largeur avec proportions exactes du vrai site
+  // Blocs héros prennent les proportions EXACTES du vrai site
   const isHeroBlock = ['hero_main', 'hero', 'video_hero'].includes(block.blockType);
-  const previewHeight = isHeroBlock ? '400px' : '200px'; // Hauteur réelle pour vraie correspondance
+  const previewHeight = isHeroBlock ? '600px' : '200px'; // Hauteur représentative du min-h-screen
   
   return (
     <div 
@@ -317,8 +340,8 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
       style={{ 
         height: previewHeight, 
         minHeight: previewHeight,
-        // Proportions réelles des sections héros modernes
-        ...(isHeroBlock ? { aspectRatio: '21/9' } : { aspectRatio: '16/9' })
+        // Proportions réelles du vrai site - plus proche du viewport
+        ...(isHeroBlock ? { width: '100%' } : { aspectRatio: '16/9' })
       }}
     >
       {renderVisualPreview()}
