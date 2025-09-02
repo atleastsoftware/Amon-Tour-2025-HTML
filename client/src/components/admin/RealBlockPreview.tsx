@@ -65,10 +65,10 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
             <div 
               className="absolute inset-0"
               style={{ 
-                transform: 'scale(0.25)', 
+                transform: 'scale(0.18)', 
                 transformOrigin: 'top left',
-                width: '400%', 
-                height: '400%'
+                width: '555%', 
+                height: '555%'
               }}
             >
               <section className="relative pt-32 pb-20 min-h-screen flex items-center overflow-hidden">
