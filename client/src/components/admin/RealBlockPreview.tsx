@@ -91,8 +91,8 @@ const calculateOptimalPreviewScale = (identifier: string, containerHeight: numbe
   
   switch (sectionDef.type) {
     case 'fullscreen':
-      // Hero/Fullscreen: Échelle ultra-aggressive pour REMPLISSAGE TOTAL
-      targetScale = Math.min(containerHeight / sectionDef.originalHeight * 1.4, 1.0);
+      // Hero/Fullscreen: Échelle RÉDUITE pour que tout rentre parfaitement
+      targetScale = containerHeight / sectionDef.originalHeight * 0.95; // 95% pour marge sécurité
       break;
     case 'content':
       // Content: Échelle équilibrée pour lisibilité
