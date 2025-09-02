@@ -646,7 +646,7 @@ function MiniaturizedComponent({
       
       {/* Formulaire d'édition Hero - en dehors du PreviewWrapper pour éviter les problèmes de hauteur */}
     {isEditingHero && block.identifier === 'hero_main_v2' && (
-      <div className="bg-white border-t border-gray-200 p-6 space-y-4 max-h-96 overflow-y-auto">
+      <div className="bg-white border-t border-gray-200 p-6 space-y-4">
         <h3 className="text-lg font-semibold text-gray-800 mb-4">Édition Hero Section</h3>
         
         {/* Titre */}
