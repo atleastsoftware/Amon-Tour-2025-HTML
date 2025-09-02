@@ -117,16 +117,12 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
                   >
                       {/* Titre avec tailles EXACTEMENT PROPORTIONNELLES */}
                     <h1 className="font-heading text-2xl mb-3 leading-tight tracking-tight text-white drop-shadow-lg">
-                      {block.title || "Discover the Magic of Krabi"} <br/>
-                      <span className="text-primary drop-shadow-lg">
-                        {block.configuration?.heroSubtitle || "Your Gateway to "}
-                      </span>{block.configuration?.heroCountry || "Unforgettable Adventures"}
+                      {block.title || "Your exclusive experiences in Krabi – THAILAND"}
                     </h1>
                     
                     {/* Description avec taille EXACTEMENT PROPORTIONNELLE */}
                     <p className="text-white/90 mb-3 text-xs drop-shadow-md leading-relaxed">
-                      {block.description || "Experience the breathtaking beauty of Krabi with our personalized tours."}<br/>
-                      {block.configuration?.secondDescription || "From limestone cliffs to hidden beaches, discover Thailand like never before."}
+                      {block.description || "Discover amazing places away from mass tourism in Krabi. And also Khao Sok, Koh Mook and many more destinations."}
                     </p>
                     
                     {/* Boutons avec tailles EXACTEMENT PROPORTIONNELLES */}
@@ -137,7 +133,7 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.98 }}
                         >
-                          {block.configuration?.button1Text || "Explore Our Tours"}
+                          {block.configuration?.button1Text || "See our offers"}
                         </motion.span>
                       </Link>
                       <Link href={block.configuration?.button2Url || '/custom-tour'}>
@@ -146,7 +142,7 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.98 }}
                         >
-                          {block.configuration?.button2Text || "Custom Your Trip"}
+                          {block.configuration?.button2Text || "Custom your trip"}
                         </motion.span>
                       </Link>
                     </div>

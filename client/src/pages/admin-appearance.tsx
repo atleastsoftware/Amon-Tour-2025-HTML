@@ -4770,9 +4770,17 @@ function VisualPageEditor({ pageSlug, pageBlocks }: { pageSlug: string; pageBloc
               </div>
             </div>
 
-            {/* Block content preview */}
+            {/* Block content preview - NOUVEAU SYSTÈME */}
             <div className="p-6">
-              {renderBlockContent(block)}
+              <RealBlockPreview
+                key={block.id}
+                block={block}
+                onUpdate={handleUpdateBlock}
+                onDelete={handleDeleteBlock}
+                onMoveUp={handleMoveBlockUp}
+                onMoveDown={handleMoveBlockDown}
+                onToggleVisibility={handleToggleBlockVisibility}
+              />
             </div>
           </div>
         ))}
