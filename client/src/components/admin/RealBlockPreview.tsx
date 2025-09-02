@@ -62,7 +62,7 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
       case 'hero':
       case 'video_hero':
         return (
-          <section className="relative pt-32 pb-20 min-h-screen flex items-center overflow-hidden">
+          <section className="relative h-full min-h-[400px] flex items-center overflow-hidden" style={{ aspectRatio: '16/9' }}>
             {/* Video Background Section with Fallback Image - EXACT comme le vrai site */}
             <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
               {/* Fallback Image */}
@@ -72,10 +72,19 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
                 className="absolute top-0 left-0 w-full h-full object-cover"
               />
               
-              {/* Simulation vidéo si URL configurée */}
+              {/* Animation vidéo AUTHENTIQUE - simule le mouvement de la vraie vidéo */}
               {block.configuration?.videoUrl && (
-                <div className="absolute top-0 left-0 w-full h-full bg-black/20">
-                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 via-teal-600/10 to-blue-700/10 animate-pulse" style={{ animationDuration: '3s' }}></div>
+                <div className="absolute top-0 left-0 w-full h-full">
+                  {/* Simulation du coucher de soleil avec mouvement */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-orange-400/20 via-red-500/15 to-purple-600/10 animate-pulse" style={{ animationDuration: '4s' }}></div>
+                  {/* Simulation du mouvement de l'eau */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-400/5 to-transparent animate-bounce" style={{ animationDuration: '6s' }}></div>
+                  {/* Effet de scintillement pour simuler les reflets */}
+                  <div className="absolute inset-0 opacity-30">
+                    <div className="absolute top-1/4 left-1/3 w-2 h-2 bg-white/80 rounded-full animate-ping" style={{ animationDelay: '0s', animationDuration: '3s' }}></div>
+                    <div className="absolute top-1/2 right-1/4 w-1 h-1 bg-white/60 rounded-full animate-ping" style={{ animationDelay: '1s', animationDuration: '4s' }}></div>
+                    <div className="absolute bottom-1/3 left-1/2 w-1.5 h-1.5 bg-white/70 rounded-full animate-ping" style={{ animationDelay: '2s', animationDuration: '5s' }}></div>
+                  </div>
                 </div>
               )}
               
@@ -84,48 +93,47 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
               <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
             </div>
             
-            {/* Structure adaptée pour proportions de prévisualisation */}
-            <div className="relative z-10 h-full">
-              <div className="container mx-auto px-2 h-full flex items-center">
-                <div className="flex flex-col md:flex-row items-center gap-4 w-full">
-                  <div className="w-full">
-                    {/* Animation adaptée pour prévisualisation */}
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ 
-                        opacity: 1, 
-                        y: 0,
-                        x: [0, 2, 0, -2, 0],
-                        transition: {
-                          y: { duration: 0.6 },
-                          x: {
-                            repeat: Infinity,
-                            duration: 5,
-                            ease: "easeInOut"
-                          }
+            {/* Structure EXACTE du vrai site avec proportions adaptées */}
+            <div className="container mx-auto px-2 relative z-10">
+              <div className="flex flex-col md:flex-row items-center gap-4">
+                <div className="w-full">
+                  {/* Animation IDENTIQUE au vrai site avec proportions adaptées */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ 
+                      opacity: 1, 
+                      y: 0,
+                      x: [0, 2, 0, -2, 0],
+                      transition: {
+                        y: { duration: 0.6 },
+                        x: {
+                          repeat: Infinity,
+                          duration: 5,
+                          ease: "easeInOut"
                         }
-                      }}
-                      className="max-w-md"
-                    >
-                      {/* Titre avec tailles PROPORTIONNELLES au container */}
-                    <h1 className="font-heading text-2xl md:text-3xl mb-3 leading-tight tracking-tight text-white drop-shadow-lg">
+                      }
+                    }}
+                    className="max-w-md"
+                  >
+                      {/* Titre avec tailles EXACTEMENT PROPORTIONNELLES */}
+                    <h1 className="font-heading text-2xl mb-3 leading-tight tracking-tight text-white drop-shadow-lg">
                       {block.title || "Your exclusive experiences"} <br/>
                       <span className="text-primary drop-shadow-lg">
                         {block.configuration?.heroSubtitle || "in Krabi – "}
                       </span>{block.configuration?.heroCountry || "THAILAND"}
                     </h1>
                     
-                    {/* Description avec taille PROPORTIONNELLE */}
-                    <p className="text-white/90 mb-4 text-sm drop-shadow-md leading-relaxed">
+                    {/* Description avec taille EXACTEMENT PROPORTIONNELLE */}
+                    <p className="text-white/90 mb-3 text-xs drop-shadow-md leading-relaxed">
                       {block.description || "Discover amazing places away from mass tourism in Krabi."}<br/>
                       {block.configuration?.secondDescription || "And also Khao Sok, Koh Mook and many more destinations."}
                     </p>
                     
-                    {/* Boutons avec tailles PROPORTIONNELLES */}
-                    <div className="flex flex-col sm:flex-row gap-2">
+                    {/* Boutons avec tailles EXACTEMENT PROPORTIONNELLES */}
+                    <div className="flex flex-col sm:flex-row gap-1.5">
                       <Link href={block.configuration?.button1Url || '/tours'}>
                         <motion.span 
-                          className="bg-primary text-white px-4 py-2 mt-2 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg text-sm"
+                          className="bg-primary text-white px-3 py-1.5 mt-1.5 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg text-xs"
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.98 }}
                         >
@@ -134,7 +142,7 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
                       </Link>
                       <Link href={block.configuration?.button2Url || '/custom-tour'}>
                         <motion.span 
-                          className="bg-primary text-white px-4 py-2 mt-2 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg text-sm"
+                          className="bg-primary text-white px-3 py-1.5 mt-1.5 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg text-xs"
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.98 }}
                         >
@@ -142,8 +150,7 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
                         </motion.span>
                       </Link>
                     </div>
-                    </motion.div>
-                  </div>
+                  </motion.div>
                 </div>
               </div>
             </div>
