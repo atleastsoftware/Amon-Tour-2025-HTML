@@ -69,7 +69,7 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
                   transform: 'scale(0.5)', 
                   transformOrigin: 'top left',
                   width: '200%', 
-                  height: '200%'
+                  height: '1000px'
                 }}
               >
                 <section className="relative pt-32 pb-20 min-h-screen flex items-center overflow-hidden">
