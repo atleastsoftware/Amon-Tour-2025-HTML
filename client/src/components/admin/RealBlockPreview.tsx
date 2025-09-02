@@ -117,16 +117,16 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
                   >
                       {/* Titre avec tailles EXACTEMENT PROPORTIONNELLES */}
                     <h1 className="font-heading text-2xl mb-3 leading-tight tracking-tight text-white drop-shadow-lg">
-                      {block.title || "Your exclusive experiences"} <br/>
+                      {block.title || "Discover the Magic of Krabi"} <br/>
                       <span className="text-primary drop-shadow-lg">
-                        {block.configuration?.heroSubtitle || "in Krabi – "}
-                      </span>{block.configuration?.heroCountry || "THAILAND"}
+                        {block.configuration?.heroSubtitle || "Your Gateway to "}
+                      </span>{block.configuration?.heroCountry || "Unforgettable Adventures"}
                     </h1>
                     
                     {/* Description avec taille EXACTEMENT PROPORTIONNELLE */}
                     <p className="text-white/90 mb-3 text-xs drop-shadow-md leading-relaxed">
-                      {block.description || "Discover amazing places away from mass tourism in Krabi."}<br/>
-                      {block.configuration?.secondDescription || "And also Khao Sok, Koh Mook and many more destinations."}
+                      {block.description || "Experience the breathtaking beauty of Krabi with our personalized tours."}<br/>
+                      {block.configuration?.secondDescription || "From limestone cliffs to hidden beaches, discover Thailand like never before."}
                     </p>
                     
                     {/* Boutons avec tailles EXACTEMENT PROPORTIONNELLES */}
@@ -137,7 +137,7 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.98 }}
                         >
-                          {block.configuration?.button1Text || "See our offers"}
+                          {block.configuration?.button1Text || "Explore Our Tours"}
                         </motion.span>
                       </Link>
                       <Link href={block.configuration?.button2Url || '/custom-tour'}>
@@ -146,7 +146,7 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.98 }}
                         >
-                          {block.configuration?.button2Text || "Custom your trip"}
+                          {block.configuration?.button2Text || "Custom Your Trip"}
                         </motion.span>
                       </Link>
                     </div>
@@ -162,7 +162,7 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
         return (
           <div className="h-full bg-gray-50 p-2">
             <div className="text-center mb-2">
-              <div className="text-[10px] font-bold">Why Choose Us</div>
+              <div className="text-[10px] font-bold">{block.title || "Why Choose Us"}</div>
               <div className="w-4 h-0.5 bg-yellow-500 mx-auto mt-1"></div>
             </div>
             <div className="grid grid-cols-3 gap-1 h-16">
@@ -187,12 +187,12 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
         return (
           <div className="h-full bg-white p-2 flex gap-2">
             <div className="flex-1">
-              <div className="text-[10px] font-bold mb-1">Who We Are</div>
+              <div className="text-[10px] font-bold mb-1">{block.title || "Who We Are"}</div>
               <div className="text-[8px] text-gray-600 mb-1">French family living in Krabi since 2013</div>
               <div className="text-[8px] text-gray-600 mb-2">Amon Tour - Independent travel agency</div>
               <div className="flex gap-1">
                 <div className="bg-blue-600 text-[7px] text-white px-1 py-0.5 rounded">Contact</div>
-                <div className="text-[7px] text-blue-600">Journey →</div>
+                <div className="text-[7px] text-blue-600">Custom Journey →</div>
               </div>
             </div>
             <div className="w-12 h-full bg-gray-200 rounded flex flex-col gap-1">
@@ -206,7 +206,7 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
         return (
           <div className="h-full bg-gray-50 p-2">
             <div className="text-center mb-2">
-              <div className="text-[10px] font-bold">Featured Tours</div>
+              <div className="text-[10px] font-bold">{block.title || "Some Ideas For Your Next Trip"}</div>
               <div className="w-4 h-0.5 bg-yellow-500 mx-auto mt-1"></div>
             </div>
             <div className="grid grid-cols-3 gap-1 h-16">
@@ -238,11 +238,12 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
       case 'custom_tour_cta':
       case 'cta_section':
         return (
-          <div className="h-full bg-gradient-to-r from-yellow-400 to-yellow-500 p-2 text-center flex flex-col justify-center">
-            <div className="text-[10px] font-bold text-white mb-1">Create Your Perfect Journey</div>
-            <div className="text-[8px] text-white opacity-90 mb-2">Tell us your dreams, we'll make them reality</div>
-            <div className="bg-white text-yellow-600 text-[8px] px-2 py-1 rounded mx-auto font-semibold">
-              Start Planning
+          <div className="h-full bg-gradient-to-r from-gray-800 to-gray-900 p-2 text-center flex flex-col justify-center">
+            <div className="text-[10px] font-bold text-white mb-1">{block.title || "Create Your Custom Journey"}</div>
+            <div className="text-[8px] text-white opacity-90 mb-2">Whether you're looking for adventure, relaxation, or cultural immersion</div>
+            <div className="flex gap-1 justify-center">
+              <div className="bg-blue-600 text-white text-[7px] px-1 py-0.5 rounded font-semibold">About us</div>
+              <div className="bg-transparent border border-white text-white text-[7px] px-1 py-0.5 rounded font-semibold">Contact us</div>
             </div>
           </div>
         );
@@ -250,25 +251,26 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
       case 'customer_reviews':
       case 'testimonials':
         return (
-          <div className="h-full bg-white p-2">
+          <div className="h-full bg-blue-600 p-2">
             <div className="text-center mb-2">
-              <div className="text-[10px] font-bold">Customer Reviews</div>
+              <div className="text-[10px] font-bold text-white">{block.title || "Our Travelers' Reviews"}</div>
               <div className="w-4 h-0.5 bg-yellow-500 mx-auto mt-1"></div>
             </div>
-            <div className="grid grid-cols-2 gap-1 h-16">
+            <div className="bg-white rounded p-1 mb-1">
+              <div className="flex justify-center mb-1">
+                <div className="text-[8px] text-yellow-500">★★★★★</div>
+              </div>
+              <div className="text-[8px] text-blue-600 font-bold">5.0 on Google</div>
+              <div className="text-[6px] text-gray-600">Based on 80 reviews</div>
+            </div>
+            <div className="grid grid-cols-2 gap-1 h-10">
               <div className="bg-gray-50 rounded p-1">
-                <div className="flex justify-center mb-1">
-                  <div className="text-[8px] text-yellow-500">★★★★★</div>
-                </div>
-                <div className="text-[7px] text-gray-600">"Amazing experience!"</div>
-                <div className="text-[6px] text-gray-500 mt-1">- Sarah M.</div>
+                <div className="text-[6px] text-gray-600">"Amazing experience!"</div>
+                <div className="text-[5px] text-gray-500 mt-1">- Sarah M.</div>
               </div>
               <div className="bg-gray-50 rounded p-1">
-                <div className="flex justify-center mb-1">
-                  <div className="text-[8px] text-yellow-500">★★★★★</div>
-                </div>
-                <div className="text-[7px] text-gray-600">"Perfect trip!"</div>
-                <div className="text-[6px] text-gray-500 mt-1">- John D.</div>
+                <div className="text-[6px] text-gray-600">"Perfect trip!"</div>
+                <div className="text-[5px] text-gray-500 mt-1">- John D.</div>
               </div>
             </div>
           </div>
@@ -277,8 +279,8 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
       case 'contact_hero':
         return (
           <div className="h-full bg-gradient-to-br from-blue-600 to-blue-800 p-2 text-white text-center flex flex-col justify-center">
-            <div className="text-[10px] font-bold mb-1">Contact Us</div>
-            <div className="text-[8px] opacity-90">Get in touch for your perfect trip</div>
+            <div className="text-[10px] font-bold mb-1">{block.title || "Contact Us"}</div>
+            <div className="text-[8px] opacity-90">{block.description || "Get in touch for your perfect trip"}</div>
           </div>
         );
         
@@ -305,13 +307,13 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
       case 'contact_form':
         return (
           <div className="h-full bg-white p-2">
-            <div className="text-[9px] font-bold mb-2 text-center">Send Message</div>
+            <div className="text-[9px] font-bold mb-2 text-center">{block.title || "Send Message"}</div>
             <div className="space-y-1">
               <div className="h-2 bg-gray-100 rounded"></div>
               <div className="h-2 bg-gray-100 rounded"></div>
               <div className="h-4 bg-gray-100 rounded"></div>
               <div className="h-3 bg-blue-600 rounded text-center">
-                <div className="text-[7px] text-white pt-1">Send</div>
+                <div className="text-[7px] text-white pt-1">Send Message</div>
               </div>
             </div>
           </div>
@@ -320,7 +322,7 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
       default:
         return (
           <div className="h-full bg-gray-100 p-2 text-center flex flex-col justify-center">
-            <div className="text-[10px] font-semibold mb-1">{block.title || `Bloc ${block.blockType}`}</div>
+            <div className="text-[10px] font-semibold mb-1">{block.title || block.blockType.replace('_', ' ')}</div>
             <div className="text-[8px] text-gray-600 mb-2">{block.description?.substring(0, 50) || "Aperçu du contenu..."}</div>
             <div className="bg-gray-200 px-2 py-1 rounded text-[7px] mx-auto">
               {block.blockType}
