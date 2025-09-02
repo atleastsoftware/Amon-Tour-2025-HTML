@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Animation pour Hero Section dans Dashboard */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 /* Animation pour simuler le mouvement de la vidéo de fond */
 @keyframes backgroundShift {
   0% {
