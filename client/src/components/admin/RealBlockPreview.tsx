@@ -29,7 +29,7 @@ const SECTION_DEFINITIONS = {
   // Hero Sections - Grande hauteur avec média
   hero_main_v2: { 
     type: 'fullscreen', 
-    originalHeight: 768, 
+    originalHeight: 650, 
     expectedRatio: 'wide',
     contentDensity: 'sparse' 
   },
@@ -129,9 +129,9 @@ const PreviewWrapper = ({ identifier, children }: { identifier: string, children
   const scaleSettings = calculateOptimalPreviewScale(identifier, 450);
   
   if (identifier === 'hero_main_v2') {
-    // HERO: APPROCHE SPÉCIALE - REMPLISSAGE TOTAL DU CONTENEUR PARENT
+    // HERO: APPROCHE SPÉCIALE - BACKGROUND ÉTENDU AU CONTENEUR COMPLET
     return (
-      <div className="relative w-full h-full overflow-hidden bg-gray-900">
+      <div className="relative w-full h-[450px] overflow-hidden bg-gray-900">
         {/* Background étendu à tout le conteneur */}
         <div className="absolute inset-0 w-full h-full">
           <img
@@ -1088,7 +1088,7 @@ export default function RealBlockPreview({
         </div>
       </div>
 
-      {/* Prévisualisation visuelle miniaturisée et fidèle - PADDING ÉLIMINÉ */}
+      {/* Prévisualisation visuelle miniaturisée et fidèle */}
       <div className="relative overflow-hidden bg-white" style={{ 
         height: block.identifier === 'hero_main_v2' ? '450px' : 
                 block.blockType.includes('hero') ? '800px' : '300px',
