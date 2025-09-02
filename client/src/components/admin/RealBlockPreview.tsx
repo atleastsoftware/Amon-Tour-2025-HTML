@@ -62,91 +62,36 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
       case 'hero':
       case 'video_hero':
         return (
-          <section className="relative h-full min-h-[400px] flex items-center overflow-hidden" style={{ aspectRatio: '16/9' }}>
-            {/* Video Background Section with Fallback Image - EXACT comme le vrai site */}
+          <section className="relative h-full flex items-center overflow-hidden" style={{ minHeight: '300px' }}>
+            {/* STRUCTURE EXACTE du vrai Hero.tsx - Image/vidéo en arrière-plan */}
             <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
-              {/* Fallback Image */}
               <img
                 src={block.imageUrl || '/attached_assets/DJI_20241115104455_0160_D-min.jpeg'}
                 alt="Beautiful Krabi landscape"
                 className="absolute top-0 left-0 w-full h-full object-cover"
               />
-              
-              {/* Animation vidéo AUTHENTIQUE - simule le mouvement de la vraie vidéo */}
-              {block.configuration?.videoUrl && (
-                <div className="absolute top-0 left-0 w-full h-full">
-                  {/* Simulation du coucher de soleil avec mouvement */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-orange-400/20 via-red-500/15 to-purple-600/10 animate-pulse" style={{ animationDuration: '4s' }}></div>
-                  {/* Simulation du mouvement de l'eau */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-400/5 to-transparent animate-bounce" style={{ animationDuration: '6s' }}></div>
-                  {/* Effet de scintillement pour simuler les reflets */}
-                  <div className="absolute inset-0 opacity-30">
-                    <div className="absolute top-1/4 left-1/3 w-2 h-2 bg-white/80 rounded-full animate-ping" style={{ animationDelay: '0s', animationDuration: '3s' }}></div>
-                    <div className="absolute top-1/2 right-1/4 w-1 h-1 bg-white/60 rounded-full animate-ping" style={{ animationDelay: '1s', animationDuration: '4s' }}></div>
-                    <div className="absolute bottom-1/3 left-1/2 w-1.5 h-1.5 bg-white/70 rounded-full animate-ping" style={{ animationDelay: '2s', animationDuration: '5s' }}></div>
-                  </div>
-                </div>
-              )}
-              
               {/* Gradient Overlay EXACT du vrai site */}
               <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
-              <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
             </div>
             
-            {/* Structure EXACTE du vrai site avec proportions adaptées */}
-            <div className="container mx-auto px-2 relative z-10">
-              <div className="flex flex-col md:flex-row items-center gap-4">
-                <div className="w-full">
-                  {/* Animation IDENTIQUE au vrai site avec proportions adaptées */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ 
-                      opacity: 1, 
-                      y: 0,
-                      x: [0, 2, 0, -2, 0],
-                      transition: {
-                        y: { duration: 0.6 },
-                        x: {
-                          repeat: Infinity,
-                          duration: 5,
-                          ease: "easeInOut"
-                        }
-                      }
-                    }}
-                    className="max-w-md"
-                  >
-                      {/* Titre avec tailles EXACTEMENT PROPORTIONNELLES */}
-                    <h1 className="font-heading text-2xl mb-3 leading-tight tracking-tight text-white drop-shadow-lg">
-                      {block.title || "Your exclusive experiences in Krabi – THAILAND"}
-                    </h1>
-                    
-                    {/* Description avec taille EXACTEMENT PROPORTIONNELLE */}
-                    <p className="text-white/90 mb-3 text-xs drop-shadow-md leading-relaxed">
-                      {block.description || "Discover amazing places away from mass tourism in Krabi. And also Khao Sok, Koh Mook and many more destinations."}
-                    </p>
-                    
-                    {/* Boutons avec tailles EXACTEMENT PROPORTIONNELLES */}
-                    <div className="flex flex-col sm:flex-row gap-1.5">
-                      <Link href={block.configuration?.button1Url || '/tours'}>
-                        <motion.span 
-                          className="bg-primary text-white px-3 py-1.5 mt-1.5 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg text-xs"
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.98 }}
-                        >
-                          {block.configuration?.button1Text || "See our offers"}
-                        </motion.span>
-                      </Link>
-                      <Link href={block.configuration?.button2Url || '/custom-tour'}>
-                        <motion.span 
-                          className="bg-primary text-white px-3 py-1.5 mt-1.5 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg text-xs"
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.98 }}
-                        >
-                          {block.configuration?.button2Text || "Custom your trip"}
-                        </motion.span>
-                      </Link>
-                    </div>
-                  </motion.div>
+            {/* CONTENU PAR-DESSUS comme dans le vrai Hero.tsx */}
+            <div className="container mx-auto px-4 relative z-10">
+              <div className="max-w-md">
+                <h1 className="font-heading text-xl mb-2 leading-tight tracking-tight text-white drop-shadow-lg">
+                  {block.title || "Your exclusive experiences in Krabi – THAILAND"}
+                </h1>
+                
+                <p className="text-white/90 mb-3 text-xs drop-shadow-md leading-relaxed">
+                  {block.description || "Discover amazing places away from mass tourism in Krabi. And also Khao Sok, Koh Mook and many more destinations."}
+                </p>
+                
+                <div className="flex gap-1.5">
+                  <div className="bg-primary text-white px-2 py-1 rounded text-xs">
+                    {block.configuration?.button1Text || "See our offers"}
+                  </div>
+                  <div className="bg-primary text-white px-2 py-1 rounded text-xs">
+                    {block.configuration?.button2Text || "Custom your trip"}
+                  </div>
                 </div>
               </div>
             </div>
@@ -178,22 +123,29 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
           </div>
         );
         
-      case 'about_amon_tour':
       case 'about':
+      case 'who_we_are':
         return (
-          <div className="h-full bg-white p-2 flex gap-2">
-            <div className="flex-1">
-              <div className="text-[10px] font-bold mb-1">{block.title || "Who We Are"}</div>
-              <div className="text-[8px] text-gray-600 mb-1">French family living in Krabi since 2013</div>
-              <div className="text-[8px] text-gray-600 mb-2">Amon Tour - Independent travel agency</div>
-              <div className="flex gap-1">
-                <div className="bg-blue-600 text-[7px] text-white px-1 py-0.5 rounded">Contact</div>
-                <div className="text-[7px] text-blue-600">Custom Journey →</div>
+          <div className="h-full bg-white p-2">
+            {/* STRUCTURE EXACTE du vrai About.tsx - grid deux colonnes */}
+            <div className="grid grid-cols-2 gap-2 h-full items-center">
+              <div className="space-y-1">
+                <div className="text-[10px] font-bold mb-1">{block.title || "Who We Are"}</div>
+                <div className="text-[6px] text-gray-700">
+                  We are Éric, Margaux, Gabriel, and Raphaël, a French family living in Krabi, southern Thailand, since 2013.
+                </div>
+                <div className="text-[6px] text-gray-700">
+                  From our life here, we created Amon Tour — a small, independent travel agency.
+                </div>
+                <div className="flex gap-1 mt-2">
+                  <div className="bg-blue-600 text-[5px] text-white px-1 py-0.5 rounded">Contact Us</div>
+                  <div className="text-[5px] text-blue-600">Create Your Journey →</div>
+                </div>
               </div>
-            </div>
-            <div className="w-12 h-full bg-gray-200 rounded flex flex-col gap-1">
-              <div className="flex-1 bg-gradient-to-br from-blue-200 to-blue-300 rounded"></div>
-              <div className="flex-1 bg-gradient-to-br from-green-200 to-green-300 rounded"></div>
+              <div className="space-y-1">
+                <div className="w-full h-8 bg-gradient-to-br from-blue-200 to-blue-300 rounded"></div>
+                <div className="w-full h-8 bg-gradient-to-br from-green-200 to-green-300 rounded"></div>
+              </div>
             </div>
           </div>
         );
@@ -248,18 +200,18 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
       case 'when_expats':
       case 'about_amon_tour':
         return (
-          <div className="h-full bg-white p-2 flex gap-2">
-            <div className="flex-1">
-              <div className="text-[10px] font-bold mb-1">{block.title || "When expats welcome you in their host country"}</div>
-              <div className="text-[8px] text-gray-600 mb-1">{block.subtitle || "Your trusted partner for authentic Thailand experiences"}</div>
-              <div className="text-[7px] text-gray-600 mb-2">{block.description?.substring(0, 100) || "Based in beautiful Krabi, we are passionate locals who know every hidden corner..."}</div>
-              <div className="space-y-0.5">
-                <div className="text-[6px] text-gray-500">✓ English & French speaking guides</div>
-                <div className="text-[6px] text-gray-500">✓ Certified and licensed operators</div>
-                <div className="text-[6px] text-gray-500">✓ Support for local communities</div>
-              </div>
+          <div className="h-full bg-white p-4">
+            {/* STRUCTURE EXACTE du vrai home.tsx ligne 225-245 - Section CENTRÉE */}
+            <div className="max-w-full text-center">
+              <h2 className="text-[12px] font-bold mb-2 text-gray-900">
+                {block.title || "When expats welcome you in their host country"}
+              </h2>
+              {/* Trait doré EXACT du vrai site */}
+              <div className="w-8 h-0.5 bg-yellow-400 mx-auto mb-3"></div>
+              <p className="text-[8px] text-gray-700 leading-relaxed">
+                {block.description || "This is a family-run travel agency that combines the organization of exclusive activities with the creation of tailor-made trips throughout the country. Our goal is to offer an immersive experience, far from mass tourism, with personalized service for every traveler — as if we were welcoming our own family or friends."}
+              </p>
             </div>
-            <div className="w-12 h-full bg-gradient-to-br from-blue-200 to-green-300 rounded flex-shrink-0"></div>
           </div>
         );
 
