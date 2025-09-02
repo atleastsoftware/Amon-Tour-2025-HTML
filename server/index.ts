@@ -95,14 +95,14 @@ app.use((req, res, next) => {
   // Migrate tours from JSON to database
   await migrateTours();
   
-  // Seed authentic blocks for pages
-  try {
-    // Import locally to avoid dependency issues
-    const { seedAuthenticBlocks } = await import('./seeds/authentic-blocks');
-    await seedAuthenticBlocks();
-  } catch (error) {
-    log('Warning: Could not seed authentic blocks:', error instanceof Error ? error.message : String(error));
-  }
+  // Seed authentic blocks for pages - TEMPORAIREMENT DESACTIVE POUR REFONTE HERO
+  // try {
+  //   // Import locally to avoid dependency issues
+  //   const { seedAuthenticBlocks } = await import('./seeds/authentic-blocks');
+  //   await seedAuthenticBlocks();
+  // } catch (error) {
+  //   log('Warning: Could not seed authentic blocks:', error instanceof Error ? error.message : String(error));
+  // }
   
   const server = await registerRoutes(app);
 

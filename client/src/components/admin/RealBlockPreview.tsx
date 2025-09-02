@@ -58,6 +58,25 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
     const config = block.configuration || {};
     
     switch (block.blockType) {
+      case 'hero_main_v2':
+        // Nouveau bloc Hero avec composant React natif et mise à l'échelle automatique
+        return (
+          <div className="w-full h-full relative overflow-hidden bg-gradient-to-br from-slate-50 to-slate-100">
+            <div 
+              className="absolute inset-0 origin-top-left"
+              style={{ 
+                transform: 'scale(0.4)', 
+                width: '250%', 
+                height: '250%'
+              }}
+            >
+              <div className="w-full min-h-screen relative">
+                <Hero />
+              </div>
+            </div>
+          </div>
+        );
+        
       case 'hero_main':
       case 'hero':
       case 'video_hero':
