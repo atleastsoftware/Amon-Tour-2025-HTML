@@ -61,45 +61,53 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
       case 'hero':
         // VÉRIFIER SI C'EST LE BON BLOC AVEC L'IDENTIFIER
         if (block.identifier === 'hero_main_v2') {
-          // HERO ADAPTÉ À LA LARGEUR DU CONTENEUR - ÉCHELLE PROPORTIONNELLE
+          // COPIE EXACTE DU VRAI HERO.TSX AVEC ÉCHELLE ADAPTÉE AU CONTENEUR
           return (
             <div className="relative w-full overflow-hidden">
               <div 
-                className="w-full"
                 style={{ 
                   transform: 'scale(0.5)', 
                   transformOrigin: 'top left',
                   width: '200%', 
-                  height: '600px'
+                  height: '200%'
                 }}
               >
                 <section className="relative pt-32 pb-20 min-h-screen flex items-center overflow-hidden">
-                  {/* Background Video exact du Hero.tsx */}
+                  {/* Video Background Section with Fallback Image - EXACT COPY */}
                   <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
+                    {/* Fallback Image */}
                     <img
                       src="/attached_assets/DJI_20241115104455_0160_D-min.jpeg"
                       alt="Beautiful Krabi landscape"
                       className="absolute top-0 left-0 w-full h-full object-cover"
                     />
+                    
+                    {/* Video Overlay */}
                     <video
                       autoPlay
                       muted
                       loop
                       playsInline
                       preload="none"
-                      className="absolute top-0 left-0 w-full h-full object-cover"
-                      style={{ minWidth: '100%', minHeight: '100%' }}
+                      className="absolute top-0 left-0 w-full h-full object-cover opacity-100"
+                      style={{ 
+                        minWidth: '100%', 
+                        minHeight: '100%'
+                      }}
                     >
                       <source src="/attached_assets/hero-video-optimized.mp4" type="video/mp4" />
                       <source src="/attached_assets/Catamaran%20cruise%20around%20Ao%20Nang%20local%20islands_1750216800850.mp4" type="video/mp4" />
                     </video>
+                    
+                    {/* Gradient Overlay - EXACT COPY */}
                     <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
                     <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
                   </div>
                   
-                  {/* Content exact comme Hero.tsx */}
+                  {/* STRUCTURE EXACTE DU VRAI HERO */}
                   <div className="container mx-auto px-4 relative z-10">
                     <div className="flex flex-col md:flex-row items-center gap-10">
+                      {/* Left content - EXACT COPY avec max-w-xl pour alignement gauche */}
                       <div className="w-full">
                         <div className="max-w-xl">
                           <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight text-white drop-shadow-lg">
@@ -932,9 +940,9 @@ export default function RealBlockPreview({
 
       {/* Prévisualisation visuelle miniaturisée et fidèle */}
       <div className="relative overflow-hidden bg-white" style={{ 
-        height: block.identifier === 'hero_main_v2' ? '300px' : 
+        height: block.identifier === 'hero_main_v2' ? '500px' : 
                 block.blockType.includes('hero') ? '800px' : '300px',
-        minHeight: '300px'
+        minHeight: '500px'
       }}>
         <div className={block.blockType.includes('hero') ? "w-full h-full" : "transform scale-90 origin-top-left w-[111.11%] h-[111.11%]"}>
           <MiniaturizedComponent block={showEditForm ? previewData : block} />
