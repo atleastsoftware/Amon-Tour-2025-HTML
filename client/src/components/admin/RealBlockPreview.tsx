@@ -22,6 +22,128 @@ import Testimonials from '@/components/home/Testimonials';
 import Contact from '@/components/home/Contact';
 import TourNinjaSection from '@/components/tour/TourNinjaSection';
 
+// 🎯 MÉTHODOLOGIE UNIVERSELLE DE PRÉVISUALISATION
+// Système intelligent pour créer des représentations exactes de toutes les sections
+
+const SECTION_DEFINITIONS = {
+  // Hero Sections - Grande hauteur avec média
+  hero_main_v2: { 
+    type: 'fullscreen', 
+    originalHeight: 650, 
+    expectedRatio: 'wide',
+    contentDensity: 'sparse' 
+  },
+  
+  // Content Sections - Hauteur moyenne avec texte/images
+  features: { 
+    type: 'content', 
+    originalHeight: 500, 
+    expectedRatio: 'standard',
+    contentDensity: 'medium' 
+  },
+  about: { 
+    type: 'content', 
+    originalHeight: 400, 
+    expectedRatio: 'standard',
+    contentDensity: 'dense' 
+  },
+  
+  // Interaction Sections - Focus sur les CTA
+  contact: { 
+    type: 'form', 
+    originalHeight: 600, 
+    expectedRatio: 'tall',
+    contentDensity: 'medium' 
+  },
+  custom_tour_cta: { 
+    type: 'cta', 
+    originalHeight: 350, 
+    expectedRatio: 'compact',
+    contentDensity: 'focused' 
+  },
+  
+  // Dynamic Sections - Contenu variable
+  tour_ninja: { 
+    type: 'dynamic', 
+    originalHeight: 800, 
+    expectedRatio: 'wide',
+    contentDensity: 'grid' 
+  },
+  testimonials: { 
+    type: 'testimonial', 
+    originalHeight: 450, 
+    expectedRatio: 'standard',
+    contentDensity: 'medium' 
+  }
+};
+
+// ALGORITHME INTELLIGENT DE CALCUL D'ÉCHELLE
+const calculateOptimalPreviewScale = (identifier: string, containerHeight: number = 450) => {
+  const sectionDef = SECTION_DEFINITIONS[identifier as keyof typeof SECTION_DEFINITIONS];
+  
+  if (!sectionDef) {
+    // Fallback pour sections inconnues
+    return { scale: 1.0, width: '100%', height: '450px' };
+  }
+  
+  // CALCUL AUTOMATIQUE BASÉ SUR LE TYPE DE SECTION
+  let targetScale: number;
+  
+  switch (sectionDef.type) {
+    case 'fullscreen':
+      // Hero/Fullscreen: Échelle aggressive pour remplissage maximal
+      targetScale = Math.min(containerHeight / sectionDef.originalHeight * 1.2, 0.9);
+      break;
+    case 'content':
+      // Content: Échelle équilibrée pour lisibilité
+      targetScale = Math.min(containerHeight / sectionDef.originalHeight * 1.1, 1.0);
+      break;
+    case 'form':
+      // Formulaires: Échelle pour préserver l'utilisabilité
+      targetScale = Math.min(containerHeight / sectionDef.originalHeight * 1.05, 0.8);
+      break;
+    case 'cta':
+      // CTA: Échelle pour impact visuel
+      targetScale = Math.min(containerHeight / sectionDef.originalHeight * 1.3, 1.2);
+      break;
+    case 'dynamic':
+      // Grilles/listes: Échelle pour voir la structure
+      targetScale = Math.min(containerHeight / sectionDef.originalHeight * 0.9, 0.65);
+      break;
+    default:
+      targetScale = containerHeight / sectionDef.originalHeight;
+  }
+  
+  // COMPENSATION LARGEUR INTELLIGENTE
+  const compensatedWidth = `${Math.round(100 / targetScale)}%`;
+  
+  return {
+    scale: targetScale,
+    width: compensatedWidth,
+    height: `${sectionDef.originalHeight}px`
+  };
+};
+
+// 🎯 WRAPPER UNIVERSEL POUR PRÉVISUALISATION PARFAITE
+const PreviewWrapper = ({ identifier, children }: { identifier: string, children: React.ReactNode }) => {
+  const scaleSettings = calculateOptimalPreviewScale(identifier, 450);
+  
+  return (
+    <div className="relative w-full h-full overflow-hidden bg-white">
+      <div 
+        style={{ 
+          transform: `scale(${scaleSettings.scale})`, 
+          transformOrigin: 'top left',
+          width: scaleSettings.width, 
+          height: scaleSettings.height
+        }}
+      >
+        {children}
+      </div>
+    </div>
+  );
+};
+
 interface PageBlock {
   id: number;
   pageId: number;
@@ -61,18 +183,10 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
       case 'hero':
         // VÉRIFIER SI C'EST LE BON BLOC AVEC L'IDENTIFIER
         if (block.identifier === 'hero_main_v2') {
-          // COPIE EXACTE DU HERO.TSX AVEC ÉCHELLE OPTIMISÉE
+          // WRAPPER UNIVERSEL APPLIQUÉ AVEC MÉTHODOLOGIE SYSTÉMATIQUE
           return (
-            <div className="relative w-full overflow-hidden">
-              <div 
-                style={{ 
-                  transform: 'scale(0.45)', 
-                  transformOrigin: 'top left',
-                  width: '222%', 
-                  height: '1000px'
-                }}
-              >
-                <section className="relative pt-32 pb-20 min-h-screen flex items-center overflow-hidden">
+            <PreviewWrapper identifier="hero_main_v2">
+              <section className="relative pt-32 pb-20 min-h-screen flex items-center overflow-hidden">
                   {/* Video Background - EXACT COPY */}
                   <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
                     <img
@@ -144,8 +258,7 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
                     </div>
                   </div>
                 </section>
-              </div>
-            </div>
+            </PreviewWrapper>
           );
         }
         // Fallback pour d'autres heros
