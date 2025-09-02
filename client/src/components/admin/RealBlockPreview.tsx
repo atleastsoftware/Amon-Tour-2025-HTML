@@ -128,13 +128,23 @@ const calculateOptimalPreviewScale = (identifier: string, containerHeight: numbe
 const PreviewWrapper = ({ identifier, children }: { identifier: string, children: React.ReactNode }) => {
   const scaleSettings = calculateOptimalPreviewScale(identifier, 450);
   
-  // HAUTEUR CONTENEUR = HAUTEUR CONTENU REDIMENSIONNÉ (pas de débordement)
-  const containerHeight = Math.round(parseInt(scaleSettings.height) * scaleSettings.scale);
+  // HAUTEUR CONTENEUR AJUSTÉE POUR CONTENU VISIBLE RÉEL
+  let effectiveHeight: number;
+  
+  switch (identifier) {
+    case 'hero_main_v2':
+      // Hero: Contenu visible EXACT ≈ 350px (élimine tout espace blanc)
+      effectiveHeight = Math.round(350 * scaleSettings.scale);
+      break;
+    default:
+      // Autres sections: hauteur standard
+      effectiveHeight = Math.round(parseInt(scaleSettings.height) * scaleSettings.scale);
+  }
   
   return (
     <div 
       className="relative w-full overflow-hidden bg-white"
-      style={{ height: `${containerHeight}px` }}
+      style={{ height: `${effectiveHeight}px` }}
     >
       <div 
         style={{ 
