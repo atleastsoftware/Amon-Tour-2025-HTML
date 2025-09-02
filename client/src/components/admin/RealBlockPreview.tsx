@@ -62,84 +62,73 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
       case 'video_hero':
         return (
           <div className="h-full w-full relative overflow-hidden">
-            {/* Image de fond éditable ou vidéo */}
-            <div 
-              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-              style={{
-                backgroundImage: `url('${block.imageUrl || '/attached_assets/DJI_20241115104455_0160_D-min.jpeg'}')`,
-                animation: 'backgroundShift 8s ease-in-out infinite alternate'
-              }}
-            ></div>
-            
-            {/* Indicateur de vidéo si URL configurée */}
-            {block.configuration?.videoUrl && (
-              <div className="absolute top-2 left-2">
-                <div className="bg-black/60 rounded px-2 py-1 flex items-center gap-2">
-                  <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-                  <span className="text-[8px] text-white font-medium">VIDÉO: {block.configuration.videoUrl}</span>
-                </div>
-              </div>
-            )}
-            
-            {/* Simulation de la vidéo avec effet de mouvement subtil */}
-            <div 
-              className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 via-teal-600/20 to-blue-700/20 animate-pulse"
-              style={{ animationDuration: '3s' }}
-            ></div>
+            {/* Image/Vidéo de fond STATIQUE comme sur le vrai site - PAS d'animation */}
+            <img
+              src={block.imageUrl || '/attached_assets/DJI_20241115104455_0160_D-min.jpeg'}
+              alt="Hero background"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
             
             {/* Overlays de dégradé EXACTEMENT comme sur le vrai site */}
             <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
             <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
             
-            {/* Contenu EXACT du vrai site avec toutes les valeurs éditables */}
-            <div className="relative h-full flex items-center px-4 py-6">
-              <div className="flex-1 max-w-xl">
-                {/* Titre EXACT avec vraies proportions du site */}
-                <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight text-white drop-shadow-lg">
-                  {block.title || "Your exclusive experiences"} <br/>
-                  <span className="text-primary drop-shadow-lg">
-                    {block.configuration?.heroSubtitle || "in Krabi –"}
-                  </span> {block.configuration?.heroCountry || "THAILAND"}
-                </h1>
-                
-                {/* Description EXACTE avec texte éditable */}
-                <p className="text-white/90 mb-8 text-lg drop-shadow-md">
-                  {block.description || "Discover amazing places away from mass tourism in Krabi."}<br/>
-                  {block.configuration?.secondDescription || "And also Khao Sok, Koh Mook and many more destinations."}
-                </p>
-                
-                {/* Boutons EXACTS avec textes et liens éditables */}
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <button 
-                    className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary/90 transition-colors shadow-lg font-medium"
-                    title={`Lien vers: ${block.configuration?.button1Url || '/tours'}`}
-                  >
-                    {block.configuration?.button1Text || "See our offers"}
-                  </button>
-                  <button 
-                    className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary/90 transition-colors shadow-lg font-medium"
-                    title={`Lien vers: ${block.configuration?.button2Url || '/custom-tour'}`}
-                  >
-                    {block.configuration?.button2Text || "Custom your trip"}
-                  </button>
+            {/* Structure EXACTE du vrai site : container mx-auto px-4 */}
+            <div className="relative z-10 h-full">
+              <div className="container mx-auto px-4 h-full">
+                <div className="flex flex-col md:flex-row items-center gap-10 h-full">
+                  <div className="w-full">
+                    {/* Contenu avec animation EXACTE du vrai site - seul le contenu bouge */}
+                    <div 
+                      className="max-w-xl"
+                      style={{
+                        animation: 'textFloat 5s ease-in-out infinite'
+                      }}
+                    >
+                      {/* Titre EXACT du vrai site avec VRAIS textes par défaut */}
+                      <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight text-white drop-shadow-lg">
+                        {block.title || "Your exclusive experiences"} <br/>
+                        <span className="text-primary drop-shadow-lg">
+                          {block.configuration?.heroSubtitle || "in Krabi – "}
+                        </span>{block.configuration?.heroCountry || "THAILAND"}
+                      </h1>
+                      
+                      {/* Description EXACTE du vrai site */}
+                      <p className="text-white/90 mb-8 text-lg drop-shadow-md">
+                        {block.description || "Discover amazing places away from mass tourism in Krabi."}<br/>
+                        {block.configuration?.secondDescription || "And also Khao Sok, Koh Mook and many more destinations."}
+                      </p>
+                      
+                      {/* Boutons EXACTS du vrai site */}
+                      <div className="flex flex-col sm:flex-row gap-4">
+                        <span 
+                          className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg"
+                          title={`Lien vers: ${block.configuration?.button1Url || '/tours'}`}
+                        >
+                          {block.configuration?.button1Text || "See our offers"}
+                        </span>
+                        <span 
+                          className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg"
+                          title={`Lien vers: ${block.configuration?.button2Url || '/custom-tour'}`}
+                        >
+                          {block.configuration?.button2Text || "Custom your trip"}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
             
-            {/* Indicateurs vidéo fidèles */}
-            <div className="absolute top-1 right-1">
-              <div className="bg-black/60 rounded px-1.5 py-0.5 flex items-center gap-1">
-                <div className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></div>
-                <span className="text-[6px] text-white font-medium">VIDEO</span>
+            {/* Indicateur de vidéo si configurée */}
+            {block.configuration?.videoUrl && (
+              <div className="absolute top-2 right-2">
+                <div className="bg-black/60 rounded px-2 py-1 flex items-center gap-1">
+                  <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                  <span className="text-[8px] text-white font-medium">VIDEO</span>
+                </div>
               </div>
-            </div>
-            
-            {/* Barre de progression vidéo */}
-            <div className="absolute bottom-1 left-1 right-1">
-              <div className="bg-black/40 rounded h-0.5 overflow-hidden">
-                <div className="bg-primary h-full w-1/3 animate-pulse"></div>
-              </div>
-            </div>
+            )}
           </div>
         );
         

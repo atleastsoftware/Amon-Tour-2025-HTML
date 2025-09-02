@@ -26,6 +26,15 @@
   }
 }
 
+/* Animation EXACTE du texte héro comme sur le vrai site */
+@keyframes textFloat {
+  0% { transform: translateX(0px); }
+  25% { transform: translateX(5px); }
+  50% { transform: translateX(0px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0px); }
+}
+
 :root {
   --background: 0 0% 100%;
   --foreground: 20 14.3% 4.1%;
