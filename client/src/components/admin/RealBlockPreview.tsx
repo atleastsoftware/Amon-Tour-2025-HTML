@@ -471,11 +471,22 @@ function BlockHistoryModal({ block, onRestore }: {
 }
 
 // Formulaire d'édition en dropdown
-function BlockEditForm({ block, onSave, isOpen, onToggle }: {
+function BlockEditForm({ 
+  block, 
+  onSave, 
+  onPreviewUpdate, 
+  isOpen, 
+  onToggle, 
+  hasUnsavedChanges, 
+  onCancel 
+}: {
   block: PageBlock;
   onSave: (data: Partial<PageBlock>) => void;
+  onPreviewUpdate?: (data: Partial<PageBlock>) => void;
   isOpen: boolean;
   onToggle: () => void;
+  hasUnsavedChanges?: boolean;
+  onCancel?: () => void;
 }) {
   const queryClient = useQueryClient();
 
@@ -522,11 +533,26 @@ function BlockEditForm({ block, onSave, isOpen, onToggle }: {
     });
   };
 
+  const updateFormData = (newData: Partial<typeof formData>) => {
+    const updatedData = { ...formData, ...newData };
+    setFormData(updatedData);
+    // Déclencher le preview en temps réel
+    if (onPreviewUpdate) {
+      onPreviewUpdate(updatedData);
+    }
+  };
+
   const updateConfig = (key: string, value: any) => {
-    setFormData(prev => ({
-      ...prev,
-      configuration: { ...prev.configuration, [key]: value }
-    }));
+    const newConfig = { ...formData.configuration, [key]: value };
+    const updatedData = {
+      ...formData,
+      configuration: newConfig
+    };
+    setFormData(updatedData);
+    // Déclencher le preview en temps réel
+    if (onPreviewUpdate) {
+      onPreviewUpdate(updatedData);
+    }
   };
 
   return (
@@ -548,7 +574,7 @@ function BlockEditForm({ block, onSave, isOpen, onToggle }: {
                   <Input
                     id="title"
                     value={formData.title}
-                    onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
+                    onChange={(e) => updateFormData({ title: e.target.value })}
                     placeholder="Titre du bloc"
                   />
                 </div>
@@ -558,7 +584,7 @@ function BlockEditForm({ block, onSave, isOpen, onToggle }: {
                   <Input
                     id="subtitle"
                     value={formData.subtitle}
-                    onChange={(e) => setFormData(prev => ({ ...prev, subtitle: e.target.value }))}
+                    onChange={(e) => updateFormData({ subtitle: e.target.value })}
                     placeholder="Sous-titre"
                   />
                 </div>
@@ -568,7 +594,7 @@ function BlockEditForm({ block, onSave, isOpen, onToggle }: {
                   <Textarea
                     id="description"
                     value={formData.description}
-                    onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
+                    onChange={(e) => updateFormData({ description: e.target.value })}
                     placeholder="Description du bloc"
                     rows={3}
                   />
@@ -579,7 +605,7 @@ function BlockEditForm({ block, onSave, isOpen, onToggle }: {
                   <Input
                     id="imageUrl"
                     value={formData.imageUrl}
-                    onChange={(e) => setFormData(prev => ({ ...prev, imageUrl: e.target.value }))}
+                    onChange={(e) => updateFormData({ imageUrl: e.target.value })}
                     placeholder="https://..."
                   />
                 </div>
@@ -590,7 +616,7 @@ function BlockEditForm({ block, onSave, isOpen, onToggle }: {
                     id="backgroundColor"
                     type="color"
                     value={formData.backgroundColor}
-                    onChange={(e) => setFormData(prev => ({ ...prev, backgroundColor: e.target.value }))}
+                    onChange={(e) => updateFormData({ backgroundColor: e.target.value })}
                   />
                 </div>
                 
@@ -698,7 +724,7 @@ function BlockEditForm({ block, onSave, isOpen, onToggle }: {
                       <Input
                         id="ctaText"
                         value={formData.ctaText}
-                        onChange={(e) => setFormData(prev => ({ ...prev, ctaText: e.target.value }))}
+                        onChange={(e) => updateFormData({ ctaText: e.target.value })}
                         placeholder="Texte du bouton"
                       />
                     </div>
@@ -708,7 +734,7 @@ function BlockEditForm({ block, onSave, isOpen, onToggle }: {
                       <Input
                         id="ctaUrl"
                         value={formData.ctaUrl}
-                        onChange={(e) => setFormData(prev => ({ ...prev, ctaUrl: e.target.value }))}
+                        onChange={(e) => updateFormData({ ctaUrl: e.target.value })}
                         placeholder="/lien-vers-page"
                       />
                     </div>
@@ -737,47 +763,43 @@ function BlockEditForm({ block, onSave, isOpen, onToggle }: {
                 )}
               </div>
               
-              {/* Boutons d'action */}
-              <div className="flex justify-between items-center mt-6 pt-4 border-t">
-                <div className="flex gap-2">
+              {/* Boutons d'action avec indicateur de modifications */}
+              <div className="flex justify-between items-center mt-6 pt-4 border-t bg-gray-50 -mx-6 -mb-6 px-6 py-4">
+                <div className="flex items-center gap-3">
                   <BlockHistoryModal 
                     block={block} 
                     onRestore={() => window.location.reload()} 
                   />
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    onClick={() => {
-                      setFormData({
-                        title: block.title || '',
-                        subtitle: block.subtitle || '',
-                        description: block.description || '',
-                        content: block.content || '',
-                        imageUrl: block.imageUrl || '',
-                        ctaText: block.ctaText || '',
-                        ctaUrl: block.ctaUrl || '',
-                        backgroundColor: block.backgroundColor || '',
-                        configuration: { ...block.configuration }
-                      });
-                      toast({
-                        title: "Modifications annulées",
-                        description: "Les valeurs originales ont été restaurées.",
-                      });
-                    }}
-                  >
-                    <Undo2 className="w-4 h-4 mr-2" />
-                    Annuler
-                  </Button>
+                  {hasUnsavedChanges && (
+                    <div className="flex items-center gap-2 text-orange-600 text-sm">
+                      <Clock className="h-4 w-4" />
+                      <span>Modifications non sauvegardées</span>
+                    </div>
+                  )}
                 </div>
                 
-                <Button 
-                  onClick={handleSave} 
-                  className="bg-green-600 hover:bg-green-700"
-                  disabled={saveVersionMutation.isPending}
-                >
-                  <Save className="w-4 h-4 mr-2" />
-                  {saveVersionMutation.isPending ? 'Sauvegarde...' : 'Sauvegarder'}
-                </Button>
+                <div className="flex gap-2">
+                  {hasUnsavedChanges && onCancel && (
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={onCancel}
+                    >
+                      <Undo2 className="w-4 h-4 mr-2" />
+                      Annuler les modifications
+                    </Button>
+                  )}
+                  
+                  <Button 
+                    onClick={handleSave} 
+                    className={`${hasUnsavedChanges ? 'bg-blue-600 hover:bg-blue-700' : 'bg-green-600 hover:bg-green-700'}`}
+                    disabled={saveVersionMutation.isPending}
+                  >
+                    <Save className="w-4 h-4 mr-2" />
+                    {saveVersionMutation.isPending ? 'Sauvegarde...' : 
+                     hasUnsavedChanges ? 'Sauvegarder les modifications' : 'Sauvegarder'}
+                  </Button>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -795,83 +817,158 @@ export default function RealBlockPreview({
   onMoveDown, 
   onToggleVisibility 
 }: RealBlockPreviewProps) {
-  const [isEditing, setIsEditing] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
+  const [previewData, setPreviewData] = useState(block);
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
   const getBlockDisplayName = (blockType: string) => {
     const displayNames: Record<string, string> = {
+      'hero': 'Hero Section',
+      'video_hero': 'Hero avec Vidéo',
       'hero_main': 'Hero Principal',
-      'hero': 'Hero Simple',
-      'featured_tours': 'Tours Populaires',
-      'about_amon_tour': 'À Propos',
+      'features': 'Section Fonctionnalités',
       'why_choose_us': 'Pourquoi Nous Choisir',
-      'custom_tour_cta': 'Appel à Action',
+      'about': 'Section À Propos',
+      'about_amon_tour': 'À Propos de l\'Entreprise',
+      'featured_tours': 'Tours Populaires',
+      'custom_tour_cta': 'Appel à Action Personnalisé',
+      'cta_section': 'Appel à Action',
+      'testimonials': 'Témoignages',
       'customer_reviews': 'Avis Clients',
-      'text_image': 'Texte + Image',
-      'card_grid': 'Grille de Cartes',
-      'contact_info': 'Infos Contact'
+      'contact_hero': 'Hero Contact',
+      'contact_methods': 'Méthodes de Contact',
+      'contact_form': 'Formulaire de Contact',
+      'text_image': 'Texte & Image',
+      'card_grid': 'Grille de Cartes'
     };
     return displayNames[blockType] || blockType.replace('_', ' ');
   };
 
+  const handlePreviewUpdate = (updatedData: Partial<PageBlock>) => {
+    setPreviewData(prev => ({ ...prev, ...updatedData }));
+    setHasUnsavedChanges(true);
+  };
+
+  const handleSaveChanges = () => {
+    onUpdate(block.id, previewData);
+    setHasUnsavedChanges(false);
+    setShowEditForm(false);
+    toast({ 
+      title: "Bloc mis à jour", 
+      description: "Les modifications ont été sauvegardées avec succès."
+    });
+  };
+
+  const handleCancelChanges = () => {
+    setPreviewData(block);
+    setHasUnsavedChanges(false);
+    setShowEditForm(false);
+  };
+
   return (
-    <div className="border rounded-lg bg-white overflow-hidden">
-      {/* En-tête du bloc avec contrôles */}
-      <div className="flex justify-between items-center p-4 bg-gray-50 border-b">
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2">
-            <span className="font-medium text-gray-900">
-              {getBlockDisplayName(block.blockType)}
-            </span>
-            {block.title && (
-              <span className="text-sm text-gray-500">- {block.title}</span>
-            )}
+    <motion.div 
+      layout
+      className="group relative border border-gray-200 rounded-xl overflow-hidden hover:border-blue-400 hover:shadow-lg transition-all duration-300 bg-white"
+    >
+      {/* Header avec titre et boutons d'action toujours visibles */}
+      <div className="absolute top-0 left-0 right-0 z-30 bg-gradient-to-b from-black/80 via-black/60 to-transparent p-3">
+        <div className="flex items-center justify-between">
+          <div className="text-white">
+            <div className="text-sm font-semibold">{getBlockDisplayName(block.blockType)}</div>
+            <div className="text-xs opacity-75">{block.title || 'Sans titre'}</div>
           </div>
-          <div className="flex items-center gap-1">
-            <Switch
-              checked={block.isActive}
-              onCheckedChange={() => onToggleVisibility(block.id)}
-            />
-            <span className="text-xs text-gray-500">
-              {block.isActive ? 'Visible' : 'Masqué'}
-            </span>
+          
+          {/* Boutons d'action toujours visibles */}
+          <div className="flex gap-1">
+            <Button
+              size="sm"
+              variant={block.isActive ? "secondary" : "default"}
+              onClick={() => onToggleVisibility(block.id)}
+              title={block.isActive ? "Masquer du site web" : "Afficher sur le site web"}
+              className="h-7 w-7 p-0 bg-white/90 hover:bg-white text-gray-700 border-0"
+            >
+              {block.isActive ? <Eye className="h-3 w-3" /> : <EyeOff className="h-3 w-3" />}
+            </Button>
+            <Button
+              size="sm"
+              variant="secondary"
+              onClick={() => onMoveUp(block.id)}
+              title="Déplacer vers le haut"
+              className="h-7 w-7 p-0 bg-white/90 hover:bg-white text-gray-700 border-0"
+            >
+              <ArrowUp className="h-3 w-3" />
+            </Button>
+            <Button
+              size="sm"
+              variant="secondary"
+              onClick={() => onMoveDown(block.id)}
+              title="Déplacer vers le bas"
+              className="h-7 w-7 p-0 bg-white/90 hover:bg-white text-gray-700 border-0"
+            >
+              <ArrowDown className="h-3 w-3" />
+            </Button>
+            <Button
+              size="sm"
+              variant="secondary"
+              onClick={() => setShowEditForm(!showEditForm)}
+              title="Modifier le bloc"
+              className="h-7 w-7 p-0 bg-blue-500 hover:bg-blue-600 text-white border-0"
+            >
+              <Edit className="h-3 w-3" />
+            </Button>
+            <Button
+              size="sm"
+              variant="destructive"
+              onClick={() => {
+                if (window.confirm('Êtes-vous sûr de vouloir supprimer ce bloc ?')) {
+                  onDelete(block.id);
+                }
+              }}
+              title="Supprimer le bloc"
+              className="h-7 w-7 p-0 bg-red-500 hover:bg-red-600 text-white border-0"
+            >
+              <Trash2 className="h-3 w-3" />
+            </Button>
           </div>
+        </div>
+      </div>
+
+      {/* Prévisualisation visuelle miniaturisée et fidèle */}
+      <div className="relative overflow-hidden bg-white" style={{ height: '300px' }}>
+        <div className="transform scale-75 origin-top-left w-[133.33%] h-[133.33%]">
+          <MiniaturizedComponent block={showEditForm ? previewData : block} />
         </div>
         
-        <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm" onClick={() => onMoveUp(block.id)}>
-            <ArrowUp className="w-4 h-4" />
-          </Button>
-          <Button variant="outline" size="sm" onClick={() => onMoveDown(block.id)}>
-            <ArrowDown className="w-4 h-4" />
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setIsEditing(!isEditing)}
-            className={isEditing ? 'bg-blue-100 text-blue-700' : ''}
-          >
-            <Edit className="w-4 h-4 mr-1" />
-            Modifier
-            {isEditing ? <ChevronUp className="w-4 h-4 ml-1" /> : <ChevronDown className="w-4 h-4 ml-1" />}
-          </Button>
-          <Button variant="outline" size="sm" onClick={() => onDelete(block.id)}>
-            <Trash2 className="w-4 h-4" />
-          </Button>
-        </div>
+        {/* Overlay si bloc masqué */}
+        {!block.isActive && (
+          <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center z-20">
+            <div className="bg-white px-4 py-2 rounded-full text-sm font-medium text-gray-700 shadow-lg">
+              Masqué du site web
+            </div>
+          </div>
+        )}
+
+        {/* Indicateur de modifications non sauvegardées */}
+        {hasUnsavedChanges && (
+          <div className="absolute bottom-3 left-3 z-20">
+            <div className="bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-medium shadow-lg flex items-center gap-1">
+              <Clock className="h-3 w-3" />
+              Modifications non sauvegardées
+            </div>
+          </div>
+        )}
       </div>
-      
-      {/* Prévisualisation réelle du composant */}
-      <div className="p-4">
-        <MiniaturizedComponent block={block} />
-      </div>
-      
-      {/* Formulaire d'édition en dropdown */}
+
+      {/* Formulaire d'édition déroulant avec preview en temps réel */}
       <BlockEditForm
         block={block}
-        onSave={(data) => onUpdate(block.id, data)}
-        isOpen={isEditing}
-        onToggle={() => setIsEditing(!isEditing)}
+        onSave={handleSaveChanges}
+        onPreviewUpdate={handlePreviewUpdate}
+        isOpen={showEditForm}
+        onToggle={() => setShowEditForm(!showEditForm)}
+        hasUnsavedChanges={hasUnsavedChanges}
+        onCancel={handleCancelChanges}
       />
-    </div>
+    </motion.div>
   );
 }
