@@ -65,7 +65,7 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
           <iframe 
             src="/preview/hero" 
             className="w-full border-0 rounded-lg overflow-hidden"
-            style={{ height: '600px' }}
+            style={{ height: '800px' }}
             title="Hero Section Preview"
           />
         );
