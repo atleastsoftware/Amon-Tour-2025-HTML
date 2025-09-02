@@ -65,10 +65,10 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
             <div 
               className="absolute inset-0"
               style={{ 
-                transform: 'scale(0.5)', 
+                transform: 'scale(0.25)', 
                 transformOrigin: 'top left',
-                width: '200%', 
-                height: '200%'
+                width: '400%', 
+                height: '400%'
               }}
             >
               <section className="relative pt-32 pb-20 min-h-screen flex items-center overflow-hidden">
@@ -924,8 +924,9 @@ export default function RealBlockPreview({
 
       {/* Prévisualisation visuelle miniaturisée et fidèle */}
       <div className="relative overflow-hidden bg-white" style={{ 
-        height: block.identifier === 'hero_main_v2' ? '320px' : 
-                block.blockType.includes('hero') ? '800px' : '300px' 
+        height: block.identifier === 'hero_main_v2' ? 'auto' : 
+                block.blockType.includes('hero') ? '800px' : '300px',
+        minHeight: block.identifier === 'hero_main_v2' ? '200px' : 'auto' 
       }}>
         <div className={block.blockType.includes('hero') ? "w-full h-full" : "transform scale-90 origin-top-left w-[111.11%] h-[111.11%]"}>
           <MiniaturizedComponent block={showEditForm ? previewData : block} />
