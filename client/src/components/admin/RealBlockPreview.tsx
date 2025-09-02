@@ -133,8 +133,8 @@ const PreviewWrapper = ({ identifier, children }: { identifier: string, children
   
   switch (identifier) {
     case 'hero_main_v2':
-      // Hero: Contenu visible EXACT ≈ 350px (élimine tout espace blanc)
-      effectiveHeight = Math.round(350 * scaleSettings.scale);
+      // Hero: Hauteur pour TOUT LE CONTENU visible (titre + description + boutons)
+      effectiveHeight = Math.round(480 * scaleSettings.scale); // 480px = contenu complet
       break;
     default:
       // Autres sections: hauteur standard
