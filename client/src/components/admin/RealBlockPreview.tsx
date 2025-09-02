@@ -59,23 +59,66 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
     
     switch (block.blockType) {
       case 'hero_main_v2':
-        // VRAIE mise à l'échelle proportionnelle du composant Hero original
+        // Copie EXACTE du code Hero mais mise à l'échelle pour la largeur disponible
         return (
-          <div className="w-full h-full relative overflow-hidden bg-gray-100">
-            <div 
-              className="absolute inset-0 origin-top-left"
-              style={{ 
-                transform: 'scale(0.45)', 
-                width: '222%', 
-                height: '222%',
-                transformOrigin: 'top left'
-              }}
-            >
-              <div className="w-full min-h-screen relative">
-                <Hero />
+          <section className="relative py-8 flex items-center overflow-hidden w-full h-full">
+            {/* Background Video - IDENTIQUE à Hero.tsx */}
+            <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
+              {/* Fallback Image */}
+              <img 
+                src="/attached_assets/DJI_20241115104455_0160_D-min.jpeg" 
+                alt="Beautiful Krabi landscape" 
+                className="absolute top-0 left-0 w-full h-full object-cover" 
+              />
+              
+              {/* Video Overlay - IDENTIQUE à Hero.tsx */}
+              <video 
+                autoPlay 
+                muted 
+                loop 
+                playsInline 
+                preload="none" 
+                className="absolute top-0 left-0 w-full h-full object-cover"
+                style={{ minWidth: '100%', minHeight: '100%' }}
+              >
+                <source src="/attached_assets/hero-video-optimized.mp4" type="video/mp4" />
+                <source src="/attached_assets/Catamaran%20cruise%20around%20Ao%20Nang%20local%20islands_1750216800850.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              
+              {/* Gradient overlays IDENTIQUES */}
+              <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
+            </div>
+
+            {/* Content IDENTIQUE à Hero.tsx mais tailles adaptées */}
+            <div className="container mx-auto px-4 relative z-10">
+              <div className="flex flex-col md:flex-row items-center gap-10">
+                <div className="w-full">
+                  <div className="max-w-xl">
+                    <h1 className="font-heading text-xl md:text-2xl lg:text-3xl mb-4 leading-tight tracking-tight text-white drop-shadow-lg">
+                      Your exclusive experiences <br/>
+                      <span className="text-primary drop-shadow-lg">in Krabi – </span>THAILAND
+                    </h1>
+                    
+                    <p className="text-white/90 mb-6 text-sm drop-shadow-md">
+                      Discover amazing places away from mass tourism in Krabi.<br/>
+                      And also Khao Sok, Koh Mook and many more destinations.
+                    </p>
+                    
+                    <div className="flex flex-col sm:flex-row gap-4">
+                      <span className="bg-primary text-white px-6 py-2 mt-3 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg text-sm">
+                        See our offers
+                      </span>
+                      <span className="bg-primary text-white px-6 py-2 mt-3 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg text-sm">
+                        Custom your trip
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          </section>
         );
         
       case 'hero_main':
