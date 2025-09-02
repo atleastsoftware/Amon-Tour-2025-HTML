@@ -615,10 +615,22 @@ function MiniaturizedComponent({
       >
         {renderVisualPreview()}
         <div className="absolute inset-0 bg-transparent pointer-events-none" />
+        
+        {/* Bouton Modifier Hero flottant - visible seulement pour Hero blocks */}
+        {block.identifier === 'hero_main_v2' && !isEditingHero && (
+          <Button
+            onClick={() => setIsEditingHero(true)}
+            className="absolute top-4 right-4 bg-blue-600 hover:bg-blue-700 text-white shadow-lg z-10 pointer-events-auto"
+            size="sm"
+          >
+            <Edit className="w-4 h-4 mr-1" />
+            Modifier Hero
+          </Button>
+        )}
       </div>
       
       {/* Formulaire d'édition Hero - en dehors du PreviewWrapper pour éviter les problèmes de hauteur */}
-    {isEditing && block.identifier === 'hero_main_v2' && (
+    {isEditingHero && block.identifier === 'hero_main_v2' && (
       <div className="bg-white border-t border-gray-200 p-6 space-y-4 max-h-96 overflow-y-auto">
         <h3 className="text-lg font-semibold text-gray-800 mb-4">Édition Hero Section</h3>
         
