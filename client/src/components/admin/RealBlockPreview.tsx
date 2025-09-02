@@ -64,12 +64,13 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
           // HERO ADAPTATIF - REMPLISSAGE COMPLET + TAILLES PROPORTIONNELLES
           return (
             <div className="relative w-full h-full flex flex-col bg-gray-900 overflow-hidden">
-              {/* Background Video - REMPLIT LE CONTENEUR COMPLET */}
+              {/* Background Video - RECADRÉ COMME LE SITE RÉEL */}
               <div className="absolute inset-0 w-full h-full z-0">
                 <img
                   src="/attached_assets/DJI_20241115104455_0160_D-min.jpeg"
                   alt="Beautiful Krabi landscape"
                   className="absolute top-0 left-0 w-full h-full object-cover"
+                  style={{ transform: 'scale(1.2)', transformOrigin: 'center center' }}
                 />
                 <video
                   autoPlay
@@ -78,6 +79,7 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
                   playsInline
                   preload="none"
                   className="absolute top-0 left-0 w-full h-full object-cover opacity-100"
+                  style={{ transform: 'scale(1.2)', transformOrigin: 'center center' }}
                 >
                   <source src="/attached_assets/hero-video-optimized.mp4" type="video/mp4" />
                   <source src="/attached_assets/Catamaran%20cruise%20around%20Ao%20Nang%20local%20islands_1750216800850.mp4" type="video/mp4" />
@@ -86,26 +88,26 @@ function MiniaturizedComponent({ block }: { block: PageBlock }) {
                 <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
               </div>
               
-              {/* Content avec TAILLES RÉDUITES mais positionnement du site */}
-              <div className="relative z-10 px-4 pt-6 pb-4 flex-1 flex items-start justify-start">
+              {/* Content POSITIONNÉ BAS + TAILLES SITE RÉEL PROPORTIONNELLES */}
+              <div className="relative z-10 px-6 pt-16 pb-8 flex-1 flex items-center justify-start">
                 <div className="w-full">
-                  <div className="max-w-sm">
-                    <h1 className="font-heading text-xl md:text-2xl mb-3 leading-tight tracking-tight text-white drop-shadow-lg">
+                  <div className="max-w-lg">
+                    <h1 className="font-heading text-2xl md:text-3xl lg:text-4xl mb-5 leading-tight tracking-tight text-white drop-shadow-lg">
                       Your exclusive <br/>
                       experiences <br/>
                       <span className="text-primary drop-shadow-lg">in Krabi – </span>THAILAND
                     </h1>
                     
-                    <p className="text-white/90 mb-4 text-sm drop-shadow-md">
+                    <p className="text-white/90 mb-6 text-base drop-shadow-md">
                       Discover amazing places away from mass tourism in Krabi.<br/>
                       And also Khao Sok, Koh Mook and many more destinations.
                     </p>
                     
-                    <div className="flex flex-row gap-2">
-                      <span className="bg-primary text-white px-4 py-2 text-xs rounded shadow-lg">
+                    <div className="flex flex-row gap-3">
+                      <span className="bg-primary text-white px-6 py-2.5 text-sm rounded shadow-lg">
                         See our offers
                       </span>
-                      <span className="bg-primary text-white px-4 py-2 text-xs rounded shadow-lg">
+                      <span className="bg-primary text-white px-6 py-2.5 text-sm rounded shadow-lg">
                         Custom your trip
                       </span>
                     </div>
