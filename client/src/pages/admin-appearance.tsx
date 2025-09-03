@@ -1020,6 +1020,241 @@ function CopyrightManager({ siteSettings, updateSiteSetting, updateSiteSettingMu
   );
 }
 
+// Page Management Interface Component - Replacement for RealBlocksEditor
+function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs }: {
+  selectedPage: string;
+  pageBlocks: PageBlock[];
+  pageConfigs: PageConfiguration[];
+}) {
+  const currentPageConfig = pageConfigs.find(p => p.pageSlug === selectedPage);
+  
+  if (!currentPageConfig) {
+    return (
+      <div className="text-center py-12">
+        <div className="text-gray-500">Page configuration not found</div>
+      </div>
+    );
+  }
+
+  // Calculate statistics
+  const totalBlocks = pageBlocks?.length || 0;
+  const activeBlocks = pageBlocks?.filter(block => block.isActive).length || 0;
+  const inactiveBlocks = totalBlocks - activeBlocks;
+  
+  // Get last modification date
+  const lastModified = pageBlocks?.length > 0 
+    ? new Date(Math.max(...pageBlocks.map(block => new Date(block.updatedAt || block.createdAt).getTime())))
+    : new Date(currentPageConfig.updatedAt || currentPageConfig.createdAt);
+
+  const formatDate = (date: Date) => {
+    return new Intl.DateTimeFormat('fr-FR', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    }).format(date);
+  };
+
+  const handleEditPage = () => {
+    // Instead of navigating to a new route, we'll show the page editor inline
+    // For now, we'll open the current RealBlocksEditor in a new modal
+    alert(`Ouverture de l'éditeur pour la page "${currentPageConfig.pageName}"`);
+  };
+
+  return (
+    <div className="space-y-6">
+      {/* Page Header Information */}
+      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-6 border border-blue-100">
+        <div className="flex items-start justify-between">
+          <div className="space-y-3">
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900">{currentPageConfig.pageName}</h2>
+              <p className="text-gray-600 mt-1">
+                Page {currentPageConfig.pageType === 'main' ? 'principale' : 'secondaire'} • 
+                <span className="ml-1">/{currentPageConfig.pageSlug}</span>
+              </p>
+            </div>
+            
+            {currentPageConfig.seoTitle && (
+              <div className="space-y-1">
+                <p className="text-sm font-medium text-gray-700">Titre SEO:</p>
+                <p className="text-sm text-gray-600">{currentPageConfig.seoTitle}</p>
+              </div>
+            )}
+            
+            {currentPageConfig.seoDescription && (
+              <div className="space-y-1">
+                <p className="text-sm font-medium text-gray-700">Description SEO:</p>
+                <p className="text-sm text-gray-600 line-clamp-2">{currentPageConfig.seoDescription}</p>
+              </div>
+            )}
+          </div>
+          
+          <div className="flex gap-3">
+            <Button
+              variant="outline"
+              onClick={() => {
+                const pageUrl = selectedPage === 'home' ? '/' : `/${selectedPage}`;
+                window.open(pageUrl, '_blank');
+              }}
+              className="bg-white hover:bg-gray-50"
+            >
+              <Eye className="w-4 h-4 mr-2" />
+              Voir le site
+            </Button>
+            <Button onClick={handleEditPage} className="bg-blue-600 hover:bg-blue-700">
+              <Edit className="w-4 h-4 mr-2" />
+              Modifier la page
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      {/* Statistics Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-gray-600">Blocs totaux</p>
+                <p className="text-3xl font-bold text-gray-900">{totalBlocks}</p>
+              </div>
+              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                <Layout className="w-6 h-6 text-blue-600" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-gray-600">Blocs actifs</p>
+                <p className="text-3xl font-bold text-green-600">{activeBlocks}</p>
+              </div>
+              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                <Eye className="w-6 h-6 text-green-600" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-gray-600">Blocs inactifs</p>
+                <p className="text-3xl font-bold text-orange-600">{inactiveBlocks}</p>
+              </div>
+              <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+                <EyeOff className="w-6 h-6 text-orange-600" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Usage Information */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">Utilisation de la Page</CardTitle>
+          <CardDescription>
+            Informations détaillées sur l'utilisation et la configuration de cette page
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-3">
+              <div>
+                <p className="text-sm font-medium text-gray-700">État de la page</p>
+                <div className="flex items-center gap-2 mt-1">
+                  <div className={`w-2 h-2 rounded-full ${currentPageConfig.isActive ? 'bg-green-500' : 'bg-red-500'}`}></div>
+                  <span className={`text-sm ${currentPageConfig.isActive ? 'text-green-700' : 'text-red-700'}`}>
+                    {currentPageConfig.isActive ? 'Active' : 'Inactive'}
+                  </span>
+                </div>
+              </div>
+              
+              <div>
+                <p className="text-sm font-medium text-gray-700">Dernière modification</p>
+                <p className="text-sm text-gray-600 mt-1">{formatDate(lastModified)}</p>
+              </div>
+              
+              <div>
+                <p className="text-sm font-medium text-gray-700">URL publique</p>
+                <p className="text-sm text-blue-600 mt-1">
+                  <a href={selectedPage === 'home' ? '/' : `/${selectedPage}`} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                    {window.location.origin}{selectedPage === 'home' ? '/' : `/${selectedPage}`}
+                  </a>
+                </p>
+              </div>
+            </div>
+            
+            <div className="space-y-3">
+              <div>
+                <p className="text-sm font-medium text-gray-700">Mots-clés SEO</p>
+                <p className="text-sm text-gray-600 mt-1">
+                  {currentPageConfig.seoKeywords || 'Non défini'}
+                </p>
+              </div>
+              
+              <div>
+                <p className="text-sm font-medium text-gray-700">Type de contenu</p>
+                <p className="text-sm text-gray-600 mt-1">
+                  {totalBlocks === 0 ? 'Page vide' : `${totalBlocks} bloc${totalBlocks > 1 ? 's' : ''} de contenu`}
+                </p>
+              </div>
+              
+              <div>
+                <p className="text-sm font-medium text-gray-700">Performance</p>
+                <p className="text-sm text-gray-600 mt-1">
+                  {activeBlocks === totalBlocks && totalBlocks > 0 
+                    ? 'Optimale - Tous les blocs sont actifs' 
+                    : inactiveBlocks > 0 
+                      ? `À optimiser - ${inactiveBlocks} bloc${inactiveBlocks > 1 ? 's' : ''} inactif${inactiveBlocks > 1 ? 's' : ''}`
+                      : 'En attente de contenu'}
+                </p>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Informations techniques */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">Informations techniques</CardTitle>
+          <CardDescription>
+            Détails techniques et métadonnées de la page
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-3 text-sm">
+            <div className="flex justify-between py-2 border-b border-gray-100">
+              <span className="font-medium text-gray-700">ID de la page:</span>
+              <span className="text-gray-600">{currentPageConfig.id}</span>
+            </div>
+            <div className="flex justify-between py-2 border-b border-gray-100">
+              <span className="font-medium text-gray-700">Slug:</span>
+              <code className="text-gray-600 bg-gray-100 px-2 py-1 rounded text-xs">{currentPageConfig.pageSlug}</code>
+            </div>
+            <div className="flex justify-between py-2 border-b border-gray-100">
+              <span className="font-medium text-gray-700">Date de création:</span>
+              <span className="text-gray-600">{formatDate(new Date(currentPageConfig.createdAt))}</span>
+            </div>
+            <div className="flex justify-between py-2">
+              <span className="font-medium text-gray-700">Dernière mise à jour:</span>
+              <span className="text-gray-600">{formatDate(new Date(currentPageConfig.updatedAt || currentPageConfig.createdAt))}</span>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
 export default function AdminAppearance() {
   const [, setLocation] = useLocation();
   const [activeCategory, setActiveCategory] = useState<string>('theme');
@@ -1036,6 +1271,17 @@ export default function AdminAppearance() {
   const [tempLogoSettings, setTempLogoSettings] = useState<any>(null);
   const [tempNotificationBar, setTempNotificationBar] = useState<any>(null);
   const [tempPopupSettings, setTempPopupSettings] = useState<any>(null);
+
+  // States for page creation modal
+  const [isCreatePageDialogOpen, setIsCreatePageDialogOpen] = useState(false);
+  const [newPageData, setNewPageData] = useState({
+    pageName: '',
+    pageSlug: '',
+    pageType: 'main' as 'main' | 'secondary',
+    seoTitle: '',
+    seoDescription: '',
+    seoKeywords: ''
+  });
 
   // Helper functions for temp settings with fallbacks
   const getTempSetting = (section: string, key: string, tempState: any) => {
@@ -1392,6 +1638,41 @@ export default function AdminAppearance() {
     }
   });
 
+  // Create page mutation
+  const createPageMutation = useMutation({
+    mutationFn: (pageData: typeof newPageData) =>
+      fetch('/api/admin/page-configurations', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(pageData)
+      }).then(res => {
+        if (!res.ok) throw new Error('Failed to create page');
+        return res.json();
+      }),
+    onSuccess: (createdPage) => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/page-configurations'] });
+      setIsCreatePageDialogOpen(false);
+      setNewPageData({
+        pageName: '',
+        pageSlug: '',
+        pageType: 'main',
+        seoTitle: '',
+        seoDescription: '',
+        seoKeywords: ''
+      });
+      setSelectedPage(createdPage.pageSlug);
+      toast({ title: 'Page created successfully!' });
+    },
+    onError: (error: any) => {
+      toast({ 
+        title: 'Error creating page', 
+        description: error.message || 'Please try again',
+        variant: 'destructive' 
+      });
+    }
+  });
+
   // Update site setting mutation
   const updateSiteSettingMutation = useMutation({
     mutationFn: (data: { section: string; key: string; value: string }) =>
@@ -1450,30 +1731,81 @@ export default function AdminAppearance() {
     );
   }
 
-  const pageCategories = {
-    'Pages principales': [
-      { slug: 'home', name: 'Home Page' },
-      { slug: 'experiences', name: 'Experiences' },
-      { slug: 'custom-tour', name: 'Custom Tour' },
-      { slug: 'contact', name: 'Contact Us' },
-      { slug: 'blog', name: 'Blog' }
-    ],
-    'Pages secondaires': [
-      { slug: 'tours', name: 'Tours' },
-      { slug: 'stays', name: 'Stays' },
-      { slug: 'external-stays', name: 'External Stays' },
-      { slug: 'villas-krabi', name: 'Villas Krabi' },
-      { slug: 'krabi-celebration', name: 'Krabi Celebration' },
-      { slug: 'become-partner', name: 'Become Partner' },
-      { slug: 'group-corporate', name: 'Group Corporate' },
-      { slug: 'brochure', name: 'Brochure' },
-      { slug: 'tour-cards', name: 'Tour Cards' }
-    ],
-    'Mentions légales': [
-      { slug: 'legal-notice', name: 'Legal Notice' },
-      { slug: 'privacy-policy', name: 'Privacy Policy' },
-      { slug: 'terms-conditions', name: 'Terms & Conditions' }
-    ]
+  // Dynamic page categories based on database
+  const getDynamicPageCategories = () => {
+    if (!pageConfigs || !Array.isArray(pageConfigs)) {
+      // Fallback to static data if DB not loaded
+      return {
+        'Pages principales': [
+          { slug: 'home', name: 'Home Page' },
+          { slug: 'experiences', name: 'Experiences' },
+          { slug: 'custom-tour', name: 'Custom Tour' },
+          { slug: 'contact', name: 'Contact Us' },
+          { slug: 'blog', name: 'Blog' }
+        ],
+        'Pages secondaires': [
+          { slug: 'tours', name: 'Tours' },
+          { slug: 'stays', name: 'Stays' },
+          { slug: 'external-stays', name: 'External Stays' },
+          { slug: 'villas-krabi', name: 'Villas Krabi' },
+          { slug: 'krabi-celebration', name: 'Krabi Celebration' },
+          { slug: 'become-partner', name: 'Become Partner' },
+          { slug: 'group-corporate', name: 'Group Corporate' },
+          { slug: 'brochure', name: 'Brochure' },
+          { slug: 'tour-cards', name: 'Tour Cards' }
+        ],
+        'Mentions légales': [
+          { slug: 'legal-notice', name: 'Legal Notice' },
+          { slug: 'privacy-policy', name: 'Privacy Policy' },
+          { slug: 'terms-conditions', name: 'Terms & Conditions' }
+        ]
+      };
+    }
+    
+    const categories: Record<string, Array<{ slug: string; name: string; id: number }>> = {
+      'Pages principales': [],
+      'Pages secondaires': [],
+      'Mentions légales': []
+    };
+
+    pageConfigs.forEach((page: PageConfiguration) => {
+      const pageInfo = { slug: page.pageSlug, name: page.pageName, id: page.id };
+      
+      if (page.pageType === 'main') {
+        categories['Pages principales'].push(pageInfo);
+      } else if (page.pageSlug.includes('legal') || page.pageSlug.includes('privacy') || page.pageSlug.includes('terms')) {
+        categories['Mentions légales'].push(pageInfo);
+      } else {
+        categories['Pages secondaires'].push(pageInfo);
+      }
+    });
+
+    return categories;
+  };
+
+  const pageCategories = getDynamicPageCategories();
+
+  // Helper functions for page creation
+  const generateSlugFromName = (name: string) => {
+    return name
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .trim();
+  };
+
+  const handleCreatePage = () => {
+    if (!newPageData.pageName) {
+      toast({ title: 'Please enter a page name', variant: 'destructive' });
+      return;
+    }
+
+    if (!newPageData.pageSlug) {
+      setNewPageData(prev => ({ ...prev, pageSlug: generateSlugFromName(prev.pageName) }));
+    }
+
+    createPageMutation.mutate(newPageData);
   };
 
   // Group theme sections by category
@@ -2932,6 +3264,117 @@ export default function AdminAppearance() {
                       </Button>
                     </div>
                     
+                    {/* Add New Page Button */}
+                    <div className="border-t pt-4">
+                      <Dialog open={isCreatePageDialogOpen} onOpenChange={setIsCreatePageDialogOpen}>
+                        <DialogTrigger asChild>
+                          <Button
+                            variant="outline"
+                            className="w-full justify-start text-sm h-8 border-dashed border-blue-300 text-blue-600 hover:bg-blue-50"
+                          >
+                            <Plus className="w-4 h-4 mr-2" />
+                            Ajouter une page
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-md">
+                          <DialogHeader>
+                            <DialogTitle>Créer une nouvelle page</DialogTitle>
+                            <DialogDescription>
+                              Ajoutez une nouvelle page à votre site web avec ses paramètres de base.
+                            </DialogDescription>
+                          </DialogHeader>
+                          <div className="space-y-4">
+                            <div className="grid grid-cols-1 gap-4">
+                              <div>
+                                <Label htmlFor="page-name">Nom de la page*</Label>
+                                <Input
+                                  id="page-name"
+                                  value={newPageData.pageName}
+                                  onChange={(e) => {
+                                    setNewPageData(prev => ({
+                                      ...prev,
+                                      pageName: e.target.value,
+                                      pageSlug: generateSlugFromName(e.target.value)
+                                    }));
+                                  }}
+                                  placeholder="Ex: À propos, Services, Contact"
+                                />
+                              </div>
+                              <div>
+                                <Label htmlFor="page-slug">URL de la page*</Label>
+                                <Input
+                                  id="page-slug"
+                                  value={newPageData.pageSlug}
+                                  onChange={(e) => setNewPageData(prev => ({ ...prev, pageSlug: e.target.value }))}
+                                  placeholder="Ex: about-us, services, contact"
+                                />
+                                <p className="text-xs text-gray-500 mt-1">
+                                  Sera accessible via: /{newPageData.pageSlug}
+                                </p>
+                              </div>
+                              <div>
+                                <Label htmlFor="page-type">Type de page</Label>
+                                <Select value={newPageData.pageType} onValueChange={(value: 'main' | 'secondary') => setNewPageData(prev => ({ ...prev, pageType: value }))}>
+                                  <SelectTrigger>
+                                    <SelectValue />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    <SelectItem value="main">Page principale</SelectItem>
+                                    <SelectItem value="secondary">Page secondaire</SelectItem>
+                                  </SelectContent>
+                                </Select>
+                              </div>
+                            </div>
+                            
+                            <div className="border-t pt-4">
+                              <h4 className="font-medium text-sm text-gray-900 mb-3">Paramètres SEO (optionnel)</h4>
+                              <div className="space-y-3">
+                                <div>
+                                  <Label htmlFor="seo-title">Titre SEO</Label>
+                                  <Input
+                                    id="seo-title"
+                                    value={newPageData.seoTitle}
+                                    onChange={(e) => setNewPageData(prev => ({ ...prev, seoTitle: e.target.value }))}
+                                    placeholder="Titre qui apparaîtra dans Google"
+                                  />
+                                </div>
+                                <div>
+                                  <Label htmlFor="seo-description">Description SEO</Label>
+                                  <Textarea
+                                    id="seo-description"
+                                    value={newPageData.seoDescription}
+                                    onChange={(e) => setNewPageData(prev => ({ ...prev, seoDescription: e.target.value }))}
+                                    placeholder="Description qui apparaîtra dans Google (155 caractères max)"
+                                    rows={2}
+                                  />
+                                </div>
+                                <div>
+                                  <Label htmlFor="seo-keywords">Mots-clés SEO</Label>
+                                  <Input
+                                    id="seo-keywords"
+                                    value={newPageData.seoKeywords}
+                                    onChange={(e) => setNewPageData(prev => ({ ...prev, seoKeywords: e.target.value }))}
+                                    placeholder="mots-clés, séparés, par, des, virgules"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="flex justify-between pt-4">
+                            <Button variant="outline" onClick={() => setIsCreatePageDialogOpen(false)}>
+                              Annuler
+                            </Button>
+                            <Button
+                              onClick={handleCreatePage}
+                              disabled={!newPageData.pageName || createPageMutation.isPending}
+                            >
+                              {createPageMutation.isPending ? 'Création...' : 'Créer la page'}
+                            </Button>
+                          </div>
+                        </DialogContent>
+                      </Dialog>
+                    </div>
+                    
                     {/* Other Categories with Dropdowns */}
                     {Object.entries(pageCategories).map(([categoryName, pages]) => (
                       <div key={categoryName} className="space-y-2">
@@ -3232,15 +3675,10 @@ export default function AdminAppearance() {
                         <p className="text-gray-500">Loading blocks...</p>
                       </div>
                     ) : (
-                      <RealBlocksEditor 
-                        pageSlug={selectedPage} 
+                      <PageManagementInterface 
+                        selectedPage={selectedPage}
                         pageBlocks={pageBlocks}
-                        editingHeroBlockId={editingHeroBlockId}
-                        setEditingHeroBlockId={setEditingHeroBlockId}
-                        heroEditData={heroEditData}
-                        setHeroEditData={setHeroEditData}
-                        saveHeroChanges={saveHeroChanges}
-                        handleEditHero={handleEditHero}
+                        pageConfigs={pageConfigs}
                       />
                     )}
                   </CardContent>
