@@ -157,7 +157,7 @@ function renderStylePreview(style: string, value: string): any {
 // Dynamic Footer Management Components
 function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSettingMutation }: any) {
   const getContactInfo = () => {
-    const setting = siteSettings.find((s: any) => s.section === 'footer' && s.key === 'contact_info');
+    const setting = siteSettings && Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.section === 'footer' && s.key === 'contact_info') : null;
     if (setting?.value) {
       try {
         return JSON.parse(setting.value);
@@ -404,7 +404,7 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
 
 function UsefulLinksManager({ siteSettings, updateSiteSetting, updateSiteSettingMutation, availablePages }: any) {
   const getUsefulLinks = () => {
-    const setting = siteSettings.find((s: any) => s.section === 'footer' && s.key === 'useful_links');
+    const setting = siteSettings && Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.section === 'footer' && s.key === 'useful_links') : null;
     if (setting?.value) {
       try {
         return JSON.parse(setting.value);
@@ -647,7 +647,7 @@ function UsefulLinksManager({ siteSettings, updateSiteSetting, updateSiteSetting
 
 function SocialMediaManager({ siteSettings, updateSiteSetting, updateSiteSettingMutation }: any) {
   const getSocialMedia = () => {
-    const setting = siteSettings.find((s: any) => s.section === 'footer' && s.key === 'social_media');
+    const setting = siteSettings && Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.section === 'footer' && s.key === 'social_media') : null;
     if (setting?.value) {
       try {
         return JSON.parse(setting.value);
@@ -857,7 +857,7 @@ function SocialMediaManager({ siteSettings, updateSiteSetting, updateSiteSetting
 
 function NewsletterManager({ siteSettings, updateSiteSetting, updateSiteSettingMutation }: any) {
   const getNewsletterConfig = () => {
-    const setting = siteSettings.find((s: any) => s.section === 'footer' && s.key === 'newsletter_config');
+    const setting = siteSettings && Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.section === 'footer' && s.key === 'newsletter_config') : null;
     if (setting?.value) {
       try {
         return JSON.parse(setting.value);
@@ -961,7 +961,7 @@ function NewsletterManager({ siteSettings, updateSiteSetting, updateSiteSettingM
 
 function CopyrightManager({ siteSettings, updateSiteSetting, updateSiteSettingMutation }: any) {
   const getCopyrightConfig = () => {
-    const setting = siteSettings.find((s: any) => s.section === 'footer' && s.key === 'copyright_config');
+    const setting = siteSettings && Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.section === 'footer' && s.key === 'copyright_config') : null;
     if (setting?.value) {
       try {
         return JSON.parse(setting.value);
@@ -1158,7 +1158,7 @@ export default function AdminAppearance() {
 
   // Fonction pour gérer l'édition Hero
   const handleEditHero = (blockId: number) => {
-    const block = pageBlocks.find(b => b.id === blockId);
+    const block = pageBlocks && Array.isArray(pageBlocks) ? pageBlocks.find(b => b.id === blockId) : null;
     if (block) {
       loadHeroData(block);
       setEditingHeroBlockId(blockId);
@@ -1356,7 +1356,7 @@ export default function AdminAppearance() {
   // Move block mutation
   const moveBlockMutation = useMutation({
     mutationFn: (data: { blockId: number; direction: 'up' | 'down' }) => {
-      const block = pageBlocks.find(b => b.id === data.blockId);
+      const block = pageBlocks && Array.isArray(pageBlocks) ? pageBlocks.find(b => b.id === data.blockId) : null;
       if (!block) throw new Error('Block not found');
       
       const newOrder = data.direction === 'up' ? block.blockOrder - 1 : block.blockOrder + 1;
@@ -1499,7 +1499,7 @@ export default function AdminAppearance() {
       return;
     }
     
-    const selectedPageConfig = pageConfigs.find(p => p.pageSlug === selectedPage);
+    const selectedPageConfig = pageConfigs && Array.isArray(pageConfigs) ? pageConfigs.find(p => p.pageSlug === selectedPage) : null;
     if (!selectedPageConfig) {
       toast({ title: 'Page configuration not found', variant: 'destructive' });
       return;
@@ -1751,6 +1751,9 @@ export default function AdminAppearance() {
   };
 
   const getSiteSetting = (section: string, key: string) => {
+    if (!siteSettings || !Array.isArray(siteSettings)) {
+      return '';
+    }
     return siteSettings.find(s => s.section === section && s.key === key)?.value || '';
   };
 
@@ -3481,7 +3484,7 @@ function NavigationMenuManager() {
     ];
     
     for (const item of menuItems) {
-      const correction = corrections.find(c => c.from === item.name);
+      const correction = corrections && Array.isArray(corrections) ? corrections.find(c => c.from === item.name) : null;
       if (correction) {
         try {
           await updateMenuItemMutation.mutateAsync({
@@ -4122,7 +4125,7 @@ function RealBlocksEditor({
   };
 
   const handleToggleVisibility = (id: number) => {
-    const block = pageBlocks.find(b => b.id === id);
+    const block = pageBlocks && Array.isArray(pageBlocks) ? pageBlocks.find(b => b.id === id) : null;
     if (block) {
       handleUpdateBlock(id, { isActive: !block.isActive });
     }
