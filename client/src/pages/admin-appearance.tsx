@@ -12,7 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { toast } from '@/hooks/use-toast';
-import { Edit, Plus, Trash2, Move, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Palette, Layout, Image, Type, FileText, MapPin, Mail, Users, Download, Star, Camera, ArrowLeft, Search, Video, Bell, MousePointer, Globe, Menu } from 'lucide-react';
+import { Edit, Plus, Trash2, Move, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Palette, Layout, Image, Type, FileText, MapPin, Mail, Users, Download, Star, Camera, ArrowLeft, Search, Video, Bell, MousePointer, Globe, Menu, Clock, Link, CheckCircle, AlertCircle, Database } from 'lucide-react';
 import RealBlockPreview from '@/components/admin/RealBlockPreview';
 
 // Interface pour les données d'édition du Hero
@@ -1020,6 +1020,307 @@ function CopyrightManager({ siteSettings, updateSiteSetting, updateSiteSettingMu
   );
 }
 
+// Page Management Interface Component - Page Information Dashboard
+function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs }: {
+  selectedPage: string;
+  pageBlocks: PageBlock[];
+  pageConfigs: PageConfiguration[];
+}) {
+  const currentPageConfig = pageConfigs.find(p => p.pageSlug === selectedPage);
+  
+  if (!currentPageConfig) {
+    return (
+      <div className="text-center py-12">
+        <div className="text-gray-500">Page configuration not found</div>
+      </div>
+    );
+  }
+
+  // Calculate statistics
+  const totalBlocks = pageBlocks?.length || 0;
+  const activeBlocks = pageBlocks?.filter(block => block.isActive).length || 0;
+  const inactiveBlocks = totalBlocks - activeBlocks;
+  
+  // Get last modification date
+  const lastModified = pageBlocks?.length > 0 
+    ? new Date(Math.max(...pageBlocks.map(block => new Date(block.updatedAt || block.createdAt).getTime())))
+    : new Date(currentPageConfig.updatedAt || currentPageConfig.createdAt);
+
+  const formatDate = (date: Date) => {
+    return new Intl.DateTimeFormat('fr-FR', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    }).format(date);
+  };
+
+  const handleEditPage = () => {
+    // Redirect to page editor route
+    window.location.href = `/admin-page-editor?page=${selectedPage}`;
+  };
+
+  // Check where the page is linked/referenced
+  const getPageReferences = () => {
+    const references = [];
+    
+    // Check if it's in main navigation
+    if (['home', 'tours', 'experiences', 'stays', 'contact', 'blog'].includes(selectedPage)) {
+      references.push('Menu principal de navigation');
+    }
+    
+    // Check if it's a landing page
+    if (selectedPage === 'home') {
+      references.push('Page d\'accueil du site');
+    }
+    
+    // Check if it's linked in footer
+    if (['contact', 'legal-notice', 'privacy-policy', 'terms-conditions'].includes(selectedPage)) {
+      references.push('Liens du footer');
+    }
+    
+    // Check for form redirections
+    if (['krabi-celebration', 'become-partner', 'group-corporate'].includes(selectedPage)) {
+      references.push('Pages de formulaires spéciaux');
+    }
+    
+    return references;
+  };
+
+  const pageReferences = getPageReferences();
+
+  return (
+    <div className="space-y-6">
+      {/* Page Metadata Card */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <FileText className="w-5 h-5" />
+            Informations générales
+          </CardTitle>
+          <CardDescription>
+            Métadonnées et configuration de la page
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-4">
+              <div>
+                <label className="text-sm font-medium text-gray-700">Nom de la page</label>
+                <p className="mt-1 text-sm text-gray-900 bg-gray-50 p-2 rounded border">
+                  {currentPageConfig.pageName}
+                </p>
+              </div>
+              
+              <div>
+                <label className="text-sm font-medium text-gray-700">Slug/URL</label>
+                <p className="mt-1 text-sm text-gray-900 bg-gray-50 p-2 rounded border font-mono">
+                  /{currentPageConfig.pageSlug}
+                </p>
+              </div>
+              
+              <div>
+                <label className="text-sm font-medium text-gray-700">Type de page</label>
+                <p className="mt-1 text-sm text-gray-900 bg-gray-50 p-2 rounded border">
+                  Page {currentPageConfig.pageType === 'main' ? 'principale' : 'secondaire'}
+                </p>
+              </div>
+            </div>
+            
+            <div className="space-y-4">
+              <div>
+                <label className="text-sm font-medium text-gray-700">Titre SEO</label>
+                <p className="mt-1 text-sm text-gray-900 bg-gray-50 p-2 rounded border">
+                  {currentPageConfig.seoTitle || 'Non défini'}
+                </p>
+              </div>
+              
+              <div>
+                <label className="text-sm font-medium text-gray-700">Mots-clés SEO</label>
+                <p className="mt-1 text-sm text-gray-900 bg-gray-50 p-2 rounded border">
+                  {currentPageConfig.seoKeywords || 'Non défini'}
+                </p>
+              </div>
+              
+              <div>
+                <label className="text-sm font-medium text-gray-700">État</label>
+                <div className="mt-1 flex items-center gap-2">
+                  <div className={`w-2 h-2 rounded-full ${currentPageConfig.isActive ? 'bg-green-500' : 'bg-red-500'}`}></div>
+                  <span className={`text-sm ${currentPageConfig.isActive ? 'text-green-700' : 'text-red-700'}`}>
+                    {currentPageConfig.isActive ? 'Page active' : 'Page inactive'}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div>
+            <label className="text-sm font-medium text-gray-700">Description SEO</label>
+            <p className="mt-1 text-sm text-gray-900 bg-gray-50 p-3 rounded border">
+              {currentPageConfig.seoDescription || 'Non définie'}
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Page Statistics */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-gray-600">Blocs de contenu</p>
+                <p className="text-3xl font-bold text-gray-900">{totalBlocks}</p>
+              </div>
+              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                <Layout className="w-6 h-6 text-blue-600" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-gray-600">Blocs actifs</p>
+                <p className="text-3xl font-bold text-green-600">{activeBlocks}</p>
+              </div>
+              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                <Eye className="w-6 h-6 text-green-600" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-gray-600">Dernière modif.</p>
+                <p className="text-sm font-bold text-gray-900">{formatDate(lastModified).split(' ')[0]}</p>
+                <p className="text-xs text-gray-500">{formatDate(lastModified).split(' ').slice(1).join(' ')}</p>
+              </div>
+              <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+                <Clock className="w-6 h-6 text-orange-600" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Page References */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Link className="w-5 h-5" />
+            Où cette page est rattachée
+          </CardTitle>
+          <CardDescription>
+            Emplacements où cette page est référencée dans le site
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          {pageReferences.length > 0 ? (
+            <div className="space-y-2">
+              {pageReferences.map((reference, index) => (
+                <div key={index} className="flex items-center gap-2 p-2 bg-gray-50 rounded">
+                  <CheckCircle className="w-4 h-4 text-green-500" />
+                  <span className="text-sm text-gray-700">{reference}</span>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-4 text-gray-500">
+              <AlertCircle className="w-8 h-8 mx-auto mb-2 text-gray-400" />
+              <p className="text-sm">Cette page n'est pas encore rattachée à d'autres sections du site</p>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Actions */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Settings className="w-5 h-5" />
+            Actions rapides
+          </CardTitle>
+          <CardDescription>
+            Gérer et modifier cette page
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex gap-3">
+            <Button
+              variant="outline"
+              onClick={() => {
+                const pageUrl = selectedPage === 'home' ? '/' : `/${selectedPage}`;
+                window.open(pageUrl, '_blank');
+              }}
+              className="flex-1"
+            >
+              <Eye className="w-4 h-4 mr-2" />
+              Prévisualiser la page
+            </Button>
+            <Button 
+              onClick={handleEditPage} 
+              className="flex-1 bg-blue-600 hover:bg-blue-700"
+            >
+              <Edit className="w-4 h-4 mr-2" />
+              Modifier la page et ses blocs
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Technical Information */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Database className="w-5 h-5" />
+            Informations techniques
+          </CardTitle>
+          <CardDescription>
+            Détails techniques et métadonnées système
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+            <div className="space-y-2">
+              <div className="flex justify-between py-1 border-b border-gray-100">
+                <span className="font-medium text-gray-700">ID Page:</span>
+                <code className="text-gray-600 bg-gray-100 px-1 rounded text-xs">{currentPageConfig.id}</code>
+              </div>
+              <div className="flex justify-between py-1 border-b border-gray-100">
+                <span className="font-medium text-gray-700">Créée le:</span>
+                <span className="text-gray-600">{formatDate(new Date(currentPageConfig.createdAt))}</span>
+              </div>
+            </div>
+            <div className="space-y-2">
+              <div className="flex justify-between py-1 border-b border-gray-100">
+                <span className="font-medium text-gray-700">URL publique:</span>
+                <a 
+                  href={selectedPage === 'home' ? '/' : `/${selectedPage}`} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-blue-600 hover:underline text-xs"
+                >
+                  {window.location.origin}{selectedPage === 'home' ? '/' : `/${selectedPage}`}
+                </a>
+              </div>
+              <div className="flex justify-between py-1 border-b border-gray-100">
+                <span className="font-medium text-gray-700">Modifiée le:</span>
+                <span className="text-gray-600">{formatDate(new Date(currentPageConfig.updatedAt || currentPageConfig.createdAt))}</span>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
 
 export default function AdminAppearance() {
   const [, setLocation] = useLocation();
@@ -3451,15 +3752,10 @@ export default function AdminAppearance() {
                         <p className="text-gray-500">Loading blocks...</p>
                       </div>
                     ) : (
-                      <RealBlocksEditor 
-                        pageSlug={selectedPage} 
+                      <PageManagementInterface 
+                        selectedPage={selectedPage}
                         pageBlocks={pageBlocks}
-                        editingHeroBlockId={editingHeroBlockId}
-                        setEditingHeroBlockId={setEditingHeroBlockId}
-                        heroEditData={heroEditData}
-                        setHeroEditData={setHeroEditData}
-                        saveHeroChanges={saveHeroChanges}
-                        handleEditHero={handleEditHero}
+                        pageConfigs={pageConfigs}
                       />
                     )}
                   </CardContent>
