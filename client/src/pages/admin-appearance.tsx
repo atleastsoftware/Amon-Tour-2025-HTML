@@ -3252,8 +3252,54 @@ export default function AdminAppearance() {
                       </Button>
                     </div>
                     
-                    {/* Add New Page Button */}
+                    {/* Other Categories with Dropdowns */}
+                    {Object.entries(pageCategories).map(([categoryName, pages]) => (
+                      <div key={categoryName} className="space-y-2">
+                        <Button
+                          variant="outline"
+                          className="w-full justify-start text-sm h-8"
+                          onClick={() => toggleCategory(categoryName)}
+                        >
+                          <Layout className="w-4 h-4 mr-2" />
+                          <span className="flex-1 text-left">{categoryName}</span>
+                          <ChevronDown 
+                            className={`w-4 h-4 transition-transform ${
+                              expandedCategories.includes(categoryName) ? 'rotate-180' : ''
+                            }`}
+                          />
+                        </Button>
+                        {expandedCategories.includes(categoryName) && (
+                          <div className="space-y-2 ml-2">
+                            {pages.map((page) => (
+                              <Button
+                                key={page.slug}
+                                variant={selectedPage === page.slug ? 'default' : 'outline'}
+                                className="w-full justify-start text-sm h-8"
+                                onClick={() => setSelectedPage(page.slug)}
+                              >
+                                <FileText className="w-4 h-4 mr-2" />
+                                {page.name}
+                              </Button>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                    
+                    {/* Page Editor Button - Placed after all categories */}
                     <div className="border-t pt-4">
+                      <Button
+                        variant="outline"
+                        className="w-full justify-start text-sm h-8 mb-4"
+                        onClick={() => {
+                          window.location.href = '/admin-page-editor';
+                        }}
+                      >
+                        <Layout className="w-4 h-4 mr-2" />
+                        Éditeur de page
+                      </Button>
+                      
+                      {/* Add New Page Button */}
                       <Dialog open={isCreatePageDialogOpen} onOpenChange={setIsCreatePageDialogOpen}>
                         <DialogTrigger asChild>
                           <Button
@@ -3363,53 +3409,6 @@ export default function AdminAppearance() {
                       </Dialog>
                     </div>
                     
-                    {/* Other Categories with Dropdowns */}
-                    {Object.entries(pageCategories).map(([categoryName, pages]) => (
-                      <div key={categoryName} className="space-y-2">
-                        <Button
-                          variant="outline"
-                          className="w-full justify-start text-sm h-8"
-                          onClick={() => toggleCategory(categoryName)}
-                        >
-                          <Layout className="w-4 h-4 mr-2" />
-                          <span className="flex-1 text-left">{categoryName}</span>
-                          <ChevronDown 
-                            className={`w-4 h-4 transition-transform ${
-                              expandedCategories.includes(categoryName) ? 'rotate-180' : ''
-                            }`}
-                          />
-                        </Button>
-                        {expandedCategories.includes(categoryName) && (
-                          <div className="space-y-2 ml-2">
-                            {pages.map((page) => (
-                              <Button
-                                key={page.slug}
-                                variant={selectedPage === page.slug ? 'default' : 'outline'}
-                                className="w-full justify-start text-sm h-8"
-                                onClick={() => setSelectedPage(page.slug)}
-                              >
-                                <FileText className="w-4 h-4 mr-2" />
-                                {page.name}
-                              </Button>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                    
-                    {/* Page Editor Button - Placed after all categories */}
-                    <div className="border-t pt-4">
-                      <Button
-                        variant="outline"
-                        className="w-full justify-start text-sm h-8 mb-4"
-                        onClick={() => {
-                          window.location.href = '/admin-page-editor';
-                        }}
-                      >
-                        <Layout className="w-4 h-4 mr-2" />
-                        Éditeur de page
-                      </Button>
-                    </div>
                   </div>
                 </CardContent>
               </Card>
