@@ -1164,51 +1164,6 @@ function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs }: {
         </CardContent>
       </Card>
 
-      {/* Page Statistics */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Blocs de contenu</p>
-                <p className="text-3xl font-bold text-gray-900">{totalBlocks}</p>
-              </div>
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                <Layout className="w-6 h-6 text-blue-600" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Blocs actifs</p>
-                <p className="text-3xl font-bold text-green-600">{activeBlocks}</p>
-              </div>
-              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                <Eye className="w-6 h-6 text-green-600" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Dernière modif.</p>
-                <p className="text-sm font-bold text-gray-900">{formatDate(lastModified).split(' ')[0]}</p>
-                <p className="text-xs text-gray-500">{formatDate(lastModified).split(' ').slice(1).join(' ')}</p>
-              </div>
-              <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
-                <Clock className="w-6 h-6 text-orange-600" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
 
       {/* Page References */}
       <Card>
@@ -1240,40 +1195,6 @@ function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs }: {
         </CardContent>
       </Card>
 
-      {/* Actions */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Settings className="w-5 h-5" />
-            Actions rapides
-          </CardTitle>
-          <CardDescription>
-            Gérer et modifier cette page
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="flex gap-3">
-            <Button
-              variant="outline"
-              onClick={() => {
-                const pageUrl = selectedPage === 'home' ? '/' : `/${selectedPage}`;
-                window.open(pageUrl, '_blank');
-              }}
-              className="flex-1"
-            >
-              <Eye className="w-4 h-4 mr-2" />
-              Prévisualiser la page
-            </Button>
-            <Button 
-              onClick={handleEditPage} 
-              className="flex-1 bg-blue-600 hover:bg-blue-700"
-            >
-              <Edit className="w-4 h-4 mr-2" />
-              Modifier la page et ses blocs
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
 
       {/* Technical Information */}
       <Card>
@@ -3475,6 +3396,20 @@ export default function AdminAppearance() {
                         )}
                       </div>
                     ))}
+                    
+                    {/* Page Editor Button - Placed after all categories */}
+                    <div className="border-t pt-4">
+                      <Button
+                        variant="outline"
+                        className="w-full justify-start text-sm h-8 mb-4"
+                        onClick={() => {
+                          window.location.href = '/admin-page-editor';
+                        }}
+                      >
+                        <Layout className="w-4 h-4 mr-2" />
+                        Éditeur de page
+                      </Button>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
@@ -3517,76 +3452,14 @@ export default function AdminAppearance() {
                             <Eye className="w-4 h-4 mr-2" />
                             Voir le site
                           </Button>
-                          <Dialog>
-                            <DialogTrigger asChild>
-                              <Button>
-                                <Edit className="w-4 h-4 mr-2" />
-                                Modifier la page
-                              </Button>
-                            </DialogTrigger>
-                      <DialogContent>
-                        <DialogHeader>
-                          <DialogTitle>Add New Content Block</DialogTitle>
-                          <DialogDescription>
-                            Choose a block type to add to this page
-                          </DialogDescription>
-                        </DialogHeader>
-                        <div className="space-y-4">
-                          <Label htmlFor="blockType">Block Type</Label>
-                          <Select value={newBlockType} onValueChange={setNewBlockType}>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select block type" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {/* Hero Sections */}
-                              <SelectItem value="hero_video">Hero with Video Background</SelectItem>
-                              <SelectItem value="hero_banner">Hero Banner with Image</SelectItem>
-                              <SelectItem value="hero">Simple Hero Section</SelectItem>
-                              
-                              {/* Content Sections */}
-                              <SelectItem value="text_section">Text Section (Centered)</SelectItem>
-                              <SelectItem value="text_image">Text & Image (2 Columns)</SelectItem>
-                              <SelectItem value="about_2col">About Company (2 Columns)</SelectItem>
-                              
-                              {/* Interactive Sections */}
-                              <SelectItem value="tour_grid">Tour Ninja Grid</SelectItem>
-                              <SelectItem value="cards_grid">Cards Grid</SelectItem>
-                              <SelectItem value="search_bar">Search Bar</SelectItem>
-                              
-                              {/* Features & Layout */}
-                              <SelectItem value="features_3col">Features (3 Columns)</SelectItem>
-                              <SelectItem value="testimonials">Testimonials Carousel</SelectItem>
-                              
-                              {/* Contact & Forms */}
-                              <SelectItem value="contact_cards">Contact Cards</SelectItem>
-                              <SelectItem value="contact_info">Contact Information</SelectItem>
-                              <SelectItem value="custom_form">Custom Form</SelectItem>
-                              
-                              {/* Call to Actions */}
-                              <SelectItem value="cta_section">Call to Action</SelectItem>
-                              <SelectItem value="cta_banner">CTA Banner</SelectItem>
-                              
-                              {/* Media & Maps */}
-                              <SelectItem value="map_section">Map Section</SelectItem>
-                              <SelectItem value="gallery">Image Gallery</SelectItem>
-                              <SelectItem value="video_section">Video Section</SelectItem>
-                              
-                              {/* Utility & Social */}
-                              <SelectItem value="newsletter">Newsletter Signup</SelectItem>
-                              <SelectItem value="social_media">Social Media Links</SelectItem>
-                              <SelectItem value="pdf_download">PDF Download</SelectItem>
-                            </SelectContent>
-                          </Select>
-                          <Button 
-                            onClick={() => newBlockType && handleCreateBlock(newBlockType)}
-                            disabled={!newBlockType || createBlockMutation.isPending}
-                            className="w-full"
+                          <Button
+                            onClick={() => {
+                              window.location.href = `/admin-page-editor?page=${selectedPage}`;
+                            }}
                           >
-                            {createBlockMutation.isPending ? 'Creating...' : 'Create Block'}
+                            <Edit className="w-4 h-4 mr-2" />
+                            Modifier la page
                           </Button>
-                        </div>
-                      </DialogContent>
-                    </Dialog>
                         </>
                       )}
                     </div>
