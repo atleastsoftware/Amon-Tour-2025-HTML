@@ -1020,240 +1020,6 @@ function CopyrightManager({ siteSettings, updateSiteSetting, updateSiteSettingMu
   );
 }
 
-// Page Management Interface Component - Replacement for RealBlocksEditor
-function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs }: {
-  selectedPage: string;
-  pageBlocks: PageBlock[];
-  pageConfigs: PageConfiguration[];
-}) {
-  const currentPageConfig = pageConfigs.find(p => p.pageSlug === selectedPage);
-  
-  if (!currentPageConfig) {
-    return (
-      <div className="text-center py-12">
-        <div className="text-gray-500">Page configuration not found</div>
-      </div>
-    );
-  }
-
-  // Calculate statistics
-  const totalBlocks = pageBlocks?.length || 0;
-  const activeBlocks = pageBlocks?.filter(block => block.isActive).length || 0;
-  const inactiveBlocks = totalBlocks - activeBlocks;
-  
-  // Get last modification date
-  const lastModified = pageBlocks?.length > 0 
-    ? new Date(Math.max(...pageBlocks.map(block => new Date(block.updatedAt || block.createdAt).getTime())))
-    : new Date(currentPageConfig.updatedAt || currentPageConfig.createdAt);
-
-  const formatDate = (date: Date) => {
-    return new Intl.DateTimeFormat('fr-FR', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    }).format(date);
-  };
-
-  const handleEditPage = () => {
-    // Instead of navigating to a new route, we'll show the page editor inline
-    // For now, we'll open the current RealBlocksEditor in a new modal
-    alert(`Ouverture de l'éditeur pour la page "${currentPageConfig.pageName}"`);
-  };
-
-  return (
-    <div className="space-y-6">
-      {/* Page Header Information */}
-      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-6 border border-blue-100">
-        <div className="flex items-start justify-between">
-          <div className="space-y-3">
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900">{currentPageConfig.pageName}</h2>
-              <p className="text-gray-600 mt-1">
-                Page {currentPageConfig.pageType === 'main' ? 'principale' : 'secondaire'} • 
-                <span className="ml-1">/{currentPageConfig.pageSlug}</span>
-              </p>
-            </div>
-            
-            {currentPageConfig.seoTitle && (
-              <div className="space-y-1">
-                <p className="text-sm font-medium text-gray-700">Titre SEO:</p>
-                <p className="text-sm text-gray-600">{currentPageConfig.seoTitle}</p>
-              </div>
-            )}
-            
-            {currentPageConfig.seoDescription && (
-              <div className="space-y-1">
-                <p className="text-sm font-medium text-gray-700">Description SEO:</p>
-                <p className="text-sm text-gray-600 line-clamp-2">{currentPageConfig.seoDescription}</p>
-              </div>
-            )}
-          </div>
-          
-          <div className="flex gap-3">
-            <Button
-              variant="outline"
-              onClick={() => {
-                const pageUrl = selectedPage === 'home' ? '/' : `/${selectedPage}`;
-                window.open(pageUrl, '_blank');
-              }}
-              className="bg-white hover:bg-gray-50"
-            >
-              <Eye className="w-4 h-4 mr-2" />
-              Voir le site
-            </Button>
-            <Button onClick={handleEditPage} className="bg-blue-600 hover:bg-blue-700">
-              <Edit className="w-4 h-4 mr-2" />
-              Modifier la page
-            </Button>
-          </div>
-        </div>
-      </div>
-
-      {/* Statistics Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Blocs totaux</p>
-                <p className="text-3xl font-bold text-gray-900">{totalBlocks}</p>
-              </div>
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                <Layout className="w-6 h-6 text-blue-600" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Blocs actifs</p>
-                <p className="text-3xl font-bold text-green-600">{activeBlocks}</p>
-              </div>
-              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                <Eye className="w-6 h-6 text-green-600" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Blocs inactifs</p>
-                <p className="text-3xl font-bold text-orange-600">{inactiveBlocks}</p>
-              </div>
-              <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
-                <EyeOff className="w-6 h-6 text-orange-600" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Usage Information */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg">Utilisation de la Page</CardTitle>
-          <CardDescription>
-            Informations détaillées sur l'utilisation et la configuration de cette page
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-3">
-              <div>
-                <p className="text-sm font-medium text-gray-700">État de la page</p>
-                <div className="flex items-center gap-2 mt-1">
-                  <div className={`w-2 h-2 rounded-full ${currentPageConfig.isActive ? 'bg-green-500' : 'bg-red-500'}`}></div>
-                  <span className={`text-sm ${currentPageConfig.isActive ? 'text-green-700' : 'text-red-700'}`}>
-                    {currentPageConfig.isActive ? 'Active' : 'Inactive'}
-                  </span>
-                </div>
-              </div>
-              
-              <div>
-                <p className="text-sm font-medium text-gray-700">Dernière modification</p>
-                <p className="text-sm text-gray-600 mt-1">{formatDate(lastModified)}</p>
-              </div>
-              
-              <div>
-                <p className="text-sm font-medium text-gray-700">URL publique</p>
-                <p className="text-sm text-blue-600 mt-1">
-                  <a href={selectedPage === 'home' ? '/' : `/${selectedPage}`} target="_blank" rel="noopener noreferrer" className="hover:underline">
-                    {window.location.origin}{selectedPage === 'home' ? '/' : `/${selectedPage}`}
-                  </a>
-                </p>
-              </div>
-            </div>
-            
-            <div className="space-y-3">
-              <div>
-                <p className="text-sm font-medium text-gray-700">Mots-clés SEO</p>
-                <p className="text-sm text-gray-600 mt-1">
-                  {currentPageConfig.seoKeywords || 'Non défini'}
-                </p>
-              </div>
-              
-              <div>
-                <p className="text-sm font-medium text-gray-700">Type de contenu</p>
-                <p className="text-sm text-gray-600 mt-1">
-                  {totalBlocks === 0 ? 'Page vide' : `${totalBlocks} bloc${totalBlocks > 1 ? 's' : ''} de contenu`}
-                </p>
-              </div>
-              
-              <div>
-                <p className="text-sm font-medium text-gray-700">Performance</p>
-                <p className="text-sm text-gray-600 mt-1">
-                  {activeBlocks === totalBlocks && totalBlocks > 0 
-                    ? 'Optimale - Tous les blocs sont actifs' 
-                    : inactiveBlocks > 0 
-                      ? `À optimiser - ${inactiveBlocks} bloc${inactiveBlocks > 1 ? 's' : ''} inactif${inactiveBlocks > 1 ? 's' : ''}`
-                      : 'En attente de contenu'}
-                </p>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Informations techniques */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg">Informations techniques</CardTitle>
-          <CardDescription>
-            Détails techniques et métadonnées de la page
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-3 text-sm">
-            <div className="flex justify-between py-2 border-b border-gray-100">
-              <span className="font-medium text-gray-700">ID de la page:</span>
-              <span className="text-gray-600">{currentPageConfig.id}</span>
-            </div>
-            <div className="flex justify-between py-2 border-b border-gray-100">
-              <span className="font-medium text-gray-700">Slug:</span>
-              <code className="text-gray-600 bg-gray-100 px-2 py-1 rounded text-xs">{currentPageConfig.pageSlug}</code>
-            </div>
-            <div className="flex justify-between py-2 border-b border-gray-100">
-              <span className="font-medium text-gray-700">Date de création:</span>
-              <span className="text-gray-600">{formatDate(new Date(currentPageConfig.createdAt))}</span>
-            </div>
-            <div className="flex justify-between py-2">
-              <span className="font-medium text-gray-700">Dernière mise à jour:</span>
-              <span className="text-gray-600">{formatDate(new Date(currentPageConfig.updatedAt || currentPageConfig.createdAt))}</span>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  );
-}
 
 export default function AdminAppearance() {
   const [, setLocation] = useLocation();
@@ -3418,12 +3184,22 @@ export default function AdminAppearance() {
                   <CardHeader className="flex flex-row items-center justify-between">
                     <div>
                       <CardTitle className="text-base sm:text-lg">
-                        {selectedPage === 'navigation-menu' ? 'Menu Navigation' : `Content Blocks for ${selectedPage}`}
+                        {selectedPage === 'navigation-menu' 
+                          ? 'Menu Navigation' 
+                          : (() => {
+                              const currentPageConfig = pageConfigs.find(p => p.pageSlug === selectedPage);
+                              return currentPageConfig?.pageName || selectedPage;
+                            })()
+                        }
                       </CardTitle>
                       <CardDescription>
                         {selectedPage === 'navigation-menu' 
                           ? 'Manage your website navigation menu items. Drag and drop to reorder.'
-                          : 'Drag and drop to reorder blocks. Each block represents a section of your page.'
+                          : (() => {
+                              const currentPageConfig = pageConfigs.find(p => p.pageSlug === selectedPage);
+                              const pageType = currentPageConfig?.pageType === 'main' ? 'principale' : 'secondaire';
+                              return `Page ${pageType} • /${selectedPage}`;
+                            })()
                         }
                       </CardDescription>
                     </div>
@@ -3438,13 +3214,13 @@ export default function AdminAppearance() {
                             }}
                           >
                             <Eye className="w-4 h-4 mr-2" />
-                            Preview Page
+                            Voir le site
                           </Button>
                           <Dialog>
                             <DialogTrigger asChild>
                               <Button>
-                                <Plus className="w-4 h-4 mr-2" />
-                                Add Block
+                                <Edit className="w-4 h-4 mr-2" />
+                                Modifier la page
                               </Button>
                             </DialogTrigger>
                       <DialogContent>
@@ -3675,10 +3451,15 @@ export default function AdminAppearance() {
                         <p className="text-gray-500">Loading blocks...</p>
                       </div>
                     ) : (
-                      <PageManagementInterface 
-                        selectedPage={selectedPage}
+                      <RealBlocksEditor 
+                        pageSlug={selectedPage} 
                         pageBlocks={pageBlocks}
-                        pageConfigs={pageConfigs}
+                        editingHeroBlockId={editingHeroBlockId}
+                        setEditingHeroBlockId={setEditingHeroBlockId}
+                        heroEditData={heroEditData}
+                        setHeroEditData={setHeroEditData}
+                        saveHeroChanges={saveHeroChanges}
+                        handleEditHero={handleEditHero}
                       />
                     )}
                   </CardContent>
