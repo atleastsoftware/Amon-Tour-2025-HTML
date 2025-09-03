@@ -425,12 +425,16 @@ function MiniaturizedComponent({
       case 'when_expats':
       case 'about_amon_tour':
         return (
-          <iframe 
-            src="/preview/when-expats" 
-            className="w-full border-0 rounded-lg overflow-hidden"
-            style={{ height: '200px' }}
-            title="When Expats Section Preview"
-          />
+          <div className="h-full bg-white px-6 py-12">
+            <div className="max-w-4xl mx-auto text-center">
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
+                {block.title || "When expats welcome you in their host country"}
+              </h2>
+              <div className="text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
+                {block.content || "This is a family-run travel agency that combines the organization of exclusive activities with the creation of tailor-made trips throughout the country. Our goal is to offer an immersive experience, far from mass tourism, with personalized service for every traveler — as if we were welcoming our own family or friends."}
+              </div>
+            </div>
+          </div>
         );
 
       case 'customer_reviews':
@@ -519,7 +523,15 @@ function MiniaturizedComponent({
 
   // Blocs héros avec proportions EXACTES du vrai site - rectangle horizontal
   const isHeroBlock = ['hero_main', 'hero', 'video_hero'].includes(block.blockType);
-  const previewHeight = isHeroBlock ? '400px' : '200px'; // Hauteur optimisée pour proportions
+  const isTextBlock = ['text_image', 'text_section', 'when_expats', 'about_amon_tour'].includes(block.blockType);
+  
+  // Hauteurs optimisées selon le type de contenu
+  let previewHeight = '200px';
+  if (isHeroBlock) {
+    previewHeight = '400px';
+  } else if (isTextBlock) {
+    previewHeight = '300px'; // Plus de hauteur pour afficher le texte complet
+  }
   
   return (
     <>
