@@ -60,6 +60,10 @@ export default function AdminPageEditor() {
   // Fetch page blocks
   const { data: pageBlocks = [], isLoading: loadingBlocks } = useQuery<PageBlock[]>({
     queryKey: ['/api/admin/page-blocks', pageSlug],
+    queryFn: () => fetch(`/api/admin/page-blocks/${pageSlug}`).then(res => {
+      if (!res.ok) throw new Error('Failed to fetch blocks');
+      return res.json();
+    }),
   });
 
   const currentPageConfig = pageConfigs.find(p => p.pageSlug === pageSlug);
