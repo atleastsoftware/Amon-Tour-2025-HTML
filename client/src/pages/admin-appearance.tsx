@@ -4352,7 +4352,7 @@ function RealBlocksEditor({
       <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 hover:bg-blue-50 transition-colors">
         <Plus className="w-8 h-8 mx-auto mb-2 text-gray-400" />
         <p className="text-gray-600 font-medium">Ajouter un nouveau bloc</p>
-        <p className="text-sm text-gray-500">Cliquez pour choisir un type de bloc</p>
+        <p className="text-sm text-gray-500">Les boutons de création rapide sont disponibles ci-dessous</p>
       </div>
     </div>
   );

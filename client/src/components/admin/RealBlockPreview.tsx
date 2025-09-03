@@ -407,6 +407,20 @@ function MiniaturizedComponent({
           </div>
         );
         
+      case 'text_section':
+        return (
+          <div className="h-full bg-white p-3">
+            <div className="text-center max-w-4xl mx-auto">
+              <div className="text-[12px] font-bold text-gray-800 mb-2">
+                {block.title || "When expats welcome you in their host country"}
+              </div>
+              <div className="text-[8px] text-gray-600 leading-relaxed">
+                {block.content || "This is a family-run travel agency that combines the organization of exclusive activities with the creation of tailor-made trips throughout the country. Our goal is to offer an immersive experience, far from mass tourism, with personalized service for every traveler — as if we were welcoming our own family or friends."}
+              </div>
+            </div>
+          </div>
+        );
+
       case 'text_image':
       case 'when_expats':
       case 'about_amon_tour':
