@@ -39,6 +39,7 @@ import AdminTourNinjaImages from "@/pages/admin-tour-ninja-images";
 import AdminTranslation from "@/pages/admin-translation";
 import AdminAppearance from "@/pages/admin-appearance";
 import AdminPageBuilder from "@/pages/admin-page-builder";
+import AdminPageEditor from "@/pages/admin-page-editor";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 import { IframeProvider } from "@/contexts/IframeContext";
 import IframeModal from "@/components/ui/IframeModal";
@@ -90,6 +91,7 @@ function Router() {
       <Route path="/admin-translation" component={AdminTranslation} />
       <Route path="/admin-appearance" component={AdminAppearance} />
       <Route path="/admin-page-builder" component={AdminPageBuilder} />
+      <Route path="/admin-page-editor" component={AdminPageEditor} />
       <Route path="/tour-card-builder" component={TourCardBuilder} />
       
       {/* Fallback to 404 */}

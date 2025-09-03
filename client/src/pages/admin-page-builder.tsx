@@ -1,45 +1,36 @@
-import { useState, useRef, useCallback } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
-import { apiRequest } from '@/lib/queryClient';
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { useLocation } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { useToast } from '@/hooks/use-toast';
-import { Plus, Settings, Eye, Trash2, GripVertical, Copy, Palette } from 'lucide-react';
+import { 
+  ExternalLink, 
+  Edit, 
+  Globe, 
+  Users, 
+  Clock, 
+  FileText,
+  BarChart3,
+  Calendar,
+  ChevronLeft
+} from 'lucide-react';
 
-import type { PageConfiguration, PageBlock, BlockTemplate } from '../../../shared/schema';
+import type { PageConfiguration, PageBlock } from '../../../shared/schema';
 
-// Composants de prévisualisation pour chaque type de bloc
-import { BlockPreview } from '@/components/admin/BlockPreview';
-import { BlockConfigModal } from '@/components/admin/BlockConfigModal';
+interface PageInfoProps {}
 
-interface PageBuilderProps {}
-
-export default function AdminPageBuilder({}: PageBuilderProps) {
-  const { toast } = useToast();
-  const queryClient = useQueryClient();
+export default function AdminPageBuilder({}: PageInfoProps) {
   const [selectedPageId, setSelectedPageId] = useState<number | null>(null);
-  const [selectedBlockId, setSelectedBlockId] = useState<number | null>(null);
-  const [configModalOpen, setConfigModalOpen] = useState(false);
-  const [previewMode, setPreviewMode] = useState(false);
+  const [, setLocation] = useLocation();
 
   // Fetch pages
   const { data: pages = [], isLoading: pagesLoading } = useQuery<PageConfiguration[]>({
     queryKey: ['/api/admin/page-configurations'],
   });
 
-  // Fetch block templates
-  const { data: blockTemplates = [], isLoading: templatesLoading } = useQuery<BlockTemplate[]>({
-    queryKey: ['/api/admin/block-templates'],
-  });
-
-  // Fetch blocks for selected page
+  // Fetch blocks for selected page to show statistics
   const { data: pageBlocks = [], isLoading: blocksLoading } = useQuery<PageBlock[]>({
     queryKey: ['/api/admin/page-blocks-by-page', selectedPageId],
     queryFn: async () => {
@@ -51,122 +42,79 @@ export default function AdminPageBuilder({}: PageBuilderProps) {
     enabled: !!selectedPageId,
   });
 
-  // Grouper les templates par catégorie
-  const templatesByCategory = blockTemplates.reduce((acc: Record<string, BlockTemplate[]>, template: BlockTemplate) => {
-    const category = getTemplateCategory(template.blockType);
-    if (!acc[category]) acc[category] = [];
-    acc[category].push(template);
-    return acc;
-  }, {});
-
-  // Mutations
-  const addBlockMutation = useMutation({
-    mutationFn: async (data: any) => apiRequest('POST', '/api/admin/page-blocks', data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/admin/page-blocks', selectedPageId] });
-      toast({ title: 'Block added successfully' });
-    },
-  });
-
-  const updateBlockMutation = useMutation({
-    mutationFn: async ({ id, ...data }: any) => apiRequest('PATCH', `/api/admin/page-blocks/${id}`, data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/admin/page-blocks', selectedPageId] });
-      toast({ title: 'Block updated successfully' });
-    },
-  });
-
-  const deleteBlockMutation = useMutation({
-    mutationFn: async (id: number) => apiRequest('DELETE', `/api/admin/page-blocks/${id}`),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/admin/page-blocks', selectedPageId] });
-      toast({ title: 'Block deleted successfully' });
-    },
-  });
-
-  const reorderBlocksMutation = useMutation({
-    mutationFn: async (blocks: Array<{ id: number; blockOrder: number }>) => 
-      apiRequest('PATCH', '/api/admin/page-blocks/reorder', { blocks }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/admin/page-blocks', selectedPageId] });
-    },
-  });
-
-  // Handlers
-  const handleAddBlock = useCallback(async (template: BlockTemplate) => {
-    if (!selectedPageId) return;
-    
-    const newBlock = {
-      pageId: selectedPageId,
-      blockType: template.blockType,
-      blockOrder: pageBlocks.length,
-      identifier: `${template.blockType}-${Date.now()}`,
-      title: template.defaultConfiguration.title || 'New Block',
-      configuration: template.defaultConfiguration || {},
-    };
-    
-    addBlockMutation.mutate(newBlock);
-  }, [selectedPageId, pageBlocks.length, addBlockMutation]);
-
-  const handleDragEnd = useCallback((result: DropResult) => {
-    if (!result.destination || !selectedPageId) return;
-
-    const items = Array.from(pageBlocks);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-
-    const reorderedBlocks = items.map((block, index) => ({
-      id: block.id,
-      blockOrder: index,
-    }));
-
-    reorderBlocksMutation.mutate(reorderedBlocks);
-  }, [pageBlocks, selectedPageId, reorderBlocksMutation]);
-
-  const handleConfigureBlock = useCallback((blockId: number) => {
-    setSelectedBlockId(blockId);
-    setConfigModalOpen(true);
-  }, []);
-
-  const handleSaveBlockConfig = useCallback((config: any) => {
-    if (!selectedBlockId) return;
-    
-    updateBlockMutation.mutate({
-      id: selectedBlockId,
-      ...config,
-    });
-    setConfigModalOpen(false);
-    setSelectedBlockId(null);
-  }, [selectedBlockId, updateBlockMutation]);
-
   const selectedPage = pages.find((p: PageConfiguration) => p.id === selectedPageId);
-  const selectedBlock = pageBlocks.find((b: PageBlock) => b.id === selectedBlockId);
 
-  if (pagesLoading || templatesLoading) {
+  // Helper functions for page information
+  const getPageUrl = (pageSlug: string) => {
+    return pageSlug === 'home' ? '/' : `/${pageSlug}`;
+  };
+
+  const getPageUsage = (pageSlug: string) => {
+    const usages = [];
+    
+    // Check if page is in main menu
+    if (['home', 'experiences', 'contact', 'blog'].includes(pageSlug)) {
+      usages.push('Menu principal');
+    }
+    
+    // Check if page is in footer
+    if (['home', 'legal-notice', 'privacy-policy', 'terms-conditions'].includes(pageSlug)) {
+      usages.push('Footer');
+    }
+    
+    // Special cases
+    if (pageSlug === 'home') {
+      usages.push('Bouton accueil', 'Page par défaut');
+    }
+    
+    return usages;
+  };
+
+  const handleEditPage = () => {
+    if (!selectedPageId) return;
+    setLocation(`/admin-page-editor?pageId=${selectedPageId}`);
+  };
+
+  const handleViewPage = () => {
+    if (!selectedPage) return;
+    const url = getPageUrl(selectedPage.pageSlug);
+    window.open(url, '_blank');
+  };
+
+  if (pagesLoading) {
     return <div className="p-6">Loading...</div>;
   }
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
       <div className="mb-6">
-        <h1 className="text-3xl font-bold">Page Builder</h1>
-        <p className="text-muted-foreground">Build and customize your website pages with drag & drop</p>
+        <div className="flex items-center gap-4">
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            onClick={() => setLocation('/admin')}
+            className="text-muted-foreground"
+          >
+            <ChevronLeft className="h-4 w-4 mr-1" />
+            Retour au Dashboard
+          </Button>
+        </div>
+        <h1 className="text-3xl font-bold mt-4">Gestion des Pages</h1>
+        <p className="text-muted-foreground">Visualisez et modifiez les pages de votre site web</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         
-        {/* Sidebar - Page Selection & Block Templates */}
+        {/* Sidebar - Page Selection */}
         <div className="lg:col-span-1 space-y-4">
-          
-          {/* Page Selection */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Select Page</CardTitle>
+              <CardTitle className="text-lg">Sélectionner une Page</CardTitle>
             </CardHeader>
             <CardContent>
               <Select onValueChange={(value) => setSelectedPageId(parseInt(value))}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Choose a page to edit" />
+                  <SelectValue placeholder="Choisir une page" />
                 </SelectTrigger>
                 <SelectContent>
                   {pages.map((page: PageConfiguration) => (
@@ -174,7 +122,7 @@ export default function AdminPageBuilder({}: PageBuilderProps) {
                       <div className="flex items-center gap-2">
                         <span>{page.pageName}</span>
                         <Badge variant="outline" className="text-xs">
-                          main
+                          {page.pageType}
                         </Badge>
                       </div>
                     </SelectItem>
@@ -183,194 +131,210 @@ export default function AdminPageBuilder({}: PageBuilderProps) {
               </Select>
             </CardContent>
           </Card>
-
-          {/* Block Templates */}
-          {selectedPageId && (
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Block Templates</CardTitle>
-              </CardHeader>
-              <CardContent className="p-3">
-                <Tabs defaultValue="hero" className="w-full">
-                  <TabsList className="grid w-full grid-cols-3 text-xs">
-                    <TabsTrigger value="hero">Hero</TabsTrigger>
-                    <TabsTrigger value="content">Content</TabsTrigger>
-                    <TabsTrigger value="interactive">Interactive</TabsTrigger>
-                  </TabsList>
-                  
-                  {Object.entries(templatesByCategory).map(([category, templates]) => (
-                    <TabsContent key={category} value={category} className="space-y-2 mt-3">
-                      {templates.map((template: BlockTemplate) => (
-                        <Card 
-                          key={template.id} 
-                          className="cursor-pointer hover:bg-muted/50 transition-colors"
-                          onClick={() => handleAddBlock(template)}
-                        >
-                          <CardContent className="p-3">
-                            <div className="flex items-start gap-2">
-                              <Plus className="h-4 w-4 text-primary mt-0.5" />
-                              <div className="flex-1 min-w-0">
-                                <h4 className="font-medium text-sm line-clamp-1">{template.templateName}</h4>
-                                <p className="text-xs text-muted-foreground line-clamp-2">{template.description}</p>
-                                <Badge variant="secondary" className="text-xs mt-1">
-                                  {template.blockType}
-                                </Badge>
-                              </div>
-                            </div>
-                          </CardContent>
-                        </Card>
-                      ))}
-                    </TabsContent>
-                  ))}
-                </Tabs>
-              </CardContent>
-            </Card>
-          )}
         </div>
 
-        {/* Main Content - Page Builder */}
+        {/* Main Content - Page Information */}
         <div className="lg:col-span-3">
           {!selectedPageId ? (
             <Card className="h-96 flex items-center justify-center">
               <div className="text-center">
-                <Palette className="h-12 w-12 text-muted-foreground mx-auto mb-3" />
-                <h3 className="text-lg font-medium">Select a page to start editing</h3>
-                <p className="text-muted-foreground">Choose a page from the sidebar to begin building</p>
+                <FileText className="h-12 w-12 text-muted-foreground mx-auto mb-3" />
+                <h3 className="text-lg font-medium">Sélectionnez une page</h3>
+                <p className="text-muted-foreground">Choisissez une page dans la barre latérale pour voir ses informations</p>
               </div>
             </Card>
           ) : (
-            <div className="space-y-4">
+            <div className="space-y-6">
               
               {/* Page Header */}
               <Card>
                 <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <CardTitle>{selectedPage?.pageName}</CardTitle>
-                      <p className="text-sm text-muted-foreground">
-                        {selectedPage?.pageSlug} • {pageBlocks.length} blocks
-                      </p>
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <CardTitle className="text-2xl mb-2">{selectedPage?.pageName}</CardTitle>
+                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                        <div className="flex items-center gap-1">
+                          <Globe className="h-4 w-4" />
+                          <code>{getPageUrl(selectedPage?.pageSlug || '')}</code>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <FileText className="h-4 w-4" />
+                          <span>{pageBlocks.length} blocs</span>
+                        </div>
+                      </div>
                     </div>
-                    <div className="flex gap-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => setPreviewMode(!previewMode)}
+                    <div className="flex items-center gap-3">
+                      <Button 
+                        variant="outline" 
+                        onClick={handleViewPage}
+                        className="flex items-center gap-2"
                       >
-                        <Eye className="h-4 w-4 mr-1" />
-                        {previewMode ? 'Edit' : 'Preview'}
+                        <ExternalLink className="h-4 w-4" />
+                        Voir le site
+                      </Button>
+                      <Button 
+                        onClick={handleEditPage}
+                        className="flex items-center gap-2"
+                      >
+                        <Edit className="h-4 w-4" />
+                        Modifier la page
                       </Button>
                     </div>
                   </div>
                 </CardHeader>
               </Card>
 
-              {/* Page Blocks */}
-              <Card>
-                <CardContent className="p-0">
-                  {blocksLoading ? (
-                    <div className="p-6 text-center">Loading blocks...</div>
-                  ) : pageBlocks.length === 0 ? (
-                    <div className="p-12 text-center">
-                      <Plus className="h-8 w-8 text-muted-foreground mx-auto mb-3" />
-                      <h3 className="font-medium">No blocks yet</h3>
-                      <p className="text-muted-foreground text-sm">Add your first block from the templates on the left</p>
+              {/* Page Statistics */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <Card>
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 bg-blue-100 rounded-lg">
+                        <FileText className="h-5 w-5 text-blue-600" />
+                      </div>
+                      <div>
+                        <div className="text-2xl font-bold">{pageBlocks.length}</div>
+                        <div className="text-sm text-muted-foreground">Blocs actifs</div>
+                      </div>
                     </div>
-                  ) : (
-                    <DragDropContext onDragEnd={handleDragEnd}>
-                      <Droppable droppableId="page-blocks">
-                        {(provided) => (
-                          <div
-                            {...provided.droppableProps}
-                            ref={provided.innerRef}
-                            className="space-y-2 p-4"
-                          >
-                            {pageBlocks
-                              .sort((a: PageBlock, b: PageBlock) => a.blockOrder - b.blockOrder)
-                              .map((block: PageBlock, index: number) => (
-                                <Draggable 
-                                  key={block.id} 
-                                  draggableId={block.id.toString()} 
-                                  index={index}
-                                  isDragDisabled={previewMode}
-                                >
-                                  {(provided, snapshot) => (
-                                    <div
-                                      ref={provided.innerRef}
-                                      {...provided.draggableProps}
-                                      className={`border rounded-lg bg-white transition-all ${
-                                        snapshot.isDragging ? 'shadow-lg scale-105' : 'shadow-sm'
-                                      }`}
-                                    >
-                                      {!previewMode && (
-                                        <div className="flex items-center justify-between p-3 border-b bg-muted/30">
-                                          <div className="flex items-center gap-2">
-                                            <div {...provided.dragHandleProps}>
-                                              <GripVertical className="h-4 w-4 text-muted-foreground cursor-grab" />
-                                            </div>
-                                            <Badge variant="outline" className="text-xs">
-                                              {block.blockType}
-                                            </Badge>
-                                            <span className="font-medium text-sm">{block.title || block.identifier}</span>
-                                          </div>
-                                          <div className="flex gap-1">
-                                            <Button
-                                              variant="ghost"
-                                              size="sm"
-                                              onClick={() => handleConfigureBlock(block.id)}
-                                            >
-                                              <Settings className="h-4 w-4" />
-                                            </Button>
-                                            <Button
-                                              variant="ghost"
-                                              size="sm"
-                                              onClick={() => deleteBlockMutation.mutate(block.id)}
-                                            >
-                                              <Trash2 className="h-4 w-4" />
-                                            </Button>
-                                          </div>
-                                        </div>
-                                      )}
-                                      
-                                      <div className="p-4">
-                                        <BlockPreview block={block} previewMode={previewMode} />
-                                      </div>
-                                    </div>
-                                  )}
-                                </Draggable>
-                              ))}
-                            {provided.placeholder}
-                          </div>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 bg-green-100 rounded-lg">
+                        <Clock className="h-5 w-5 text-green-600" />
+                      </div>
+                      <div>
+                        <div className="text-2xl font-bold">
+                          {selectedPage?.updatedAt 
+                            ? new Date(selectedPage.updatedAt).toLocaleDateString('fr-FR')
+                            : 'Jamais'
+                          }
+                        </div>
+                        <div className="text-sm text-muted-foreground">Dernière modification</div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 bg-purple-100 rounded-lg">
+                        <BarChart3 className="h-5 w-5 text-purple-600" />
+                      </div>
+                      <div>
+                        <div className="text-2xl font-bold">
+                          {selectedPage?.isActive ? 'Actif' : 'Inactif'}
+                        </div>
+                        <div className="text-sm text-muted-foreground">Statut</div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Page Usage Information */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">Utilisation de la Page</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div>
+                      <h4 className="font-medium mb-2 flex items-center gap-2">
+                        <Users className="h-4 w-4" />
+                        Cette page est utilisée dans :
+                      </h4>
+                      <div className="flex flex-wrap gap-2">
+                        {getPageUsage(selectedPage?.pageSlug || '').map((usage, index) => (
+                          <Badge key={index} variant="secondary" className="text-xs">
+                            {usage}
+                          </Badge>
+                        ))}
+                        {getPageUsage(selectedPage?.pageSlug || '').length === 0 && (
+                          <span className="text-sm text-muted-foreground">Aucune utilisation détectée</span>
                         )}
-                      </Droppable>
-                    </DragDropContext>
-                  )}
+                      </div>
+                    </div>
+
+                    <div className="pt-4 border-t">
+                      <h4 className="font-medium mb-3 flex items-center gap-2">
+                        <Calendar className="h-4 w-4" />
+                        Informations techniques :
+                      </h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                        <div>
+                          <span className="text-muted-foreground">Slug :</span>
+                          <code className="ml-2 bg-muted px-2 py-1 rounded">{selectedPage?.pageSlug}</code>
+                        </div>
+                        <div>
+                          <span className="text-muted-foreground">Type :</span>
+                          <span className="ml-2 font-medium">{selectedPage?.pageType}</span>
+                        </div>
+                        <div>
+                          <span className="text-muted-foreground">URL complète :</span>
+                          <code className="ml-2 bg-muted px-2 py-1 rounded">
+                            {window.location.origin}{getPageUrl(selectedPage?.pageSlug || '')}
+                          </code>
+                        </div>
+                        <div>
+                          <span className="text-muted-foreground">ID :</span>
+                          <span className="ml-2 font-medium">{selectedPage?.id}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
+
+              {/* Quick Actions */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">Actions rapides</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <Button 
+                      variant="outline" 
+                      className="h-auto p-4 justify-start"
+                      onClick={handleViewPage}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 bg-blue-100 rounded">
+                          <ExternalLink className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <div className="text-left">
+                          <div className="font-medium">Voir sur le site</div>
+                          <div className="text-sm text-muted-foreground">Ouvrir la page dans un nouvel onglet</div>
+                        </div>
+                      </div>
+                    </Button>
+
+                    <Button 
+                      className="h-auto p-4 justify-start"
+                      onClick={handleEditPage}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 bg-primary-foreground rounded">
+                          <Edit className="h-5 w-5 text-primary" />
+                        </div>
+                        <div className="text-left">
+                          <div className="font-medium">Modifier la page</div>
+                          <div className="text-sm opacity-90">Édition plein écran des blocs</div>
+                        </div>
+                      </div>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+
             </div>
           )}
         </div>
       </div>
-
-      {/* Block Configuration Modal */}
-      <BlockConfigModal
-        open={configModalOpen}
-        onOpenChange={setConfigModalOpen}
-        block={selectedBlock}
-        onSave={handleSaveBlockConfig}
-      />
     </div>
   );
-}
-
-// Utility function to categorize templates
-function getTemplateCategory(blockType: string): string {
-  const heroTypes = ['hero', 'video_hero'];
-  const contentTypes = ['text_image', 'advantages', 'about'];
-  const interactiveTypes = ['form', 'card_grid', 'gallery', 'contact_info', 'interests'];
-  
-  if (heroTypes.includes(blockType)) return 'hero';
-  if (contentTypes.includes(blockType)) return 'content';
-  if (interactiveTypes.includes(blockType)) return 'interactive';
-  return 'content';
 }

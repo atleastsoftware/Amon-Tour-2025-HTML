@@ -651,7 +651,7 @@ export type InsertBlockTemplate = z.infer<typeof insertBlockTemplateSchema>;
 export type BlockTemplate = typeof blockTemplates.$inferSelect;
 
 // Navigation Menu Management System
-export const navigationMenuItems = pgTable("navigation_menu_items", {
+export const navigationMenuItems: any = pgTable("navigation_menu_items", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(), // Nom affiché dans le menu
   url: text("url").notNull(), // Lien de redirection
@@ -663,7 +663,7 @@ export const navigationMenuItems = pgTable("navigation_menu_items", {
   target: text("target").default("_self"), // "_self" ou "_blank"
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
-}, (table) => ({
+}, (table): any => ({
   orderIdx: index("navigation_items_order_idx").on(table.displayOrder),
   parentIdx: index("navigation_items_parent_idx").on(table.parentId),
 }));
