@@ -20,82 +20,62 @@ interface ColorPickerProps {
 function ColorPicker({ value, onChange, label }: ColorPickerProps) {
   const currentColorValue = value || '#ffffff';
 
-  const handleHexInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const hexValue = e.target.value;
-    // Valider que c'est un code hex valide ou permettre la saisie partielle
-    if (hexValue === '' || /^#[0-9A-F]{0,6}$/i.test(hexValue)) {
-      onChange(hexValue);
+  const handleOptionSelect = (option: string) => {
+    switch (option) {
+      case 'primary':
+        onChange(THEME_COLORS.primary);
+        break;
+      case 'secondary':
+        onChange(THEME_COLORS.secondary);
+        break;
+      case 'custom':
+        // Keep current value for custom
+        break;
     }
   };
 
+  const getCurrentOption = () => {
+    if (currentColorValue === THEME_COLORS.primary) return 'primary';
+    if (currentColorValue === THEME_COLORS.secondary) return 'secondary';
+    return 'custom';
+  };
+
   return (
-    <div className="space-y-3">
+    <div className="space-y-2">
       {label && <Label className="text-sm font-medium">{label}</Label>}
       
-      {/* Champ de référence couleur */}
-      <div className="space-y-2">
-        <Label className="text-xs text-gray-600">Référence couleur</Label>
-        <Input
-          type="text"
-          value={currentColorValue}
-          onChange={handleHexInputChange}
-          placeholder="#ffffff"
-          className="font-mono text-sm"
-          title="Tapez le code couleur ou sélectionnez une couleur prédéfinie"
-        />
-      </div>
-      
-      {/* Couleurs prédéfinies du thème */}
-      <div className="space-y-2">
-        <Label className="text-xs text-gray-600">Couleurs du thème</Label>
-        <div className="flex gap-2">
-          <button
-            type="button"
-            onClick={() => onChange(THEME_COLORS.primary)}
-            className={`flex items-center gap-2 px-2 py-1 rounded border transition-all hover:scale-105 text-xs ${
-              currentColorValue === THEME_COLORS.primary ? 'border-blue-400 ring-2 ring-blue-200 bg-blue-50' : 'border-gray-200 hover:border-gray-300'
-            }`}
-            title="Couleur principale du thème"
+      <div className="flex items-center gap-2">
+        {/* Cadre de couleur personnalisable à gauche */}
+        <div className="relative">
+          <div 
+            className="w-8 h-8 rounded border border-gray-300 cursor-pointer relative overflow-hidden hover:border-gray-400 transition-colors"
+            style={{ backgroundColor: currentColorValue }}
+            title="Cliquez pour personnaliser la couleur"
           >
-            <div 
-              className="w-4 h-4 rounded"
-              style={{ backgroundColor: THEME_COLORS.primary }}
+            <input
+              type="color"
+              value={currentColorValue}
+              onChange={(e) => onChange(e.target.value)}
+              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
             />
-            <span>Couleur principale</span>
-          </button>
-          
-          <button
-            type="button"
-            onClick={() => onChange(THEME_COLORS.secondary)}
-            className={`flex items-center gap-2 px-2 py-1 rounded border transition-all hover:scale-105 text-xs ${
-              currentColorValue === THEME_COLORS.secondary ? 'border-yellow-400 ring-2 ring-yellow-200 bg-yellow-50' : 'border-gray-200 hover:border-gray-300'
-            }`}
-            title="Couleur secondaire du thème"
-          >
-            <div 
-              className="w-4 h-4 rounded"
-              style={{ backgroundColor: THEME_COLORS.secondary }}
-            />
-            <span>Couleur secondaire</span>
-          </button>
+          </div>
         </div>
-      </div>
 
-      {/* Aperçu couleur avec sélecteur */}
-      <div className="space-y-1">
-        <Label className="text-xs text-gray-600">Aperçu</Label>
-        <div className="flex items-center gap-2">
-          <input
-            type="color"
-            value={currentColorValue}
-            onChange={(e) => onChange(e.target.value)}
-            className="w-8 h-6 rounded cursor-pointer border border-gray-300"
-            title="Sélectionneur de couleur"
-          />
-          <span className="text-xs text-gray-500">
-            Cliquez pour ouvrir le sélectionneur de couleur
-          </span>
-        </div>
+        {/* Dropdown avec les 3 options */}
+        <Select value={getCurrentOption()} onValueChange={handleOptionSelect}>
+          <SelectTrigger className="flex-1">
+            <SelectValue>
+              {getCurrentOption() === 'primary' && 'Couleur principale'}
+              {getCurrentOption() === 'secondary' && 'Couleur secondaire'}  
+              {getCurrentOption() === 'custom' && `Référence: ${currentColorValue}`}
+            </SelectValue>
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="custom">Référence couleur</SelectItem>
+            <SelectItem value="primary">Couleur principale</SelectItem>
+            <SelectItem value="secondary">Couleur secondaire</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
     </div>
   );
