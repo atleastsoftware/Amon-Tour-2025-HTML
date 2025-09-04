@@ -3901,6 +3901,8 @@ function NavigationMenuManager() {
 
   // Organize menu items by parent/child relationships
   const organizeMenuItems = (items: NavigationMenuItem[]) => {
+    if (!items || items.length === 0) return [];
+    
     const parentItems = items.filter(item => !item.parentId);
     const childItems = items.filter(item => item.parentId);
 
