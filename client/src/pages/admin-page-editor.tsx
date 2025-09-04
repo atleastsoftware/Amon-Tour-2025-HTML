@@ -145,27 +145,19 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
             
             case 'video':
             default:
-              const videoUrl = heroConfig.videoUrl || '/attached_assets/hero-video-optimized.mp4';
+              // Pour la prévisualisation, utiliser la vidéo de meilleure qualité par défaut
+              const videoUrl = heroConfig.videoUrl || '/attached_assets/Catamaran%20cruise%20around%20Ao%20Nang%20local%20islands_1750216800850.mp4';
               return (
                 <div className="absolute inset-0 w-full h-full z-0">
                   <video
-                    key={videoUrl} // Force reload when video changes
                     autoPlay
                     muted
                     loop
                     playsInline
-                    preload="metadata"
                     className="w-full h-full object-cover"
-                    onLoadedData={() => console.log('Preview video loaded')}
-                    onError={(e) => console.error('Preview video error:', e)}
-                    style={{ 
-                      minWidth: '100%', 
-                      minHeight: '100%',
-                      objectFit: 'cover'
-                    }}
+                    style={{ objectFit: 'cover' }}
                   >
                     <source src={videoUrl} type="video/mp4" />
-                    Your browser does not support the video tag.
                   </video>
                   <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
                 </div>
