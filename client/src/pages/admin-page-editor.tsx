@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -10,21 +10,7 @@ const THEME_COLORS = {
   secondary: '#E6B64C'
 };
 
-// Palette de couleurs communes
-const COMMON_COLORS = [
-  '#ffffff', '#f3f4f6', '#d1d5db', '#9ca3af', '#6b7280', '#374151', '#111827', '#000000',
-  '#fef2f2', '#fecaca', '#f87171', '#ef4444', '#dc2626', '#b91c1c', '#991b1b', '#7f1d1d',
-  '#fff7ed', '#fed7aa', '#fdba74', '#fb923c', '#f97316', '#ea580c', '#c2410c', '#9a3412',
-  '#fffbeb', '#fde68a', '#fcd34d', '#fbbf24', '#f59e0b', '#d97706', '#b45309', '#92400e',
-  '#f0fdf4', '#bbf7d0', '#86efac', '#4ade80', '#22c55e', '#16a34a', '#15803d', '#166534',
-  '#ecfdf5', '#a7f3d0', '#6ee7b7', '#34d399', '#10b981', '#059669', '#047857', '#065f46',
-  '#f0f9ff', '#bae6fd', '#7dd3fc', '#38bdf8', '#0ea5e9', '#0284c7', '#0369a1', '#075985',
-  '#eff6ff', '#bfdbfe', '#93c5fd', '#60a5fa', '#3b82f6', '#2563eb', '#1d4ed8', '#1e40af',
-  '#f5f3ff', '#c4b5fd', '#a78bfa', '#8b5cf6', '#7c3aed', '#6d28d9', '#5b21b6', '#4c1d95',
-  '#fdf4ff', '#f3e8ff', '#e9d5ff', '#d8b4fe', '#c084fc', '#a855f7', '#9333ea', '#7c2d12'
-];
-
-// Composant ColorPicker avec panneau personnalisé
+// Composant ColorPicker compact avec sélecteur natif + cases rapides
 interface ColorPickerProps {
   value: string;
   onChange: (value: string) => void;
@@ -33,112 +19,53 @@ interface ColorPickerProps {
 
 function ColorPicker({ value, onChange, label }: ColorPickerProps) {
   const currentColorValue = value || '#ffffff';
-  const [isOpen, setIsOpen] = useState(false);
-  const nativeInputRef = useRef<HTMLInputElement>(null);
-
-  const handleColorSelect = (color: string) => {
-    onChange(color);
-    setIsOpen(false);
-  };
-
-  const openNativePicker = () => {
-    nativeInputRef.current?.click();
-    setIsOpen(false);
-  };
 
   return (
     <div className="space-y-2">
       {label && <Label className="text-sm font-medium">{label}</Label>}
       
       <div className="flex items-center gap-2">
-        {/* Sélecteur principal avec popover */}
-        <Popover open={isOpen} onOpenChange={setIsOpen}>
-          <PopoverTrigger asChild>
-            <button
-              type="button"
-              className="w-10 h-10 rounded border-2 border-gray-300 cursor-pointer transition-all hover:border-gray-400"
+        {/* Zone de sélection de couleur intégrée */}
+        <div className="flex items-center gap-1 p-1 border border-gray-300 rounded bg-gray-50">
+          {/* Case de couleur principale */}
+          <div className="relative">
+            <div 
+              className="w-8 h-8 rounded border border-black cursor-pointer relative overflow-hidden"
               style={{ backgroundColor: currentColorValue }}
-              title="Choisir une couleur"
-            />
-          </PopoverTrigger>
-          <PopoverContent className="w-80 p-4" align="start">
-            {/* Couleurs de thème */}
-            <div className="mb-4">
-              <Label className="text-xs text-gray-600 mb-2 block">Couleurs du thème</Label>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => handleColorSelect(THEME_COLORS.primary)}
-                  className={`w-12 h-12 rounded border-2 transition-all hover:scale-105 ${
-                    currentColorValue === THEME_COLORS.primary ? 'border-gray-600 ring-2 ring-blue-200' : 'border-gray-300'
-                  }`}
-                  style={{ backgroundColor: THEME_COLORS.primary }}
-                  title="Bleu principal"
-                />
-                <button
-                  type="button"
-                  onClick={() => handleColorSelect(THEME_COLORS.secondary)}
-                  className={`w-12 h-12 rounded border-2 transition-all hover:scale-105 ${
-                    currentColorValue === THEME_COLORS.secondary ? 'border-gray-600 ring-2 ring-yellow-200' : 'border-gray-300'
-                  }`}
-                  style={{ backgroundColor: THEME_COLORS.secondary }}
-                  title="Or secondaire"
-                />
-              </div>
-            </div>
-
-            {/* Palette de couleurs */}
-            <div className="mb-4">
-              <Label className="text-xs text-gray-600 mb-2 block">Palette de couleurs</Label>
-              <div className="grid grid-cols-8 gap-1">
-                {COMMON_COLORS.map((color) => (
-                  <button
-                    key={color}
-                    type="button"
-                    onClick={() => handleColorSelect(color)}
-                    className={`w-6 h-6 rounded border transition-all hover:scale-110 ${
-                      currentColorValue === color ? 'border-gray-600 ring-1 ring-gray-200' : 'border-gray-300'
-                    }`}
-                    style={{ backgroundColor: color }}
-                    title={color}
-                  />
-                ))}
-              </div>
-            </div>
-
-            {/* Champ hex */}
-            <div className="mb-4">
-              <Label className="text-xs text-gray-600 mb-2 block">Code couleur</Label>
-              <Input
+              title="Couleur actuelle - cliquez pour personnaliser"
+            >
+              <input
+                type="color"
                 value={currentColorValue}
                 onChange={(e) => onChange(e.target.value)}
-                placeholder="#ffffff"
-                className="font-mono text-sm"
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                title="Choisir une couleur personnalisée"
               />
             </div>
-
-            {/* Bouton palette système */}
-            <Button 
-              variant="outline" 
-              size="sm" 
-              onClick={openNativePicker}
-              className="w-full"
-            >
-              Palette système...
-            </Button>
-          </PopoverContent>
-        </Popover>
-
-        {/* Sélecteur natif caché */}
-        <input
-          ref={nativeInputRef}
-          type="color"
-          value={currentColorValue}
-          onChange={(e) => onChange(e.target.value)}
-          className="hidden"
-        />
+          </div>
+          
+          {/* Couleurs de thème intégrées */}
+          <button
+            type="button"
+            onClick={() => onChange(THEME_COLORS.primary)}
+            className={`w-6 h-6 rounded border transition-all hover:scale-105 ${
+              currentColorValue === THEME_COLORS.primary ? 'border-gray-600 ring-1 ring-blue-200' : 'border-gray-300'
+            }`}
+            style={{ backgroundColor: THEME_COLORS.primary }}
+            title="Bleu principal"
+          />
+          <button
+            type="button"
+            onClick={() => onChange(THEME_COLORS.secondary)}
+            className={`w-6 h-6 rounded border transition-all hover:scale-105 ${
+              currentColorValue === THEME_COLORS.secondary ? 'border-gray-600 ring-1 ring-yellow-200' : 'border-gray-300'
+            }`}
+            style={{ backgroundColor: THEME_COLORS.secondary }}
+            title="Or secondaire"
+          />
+        </div>
         
-        {/* Champ hex visible */}
+        {/* Champ hex */}
         <Input
           value={currentColorValue}
           onChange={(e) => onChange(e.target.value)}
@@ -153,7 +80,6 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Switch } from '@/components/ui/switch';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
