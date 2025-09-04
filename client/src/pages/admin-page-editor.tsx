@@ -1354,22 +1354,25 @@ export default function AdminPageEditor() {
                           </div>
 
                           <div className="flex items-center gap-2">
-                            {/* Visibility Toggle Switch */}
+                            {/* Visibility Toggle with integrated Switch */}
                             <div className="flex items-center gap-2">
-                              <Switch 
-                                checked={block.isActive}
-                                onCheckedChange={() => toggleBlockVisibility(block)}
-                              />
                               <Button
                                 variant="outline"
                                 size="sm"
-                                className="flex items-center gap-2"
+                                className="flex items-center justify-between gap-3 min-w-[120px]"
                               >
-                                {block.isActive ? (
-                                  <><Eye className="w-4 h-4" />Visible</>
-                                ) : (
-                                  <><EyeOff className="w-4 h-4" />Masqué</>
-                                )}
+                                <div className="flex items-center gap-2">
+                                  {block.isActive ? (
+                                    <><Eye className="w-4 h-4" />Visible</>
+                                  ) : (
+                                    <><EyeOff className="w-4 h-4" />Masqué</>
+                                  )}
+                                </div>
+                                <Switch 
+                                  checked={block.isActive}
+                                  onCheckedChange={() => toggleBlockVisibility(block)}
+                                  size="sm"
+                                />
                               </Button>
                             </div>
 
