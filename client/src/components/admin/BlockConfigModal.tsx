@@ -11,13 +11,113 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Plus, X, Upload } from 'lucide-react';
 
-import type { PageBlock } from '../../../shared/schema';
+import type { PageBlock } from '../../../../shared/schema';
 
 interface BlockConfigModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   block?: PageBlock | null;
   onSave: (config: any) => void;
+}
+
+// Couleurs principales du système
+const SYSTEM_COLORS = {
+  primary: '#1e73be',
+  secondary: '#E6B64C',
+  white: '#ffffff',
+  gray: '#6b7280',
+  dark: '#1f2937'
+};
+
+// Composant ColorPicker avec cases rapides + curseur personnalisé
+interface ColorPickerProps {
+  value: string;
+  onChange: (value: string) => void;
+}
+
+function ColorPicker({ value, onChange }: ColorPickerProps) {
+  const getColorValue = (colorName: string) => {
+    return SYSTEM_COLORS[colorName as keyof typeof SYSTEM_COLORS] || colorName;
+  };
+
+  const handleQuickColorClick = (colorName: string) => {
+    onChange(colorName);
+  };
+
+  const handleCustomColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(e.target.value);
+  };
+
+  const currentColorValue = getColorValue(value);
+
+  return (
+    <div className="space-y-3">
+      {/* Cases de couleurs rapides */}
+      <div className="flex gap-2">
+        <div className="flex gap-1">
+          <button
+            type="button"
+            onClick={() => handleQuickColorClick('primary')}
+            className={`w-8 h-8 rounded border-2 transition-all hover:scale-110 ${
+              value === 'primary' ? 'border-gray-400 ring-2 ring-blue-200' : 'border-gray-200'
+            }`}
+            style={{ backgroundColor: SYSTEM_COLORS.primary }}
+            title="Couleur principale"
+          />
+          <button
+            type="button"
+            onClick={() => handleQuickColorClick('secondary')}
+            className={`w-8 h-8 rounded border-2 transition-all hover:scale-110 ${
+              value === 'secondary' ? 'border-gray-400 ring-2 ring-yellow-200' : 'border-gray-200'
+            }`}
+            style={{ backgroundColor: SYSTEM_COLORS.secondary }}
+            title="Couleur secondaire"
+          />
+          <button
+            type="button"
+            onClick={() => handleQuickColorClick('white')}
+            className={`w-8 h-8 rounded border-2 transition-all hover:scale-110 ${
+              value === 'white' ? 'border-gray-400 ring-2 ring-gray-200' : 'border-gray-200'
+            }`}
+            style={{ backgroundColor: SYSTEM_COLORS.white }}
+            title="Blanc"
+          />
+          <button
+            type="button"
+            onClick={() => handleQuickColorClick('gray')}
+            className={`w-8 h-8 rounded border-2 transition-all hover:scale-110 ${
+              value === 'gray' ? 'border-gray-400 ring-2 ring-gray-200' : 'border-gray-200'
+            }`}
+            style={{ backgroundColor: SYSTEM_COLORS.gray }}
+            title="Gris"
+          />
+          <button
+            type="button"
+            onClick={() => handleQuickColorClick('dark')}
+            className={`w-8 h-8 rounded border-2 transition-all hover:scale-110 ${
+              value === 'dark' ? 'border-gray-400 ring-2 ring-gray-200' : 'border-gray-200'
+            }`}
+            style={{ backgroundColor: SYSTEM_COLORS.dark }}
+            title="Sombre"
+          />
+        </div>
+      </div>
+      
+      {/* Curseur de personnalisation */}
+      <div className="flex items-center gap-2">
+        <Input
+          type="color"
+          value={currentColorValue}
+          onChange={handleCustomColorChange}
+          className="w-12 h-8 p-0 border cursor-pointer"
+          title="Couleur personnalisée"
+        />
+        <span className="text-sm text-gray-500">
+          Personnalisé: {currentColorValue}
+        </span>
+      </div>
+    </div>
+  );
 }
 
 export function BlockConfigModal({ open, onOpenChange, block, onSave }: BlockConfigModalProps) {
@@ -184,20 +284,29 @@ export function BlockConfigModal({ open, onOpenChange, block, onSave }: BlockCon
             </div>
 
             {block.blockType === 'text_image' && (
-              <div>
-                <Label>Layout</Label>
-                <Select 
-                  value={config.layout || 'text-left'} 
-                  onValueChange={(value) => handleConfigChange('layout', value)}
-                >
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="text-left">Text Left, Image Right</SelectItem>
-                    <SelectItem value="image-left">Image Left, Text Right</SelectItem>
-                  </SelectContent>
-                </Select>
+              <div className="space-y-4">
+                <div>
+                  <Label>Layout</Label>
+                  <Select 
+                    value={config.layout || 'text-left'} 
+                    onValueChange={(value) => handleConfigChange('layout', value)}
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="text-left">Text Left, Image Right</SelectItem>
+                      <SelectItem value="image-left">Image Left, Text Right</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label>Couleur du texte</Label>
+                  <ColorPicker 
+                    value={config.textColor || 'dark'} 
+                    onChange={(value) => handleConfigChange('textColor', value)}
+                  />
+                </div>
               </div>
             )}
           </TabsContent>
@@ -332,10 +441,10 @@ export function BlockConfigModal({ open, onOpenChange, block, onSave }: BlockCon
 
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)}>
-            Cancel
+            Annuler
           </Button>
           <Button onClick={handleSave}>
-            Save Changes
+            Enregistrer
           </Button>
         </DialogFooter>
       </DialogContent>
@@ -379,21 +488,10 @@ function renderBlockSpecificContent(
             </div>
             <div>
               <Label htmlFor="titlePrimaryColor">Couleur principale du titre</Label>
-              <Select 
+              <ColorPicker 
                 value={config.titlePrimaryColor || 'primary'} 
-                onValueChange={(value) => handleConfigChange('titlePrimaryColor', value)}
-              >
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="primary">Bleu principal</SelectItem>
-                  <SelectItem value="secondary">Or secondaire</SelectItem>
-                  <SelectItem value="white">Blanc</SelectItem>
-                  <SelectItem value="gray">Gris</SelectItem>
-                  <SelectItem value="dark">Sombre</SelectItem>
-                </SelectContent>
-              </Select>
+                onChange={(value) => handleConfigChange('titlePrimaryColor', value)}
+              />
             </div>
           </div>
 
@@ -409,41 +507,19 @@ function renderBlockSpecificContent(
             </div>
             <div>
               <Label htmlFor="titleAccentColor">Couleur accent</Label>
-              <Select 
+              <ColorPicker 
                 value={config.titleAccentColor || 'secondary'} 
-                onValueChange={(value) => handleConfigChange('titleAccentColor', value)}
-              >
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="secondary">Or accent</SelectItem>
-                  <SelectItem value="primary">Bleu principal</SelectItem>
-                  <SelectItem value="white">Blanc</SelectItem>
-                  <SelectItem value="gray">Gris</SelectItem>
-                  <SelectItem value="dark">Sombre</SelectItem>
-                </SelectContent>
-              </Select>
+                onChange={(value) => handleConfigChange('titleAccentColor', value)}
+              />
             </div>
           </div>
 
           <div>
             <Label htmlFor="subtitleColor">Couleur du sous-titre</Label>
-            <Select 
+            <ColorPicker 
               value={config.subtitleColor || 'white'} 
-              onValueChange={(value) => handleConfigChange('subtitleColor', value)}
-            >
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="white">Blanc</SelectItem>
-                <SelectItem value="gray">Gris clair</SelectItem>
-                <SelectItem value="primary">Bleu principal</SelectItem>
-                <SelectItem value="secondary">Or secondaire</SelectItem>
-                <SelectItem value="dark">Sombre</SelectItem>
-              </SelectContent>
-            </Select>
+              onChange={(value) => handleConfigChange('subtitleColor', value)}
+            />
           </div>
 
           <div>
