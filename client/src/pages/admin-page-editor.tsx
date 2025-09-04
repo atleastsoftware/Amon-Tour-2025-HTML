@@ -3,6 +3,107 @@ import { useLocation } from 'wouter';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Edit, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Save, Undo, Trash2, AlertTriangle, Plus, ExternalLink } from 'lucide-react';
+
+// Couleurs principales du système
+const SYSTEM_COLORS = {
+  primary: '#1e73be',
+  secondary: '#E6B64C',
+  white: '#ffffff',
+  gray: '#6b7280',
+  dark: '#1f2937'
+};
+
+// Composant ColorPicker avec cases rapides + curseur personnalisé
+interface ColorPickerProps {
+  value: string;
+  onChange: (value: string) => void;
+  label?: string;
+}
+
+function ColorPicker({ value, onChange, label }: ColorPickerProps) {
+  const getColorValue = (colorName: string) => {
+    return SYSTEM_COLORS[colorName as keyof typeof SYSTEM_COLORS] || colorName;
+  };
+
+  const handleQuickColorClick = (colorName: string) => {
+    onChange(getColorValue(colorName));
+  };
+
+  const currentColorValue = getColorValue(value);
+
+  return (
+    <div className="space-y-3">
+      {label && <Label className="text-sm font-medium">{label}</Label>}
+      {/* Cases de couleurs rapides */}
+      <div className="flex gap-2">
+        <div className="flex gap-1">
+          <button
+            type="button"
+            onClick={() => handleQuickColorClick('primary')}
+            className={`w-8 h-8 rounded border-2 transition-all hover:scale-110 ${
+              value === SYSTEM_COLORS.primary ? 'border-gray-400 ring-2 ring-blue-200' : 'border-gray-200'
+            }`}
+            style={{ backgroundColor: SYSTEM_COLORS.primary }}
+            title="Couleur principale"
+          />
+          <button
+            type="button"
+            onClick={() => handleQuickColorClick('secondary')}
+            className={`w-8 h-8 rounded border-2 transition-all hover:scale-110 ${
+              value === SYSTEM_COLORS.secondary ? 'border-gray-400 ring-2 ring-yellow-200' : 'border-gray-200'
+            }`}
+            style={{ backgroundColor: SYSTEM_COLORS.secondary }}
+            title="Couleur secondaire"
+          />
+          <button
+            type="button"
+            onClick={() => handleQuickColorClick('white')}
+            className={`w-8 h-8 rounded border-2 transition-all hover:scale-110 ${
+              value === SYSTEM_COLORS.white ? 'border-gray-400 ring-2 ring-gray-200' : 'border-gray-200'
+            }`}
+            style={{ backgroundColor: SYSTEM_COLORS.white }}
+            title="Blanc"
+          />
+          <button
+            type="button"
+            onClick={() => handleQuickColorClick('gray')}
+            className={`w-8 h-8 rounded border-2 transition-all hover:scale-110 ${
+              value === SYSTEM_COLORS.gray ? 'border-gray-400 ring-2 ring-gray-200' : 'border-gray-200'
+            }`}
+            style={{ backgroundColor: SYSTEM_COLORS.gray }}
+            title="Gris"
+          />
+          <button
+            type="button"
+            onClick={() => handleQuickColorClick('dark')}
+            className={`w-8 h-8 rounded border-2 transition-all hover:scale-110 ${
+              value === SYSTEM_COLORS.dark ? 'border-gray-400 ring-2 ring-gray-200' : 'border-gray-200'
+            }`}
+            style={{ backgroundColor: SYSTEM_COLORS.dark }}
+            title="Sombre"
+          />
+        </div>
+      </div>
+      
+      {/* Curseur de personnalisation */}
+      <div className="flex items-center gap-2">
+        <input
+          type="color"
+          value={currentColorValue}
+          onChange={(e) => onChange(e.target.value)}
+          className="w-12 h-8 p-0 border cursor-pointer rounded"
+          title="Couleur personnalisée"
+        />
+        <Input
+          value={currentColorValue}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder="#ffffff"
+          className="flex-1"
+        />
+      </div>
+    </div>
+  );
+}
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Switch } from '@/components/ui/switch';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
@@ -398,21 +499,10 @@ const BlockEditDropdown = ({
                 className="mt-2"
               />
               <div className="mt-3">
-                <div className="flex gap-2">
-                  <input 
-                    type="color" 
-                    id="titleColor"
-                    value={formData.titleColor || '#ffffff'}
-                    onChange={e => updateField('titleColor', e.target.value)}
-                    className="w-10 h-10 rounded border"
-                  />
-                  <Input 
-                    value={formData.titleColor || '#ffffff'}
-                    onChange={e => updateField('titleColor', e.target.value)}
-                    placeholder="#ffffff"
-                    className="flex-1"
-                  />
-                </div>
+                <ColorPicker
+                  value={formData.titleColor || '#ffffff'}
+                  onChange={(value) => updateField('titleColor', value)}
+                />
               </div>
             </div>
             
@@ -430,22 +520,10 @@ const BlockEditDropdown = ({
                 Tapez exactement les mots du titre que vous voulez colorer
               </p>
               <div className="mt-3">
-                <div className="flex gap-2">
-                  <input 
-                    type="color" 
-                    id="titleAccentColor"
-                    value={formData.titleAccentColor || '#1e73be'}
-                    onChange={e => updateField('titleAccentColor', e.target.value)}
-                    className="w-10 h-10 rounded cursor-pointer"
-                    style={{ border: 'none', outline: 'none' }}
-                  />
-                  <Input 
-                    value={formData.titleAccentColor || '#1e73be'}
-                    onChange={e => updateField('titleAccentColor', e.target.value)}
-                    placeholder="#1e73be"
-                    className="flex-1"
-                  />
-                </div>
+                <ColorPicker
+                  value={formData.titleAccentColor || '#1e73be'}
+                  onChange={(value) => updateField('titleAccentColor', value)}
+                />
               </div>
             </div>
 
@@ -461,22 +539,10 @@ const BlockEditDropdown = ({
                 className="mt-2"
               />
               <div className="mt-3">
-                <div className="flex gap-2">
-                  <input 
-                    type="color" 
-                    id="subtitleColor"
-                    value={formData.subtitleColor || '#ffffff'}
-                    onChange={e => updateField('subtitleColor', e.target.value)}
-                    className="w-10 h-10 rounded cursor-pointer"
-                    style={{ border: 'none', outline: 'none' }}
-                  />
-                  <Input 
-                    value={formData.subtitleColor || '#ffffff'}
-                    onChange={e => updateField('subtitleColor', e.target.value)}
-                    placeholder="#ffffff"
-                    className="flex-1"
-                  />
-                </div>
+                <ColorPicker
+                  value={formData.subtitleColor || '#ffffff'}
+                  onChange={(value) => updateField('subtitleColor', value)}
+                />
               </div>
             </div>
 
@@ -548,33 +614,16 @@ const BlockEditDropdown = ({
                   <div className="grid grid-cols-2 gap-3">
                     <div>
                       <Label className="text-xs">Couleur</Label>
-                      <div className="flex gap-2">
-                        <input 
-                          type="color" 
-                          value={button.color || '#1e73be'}
-                          onChange={e => {
-                            const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#1e73be', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#1e73be', style: 'filled'}];
-                            const newButtons = buttons.map((b: any, i: number) => 
-                              i === index ? {...b, color: e.target.value} : b
-                            );
-                            updateField('buttons', newButtons);
-                          }}
-                          className="w-10 h-10 rounded cursor-pointer"
-                    style={{ border: 'none', outline: 'none' }}
-                        />
-                        <Input 
-                          value={button.color || '#1e73be'}
-                          onChange={e => {
-                            const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#1e73be', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#1e73be', style: 'filled'}];
-                            const newButtons = buttons.map((b: any, i: number) => 
-                              i === index ? {...b, color: e.target.value} : b
-                            );
-                            updateField('buttons', newButtons);
-                          }}
-                          placeholder="#1e73be"
-                          className="flex-1 text-xs h-10"
-                        />
-                      </div>
+                      <ColorPicker
+                        value={button.color || '#1e73be'}
+                        onChange={(value) => {
+                          const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#1e73be', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#1e73be', style: 'filled'}];
+                          const newButtons = buttons.map((b: any, i: number) => 
+                            i === index ? {...b, color: value} : b
+                          );
+                          updateField('buttons', newButtons);
+                        }}
+                      />
                     </div>
                     
                     <div>
@@ -1107,7 +1156,6 @@ const BlockEditDropdown = ({
             Sauvegarder
           </Button>
           <Button variant="outline" onClick={onCancel}>
-            <Undo className="w-4 h-4 mr-2" />
             Annuler
           </Button>
         </div>
