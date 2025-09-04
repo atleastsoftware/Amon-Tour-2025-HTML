@@ -57,7 +57,7 @@ interface PageConfiguration {
 }
 
 // Real Component Previews - Using ACTUAL website components only
-const RealBlockPreview = ({ block, isFullscreen }: { block: PageBlock; isFullscreen: boolean }) => {
+const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: PageBlock; isFullscreen: boolean; liveConfiguration?: any }) => {
   const getActualComponent = () => {
     switch (block.identifier) {
       case 'hero_main':
@@ -75,11 +75,11 @@ const RealBlockPreview = ({ block, isFullscreen }: { block: PageBlock; isFullscr
                 transition={{ duration: 0.6 }}
               >
                 <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
-                  {block.configuration?.title || "When expats welcome you in their host country"}
+                  {liveConfiguration?.title || block.configuration?.title || "When expats welcome you in their host country"}
                 </h2>
                 <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
                 <p className="text-lg text-gray-700 leading-relaxed">
-                  {block.configuration?.content || "This is a family-run travel agency that combines the organization of exclusive activities with the creation of tailor-made trips throughout the country. Our goal is to offer an immersive experience, far from mass tourism, with personalized service for every traveler — as if we were welcoming our own family or friends."}
+                  {liveConfiguration?.content || block.configuration?.content || "This is a family-run travel agency that combines the organization of exclusive activities with the creation of tailor-made trips throughout the country. Our goal is to offer an immersive experience, far from mass tourism, with personalized service for every traveler — as if we were welcoming our own family or friends."}
                 </p>
               </motion.div>
             </div>
@@ -87,7 +87,72 @@ const RealBlockPreview = ({ block, isFullscreen }: { block: PageBlock; isFullscr
         );
 
       case 'popular_experiences':
-        return <Features />;
+        // Section "Our Popular Experiences" avec tours TourNinja
+        return (
+          <section id="tours" className="py-16 bg-white">
+            <div className="container mx-auto px-4 text-center mb-8">
+              <motion.div
+                initial={{ y: -20, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+              >
+                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
+                  {liveConfiguration?.title || block.configuration?.title || "Our Popular Experiences"}
+                </h2>
+                <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
+                <p className="text-gray-600 max-w-2xl mx-auto">
+                  {liveConfiguration?.subtitle || block.configuration?.subtitle || "Step off the beaten path into carefully curated experiences beyond the tourist trail."}
+                </p>
+              </motion.div>
+            </div>
+            
+            <div className="container mx-auto px-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                {Array.from({ length: 6 }).map((_, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
+                  >
+                    <div className="relative h-48 bg-gradient-to-br from-blue-200 to-blue-300">
+                      <div className="w-full h-full flex items-center justify-center">
+                        <div className="h-16 w-16 text-blue-400">🏝️</div>
+                      </div>
+                      <div className="absolute top-4 right-4">
+                        <span className="bg-white/90 text-gray-800 px-2 py-1 rounded-full text-xs">
+                          {index % 2 + 1} jour{index % 2 > 0 ? 's' : ''}
+                        </span>
+                      </div>
+                    </div>
+                    
+                    <div className="p-6">
+                      <h3 className="text-lg font-bold text-gray-800 mb-3 line-clamp-2">
+                        Tour Experience {index + 1}
+                      </h3>
+                      
+                      <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                        Découvrez les plus beaux endroits de Krabi avec nos guides expérimentés.
+                      </p>
+                      
+                      <div className="flex gap-2">
+                        <button className="flex-1 border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 px-3 rounded-lg font-semibold transition-colors">
+                          Details
+                        </button>
+                        <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg font-semibold transition-colors">
+                          Book
+                        </button>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </section>
+        );
 
       case 'custom_tour_form':
         return <CustomTourForm />;
@@ -135,17 +200,24 @@ const BlockEditDropdown = ({
   block, 
   isOpen, 
   onSave, 
-  onCancel 
+  onCancel,
+  onPreviewUpdate 
 }: { 
   block: PageBlock; 
   isOpen: boolean;
   onSave: (data: any) => void; 
   onCancel: () => void; 
+  onPreviewUpdate?: (config: any) => void;
 }) => {
   const [formData, setFormData] = useState(block.configuration || {});
 
   const updateField = (key: string, value: any) => {
-    setFormData((prev: any) => ({ ...prev, [key]: value }));
+    const newFormData = { ...formData, [key]: value };
+    setFormData(newFormData);
+    // Mise à jour en temps réel de la prévisualisation
+    if (onPreviewUpdate) {
+      onPreviewUpdate(newFormData);
+    }
   };
 
   const handleSave = () => {
@@ -547,6 +619,7 @@ export default function AdminPageEditor() {
   const [previewMode, setPreviewMode] = useState<'normal' | 'fullscreen'>('normal');
   const [editingBlockId, setEditingBlockId] = useState<number | null>(null);
   const [previewBlock, setPreviewBlock] = useState<PageBlock | null>(null);
+  const [livePreviewData, setLivePreviewData] = useState<{ [blockId: number]: any }>({});
   const queryClient = useQueryClient();
   
   // Get page slug from URL parameters
@@ -843,7 +916,11 @@ export default function AdminPageEditor() {
 
                       <CardContent className="pb-0">
                         <div className="border border-gray-200 rounded-lg overflow-hidden mb-4" style={{ minHeight: 'auto' }}>
-                          <RealBlockPreview block={block} isFullscreen={false} />
+                          <RealBlockPreview 
+                            block={block} 
+                            isFullscreen={false} 
+                            liveConfiguration={livePreviewData[block.id]} 
+                          />
                         </div>
                         
                         {/* Edit Dropdown */}
@@ -851,8 +928,28 @@ export default function AdminPageEditor() {
                           <BlockEditDropdown
                             block={block}
                             isOpen={editingBlockId === block.id}
-                            onSave={(updatedBlock) => updateBlockMutation.mutate(updatedBlock)}
-                            onCancel={() => setEditingBlockId(null)}
+                            onSave={(updatedBlock) => {
+                              updateBlockMutation.mutate(updatedBlock);
+                              setLivePreviewData(prev => {
+                                const newData = { ...prev };
+                                delete newData[block.id];
+                                return newData;
+                              });
+                            }}
+                            onCancel={() => {
+                              setEditingBlockId(null);
+                              setLivePreviewData(prev => {
+                                const newData = { ...prev };
+                                delete newData[block.id];
+                                return newData;
+                              });
+                            }}
+                            onPreviewUpdate={(config) => {
+                              setLivePreviewData(prev => ({
+                                ...prev,
+                                [block.id]: config
+                              }));
+                            }}
                           />
                         </AnimatePresence>
                       </CardContent>
