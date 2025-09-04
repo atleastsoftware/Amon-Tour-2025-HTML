@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Edit, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Save, Undo, Trash2, AlertTriangle, Plus, ExternalLink, Palette } from 'lucide-react';
+import { ArrowLeft, Edit, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Save, Undo, Trash2, AlertTriangle, Plus, ExternalLink } from 'lucide-react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Switch } from '@/components/ui/switch';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
@@ -1218,6 +1218,10 @@ export default function AdminPageEditor() {
     window.open(`/${pageSlug}`, '_blank');
   };
 
+  const handlePageChange = (newPageSlug: string) => {
+    setLocation(`/admin-page-editor/page=${newPageSlug}`);
+  };
+
   if (!currentPageConfig) {
     return (
       <div className="min-h-screen bg-gray-50 p-4">
@@ -1246,7 +1250,7 @@ export default function AdminPageEditor() {
               </Button>
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                  <Palette className="w-5 h-5 text-blue-600" />
+                  <Settings className="w-5 h-5 text-blue-600" />
                 </div>
                 <div>
                   <h1 className="text-2xl font-bold text-gray-900">Éditeur de page</h1>
@@ -1255,6 +1259,18 @@ export default function AdminPageEditor() {
               </div>
             </div>
             <div className="flex items-center gap-3">
+              <Select value={pageSlug} onValueChange={handlePageChange}>
+                <SelectTrigger className="w-48">
+                  <SelectValue placeholder="Sélectionner une page" />
+                </SelectTrigger>
+                <SelectContent>
+                  {pageConfigs.map((page: PageConfiguration) => (
+                    <SelectItem key={page.pageSlug} value={page.pageSlug}>
+                      {page.pageName}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               <Button 
                 variant="outline" 
                 onClick={viewLivePage}
@@ -1282,8 +1298,7 @@ export default function AdminPageEditor() {
 
         {/* Blocks List */}
         <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold">Sections du site web</h3>
+          <div className="flex items-center justify-end">
             <div className="text-sm text-gray-500">
               {pageBlocks.length} section{pageBlocks.length > 1 ? 's' : ''} sur cette page
             </div>
