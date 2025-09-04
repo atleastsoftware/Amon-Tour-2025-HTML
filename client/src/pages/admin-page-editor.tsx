@@ -2,16 +2,26 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Edit, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Save, Undo } from 'lucide-react';
+import { ArrowLeft, Edit, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Save, Undo, Trash2, AlertTriangle } from 'lucide-react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Switch } from '@/components/ui/switch';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Checkbox } from '@/components/ui/checkbox';
 import { toast } from '@/hooks/use-toast';
 import { motion, AnimatePresence } from 'framer-motion';
+
+// Import real components for exact preview
+import Hero from '@/components/home/Hero';
+import Features from '@/components/home/Features';
+import About from '@/components/home/About';
+import CustomTourForm from '@/components/home/CustomTourForm';
+import Testimonials from '@/components/home/Testimonials';
+import TourNinjaSection from '@/components/tour/TourNinjaSection';
 
 interface PageBlock {
   id: number;
@@ -46,175 +56,146 @@ interface PageConfiguration {
   updatedAt: Date;
 }
 
-// Block Preview Components
-const BlockPreview = ({ block, isFullscreen }: { block: PageBlock; isFullscreen: boolean }) => {
-  const getPreviewContent = () => {
-    switch (block.blockType) {
-      case 'hero':
+// Real Component Previews - Exact copies of actual website sections
+const RealBlockPreview = ({ block, isFullscreen }: { block: PageBlock; isFullscreen: boolean }) => {
+  const getExactPreview = () => {
+    switch (block.identifier) {
+      case 'hero_main':
         return (
-          <div className={`relative ${isFullscreen ? 'h-screen' : 'h-64'} bg-gradient-to-r from-blue-600 to-blue-800 text-white flex items-center justify-center`}>
-            <div className="text-center px-4">
-              <h1 className={`font-bold ${isFullscreen ? 'text-5xl md:text-7xl' : 'text-2xl md:text-4xl'} mb-4`}>
-                {block.configuration?.title || block.title || 'Hero Title'}
-              </h1>
-              {block.configuration?.subtitle && (
-                <p className={`${isFullscreen ? 'text-xl md:text-2xl' : 'text-lg'} mb-6 opacity-90`}>
-                  {block.configuration.subtitle}
+          <div className={isFullscreen ? 'w-full' : 'w-full transform scale-[0.3] origin-top-left'} style={isFullscreen ? {} : { height: '200px', overflow: 'hidden' }}>
+            <Hero />
+          </div>
+        );
+
+      case 'expats_welcome':
+        const ExactsWelcomeSection = () => (
+          <section className="py-20">
+            <div className="container mx-auto px-4 max-w-4xl text-center">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
+                  {block.configuration?.title || "When expats welcome you in their host country"}
+                </h2>
+                <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  {block.configuration?.content || "This is a family-run travel agency that combines the organization of exclusive activities with the creation of tailor-made trips throughout the country. Our goal is to offer an immersive experience, far from mass tourism, with personalized service for every traveler — as if we were welcoming our own family or friends."}
                 </p>
-              )}
-              {block.configuration?.ctaText && (
-                <button className={`bg-yellow-500 text-blue-900 px-6 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition-colors ${isFullscreen ? 'text-lg' : ''}`}>
-                  {block.configuration.ctaText}
-                </button>
-              )}
+              </motion.div>
             </div>
+          </section>
+        );
+        return (
+          <div className={isFullscreen ? 'w-full' : 'w-full transform scale-[0.3] origin-top-left'} style={isFullscreen ? {} : { height: '150px', overflow: 'hidden' }}>
+            <ExactsWelcomeSection />
           </div>
         );
 
-      case 'text_image':
-        return (
-          <div className={`py-12 ${isFullscreen ? 'py-20' : 'py-8'} bg-white`}>
-            <div className="container mx-auto px-4">
-              <div className={`max-w-4xl mx-auto ${block.configuration?.textAlign === 'center' ? 'text-center' : ''}`}>
-                <h2 className={`font-bold ${isFullscreen ? 'text-3xl md:text-4xl' : 'text-xl md:text-2xl'} mb-4 text-gray-900`}>
-                  {block.configuration?.title || block.title || 'Section Title'}
+      case 'popular_experiences':
+        const ExactPopularSection = () => (
+          <section id="tours" className="py-16 bg-white">
+            <div className="container mx-auto px-4 text-center mb-8">
+              <motion.div
+                initial={{ y: -20, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+              >
+                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
+                  {block.configuration?.title || "Our Popular Experiences"}
                 </h2>
-                {block.configuration?.subtitle && (
-                  <div className="w-20 h-1 bg-yellow-500 mx-auto mb-6"></div>
-                )}
-                <p className={`text-gray-700 leading-relaxed ${isFullscreen ? 'text-lg' : 'text-base'}`}>
-                  {block.configuration?.content || block.content || 'Section content goes here...'}
+                <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
+                <p className="text-gray-600 max-w-2xl mx-auto">
+                  {block.configuration?.subtitle || "Step off the beaten path into carefully curated experiences beyond the tourist trail."}
                 </p>
-              </div>
+              </motion.div>
             </div>
-          </div>
-        );
-
-      case 'card_grid':
-        const gridCols = block.configuration?.gridCols || '3';
-        return (
-          <div className={`py-12 ${isFullscreen ? 'py-20' : 'py-8'} bg-white`}>
+            
             <div className="container mx-auto px-4">
-              <div className="text-center mb-8">
-                <h2 className={`font-bold ${isFullscreen ? 'text-3xl md:text-4xl' : 'text-xl md:text-2xl'} mb-4 text-gray-900`}>
-                  {block.configuration?.title || block.title || 'Grid Section'}
-                </h2>
-                {block.configuration?.subtitle && (
-                  <>
-                    <div className="w-20 h-1 bg-yellow-500 mx-auto mb-4"></div>
-                    <p className="text-gray-600 max-w-2xl mx-auto">
-                      {block.configuration.subtitle}
-                    </p>
-                  </>
-                )}
-              </div>
-              <div className={`grid grid-cols-1 ${gridCols === '3' ? 'md:grid-cols-2 lg:grid-cols-3' : gridCols === '4' ? 'md:grid-cols-2 lg:grid-cols-4' : 'md:grid-cols-2'} gap-6`}>
-                {Array.from({ length: Math.min(block.configuration?.displayCount || 6, isFullscreen ? 12 : 3) }).map((_, i) => (
-                  <div key={i} className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
-                    <div className="h-32 bg-gray-200 rounded-lg mb-4"></div>
-                    <h3 className="font-semibold text-gray-900 mb-2">Tour Exemple {i + 1}</h3>
-                    <p className="text-gray-600 text-sm">Description de l'expérience...</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        );
-
-      case 'form':
-        return (
-          <div className={`py-12 ${isFullscreen ? 'py-20' : 'py-8'} bg-gray-50`}>
-            <div className="container mx-auto px-4">
-              <div className="max-w-3xl mx-auto">
-                <div className="text-center mb-8">
-                  <h2 className={`font-bold ${isFullscreen ? 'text-3xl md:text-4xl' : 'text-xl md:text-2xl'} mb-4 text-gray-900`}>
-                    {block.configuration?.title || block.title || 'Form Section'}
-                  </h2>
-                  {block.configuration?.subtitle && (
-                    <p className="text-gray-600">
-                      {block.configuration.subtitle}
-                    </p>
-                  )}
-                </div>
-                <div className="bg-white rounded-xl shadow-lg p-8">
-                  <div className="grid md:grid-cols-2 gap-4 mb-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Nom complet</label>
-                      <input type="text" className="w-full p-3 border border-gray-300 rounded-lg" placeholder="Votre nom..." />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                      <input type="email" className="w-full p-3 border border-gray-300 rounded-lg" placeholder="votre@email.com" />
-                    </div>
-                  </div>
-                  <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                    <textarea rows={4} className="w-full p-3 border border-gray-300 rounded-lg" placeholder="Décrivez votre voyage idéal..."></textarea>
-                  </div>
-                  <button className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
-                    Envoyer la demande
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-
-      case 'advantages':
-        const features = block.configuration?.features || [
-          { icon: 'heart', title: 'Feature 1', description: 'Description...' },
-          { icon: 'users', title: 'Feature 2', description: 'Description...' },
-          { icon: 'map', title: 'Feature 3', description: 'Description...' }
-        ];
-        return (
-          <div className={`py-12 ${isFullscreen ? 'py-20' : 'py-8'} bg-white`}>
-            <div className="container mx-auto px-4">
-              <div className="text-center mb-12">
-                <h2 className={`font-bold ${isFullscreen ? 'text-3xl md:text-4xl' : 'text-xl md:text-2xl'} mb-4 text-gray-900`}>
-                  {block.configuration?.title || block.title || 'Our Advantages'}
-                </h2>
-                <div className="w-20 h-1 bg-yellow-500 mx-auto"></div>
-              </div>
-              <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                {features.map((feature: any, i: number) => (
-                  <div key={i} className="text-center">
-                    <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <div className="w-8 h-8 bg-blue-600 rounded"></div>
-                    </div>
-                    <h3 className="font-semibold text-gray-900 mb-2">{feature.title}</h3>
-                    <p className="text-gray-600">{feature.description}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        );
-
-      case 'gallery':
-        return (
-          <div className={`py-12 ${isFullscreen ? 'py-20' : 'py-8'} bg-gray-50`}>
-            <div className="container mx-auto px-4">
-              <div className="text-center mb-12">
-                <h2 className={`font-bold ${isFullscreen ? 'text-3xl md:text-4xl' : 'text-xl md:text-2xl'} mb-4 text-gray-900`}>
-                  {block.configuration?.title || block.title || 'Gallery'}
-                </h2>
-                <div className="w-20 h-1 bg-yellow-500 mx-auto"></div>
-              </div>
-              <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                 {Array.from({ length: isFullscreen ? 6 : 3 }).map((_, i) => (
-                  <div key={i} className="bg-white rounded-xl shadow-lg p-6">
-                    <div className="flex items-center mb-4">
-                      <div className="w-12 h-12 bg-gray-200 rounded-full mr-4"></div>
-                      <div>
-                        <div className="font-semibold">Client {i + 1}</div>
-                        <div className="text-yellow-500">★★★★★</div>
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: i * 0.1 }}
+                    className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
+                  >
+                    <div className="relative h-48 bg-gradient-to-br from-blue-200 to-blue-300">
+                      <div className="w-full h-full flex items-center justify-center">
+                        <div className="h-16 w-16 text-blue-400">🏝️</div>
+                      </div>
+                      <div className="absolute top-4 right-4">
+                        <span className="bg-white/90 text-gray-800 px-2 py-1 rounded-full text-xs">
+                          1 jour
+                        </span>
                       </div>
                     </div>
-                    <p className="text-gray-600">"Témoignage client exemple..."</p>
-                  </div>
+                    
+                    <div className="p-6">
+                      <h3 className="text-lg font-bold text-gray-800 mb-3 line-clamp-2">
+                        Tour Example {i + 1}
+                      </h3>
+                      <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                        Découvrez les plus beaux endroits de Krabi...
+                      </p>
+                      <div className="flex gap-2">
+                        <button className="flex-1 border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 px-3 rounded-lg font-semibold transition-colors">
+                          Details
+                        </button>
+                        <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg font-semibold transition-colors">
+                          Book
+                        </button>
+                      </div>
+                    </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
+          </section>
+        );
+        return (
+          <div className={isFullscreen ? 'w-full' : 'w-full transform scale-[0.25] origin-top-left'} style={isFullscreen ? {} : { height: '200px', overflow: 'hidden' }}>
+            <ExactPopularSection />
+          </div>
+        );
+
+      case 'custom_tour_form':
+        return (
+          <div className={isFullscreen ? 'w-full' : 'w-full transform scale-[0.3] origin-top-left'} style={isFullscreen ? {} : { height: '200px', overflow: 'hidden' }}>
+            <CustomTourForm />
+          </div>
+        );
+
+      case 'tour_ninja_section':
+        return (
+          <div className={isFullscreen ? 'w-full' : 'w-full transform scale-[0.25] origin-top-left'} style={isFullscreen ? {} : { height: '200px', overflow: 'hidden' }}>
+            <TourNinjaSection />
+          </div>
+        );
+
+      case 'why_choose_us':
+        return (
+          <div className={isFullscreen ? 'w-full' : 'w-full transform scale-[0.3] origin-top-left'} style={isFullscreen ? {} : { height: '200px', overflow: 'hidden' }}>
+            <Features />
+          </div>
+        );
+
+      case 'who_we_are':
+        return (
+          <div className={isFullscreen ? 'w-full' : 'w-full transform scale-[0.3] origin-top-left'} style={isFullscreen ? {} : { height: '200px', overflow: 'hidden' }}>
+            <About />
+          </div>
+        );
+
+      case 'travelers_reviews':
+        return (
+          <div className={isFullscreen ? 'w-full' : 'w-full transform scale-[0.3] origin-top-left'} style={isFullscreen ? {} : { height: '200px', overflow: 'hidden' }}>
+            <Testimonials />
           </div>
         );
 
@@ -230,15 +211,21 @@ const BlockPreview = ({ block, isFullscreen }: { block: PageBlock; isFullscreen:
     }
   };
 
-  return (
-    <div className={`${isFullscreen ? 'fixed inset-0 z-50 bg-white overflow-y-auto' : 'w-full'}`}>
-      {getPreviewContent()}
-    </div>
-  );
+  return getExactPreview();
 };
 
-// Edit Form Component for each block type
-const BlockEditForm = ({ block, onSave, onCancel }: { block: PageBlock; onSave: (data: any) => void; onCancel: () => void }) => {
+// Edit Dropdown Component (instead of popup)
+const BlockEditDropdown = ({ 
+  block, 
+  isOpen, 
+  onSave, 
+  onCancel 
+}: { 
+  block: PageBlock; 
+  isOpen: boolean;
+  onSave: (data: any) => void; 
+  onCancel: () => void; 
+}) => {
   const [formData, setFormData] = useState(block.configuration || {});
 
   const updateField = (key: string, value: any) => {
@@ -254,18 +241,18 @@ const BlockEditForm = ({ block, onSave, onCancel }: { block: PageBlock; onSave: 
     });
   };
 
-  const renderFields = () => {
-    switch (block.blockType) {
-      case 'hero':
+  const renderEditFields = () => {
+    switch (block.identifier) {
+      case 'hero_main':
         return (
           <div className="space-y-4">
             <div>
               <Label htmlFor="title">Titre principal</Label>
               <Input 
                 id="title"
-                value={formData.title || ''} 
+                value={formData.title || block.configuration?.title || ''} 
                 onChange={e => updateField('title', e.target.value)}
-                placeholder="Votre titre hero..."
+                placeholder="Your exclusive experiences in Krabi..."
               />
             </div>
             <div>
@@ -274,339 +261,375 @@ const BlockEditForm = ({ block, onSave, onCancel }: { block: PageBlock; onSave: 
                 id="subtitle"
                 value={formData.subtitle || ''} 
                 onChange={e => updateField('subtitle', e.target.value)}
-                placeholder="Sous-titre optionnel..."
+                placeholder="Discover amazing places..."
               />
             </div>
-            <div>
-              <Label htmlFor="ctaText">Texte du bouton</Label>
-              <Input 
-                id="ctaText"
-                value={formData.ctaText || ''} 
-                onChange={e => updateField('ctaText', e.target.value)}
-                placeholder="Découvrir nos tours"
-              />
+            <div className="grid grid-cols-2 gap-2">
+              <div>
+                <Label htmlFor="ctaText1">Bouton 1 - Texte</Label>
+                <Input 
+                  id="ctaText1"
+                  value={formData.ctaText1 || 'See our offers'} 
+                  onChange={e => updateField('ctaText1', e.target.value)}
+                />
+              </div>
+              <div>
+                <Label htmlFor="ctaUrl1">Bouton 1 - URL</Label>
+                <Input 
+                  id="ctaUrl1"
+                  value={formData.ctaUrl1 || '/tours'} 
+                  onChange={e => updateField('ctaUrl1', e.target.value)}
+                />
+              </div>
             </div>
-            <div>
-              <Label htmlFor="ctaUrl">URL du bouton</Label>
-              <Input 
-                id="ctaUrl"
-                value={formData.ctaUrl || ''} 
-                onChange={e => updateField('ctaUrl', e.target.value)}
-                placeholder="#tours"
-              />
-            </div>
-            <div>
-              <Label htmlFor="backgroundImage">Image/Vidéo de fond (URL)</Label>
-              <Input 
-                id="backgroundImage"
-                value={formData.backgroundImage || formData.videoUrl || ''} 
-                onChange={e => updateField('backgroundImage', e.target.value)}
-                placeholder="https://..."
-              />
+            <div className="grid grid-cols-2 gap-2">
+              <div>
+                <Label htmlFor="ctaText2">Bouton 2 - Texte</Label>
+                <Input 
+                  id="ctaText2"
+                  value={formData.ctaText2 || 'Custom your trip'} 
+                  onChange={e => updateField('ctaText2', e.target.value)}
+                />
+              </div>
+              <div>
+                <Label htmlFor="ctaUrl2">Bouton 2 - URL</Label>
+                <Input 
+                  id="ctaUrl2"
+                  value={formData.ctaUrl2 || '/custom-tour'} 
+                  onChange={e => updateField('ctaUrl2', e.target.value)}
+                />
+              </div>
             </div>
           </div>
         );
 
-      case 'text_image':
+      case 'expats_welcome':
         return (
           <div className="space-y-4">
             <div>
               <Label htmlFor="title">Titre</Label>
               <Input 
                 id="title"
-                value={formData.title || ''} 
+                value={formData.title || block.configuration?.title || ''} 
                 onChange={e => updateField('title', e.target.value)}
-                placeholder="Titre de la section..."
+                placeholder="When expats welcome you..."
               />
             </div>
             <div>
               <Label htmlFor="content">Contenu</Label>
               <Textarea 
                 id="content"
-                value={formData.content || ''} 
+                value={formData.content || block.configuration?.content || ''} 
                 onChange={e => updateField('content', e.target.value)}
                 placeholder="Contenu de la section..."
                 rows={4}
               />
             </div>
-            <div>
-              <Label htmlFor="textAlign">Alignement du texte</Label>
-              <Select value={formData.textAlign || 'left'} onValueChange={value => updateField('textAlign', value)}>
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="left">Gauche</SelectItem>
-                  <SelectItem value="center">Centre</SelectItem>
-                  <SelectItem value="right">Droite</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            {formData.hasImage !== false && (
-              <div>
-                <Label htmlFor="imageUrl">Image (URL)</Label>
-                <Input 
-                  id="imageUrl"
-                  value={formData.imageUrl || ''} 
-                  onChange={e => updateField('imageUrl', e.target.value)}
-                  placeholder="https://..."
-                />
-              </div>
-            )}
           </div>
         );
 
-      case 'card_grid':
+      case 'popular_experiences':
         return (
           <div className="space-y-4">
             <div>
               <Label htmlFor="title">Titre</Label>
               <Input 
                 id="title"
-                value={formData.title || ''} 
+                value={formData.title || block.configuration?.title || ''} 
                 onChange={e => updateField('title', e.target.value)}
-                placeholder="Titre de la section..."
+                placeholder="Our Popular Experiences"
               />
             </div>
             <div>
               <Label htmlFor="subtitle">Sous-titre</Label>
               <Input 
                 id="subtitle"
-                value={formData.subtitle || ''} 
+                value={formData.subtitle || block.configuration?.subtitle || ''} 
                 onChange={e => updateField('subtitle', e.target.value)}
-                placeholder="Sous-titre..."
+                placeholder="Step off the beaten path..."
               />
             </div>
             <div>
-              <Label htmlFor="displayCount">Nombre d'éléments à afficher</Label>
-              <Input 
-                type="number"
-                id="displayCount"
-                value={formData.displayCount || 6} 
-                onChange={e => updateField('displayCount', parseInt(e.target.value))}
-                min={1}
-                max={20}
-              />
-            </div>
-            <div>
-              <Label htmlFor="gridCols">Colonnes</Label>
-              <Select value={formData.gridCols || '3'} onValueChange={value => updateField('gridCols', value)}>
+              <Label htmlFor="displayCount">Nombre de tours affichés</Label>
+              <Select value={String(formData.displayCount || 6)} onValueChange={value => updateField('displayCount', parseInt(value))}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="2">2 colonnes</SelectItem>
-                  <SelectItem value="3">3 colonnes</SelectItem>
-                  <SelectItem value="4">4 colonnes</SelectItem>
+                  <SelectItem value="3">3 tours</SelectItem>
+                  <SelectItem value="6">6 tours</SelectItem>
+                  <SelectItem value="9">9 tours</SelectItem>
+                  <SelectItem value="12">12 tours</SelectItem>
                 </SelectContent>
               </Select>
             </div>
             <div className="flex items-center space-x-2">
-              <Switch 
-                checked={formData.showViewAllButton || false}
+              <Checkbox 
+                checked={formData.showViewAllButton !== false}
                 onCheckedChange={checked => updateField('showViewAllButton', checked)}
               />
-              <Label>Afficher le bouton "Voir tout"</Label>
+              <Label>Afficher le bouton "View All Our Tours"</Label>
             </div>
           </div>
         );
 
-      case 'form':
+      case 'tour_ninja_section':
         return (
           <div className="space-y-4">
             <div>
               <Label htmlFor="title">Titre</Label>
               <Input 
                 id="title"
-                value={formData.title || ''} 
+                value={formData.title || 'Some Ideas For Your Next Trip'} 
                 onChange={e => updateField('title', e.target.value)}
-                placeholder="Titre du formulaire..."
               />
             </div>
             <div>
               <Label htmlFor="subtitle">Sous-titre</Label>
               <Input 
                 id="subtitle"
-                value={formData.subtitle || ''} 
+                value={formData.subtitle || 'Get inspired by our custom-designed travel experiences.'} 
                 onChange={e => updateField('subtitle', e.target.value)}
-                placeholder="Description du formulaire..."
               />
             </div>
             <div>
-              <Label htmlFor="formType">Type de formulaire</Label>
-              <Select value={formData.formType || 'custom_tour'} onValueChange={value => updateField('formType', value)}>
+              <Label htmlFor="displayCount">Nombre de tours affichés</Label>
+              <Select value={String(formData.displayCount || 8)} onValueChange={value => updateField('displayCount', parseInt(value))}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="custom_tour">Voyage sur mesure</SelectItem>
-                  <SelectItem value="contact">Contact</SelectItem>
-                  <SelectItem value="newsletter">Newsletter</SelectItem>
+                  <SelectItem value="6">6 tours</SelectItem>
+                  <SelectItem value="8">8 tours</SelectItem>
+                  <SelectItem value="12">12 tours</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
         );
 
-      case 'advantages':
+      case 'why_choose_us':
         return (
           <div className="space-y-4">
             <div>
               <Label htmlFor="title">Titre</Label>
               <Input 
                 id="title"
-                value={formData.title || ''} 
+                value={formData.title || 'Why Choose Us'} 
                 onChange={e => updateField('title', e.target.value)}
-                placeholder="Titre de la section..."
               />
             </div>
             <div>
               <Label htmlFor="subtitle">Sous-titre</Label>
               <Input 
                 id="subtitle"
-                value={formData.subtitle || ''} 
+                value={formData.subtitle || 'Experience an exclusive private day trip...'} 
                 onChange={e => updateField('subtitle', e.target.value)}
-                placeholder="Sous-titre..."
               />
             </div>
             <div>
-              <Label>Avantages (3 éléments)</Label>
-              {(formData.features || []).map((feature: any, i: number) => (
-                <div key={i} className="border border-gray-200 rounded-lg p-4 mt-2">
-                  <div className="grid grid-cols-3 gap-2">
-                    <Input 
-                      value={feature.icon || ''} 
-                      onChange={e => {
-                        const newFeatures = [...(formData.features || [])];
-                        newFeatures[i] = { ...feature, icon: e.target.value };
-                        updateField('features', newFeatures);
-                      }}
-                      placeholder="Icône"
-                    />
-                    <Input 
-                      value={feature.title || ''} 
-                      onChange={e => {
-                        const newFeatures = [...(formData.features || [])];
-                        newFeatures[i] = { ...feature, title: e.target.value };
-                        updateField('features', newFeatures);
-                      }}
-                      placeholder="Titre"
-                    />
-                    <Input 
-                      value={feature.description || ''} 
-                      onChange={e => {
-                        const newFeatures = [...(formData.features || [])];
-                        newFeatures[i] = { ...feature, description: e.target.value };
-                        updateField('features', newFeatures);
-                      }}
-                      placeholder="Description"
-                    />
-                  </div>
+              <Label>Les 3 avantages</Label>
+              <div className="space-y-3 mt-2">
+                <div className="border border-gray-200 rounded-lg p-3">
+                  <Input 
+                    placeholder="Private Tours" 
+                    value={formData.feature1Title || 'Private Tours'} 
+                    onChange={e => updateField('feature1Title', e.target.value)}
+                    className="mb-2"
+                  />
+                  <Textarea 
+                    placeholder="Experience an exclusive day trip..."
+                    value={formData.feature1Desc || 'Experience an exclusive day trip with our professional guides and private vehicles.'} 
+                    onChange={e => updateField('feature1Desc', e.target.value)}
+                    rows={2}
+                  />
                 </div>
-              ))}
+                <div className="border border-gray-200 rounded-lg p-3">
+                  <Input 
+                    placeholder="Customized Itineraries" 
+                    value={formData.feature2Title || 'Customized Itineraries'} 
+                    onChange={e => updateField('feature2Title', e.target.value)}
+                    className="mb-2"
+                  />
+                  <Textarea 
+                    placeholder="Create your own journey..."
+                    value={formData.feature2Desc || 'Create your own journey based on your desires, your pace, and your interests.'} 
+                    onChange={e => updateField('feature2Desc', e.target.value)}
+                    rows={2}
+                  />
+                </div>
+                <div className="border border-gray-200 rounded-lg p-3">
+                  <Input 
+                    placeholder="Authentic Experiences" 
+                    value={formData.feature3Title || 'Authentic Experiences'} 
+                    onChange={e => updateField('feature3Title', e.target.value)}
+                    className="mb-2"
+                  />
+                  <Textarea 
+                    placeholder="Discover destinations off the beaten path..."
+                    value={formData.feature3Desc || 'Discover destinations off the beaten path and immerse yourself in the local culture.'} 
+                    onChange={e => updateField('feature3Desc', e.target.value)}
+                    rows={2}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         );
 
-      case 'gallery':
+      case 'who_we_are':
         return (
           <div className="space-y-4">
             <div>
               <Label htmlFor="title">Titre</Label>
               <Input 
                 id="title"
-                value={formData.title || ''} 
+                value={formData.title || 'Who We Are'} 
                 onChange={e => updateField('title', e.target.value)}
-                placeholder="Titre de la galerie..."
+              />
+            </div>
+            <div>
+              <Label htmlFor="mainText">Texte principal</Label>
+              <Textarea 
+                id="mainText"
+                value={formData.mainText || 'We are Éric, Margaux, Gabriel, and Raphaël...'} 
+                onChange={e => updateField('mainText', e.target.value)}
+                rows={3}
+              />
+            </div>
+            <div>
+              <Label htmlFor="conceptTitle">Titre "Our Concept"</Label>
+              <Input 
+                id="conceptTitle"
+                value={formData.conceptTitle || 'Our Concept'} 
+                onChange={e => updateField('conceptTitle', e.target.value)}
+              />
+            </div>
+            <div>
+              <Label htmlFor="conceptText">Texte concept</Label>
+              <Textarea 
+                id="conceptText"
+                value={formData.conceptText || 'Combine the warmth and proximity...'} 
+                onChange={e => updateField('conceptText', e.target.value)}
+                rows={3}
+              />
+            </div>
+          </div>
+        );
+
+      case 'travelers_reviews':
+        return (
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="title">Titre</Label>
+              <Input 
+                id="title"
+                value={formData.title || 'Our Travelers Reviews'} 
+                onChange={e => updateField('title', e.target.value)}
               />
             </div>
             <div>
               <Label htmlFor="subtitle">Sous-titre</Label>
               <Input 
                 id="subtitle"
-                value={formData.subtitle || ''} 
+                value={formData.subtitle || 'Discover the authentic experiences...'} 
                 onChange={e => updateField('subtitle', e.target.value)}
-                placeholder="Sous-titre..."
               />
-            </div>
-            <div className="flex items-center space-x-2">
-              <Switch 
-                checked={formData.autoplay || false}
-                onCheckedChange={checked => updateField('autoplay', checked)}
-              />
-              <Label>Lecture automatique</Label>
             </div>
             <div>
-              <Label htmlFor="slidesToShow">Éléments visibles</Label>
-              <Select value={String(formData.slidesToShow || 3)} onValueChange={value => updateField('slidesToShow', parseInt(value))}>
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="1">1</SelectItem>
-                  <SelectItem value="2">2</SelectItem>
-                  <SelectItem value="3">3</SelectItem>
-                  <SelectItem value="4">4</SelectItem>
-                </SelectContent>
-              </Select>
+              <Label htmlFor="googleRating">Note Google</Label>
+              <Input 
+                id="googleRating"
+                value={formData.googleRating || '5.0'} 
+                onChange={e => updateField('googleRating', e.target.value)}
+              />
+            </div>
+            <div>
+              <Label htmlFor="reviewCount">Nombre d'avis</Label>
+              <Input 
+                id="reviewCount"
+                value={formData.reviewCount || '80'} 
+                onChange={e => updateField('reviewCount', e.target.value)}
+              />
+            </div>
+          </div>
+        );
+
+      case 'custom_tour_form':
+        return (
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="title">Titre</Label>
+              <Input 
+                id="title"
+                value={formData.title || 'Create Your Custom Trip'} 
+                onChange={e => updateField('title', e.target.value)}
+              />
+            </div>
+            <div>
+              <Label htmlFor="subtitle">Sous-titre</Label>
+              <Input 
+                id="subtitle"
+                value={formData.subtitle || 'Your travel story starts with your dreams...'} 
+                onChange={e => updateField('subtitle', e.target.value)}
+              />
+            </div>
+            <div>
+              <Label htmlFor="formImage">Image du formulaire</Label>
+              <Input 
+                id="formImage"
+                value={formData.formImage || '/catamaran-cruise.png'} 
+                onChange={e => updateField('formImage', e.target.value)}
+              />
             </div>
           </div>
         );
 
       default:
         return (
-          <div className="space-y-4">
-            <div>
-              <Label htmlFor="title">Titre</Label>
-              <Input 
-                id="title"
-                value={formData.title || ''} 
-                onChange={e => updateField('title', e.target.value)}
-                placeholder="Titre..."
-              />
-            </div>
-            <div>
-              <Label htmlFor="content">Contenu</Label>
-              <Textarea 
-                id="content"
-                value={formData.content || ''} 
-                onChange={e => updateField('content', e.target.value)}
-                placeholder="Contenu..."
-                rows={3}
-              />
-            </div>
+          <div className="p-4 text-center text-gray-500">
+            <p>Aucune option d'édition pour ce type de bloc</p>
           </div>
         );
     }
   };
 
+  if (!isOpen) return null;
+
   return (
-    <div className="p-6 max-h-96 overflow-y-auto">
-      <div className="mb-6">
-        <h3 className="text-lg font-semibold mb-2">Modifier le bloc: {block.title}</h3>
-        <p className="text-sm text-gray-600">Type: {block.blockType}</p>
+    <motion.div
+      initial={{ opacity: 0, height: 0 }}
+      animate={{ opacity: 1, height: 'auto' }}
+      exit={{ opacity: 0, height: 0 }}
+      className="border-t bg-gray-50 overflow-hidden"
+    >
+      <div className="p-6">
+        <div className="mb-4">
+          <h4 className="font-semibold text-lg mb-1">Modifier: {block.title}</h4>
+          <p className="text-sm text-gray-600">Type: {block.blockType} | Identifiant: {block.identifier}</p>
+        </div>
+        
+        {renderEditFields()}
+        
+        <div className="flex gap-3 mt-6 pt-4 border-t">
+          <Button onClick={handleSave} className="flex-1">
+            <Save className="w-4 h-4 mr-2" />
+            Sauvegarder
+          </Button>
+          <Button variant="outline" onClick={onCancel}>
+            <Undo className="w-4 h-4 mr-2" />
+            Annuler
+          </Button>
+        </div>
       </div>
-      
-      {renderFields()}
-      
-      <div className="flex gap-3 mt-6 pt-4 border-t">
-        <Button onClick={handleSave} className="flex-1">
-          <Save className="w-4 h-4 mr-2" />
-          Sauvegarder
-        </Button>
-        <Button variant="outline" onClick={onCancel}>
-          <Undo className="w-4 h-4 mr-2" />
-          Annuler
-        </Button>
-      </div>
-    </div>
+    </motion.div>
   );
 };
 
 export default function AdminPageEditor() {
   const [, setLocation] = useLocation();
   const [previewMode, setPreviewMode] = useState<'normal' | 'fullscreen'>('normal');
-  const [selectedBlockForEdit, setSelectedBlockForEdit] = useState<PageBlock | null>(null);
+  const [editingBlockId, setEditingBlockId] = useState<number | null>(null);
   const [previewBlock, setPreviewBlock] = useState<PageBlock | null>(null);
   const queryClient = useQueryClient();
   
@@ -643,11 +666,29 @@ export default function AdminPageEditor() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/page-blocks', pageSlug] });
-      toast({ title: "Success", description: "Bloc mis à jour avec succès" });
-      setSelectedBlockForEdit(null);
+      toast({ title: "Succès", description: "Bloc mis à jour avec succès" });
+      setEditingBlockId(null);
     },
     onError: () => {
       toast({ title: "Erreur", description: "Impossible de mettre à jour le bloc", variant: "destructive" });
+    },
+  });
+
+  // Delete block mutation
+  const deleteBlockMutation = useMutation({
+    mutationFn: async (blockId: number) => {
+      const response = await fetch(`/api/admin/page-blocks/${blockId}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) throw new Error('Failed to delete block');
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/page-blocks', pageSlug] });
+      toast({ title: "Succès", description: "Bloc supprimé avec succès" });
+    },
+    onError: () => {
+      toast({ title: "Erreur", description: "Impossible de supprimer le bloc", variant: "destructive" });
     },
   });
 
@@ -734,16 +775,16 @@ export default function AdminPageEditor() {
             <h2 className="text-xl font-semibold">Éditeur de blocs</h2>
           </div>
           <p className="text-gray-600">
-            Modifiez les blocs de contenu de votre page. Ajoutez, supprimez ou réorganisez les sections.
+            Chaque bloc reproduit exactement la section correspondante de votre site web.
           </p>
         </div>
 
         {/* Blocks List */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold">Blocs de contenu</h3>
+            <h3 className="text-lg font-semibold">Sections du site web</h3>
             <div className="text-sm text-gray-500">
-              {pageBlocks.length} bloc{pageBlocks.length > 1 ? 's' : ''} sur cette page
+              {pageBlocks.length} section{pageBlocks.length > 1 ? 's' : ''} sur cette page
             </div>
           </div>
 
@@ -759,14 +800,10 @@ export default function AdminPageEditor() {
           ) : pageBlocks.length === 0 ? (
             <div className="text-center py-12 bg-white rounded-xl shadow-sm">
               <Edit className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <div className="text-gray-500 mb-4">Aucun bloc sur cette page</div>
+              <div className="text-gray-500 mb-4">Aucune section sur cette page</div>
               <p className="text-gray-400 text-sm mb-6">
-                Commencez par ajouter votre premier bloc de contenu
+                Les sections de votre site web s'afficheront ici
               </p>
-              <Button className="bg-blue-600 hover:bg-blue-700">
-                <Settings className="w-4 h-4 mr-2" />
-                Ajouter le premier bloc
-              </Button>
             </div>
           ) : (
             <div className="space-y-4">
@@ -791,6 +828,7 @@ export default function AdminPageEditor() {
                                 onClick={() => moveBlock(block, 'up')}
                                 disabled={index === 0}
                                 className="h-6 w-6 p-0"
+                                title="Déplacer vers le haut"
                               >
                                 <ChevronUp className="w-3 h-3" />
                               </Button>
@@ -800,6 +838,7 @@ export default function AdminPageEditor() {
                                 onClick={() => moveBlock(block, 'down')}
                                 disabled={index === sortedBlocks.length - 1}
                                 className="h-6 w-6 p-0"
+                                title="Déplacer vers le bas"
                               >
                                 <ChevronDown className="w-3 h-3" />
                               </Button>
@@ -810,7 +849,7 @@ export default function AdminPageEditor() {
                                 {block.title || `Section ${block.blockOrder}`}
                               </CardTitle>
                               <CardDescription>
-                                Type: {block.blockType} • Ordre: {block.blockOrder}
+                                {block.identifier} • Ordre: {block.blockOrder}
                               </CardDescription>
                             </div>
                           </div>
@@ -823,7 +862,11 @@ export default function AdminPageEditor() {
                                 onCheckedChange={() => toggleBlockVisibility(block)}
                               />
                               <span className="text-sm text-gray-600">
-                                {block.isActive ? 'Visible' : 'Masqué'}
+                                {block.isActive ? (
+                                  <><Eye className="w-4 h-4 inline mr-1" />Visible</>
+                                ) : (
+                                  <><EyeOff className="w-4 h-4 inline mr-1" />Masqué</>
+                                )}
                               </span>
                             </div>
 
@@ -838,24 +881,64 @@ export default function AdminPageEditor() {
                               Aperçu
                             </Button>
 
-                            {/* Edit Button */}
+                            {/* Edit Dropdown Button */}
                             <Button
                               variant="outline"
                               size="sm"
-                              onClick={() => setSelectedBlockForEdit(block)}
-                              className="flex items-center gap-1"
+                              onClick={() => setEditingBlockId(editingBlockId === block.id ? null : block.id)}
+                              className={`flex items-center gap-1 ${editingBlockId === block.id ? 'bg-blue-100' : ''}`}
                             >
                               <Settings className="w-4 h-4" />
-                              Modifier
+                              {editingBlockId === block.id ? 'Fermer' : 'Modifier'}
                             </Button>
+
+                            {/* Delete Button with Confirmation */}
+                            <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                <Button variant="outline" size="sm" className="text-red-600 hover:text-red-700 hover:bg-red-50">
+                                  <Trash2 className="w-4 h-4" />
+                                </Button>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle className="flex items-center gap-2">
+                                    <AlertTriangle className="w-5 h-5 text-red-600" />
+                                    Supprimer cette section
+                                  </AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    Êtes-vous sûr de vouloir supprimer la section "{block.title}" ? 
+                                    Cette action est irréversible et la section disparaîtra définitivement de votre site web.
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Annuler</AlertDialogCancel>
+                                  <AlertDialogAction 
+                                    onClick={() => deleteBlockMutation.mutate(block.id)}
+                                    className="bg-red-600 hover:bg-red-700"
+                                  >
+                                    Supprimer définitivement
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
                           </div>
                         </div>
                       </CardHeader>
 
-                      <CardContent>
-                        <div className="border border-gray-200 rounded-lg overflow-hidden">
-                          <BlockPreview block={block} isFullscreen={false} />
+                      <CardContent className="pb-0">
+                        <div className="border border-gray-200 rounded-lg overflow-hidden mb-4">
+                          <RealBlockPreview block={block} isFullscreen={false} />
                         </div>
+                        
+                        {/* Edit Dropdown */}
+                        <AnimatePresence>
+                          <BlockEditDropdown
+                            block={block}
+                            isOpen={editingBlockId === block.id}
+                            onSave={(updatedBlock) => updateBlockMutation.mutate(updatedBlock)}
+                            onCancel={() => setEditingBlockId(null)}
+                          />
+                        </AnimatePresence>
                       </CardContent>
                     </Card>
                   </motion.div>
@@ -870,35 +953,16 @@ export default function AdminPageEditor() {
       <Dialog open={previewBlock !== null} onOpenChange={() => setPreviewBlock(null)}>
         <DialogContent className="max-w-7xl w-full h-[90vh] p-0">
           <DialogHeader className="p-6 pb-4">
-            <DialogTitle>Aperçu: {previewBlock?.title}</DialogTitle>
+            <DialogTitle>Aperçu plein écran: {previewBlock?.title}</DialogTitle>
             <DialogDescription>
-              Prévisualisation en plein écran de votre bloc
+              Reproduction exacte de la section telle qu'elle apparaît sur votre site web
             </DialogDescription>
           </DialogHeader>
           <div className="flex-1 overflow-y-auto">
             {previewBlock && (
-              <BlockPreview block={previewBlock} isFullscreen={true} />
+              <RealBlockPreview block={previewBlock} isFullscreen={true} />
             )}
           </div>
-        </DialogContent>
-      </Dialog>
-
-      {/* Edit Modal */}
-      <Dialog open={selectedBlockForEdit !== null} onOpenChange={() => setSelectedBlockForEdit(null)}>
-        <DialogContent className="max-w-2xl">
-          <DialogHeader>
-            <DialogTitle>Modifier le bloc</DialogTitle>
-            <DialogDescription>
-              Personnalisez le contenu et l'apparence de votre bloc
-            </DialogDescription>
-          </DialogHeader>
-          {selectedBlockForEdit && (
-            <BlockEditForm
-              block={selectedBlockForEdit}
-              onSave={(updatedBlock) => updateBlockMutation.mutate(updatedBlock)}
-              onCancel={() => setSelectedBlockForEdit(null)}
-            />
-          )}
         </DialogContent>
       </Dialog>
     </div>
