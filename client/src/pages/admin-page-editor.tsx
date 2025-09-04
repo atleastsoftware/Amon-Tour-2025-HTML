@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Edit, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Save, Undo, Trash2, AlertTriangle, Plus } from 'lucide-react';
+import { ArrowLeft, Edit, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Save, Undo, Trash2, AlertTriangle, Plus, ExternalLink, Palette } from 'lucide-react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Switch } from '@/components/ui/switch';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
@@ -1213,6 +1213,11 @@ export default function AdminPageEditor() {
     setLocation('/admin-appearance');
   };
 
+  const viewLivePage = () => {
+    // Open the live page in a new tab
+    window.open(`/${pageSlug}`, '_blank');
+  };
+
   if (!currentPageConfig) {
     return (
       <div className="min-h-screen bg-gray-50 p-4">
@@ -1239,19 +1244,24 @@ export default function AdminPageEditor() {
               <Button variant="ghost" onClick={goBack} className="p-2">
                 <ArrowLeft className="w-5 h-5" />
               </Button>
-              <div>
-                <h1 className="text-2xl font-bold">Éditeur de page: {currentPageConfig.pageName}</h1>
-                <p className="text-sm text-gray-600">Page principale • /{pageSlug}</p>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                  <Palette className="w-5 h-5 text-blue-600" />
+                </div>
+                <div>
+                  <h1 className="text-2xl font-bold text-gray-900">Éditeur de page</h1>
+                  <p className="text-sm text-gray-600">Chaque bloc reproduit exactement la section correspondante de votre site web.</p>
+                </div>
               </div>
             </div>
             <div className="flex items-center gap-3">
               <Button 
                 variant="outline" 
-                onClick={() => setPreviewMode(previewMode === 'normal' ? 'fullscreen' : 'normal')}
+                onClick={viewLivePage}
                 className="flex items-center gap-2"
               >
-                <Eye className="w-4 h-4" />
-                {previewMode === 'normal' ? 'Mode Plein Écran' : 'Mode Normal'}
+                <ExternalLink className="w-4 h-4" />
+                Voir la page
               </Button>
             </div>
           </div>
@@ -1263,10 +1273,10 @@ export default function AdminPageEditor() {
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-2">
             <Edit className="w-5 h-5" />
-            <h2 className="text-xl font-semibold">Éditeur de blocs</h2>
+            <h2 className="text-xl font-semibold">{currentPageConfig.pageName}</h2>
           </div>
           <p className="text-gray-600">
-            Chaque bloc reproduit exactement la section correspondante de votre site web.
+            Page principale
           </p>
         </div>
 
@@ -1339,38 +1349,25 @@ export default function AdminPageEditor() {
                               <CardTitle className="text-lg">
                                 {getBlockDisplayName(block.blockType)}
                               </CardTitle>
-                              <CardDescription>
-                                Ordre : {block.blockOrder}
-                              </CardDescription>
                             </div>
                           </div>
 
                           <div className="flex items-center gap-2">
-                            {/* Visibility Toggle */}
+                            {/* Visibility Toggle with Status */}
                             <div className="flex items-center gap-2">
-                              <Switch 
-                                checked={block.isActive}
-                                onCheckedChange={() => toggleBlockVisibility(block)}
-                              />
-                              <span className="text-sm text-gray-600">
+                              <Button
+                                variant={block.isActive ? "default" : "outline"}
+                                size="sm"
+                                onClick={() => toggleBlockVisibility(block)}
+                                className={`flex items-center gap-2 ${block.isActive ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'text-gray-600'}`}
+                              >
                                 {block.isActive ? (
-                                  <><Eye className="w-4 h-4 inline mr-1" />Visible</>
+                                  <><Eye className="w-4 h-4" />Visible</>
                                 ) : (
-                                  <><EyeOff className="w-4 h-4 inline mr-1" />Masqué</>
+                                  <><EyeOff className="w-4 h-4" />Masqué</>
                                 )}
-                              </span>
+                              </Button>
                             </div>
-
-                            {/* Preview Button */}
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() => setPreviewBlock(block)}
-                              className="flex items-center gap-1"
-                            >
-                              <Eye className="w-4 h-4" />
-                              Aperçu
-                            </Button>
 
                             {/* Edit Dropdown Button */}
                             <Button
