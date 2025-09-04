@@ -154,6 +154,13 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                     loop
                     playsInline
                     className="w-full h-full object-cover"
+                    onLoadedData={(e) => {
+                      // Force la lecture pour la prévisualisation
+                      const video = e.target as HTMLVideoElement;
+                      video.play().catch(() => {
+                        // Ignorer les erreurs d'autoplay
+                      });
+                    }}
                   >
                     <source src={videoUrl} type="video/mp4" />
                   </video>
