@@ -523,7 +523,7 @@ const BlockEditDropdown = ({
                             );
                             updateField('buttons', newButtons);
                           }}
-                          className="w-8 h-8 rounded border"
+                          className="w-10 h-10 rounded border"
                         />
                         <Input 
                           value={button.color || '#1e73be'}
@@ -535,7 +535,7 @@ const BlockEditDropdown = ({
                             updateField('buttons', newButtons);
                           }}
                           placeholder="#1e73be"
-                          className="flex-1 text-xs"
+                          className="flex-1 text-xs h-10"
                         />
                       </div>
                     </div>
@@ -552,7 +552,7 @@ const BlockEditDropdown = ({
                           updateField('buttons', newButtons);
                         }}
                       >
-                        <SelectTrigger className="h-8">
+                        <SelectTrigger className="h-10">
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
