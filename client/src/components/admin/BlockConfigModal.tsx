@@ -355,14 +355,106 @@ function renderBlockSpecificContent(
   switch (blockType) {
     case 'video_hero':
       return (
-        <div>
-          <Label htmlFor="videoUrl">Video URL</Label>
-          <Input
-            id="videoUrl"
-            value={config.videoUrl || ''}
-            onChange={(e) => handleConfigChange('videoUrl', e.target.value)}
-            placeholder="/path/to/video.mp4"
-          />
+        <div className="space-y-4">
+          <div>
+            <Label htmlFor="videoUrl">Video URL</Label>
+            <Input
+              id="videoUrl"
+              value={config.videoUrl || ''}
+              onChange={(e) => handleConfigChange('videoUrl', e.target.value)}
+              placeholder="/path/to/video.mp4"
+            />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="titleMainColor">Titre principal</Label>
+              <Textarea
+                id="titleMainColor"
+                value={config.titleMainColor || ''}
+                onChange={(e) => handleConfigChange('titleMainColor', e.target.value)}
+                placeholder="Titre principal du héros"
+                rows={2}
+              />
+            </div>
+            <div>
+              <Label htmlFor="titlePrimaryColor">Couleur principale du titre</Label>
+              <Select 
+                value={config.titlePrimaryColor || 'primary'} 
+                onValueChange={(value) => handleConfigChange('titlePrimaryColor', value)}
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="primary">Bleu principal</SelectItem>
+                  <SelectItem value="secondary">Or secondaire</SelectItem>
+                  <SelectItem value="white">Blanc</SelectItem>
+                  <SelectItem value="gray">Gris</SelectItem>
+                  <SelectItem value="dark">Sombre</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="titleColorPart">Mot du titre en seconde couleur</Label>
+              <Input
+                id="titleColorPart"
+                value={config.titleColorPart || ''}
+                onChange={(e) => handleConfigChange('titleColorPart', e.target.value)}
+                placeholder="Mot à colorier différemment"
+              />
+            </div>
+            <div>
+              <Label htmlFor="titleAccentColor">Couleur accent</Label>
+              <Select 
+                value={config.titleAccentColor || 'secondary'} 
+                onValueChange={(value) => handleConfigChange('titleAccentColor', value)}
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="secondary">Or accent</SelectItem>
+                  <SelectItem value="primary">Bleu principal</SelectItem>
+                  <SelectItem value="white">Blanc</SelectItem>
+                  <SelectItem value="gray">Gris</SelectItem>
+                  <SelectItem value="dark">Sombre</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          <div>
+            <Label htmlFor="subtitleColor">Couleur du sous-titre</Label>
+            <Select 
+              value={config.subtitleColor || 'white'} 
+              onValueChange={(value) => handleConfigChange('subtitleColor', value)}
+            >
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="white">Blanc</SelectItem>
+                <SelectItem value="gray">Gris clair</SelectItem>
+                <SelectItem value="primary">Bleu principal</SelectItem>
+                <SelectItem value="secondary">Or secondaire</SelectItem>
+                <SelectItem value="dark">Sombre</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div>
+            <Label htmlFor="heroCountry">Pays/Région</Label>
+            <Input
+              id="heroCountry"
+              value={config.heroCountry || ''}
+              onChange={(e) => handleConfigChange('heroCountry', e.target.value)}
+              placeholder="ex: in Krabi"
+            />
+          </div>
         </div>
       );
 
