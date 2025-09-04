@@ -20,6 +20,26 @@ interface ColorPickerProps {
 function ColorPicker({ value, onChange, label }: ColorPickerProps) {
   const currentColorValue = value || '#ffffff';
 
+  // Fonction pour convertir RGB en HEX si nécessaire
+  const ensureHexFormat = (color: string): string => {
+    if (color.startsWith('#')) return color.toLowerCase();
+    
+    // Si c'est en format RGB, convertir en HEX
+    const rgbMatch = color.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
+    if (rgbMatch) {
+      const [, r, g, b] = rgbMatch;
+      const toHex = (n: string) => parseInt(n).toString(16).padStart(2, '0');
+      return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+    }
+    
+    return color;
+  };
+
+  const handleColorChange = (newColor: string) => {
+    const hexColor = ensureHexFormat(newColor);
+    onChange(hexColor);
+  };
+
   const handleOptionSelect = (option: string) => {
     switch (option) {
       case 'primary':
@@ -40,6 +60,8 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
     return 'custom';
   };
 
+  const displayValue = ensureHexFormat(currentColorValue).toUpperCase();
+
   return (
     <div className="space-y-2">
       {label && <Label className="text-sm font-medium">{label}</Label>}
@@ -55,7 +77,7 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
             <input
               type="color"
               value={currentColorValue}
-              onChange={(e) => onChange(e.target.value)}
+              onChange={(e) => handleColorChange(e.target.value)}
               className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
             />
           </div>
@@ -67,7 +89,7 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
             <SelectValue>
               {getCurrentOption() === 'primary' && 'Couleur principale'}
               {getCurrentOption() === 'secondary' && 'Couleur secondaire'}  
-              {getCurrentOption() === 'custom' && `Référence: ${currentColorValue}`}
+              {getCurrentOption() === 'custom' && `Référence: ${displayValue}`}
             </SelectValue>
           </SelectTrigger>
           <SelectContent>
