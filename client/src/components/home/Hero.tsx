@@ -130,35 +130,15 @@ export default function Hero() {
     
     console.log('Connection quality:', quality, 'Mobile:', mobile);
     
-    // Ne charger la vidéo que si :
-    // - La vidéo n'est pas désactivée en production
-    // - ET la connexion est bonne (en développement, on force le chargement)
-    // - En production, on respecte la détection mobile
-    const shouldLoad = !(IS_PRODUCTION && DISABLE_VIDEO_IN_PRODUCTION) && 
-                      quality === 'good' && 
-                      (!IS_PRODUCTION || !mobile); // En dev, ignorer la détection mobile
+    // En développement, toujours charger la vidéo
+    // En production, respecter les contraintes de connexion
+    const shouldLoad = !IS_PRODUCTION || (!(IS_PRODUCTION && DISABLE_VIDEO_IN_PRODUCTION) && quality === 'good');
     
     if (shouldLoad) {
-      // Delay video loading to improve initial page load
-      const timer = setTimeout(() => {
-        setShouldLoadVideo(true);
-        
-        // Timeout de sécurité : si la vidéo ne se charge pas en 10 secondes, abandon
-        loadTimeoutRef.current = setTimeout(() => {
-          console.log('Video loading timeout - falling back to image');
-          setVideoError(true);
-          setShouldLoadVideo(false);
-        }, 10000);
-      }, 2000); // Augmenté à 2 secondes pour laisser le temps à la page de se charger
-
-      return () => {
-        clearTimeout(timer);
-        if (loadTimeoutRef.current) {
-          clearTimeout(loadTimeoutRef.current);
-        }
-      };
+      // Chargement direct de la vidéo
+      setShouldLoadVideo(true);
     } else {
-      console.log('Video loading skipped due to connection/device constraints');
+      console.log('Video loading skipped due to connection constraints');
     }
   }, []);
   return (
@@ -188,52 +168,13 @@ export default function Hero() {
               minWidth: '100%', 
               minHeight: '100%'
             }}
-            onLoadStart={() => {
-              console.log('Video loading started:', backgroundVideo);
-            }}
-            onCanPlay={(e) => {
-              console.log('Video can play - showing video');
-              setVideoLoaded(true);
-              // Nettoyer le timeout de sécurité
-              if (loadTimeoutRef.current) {
-                clearTimeout(loadTimeoutRef.current);
-              }
-            }}
             onLoadedData={() => {
               console.log('Video loaded successfully');
               setVideoLoaded(true);
-              // Nettoyer le timeout de sécurité
-              if (loadTimeoutRef.current) {
-                clearTimeout(loadTimeoutRef.current);
-              }
             }}
             onError={(e) => {
-              console.error('Video failed to load:', currentVideoSrc, e);
-              
-              // Si on n'a pas encore essayé la vidéo de fallback et qu'on était sur la vidéo optimisée
-              if (!attemptedFallback && currentVideoSrc === backgroundVideo) {
-                console.log('Tentative avec la vidéo originale en fallback...');
-                setAttemptedFallback(true);
-                setCurrentVideoSrc(fallbackVideo);
-                setVideoLoaded(false);
-                setVideoError(false);
-                return;
-              }
-              
-              // Si même la vidéo de fallback échoue, utiliser l'image
-              console.error('Toutes les vidéos ont échoué - utilisation de l\'image de fallback');
+              console.error('Video failed to load:', currentVideoSrc);
               setVideoError(true);
-              setVideoLoaded(false);
-              // Nettoyer le timeout de sécurité
-              if (loadTimeoutRef.current) {
-                clearTimeout(loadTimeoutRef.current);
-              }
-            }}
-            onStalled={() => {
-              console.warn('Video stalled - may switch to fallback');
-            }}
-            onSuspend={() => {
-              console.warn('Video suspended - may switch to fallback');
             }}
           >
             <source src={currentVideoSrc} type="video/mp4" />

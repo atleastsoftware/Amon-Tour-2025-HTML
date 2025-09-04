@@ -153,10 +153,12 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                     muted
                     loop
                     playsInline
+                    preload="metadata"
                     className="w-full h-full object-cover"
                     style={{ objectFit: 'cover' }}
                   >
                     <source src={videoUrl} type="video/mp4" />
+                    Your browser does not support the video tag.
                   </video>
                   <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
                 </div>
