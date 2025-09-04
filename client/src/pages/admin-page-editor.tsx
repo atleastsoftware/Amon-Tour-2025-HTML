@@ -61,7 +61,114 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
   const getActualComponent = () => {
     switch (block.identifier) {
       case 'hero_main':
-        return <Hero />;
+        const heroConfig = liveConfiguration || block.configuration || {};
+        
+        // Helper function to render title with colored accent
+        const renderTitle = () => {
+          const fullTitle = heroConfig.title || "Your exclusive experiences in Krabi – THAILAND";
+          const accentText = heroConfig.titleAccentText || "in Krabi –";
+          const titleColor = heroConfig.titleColor || '#ffffff';
+          const accentColor = heroConfig.titleAccentColor || '#1e73be';
+          
+          if (fullTitle.includes(accentText)) {
+            const parts = fullTitle.split(accentText);
+            return (
+              <>
+                <span style={{ color: titleColor }}>{parts[0]}</span>
+                <span style={{ color: accentColor }}>{accentText}</span>
+                <span style={{ color: titleColor }}>{parts[1]}</span>
+              </>
+            );
+          }
+          return <span style={{ color: titleColor }}>{fullTitle}</span>;
+        };
+        
+        // Background rendering based on type
+        const renderBackground = () => {
+          const bgType = heroConfig.backgroundType || 'video';
+          
+          switch (bgType) {
+            case 'color':
+              return (
+                <div 
+                  className="absolute inset-0 w-full h-full z-0"
+                  style={{ backgroundColor: heroConfig.backgroundColor || '#1e73be' }}
+                />
+              );
+            
+            case 'images':
+              const images = [
+                heroConfig.backgroundImage1,
+                heroConfig.backgroundImage2,
+                heroConfig.backgroundImage3
+              ].filter(Boolean);
+              
+              return (
+                <div className="absolute inset-0 w-full h-full z-0">
+                  {images.length > 0 ? (
+                    <img
+                      src={images[0]} // For preview, show first image
+                      alt="Hero background"
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gray-300 flex items-center justify-center">
+                      <span className="text-gray-600">Aucune image sélectionnée</span>
+                    </div>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
+                </div>
+              );
+            
+            case 'video':
+            default:
+              const videoUrl = heroConfig.videoUrl || '/attached_assets/hero-video-optimized.mp4';
+              return (
+                <div className="absolute inset-0 w-full h-full z-0">
+                  <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="w-full h-full object-cover"
+                  >
+                    <source src={videoUrl} type="video/mp4" />
+                  </video>
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
+                </div>
+              );
+          }
+        };
+        
+        return (
+          <section className="relative pt-32 pb-20 min-h-screen flex items-center overflow-hidden" style={{ minHeight: 'auto' }}>
+            {renderBackground()}
+            <div className="container mx-auto px-4 relative z-10">
+              <div className="max-w-xl">
+                <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight drop-shadow-lg">
+                  {renderTitle()}
+                </h1>
+                <p 
+                  className="mb-8 text-lg drop-shadow-md opacity-90"
+                  style={{ 
+                    color: heroConfig.subtitleColor || '#ffffff',
+                    whiteSpace: 'pre-line'
+                  }}
+                >
+                  {heroConfig.subtitle || "Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations."}
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <span className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg">
+                    {heroConfig.ctaText1 || "See our offers"}
+                  </span>
+                  <span className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg">
+                    {heroConfig.ctaText2 || "Custom your trip"}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </section>
+        );
       
       case 'expats_welcome':
         // Section d'accueil basée sur le style du vrai site
@@ -233,25 +340,100 @@ const BlockEditDropdown = ({
     switch (block.identifier) {
       case 'hero_main':
         return (
-          <div className="space-y-4">
-            <div>
+          <div className="space-y-6">
+            {/* Titre principal avec couleurs */}
+            <div className="space-y-3">
               <Label htmlFor="title">Titre principal</Label>
               <Input 
                 id="title"
-                value={formData.title || block.configuration?.title || ''} 
+                value={formData.title || block.configuration?.title || 'Your exclusive experiences in Krabi – THAILAND'} 
                 onChange={e => updateField('title', e.target.value)}
-                placeholder="Your exclusive experiences in Krabi..."
+                placeholder="Your exclusive experiences in Krabi – THAILAND"
               />
+              
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <Label htmlFor="titleColor">Couleur principale du titre</Label>
+                  <div className="flex gap-2">
+                    <input 
+                      type="color" 
+                      id="titleColor"
+                      value={formData.titleColor || '#ffffff'}
+                      onChange={e => updateField('titleColor', e.target.value)}
+                      className="w-10 h-10 rounded border"
+                    />
+                    <Input 
+                      value={formData.titleColor || '#ffffff'}
+                      onChange={e => updateField('titleColor', e.target.value)}
+                      placeholder="#ffffff"
+                      className="flex-1"
+                    />
+                  </div>
+                </div>
+                
+                <div>
+                  <Label htmlFor="titleAccentColor">Couleur accent ("in Krabi")</Label>
+                  <div className="flex gap-2">
+                    <input 
+                      type="color" 
+                      id="titleAccentColor"
+                      value={formData.titleAccentColor || '#1e73be'}
+                      onChange={e => updateField('titleAccentColor', e.target.value)}
+                      className="w-10 h-10 rounded border"
+                    />
+                    <Input 
+                      value={formData.titleAccentColor || '#1e73be'}
+                      onChange={e => updateField('titleAccentColor', e.target.value)}
+                      placeholder="#1e73be"
+                      className="flex-1"
+                    />
+                  </div>
+                </div>
+              </div>
+              
+              <div>
+                <Label htmlFor="titleAccentText">Texte à colorier (mots exacts)</Label>
+                <Input 
+                  id="titleAccentText"
+                  value={formData.titleAccentText || 'in Krabi –'} 
+                  onChange={e => updateField('titleAccentText', e.target.value)}
+                  placeholder="in Krabi –"
+                />
+              </div>
             </div>
-            <div>
+
+            {/* Sous-titre avec couleur */}
+            <div className="space-y-3">
               <Label htmlFor="subtitle">Sous-titre</Label>
-              <Input 
+              <Textarea 
                 id="subtitle"
-                value={formData.subtitle || ''} 
+                value={formData.subtitle || block.configuration?.subtitle || 'Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations.'} 
                 onChange={e => updateField('subtitle', e.target.value)}
-                placeholder="Discover amazing places..."
+                placeholder="Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations."
+                rows={3}
               />
+              
+              <div>
+                <Label htmlFor="subtitleColor">Couleur du sous-titre</Label>
+                <div className="flex gap-2">
+                  <input 
+                    type="color" 
+                    id="subtitleColor"
+                    value={formData.subtitleColor || '#ffffff'}
+                    onChange={e => updateField('subtitleColor', e.target.value)}
+                    className="w-10 h-10 rounded border"
+                  />
+                  <Input 
+                    value={formData.subtitleColor || '#ffffff'}
+                    onChange={e => updateField('subtitleColor', e.target.value)}
+                    placeholder="#ffffff"
+                    className="flex-1"
+                  />
+                </div>
+              </div>
             </div>
+
+            {/* Boutons */}
             <div className="grid grid-cols-2 gap-2">
               <div>
                 <Label htmlFor="ctaText1">Bouton 1 - Texte</Label>
@@ -287,6 +469,75 @@ const BlockEditDropdown = ({
                   onChange={e => updateField('ctaUrl2', e.target.value)}
                 />
               </div>
+            </div>
+
+            {/* Options de background */}
+            <div className="space-y-4">
+              <Label>Arrière-plan</Label>
+              <Select value={formData.backgroundType || 'video'} onValueChange={value => updateField('backgroundType', value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Type d'arrière-plan" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="video">Vidéo</SelectItem>
+                  <SelectItem value="images">Images en rotation</SelectItem>
+                  <SelectItem value="color">Couleur unie</SelectItem>
+                </SelectContent>
+              </Select>
+              
+              {formData.backgroundType === 'color' && (
+                <div>
+                  <Label htmlFor="backgroundColor">Couleur de fond</Label>
+                  <div className="flex gap-2">
+                    <input 
+                      type="color" 
+                      id="backgroundColor"
+                      value={formData.backgroundColor || '#1e73be'}
+                      onChange={e => updateField('backgroundColor', e.target.value)}
+                      className="w-10 h-10 rounded border"
+                    />
+                    <Input 
+                      value={formData.backgroundColor || '#1e73be'}
+                      onChange={e => updateField('backgroundColor', e.target.value)}
+                      placeholder="#1e73be"
+                      className="flex-1"
+                    />
+                  </div>
+                </div>
+              )}
+              
+              {formData.backgroundType === 'video' && (
+                <div>
+                  <Label htmlFor="videoUrl">URL de la vidéo</Label>
+                  <Input 
+                    id="videoUrl"
+                    value={formData.videoUrl || '/attached_assets/hero-video-optimized.mp4'} 
+                    onChange={e => updateField('videoUrl', e.target.value)}
+                    placeholder="/attached_assets/hero-video-optimized.mp4"
+                  />
+                </div>
+              )}
+              
+              {formData.backgroundType === 'images' && (
+                <div className="space-y-2">
+                  <Label>URLs des images (3 maximum)</Label>
+                  <Input 
+                    value={formData.backgroundImage1 || ''} 
+                    onChange={e => updateField('backgroundImage1', e.target.value)}
+                    placeholder="URL de l'image 1"
+                  />
+                  <Input 
+                    value={formData.backgroundImage2 || ''} 
+                    onChange={e => updateField('backgroundImage2', e.target.value)}
+                    placeholder="URL de l'image 2"
+                  />
+                  <Input 
+                    value={formData.backgroundImage3 || ''} 
+                    onChange={e => updateField('backgroundImage3', e.target.value)}
+                    placeholder="URL de l'image 3"
+                  />
+                </div>
+              )}
             </div>
           </div>
         );
