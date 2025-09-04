@@ -354,48 +354,8 @@ const BlockEditDropdown = ({
           <div className="space-y-6">
             {/* Titre principal avec couleurs */}
             <div className="space-y-3">
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <Label htmlFor="titleColor">Couleur principale du titre</Label>
-                  <div className="flex gap-2">
-                    <input 
-                      type="color" 
-                      id="titleColor"
-                      value={formData.titleColor || '#ffffff'}
-                      onChange={e => updateField('titleColor', e.target.value)}
-                      className="w-10 h-10 rounded border"
-                    />
-                    <Input 
-                      value={formData.titleColor || '#ffffff'}
-                      onChange={e => updateField('titleColor', e.target.value)}
-                      placeholder="#ffffff"
-                      className="flex-1"
-                    />
-                  </div>
-                </div>
-                
-                <div>
-                  <Label htmlFor="titleAccentColor">Couleur accent ("in Krabi")</Label>
-                  <div className="flex gap-2">
-                    <input 
-                      type="color" 
-                      id="titleAccentColor"
-                      value={formData.titleAccentColor || '#1e73be'}
-                      onChange={e => updateField('titleAccentColor', e.target.value)}
-                      className="w-10 h-10 rounded border"
-                    />
-                    <Input 
-                      value={formData.titleAccentColor || '#1e73be'}
-                      onChange={e => updateField('titleAccentColor', e.target.value)}
-                      placeholder="#1e73be"
-                      className="flex-1"
-                    />
-                  </div>
-                </div>
-              </div>
-              
               <div>
-                <Label htmlFor="title">Titre principal (utilisez \n pour les sauts de ligne)</Label>
+                <Label htmlFor="title">Titre principal</Label>
                 <Textarea 
                   id="title"
                   value={formData.title || block.configuration?.title || 'Your exclusive experiences\nin Krabi –\nTHAILAND'} 
@@ -403,13 +363,28 @@ const BlockEditDropdown = ({
                   placeholder="Your exclusive experiences\nin Krabi –\nTHAILAND"
                   rows={3}
                 />
-                <p className="text-xs text-gray-500 mt-1">
-                  Utilisez \n pour créer des sauts de ligne (ex: "Ligne 1\nLigne 2")
-                </p>
               </div>
               
               <div>
-                <Label htmlFor="titleAccentText">Texte à colorier (mots exacts)</Label>
+                <div className="flex gap-2">
+                  <input 
+                    type="color" 
+                    id="titleColor"
+                    value={formData.titleColor || '#ffffff'}
+                    onChange={e => updateField('titleColor', e.target.value)}
+                    className="w-10 h-10 rounded border"
+                  />
+                  <Input 
+                    value={formData.titleColor || '#ffffff'}
+                    onChange={e => updateField('titleColor', e.target.value)}
+                    placeholder="#ffffff"
+                    className="flex-1"
+                  />
+                </div>
+              </div>
+              
+              <div>
+                <Label htmlFor="titleAccentText">Mot du titre en seconde couleur</Label>
                 <Input 
                   id="titleAccentText"
                   value={formData.titleAccentText || 'in Krabi –'} 
@@ -419,6 +394,24 @@ const BlockEditDropdown = ({
                 <p className="text-xs text-gray-500 mt-1">
                   Tapez exactement les mots du titre que vous voulez colorer
                 </p>
+              </div>
+              
+              <div>
+                <div className="flex gap-2">
+                  <input 
+                    type="color" 
+                    id="titleAccentColor"
+                    value={formData.titleAccentColor || '#1e73be'}
+                    onChange={e => updateField('titleAccentColor', e.target.value)}
+                    className="w-10 h-10 rounded border"
+                  />
+                  <Input 
+                    value={formData.titleAccentColor || '#1e73be'}
+                    onChange={e => updateField('titleAccentColor', e.target.value)}
+                    placeholder="#1e73be"
+                    className="flex-1"
+                  />
+                </div>
               </div>
             </div>
 
@@ -434,7 +427,6 @@ const BlockEditDropdown = ({
               />
               
               <div>
-                <Label htmlFor="subtitleColor">Couleur du sous-titre</Label>
                 <div className="flex gap-2">
                   <input 
                     type="color" 
