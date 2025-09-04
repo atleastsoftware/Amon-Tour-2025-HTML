@@ -23,6 +23,29 @@ import CustomTourForm from '@/components/home/CustomTourForm';
 import Testimonials from '@/components/home/Testimonials';
 import TourNinjaSection from '@/components/tour/TourNinjaSection';
 
+// Helper function to get readable block type names
+const getBlockDisplayName = (blockType: string): string => {
+  const blockNames: { [key: string]: string } = {
+    'video_hero': 'Hero Section',
+    'hero': 'Hero Section', 
+    'text_image': 'Text & Image',
+    'form': 'Form',
+    'advantages': 'Advantages',
+    'testimonials': 'Testimonials',
+    'tour_ninja_section': 'Tour Section',
+    'features': 'Features',
+    'about': 'About',
+    'custom_tour_form': 'Custom Tour Form',
+    'popular_experiences': 'Popular Experiences',
+    'expats_welcome': 'Expats Welcome',
+    'who_we_are': 'Who We Are',
+    'why_choose_us': 'Why Choose Us',
+    'travelers_reviews': 'Travelers Reviews'
+  };
+  
+  return blockNames[blockType] || blockType.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+};
+
 interface PageBlock {
   id: number;
   pageId: number;
@@ -570,16 +593,18 @@ const BlockEditDropdown = ({
             {/* Arrière-plan */}
             <div>
               <Label>Arrière-plan</Label>
-              <Select value={formData.backgroundType || 'video'} onValueChange={value => updateField('backgroundType', value)} className="mt-2">
-                <SelectTrigger>
-                  <SelectValue placeholder="Type d'arrière-plan" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="video">Vidéo</SelectItem>
-                  <SelectItem value="images">Images en rotation</SelectItem>
-                  <SelectItem value="color">Couleur unie</SelectItem>
-                </SelectContent>
-              </Select>
+              <div className="mt-3">
+                <Select value={formData.backgroundType || 'video'} onValueChange={value => updateField('backgroundType', value)}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Type d'arrière-plan" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="video">Vidéo</SelectItem>
+                    <SelectItem value="images">Images en rotation</SelectItem>
+                    <SelectItem value="color">Couleur unie</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
               
               {formData.backgroundType === 'color' && (
                 <div>
@@ -1039,8 +1064,8 @@ const BlockEditDropdown = ({
     >
       <div className="p-6">
         <div className="mb-4">
-          <h4 className="font-semibold text-lg mb-1">Modifier: {block.title}</h4>
-          <p className="text-sm text-gray-600">Type: {block.blockType} | Identifiant: {block.identifier}</p>
+          <h4 className="font-semibold text-lg mb-1">Modifier: {getBlockDisplayName(block.blockType)}</h4>
+          <p className="text-sm text-gray-600">Ordre : {block.blockOrder}</p>
         </div>
         
         {renderEditFields()}
@@ -1281,10 +1306,10 @@ export default function AdminPageEditor() {
                             
                             <div>
                               <CardTitle className="text-lg">
-                                {block.title || `Section ${block.blockOrder}`}
+                                {getBlockDisplayName(block.blockType)}
                               </CardTitle>
                               <CardDescription>
-                                {block.identifier} • Ordre: {block.blockOrder}
+                                Ordre : {block.blockOrder}
                               </CardDescription>
                             </div>
                           </div>
