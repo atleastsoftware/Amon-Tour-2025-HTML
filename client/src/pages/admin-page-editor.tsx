@@ -59,156 +59,271 @@ interface PageConfiguration {
 // Real Component Previews - Exact copies of actual website sections
 const RealBlockPreview = ({ block, isFullscreen }: { block: PageBlock; isFullscreen: boolean }) => {
   const getExactPreview = () => {
-    switch (block.identifier) {
-      case 'hero_main':
-        return (
-          <div className={isFullscreen ? 'w-full' : 'w-full transform scale-[0.3] origin-top-left'} style={isFullscreen ? {} : { height: '200px', overflow: 'hidden' }}>
-            <Hero />
-          </div>
-        );
-
-      case 'expats_welcome':
-        const ExactsWelcomeSection = () => (
-          <section className="py-20">
-            <div className="container mx-auto px-4 max-w-4xl text-center">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-              >
-                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
-                  {block.configuration?.title || "When expats welcome you in their host country"}
-                </h2>
-                <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
-                <p className="text-lg text-gray-700 leading-relaxed">
-                  {block.configuration?.content || "This is a family-run travel agency that combines the organization of exclusive activities with the creation of tailor-made trips throughout the country. Our goal is to offer an immersive experience, far from mass tourism, with personalized service for every traveler — as if we were welcoming our own family or friends."}
-                </p>
-              </motion.div>
-            </div>
-          </section>
-        );
-        return (
-          <div className={isFullscreen ? 'w-full' : 'w-full transform scale-[0.3] origin-top-left'} style={isFullscreen ? {} : { height: '150px', overflow: 'hidden' }}>
-            <ExactsWelcomeSection />
-          </div>
-        );
-
-      case 'popular_experiences':
-        const ExactPopularSection = () => (
-          <section id="tours" className="py-16 bg-white">
-            <div className="container mx-auto px-4 text-center mb-8">
-              <motion.div
-                initial={{ y: -20, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-              >
-                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
-                  {block.configuration?.title || "Our Popular Experiences"}
-                </h2>
-                <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
-                <p className="text-gray-600 max-w-2xl mx-auto">
-                  {block.configuration?.subtitle || "Step off the beaten path into carefully curated experiences beyond the tourist trail."}
-                </p>
-              </motion.div>
-            </div>
-            
-            <div className="container mx-auto px-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                {Array.from({ length: isFullscreen ? 6 : 3 }).map((_, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: i * 0.1 }}
-                    className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
-                  >
-                    <div className="relative h-48 bg-gradient-to-br from-blue-200 to-blue-300">
-                      <div className="w-full h-full flex items-center justify-center">
-                        <div className="h-16 w-16 text-blue-400">🏝️</div>
-                      </div>
-                      <div className="absolute top-4 right-4">
-                        <span className="bg-white/90 text-gray-800 px-2 py-1 rounded-full text-xs">
-                          1 jour
-                        </span>
-                      </div>
-                    </div>
-                    
-                    <div className="p-6">
-                      <h3 className="text-lg font-bold text-gray-800 mb-3 line-clamp-2">
-                        Tour Example {i + 1}
-                      </h3>
-                      <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-                        Découvrez les plus beaux endroits de Krabi...
-                      </p>
-                      <div className="flex gap-2">
-                        <button className="flex-1 border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 px-3 rounded-lg font-semibold transition-colors">
-                          Details
-                        </button>
-                        <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg font-semibold transition-colors">
-                          Book
-                        </button>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
+    if (isFullscreen) {
+      // Mode plein écran : affichage à taille réelle
+      switch (block.identifier) {
+        case 'hero_main':
+          return <Hero />;
+        case 'expats_welcome':
+          return (
+            <section className="py-20">
+              <div className="container mx-auto px-4 max-w-4xl text-center">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
+                    {block.configuration?.title || "When expats welcome you in their host country"}
+                  </h2>
+                  <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
+                  <p className="text-lg text-gray-700 leading-relaxed">
+                    {block.configuration?.content || "This is a family-run travel agency that combines the organization of exclusive activities with the creation of tailor-made trips throughout the country. Our goal is to offer an immersive experience, far from mass tourism, with personalized service for every traveler — as if we were welcoming our own family or friends."}
+                  </p>
+                </motion.div>
+              </div>
+            </section>
+          );
+        case 'popular_experiences':
+          return <Features />;
+        case 'custom_tour_form':
+          return <CustomTourForm />;
+        case 'tour_ninja_section':
+          return <TourNinjaSection />;
+        case 'why_choose_us':
+          return <Features />;
+        case 'who_we_are':
+          return <About />;
+        case 'travelers_reviews':
+          return <Testimonials />;
+        default:
+          return (
+            <div className="h-40 bg-gray-100 flex items-center justify-center rounded-lg">
+              <div className="text-gray-500 text-center">
+                <div className="font-medium">{block.title}</div>
+                <div className="text-sm">Type: {block.blockType}</div>
               </div>
             </div>
-          </section>
-        );
-        return (
-          <div className={isFullscreen ? 'w-full' : 'w-full transform scale-[0.25] origin-top-left'} style={isFullscreen ? {} : { height: '200px', overflow: 'hidden' }}>
-            <ExactPopularSection />
-          </div>
-        );
-
-      case 'custom_tour_form':
-        return (
-          <div className={isFullscreen ? 'w-full' : 'w-full transform scale-[0.3] origin-top-left'} style={isFullscreen ? {} : { height: '200px', overflow: 'hidden' }}>
-            <CustomTourForm />
-          </div>
-        );
-
-      case 'tour_ninja_section':
-        return (
-          <div className={isFullscreen ? 'w-full' : 'w-full transform scale-[0.25] origin-top-left'} style={isFullscreen ? {} : { height: '200px', overflow: 'hidden' }}>
-            <TourNinjaSection />
-          </div>
-        );
-
-      case 'why_choose_us':
-        return (
-          <div className={isFullscreen ? 'w-full' : 'w-full transform scale-[0.3] origin-top-left'} style={isFullscreen ? {} : { height: '200px', overflow: 'hidden' }}>
-            <Features />
-          </div>
-        );
-
-      case 'who_we_are':
-        return (
-          <div className={isFullscreen ? 'w-full' : 'w-full transform scale-[0.3] origin-top-left'} style={isFullscreen ? {} : { height: '200px', overflow: 'hidden' }}>
-            <About />
-          </div>
-        );
-
-      case 'travelers_reviews':
-        return (
-          <div className={isFullscreen ? 'w-full' : 'w-full transform scale-[0.3] origin-top-left'} style={isFullscreen ? {} : { height: '200px', overflow: 'hidden' }}>
-            <Testimonials />
-          </div>
-        );
-
-      default:
-        return (
-          <div className={`${isFullscreen ? 'h-40' : 'h-24'} bg-gray-100 flex items-center justify-center rounded-lg`}>
-            <div className="text-gray-500 text-center">
-              <div className="font-medium">{block.title}</div>
-              <div className="text-sm">Type: {block.blockType}</div>
-            </div>
-          </div>
-        );
+          );
+      }
     }
+
+    // Mode normal : aperçu adaptatif sans hauteur fixe
+    const previewContent = (() => {
+      switch (block.identifier) {
+        case 'hero_main':
+          return <Hero />;
+        
+        case 'expats_welcome':
+          return (
+            <section className="py-12">
+              <div className="container mx-auto px-4 max-w-4xl text-center">
+                <h2 className="font-heading font-bold text-2xl mb-2">
+                  {block.configuration?.title || "When expats welcome you in their host country"}
+                </h2>
+                <div className="w-12 h-0.5 bg-secondary mx-auto mb-4"></div>
+                <p className="text-sm text-gray-700 leading-relaxed">
+                  {(block.configuration?.content || "This is a family-run travel agency that combines the organization of exclusive activities with the creation of tailor-made trips throughout the country. Our goal is to offer an immersive experience, far from mass tourism, with personalized service for every traveler — as if we were welcoming our own family or friends.").substring(0, 200)}...
+                </p>
+              </div>
+            </section>
+          );
+
+        case 'popular_experiences':
+          return (
+            <section className="py-12 bg-white">
+              <div className="container mx-auto px-4 text-center mb-6">
+                <h2 className="font-heading font-bold text-2xl mb-2">
+                  {block.configuration?.title || "Our Popular Experiences"}
+                </h2>
+                <div className="w-12 h-0.5 bg-secondary mx-auto mb-3"></div>
+                <p className="text-gray-600 text-sm max-w-xl mx-auto">
+                  {block.configuration?.subtitle || "Step off the beaten path into carefully curated experiences beyond the tourist trail."}
+                </p>
+              </div>
+              
+              <div className="container mx-auto px-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {Array.from({ length: 3 }).map((_, i) => (
+                    <div key={i} className="bg-white rounded-lg shadow-lg overflow-hidden">
+                      <div className="relative h-32 bg-gradient-to-br from-blue-200 to-blue-300">
+                        <div className="w-full h-full flex items-center justify-center">
+                          <div className="h-8 w-8 text-blue-400">🏝️</div>
+                        </div>
+                      </div>
+                      <div className="p-4">
+                        <h3 className="text-sm font-bold text-gray-800 mb-2">Tour Example {i + 1}</h3>
+                        <p className="text-gray-600 text-xs mb-3">Découvrez les plus beaux endroits...</p>
+                        <div className="grid grid-cols-2 gap-2">
+                          <button className="text-xs border border-blue-600 text-blue-600 py-1 px-2 rounded">Details</button>
+                          <button className="text-xs bg-blue-600 text-white py-1 px-2 rounded">Book</button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          );
+
+        case 'custom_tour_form':
+          return (
+            <section className="py-12 bg-blue-50">
+              <div className="container mx-auto px-4">
+                <div className="text-center mb-6">
+                  <h2 className="font-heading font-bold text-2xl mb-2">Create Your Custom Trip</h2>
+                  <p className="text-gray-600 text-sm">Your travel story starts with your dreams...</p>
+                </div>
+                <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-6">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-sm font-medium text-gray-700">Destination</label>
+                      <input className="w-full mt-1 p-2 border rounded text-sm" placeholder="Where would you like to go?" />
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium text-gray-700">Duration</label>
+                      <select className="w-full mt-1 p-2 border rounded text-sm">
+                        <option>1 day</option>
+                        <option>2-3 days</option>
+                        <option>1 week</option>
+                      </select>
+                    </div>
+                  </div>
+                  <button className="w-full mt-4 bg-blue-600 text-white py-2 rounded font-semibold text-sm">
+                    Submit Custom Tour Request
+                  </button>
+                </div>
+              </div>
+            </section>
+          );
+
+        case 'tour_ninja_section':
+          return (
+            <section className="py-12 bg-gray-50">
+              <div className="container mx-auto px-4 text-center mb-6">
+                <h2 className="font-heading font-bold text-2xl mb-2">Some Ideas For Your Next Trip</h2>
+                <p className="text-gray-600 text-sm">Get inspired by our custom-designed travel experiences.</p>
+              </div>
+              <div className="container mx-auto px-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {Array.from({ length: 4 }).map((_, i) => (
+                    <div key={i} className="bg-white rounded-lg shadow-lg overflow-hidden">
+                      <div className="relative h-32 bg-gradient-to-br from-green-200 to-green-300">
+                        <div className="w-full h-full flex items-center justify-center">
+                          <div className="h-8 w-8 text-green-400">🌴</div>
+                        </div>
+                      </div>
+                      <div className="p-3">
+                        <h3 className="text-sm font-bold text-gray-800 mb-1">Tour Ninja {i + 1}</h3>
+                        <p className="text-gray-600 text-xs">Experience authentic Thailand...</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          );
+
+        case 'why_choose_us':
+          return (
+            <section className="py-12 bg-white">
+              <div className="container mx-auto px-4 text-center mb-6">
+                <h2 className="font-heading font-bold text-2xl mb-2">Why Choose Us</h2>
+                <p className="text-gray-600 text-sm">Experience an exclusive private day trip...</p>
+              </div>
+              <div className="container mx-auto px-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {['Private Tours', 'Customized Itineraries', 'Authentic Experiences'].map((feature, i) => (
+                    <div key={i} className="text-center">
+                      <div className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-3 text-lg">
+                        {i + 1}
+                      </div>
+                      <h3 className="text-sm font-bold text-gray-800 mb-2">{feature}</h3>
+                      <p className="text-gray-600 text-xs">Experience exclusive day trips...</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          );
+
+        case 'who_we_are':
+          return (
+            <section className="py-12 bg-blue-50">
+              <div className="container mx-auto px-4">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                  <div>
+                    <h2 className="font-heading font-bold text-2xl mb-4">Who We Are</h2>
+                    <p className="text-gray-700 text-sm mb-4">
+                      We are Éric, Margaux, Gabriel, and Raphaël...
+                    </p>
+                    <h3 className="font-semibold text-lg mb-2">Our Concept</h3>
+                    <p className="text-gray-600 text-sm">
+                      Combine the warmth and proximity...
+                    </p>
+                  </div>
+                  <div className="bg-gray-200 h-48 rounded-lg flex items-center justify-center">
+                    <span className="text-gray-400">📸 Team Photo</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+          );
+
+        case 'travelers_reviews':
+          return (
+            <section className="py-12 bg-white">
+              <div className="container mx-auto px-4 text-center mb-6">
+                <h2 className="font-heading font-bold text-2xl mb-2">Our Travelers Reviews</h2>
+                <p className="text-gray-600 text-sm">Discover the authentic experiences...</p>
+                <div className="flex items-center justify-center gap-2 mt-3">
+                  <div className="flex text-yellow-400">★★★★★</div>
+                  <span className="text-sm font-semibold">5.0</span>
+                  <span className="text-xs text-gray-600">(80 reviews)</span>
+                </div>
+              </div>
+              <div className="container mx-auto px-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {Array.from({ length: 2 }).map((_, i) => (
+                    <div key={i} className="bg-gray-50 rounded-lg p-4">
+                      <div className="flex items-start gap-3">
+                        <div className="w-10 h-10 bg-blue-200 rounded-full flex items-center justify-center">
+                          👤
+                        </div>
+                        <div>
+                          <div className="flex text-yellow-400 text-sm">★★★★★</div>
+                          <p className="text-sm text-gray-700 mt-1">"Amazing experience with Amon Tour..."</p>
+                          <div className="text-xs text-gray-500 mt-2">- Reviewer {i + 1}</div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          );
+
+        default:
+          return (
+            <div className="h-24 bg-gray-100 flex items-center justify-center rounded-lg">
+              <div className="text-gray-500 text-center">
+                <div className="font-medium">{block.title}</div>
+                <div className="text-sm">Type: {block.blockType}</div>
+              </div>
+            </div>
+          );
+      }
+    })();
+
+    // Mode normal : conteneur adaptatif sans contrainte de hauteur fixe
+    return (
+      <div className="w-full bg-white rounded-lg overflow-hidden" style={{ minHeight: 'auto' }}>
+        <div className="transform scale-75 origin-top-left w-[133%]">
+          {previewContent}
+        </div>
+      </div>
+    );
   };
 
   return getExactPreview();
@@ -926,7 +1041,7 @@ export default function AdminPageEditor() {
                       </CardHeader>
 
                       <CardContent className="pb-0">
-                        <div className="border border-gray-200 rounded-lg overflow-hidden mb-4">
+                        <div className="border border-gray-200 rounded-lg overflow-hidden mb-4" style={{ minHeight: 'auto' }}>
                           <RealBlockPreview block={block} isFullscreen={false} />
                         </div>
                         
