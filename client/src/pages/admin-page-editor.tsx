@@ -10,10 +10,19 @@ const SYSTEM_COLORS = {
   secondary: '#E6B64C',
   white: '#ffffff',
   gray: '#6b7280',
-  dark: '#1f2937'
+  dark: '#1f2937',
+  // Couleurs supplémentaires pour plus de choix
+  red: '#ef4444',
+  orange: '#f97316',
+  yellow: '#eab308',
+  green: '#22c55e',
+  blue: '#3b82f6',
+  purple: '#a855f7',
+  pink: '#ec4899',
+  black: '#000000'
 };
 
-// Composant ColorPicker avec cases rapides + curseur personnalisé
+// Composant ColorPicker avec personnalisation complète
 interface ColorPickerProps {
   value: string;
   onChange: (value: string) => void;
@@ -21,85 +30,96 @@ interface ColorPickerProps {
 }
 
 function ColorPicker({ value, onChange, label }: ColorPickerProps) {
-  const getColorValue = (colorName: string) => {
-    return SYSTEM_COLORS[colorName as keyof typeof SYSTEM_COLORS] || colorName;
-  };
-
-  const handleQuickColorClick = (colorName: string) => {
-    onChange(getColorValue(colorName));
-  };
-
-  const currentColorValue = getColorValue(value);
+  const currentColorValue = value || '#ffffff';
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-4">
       {label && <Label className="text-sm font-medium">{label}</Label>}
-      {/* Cases de couleurs rapides */}
-      <div className="flex gap-2">
+      
+      {/* Couleurs rapides principales */}
+      <div>
+        <Label className="text-xs text-gray-600 mb-2 block">Couleurs du thème</Label>
         <div className="flex gap-1">
           <button
             type="button"
-            onClick={() => handleQuickColorClick('primary')}
-            className={`w-8 h-8 rounded border-2 transition-all hover:scale-110 ${
-              value === SYSTEM_COLORS.primary ? 'border-gray-400 ring-2 ring-blue-200' : 'border-gray-200'
+            onClick={() => onChange(SYSTEM_COLORS.primary)}
+            className={`w-10 h-10 rounded-lg border-2 transition-all hover:scale-105 shadow-sm ${
+              currentColorValue === SYSTEM_COLORS.primary ? 'border-gray-500 ring-2 ring-blue-200' : 'border-gray-200'
             }`}
             style={{ backgroundColor: SYSTEM_COLORS.primary }}
-            title="Couleur principale"
+            title="Bleu principal"
           />
           <button
             type="button"
-            onClick={() => handleQuickColorClick('secondary')}
-            className={`w-8 h-8 rounded border-2 transition-all hover:scale-110 ${
-              value === SYSTEM_COLORS.secondary ? 'border-gray-400 ring-2 ring-yellow-200' : 'border-gray-200'
+            onClick={() => onChange(SYSTEM_COLORS.secondary)}
+            className={`w-10 h-10 rounded-lg border-2 transition-all hover:scale-105 shadow-sm ${
+              currentColorValue === SYSTEM_COLORS.secondary ? 'border-gray-500 ring-2 ring-yellow-200' : 'border-gray-200'
             }`}
             style={{ backgroundColor: SYSTEM_COLORS.secondary }}
-            title="Couleur secondaire"
-          />
-          <button
-            type="button"
-            onClick={() => handleQuickColorClick('white')}
-            className={`w-8 h-8 rounded border-2 transition-all hover:scale-110 ${
-              value === SYSTEM_COLORS.white ? 'border-gray-400 ring-2 ring-gray-200' : 'border-gray-200'
-            }`}
-            style={{ backgroundColor: SYSTEM_COLORS.white }}
-            title="Blanc"
-          />
-          <button
-            type="button"
-            onClick={() => handleQuickColorClick('gray')}
-            className={`w-8 h-8 rounded border-2 transition-all hover:scale-110 ${
-              value === SYSTEM_COLORS.gray ? 'border-gray-400 ring-2 ring-gray-200' : 'border-gray-200'
-            }`}
-            style={{ backgroundColor: SYSTEM_COLORS.gray }}
-            title="Gris"
-          />
-          <button
-            type="button"
-            onClick={() => handleQuickColorClick('dark')}
-            className={`w-8 h-8 rounded border-2 transition-all hover:scale-110 ${
-              value === SYSTEM_COLORS.dark ? 'border-gray-400 ring-2 ring-gray-200' : 'border-gray-200'
-            }`}
-            style={{ backgroundColor: SYSTEM_COLORS.dark }}
-            title="Sombre"
+            title="Or secondaire"
           />
         </div>
       </div>
       
-      {/* Curseur de personnalisation */}
-      <div className="flex items-center gap-2">
-        <input
-          type="color"
-          value={currentColorValue}
-          onChange={(e) => onChange(e.target.value)}
-          className="w-12 h-8 p-0 border cursor-pointer rounded"
-          title="Couleur personnalisée"
-        />
-        <Input
-          value={currentColorValue}
-          onChange={(e) => onChange(e.target.value)}
-          placeholder="#ffffff"
-          className="flex-1"
-        />
+      {/* Couleurs de base */}
+      <div>
+        <Label className="text-xs text-gray-600 mb-2 block">Couleurs de base</Label>
+        <div className="flex gap-1 flex-wrap">
+          {['white', 'gray', 'dark', 'black'].map((colorKey) => (
+            <button
+              key={colorKey}
+              type="button"
+              onClick={() => onChange(SYSTEM_COLORS[colorKey as keyof typeof SYSTEM_COLORS])}
+              className={`w-8 h-8 rounded border-2 transition-all hover:scale-105 ${
+                currentColorValue === SYSTEM_COLORS[colorKey as keyof typeof SYSTEM_COLORS] ? 'border-gray-500 ring-2 ring-gray-200' : 'border-gray-200'
+              }`}
+              style={{ backgroundColor: SYSTEM_COLORS[colorKey as keyof typeof SYSTEM_COLORS] }}
+              title={colorKey === 'white' ? 'Blanc' : colorKey === 'gray' ? 'Gris' : colorKey === 'dark' ? 'Gris foncé' : 'Noir'}
+            />
+          ))}
+        </div>
+      </div>
+      
+      {/* Palette de couleurs étendues */}
+      <div>
+        <Label className="text-xs text-gray-600 mb-2 block">Palette étendue</Label>
+        <div className="flex gap-1 flex-wrap">
+          {['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink'].map((colorKey) => (
+            <button
+              key={colorKey}
+              type="button"
+              onClick={() => onChange(SYSTEM_COLORS[colorKey as keyof typeof SYSTEM_COLORS])}
+              className={`w-8 h-8 rounded border-2 transition-all hover:scale-105 ${
+                currentColorValue === SYSTEM_COLORS[colorKey as keyof typeof SYSTEM_COLORS] ? 'border-gray-500 ring-2 ring-blue-200' : 'border-gray-200'
+              }`}
+              style={{ backgroundColor: SYSTEM_COLORS[colorKey as keyof typeof SYSTEM_COLORS] }}
+              title={colorKey.charAt(0).toUpperCase() + colorKey.slice(1)}
+            />
+          ))}
+        </div>
+      </div>
+      
+      {/* Sélecteur personnalisé */}
+      <div>
+        <Label className="text-xs text-gray-600 mb-2 block">Couleur personnalisée</Label>
+        <div className="flex items-center gap-2">
+          <input
+            type="color"
+            value={currentColorValue}
+            onChange={(e) => onChange(e.target.value)}
+            className="w-16 h-10 p-1 border border-gray-300 rounded cursor-pointer"
+            title="Choisir une couleur personnalisée"
+          />
+          <Input
+            value={currentColorValue}
+            onChange={(e) => onChange(e.target.value)}
+            placeholder="#ffffff"
+            className="flex-1 font-mono text-sm"
+          />
+        </div>
+        <p className="text-xs text-gray-500 mt-1">
+          Cliquez sur le carré coloré pour ouvrir la palette ou tapez directement un code couleur
+        </p>
       </div>
     </div>
   );
@@ -1419,7 +1439,6 @@ export default function AdminPageEditor() {
                                 <Switch 
                                   checked={block.isActive}
                                   onCheckedChange={() => toggleBlockVisibility(block)}
-                                  size="sm"
                                 />
                               </Button>
                             </div>
