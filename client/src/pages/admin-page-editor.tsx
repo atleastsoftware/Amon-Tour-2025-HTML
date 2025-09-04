@@ -145,8 +145,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
             
             case 'video':
             default:
-              // Pour la prévisualisation, utiliser la vidéo de meilleure qualité par défaut
-              const videoUrl = heroConfig.videoUrl || '/attached_assets/Catamaran%20cruise%20around%20Ao%20Nang%20local%20islands_1750216800850.mp4';
+              const videoUrl = heroConfig.videoUrl || '/attached_assets/hero-video-optimized.mp4';
               return (
                 <div className="absolute inset-0 w-full h-full z-0">
                   <video

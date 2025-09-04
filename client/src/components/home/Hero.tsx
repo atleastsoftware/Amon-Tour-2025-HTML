@@ -5,9 +5,9 @@ import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import heroImage from "@/assets/DJI_20241115104455_0160_D-min.jpeg";
 
-// Use high quality video as primary, optimized as fallback
-const backgroundVideo = "/attached_assets/Catamaran%20cruise%20around%20Ao%20Nang%20local%20islands_1750216800850.mp4";
-const fallbackVideo = "/attached_assets/hero-video-optimized.mp4";
+// Use optimized video (6MB instead of 40MB) for better loading performance
+const backgroundVideo = "/attached_assets/hero-video-optimized.mp4";
+const fallbackVideo = "/attached_assets/Catamaran%20cruise%20around%20Ao%20Nang%20local%20islands_1750216800850.mp4";
 
 // Variable d'environnement pour désactiver complètement la vidéo en production si nécessaire
 const DISABLE_VIDEO_IN_PRODUCTION = import.meta.env.VITE_DISABLE_HERO_VIDEO === 'true';
