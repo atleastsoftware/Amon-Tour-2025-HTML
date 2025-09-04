@@ -265,7 +265,11 @@ export default function Hero() {
                   }
                 }
               }}
-              className="max-w-xl"
+              className={`max-w-xl ${
+                heroConfig?.contentAlignment === 'center' ? 'mx-auto text-center' : 
+                heroConfig?.contentAlignment === 'right' ? 'ml-auto text-right' : 
+                'text-left'
+              }`}
             >
               <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight drop-shadow-lg">
                 {renderTitleWithColors()}
@@ -278,21 +282,33 @@ export default function Hero() {
                 {heroConfig?.description || "And also Khao Sok, Koh Mook and many more destinations."}
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link href="/tours">
-                  <motion.span 
-                    className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.98 }}
-                  >See our offers</motion.span>
-                </Link>
-                <Link href="/custom-tour">
-                  <motion.span 
-                    className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.98 }}
-                  >Custom your trip</motion.span>
-                </Link>
+              <div className={`flex flex-col sm:flex-row gap-4 ${
+                heroConfig?.contentAlignment === 'center' ? 'justify-center' :
+                heroConfig?.contentAlignment === 'right' ? 'justify-end' :
+                'justify-start'
+              }`}>
+                {(heroConfig?.buttons || [
+                  {text: 'See our offers', url: '/tours', color: '#1e73be', style: 'filled'},
+                  {text: 'Custom your trip', url: '/custom-tour', color: '#1e73be', style: 'filled'}
+                ]).map((button: any, index: number) => (
+                  <Link key={index} href={button.url}>
+                    <motion.span 
+                      className={`px-8 py-3 mt-4 rounded transition-colors cursor-pointer inline-block shadow-lg ${
+                        button.style === 'outline' 
+                          ? `border-2 text-white hover:bg-white hover:text-gray-800` 
+                          : `text-white hover:opacity-90`
+                      }`}
+                      style={{
+                        backgroundColor: button.style === 'filled' ? button.color : 'transparent',
+                        borderColor: button.style === 'outline' ? button.color : 'transparent'
+                      }}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      {button.text}
+                    </motion.span>
+                  </Link>
+                ))}
               </div>
             </motion.div>
           </div>

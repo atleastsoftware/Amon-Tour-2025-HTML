@@ -425,7 +425,7 @@ const BlockEditDropdown = ({
                     id="titleAccentColor"
                     value={formData.titleAccentColor || '#1e73be'}
                     onChange={e => updateField('titleAccentColor', e.target.value)}
-                    className="w-10 h-10 rounded border"
+                    className="w-10 h-10 rounded border-0 cursor-pointer"
                   />
                   <Input 
                     value={formData.titleAccentColor || '#1e73be'}
@@ -455,7 +455,7 @@ const BlockEditDropdown = ({
                     id="subtitleColor"
                     value={formData.subtitleColor || '#ffffff'}
                     onChange={e => updateField('subtitleColor', e.target.value)}
-                    className="w-10 h-10 rounded border"
+                    className="w-10 h-10 rounded border-0 cursor-pointer"
                   />
                   <Input 
                     value={formData.subtitleColor || '#ffffff'}
@@ -546,7 +546,7 @@ const BlockEditDropdown = ({
                             );
                             updateField('buttons', newButtons);
                           }}
-                          className="w-10 h-10 rounded border"
+                          className="w-10 h-10 rounded border-0 cursor-pointer"
                         />
                         <Input 
                           value={button.color || '#1e73be'}
@@ -590,6 +590,23 @@ const BlockEditDropdown = ({
               </div>
             </div>
 
+            {/* Alignement du contenu */}
+            <div>
+              <Label>Alignement du contenu</Label>
+              <div className="mt-3">
+                <Select value={formData.contentAlignment || 'left'} onValueChange={value => updateField('contentAlignment', value)}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Alignement" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="left">À gauche</SelectItem>
+                    <SelectItem value="center">Au centre</SelectItem>
+                    <SelectItem value="right">À droite</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
             {/* Arrière-plan */}
             <div>
               <Label>Arrière-plan</Label>
@@ -615,7 +632,7 @@ const BlockEditDropdown = ({
                       id="backgroundColor"
                       value={formData.backgroundColor || '#1e73be'}
                       onChange={e => updateField('backgroundColor', e.target.value)}
-                      className="w-10 h-10 rounded border"
+                      className="w-10 h-10 rounded border-0 cursor-pointer"
                     />
                     <Input 
                       value={formData.backgroundColor || '#1e73be'}
@@ -1065,7 +1082,6 @@ const BlockEditDropdown = ({
       <div className="p-6">
         <div className="mb-4">
           <h4 className="font-semibold text-lg mb-1">Modifier: {getBlockDisplayName(block.blockType)}</h4>
-          <p className="text-sm text-gray-600">Ordre : {block.blockOrder}</p>
         </div>
         
         {renderEditFields()}
