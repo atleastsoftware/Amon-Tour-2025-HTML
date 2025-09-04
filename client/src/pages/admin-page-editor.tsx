@@ -167,7 +167,11 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
           <section className="relative pt-32 pb-20 min-h-screen flex items-center overflow-hidden" style={{ minHeight: 'auto' }}>
             {renderBackground()}
             <div className="container mx-auto px-4 relative z-10">
-              <div className="max-w-xl">
+              <div className={`max-w-xl ${
+                heroConfig.contentAlignment === 'center' ? 'mx-auto text-center' : 
+                heroConfig.contentAlignment === 'right' ? 'ml-auto text-right' : 
+                'text-left'
+              }`}>
                 <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight drop-shadow-lg" style={{ whiteSpace: 'pre-line' }}>
                   {renderTitle()}
                 </h1>
@@ -180,7 +184,11 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                 >
                   {heroConfig.subtitle || "Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations."}
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4">
+                <div className={`flex flex-col sm:flex-row gap-4 ${
+                  heroConfig.contentAlignment === 'center' ? 'justify-center' :
+                  heroConfig.contentAlignment === 'right' ? 'justify-end' :
+                  'justify-start'
+                }`}>
                   {(heroConfig.buttons || [{text: 'See our offers', url: '/tours', color: '#1e73be', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#1e73be', style: 'filled'}]).map((button: any, index: number) => (
                     <span 
                       key={index}
@@ -425,7 +433,8 @@ const BlockEditDropdown = ({
                     id="titleAccentColor"
                     value={formData.titleAccentColor || '#1e73be'}
                     onChange={e => updateField('titleAccentColor', e.target.value)}
-                    className="w-10 h-10 rounded border-0 cursor-pointer"
+                    className="w-10 h-10 rounded cursor-pointer"
+                    style={{ border: 'none', outline: 'none' }}
                   />
                   <Input 
                     value={formData.titleAccentColor || '#1e73be'}
@@ -455,7 +464,8 @@ const BlockEditDropdown = ({
                     id="subtitleColor"
                     value={formData.subtitleColor || '#ffffff'}
                     onChange={e => updateField('subtitleColor', e.target.value)}
-                    className="w-10 h-10 rounded border-0 cursor-pointer"
+                    className="w-10 h-10 rounded cursor-pointer"
+                    style={{ border: 'none', outline: 'none' }}
                   />
                   <Input 
                     value={formData.subtitleColor || '#ffffff'}
@@ -546,7 +556,8 @@ const BlockEditDropdown = ({
                             );
                             updateField('buttons', newButtons);
                           }}
-                          className="w-10 h-10 rounded border-0 cursor-pointer"
+                          className="w-10 h-10 rounded cursor-pointer"
+                    style={{ border: 'none', outline: 'none' }}
                         />
                         <Input 
                           value={button.color || '#1e73be'}
@@ -632,7 +643,8 @@ const BlockEditDropdown = ({
                       id="backgroundColor"
                       value={formData.backgroundColor || '#1e73be'}
                       onChange={e => updateField('backgroundColor', e.target.value)}
-                      className="w-10 h-10 rounded border-0 cursor-pointer"
+                      className="w-10 h-10 rounded cursor-pointer"
+                    style={{ border: 'none', outline: 'none' }}
                     />
                     <Input 
                       value={formData.backgroundColor || '#1e73be'}
