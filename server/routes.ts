@@ -1578,6 +1578,8 @@ Crawl-delay: 1`;
       clearTimeout(timeoutId);
 
       if (!response.ok) {
+        console.log(`Image proxy failed for URL: ${imageUrl}, status: ${response.status}`);
+        // Return a placeholder image or error response
         return res.status(404).json({ error: 'Image not found' });
       }
 
@@ -1733,11 +1735,11 @@ Crawl-delay: 1`;
       // The legacy API returns an object with tours array - structure confirmed by Tour Ninja agent
       if (apiResponse.success && apiResponse.tours && Array.isArray(apiResponse.tours)) {
         tours = apiResponse.tours.map((tour: any) => {
-          // Build specific presentation image URL for each tour
-          const presentationImageUrl = `https://www.tourninja.io/api/image-proxy/${tour.id}/presentation`;
+          // Use the actual primary image URL from the API response
+          const primaryImageUrl = tour.primaryImage; // This is already the correct URL from Tour Ninja API
           const fallbackImageUrl = tour.primaryImage;
           
-          console.log(`Tour ${tour.name}: Trying presentation URL ${presentationImageUrl}`);
+          console.log(`Tour ${tour.name}: Using primary image URL ${primaryImageUrl}`);
           
           return {
             id: tour.id,
@@ -1745,10 +1747,10 @@ Crawl-delay: 1`;
             description: tour.description || '',
             shortDescription: tour.description ? tour.description.substring(0, 150) + '...' : '',
             images: tour.images || (tour.primaryImage ? [tour.primaryImage] : []),
-            // Try presentation image first, fallback to original
-            primaryImage: `/api/proxy/image?url=${encodeURIComponent(presentationImageUrl)}`,
+            // Use the actual primary image URL from Tour Ninja API
+            primaryImage: primaryImageUrl ? `/api/proxy/image?url=${encodeURIComponent(primaryImageUrl)}` : null,
             fallbackImage: fallbackImageUrl ? `/api/proxy/image?url=${encodeURIComponent(fallbackImageUrl)}` : null,
-            presentationImageUrl: presentationImageUrl,
+            presentationImageUrl: primaryImageUrl,
             originalPrimaryImage: tour.primaryImage,
             price: tour.price || 0,
             currency: tour.currency || 'THB',
