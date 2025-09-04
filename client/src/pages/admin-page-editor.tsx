@@ -149,13 +149,23 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
               return (
                 <div className="absolute inset-0 w-full h-full z-0">
                   <video
+                    key={videoUrl} // Force reload when video changes
                     autoPlay
                     muted
                     loop
                     playsInline
+                    preload="metadata"
                     className="w-full h-full object-cover"
+                    onLoadedData={() => console.log('Preview video loaded')}
+                    onError={(e) => console.error('Preview video error:', e)}
+                    style={{ 
+                      minWidth: '100%', 
+                      minHeight: '100%',
+                      objectFit: 'cover'
+                    }}
                   >
                     <source src={videoUrl} type="video/mp4" />
+                    Your browser does not support the video tag.
                   </video>
                   <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
                 </div>
