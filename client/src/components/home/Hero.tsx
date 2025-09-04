@@ -132,9 +132,11 @@ export default function Hero() {
     
     // Ne charger la vidéo que si :
     // - La vidéo n'est pas désactivée en production
-    // - ET la connexion est bonne ET ce n'est pas un mobile
-    // - OU si l'utilisateur a explicitement une bonne connexion
-    const shouldLoad = !(IS_PRODUCTION && DISABLE_VIDEO_IN_PRODUCTION) && quality === 'good' && !mobile;
+    // - ET la connexion est bonne (en développement, on force le chargement)
+    // - En production, on respecte la détection mobile
+    const shouldLoad = !(IS_PRODUCTION && DISABLE_VIDEO_IN_PRODUCTION) && 
+                      quality === 'good' && 
+                      (!IS_PRODUCTION || !mobile); // En dev, ignorer la détection mobile
     
     if (shouldLoad) {
       // Delay video loading to improve initial page load
