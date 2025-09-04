@@ -122,12 +122,10 @@ const RealBlockPreview = ({ block, isFullscreen }: { block: PageBlock; isFullscr
     return actualComponent;
   }
 
-  // Mode normal : conteneur adaptatif sans hauteur fixe
+  // Mode normal : affichage exact comme sur le site réel
   return (
-    <div className="w-full bg-white rounded-lg overflow-hidden" style={{ minHeight: 'auto' }}>
-      <div className="transform scale-75 origin-top-left w-[133%]">
-        {actualComponent}
-      </div>
+    <div className="w-full bg-white rounded-lg overflow-hidden">
+      {actualComponent}
     </div>
   );
 };
