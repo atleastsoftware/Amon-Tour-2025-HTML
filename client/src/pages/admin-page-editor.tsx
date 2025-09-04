@@ -352,20 +352,18 @@ const BlockEditDropdown = ({
       case 'hero_main':
         return (
           <div className="space-y-6">
-            {/* Titre principal avec couleurs */}
-            <div className="space-y-3">
-              <div>
-                <Label htmlFor="title">Titre principal</Label>
-                <Textarea 
-                  id="title"
-                  value={formData.title || block.configuration?.title || 'Your exclusive experiences\nin Krabi –\nTHAILAND'} 
-                  onChange={e => updateField('title', e.target.value)}
-                  placeholder="Your exclusive experiences\nin Krabi –\nTHAILAND"
-                  rows={3}
-                />
-              </div>
-              
-              <div>
+            {/* Titre principal */}
+            <div>
+              <Label htmlFor="title">Titre principal</Label>
+              <Textarea 
+                id="title"
+                value={formData.title || block.configuration?.title || 'Your exclusive experiences\nin Krabi –\nTHAILAND'} 
+                onChange={e => updateField('title', e.target.value)}
+                placeholder="Your exclusive experiences\nin Krabi –\nTHAILAND"
+                rows={3}
+                className="mt-2"
+              />
+              <div className="mt-3">
                 <div className="flex gap-2">
                   <input 
                     type="color" 
@@ -382,21 +380,22 @@ const BlockEditDropdown = ({
                   />
                 </div>
               </div>
-              
-              <div>
-                <Label htmlFor="titleAccentText">Mot du titre en seconde couleur</Label>
-                <Input 
-                  id="titleAccentText"
-                  value={formData.titleAccentText || 'in Krabi –'} 
-                  onChange={e => updateField('titleAccentText', e.target.value)}
-                  placeholder="in Krabi –"
-                />
-                <p className="text-xs text-gray-500 mt-1">
-                  Tapez exactement les mots du titre que vous voulez colorer
-                </p>
-              </div>
-              
-              <div>
+            </div>
+            
+            {/* Mot du titre en seconde couleur */}
+            <div>
+              <Label htmlFor="titleAccentText">Mot du titre en seconde couleur</Label>
+              <Input 
+                id="titleAccentText"
+                value={formData.titleAccentText || 'in Krabi –'} 
+                onChange={e => updateField('titleAccentText', e.target.value)}
+                placeholder="in Krabi –"
+                className="mt-2"
+              />
+              <p className="text-xs text-gray-500 mt-1">
+                Tapez exactement les mots du titre que vous voulez colorer
+              </p>
+              <div className="mt-3">
                 <div className="flex gap-2">
                   <input 
                     type="color" 
@@ -415,8 +414,8 @@ const BlockEditDropdown = ({
               </div>
             </div>
 
-            {/* Sous-titre avec couleur */}
-            <div className="space-y-3">
+            {/* Sous-titre */}
+            <div>
               <Label htmlFor="subtitle">Sous-titre</Label>
               <Textarea 
                 id="subtitle"
@@ -424,9 +423,9 @@ const BlockEditDropdown = ({
                 onChange={e => updateField('subtitle', e.target.value)}
                 placeholder="Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations."
                 rows={3}
+                className="mt-2"
               />
-              
-              <div>
+              <div className="mt-3">
                 <div className="flex gap-2">
                   <input 
                     type="color" 
@@ -445,10 +444,10 @@ const BlockEditDropdown = ({
               </div>
             </div>
 
-            {/* Boutons dynamiques */}
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <h4 className="font-semibold text-sm">Boutons d'action</h4>
+            {/* Boutons d'action */}
+            <div>
+              <div className="flex items-center justify-between mb-3">
+                <Label>Boutons d'action</Label>
                 <Button 
                   type="button"
                   variant="outline"
@@ -462,11 +461,11 @@ const BlockEditDropdown = ({
                 </Button>
               </div>
               
-              {(formData.buttons || [{text: 'See our offers', url: '/tours', color: '#1e73be', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#1e73be', style: 'filled'}]).map((button: any, index: number) => (
-                <div key={index} className="border rounded-lg p-4 space-y-3">
-                  <div className="flex items-center justify-between">
-                    <Label className="text-sm font-medium">Bouton {index + 1}</Label>
-                    {(formData.buttons || []).length > 1 && (
+              <div className="space-y-3">
+                {(formData.buttons || [{text: 'See our offers', url: '/tours', color: '#1e73be', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#1e73be', style: 'filled'}]).map((button: any, index: number) => (
+                  <div key={index} className="border rounded-lg p-4 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <Label className="text-sm font-medium">Bouton {index + 1}</Label>
                       <Button 
                         type="button"
                         variant="ghost"
@@ -479,8 +478,7 @@ const BlockEditDropdown = ({
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>
-                    )}
-                  </div>
+                    </div>
                   
                   <div className="grid grid-cols-2 gap-2">
                     <div>
@@ -563,15 +561,16 @@ const BlockEditDropdown = ({
                         </SelectContent>
                       </Select>
                     </div>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
 
-            {/* Options de background */}
-            <div className="space-y-4">
+            {/* Arrière-plan */}
+            <div>
               <Label>Arrière-plan</Label>
-              <Select value={formData.backgroundType || 'video'} onValueChange={value => updateField('backgroundType', value)}>
+              <Select value={formData.backgroundType || 'video'} onValueChange={value => updateField('backgroundType', value)} className="mt-2">
                 <SelectTrigger>
                   <SelectValue placeholder="Type d'arrière-plan" />
                 </SelectTrigger>
