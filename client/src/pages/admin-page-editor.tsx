@@ -63,35 +63,24 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
       case 'hero_main':
         const heroConfig = liveConfiguration || block.configuration || {};
         
-        // Helper function to render title with colored accent using tags
+        // Helper function to render title with colored accent
         const renderTitle = () => {
-          const titleWithTags = heroConfig.titleWithTags || heroConfig.title || "Your exclusive experiences <accent>in Krabi –</accent> THAILAND";
+          const fullTitle = heroConfig.title || "Your exclusive experiences\nin Krabi –\nTHAILAND";
+          const accentText = heroConfig.titleAccentText || "in Krabi –";
           const titleColor = heroConfig.titleColor || '#ffffff';
           const accentColor = heroConfig.titleAccentColor || '#1e73be';
           
-          // Split by <accent> tags and render with appropriate colors
-          const parts = titleWithTags.split(/(<accent>.*?<\/accent>)/);
-          
-          return (
-            <>
-              {parts.map((part: string, index: number) => {
-                if (part.startsWith('<accent>') && part.endsWith('</accent>')) {
-                  // Extract text inside accent tags
-                  const accentText = part.replace(/<\/?accent>/g, '');
-                  return (
-                    <span key={index} style={{ color: accentColor }}>
-                      {accentText}
-                    </span>
-                  );
-                }
-                return (
-                  <span key={index} style={{ color: titleColor }}>
-                    {part}
-                  </span>
-                );
-              })}
-            </>
-          );
+          if (fullTitle.includes(accentText)) {
+            const parts = fullTitle.split(accentText);
+            return (
+              <>
+                {parts[0] && <span style={{ color: titleColor }}>{parts[0]}</span>}
+                <span style={{ color: accentColor }}>{accentText}</span>
+                {parts[1] && <span style={{ color: titleColor }}>{parts[1]}</span>}
+              </>
+            );
+          }
+          return <span style={{ color: titleColor, whiteSpace: 'pre-line' }}>{fullTitle}</span>;
         };
         
         // Background rendering based on type
@@ -156,7 +145,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
             {renderBackground()}
             <div className="container mx-auto px-4 relative z-10">
               <div className="max-w-xl">
-                <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight drop-shadow-lg">
+                <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight drop-shadow-lg" style={{ whiteSpace: 'pre-line' }}>
                   {renderTitle()}
                 </h1>
                 <p 
@@ -406,19 +395,30 @@ const BlockEditDropdown = ({
               </div>
               
               <div>
-                <Label htmlFor="title">Titre avec coloration (utilisez les balises)</Label>
+                <Label htmlFor="title">Titre principal (utilisez \n pour les sauts de ligne)</Label>
                 <Textarea 
-                  id="titleWithTags"
-                  value={formData.titleWithTags || formData.title || 'Your exclusive experiences <accent>in Krabi –</accent> THAILAND'} 
-                  onChange={e => updateField('titleWithTags', e.target.value)}
-                  placeholder="Your exclusive experiences <accent>in Krabi –</accent> THAILAND"
-                  rows={2}
+                  id="title"
+                  value={formData.title || block.configuration?.title || 'Your exclusive experiences\nin Krabi –\nTHAILAND'} 
+                  onChange={e => updateField('title', e.target.value)}
+                  placeholder="Your exclusive experiences\nin Krabi –\nTHAILAND"
+                  rows={3}
                 />
-                <div className="text-xs text-gray-500 mt-1 space-y-1">
-                  <p>• Utilisez &lt;accent&gt;texte&lt;/accent&gt; pour colorer en bleu</p>
-                  <p>• Exemple: "Mon titre &lt;accent&gt;en couleur&lt;/accent&gt; normal"</p>
-                  <p>• Vous pouvez avoir plusieurs balises &lt;accent&gt;</p>
-                </div>
+                <p className="text-xs text-gray-500 mt-1">
+                  Utilisez \n pour créer des sauts de ligne (ex: "Ligne 1\nLigne 2")
+                </p>
+              </div>
+              
+              <div>
+                <Label htmlFor="titleAccentText">Texte à colorier (mots exacts)</Label>
+                <Input 
+                  id="titleAccentText"
+                  value={formData.titleAccentText || 'in Krabi –'} 
+                  onChange={e => updateField('titleAccentText', e.target.value)}
+                  placeholder="in Krabi –"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Tapez exactement les mots du titre que vous voulez colorer
+                </p>
               </div>
             </div>
 
