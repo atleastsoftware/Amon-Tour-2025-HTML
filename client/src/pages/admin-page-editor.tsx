@@ -153,7 +153,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                     muted
                     loop
                     playsInline
-                    preload="metadata"
+                    preload="auto"
                     className="w-full h-full object-cover"
                     style={{ objectFit: 'cover' }}
                   >

@@ -158,7 +158,7 @@ export default function Hero() {
             muted
             loop
             playsInline
-            preload="metadata" // Charge les métadonnées pour un démarrage plus rapide
+            preload="auto" // Charge complètement la vidéo pour éviter les interruptions
             className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000 ${
               videoLoaded ? 'opacity-100' : 'opacity-0'
             }`}
@@ -173,6 +173,13 @@ export default function Hero() {
             onError={(e) => {
               console.error('Video failed to load:', currentVideoSrc);
               setVideoError(true);
+            }}
+            onWaiting={() => {
+              console.log('Video buffering...');
+            }}
+            onCanPlayThrough={() => {
+              console.log('Video can play through without interruption');
+              setVideoLoaded(true);
             }}
           >
             <source src={currentVideoSrc} type="video/mp4" />
