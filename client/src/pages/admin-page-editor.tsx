@@ -1162,7 +1162,7 @@ export default function AdminPageEditor() {
     }),
   });
 
-  const currentPageConfig = pageConfigs.find(p => p.pageSlug === pageSlug);
+  const currentPageConfig = pageConfigs?.find(p => p.pageSlug === pageSlug);
 
   // Update block mutation
   const updateBlockMutation = useMutation({

@@ -48,73 +48,82 @@ function ColorPicker({ value, onChange }: ColorPickerProps) {
     onChange(e.target.value);
   };
 
+  const handleHexInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const hexValue = e.target.value;
+    // Valider que c'est un code hex valide
+    if (/^#[0-9A-F]{6}$/i.test(hexValue) || hexValue === '') {
+      onChange(hexValue);
+    }
+  };
+
   const currentColorValue = getColorValue(value);
 
   return (
-    <div className="space-y-3">
-      {/* Cases de couleurs rapides */}
-      <div className="flex gap-2">
-        <div className="flex gap-1">
+    <div className="space-y-4">
+      {/* Champ de référence couleur */}
+      <div className="space-y-2">
+        <Label className="text-sm font-medium">Référence couleur</Label>
+        <Input
+          type="text"
+          value={currentColorValue}
+          onChange={handleHexInputChange}
+          placeholder="#ffffff"
+          className="font-mono text-sm"
+          title="Tapez le code couleur ou sélectionnez une couleur prédéfinie"
+        />
+      </div>
+      
+      {/* Couleurs prédéfinies du thème */}
+      <div className="space-y-2">
+        <Label className="text-sm font-medium">Couleurs du thème</Label>
+        <div className="flex gap-3">
           <button
             type="button"
             onClick={() => handleQuickColorClick('primary')}
-            className={`w-8 h-8 rounded border-2 transition-all hover:scale-110 ${
-              value === 'primary' ? 'border-gray-400 ring-2 ring-blue-200' : 'border-gray-200'
+            className={`flex items-center gap-2 px-3 py-2 rounded border-2 transition-all hover:scale-105 ${
+              value === 'primary' ? 'border-blue-400 ring-2 ring-blue-200 bg-blue-50' : 'border-gray-200 hover:border-gray-300'
             }`}
-            style={{ backgroundColor: SYSTEM_COLORS.primary }}
-            title="Couleur principale"
-          />
+            title="Couleur principale du thème"
+          >
+            <div 
+              className="w-6 h-6 rounded"
+              style={{ backgroundColor: SYSTEM_COLORS.primary }}
+            />
+            <span className="text-sm font-medium">Couleur principale</span>
+          </button>
+          
           <button
             type="button"
             onClick={() => handleQuickColorClick('secondary')}
-            className={`w-8 h-8 rounded border-2 transition-all hover:scale-110 ${
-              value === 'secondary' ? 'border-gray-400 ring-2 ring-yellow-200' : 'border-gray-200'
+            className={`flex items-center gap-2 px-3 py-2 rounded border-2 transition-all hover:scale-105 ${
+              value === 'secondary' ? 'border-yellow-400 ring-2 ring-yellow-200 bg-yellow-50' : 'border-gray-200 hover:border-gray-300'
             }`}
-            style={{ backgroundColor: SYSTEM_COLORS.secondary }}
-            title="Couleur secondaire"
-          />
-          <button
-            type="button"
-            onClick={() => handleQuickColorClick('white')}
-            className={`w-8 h-8 rounded border-2 transition-all hover:scale-110 ${
-              value === 'white' ? 'border-gray-400 ring-2 ring-gray-200' : 'border-gray-200'
-            }`}
-            style={{ backgroundColor: SYSTEM_COLORS.white }}
-            title="Blanc"
-          />
-          <button
-            type="button"
-            onClick={() => handleQuickColorClick('gray')}
-            className={`w-8 h-8 rounded border-2 transition-all hover:scale-110 ${
-              value === 'gray' ? 'border-gray-400 ring-2 ring-gray-200' : 'border-gray-200'
-            }`}
-            style={{ backgroundColor: SYSTEM_COLORS.gray }}
-            title="Gris"
-          />
-          <button
-            type="button"
-            onClick={() => handleQuickColorClick('dark')}
-            className={`w-8 h-8 rounded border-2 transition-all hover:scale-110 ${
-              value === 'dark' ? 'border-gray-400 ring-2 ring-gray-200' : 'border-gray-200'
-            }`}
-            style={{ backgroundColor: SYSTEM_COLORS.dark }}
-            title="Sombre"
-          />
+            title="Couleur secondaire du thème"
+          >
+            <div 
+              className="w-6 h-6 rounded"
+              style={{ backgroundColor: SYSTEM_COLORS.secondary }}
+            />
+            <span className="text-sm font-medium">Couleur secondaire</span>
+          </button>
         </div>
       </div>
-      
-      {/* Curseur de personnalisation */}
-      <div className="flex items-center gap-2">
-        <Input
-          type="color"
-          value={currentColorValue}
-          onChange={handleCustomColorChange}
-          className="w-12 h-8 p-0 border cursor-pointer"
-          title="Couleur personnalisée"
-        />
-        <span className="text-sm text-gray-500">
-          Personnalisé: {currentColorValue}
-        </span>
+
+      {/* Aperçu visuel avec color picker natif */}
+      <div className="space-y-2">
+        <Label className="text-sm font-medium">Aperçu</Label>
+        <div className="flex items-center gap-2">
+          <Input
+            type="color"
+            value={currentColorValue}
+            onChange={handleCustomColorChange}
+            className="w-12 h-8 p-0 border cursor-pointer"
+            title="Sélectionneur de couleur"
+          />
+          <span className="text-sm text-gray-600">
+            Cliquez pour ouvrir le sélectionneur de couleur
+          </span>
+        </div>
       </div>
     </div>
   );
