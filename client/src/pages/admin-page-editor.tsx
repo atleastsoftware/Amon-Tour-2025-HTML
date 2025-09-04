@@ -1286,23 +1286,9 @@ export default function AdminPageEditor() {
 
       {/* Content */}
       <div className="max-w-7xl mx-auto p-4">
-        <div className="mb-6">
-          <div className="flex items-center gap-2 mb-2">
-            <Edit className="w-5 h-5" />
-            <h2 className="text-xl font-semibold">{currentPageConfig.pageName}</h2>
-          </div>
-          <p className="text-gray-600">
-            Page principale
-          </p>
-        </div>
 
         {/* Blocks List */}
         <div className="space-y-4">
-          <div className="flex items-center justify-end">
-            <div className="text-sm text-gray-500">
-              {pageBlocks.length} section{pageBlocks.length > 1 ? 's' : ''} sur cette page
-            </div>
-          </div>
 
           {loadingBlocks ? (
             <div className="space-y-4">
@@ -1368,13 +1354,16 @@ export default function AdminPageEditor() {
                           </div>
 
                           <div className="flex items-center gap-2">
-                            {/* Visibility Toggle with Status */}
+                            {/* Visibility Toggle Switch */}
                             <div className="flex items-center gap-2">
+                              <Switch 
+                                checked={block.isActive}
+                                onCheckedChange={() => toggleBlockVisibility(block)}
+                              />
                               <Button
-                                variant={block.isActive ? "default" : "outline"}
+                                variant="outline"
                                 size="sm"
-                                onClick={() => toggleBlockVisibility(block)}
-                                className={`flex items-center gap-2 ${block.isActive ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'text-gray-600'}`}
+                                className="flex items-center gap-2"
                               >
                                 {block.isActive ? (
                                   <><Eye className="w-4 h-4" />Visible</>
