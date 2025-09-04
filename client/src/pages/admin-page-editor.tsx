@@ -4,25 +4,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Edit, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Save, Undo, Trash2, AlertTriangle, Plus, ExternalLink } from 'lucide-react';
 
-// Couleurs principales du système
-const SYSTEM_COLORS = {
+// Couleurs principales du thème
+const THEME_COLORS = {
   primary: '#1e73be',
-  secondary: '#E6B64C',
-  white: '#ffffff',
-  gray: '#6b7280',
-  dark: '#1f2937',
-  // Couleurs supplémentaires pour plus de choix
-  red: '#ef4444',
-  orange: '#f97316',
-  yellow: '#eab308',
-  green: '#22c55e',
-  blue: '#3b82f6',
-  purple: '#a855f7',
-  pink: '#ec4899',
-  black: '#000000'
+  secondary: '#E6B64C'
 };
 
-// Composant ColorPicker avec personnalisation complète
+// Composant ColorPicker compact avec sélecteur natif + cases rapides
 interface ColorPickerProps {
   value: string;
   onChange: (value: string) => void;
@@ -33,93 +21,46 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
   const currentColorValue = value || '#ffffff';
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-2">
       {label && <Label className="text-sm font-medium">{label}</Label>}
       
-      {/* Couleurs rapides principales */}
-      <div>
-        <Label className="text-xs text-gray-600 mb-2 block">Couleurs du thème</Label>
-        <div className="flex gap-1">
-          <button
-            type="button"
-            onClick={() => onChange(SYSTEM_COLORS.primary)}
-            className={`w-10 h-10 rounded-lg border-2 transition-all hover:scale-105 shadow-sm ${
-              currentColorValue === SYSTEM_COLORS.primary ? 'border-gray-500 ring-2 ring-blue-200' : 'border-gray-200'
-            }`}
-            style={{ backgroundColor: SYSTEM_COLORS.primary }}
-            title="Bleu principal"
-          />
-          <button
-            type="button"
-            onClick={() => onChange(SYSTEM_COLORS.secondary)}
-            className={`w-10 h-10 rounded-lg border-2 transition-all hover:scale-105 shadow-sm ${
-              currentColorValue === SYSTEM_COLORS.secondary ? 'border-gray-500 ring-2 ring-yellow-200' : 'border-gray-200'
-            }`}
-            style={{ backgroundColor: SYSTEM_COLORS.secondary }}
-            title="Or secondaire"
-          />
-        </div>
-      </div>
-      
-      {/* Couleurs de base */}
-      <div>
-        <Label className="text-xs text-gray-600 mb-2 block">Couleurs de base</Label>
-        <div className="flex gap-1 flex-wrap">
-          {['white', 'gray', 'dark', 'black'].map((colorKey) => (
-            <button
-              key={colorKey}
-              type="button"
-              onClick={() => onChange(SYSTEM_COLORS[colorKey as keyof typeof SYSTEM_COLORS])}
-              className={`w-8 h-8 rounded border-2 transition-all hover:scale-105 ${
-                currentColorValue === SYSTEM_COLORS[colorKey as keyof typeof SYSTEM_COLORS] ? 'border-gray-500 ring-2 ring-gray-200' : 'border-gray-200'
-              }`}
-              style={{ backgroundColor: SYSTEM_COLORS[colorKey as keyof typeof SYSTEM_COLORS] }}
-              title={colorKey === 'white' ? 'Blanc' : colorKey === 'gray' ? 'Gris' : colorKey === 'dark' ? 'Gris foncé' : 'Noir'}
-            />
-          ))}
-        </div>
-      </div>
-      
-      {/* Palette de couleurs étendues */}
-      <div>
-        <Label className="text-xs text-gray-600 mb-2 block">Palette étendue</Label>
-        <div className="flex gap-1 flex-wrap">
-          {['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink'].map((colorKey) => (
-            <button
-              key={colorKey}
-              type="button"
-              onClick={() => onChange(SYSTEM_COLORS[colorKey as keyof typeof SYSTEM_COLORS])}
-              className={`w-8 h-8 rounded border-2 transition-all hover:scale-105 ${
-                currentColorValue === SYSTEM_COLORS[colorKey as keyof typeof SYSTEM_COLORS] ? 'border-gray-500 ring-2 ring-blue-200' : 'border-gray-200'
-              }`}
-              style={{ backgroundColor: SYSTEM_COLORS[colorKey as keyof typeof SYSTEM_COLORS] }}
-              title={colorKey.charAt(0).toUpperCase() + colorKey.slice(1)}
-            />
-          ))}
-        </div>
-      </div>
-      
-      {/* Sélecteur personnalisé */}
-      <div>
-        <Label className="text-xs text-gray-600 mb-2 block">Couleur personnalisée</Label>
-        <div className="flex items-center gap-2">
-          <input
-            type="color"
-            value={currentColorValue}
-            onChange={(e) => onChange(e.target.value)}
-            className="w-16 h-10 p-1 border border-gray-300 rounded cursor-pointer"
-            title="Choisir une couleur personnalisée"
-          />
-          <Input
-            value={currentColorValue}
-            onChange={(e) => onChange(e.target.value)}
-            placeholder="#ffffff"
-            className="flex-1 font-mono text-sm"
-          />
-        </div>
-        <p className="text-xs text-gray-500 mt-1">
-          Cliquez sur le carré coloré pour ouvrir la palette ou tapez directement un code couleur
-        </p>
+      <div className="flex items-center gap-2">
+        {/* Sélecteur de couleur natif */}
+        <input
+          type="color"
+          value={currentColorValue}
+          onChange={(e) => onChange(e.target.value)}
+          className="w-12 h-10 p-1 border border-gray-300 rounded cursor-pointer"
+          title="Choisir une couleur personnalisée"
+        />
+        
+        {/* Cases rapides pour couleurs thème */}
+        <button
+          type="button"
+          onClick={() => onChange(THEME_COLORS.primary)}
+          className={`w-8 h-8 rounded border-2 transition-all hover:scale-110 ${
+            currentColorValue === THEME_COLORS.primary ? 'border-gray-500 ring-2 ring-blue-200' : 'border-gray-200'
+          }`}
+          style={{ backgroundColor: THEME_COLORS.primary }}
+          title="Bleu principal"
+        />
+        <button
+          type="button"
+          onClick={() => onChange(THEME_COLORS.secondary)}
+          className={`w-8 h-8 rounded border-2 transition-all hover:scale-110 ${
+            currentColorValue === THEME_COLORS.secondary ? 'border-gray-500 ring-2 ring-yellow-200' : 'border-gray-200'
+          }`}
+          style={{ backgroundColor: THEME_COLORS.secondary }}
+          title="Or secondaire"
+        />
+        
+        {/* Champ hex toujours visible */}
+        <Input
+          value={currentColorValue}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder="#ffffff"
+          className="flex-1 font-mono text-sm"
+        />
       </div>
     </div>
   );
