@@ -130,15 +130,13 @@ export default function Hero() {
     
     console.log('Connection quality:', quality, 'Mobile:', mobile);
     
-    // En développement, toujours charger la vidéo
-    // En production, respecter les contraintes de connexion
-    const shouldLoad = !IS_PRODUCTION || (!(IS_PRODUCTION && DISABLE_VIDEO_IN_PRODUCTION) && quality === 'good');
+    // Charger la vidéo sauf si explicitement désactivée en production
+    const shouldLoad = !(IS_PRODUCTION && DISABLE_VIDEO_IN_PRODUCTION);
     
     if (shouldLoad) {
-      // Chargement direct de la vidéo
       setShouldLoadVideo(true);
     } else {
-      console.log('Video loading skipped due to connection constraints');
+      console.log('Video loading disabled in production');
     }
   }, []);
   return (
@@ -160,7 +158,7 @@ export default function Hero() {
             muted
             loop
             playsInline
-            preload="none" // Charge seulement quand nécessaire
+            preload="metadata" // Charge les métadonnées pour un démarrage plus rapide
             className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000 ${
               videoLoaded ? 'opacity-100' : 'opacity-0'
             }`}
