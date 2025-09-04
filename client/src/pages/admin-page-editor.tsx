@@ -63,24 +63,35 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
       case 'hero_main':
         const heroConfig = liveConfiguration || block.configuration || {};
         
-        // Helper function to render title with colored accent
+        // Helper function to render title with colored accent using tags
         const renderTitle = () => {
-          const fullTitle = heroConfig.title || "Your exclusive experiences in Krabi – THAILAND";
-          const accentText = heroConfig.titleAccentText || "in Krabi –";
+          const titleWithTags = heroConfig.titleWithTags || heroConfig.title || "Your exclusive experiences <accent>in Krabi –</accent> THAILAND";
           const titleColor = heroConfig.titleColor || '#ffffff';
           const accentColor = heroConfig.titleAccentColor || '#1e73be';
           
-          if (fullTitle.includes(accentText)) {
-            const parts = fullTitle.split(accentText);
-            return (
-              <>
-                <span style={{ color: titleColor }}>{parts[0]}</span>
-                <span style={{ color: accentColor }}>{accentText}</span>
-                <span style={{ color: titleColor }}>{parts[1]}</span>
-              </>
-            );
-          }
-          return <span style={{ color: titleColor }}>{fullTitle}</span>;
+          // Split by <accent> tags and render with appropriate colors
+          const parts = titleWithTags.split(/(<accent>.*?<\/accent>)/);
+          
+          return (
+            <>
+              {parts.map((part: string, index: number) => {
+                if (part.startsWith('<accent>') && part.endsWith('</accent>')) {
+                  // Extract text inside accent tags
+                  const accentText = part.replace(/<\/?accent>/g, '');
+                  return (
+                    <span key={index} style={{ color: accentColor }}>
+                      {accentText}
+                    </span>
+                  );
+                }
+                return (
+                  <span key={index} style={{ color: titleColor }}>
+                    {part}
+                  </span>
+                );
+              })}
+            </>
+          );
         };
         
         // Background rendering based on type
@@ -158,34 +169,23 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                   {heroConfig.subtitle || "Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations."}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <span 
-                    className={`px-8 py-3 mt-4 rounded transition-colors cursor-pointer inline-block shadow-lg ${
-                      (heroConfig.ctaStyle1 || 'filled') === 'filled' 
-                        ? 'text-white hover:opacity-90' 
-                        : 'bg-transparent border-2 hover:bg-opacity-10'
-                    }`}
-                    style={{
-                      backgroundColor: (heroConfig.ctaStyle1 || 'filled') === 'filled' ? (heroConfig.ctaColor1 || '#1e73be') : 'transparent',
-                      borderColor: (heroConfig.ctaStyle1 || 'filled') === 'outline' ? (heroConfig.ctaColor1 || '#1e73be') : 'transparent',
-                      color: (heroConfig.ctaStyle1 || 'filled') === 'outline' ? (heroConfig.ctaColor1 || '#1e73be') : '#ffffff'
-                    }}
-                  >
-                    {heroConfig.ctaText1 || "See our offers"}
-                  </span>
-                  <span 
-                    className={`px-8 py-3 mt-4 rounded transition-colors cursor-pointer inline-block shadow-lg ${
-                      (heroConfig.ctaStyle2 || 'filled') === 'filled' 
-                        ? 'text-white hover:opacity-90' 
-                        : 'bg-transparent border-2 hover:bg-opacity-10'
-                    }`}
-                    style={{
-                      backgroundColor: (heroConfig.ctaStyle2 || 'filled') === 'filled' ? (heroConfig.ctaColor2 || '#1e73be') : 'transparent',
-                      borderColor: (heroConfig.ctaStyle2 || 'filled') === 'outline' ? (heroConfig.ctaColor2 || '#1e73be') : 'transparent',
-                      color: (heroConfig.ctaStyle2 || 'filled') === 'outline' ? (heroConfig.ctaColor2 || '#1e73be') : '#ffffff'
-                    }}
-                  >
-                    {heroConfig.ctaText2 || "Custom your trip"}
-                  </span>
+                  {(heroConfig.buttons || [{text: 'See our offers', url: '/tours', color: '#1e73be', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#1e73be', style: 'filled'}]).map((button: any, index: number) => (
+                    <span 
+                      key={index}
+                      className={`px-8 py-3 mt-4 rounded transition-colors cursor-pointer inline-block shadow-lg ${
+                        (button.style || 'filled') === 'filled' 
+                          ? 'text-white hover:opacity-90' 
+                          : 'bg-transparent border-2 hover:bg-opacity-10'
+                      }`}
+                      style={{
+                        backgroundColor: (button.style || 'filled') === 'filled' ? (button.color || '#1e73be') : 'transparent',
+                        borderColor: (button.style || 'filled') === 'outline' ? (button.color || '#1e73be') : 'transparent',
+                        color: (button.style || 'filled') === 'outline' ? (button.color || '#1e73be') : '#ffffff'
+                      }}
+                    >
+                      {button.text || `Bouton ${index + 1}`}
+                    </span>
+                  ))}
                 </div>
               </div>
             </div>
@@ -365,14 +365,6 @@ const BlockEditDropdown = ({
           <div className="space-y-6">
             {/* Titre principal avec couleurs */}
             <div className="space-y-3">
-              <Label htmlFor="title">Titre principal</Label>
-              <Input 
-                id="title"
-                value={formData.title || block.configuration?.title || 'Your exclusive experiences in Krabi – THAILAND'} 
-                onChange={e => updateField('title', e.target.value)}
-                placeholder="Your exclusive experiences in Krabi – THAILAND"
-              />
-              
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <Label htmlFor="titleColor">Couleur principale du titre</Label>
@@ -414,16 +406,19 @@ const BlockEditDropdown = ({
               </div>
               
               <div>
-                <Label htmlFor="titleAccentText">Texte à colorier (mots exacts du titre)</Label>
-                <Input 
-                  id="titleAccentText"
-                  value={formData.titleAccentText || 'in Krabi –'} 
-                  onChange={e => updateField('titleAccentText', e.target.value)}
-                  placeholder="Tapez les mots exacts à colorer (ex: in Krabi –)"
+                <Label htmlFor="title">Titre avec coloration (utilisez les balises)</Label>
+                <Textarea 
+                  id="titleWithTags"
+                  value={formData.titleWithTags || formData.title || 'Your exclusive experiences <accent>in Krabi –</accent> THAILAND'} 
+                  onChange={e => updateField('titleWithTags', e.target.value)}
+                  placeholder="Your exclusive experiences <accent>in Krabi –</accent> THAILAND"
+                  rows={2}
                 />
-                <p className="text-xs text-gray-500 mt-1">
-                  Tapez exactement les mots du titre que vous voulez colorer en bleu
-                </p>
+                <div className="text-xs text-gray-500 mt-1 space-y-1">
+                  <p>• Utilisez &lt;accent&gt;texte&lt;/accent&gt; pour colorer en bleu</p>
+                  <p>• Exemple: "Mon titre &lt;accent&gt;en couleur&lt;/accent&gt; normal"</p>
+                  <p>• Vous pouvez avoir plusieurs balises &lt;accent&gt;</p>
+                </div>
               </div>
             </div>
 
@@ -458,123 +453,127 @@ const BlockEditDropdown = ({
               </div>
             </div>
 
-            {/* Boutons */}
+            {/* Boutons dynamiques */}
             <div className="space-y-4">
-              <h4 className="font-semibold text-sm">Boutons d'action</h4>
+              <div className="flex items-center justify-between">
+                <h4 className="font-semibold text-sm">Boutons d'action</h4>
+                <Button 
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#1e73be', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#1e73be', style: 'filled'}];
+                    updateField('buttons', [...buttons, {text: 'Nouveau bouton', url: '#', color: '#1e73be', style: 'filled'}]);
+                  }}
+                >
+                  <Plus className="h-4 w-4 mr-1" /> Ajouter un bouton
+                </Button>
+              </div>
               
-              {/* Bouton 1 */}
-              <div className="border rounded-lg p-4 space-y-3">
-                <Label className="text-sm font-medium">Bouton 1</Label>
-                <div className="grid grid-cols-2 gap-2">
-                  <div>
-                    <Label htmlFor="ctaText1" className="text-xs">Texte</Label>
-                    <Input 
-                      id="ctaText1"
-                      value={formData.ctaText1 || 'See our offers'} 
-                      onChange={e => updateField('ctaText1', e.target.value)}
-                    />
+              {(formData.buttons || [{text: 'See our offers', url: '/tours', color: '#1e73be', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#1e73be', style: 'filled'}]).map((button: any, index: number) => (
+                <div key={index} className="border rounded-lg p-4 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <Label className="text-sm font-medium">Bouton {index + 1}</Label>
+                    {(formData.buttons || []).length > 1 && (
+                      <Button 
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {
+                          const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#1e73be', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#1e73be', style: 'filled'}];
+                          const newButtons = buttons.filter((_: any, i: number) => i !== index);
+                          updateField('buttons', newButtons);
+                        }}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    )}
                   </div>
-                  <div>
-                    <Label htmlFor="ctaUrl1" className="text-xs">URL</Label>
-                    <Input 
-                      id="ctaUrl1"
-                      value={formData.ctaUrl1 || '/tours'} 
-                      onChange={e => updateField('ctaUrl1', e.target.value)}
-                    />
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <Label htmlFor="ctaColor1" className="text-xs">Couleur</Label>
-                    <div className="flex gap-2">
-                      <input 
-                        type="color" 
-                        id="ctaColor1"
-                        value={formData.ctaColor1 || '#1e73be'}
-                        onChange={e => updateField('ctaColor1', e.target.value)}
-                        className="w-8 h-8 rounded border"
-                      />
+                  
+                  <div className="grid grid-cols-2 gap-2">
+                    <div>
+                      <Label className="text-xs">Texte</Label>
                       <Input 
-                        value={formData.ctaColor1 || '#1e73be'}
-                        onChange={e => updateField('ctaColor1', e.target.value)}
-                        placeholder="#1e73be"
-                        className="flex-1 text-xs"
+                        value={button.text || ''} 
+                        onChange={e => {
+                          const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#1e73be', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#1e73be', style: 'filled'}];
+                          const newButtons = buttons.map((b: any, i: number) => 
+                            i === index ? {...b, text: e.target.value} : b
+                          );
+                          updateField('buttons', newButtons);
+                        }}
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-xs">URL</Label>
+                      <Input 
+                        value={button.url || ''} 
+                        onChange={e => {
+                          const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#1e73be', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#1e73be', style: 'filled'}];
+                          const newButtons = buttons.map((b: any, i: number) => 
+                            i === index ? {...b, url: e.target.value} : b
+                          );
+                          updateField('buttons', newButtons);
+                        }}
                       />
                     </div>
                   </div>
                   
-                  <div>
-                    <Label htmlFor="ctaStyle1" className="text-xs">Style</Label>
-                    <Select value={formData.ctaStyle1 || 'filled'} onValueChange={value => updateField('ctaStyle1', value)}>
-                      <SelectTrigger className="h-8">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="filled">Plein</SelectItem>
-                        <SelectItem value="outline">Contour</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Bouton 2 */}
-              <div className="border rounded-lg p-4 space-y-3">
-                <Label className="text-sm font-medium">Bouton 2</Label>
-                <div className="grid grid-cols-2 gap-2">
-                  <div>
-                    <Label htmlFor="ctaText2" className="text-xs">Texte</Label>
-                    <Input 
-                      id="ctaText2"
-                      value={formData.ctaText2 || 'Custom your trip'} 
-                      onChange={e => updateField('ctaText2', e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="ctaUrl2" className="text-xs">URL</Label>
-                    <Input 
-                      id="ctaUrl2"
-                      value={formData.ctaUrl2 || '/custom-tour'} 
-                      onChange={e => updateField('ctaUrl2', e.target.value)}
-                    />
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <Label htmlFor="ctaColor2" className="text-xs">Couleur</Label>
-                    <div className="flex gap-2">
-                      <input 
-                        type="color" 
-                        id="ctaColor2"
-                        value={formData.ctaColor2 || '#1e73be'}
-                        onChange={e => updateField('ctaColor2', e.target.value)}
-                        className="w-8 h-8 rounded border"
-                      />
-                      <Input 
-                        value={formData.ctaColor2 || '#1e73be'}
-                        onChange={e => updateField('ctaColor2', e.target.value)}
-                        placeholder="#1e73be"
-                        className="flex-1 text-xs"
-                      />
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <Label className="text-xs">Couleur</Label>
+                      <div className="flex gap-2">
+                        <input 
+                          type="color" 
+                          value={button.color || '#1e73be'}
+                          onChange={e => {
+                            const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#1e73be', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#1e73be', style: 'filled'}];
+                            const newButtons = buttons.map((b: any, i: number) => 
+                              i === index ? {...b, color: e.target.value} : b
+                            );
+                            updateField('buttons', newButtons);
+                          }}
+                          className="w-8 h-8 rounded border"
+                        />
+                        <Input 
+                          value={button.color || '#1e73be'}
+                          onChange={e => {
+                            const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#1e73be', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#1e73be', style: 'filled'}];
+                            const newButtons = buttons.map((b: any, i: number) => 
+                              i === index ? {...b, color: e.target.value} : b
+                            );
+                            updateField('buttons', newButtons);
+                          }}
+                          placeholder="#1e73be"
+                          className="flex-1 text-xs"
+                        />
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <Label className="text-xs">Style</Label>
+                      <Select 
+                        value={button.style || 'filled'} 
+                        onValueChange={value => {
+                          const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#1e73be', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#1e73be', style: 'filled'}];
+                          const newButtons = buttons.map((b: any, i: number) => 
+                            i === index ? {...b, style: value} : b
+                          );
+                          updateField('buttons', newButtons);
+                        }}
+                      >
+                        <SelectTrigger className="h-8">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="filled">Plein</SelectItem>
+                          <SelectItem value="outline">Contour</SelectItem>
+                        </SelectContent>
+                      </Select>
                     </div>
                   </div>
-                  
-                  <div>
-                    <Label htmlFor="ctaStyle2" className="text-xs">Style</Label>
-                    <Select value={formData.ctaStyle2 || 'filled'} onValueChange={value => updateField('ctaStyle2', value)}>
-                      <SelectTrigger className="h-8">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="filled">Plein</SelectItem>
-                        <SelectItem value="outline">Contour</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
                 </div>
-              </div>
+              ))}
             </div>
 
             {/* Options de background */}
