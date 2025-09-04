@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Edit, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Save, Undo, Trash2, AlertTriangle } from 'lucide-react';
+import { ArrowLeft, Edit, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Save, Undo, Trash2, AlertTriangle, Plus } from 'lucide-react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Switch } from '@/components/ui/switch';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
@@ -158,10 +158,32 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                   {heroConfig.subtitle || "Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations."}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <span className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg">
+                  <span 
+                    className={`px-8 py-3 mt-4 rounded transition-colors cursor-pointer inline-block shadow-lg ${
+                      (heroConfig.ctaStyle1 || 'filled') === 'filled' 
+                        ? 'text-white hover:opacity-90' 
+                        : 'bg-transparent border-2 hover:bg-opacity-10'
+                    }`}
+                    style={{
+                      backgroundColor: (heroConfig.ctaStyle1 || 'filled') === 'filled' ? (heroConfig.ctaColor1 || '#1e73be') : 'transparent',
+                      borderColor: (heroConfig.ctaStyle1 || 'filled') === 'outline' ? (heroConfig.ctaColor1 || '#1e73be') : 'transparent',
+                      color: (heroConfig.ctaStyle1 || 'filled') === 'outline' ? (heroConfig.ctaColor1 || '#1e73be') : '#ffffff'
+                    }}
+                  >
                     {heroConfig.ctaText1 || "See our offers"}
                   </span>
-                  <span className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg">
+                  <span 
+                    className={`px-8 py-3 mt-4 rounded transition-colors cursor-pointer inline-block shadow-lg ${
+                      (heroConfig.ctaStyle2 || 'filled') === 'filled' 
+                        ? 'text-white hover:opacity-90' 
+                        : 'bg-transparent border-2 hover:bg-opacity-10'
+                    }`}
+                    style={{
+                      backgroundColor: (heroConfig.ctaStyle2 || 'filled') === 'filled' ? (heroConfig.ctaColor2 || '#1e73be') : 'transparent',
+                      borderColor: (heroConfig.ctaStyle2 || 'filled') === 'outline' ? (heroConfig.ctaColor2 || '#1e73be') : 'transparent',
+                      color: (heroConfig.ctaStyle2 || 'filled') === 'outline' ? (heroConfig.ctaColor2 || '#1e73be') : '#ffffff'
+                    }}
+                  >
                     {heroConfig.ctaText2 || "Custom your trip"}
                   </span>
                 </div>
@@ -392,13 +414,16 @@ const BlockEditDropdown = ({
               </div>
               
               <div>
-                <Label htmlFor="titleAccentText">Texte à colorier (mots exacts)</Label>
+                <Label htmlFor="titleAccentText">Texte à colorier (mots exacts du titre)</Label>
                 <Input 
                   id="titleAccentText"
                   value={formData.titleAccentText || 'in Krabi –'} 
                   onChange={e => updateField('titleAccentText', e.target.value)}
-                  placeholder="in Krabi –"
+                  placeholder="Tapez les mots exacts à colorer (ex: in Krabi –)"
                 />
+                <p className="text-xs text-gray-500 mt-1">
+                  Tapez exactement les mots du titre que vous voulez colorer en bleu
+                </p>
               </div>
             </div>
 
@@ -434,40 +459,121 @@ const BlockEditDropdown = ({
             </div>
 
             {/* Boutons */}
-            <div className="grid grid-cols-2 gap-2">
-              <div>
-                <Label htmlFor="ctaText1">Bouton 1 - Texte</Label>
-                <Input 
-                  id="ctaText1"
-                  value={formData.ctaText1 || 'See our offers'} 
-                  onChange={e => updateField('ctaText1', e.target.value)}
-                />
+            <div className="space-y-4">
+              <h4 className="font-semibold text-sm">Boutons d'action</h4>
+              
+              {/* Bouton 1 */}
+              <div className="border rounded-lg p-4 space-y-3">
+                <Label className="text-sm font-medium">Bouton 1</Label>
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <Label htmlFor="ctaText1" className="text-xs">Texte</Label>
+                    <Input 
+                      id="ctaText1"
+                      value={formData.ctaText1 || 'See our offers'} 
+                      onChange={e => updateField('ctaText1', e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="ctaUrl1" className="text-xs">URL</Label>
+                    <Input 
+                      id="ctaUrl1"
+                      value={formData.ctaUrl1 || '/tours'} 
+                      onChange={e => updateField('ctaUrl1', e.target.value)}
+                    />
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <Label htmlFor="ctaColor1" className="text-xs">Couleur</Label>
+                    <div className="flex gap-2">
+                      <input 
+                        type="color" 
+                        id="ctaColor1"
+                        value={formData.ctaColor1 || '#1e73be'}
+                        onChange={e => updateField('ctaColor1', e.target.value)}
+                        className="w-8 h-8 rounded border"
+                      />
+                      <Input 
+                        value={formData.ctaColor1 || '#1e73be'}
+                        onChange={e => updateField('ctaColor1', e.target.value)}
+                        placeholder="#1e73be"
+                        className="flex-1 text-xs"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="ctaStyle1" className="text-xs">Style</Label>
+                    <Select value={formData.ctaStyle1 || 'filled'} onValueChange={value => updateField('ctaStyle1', value)}>
+                      <SelectTrigger className="h-8">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="filled">Plein</SelectItem>
+                        <SelectItem value="outline">Contour</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
               </div>
-              <div>
-                <Label htmlFor="ctaUrl1">Bouton 1 - URL</Label>
-                <Input 
-                  id="ctaUrl1"
-                  value={formData.ctaUrl1 || '/tours'} 
-                  onChange={e => updateField('ctaUrl1', e.target.value)}
-                />
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-2">
-              <div>
-                <Label htmlFor="ctaText2">Bouton 2 - Texte</Label>
-                <Input 
-                  id="ctaText2"
-                  value={formData.ctaText2 || 'Custom your trip'} 
-                  onChange={e => updateField('ctaText2', e.target.value)}
-                />
-              </div>
-              <div>
-                <Label htmlFor="ctaUrl2">Bouton 2 - URL</Label>
-                <Input 
-                  id="ctaUrl2"
-                  value={formData.ctaUrl2 || '/custom-tour'} 
-                  onChange={e => updateField('ctaUrl2', e.target.value)}
-                />
+              
+              {/* Bouton 2 */}
+              <div className="border rounded-lg p-4 space-y-3">
+                <Label className="text-sm font-medium">Bouton 2</Label>
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <Label htmlFor="ctaText2" className="text-xs">Texte</Label>
+                    <Input 
+                      id="ctaText2"
+                      value={formData.ctaText2 || 'Custom your trip'} 
+                      onChange={e => updateField('ctaText2', e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="ctaUrl2" className="text-xs">URL</Label>
+                    <Input 
+                      id="ctaUrl2"
+                      value={formData.ctaUrl2 || '/custom-tour'} 
+                      onChange={e => updateField('ctaUrl2', e.target.value)}
+                    />
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <Label htmlFor="ctaColor2" className="text-xs">Couleur</Label>
+                    <div className="flex gap-2">
+                      <input 
+                        type="color" 
+                        id="ctaColor2"
+                        value={formData.ctaColor2 || '#1e73be'}
+                        onChange={e => updateField('ctaColor2', e.target.value)}
+                        className="w-8 h-8 rounded border"
+                      />
+                      <Input 
+                        value={formData.ctaColor2 || '#1e73be'}
+                        onChange={e => updateField('ctaColor2', e.target.value)}
+                        placeholder="#1e73be"
+                        className="flex-1 text-xs"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="ctaStyle2" className="text-xs">Style</Label>
+                    <Select value={formData.ctaStyle2 || 'filled'} onValueChange={value => updateField('ctaStyle2', value)}>
+                      <SelectTrigger className="h-8">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="filled">Plein</SelectItem>
+                        <SelectItem value="outline">Contour</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -509,33 +615,132 @@ const BlockEditDropdown = ({
               {formData.backgroundType === 'video' && (
                 <div>
                   <Label htmlFor="videoUrl">URL de la vidéo</Label>
-                  <Input 
-                    id="videoUrl"
-                    value={formData.videoUrl || '/attached_assets/hero-video-optimized.mp4'} 
-                    onChange={e => updateField('videoUrl', e.target.value)}
-                    placeholder="/attached_assets/hero-video-optimized.mp4"
-                  />
+                  <div className="flex gap-2">
+                    <Input 
+                      id="videoUrl"
+                      value={formData.videoUrl || '/attached_assets/hero-video-optimized.mp4'} 
+                      onChange={e => updateField('videoUrl', e.target.value)}
+                      placeholder="/attached_assets/hero-video-optimized.mp4"
+                      className="flex-1"
+                    />
+                    <Button 
+                      type="button"
+                      variant="outline"
+                      size="icon"
+                      className="shrink-0"
+                      onClick={() => {
+                        const input = document.createElement('input');
+                        input.type = 'file';
+                        input.accept = 'video/*';
+                        input.onchange = (e) => {
+                          const file = (e.target as HTMLInputElement).files?.[0];
+                          if (file) {
+                            const url = URL.createObjectURL(file);
+                            updateField('videoUrl', url);
+                          }
+                        };
+                        input.click();
+                      }}
+                    >
+                      <Plus className="h-4 w-4" />
+                    </Button>
+                  </div>
                 </div>
               )}
               
               {formData.backgroundType === 'images' && (
-                <div className="space-y-2">
+                <div className="space-y-3">
                   <Label>URLs des images (3 maximum)</Label>
-                  <Input 
-                    value={formData.backgroundImage1 || ''} 
-                    onChange={e => updateField('backgroundImage1', e.target.value)}
-                    placeholder="URL de l'image 1"
-                  />
-                  <Input 
-                    value={formData.backgroundImage2 || ''} 
-                    onChange={e => updateField('backgroundImage2', e.target.value)}
-                    placeholder="URL de l'image 2"
-                  />
-                  <Input 
-                    value={formData.backgroundImage3 || ''} 
-                    onChange={e => updateField('backgroundImage3', e.target.value)}
-                    placeholder="URL de l'image 3"
-                  />
+                  
+                  <div className="flex gap-2">
+                    <Input 
+                      value={formData.backgroundImage1 || ''} 
+                      onChange={e => updateField('backgroundImage1', e.target.value)}
+                      placeholder="URL de l'image 1"
+                      className="flex-1"
+                    />
+                    <Button 
+                      type="button"
+                      variant="outline"
+                      size="icon"
+                      className="shrink-0"
+                      onClick={() => {
+                        const input = document.createElement('input');
+                        input.type = 'file';
+                        input.accept = 'image/*';
+                        input.onchange = (e) => {
+                          const file = (e.target as HTMLInputElement).files?.[0];
+                          if (file) {
+                            const url = URL.createObjectURL(file);
+                            updateField('backgroundImage1', url);
+                          }
+                        };
+                        input.click();
+                      }}
+                    >
+                      <Plus className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  
+                  <div className="flex gap-2">
+                    <Input 
+                      value={formData.backgroundImage2 || ''} 
+                      onChange={e => updateField('backgroundImage2', e.target.value)}
+                      placeholder="URL de l'image 2"
+                      className="flex-1"
+                    />
+                    <Button 
+                      type="button"
+                      variant="outline"
+                      size="icon"
+                      className="shrink-0"
+                      onClick={() => {
+                        const input = document.createElement('input');
+                        input.type = 'file';
+                        input.accept = 'image/*';
+                        input.onchange = (e) => {
+                          const file = (e.target as HTMLInputElement).files?.[0];
+                          if (file) {
+                            const url = URL.createObjectURL(file);
+                            updateField('backgroundImage2', url);
+                          }
+                        };
+                        input.click();
+                      }}
+                    >
+                      <Plus className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  
+                  <div className="flex gap-2">
+                    <Input 
+                      value={formData.backgroundImage3 || ''} 
+                      onChange={e => updateField('backgroundImage3', e.target.value)}
+                      placeholder="URL de l'image 3"
+                      className="flex-1"
+                    />
+                    <Button 
+                      type="button"
+                      variant="outline"
+                      size="icon"
+                      className="shrink-0"
+                      onClick={() => {
+                        const input = document.createElement('input');
+                        input.type = 'file';
+                        input.accept = 'image/*';
+                        input.onchange = (e) => {
+                          const file = (e.target as HTMLInputElement).files?.[0];
+                          if (file) {
+                            const url = URL.createObjectURL(file);
+                            updateField('backgroundImage3', url);
+                          }
+                        };
+                        input.click();
+                      }}
+                    >
+                      <Plus className="h-4 w-4" />
+                    </Button>
+                  </div>
                 </div>
               )}
             </div>
