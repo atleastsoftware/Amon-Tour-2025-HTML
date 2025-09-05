@@ -412,6 +412,14 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         const popContentColor = popConfig.contentColor || '#666666';
         const popDashColor = popConfig.dashColor || '#E6B64C';
 
+        // Calculer le nombre d'éléments à afficher
+        const calculateDisplayCount = (config: any) => {
+          const desktopCols = config.desktopCols || 3;
+          const desktopRows = config.desktopRows || 2;
+          if (desktopRows === 'all') return 18; // Tous les tours
+          return desktopCols * desktopRows;
+        };
+
         return (
           <section id="tours" className="py-16 bg-white">
             <div className="container mx-auto px-4 text-center mb-8">
@@ -441,9 +449,9 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
             </div>
             
             <div className="container mx-auto px-4">
-              <div className={`grid grid-cols-1 ${popConfig.gridCols === '4' ? 'md:grid-cols-2 lg:grid-cols-4' : 'md:grid-cols-2 lg:grid-cols-3'} gap-6 mb-8`}>
+              <div className={`grid grid-cols-${popConfig.mobileCols || 1} md:grid-cols-2 lg:grid-cols-${popConfig.desktopCols || 3} gap-6 mb-8`}>
                 {Array.from({ 
-                  length: popConfig.displayCount === 'all' ? 12 : (popConfig.displayCount || 6) 
+                  length: calculateDisplayCount(popConfig)
                 }).map((_, index) => (
                   <motion.div
                     key={index}
@@ -517,11 +525,11 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
 
       case 'text_image':
         const textConfig = liveConfiguration || block.configuration || {};
-        const title = textConfig.title || block.title || 'Titre du bloc';
-        const content = textConfig.content || block.content || 'Contenu du texte...';
-        const titleColor = textConfig.titleColor || '#1e73be';
-        const contentColor = textConfig.contentColor || '#333333';
-        const dashColor = textConfig.dashColor || '#E6B64C';
+        const textTitle = textConfig.title || block.title || 'Titre du bloc';
+        const textContent = textConfig.content || block.content || 'Contenu du texte...';
+        const textTitleColor = textConfig.titleColor || '#1e73be';
+        const textContentColor = textConfig.contentColor || '#333333';
+        const textDashColor = textConfig.dashColor || '#E6B64C';
 
         return (
           <div className={`${isFullscreen ? 'min-h-[300px]' : 'min-h-[200px]'} bg-white p-8 flex flex-col justify-center`}>
@@ -529,23 +537,23 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
               {/* Tiret décoratif */}
               <div 
                 className="w-16 h-1 mx-auto mb-6"
-                style={{ backgroundColor: dashColor }}
+                style={{ backgroundColor: textDashColor }}
               ></div>
               
               {/* Titre */}
               <h2 
                 className="text-2xl md:text-3xl font-bold mb-6"
-                style={{ color: titleColor }}
+                style={{ color: textTitleColor }}
               >
-                {title}
+                {textTitle}
               </h2>
               
               {/* Contenu */}
               <div 
                 className="text-base md:text-lg leading-relaxed whitespace-pre-line"
-                style={{ color: contentColor }}
+                style={{ color: textContentColor }}
               >
-                {content}
+                {textContent}
               </div>
             </div>
           </div>
@@ -614,6 +622,106 @@ const BlockEditDropdown = ({
   const renderEditFields = () => {
     switch (block.blockType) {
       case 'hero_main':
+        return (
+          <div className="space-y-6">
+            {/* Titre principal */}
+            <div>
+              <Label htmlFor="title">Titre principal</Label>
+              <Textarea 
+                id="title"
+                value={formData.title || block.configuration?.title || 'Your exclusive experiences\nin Krabi –\nTHAILAND'} 
+                onChange={e => updateField('title', e.target.value)}
+                placeholder="Your exclusive experiences\nin Krabi –\nTHAILAND"
+                rows={3}
+                className="mt-2"
+              />
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.titleColor || '#ffffff'}
+                  onChange={(value) => updateField('titleColor', value)}
+                />
+              </div>
+            </div>
+            
+            {/* Mot du titre en seconde couleur */}
+            <div>
+              <Label htmlFor="titleAccentText">Mot du titre en seconde couleur</Label>
+              <Input 
+                id="titleAccentText"
+                value={formData.titleAccentText || 'in Krabi –'} 
+                onChange={e => updateField('titleAccentText', e.target.value)}
+                placeholder="in Krabi –"
+                className="mt-2"
+              />
+              <p className="text-xs text-gray-500 mt-1">
+                Tapez exactement les mots du titre que vous voulez colorer
+              </p>
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.titleAccentColor || '#1e73be'}
+                  onChange={(value) => updateField('titleAccentColor', value)}
+                />
+              </div>
+            </div>
+
+            {/* Sous-titre */}
+            <div>
+              <Label htmlFor="subtitle">Sous-titre</Label>
+              <Textarea 
+                id="subtitle"
+                value={formData.subtitle || block.configuration?.subtitle || 'Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations.'} 
+                onChange={e => updateField('subtitle', e.target.value)}
+                placeholder="Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations."
+                rows={3}
+                className="mt-2"
+              />
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.subtitleColor || '#ffffff'}
+                  onChange={(value) => updateField('subtitleColor', value)}
+                />
+              </div>
+            </div>
+
+            {/* Premier bouton */}
+            <div>
+              <Label htmlFor="primaryButtonText">Premier bouton</Label>
+              <Input 
+                id="primaryButtonText"
+                value={formData.primaryButtonText || 'See our offers'} 
+                onChange={e => updateField('primaryButtonText', e.target.value)}
+                placeholder="See our offers"
+                className="mt-2"
+              />
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.primaryButtonColor || '#1e73be'}
+                  onChange={(value) => updateField('primaryButtonColor', value)}
+                />
+              </div>
+            </div>
+
+            {/* Deuxième bouton */}
+            <div>
+              <Label htmlFor="secondaryButtonText">Deuxième bouton</Label>
+              <Input 
+                id="secondaryButtonText"
+                value={formData.secondaryButtonText || 'Custom your trip'} 
+                onChange={e => updateField('secondaryButtonText', e.target.value)}
+                placeholder="Custom your trip"
+                className="mt-2"
+              />
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.secondaryButtonColor || '#E6B64C'}
+                  onChange={(value) => updateField('secondaryButtonColor', value)}
+                />
+              </div>
+            </div>
+          </div>
+        );
+
+      case 'expats_welcome':
         return (
           <div className="space-y-6">
             {/* Titre principal */}
@@ -972,30 +1080,6 @@ const BlockEditDropdown = ({
           </div>
         );
 
-      case 'expats_welcome':
-        return (
-          <div className="space-y-4">
-            <div>
-              <Label htmlFor="title">Titre</Label>
-              <Input 
-                id="title"
-                value={formData.title || block.configuration?.title || ''} 
-                onChange={e => updateField('title', e.target.value)}
-                placeholder="When expats welcome you..."
-              />
-            </div>
-            <div>
-              <Label htmlFor="content">Contenu</Label>
-              <Textarea 
-                id="content"
-                value={formData.content || block.configuration?.content || ''} 
-                onChange={e => updateField('content', e.target.value)}
-                placeholder="Contenu de la section..."
-                rows={4}
-              />
-            </div>
-          </div>
-        );
 
       case 'popular_experiences':
         return (
@@ -1358,23 +1442,76 @@ const BlockEditDropdown = ({
               </div>
             </div>
 
-            {/* Nombre d'éléments à afficher */}
-            <div>
-              <Label htmlFor="displayCount">Nombre d'éléments</Label>
-              <Select value={formData.displayCount?.toString() || 'all'} onValueChange={(value) => updateField('displayCount', value === 'all' ? 'all' : parseInt(value))}>
-                <SelectTrigger className="mt-2">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Tout afficher</SelectItem>
-                  <SelectItem value="3">3 éléments</SelectItem>
-                  <SelectItem value="4">4 éléments</SelectItem>
-                  <SelectItem value="6">6 éléments</SelectItem>
-                  <SelectItem value="8">8 éléments</SelectItem>
-                  <SelectItem value="9">9 éléments</SelectItem>
-                  <SelectItem value="12">12 éléments</SelectItem>
-                </SelectContent>
-              </Select>
+            {/* Configuration de la grille */}
+            <div className="space-y-4">
+              <Label>Configuration de la grille</Label>
+              
+              {/* Ordinateur */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="desktopCols">Colonnes (Ordinateur)</Label>
+                  <Select value={formData.desktopCols?.toString() || '3'} onValueChange={(value) => updateField('desktopCols', parseInt(value))}>
+                    <SelectTrigger className="mt-2">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="2">2 colonnes</SelectItem>
+                      <SelectItem value="3">3 colonnes</SelectItem>
+                      <SelectItem value="4">4 colonnes</SelectItem>
+                      <SelectItem value="5">5 colonnes</SelectItem>
+                      <SelectItem value="6">6 colonnes</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                <div>
+                  <Label htmlFor="desktopRows">Lignes (Ordinateur)</Label>
+                  <Select value={formData.desktopRows?.toString() || '2'} onValueChange={(value) => updateField('desktopRows', parseInt(value))}>
+                    <SelectTrigger className="mt-2">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="1">1 ligne</SelectItem>
+                      <SelectItem value="2">2 lignes</SelectItem>
+                      <SelectItem value="3">3 lignes</SelectItem>
+                      <SelectItem value="4">4 lignes</SelectItem>
+                      <SelectItem value="all">Toutes</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              {/* Mobile */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="mobileCols">Colonnes (Mobile)</Label>
+                  <Select value={formData.mobileCols?.toString() || '1'} onValueChange={(value) => updateField('mobileCols', parseInt(value))}>
+                    <SelectTrigger className="mt-2">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="1">1 colonne</SelectItem>
+                      <SelectItem value="2">2 colonnes</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                <div>
+                  <Label htmlFor="mobileRows">Lignes (Mobile)</Label>
+                  <Select value={formData.mobileRows?.toString() || '3'} onValueChange={(value) => updateField('mobileRows', parseInt(value))}>
+                    <SelectTrigger className="mt-2">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="2">2 lignes</SelectItem>
+                      <SelectItem value="3">3 lignes</SelectItem>
+                      <SelectItem value="4">4 lignes</SelectItem>
+                      <SelectItem value="5">5 lignes</SelectItem>
+                      <SelectItem value="all">Toutes</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
             </div>
 
             {/* Mode de sélection */}
@@ -1421,13 +1558,43 @@ const BlockEditDropdown = ({
                     Cochez les tours à afficher dans cette section :
                   </p>
                   <div className="space-y-2 max-h-40 overflow-y-auto">
-                    {/* Note: Les tours seront chargés dynamiquement */}
-                    <div className="flex items-center space-x-2">
-                      <Checkbox id="tour-placeholder" />
-                      <Label htmlFor="tour-placeholder" className="text-sm">
-                        Les tours disponibles s'afficheront ici...
-                      </Label>
-                    </div>
+                    {[
+                      "Private day trip to Phang Nga: Koh Kudu and Koh Roi",
+                      "Private day trip to Koh Phi Phi with sunset",
+                      "Private Package 2D/1N to Koh Phi Phi & Ao Nang",
+                      "Private Day Trip: The Secrets of Railay",
+                      "Private Package 2D/1N: Bivouac at Phang Nga Bay",
+                      "Private Day Trip to Koh Kradan & Koh Ngai",
+                      "Private Day Trip to Koh Mook with Sunset",
+                      "Semi Private Day Trip to Koh Hong Archipelago",
+                      "Private Day Trip to Laem Sak: Local Life",
+                      "Private Day Trip to Krabi: Primary Forest",
+                      "Private day trip: Ao Luk - Temple, Cave and Jungle",
+                      "Private Day Trip to Thalane - Mangrove kayaking",
+                      "Private Day Trip to Koh Hong & Ao Nang's local islands",
+                      "Private Day Trip to Koh Hong Archipelago",
+                      "Private Day Trip to Railay & Ao Nang's local islands",
+                      "Private Day Trip to Phang Nga Bay : Koh Kudu and Koh Hong",
+                      "Catamaran Private Day Trip to Ao Nang's local islands",
+                      "Semi Private Day Trip to Koh Phi Phi on morning"
+                    ].map((tourName, index) => (
+                      <div key={index} className="flex items-center space-x-2">
+                        <Checkbox 
+                          id={`tour-${index}`} 
+                          checked={formData.selectedTours?.includes(index) || false}
+                          onCheckedChange={(checked) => {
+                            const currentSelected = formData.selectedTours || [];
+                            const newSelected = checked 
+                              ? [...currentSelected, index]
+                              : currentSelected.filter((i: number) => i !== index);
+                            updateField('selectedTours', newSelected);
+                          }}
+                        />
+                        <Label htmlFor={`tour-${index}`} className="text-sm">
+                          {tourName}
+                        </Label>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
