@@ -693,7 +693,7 @@ const BlockEditDropdown = ({
                   type="button"
                   size="sm"
                   onClick={() => {
-                    const currentButtons = formData.buttons || [
+                    const currentButtons = formData.buttons && formData.buttons.length > 0 ? formData.buttons : [
                       { text: 'See our offers', link: '/tours', style: 'filled', color: '#1e73be' },
                       { text: 'Custom your trip', link: '/custom-tour', style: 'outline', color: '#E6B64C' }
                     ];
@@ -706,7 +706,7 @@ const BlockEditDropdown = ({
               </div>
               
               <div className="space-y-4">
-                {(formData.buttons || [
+                {(formData.buttons && formData.buttons.length > 0 ? formData.buttons : [
                   { text: 'See our offers', link: '/tours', style: 'filled', color: '#1e73be' },
                   { text: 'Custom your trip', link: '/custom-tour', style: 'outline', color: '#E6B64C' }
                 ]).map((button: any, index: number) => (
@@ -763,6 +763,21 @@ const BlockEditDropdown = ({
                     
                     <div className="grid grid-cols-2 gap-3">
                       <div>
+                        <Label>Couleur</Label>
+                        <div className="mt-1">
+                          <ColorPicker
+                            value={button.color || '#1e73be'}
+                            onChange={(value) => {
+                              const currentButtons = formData.buttons || [];
+                              const newButtons = [...currentButtons];
+                              newButtons[index] = { ...newButtons[index], color: value };
+                              updateField('buttons', newButtons);
+                            }}
+                          />
+                        </div>
+                      </div>
+                      
+                      <div>
                         <Label htmlFor={`button-style-${index}`}>Style</Label>
                         <Select value={button.style || 'filled'} onValueChange={(value) => {
                           const currentButtons = formData.buttons || [];
@@ -778,21 +793,6 @@ const BlockEditDropdown = ({
                             <SelectItem value="outline">Contour</SelectItem>
                           </SelectContent>
                         </Select>
-                      </div>
-                      
-                      <div>
-                        <Label>Couleur</Label>
-                        <div className="mt-1">
-                          <ColorPicker
-                            value={button.color || '#1e73be'}
-                            onChange={(value) => {
-                              const currentButtons = formData.buttons || [];
-                              const newButtons = [...currentButtons];
-                              newButtons[index] = { ...newButtons[index], color: value };
-                              updateField('buttons', newButtons);
-                            }}
-                          />
-                        </div>
                       </div>
                     </div>
                   </div>
