@@ -252,19 +252,20 @@ function MiniaturizedComponent({
                           animate={{ 
                             opacity: 1, 
                             y: 0,
-                            x: [0, 10, 0, -10, 0]
+                            x: [0, 15, 0, -15, 0]
                           }}
                           transition={{
                             y: { duration: 0.6 },
                             opacity: { duration: 0.6 },
                             x: {
                               repeat: Infinity,
-                              duration: 4,
+                              duration: 3,
                               ease: "easeInOut",
-                              delay: 1
+                              delay: 0.5
                             }
                           }}
                           className="max-w-xl"
+                          style={{ willChange: 'transform' }}
                         >
                           <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight text-white drop-shadow-lg">
                             {(() => {
