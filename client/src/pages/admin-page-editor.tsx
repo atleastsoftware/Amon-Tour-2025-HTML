@@ -140,10 +140,15 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
                     <span>Référence couleur :</span>
                     <span 
                       className="font-mono text-blue-600 cursor-pointer hover:underline ml-2"
-                      onClick={(e) => {
+                      onMouseDown={(e) => {
                         e.stopPropagation();
+                        e.preventDefault();
                         setIsEditingCustom(true);
                         setCustomInput(currentColorValue);
+                      }}
+                      onPointerDown={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
                       }}
                     >
                       {displayValue}
