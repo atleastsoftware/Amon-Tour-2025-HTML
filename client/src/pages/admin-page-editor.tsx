@@ -407,6 +407,11 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
 
       case 'popular_experiences':
         // Section "Our Popular Experiences" avec tours TourNinja
+        const popConfig = liveConfiguration || block.configuration || {};
+        const popTitleColor = popConfig.titleColor || '#1e73be';
+        const popContentColor = popConfig.contentColor || '#666666';
+        const popDashColor = popConfig.dashColor || '#E6B64C';
+
         return (
           <section id="tours" className="py-16 bg-white">
             <div className="container mx-auto px-4 text-center mb-8">
@@ -416,12 +421,21 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
               >
-                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
-                  {liveConfiguration?.title || block.configuration?.title || "Our Popular Experiences"}
+                <h2 
+                  className="font-heading font-bold text-3xl md:text-4xl mb-3"
+                  style={{ color: popTitleColor }}
+                >
+                  {popConfig.title || block.configuration?.title || "Our Popular Experiences"}
                 </h2>
-                <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
-                <p className="text-gray-600 max-w-2xl mx-auto">
-                  {liveConfiguration?.subtitle || block.configuration?.subtitle || "Step off the beaten path into carefully curated experiences beyond the tourist trail."}
+                <div 
+                  className="w-20 h-1 mx-auto mb-4"
+                  style={{ backgroundColor: popDashColor }}
+                ></div>
+                <p 
+                  className="max-w-2xl mx-auto"
+                  style={{ color: popContentColor }}
+                >
+                  {popConfig.subtitle || block.configuration?.subtitle || "Step off the beaten path into carefully curated experiences beyond the tourist trail."}
                 </p>
               </motion.div>
             </div>
@@ -1276,6 +1290,144 @@ const BlockEditDropdown = ({
                   onChange={(value) => updateField('dashColor', value)}
                 />
               </div>
+            </div>
+          </div>
+        );
+
+      case 'card_grid':
+        return (
+          <div className="space-y-6">
+            {/* Titre */}
+            <div>
+              <Label htmlFor="title">Titre</Label>
+              <Input 
+                id="title"
+                value={formData.title || block.title || 'Titre de la section'} 
+                onChange={e => updateField('title', e.target.value)}
+                placeholder="Titre de la section"
+                className="mt-2"
+              />
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.titleColor || '#1e73be'}
+                  onChange={(value) => updateField('titleColor', value)}
+                />
+              </div>
+            </div>
+
+            {/* Contenu (Subtitle) */}
+            <div>
+              <Label htmlFor="subtitle">Contenu</Label>
+              <Textarea 
+                id="subtitle"
+                value={formData.subtitle || block.subtitle || 'Description de la section...'} 
+                onChange={e => updateField('subtitle', e.target.value)}
+                placeholder="Description de la section..."
+                rows={3}
+                className="mt-2"
+              />
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.contentColor || '#666666'}
+                  onChange={(value) => updateField('contentColor', value)}
+                />
+              </div>
+            </div>
+
+            {/* Tiret */}
+            <div>
+              <Label htmlFor="dashColor">Tiret</Label>
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.dashColor || '#E6B64C'}
+                  onChange={(value) => updateField('dashColor', value)}
+                />
+              </div>
+            </div>
+
+            {/* Nombre d'éléments à afficher */}
+            <div>
+              <Label htmlFor="displayCount">Nombre d'éléments à afficher</Label>
+              <Select value={formData.displayCount?.toString() || 'all'} onValueChange={(value) => updateField('displayCount', value === 'all' ? 'all' : parseInt(value))}>
+                <SelectTrigger className="mt-2">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Tout afficher</SelectItem>
+                  <SelectItem value="3">3 éléments</SelectItem>
+                  <SelectItem value="4">4 éléments</SelectItem>
+                  <SelectItem value="6">6 éléments</SelectItem>
+                  <SelectItem value="8">8 éléments</SelectItem>
+                  <SelectItem value="9">9 éléments</SelectItem>
+                  <SelectItem value="12">12 éléments</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Mode de sélection */}
+            <div>
+              <Label htmlFor="selectionMode">Mode de sélection</Label>
+              <Select value={formData.selectionMode || 'all'} onValueChange={(value) => updateField('selectionMode', value)}>
+                <SelectTrigger className="mt-2">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Toutes les annonces</SelectItem>
+                  <SelectItem value="category">Par catégorie</SelectItem>
+                  <SelectItem value="individual">Sélection individuelle</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Sélection de catégorie (si mode catégorie) */}
+            {formData.selectionMode === 'category' && (
+              <div>
+                <Label htmlFor="selectedCategory">Catégorie</Label>
+                <Select value={formData.selectedCategory || ''} onValueChange={(value) => updateField('selectedCategory', value)}>
+                  <SelectTrigger className="mt-2">
+                    <SelectValue placeholder="Choisir une catégorie" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="adventure">Aventure</SelectItem>
+                    <SelectItem value="culture">Culture</SelectItem>
+                    <SelectItem value="nature">Nature</SelectItem>
+                    <SelectItem value="relaxation">Détente</SelectItem>
+                    <SelectItem value="water">Activités aquatiques</SelectItem>
+                    <SelectItem value="family">Famille</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
+
+            {/* Sélection individuelle (si mode individuel) */}
+            {formData.selectionMode === 'individual' && (
+              <div>
+                <Label>Sélection des tours</Label>
+                <div className="mt-2 p-4 border rounded-lg bg-gray-50">
+                  <p className="text-sm text-gray-600 mb-3">
+                    Cochez les tours à afficher dans cette section :
+                  </p>
+                  <div className="space-y-2 max-h-40 overflow-y-auto">
+                    {/* Note: Les tours seront chargés dynamiquement */}
+                    <div className="flex items-center space-x-2">
+                      <Checkbox id="tour-placeholder" />
+                      <Label htmlFor="tour-placeholder" className="text-sm">
+                        Les tours disponibles s'afficheront ici...
+                      </Label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Afficher le bouton "Voir tous" */}
+            <div className="flex items-center space-x-2">
+              <Checkbox 
+                id="showViewAllButton" 
+                checked={formData.showViewAllButton !== false}
+                onCheckedChange={(checked) => updateField('showViewAllButton', checked)}
+              />
+              <Label htmlFor="showViewAllButton">Afficher le bouton "Voir tous"</Label>
             </div>
           </div>
         );
