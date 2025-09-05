@@ -195,7 +195,7 @@ const getBlockDisplayName = (blockType: string): string => {
   const blockNames: { [key: string]: string } = {
     'video_hero': 'Hero Section',
     'hero': 'Hero Section', 
-    'text_image': 'Text & Image',
+    'text_image': 'Text',
     'form': 'Form',
     'advantages': 'Advantages',
     'testimonials': 'Testimonials',
@@ -382,6 +382,39 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
           </section>
         );
       
+      case 'text_image':
+        // Section Text simple
+        const textConfig = liveConfiguration || block.configuration || {};
+        return (
+          <section className="py-20">
+            <div className="container mx-auto px-4 max-w-4xl text-center">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <h2 
+                  className="font-heading font-bold text-3xl md:text-4xl mb-3"
+                  style={{ color: textConfig.titleColor || '#333333' }}
+                >
+                  {textConfig.title || block.configuration?.title || "Titre de la section"}
+                </h2>
+                <div 
+                  className="w-20 h-1 mx-auto mb-8"
+                  style={{ backgroundColor: textConfig.dividerColor || '#E6B64C' }}
+                ></div>
+                <p 
+                  className="text-lg leading-relaxed"
+                  style={{ color: textConfig.contentColor || '#666666' }}
+                >
+                  {textConfig.content || block.configuration?.content || "Contenu du texte de cette section. Vous pouvez modifier ce texte dans l'éditeur."}
+                </p>
+              </motion.div>
+            </div>
+          </section>
+        );
+
       case 'expats_welcome':
         // Section d'accueil basée sur le style du vrai site
         return (
@@ -905,6 +938,59 @@ const BlockEditDropdown = ({
                   </div>
                 </div>
               )}
+            </div>
+          </div>
+        );
+
+      case 'text_image':
+        return (
+          <div className="space-y-6">
+            {/* Titre */}
+            <div>
+              <Label htmlFor="title">Titre</Label>
+              <Input 
+                id="title"
+                value={formData.title || block.configuration?.title || 'Titre de la section'} 
+                onChange={e => updateField('title', e.target.value)}
+                placeholder="Titre de la section"
+                className="mt-2"
+              />
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.titleColor || '#333333'}
+                  onChange={(value) => updateField('titleColor', value)}
+                />
+              </div>
+            </div>
+            
+            {/* Contenu */}
+            <div>
+              <Label htmlFor="content">Contenu</Label>
+              <Textarea 
+                id="content"
+                value={formData.content || block.configuration?.content || 'Contenu du texte de cette section. Vous pouvez modifier ce texte dans l\'éditeur.'} 
+                onChange={e => updateField('content', e.target.value)}
+                placeholder="Contenu du texte de cette section..."
+                rows={4}
+                className="mt-2"
+              />
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.contentColor || '#666666'}
+                  onChange={(value) => updateField('contentColor', value)}
+                />
+              </div>
+            </div>
+
+            {/* Tiret */}
+            <div>
+              <Label htmlFor="divider">Tiret</Label>
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.dividerColor || '#E6B64C'}
+                  onChange={(value) => updateField('dividerColor', value)}
+                />
+              </div>
             </div>
           </div>
         );
