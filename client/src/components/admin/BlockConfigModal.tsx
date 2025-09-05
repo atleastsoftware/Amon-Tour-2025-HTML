@@ -292,23 +292,25 @@ export function BlockConfigModal({ open, onOpenChange, block, onSave }: BlockCon
               </div>
             </div>
 
-            {block.blockType === 'text_image' && (
+            {(block.blockType === 'text_image' || block.blockType === 'text_section') && (
               <div className="space-y-4">
-                <div>
-                  <Label>Layout</Label>
-                  <Select 
-                    value={config.layout || 'text-left'} 
-                    onValueChange={(value) => handleConfigChange('layout', value)}
-                  >
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="text-left">Text Left, Image Right</SelectItem>
-                      <SelectItem value="image-left">Image Left, Text Right</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+                {block.blockType === 'text_image' && (
+                  <div>
+                    <Label>Layout</Label>
+                    <Select 
+                      value={config.layout || 'text-left'} 
+                      onValueChange={(value) => handleConfigChange('layout', value)}
+                    >
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="text-left">Text Left, Image Right</SelectItem>
+                        <SelectItem value="image-left">Image Left, Text Right</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                )}
                 
                 <div>
                   <Label>Couleur du titre</Label>

@@ -429,13 +429,44 @@ function MiniaturizedComponent({
         );
         
       case 'text_section':
+        const textSectionConfig = block.configuration || {};
+        const getTextSectionTitleColor = () => {
+          const color = textSectionConfig.titleColor || 'dark';
+          if (color === 'primary') return 'text-primary';
+          if (color === 'secondary') return 'text-secondary';
+          if (color === 'white') return 'text-white';
+          if (color === 'gray') return 'text-gray-600';
+          if (color.startsWith('#')) return `[color:${color}]`;
+          return 'text-gray-800';
+        };
+        const getTextSectionContentColor = () => {
+          const color = textSectionConfig.contentColor || 'gray';
+          if (color === 'primary') return 'text-primary';
+          if (color === 'secondary') return 'text-secondary';
+          if (color === 'white') return 'text-white';
+          if (color === 'dark') return 'text-gray-800';
+          if (color.startsWith('#')) return `[color:${color}]`;
+          return 'text-gray-600';
+        };
+        const getTextSectionDashColor = () => {
+          const color = textSectionConfig.dashColor || 'secondary';
+          if (color === 'primary') return 'bg-primary';
+          if (color === 'secondary') return 'bg-secondary';
+          if (color === 'white') return 'bg-white';
+          if (color === 'gray') return 'bg-gray-600';
+          if (color === 'dark') return 'bg-gray-800';
+          if (color.startsWith('#')) return `[background-color:${color}]`;
+          return 'bg-secondary';
+        };
+        
         return (
           <div className="h-full bg-white p-3">
             <div className="text-center max-w-4xl mx-auto">
-              <div className="text-[12px] font-bold text-gray-800 mb-2">
+              <div className={`text-[12px] font-bold ${getTextSectionTitleColor()} mb-1`}>
                 {block.title || "When expats welcome you in their host country"}
               </div>
-              <div className="text-[8px] text-gray-600 leading-relaxed">
+              <div className={`w-8 h-0.5 ${getTextSectionDashColor()} mx-auto mb-2 rounded`}></div>
+              <div className={`text-[8px] ${getTextSectionContentColor()} leading-relaxed`}>
                 {block.content || "This is a family-run travel agency that combines the organization of exclusive activities with the creation of tailor-made trips throughout the country. Our goal is to offer an immersive experience, far from mass tourism, with personalized service for every traveler — as if we were welcoming our own family or friends."}
               </div>
             </div>
