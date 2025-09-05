@@ -417,6 +417,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
 
       case 'expats_welcome':
         // Section d'accueil basée sur le style du vrai site
+        const expatsConfig = liveConfiguration || block.configuration || {};
         return (
           <section className="py-20">
             <div className="container mx-auto px-4 max-w-4xl text-center">
@@ -426,12 +427,21 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
-                  {liveConfiguration?.title || block.configuration?.title || "When expats welcome you in their host country"}
+                <h2 
+                  className="font-heading font-bold text-3xl md:text-4xl mb-3"
+                  style={{ color: expatsConfig.titleColor || '#333333' }}
+                >
+                  {expatsConfig.title || block.configuration?.title || "When expats welcome you in their host country"}
                 </h2>
-                <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
-                <p className="text-lg text-gray-700 leading-relaxed">
-                  {liveConfiguration?.content || block.configuration?.content || "This is a family-run travel agency that combines the organization of exclusive activities with the creation of tailor-made trips throughout the country. Our goal is to offer an immersive experience, far from mass tourism, with personalized service for every traveler — as if we were welcoming our own family or friends."}
+                <div 
+                  className="w-20 h-1 mx-auto mb-8"
+                  style={{ backgroundColor: expatsConfig.dividerColor || '#E6B64C' }}
+                ></div>
+                <p 
+                  className="text-lg leading-relaxed"
+                  style={{ color: expatsConfig.contentColor || '#666666' }}
+                >
+                  {expatsConfig.content || block.configuration?.content || "This is a family-run travel agency that combines the organization of exclusive activities with the creation of tailor-made trips throughout the country. Our goal is to offer an immersive experience, far from mass tourism, with personalized service for every traveler — as if we were welcoming our own family or friends."}
                 </p>
               </motion.div>
             </div>
@@ -997,7 +1007,8 @@ const BlockEditDropdown = ({
 
       case 'expats_welcome':
         return (
-          <div className="space-y-4">
+          <div className="space-y-6">
+            {/* Titre */}
             <div>
               <Label htmlFor="title">Titre</Label>
               <Input 
@@ -1005,8 +1016,17 @@ const BlockEditDropdown = ({
                 value={formData.title || block.configuration?.title || ''} 
                 onChange={e => updateField('title', e.target.value)}
                 placeholder="When expats welcome you..."
+                className="mt-2"
               />
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.titleColor || '#333333'}
+                  onChange={(value) => updateField('titleColor', value)}
+                />
+              </div>
             </div>
+            
+            {/* Contenu */}
             <div>
               <Label htmlFor="content">Contenu</Label>
               <Textarea 
@@ -1015,7 +1035,25 @@ const BlockEditDropdown = ({
                 onChange={e => updateField('content', e.target.value)}
                 placeholder="Contenu de la section..."
                 rows={4}
+                className="mt-2"
               />
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.contentColor || '#666666'}
+                  onChange={(value) => updateField('contentColor', value)}
+                />
+              </div>
+            </div>
+
+            {/* Tiret */}
+            <div>
+              <Label htmlFor="divider">Tiret</Label>
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.dividerColor || '#E6B64C'}
+                  onChange={(value) => updateField('dividerColor', value)}
+                />
+              </div>
             </div>
           </div>
         );
