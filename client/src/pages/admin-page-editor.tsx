@@ -166,11 +166,17 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { toast } from '@/hooks/use-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// Fonction utilitaire pour le scroll automatique
-const scrollToElement = (elementId: string, behavior: ScrollBehavior = 'smooth') => {
+// Fonction utilitaire pour le scroll automatique avec offset
+const scrollToElement = (elementId: string, behavior: ScrollBehavior = 'smooth', offset = -80) => {
   const element = document.getElementById(elementId);
   if (element) {
-    element.scrollIntoView({ behavior, block: 'start' });
+    const elementPosition = element.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.pageYOffset + offset;
+    
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: behavior
+    });
   }
 };
 
@@ -1426,7 +1432,7 @@ export default function AdminPageEditor() {
                     transition={{ duration: 0.3 }}
                   >
                     <Card className={`overflow-hidden ${!block.isActive ? 'opacity-60' : ''}`}>
-                      <CardHeader className="pb-4">
+                      <CardHeader className="pb-4" id={`header-${block.id}`}>
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-3">
                             <div className="flex flex-col gap-1">
@@ -1555,7 +1561,7 @@ export default function AdminPageEditor() {
                                 return newData;
                               });
                               // Scroll automatique vers la section de prévisualisation
-                              setTimeout(() => scrollToElement(`preview-${block.id}`), 100);
+                              setTimeout(() => scrollToElement(`header-${block.id}`), 100);
                             }}
                             onCancel={() => {
                               setEditingBlockId(null);
@@ -1565,7 +1571,7 @@ export default function AdminPageEditor() {
                                 return newData;
                               });
                               // Scroll automatique vers la section de prévisualisation
-                              setTimeout(() => scrollToElement(`preview-${block.id}`), 100);
+                              setTimeout(() => scrollToElement(`header-${block.id}`), 100);
                             }}
                             onPreviewUpdate={(config) => {
                               setLivePreviewData(prev => ({
