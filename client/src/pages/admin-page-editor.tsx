@@ -1244,7 +1244,6 @@ const BlockEditDropdown = ({
                 <ColorPicker
                   value={formData.titleColor || '#1e73be'}
                   onChange={(value) => updateField('titleColor', value)}
-                  label="Couleur du titre"
                 />
               </div>
             </div>
@@ -1264,7 +1263,6 @@ const BlockEditDropdown = ({
                 <ColorPicker
                   value={formData.contentColor || '#333333'}
                   onChange={(value) => updateField('contentColor', value)}
-                  label="Couleur du contenu"
                 />
               </div>
             </div>
@@ -1276,7 +1274,6 @@ const BlockEditDropdown = ({
                 <ColorPicker
                   value={formData.dashColor || '#E6B64C'}
                   onChange={(value) => updateField('dashColor', value)}
-                  label="Couleur du tiret"
                 />
               </div>
             </div>
