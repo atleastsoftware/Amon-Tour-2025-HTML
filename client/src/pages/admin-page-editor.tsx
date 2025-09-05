@@ -585,7 +585,7 @@ const BlockEditDropdown = ({
   };
 
   const renderEditFields = () => {
-    switch (block.identifier) {
+    switch (block.blockType) {
       case 'hero_main':
         return (
           <div className="space-y-6">
