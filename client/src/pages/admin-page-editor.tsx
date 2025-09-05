@@ -177,6 +177,8 @@ const scrollToElement = (elementId: string, behavior: ScrollBehavior = 'smooth',
       top: offsetPosition,
       behavior: behavior
     });
+  } else {
+    console.warn(`Element avec ID "${elementId}" non trouvé pour le scroll`);
   }
 };
 
@@ -1496,7 +1498,7 @@ export default function AdminPageEditor() {
                                 setEditingBlockId(newEditingId);
                                 // Scroll automatique vers la section de modification
                                 if (newEditingId) {
-                                  setTimeout(() => scrollToElement(`edit-${block.id}`), 100);
+                                  setTimeout(() => scrollToElement(`edit-${block.id}`), 300);
                                 }
                               }}
                               className={`flex items-center gap-1 ${editingBlockId === block.id ? 'bg-blue-100' : ''}`}
@@ -1561,7 +1563,7 @@ export default function AdminPageEditor() {
                                 return newData;
                               });
                               // Scroll automatique vers la section de prévisualisation
-                              setTimeout(() => scrollToElement(`header-${block.id}`), 100);
+                              setTimeout(() => scrollToElement(`header-${block.id}`), 300);
                             }}
                             onCancel={() => {
                               setEditingBlockId(null);
@@ -1571,7 +1573,7 @@ export default function AdminPageEditor() {
                                 return newData;
                               });
                               // Scroll automatique vers la section de prévisualisation
-                              setTimeout(() => scrollToElement(`header-${block.id}`), 100);
+                              setTimeout(() => scrollToElement(`header-${block.id}`), 300);
                             }}
                             onPreviewUpdate={(config) => {
                               setLivePreviewData(prev => ({
