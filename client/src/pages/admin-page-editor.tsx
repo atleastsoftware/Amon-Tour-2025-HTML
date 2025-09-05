@@ -134,7 +134,21 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
               <SelectValue>
                 {getCurrentOption() === 'primary' && 'Couleur principale'}
                 {getCurrentOption() === 'secondary' && 'Couleur secondaire'}  
-                {getCurrentOption() === 'custom' && `Référence: ${displayValue}`}
+                {getCurrentOption() === 'custom' && (
+                  <div className="flex items-center justify-between w-full">
+                    <span>Référence couleur :</span>
+                    <span 
+                      className="font-mono text-blue-600 cursor-pointer hover:underline ml-2"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setIsEditingCustom(true);
+                        setCustomInput(currentColorValue);
+                      }}
+                    >
+                      {displayValue}
+                    </span>
+                  </div>
+                )}
               </SelectValue>
             </SelectTrigger>
             <SelectContent>
