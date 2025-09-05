@@ -243,83 +243,84 @@ function MiniaturizedComponent({
           return (
             <PreviewWrapper identifier="hero_main_v2">
               <section className="relative pt-32 pb-20 min-h-screen flex items-center overflow-hidden">
-                  {/* Content EXACT AVEC ANIMATIONS IDENTIQUES AU VRAI SITE - BACKGROUND GÉRÉ PAR WRAPPER */}
+                  {/* Content EXACT AVEC ANIMATION GAUCHE-DROITE IDENTIQUE AU VRAI SITE */}
                   <div className="container mx-auto px-4 relative z-10">
                     <div className="flex flex-col md:flex-row items-center gap-10">
                       <div className="w-full">
-                        <StaggerChildren delay={0.2} staggerDelay={0.3}>
-                          <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ 
-                              opacity: 1, 
-                              y: 0,
-                              x: [0, 5, 0, -5, 0],
-                              transition: {
-                                y: { duration: 0.6 },
-                                opacity: { duration: 0.6 },
-                                x: {
-                                  repeat: Infinity,
-                                  duration: 5,
-                                  ease: "easeInOut"
-                                }
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ 
+                            opacity: 1, 
+                            y: 0,
+                            x: [0, 5, 0, -5, 0],
+                            transition: {
+                              y: { duration: 0.6 },
+                              opacity: { duration: 0.6 },
+                              x: {
+                                repeat: Infinity,
+                                duration: 5,
+                                ease: "easeInOut"
                               }
-                            }}
-                            className="max-w-xl"
+                            }
+                          }}
+                          className="max-w-xl"
+                        >
+                          <motion.h1 
+                            className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight text-white drop-shadow-lg"
+                            initial={{ opacity: 0, x: -50 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.2, duration: 0.8 }}
                           >
-                            <StaggerItem>
-                              <FadeInWhenVisible delay={0.1}>
-                                <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight text-white drop-shadow-lg">
-                                  {(() => {
-                                    const title = block.title || "Your exclusive experiences\nin Krabi – THAILAND";
-                                    const colorPart = config.titleColorPart || "in Krabi –";
-                                    if (!colorPart) return title;
-                                    const parts = title.split(colorPart);
-                                    return (
-                                      <>
-                                        {parts[0]}
-                                        <span className="text-primary drop-shadow-lg">{colorPart}</span>
-                                        {parts[1]}
-                                      </>
-                                    );
-                                  })()}
-                                </h1>
-                              </FadeInWhenVisible>
-                            </StaggerItem>
-                            
-                            <StaggerItem>
-                              <FadeInWhenVisible delay={0.3}>
-                                <p className="text-white/90 mb-8 text-lg drop-shadow-md">
-                                  {(block.description || "Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations.").split('\n').map((line, index) => (
-                                    <span key={index}>{line}{index < (block.description || "").split('\n').length - 1 && <br/>}</span>
-                                  ))}
-                                </p>
-                              </FadeInWhenVisible>
-                            </StaggerItem>
-                            
-                            <StaggerItem>
-                              <FadeInWhenVisible delay={0.5}>
-                                <div className="flex flex-col sm:flex-row gap-4">
-                                  <motion.span 
-                                    className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg"
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.7, duration: 0.5 }}
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.98 }}
-                                  >{block.ctaText || "See our offers"}</motion.span>
-                                  <motion.span 
-                                    className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg"
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.9, duration: 0.5 }}
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.98 }}
-                                  >{config.button2Text || "Custom your trip"}</motion.span>
-                                </div>
-                              </FadeInWhenVisible>
-                            </StaggerItem>
+                            {(() => {
+                              const title = block.title || "Your exclusive experiences\nin Krabi – THAILAND";
+                              const colorPart = config.titleColorPart || "in Krabi –";
+                              if (!colorPart) return title;
+                              const parts = title.split(colorPart);
+                              return (
+                                <>
+                                  {parts[0]}
+                                  <span className="text-primary drop-shadow-lg">{colorPart}</span>
+                                  {parts[1]}
+                                </>
+                              );
+                            })()}
+                          </motion.h1>
+                          
+                          <motion.p 
+                            className="text-white/90 mb-8 text-lg drop-shadow-md"
+                            initial={{ opacity: 0, x: -50 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.4, duration: 0.8 }}
+                          >
+                            {(block.description || "Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations.").split('\n').map((line, index) => (
+                              <span key={index}>{line}{index < (block.description || "").split('\n').length - 1 && <br/>}</span>
+                            ))}
+                          </motion.p>
+                          
+                          <motion.div 
+                            className="flex flex-col sm:flex-row gap-4"
+                            initial={{ opacity: 0, x: -50 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.6, duration: 0.8 }}
+                          >
+                            <motion.span 
+                              className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg"
+                              initial={{ opacity: 0, scale: 0.8 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              transition={{ delay: 0.8, duration: 0.5 }}
+                              whileHover={{ scale: 1.05 }}
+                              whileTap={{ scale: 0.98 }}
+                            >{block.ctaText || "See our offers"}</motion.span>
+                            <motion.span 
+                              className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg"
+                              initial={{ opacity: 0, scale: 0.8 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              transition={{ delay: 1.0, duration: 0.5 }}
+                              whileHover={{ scale: 1.05 }}
+                              whileTap={{ scale: 0.98 }}
+                            >{config.button2Text || "Custom your trip"}</motion.span>
                           </motion.div>
-                        </StaggerChildren>
+                        </motion.div>
                       </div>
                     </div>
                   </div>
