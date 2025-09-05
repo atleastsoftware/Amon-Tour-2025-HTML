@@ -292,6 +292,32 @@ export function BlockConfigModal({ open, onOpenChange, block, onSave }: BlockCon
               </div>
             </div>
 
+            {block.blockType === 'text_image' && (
+              <div className="space-y-4">
+                <div>
+                  <Label>Layout</Label>
+                  <Select 
+                    value={config.layout || 'text-left'} 
+                    onValueChange={(value) => handleConfigChange('layout', value)}
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="text-left">Text Left, Image Right</SelectItem>
+                      <SelectItem value="image-left">Image Left, Text Right</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label>Couleur du texte</Label>
+                  <ColorPicker 
+                    value={config.textColor || 'dark'} 
+                    onChange={(value) => handleConfigChange('textColor', value)}
+                  />
+                </div>
+              </div>
+            )}
           </TabsContent>
 
           <TabsContent value="actions" className="space-y-4">
@@ -655,56 +681,6 @@ function renderBlockSpecificContent(
               onCheckedChange={(checked) => handleConfigChange('googleReviewsWidget', checked)}
             />
             <Label htmlFor="googleReviewsWidget">Show Google Reviews widget</Label>
-          </div>
-        </div>
-      );
-
-    case 'text_image':
-    case 'text_section':
-      return (
-        <div className="space-y-4">
-          {blockType === 'text_image' && (
-            <div>
-              <Label>Layout</Label>
-              <Select 
-                value={config.layout || 'text-left'} 
-                onValueChange={(value) => handleConfigChange('layout', value)}
-              >
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="text-left">Text Left, Image Right</SelectItem>
-                  <SelectItem value="image-left">Image Left, Text Right</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          )}
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <Label>Couleur du titre</Label>
-              <ColorPicker 
-                value={config.titleColor || 'dark'} 
-                onChange={(value) => handleConfigChange('titleColor', value)}
-              />
-            </div>
-            
-            <div>
-              <Label>Couleur du contenu</Label>
-              <ColorPicker 
-                value={config.contentColor || 'gray'} 
-                onChange={(value) => handleConfigChange('contentColor', value)}
-              />
-            </div>
-          </div>
-          
-          <div>
-            <Label>Couleur du tiret</Label>
-            <ColorPicker 
-              value={config.dashColor || 'secondary'} 
-              onChange={(value) => handleConfigChange('dashColor', value)}
-            />
           </div>
         </div>
       );
