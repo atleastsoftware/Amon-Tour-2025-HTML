@@ -359,7 +359,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                   heroConfig.contentAlignment === 'right' ? 'justify-end' :
                   'justify-start'
                 }`}>
-                  {(heroConfig.buttons || [{text: 'See our offers', url: '/tours', color: '#1e73be', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#1e73be', style: 'filled'}]).map((button: any, index: number) => (
+                  {((liveConfiguration || heroConfig).buttons || [{text: 'See our offers', link: '/tours', color: '#1e73be', style: 'filled'}, {text: 'Custom your trip', link: '/custom-tour', color: '#E6B64C', style: 'outline'}]).map((button: any, index: number) => (
                     <span 
                       key={index}
                       className={`px-8 py-3 mt-4 rounded transition-colors cursor-pointer inline-block shadow-lg ${
@@ -685,40 +685,125 @@ const BlockEditDropdown = ({
               </div>
             </div>
 
-            {/* Premier bouton */}
+            {/* Gestion des boutons */}
             <div>
-              <Label htmlFor="primaryButtonText">Premier bouton</Label>
-              <Input 
-                id="primaryButtonText"
-                value={formData.primaryButtonText || 'See our offers'} 
-                onChange={e => updateField('primaryButtonText', e.target.value)}
-                placeholder="See our offers"
-                className="mt-2"
-              />
-              <div className="mt-3">
-                <ColorPicker
-                  value={formData.primaryButtonColor || '#1e73be'}
-                  onChange={(value) => updateField('primaryButtonColor', value)}
-                />
+              <div className="flex items-center justify-between mb-4">
+                <Label>Boutons</Label>
+                <Button 
+                  type="button"
+                  size="sm"
+                  onClick={() => {
+                    const currentButtons = formData.buttons || [
+                      { text: 'See our offers', link: '/tours', style: 'filled', color: '#1e73be' },
+                      { text: 'Custom your trip', link: '/custom-tour', style: 'outline', color: '#E6B64C' }
+                    ];
+                    updateField('buttons', [...currentButtons, { text: 'Nouveau bouton', link: '#', style: 'filled', color: '#1e73be' }]);
+                  }}
+                >
+                  <Plus className="h-4 w-4 mr-2" />
+                  Ajouter un bouton
+                </Button>
               </div>
-            </div>
-
-            {/* Deuxième bouton */}
-            <div>
-              <Label htmlFor="secondaryButtonText">Deuxième bouton</Label>
-              <Input 
-                id="secondaryButtonText"
-                value={formData.secondaryButtonText || 'Custom your trip'} 
-                onChange={e => updateField('secondaryButtonText', e.target.value)}
-                placeholder="Custom your trip"
-                className="mt-2"
-              />
-              <div className="mt-3">
-                <ColorPicker
-                  value={formData.secondaryButtonColor || '#E6B64C'}
-                  onChange={(value) => updateField('secondaryButtonColor', value)}
-                />
+              
+              <div className="space-y-4">
+                {(formData.buttons || [
+                  { text: 'See our offers', link: '/tours', style: 'filled', color: '#1e73be' },
+                  { text: 'Custom your trip', link: '/custom-tour', style: 'outline', color: '#E6B64C' }
+                ]).map((button: any, index: number) => (
+                  <div key={index} className="border rounded-lg p-4 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium">Bouton {index + 1}</span>
+                      <Button 
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {
+                          const currentButtons = formData.buttons || [];
+                          const newButtons = currentButtons.filter((_: any, i: number) => i !== index);
+                          updateField('buttons', newButtons);
+                        }}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <Label htmlFor={`button-text-${index}`}>Texte</Label>
+                        <Input 
+                          id={`button-text-${index}`}
+                          value={button.text || ''} 
+                          onChange={e => {
+                            const currentButtons = formData.buttons || [];
+                            const newButtons = [...currentButtons];
+                            newButtons[index] = { ...newButtons[index], text: e.target.value };
+                            updateField('buttons', newButtons);
+                          }}
+                          placeholder="Texte du bouton"
+                          className="mt-1"
+                        />
+                      </div>
+                      
+                      <div>
+                        <Label htmlFor={`button-link-${index}`}>Lien</Label>
+                        <Input 
+                          id={`button-link-${index}`}
+                          value={button.link || ''} 
+                          onChange={e => {
+                            const currentButtons = formData.buttons || [];
+                            const newButtons = [...currentButtons];
+                            newButtons[index] = { ...newButtons[index], link: e.target.value };
+                            updateField('buttons', newButtons);
+                          }}
+                          placeholder="/tours ou https://..."
+                          className="mt-1"
+                        />
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <Label htmlFor={`button-style-${index}`}>Style</Label>
+                        <Select value={button.style || 'filled'} onValueChange={(value) => {
+                          const currentButtons = formData.buttons || [];
+                          const newButtons = [...currentButtons];
+                          newButtons[index] = { ...newButtons[index], style: value };
+                          updateField('buttons', newButtons);
+                        }}>
+                          <SelectTrigger className="mt-1">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="filled">Plein</SelectItem>
+                            <SelectItem value="outline">Contour</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      
+                      <div>
+                        <Label>Couleur</Label>
+                        <div className="mt-1">
+                          <ColorPicker
+                            value={button.color || '#1e73be'}
+                            onChange={(value) => {
+                              const currentButtons = formData.buttons || [];
+                              const newButtons = [...currentButtons];
+                              newButtons[index] = { ...newButtons[index], color: value };
+                              updateField('buttons', newButtons);
+                            }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
+              
+              {(formData.buttons?.length === 0 || !formData.buttons) && (
+                <div className="text-center py-8 text-gray-500 border-2 border-dashed border-gray-200 rounded-lg">
+                  Aucun bouton configuré. Cliquez sur "Ajouter un bouton" pour en créer un.
+                </div>
+              )}
             </div>
           </div>
         );
