@@ -441,8 +441,10 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
             </div>
             
             <div className="container mx-auto px-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                {Array.from({ length: 6 }).map((_, index) => (
+              <div className={`grid grid-cols-1 ${popConfig.gridCols === '4' ? 'md:grid-cols-2 lg:grid-cols-4' : 'md:grid-cols-2 lg:grid-cols-3'} gap-6 mb-8`}>
+                {Array.from({ 
+                  length: popConfig.displayCount === 'all' ? 12 : (popConfig.displayCount || 6) 
+                }).map((_, index) => (
                   <motion.div
                     key={index}
                     initial={{ opacity: 0, y: 30 }}
@@ -483,6 +485,17 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                   </motion.div>
                 ))}
               </div>
+              
+              {/* Bouton "Voir tous" */}
+              {(popConfig.showViewAllButton !== false) && (
+                <div className="text-center">
+                  <button 
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
+                  >
+                    {popConfig.viewAllText || "View All Our Tours"}
+                  </button>
+                </div>
+              )}
             </div>
           </section>
         );
@@ -1347,7 +1360,7 @@ const BlockEditDropdown = ({
 
             {/* Nombre d'éléments à afficher */}
             <div>
-              <Label htmlFor="displayCount">Nombre d'éléments à afficher</Label>
+              <Label htmlFor="displayCount">Nombre d'éléments</Label>
               <Select value={formData.displayCount?.toString() || 'all'} onValueChange={(value) => updateField('displayCount', value === 'all' ? 'all' : parseInt(value))}>
                 <SelectTrigger className="mt-2">
                   <SelectValue />
@@ -1429,6 +1442,32 @@ const BlockEditDropdown = ({
               />
               <Label htmlFor="showViewAllButton">Afficher le bouton "Voir tous"</Label>
             </div>
+
+            {/* Configuration du bouton "Voir tous" (si activé) */}
+            {formData.showViewAllButton !== false && (
+              <div className="space-y-4 pl-6 border-l-2 border-gray-200">
+                <div>
+                  <Label htmlFor="viewAllText">Texte du bouton</Label>
+                  <Input 
+                    id="viewAllText"
+                    value={formData.viewAllText || 'View All Our Tours'} 
+                    onChange={e => updateField('viewAllText', e.target.value)}
+                    placeholder="View All Our Tours"
+                    className="mt-2"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="viewAllUrl">Lien du bouton</Label>
+                  <Input 
+                    id="viewAllUrl"
+                    value={formData.viewAllUrl || '/tours'} 
+                    onChange={e => updateField('viewAllUrl', e.target.value)}
+                    placeholder="/tours"
+                    className="mt-2"
+                  />
+                </div>
+              </div>
+            )}
           </div>
         );
 
