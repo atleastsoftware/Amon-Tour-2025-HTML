@@ -21,7 +21,6 @@ import CustomTourCta from '@/components/home/CustomTourCta';
 import Testimonials from '@/components/home/Testimonials';
 import Contact from '@/components/home/Contact';
 import TourNinjaSection from '@/components/tour/TourNinjaSection';
-import { FadeInWhenVisible, StaggerChildren, StaggerItem } from '@/components/ui/animations';
 
 // 🎯 MÉTHODOLOGIE UNIVERSELLE DE PRÉVISUALISATION
 // Système intelligent pour créer des représentations exactes de toutes les sections
@@ -243,7 +242,7 @@ function MiniaturizedComponent({
           return (
             <PreviewWrapper identifier="hero_main_v2">
               <section className="relative pt-32 pb-20 min-h-screen flex items-center overflow-hidden">
-                  {/* Content avec animation EXACTE du vrai Hero */}
+                  {/* Content EXACT AVEC ANIMATION MOTION - BACKGROUND GÉRÉ PAR WRAPPER */}
                   <div className="container mx-auto px-4 relative z-10">
                     <div className="flex flex-col md:flex-row items-center gap-10">
                       <div className="w-full">
@@ -252,20 +251,17 @@ function MiniaturizedComponent({
                           animate={{ 
                             opacity: 1, 
                             y: 0,
-                            x: [0, 15, 0, -15, 0]
-                          }}
-                          transition={{
-                            y: { duration: 0.6 },
-                            opacity: { duration: 0.6 },
-                            x: {
-                              repeat: Infinity,
-                              duration: 3,
-                              ease: "easeInOut",
-                              delay: 0.5
+                            x: [0, 5, 0, -5, 0],
+                            transition: {
+                              y: { duration: 0.6 },
+                              x: {
+                                repeat: Infinity,
+                                duration: 5,
+                                ease: "easeInOut"
+                              }
                             }
                           }}
                           className="max-w-xl"
-                          style={{ willChange: 'transform' }}
                         >
                           <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight text-white drop-shadow-lg">
                             {(() => {
