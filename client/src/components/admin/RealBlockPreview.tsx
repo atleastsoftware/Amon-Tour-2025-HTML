@@ -247,18 +247,21 @@ function MiniaturizedComponent({
                     <div className="flex flex-col md:flex-row items-center gap-10">
                       <div className="w-full">
                         <motion.div
+                          key="hero-title"
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ 
                             opacity: 1, 
                             y: 0,
-                            x: [0, 5, 0, -5, 0],
-                            transition: {
-                              y: { duration: 0.6 },
-                              x: {
-                                repeat: Infinity,
-                                duration: 5,
-                                ease: "easeInOut"
-                              }
+                            x: [0, 5, 0, -5, 0]
+                          }}
+                          transition={{
+                            opacity: { duration: 0.8 },
+                            y: { duration: 0.8 },
+                            x: {
+                              repeat: Infinity,
+                              duration: 4,
+                              ease: "easeInOut",
+                              delay: 1
                             }
                           }}
                           className="max-w-xl"
@@ -279,24 +282,42 @@ function MiniaturizedComponent({
                             })()}
                           </h1>
                           
-                          <p className="text-white/90 mb-8 text-lg drop-shadow-md">
+                          <motion.p 
+                            key="hero-description"
+                            initial={{ opacity: 0, y: 15 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.4 }}
+                            className="text-white/90 mb-8 text-lg drop-shadow-md"
+                          >
                             {(block.description || "Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations.").split('\n').map((line, index) => (
                               <span key={index}>{line}{index < (block.description || "").split('\n').length - 1 && <br/>}</span>
                             ))}
-                          </p>
+                          </motion.p>
                           
-                          <div className="flex flex-col sm:flex-row gap-4">
+                          <motion.div 
+                            key="hero-buttons"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.8 }}
+                            className="flex flex-col sm:flex-row gap-4"
+                          >
                             <motion.span 
                               className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg"
                               whileHover={{ scale: 1.05 }}
                               whileTap={{ scale: 0.98 }}
+                              initial={{ opacity: 0, x: -20 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ duration: 0.6, delay: 1.2 }}
                             >{block.ctaText || "See our offers"}</motion.span>
                             <motion.span 
-                              className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg"
+                              className="bg-secondary text-white px-8 py-3 mt-4 rounded hover:bg-secondary-dark transition-colors cursor-pointer inline-block shadow-lg"
                               whileHover={{ scale: 1.05 }}
                               whileTap={{ scale: 0.98 }}
+                              initial={{ opacity: 0, x: 20 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ duration: 0.6, delay: 1.4 }}
                             >{config.button2Text || "Custom your trip"}</motion.span>
-                          </div>
+                          </motion.div>
                         </motion.div>
                       </div>
                     </div>
@@ -424,13 +445,44 @@ function MiniaturizedComponent({
       case 'text_image':
       case 'when_expats':
       case 'about_amon_tour':
+        const textConfig = block.configuration || {};
+        const getTitleColor = () => {
+          const color = textConfig.titleColor || 'dark';
+          if (color === 'primary') return 'text-primary';
+          if (color === 'secondary') return 'text-secondary';
+          if (color === 'white') return 'text-white';
+          if (color === 'gray') return 'text-gray-600';
+          if (color.startsWith('#')) return `[color:${color}]`;
+          return 'text-gray-900';
+        };
+        const getContentColor = () => {
+          const color = textConfig.contentColor || 'gray';
+          if (color === 'primary') return 'text-primary';
+          if (color === 'secondary') return 'text-secondary';
+          if (color === 'white') return 'text-white';
+          if (color === 'dark') return 'text-gray-900';
+          if (color.startsWith('#')) return `[color:${color}]`;
+          return 'text-gray-600';
+        };
+        const getDashColor = () => {
+          const color = textConfig.dashColor || 'secondary';
+          if (color === 'primary') return 'bg-primary';
+          if (color === 'secondary') return 'bg-secondary';
+          if (color === 'white') return 'bg-white';
+          if (color === 'gray') return 'bg-gray-600';
+          if (color === 'dark') return 'bg-gray-900';
+          if (color.startsWith('#')) return `[background-color:${color}]`;
+          return 'bg-secondary';
+        };
+        
         return (
           <div className="h-full bg-white px-6 py-12">
             <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
+              <h2 className={`text-2xl md:text-3xl font-bold ${getTitleColor()} mb-4`}>
                 {block.title || "When expats welcome you in their host country"}
               </h2>
-              <div className="text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
+              <div className={`w-16 h-1 ${getDashColor()} mx-auto mb-6 rounded`}></div>
+              <div className={`text-lg ${getContentColor()} leading-relaxed max-w-3xl mx-auto`}>
                 {block.content || "This is a family-run travel agency that combines the organization of exclusive activities with the creation of tailor-made trips throughout the country. Our goal is to offer an immersive experience, far from mass tourism, with personalized service for every traveler — as if we were welcoming our own family or friends."}
               </div>
             </div>
@@ -1042,7 +1094,7 @@ export default function RealBlockPreview({
       'contact_hero': 'Hero Contact',
       'contact_methods': 'Méthodes de Contact',
       'contact_form': 'Formulaire de Contact',
-      'text_image': 'Texte & Image',
+      'text_image': 'Text',
       'card_grid': 'Grille de Cartes'
     };
     return displayNames[blockType] || blockType.replace('_', ' ');

@@ -309,11 +309,28 @@ export function BlockConfigModal({ open, onOpenChange, block, onSave }: BlockCon
                     </SelectContent>
                   </Select>
                 </div>
+                
                 <div>
-                  <Label>Couleur du texte</Label>
+                  <Label>Couleur du titre</Label>
                   <ColorPicker 
-                    value={config.textColor || 'dark'} 
-                    onChange={(value) => handleConfigChange('textColor', value)}
+                    value={config.titleColor || 'dark'} 
+                    onChange={(value) => handleConfigChange('titleColor', value)}
+                  />
+                </div>
+                
+                <div>
+                  <Label>Couleur du contenu</Label>
+                  <ColorPicker 
+                    value={config.contentColor || 'gray'} 
+                    onChange={(value) => handleConfigChange('contentColor', value)}
+                  />
+                </div>
+                
+                <div>
+                  <Label>Couleur du tiret</Label>
+                  <ColorPicker 
+                    value={config.dashColor || 'secondary'} 
+                    onChange={(value) => handleConfigChange('dashColor', value)}
                   />
                 </div>
               </div>
