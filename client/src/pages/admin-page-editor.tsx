@@ -166,6 +166,14 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { toast } from '@/hooks/use-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 
+// Fonction utilitaire pour le scroll automatique
+const scrollToElement = (elementId: string, behavior: ScrollBehavior = 'smooth') => {
+  const element = document.getElementById(elementId);
+  if (element) {
+    element.scrollIntoView({ behavior, block: 'start' });
+  }
+};
+
 // Import real components for exact preview
 import Hero from '@/components/home/Hero';
 import Features from '@/components/home/Features';
@@ -1477,7 +1485,14 @@ export default function AdminPageEditor() {
                             <Button
                               variant="outline"
                               size="sm"
-                              onClick={() => setEditingBlockId(editingBlockId === block.id ? null : block.id)}
+                              onClick={() => {
+                                const newEditingId = editingBlockId === block.id ? null : block.id;
+                                setEditingBlockId(newEditingId);
+                                // Scroll automatique vers la section de modification
+                                if (newEditingId) {
+                                  setTimeout(() => scrollToElement(`edit-${block.id}`), 100);
+                                }
+                              }}
                               className={`flex items-center gap-1 ${editingBlockId === block.id ? 'bg-blue-100' : ''}`}
                             >
                               <Settings className="w-4 h-4" />
@@ -1517,7 +1532,7 @@ export default function AdminPageEditor() {
                         </div>
                       </CardHeader>
 
-                      <CardContent className="pb-0">
+                      <CardContent className="pb-0" id={`preview-${block.id}`}>
                         <div className="border border-gray-200 rounded-lg overflow-hidden mb-4" style={{ minHeight: 'auto' }}>
                           <RealBlockPreview 
                             block={block} 
@@ -1528,9 +1543,10 @@ export default function AdminPageEditor() {
                         
                         {/* Edit Dropdown */}
                         <AnimatePresence>
-                          <BlockEditDropdown
-                            block={block}
-                            isOpen={editingBlockId === block.id}
+                          <div id={`edit-${block.id}`}>
+                            <BlockEditDropdown
+                              block={block}
+                              isOpen={editingBlockId === block.id}
                             onSave={(updatedBlock) => {
                               updateBlockMutation.mutate(updatedBlock);
                               setLivePreviewData(prev => {
@@ -1538,6 +1554,8 @@ export default function AdminPageEditor() {
                                 delete newData[block.id];
                                 return newData;
                               });
+                              // Scroll automatique vers la section de prévisualisation
+                              setTimeout(() => scrollToElement(`preview-${block.id}`), 100);
                             }}
                             onCancel={() => {
                               setEditingBlockId(null);
@@ -1546,6 +1564,8 @@ export default function AdminPageEditor() {
                                 delete newData[block.id];
                                 return newData;
                               });
+                              // Scroll automatique vers la section de prévisualisation
+                              setTimeout(() => scrollToElement(`preview-${block.id}`), 100);
                             }}
                             onPreviewUpdate={(config) => {
                               setLivePreviewData(prev => ({
@@ -1553,7 +1573,8 @@ export default function AdminPageEditor() {
                                 [block.id]: config
                               }));
                             }}
-                          />
+                            />
+                          </div>
                         </AnimatePresence>
                       </CardContent>
                     </Card>
