@@ -359,7 +359,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                   heroConfig.contentAlignment === 'right' ? 'justify-end' :
                   'justify-start'
                 }`}>
-                  {((liveConfiguration || heroConfig).buttons || [{text: 'See our offers', link: '/tours', color: '#1e73be', style: 'filled'}, {text: 'Custom your trip', link: '/custom-tour', color: '#E6B64C', style: 'outline'}]).map((button: any, index: number) => (
+                  {(heroConfig.buttons || [{text: 'See our offers', url: '/tours', color: '#1e73be', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#1e73be', style: 'filled'}]).map((button: any, index: number) => (
                     <span 
                       key={index}
                       className={`px-8 py-3 mt-4 rounded transition-colors cursor-pointer inline-block shadow-lg ${
@@ -407,19 +407,6 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
 
       case 'popular_experiences':
         // Section "Our Popular Experiences" avec tours TourNinja
-        const popConfig = liveConfiguration || block.configuration || {};
-        const popTitleColor = popConfig.titleColor || '#1e73be';
-        const popContentColor = popConfig.contentColor || '#666666';
-        const popDashColor = popConfig.dashColor || '#E6B64C';
-
-        // Calculer le nombre d'éléments à afficher
-        const calculateDisplayCount = (config: any) => {
-          const desktopCols = config.desktopCols || 3;
-          const desktopRows = config.desktopRows || 2;
-          if (desktopRows === 'all') return 18; // Tous les tours
-          return desktopCols * desktopRows;
-        };
-
         return (
           <section id="tours" className="py-16 bg-white">
             <div className="container mx-auto px-4 text-center mb-8">
@@ -429,30 +416,19 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
               >
-                <h2 
-                  className="font-heading font-bold text-3xl md:text-4xl mb-3"
-                  style={{ color: popTitleColor }}
-                >
-                  {popConfig.title || block.configuration?.title || "Our Popular Experiences"}
+                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
+                  {liveConfiguration?.title || block.configuration?.title || "Our Popular Experiences"}
                 </h2>
-                <div 
-                  className="w-20 h-1 mx-auto mb-4"
-                  style={{ backgroundColor: popDashColor }}
-                ></div>
-                <p 
-                  className="max-w-2xl mx-auto"
-                  style={{ color: popContentColor }}
-                >
-                  {popConfig.subtitle || block.configuration?.subtitle || "Step off the beaten path into carefully curated experiences beyond the tourist trail."}
+                <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
+                <p className="text-gray-600 max-w-2xl mx-auto">
+                  {liveConfiguration?.subtitle || block.configuration?.subtitle || "Step off the beaten path into carefully curated experiences beyond the tourist trail."}
                 </p>
               </motion.div>
             </div>
             
             <div className="container mx-auto px-4">
-              <div className={`grid grid-cols-${popConfig.mobileCols || 1} md:grid-cols-2 lg:grid-cols-${popConfig.desktopCols || 3} gap-6 mb-8`}>
-                {Array.from({ 
-                  length: calculateDisplayCount(popConfig)
-                }).map((_, index) => (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                {Array.from({ length: 6 }).map((_, index) => (
                   <motion.div
                     key={index}
                     initial={{ opacity: 0, y: 30 }}
@@ -493,17 +469,6 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                   </motion.div>
                 ))}
               </div>
-              
-              {/* Bouton "Voir tous" */}
-              {(popConfig.showViewAllButton !== false) && (
-                <div className="text-center">
-                  <button 
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
-                  >
-                    {popConfig.viewAllText || "View All Our Tours"}
-                  </button>
-                </div>
-              )}
             </div>
           </section>
         );
@@ -525,11 +490,11 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
 
       case 'text_image':
         const textConfig = liveConfiguration || block.configuration || {};
-        const textTitle = textConfig.title || block.title || 'Titre du bloc';
-        const textContent = textConfig.content || block.content || 'Contenu du texte...';
-        const textTitleColor = textConfig.titleColor || '#1e73be';
-        const textContentColor = textConfig.contentColor || '#333333';
-        const textDashColor = textConfig.dashColor || '#E6B64C';
+        const title = textConfig.title || block.title || 'Titre du bloc';
+        const content = textConfig.content || block.content || 'Contenu du texte...';
+        const titleColor = textConfig.titleColor || '#1e73be';
+        const contentColor = textConfig.contentColor || '#333333';
+        const dashColor = textConfig.dashColor || '#E6B64C';
 
         return (
           <div className={`${isFullscreen ? 'min-h-[300px]' : 'min-h-[200px]'} bg-white p-8 flex flex-col justify-center`}>
@@ -537,23 +502,23 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
               {/* Tiret décoratif */}
               <div 
                 className="w-16 h-1 mx-auto mb-6"
-                style={{ backgroundColor: textDashColor }}
+                style={{ backgroundColor: dashColor }}
               ></div>
               
               {/* Titre */}
               <h2 
                 className="text-2xl md:text-3xl font-bold mb-6"
-                style={{ color: textTitleColor }}
+                style={{ color: titleColor }}
               >
-                {textTitle}
+                {title}
               </h2>
               
               {/* Contenu */}
               <div 
                 className="text-base md:text-lg leading-relaxed whitespace-pre-line"
-                style={{ color: textContentColor }}
+                style={{ color: contentColor }}
               >
-                {textContent}
+                {content}
               </div>
             </div>
           </div>
@@ -620,195 +585,8 @@ const BlockEditDropdown = ({
   };
 
   const renderEditFields = () => {
-    switch (block.blockType) {
-      case 'hero':
-      case 'video_hero':
+    switch (block.identifier) {
       case 'hero_main':
-        return (
-          <div className="space-y-6">
-            {/* Titre principal */}
-            <div>
-              <Label htmlFor="title">Titre principal</Label>
-              <Textarea 
-                id="title"
-                value={formData.title || block.configuration?.title || 'Your exclusive experiences\nin Krabi –\nTHAILAND'} 
-                onChange={e => updateField('title', e.target.value)}
-                placeholder="Your exclusive experiences\nin Krabi –\nTHAILAND"
-                rows={3}
-                className="mt-2"
-              />
-              <div className="mt-3">
-                <ColorPicker
-                  value={formData.titleColor || '#ffffff'}
-                  onChange={(value) => updateField('titleColor', value)}
-                />
-              </div>
-            </div>
-            
-            {/* Mot du titre en seconde couleur */}
-            <div>
-              <Label htmlFor="titleAccentText">Mot du titre en seconde couleur</Label>
-              <Input 
-                id="titleAccentText"
-                value={formData.titleAccentText || 'in Krabi –'} 
-                onChange={e => updateField('titleAccentText', e.target.value)}
-                placeholder="in Krabi –"
-                className="mt-2"
-              />
-              <p className="text-xs text-gray-500 mt-1">
-                Tapez exactement les mots du titre que vous voulez colorer
-              </p>
-              <div className="mt-3">
-                <ColorPicker
-                  value={formData.titleAccentColor || '#1e73be'}
-                  onChange={(value) => updateField('titleAccentColor', value)}
-                />
-              </div>
-            </div>
-
-            {/* Sous-titre */}
-            <div>
-              <Label htmlFor="subtitle">Sous-titre</Label>
-              <Textarea 
-                id="subtitle"
-                value={formData.subtitle || block.configuration?.subtitle || 'Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations.'} 
-                onChange={e => updateField('subtitle', e.target.value)}
-                placeholder="Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations."
-                rows={3}
-                className="mt-2"
-              />
-              <div className="mt-3">
-                <ColorPicker
-                  value={formData.subtitleColor || '#ffffff'}
-                  onChange={(value) => updateField('subtitleColor', value)}
-                />
-              </div>
-            </div>
-
-            {/* Gestion des boutons */}
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <Label>Boutons</Label>
-                <Button 
-                  type="button"
-                  size="sm"
-                  onClick={() => {
-                    const currentButtons = formData.buttons && formData.buttons.length > 0 ? formData.buttons : [
-                      { text: 'See our offers', link: '/tours', style: 'filled', color: '#1e73be' },
-                      { text: 'Custom your trip', link: '/custom-tour', style: 'outline', color: '#E6B64C' }
-                    ];
-                    updateField('buttons', [...currentButtons, { text: 'Nouveau bouton', link: '#', style: 'filled', color: '#1e73be' }]);
-                  }}
-                >
-                  <Plus className="h-4 w-4 mr-2" />
-                  Ajouter un bouton
-                </Button>
-              </div>
-              
-              <div className="space-y-4">
-                {(formData.buttons && formData.buttons.length > 0 ? formData.buttons : [
-                  { text: 'See our offers', link: '/tours', style: 'filled', color: '#1e73be' },
-                  { text: 'Custom your trip', link: '/custom-tour', style: 'outline', color: '#E6B64C' }
-                ]).map((button: any, index: number) => (
-                  <div key={index} className="border rounded-lg p-4 space-y-3">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium">Bouton {index + 1}</span>
-                      <Button 
-                        type="button"
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => {
-                          const currentButtons = formData.buttons || [];
-                          const newButtons = currentButtons.filter((_: any, i: number) => i !== index);
-                          updateField('buttons', newButtons);
-                        }}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
-                    
-                    <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <Label htmlFor={`button-text-${index}`}>Texte</Label>
-                        <Input 
-                          id={`button-text-${index}`}
-                          value={button.text || ''} 
-                          onChange={e => {
-                            const currentButtons = formData.buttons || [];
-                            const newButtons = [...currentButtons];
-                            newButtons[index] = { ...newButtons[index], text: e.target.value };
-                            updateField('buttons', newButtons);
-                          }}
-                          placeholder="Texte du bouton"
-                          className="mt-1"
-                        />
-                      </div>
-                      
-                      <div>
-                        <Label htmlFor={`button-link-${index}`}>Lien</Label>
-                        <Input 
-                          id={`button-link-${index}`}
-                          value={button.link || ''} 
-                          onChange={e => {
-                            const currentButtons = formData.buttons || [];
-                            const newButtons = [...currentButtons];
-                            newButtons[index] = { ...newButtons[index], link: e.target.value };
-                            updateField('buttons', newButtons);
-                          }}
-                          placeholder="/tours ou https://..."
-                          className="mt-1"
-                        />
-                      </div>
-                    </div>
-                    
-                    <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <Label>Couleur</Label>
-                        <div className="mt-1">
-                          <ColorPicker
-                            value={button.color || '#1e73be'}
-                            onChange={(value) => {
-                              const currentButtons = formData.buttons || [];
-                              const newButtons = [...currentButtons];
-                              newButtons[index] = { ...newButtons[index], color: value };
-                              updateField('buttons', newButtons);
-                            }}
-                          />
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <Label htmlFor={`button-style-${index}`}>Style</Label>
-                        <Select value={button.style || 'filled'} onValueChange={(value) => {
-                          const currentButtons = formData.buttons || [];
-                          const newButtons = [...currentButtons];
-                          newButtons[index] = { ...newButtons[index], style: value };
-                          updateField('buttons', newButtons);
-                        }}>
-                          <SelectTrigger className="mt-1">
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="filled">Plein</SelectItem>
-                            <SelectItem value="outline">Contour</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              
-              {(formData.buttons?.length === 0 || !formData.buttons) && (
-                <div className="text-center py-8 text-gray-500 border-2 border-dashed border-gray-200 rounded-lg">
-                  Aucun bouton configuré. Cliquez sur "Ajouter un bouton" pour en créer un.
-                </div>
-              )}
-            </div>
-          </div>
-        );
-
-      case 'expats_welcome':
         return (
           <div className="space-y-6">
             {/* Titre principal */}
@@ -1167,6 +945,30 @@ const BlockEditDropdown = ({
           </div>
         );
 
+      case 'expats_welcome':
+        return (
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="title">Titre</Label>
+              <Input 
+                id="title"
+                value={formData.title || block.configuration?.title || ''} 
+                onChange={e => updateField('title', e.target.value)}
+                placeholder="When expats welcome you..."
+              />
+            </div>
+            <div>
+              <Label htmlFor="content">Contenu</Label>
+              <Textarea 
+                id="content"
+                value={formData.content || block.configuration?.content || ''} 
+                onChange={e => updateField('content', e.target.value)}
+                placeholder="Contenu de la section..."
+                rows={4}
+              />
+            </div>
+          </div>
+        );
 
       case 'popular_experiences':
         return (
@@ -1442,6 +1244,7 @@ const BlockEditDropdown = ({
                 <ColorPicker
                   value={formData.titleColor || '#1e73be'}
                   onChange={(value) => updateField('titleColor', value)}
+                  label="Couleur du titre"
                 />
               </div>
             </div>
@@ -1461,6 +1264,7 @@ const BlockEditDropdown = ({
                 <ColorPicker
                   value={formData.contentColor || '#333333'}
                   onChange={(value) => updateField('contentColor', value)}
+                  label="Couleur du contenu"
                 />
               </div>
             </div>
@@ -1472,256 +1276,10 @@ const BlockEditDropdown = ({
                 <ColorPicker
                   value={formData.dashColor || '#E6B64C'}
                   onChange={(value) => updateField('dashColor', value)}
+                  label="Couleur du tiret"
                 />
               </div>
             </div>
-          </div>
-        );
-
-      case 'card_grid':
-        return (
-          <div className="space-y-6">
-            {/* Titre */}
-            <div>
-              <Label htmlFor="title">Titre</Label>
-              <Input 
-                id="title"
-                value={formData.title || block.title || 'Titre de la section'} 
-                onChange={e => updateField('title', e.target.value)}
-                placeholder="Titre de la section"
-                className="mt-2"
-              />
-              <div className="mt-3">
-                <ColorPicker
-                  value={formData.titleColor || '#1e73be'}
-                  onChange={(value) => updateField('titleColor', value)}
-                />
-              </div>
-            </div>
-
-            {/* Contenu (Subtitle) */}
-            <div>
-              <Label htmlFor="subtitle">Contenu</Label>
-              <Textarea 
-                id="subtitle"
-                value={formData.subtitle || block.subtitle || 'Description de la section...'} 
-                onChange={e => updateField('subtitle', e.target.value)}
-                placeholder="Description de la section..."
-                rows={3}
-                className="mt-2"
-              />
-              <div className="mt-3">
-                <ColorPicker
-                  value={formData.contentColor || '#666666'}
-                  onChange={(value) => updateField('contentColor', value)}
-                />
-              </div>
-            </div>
-
-            {/* Tiret */}
-            <div>
-              <Label htmlFor="dashColor">Tiret</Label>
-              <div className="mt-3">
-                <ColorPicker
-                  value={formData.dashColor || '#E6B64C'}
-                  onChange={(value) => updateField('dashColor', value)}
-                />
-              </div>
-            </div>
-
-            {/* Configuration de la grille */}
-            <div className="space-y-4">
-              <Label>Configuration de la grille</Label>
-              
-              {/* Ordinateur */}
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="desktopCols">Colonnes (Ordinateur)</Label>
-                  <Select value={formData.desktopCols?.toString() || '3'} onValueChange={(value) => updateField('desktopCols', parseInt(value))}>
-                    <SelectTrigger className="mt-2">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="2">2 colonnes</SelectItem>
-                      <SelectItem value="3">3 colonnes</SelectItem>
-                      <SelectItem value="4">4 colonnes</SelectItem>
-                      <SelectItem value="5">5 colonnes</SelectItem>
-                      <SelectItem value="6">6 colonnes</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                
-                <div>
-                  <Label htmlFor="desktopRows">Lignes (Ordinateur)</Label>
-                  <Select value={formData.desktopRows?.toString() || '2'} onValueChange={(value) => updateField('desktopRows', parseInt(value))}>
-                    <SelectTrigger className="mt-2">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="1">1 ligne</SelectItem>
-                      <SelectItem value="2">2 lignes</SelectItem>
-                      <SelectItem value="3">3 lignes</SelectItem>
-                      <SelectItem value="4">4 lignes</SelectItem>
-                      <SelectItem value="all">Toutes</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-
-              {/* Mobile */}
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="mobileCols">Colonnes (Mobile)</Label>
-                  <Select value={formData.mobileCols?.toString() || '1'} onValueChange={(value) => updateField('mobileCols', parseInt(value))}>
-                    <SelectTrigger className="mt-2">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="1">1 colonne</SelectItem>
-                      <SelectItem value="2">2 colonnes</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                
-                <div>
-                  <Label htmlFor="mobileRows">Lignes (Mobile)</Label>
-                  <Select value={formData.mobileRows?.toString() || '3'} onValueChange={(value) => updateField('mobileRows', parseInt(value))}>
-                    <SelectTrigger className="mt-2">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="2">2 lignes</SelectItem>
-                      <SelectItem value="3">3 lignes</SelectItem>
-                      <SelectItem value="4">4 lignes</SelectItem>
-                      <SelectItem value="5">5 lignes</SelectItem>
-                      <SelectItem value="all">Toutes</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-            </div>
-
-            {/* Mode de sélection */}
-            <div>
-              <Label htmlFor="selectionMode">Mode de sélection</Label>
-              <Select value={formData.selectionMode || 'all'} onValueChange={(value) => updateField('selectionMode', value)}>
-                <SelectTrigger className="mt-2">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Toutes les annonces</SelectItem>
-                  <SelectItem value="category">Par catégorie</SelectItem>
-                  <SelectItem value="individual">Sélection individuelle</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            {/* Sélection de catégorie (si mode catégorie) */}
-            {formData.selectionMode === 'category' && (
-              <div>
-                <Label htmlFor="selectedCategory">Catégorie</Label>
-                <Select value={formData.selectedCategory || ''} onValueChange={(value) => updateField('selectedCategory', value)}>
-                  <SelectTrigger className="mt-2">
-                    <SelectValue placeholder="Choisir une catégorie" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="adventure">Aventure</SelectItem>
-                    <SelectItem value="culture">Culture</SelectItem>
-                    <SelectItem value="nature">Nature</SelectItem>
-                    <SelectItem value="relaxation">Détente</SelectItem>
-                    <SelectItem value="water">Activités aquatiques</SelectItem>
-                    <SelectItem value="family">Famille</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            )}
-
-            {/* Sélection individuelle (si mode individuel) */}
-            {formData.selectionMode === 'individual' && (
-              <div>
-                <Label>Sélection des tours</Label>
-                <div className="mt-2 p-4 border rounded-lg bg-gray-50">
-                  <p className="text-sm text-gray-600 mb-3">
-                    Cochez les tours à afficher dans cette section :
-                  </p>
-                  <div className="space-y-2 max-h-40 overflow-y-auto">
-                    {[
-                      "Private day trip to Phang Nga: Koh Kudu and Koh Roi",
-                      "Private day trip to Koh Phi Phi with sunset",
-                      "Private Package 2D/1N to Koh Phi Phi & Ao Nang",
-                      "Private Day Trip: The Secrets of Railay",
-                      "Private Package 2D/1N: Bivouac at Phang Nga Bay",
-                      "Private Day Trip to Koh Kradan & Koh Ngai",
-                      "Private Day Trip to Koh Mook with Sunset",
-                      "Semi Private Day Trip to Koh Hong Archipelago",
-                      "Private Day Trip to Laem Sak: Local Life",
-                      "Private Day Trip to Krabi: Primary Forest",
-                      "Private day trip: Ao Luk - Temple, Cave and Jungle",
-                      "Private Day Trip to Thalane - Mangrove kayaking",
-                      "Private Day Trip to Koh Hong & Ao Nang's local islands",
-                      "Private Day Trip to Koh Hong Archipelago",
-                      "Private Day Trip to Railay & Ao Nang's local islands",
-                      "Private Day Trip to Phang Nga Bay : Koh Kudu and Koh Hong",
-                      "Catamaran Private Day Trip to Ao Nang's local islands",
-                      "Semi Private Day Trip to Koh Phi Phi on morning"
-                    ].map((tourName, index) => (
-                      <div key={index} className="flex items-center space-x-2">
-                        <Checkbox 
-                          id={`tour-${index}`} 
-                          checked={formData.selectedTours?.includes(index) || false}
-                          onCheckedChange={(checked) => {
-                            const currentSelected = formData.selectedTours || [];
-                            const newSelected = checked 
-                              ? [...currentSelected, index]
-                              : currentSelected.filter((i: number) => i !== index);
-                            updateField('selectedTours', newSelected);
-                          }}
-                        />
-                        <Label htmlFor={`tour-${index}`} className="text-sm">
-                          {tourName}
-                        </Label>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Afficher le bouton "Voir tous" */}
-            <div className="flex items-center space-x-2">
-              <Checkbox 
-                id="showViewAllButton" 
-                checked={formData.showViewAllButton !== false}
-                onCheckedChange={(checked) => updateField('showViewAllButton', checked)}
-              />
-              <Label htmlFor="showViewAllButton">Afficher le bouton "Voir tous"</Label>
-            </div>
-
-            {/* Configuration du bouton "Voir tous" (si activé) */}
-            {formData.showViewAllButton !== false && (
-              <div className="space-y-4 pl-6 border-l-2 border-gray-200">
-                <div>
-                  <Label htmlFor="viewAllText">Texte du bouton</Label>
-                  <Input 
-                    id="viewAllText"
-                    value={formData.viewAllText || 'View All Our Tours'} 
-                    onChange={e => updateField('viewAllText', e.target.value)}
-                    placeholder="View All Our Tours"
-                    className="mt-2"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="viewAllUrl">Lien du bouton</Label>
-                  <Input 
-                    id="viewAllUrl"
-                    value={formData.viewAllUrl || '/tours'} 
-                    onChange={e => updateField('viewAllUrl', e.target.value)}
-                    placeholder="/tours"
-                    className="mt-2"
-                  />
-                </div>
-              </div>
-            )}
           </div>
         );
 
