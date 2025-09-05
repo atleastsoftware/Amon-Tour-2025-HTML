@@ -252,20 +252,26 @@ function MiniaturizedComponent({
                           animate={{ 
                             opacity: 1, 
                             y: 0,
-                            x: [0, 5, 0, -5, 0]
+                            x: [0, 10, 0, -10, 0]
                           }}
                           transition={{
                             y: { duration: 0.6 },
                             opacity: { duration: 0.6 },
                             x: {
                               repeat: Infinity,
-                              duration: 5,
-                              ease: "easeInOut"
+                              duration: 4,
+                              ease: "easeInOut",
+                              delay: 1
                             }
                           }}
                           className="max-w-xl"
                         >
-                          <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight text-white drop-shadow-lg">
+                          <motion.h1 
+                            className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight text-white drop-shadow-lg"
+                            initial={{ opacity: 0, x: -100 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8, delay: 0.2 }}
+                          >
                             {(() => {
                               const title = block.title || "Your exclusive experiences\nin Krabi – THAILAND";
                               const colorPart = config.titleColorPart || "in Krabi –";
@@ -279,26 +285,42 @@ function MiniaturizedComponent({
                                 </>
                               );
                             })()}
-                          </h1>
+                          </motion.h1>
                           
-                          <p className="text-white/90 mb-8 text-lg drop-shadow-md">
+                          <motion.p 
+                            className="text-white/90 mb-8 text-lg drop-shadow-md"
+                            initial={{ opacity: 0, x: -100 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8, delay: 0.4 }}
+                          >
                             {(block.description || "Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations.").split('\n').map((line, index) => (
                               <span key={index}>{line}{index < (block.description || "").split('\n').length - 1 && <br/>}</span>
                             ))}
-                          </p>
+                          </motion.p>
                           
-                          <div className="flex flex-col sm:flex-row gap-4">
+                          <motion.div 
+                            className="flex flex-col sm:flex-row gap-4"
+                            initial={{ opacity: 0, x: -100 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8, delay: 0.6 }}
+                          >
                             <motion.span 
                               className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg"
+                              initial={{ scale: 0 }}
+                              animate={{ scale: 1 }}
+                              transition={{ duration: 0.5, delay: 0.8 }}
                               whileHover={{ scale: 1.05 }}
                               whileTap={{ scale: 0.98 }}
                             >{block.ctaText || "See our offers"}</motion.span>
                             <motion.span 
                               className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg"
+                              initial={{ scale: 0 }}
+                              animate={{ scale: 1 }}
+                              transition={{ duration: 0.5, delay: 1.0 }}
                               whileHover={{ scale: 1.05 }}
                               whileTap={{ scale: 0.98 }}
                             >{config.button2Text || "Custom your trip"}</motion.span>
-                          </div>
+                          </motion.div>
                         </motion.div>
                       </div>
                     </div>
