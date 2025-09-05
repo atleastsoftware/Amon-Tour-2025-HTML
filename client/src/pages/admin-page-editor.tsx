@@ -195,7 +195,7 @@ const getBlockDisplayName = (blockType: string): string => {
   const blockNames: { [key: string]: string } = {
     'video_hero': 'Hero Section',
     'hero': 'Hero Section', 
-    'text_image': 'Text & Image',
+    'text_image': 'Text',
     'form': 'Form',
     'advantages': 'Advantages',
     'testimonials': 'Testimonials',
@@ -487,6 +487,42 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
 
       case 'travelers_reviews':
         return <Testimonials />;
+
+      case 'text_image':
+        const textConfig = liveConfiguration || block.configuration || {};
+        const title = textConfig.title || block.title || 'Titre du bloc';
+        const content = textConfig.content || block.content || 'Contenu du texte...';
+        const titleColor = textConfig.titleColor || '#1e73be';
+        const contentColor = textConfig.contentColor || '#333333';
+        const dashColor = textConfig.dashColor || '#E6B64C';
+
+        return (
+          <div className={`${isFullscreen ? 'min-h-[300px]' : 'min-h-[200px]'} bg-white p-8 flex flex-col justify-center`}>
+            <div className="max-w-4xl mx-auto text-center">
+              {/* Tiret décoratif */}
+              <div 
+                className="w-16 h-1 mx-auto mb-6"
+                style={{ backgroundColor: dashColor }}
+              ></div>
+              
+              {/* Titre */}
+              <h2 
+                className="text-2xl md:text-3xl font-bold mb-6"
+                style={{ color: titleColor }}
+              >
+                {title}
+              </h2>
+              
+              {/* Contenu */}
+              <div 
+                className="text-base md:text-lg leading-relaxed whitespace-pre-line"
+                style={{ color: contentColor }}
+              >
+                {content}
+              </div>
+            </div>
+          </div>
+        );
 
       default:
         return (
@@ -1187,6 +1223,62 @@ const BlockEditDropdown = ({
                 value={formData.formImage || '/catamaran-cruise.png'} 
                 onChange={e => updateField('formImage', e.target.value)}
               />
+            </div>
+          </div>
+        );
+
+      case 'text_image':
+        return (
+          <div className="space-y-6">
+            {/* Titre */}
+            <div>
+              <Label htmlFor="title">Titre</Label>
+              <Input 
+                id="title"
+                value={formData.title || block.title || 'Titre du bloc'} 
+                onChange={e => updateField('title', e.target.value)}
+                placeholder="Titre du bloc"
+                className="mt-2"
+              />
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.titleColor || '#1e73be'}
+                  onChange={(value) => updateField('titleColor', value)}
+                  label="Couleur du titre"
+                />
+              </div>
+            </div>
+
+            {/* Contenu */}
+            <div>
+              <Label htmlFor="content">Contenu</Label>
+              <Textarea 
+                id="content"
+                value={formData.content || block.content || 'Contenu du texte...'} 
+                onChange={e => updateField('content', e.target.value)}
+                placeholder="Contenu du texte..."
+                rows={4}
+                className="mt-2"
+              />
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.contentColor || '#333333'}
+                  onChange={(value) => updateField('contentColor', value)}
+                  label="Couleur du contenu"
+                />
+              </div>
+            </div>
+
+            {/* Tiret */}
+            <div>
+              <Label htmlFor="dashColor">Tiret</Label>
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.dashColor || '#E6B64C'}
+                  onChange={(value) => updateField('dashColor', value)}
+                  label="Couleur du tiret"
+                />
+              </div>
             </div>
           </div>
         );
