@@ -54,8 +54,9 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
         setIsEditingCustom(false);
         break;
       case 'custom':
-        setIsEditingCustom(true);
-        setCustomInput(currentColorValue);
+        // Ne pas activer automatiquement le mode édition
+        // Rester sur le dropdown avec le code couleur cliquable
+        setIsEditingCustom(false);
         break;
     }
   };
@@ -162,7 +163,7 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
       
       {/* Phrase explicative */}
       <p className="text-xs text-gray-500 mt-1">
-        Cliquez sur le carré de couleur pour choisir une couleur personnalisée
+        Cliquez sur le carré de couleur pour choisir visuellement ou sur le code couleur pour saisir directement
       </p>
     </div>
   );
