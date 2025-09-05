@@ -18,6 +18,8 @@ interface ColorPickerProps {
 }
 
 function ColorPicker({ value, onChange, label }: ColorPickerProps) {
+  const [isEditingCustom, setIsEditingCustom] = useState(false);
+  const [customInput, setCustomInput] = useState('');
   const currentColorValue = value || '#ffffff';
 
   // Fonction pour convertir RGB en HEX si nécessaire
@@ -38,20 +40,44 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
   const handleColorChange = (newColor: string) => {
     const hexColor = ensureHexFormat(newColor);
     onChange(hexColor);
+    setIsEditingCustom(false);
   };
 
   const handleOptionSelect = (option: string) => {
     switch (option) {
       case 'primary':
         onChange(THEME_COLORS.primary);
+        setIsEditingCustom(false);
         break;
       case 'secondary':
         onChange(THEME_COLORS.secondary);
+        setIsEditingCustom(false);
         break;
       case 'custom':
-        // Keep current value for custom
+        setIsEditingCustom(true);
+        setCustomInput(currentColorValue);
         break;
     }
+  };
+
+  const handleCustomInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    setCustomInput(inputValue);
+    
+    // Valider et appliquer si c'est un hex valide
+    if (/^#[0-9A-F]{6}$/i.test(inputValue)) {
+      onChange(inputValue);
+    }
+  };
+
+  const handleCustomInputBlur = () => {
+    // Appliquer la couleur même si pas parfaitement valide, mais corriger le format
+    if (customInput.startsWith('#') && customInput.length >= 4) {
+      const correctedColor = ensureHexFormat(customInput);
+      onChange(correctedColor);
+      setCustomInput(correctedColor);
+    }
+    setIsEditingCustom(false);
   };
 
   const getCurrentOption = () => {
@@ -83,22 +109,47 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
           </div>
         </div>
 
-        {/* Dropdown avec les 3 options */}
-        <Select value={getCurrentOption()} onValueChange={handleOptionSelect}>
-          <SelectTrigger className="flex-1">
-            <SelectValue>
-              {getCurrentOption() === 'primary' && 'Couleur principale'}
-              {getCurrentOption() === 'secondary' && 'Couleur secondaire'}  
-              {getCurrentOption() === 'custom' && `Référence: ${displayValue}`}
-            </SelectValue>
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="custom">Référence couleur</SelectItem>
-            <SelectItem value="primary">Couleur principale</SelectItem>
-            <SelectItem value="secondary">Couleur secondaire</SelectItem>
-          </SelectContent>
-        </Select>
+        {/* Dropdown avec les 3 options OU champ de saisie directe */}
+        {isEditingCustom ? (
+          <Input
+            value={customInput}
+            onChange={handleCustomInputChange}
+            onBlur={handleCustomInputBlur}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                handleCustomInputBlur();
+              }
+              if (e.key === 'Escape') {
+                setIsEditingCustom(false);
+                setCustomInput(currentColorValue);
+              }
+            }}
+            placeholder="#ffffff"
+            className="flex-1 font-mono text-sm"
+            autoFocus
+          />
+        ) : (
+          <Select value={getCurrentOption()} onValueChange={handleOptionSelect}>
+            <SelectTrigger className="flex-1">
+              <SelectValue>
+                {getCurrentOption() === 'primary' && 'Couleur principale'}
+                {getCurrentOption() === 'secondary' && 'Couleur secondaire'}  
+                {getCurrentOption() === 'custom' && `Référence: ${displayValue}`}
+              </SelectValue>
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="custom">Référence couleur</SelectItem>
+              <SelectItem value="primary">Couleur principale</SelectItem>
+              <SelectItem value="secondary">Couleur secondaire</SelectItem>
+            </SelectContent>
+          </Select>
+        )}
       </div>
+      
+      {/* Phrase explicative */}
+      <p className="text-xs text-gray-500 mt-1">
+        Cliquez sur le carré de couleur pour choisir une couleur personnalisée
+      </p>
     </div>
   );
 }
