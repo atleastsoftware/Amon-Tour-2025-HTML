@@ -1459,7 +1459,9 @@ export default function AdminAppearance() {
       'form': 'Formulaire',
       'gallery': 'Témoignages',
       'contact_info': 'Infos Contact',
-      'search_module': 'Module Recherche'
+      'search_module': 'Module Recherche',
+      'popular_experiences': 'Card Grid Date',
+      'tour_ninja_section': 'Card Grid Price'
     };
     return displayNames[blockType] || blockType.replace('_', ' ');
   };

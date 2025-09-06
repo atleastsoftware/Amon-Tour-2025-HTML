@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Edit, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Save, Undo, Trash2, AlertTriangle, Plus, ExternalLink } from 'lucide-react';
+import { ArrowLeft, Edit, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Save, Undo, Trash2, AlertTriangle, Plus, ExternalLink, ChevronRight } from 'lucide-react';
 import TourNinjaCard from '@/components/tour/TourNinjaCard';
 import { useTourNinja } from '@/hooks/useTourNinja';
 
@@ -534,11 +534,13 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                         </p>
                         
                         <div className="flex gap-2">
-                          <button className="flex-1 border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 px-3 rounded-lg font-semibold transition-colors">
+                          <button className="flex-1 border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1">
                             Details
+                            <ChevronRight className="h-3 w-3" />
                           </button>
-                          <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg font-semibold transition-colors">
+                          <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1">
                             Book
+                            <ChevronRight className="h-3 w-3" />
                           </button>
                         </div>
                       </div>
@@ -576,11 +578,13 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                         </p>
                         
                         <div className="flex gap-2">
-                          <button className="flex-1 border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 px-3 rounded-lg font-semibold transition-colors">
+                          <button className="flex-1 border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1">
                             Details
+                            <ChevronRight className="h-3 w-3" />
                           </button>
-                          <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg font-semibold transition-colors">
+                          <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1">
                             Book
+                            <ChevronRight className="h-3 w-3" />
                           </button>
                         </div>
                       </div>
@@ -590,7 +594,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
               </div>
               
               <div className="flex justify-center">
-                <button className="bg-primary text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-primary-dark transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                <button className="bg-primary text-white px-8 py-3 rounded-lg font-heading font-semibold hover:bg-primary-dark transition-colors">
                   View All Our Tours
                 </button>
               </div>
