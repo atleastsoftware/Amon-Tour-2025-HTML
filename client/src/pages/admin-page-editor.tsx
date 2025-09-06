@@ -727,178 +727,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         
         const displayToursPrice = filteredToursPrice.slice(0, displayCountPrice);
         
-        return (
-          <section id="tours-price" className="py-16 bg-gray-50">
-            <div className="container mx-auto px-4 text-center mb-8">
-              <motion.div
-                initial={{ y: -20, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-              >
-                <h2 
-                  className="font-heading font-bold text-3xl md:text-4xl mb-3"
-                  style={{
-                    color: liveConfiguration?.titleColor || '#333333'
-                  }}
-                >
-                  {liveConfiguration?.title || block.configuration?.title || "Some Ideas For Your Next Trip"}
-                </h2>
-                <div 
-                  className="w-20 h-1 mx-auto mb-4"
-                  style={{
-                    backgroundColor: liveConfiguration?.dividerColor || '#E6B64C'
-                  }}
-                ></div>
-                <p 
-                  className="max-w-2xl mx-auto"
-                  style={{
-                    color: liveConfiguration?.subtitleColor || '#666666'
-                  }}
-                >
-                  {liveConfiguration?.subtitle || block.configuration?.subtitle || "Get inspired by our custom-designed travel experiences."}
-                </p>
-              </motion.div>
-            </div>
-            
-            <div className="container mx-auto px-4">
-              <div 
-                className={`grid gap-6 mb-8 ${
-                  liveConfiguration?.mobileColumns === 1 ? 'grid-cols-1' :
-                  liveConfiguration?.mobileColumns === 2 ? 'grid-cols-2' : 'grid-cols-1'
-                } ${
-                  liveConfiguration?.tabletColumns === 1 ? 'md:grid-cols-1' :
-                  liveConfiguration?.tabletColumns === 2 ? 'md:grid-cols-2' :
-                  liveConfiguration?.tabletColumns === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2'
-                } ${
-                  liveConfiguration?.desktopColumns === 1 ? 'lg:grid-cols-1' :
-                  liveConfiguration?.desktopColumns === 2 ? 'lg:grid-cols-2' :
-                  liveConfiguration?.desktopColumns === 3 ? 'lg:grid-cols-3' :
-                  liveConfiguration?.desktopColumns === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-4'
-                }`}
-              >
-                {toursLoadingPrice ? (
-                  // Skeleton loading avec le bon nombre
-                  Array.from({ length: Math.min(displayCountPrice, 12) }).map((_, index) => (
-                    <div key={index} className="bg-white rounded-lg overflow-hidden shadow-md h-96 animate-pulse">
-                      <div className="h-48 bg-gray-300"></div>
-                      <div className="p-4 space-y-4">
-                        <div className="h-6 bg-gray-300 rounded w-3/4"></div>
-                        <div className="h-4 bg-gray-300 rounded"></div>
-                        <div className="h-4 bg-gray-300 rounded w-1/2"></div>
-                      </div>
-                    </div>
-                  ))
-                ) : displayToursPrice.length > 0 ? (
-                  // Affiche les vraies cartes de tours avec design "Some Ideas" (badges de prix)
-                  displayToursPrice.map((tour, index) => (
-                    <motion.div
-                      key={tour.id || index}
-                      initial={{ opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: index * 0.1 }}
-                      className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
-                    >
-                      <div className="relative">
-                        <img 
-                          src={tour.presentationImageUrl || tour.imageUrl || '/api/placeholder/400/300'}
-                          alt={tour.name || tour.title}
-                          className="w-full h-48 object-cover"
-                          onError={(e) => {
-                            const target = e.target as HTMLImageElement;
-                            target.src = '/api/placeholder/400/300';
-                          }}
-                        />
-                        {/* Badge de prix en haut à droite */}
-                        <div className="absolute top-4 right-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-bold">
-                          ฿{tour.price?.toLocaleString() || '0'}
-                        </div>
-                      </div>
-                      <div className="p-6">
-                        <h3 className="font-semibold text-xl mb-2 text-gray-800">{tour.name || tour.title}</h3>
-                        <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                          {tour.description || 'Découvrez cette expérience unique...'}
-                        </p>
-                        <div className="flex justify-between items-center">
-                          <div className="text-sm text-gray-500">
-                            <span>{tour.maxParticipants || 8} participants max</span>
-                          </div>
-                          <div className="flex space-x-2">
-                            <button className="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary-dark transition-colors">
-                              Details
-                            </button>
-                            <button className="bg-secondary text-gray-800 px-4 py-2 rounded-lg text-sm font-medium hover:bg-secondary-dark transition-colors">
-                              Book
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))
-                ) : (
-                  // Fallback si pas de tours avec le bon nombre
-                  Array.from({ length: Math.min(displayCountPrice, 12) }).map((_, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: index * 0.1 }}
-                      className="bg-white rounded-xl shadow-lg overflow-hidden"
-                    >
-                      <div className="relative">
-                        <div className="w-full h-48 bg-gray-200 flex items-center justify-center">
-                          <span className="text-gray-400">Image non disponible</span>
-                        </div>
-                        <div className="absolute top-4 right-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-bold">
-                          ฿2,500
-                        </div>
-                      </div>
-                      <div className="p-6">
-                        <h3 className="font-semibold text-xl mb-2 text-gray-800">Tour Example {index + 1}</h3>
-                        <p className="text-gray-600 text-sm mb-4">
-                          Description exemple pour ce tour...
-                        </p>
-                        <div className="flex justify-between items-center">
-                          <div className="text-sm text-gray-500">
-                            <span>8 participants max</span>
-                          </div>
-                          <div className="flex space-x-2">
-                            <button className="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium">
-                              Details
-                            </button>
-                            <button className="bg-secondary text-gray-800 px-4 py-2 rounded-lg text-sm font-medium">
-                              Book
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))
-                )}
-              </div>
-              
-              <div className="flex justify-center gap-4">
-                {/* Utilise les boutons configurés ou le bouton par défaut */}
-                {(liveConfiguration?.buttons?.length ? liveConfiguration.buttons : [{text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'}]).map((button: any, index: number) => (
-                  <button 
-                    key={index}
-                    className="text-white px-8 py-3 rounded-lg font-heading font-semibold hover:opacity-90 transition-colors"
-                    style={{
-                      backgroundColor: button.style === 'outline' ? 'transparent' : (button.color || '#1e73be'),
-                      borderColor: button.style === 'outline' ? (button.color || '#1e73be') : 'transparent',
-                      border: button.style === 'outline' ? '2px solid' : 'none',
-                      color: button.style === 'outline' ? (button.color || '#1e73be') : 'white'
-                    }}
-                  >
-                    {button.text}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </section>
-        );
+        return <TourNinjaSection />;
 
       case 'why_choose_us':
         return <Features />;
@@ -1615,117 +1444,7 @@ const BlockEditDropdown = ({
               </div>
             </div>
 
-            {/* Boutons */}
-            <div className="space-y-4 border-t pt-4">
-              <div className="flex items-center justify-between">
-                <h4 className="text-sm font-medium text-gray-900">Boutons</h4>
-                <Button 
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  onClick={() => {
-                    // S'assurer que le bouton par défaut existe toujours
-                    const defaultButton = {text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'};
-                    const currentButtons = formData.buttons?.length ? formData.buttons : [defaultButton];
-                    const newButtons = [...currentButtons, {text: 'Voir plus', url: '/tours', color: '#1e73be', style: 'filled'}];
-                    updateField('buttons', newButtons);
-                  }}
-                >
-                  <Plus className="h-4 w-4 mr-1" />
-                  Ajouter
-                </Button>
-              </div>
-              
-              <div className="space-y-3">
-                {(formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'}]).map((button: any, index: number) => (
-                  <div key={index} className="border rounded-lg p-4 space-y-3">
-                    <div className="flex items-center justify-between">
-                      <Label className="text-sm font-medium">Bouton {index + 1}</Label>
-                      <Button 
-                        type="button"
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => {
-                          const buttons = formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'}];
-                          const newButtons = buttons.filter((_: any, i: number) => i !== index);
-                          updateField('buttons', newButtons);
-                        }}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
-                    
-                    <div className="grid grid-cols-2 gap-2">
-                      <div>
-                        <Label className="text-xs">Texte</Label>
-                        <Input 
-                          value={button.text || ''} 
-                          onChange={e => {
-                            const buttons = formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'}];
-                            const newButtons = buttons.map((b: any, i: number) => 
-                              i === index ? {...b, text: e.target.value} : b
-                            );
-                            updateField('buttons', newButtons);
-                          }}
-                        />
-                      </div>
-                      <div>
-                        <Label className="text-xs">URL</Label>
-                        <Input 
-                          value={button.url || ''} 
-                          onChange={e => {
-                            const buttons = formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'}];
-                            const newButtons = buttons.map((b: any, i: number) => 
-                              i === index ? {...b, url: e.target.value} : b
-                            );
-                            updateField('buttons', newButtons);
-                          }}
-                        />
-                      </div>
-                    </div>
-                    
-                    <div className="grid grid-cols-2 gap-2">
-                      <div>
-                        <Label className="text-xs">Couleur</Label>
-                        <ColorPicker
-                          value={button.color || '#1e73be'}
-                          onChange={(value) => {
-                            const buttons = formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'}];
-                            const newButtons = buttons.map((b: any, i: number) => 
-                              i === index ? {...b, color: value} : b
-                            );
-                            updateField('buttons', newButtons);
-                          }}
-                        />
-                      </div>
-                      <div>
-                        <Label className="text-xs">Style</Label>
-                        <Select 
-                          value={button.style || 'filled'} 
-                          onValueChange={value => {
-                            const buttons = formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'}];
-                            const newButtons = buttons.map((b: any, i: number) => 
-                              i === index ? {...b, style: value} : b
-                            );
-                            updateField('buttons', newButtons);
-                          }}
-                        >
-                          <SelectTrigger className="h-10">
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="filled">Plein</SelectItem>
-                            <SelectItem value="outline">Contour</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-                
-                {/* Le bouton par défaut est toujours présent, donc pas de message "Aucun bouton configuré" */}
-              </div>
-            </div>
+            {/* Note: Cette section n'a pas de boutons dans le design original */}
           </div>
         );
 
@@ -1737,7 +1456,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="title">Titre</Label>
               <Input 
                 id="title"
-                value={formData.title || block.configuration?.title || 'Some Ideas For Your Next Trip'} 
+                value={formData.title || 'Some Ideas For Your Next Trip'} 
                 onChange={e => updateField('title', e.target.value)}
                 placeholder="Some Ideas For Your Next Trip"
                 className="mt-2"
@@ -1755,7 +1474,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="subtitle">Sous-titre</Label>
               <Input 
                 id="subtitle"
-                value={formData.subtitle || block.configuration?.subtitle || 'Get inspired by our custom-designed travel experiences.'} 
+                value={formData.subtitle || 'Get inspired by our custom-designed travel experiences.'} 
                 onChange={e => updateField('subtitle', e.target.value)}
                 placeholder="Get inspired by our custom-designed travel experiences."
                 className="mt-2"
@@ -1814,7 +1533,7 @@ const BlockEditDropdown = ({
                   </div>
                   <div>
                     <Label className="text-xs text-gray-500">Ordinateur</Label>
-                    <Select value={String(formData.desktopColumns || 4)} onValueChange={value => updateField('desktopColumns', parseInt(value))}>
+                    <Select value={String(formData.desktopColumns || 3)} onValueChange={value => updateField('desktopColumns', parseInt(value))}>
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
@@ -1863,8 +1582,8 @@ const BlockEditDropdown = ({
                       type="number" 
                       min="1" 
                       max="20"
-                      value={formData.showAllAds ? (formData.desktopColumns || 4) * 4 : formData.displayCountDesktop || 8}
-                      onChange={e => updateField('displayCountDesktop', parseInt(e.target.value) || 8)}
+                      value={formData.showAllAds ? (formData.desktopColumns || 3) * 4 : formData.displayCountDesktop || 6}
+                      onChange={e => updateField('displayCountDesktop', parseInt(e.target.value) || 6)}
                       disabled={formData.showAllAds}
                       className={formData.showAllAds ? 'bg-gray-100' : ''}
                     />
@@ -1883,7 +1602,7 @@ const BlockEditDropdown = ({
                         // Quand activé, calculer automatiquement basé sur les colonnes
                         updateField('displayCountMobile', (formData.mobileColumns || 1) * 4);
                         updateField('displayCountTablet', (formData.tabletColumns || 2) * 4);
-                        updateField('displayCountDesktop', (formData.desktopColumns || 4) * 4);
+                        updateField('displayCountDesktop', (formData.desktopColumns || 3) * 4);
                       }
                     }}
                   />
@@ -1908,117 +1627,7 @@ const BlockEditDropdown = ({
               </div>
             </div>
 
-            {/* Boutons */}
-            <div className="space-y-4 border-t pt-4">
-              <div className="flex items-center justify-between">
-                <h4 className="text-sm font-medium text-gray-900">Boutons</h4>
-                <Button 
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  onClick={() => {
-                    // S'assurer que le bouton par défaut existe toujours
-                    const defaultButton = {text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'};
-                    const currentButtons = formData.buttons?.length ? formData.buttons : [defaultButton];
-                    const newButtons = [...currentButtons, {text: 'Voir plus', url: '/tours', color: '#1e73be', style: 'filled'}];
-                    updateField('buttons', newButtons);
-                  }}
-                >
-                  <Plus className="h-4 w-4 mr-1" />
-                  Ajouter
-                </Button>
-              </div>
-              
-              <div className="space-y-3">
-                {(formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'}]).map((button: any, index: number) => (
-                  <div key={index} className="border rounded-lg p-4 space-y-3">
-                    <div className="flex items-center justify-between">
-                      <Label className="text-sm font-medium">Bouton {index + 1}</Label>
-                      <Button 
-                        type="button"
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => {
-                          const buttons = formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'}];
-                          const newButtons = buttons.filter((_: any, i: number) => i !== index);
-                          updateField('buttons', newButtons);
-                        }}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
-                    
-                    <div className="grid grid-cols-2 gap-2">
-                      <div>
-                        <Label className="text-xs">Texte</Label>
-                        <Input 
-                          value={button.text || ''} 
-                          onChange={e => {
-                            const buttons = formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'}];
-                            const newButtons = buttons.map((b: any, i: number) => 
-                              i === index ? {...b, text: e.target.value} : b
-                            );
-                            updateField('buttons', newButtons);
-                          }}
-                        />
-                      </div>
-                      <div>
-                        <Label className="text-xs">URL</Label>
-                        <Input 
-                          value={button.url || ''} 
-                          onChange={e => {
-                            const buttons = formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'}];
-                            const newButtons = buttons.map((b: any, i: number) => 
-                              i === index ? {...b, url: e.target.value} : b
-                            );
-                            updateField('buttons', newButtons);
-                          }}
-                        />
-                      </div>
-                    </div>
-                    
-                    <div className="grid grid-cols-2 gap-2">
-                      <div>
-                        <Label className="text-xs">Couleur</Label>
-                        <ColorPicker
-                          value={button.color || '#1e73be'}
-                          onChange={(value) => {
-                            const buttons = formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'}];
-                            const newButtons = buttons.map((b: any, i: number) => 
-                              i === index ? {...b, color: value} : b
-                            );
-                            updateField('buttons', newButtons);
-                          }}
-                        />
-                      </div>
-                      <div>
-                        <Label className="text-xs">Style</Label>
-                        <Select 
-                          value={button.style || 'filled'} 
-                          onValueChange={value => {
-                            const buttons = formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'}];
-                            const newButtons = buttons.map((b: any, i: number) => 
-                              i === index ? {...b, style: value} : b
-                            );
-                            updateField('buttons', newButtons);
-                          }}
-                        >
-                          <SelectTrigger className="h-10">
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="filled">Plein</SelectItem>
-                            <SelectItem value="outline">Contour</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-                
-                {/* Le bouton par défaut est toujours présent, donc pas de message "Aucun bouton configuré" */}
-              </div>
-            </div>
+            {/* Note: Cette section n'a pas de boutons dans le design original */}
           </div>
         );
 
