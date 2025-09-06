@@ -450,6 +450,60 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
 
       case 'popular_experiences':
         // Section "Our Popular Experiences" avec tours TourNinja
+        const experiencesConfig = liveConfiguration || block.configuration || {};
+        const desktopColumns = experiencesConfig.desktopColumns || 3;
+        const mobileColumns = experiencesConfig.mobileColumns || 1;
+        const displayCount = experiencesConfig.displayCount || 6;
+        
+        // Grid classes dynamiques
+        const getGridClasses = () => {
+          const mobileClass = mobileColumns === 1 ? 'grid-cols-1' : 'grid-cols-2';
+          let desktopClass = 'lg:grid-cols-3';
+          if (desktopColumns === 2) desktopClass = 'lg:grid-cols-2';
+          if (desktopColumns === 4) desktopClass = 'lg:grid-cols-4';
+          
+          return `grid ${mobileClass} md:grid-cols-2 ${desktopClass} gap-6 mb-8`;
+        };
+        
+        // Rendu des boutons
+        const renderButtons = () => {
+          const buttons = experiencesConfig.buttons || [];
+          if (buttons.length === 0) return null;
+          
+          return (
+            <div className="flex justify-center gap-4 flex-wrap">
+              {buttons.map((button: any, index: number) => {
+                const isOutline = button.style === 'outline';
+                const buttonStyles = isOutline 
+                  ? {
+                      backgroundColor: 'transparent',
+                      color: button.color || '#1e73be',
+                      borderColor: button.color || '#1e73be',
+                      borderWidth: '2px'
+                    }
+                  : {
+                      backgroundColor: button.color || '#1e73be',
+                      color: '#ffffff'
+                    };
+                
+                return (
+                  <motion.button
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.4 + (index * 0.1) }}
+                    className={`px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl ${isOutline ? 'border-2 hover:opacity-80' : 'hover:opacity-90'}`}
+                    style={buttonStyles}
+                  >
+                    {button.text}
+                  </motion.button>
+                );
+              })}
+            </div>
+          );
+        };
+        
         return (
           <section id="tours" className="py-16 bg-white">
             <div className="container mx-auto px-4 text-center mb-8">
@@ -459,19 +513,28 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
               >
-                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
-                  {liveConfiguration?.title || block.configuration?.title || "Our Popular Experiences"}
+                <h2 
+                  className="font-heading font-bold text-3xl md:text-4xl mb-3"
+                  style={{ color: experiencesConfig.titleColor || '#333333' }}
+                >
+                  {experiencesConfig.title || block.configuration?.title || "Our Popular Experiences"}
                 </h2>
-                <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
-                <p className="text-gray-600 max-w-2xl mx-auto">
-                  {liveConfiguration?.subtitle || block.configuration?.subtitle || "Step off the beaten path into carefully curated experiences beyond the tourist trail."}
+                <div 
+                  className="w-20 h-1 mx-auto mb-4"
+                  style={{ backgroundColor: experiencesConfig.dividerColor || '#E6B64C' }}
+                ></div>
+                <p 
+                  className="max-w-2xl mx-auto"
+                  style={{ color: experiencesConfig.subtitleColor || '#666666' }}
+                >
+                  {experiencesConfig.subtitle || block.configuration?.subtitle || "Step off the beaten path into carefully curated experiences beyond the tourist trail."}
                 </p>
               </motion.div>
             </div>
             
             <div className="container mx-auto px-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                {Array.from({ length: 6 }).map((_, index) => (
+              <div className={getGridClasses()}>
+                {Array.from({ length: displayCount }).map((_, index) => (
                   <motion.div
                     key={index}
                     initial={{ opacity: 0, y: 30 }}
@@ -493,7 +556,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                     
                     <div className="p-6">
                       <h3 className="text-lg font-bold text-gray-800 mb-3 line-clamp-2">
-                        Tour Experience {index + 1}
+                        {experiencesConfig.categoryFilter === 'custom' ? `Expérience ${index + 1}` : `Tour Experience ${index + 1}`}
                       </h3>
                       
                       <p className="text-gray-600 text-sm mb-4 line-clamp-3">
@@ -512,6 +575,8 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                   </motion.div>
                 ))}
               </div>
+              
+              {renderButtons()}
             </div>
           </section>
         );
@@ -1060,45 +1125,232 @@ const BlockEditDropdown = ({
 
       case 'popular_experiences':
         return (
-          <div className="space-y-4">
+          <div className="space-y-6">
+            {/* Titre */}
             <div>
               <Label htmlFor="title">Titre</Label>
               <Input 
                 id="title"
-                value={formData.title || block.configuration?.title || ''} 
+                value={formData.title || block.configuration?.title || 'Our Popular Experiences'} 
                 onChange={e => updateField('title', e.target.value)}
                 placeholder="Our Popular Experiences"
+                className="mt-2"
               />
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.titleColor || '#333333'}
+                  onChange={(value) => updateField('titleColor', value)}
+                />
+              </div>
             </div>
+            
+            {/* Sous-titre */}
             <div>
               <Label htmlFor="subtitle">Sous-titre</Label>
               <Input 
                 id="subtitle"
-                value={formData.subtitle || block.configuration?.subtitle || ''} 
+                value={formData.subtitle || block.configuration?.subtitle || 'Step off the beaten path into carefully curated experiences beyond the tourist trail.'} 
                 onChange={e => updateField('subtitle', e.target.value)}
                 placeholder="Step off the beaten path..."
+                className="mt-2"
               />
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.subtitleColor || '#666666'}
+                  onChange={(value) => updateField('subtitleColor', value)}
+                />
+              </div>
             </div>
+
+            {/* Tiret */}
             <div>
-              <Label htmlFor="displayCount">Nombre de tours affichés</Label>
-              <Select value={String(formData.displayCount || 6)} onValueChange={value => updateField('displayCount', parseInt(value))}>
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="3">3 tours</SelectItem>
-                  <SelectItem value="6">6 tours</SelectItem>
-                  <SelectItem value="9">9 tours</SelectItem>
-                  <SelectItem value="12">12 tours</SelectItem>
-                </SelectContent>
-              </Select>
+              <Label htmlFor="divider">Tiret</Label>
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.dividerColor || '#E6B64C'}
+                  onChange={(value) => updateField('dividerColor', value)}
+                />
+              </div>
             </div>
-            <div className="flex items-center space-x-2">
-              <Checkbox 
-                checked={formData.showViewAllButton !== false}
-                onCheckedChange={checked => updateField('showViewAllButton', checked)}
-              />
-              <Label>Afficher le bouton "View All Our Tours"</Label>
+
+            {/* Configuration de la grille */}
+            <div className="space-y-4 border-t pt-4">
+              <h4 className="text-sm font-medium text-gray-900">Configuration de la grille</h4>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="desktopColumns">Colonnes (ordinateur)</Label>
+                  <Select value={String(formData.desktopColumns || 3)} onValueChange={value => updateField('desktopColumns', parseInt(value))}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="2">2 colonnes</SelectItem>
+                      <SelectItem value="3">3 colonnes</SelectItem>
+                      <SelectItem value="4">4 colonnes</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="mobileColumns">Colonnes (mobile)</Label>
+                  <Select value={String(formData.mobileColumns || 1)} onValueChange={value => updateField('mobileColumns', parseInt(value))}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="1">1 colonne</SelectItem>
+                      <SelectItem value="2">2 colonnes</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              <div>
+                <Label htmlFor="displayCount">Nombre total d'annonces</Label>
+                <Select value={String(formData.displayCount || 6)} onValueChange={value => updateField('displayCount', parseInt(value))}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="3">3 annonces</SelectItem>
+                    <SelectItem value="6">6 annonces</SelectItem>
+                    <SelectItem value="9">9 annonces</SelectItem>
+                    <SelectItem value="12">12 annonces</SelectItem>
+                    <SelectItem value="15">15 annonces</SelectItem>
+                    <SelectItem value="18">18 annonces</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <Label htmlFor="categoryFilter">Catégorie d'annonces</Label>
+                <Select value={formData.categoryFilter || 'all'} onValueChange={value => updateField('categoryFilter', value)}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">Toutes les annonces</SelectItem>
+                    <SelectItem value="featured">Annonces vedettes</SelectItem>
+                    <SelectItem value="day_trips">Excursions d'une journée</SelectItem>
+                    <SelectItem value="multi_day">Séjours multi-jours</SelectItem>
+                    <SelectItem value="custom">Personnalisé (manuelle)</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            {/* Boutons */}
+            <div className="space-y-4 border-t pt-4">
+              <div className="flex items-center justify-between">
+                <h4 className="text-sm font-medium text-gray-900">Boutons</h4>
+                <Button 
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    const currentButtons = formData.buttons || [];
+                    const newButtons = [...currentButtons, {text: 'Voir plus', url: '/tours', color: '#1e73be', style: 'filled'}];
+                    updateField('buttons', newButtons);
+                  }}
+                >
+                  <Plus className="h-4 w-4 mr-1" />
+                  Ajouter
+                </Button>
+              </div>
+              
+              <div className="space-y-3">
+                {(formData.buttons || []).map((button: any, index: number) => (
+                  <div key={index} className="border rounded-lg p-4 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <Label className="text-sm font-medium">Bouton {index + 1}</Label>
+                      <Button 
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {
+                          const buttons = formData.buttons || [];
+                          const newButtons = buttons.filter((_: any, i: number) => i !== index);
+                          updateField('buttons', newButtons);
+                        }}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-2">
+                      <div>
+                        <Label className="text-xs">Texte</Label>
+                        <Input 
+                          value={button.text || ''} 
+                          onChange={e => {
+                            const buttons = formData.buttons || [];
+                            const newButtons = buttons.map((b: any, i: number) => 
+                              i === index ? {...b, text: e.target.value} : b
+                            );
+                            updateField('buttons', newButtons);
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-xs">URL</Label>
+                        <Input 
+                          value={button.url || ''} 
+                          onChange={e => {
+                            const buttons = formData.buttons || [];
+                            const newButtons = buttons.map((b: any, i: number) => 
+                              i === index ? {...b, url: e.target.value} : b
+                            );
+                            updateField('buttons', newButtons);
+                          }}
+                        />
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-2">
+                      <div>
+                        <Label className="text-xs">Couleur</Label>
+                        <ColorPicker
+                          value={button.color || '#1e73be'}
+                          onChange={(value) => {
+                            const buttons = formData.buttons || [];
+                            const newButtons = buttons.map((b: any, i: number) => 
+                              i === index ? {...b, color: value} : b
+                            );
+                            updateField('buttons', newButtons);
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-xs">Style</Label>
+                        <Select 
+                          value={button.style || 'filled'} 
+                          onValueChange={value => {
+                            const buttons = formData.buttons || [];
+                            const newButtons = buttons.map((b: any, i: number) => 
+                              i === index ? {...b, style: value} : b
+                            );
+                            updateField('buttons', newButtons);
+                          }}
+                        >
+                          <SelectTrigger className="h-10">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="filled">Plein</SelectItem>
+                            <SelectItem value="outline">Contour</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                
+                {formData.buttons?.length === 0 || !formData.buttons ? (
+                  <p className="text-sm text-gray-500 text-center py-4">
+                    Aucun bouton configuré
+                  </p>
+                ) : null}
+              </div>
             </div>
           </div>
         );
