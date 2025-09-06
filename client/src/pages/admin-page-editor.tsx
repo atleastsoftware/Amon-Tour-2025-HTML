@@ -2290,11 +2290,9 @@ export default function AdminPageEditor() {
                               isOpen={editingBlockId === block.id}
                             onSave={(updatedBlock) => {
                               updateBlockMutation.mutate(updatedBlock);
-                              setLivePreviewData(prev => {
-                                const newData = { ...prev };
-                                delete newData[block.id];
-                                return newData;
-                              });
+                              setEditingBlockId(null);
+                              // Garder les données de prévisualisation pour continuité visuelle
+                              // Les nouvelles données sauvegardées seront automatiquement reflétées
                               // Scroll automatique vers la section de prévisualisation
                               setTimeout(() => scrollToElement(`header-${block.id}`), 300);
                             }}
