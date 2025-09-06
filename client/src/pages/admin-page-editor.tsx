@@ -715,19 +715,115 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         // 'all' et 'custom' gardent tous les tours pour l'instant
         
         // Calculer le nombre d'annonces selon la configuration
-        let displayCountPrice = 8;
+        let displayCountPrice = 6;
         
         if (liveConfiguration?.showAllAds) {
           // Si "toutes les annonces" est activé, afficher toutes les annonces filtrées
           displayCountPrice = filteredToursPrice.length;
         } else {
           // Sinon utiliser le nombre configuré pour ordinateur par défaut
-          displayCountPrice = liveConfiguration?.displayCountDesktop || 8;
+          displayCountPrice = liveConfiguration?.displayCountDesktop || 6;
         }
         
         const displayToursPrice = filteredToursPrice.slice(0, displayCountPrice);
         
-        return <TourNinjaSection />;
+        return (
+          <section className="py-16 bg-gray-50">
+            <div className="container mx-auto px-4">
+              <div className="text-center mb-12">
+                <motion.div
+                  initial={{ y: -20, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <h2 
+                    className="font-heading font-bold text-3xl md:text-4xl mb-3"
+                    style={{
+                      color: liveConfiguration?.titleColor || '#333333'
+                    }}
+                  >
+                    {liveConfiguration?.title || 'Some Ideas For Your Next Trip'}
+                  </h2>
+                  <div 
+                    className="w-20 h-1 mx-auto mb-4"
+                    style={{
+                      backgroundColor: liveConfiguration?.dividerColor || '#E6B64C'
+                    }}
+                  ></div>
+                  <p 
+                    className="text-gray-600 max-w-2xl mx-auto"
+                    style={{
+                      color: liveConfiguration?.subtitleColor || '#666666'
+                    }}
+                  >
+                    {liveConfiguration?.subtitle || 'Get inspired by our custom-designed travel experiences.'}
+                  </p>
+                </motion.div>
+              </div>
+
+              {toursLoadingPrice ? (
+                <div 
+                  className={`grid gap-6 ${
+                    liveConfiguration?.mobileColumns === 1 ? 'grid-cols-1' :
+                    liveConfiguration?.mobileColumns === 2 ? 'grid-cols-2' : 'grid-cols-1'
+                  } ${
+                    liveConfiguration?.tabletColumns === 1 ? 'md:grid-cols-1' :
+                    liveConfiguration?.tabletColumns === 2 ? 'md:grid-cols-2' :
+                    liveConfiguration?.tabletColumns === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2'
+                  } ${
+                    liveConfiguration?.desktopColumns === 1 ? 'lg:grid-cols-1' :
+                    liveConfiguration?.desktopColumns === 2 ? 'lg:grid-cols-2' :
+                    liveConfiguration?.desktopColumns === 3 ? 'lg:grid-cols-3' :
+                    liveConfiguration?.desktopColumns === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3'
+                  }`}
+                >
+                  {[1, 2, 3, 4, 5, 6].map((i) => (
+                    <div key={i} className="bg-white rounded-lg overflow-hidden shadow-md h-96 animate-pulse">
+                      <div className="h-48 bg-gray-300"></div>
+                      <div className="p-4 space-y-4">
+                        <div className="h-6 bg-gray-300 rounded w-3/4"></div>
+                        <div className="h-4 bg-gray-300 rounded"></div>
+                        <div className="h-4 bg-gray-300 rounded w-1/2"></div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : displayToursPrice.length > 0 ? (
+                <motion.div
+                  className={`grid gap-6 ${
+                    liveConfiguration?.mobileColumns === 1 ? 'grid-cols-1' :
+                    liveConfiguration?.mobileColumns === 2 ? 'grid-cols-2' : 'grid-cols-1'
+                  } ${
+                    liveConfiguration?.tabletColumns === 1 ? 'md:grid-cols-1' :
+                    liveConfiguration?.tabletColumns === 2 ? 'md:grid-cols-2' :
+                    liveConfiguration?.tabletColumns === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2'
+                  } ${
+                    liveConfiguration?.desktopColumns === 1 ? 'lg:grid-cols-1' :
+                    liveConfiguration?.desktopColumns === 2 ? 'lg:grid-cols-2' :
+                    liveConfiguration?.desktopColumns === 3 ? 'lg:grid-cols-3' :
+                    liveConfiguration?.desktopColumns === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3'
+                  }`}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  {displayToursPrice.map((tour, index) => (
+                    <TourNinjaCard 
+                      key={tour.id || index} 
+                      tour={tour} 
+                      index={index} 
+                    />
+                  ))}
+                </motion.div>
+              ) : (
+                <div className="text-center py-8">
+                  <p className="text-gray-500">No tours available at the moment.</p>
+                </div>
+              )}
+            </div>
+          </section>
+        );
 
       case 'why_choose_us':
         return <Features />;
@@ -1375,7 +1471,7 @@ const BlockEditDropdown = ({
                       type="number" 
                       min="1" 
                       max="50"
-                      value={formData.showAllAds ? (realTours?.length || 0) : formData.displayCountMobile || 4}
+                      value={formData.showAllAds ? 19 : formData.displayCountMobile || 4}
                       onChange={e => updateField('displayCountMobile', parseInt(e.target.value) || 4)}
                       disabled={formData.showAllAds}
                       className={formData.showAllAds ? 'bg-gray-100' : ''}
@@ -1387,7 +1483,7 @@ const BlockEditDropdown = ({
                       type="number" 
                       min="1" 
                       max="50"
-                      value={formData.showAllAds ? (realTours?.length || 0) : formData.displayCountTablet || 6}
+                      value={formData.showAllAds ? 19 : formData.displayCountTablet || 6}
                       onChange={e => updateField('displayCountTablet', parseInt(e.target.value) || 6)}
                       disabled={formData.showAllAds}
                       className={formData.showAllAds ? 'bg-gray-100' : ''}
@@ -1399,7 +1495,7 @@ const BlockEditDropdown = ({
                       type="number" 
                       min="1" 
                       max="50"
-                      value={formData.showAllAds ? (realTours?.length || 0) : formData.displayCountDesktop || 6}
+                      value={formData.showAllAds ? 19 : formData.displayCountDesktop || 6}
                       onChange={e => updateField('displayCountDesktop', parseInt(e.target.value) || 6)}
                       disabled={formData.showAllAds}
                       className={formData.showAllAds ? 'bg-gray-100' : ''}
@@ -1417,7 +1513,7 @@ const BlockEditDropdown = ({
                       updateField('showAllAds', isChecked);
                       if (isChecked) {
                         // Quand activé, utiliser le nombre total d'annonces
-                        const totalAds = realTours?.length || 0;
+                        const totalAds = 19;
                         updateField('displayCountMobile', totalAds);
                         updateField('displayCountTablet', totalAds);
                         updateField('displayCountDesktop', totalAds);
@@ -1559,7 +1655,7 @@ const BlockEditDropdown = ({
                       type="number" 
                       min="1" 
                       max="50"
-                      value={formData.showAllAds ? (realToursPrice?.length || 0) : formData.displayCountMobile || 4}
+                      value={formData.showAllAds ? 19 : formData.displayCountMobile || 4}
                       onChange={e => updateField('displayCountMobile', parseInt(e.target.value) || 4)}
                       disabled={formData.showAllAds}
                       className={formData.showAllAds ? 'bg-gray-100' : ''}
@@ -1571,7 +1667,7 @@ const BlockEditDropdown = ({
                       type="number" 
                       min="1" 
                       max="50"
-                      value={formData.showAllAds ? (realToursPrice?.length || 0) : formData.displayCountTablet || 6}
+                      value={formData.showAllAds ? 19 : formData.displayCountTablet || 6}
                       onChange={e => updateField('displayCountTablet', parseInt(e.target.value) || 6)}
                       disabled={formData.showAllAds}
                       className={formData.showAllAds ? 'bg-gray-100' : ''}
@@ -1583,7 +1679,7 @@ const BlockEditDropdown = ({
                       type="number" 
                       min="1" 
                       max="50"
-                      value={formData.showAllAds ? (realToursPrice?.length || 0) : formData.displayCountDesktop || 6}
+                      value={formData.showAllAds ? 19 : formData.displayCountDesktop || 6}
                       onChange={e => updateField('displayCountDesktop', parseInt(e.target.value) || 6)}
                       disabled={formData.showAllAds}
                       className={formData.showAllAds ? 'bg-gray-100' : ''}
@@ -1601,7 +1697,7 @@ const BlockEditDropdown = ({
                       updateField('showAllAds', isChecked);
                       if (isChecked) {
                         // Quand activé, utiliser le nombre total d'annonces
-                        const totalAds = realToursPrice?.length || 0;
+                        const totalAds = 19;
                         updateField('displayCountMobile', totalAds);
                         updateField('displayCountTablet', totalAds);
                         updateField('displayCountDesktop', totalAds);
