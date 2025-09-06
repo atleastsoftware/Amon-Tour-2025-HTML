@@ -462,8 +462,11 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         // Section "Our Popular Experiences" - Card Grid Date avec badges de jours
         const { tours: realTours, isLoading: toursLoading } = useTourNinja();
         
+        // Utiliser liveConfiguration pour l'édition en temps réel, sinon block.configuration pour les données sauvegardées
+        const popularConfig = liveConfiguration || block.configuration || {};
+        
         // D'abord filtrer par catégorie
-        const categoryFilter = liveConfiguration?.categoryFilter || 'all';
+        const categoryFilter = popularConfig.categoryFilter || 'all';
         let filteredTours = realTours || [];
         
         if (categoryFilter === 'featured') {
@@ -488,12 +491,12 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         // Calculer le nombre d'annonces selon la configuration
         let displayCount = 6;
         
-        if (liveConfiguration?.showAllAds === true) {
+        if (popularConfig.showAllAds === true) {
           // Si "toutes les annonces" est activé, afficher toutes les annonces filtrées
           displayCount = Math.max(filteredTours.length, 19); // Garantir au moins 19 pour la demo
         } else {
           // Sinon utiliser le nombre configuré pour ordinateur par défaut
-          displayCount = liveConfiguration?.displayCountDesktop || 6;
+          displayCount = popularConfig.displayCountDesktop || 6;
         }
         
         const displayTours = filteredTours.slice(0, displayCount);
@@ -510,7 +513,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                 <h2 
                   className="font-heading font-bold text-3xl md:text-4xl mb-3"
                   style={{
-                    color: liveConfiguration?.titleColor || '#333333'
+                    color: popularConfig.titleColor || '#333333'
                   }}
                 >
                   {liveConfiguration?.title || block.configuration?.title || "Our Popular Experiences"}
@@ -518,13 +521,13 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                 <div 
                   className="w-20 h-1 mx-auto mb-4"
                   style={{
-                    backgroundColor: liveConfiguration?.dividerColor || '#E6B64C'
+                    backgroundColor: popularConfig.dividerColor || '#E6B64C'
                   }}
                 ></div>
                 <p 
                   className="max-w-2xl mx-auto"
                   style={{
-                    color: liveConfiguration?.subtitleColor || '#666666'
+                    color: popularConfig.subtitleColor || '#666666'
                   }}
                 >
                   {liveConfiguration?.subtitle || block.configuration?.subtitle || "Step off the beaten path into carefully curated experiences beyond the tourist trail."}
@@ -535,17 +538,17 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
             <div className="container mx-auto px-4">
               <div 
                 className={`grid gap-6 mb-8 ${
-                  liveConfiguration?.mobileColumns === 1 ? 'grid-cols-1' :
-                  liveConfiguration?.mobileColumns === 2 ? 'grid-cols-2' : 'grid-cols-1'
+                  popularConfig.mobileColumns === 1 ? 'grid-cols-1' :
+                  popularConfig.mobileColumns === 2 ? 'grid-cols-2' : 'grid-cols-1'
                 } ${
-                  liveConfiguration?.tabletColumns === 1 ? 'md:grid-cols-1' :
-                  liveConfiguration?.tabletColumns === 2 ? 'md:grid-cols-2' :
-                  liveConfiguration?.tabletColumns === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2'
+                  popularConfig.tabletColumns === 1 ? 'md:grid-cols-1' :
+                  popularConfig.tabletColumns === 2 ? 'md:grid-cols-2' :
+                  popularConfig.tabletColumns === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2'
                 } ${
-                  liveConfiguration?.desktopColumns === 1 ? 'lg:grid-cols-1' :
-                  liveConfiguration?.desktopColumns === 2 ? 'lg:grid-cols-2' :
-                  liveConfiguration?.desktopColumns === 3 ? 'lg:grid-cols-3' :
-                  liveConfiguration?.desktopColumns === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3'
+                  popularConfig.desktopColumns === 1 ? 'lg:grid-cols-1' :
+                  popularConfig.desktopColumns === 2 ? 'lg:grid-cols-2' :
+                  popularConfig.desktopColumns === 3 ? 'lg:grid-cols-3' :
+                  popularConfig.desktopColumns === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3'
                 }`}
               >
                 {toursLoading ? (
@@ -691,8 +694,11 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         // Section "Some Ideas For Your Next Trip" - Card Grid Price avec badges de prix
         const { tours: realToursPrice, isLoading: toursLoadingPrice } = useTourNinja();
         
+        // Utiliser liveConfiguration pour l'édition en temps réel, sinon block.configuration pour les données sauvegardées
+        const config = liveConfiguration || block.configuration || {};
+        
         // D'abord filtrer par catégorie
-        const categoryFilterPrice = liveConfiguration?.categoryFilter || 'all';
+        const categoryFilterPrice = config.categoryFilter || 'all';
         let filteredToursPrice = realToursPrice || [];
         
         if (categoryFilterPrice === 'featured') {
@@ -717,12 +723,12 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         // Calculer le nombre d'annonces selon la configuration
         let displayCountPrice = 6;
         
-        if (liveConfiguration?.showAllAds === true) {
+        if (config.showAllAds === true) {
           // Si "toutes les annonces" est activé, afficher toutes les annonces filtrées
           displayCountPrice = Math.max(filteredToursPrice.length, 19); // Garantir au moins 19 pour la demo
         } else {
           // Sinon utiliser le nombre configuré pour ordinateur par défaut
-          displayCountPrice = liveConfiguration?.displayCountDesktop || 6;
+          displayCountPrice = config.displayCountDesktop || 6;
         }
         
         const displayToursPrice = filteredToursPrice.slice(0, displayCountPrice);
@@ -740,24 +746,24 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                   <h2 
                     className="font-heading font-bold text-3xl md:text-4xl mb-3"
                     style={{
-                      color: liveConfiguration?.titleColor || '#333333'
+                      color: config.titleColor || '#333333'
                     }}
                   >
-                    {liveConfiguration?.title || 'Some Ideas For Your Next Trip'}
+                    {config.title || 'Some Ideas For Your Next Trip'}
                   </h2>
                   <div 
                     className="w-20 h-1 mx-auto mb-4"
                     style={{
-                      backgroundColor: liveConfiguration?.dividerColor || '#E6B64C'
+                      backgroundColor: config.dividerColor || '#E6B64C'
                     }}
                   ></div>
                   <p 
                     className="text-gray-600 max-w-2xl mx-auto"
                     style={{
-                      color: liveConfiguration?.subtitleColor || '#666666'
+                      color: config.subtitleColor || '#666666'
                     }}
                   >
-                    {liveConfiguration?.subtitle || 'Get inspired by our custom-designed travel experiences.'}
+                    {config.subtitle || 'Get inspired by our custom-designed travel experiences.'}
                   </p>
                 </motion.div>
               </div>
@@ -765,17 +771,17 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
               {toursLoadingPrice ? (
                 <div 
                   className={`grid gap-6 ${
-                    liveConfiguration?.mobileColumns === 1 ? 'grid-cols-1' :
-                    liveConfiguration?.mobileColumns === 2 ? 'grid-cols-2' : 'grid-cols-1'
+                    config.mobileColumns === 1 ? 'grid-cols-1' :
+                    config.mobileColumns === 2 ? 'grid-cols-2' : 'grid-cols-1'
                   } ${
-                    liveConfiguration?.tabletColumns === 1 ? 'md:grid-cols-1' :
-                    liveConfiguration?.tabletColumns === 2 ? 'md:grid-cols-2' :
-                    liveConfiguration?.tabletColumns === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2'
+                    config.tabletColumns === 1 ? 'md:grid-cols-1' :
+                    config.tabletColumns === 2 ? 'md:grid-cols-2' :
+                    config.tabletColumns === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2'
                   } ${
-                    liveConfiguration?.desktopColumns === 1 ? 'lg:grid-cols-1' :
-                    liveConfiguration?.desktopColumns === 2 ? 'lg:grid-cols-2' :
-                    liveConfiguration?.desktopColumns === 3 ? 'lg:grid-cols-3' :
-                    liveConfiguration?.desktopColumns === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3'
+                    config.desktopColumns === 1 ? 'lg:grid-cols-1' :
+                    config.desktopColumns === 2 ? 'lg:grid-cols-2' :
+                    config.desktopColumns === 3 ? 'lg:grid-cols-3' :
+                    config.desktopColumns === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3'
                   }`}
                 >
                   {[1, 2, 3, 4, 5, 6].map((i) => (
@@ -792,17 +798,17 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
               ) : displayToursPrice.length > 0 ? (
                 <motion.div
                   className={`grid gap-6 ${
-                    liveConfiguration?.mobileColumns === 1 ? 'grid-cols-1' :
-                    liveConfiguration?.mobileColumns === 2 ? 'grid-cols-2' : 'grid-cols-1'
+                    config.mobileColumns === 1 ? 'grid-cols-1' :
+                    config.mobileColumns === 2 ? 'grid-cols-2' : 'grid-cols-1'
                   } ${
-                    liveConfiguration?.tabletColumns === 1 ? 'md:grid-cols-1' :
-                    liveConfiguration?.tabletColumns === 2 ? 'md:grid-cols-2' :
-                    liveConfiguration?.tabletColumns === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2'
+                    config.tabletColumns === 1 ? 'md:grid-cols-1' :
+                    config.tabletColumns === 2 ? 'md:grid-cols-2' :
+                    config.tabletColumns === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2'
                   } ${
-                    liveConfiguration?.desktopColumns === 1 ? 'lg:grid-cols-1' :
-                    liveConfiguration?.desktopColumns === 2 ? 'lg:grid-cols-2' :
-                    liveConfiguration?.desktopColumns === 3 ? 'lg:grid-cols-3' :
-                    liveConfiguration?.desktopColumns === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3'
+                    config.desktopColumns === 1 ? 'lg:grid-cols-1' :
+                    config.desktopColumns === 2 ? 'lg:grid-cols-2' :
+                    config.desktopColumns === 3 ? 'lg:grid-cols-3' :
+                    config.desktopColumns === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3'
                   }`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
