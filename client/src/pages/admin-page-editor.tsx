@@ -462,21 +462,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         // Section "Our Popular Experiences" - Card Grid Date avec badges de jours
         const { tours: realTours, isLoading: toursLoading } = useTourNinja();
         
-        // Calculer le nombre d'annonces selon la configuration
-        const countMode = liveConfiguration?.countMode || 'fixed';
-        const desktopCols = liveConfiguration?.desktopColumns || 3;
-        let displayCount = 6;
-        
-        if (countMode === 'auto') {
-          const multiplier = liveConfiguration?.autoMultiplier || 2;
-          displayCount = desktopCols * multiplier;
-        } else if (countMode === 'fixed') {
-          displayCount = liveConfiguration?.displayCount || 6;
-        } else if (countMode === 'all') {
-          displayCount = filteredTours.length; // Afficher toutes les annonces disponibles
-        }
-        
-        // Filtrer par catégorie
+        // D'abord filtrer par catégorie
         const categoryFilter = liveConfiguration?.categoryFilter || 'all';
         let filteredTours = realTours || [];
         
@@ -499,9 +485,21 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         }
         // 'all' et 'custom' gardent tous les tours pour l'instant
         
-        // Appliquer le filtrage après avoir calculé le bon displayCount  
-        const finalDisplayCount = countMode === 'all' ? filteredTours.length : displayCount;
-        const displayTours = filteredTours.slice(0, finalDisplayCount);
+        // Ensuite calculer le nombre d'annonces selon la configuration
+        const countMode = liveConfiguration?.countMode || 'fixed';
+        const desktopCols = liveConfiguration?.desktopColumns || 3;
+        let displayCount = 6;
+        
+        if (countMode === 'auto') {
+          const multiplier = liveConfiguration?.autoMultiplier || 2;
+          displayCount = desktopCols * multiplier;
+        } else if (countMode === 'fixed') {
+          displayCount = liveConfiguration?.displayCount || 6;
+        } else if (countMode === 'all') {
+          displayCount = filteredTours.length; // Maintenant filteredTours est défini
+        }
+        
+        const displayTours = filteredTours.slice(0, displayCount);
         
         return (
           <section id="tours" className="py-16 bg-white">
@@ -555,7 +553,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
               >
                 {toursLoading ? (
                   // Skeleton loading avec le bon nombre
-                  Array.from({ length: displayCount }).map((_, index) => (
+                  Array.from({ length: Math.min(displayCount, 12) }).map((_, index) => (
                     <div key={index} className="bg-white rounded-lg overflow-hidden shadow-md h-96 animate-pulse">
                       <div className="h-48 bg-gray-300"></div>
                       <div className="p-4 space-y-4">
@@ -623,7 +621,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                   ))
                 ) : (
                   // Fallback si pas de tours avec le bon nombre
-                  Array.from({ length: displayCount }).map((_, index) => (
+                  Array.from({ length: Math.min(displayCount, 12) }).map((_, index) => (
                     <motion.div
                       key={index}
                       initial={{ opacity: 0, y: 30 }}
