@@ -832,7 +832,121 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         );
 
       case 'why_choose_us':
-        return <Features />;
+        // Utiliser liveConfiguration pour l'édition en temps réel, sinon block.configuration pour les données sauvegardées
+        const featuresConfig = liveConfiguration || block.configuration || {};
+        return (
+          <section className="py-16 bg-neutral-light">
+            <div className="container mx-auto px-4">
+              <div className="text-center mb-12">
+                <motion.div 
+                  initial={{ y: -20, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <h2 
+                    className="font-heading font-bold text-3xl md:text-4xl mb-3"
+                    style={{ color: featuresConfig.titleColor || '#333333' }}
+                  >
+                    {featuresConfig.title || 'Why Choose Us'}
+                  </h2>
+                  <div 
+                    className="w-20 h-1 mx-auto mb-4"
+                    style={{ backgroundColor: featuresConfig.dividerColor || '#E6B64C' }}
+                  ></div>
+                  <p 
+                    className="text-gray-600 max-w-2xl mx-auto"
+                    style={{ color: featuresConfig.subtitleColor || '#666666' }}
+                  >
+                    {featuresConfig.subtitle || 'Experience an exclusive private day trip with our English or French-speaking and certified guides.'}
+                  </p>
+                </motion.div>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {(featuresConfig.iconBlocks || [
+                  {
+                    id: 1,
+                    mainIcon: 'fas fa-users',
+                    title: 'Private Tours',
+                    description: 'Experience an exclusive day trip with our professional guides and private vehicles.',
+                    miniIcons: [
+                      { icon: 'fas fa-car', text: 'Private Car' },
+                      { icon: 'fas fa-language', text: 'Guide' },
+                      { icon: 'fas fa-shield-alt', text: 'Safety' }
+                    ]
+                  },
+                  {
+                    id: 2,
+                    mainIcon: 'fas fa-compass',
+                    title: 'Customized Itineraries',
+                    description: 'Create your own journey based on your desires, your pace, and your interests.',
+                    miniIcons: [
+                      { icon: 'fas fa-map-marked-alt', text: 'Custom Route' },
+                      { icon: 'fas fa-clock', text: 'Flexible Time' },
+                      { icon: 'fas fa-list-check', text: 'Your Pace' }
+                    ]
+                  },
+                  {
+                    id: 3,
+                    mainIcon: 'fas fa-sparkles',
+                    title: 'Authentic Experiences',
+                    description: 'Discover destinations off the beaten path and immerse yourself in the local culture.',
+                    miniIcons: [
+                      { icon: 'fas fa-utensils', text: 'Local Food' },
+                      { icon: 'fas fa-hands-helping', text: 'Local People' },
+                      { icon: 'fas fa-landmark', text: 'Culture' }
+                    ]
+                  }
+                ]).slice(0, 3).map((feature, index) => (
+                  <motion.div 
+                    key={feature.id}
+                    className="bg-white p-6 rounded-lg shadow-md text-center flex flex-col items-center relative"
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    whileHover={{ 
+                      y: -10, 
+                      boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+                    }}
+                  >
+                    <motion.div 
+                      className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-4 shadow-lg"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <i className={`${feature.mainIcon} text-white text-2xl`}></i>
+                    </motion.div>
+                    <h3 className="font-heading font-bold text-xl mb-2">{feature.title}</h3>
+                    <p className="text-gray-600 mb-4">{feature.description}</p>
+                    
+                    <motion.div 
+                      className="mt-4 grid grid-cols-3 gap-2"
+                      initial={{ opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.2 }}
+                    >
+                      {feature.miniIcons?.slice(0, 3).map((miniIcon, miniIndex) => (
+                        <motion.div 
+                          key={miniIndex}
+                          className="flex flex-col items-center"
+                          whileHover={{ y: -5 }}
+                        >
+                          <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mb-1">
+                            <i className={`${miniIcon.icon} text-primary text-sm`}></i>
+                          </div>
+                          <span className="text-xs text-center">{miniIcon.text}</span>
+                        </motion.div>
+                      ))}
+                    </motion.div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </section>
+        );
 
       case 'who_we_are':
         return <About />;
@@ -1770,7 +1884,7 @@ const BlockEditDropdown = ({
                   <ColorSelector
                     label="Couleur du titre"
                     currentColor={formData.titleColor || '#333333'}
-                    onChange={color => updateField('titleColor', color)}
+                    onChange={(color: string) => updateField('titleColor', color)}
                   />
                 </div>
               </div>
@@ -1787,7 +1901,7 @@ const BlockEditDropdown = ({
                   <ColorSelector
                     label="Couleur du sous-titre"
                     currentColor={formData.subtitleColor || '#666666'}
-                    onChange={color => updateField('subtitleColor', color)}
+                    onChange={(color: string) => updateField('subtitleColor', color)}
                   />
                 </div>
               </div>
@@ -1795,7 +1909,7 @@ const BlockEditDropdown = ({
               <div>
                 <ColorSelector
                   currentColor={formData.dividerColor || '#E6B64C'}
-                  onChange={color => updateField('dividerColor', color)}
+                  onChange={(color: string) => updateField('dividerColor', color)}
                 />
               </div>
             </div>
@@ -1867,7 +1981,7 @@ const BlockEditDropdown = ({
                       { icon: 'fas fa-landmark', text: 'Culture' }
                     ]
                   }
-                ]).map((block, index) => (
+                ]).map((block: any, index: number) => (
                   <div key={block.id} className="border border-gray-200 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-3">
                       <Label className="font-medium">Bloc {index + 1}</Label>
@@ -1875,7 +1989,7 @@ const BlockEditDropdown = ({
                         type="button"
                         onClick={() => {
                           const blocks = formData.iconBlocks || [];
-                          const updatedBlocks = blocks.filter(b => b.id !== block.id);
+                          const updatedBlocks = blocks.filter((b: any) => b.id !== block.id);
                           updateField('iconBlocks', updatedBlocks);
                         }}
                         className="text-red-500 hover:text-red-700 text-sm"
@@ -1894,7 +2008,7 @@ const BlockEditDropdown = ({
                             value={block.mainIcon} 
                             onChange={e => {
                               const blocks = formData.iconBlocks || [];
-                              const updatedBlocks = blocks.map(b => 
+                              const updatedBlocks = blocks.map((b: any) => 
                                 b.id === block.id ? { ...b, mainIcon: e.target.value } : b
                               );
                               updateField('iconBlocks', updatedBlocks);
@@ -1908,7 +2022,7 @@ const BlockEditDropdown = ({
                                 type="button"
                                 onClick={() => {
                                   const blocks = formData.iconBlocks || [];
-                                  const updatedBlocks = blocks.map(b => 
+                                  const updatedBlocks = blocks.map((b: any) => 
                                     b.id === block.id ? { ...b, mainIcon: icon } : b
                                   );
                                   updateField('iconBlocks', updatedBlocks);
@@ -1929,7 +2043,7 @@ const BlockEditDropdown = ({
                           value={block.title} 
                           onChange={e => {
                             const blocks = formData.iconBlocks || [];
-                            const updatedBlocks = blocks.map(b => 
+                            const updatedBlocks = blocks.map((b: any) => 
                               b.id === block.id ? { ...b, title: e.target.value } : b
                             );
                             updateField('iconBlocks', updatedBlocks);
