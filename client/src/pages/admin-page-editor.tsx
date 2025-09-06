@@ -450,61 +450,6 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
 
       case 'popular_experiences':
         // Section "Our Popular Experiences" avec tours TourNinja
-        const experiencesConfig = liveConfiguration || block.configuration || {};
-        const desktopColumns = experiencesConfig.desktopColumns || 3;
-        const mobileColumns = experiencesConfig.mobileColumns || 1;
-        const displayCountDesktop = experiencesConfig.displayCountDesktop || 6;
-        const displayCountMobile = experiencesConfig.displayCountMobile || 4;
-        
-        // Grid classes dynamiques
-        const getGridClasses = () => {
-          const mobileClass = mobileColumns === 1 ? 'grid-cols-1' : 'grid-cols-2';
-          let desktopClass = 'lg:grid-cols-3';
-          if (desktopColumns === 2) desktopClass = 'lg:grid-cols-2';
-          if (desktopColumns === 4) desktopClass = 'lg:grid-cols-4';
-          
-          return `grid ${mobileClass} md:grid-cols-2 ${desktopClass} gap-6 mb-8`;
-        };
-        
-        // Rendu des boutons
-        const renderButtons = () => {
-          const buttons = experiencesConfig.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'}];
-          if (buttons.length === 0) return null;
-          
-          return (
-            <div className="flex justify-center gap-4 flex-wrap">
-              {buttons.map((button: any, index: number) => {
-                const isOutline = button.style === 'outline';
-                const buttonStyles = isOutline 
-                  ? {
-                      backgroundColor: 'transparent',
-                      color: button.color || '#1e73be',
-                      borderColor: button.color || '#1e73be',
-                      borderWidth: '2px'
-                    }
-                  : {
-                      backgroundColor: button.color || '#1e73be',
-                      color: '#ffffff'
-                    };
-                
-                return (
-                  <motion.button
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.4 + (index * 0.1) }}
-                    className={`px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl ${isOutline ? 'border-2 hover:opacity-80' : 'hover:opacity-90'}`}
-                    style={buttonStyles}
-                  >
-                    {button.text}
-                  </motion.button>
-                );
-              })}
-            </div>
-          );
-        };
-        
         return (
           <section id="tours" className="py-16 bg-white">
             <div className="container mx-auto px-4 text-center mb-8">
@@ -514,73 +459,19 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
               >
-                <h2 
-                  className="font-heading font-bold text-3xl md:text-4xl mb-3"
-                  style={{ color: experiencesConfig.titleColor || '#333333' }}
-                >
-                  {experiencesConfig.title || block.configuration?.title || "Our Popular Experiences"}
+                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
+                  {liveConfiguration?.title || block.configuration?.title || "Our Popular Experiences"}
                 </h2>
-                <div 
-                  className="w-20 h-1 mx-auto mb-4"
-                  style={{ backgroundColor: experiencesConfig.dividerColor || '#E6B64C' }}
-                ></div>
-                <p 
-                  className="max-w-2xl mx-auto"
-                  style={{ color: experiencesConfig.subtitleColor || '#666666' }}
-                >
-                  {experiencesConfig.subtitle || block.configuration?.subtitle || "Step off the beaten path into carefully curated experiences beyond the tourist trail."}
+                <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
+                <p className="text-gray-600 max-w-2xl mx-auto">
+                  {liveConfiguration?.subtitle || block.configuration?.subtitle || "Step off the beaten path into carefully curated experiences beyond the tourist trail."}
                 </p>
               </motion.div>
             </div>
             
             <div className="container mx-auto px-4">
-              {/* Version Desktop */}
-              <div className={`hidden md:block ${getGridClasses()}`}>
-                {Array.from({ length: displayCountDesktop }).map((_, index) => (
-                  <motion.div
-                    key={`desktop-${index}`}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
-                  >
-                    <div className="relative h-48 bg-gradient-to-br from-blue-200 to-blue-300">
-                      <div className="w-full h-full flex items-center justify-center">
-                        <div className="h-16 w-16 text-blue-400">🏝️</div>
-                      </div>
-                      <div className="absolute top-4 right-4">
-                        <span className="bg-white/90 text-gray-800 px-2 py-1 rounded-full text-xs">
-                          {index % 2 + 1} jour{index % 2 > 0 ? 's' : ''}
-                        </span>
-                      </div>
-                    </div>
-                    
-                    <div className="p-6">
-                      <h3 className="text-lg font-bold text-gray-800 mb-3 line-clamp-2">
-                        {experiencesConfig.categoryFilter === 'custom' ? `Expérience ${index + 1}` : `Tour Experience ${index + 1}`}
-                      </h3>
-                      
-                      <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-                        Découvrez les plus beaux endroits de Krabi avec nos guides expérimentés.
-                      </p>
-                      
-                      <div className="flex gap-2">
-                        <button className="flex-1 border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 px-3 rounded-lg font-semibold transition-colors">
-                          Details
-                        </button>
-                        <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg font-semibold transition-colors">
-                          Book
-                        </button>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-
-              {/* Version Mobile */}
-              <div className={`block md:hidden ${getGridClasses()}`}>
-                {Array.from({ length: displayCountMobile }).map((_, index) => (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                {Array.from({ length: 6 }).map((_, index) => (
                   <motion.div
                     key={index}
                     initial={{ opacity: 0, y: 30 }}
@@ -602,7 +493,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                     
                     <div className="p-6">
                       <h3 className="text-lg font-bold text-gray-800 mb-3 line-clamp-2">
-                        {experiencesConfig.categoryFilter === 'custom' ? `Expérience ${index + 1}` : `Tour Experience ${index + 1}`}
+                        Tour Experience {index + 1}
                       </h3>
                       
                       <p className="text-gray-600 text-sm mb-4 line-clamp-3">
@@ -622,7 +513,11 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                 ))}
               </div>
               
-              {renderButtons()}
+              <div className="flex justify-center">
+                <button className="bg-primary text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-primary-dark transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                  View All Our Tours
+                </button>
+              </div>
             </div>
           </section>
         );
