@@ -193,7 +193,17 @@ import Testimonials from '@/components/home/Testimonials';
 import TourNinjaSection from '@/components/tour/TourNinjaSection';
 
 // Helper function to get readable block type names
-const getBlockDisplayName = (blockType: string): string => {
+const getBlockDisplayName = (block: PageBlock): string => {
+  // Si c'est un card_grid, utiliser l'identifier pour distinguer les types
+  if (block.blockType === 'card_grid') {
+    const cardGridNames: { [key: string]: string } = {
+      'popular_experiences': 'Card Grid Date',
+      'tour_ninja_section': 'Card Grid Price'
+    };
+    return cardGridNames[block.identifier] || 'Card Grid';
+  }
+  
+  // Sinon utiliser le blockType normal
   const blockNames: { [key: string]: string } = {
     'video_hero': 'Hero Section',
     'hero': 'Hero Section', 
@@ -201,18 +211,16 @@ const getBlockDisplayName = (blockType: string): string => {
     'form': 'Form',
     'advantages': 'Advantages',
     'testimonials': 'Testimonials',
-    'tour_ninja_section': 'Card Grid Price',
     'features': 'Features',
     'about': 'About',
     'custom_tour_form': 'Custom Tour Form',
-    'popular_experiences': 'Card Grid Date',
     'expats_welcome': 'Expats Welcome',
     'who_we_are': 'Who We Are',
     'why_choose_us': 'Why Choose Us',
     'travelers_reviews': 'Travelers Reviews'
   };
   
-  return blockNames[blockType] || blockType.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+  return blockNames[block.blockType] || block.blockType.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
 };
 
 interface PageBlock {
@@ -519,7 +527,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                         )}
                         <div className="absolute top-4 right-4">
                           <span className="bg-white/90 text-gray-800 px-2 py-1 rounded-full text-xs">
-                            {tour.duration || '1'} jour{(tour.duration && tour.duration > 1) ? 's' : ''}
+                            {tour.duration || '1'} jour{(tour.duration && Number(tour.duration) > 1) ? 's' : ''}
                           </span>
                         </div>
                       </div>
@@ -1627,7 +1635,7 @@ const BlockEditDropdown = ({
     >
       <div className="p-6">
         <div className="mb-4">
-          <h4 className="font-semibold text-lg mb-1">Modifier: {getBlockDisplayName(block.blockType)}</h4>
+          <h4 className="font-semibold text-lg mb-1">Modifier: {getBlockDisplayName(block)}</h4>
         </div>
         
         {renderEditFields()}
@@ -1878,7 +1886,7 @@ export default function AdminPageEditor() {
                             
                             <div>
                               <CardTitle className="text-lg">
-                                {getBlockDisplayName(block.blockType)}
+                                {getBlockDisplayName(block)}
                               </CardTitle>
                             </div>
                           </div>
