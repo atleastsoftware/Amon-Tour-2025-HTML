@@ -485,18 +485,15 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         }
         // 'all' et 'custom' gardent tous les tours pour l'instant
         
-        // Ensuite calculer le nombre d'annonces selon la configuration
-        const countMode = liveConfiguration?.countMode || 'fixed';
-        const desktopCols = liveConfiguration?.desktopColumns || 3;
+        // Calculer le nombre d'annonces selon la configuration
         let displayCount = 6;
         
-        if (countMode === 'auto') {
-          const multiplier = liveConfiguration?.autoMultiplier || 2;
-          displayCount = desktopCols * multiplier;
-        } else if (countMode === 'fixed') {
-          displayCount = liveConfiguration?.displayCount || 6;
-        } else if (countMode === 'all') {
-          displayCount = filteredTours.length; // Maintenant filteredTours est défini
+        if (liveConfiguration?.showAllAds) {
+          // Si "toutes les annonces" est activé, afficher toutes les annonces filtrées
+          displayCount = filteredTours.length;
+        } else {
+          // Sinon utiliser le nombre configuré pour ordinateur par défaut
+          displayCount = liveConfiguration?.displayCountDesktop || 6;
         }
         
         const displayTours = filteredTours.slice(0, displayCount);
@@ -1333,88 +1330,62 @@ const BlockEditDropdown = ({
               {/* Nombre d'annonces */}
               <div>
                 <Label className="text-sm font-medium">Nombre d'annonces à afficher</Label>
-                <div className="space-y-3 mt-2">
-                  <div className="flex items-center space-x-2">
-                    <input 
-                      type="radio" 
-                      id="count_auto" 
-                      name="countMode" 
-                      checked={(formData.countMode || 'fixed') === 'auto'}
-                      onChange={() => updateField('countMode', 'auto')}
+                <div className="grid grid-cols-3 gap-4 mt-2">
+                  <div>
+                    <Label className="text-xs text-gray-500">Mobile</Label>
+                    <Input 
+                      type="number" 
+                      min="1" 
+                      max="20"
+                      value={formData.showAllAds ? (formData.mobileColumns || 1) * 4 : formData.displayCountMobile || 4}
+                      onChange={e => updateField('displayCountMobile', parseInt(e.target.value) || 4)}
+                      disabled={formData.showAllAds}
+                      className={formData.showAllAds ? 'bg-gray-100' : ''}
                     />
-                    <Label htmlFor="count_auto" className="text-sm">Auto (multiples des colonnes)</Label>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <input 
-                      type="radio" 
-                      id="count_fixed" 
-                      name="countMode" 
-                      checked={(formData.countMode || 'fixed') === 'fixed'}
-                      onChange={() => updateField('countMode', 'fixed')}
+                  <div>
+                    <Label className="text-xs text-gray-500">Tablette</Label>
+                    <Input 
+                      type="number" 
+                      min="1" 
+                      max="20"
+                      value={formData.showAllAds ? (formData.tabletColumns || 2) * 4 : formData.displayCountTablet || 6}
+                      onChange={e => updateField('displayCountTablet', parseInt(e.target.value) || 6)}
+                      disabled={formData.showAllAds}
+                      className={formData.showAllAds ? 'bg-gray-100' : ''}
                     />
-                    <Label htmlFor="count_fixed" className="text-sm">Nombre fixe</Label>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <input 
-                      type="radio" 
-                      id="count_all" 
-                      name="countMode" 
-                      checked={(formData.countMode || 'fixed') === 'all'}
-                      onChange={() => updateField('countMode', 'all')}
+                  <div>
+                    <Label className="text-xs text-gray-500">Ordinateur</Label>
+                    <Input 
+                      type="number" 
+                      min="1" 
+                      max="20"
+                      value={formData.showAllAds ? (formData.desktopColumns || 3) * 4 : formData.displayCountDesktop || 6}
+                      onChange={e => updateField('displayCountDesktop', parseInt(e.target.value) || 6)}
+                      disabled={formData.showAllAds}
+                      className={formData.showAllAds ? 'bg-gray-100' : ''}
                     />
-                    <Label htmlFor="count_all" className="text-sm">Toutes les annonces disponibles</Label>
                   </div>
-                  
-                  {/* Contrôles pour nombre fixe */}
-                  {(formData.countMode || 'fixed') === 'fixed' && (
-                    <div className="flex items-center space-x-3 pl-6">
-                      <Button 
-                        type="button" 
-                        variant="outline" 
-                        size="sm"
-                        onClick={() => {
-                          const current = formData.displayCount || 6;
-                          const min = Math.max(formData.desktopColumns || 3, 1);
-                          updateField('displayCount', Math.max(current - 1, min));
-                        }}
-                      >
-                        -
-                      </Button>
-                      <span className="min-w-[3rem] text-center">{formData.displayCount || 6}</span>
-                      <Button 
-                        type="button" 
-                        variant="outline" 
-                        size="sm"
-                        onClick={() => {
-                          const current = formData.displayCount || 6;
-                          updateField('displayCount', Math.min(current + 1, 20));
-                        }}
-                      >
-                        +
-                      </Button>
-                      <span className="text-xs text-gray-500">Min: {Math.max(formData.desktopColumns || 3, 1)}, Max: 20</span>
-                    </div>
-                  )}
-                  
-                  {/* Contrôles pour auto */}
-                  {(formData.countMode || 'fixed') === 'auto' && (
-                    <div className="pl-6">
-                      <Select 
-                        value={String(formData.autoMultiplier || 2)} 
-                        onValueChange={value => updateField('autoMultiplier', parseInt(value))}
-                      >
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="1">{formData.desktopColumns || 3} annonces (1 ligne)</SelectItem>
-                          <SelectItem value="2">{(formData.desktopColumns || 3) * 2} annonces (2 lignes)</SelectItem>
-                          <SelectItem value="3">{(formData.desktopColumns || 3) * 3} annonces (3 lignes)</SelectItem>
-                          <SelectItem value="4">{(formData.desktopColumns || 3) * 4} annonces (4 lignes)</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  )}
+                </div>
+                
+                <div className="flex items-center space-x-2 mt-3">
+                  <input 
+                    type="checkbox" 
+                    id="show_all_ads" 
+                    checked={formData.showAllAds || false}
+                    onChange={e => {
+                      const isChecked = e.target.checked;
+                      updateField('showAllAds', isChecked);
+                      if (isChecked) {
+                        // Quand activé, calculer automatiquement basé sur les colonnes
+                        updateField('displayCountMobile', (formData.mobileColumns || 1) * 4);
+                        updateField('displayCountTablet', (formData.tabletColumns || 2) * 4);
+                        updateField('displayCountDesktop', (formData.desktopColumns || 3) * 4);
+                      }
+                    }}
+                  />
+                  <Label htmlFor="show_all_ads" className="text-sm">Toutes les annonces disponibles</Label>
                 </div>
               </div>
 
