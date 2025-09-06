@@ -216,7 +216,7 @@ const getBlockDisplayName = (block: PageBlock): string => {
     'custom_tour_form': 'Custom Tour Form',
     'expats_welcome': 'Expats Welcome',
     'who_we_are': 'Who We Are',
-    'why_choose_us': 'Why Choose Us',
+    'why_choose_us': 'Text + Icones',
     'travelers_reviews': 'Travelers Reviews'
   };
   
@@ -1755,68 +1755,252 @@ const BlockEditDropdown = ({
 
       case 'why_choose_us':
         return (
-          <div className="space-y-4">
-            <div>
-              <Label htmlFor="title">Titre</Label>
-              <Input 
-                id="title"
-                value={formData.title || 'Why Choose Us'} 
-                onChange={e => updateField('title', e.target.value)}
-              />
+          <div className="space-y-6">
+            {/* Configuration des couleurs */}
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="title">Titre</Label>
+                <Input 
+                  id="title"
+                  value={formData.title || 'Why Choose Us'} 
+                  onChange={e => updateField('title', e.target.value)}
+                  className="mt-2"
+                />
+                <div className="mt-3">
+                  <ColorSelector
+                    label="Couleur du titre"
+                    currentColor={formData.titleColor || '#333333'}
+                    onChange={color => updateField('titleColor', color)}
+                  />
+                </div>
+              </div>
+              
+              <div>
+                <Label htmlFor="subtitle">Sous-titre</Label>
+                <Input 
+                  id="subtitle"
+                  value={formData.subtitle || 'Experience an exclusive private day trip...'} 
+                  onChange={e => updateField('subtitle', e.target.value)}
+                  className="mt-2"
+                />
+                <div className="mt-3">
+                  <ColorSelector
+                    label="Couleur du sous-titre"
+                    currentColor={formData.subtitleColor || '#666666'}
+                    onChange={color => updateField('subtitleColor', color)}
+                  />
+                </div>
+              </div>
+              
+              <div>
+                <ColorSelector
+                  currentColor={formData.dividerColor || '#E6B64C'}
+                  onChange={color => updateField('dividerColor', color)}
+                />
+              </div>
             </div>
+
+            {/* Gestion des blocs d'icônes */}
             <div>
-              <Label htmlFor="subtitle">Sous-titre</Label>
-              <Input 
-                id="subtitle"
-                value={formData.subtitle || 'Experience an exclusive private day trip...'} 
-                onChange={e => updateField('subtitle', e.target.value)}
-              />
-            </div>
-            <div>
-              <Label>Les 3 avantages</Label>
-              <div className="space-y-3 mt-2">
-                <div className="border border-gray-200 rounded-lg p-3">
-                  <Input 
-                    placeholder="Private Tours" 
-                    value={formData.feature1Title || 'Private Tours'} 
-                    onChange={e => updateField('feature1Title', e.target.value)}
-                    className="mb-2"
-                  />
-                  <Textarea 
-                    placeholder="Experience an exclusive day trip..."
-                    value={formData.feature1Desc || 'Experience an exclusive day trip with our professional guides and private vehicles.'} 
-                    onChange={e => updateField('feature1Desc', e.target.value)}
-                    rows={2}
-                  />
+              <div className="flex items-center justify-between mb-4">
+                <Label className="text-lg font-semibold">Bloc d'icones</Label>
+                <div className="flex gap-2">
+                  <button 
+                    type="button"
+                    onClick={() => {
+                      const blocks = formData.iconBlocks || [];
+                      if (blocks.length < 3) {
+                        const newBlock = {
+                          id: Date.now(),
+                          mainIcon: 'fas fa-star',
+                          title: 'Nouveau Bloc',
+                          description: 'Description de ce bloc d\'avantages.',
+                          miniIcons: [
+                            { icon: 'fas fa-check', text: 'Avantage 1' },
+                            { icon: 'fas fa-check', text: 'Avantage 2' },
+                            { icon: 'fas fa-check', text: 'Avantage 3' }
+                          ]
+                        };
+                        updateField('iconBlocks', [...blocks, newBlock]);
+                      }
+                    }}
+                    className={`px-3 py-1 rounded text-sm ${formData.iconBlocks?.length >= 3 ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-blue-500 text-white hover:bg-blue-600'}`}
+                    disabled={formData.iconBlocks?.length >= 3}
+                  >
+                    + Ajouter
+                  </button>
                 </div>
-                <div className="border border-gray-200 rounded-lg p-3">
-                  <Input 
-                    placeholder="Customized Itineraries" 
-                    value={formData.feature2Title || 'Customized Itineraries'} 
-                    onChange={e => updateField('feature2Title', e.target.value)}
-                    className="mb-2"
-                  />
-                  <Textarea 
-                    placeholder="Create your own journey..."
-                    value={formData.feature2Desc || 'Create your own journey based on your desires, your pace, and your interests.'} 
-                    onChange={e => updateField('feature2Desc', e.target.value)}
-                    rows={2}
-                  />
-                </div>
-                <div className="border border-gray-200 rounded-lg p-3">
-                  <Input 
-                    placeholder="Authentic Experiences" 
-                    value={formData.feature3Title || 'Authentic Experiences'} 
-                    onChange={e => updateField('feature3Title', e.target.value)}
-                    className="mb-2"
-                  />
-                  <Textarea 
-                    placeholder="Discover destinations off the beaten path..."
-                    value={formData.feature3Desc || 'Discover destinations off the beaten path and immerse yourself in the local culture.'} 
-                    onChange={e => updateField('feature3Desc', e.target.value)}
-                    rows={2}
-                  />
-                </div>
+              </div>
+              
+              <div className="space-y-4">
+                {(formData.iconBlocks || [
+                  {
+                    id: 1,
+                    mainIcon: 'fas fa-users',
+                    title: 'Private Tours',
+                    description: 'Experience an exclusive day trip with our professional guides and private vehicles.',
+                    miniIcons: [
+                      { icon: 'fas fa-car', text: 'Private Car' },
+                      { icon: 'fas fa-language', text: 'Guide' },
+                      { icon: 'fas fa-shield-alt', text: 'Safety' }
+                    ]
+                  },
+                  {
+                    id: 2,
+                    mainIcon: 'fas fa-compass',
+                    title: 'Customized Itineraries',
+                    description: 'Create your own journey based on your desires, your pace, and your interests.',
+                    miniIcons: [
+                      { icon: 'fas fa-map-marked-alt', text: 'Custom Route' },
+                      { icon: 'fas fa-clock', text: 'Flexible Time' },
+                      { icon: 'fas fa-list-check', text: 'Your Pace' }
+                    ]
+                  },
+                  {
+                    id: 3,
+                    mainIcon: 'fas fa-sparkles',
+                    title: 'Authentic Experiences',
+                    description: 'Discover destinations off the beaten path and immerse yourself in the local culture.',
+                    miniIcons: [
+                      { icon: 'fas fa-utensils', text: 'Local Food' },
+                      { icon: 'fas fa-hands-helping', text: 'Local People' },
+                      { icon: 'fas fa-landmark', text: 'Culture' }
+                    ]
+                  }
+                ]).map((block, index) => (
+                  <div key={block.id} className="border border-gray-200 rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-3">
+                      <Label className="font-medium">Bloc {index + 1}</Label>
+                      <button 
+                        type="button"
+                        onClick={() => {
+                          const blocks = formData.iconBlocks || [];
+                          const updatedBlocks = blocks.filter(b => b.id !== block.id);
+                          updateField('iconBlocks', updatedBlocks);
+                        }}
+                        className="text-red-500 hover:text-red-700 text-sm"
+                      >
+                        Supprimer
+                      </button>
+                    </div>
+                    
+                    <div className="space-y-3">
+                      {/* Grosse icône */}
+                      <div>
+                        <Label>Icône principale</Label>
+                        <div className="flex gap-2 mt-2">
+                          <Input 
+                            placeholder="fas fa-star" 
+                            value={block.mainIcon} 
+                            onChange={e => {
+                              const blocks = formData.iconBlocks || [];
+                              const updatedBlocks = blocks.map(b => 
+                                b.id === block.id ? { ...b, mainIcon: e.target.value } : b
+                              );
+                              updateField('iconBlocks', updatedBlocks);
+                            }}
+                            className="flex-1"
+                          />
+                          <div className="flex gap-1">
+                            {['fas fa-star', 'fas fa-users', 'fas fa-compass', 'fas fa-sparkles', 'fas fa-heart', 'fas fa-trophy'].map(icon => (
+                              <button
+                                key={icon}
+                                type="button"
+                                onClick={() => {
+                                  const blocks = formData.iconBlocks || [];
+                                  const updatedBlocks = blocks.map(b => 
+                                    b.id === block.id ? { ...b, mainIcon: icon } : b
+                                  );
+                                  updateField('iconBlocks', updatedBlocks);
+                                }}
+                                className="w-8 h-8 border rounded flex items-center justify-center hover:bg-gray-50"
+                              >
+                                <i className={`${icon} text-sm`}></i>
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                      
+                      {/* Titre et description */}
+                      <div>
+                        <Label>Titre</Label>
+                        <Input 
+                          value={block.title} 
+                          onChange={e => {
+                            const blocks = formData.iconBlocks || [];
+                            const updatedBlocks = blocks.map(b => 
+                              b.id === block.id ? { ...b, title: e.target.value } : b
+                            );
+                            updateField('iconBlocks', updatedBlocks);
+                          }}
+                          className="mt-1"
+                        />
+                      </div>
+                      
+                      <div>
+                        <Label>Description</Label>
+                        <Textarea 
+                          value={block.description} 
+                          onChange={e => {
+                            const blocks = formData.iconBlocks || [];
+                            const updatedBlocks = blocks.map(b => 
+                              b.id === block.id ? { ...b, description: e.target.value } : b
+                            );
+                            updateField('iconBlocks', updatedBlocks);
+                          }}
+                          rows={2}
+                          className="mt-1"
+                        />
+                      </div>
+                      
+                      {/* Mini-icônes */}
+                      <div>
+                        <Label className="mb-2 block">Mini-icônes</Label>
+                        <div className="space-y-2">
+                          {block.miniIcons?.map((miniIcon, miniIndex) => (
+                            <div key={miniIndex} className="flex gap-2">
+                              <Input 
+                                placeholder="fas fa-check" 
+                                value={miniIcon.icon} 
+                                onChange={e => {
+                                  const blocks = formData.iconBlocks || [];
+                                  const updatedBlocks = blocks.map(b => {
+                                    if (b.id === block.id) {
+                                      const newMiniIcons = [...(b.miniIcons || [])];
+                                      newMiniIcons[miniIndex] = { ...newMiniIcons[miniIndex], icon: e.target.value };
+                                      return { ...b, miniIcons: newMiniIcons };
+                                    }
+                                    return b;
+                                  });
+                                  updateField('iconBlocks', updatedBlocks);
+                                }}
+                                className="w-32"
+                              />
+                              <Input 
+                                placeholder="Texte" 
+                                value={miniIcon.text} 
+                                onChange={e => {
+                                  const blocks = formData.iconBlocks || [];
+                                  const updatedBlocks = blocks.map(b => {
+                                    if (b.id === block.id) {
+                                      const newMiniIcons = [...(b.miniIcons || [])];
+                                      newMiniIcons[miniIndex] = { ...newMiniIcons[miniIndex], text: e.target.value };
+                                      return { ...b, miniIcons: newMiniIcons };
+                                    }
+                                    return b;
+                                  });
+                                  updateField('iconBlocks', updatedBlocks);
+                                }}
+                                className="flex-1"
+                              />
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
