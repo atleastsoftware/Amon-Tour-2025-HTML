@@ -858,7 +858,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                     className="text-gray-600 max-w-2xl mx-auto"
                     style={{ color: featuresConfig.subtitleColor || '#666666' }}
                   >
-                    {featuresConfig.subtitle || 'Experience an exclusive private day trip with our English or French-speaking and certified guides.'}
+{featuresConfig.subtitle || 'What makes Amon Tour special'}
                   </p>
                 </motion.div>
               </div>
@@ -898,7 +898,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                       { icon: 'fas fa-landmark', text: 'Culture' }
                     ]
                   }
-                ]).slice(0, 3).map((feature, index) => (
+                ]).slice(0, 3).map((feature: any, index: number) => (
                   <motion.div 
                     key={feature.id}
                     className="bg-white p-6 rounded-lg shadow-md text-center flex flex-col items-center relative"
@@ -928,7 +928,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                       viewport={{ once: true }}
                       transition={{ delay: 0.2 }}
                     >
-                      {feature.miniIcons?.slice(0, 3).map((miniIcon, miniIndex) => (
+                      {feature.miniIcons?.slice(0, 3).map((miniIcon: any, miniIndex: number) => (
                         <motion.div 
                           key={miniIndex}
                           className="flex flex-col items-center"
@@ -1881,11 +1881,15 @@ const BlockEditDropdown = ({
                   className="mt-2"
                 />
                 <div className="mt-3">
-                  <ColorSelector
-                    label="Couleur du titre"
-                    currentColor={formData.titleColor || '#333333'}
-                    onChange={(color: string) => updateField('titleColor', color)}
-                  />
+                  <div className="flex items-center gap-2">
+                    <Label className="text-sm font-medium">Couleur du titre</Label>
+                    <input
+                      type="color"
+                      value={formData.titleColor || '#333333'}
+                      onChange={(e) => updateField('titleColor', e.target.value)}
+                      className="w-12 h-8 rounded border cursor-pointer"
+                    />
+                  </div>
                 </div>
               </div>
               
@@ -1898,19 +1902,28 @@ const BlockEditDropdown = ({
                   className="mt-2"
                 />
                 <div className="mt-3">
-                  <ColorSelector
-                    label="Couleur du sous-titre"
-                    currentColor={formData.subtitleColor || '#666666'}
-                    onChange={(color: string) => updateField('subtitleColor', color)}
-                  />
+                  <div className="flex items-center gap-2">
+                    <Label className="text-sm font-medium">Couleur du sous-titre</Label>
+                    <input
+                      type="color"
+                      value={formData.subtitleColor || '#666666'}
+                      onChange={(e) => updateField('subtitleColor', e.target.value)}
+                      className="w-12 h-8 rounded border cursor-pointer"
+                    />
+                  </div>
                 </div>
               </div>
               
               <div>
-                <ColorSelector
-                  currentColor={formData.dividerColor || '#E6B64C'}
-                  onChange={(color: string) => updateField('dividerColor', color)}
-                />
+                <div className="flex items-center gap-2">
+                  <Label className="text-sm font-medium">Couleur du tiret</Label>
+                  <input
+                    type="color"
+                    value={formData.dividerColor || '#E6B64C'}
+                    onChange={(e) => updateField('dividerColor', e.target.value)}
+                    className="w-12 h-8 rounded border cursor-pointer"
+                  />
+                </div>
               </div>
             </div>
 
@@ -2058,7 +2071,7 @@ const BlockEditDropdown = ({
                           value={block.description} 
                           onChange={e => {
                             const blocks = formData.iconBlocks || [];
-                            const updatedBlocks = blocks.map(b => 
+                            const updatedBlocks = blocks.map((b: any) => 
                               b.id === block.id ? { ...b, description: e.target.value } : b
                             );
                             updateField('iconBlocks', updatedBlocks);
@@ -2072,14 +2085,14 @@ const BlockEditDropdown = ({
                       <div>
                         <Label className="mb-2 block">Mini-icônes</Label>
                         <div className="space-y-2">
-                          {block.miniIcons?.map((miniIcon, miniIndex) => (
+                          {block.miniIcons?.map((miniIcon: any, miniIndex: number) => (
                             <div key={miniIndex} className="flex gap-2">
                               <Input 
                                 placeholder="fas fa-check" 
                                 value={miniIcon.icon} 
                                 onChange={e => {
                                   const blocks = formData.iconBlocks || [];
-                                  const updatedBlocks = blocks.map(b => {
+                                  const updatedBlocks = blocks.map((b: any) => {
                                     if (b.id === block.id) {
                                       const newMiniIcons = [...(b.miniIcons || [])];
                                       newMiniIcons[miniIndex] = { ...newMiniIcons[miniIndex], icon: e.target.value };
@@ -2096,7 +2109,7 @@ const BlockEditDropdown = ({
                                 value={miniIcon.text} 
                                 onChange={e => {
                                   const blocks = formData.iconBlocks || [];
-                                  const updatedBlocks = blocks.map(b => {
+                                  const updatedBlocks = blocks.map((b: any) => {
                                     if (b.id === block.id) {
                                       const newMiniIcons = [...(b.miniIcons || [])];
                                       newMiniIcons[miniIndex] = { ...newMiniIcons[miniIndex], text: e.target.value };
