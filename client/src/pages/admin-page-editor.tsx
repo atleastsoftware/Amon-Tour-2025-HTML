@@ -201,11 +201,11 @@ const getBlockDisplayName = (blockType: string): string => {
     'form': 'Form',
     'advantages': 'Advantages',
     'testimonials': 'Testimonials',
-    'tour_ninja_section': 'Tour Section',
+    'tour_ninja_section': 'Card Grid Price',
     'features': 'Features',
     'about': 'About',
     'custom_tour_form': 'Custom Tour Form',
-    'popular_experiences': 'Popular Experiences',
+    'popular_experiences': 'Card Grid Date',
     'expats_welcome': 'Expats Welcome',
     'who_we_are': 'Who We Are',
     'why_choose_us': 'Why Choose Us',
@@ -451,7 +451,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         );
 
       case 'popular_experiences':
-        // Section "Our Popular Experiences" avec tours TourNinja - Utilise les vraies données
+        // Section "Our Popular Experiences" - Card Grid Date avec badges de jours
         const { tours: realTours, isLoading: toursLoading } = useTourNinja();
         
         // Limiter à 6 tours maximum pour l'affichage
@@ -479,7 +479,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
             <div className="container mx-auto px-4">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                 {toursLoading ? (
-                  // Skeleton loading comme dans TourNinjaSection
+                  // Skeleton loading
                   Array.from({ length: 6 }).map((_, index) => (
                     <div key={index} className="bg-white rounded-lg overflow-hidden shadow-md h-96 animate-pulse">
                       <div className="h-48 bg-gray-300"></div>
@@ -491,13 +491,58 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                     </div>
                   ))
                 ) : displayTours.length > 0 ? (
-                  // Affiche les vraies cartes de tours
+                  // Affiche les vraies cartes de tours avec design "Our Popular Experiences" (badges de jours)
                   displayTours.map((tour, index) => (
-                    <TourNinjaCard
+                    <motion.div
                       key={tour.id || index}
-                      tour={tour}
-                      index={index}
-                    />
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, delay: index * 0.1 }}
+                      className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
+                    >
+                      <div className="relative h-48 bg-gradient-to-br from-blue-200 to-blue-300">
+                        {tour.primaryImage ? (
+                          <img
+                            src={tour.primaryImage}
+                            alt={tour.name}
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              const target = e.target as HTMLImageElement;
+                              target.style.display = 'none';
+                            }}
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center">
+                            <div className="h-16 w-16 text-blue-400">🏝️</div>
+                          </div>
+                        )}
+                        <div className="absolute top-4 right-4">
+                          <span className="bg-white/90 text-gray-800 px-2 py-1 rounded-full text-xs">
+                            {tour.duration || '1'} jour{(tour.duration && tour.duration > 1) ? 's' : ''}
+                          </span>
+                        </div>
+                      </div>
+                      
+                      <div className="p-6">
+                        <h3 className="text-lg font-bold text-gray-800 mb-3 line-clamp-2">
+                          {tour.name}
+                        </h3>
+                        
+                        <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                          {tour.description || "Découvrez les plus beaux endroits de Krabi avec nos guides expérimentés."}
+                        </p>
+                        
+                        <div className="flex gap-2">
+                          <button className="flex-1 border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 px-3 rounded-lg font-semibold transition-colors">
+                            Details
+                          </button>
+                          <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg font-semibold transition-colors">
+                            Book
+                          </button>
+                        </div>
+                      </div>
+                    </motion.div>
                   ))
                 ) : (
                   // Fallback si pas de tours
@@ -557,6 +602,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         return <CustomTourForm />;
 
       case 'tour_ninja_section':
+        // Section "Some Ideas For Your Next Trip" - Card Grid Price avec badges de prix
         return <TourNinjaSection />;
 
       case 'why_choose_us':
