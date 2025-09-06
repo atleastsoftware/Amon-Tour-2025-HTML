@@ -462,8 +462,9 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         // Section "Our Popular Experiences" - Card Grid Date avec badges de jours
         const { tours: realTours, isLoading: toursLoading } = useTourNinja();
         
-        // Limiter à 6 tours maximum pour l'affichage
-        const displayTours = realTours?.slice(0, 6) || [];
+        // Utiliser le nombre configuré ou 6 par défaut
+        const displayCount = liveConfiguration?.desktopCount || 6;
+        const displayTours = realTours?.slice(0, displayCount) || [];
         
         return (
           <section id="tours" className="py-16 bg-white">
@@ -474,11 +475,26 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
               >
-                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
+                <h2 
+                  className="font-heading font-bold text-3xl md:text-4xl mb-3"
+                  style={{
+                    color: liveConfiguration?.titleColor || '#333333'
+                  }}
+                >
                   {liveConfiguration?.title || block.configuration?.title || "Our Popular Experiences"}
                 </h2>
-                <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
-                <p className="text-gray-600 max-w-2xl mx-auto">
+                <div 
+                  className="w-20 h-1 mx-auto mb-4"
+                  style={{
+                    backgroundColor: liveConfiguration?.dividerColor || '#E6B64C'
+                  }}
+                ></div>
+                <p 
+                  className="max-w-2xl mx-auto"
+                  style={{
+                    color: liveConfiguration?.subtitleColor || '#666666'
+                  }}
+                >
                   {liveConfiguration?.subtitle || block.configuration?.subtitle || "Step off the beaten path into carefully curated experiences beyond the tourist trail."}
                 </p>
               </motion.div>
@@ -487,8 +503,8 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
             <div className="container mx-auto px-4">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                 {toursLoading ? (
-                  // Skeleton loading
-                  Array.from({ length: 6 }).map((_, index) => (
+                  // Skeleton loading avec le bon nombre
+                  Array.from({ length: displayCount }).map((_, index) => (
                     <div key={index} className="bg-white rounded-lg overflow-hidden shadow-md h-96 animate-pulse">
                       <div className="h-48 bg-gray-300"></div>
                       <div className="p-4 space-y-4">
@@ -555,8 +571,8 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                     </motion.div>
                   ))
                 ) : (
-                  // Fallback si pas de tours
-                  Array.from({ length: 6 }).map((_, index) => (
+                  // Fallback si pas de tours avec le bon nombre
+                  Array.from({ length: displayCount }).map((_, index) => (
                     <motion.div
                       key={index}
                       initial={{ opacity: 0, y: 30 }}
@@ -602,9 +618,21 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
               </div>
               
               <div className="flex justify-center">
-                <button className="bg-primary text-white px-8 py-3 rounded-lg font-heading font-semibold hover:bg-primary-dark transition-colors">
-                  View All Our Tours
-                </button>
+                {/* Utilise les boutons configurés ou le bouton par défaut */}
+                {(liveConfiguration?.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'}]).map((button: any, index: number) => (
+                  <button 
+                    key={index}
+                    className="text-white px-8 py-3 rounded-lg font-heading font-semibold hover:opacity-90 transition-colors"
+                    style={{
+                      backgroundColor: button.style === 'outline' ? 'transparent' : (button.color || '#1e73be'),
+                      borderColor: button.style === 'outline' ? (button.color || '#1e73be') : 'transparent',
+                      border: button.style === 'outline' ? '2px solid' : 'none',
+                      color: button.style === 'outline' ? (button.color || '#1e73be') : 'white'
+                    }}
+                  >
+                    {button.text}
+                  </button>
+                ))}
               </div>
             </div>
           </section>
@@ -1393,11 +1421,7 @@ const BlockEditDropdown = ({
                   </div>
                 ))}
                 
-                {formData.buttons?.length === 0 || !formData.buttons ? (
-                  <p className="text-sm text-gray-500 text-center py-4">
-                    Aucun bouton configuré
-                  </p>
-                ) : null}
+                {/* Le bouton par défaut est toujours présent, donc pas de message "Aucun bouton configuré" */}
               </div>
             </div>
           </div>
