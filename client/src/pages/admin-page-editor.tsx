@@ -3,6 +3,8 @@ import { useLocation } from 'wouter';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Edit, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Save, Undo, Trash2, AlertTriangle, Plus, ExternalLink } from 'lucide-react';
+import TourNinjaCard from '@/components/tour/TourNinjaCard';
+import { useTourNinja } from '@/hooks/useTourNinja';
 
 // Couleurs principales du thème
 const THEME_COLORS = {
@@ -449,7 +451,12 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         );
 
       case 'popular_experiences':
-        // Section "Our Popular Experiences" avec tours TourNinja
+        // Section "Our Popular Experiences" avec tours TourNinja - Utilise les vraies données
+        const { tours: realTours, isLoading: toursLoading } = useTourNinja();
+        
+        // Limiter à 6 tours maximum pour l'affichage
+        const displayTours = realTours?.slice(0, 6) || [];
+        
         return (
           <section id="tours" className="py-16 bg-white">
             <div className="container mx-auto px-4 text-center mb-8">
@@ -471,46 +478,70 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
             
             <div className="container mx-auto px-4">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                {Array.from({ length: 6 }).map((_, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
-                  >
-                    <div className="relative h-48 bg-gradient-to-br from-blue-200 to-blue-300">
-                      <div className="w-full h-full flex items-center justify-center">
-                        <div className="h-16 w-16 text-blue-400">🏝️</div>
-                      </div>
-                      <div className="absolute top-4 right-4">
-                        <span className="bg-white/90 text-gray-800 px-2 py-1 rounded-full text-xs">
-                          {index % 2 + 1} jour{index % 2 > 0 ? 's' : ''}
-                        </span>
+                {toursLoading ? (
+                  // Skeleton loading comme dans TourNinjaSection
+                  Array.from({ length: 6 }).map((_, index) => (
+                    <div key={index} className="bg-white rounded-lg overflow-hidden shadow-md h-96 animate-pulse">
+                      <div className="h-48 bg-gray-300"></div>
+                      <div className="p-4 space-y-4">
+                        <div className="h-6 bg-gray-300 rounded w-3/4"></div>
+                        <div className="h-4 bg-gray-300 rounded"></div>
+                        <div className="h-4 bg-gray-300 rounded w-1/2"></div>
                       </div>
                     </div>
-                    
-                    <div className="p-6">
-                      <h3 className="text-lg font-bold text-gray-800 mb-3 line-clamp-2">
-                        Tour Experience {index + 1}
-                      </h3>
-                      
-                      <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-                        Découvrez les plus beaux endroits de Krabi avec nos guides expérimentés.
-                      </p>
-                      
-                      <div className="flex gap-2">
-                        <button className="flex-1 border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 px-3 rounded-lg font-semibold transition-colors">
-                          Details
-                        </button>
-                        <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg font-semibold transition-colors">
-                          Book
-                        </button>
+                  ))
+                ) : displayTours.length > 0 ? (
+                  // Affiche les vraies cartes de tours
+                  displayTours.map((tour, index) => (
+                    <TourNinjaCard
+                      key={tour.id || index}
+                      tour={tour}
+                      index={index}
+                    />
+                  ))
+                ) : (
+                  // Fallback si pas de tours
+                  Array.from({ length: 6 }).map((_, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, delay: index * 0.1 }}
+                      className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
+                    >
+                      <div className="relative h-48 bg-gradient-to-br from-blue-200 to-blue-300">
+                        <div className="w-full h-full flex items-center justify-center">
+                          <div className="h-16 w-16 text-blue-400">🏝️</div>
+                        </div>
+                        <div className="absolute top-4 right-4">
+                          <span className="bg-white/90 text-gray-800 px-2 py-1 rounded-full text-xs">
+                            {index % 2 + 1} jour{index % 2 > 0 ? 's' : ''}
+                          </span>
+                        </div>
                       </div>
-                    </div>
-                  </motion.div>
-                ))}
+                      
+                      <div className="p-6">
+                        <h3 className="text-lg font-bold text-gray-800 mb-3 line-clamp-2">
+                          Tour Experience {index + 1}
+                        </h3>
+                        
+                        <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                          Découvrez les plus beaux endroits de Krabi avec nos guides expérimentés.
+                        </p>
+                        
+                        <div className="flex gap-2">
+                          <button className="flex-1 border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 px-3 rounded-lg font-semibold transition-colors">
+                            Details
+                          </button>
+                          <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg font-semibold transition-colors">
+                            Book
+                          </button>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))
+                )}
               </div>
               
               <div className="flex justify-center">
