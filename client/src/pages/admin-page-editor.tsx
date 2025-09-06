@@ -878,6 +878,12 @@ const BlockEditDropdown = ({
 
   const updateField = (key: string, value: any) => {
     const newFormData = { ...formData, [key]: value };
+    
+    // Si on modifie manuellement un nombre d'annonces, décocher "Toutes les annonces"
+    if ((key === 'displayCountMobile' || key === 'displayCountTablet' || key === 'displayCountDesktop') && formData.showAllAds) {
+      newFormData.showAllAds = false;
+    }
+    
     setFormData(newFormData);
     // Mise à jour en temps réel de la prévisualisation
     if (onPreviewUpdate) {
@@ -1510,13 +1516,19 @@ const BlockEditDropdown = ({
                     checked={formData.showAllAds || false}
                     onChange={e => {
                       const isChecked = e.target.checked;
-                      updateField('showAllAds', isChecked);
+                      const newFormData = { ...formData, showAllAds: isChecked };
+                      
                       if (isChecked) {
-                        // Quand activé, utiliser le nombre total d'annonces
+                        // Quand activé, utiliser le nombre total d'annonces pour tous les appareils
                         const totalAds = 19;
-                        updateField('displayCountMobile', totalAds);
-                        updateField('displayCountTablet', totalAds);
-                        updateField('displayCountDesktop', totalAds);
+                        newFormData.displayCountMobile = totalAds;
+                        newFormData.displayCountTablet = totalAds;
+                        newFormData.displayCountDesktop = totalAds;
+                      }
+                      
+                      setFormData(newFormData);
+                      if (onPreviewUpdate) {
+                        onPreviewUpdate(newFormData);
                       }
                     }}
                   />
@@ -1694,13 +1706,19 @@ const BlockEditDropdown = ({
                     checked={formData.showAllAds || false}
                     onChange={e => {
                       const isChecked = e.target.checked;
-                      updateField('showAllAds', isChecked);
+                      const newFormData = { ...formData, showAllAds: isChecked };
+                      
                       if (isChecked) {
-                        // Quand activé, utiliser le nombre total d'annonces
+                        // Quand activé, utiliser le nombre total d'annonces pour tous les appareils
                         const totalAds = 19;
-                        updateField('displayCountMobile', totalAds);
-                        updateField('displayCountTablet', totalAds);
-                        updateField('displayCountDesktop', totalAds);
+                        newFormData.displayCountMobile = totalAds;
+                        newFormData.displayCountTablet = totalAds;
+                        newFormData.displayCountDesktop = totalAds;
+                      }
+                      
+                      setFormData(newFormData);
+                      if (onPreviewUpdate) {
+                        onPreviewUpdate(newFormData);
                       }
                     }}
                   />
