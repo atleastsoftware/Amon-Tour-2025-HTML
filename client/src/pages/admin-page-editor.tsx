@@ -453,7 +453,8 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         const experiencesConfig = liveConfiguration || block.configuration || {};
         const desktopColumns = experiencesConfig.desktopColumns || 3;
         const mobileColumns = experiencesConfig.mobileColumns || 1;
-        const displayCount = experiencesConfig.displayCount || 6;
+        const displayCountDesktop = experiencesConfig.displayCountDesktop || 6;
+        const displayCountMobile = experiencesConfig.displayCountMobile || 4;
         
         // Grid classes dynamiques
         const getGridClasses = () => {
@@ -467,7 +468,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         
         // Rendu des boutons
         const renderButtons = () => {
-          const buttons = experiencesConfig.buttons || [];
+          const buttons = experiencesConfig.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'}];
           if (buttons.length === 0) return null;
           
           return (
@@ -533,8 +534,53 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
             </div>
             
             <div className="container mx-auto px-4">
-              <div className={getGridClasses()}>
-                {Array.from({ length: displayCount }).map((_, index) => (
+              {/* Version Desktop */}
+              <div className={`hidden md:block ${getGridClasses()}`}>
+                {Array.from({ length: displayCountDesktop }).map((_, index) => (
+                  <motion.div
+                    key={`desktop-${index}`}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
+                  >
+                    <div className="relative h-48 bg-gradient-to-br from-blue-200 to-blue-300">
+                      <div className="w-full h-full flex items-center justify-center">
+                        <div className="h-16 w-16 text-blue-400">🏝️</div>
+                      </div>
+                      <div className="absolute top-4 right-4">
+                        <span className="bg-white/90 text-gray-800 px-2 py-1 rounded-full text-xs">
+                          {index % 2 + 1} jour{index % 2 > 0 ? 's' : ''}
+                        </span>
+                      </div>
+                    </div>
+                    
+                    <div className="p-6">
+                      <h3 className="text-lg font-bold text-gray-800 mb-3 line-clamp-2">
+                        {experiencesConfig.categoryFilter === 'custom' ? `Expérience ${index + 1}` : `Tour Experience ${index + 1}`}
+                      </h3>
+                      
+                      <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                        Découvrez les plus beaux endroits de Krabi avec nos guides expérimentés.
+                      </p>
+                      
+                      <div className="flex gap-2">
+                        <button className="flex-1 border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 px-3 rounded-lg font-semibold transition-colors">
+                          Details
+                        </button>
+                        <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg font-semibold transition-colors">
+                          Book
+                        </button>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Version Mobile */}
+              <div className={`block md:hidden ${getGridClasses()}`}>
+                {Array.from({ length: displayCountMobile }).map((_, index) => (
                   <motion.div
                     key={index}
                     initial={{ opacity: 0, y: 30 }}
@@ -1205,21 +1251,39 @@ const BlockEditDropdown = ({
                 </div>
               </div>
 
-              <div>
-                <Label htmlFor="displayCount">Nombre total d'annonces</Label>
-                <Select value={String(formData.displayCount || 6)} onValueChange={value => updateField('displayCount', parseInt(value))}>
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="3">3 annonces</SelectItem>
-                    <SelectItem value="6">6 annonces</SelectItem>
-                    <SelectItem value="9">9 annonces</SelectItem>
-                    <SelectItem value="12">12 annonces</SelectItem>
-                    <SelectItem value="15">15 annonces</SelectItem>
-                    <SelectItem value="18">18 annonces</SelectItem>
-                  </SelectContent>
-                </Select>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="displayCountDesktop">Nombre total (ordinateur)</Label>
+                  <Select value={String(formData.displayCountDesktop || 6)} onValueChange={value => updateField('displayCountDesktop', parseInt(value))}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="3">3 annonces</SelectItem>
+                      <SelectItem value="6">6 annonces</SelectItem>
+                      <SelectItem value="9">9 annonces</SelectItem>
+                      <SelectItem value="12">12 annonces</SelectItem>
+                      <SelectItem value="15">15 annonces</SelectItem>
+                      <SelectItem value="18">18 annonces</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="displayCountMobile">Nombre total (mobile)</Label>
+                  <Select value={String(formData.displayCountMobile || 4)} onValueChange={value => updateField('displayCountMobile', parseInt(value))}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="2">2 annonces</SelectItem>
+                      <SelectItem value="4">4 annonces</SelectItem>
+                      <SelectItem value="6">6 annonces</SelectItem>
+                      <SelectItem value="8">8 annonces</SelectItem>
+                      <SelectItem value="10">10 annonces</SelectItem>
+                      <SelectItem value="12">12 annonces</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
 
               <div>
@@ -1259,7 +1323,7 @@ const BlockEditDropdown = ({
               </div>
               
               <div className="space-y-3">
-                {(formData.buttons || []).map((button: any, index: number) => (
+                {(formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'}]).map((button: any, index: number) => (
                   <div key={index} className="border rounded-lg p-4 space-y-3">
                     <div className="flex items-center justify-between">
                       <Label className="text-sm font-medium">Bouton {index + 1}</Label>
@@ -1268,7 +1332,7 @@ const BlockEditDropdown = ({
                         variant="ghost"
                         size="sm"
                         onClick={() => {
-                          const buttons = formData.buttons || [];
+                          const buttons = formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'}];
                           const newButtons = buttons.filter((_: any, i: number) => i !== index);
                           updateField('buttons', newButtons);
                         }}
@@ -1283,7 +1347,7 @@ const BlockEditDropdown = ({
                         <Input 
                           value={button.text || ''} 
                           onChange={e => {
-                            const buttons = formData.buttons || [];
+                            const buttons = formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'}];
                             const newButtons = buttons.map((b: any, i: number) => 
                               i === index ? {...b, text: e.target.value} : b
                             );
@@ -1296,7 +1360,7 @@ const BlockEditDropdown = ({
                         <Input 
                           value={button.url || ''} 
                           onChange={e => {
-                            const buttons = formData.buttons || [];
+                            const buttons = formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'}];
                             const newButtons = buttons.map((b: any, i: number) => 
                               i === index ? {...b, url: e.target.value} : b
                             );
@@ -1312,7 +1376,7 @@ const BlockEditDropdown = ({
                         <ColorPicker
                           value={button.color || '#1e73be'}
                           onChange={(value) => {
-                            const buttons = formData.buttons || [];
+                            const buttons = formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'}];
                             const newButtons = buttons.map((b: any, i: number) => 
                               i === index ? {...b, color: value} : b
                             );
@@ -1325,7 +1389,7 @@ const BlockEditDropdown = ({
                         <Select 
                           value={button.style || 'filled'} 
                           onValueChange={value => {
-                            const buttons = formData.buttons || [];
+                            const buttons = formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'}];
                             const newButtons = buttons.map((b: any, i: number) => 
                               i === index ? {...b, style: value} : b
                             );
