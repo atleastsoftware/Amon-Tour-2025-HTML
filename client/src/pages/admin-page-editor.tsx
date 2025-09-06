@@ -1374,8 +1374,8 @@ const BlockEditDropdown = ({
                     <Input 
                       type="number" 
                       min="1" 
-                      max="20"
-                      value={formData.showAllAds ? (formData.mobileColumns || 1) * 4 : formData.displayCountMobile || 4}
+                      max="50"
+                      value={formData.showAllAds ? (realTours?.length || 0) : formData.displayCountMobile || 4}
                       onChange={e => updateField('displayCountMobile', parseInt(e.target.value) || 4)}
                       disabled={formData.showAllAds}
                       className={formData.showAllAds ? 'bg-gray-100' : ''}
@@ -1386,8 +1386,8 @@ const BlockEditDropdown = ({
                     <Input 
                       type="number" 
                       min="1" 
-                      max="20"
-                      value={formData.showAllAds ? (formData.tabletColumns || 2) * 4 : formData.displayCountTablet || 6}
+                      max="50"
+                      value={formData.showAllAds ? (realTours?.length || 0) : formData.displayCountTablet || 6}
                       onChange={e => updateField('displayCountTablet', parseInt(e.target.value) || 6)}
                       disabled={formData.showAllAds}
                       className={formData.showAllAds ? 'bg-gray-100' : ''}
@@ -1398,8 +1398,8 @@ const BlockEditDropdown = ({
                     <Input 
                       type="number" 
                       min="1" 
-                      max="20"
-                      value={formData.showAllAds ? (formData.desktopColumns || 3) * 4 : formData.displayCountDesktop || 6}
+                      max="50"
+                      value={formData.showAllAds ? (realTours?.length || 0) : formData.displayCountDesktop || 6}
                       onChange={e => updateField('displayCountDesktop', parseInt(e.target.value) || 6)}
                       disabled={formData.showAllAds}
                       className={formData.showAllAds ? 'bg-gray-100' : ''}
@@ -1416,10 +1416,11 @@ const BlockEditDropdown = ({
                       const isChecked = e.target.checked;
                       updateField('showAllAds', isChecked);
                       if (isChecked) {
-                        // Quand activé, calculer automatiquement basé sur les colonnes
-                        updateField('displayCountMobile', (formData.mobileColumns || 1) * 4);
-                        updateField('displayCountTablet', (formData.tabletColumns || 2) * 4);
-                        updateField('displayCountDesktop', (formData.desktopColumns || 3) * 4);
+                        // Quand activé, utiliser le nombre total d'annonces
+                        const totalAds = realTours?.length || 0;
+                        updateField('displayCountMobile', totalAds);
+                        updateField('displayCountTablet', totalAds);
+                        updateField('displayCountDesktop', totalAds);
                       }
                     }}
                   />
@@ -1557,8 +1558,8 @@ const BlockEditDropdown = ({
                     <Input 
                       type="number" 
                       min="1" 
-                      max="20"
-                      value={formData.showAllAds ? (formData.mobileColumns || 1) * 4 : formData.displayCountMobile || 4}
+                      max="50"
+                      value={formData.showAllAds ? (realToursPrice?.length || 0) : formData.displayCountMobile || 4}
                       onChange={e => updateField('displayCountMobile', parseInt(e.target.value) || 4)}
                       disabled={formData.showAllAds}
                       className={formData.showAllAds ? 'bg-gray-100' : ''}
@@ -1569,8 +1570,8 @@ const BlockEditDropdown = ({
                     <Input 
                       type="number" 
                       min="1" 
-                      max="20"
-                      value={formData.showAllAds ? (formData.tabletColumns || 2) * 4 : formData.displayCountTablet || 6}
+                      max="50"
+                      value={formData.showAllAds ? (realToursPrice?.length || 0) : formData.displayCountTablet || 6}
                       onChange={e => updateField('displayCountTablet', parseInt(e.target.value) || 6)}
                       disabled={formData.showAllAds}
                       className={formData.showAllAds ? 'bg-gray-100' : ''}
@@ -1581,8 +1582,8 @@ const BlockEditDropdown = ({
                     <Input 
                       type="number" 
                       min="1" 
-                      max="20"
-                      value={formData.showAllAds ? (formData.desktopColumns || 3) * 4 : formData.displayCountDesktop || 6}
+                      max="50"
+                      value={formData.showAllAds ? (realToursPrice?.length || 0) : formData.displayCountDesktop || 6}
                       onChange={e => updateField('displayCountDesktop', parseInt(e.target.value) || 6)}
                       disabled={formData.showAllAds}
                       className={formData.showAllAds ? 'bg-gray-100' : ''}
@@ -1599,10 +1600,11 @@ const BlockEditDropdown = ({
                       const isChecked = e.target.checked;
                       updateField('showAllAds', isChecked);
                       if (isChecked) {
-                        // Quand activé, calculer automatiquement basé sur les colonnes
-                        updateField('displayCountMobile', (formData.mobileColumns || 1) * 4);
-                        updateField('displayCountTablet', (formData.tabletColumns || 2) * 4);
-                        updateField('displayCountDesktop', (formData.desktopColumns || 3) * 4);
+                        // Quand activé, utiliser le nombre total d'annonces
+                        const totalAds = realToursPrice?.length || 0;
+                        updateField('displayCountMobile', totalAds);
+                        updateField('displayCountTablet', totalAds);
+                        updateField('displayCountDesktop', totalAds);
                       }
                     }}
                   />
