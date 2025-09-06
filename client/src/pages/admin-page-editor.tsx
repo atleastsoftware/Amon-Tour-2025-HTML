@@ -462,9 +462,46 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         // Section "Our Popular Experiences" - Card Grid Date avec badges de jours
         const { tours: realTours, isLoading: toursLoading } = useTourNinja();
         
-        // Utiliser le nombre configuré ou 6 par défaut
-        const displayCount = liveConfiguration?.desktopCount || 6;
-        const displayTours = realTours?.slice(0, displayCount) || [];
+        // Calculer le nombre d'annonces selon la configuration
+        const countMode = liveConfiguration?.countMode || 'fixed';
+        const desktopCols = liveConfiguration?.desktopColumns || 3;
+        let displayCount = 6;
+        
+        if (countMode === 'auto') {
+          const multiplier = liveConfiguration?.autoMultiplier || 2;
+          displayCount = desktopCols * multiplier;
+        } else if (countMode === 'fixed') {
+          displayCount = liveConfiguration?.displayCount || 6;
+        } else if (countMode === 'all') {
+          displayCount = filteredTours.length; // Afficher toutes les annonces disponibles
+        }
+        
+        // Filtrer par catégorie
+        const categoryFilter = liveConfiguration?.categoryFilter || 'all';
+        let filteredTours = realTours || [];
+        
+        if (categoryFilter === 'featured') {
+          // Pour l'instant, considérer les tours avec un prix plus élevé comme "featured"
+          if (filteredTours.length > 0) {
+            const avgPrice = filteredTours.reduce((sum, tour) => sum + (tour.price || 0), 0) / filteredTours.length;
+            filteredTours = filteredTours.filter(tour => (tour.price || 0) > avgPrice);
+          }
+        } else if (categoryFilter === 'day_trips') {
+          filteredTours = filteredTours.filter(tour => {
+            const duration = parseInt(String(tour.duration)) || 0;
+            return duration <= 1;
+          });
+        } else if (categoryFilter === 'multi_day') {
+          filteredTours = filteredTours.filter(tour => {
+            const duration = parseInt(String(tour.duration)) || 0;
+            return duration > 1;
+          });
+        }
+        // 'all' et 'custom' gardent tous les tours pour l'instant
+        
+        // Appliquer le filtrage après avoir calculé le bon displayCount  
+        const finalDisplayCount = countMode === 'all' ? filteredTours.length : displayCount;
+        const displayTours = filteredTours.slice(0, finalDisplayCount);
         
         return (
           <section id="tours" className="py-16 bg-white">
@@ -501,7 +538,21 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
             </div>
             
             <div className="container mx-auto px-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+              <div 
+                className={`grid gap-6 mb-8 ${
+                  liveConfiguration?.mobileColumns === 1 ? 'grid-cols-1' :
+                  liveConfiguration?.mobileColumns === 2 ? 'grid-cols-2' : 'grid-cols-1'
+                } ${
+                  liveConfiguration?.tabletColumns === 1 ? 'md:grid-cols-1' :
+                  liveConfiguration?.tabletColumns === 2 ? 'md:grid-cols-2' :
+                  liveConfiguration?.tabletColumns === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2'
+                } ${
+                  liveConfiguration?.desktopColumns === 1 ? 'lg:grid-cols-1' :
+                  liveConfiguration?.desktopColumns === 2 ? 'lg:grid-cols-2' :
+                  liveConfiguration?.desktopColumns === 3 ? 'lg:grid-cols-3' :
+                  liveConfiguration?.desktopColumns === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3'
+                }`}
+              >
                 {toursLoading ? (
                   // Skeleton loading avec le bon nombre
                   Array.from({ length: displayCount }).map((_, index) => (
@@ -617,9 +668,9 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                 )}
               </div>
               
-              <div className="flex justify-center">
+              <div className="flex justify-center gap-4">
                 {/* Utilise les boutons configurés ou le bouton par défaut */}
-                {(liveConfiguration?.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'}]).map((button: any, index: number) => (
+                {(liveConfiguration?.buttons?.length ? liveConfiguration.buttons : [{text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'}]).map((button: any, index: number) => (
                   <button 
                     key={index}
                     className="text-white px-8 py-3 rounded-lg font-heading font-semibold hover:opacity-90 transition-colors"
@@ -1235,66 +1286,137 @@ const BlockEditDropdown = ({
             <div className="space-y-4 border-t pt-4">
               <h4 className="text-sm font-medium text-gray-900">Configuration de la grille</h4>
               
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="desktopColumns">Colonnes (ordinateur)</Label>
-                  <Select value={String(formData.desktopColumns || 3)} onValueChange={value => updateField('desktopColumns', parseInt(value))}>
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="2">2 colonnes</SelectItem>
-                      <SelectItem value="3">3 colonnes</SelectItem>
-                      <SelectItem value="4">4 colonnes</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <Label htmlFor="mobileColumns">Colonnes (mobile)</Label>
-                  <Select value={String(formData.mobileColumns || 1)} onValueChange={value => updateField('mobileColumns', parseInt(value))}>
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="1">1 colonne</SelectItem>
-                      <SelectItem value="2">2 colonnes</SelectItem>
-                    </SelectContent>
-                  </Select>
+              {/* Colonnes */}
+              <div>
+                <Label className="text-sm font-medium">Colonnes par appareil</Label>
+                <div className="grid grid-cols-3 gap-4 mt-2">
+                  <div>
+                    <Label className="text-xs text-gray-500">Mobile</Label>
+                    <Select value={String(formData.mobileColumns || 1)} onValueChange={value => updateField('mobileColumns', parseInt(value))}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="1">1</SelectItem>
+                        <SelectItem value="2">2</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label className="text-xs text-gray-500">Tablette</Label>
+                    <Select value={String(formData.tabletColumns || 2)} onValueChange={value => updateField('tabletColumns', parseInt(value))}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="1">1</SelectItem>
+                        <SelectItem value="2">2</SelectItem>
+                        <SelectItem value="3">3</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label className="text-xs text-gray-500">Ordinateur</Label>
+                    <Select value={String(formData.desktopColumns || 3)} onValueChange={value => updateField('desktopColumns', parseInt(value))}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="1">1</SelectItem>
+                        <SelectItem value="2">2</SelectItem>
+                        <SelectItem value="3">3</SelectItem>
+                        <SelectItem value="4">4</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="displayCountDesktop">Nombre total (ordinateur)</Label>
-                  <Select value={String(formData.displayCountDesktop || 6)} onValueChange={value => updateField('displayCountDesktop', parseInt(value))}>
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="3">3 annonces</SelectItem>
-                      <SelectItem value="6">6 annonces</SelectItem>
-                      <SelectItem value="9">9 annonces</SelectItem>
-                      <SelectItem value="12">12 annonces</SelectItem>
-                      <SelectItem value="15">15 annonces</SelectItem>
-                      <SelectItem value="18">18 annonces</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <Label htmlFor="displayCountMobile">Nombre total (mobile)</Label>
-                  <Select value={String(formData.displayCountMobile || 4)} onValueChange={value => updateField('displayCountMobile', parseInt(value))}>
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="2">2 annonces</SelectItem>
-                      <SelectItem value="4">4 annonces</SelectItem>
-                      <SelectItem value="6">6 annonces</SelectItem>
-                      <SelectItem value="8">8 annonces</SelectItem>
-                      <SelectItem value="10">10 annonces</SelectItem>
-                      <SelectItem value="12">12 annonces</SelectItem>
-                    </SelectContent>
-                  </Select>
+              {/* Nombre d'annonces */}
+              <div>
+                <Label className="text-sm font-medium">Nombre d'annonces à afficher</Label>
+                <div className="space-y-3 mt-2">
+                  <div className="flex items-center space-x-2">
+                    <input 
+                      type="radio" 
+                      id="count_auto" 
+                      name="countMode" 
+                      checked={(formData.countMode || 'fixed') === 'auto'}
+                      onChange={() => updateField('countMode', 'auto')}
+                    />
+                    <Label htmlFor="count_auto" className="text-sm">Auto (multiples des colonnes)</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <input 
+                      type="radio" 
+                      id="count_fixed" 
+                      name="countMode" 
+                      checked={(formData.countMode || 'fixed') === 'fixed'}
+                      onChange={() => updateField('countMode', 'fixed')}
+                    />
+                    <Label htmlFor="count_fixed" className="text-sm">Nombre fixe</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <input 
+                      type="radio" 
+                      id="count_all" 
+                      name="countMode" 
+                      checked={(formData.countMode || 'fixed') === 'all'}
+                      onChange={() => updateField('countMode', 'all')}
+                    />
+                    <Label htmlFor="count_all" className="text-sm">Toutes les annonces disponibles</Label>
+                  </div>
+                  
+                  {/* Contrôles pour nombre fixe */}
+                  {(formData.countMode || 'fixed') === 'fixed' && (
+                    <div className="flex items-center space-x-3 pl-6">
+                      <Button 
+                        type="button" 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => {
+                          const current = formData.displayCount || 6;
+                          const min = Math.max(formData.desktopColumns || 3, 1);
+                          updateField('displayCount', Math.max(current - 1, min));
+                        }}
+                      >
+                        -
+                      </Button>
+                      <span className="min-w-[3rem] text-center">{formData.displayCount || 6}</span>
+                      <Button 
+                        type="button" 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => {
+                          const current = formData.displayCount || 6;
+                          updateField('displayCount', Math.min(current + 1, 20));
+                        }}
+                      >
+                        +
+                      </Button>
+                      <span className="text-xs text-gray-500">Min: {Math.max(formData.desktopColumns || 3, 1)}, Max: 20</span>
+                    </div>
+                  )}
+                  
+                  {/* Contrôles pour auto */}
+                  {(formData.countMode || 'fixed') === 'auto' && (
+                    <div className="pl-6">
+                      <Select 
+                        value={String(formData.autoMultiplier || 2)} 
+                        onValueChange={value => updateField('autoMultiplier', parseInt(value))}
+                      >
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="1">{formData.desktopColumns || 3} annonces (1 ligne)</SelectItem>
+                          <SelectItem value="2">{(formData.desktopColumns || 3) * 2} annonces (2 lignes)</SelectItem>
+                          <SelectItem value="3">{(formData.desktopColumns || 3) * 3} annonces (3 lignes)</SelectItem>
+                          <SelectItem value="4">{(formData.desktopColumns || 3) * 4} annonces (4 lignes)</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -1324,7 +1446,9 @@ const BlockEditDropdown = ({
                   variant="outline"
                   size="sm"
                   onClick={() => {
-                    const currentButtons = formData.buttons || [];
+                    // S'assurer que le bouton par défaut existe toujours
+                    const defaultButton = {text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'};
+                    const currentButtons = formData.buttons?.length ? formData.buttons : [defaultButton];
                     const newButtons = [...currentButtons, {text: 'Voir plus', url: '/tours', color: '#1e73be', style: 'filled'}];
                     updateField('buttons', newButtons);
                   }}
