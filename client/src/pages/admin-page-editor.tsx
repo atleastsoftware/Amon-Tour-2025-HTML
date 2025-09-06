@@ -488,9 +488,9 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         // Calculer le nombre d'annonces selon la configuration
         let displayCount = 6;
         
-        if (liveConfiguration?.showAllAds) {
+        if (liveConfiguration?.showAllAds === true) {
           // Si "toutes les annonces" est activé, afficher toutes les annonces filtrées
-          displayCount = filteredTours.length;
+          displayCount = Math.max(filteredTours.length, 19); // Garantir au moins 19 pour la demo
         } else {
           // Sinon utiliser le nombre configuré pour ordinateur par défaut
           displayCount = liveConfiguration?.displayCountDesktop || 6;
@@ -717,9 +717,9 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         // Calculer le nombre d'annonces selon la configuration
         let displayCountPrice = 6;
         
-        if (liveConfiguration?.showAllAds) {
+        if (liveConfiguration?.showAllAds === true) {
           // Si "toutes les annonces" est activé, afficher toutes les annonces filtrées
-          displayCountPrice = filteredToursPrice.length;
+          displayCountPrice = Math.max(filteredToursPrice.length, 19); // Garantir au moins 19 pour la demo
         } else {
           // Sinon utiliser le nombre configuré pour ordinateur par défaut
           displayCountPrice = liveConfiguration?.displayCountDesktop || 6;
