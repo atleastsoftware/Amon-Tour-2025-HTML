@@ -2110,60 +2110,119 @@ const BlockEditDropdown = ({
                         </div>
                         <div className="space-y-2">
                           {(block.miniIcons || []).map((miniIcon: any, miniIndex: number) => (
-                            <div key={miniIndex} className="flex gap-2 items-center">
-                              <Input 
-                                placeholder="fas fa-check" 
-                                value={miniIcon.icon} 
-                                onChange={e => {
-                                  const blocks = formData.iconBlocks || [];
-                                  const updatedBlocks = blocks.map((b: any) => {
-                                    if (b.id === block.id) {
-                                      const newMiniIcons = [...(b.miniIcons || [])];
-                                      newMiniIcons[miniIndex] = { ...newMiniIcons[miniIndex], icon: e.target.value };
-                                      return { ...b, miniIcons: newMiniIcons };
-                                    }
-                                    return b;
-                                  });
-                                  updateField('iconBlocks', updatedBlocks);
-                                }}
-                                className="w-32"
-                              />
-                              <Input 
-                                placeholder="Texte" 
-                                value={miniIcon.text} 
-                                onChange={e => {
-                                  const blocks = formData.iconBlocks || [];
-                                  const updatedBlocks = blocks.map((b: any) => {
-                                    if (b.id === block.id) {
-                                      const newMiniIcons = [...(b.miniIcons || [])];
-                                      newMiniIcons[miniIndex] = { ...newMiniIcons[miniIndex], text: e.target.value };
-                                      return { ...b, miniIcons: newMiniIcons };
-                                    }
-                                    return b;
-                                  });
-                                  updateField('iconBlocks', updatedBlocks);
-                                }}
-                                className="flex-1"
-                              />
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  const blocks = formData.iconBlocks || [];
-                                  const updatedBlocks = blocks.map((b: any) => {
-                                    if (b.id === block.id) {
-                                      const newMiniIcons = [...(b.miniIcons || [])];
-                                      newMiniIcons.splice(miniIndex, 1);
-                                      return { ...b, miniIcons: newMiniIcons };
-                                    }
-                                    return b;
-                                  });
-                                  updateField('iconBlocks', updatedBlocks);
-                                }}
-                                className="text-black hover:text-gray-700 p-1"
-                                title="Supprimer cette mini-icône"
-                              >
-                                <Trash2 size={16} />
-                              </button>
+                            <div key={miniIndex} className="bg-gray-50 p-3 rounded-lg border">
+                              {/* Sélecteur d'icône pour mini-icône */}
+                              <div className="mb-3">
+                                <Label className="text-xs font-medium text-gray-600 mb-2 block">Icône</Label>
+                                <div className="grid grid-cols-6 gap-1">
+                                  {[
+                                    { icon: 'fas fa-check', component: <i className="fas fa-check text-sm"></i> },
+                                    { icon: 'fas fa-star', component: <i className="fas fa-star text-sm"></i> },
+                                    { icon: 'fas fa-heart', component: <i className="fas fa-heart text-sm"></i> },
+                                    { icon: 'fas fa-shield', component: <i className="fas fa-shield text-sm"></i> },
+                                    { icon: 'fas fa-clock', component: <i className="fas fa-clock text-sm"></i> }
+                                  ].map(({ icon, component }) => (
+                                    <button
+                                      key={icon}
+                                      type="button"
+                                      onClick={() => {
+                                        const blocks = formData.iconBlocks || [];
+                                        const updatedBlocks = blocks.map((b: any) => {
+                                          if (b.id === block.id) {
+                                            const newMiniIcons = [...(b.miniIcons || [])];
+                                            newMiniIcons[miniIndex] = { ...newMiniIcons[miniIndex], icon: icon };
+                                            return { ...b, miniIcons: newMiniIcons };
+                                          }
+                                          return b;
+                                        });
+                                        updateField('iconBlocks', updatedBlocks);
+                                      }}
+                                      className={`p-2 border rounded hover:bg-gray-50 flex items-center justify-center transition-colors ${
+                                        miniIcon.icon === icon ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
+                                      }`}
+                                      title={icon}
+                                    >
+                                      {component}
+                                    </button>
+                                  ))}
+                                  
+                                  {/* Option d'upload pour mini-icônes */}
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      // TODO: Implémenter l'upload d'icône personnalisée pour mini-icônes
+                                      console.log('Upload d\'icône personnalisée pour mini-icône');
+                                    }}
+                                    className="p-2 border-2 border-dashed border-blue-400 rounded hover:bg-blue-50 flex items-center justify-center transition-colors bg-blue-25"
+                                    title="Upload icône personnalisée"
+                                  >
+                                    <Plus size={14} className="text-blue-600" />
+                                  </button>
+                                </div>
+                                {/* Input manuel pour icône personnalisée */}
+                                <Input 
+                                  placeholder="ou tapez fas fa-custom" 
+                                  value={miniIcon.icon} 
+                                  onChange={e => {
+                                    const blocks = formData.iconBlocks || [];
+                                    const updatedBlocks = blocks.map((b: any) => {
+                                      if (b.id === block.id) {
+                                        const newMiniIcons = [...(b.miniIcons || [])];
+                                        newMiniIcons[miniIndex] = { ...newMiniIcons[miniIndex], icon: e.target.value };
+                                        return { ...b, miniIcons: newMiniIcons };
+                                      }
+                                      return b;
+                                    });
+                                    updateField('iconBlocks', updatedBlocks);
+                                  }}
+                                  className="mt-2 text-xs"
+                                />
+                              </div>
+                              
+                              {/* Texte */}
+                              <div className="flex gap-2 items-center">
+                                <div className="flex-1">
+                                  <Label className="text-xs font-medium text-gray-600">Texte</Label>
+                                  <Input 
+                                    placeholder="Texte de la mini-icône" 
+                                    value={miniIcon.text} 
+                                    onChange={e => {
+                                      const blocks = formData.iconBlocks || [];
+                                      const updatedBlocks = blocks.map((b: any) => {
+                                        if (b.id === block.id) {
+                                          const newMiniIcons = [...(b.miniIcons || [])];
+                                          newMiniIcons[miniIndex] = { ...newMiniIcons[miniIndex], text: e.target.value };
+                                          return { ...b, miniIcons: newMiniIcons };
+                                        }
+                                        return b;
+                                      });
+                                      updateField('iconBlocks', updatedBlocks);
+                                    }}
+                                    className="mt-1"
+                                  />
+                                </div>
+                                
+                                {/* Bouton poubelle blanc sur fond bleu */}
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const blocks = formData.iconBlocks || [];
+                                    const updatedBlocks = blocks.map((b: any) => {
+                                      if (b.id === block.id) {
+                                        const newMiniIcons = [...(b.miniIcons || [])];
+                                        newMiniIcons.splice(miniIndex, 1);
+                                        return { ...b, miniIcons: newMiniIcons };
+                                      }
+                                      return b;
+                                    });
+                                    updateField('iconBlocks', updatedBlocks);
+                                  }}
+                                  className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition-colors mt-6"
+                                  title="Supprimer cette mini-icône"
+                                >
+                                  <Trash2 size={14} />
+                                </button>
+                              </div>
                             </div>
                           ))}
                           {(!block.miniIcons || block.miniIcons.length === 0) && (
