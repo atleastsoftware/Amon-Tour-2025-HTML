@@ -599,7 +599,6 @@ function MiniaturizedComponent({
         );
 
       case 'tour_ninja_section':
-      case 'card_grid':
         return (
           <div className="h-full bg-gray-50 p-2">
             <div className="text-center mb-2">
@@ -629,35 +628,25 @@ function MiniaturizedComponent({
                 </div>
               </div>
             </div>
-            
-            {/* DEBUG ET AFFICHAGE DES BOUTONS D'ACTION */}
-            <div className="mt-1">
-              {/* DEBUG INFO - Voir ce qui se passe */}
-              <div className="text-[4px] text-red-500 text-center mb-1">
-                Config: {JSON.stringify(mergedConfig.buttons || 'null').substring(0, 20)}...
+            {/* Afficher les boutons d'action s'ils existent */}
+            {mergedConfig.buttons && mergedConfig.buttons.length > 0 && (
+              <div className="flex gap-0.5 justify-center">
+                {mergedConfig.buttons.slice(0, 2).map((button: any, index: number) => (
+                  <div 
+                    key={index}
+                    className="text-[6px] px-1 py-0.5 rounded"
+                    style={{
+                      backgroundColor: (button.style || 'filled') === 'filled' ? (button.color || '#1e73be') : 'transparent',
+                      borderWidth: (button.style || 'filled') === 'outline' ? '1px' : '0',
+                      borderColor: (button.style || 'filled') === 'outline' ? (button.color || '#1e73be') : 'transparent',
+                      color: (button.style || 'filled') === 'outline' ? (button.color || '#1e73be') : '#ffffff'
+                    }}
+                  >
+                    {button.text?.substring(0, 10) || `Btn ${index + 1}`}
+                  </div>
+                ))}
               </div>
-              
-              {/* BOUTON FORCÉ POUR TEST */}
-              <div className="flex gap-0.5 justify-center mb-1">
-                <div className="text-[6px] px-1 py-0.5 rounded bg-blue-500 text-white">
-                  BOUTON TEST FORCÉ
-                </div>
-              </div>
-              
-              {/* Afficher les boutons d'action s'ils existent */}
-              {mergedConfig.buttons && mergedConfig.buttons.length > 0 && (
-                <div className="flex gap-0.5 justify-center">
-                  {mergedConfig.buttons.slice(0, 2).map((button: any, index: number) => (
-                    <div 
-                      key={index}
-                      className="text-[6px] px-1 py-0.5 rounded bg-green-500 text-white"
-                    >
-                      {button.text?.substring(0, 10) || `Btn ${index + 1}`}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+            )}
           </div>
         );
         
@@ -1307,7 +1296,7 @@ export default function RealBlockPreview({
         <div className={block.blockType.includes('hero') ? "w-full h-full" : "transform scale-90 origin-top-left w-[111.11%] h-[111.11%]"}>
           <MiniaturizedComponent 
             block={showEditForm ? previewData : block} 
-            liveConfiguration={showEditForm ? previewData : undefined}
+            liveConfiguration={liveConfiguration}
           />
         </div>
         
