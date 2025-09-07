@@ -1953,41 +1953,52 @@ const BlockEditDropdown = ({
               </div>
               
               <div className="space-y-4">
-                {(formData.iconBlocks || [
-                  {
-                    id: 1,
-                    mainIcon: 'fas fa-user-friends',
-                    title: 'Private Tours',
-                    description: 'Experience an exclusive day trip with our professional guides and private vehicles.',
-                    miniIcons: [
-                      { icon: 'fas fa-car', text: 'Private Car' },
-                      { icon: 'fas fa-language', text: 'Guide' },
-                      { icon: 'fas fa-shield-alt', text: 'Safety' }
-                    ]
-                  },
-                  {
-                    id: 2,
-                    mainIcon: 'fas fa-compass',
-                    title: 'Customized Itineraries',
-                    description: 'Create your own journey based on your desires, your pace, and your interests.',
-                    miniIcons: [
-                      { icon: 'fas fa-map-marked-alt', text: 'Custom Route' },
-                      { icon: 'fas fa-clock', text: 'Flexible Time' },
-                      { icon: 'fas fa-list-check', text: 'Your Pace' }
-                    ]
-                  },
-                  {
-                    id: 3,
-                    mainIcon: 'fas fa-sparkles',
-                    title: 'Authentic Experiences',
-                    description: 'Discover destinations off the beaten path and immerse yourself in the local culture.',
-                    miniIcons: [
-                      { icon: 'fas fa-utensils', text: 'Local Food' },
-                      { icon: 'fas fa-hands-helping', text: 'Local People' },
-                      { icon: 'fas fa-landmark', text: 'Culture' }
-                    ]
+                {(() => {
+                  const getDefaultBlocks = () => [
+                    {
+                      id: 1,
+                      mainIcon: 'fas fa-user-friends',
+                      title: 'Private Tours',
+                      description: 'Experience an exclusive day trip with our professional guides and private vehicles.',
+                      miniIcons: [
+                        { icon: 'fas fa-car', text: 'Private Car' },
+                        { icon: 'fas fa-language', text: 'Guide' },
+                        { icon: 'fas fa-shield-alt', text: 'Safety' }
+                      ]
+                    },
+                    {
+                      id: 2,
+                      mainIcon: 'fas fa-compass',
+                      title: 'Customized Itineraries',
+                      description: 'Create your own journey based on your desires, your pace, and your interests.',
+                      miniIcons: [
+                        { icon: 'fas fa-map-marked-alt', text: 'Custom Route' },
+                        { icon: 'fas fa-clock', text: 'Flexible Time' },
+                        { icon: 'fas fa-list-check', text: 'Your Pace' }
+                      ]
+                    },
+                    {
+                      id: 3,
+                      mainIcon: 'fas fa-sparkles',
+                      title: 'Authentic Experiences',
+                      description: 'Discover destinations off the beaten path and immerse yourself in the local culture.',
+                      miniIcons: [
+                        { icon: 'fas fa-utensils', text: 'Local Food' },
+                        { icon: 'fas fa-hands-helping', text: 'Local People' },
+                        { icon: 'fas fa-landmark', text: 'Culture' }
+                      ]
+                    }
+                  ];
+                  
+                  const blocks = formData.iconBlocks && formData.iconBlocks.length > 0 ? formData.iconBlocks : getDefaultBlocks();
+                  
+                  // Initialiser les iconBlocks si elles ne sont pas déjà définies
+                  if (!formData.iconBlocks) {
+                    updateField('iconBlocks', getDefaultBlocks());
                   }
-                ]).map((block: any, index: number) => (
+                  
+                  return blocks;
+                })().map((block: any, index: number) => (
                   <div key={block.id} className="border border-gray-200 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-3">
                       <Label className="font-medium">Bloc {index + 1}</Label>
