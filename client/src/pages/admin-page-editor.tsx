@@ -964,7 +964,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                                 src={miniIcon.icon} 
                                 alt={miniIcon.text} 
                                 className="w-6 h-6 object-cover rounded"
-                                style={{ filter: 'sepia(1) saturate(2) hue-rotate(200deg) brightness(0.8)' }}
+                                style={{ filter: 'brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%)' }}
                                 onError={(e) => {
                                   // Fallback vers icône par défaut si image ne charge pas
                                   (e.target as HTMLElement).style.display = 'none';
