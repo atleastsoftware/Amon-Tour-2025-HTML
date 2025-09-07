@@ -2331,10 +2331,10 @@ const BlockEditDropdown = ({
                                 };
                                 input.click();
                               }}
-                              className="p-3 border rounded-lg hover:bg-gray-50 flex items-center justify-center transition-colors border-gray-300 bg-gray-800"
-                              title="Upload icône personnalisée"
+                              className="p-3 border rounded-lg hover:bg-blue-50 flex items-center justify-center transition-colors border-blue-400 bg-white"
+                              title="Médaille"
                             >
-                              <i className="fas fa-upload text-white text-lg"></i>
+                              <i className="far fa-medal text-blue-600 text-lg"></i>
                             </button>
                           </div>
                           <p className="text-xs text-gray-500 mt-2">Sélectionnez une icône principale pour ce bloc ou entrez une URL d'image :</p>
