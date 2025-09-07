@@ -333,20 +333,31 @@ function MiniaturizedComponent({
               <div className="text-[10px] font-bold">{block.title || "Why Choose Us"}</div>
               <div className="w-4 h-0.5 bg-yellow-500 mx-auto mt-1"></div>
             </div>
-            <div className="grid grid-cols-3 gap-1 h-16">
-              <div className="bg-white rounded p-1 text-center shadow-sm">
-                <div className="w-3 h-3 bg-blue-600 rounded-full mx-auto mb-1"></div>
-                <div className="text-[8px] font-semibold">Private Tours</div>
-              </div>
-              <div className="bg-white rounded p-1 text-center shadow-sm">
-                <div className="w-3 h-3 bg-blue-600 rounded-full mx-auto mb-1"></div>
-                <div className="text-[8px] font-semibold">Custom Routes</div>
-              </div>
-              <div className="bg-white rounded p-1 text-center shadow-sm">
-                <div className="w-3 h-3 bg-blue-600 rounded-full mx-auto mb-1"></div>
-                <div className="text-[8px] font-semibold">Authentic</div>
-              </div>
-            </div>
+            {(() => {
+              // Récupérer les blocs d'icônes depuis les données du bloc si disponibles
+              const iconBlocks = block.configuration?.iconBlocks || [
+                { title: 'Private Tours' },
+                { title: 'Custom Routes' },
+                { title: 'Authentic' }
+              ];
+              
+              // Adapter la grille selon le nombre de blocs (1, 2 ou 3)
+              const gridColsClass = iconBlocks.length === 1 ? 'grid-cols-1' : 
+                                   iconBlocks.length === 2 ? 'grid-cols-2' : 'grid-cols-3';
+              
+              return (
+                <div className={`grid ${gridColsClass} gap-1 h-16 justify-items-center`}>
+                  {iconBlocks.map((iconBlock: any, index: number) => (
+                    <div key={index} className="bg-white rounded p-1 text-center shadow-sm max-w-full">
+                      <div className="w-3 h-3 bg-blue-600 rounded-full mx-auto mb-1"></div>
+                      <div className="text-[8px] font-semibold">
+                        {iconBlock.title?.substring(0, 12) || `Bloc ${index + 1}`}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              );
+            })()}
           </div>
         );
         
