@@ -233,6 +233,9 @@ function MiniaturizedComponent({
 
   const renderVisualPreview = () => {
     const config = block.configuration || {};
+    // Merger liveConfiguration si disponible pour les mises à jour en temps réel
+    const liveConfig = typeof window !== 'undefined' && (window as any).livePreviewData?.[block.id];
+    const mergedConfig = liveConfig ? { ...config, ...liveConfig } : config;
     
     switch (block.blockType) {
       case 'hero':
@@ -573,9 +576,9 @@ function MiniaturizedComponent({
               </div>
             </div>
             {/* Afficher les boutons d'action s'ils existent */}
-            {config.buttons && config.buttons.length > 0 && (
+            {mergedConfig.buttons && mergedConfig.buttons.length > 0 && (
               <div className="flex gap-0.5 justify-center">
-                {config.buttons.slice(0, 2).map((button: any, index: number) => (
+                {mergedConfig.buttons.slice(0, 2).map((button: any, index: number) => (
                   <div 
                     key={index}
                     className="text-[6px] px-1 py-0.5 rounded"
@@ -625,9 +628,9 @@ function MiniaturizedComponent({
               </div>
             </div>
             {/* Afficher les boutons d'action s'ils existent */}
-            {config.buttons && config.buttons.length > 0 && (
+            {mergedConfig.buttons && mergedConfig.buttons.length > 0 && (
               <div className="flex gap-0.5 justify-center">
-                {config.buttons.slice(0, 2).map((button: any, index: number) => (
+                {mergedConfig.buttons.slice(0, 2).map((button: any, index: number) => (
                   <div 
                     key={index}
                     className="text-[6px] px-1 py-0.5 rounded"

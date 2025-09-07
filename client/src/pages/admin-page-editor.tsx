@@ -2299,16 +2299,18 @@ const BlockEditDropdown = ({
                               onClick={() => {
                                 const blocks = formData.iconBlocks || [];
                                 const updatedBlocks = blocks.map((b: any) => 
-                                  b.id === block.id ? { ...b, mainIcon: 'far fa-medal' } : b
+                                  b.id === block.id ? { ...b, mainIcon: 'fas fa-medal' } : b
                                 );
                                 updateField('iconBlocks', updatedBlocks);
                               }}
                               className={`p-3 border rounded-lg hover:bg-gray-50 flex items-center justify-center transition-colors ${
-                                block.mainIcon === 'far fa-medal' ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
+                                block.mainIcon === 'fas fa-medal' ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
                               }`}
                               title="Médaille"
                             >
-                              <i className="far fa-medal text-blue-600 text-lg"></i>
+                              <i className={`fas fa-medal text-lg ${
+                                block.mainIcon === 'fas fa-medal' ? 'text-blue-600' : 'text-gray-700'
+                              }`}></i>
                             </button>
                           </div>
                           <p className="text-xs text-gray-500 mt-2">Sélectionnez une icône principale pour ce bloc ou entrez une URL d'image :</p>
