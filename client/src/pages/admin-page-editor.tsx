@@ -1915,7 +1915,8 @@ const BlockEditDropdown = ({
                 <Label htmlFor="subtitle">Sous-titre</Label>
                 <Input 
                   id="subtitle"
-                  value={formData.subtitle || 'Experience an exclusive private day trip with our English or French-speaking and certified guides.'} 
+                  placeholder="Experience an exclusive private day trip with our English or French-speaking and certified guides."
+                  value={formData.subtitle || ''} 
                   onChange={e => updateField('subtitle', e.target.value)}
                   className="mt-2"
                 />
