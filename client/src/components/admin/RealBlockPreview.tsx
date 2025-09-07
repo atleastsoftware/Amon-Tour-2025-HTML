@@ -226,16 +226,17 @@ interface RealBlockPreviewProps {
 
 // Composant de prévisualisation miniaturisé des vrais composants  
 function MiniaturizedComponent({ 
-  block
+  block,
+  liveConfiguration
 }: { 
   block: PageBlock;
+  liveConfiguration?: any;
 }) {
 
   const renderVisualPreview = () => {
     const config = block.configuration || {};
     // Merger liveConfiguration si disponible pour les mises à jour en temps réel
-    const liveConfig = typeof window !== 'undefined' && (window as any).livePreviewData?.[block.id];
-    const mergedConfig = liveConfig ? { ...config, ...liveConfig } : config;
+    const mergedConfig = liveConfiguration ? { ...config, ...liveConfiguration } : config;
     
     switch (block.blockType) {
       case 'hero':
@@ -1295,6 +1296,7 @@ export default function RealBlockPreview({
         <div className={block.blockType.includes('hero') ? "w-full h-full" : "transform scale-90 origin-top-left w-[111.11%] h-[111.11%]"}>
           <MiniaturizedComponent 
             block={showEditForm ? previewData : block} 
+            liveConfiguration={liveConfiguration}
           />
         </div>
         
