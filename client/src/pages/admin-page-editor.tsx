@@ -2047,6 +2047,19 @@ const BlockEditDropdown = ({
                                 {component}
                               </button>
                             ))}
+                            
+                            {/* Option d'upload personnalisé */}
+                            <button
+                              type="button"
+                              onClick={() => {
+                                // TODO: Implémenter l'upload d'icône personnalisée
+                                console.log('Upload d\'icône personnalisée');
+                              }}
+                              className="p-3 border-2 border-dashed border-green-400 rounded-lg hover:bg-green-50 flex items-center justify-center transition-colors bg-green-25"
+                              title="Upload icône personnalisée"
+                            >
+                              <Plus size={20} className="text-green-600" />
+                            </button>
                           </div>
                           <p className="text-xs text-gray-500 mt-2">Sélectionnez une icône principale pour ce bloc</p>
                         </div>
