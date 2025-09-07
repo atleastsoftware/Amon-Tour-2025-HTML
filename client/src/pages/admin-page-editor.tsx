@@ -916,11 +916,29 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
-                      {feature.mainIcon === 'fas fa-user-friends' && <Users size={28} className="text-white" />}
-                      {feature.mainIcon === 'fas fa-compass' && <Compass size={28} className="text-white" />}
-                      {feature.mainIcon === 'fas fa-sparkles' && <Sparkles size={28} className="text-white" />}
-                      {!['fas fa-user-friends', 'fas fa-compass', 'fas fa-sparkles'].includes(feature.mainIcon) && (
-                        <i className={`${feature.mainIcon} text-white text-2xl`}></i>
+                      {/* Si c'est une URL d'image, afficher l'image */}
+                      {feature.mainIcon && (feature.mainIcon.startsWith('http') || feature.mainIcon.startsWith('/')) ? (
+                        <img 
+                          src={feature.mainIcon} 
+                          alt={feature.title} 
+                          className="w-10 h-10 object-cover rounded-full"
+                          style={{ filter: 'brightness(0) invert(1)' }} /* Rendre l'image blanche */
+                          onError={(e) => {
+                            // Fallback vers icône par défaut
+                            (e.target as HTMLElement).style.display = 'none';
+                            const fallbackIcon = (e.target as HTMLElement).nextElementSibling as HTMLElement;
+                            if (fallbackIcon) fallbackIcon.style.display = 'block';
+                          }}
+                        />
+                      ) : (
+                        <>
+                          {feature.mainIcon === 'fas fa-user-friends' && <Users size={28} className="text-white" />}
+                          {feature.mainIcon === 'fas fa-compass' && <Compass size={28} className="text-white" />}
+                          {feature.mainIcon === 'fas fa-sparkles' && <Sparkles size={28} className="text-white" />}
+                          {!['fas fa-user-friends', 'fas fa-compass', 'fas fa-sparkles'].includes(feature.mainIcon) && (
+                            <i className={`${feature.mainIcon} text-white text-2xl`} style={{ display: feature.mainIcon && (feature.mainIcon.startsWith('http') || feature.mainIcon.startsWith('/')) ? 'none' : 'block' }}></i>
+                          )}
+                        </>
                       )}
                     </motion.div>
                     <h3 className="font-heading font-bold text-xl mb-2">{feature.title}</h3>

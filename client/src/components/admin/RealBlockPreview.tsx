@@ -349,7 +349,30 @@ function MiniaturizedComponent({
                 <div className={`grid ${gridColsClass} gap-1 h-16 justify-items-center`}>
                   {iconBlocks.map((iconBlock: any, index: number) => (
                     <div key={index} className="bg-white rounded p-1 text-center shadow-sm max-w-full">
-                      <div className="w-3 h-3 bg-blue-600 rounded-full mx-auto mb-1"></div>
+                      {/* Afficher l'icône principale configurée ou cercle par défaut */}
+                      <div className="w-3 h-3 mx-auto mb-1 flex items-center justify-center">
+                        {iconBlock.mainIcon && (iconBlock.mainIcon.startsWith('http') || iconBlock.mainIcon.startsWith('/')) ? (
+                          <img 
+                            src={iconBlock.mainIcon} 
+                            alt={iconBlock.title} 
+                            className="w-3 h-3 object-cover rounded"
+                            style={{ filter: 'sepia(1) saturate(2) hue-rotate(200deg) brightness(0.8)' }}
+                            onError={(e) => {
+                              // Fallback vers cercle bleu
+                              (e.target as HTMLElement).style.display = 'none';
+                              const fallback = (e.target as HTMLElement).nextElementSibling as HTMLElement;
+                              if (fallback) fallback.style.display = 'block';
+                            }}
+                          />
+                        ) : (
+                          <div className="w-3 h-3 bg-blue-600 rounded-full" 
+                               style={{ display: iconBlock.mainIcon && (iconBlock.mainIcon.startsWith('http') || iconBlock.mainIcon.startsWith('/')) ? 'none' : 'block' }}>
+                            {iconBlock.mainIcon && !iconBlock.mainIcon.startsWith('http') && !iconBlock.mainIcon.startsWith('/') ? (
+                              <i className={`${iconBlock.mainIcon} text-white`} style={{ fontSize: '6px' }}></i>
+                            ) : null}
+                          </div>
+                        )}
+                      </div>
                       <div className="text-[8px] font-semibold">
                         {iconBlock.title?.substring(0, 12) || `Bloc ${index + 1}`}
                       </div>
