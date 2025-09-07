@@ -2019,14 +2019,13 @@ const BlockEditDropdown = ({
                     <div className="space-y-3">
                       {/* Icône principale */}
                       <div>
-                        <Label className="text-sm font-medium text-gray-700">Icône principale *</Label>
+                        <Label className="text-sm font-medium text-gray-700">Icône principale</Label>
                         <div className="mt-2">
                           <div className="grid grid-cols-6 gap-2">
                             {[
                               { icon: 'fas fa-user-friends', component: <Users size={20} /> },
                               { icon: 'fas fa-compass', component: <Compass size={20} /> },
                               { icon: 'fas fa-sparkles', component: <Sparkles size={20} /> },
-                              { icon: 'fas fa-star', component: <Star size={20} /> },
                               { icon: 'fas fa-heart', component: <Heart size={20} /> },
                               { icon: 'fas fa-trophy', component: <i className="fas fa-trophy text-lg"></i> }
                             ].map(({ icon, component }) => (
