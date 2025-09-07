@@ -2111,16 +2111,63 @@ const BlockEditDropdown = ({
                         <div className="space-y-2">
                           {(block.miniIcons || []).map((miniIcon: any, miniIndex: number) => (
                             <div key={miniIndex} className="bg-gray-50 p-3 rounded-lg border">
-                              {/* Sélecteur d'icône pour mini-icône */}
+                              {/* Texte en premier */}
                               <div className="mb-3">
+                                <div className="flex gap-2 items-end">
+                                  <div className="flex-1">
+                                    <Label className="text-xs font-medium text-gray-600">Texte</Label>
+                                    <Input 
+                                      placeholder="Texte de la mini-icône (ex: Private Car)" 
+                                      value={miniIcon.text} 
+                                      onChange={e => {
+                                        const blocks = formData.iconBlocks || [];
+                                        const updatedBlocks = blocks.map((b: any) => {
+                                          if (b.id === block.id) {
+                                            const newMiniIcons = [...(b.miniIcons || [])];
+                                            newMiniIcons[miniIndex] = { ...newMiniIcons[miniIndex], text: e.target.value };
+                                            return { ...b, miniIcons: newMiniIcons };
+                                          }
+                                          return b;
+                                        });
+                                        updateField('iconBlocks', updatedBlocks);
+                                      }}
+                                      className="mt-1"
+                                    />
+                                  </div>
+                                  
+                                  {/* Bouton poubelle blanc sur fond bleu */}
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      const blocks = formData.iconBlocks || [];
+                                      const updatedBlocks = blocks.map((b: any) => {
+                                        if (b.id === block.id) {
+                                          const newMiniIcons = [...(b.miniIcons || [])];
+                                          newMiniIcons.splice(miniIndex, 1);
+                                          return { ...b, miniIcons: newMiniIcons };
+                                        }
+                                        return b;
+                                      });
+                                      updateField('iconBlocks', updatedBlocks);
+                                    }}
+                                    className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition-colors"
+                                    title="Supprimer cette mini-icône"
+                                  >
+                                    <Trash2 size={14} />
+                                  </button>
+                                </div>
+                              </div>
+                              
+                              {/* Sélecteur d'icône */}
+                              <div>
                                 <Label className="text-xs font-medium text-gray-600 mb-2 block">Icône</Label>
-                                <div className="grid grid-cols-6 gap-1">
+                                <div className="grid grid-cols-5 gap-1 mb-2">
                                   {[
+                                    { icon: 'fas fa-car', component: <i className="fas fa-car text-sm"></i> },
+                                    { icon: 'fas fa-language', component: <i className="fas fa-language text-sm"></i> },
                                     { icon: 'fas fa-check', component: <i className="fas fa-check text-sm"></i> },
                                     { icon: 'fas fa-star', component: <i className="fas fa-star text-sm"></i> },
-                                    { icon: 'fas fa-heart', component: <i className="fas fa-heart text-sm"></i> },
-                                    { icon: 'fas fa-shield', component: <i className="fas fa-shield text-sm"></i> },
-                                    { icon: 'fas fa-clock', component: <i className="fas fa-clock text-sm"></i> }
+                                    { icon: 'fas fa-heart', component: <i className="fas fa-heart text-sm"></i> }
                                   ].map(({ icon, component }) => (
                                     <button
                                       key={icon}
@@ -2145,83 +2192,41 @@ const BlockEditDropdown = ({
                                       {component}
                                     </button>
                                   ))}
-                                  
-                                  {/* Option d'upload pour mini-icônes */}
-                                  <button
-                                    type="button"
-                                    onClick={() => {
-                                      // TODO: Implémenter l'upload d'icône personnalisée pour mini-icônes
-                                      console.log('Upload d\'icône personnalisée pour mini-icône');
-                                    }}
-                                    className="p-2 border-2 border-dashed border-blue-400 rounded hover:bg-blue-50 flex items-center justify-center transition-colors bg-blue-25"
-                                    title="Upload icône personnalisée"
-                                  >
-                                    <Plus size={14} className="text-blue-600" />
-                                  </button>
                                 </div>
-                                {/* Input manuel pour icône personnalisée */}
-                                <Input 
-                                  placeholder="ou tapez fas fa-custom" 
-                                  value={miniIcon.icon} 
-                                  onChange={e => {
-                                    const blocks = formData.iconBlocks || [];
-                                    const updatedBlocks = blocks.map((b: any) => {
-                                      if (b.id === block.id) {
-                                        const newMiniIcons = [...(b.miniIcons || [])];
-                                        newMiniIcons[miniIndex] = { ...newMiniIcons[miniIndex], icon: e.target.value };
-                                        return { ...b, miniIcons: newMiniIcons };
-                                      }
-                                      return b;
-                                    });
-                                    updateField('iconBlocks', updatedBlocks);
-                                  }}
-                                  className="mt-2 text-xs"
-                                />
-                              </div>
-                              
-                              {/* Texte */}
-                              <div className="flex gap-2 items-center">
-                                <div className="flex-1">
-                                  <Label className="text-xs font-medium text-gray-600">Texte</Label>
+                                
+                                {/* Input manuel avec bouton upload à côté */}
+                                <div className="flex gap-2">
                                   <Input 
-                                    placeholder="Texte de la mini-icône" 
-                                    value={miniIcon.text} 
+                                    placeholder="ou tapez fas fa-custom" 
+                                    value={miniIcon.icon} 
                                     onChange={e => {
                                       const blocks = formData.iconBlocks || [];
                                       const updatedBlocks = blocks.map((b: any) => {
                                         if (b.id === block.id) {
                                           const newMiniIcons = [...(b.miniIcons || [])];
-                                          newMiniIcons[miniIndex] = { ...newMiniIcons[miniIndex], text: e.target.value };
+                                          newMiniIcons[miniIndex] = { ...newMiniIcons[miniIndex], icon: e.target.value };
                                           return { ...b, miniIcons: newMiniIcons };
                                         }
                                         return b;
                                       });
                                       updateField('iconBlocks', updatedBlocks);
                                     }}
-                                    className="mt-1"
+                                    className="flex-1 text-xs"
                                   />
+                                  
+                                  {/* Option d'upload à côté de l'input */}
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      // TODO: Implémenter l'upload d'icône personnalisée pour mini-icônes
+                                      console.log('Upload d\'icône personnalisée pour mini-icône');
+                                    }}
+                                    className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition-colors"
+                                    title="Upload icône personnalisée"
+                                  >
+                                    <Plus size={14} />
+                                  </button>
                                 </div>
-                                
-                                {/* Bouton poubelle blanc sur fond bleu */}
-                                <button
-                                  type="button"
-                                  onClick={() => {
-                                    const blocks = formData.iconBlocks || [];
-                                    const updatedBlocks = blocks.map((b: any) => {
-                                      if (b.id === block.id) {
-                                        const newMiniIcons = [...(b.miniIcons || [])];
-                                        newMiniIcons.splice(miniIndex, 1);
-                                        return { ...b, miniIcons: newMiniIcons };
-                                      }
-                                      return b;
-                                    });
-                                    updateField('iconBlocks', updatedBlocks);
-                                  }}
-                                  className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition-colors mt-6"
-                                  title="Supprimer cette mini-icône"
-                                >
-                                  <Trash2 size={14} />
-                                </button>
                               </div>
                             </div>
                           ))}
