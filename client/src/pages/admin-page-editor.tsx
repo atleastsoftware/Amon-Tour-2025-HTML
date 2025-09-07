@@ -2127,10 +2127,10 @@ const BlockEditDropdown = ({
                                 };
                                 input.click();
                               }}
-                              className="p-3 border-2 border-dashed border-blue-400 rounded-lg hover:bg-blue-50 flex items-center justify-center transition-colors bg-blue-25"
+                              className="p-3 border rounded-lg hover:bg-gray-50 flex items-center justify-center transition-colors border-gray-300 bg-gray-800"
                               title="Upload icône personnalisée"
                             >
-                              <span className="text-blue-600 text-lg font-bold">+</span>
+                              <i className="fas fa-upload text-white text-lg"></i>
                             </button>
                           </div>
                           <p className="text-xs text-gray-500 mt-2">Sélectionnez une icône principale pour ce bloc ou entrez une URL d'image :</p>
