@@ -2059,21 +2059,21 @@ const BlockEditDropdown = ({
                                   if (file) {
                                     try {
                                       // Créer FormData pour l'upload
-                                      const formData = new FormData();
-                                      formData.append('file', file);
+                                      const uploadFormData = new FormData();
+                                      uploadFormData.append('image', file);
                                       
                                       // Upload vers le serveur
-                                      const response = await fetch('/api/upload', {
+                                      const response = await fetch('/api/upload/image', {
                                         method: 'POST',
-                                        body: formData
+                                        body: uploadFormData
                                       });
                                       
                                       if (response.ok) {
                                         const { filePath } = await response.json();
                                         
                                         // Mettre à jour l'icône principale
-                                        const blocks = formData.iconBlocks || [];
-                                        const updatedBlocks = blocks.map((b: any) => 
+                                        const currentBlocks = formData.iconBlocks || [];
+                                        const updatedBlocks = currentBlocks.map((b: any) => 
                                           b.id === block.id ? { ...b, mainIcon: filePath } : b
                                         );
                                         updateField('iconBlocks', updatedBlocks);
@@ -2288,21 +2288,21 @@ const BlockEditDropdown = ({
                                         if (file) {
                                           try {
                                             // Créer FormData pour l'upload
-                                            const formData = new FormData();
-                                            formData.append('file', file);
+                                            const uploadFormData = new FormData();
+                                            uploadFormData.append('image', file);
                                             
                                             // Upload vers le serveur
-                                            const response = await fetch('/api/upload', {
+                                            const response = await fetch('/api/upload/image', {
                                               method: 'POST',
-                                              body: formData
+                                              body: uploadFormData
                                             });
                                             
                                             if (response.ok) {
                                               const { filePath } = await response.json();
                                               
                                               // Mettre à jour la mini-icône
-                                              const blocks = formData.iconBlocks || [];
-                                              const updatedBlocks = blocks.map((b: any) => {
+                                              const currentBlocks = formData.iconBlocks || [];
+                                              const updatedBlocks = currentBlocks.map((b: any) => {
                                                 if (b.id === block.id) {
                                                   const newMiniIcons = [...(b.miniIcons || [])];
                                                   newMiniIcons[miniIndex] = { ...newMiniIcons[miniIndex], icon: filePath };
