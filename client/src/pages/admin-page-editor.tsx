@@ -2140,8 +2140,8 @@ const BlockEditDropdown = ({
                           <div className="mt-3">
                             <div className="flex gap-2">
                               <Input 
-                                placeholder={block.mainIcon && !block.mainIcon.startsWith('http') && !block.mainIcon.startsWith('/') ? `Icône sélectionnée: ${block.mainIcon}` : ""}
-                                value={block.mainIcon && (block.mainIcon.startsWith('http') || block.mainIcon.startsWith('/')) ? block.mainIcon : ''}
+                                placeholder=""
+                                value={block.mainIcon || ''}
                                 onChange={(e) => {
                                   const blocks = formData.iconBlocks || [];
                                   const updatedBlocks = blocks.map((b: any) => 
