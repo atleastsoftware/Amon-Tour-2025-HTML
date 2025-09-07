@@ -599,6 +599,7 @@ function MiniaturizedComponent({
         );
 
       case 'tour_ninja_section':
+      case 'card_grid':
         return (
           <div className="h-full bg-gray-50 p-2">
             <div className="text-center mb-2">
