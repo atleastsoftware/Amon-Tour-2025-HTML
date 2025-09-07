@@ -1998,7 +1998,7 @@ const BlockEditDropdown = ({
                           const updatedBlocks = blocks.filter((b: any) => b.id !== block.id);
                           updateField('iconBlocks', updatedBlocks);
                         }}
-                        className="text-red-500 hover:text-red-700 text-sm"
+                        className="text-black hover:text-gray-700 text-sm"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -2159,7 +2159,7 @@ const BlockEditDropdown = ({
                                   });
                                   updateField('iconBlocks', updatedBlocks);
                                 }}
-                                className="text-red-500 hover:text-red-700 p-1"
+                                className="text-black hover:text-gray-700 p-1"
                                 title="Supprimer cette mini-icône"
                               >
                                 <Trash2 size={16} />
