@@ -2051,8 +2051,17 @@ const BlockEditDropdown = ({
                             <button
                               type="button"
                               onClick={() => {
-                                // TODO: Implémenter l'upload d'icône personnalisée
-                                console.log('Upload d\'icône personnalisée');
+                                const input = document.createElement('input');
+                                input.type = 'file';
+                                input.accept = 'image/*';
+                                input.onchange = (e) => {
+                                  const file = (e.target as HTMLInputElement).files?.[0];
+                                  if (file) {
+                                    console.log('Fichier sélectionné:', file.name);
+                                    // TODO: Implémenter l'upload vers le serveur
+                                  }
+                                };
+                                input.click();
                               }}
                               className="p-3 border-2 border-dashed border-blue-400 rounded-lg hover:bg-blue-50 flex items-center justify-center transition-colors bg-blue-25"
                               title="Upload icône personnalisée"
@@ -2104,6 +2113,13 @@ const BlockEditDropdown = ({
                             type="button"
                             onClick={() => {
                               const blocks = formData.iconBlocks || [];
+                              const currentBlock = blocks.find((b: any) => b.id === block.id);
+                              const currentMiniIcons = currentBlock?.miniIcons || [];
+                              
+                              if (currentMiniIcons.length >= 3) {
+                                return; // Ne rien faire si déjà 3 mini-icônes
+                              }
+                              
                               const updatedBlocks = blocks.map((b: any) => {
                                 if (b.id === block.id) {
                                   const newMiniIcons = [...(b.miniIcons || []), { icon: 'fas fa-check', text: 'Nouveau' }];
@@ -2113,7 +2129,12 @@ const BlockEditDropdown = ({
                               });
                               updateField('iconBlocks', updatedBlocks);
                             }}
-                            className="text-xs bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 flex items-center gap-1"
+                            className={`text-xs px-2 py-1 rounded flex items-center gap-1 ${
+                              (block.miniIcons || []).length >= 3 
+                                ? 'bg-gray-200 text-gray-400 cursor-not-allowed' 
+                                : 'bg-blue-500 text-white hover:bg-blue-600'
+                            }`}
+                            disabled={(block.miniIcons || []).length >= 3}
                           >
                             <Plus size={12} />
                             Ajouter
@@ -2233,8 +2254,17 @@ const BlockEditDropdown = ({
                                   <button
                                     type="button"
                                     onClick={() => {
-                                      // TODO: Implémenter l'upload d'icône personnalisée pour mini-icônes
-                                      console.log('Upload d\'icône personnalisée pour mini-icône');
+                                      const input = document.createElement('input');
+                                      input.type = 'file';
+                                      input.accept = 'image/*';
+                                      input.onchange = (e) => {
+                                        const file = (e.target as HTMLInputElement).files?.[0];
+                                        if (file) {
+                                          console.log('Fichier mini-icône sélectionné:', file.name);
+                                          // TODO: Implémenter l'upload vers le serveur
+                                        }
+                                      };
+                                      input.click();
                                     }}
                                     className="w-9 h-9 border-2 border-dashed border-blue-400 rounded hover:bg-blue-50 transition-colors flex items-center justify-center bg-blue-25"
                                     title="Upload icône personnalisée"
