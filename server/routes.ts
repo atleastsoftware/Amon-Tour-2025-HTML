@@ -2006,7 +2006,18 @@ Crawl-delay: 1`;
 
   // ===== SITE APPEARANCE API ROUTES =====
 
-  // Site Settings routes
+  // Public Footer Settings (no auth required)
+  app.get("/api/public/footer-settings", async (req, res) => {
+    try {
+      const settings = await storage.getSiteSettings('footer');
+      res.json(settings);
+    } catch (error) {
+      console.error('Error fetching footer settings:', error);
+      res.status(500).json({ error: 'Failed to fetch footer settings' });
+    }
+  });
+
+  // Site Settings routes (requires auth)
   app.get("/api/admin/site-settings", requireAuth, async (req, res) => {
     try {
       const { section } = req.query;

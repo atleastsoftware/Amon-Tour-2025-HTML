@@ -137,7 +137,7 @@ function renderContactInfo(item: any) {
 export default function Footer() {
   // Fetch dynamic footer content
   const { data: siteSettings } = useQuery({
-    queryKey: ['/api/admin/site-settings'],
+    queryKey: ['/api/public/footer-settings'],
     staleTime: 5 * 60 * 1000 // 5 minutes
   });
   
