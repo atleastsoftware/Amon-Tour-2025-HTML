@@ -2277,8 +2277,9 @@ const BlockEditDropdown = ({
                                 {/* Input manuel avec boutons carrés bleus à côté */}
                                 <div className="flex gap-2">
                                   <Input 
-                                    placeholder="ou tapez fas fa-custom" 
+                                    placeholder="ex: fas fa-car ou URL d'image" 
                                     value={miniIcon.icon} 
+                                    data-mini-icon={`${block.id}-${miniIndex}`}
                                     onChange={e => {
                                       const blocks = formData.iconBlocks || [];
                                       const updatedBlocks = blocks.map((b: any) => {
