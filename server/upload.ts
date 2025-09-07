@@ -26,12 +26,19 @@ const storage = multer.diskStorage({
 
 // Create a file filter to only allow image files
 const fileFilter = (req: Request, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
-  const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+  const allowedMimeTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'];
+  
+  console.log('File upload attempt:', {
+    originalname: file.originalname,
+    mimetype: file.mimetype,
+    size: file.size
+  });
   
   if (allowedMimeTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {
-    cb(new Error('Invalid file type. Only JPEG, PNG, GIF, and WebP images are allowed.'));
+    console.error(`File type ${file.mimetype} not allowed. Allowed types:`, allowedMimeTypes);
+    cb(null, false); // Rejeter silencieusement au lieu d'erreur
   }
 };
 

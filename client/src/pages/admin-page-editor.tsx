@@ -940,12 +940,13 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                           whileHover={{ y: -5 }}
                         >
                           <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mb-1">
-                            {/* Si c'est une URL d'image, afficher l'image */}
+                            {/* Si c'est une URL d'image, afficher l'image avec couleur bleue */}
                             {miniIcon.icon && (miniIcon.icon.startsWith('http') || miniIcon.icon.startsWith('/')) ? (
                               <img 
                                 src={miniIcon.icon} 
                                 alt={miniIcon.text} 
                                 className="w-6 h-6 object-cover rounded"
+                                style={{ filter: 'sepia(1) saturate(2) hue-rotate(200deg) brightness(0.8)' }}
                                 onError={(e) => {
                                   // Fallback vers icône par défaut si image ne charge pas
                                   (e.target as HTMLElement).style.display = 'none';
@@ -2045,7 +2046,7 @@ const BlockEditDropdown = ({
                               { icon: 'fas fa-compass', component: <Compass size={20} /> },
                               { icon: 'fas fa-sparkles', component: <Sparkles size={20} /> },
                               { icon: 'fas fa-heart', component: <Heart size={20} /> },
-                              { icon: 'fas fa-trophy', component: <i className="fas fa-trophy text-lg"></i> }
+                              { icon: 'far fa-trophy', component: <i className="far fa-trophy text-lg"></i> }
                             ].map(({ icon, component }) => (
                               <button
                                 key={icon}
@@ -2111,7 +2112,7 @@ const BlockEditDropdown = ({
                               className="p-3 border-2 border-dashed border-blue-400 rounded-lg hover:bg-blue-50 flex items-center justify-center transition-colors bg-blue-25"
                               title="Upload icône personnalisée"
                             >
-                              <Plus size={20} className="text-blue-600" />
+                              <i className="far fa-clock text-blue-600 text-lg"></i>
                             </button>
                           </div>
                           <p className="text-xs text-gray-500 mt-2">Sélectionnez une icône principale pour ce bloc</p>
