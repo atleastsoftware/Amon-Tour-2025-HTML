@@ -2113,7 +2113,7 @@ const BlockEditDropdown = ({
                             <div key={miniIndex} className="bg-gray-50 p-3 rounded-lg border">
                               {/* Texte en premier */}
                               <div className="mb-3">
-                                <div className="flex gap-2 items-start">
+                                <div className="flex gap-2 items-end">
                                   <div className="flex-1">
                                     <Label className="text-xs font-medium text-gray-600">Texte</Label>
                                     <Input 
@@ -2150,7 +2150,7 @@ const BlockEditDropdown = ({
                                       });
                                       updateField('iconBlocks', updatedBlocks);
                                     }}
-                                    className="bg-blue-500 text-white w-9 h-9 rounded hover:bg-blue-600 transition-colors flex items-center justify-center mt-6"
+                                    className="bg-blue-500 text-white w-9 h-9 rounded hover:bg-blue-600 transition-colors flex items-center justify-center"
                                     title="Supprimer cette mini-icône"
                                   >
                                     <Trash2 size={14} />
