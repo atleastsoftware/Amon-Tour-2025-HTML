@@ -916,7 +916,12 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
-                      <i className={`${feature.mainIcon} text-white text-2xl`}></i>
+                      {feature.mainIcon === 'fas fa-user-friends' && <Users size={28} className="text-white" />}
+                      {feature.mainIcon === 'fas fa-compass' && <Compass size={28} className="text-white" />}
+                      {feature.mainIcon === 'fas fa-sparkles' && <Sparkles size={28} className="text-white" />}
+                      {!['fas fa-user-friends', 'fas fa-compass', 'fas fa-sparkles'].includes(feature.mainIcon) && (
+                        <i className={`${feature.mainIcon} text-white text-2xl`}></i>
+                      )}
                     </motion.div>
                     <h3 className="font-heading font-bold text-xl mb-2">{feature.title}</h3>
                     <p className="text-gray-600 mb-4">{feature.description}</p>
