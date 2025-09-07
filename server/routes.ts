@@ -229,6 +229,7 @@ Crawl-delay: 1`;
       
       res.json({ 
         message: "File uploaded successfully", 
+        filePath: fileUrl,
         file: {
           url: fileUrl,
           filename: req.file.filename,

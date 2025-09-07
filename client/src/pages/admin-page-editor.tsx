@@ -2116,6 +2116,25 @@ const BlockEditDropdown = ({
                             </button>
                           </div>
                           <p className="text-xs text-gray-500 mt-2">Sélectionnez une icône principale pour ce bloc</p>
+                          
+                          {/* Champ URL pour icône principale */}
+                          <div className="mt-3">
+                            <Label className="text-xs font-medium text-gray-600 mb-2 block">Ou entrez une URL d'image</Label>
+                            <div className="flex gap-2">
+                              <Input 
+                                placeholder="ex: https://example.com/icon.png ou /path/icon.png"
+                                value={block.mainIcon && (block.mainIcon.startsWith('http') || block.mainIcon.startsWith('/')) ? block.mainIcon : ''}
+                                onChange={(e) => {
+                                  const blocks = formData.iconBlocks || [];
+                                  const updatedBlocks = blocks.map((b: any) => 
+                                    b.id === block.id ? { ...b, mainIcon: e.target.value } : b
+                                  );
+                                  updateField('iconBlocks', updatedBlocks);
+                                }}
+                                className="flex-1 text-xs h-9"
+                              />
+                            </div>
+                          </div>
                         </div>
                       </div>
                       
@@ -2338,6 +2357,9 @@ const BlockEditDropdown = ({
                                               if (iconInput) {
                                                 iconInput.value = filePath;
                                               }
+                                              
+                                              // Afficher un message de succès
+                                              console.log('Mini-icône uploadée et champ mis à jour:', filePath);
                                               
                                               console.log('Mini-icône uploadée avec succès:', filePath);
                                             } else {
