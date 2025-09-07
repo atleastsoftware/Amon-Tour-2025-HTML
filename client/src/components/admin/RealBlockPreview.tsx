@@ -628,25 +628,35 @@ function MiniaturizedComponent({
                 </div>
               </div>
             </div>
-            {/* Afficher les boutons d'action s'ils existent */}
-            {mergedConfig.buttons && mergedConfig.buttons.length > 0 && (
-              <div className="flex gap-0.5 justify-center">
-                {mergedConfig.buttons.slice(0, 2).map((button: any, index: number) => (
-                  <div 
-                    key={index}
-                    className="text-[6px] px-1 py-0.5 rounded"
-                    style={{
-                      backgroundColor: (button.style || 'filled') === 'filled' ? (button.color || '#1e73be') : 'transparent',
-                      borderWidth: (button.style || 'filled') === 'outline' ? '1px' : '0',
-                      borderColor: (button.style || 'filled') === 'outline' ? (button.color || '#1e73be') : 'transparent',
-                      color: (button.style || 'filled') === 'outline' ? (button.color || '#1e73be') : '#ffffff'
-                    }}
-                  >
-                    {button.text?.substring(0, 10) || `Btn ${index + 1}`}
-                  </div>
-                ))}
+            
+            {/* DEBUG ET AFFICHAGE DES BOUTONS D'ACTION */}
+            <div className="mt-1">
+              {/* DEBUG INFO - Voir ce qui se passe */}
+              <div className="text-[4px] text-red-500 text-center mb-1">
+                Config: {JSON.stringify(mergedConfig.buttons || 'null').substring(0, 20)}...
               </div>
-            )}
+              
+              {/* BOUTON FORCÉ POUR TEST */}
+              <div className="flex gap-0.5 justify-center mb-1">
+                <div className="text-[6px] px-1 py-0.5 rounded bg-blue-500 text-white">
+                  BOUTON TEST FORCÉ
+                </div>
+              </div>
+              
+              {/* Afficher les boutons d'action s'ils existent */}
+              {mergedConfig.buttons && mergedConfig.buttons.length > 0 && (
+                <div className="flex gap-0.5 justify-center">
+                  {mergedConfig.buttons.slice(0, 2).map((button: any, index: number) => (
+                    <div 
+                      key={index}
+                      className="text-[6px] px-1 py-0.5 rounded bg-green-500 text-white"
+                    >
+                      {button.text?.substring(0, 10) || `Btn ${index + 1}`}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         );
         
