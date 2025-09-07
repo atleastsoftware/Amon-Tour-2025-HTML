@@ -2012,29 +2012,24 @@ const BlockEditDropdown = ({
                         }}
                         className="text-red-500 hover:text-red-700 text-sm"
                       >
-                        Supprimer
+                        <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
                     
                     <div className="space-y-3">
-                      {/* Grosse icône */}
+                      {/* Icône principale */}
                       <div>
-                        <Label>Icône principale</Label>
-                        <div className="flex gap-2 mt-2">
-                          <Input 
-                            placeholder="fas fa-star" 
-                            value={block.mainIcon} 
-                            onChange={e => {
-                              const blocks = formData.iconBlocks || [];
-                              const updatedBlocks = blocks.map((b: any) => 
-                                b.id === block.id ? { ...b, mainIcon: e.target.value } : b
-                              );
-                              updateField('iconBlocks', updatedBlocks);
-                            }}
-                            className="flex-1"
-                          />
-                          <div className="flex gap-1">
-                            {['fas fa-sparkles', 'fas fa-user-friends', 'fas fa-compass', 'fas fa-star', 'fas fa-heart', 'fas fa-trophy'].map(icon => (
+                        <Label className="text-sm font-medium text-gray-700">Icône principale *</Label>
+                        <div className="mt-2">
+                          <div className="grid grid-cols-6 gap-2">
+                            {[
+                              { icon: 'fas fa-user-friends', component: <Users size={20} /> },
+                              { icon: 'fas fa-compass', component: <Compass size={20} /> },
+                              { icon: 'fas fa-sparkles', component: <Sparkles size={20} /> },
+                              { icon: 'fas fa-star', component: <Star size={20} /> },
+                              { icon: 'fas fa-heart', component: <Heart size={20} /> },
+                              { icon: 'fas fa-trophy', component: <i className="fas fa-trophy text-lg"></i> }
+                            ].map(({ icon, component }) => (
                               <button
                                 key={icon}
                                 type="button"
@@ -2045,12 +2040,16 @@ const BlockEditDropdown = ({
                                   );
                                   updateField('iconBlocks', updatedBlocks);
                                 }}
-                                className="w-8 h-8 border rounded flex items-center justify-center hover:bg-gray-50"
+                                className={`p-3 border rounded-lg hover:bg-gray-50 flex items-center justify-center transition-colors ${
+                                  block.mainIcon === icon ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
+                                }`}
+                                title={icon}
                               >
-                                <i className={`${icon} text-sm`}></i>
+                                {component}
                               </button>
                             ))}
                           </div>
+                          <p className="text-xs text-gray-500 mt-2">Sélectionnez une icône principale pour ce bloc</p>
                         </div>
                       </div>
                       
