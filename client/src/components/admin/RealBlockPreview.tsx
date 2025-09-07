@@ -1296,7 +1296,7 @@ export default function RealBlockPreview({
         <div className={block.blockType.includes('hero') ? "w-full h-full" : "transform scale-90 origin-top-left w-[111.11%] h-[111.11%]"}>
           <MiniaturizedComponent 
             block={showEditForm ? previewData : block} 
-            liveConfiguration={liveConfiguration}
+            liveConfiguration={showEditForm ? previewData : undefined}
           />
         </div>
         
