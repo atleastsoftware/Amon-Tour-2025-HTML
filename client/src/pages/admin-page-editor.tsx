@@ -2054,11 +2054,37 @@ const BlockEditDropdown = ({
                                 const input = document.createElement('input');
                                 input.type = 'file';
                                 input.accept = 'image/*';
-                                input.onchange = (e) => {
+                                input.onchange = async (e) => {
                                   const file = (e.target as HTMLInputElement).files?.[0];
                                   if (file) {
-                                    console.log('Fichier sélectionné:', file.name);
-                                    // TODO: Implémenter l'upload vers le serveur
+                                    try {
+                                      // Créer FormData pour l'upload
+                                      const formData = new FormData();
+                                      formData.append('file', file);
+                                      
+                                      // Upload vers le serveur
+                                      const response = await fetch('/api/upload', {
+                                        method: 'POST',
+                                        body: formData
+                                      });
+                                      
+                                      if (response.ok) {
+                                        const { filePath } = await response.json();
+                                        
+                                        // Mettre à jour l'icône principale
+                                        const blocks = formData.iconBlocks || [];
+                                        const updatedBlocks = blocks.map((b: any) => 
+                                          b.id === block.id ? { ...b, mainIcon: filePath } : b
+                                        );
+                                        updateField('iconBlocks', updatedBlocks);
+                                        
+                                        console.log('Icône uploadée avec succès:', filePath);
+                                      } else {
+                                        console.error('Erreur upload:', response.statusText);
+                                      }
+                                    } catch (error) {
+                                      console.error('Erreur lors de l\'upload:', error);
+                                    }
                                   }
                                 };
                                 input.click();
@@ -2257,11 +2283,42 @@ const BlockEditDropdown = ({
                                       const input = document.createElement('input');
                                       input.type = 'file';
                                       input.accept = 'image/*';
-                                      input.onchange = (e) => {
+                                      input.onchange = async (e) => {
                                         const file = (e.target as HTMLInputElement).files?.[0];
                                         if (file) {
-                                          console.log('Fichier mini-icône sélectionné:', file.name);
-                                          // TODO: Implémenter l'upload vers le serveur
+                                          try {
+                                            // Créer FormData pour l'upload
+                                            const formData = new FormData();
+                                            formData.append('file', file);
+                                            
+                                            // Upload vers le serveur
+                                            const response = await fetch('/api/upload', {
+                                              method: 'POST',
+                                              body: formData
+                                            });
+                                            
+                                            if (response.ok) {
+                                              const { filePath } = await response.json();
+                                              
+                                              // Mettre à jour la mini-icône
+                                              const blocks = formData.iconBlocks || [];
+                                              const updatedBlocks = blocks.map((b: any) => {
+                                                if (b.id === block.id) {
+                                                  const newMiniIcons = [...(b.miniIcons || [])];
+                                                  newMiniIcons[miniIndex] = { ...newMiniIcons[miniIndex], icon: filePath };
+                                                  return { ...b, miniIcons: newMiniIcons };
+                                                }
+                                                return b;
+                                              });
+                                              updateField('iconBlocks', updatedBlocks);
+                                              
+                                              console.log('Mini-icône uploadée avec succès:', filePath);
+                                            } else {
+                                              console.error('Erreur upload:', response.statusText);
+                                            }
+                                          } catch (error) {
+                                            console.error('Erreur lors de l\'upload:', error);
+                                          }
                                         }
                                       };
                                       input.click();
