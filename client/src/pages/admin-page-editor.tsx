@@ -2289,49 +2289,19 @@ const BlockEditDropdown = ({
                               </button>
                             ))}
                             
-                            {/* Option d'upload personnalisé */}
+                            {/* Icône médaille */}
                             <button
                               type="button"
                               onClick={() => {
-                                const input = document.createElement('input');
-                                input.type = 'file';
-                                input.accept = 'image/*';
-                                input.onchange = async (e) => {
-                                  const file = (e.target as HTMLInputElement).files?.[0];
-                                  if (file) {
-                                    try {
-                                      // Créer FormData pour l'upload
-                                      const uploadFormData = new FormData();
-                                      uploadFormData.append('image', file);
-                                      
-                                      // Upload vers le serveur
-                                      const response = await fetch('/api/upload/image', {
-                                        method: 'POST',
-                                        body: uploadFormData
-                                      });
-                                      
-                                      if (response.ok) {
-                                        const { filePath } = await response.json();
-                                        
-                                        // Mettre à jour l'icône principale
-                                        const currentBlocks = formData.iconBlocks || [];
-                                        const updatedBlocks = currentBlocks.map((b: any) => 
-                                          b.id === block.id ? { ...b, mainIcon: filePath } : b
-                                        );
-                                        updateField('iconBlocks', updatedBlocks);
-                                        
-                                        console.log('Icône uploadée avec succès:', filePath);
-                                      } else {
-                                        console.error('Erreur upload:', response.statusText);
-                                      }
-                                    } catch (error) {
-                                      console.error('Erreur lors de l\'upload:', error);
-                                    }
-                                  }
-                                };
-                                input.click();
+                                const blocks = formData.iconBlocks || [];
+                                const updatedBlocks = blocks.map((b: any) => 
+                                  b.id === block.id ? { ...b, mainIcon: 'far fa-medal' } : b
+                                );
+                                updateField('iconBlocks', updatedBlocks);
                               }}
-                              className="p-3 border rounded-lg hover:bg-blue-50 flex items-center justify-center transition-colors border-blue-400 bg-white"
+                              className={`p-3 border rounded-lg hover:bg-gray-50 flex items-center justify-center transition-colors ${
+                                block.mainIcon === 'far fa-medal' ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
+                              }`}
                               title="Médaille"
                             >
                               <i className="far fa-medal text-blue-600 text-lg"></i>
