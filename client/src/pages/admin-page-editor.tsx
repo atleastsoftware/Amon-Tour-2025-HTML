@@ -1886,15 +1886,10 @@ const BlockEditDropdown = ({
                   className="mt-2"
                 />
                 <div className="mt-3">
-                  <div className="flex items-center gap-2">
-                    <Label className="text-sm font-medium">Couleur du titre</Label>
-                    <input
-                      type="color"
-                      value={formData.titleColor || '#333333'}
-                      onChange={(e) => updateField('titleColor', e.target.value)}
-                      className="w-12 h-8 rounded border cursor-pointer"
-                    />
-                  </div>
+                  <ColorPicker
+                    value={formData.titleColor || '#333333'}
+                    onChange={(value) => updateField('titleColor', value)}
+                  />
                 </div>
               </div>
               
@@ -1907,26 +1902,19 @@ const BlockEditDropdown = ({
                   className="mt-2"
                 />
                 <div className="mt-3">
-                  <div className="flex items-center gap-2">
-                    <Label className="text-sm font-medium">Couleur du sous-titre</Label>
-                    <input
-                      type="color"
-                      value={formData.subtitleColor || '#666666'}
-                      onChange={(e) => updateField('subtitleColor', e.target.value)}
-                      className="w-12 h-8 rounded border cursor-pointer"
-                    />
-                  </div>
+                  <ColorPicker
+                    value={formData.subtitleColor || '#666666'}
+                    onChange={(value) => updateField('subtitleColor', value)}
+                  />
                 </div>
               </div>
               
               <div>
-                <div className="flex items-center gap-2">
-                  <Label className="text-sm font-medium">Couleur du tiret</Label>
-                  <input
-                    type="color"
+                <Label htmlFor="divider">Tiret</Label>
+                <div className="mt-3">
+                  <ColorPicker
                     value={formData.dividerColor || '#E6B64C'}
-                    onChange={(e) => updateField('dividerColor', e.target.value)}
-                    className="w-12 h-8 rounded border cursor-pointer"
+                    onChange={(value) => updateField('dividerColor', value)}
                   />
                 </div>
               </div>
@@ -2055,10 +2043,10 @@ const BlockEditDropdown = ({
                                 // TODO: Implémenter l'upload d'icône personnalisée
                                 console.log('Upload d\'icône personnalisée');
                               }}
-                              className="p-3 border-2 border-dashed border-green-400 rounded-lg hover:bg-green-50 flex items-center justify-center transition-colors bg-green-25"
+                              className="p-3 border-2 border-dashed border-blue-400 rounded-lg hover:bg-blue-50 flex items-center justify-center transition-colors bg-blue-25"
                               title="Upload icône personnalisée"
                             >
-                              <Plus size={20} className="text-green-600" />
+                              <Plus size={20} className="text-blue-600" />
                             </button>
                           </div>
                           <p className="text-xs text-gray-500 mt-2">Sélectionnez une icône principale pour ce bloc</p>
