@@ -2025,7 +2025,11 @@ const BlockEditDropdown = ({
               </div>
               
               <div className="space-y-3">
-                {(formData.buttons || []).map((button: any, index: number) => (
+                {(formData.buttons || []).length === 0 ? (
+                  <div className="text-center py-4 text-gray-500 text-sm">
+                    Aucun bouton configuré. Cliquez sur "Ajouter un bouton" pour commencer.
+                  </div>
+                ) : (formData.buttons || []).map((button: any, index: number) => (
                   <div key={index} className="border rounded-lg p-4 space-y-3">
                     <div className="flex items-center justify-between">
                       <Label className="text-sm font-medium">Bouton {index + 1}</Label>
