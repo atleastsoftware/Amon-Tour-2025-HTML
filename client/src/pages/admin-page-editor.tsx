@@ -2166,11 +2166,11 @@ const BlockEditDropdown = ({
                                     { icon: 'fas fa-car', component: <i className="fas fa-car text-xs"></i>, label: 'Private Car' },
                                     { icon: 'fas fa-language', component: <i className="fas fa-language text-xs"></i>, label: 'Guide' },
                                     { icon: 'fas fa-shield-alt', component: <i className="fas fa-shield-alt text-xs"></i>, label: 'Safety' },
-                                    { icon: 'fas fa-route', component: <i className="fas fa-route text-xs"></i>, label: 'Custom Route' },
+                                    { icon: 'fas fa-map-marked-alt', component: <i className="fas fa-map-marked-alt text-xs"></i>, label: 'Custom Route' },
                                     { icon: 'fas fa-clock', component: <i className="fas fa-clock text-xs"></i>, label: 'Flexible Time' },
-                                    { icon: 'fas fa-walking', component: <i className="fas fa-walking text-xs"></i>, label: 'Your Pace' },
+                                    { icon: 'fas fa-list-check', component: <i className="fas fa-list-check text-xs"></i>, label: 'Your Pace' },
                                     { icon: 'fas fa-utensils', component: <i className="fas fa-utensils text-xs"></i>, label: 'Local Food' },
-                                    { icon: 'fas fa-users', component: <i className="fas fa-users text-xs"></i>, label: 'Local People' },
+                                    { icon: 'fas fa-hands-helping', component: <i className="fas fa-hands-helping text-xs"></i>, label: 'Local People' },
                                     { icon: 'fas fa-landmark', component: <i className="fas fa-landmark text-xs"></i>, label: 'Culture' }
                                   ].map(({ icon, component, label }) => (
                                     <button
