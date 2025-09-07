@@ -2135,7 +2135,7 @@ const BlockEditDropdown = ({
                                     />
                                   </div>
                                   
-                                  {/* Bouton poubelle blanc sur fond bleu */}
+                                  {/* Bouton poubelle carré bleu */}
                                   <button
                                     type="button"
                                     onClick={() => {
@@ -2150,7 +2150,7 @@ const BlockEditDropdown = ({
                                       });
                                       updateField('iconBlocks', updatedBlocks);
                                     }}
-                                    className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition-colors"
+                                    className="bg-blue-500 text-white w-9 h-9 rounded hover:bg-blue-600 transition-colors flex items-center justify-center"
                                     title="Supprimer cette mini-icône"
                                   >
                                     <Trash2 size={14} />
@@ -2161,14 +2161,18 @@ const BlockEditDropdown = ({
                               {/* Sélecteur d'icône */}
                               <div>
                                 <Label className="text-xs font-medium text-gray-600 mb-2 block">Icône</Label>
-                                <div className="grid grid-cols-5 gap-1 mb-2">
+                                <div className="grid grid-cols-9 gap-1 mb-2">
                                   {[
-                                    { icon: 'fas fa-car', component: <i className="fas fa-car text-sm"></i> },
-                                    { icon: 'fas fa-language', component: <i className="fas fa-language text-sm"></i> },
-                                    { icon: 'fas fa-check', component: <i className="fas fa-check text-sm"></i> },
-                                    { icon: 'fas fa-star', component: <i className="fas fa-star text-sm"></i> },
-                                    { icon: 'fas fa-heart', component: <i className="fas fa-heart text-sm"></i> }
-                                  ].map(({ icon, component }) => (
+                                    { icon: 'fas fa-car', component: <i className="fas fa-car text-xs"></i>, label: 'Private Car' },
+                                    { icon: 'fas fa-language', component: <i className="fas fa-language text-xs"></i>, label: 'Guide' },
+                                    { icon: 'fas fa-shield-alt', component: <i className="fas fa-shield-alt text-xs"></i>, label: 'Safety' },
+                                    { icon: 'fas fa-route', component: <i className="fas fa-route text-xs"></i>, label: 'Custom Route' },
+                                    { icon: 'fas fa-clock', component: <i className="fas fa-clock text-xs"></i>, label: 'Flexible Time' },
+                                    { icon: 'fas fa-walking', component: <i className="fas fa-walking text-xs"></i>, label: 'Your Pace' },
+                                    { icon: 'fas fa-utensils', component: <i className="fas fa-utensils text-xs"></i>, label: 'Local Food' },
+                                    { icon: 'fas fa-users', component: <i className="fas fa-users text-xs"></i>, label: 'Local People' },
+                                    { icon: 'fas fa-landmark', component: <i className="fas fa-landmark text-xs"></i>, label: 'Culture' }
+                                  ].map(({ icon, component, label }) => (
                                     <button
                                       key={icon}
                                       type="button"
@@ -2184,17 +2188,17 @@ const BlockEditDropdown = ({
                                         });
                                         updateField('iconBlocks', updatedBlocks);
                                       }}
-                                      className={`p-2 border rounded hover:bg-gray-50 flex items-center justify-center transition-colors ${
+                                      className={`p-1.5 border rounded hover:bg-gray-50 flex items-center justify-center transition-colors ${
                                         miniIcon.icon === icon ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
                                       }`}
-                                      title={icon}
+                                      title={label}
                                     >
                                       {component}
                                     </button>
                                   ))}
                                 </div>
                                 
-                                {/* Input manuel avec bouton upload à côté */}
+                                {/* Input manuel avec boutons carrés bleus à côté */}
                                 <div className="flex gap-2">
                                   <Input 
                                     placeholder="ou tapez fas fa-custom" 
@@ -2211,20 +2215,20 @@ const BlockEditDropdown = ({
                                       });
                                       updateField('iconBlocks', updatedBlocks);
                                     }}
-                                    className="flex-1 text-xs"
+                                    className="flex-1 text-xs h-9"
                                   />
                                   
-                                  {/* Option d'upload à côté de l'input */}
+                                  {/* Bouton upload carré bleu de même hauteur */}
                                   <button
                                     type="button"
                                     onClick={() => {
                                       // TODO: Implémenter l'upload d'icône personnalisée pour mini-icônes
                                       console.log('Upload d\'icône personnalisée pour mini-icône');
                                     }}
-                                    className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition-colors"
+                                    className="bg-blue-500 text-white w-9 h-9 rounded hover:bg-blue-600 transition-colors flex items-center justify-center"
                                     title="Upload icône personnalisée"
                                   >
-                                    <Plus size={14} />
+                                    <ExternalLink size={14} />
                                   </button>
                                 </div>
                               </div>
