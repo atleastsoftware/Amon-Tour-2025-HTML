@@ -2046,7 +2046,8 @@ const BlockEditDropdown = ({
                               { icon: 'fas fa-compass', component: <Compass size={20} /> },
                               { icon: 'fas fa-sparkles', component: <Sparkles size={20} /> },
                               { icon: 'fas fa-heart', component: <Heart size={20} /> },
-                              { icon: 'far fa-trophy', component: <i className="far fa-trophy text-lg"></i> }
+                              { icon: 'fas fa-clock', component: <i className="fas fa-clock text-lg text-black"></i> },
+                              { icon: 'fas fa-trophy', component: <i className="fas fa-trophy text-lg text-black"></i> }
                             ].map(({ icon, component }) => (
                               <button
                                 key={icon}
@@ -2115,14 +2116,13 @@ const BlockEditDropdown = ({
                               <i className="far fa-clock text-blue-600 text-lg"></i>
                             </button>
                           </div>
-                          <p className="text-xs text-gray-500 mt-2">Sélectionnez une icône principale pour ce bloc</p>
+                          <p className="text-xs text-gray-500 mt-2">Sélectionnez une icône principale pour ce bloc ou entrez une URL d'image :</p>
                           
                           {/* Champ URL pour icône principale */}
                           <div className="mt-3">
-                            <Label className="text-xs font-medium text-gray-600 mb-2 block">Ou entrez une URL d'image</Label>
                             <div className="flex gap-2">
                               <Input 
-                                placeholder="ex: https://example.com/icon.png ou /path/icon.png"
+                                placeholder={block.mainIcon && !block.mainIcon.startsWith('http') && !block.mainIcon.startsWith('/') ? `Icône sélectionnée: ${block.mainIcon}` : "ex: https://example.com/icon.png ou /path/icon.png"}
                                 value={block.mainIcon && (block.mainIcon.startsWith('http') || block.mainIcon.startsWith('/')) ? block.mainIcon : ''}
                                 onChange={(e) => {
                                   const blocks = formData.iconBlocks || [];
@@ -2133,6 +2133,49 @@ const BlockEditDropdown = ({
                                 }}
                                 className="flex-1 text-xs h-9"
                               />
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const input = document.createElement('input');
+                                  input.type = 'file';
+                                  input.accept = 'image/*';
+                                  input.onchange = async (e) => {
+                                    const file = (e.target as HTMLInputElement).files?.[0];
+                                    if (file) {
+                                      try {
+                                        const uploadFormData = new FormData();
+                                        uploadFormData.append('image', file);
+                                        
+                                        const response = await fetch('/api/upload/image', {
+                                          method: 'POST',
+                                          body: uploadFormData
+                                        });
+                                        
+                                        if (response.ok) {
+                                          const { filePath } = await response.json();
+                                          
+                                          const blocks = formData.iconBlocks || [];
+                                          const updatedBlocks = blocks.map((b: any) => 
+                                            b.id === block.id ? { ...b, mainIcon: filePath } : b
+                                          );
+                                          updateField('iconBlocks', updatedBlocks);
+                                          
+                                          console.log('Icône principale uploadée:', filePath);
+                                        } else {
+                                          console.error('Erreur upload:', response.statusText);
+                                        }
+                                      } catch (error) {
+                                        console.error('Erreur lors de l\'upload:', error);
+                                      }
+                                    }
+                                  };
+                                  input.click();
+                                }}
+                                className="w-9 h-9 border-2 border-dashed border-blue-400 rounded hover:bg-blue-50 transition-colors flex items-center justify-center bg-blue-25"
+                                title="Upload icône principale personnalisée"
+                              >
+                                <Plus size={14} className="text-blue-600" />
+                              </button>
                             </div>
                           </div>
                         </div>
