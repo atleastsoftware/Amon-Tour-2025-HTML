@@ -2113,7 +2113,7 @@ const BlockEditDropdown = ({
                             <div key={miniIndex} className="bg-gray-50 p-3 rounded-lg border">
                               {/* Texte en premier */}
                               <div className="mb-3">
-                                <div className="flex gap-2 items-end">
+                                <div className="flex gap-2 items-start">
                                   <div className="flex-1">
                                     <Label className="text-xs font-medium text-gray-600">Texte</Label>
                                     <Input 
@@ -2131,7 +2131,7 @@ const BlockEditDropdown = ({
                                         });
                                         updateField('iconBlocks', updatedBlocks);
                                       }}
-                                      className="mt-1"
+                                      className="mt-1 h-9"
                                     />
                                   </div>
                                   
@@ -2150,7 +2150,7 @@ const BlockEditDropdown = ({
                                       });
                                       updateField('iconBlocks', updatedBlocks);
                                     }}
-                                    className="bg-blue-500 text-white w-9 h-9 rounded hover:bg-blue-600 transition-colors flex items-center justify-center"
+                                    className="bg-blue-500 text-white w-9 h-9 rounded hover:bg-blue-600 transition-colors flex items-center justify-center mt-6"
                                     title="Supprimer cette mini-icône"
                                   >
                                     <Trash2 size={14} />
@@ -2218,17 +2218,17 @@ const BlockEditDropdown = ({
                                     className="flex-1 text-xs h-9"
                                   />
                                   
-                                  {/* Bouton upload carré bleu de même hauteur */}
+                                  {/* Bouton upload avec contour pointillé bleu */}
                                   <button
                                     type="button"
                                     onClick={() => {
                                       // TODO: Implémenter l'upload d'icône personnalisée pour mini-icônes
                                       console.log('Upload d\'icône personnalisée pour mini-icône');
                                     }}
-                                    className="bg-blue-500 text-white w-9 h-9 rounded hover:bg-blue-600 transition-colors flex items-center justify-center"
+                                    className="w-9 h-9 border-2 border-dashed border-blue-400 rounded hover:bg-blue-50 transition-colors flex items-center justify-center bg-blue-25"
                                     title="Upload icône personnalisée"
                                   >
-                                    <ExternalLink size={14} />
+                                    <Plus size={14} className="text-blue-600" />
                                   </button>
                                 </div>
                               </div>
