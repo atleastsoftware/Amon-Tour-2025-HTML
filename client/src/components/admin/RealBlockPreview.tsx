@@ -541,6 +541,110 @@ function MiniaturizedComponent({
             </div>
           </div>
         );
+
+      case 'popular_experiences':
+        return (
+          <div className="h-full bg-gray-50 p-2">
+            <div className="text-center mb-2">
+              <div className="text-[10px] font-bold">{block.title || "Our Popular Experiences"}</div>
+              <div className="w-4 h-0.5 bg-yellow-500 mx-auto mt-1"></div>
+            </div>
+            <div className="grid grid-cols-3 gap-1 h-12 mb-2">
+              <div className="bg-white rounded shadow-sm overflow-hidden">
+                <div className="h-4 bg-gradient-to-br from-blue-300 to-blue-500"></div>
+                <div className="p-1">
+                  <div className="text-[6px] font-semibold">Phi Phi</div>
+                  <div className="text-[5px] text-gray-600">1 day</div>
+                </div>
+              </div>
+              <div className="bg-white rounded shadow-sm overflow-hidden">
+                <div className="h-4 bg-gradient-to-br from-green-300 to-green-500"></div>
+                <div className="p-1">
+                  <div className="text-[6px] font-semibold">Phang Nga</div>
+                  <div className="text-[5px] text-gray-600">1 day</div>
+                </div>
+              </div>
+              <div className="bg-white rounded shadow-sm overflow-hidden">
+                <div className="h-4 bg-gradient-to-br from-orange-300 to-orange-500"></div>
+                <div className="p-1">
+                  <div className="text-[6px] font-semibold">Railay</div>
+                  <div className="text-[5px] text-gray-600">1 day</div>
+                </div>
+              </div>
+            </div>
+            {/* Afficher les boutons d'action s'ils existent */}
+            {config.buttons && config.buttons.length > 0 && (
+              <div className="flex gap-0.5 justify-center">
+                {config.buttons.slice(0, 2).map((button: any, index: number) => (
+                  <div 
+                    key={index}
+                    className="text-[6px] px-1 py-0.5 rounded"
+                    style={{
+                      backgroundColor: (button.style || 'filled') === 'filled' ? (button.color || '#1e73be') : 'transparent',
+                      borderWidth: (button.style || 'filled') === 'outline' ? '1px' : '0',
+                      borderColor: (button.style || 'filled') === 'outline' ? (button.color || '#1e73be') : 'transparent',
+                      color: (button.style || 'filled') === 'outline' ? (button.color || '#1e73be') : '#ffffff'
+                    }}
+                  >
+                    {button.text?.substring(0, 10) || `Btn ${index + 1}`}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        );
+
+      case 'tour_ninja_section':
+        return (
+          <div className="h-full bg-gray-50 p-2">
+            <div className="text-center mb-2">
+              <div className="text-[10px] font-bold">{block.title || "Some Ideas For Your Next Trip"}</div>
+              <div className="w-4 h-0.5 bg-yellow-500 mx-auto mt-1"></div>
+            </div>
+            <div className="grid grid-cols-3 gap-1 h-12 mb-2">
+              <div className="bg-white rounded shadow-sm overflow-hidden">
+                <div className="h-4 bg-gradient-to-br from-blue-300 to-blue-500"></div>
+                <div className="p-1">
+                  <div className="text-[6px] font-semibold">Phi Phi</div>
+                  <div className="text-[5px] text-gray-600">$85</div>
+                </div>
+              </div>
+              <div className="bg-white rounded shadow-sm overflow-hidden">
+                <div className="h-4 bg-gradient-to-br from-green-300 to-green-500"></div>
+                <div className="p-1">
+                  <div className="text-[6px] font-semibold">Phang Nga</div>
+                  <div className="text-[5px] text-gray-600">$75</div>
+                </div>
+              </div>
+              <div className="bg-white rounded shadow-sm overflow-hidden">
+                <div className="h-4 bg-gradient-to-br from-orange-300 to-orange-500"></div>
+                <div className="p-1">
+                  <div className="text-[6px] font-semibold">Railay</div>
+                  <div className="text-[5px] text-gray-600">$60</div>
+                </div>
+              </div>
+            </div>
+            {/* Afficher les boutons d'action s'ils existent */}
+            {config.buttons && config.buttons.length > 0 && (
+              <div className="flex gap-0.5 justify-center">
+                {config.buttons.slice(0, 2).map((button: any, index: number) => (
+                  <div 
+                    key={index}
+                    className="text-[6px] px-1 py-0.5 rounded"
+                    style={{
+                      backgroundColor: (button.style || 'filled') === 'filled' ? (button.color || '#1e73be') : 'transparent',
+                      borderWidth: (button.style || 'filled') === 'outline' ? '1px' : '0',
+                      borderColor: (button.style || 'filled') === 'outline' ? (button.color || '#1e73be') : 'transparent',
+                      color: (button.style || 'filled') === 'outline' ? (button.color || '#1e73be') : '#ffffff'
+                    }}
+                  >
+                    {button.text?.substring(0, 10) || `Btn ${index + 1}`}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        );
         
       default:
         return (
