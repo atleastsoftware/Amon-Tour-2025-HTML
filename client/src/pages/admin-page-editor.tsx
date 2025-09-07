@@ -2064,8 +2064,7 @@ const BlockEditDropdown = ({
                               { icon: 'fas fa-compass', component: <Compass size={20} /> },
                               { icon: 'fas fa-sparkles', component: <Sparkles size={20} /> },
                               { icon: 'fas fa-heart', component: <Heart size={20} /> },
-                              { icon: 'far fa-clock', component: <i className="far fa-clock text-lg text-black"></i> },
-                              { icon: 'far fa-trophy', component: <i className="far fa-trophy text-lg text-black"></i> }
+                              { icon: 'far fa-clock', component: <i className="far fa-clock text-lg text-black"></i> }
                             ].map(({ icon, component }) => (
                               <button
                                 key={icon}
@@ -2131,7 +2130,7 @@ const BlockEditDropdown = ({
                               className="p-3 border-2 border-dashed border-blue-400 rounded-lg hover:bg-blue-50 flex items-center justify-center transition-colors bg-blue-25"
                               title="Upload icône personnalisée"
                             >
-                              <i className="far fa-clock text-blue-600 text-lg"></i>
+                              <span className="text-blue-600 text-lg font-bold">+</span>
                             </button>
                           </div>
                           <p className="text-xs text-gray-500 mt-2">Sélectionnez une icône principale pour ce bloc ou entrez une URL d'image :</p>
