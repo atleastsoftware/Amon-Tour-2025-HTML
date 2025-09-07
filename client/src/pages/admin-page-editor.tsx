@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Edit, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Save, Undo, Trash2, AlertTriangle, Plus, ExternalLink, ChevronRight, Users, Compass, Sparkles } from 'lucide-react';
+import { ArrowLeft, Edit, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Save, Undo, Trash2, AlertTriangle, Plus, ExternalLink, ChevronRight, Users, Compass, Sparkles, Star, Heart } from 'lucide-react';
 import TourNinjaCard from '@/components/tour/TourNinjaCard';
 import { useTourNinja } from '@/hooks/useTourNinja';
 
@@ -2087,10 +2087,30 @@ const BlockEditDropdown = ({
                       
                       {/* Mini-icônes */}
                       <div>
-                        <Label className="mb-2 block">Mini-icônes</Label>
+                        <div className="flex items-center justify-between mb-2">
+                          <Label className="text-sm font-medium text-gray-700">Mini-icônes</Label>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const blocks = formData.iconBlocks || [];
+                              const updatedBlocks = blocks.map((b: any) => {
+                                if (b.id === block.id) {
+                                  const newMiniIcons = [...(b.miniIcons || []), { icon: 'fas fa-check', text: 'Nouveau' }];
+                                  return { ...b, miniIcons: newMiniIcons };
+                                }
+                                return b;
+                              });
+                              updateField('iconBlocks', updatedBlocks);
+                            }}
+                            className="text-xs bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 flex items-center gap-1"
+                          >
+                            <Plus size={12} />
+                            Ajouter
+                          </button>
+                        </div>
                         <div className="space-y-2">
-                          {block.miniIcons?.map((miniIcon: any, miniIndex: number) => (
-                            <div key={miniIndex} className="flex gap-2">
+                          {(block.miniIcons || []).map((miniIcon: any, miniIndex: number) => (
+                            <div key={miniIndex} className="flex gap-2 items-center">
                               <Input 
                                 placeholder="fas fa-check" 
                                 value={miniIcon.icon} 
@@ -2125,8 +2145,30 @@ const BlockEditDropdown = ({
                                 }}
                                 className="flex-1"
                               />
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const blocks = formData.iconBlocks || [];
+                                  const updatedBlocks = blocks.map((b: any) => {
+                                    if (b.id === block.id) {
+                                      const newMiniIcons = [...(b.miniIcons || [])];
+                                      newMiniIcons.splice(miniIndex, 1);
+                                      return { ...b, miniIcons: newMiniIcons };
+                                    }
+                                    return b;
+                                  });
+                                  updateField('iconBlocks', updatedBlocks);
+                                }}
+                                className="text-red-500 hover:text-red-700 p-1"
+                                title="Supprimer cette mini-icône"
+                              >
+                                <Trash2 size={16} />
+                              </button>
                             </div>
                           ))}
+                          {(!block.miniIcons || block.miniIcons.length === 0) && (
+                            <p className="text-xs text-gray-500 italic">Aucune mini-icône ajoutée. Utilisez le bouton "Ajouter" ci-dessus.</p>
+                          )}
                         </div>
                       </div>
                     </div>
