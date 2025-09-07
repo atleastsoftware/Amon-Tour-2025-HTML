@@ -2046,8 +2046,8 @@ const BlockEditDropdown = ({
                               { icon: 'fas fa-compass', component: <Compass size={20} /> },
                               { icon: 'fas fa-sparkles', component: <Sparkles size={20} /> },
                               { icon: 'fas fa-heart', component: <Heart size={20} /> },
-                              { icon: 'fas fa-clock', component: <i className="fas fa-clock text-lg text-black"></i> },
-                              { icon: 'fas fa-trophy', component: <i className="fas fa-trophy text-lg text-black"></i> }
+                              { icon: 'far fa-clock', component: <i className="far fa-clock text-lg text-black"></i> },
+                              { icon: 'far fa-trophy', component: <i className="far fa-trophy text-lg text-black"></i> }
                             ].map(({ icon, component }) => (
                               <button
                                 key={icon}
@@ -2122,7 +2122,7 @@ const BlockEditDropdown = ({
                           <div className="mt-3">
                             <div className="flex gap-2">
                               <Input 
-                                placeholder={block.mainIcon && !block.mainIcon.startsWith('http') && !block.mainIcon.startsWith('/') ? `Icône sélectionnée: ${block.mainIcon}` : "ex: https://example.com/icon.png ou /path/icon.png"}
+                                placeholder={block.mainIcon && !block.mainIcon.startsWith('http') && !block.mainIcon.startsWith('/') ? `Icône sélectionnée: ${block.mainIcon}` : ""}
                                 value={block.mainIcon && (block.mainIcon.startsWith('http') || block.mainIcon.startsWith('/')) ? block.mainIcon : ''}
                                 onChange={(e) => {
                                   const blocks = formData.iconBlocks || [];
@@ -2341,7 +2341,7 @@ const BlockEditDropdown = ({
                                 {/* Input manuel avec boutons carrés bleus à côté */}
                                 <div className="flex gap-2">
                                   <Input 
-                                    placeholder="ex: fas fa-car ou URL d'image" 
+                                    placeholder={miniIcon.icon && !miniIcon.icon.startsWith('http') && !miniIcon.icon.startsWith('/') ? `Icône sélectionnée: ${miniIcon.icon}` : ""} 
                                     value={miniIcon.icon} 
                                     data-mini-icon={`${block.id}-${miniIndex}`}
                                     onChange={e => {
