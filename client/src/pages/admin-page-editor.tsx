@@ -209,7 +209,7 @@ const getBlockDisplayName = (block: PageBlock): string => {
     'hero': 'Hero Section', 
     'text_image': 'Text',
     'form': 'Form',
-    'advantages': 'Advantages',
+    'advantages': 'Text + Icones',
     'testimonials': 'Testimonials',
     'features': 'Features',
     'about': 'About',
