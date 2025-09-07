@@ -867,7 +867,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                 {(featuresConfig.iconBlocks || [
                   {
                     id: 1,
-                    mainIcon: 'fas fa-users',
+                    mainIcon: 'fas fa-user-friends',
                     title: 'Private Tours',
                     description: 'Experience an exclusive day trip with our professional guides and private vehicles.',
                     miniIcons: [
@@ -1963,7 +1963,7 @@ const BlockEditDropdown = ({
                 {(formData.iconBlocks || [
                   {
                     id: 1,
-                    mainIcon: 'fas fa-users',
+                    mainIcon: 'fas fa-user-friends',
                     title: 'Private Tours',
                     description: 'Experience an exclusive day trip with our professional guides and private vehicles.',
                     miniIcons: [
@@ -2029,7 +2029,7 @@ const BlockEditDropdown = ({
                             className="flex-1"
                           />
                           <div className="flex gap-1">
-                            {['fas fa-sparkles', 'fas fa-users', 'fas fa-compass', 'fas fa-star', 'fas fa-heart', 'fas fa-trophy'].map(icon => (
+                            {['fas fa-sparkles', 'fas fa-user-friends', 'fas fa-compass', 'fas fa-star', 'fas fa-heart', 'fas fa-trophy'].map(icon => (
                               <button
                                 key={icon}
                                 type="button"
