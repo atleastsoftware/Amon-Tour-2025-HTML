@@ -2308,9 +2308,7 @@ const BlockEditDropdown = ({
                               }`}
                               title="Médaille"
                             >
-                              <i className={`fas fa-medal text-lg ${
-                                block.mainIcon === 'fas fa-medal' ? 'text-blue-600' : 'text-gray-700'
-                              }`}></i>
+                              <i className="fas fa-medal text-lg text-gray-700"></i>
                             </button>
                           </div>
                           <p className="text-xs text-gray-500 mt-2">Sélectionnez une icône principale pour ce bloc ou entrez une URL d'image :</p>
