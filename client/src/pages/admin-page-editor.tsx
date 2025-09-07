@@ -940,7 +940,25 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                           whileHover={{ y: -5 }}
                         >
                           <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mb-1">
-                            <i className={`${miniIcon.icon} text-primary text-sm`}></i>
+                            {/* Si c'est une URL d'image, afficher l'image */}
+                            {miniIcon.icon && (miniIcon.icon.startsWith('http') || miniIcon.icon.startsWith('/')) ? (
+                              <img 
+                                src={miniIcon.icon} 
+                                alt={miniIcon.text} 
+                                className="w-6 h-6 object-cover rounded"
+                                onError={(e) => {
+                                  // Fallback vers icône par défaut si image ne charge pas
+                                  (e.target as HTMLElement).style.display = 'none';
+                                  const fallbackIcon = (e.target as HTMLElement).nextElementSibling as HTMLElement;
+                                  if (fallbackIcon) fallbackIcon.style.display = 'block';
+                                }}
+                              />
+                            ) : null}
+                            {/* Icône FontAwesome par défaut */}
+                            <i 
+                              className={`${miniIcon.icon && !miniIcon.icon.startsWith('http') && !miniIcon.icon.startsWith('/') ? miniIcon.icon : 'fas fa-question'} text-primary text-sm`}
+                              style={{ display: miniIcon.icon && (miniIcon.icon.startsWith('http') || miniIcon.icon.startsWith('/')) ? 'none' : 'block' }}
+                            ></i>
                           </div>
                           <span className="text-xs text-center">{miniIcon.text}</span>
                         </motion.div>
@@ -2311,6 +2329,12 @@ const BlockEditDropdown = ({
                                                 return b;
                                               });
                                               updateField('iconBlocks', updatedBlocks);
+                                              
+                                              // Mettre à jour le champ input avec le nom du fichier
+                                              const iconInput = document.querySelector(`input[data-mini-icon="${block.id}-${miniIndex}"]`) as HTMLInputElement;
+                                              if (iconInput) {
+                                                iconInput.value = filePath;
+                                              }
                                               
                                               console.log('Mini-icône uploadée avec succès:', filePath);
                                             } else {
