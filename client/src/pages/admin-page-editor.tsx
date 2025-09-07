@@ -215,9 +215,9 @@ const getBlockDisplayName = (block: PageBlock): string => {
     'about': 'About',
     'custom_tour_form': 'Custom Tour Form',
     'expats_welcome': 'Expats Welcome',
-    'who_we_are': 'Who We Are',
+    'who_we_are': 'Article',
     'why_choose_us': 'Text + Icones',
-    'travelers_reviews': 'Travelers Reviews'
+    'travelers_reviews': 'Reviews'
   };
   
   return blockNames[block.blockType] || block.blockType.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
