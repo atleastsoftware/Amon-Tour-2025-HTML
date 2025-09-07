@@ -858,7 +858,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                     className="text-gray-600 max-w-2xl mx-auto"
                     style={{ color: featuresConfig.subtitleColor || '#666666' }}
                   >
-{featuresConfig.subtitle || 'What makes Amon Tour special'}
+{featuresConfig.subtitle || 'Experience an exclusive private day trip with our English or French-speaking and certified guides.'}
                   </p>
                 </motion.div>
               </div>
@@ -1902,7 +1902,7 @@ const BlockEditDropdown = ({
                 <Label htmlFor="subtitle">Sous-titre</Label>
                 <Input 
                   id="subtitle"
-                  value={formData.subtitle || 'Experience an exclusive private day trip...'} 
+                  value={formData.subtitle || 'Experience an exclusive private day trip with our English or French-speaking and certified guides.'} 
                   onChange={e => updateField('subtitle', e.target.value)}
                   className="mt-2"
                 />
