@@ -544,26 +544,56 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                     </div>
                   ) : (
                     <div className="space-y-4">
-                      {/* Render fields with exact site layout */}
-                      {formData.fields.map((field, index) => {
-                        const nextField = formData.fields[index + 1];
-                        const isHalfWidth = field.style?.width === 'half';
-                        const nextIsHalfWidth = nextField?.style?.width === 'half';
-                        
-                        if (isHalfWidth && nextIsHalfWidth) {
-                          // Skip rendering this field if it's already rendered as part of a grid
-                          if (index % 2 === 1) return null;
+                      {/* Render fields with exact site layout logic */}
+                      {(() => {
+                        const renderedIndexes = new Set();
+                        return formData.fields.map((field, index) => {
+                          if (renderedIndexes.has(index)) return null;
                           
-                          return (
-                            <div key={`grid-${field.id}`} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                              <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -20 }}
-                              >
-                                {renderFieldPreview(field)}
-                              </motion.div>
-                              {nextField && (
+                          const nextField = formData.fields[index + 1];
+                          const isHalfWidth = field.style?.width === 'half';
+                          const isThirdWidth = field.style?.width === 'third';
+                          const nextIsHalfWidth = nextField?.style?.width === 'half';
+                          
+                          // Country Code (1/3) + WhatsApp (2/3) special case
+                          if (isThirdWidth && nextField && nextIsHalfWidth && field.id === 'countrycode') {
+                            renderedIndexes.add(index);
+                            renderedIndexes.add(index + 1);
+                            return (
+                              <div key={`phone-grid-${field.id}`} className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <motion.div
+                                  initial={{ opacity: 0, y: 20 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  exit={{ opacity: 0, y: -20 }}
+                                >
+                                  {renderFieldPreview(field)}
+                                </motion.div>
+                                <div className="md:col-span-2">
+                                  <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -20 }}
+                                  >
+                                    {renderFieldPreview(nextField)}
+                                  </motion.div>
+                                </div>
+                              </div>
+                            );
+                          }
+                          
+                          // Regular half-width fields (2 columns)
+                          if (isHalfWidth && nextField && nextIsHalfWidth) {
+                            renderedIndexes.add(index);
+                            renderedIndexes.add(index + 1);
+                            return (
+                              <div key={`grid-${field.id}`} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <motion.div
+                                  initial={{ opacity: 0, y: 20 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  exit={{ opacity: 0, y: -20 }}
+                                >
+                                  {renderFieldPreview(field)}
+                                </motion.div>
                                 <motion.div
                                   initial={{ opacity: 0, y: 20 }}
                                   animate={{ opacity: 1, y: 0 }}
@@ -571,10 +601,12 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                                 >
                                   {renderFieldPreview(nextField)}
                                 </motion.div>
-                              )}
-                            </div>
-                          );
-                        } else if (!isHalfWidth || (isHalfWidth && !nextIsHalfWidth && index % 2 === 0)) {
+                              </div>
+                            );
+                          }
+                          
+                          // Full width fields
+                          renderedIndexes.add(index);
                           return (
                             <motion.div
                               key={field.id}
@@ -585,9 +617,8 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                               {renderFieldPreview(field)}
                             </motion.div>
                           );
-                        }
-                        return null;
-                      })}
+                        }).filter(Boolean);
+                      })()}
                       
                       {/* Submit Button */}
                       <div className="pt-4">
