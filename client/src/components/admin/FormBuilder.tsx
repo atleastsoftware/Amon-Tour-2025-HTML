@@ -103,28 +103,128 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
   const [saving, setSaving] = useState(false);
   const [selectedField, setSelectedField] = useState<string | null>(null);
   
-  const [formData, setFormData] = useState<FormData>({
-    name: '',
-    title: '',
-    subtitle: '',
-    description: '',
-    headerImage: '/catamaran-cruise.png',
-    layout: 'single-column',
-    backgroundColor: '#ffffff',
-    primaryColor: '#1e73be',
-    textColor: '#333333',
-    fields: [],
-    settings: {
-      submitButtonText: 'Envoyer',
-      submitButtonColor: '#1e73be',
-      successMessage: 'Merci ! Votre message a été envoyé avec succès.',
-      errorMessage: 'Une erreur est survenue. Veuillez réessayer.',
-      emailNotification: true,
-      redirectUrl: ''
-    },
-    isActive: true,
-    ...initialForm
-  });
+  // Pre-populate with Custom Tour Request form if no initial form provided
+  const getDefaultFormData = () => {
+    if (initialForm) return initialForm;
+    
+    // Default to Custom Tour Request form structure
+    return {
+      name: 'Custom Tour Request',
+      title: 'Create Your Custom Trip',
+      subtitle: 'Your travel story starts with your dreams – let us write the rest.',
+      description: 'Créez votre expérience unique en Thaïlande',
+      headerImage: '/catamaran-cruise.png',
+      layout: 'single-column' as const,
+      backgroundColor: '#ffffff',
+      primaryColor: '#1e73be',
+      textColor: '#333333',
+      fields: [
+        {
+          id: 'fullname',
+          type: 'text' as const,
+          label: 'Full Name',
+          placeholder: 'Your name',
+          required: true,
+          style: { width: 'half' as const }
+        },
+        {
+          id: 'email',
+          type: 'email' as const,
+          label: 'Email',
+          placeholder: 'Your email',
+          required: true,
+          style: { width: 'half' as const }
+        },
+        {
+          id: 'countrycode',
+          type: 'select' as const,
+          label: 'Country Code',
+          placeholder: 'Code',
+          required: true,
+          options: ['🇫🇷 +33', '🇹🇭 +66', '🇺🇸 +1', '🇬🇧 +44', '🇩🇪 +49', '🇪🇸 +34'],
+          style: { width: 'third' as const }
+        },
+        {
+          id: 'whatsapp',
+          type: 'phone' as const,
+          label: 'WhatsApp Number',
+          placeholder: 'Your WhatsApp number',
+          required: true,
+          style: { width: 'half' as const }
+        },
+        {
+          id: 'adults',
+          type: 'select' as const,
+          label: 'Number of adults',
+          placeholder: 'Select number of adults',
+          required: false,
+          options: ['1 adult', '2 adults', '3 adults', '4 adults', '5 adults', '6+ adults'],
+          style: { width: 'half' as const }
+        },
+        {
+          id: 'kids',
+          type: 'select' as const,
+          label: 'Number of kids (under 12 years old)',
+          placeholder: 'Select number of kids',
+          required: false,
+          options: ['No kids', '1 kid', '2 kids', '3 kids', '4 kids', '5+ kids'],
+          style: { width: 'half' as const }
+        },
+        {
+          id: 'dates',
+          type: 'date' as const,
+          label: 'Dates of trip',
+          placeholder: 'Select trip dates',
+          required: false,
+          style: { width: 'full' as const }
+        },
+        {
+          id: 'duration',
+          type: 'select' as const,
+          label: 'Or approximate duration',
+          placeholder: 'Select duration',
+          required: false,
+          options: ['1-3 days', '4-7 days', '8-14 days', '15+ days'],
+          style: { width: 'full' as const }
+        },
+        {
+          id: 'triptypes',
+          type: 'checkbox' as const,
+          label: 'Trip Types',
+          required: false,
+          options: ['Culture & History', 'Nature & Adventure', 'Beaches & Islands', 'Family trip', 'Group trip', 'Wedding & Honeymoon'],
+          style: { width: 'full' as const }
+        },
+        {
+          id: 'destinations',
+          type: 'checkbox' as const,
+          label: 'Destinations',
+          required: false,
+          options: ['Khao Sok', 'Krabi', 'Koh Mook', 'Bangkok', 'Chiang Mai', 'Others destinations'],
+          style: { width: 'full' as const }
+        },
+        {
+          id: 'message',
+          type: 'textarea' as const,
+          label: 'Describe your ideal trip',
+          placeholder: 'Tell us what you would like to see and do during your journey...',
+          required: true,
+          style: { width: 'full' as const }
+        }
+      ],
+      settings: {
+        submitButtonText: 'Send my request',
+        submitButtonColor: '#1e73be',
+        successMessage: 'We will contact you very soon to discuss your travel project.',
+        errorMessage: 'There was a problem sending your request. Please try again.',
+        emailNotification: true,
+        redirectUrl: ''
+      },
+      isActive: true
+    };
+  };
+
+  const [formData, setFormData] = useState<FormData>(getDefaultFormData());
 
   // Generate unique field ID
   const generateFieldId = () => `field_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
@@ -290,11 +390,11 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
             <Label className="mb-2 block">
               {field.label} {field.required && <span className="text-red-500">*</span>}
             </Label>
-            <div className="space-y-2">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
               {field.options?.map((option, index) => (
                 <div key={index} className="flex items-center space-x-2">
-                  <input type="checkbox" id={`${field.id}-${index}`} />
-                  <Label htmlFor={`${field.id}-${index}`}>{option}</Label>
+                  <input type="checkbox" id={`${field.id}-${index}`} className="rounded" />
+                  <Label htmlFor={`${field.id}-${index}`} className="text-sm font-normal cursor-pointer">{option}</Label>
                 </div>
               ))}
             </div>
