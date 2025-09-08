@@ -1,4 +1,21 @@
 import { useState, useRef, useEffect } from 'react';
+
+// CSS personnalisé pour les checkboxes
+const checkboxStyles = `
+  .checkbox-custom[data-state="checked"] {
+    background-color: var(--checkbox-color) !important;
+    border-color: var(--checkbox-color) !important;
+  }
+  
+  .checkbox-custom:focus-visible {
+    outline: 2px solid var(--checkbox-color) !important;
+    outline-offset: 2px !important;
+  }
+  
+  .checkbox-custom[data-state="unchecked"] {
+    border-color: var(--checkbox-color) !important;
+  }
+`;
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -109,102 +126,151 @@ const SYSTEM_COLORS = {
   dark: '#1f2937'
 };
 
-// Composant ColorPicker avec cases rapides + curseur personnalisé
+// Couleurs principales du thème
+const THEME_COLORS = {
+  primary: '#1e73be',
+  secondary: '#E6B64C'
+};
+
+// Composant ColorPicker compact avec sélecteur natif + cases rapides
 interface ColorPickerProps {
   value: string;
   onChange: (value: string) => void;
+  label?: string;
 }
 
-function ColorPicker({ value, onChange }: ColorPickerProps) {
-  const getColorValue = (colorName: string) => {
-    return SYSTEM_COLORS[colorName as keyof typeof SYSTEM_COLORS] || colorName;
+function ColorPicker({ value, onChange, label }: ColorPickerProps) {
+  const [isEditingCustom, setIsEditingCustom] = useState(false);
+  const [customInput, setCustomInput] = useState('');
+  const currentColorValue = value || '#ffffff';
+
+  // Fonction pour convertir RGB en HEX si nécessaire
+  const ensureHexFormat = (color: string): string => {
+    if (color.startsWith('#')) return color.toLowerCase();
+    
+    // Si c'est en format RGB, convertir en HEX
+    const rgbMatch = color.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
+    if (rgbMatch) {
+      const [, r, g, b] = rgbMatch;
+      const toHex = (n: string) => parseInt(n).toString(16).padStart(2, '0');
+      return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+    }
+    
+    return color;
   };
 
-  const handleQuickColorClick = (colorName: string) => {
-    onChange(colorName);
+  const handleColorChange = (newColor: string) => {
+    const hexColor = ensureHexFormat(newColor);
+    onChange(hexColor);
+    setIsEditingCustom(false);
   };
 
-  const handleCustomColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(e.target.value);
-  };
-
-  const handleHexInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const hexValue = e.target.value;
-    // Valider que c'est un code hex valide
-    if (/^#[0-9A-F]{6}$/i.test(hexValue) || hexValue === '') {
-      onChange(hexValue);
+  const handleOptionSelect = (option: string) => {
+    switch (option) {
+      case 'primary':
+        onChange(THEME_COLORS.primary);
+        setIsEditingCustom(false);
+        break;
+      case 'secondary':
+        onChange(THEME_COLORS.secondary);
+        setIsEditingCustom(false);
+        break;
+      case 'custom':
+        // Ne pas activer automatiquement le mode édition
+        // Rester sur le dropdown avec le code couleur cliquable
+        setIsEditingCustom(false);
+        break;
     }
   };
 
-  const currentColorValue = getColorValue(value);
+  const handleCustomInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    setCustomInput(inputValue);
+    
+    // Valider et appliquer si c'est un hex valide
+    if (/^#[0-9A-F]{6}$/i.test(inputValue)) {
+      onChange(inputValue);
+    }
+  };
+
+  const handleCustomInputBlur = () => {
+    // Appliquer la couleur même si pas parfaitement valide, mais corriger le format
+    if (customInput.startsWith('#') && customInput.length >= 4) {
+      const correctedColor = ensureHexFormat(customInput);
+      onChange(correctedColor);
+      setCustomInput(correctedColor);
+    }
+    setIsEditingCustom(false);
+  };
+
+  const getCurrentOption = () => {
+    if (currentColorValue === THEME_COLORS.primary) return 'primary';
+    if (currentColorValue === THEME_COLORS.secondary) return 'secondary';
+    return 'custom';
+  };
+
+  const displayValue = ensureHexFormat(currentColorValue).toUpperCase();
 
   return (
-    <div className="space-y-4">
-      {/* Champ de référence couleur */}
-      <div className="space-y-2">
-        <Label className="text-sm font-medium">Référence couleur</Label>
-        <Input
-          type="text"
-          value={currentColorValue}
-          onChange={handleHexInputChange}
-          placeholder="#ffffff"
-          className="font-mono text-sm"
-          title="Tapez le code couleur ou sélectionnez une couleur prédéfinie"
-        />
-      </div>
+    <div className="space-y-2">
+      {label && <Label className="text-sm font-medium">{label}</Label>}
       
-      {/* Couleurs prédéfinies du thème */}
-      <div className="space-y-2">
-        <Label className="text-sm font-medium">Couleurs du thème</Label>
-        <div className="flex gap-3">
-          <button
-            type="button"
-            onClick={() => handleQuickColorClick('primary')}
-            className={`flex items-center gap-2 px-3 py-2 rounded border-2 transition-all hover:scale-105 ${
-              value === 'primary' ? 'border-blue-400 ring-2 ring-blue-200 bg-blue-50' : 'border-gray-200 hover:border-gray-300'
-            }`}
-            title="Couleur principale du thème"
+      <div className="flex items-center gap-2">
+        {/* Cadre de couleur personnalisable à gauche */}
+        <div className="relative">
+          <div 
+            className="w-8 h-8 rounded border border-gray-300 cursor-pointer relative overflow-hidden hover:border-gray-400 transition-colors"
+            style={{ backgroundColor: currentColorValue }}
+            title="Cliquez pour personnaliser la couleur"
           >
-            <div 
-              className="w-6 h-6 rounded"
-              style={{ backgroundColor: SYSTEM_COLORS.primary }}
+            <input
+              type="color"
+              value={currentColorValue}
+              onChange={(e) => handleColorChange(e.target.value)}
+              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
             />
-            <span className="text-sm font-medium">Couleur principale</span>
-          </button>
-          
-          <button
-            type="button"
-            onClick={() => handleQuickColorClick('secondary')}
-            className={`flex items-center gap-2 px-3 py-2 rounded border-2 transition-all hover:scale-105 ${
-              value === 'secondary' ? 'border-yellow-400 ring-2 ring-yellow-200 bg-yellow-50' : 'border-gray-200 hover:border-gray-300'
-            }`}
-            title="Couleur secondaire du thème"
-          >
-            <div 
-              className="w-6 h-6 rounded"
-              style={{ backgroundColor: SYSTEM_COLORS.secondary }}
-            />
-            <span className="text-sm font-medium">Couleur secondaire</span>
-          </button>
+          </div>
         </div>
-      </div>
 
-      {/* Aperçu visuel avec color picker natif */}
-      <div className="space-y-2">
-        <Label className="text-sm font-medium">Aperçu</Label>
-        <div className="flex items-center gap-2">
+        {/* Dropdown avec les 3 options OU champ de saisie directe */}
+        {isEditingCustom ? (
           <Input
-            type="color"
-            value={currentColorValue}
-            onChange={handleCustomColorChange}
-            className="w-12 h-8 p-0 border cursor-pointer"
-            title="Sélectionneur de couleur"
+            value={customInput}
+            onChange={handleCustomInputChange}
+            onBlur={handleCustomInputBlur}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                handleCustomInputBlur();
+              }
+              if (e.key === 'Escape') {
+                setIsEditingCustom(false);
+                setCustomInput('');
+              }
+            }}
+            placeholder="#ffffff"
+            className="flex-1 font-mono text-sm"
+            autoFocus
           />
-          <span className="text-sm text-gray-600">
-            Cliquez pour ouvrir le sélectionneur de couleur
-          </span>
-        </div>
+        ) : (
+          <Select value={getCurrentOption()} onValueChange={handleOptionSelect}>
+            <SelectTrigger className="flex-1">
+              <SelectValue>
+                {getCurrentOption() === 'primary' && 'Couleur principale'}
+                {getCurrentOption() === 'secondary' && 'Couleur secondaire'}  
+                {getCurrentOption() === 'custom' && `Référence couleur : ${displayValue}`}
+              </SelectValue>
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="custom">Référence couleur</SelectItem>
+              <SelectItem value="primary">Couleur principale</SelectItem>
+              <SelectItem value="secondary">Couleur secondaire</SelectItem>
+            </SelectContent>
+          </Select>
+        )}
       </div>
+      <p className="text-xs text-gray-500">
+        Cliquez sur le carré de couleur pour choisir visuellement ou sur le code couleur pour saisir directement
+      </p>
     </div>
   );
 }
@@ -216,6 +282,27 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
   const [forceRefresh, setForceRefresh] = useState(0);
   const [saving, setSaving] = useState(false);
   const [selectedField, setSelectedField] = useState<string | null>(null);
+
+  // Injecter le CSS personnalisé pour les checkboxes
+  useEffect(() => {
+    const styleId = 'checkbox-custom-styles';
+    let styleElement = document.getElementById(styleId) as HTMLStyleElement;
+    
+    if (!styleElement) {
+      styleElement = document.createElement('style');
+      styleElement.id = styleId;
+      document.head.appendChild(styleElement);
+    }
+    
+    styleElement.innerHTML = checkboxStyles;
+    
+    return () => {
+      const element = document.getElementById(styleId);
+      if (element) {
+        element.remove();
+      }
+    };
+  }, []);
 
   // Fonction pour résoudre la couleur (convertit 'primary' en '#1e73be', etc.)
   const resolveColor = (colorValue: string) => {
@@ -517,10 +604,10 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                 <div key={index} className="flex flex-row items-start space-x-3 space-y-0">
                   <Checkbox 
                     id={`${field.id}-${index}`} 
-                    className="mt-1" 
+                    className="mt-1 checkbox-custom" 
                     style={{ 
-                      accentColor: resolveColor(formData.primaryColor),
-                      '--checkbox-color': resolveColor(formData.primaryColor) 
+                      '--checkbox-color': resolveColor(formData.primaryColor),
+                      accentColor: resolveColor(formData.primaryColor)
                     } as React.CSSProperties}
                   />
                   <Label 
@@ -1055,40 +1142,40 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div>
-                      <Label className="text-sm font-medium mb-2 block">Couleur principale</Label>
                       <ColorPicker
+                        label="Couleur principale"
                         value={formData.primaryColor}
                         onChange={(value) => setFormData(prev => ({ ...prev, primaryColor: value }))}
                       />
                     </div>
                     
                     <div>
-                      <Label className="text-sm font-medium mb-2 block">Couleur du cadre</Label>
                       <ColorPicker
+                        label="Couleur du cadre"
                         value={formData.frameColor}
                         onChange={(value) => setFormData(prev => ({ ...prev, frameColor: value }))}
                       />
                     </div>
                     
                     <div>
-                      <Label className="text-sm font-medium mb-2 block">Couleur du titre</Label>
                       <ColorPicker
+                        label="Couleur du titre"
                         value={formData.titleColor}
                         onChange={(value) => setFormData(prev => ({ ...prev, titleColor: value }))}
                       />
                     </div>
                     
                     <div>
-                      <Label className="text-sm font-medium mb-2 block">Couleur du sous-titre</Label>
                       <ColorPicker
+                        label="Couleur du sous-titre"
                         value={formData.subtitleColor}
                         onChange={(value) => setFormData(prev => ({ ...prev, subtitleColor: value }))}
                       />
                     </div>
                     
                     <div>
-                      <Label className="text-sm font-medium mb-2 block">Couleur du texte</Label>
                       <ColorPicker
+                        label="Couleur du texte"
                         value={formData.textColor}
                         onChange={(value) => setFormData(prev => ({ ...prev, textColor: value }))}
                       />
