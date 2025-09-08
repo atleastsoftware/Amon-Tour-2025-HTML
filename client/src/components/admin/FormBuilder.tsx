@@ -1155,6 +1155,14 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                                 <CardContent className="p-3">
                                   <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-2">
+                                      <GripVertical className="h-4 w-4 text-gray-400" />
+                                      <Badge variant="outline" className="text-xs">
+                                        {FIELD_TYPES.find(t => t.type === field.type)?.label}
+                                      </Badge>
+                                      {field.required && <Badge variant="destructive" className="text-xs">Requis</Badge>}
+                                      <span className="font-medium text-sm">{field.label}</span>
+                                    </div>
+                                    <div className="flex gap-1">
                                       <Button
                                         size="sm"
                                         variant="ghost"
@@ -1166,14 +1174,6 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                                       >
                                         <Edit className="h-3 w-3" />
                                       </Button>
-                                      <GripVertical className="h-4 w-4 text-gray-400" />
-                                      <Badge variant="outline" className="text-xs">
-                                        {FIELD_TYPES.find(t => t.type === field.type)?.label}
-                                      </Badge>
-                                      <span className="font-medium text-sm">{field.label}</span>
-                                      {field.required && <Badge variant="destructive" className="text-xs">Requis</Badge>}
-                                    </div>
-                                    <div className="flex gap-1">
                                       <Button
                                         size="sm"
                                         variant="ghost"
