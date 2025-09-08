@@ -726,7 +726,6 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                 onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                 placeholder="Ex: Formulaire de contact"
                 className="w-64 h-9"
-                size="sm"
               />
             </div>
           </div>
@@ -1097,7 +1096,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                   </div>
                   <div>
                     <Label>Image d'en-tête</Label>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 items-center">
                       <Input
                         value={formData.headerImage || ''}
                         onChange={(e) => setFormData(prev => ({ ...prev, headerImage: e.target.value }))}
@@ -1115,7 +1114,6 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                           input.onchange = (e) => {
                             const file = (e.target as HTMLInputElement).files?.[0];
                             if (file) {
-                              // Pour l'instant, on simule le stockage local
                               const reader = new FileReader();
                               reader.onload = (event) => {
                                 const dataUrl = event.target?.result as string;
@@ -1130,7 +1128,6 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                         <Upload className="h-4 w-4" />
                       </Button>
                     </div>
-                    <p className="text-xs text-gray-500 mt-1">Cette image apparaîtra à gauche du formulaire comme sur le site</p>
                   </div>
                 </CardContent>
               </Card>
