@@ -3,7 +3,7 @@ import { useLocation } from 'wouter';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ArrowLeft, Plus, Edit, Trash2, Eye } from 'lucide-react';
+import { ArrowLeft, Plus, Edit, Trash2, Eye, FileText } from 'lucide-react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -88,30 +88,27 @@ export default function AdminEditorPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white">
-      <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-gray-50 px-2 pb-4 sm:px-4 sm:pb-4">
+      <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-4">
-            <Button
-              variant="ghost"
+        <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 mb-6 mt-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:justify-between">
+            <div className="w-full sm:w-auto">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2 sm:gap-3">
+                <FileText className="h-6 w-6 sm:h-7 sm:w-7 text-blue-600 flex-shrink-0" />
+                <span className="truncate">Éditeur de Pages</span>
+              </h1>
+              <p className="text-sm sm:text-base text-gray-600">Gérez le contenu et la structure de vos pages web</p>
+            </div>
+            <Button 
+              variant="outline" 
               onClick={() => setLocation('/admin-editor')}
-              className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
+              className="flex items-center gap-2 w-full sm:w-auto"
             >
-              <ArrowLeft className="h-4 w-4" />
-              Retour au dashboard
+              <ArrowLeft className="w-4 h-4" />
+              <span>Retour à Gestion de Contenu</span>
             </Button>
           </div>
-        </div>
-
-        {/* Title */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Éditeur de Pages
-          </h1>
-          <p className="text-gray-600">
-            Gérez le contenu et la structure de vos pages web
-          </p>
         </div>
 
         {/* Add Page Button */}

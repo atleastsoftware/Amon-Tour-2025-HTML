@@ -55,7 +55,7 @@ export default function AdminEditor() {
               className="flex items-center gap-2 w-full sm:w-auto"
             >
               <ArrowLeft className="w-4 h-4" />
-              <span>Retour à l'administration</span>
+              <span>Retour à Site Appearance</span>
             </Button>
           </div>
         </div>
