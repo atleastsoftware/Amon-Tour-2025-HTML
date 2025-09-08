@@ -344,7 +344,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
         {
           id: 'fullname',
           type: 'text' as const,
-          label: 'Full Name *',
+          label: 'Full Name',
           placeholder: 'Your name',
           required: true,
           style: { width: 'half' as const }
@@ -352,7 +352,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
         {
           id: 'email',
           type: 'email' as const,
-          label: 'Email *',
+          label: 'Email',
           placeholder: 'Your email',
           required: true,
           style: { width: 'half' as const }
@@ -360,7 +360,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
         {
           id: 'countrycode',
           type: 'select' as const,
-          label: 'Country Code *',
+          label: 'Country Code',
           placeholder: 'Code',
           required: true,
           options: ['🇫🇷 +33', '🇹🇭 +66', '🇺🇸 +1', '🇬🇧 +44', '🇩🇪 +49', '🇪🇸 +34'],
@@ -369,7 +369,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
         {
           id: 'whatsapp',
           type: 'phone' as const,
-          label: 'WhatsApp Number *',
+          label: 'WhatsApp Number',
           placeholder: 'Your WhatsApp number',
           required: true,
           style: { width: 'half' as const }
