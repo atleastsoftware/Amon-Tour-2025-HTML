@@ -987,35 +987,6 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
           </div>
         </div>
       )}
-                              animate={{ opacity: 1, y: 0 }}
-                              exit={{ opacity: 0, y: -20 }}
-                            >
-                              {renderFieldPreview(field)}
-                            </motion.div>
-                          );
-                        }).filter(Boolean);
-                      })()}
-                      
-                      {/* Submit Button */}
-                      <div className="pt-4">
-                        <Button 
-                          style={{ 
-                            backgroundColor: resolveColor(formData.primaryColor),
-                            color: '#ffffff'
-                          }}
-                          className="w-full px-8 py-2"
-                        >
-                          {formData.settings.submitButtonText || 'Envoyer'}
-                        </Button>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Bottom Panel - Editor */}
       <div className="bg-white overflow-auto flex-1">
