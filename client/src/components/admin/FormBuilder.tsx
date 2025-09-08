@@ -874,7 +874,9 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                       <div className="w-full h-full bg-gray-200"></div>
                     )}
                     <div 
-                      className="absolute inset-0 flex flex-col justify-center p-8"
+                      className={`absolute inset-0 flex flex-col justify-center p-8 ${
+                        formData.formLayout === 'columns-reversed' ? 'items-end text-right' : ''
+                      }`}
                       style={{ 
                         background: `linear-gradient(to ${formData.formLayout === 'columns' ? 'right' : 'left'}, ${resolveColor(formData.primaryColor)}CC, transparent)` 
                       }}
