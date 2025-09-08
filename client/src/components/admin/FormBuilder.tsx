@@ -72,6 +72,9 @@ interface FormData {
   layout: 'single-column' | 'two-column' | 'grid';
   backgroundColor: string;
   primaryColor: string;
+  frameColor: string;
+  titleColor: string;
+  subtitleColor: string;
   textColor: string;
   fields: FormField[];
   settings: FormSettings;
@@ -119,6 +122,9 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
       layout: 'single-column' as const,
       backgroundColor: '#ffffff',
       primaryColor: '#1e73be',
+      frameColor: '#ffffff',
+      titleColor: '#ffffff',
+      subtitleColor: '#ffffff',
       textColor: '#333333',
       fields: [
         {
@@ -350,31 +356,31 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
       case 'number':
         return (
           <div className={baseFieldClasses} style={fieldStyle}>
-            <Label className="mb-2 block">
+            <Label className="mb-2 block" style={{ color: formData.textColor }}>
               {field.label}
             </Label>
-            <Input placeholder={field.placeholder} type={field.type} />
+            <Input placeholder={field.placeholder} type={field.type} style={{ color: formData.textColor }} />
           </div>
         );
         
       case 'textarea':
         return (
           <div className={baseFieldClasses} style={fieldStyle}>
-            <Label className="mb-2 block">
+            <Label className="mb-2 block" style={{ color: formData.textColor }}>
               {field.label}
             </Label>
-            <Textarea placeholder={field.placeholder} rows={4} />
+            <Textarea placeholder={field.placeholder} rows={4} style={{ color: formData.textColor }} />
           </div>
         );
         
       case 'select':
         return (
           <div className={baseFieldClasses} style={fieldStyle}>
-            <Label className="mb-2 block">
+            <Label className="mb-2 block" style={{ color: formData.textColor }}>
               {field.label}
             </Label>
             <Select>
-              <SelectTrigger>
+              <SelectTrigger style={{ color: formData.textColor }}>
                 <SelectValue placeholder={field.placeholder || "Select an option"} />
               </SelectTrigger>
               <SelectContent>
@@ -389,14 +395,27 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
       case 'checkbox':
         return (
           <div className={baseFieldClasses} style={fieldStyle}>
-            <Label className="mb-4 block">
+            <Label className="mb-4 block" style={{ color: formData.textColor }}>
               {field.label}
             </Label>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
               {field.options?.map((option, index) => (
                 <div key={index} className="flex flex-row items-start space-x-3 space-y-0">
-                  <Checkbox id={`${field.id}-${index}`} className="mt-1" />
-                  <Label htmlFor={`${field.id}-${index}`} className="text-sm font-normal cursor-pointer leading-5">{option}</Label>
+                  <Checkbox 
+                    id={`${field.id}-${index}`} 
+                    className="mt-1" 
+                    style={{ 
+                      accentColor: formData.primaryColor,
+                      '--checkbox-color': formData.primaryColor 
+                    } as React.CSSProperties}
+                  />
+                  <Label 
+                    htmlFor={`${field.id}-${index}`} 
+                    className="text-sm font-normal cursor-pointer leading-5"
+                    style={{ color: formData.textColor }}
+                  >
+                    {option}
+                  </Label>
                 </div>
               ))}
             </div>
@@ -406,14 +425,19 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
       case 'radio':
         return (
           <div className={baseFieldClasses} style={fieldStyle}>
-            <Label className="mb-2 block">
+            <Label className="mb-2 block" style={{ color: formData.textColor }}>
               {field.label}
             </Label>
             <div className="space-y-2">
               {field.options?.map((option, index) => (
                 <div key={index} className="flex items-center space-x-2">
-                  <input type="radio" name={field.id} id={`${field.id}-${index}`} />
-                  <Label htmlFor={`${field.id}-${index}`}>{option}</Label>
+                  <input 
+                    type="radio" 
+                    name={field.id} 
+                    id={`${field.id}-${index}`}
+                    style={{ accentColor: formData.primaryColor }}
+                  />
+                  <Label htmlFor={`${field.id}-${index}`} style={{ color: formData.textColor }}>{option}</Label>
                 </div>
               ))}
             </div>
@@ -423,20 +447,20 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
       case 'file':
         return (
           <div className={baseFieldClasses} style={fieldStyle}>
-            <Label className="mb-2 block">
+            <Label className="mb-2 block" style={{ color: formData.textColor }}>
               {field.label}
             </Label>
-            <Input type="file" />
+            <Input type="file" style={{ color: formData.textColor }} />
           </div>
         );
         
       case 'date':
         return (
           <div className={baseFieldClasses} style={fieldStyle}>
-            <Label className="mb-2 block">
+            <Label className="mb-2 block" style={{ color: formData.textColor }}>
               {field.label}
             </Label>
-            <Input placeholder={field.placeholder} readOnly className="cursor-pointer" />
+            <Input placeholder={field.placeholder} readOnly className="cursor-pointer" style={{ color: formData.textColor }} />
           </div>
         );
         
@@ -496,22 +520,28 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                     <div className="w-full h-full bg-gray-200"></div>
                   )}
                   <div 
-                    className="absolute inset-0 flex flex-col justify-center p-8 text-white"
+                    className="absolute inset-0 flex flex-col justify-center p-8"
                     style={{ 
                       background: `linear-gradient(to right, ${formData.primaryColor}CC, transparent)` 
                     }}
                   >
-                    <h3 className="font-heading font-bold text-3xl mb-3">
+                    <h3 
+                      className="font-heading font-bold text-3xl mb-3"
+                      style={{ color: formData.titleColor }}
+                    >
                       {formData.title || 'Titre du formulaire'}
                     </h3>
-                    <p className="max-w-xs">
+                    <p 
+                      className="max-w-xs"
+                      style={{ color: formData.subtitleColor }}
+                    >
                       {formData.subtitle || formData.description || 'Description du formulaire'}
                     </p>
                   </div>
                 </div>
                 
                 {/* Form Side - Reproduction exacte du site */}
-                <div className="p-8">
+                <div className="p-8" style={{ backgroundColor: formData.frameColor }}>
                   {formData.fields.length === 0 ? (
                     <div className="text-center py-16 text-gray-500 h-full flex flex-col items-center justify-center">
                       <FormInput className="h-12 w-12 mx-auto mb-4 text-gray-300" />
@@ -922,6 +952,54 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                         <Input
                           value={formData.primaryColor}
                           onChange={(e) => setFormData(prev => ({ ...prev, primaryColor: e.target.value }))}
+                        />
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <Label>Couleur du cadre</Label>
+                      <div className="flex gap-2">
+                        <Input
+                          type="color"
+                          value={formData.frameColor}
+                          onChange={(e) => setFormData(prev => ({ ...prev, frameColor: e.target.value }))}
+                          className="w-16"
+                        />
+                        <Input
+                          value={formData.frameColor}
+                          onChange={(e) => setFormData(prev => ({ ...prev, frameColor: e.target.value }))}
+                        />
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <Label>Couleur du titre</Label>
+                      <div className="flex gap-2">
+                        <Input
+                          type="color"
+                          value={formData.titleColor}
+                          onChange={(e) => setFormData(prev => ({ ...prev, titleColor: e.target.value }))}
+                          className="w-16"
+                        />
+                        <Input
+                          value={formData.titleColor}
+                          onChange={(e) => setFormData(prev => ({ ...prev, titleColor: e.target.value }))}
+                        />
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <Label>Couleur du sous-titre</Label>
+                      <div className="flex gap-2">
+                        <Input
+                          type="color"
+                          value={formData.subtitleColor}
+                          onChange={(e) => setFormData(prev => ({ ...prev, subtitleColor: e.target.value }))}
+                          className="w-16"
+                        />
+                        <Input
+                          value={formData.subtitleColor}
+                          onChange={(e) => setFormData(prev => ({ ...prev, subtitleColor: e.target.value }))}
                         />
                       </div>
                     </div>
