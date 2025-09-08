@@ -1,42 +1,558 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Plus, Edit, Trash2, Eye, FormInput } from 'lucide-react';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+import { Badge } from '@/components/ui/badge';
+import { ArrowLeft, Plus, Edit, Trash2, FormInput, Users, Mail, MessageSquare } from 'lucide-react';
+import FormBuilder from '@/components/admin/FormBuilder';
+import { useToast } from '@/hooks/use-toast';
+
+interface FormData {
+  id?: number;
+  name: string;
+  title: string;
+  subtitle?: string;
+  description?: string;
+  headerImage?: string;
+  layout: 'single-column' | 'two-column' | 'grid';
+  backgroundColor: string;
+  primaryColor: string;
+  textColor: string;
+  fields: any[];
+  settings: any;
+  isActive: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+}
 
 export default function AdminEditorForm() {
   const [, setLocation] = useLocation();
+  const { toast } = useToast();
+  const [showBuilder, setShowBuilder] = useState(false);
+  const [editingForm, setEditingForm] = useState<FormData | null>(null);
+  const [forms, setForms] = useState<FormData[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  // Formulaires existants (placeholder - sera remplacé par de vraies données plus tard)
-  const [forms] = useState([
-    // Aucun formulaire pour le moment
-  ]);
+  // Formulaires pré-remplis existants du site
+  const prePopulatedForms: FormData[] = [
+    {
+      id: 1,
+      name: 'Contact Form',
+      title: 'Nous contacter',
+      subtitle: 'Une question ? Un projet ? Nous sommes à votre écoute',
+      description: 'Contactez notre équipe pour toute demande d\'information ou devis personnalisé.',
+      layout: 'single-column',
+      backgroundColor: '#ffffff',
+      primaryColor: '#1e73be',
+      textColor: '#333333',
+      fields: [
+        {
+          id: 'name',
+          type: 'text',
+          label: 'Nom complet',
+          placeholder: 'Votre nom',
+          required: true,
+          style: { width: 'full', marginBottom: 16 }
+        },
+        {
+          id: 'email',
+          type: 'email',
+          label: 'Adresse email',
+          placeholder: 'votre@email.com',
+          required: true,
+          style: { width: 'full', marginBottom: 16 }
+        },
+        {
+          id: 'subject',
+          type: 'text',
+          label: 'Sujet',
+          placeholder: 'Sujet de votre message',
+          required: true,
+          style: { width: 'full', marginBottom: 16 }
+        },
+        {
+          id: 'message',
+          type: 'textarea',
+          label: 'Message',
+          placeholder: 'Votre message...',
+          required: true,
+          style: { width: 'full', marginBottom: 16 }
+        }
+      ],
+      settings: {
+        submitButtonText: 'Envoyer le message',
+        submitButtonColor: '#1e73be',
+        successMessage: 'Merci ! Votre message a été envoyé avec succès.',
+        errorMessage: 'Une erreur est survenue. Veuillez réessayer.',
+        emailNotification: true
+      },
+      isActive: true,
+      createdAt: '2025-01-01',
+      updatedAt: '2025-01-08'
+    },
+    {
+      id: 2,
+      name: 'Custom Tour Request',
+      title: 'Demande de tour personnalisé',
+      subtitle: 'Créez votre expérience unique en Thaïlande',
+      description: 'Décrivez-nous vos envies et nous créerons le tour parfait pour vous.',
+      layout: 'two-column',
+      backgroundColor: '#f8fafc',
+      primaryColor: '#1e73be',
+      textColor: '#334155',
+      fields: [
+        {
+          id: 'fullName',
+          type: 'text',
+          label: 'Nom complet',
+          placeholder: 'Votre nom',
+          required: true,
+          style: { width: 'half', marginBottom: 16 }
+        },
+        {
+          id: 'email',
+          type: 'email',
+          label: 'Email',
+          placeholder: 'votre@email.com',
+          required: true,
+          style: { width: 'half', marginBottom: 16 }
+        },
+        {
+          id: 'phoneNumber',
+          type: 'phone',
+          label: 'Téléphone',
+          placeholder: '+33 6 XX XX XX XX',
+          required: true,
+          style: { width: 'half', marginBottom: 16 }
+        },
+        {
+          id: 'numberOfAdults',
+          type: 'number',
+          label: 'Nombre d\'adultes',
+          placeholder: '2',
+          required: true,
+          style: { width: 'half', marginBottom: 16 }
+        },
+        {
+          id: 'numberOfKids',
+          type: 'number',
+          label: 'Nombre d\'enfants',
+          placeholder: '0',
+          required: false,
+          style: { width: 'half', marginBottom: 16 }
+        },
+        {
+          id: 'tripDates',
+          type: 'text',
+          label: 'Dates de voyage',
+          placeholder: 'Ex: 15-22 juillet 2025',
+          required: false,
+          style: { width: 'half', marginBottom: 16 }
+        },
+        {
+          id: 'interests',
+          type: 'checkbox',
+          label: 'Centres d\'intérêt',
+          required: false,
+          options: ['Plage et détente', 'Aventure et nature', 'Culture et temples', 'Gastronomie', 'Sports nautiques', 'Vie nocturne'],
+          style: { width: 'full', marginBottom: 16 }
+        },
+        {
+          id: 'destinations',
+          type: 'checkbox',
+          label: 'Destinations souhaitées',
+          required: false,
+          options: ['Bangkok', 'Phuket', 'Koh Phi Phi', 'Krabi', 'Chiang Mai', 'Koh Samui'],
+          style: { width: 'full', marginBottom: 16 }
+        },
+        {
+          id: 'message',
+          type: 'textarea',
+          label: 'Message et demandes spéciales',
+          placeholder: 'Décrivez-nous votre voyage idéal...',
+          required: true,
+          style: { width: 'full', marginBottom: 16 }
+        }
+      ],
+      settings: {
+        submitButtonText: 'Demander un devis',
+        submitButtonColor: '#1e73be',
+        successMessage: 'Merci ! Nous vous contacterons sous 24h avec une proposition personnalisée.',
+        errorMessage: 'Une erreur est survenue. Veuillez réessayer.',
+        emailNotification: true
+      },
+      isActive: true,
+      createdAt: '2025-01-01',
+      updatedAt: '2025-01-05'
+    },
+    {
+      id: 3,
+      name: 'Partnership Request',
+      title: 'Demande de partenariat',
+      subtitle: 'Rejoignez notre réseau de partenaires',
+      description: 'Développons ensemble de belles collaborations dans le tourisme thaïlandais.',
+      layout: 'single-column',
+      backgroundColor: '#ffffff',
+      primaryColor: '#16a34a',
+      textColor: '#15803d',
+      fields: [
+        {
+          id: 'contactName',
+          type: 'text',
+          label: 'Nom du contact',
+          placeholder: 'Votre nom',
+          required: true,
+          style: { width: 'half', marginBottom: 16 }
+        },
+        {
+          id: 'companyName',
+          type: 'text',
+          label: 'Nom de l\'entreprise',
+          placeholder: 'Nom de votre entreprise',
+          required: true,
+          style: { width: 'half', marginBottom: 16 }
+        },
+        {
+          id: 'email',
+          type: 'email',
+          label: 'Email professionnel',
+          placeholder: 'contact@entreprise.com',
+          required: true,
+          style: { width: 'half', marginBottom: 16 }
+        },
+        {
+          id: 'phone',
+          type: 'phone',
+          label: 'Téléphone',
+          placeholder: '+33 1 XX XX XX XX',
+          required: false,
+          style: { width: 'half', marginBottom: 16 }
+        },
+        {
+          id: 'website',
+          type: 'text',
+          label: 'Site web',
+          placeholder: 'https://votre-site.com',
+          required: false,
+          style: { width: 'full', marginBottom: 16 }
+        },
+        {
+          id: 'partnershipType',
+          type: 'select',
+          label: 'Type de partenariat',
+          required: true,
+          options: ['Agence de voyage', 'Hôtelier', 'Blogueur/Influenceur', 'Guide local', 'Transport', 'Autre'],
+          style: { width: 'full', marginBottom: 16 }
+        },
+        {
+          id: 'description',
+          type: 'textarea',
+          label: 'Présentation de votre activité',
+          placeholder: 'Présentez votre entreprise et votre proposition de partenariat...',
+          required: true,
+          style: { width: 'full', marginBottom: 16 }
+        }
+      ],
+      settings: {
+        submitButtonText: 'Soumettre la demande',
+        submitButtonColor: '#16a34a',
+        successMessage: 'Merci ! Votre demande de partenariat a été reçue. Nous vous contacterons rapidement.',
+        errorMessage: 'Une erreur est survenue. Veuillez réessayer.',
+        emailNotification: true
+      },
+      isActive: true,
+      createdAt: '2025-01-01',
+      updatedAt: '2025-01-03'
+    },
+    {
+      id: 4,
+      name: 'Group Corporate Request',
+      title: 'Demande groupe & entreprise',
+      subtitle: 'Voyages sur mesure pour groupes et entreprises',
+      description: 'Organisez votre événement d\'entreprise ou voyage de groupe en Thaïlande.',
+      layout: 'single-column',
+      backgroundColor: '#fef3c7',
+      primaryColor: '#d97706',
+      textColor: '#92400e',
+      fields: [
+        {
+          id: 'contactName',
+          type: 'text',
+          label: 'Nom du responsable',
+          placeholder: 'Votre nom',
+          required: true,
+          style: { width: 'half', marginBottom: 16 }
+        },
+        {
+          id: 'companyName',
+          type: 'text',
+          label: 'Entreprise/Organisation',
+          placeholder: 'Nom de l\'entreprise',
+          required: true,
+          style: { width: 'half', marginBottom: 16 }
+        },
+        {
+          id: 'email',
+          type: 'email',
+          label: 'Email de contact',
+          placeholder: 'contact@entreprise.com',
+          required: true,
+          style: { width: 'half', marginBottom: 16 }
+        },
+        {
+          id: 'phone',
+          type: 'phone',
+          label: 'Téléphone',
+          placeholder: '+33 1 XX XX XX XX',
+          required: false,
+          style: { width: 'half', marginBottom: 16 }
+        },
+        {
+          id: 'groupSize',
+          type: 'number',
+          label: 'Taille du groupe',
+          placeholder: '25',
+          required: true,
+          style: { width: 'half', marginBottom: 16 }
+        },
+        {
+          id: 'travelDates',
+          type: 'text',
+          label: 'Dates souhaitées',
+          placeholder: 'Ex: septembre 2025',
+          required: false,
+          style: { width: 'half', marginBottom: 16 }
+        },
+        {
+          id: 'budget',
+          type: 'select',
+          label: 'Budget par personne',
+          required: false,
+          options: ['500-1000€', '1000-2000€', '2000-3000€', '3000-5000€', '5000€+', 'À déterminer'],
+          style: { width: 'full', marginBottom: 16 }
+        },
+        {
+          id: 'description',
+          type: 'textarea',
+          label: 'Détails du projet',
+          placeholder: 'Décrivez votre projet de voyage (objectifs, activités souhaitées, contraintes...)...',
+          required: true,
+          style: { width: 'full', marginBottom: 16 }
+        }
+      ],
+      settings: {
+        submitButtonText: 'Demander un devis groupe',
+        submitButtonColor: '#d97706',
+        successMessage: 'Merci ! Votre demande groupe a été reçue. Notre équipe vous contactera sous 48h.',
+        errorMessage: 'Une erreur est survenue. Veuillez réessayer.',
+        emailNotification: true
+      },
+      isActive: true,
+      createdAt: '2025-01-01',
+      updatedAt: '2025-01-02'
+    },
+    {
+      id: 5,
+      name: 'Newsletter Subscription',
+      title: 'Abonnement newsletter',
+      subtitle: 'Restez informé de nos dernières offres',
+      description: 'Recevez nos meilleures offres et conseils voyage directement par email.',
+      layout: 'single-column',
+      backgroundColor: '#dbeafe',
+      primaryColor: '#2563eb',
+      textColor: '#1e40af',
+      fields: [
+        {
+          id: 'email',
+          type: 'email',
+          label: 'Adresse email',
+          placeholder: 'votre@email.com',
+          required: true,
+          style: { width: 'full', marginBottom: 16 }
+        }
+      ],
+      settings: {
+        submitButtonText: 'S\'abonner',
+        submitButtonColor: '#2563eb',
+        successMessage: 'Merci ! Vous êtes maintenant abonné à notre newsletter.',
+        errorMessage: 'Une erreur est survenue. Veuillez réessayer.',
+        emailNotification: false
+      },
+      isActive: true,
+      createdAt: '2025-01-01',
+      updatedAt: '2025-01-01'
+    },
+    {
+      id: 6,
+      name: 'Krabi Celebration Request',
+      title: 'Célébration à Krabi',
+      subtitle: 'Organisez votre événement spécial à Krabi',
+      description: 'Mariage, anniversaire, lune de miel... Créons ensemble votre moment magique à Krabi.',
+      layout: 'single-column',
+      backgroundColor: '#fdf2f8',
+      primaryColor: '#ec4899',
+      textColor: '#be185d',
+      fields: [
+        {
+          id: 'name',
+          type: 'text',
+          label: 'Nom complet',
+          placeholder: 'Votre nom',
+          required: true,
+          style: { width: 'half', marginBottom: 16 }
+        },
+        {
+          id: 'email',
+          type: 'email',
+          label: 'Email',
+          placeholder: 'votre@email.com',
+          required: true,
+          style: { width: 'half', marginBottom: 16 }
+        },
+        {
+          id: 'whatsapp',
+          type: 'phone',
+          label: 'WhatsApp',
+          placeholder: '+33 6 XX XX XX XX',
+          required: false,
+          style: { width: 'full', marginBottom: 16 }
+        },
+        {
+          id: 'celebrationType',
+          type: 'select',
+          label: 'Type de célébration',
+          required: true,
+          options: ['Mariage', 'Lune de miel', 'Anniversaire', 'Demande en mariage', 'Anniversaire de mariage', 'Autre'],
+          style: { width: 'half', marginBottom: 16 }
+        },
+        {
+          id: 'guests',
+          type: 'number',
+          label: 'Nombre d\'invités',
+          placeholder: '2',
+          required: true,
+          style: { width: 'half', marginBottom: 16 }
+        },
+        {
+          id: 'date',
+          type: 'text',
+          label: 'Date souhaitée',
+          placeholder: 'Ex: juin 2025',
+          required: true,
+          style: { width: 'half', marginBottom: 16 }
+        },
+        {
+          id: 'budget',
+          type: 'select',
+          label: 'Budget approximatif',
+          required: false,
+          options: ['1000-3000€', '3000-5000€', '5000-10000€', '10000€+', 'À discuter'],
+          style: { width: 'half', marginBottom: 16 }
+        },
+        {
+          id: 'description',
+          type: 'textarea',
+          label: 'Détails de votre célébration',
+          placeholder: 'Décrivez-nous votre vision de cette célébration spéciale...',
+          required: false,
+          style: { width: 'full', marginBottom: 16 }
+        }
+      ],
+      settings: {
+        submitButtonText: 'Organiser ma célébration',
+        submitButtonColor: '#ec4899',
+        successMessage: 'Merci ! Notre équipe vous contactera rapidement pour organiser votre célébration de rêve.',
+        errorMessage: 'Une erreur est survenue. Veuillez réessayer.',
+        emailNotification: true
+      },
+      isActive: true,
+      createdAt: '2025-01-01',
+      updatedAt: '2025-01-01'
+    }
+  ];
 
-  const handleEditForm = (formId: string) => {
-    // Logique d'édition de formulaire à implémenter
-    alert(`Édition du formulaire ${formId} - À implémenter`);
+  useEffect(() => {
+    // Initialiser avec les formulaires pré-remplis
+    setForms(prePopulatedForms);
+    setLoading(false);
+  }, []);
+
+  const handleEditForm = (form: FormData) => {
+    setEditingForm(form);
+    setShowBuilder(true);
   };
 
-  const handleDeleteForm = (formId: string) => {
-    // Logique de suppression à implémenter
-    alert(`Suppression du formulaire ${formId} - À implémenter`);
+  const handleDeleteForm = (formId: number) => {
+    const form = forms.find(f => f.id === formId);
+    if (form && window.confirm(`Êtes-vous sûr de vouloir supprimer le formulaire "${form.name}" ?`)) {
+      setForms(forms.filter(f => f.id !== formId));
+      toast({
+        title: "Formulaire supprimé",
+        description: `Le formulaire "${form.name}" a été supprimé avec succès.`
+      });
+    }
   };
 
   const handleAddForm = () => {
-    // Logique d'ajout de formulaire à implémenter
-    alert('Création d\'un nouveau formulaire - À implémenter');
+    setEditingForm(null);
+    setShowBuilder(true);
   };
+
+  const handleSaveForm = async (formData: FormData) => {
+    try {
+      if (editingForm) {
+        // Modifier un formulaire existant
+        setForms(forms.map(f => f.id === editingForm.id ? { ...formData, id: editingForm.id, updatedAt: new Date().toISOString() } : f));
+        toast({
+          title: "Formulaire modifié",
+          description: "Le formulaire a été modifié avec succès."
+        });
+      } else {
+        // Créer un nouveau formulaire
+        const newForm = {
+          ...formData,
+          id: Math.max(...forms.map(f => f.id || 0)) + 1,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        };
+        setForms([...forms, newForm]);
+        toast({
+          title: "Formulaire créé",
+          description: "Le nouveau formulaire a été créé avec succès."
+        });
+      }
+      setShowBuilder(false);
+      setEditingForm(null);
+    } catch (error) {
+      console.error('Erreur lors de la sauvegarde:', error);
+      throw error;
+    }
+  };
+
+  const handleCancelBuilder = () => {
+    setShowBuilder(false);
+    setEditingForm(null);
+  };
+
+  const getFormIcon = (formName: string) => {
+    if (formName.includes('Contact')) return MessageSquare;
+    if (formName.includes('Custom') || formName.includes('Tour')) return Users;
+    if (formName.includes('Newsletter')) return Mail;
+    if (formName.includes('Partnership')) return Users;
+    if (formName.includes('Group')) return Users;
+    if (formName.includes('Celebration')) return Users;
+    return FormInput;
+  };
+
+  if (showBuilder) {
+    return (
+      <FormBuilder
+        initialForm={editingForm || undefined}
+        onSave={handleSaveForm}
+        onCancel={handleCancelBuilder}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 px-2 pb-4 sm:px-4 sm:pb-4">
@@ -75,105 +591,105 @@ export default function AdminEditorForm() {
 
         {/* Forms List */}
         <div className="space-y-4">
-          {forms.map((form: any) => (
-            <Card key={form.id} className="bg-white border border-gray-200 hover:border-orange-300 transition-colors">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-4 mb-2">
-                      <h3 className="text-lg font-semibold text-gray-900">
-                        {form.title}
-                      </h3>
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                        form.status === 'Actif' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
-                      }`}>
-                        {form.status}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-6 text-sm text-gray-500">
-                      <span>Champs: {form.fieldsCount}</span>
-                      <span>Soumissions: {form.submissionsCount}</span>
-                      <span>Créé le: {form.createdAt}</span>
-                      <span>Modifié le: {form.lastModified}</span>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center gap-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => alert(`Aperçu du formulaire ${form.id}`)}
-                      className="flex items-center gap-1"
-                    >
-                      <Eye className="h-4 w-4" />
-                      Aperçu
-                    </Button>
-                    
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleEditForm(form.id)}
-                      className="flex items-center gap-1 bg-orange-50 border-orange-200 hover:bg-orange-100"
-                    >
-                      <Edit className="h-4 w-4" />
-                      Modifier
-                    </Button>
-                    
-                    <AlertDialog>
-                      <AlertDialogTrigger asChild>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="flex items-center gap-1 text-red-600 border-red-200 hover:bg-red-50"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                          Supprimer
-                        </Button>
-                      </AlertDialogTrigger>
-                      <AlertDialogContent>
-                        <AlertDialogHeader>
-                          <AlertDialogTitle>Êtes-vous sûr de supprimer ce formulaire ?</AlertDialogTitle>
-                          <AlertDialogDescription>
-                            Cette action est irréversible. Le formulaire "{form.title}" et toutes ses soumissions seront définitivement supprimés.
-                          </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                          <AlertDialogCancel>Annuler</AlertDialogCancel>
-                          <AlertDialogAction 
-                            onClick={() => handleDeleteForm(form.id)}
-                            className="bg-red-600 hover:bg-red-700"
+          {loading ? (
+            <div className="text-center py-8">
+              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-orange-600"></div>
+              <p className="mt-2 text-gray-500">Chargement des formulaires...</p>
+            </div>
+          ) : (
+            <>
+              {forms.map((form) => {
+                const IconComponent = getFormIcon(form.name);
+                return (
+                  <Card key={form.id} className="bg-white border border-gray-200 hover:border-orange-300 transition-colors">
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-4 mb-2">
+                            <div className="flex items-center gap-3">
+                              <div className="p-2 rounded-lg" style={{ backgroundColor: form.primaryColor + '20', color: form.primaryColor }}>
+                                <IconComponent className="h-5 w-5" />
+                              </div>
+                              <div>
+                                <h3 className="text-lg font-semibold text-gray-900">
+                                  {form.title}
+                                </h3>
+                                <p className="text-sm text-gray-600">{form.name}</p>
+                              </div>
+                            </div>
+                            <Badge 
+                              variant={form.isActive ? 'default' : 'secondary'}
+                              className="ml-2"
+                            >
+                              {form.isActive ? 'Actif' : 'Inactif'}
+                            </Badge>
+                          </div>
+                          <div className="flex items-center gap-6 text-sm text-gray-500">
+                            <span>Champs: {form.fields.length}</span>
+                            <span>Layout: {form.layout === 'single-column' ? 'Une colonne' : form.layout === 'two-column' ? 'Deux colonnes' : 'Grille'}</span>
+                            {form.createdAt && <span>Créé le: {new Date(form.createdAt).toLocaleDateString()}</span>}
+                            {form.updatedAt && <span>Modifié le: {new Date(form.updatedAt).toLocaleDateString()}</span>}
+                          </div>
+                          {form.description && (
+                            <p className="text-sm text-gray-600 mt-2 line-clamp-2">{form.description}</p>
+                          )}
+                        </div>
+                        
+                        <div className="flex items-center gap-2">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handleEditForm(form)}
+                            className="flex items-center gap-1"
                           >
-                            Supprimer
-                          </AlertDialogAction>
-                        </AlertDialogFooter>
-                      </AlertDialogContent>
-                    </AlertDialog>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+                            <Edit className="h-4 w-4" />
+                            Modifier
+                          </Button>
+                          
+                          {form.id && (
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => handleDeleteForm(form.id!)}
+                              className="flex items-center gap-1 text-red-600 hover:text-red-800"
+                            >
+                              <Trash2 className="h-4 w-4" />
+                              Supprimer
+                            </Button>
+                          )}
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
 
-        {/* Empty state when no forms */}
-        {forms.length === 0 && (
-          <Card className="bg-white border-2 border-dashed border-gray-300">
-            <CardContent className="p-12 text-center">
-              <div className="text-gray-400 mb-4">
-                <Plus className="h-12 w-12 mx-auto" />
-              </div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
-                Aucun formulaire créé
-              </h3>
-              <p className="text-gray-500 mb-6">
-                Commencez par créer votre premier formulaire personnalisé avec des champs dynamiques
-              </p>
-              <Button onClick={handleAddForm} className="bg-orange-600 hover:bg-orange-700">
-                Créer mon premier formulaire
-              </Button>
-            </CardContent>
-          </Card>
-        )}
+              {/* Empty State */}
+              {forms.length === 0 && (
+                <Card className="bg-gray-50 border-2 border-dashed border-gray-300">
+                  <CardContent className="flex flex-col items-center justify-center py-12">
+                    <div className="rounded-full bg-gray-100 p-3 mb-4">
+                      <Plus className="h-6 w-6 text-gray-400" />
+                    </div>
+                    <h3 className="text-lg font-medium text-gray-900 mb-2">
+                      Aucun formulaire créé
+                    </h3>
+                    <p className="text-gray-500 text-center mb-4">
+                      Commencez par créer votre premier formulaire personnalisé avec des champs dynamiques
+                    </p>
+                    <Button 
+                      onClick={handleAddForm}
+                      className="bg-orange-600 hover:bg-orange-700 text-white"
+                    >
+                      <Plus className="h-4 w-4 mr-2" />
+                      Créer mon premier formulaire
+                    </Button>
+                  </CardContent>
+                </Card>
+              )}
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

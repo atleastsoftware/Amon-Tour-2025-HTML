@@ -1874,15 +1874,21 @@ export class DatabaseStorage implements IStorage {
   async createCustomForm(form: InsertCustomForm): Promise<CustomForm> {
     const [createdForm] = await db
       .insert(customForms)
-      .values(form)
+      .values({
+        ...form,
+        fields: form.fields || [],
+        settings: form.settings || {}
+      })
       .returning();
     return createdForm;
   }
 
   async updateCustomForm(id: number, form: Partial<InsertCustomForm>): Promise<CustomForm | undefined> {
+    const updateData: any = { ...form, updatedAt: new Date() };
+    
     const [updatedForm] = await db
       .update(customForms)
-      .set({ ...form, updatedAt: sql`now()` })
+      .set(updateData)
       .where(eq(customForms.id, id))
       .returning();
     return updatedForm || undefined;
