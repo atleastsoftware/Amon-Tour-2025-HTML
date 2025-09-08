@@ -61,7 +61,7 @@ export default function AdminEditor() {
         </div>
 
         {/* Editor Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
           {editorItems.map((item) => {
             const Icon = item.icon;
             return (
@@ -100,21 +100,21 @@ export default function AdminEditor() {
         {/* Statistics */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Card className="bg-white shadow-sm border border-gray-200">
-            <CardContent className="p-6 text-center">
-              <div className="text-3xl font-bold text-blue-600 mb-2">5</div>
-              <div className="text-gray-600">Pages</div>
+            <CardContent className="p-4 text-center">
+              <div className="text-2xl font-bold text-blue-600 mb-1">5</div>
+              <div className="text-gray-600 text-sm">Pages</div>
             </CardContent>
           </Card>
           <Card className="bg-white shadow-sm border border-gray-200">
-            <CardContent className="p-6 text-center">
-              <div className="text-3xl font-bold text-green-600 mb-2">0</div>
-              <div className="text-gray-600">Articles</div>
+            <CardContent className="p-4 text-center">
+              <div className="text-2xl font-bold text-green-600 mb-1">0</div>
+              <div className="text-gray-600 text-sm">Articles</div>
             </CardContent>
           </Card>
           <Card className="bg-white shadow-sm border border-gray-200">
-            <CardContent className="p-6 text-center">
-              <div className="text-3xl font-bold text-orange-600 mb-2">0</div>
-              <div className="text-gray-600">Formulaires</div>
+            <CardContent className="p-4 text-center">
+              <div className="text-2xl font-bold text-orange-600 mb-1">0</div>
+              <div className="text-gray-600 text-sm">Formulaires</div>
             </CardContent>
           </Card>
         </div>
