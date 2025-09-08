@@ -122,7 +122,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
         {
           id: 'fullname',
           type: 'text' as const,
-          label: 'Full Name',
+          label: 'Full Name *',
           placeholder: 'Your name',
           required: true,
           style: { width: 'half' as const }
@@ -130,7 +130,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
         {
           id: 'email',
           type: 'email' as const,
-          label: 'Email',
+          label: 'Email *',
           placeholder: 'Your email',
           required: true,
           style: { width: 'half' as const }
@@ -138,7 +138,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
         {
           id: 'countrycode',
           type: 'select' as const,
-          label: 'Country Code',
+          label: 'Country Code *',
           placeholder: 'Code',
           required: true,
           options: ['🇫🇷 +33', '🇹🇭 +66', '🇺🇸 +1', '🇬🇧 +44', '🇩🇪 +49', '🇪🇸 +34'],
@@ -147,7 +147,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
         {
           id: 'whatsapp',
           type: 'phone' as const,
-          label: 'WhatsApp Number',
+          label: 'WhatsApp Number *',
           placeholder: 'Your WhatsApp number',
           required: true,
           style: { width: 'half' as const }
@@ -349,7 +349,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
         return (
           <div className={baseFieldClasses} style={fieldStyle}>
             <Label className="mb-2 block">
-              {field.label} {field.required && <span className="text-red-500">*</span>}
+              {field.label}
             </Label>
             <Input placeholder={field.placeholder} type={field.type} />
           </div>
@@ -359,9 +359,9 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
         return (
           <div className={baseFieldClasses} style={fieldStyle}>
             <Label className="mb-2 block">
-              {field.label} {field.required && <span className="text-red-500">*</span>}
+              {field.label}
             </Label>
-            <Textarea placeholder={field.placeholder} rows={3} />
+            <Textarea placeholder={field.placeholder} rows={4} />
           </div>
         );
         
@@ -369,11 +369,11 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
         return (
           <div className={baseFieldClasses} style={fieldStyle}>
             <Label className="mb-2 block">
-              {field.label} {field.required && <span className="text-red-500">*</span>}
+              {field.label}
             </Label>
             <Select>
               <SelectTrigger>
-                <SelectValue placeholder={field.placeholder || "Sélectionner une option"} />
+                <SelectValue placeholder={field.placeholder || "Select an option"} />
               </SelectTrigger>
               <SelectContent>
                 {field.options?.map((option, index) => (
@@ -388,7 +388,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
         return (
           <div className={baseFieldClasses} style={fieldStyle}>
             <Label className="mb-2 block">
-              {field.label} {field.required && <span className="text-red-500">*</span>}
+              {field.label}
             </Label>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
               {field.options?.map((option, index) => (
@@ -405,7 +405,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
         return (
           <div className={baseFieldClasses} style={fieldStyle}>
             <Label className="mb-2 block">
-              {field.label} {field.required && <span className="text-red-500">*</span>}
+              {field.label}
             </Label>
             <div className="space-y-2">
               {field.options?.map((option, index) => (
@@ -422,7 +422,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
         return (
           <div className={baseFieldClasses} style={fieldStyle}>
             <Label className="mb-2 block">
-              {field.label} {field.required && <span className="text-red-500">*</span>}
+              {field.label}
             </Label>
             <Input type="file" />
           </div>
@@ -432,9 +432,9 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
         return (
           <div className={baseFieldClasses} style={fieldStyle}>
             <Label className="mb-2 block">
-              {field.label} {field.required && <span className="text-red-500">*</span>}
+              {field.label}
             </Label>
-            <Input type="date" />
+            <Input placeholder={field.placeholder} readOnly className="cursor-pointer" />
           </div>
         );
         
