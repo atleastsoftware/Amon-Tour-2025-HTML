@@ -119,7 +119,7 @@ export default function AdminEditorForm() {
           style: { width: 'half', marginBottom: 16 }
         },
         {
-          id: 'countryCode',
+          id: 'countrycode',
           type: 'select',
           label: 'Country Code *',
           placeholder: 'Code',
