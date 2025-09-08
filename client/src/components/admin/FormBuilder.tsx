@@ -100,6 +100,115 @@ const FIELD_TYPES = [
   { type: 'number', label: 'Nombre', icon: Hash },
 ] as const;
 
+// Couleurs principales du système
+const SYSTEM_COLORS = {
+  primary: '#1e73be',
+  secondary: '#E6B64C',
+  white: '#ffffff',
+  gray: '#6b7280',
+  dark: '#1f2937'
+};
+
+// Composant ColorPicker avec cases rapides + curseur personnalisé
+interface ColorPickerProps {
+  value: string;
+  onChange: (value: string) => void;
+}
+
+function ColorPicker({ value, onChange }: ColorPickerProps) {
+  const getColorValue = (colorName: string) => {
+    return SYSTEM_COLORS[colorName as keyof typeof SYSTEM_COLORS] || colorName;
+  };
+
+  const handleQuickColorClick = (colorName: string) => {
+    onChange(colorName);
+  };
+
+  const handleCustomColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(e.target.value);
+  };
+
+  const handleHexInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const hexValue = e.target.value;
+    // Valider que c'est un code hex valide
+    if (/^#[0-9A-F]{6}$/i.test(hexValue) || hexValue === '') {
+      onChange(hexValue);
+    }
+  };
+
+  const currentColorValue = getColorValue(value);
+
+  return (
+    <div className="space-y-4">
+      {/* Champ de référence couleur */}
+      <div className="space-y-2">
+        <Label className="text-sm font-medium">Référence couleur</Label>
+        <Input
+          type="text"
+          value={currentColorValue}
+          onChange={handleHexInputChange}
+          placeholder="#ffffff"
+          className="font-mono text-sm"
+          title="Tapez le code couleur ou sélectionnez une couleur prédéfinie"
+        />
+      </div>
+      
+      {/* Couleurs prédéfinies du thème */}
+      <div className="space-y-2">
+        <Label className="text-sm font-medium">Couleurs du thème</Label>
+        <div className="flex gap-3">
+          <button
+            type="button"
+            onClick={() => handleQuickColorClick('primary')}
+            className={`flex items-center gap-2 px-3 py-2 rounded border-2 transition-all hover:scale-105 ${
+              value === 'primary' ? 'border-blue-400 ring-2 ring-blue-200 bg-blue-50' : 'border-gray-200 hover:border-gray-300'
+            }`}
+            title="Couleur principale du thème"
+          >
+            <div 
+              className="w-6 h-6 rounded"
+              style={{ backgroundColor: SYSTEM_COLORS.primary }}
+            />
+            <span className="text-sm font-medium">Couleur principale</span>
+          </button>
+          
+          <button
+            type="button"
+            onClick={() => handleQuickColorClick('secondary')}
+            className={`flex items-center gap-2 px-3 py-2 rounded border-2 transition-all hover:scale-105 ${
+              value === 'secondary' ? 'border-yellow-400 ring-2 ring-yellow-200 bg-yellow-50' : 'border-gray-200 hover:border-gray-300'
+            }`}
+            title="Couleur secondaire du thème"
+          >
+            <div 
+              className="w-6 h-6 rounded"
+              style={{ backgroundColor: SYSTEM_COLORS.secondary }}
+            />
+            <span className="text-sm font-medium">Couleur secondaire</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Aperçu visuel avec color picker natif */}
+      <div className="space-y-2">
+        <Label className="text-sm font-medium">Aperçu</Label>
+        <div className="flex items-center gap-2">
+          <Input
+            type="color"
+            value={currentColorValue}
+            onChange={handleCustomColorChange}
+            className="w-12 h-8 p-0 border cursor-pointer"
+            title="Sélectionneur de couleur"
+          />
+          <span className="text-sm text-gray-600">
+            Cliquez pour ouvrir le sélectionneur de couleur
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuilderProps) {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState<'informations' | 'builder' | 'style' | 'settings'>('informations');
@@ -107,6 +216,11 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
   const [forceRefresh, setForceRefresh] = useState(0);
   const [saving, setSaving] = useState(false);
   const [selectedField, setSelectedField] = useState<string | null>(null);
+
+  // Fonction pour résoudre la couleur (convertit 'primary' en '#1e73be', etc.)
+  const resolveColor = (colorValue: string) => {
+    return SYSTEM_COLORS[colorValue as keyof typeof SYSTEM_COLORS] || colorValue;
+  };
   
   // Pre-populate with Custom Tour Request form if no initial form provided
   const getDefaultFormData = () => {
@@ -356,31 +470,31 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
       case 'number':
         return (
           <div className={baseFieldClasses} style={fieldStyle}>
-            <Label className="mb-2 block" style={{ color: formData.textColor }}>
+            <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
               {field.label}
             </Label>
-            <Input placeholder={field.placeholder} type={field.type} style={{ color: formData.textColor }} />
+            <Input placeholder={field.placeholder} type={field.type} style={{ color: resolveColor(formData.textColor) }} />
           </div>
         );
         
       case 'textarea':
         return (
           <div className={baseFieldClasses} style={fieldStyle}>
-            <Label className="mb-2 block" style={{ color: formData.textColor }}>
+            <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
               {field.label}
             </Label>
-            <Textarea placeholder={field.placeholder} rows={4} style={{ color: formData.textColor }} />
+            <Textarea placeholder={field.placeholder} rows={4} style={{ color: resolveColor(formData.textColor) }} />
           </div>
         );
         
       case 'select':
         return (
           <div className={baseFieldClasses} style={fieldStyle}>
-            <Label className="mb-2 block" style={{ color: formData.textColor }}>
+            <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
               {field.label}
             </Label>
             <Select>
-              <SelectTrigger style={{ color: formData.textColor }}>
+              <SelectTrigger style={{ color: resolveColor(formData.textColor) }}>
                 <SelectValue placeholder={field.placeholder || "Select an option"} />
               </SelectTrigger>
               <SelectContent>
@@ -395,7 +509,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
       case 'checkbox':
         return (
           <div className={baseFieldClasses} style={fieldStyle}>
-            <Label className="mb-4 block" style={{ color: formData.textColor }}>
+            <Label className="mb-4 block" style={{ color: resolveColor(formData.textColor) }}>
               {field.label}
             </Label>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
@@ -405,14 +519,14 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                     id={`${field.id}-${index}`} 
                     className="mt-1" 
                     style={{ 
-                      accentColor: formData.primaryColor,
-                      '--checkbox-color': formData.primaryColor 
+                      accentColor: resolveColor(formData.primaryColor),
+                      '--checkbox-color': resolveColor(formData.primaryColor) 
                     } as React.CSSProperties}
                   />
                   <Label 
                     htmlFor={`${field.id}-${index}`} 
                     className="text-sm font-normal cursor-pointer leading-5"
-                    style={{ color: formData.textColor }}
+                    style={{ color: resolveColor(formData.textColor) }}
                   >
                     {option}
                   </Label>
@@ -425,7 +539,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
       case 'radio':
         return (
           <div className={baseFieldClasses} style={fieldStyle}>
-            <Label className="mb-2 block" style={{ color: formData.textColor }}>
+            <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
               {field.label}
             </Label>
             <div className="space-y-2">
@@ -435,9 +549,9 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                     type="radio" 
                     name={field.id} 
                     id={`${field.id}-${index}`}
-                    style={{ accentColor: formData.primaryColor }}
+                    style={{ accentColor: resolveColor(formData.primaryColor) }}
                   />
-                  <Label htmlFor={`${field.id}-${index}`} style={{ color: formData.textColor }}>{option}</Label>
+                  <Label htmlFor={`${field.id}-${index}`} style={{ color: resolveColor(formData.textColor) }}>{option}</Label>
                 </div>
               ))}
             </div>
@@ -447,20 +561,20 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
       case 'file':
         return (
           <div className={baseFieldClasses} style={fieldStyle}>
-            <Label className="mb-2 block" style={{ color: formData.textColor }}>
+            <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
               {field.label}
             </Label>
-            <Input type="file" style={{ color: formData.textColor }} />
+            <Input type="file" style={{ color: resolveColor(formData.textColor) }} />
           </div>
         );
         
       case 'date':
         return (
           <div className={baseFieldClasses} style={fieldStyle}>
-            <Label className="mb-2 block" style={{ color: formData.textColor }}>
+            <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
               {field.label}
             </Label>
-            <Input placeholder={field.placeholder} readOnly className="cursor-pointer" style={{ color: formData.textColor }} />
+            <Input placeholder={field.placeholder} readOnly className="cursor-pointer" style={{ color: resolveColor(formData.textColor) }} />
           </div>
         );
         
@@ -522,18 +636,18 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                   <div 
                     className="absolute inset-0 flex flex-col justify-center p-8"
                     style={{ 
-                      background: `linear-gradient(to right, ${formData.primaryColor}CC, transparent)` 
+                      background: `linear-gradient(to right, ${resolveColor(formData.primaryColor)}CC, transparent)` 
                     }}
                   >
                     <h3 
                       className="font-heading font-bold text-3xl mb-3"
-                      style={{ color: formData.titleColor }}
+                      style={{ color: resolveColor(formData.titleColor) }}
                     >
                       {formData.title || 'Titre du formulaire'}
                     </h3>
                     <p 
                       className="max-w-xs"
-                      style={{ color: formData.subtitleColor }}
+                      style={{ color: resolveColor(formData.subtitleColor) }}
                     >
                       {formData.subtitle || formData.description || 'Description du formulaire'}
                     </p>
@@ -541,7 +655,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                 </div>
                 
                 {/* Form Side - Reproduction exacte du site */}
-                <div className="p-8" style={{ backgroundColor: formData.frameColor }}>
+                <div className="p-8" style={{ backgroundColor: resolveColor(formData.frameColor) }}>
                   {formData.fields.length === 0 ? (
                     <div className="text-center py-16 text-gray-500 h-full flex flex-col items-center justify-center">
                       <FormInput className="h-12 w-12 mx-auto mb-4 text-gray-300" />
@@ -629,7 +743,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                       <div className="pt-4">
                         <Button 
                           style={{ 
-                            backgroundColor: formData.settings.submitButtonColor || formData.primaryColor,
+                            backgroundColor: resolveColor(formData.primaryColor),
                             color: '#ffffff'
                           }}
                           className="w-full px-8 py-2"
@@ -939,85 +1053,45 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                   <CardHeader>
                     <CardTitle className="text-sm">Couleurs</CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-4">
+                  <CardContent className="space-y-6">
                     <div>
-                      <Label>Couleur principale</Label>
-                      <div className="flex gap-2">
-                        <Input
-                          type="color"
-                          value={formData.primaryColor}
-                          onChange={(e) => setFormData(prev => ({ ...prev, primaryColor: e.target.value }))}
-                          className="w-16"
-                        />
-                        <Input
-                          value={formData.primaryColor}
-                          onChange={(e) => setFormData(prev => ({ ...prev, primaryColor: e.target.value }))}
-                        />
-                      </div>
+                      <Label className="text-sm font-medium mb-2 block">Couleur principale</Label>
+                      <ColorPicker
+                        value={formData.primaryColor}
+                        onChange={(value) => setFormData(prev => ({ ...prev, primaryColor: value }))}
+                      />
                     </div>
                     
                     <div>
-                      <Label>Couleur du cadre</Label>
-                      <div className="flex gap-2">
-                        <Input
-                          type="color"
-                          value={formData.frameColor}
-                          onChange={(e) => setFormData(prev => ({ ...prev, frameColor: e.target.value }))}
-                          className="w-16"
-                        />
-                        <Input
-                          value={formData.frameColor}
-                          onChange={(e) => setFormData(prev => ({ ...prev, frameColor: e.target.value }))}
-                        />
-                      </div>
+                      <Label className="text-sm font-medium mb-2 block">Couleur du cadre</Label>
+                      <ColorPicker
+                        value={formData.frameColor}
+                        onChange={(value) => setFormData(prev => ({ ...prev, frameColor: value }))}
+                      />
                     </div>
                     
                     <div>
-                      <Label>Couleur du titre</Label>
-                      <div className="flex gap-2">
-                        <Input
-                          type="color"
-                          value={formData.titleColor}
-                          onChange={(e) => setFormData(prev => ({ ...prev, titleColor: e.target.value }))}
-                          className="w-16"
-                        />
-                        <Input
-                          value={formData.titleColor}
-                          onChange={(e) => setFormData(prev => ({ ...prev, titleColor: e.target.value }))}
-                        />
-                      </div>
+                      <Label className="text-sm font-medium mb-2 block">Couleur du titre</Label>
+                      <ColorPicker
+                        value={formData.titleColor}
+                        onChange={(value) => setFormData(prev => ({ ...prev, titleColor: value }))}
+                      />
                     </div>
                     
                     <div>
-                      <Label>Couleur du sous-titre</Label>
-                      <div className="flex gap-2">
-                        <Input
-                          type="color"
-                          value={formData.subtitleColor}
-                          onChange={(e) => setFormData(prev => ({ ...prev, subtitleColor: e.target.value }))}
-                          className="w-16"
-                        />
-                        <Input
-                          value={formData.subtitleColor}
-                          onChange={(e) => setFormData(prev => ({ ...prev, subtitleColor: e.target.value }))}
-                        />
-                      </div>
+                      <Label className="text-sm font-medium mb-2 block">Couleur du sous-titre</Label>
+                      <ColorPicker
+                        value={formData.subtitleColor}
+                        onChange={(value) => setFormData(prev => ({ ...prev, subtitleColor: value }))}
+                      />
                     </div>
                     
                     <div>
-                      <Label>Couleur du texte</Label>
-                      <div className="flex gap-2">
-                        <Input
-                          type="color"
-                          value={formData.textColor}
-                          onChange={(e) => setFormData(prev => ({ ...prev, textColor: e.target.value }))}
-                          className="w-16"
-                        />
-                        <Input
-                          value={formData.textColor}
-                          onChange={(e) => setFormData(prev => ({ ...prev, textColor: e.target.value }))}
-                        />
-                      </div>
+                      <Label className="text-sm font-medium mb-2 block">Couleur du texte</Label>
+                      <ColorPicker
+                        value={formData.textColor}
+                        onChange={(value) => setFormData(prev => ({ ...prev, textColor: value }))}
+                      />
                     </div>
                   </CardContent>
                 </Card>
