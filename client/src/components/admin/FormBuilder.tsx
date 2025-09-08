@@ -43,6 +43,7 @@ import {
   Hash,
   ChevronDown,
   ChevronUp,
+  Upload,
   Palette,
   Layout,
   Settings,
@@ -719,7 +720,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                 // Layout Header - Image en haut, formulaire en dessous
                 <div className="flex flex-col">
                   {/* Image Header */}
-                  <div className="h-48 relative">
+                  <div className="h-56 relative">
                     {formData.headerImage ? (
                       <img 
                         src={formData.headerImage}
@@ -1061,11 +1062,39 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                   </div>
                   <div>
                     <Label>Image d'en-tête</Label>
-                    <Input
-                      value={formData.headerImage || ''}
-                      onChange={(e) => setFormData(prev => ({ ...prev, headerImage: e.target.value }))}
-                      placeholder="URL de l'image (ex: /catamaran-cruise.png)"
-                    />
+                    <div className="flex gap-2">
+                      <Input
+                        value={formData.headerImage || ''}
+                        onChange={(e) => setFormData(prev => ({ ...prev, headerImage: e.target.value }))}
+                        placeholder="URL de l'image (ex: /catamaran-cruise.png)"
+                        className="flex-1"
+                      />
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        className="shrink-0"
+                        onClick={() => {
+                          const input = document.createElement('input');
+                          input.type = 'file';
+                          input.accept = 'image/*';
+                          input.onchange = (e) => {
+                            const file = (e.target as HTMLInputElement).files?.[0];
+                            if (file) {
+                              // Pour l'instant, on simule le stockage local
+                              const reader = new FileReader();
+                              reader.onload = (event) => {
+                                const dataUrl = event.target?.result as string;
+                                setFormData(prev => ({ ...prev, headerImage: dataUrl }));
+                              };
+                              reader.readAsDataURL(file);
+                            }
+                          };
+                          input.click();
+                        }}
+                      >
+                        <Upload className="h-4 w-4" />
+                      </Button>
+                    </div>
                     <p className="text-xs text-gray-500 mt-1">Cette image apparaîtra à gauche du formulaire comme sur le site</p>
                   </div>
                 </CardContent>
