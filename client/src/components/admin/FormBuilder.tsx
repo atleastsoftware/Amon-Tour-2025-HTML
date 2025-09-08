@@ -450,24 +450,17 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
       {/* Header Bar */}
       <div className="bg-white border-b p-4 sticky top-0 z-10">
         <div className="flex items-center justify-between">
-          <div className="flex flex-col gap-2">
+          <div className="flex items-center gap-6">
             <h2 className="text-lg font-semibold">Constructeur de formulaire</h2>
-            <Input
-              value={formData.name}
-              onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-              placeholder="Nom du formulaire"
-              className="w-80"
-            />
-          </div>
-          <div className="flex gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setShowPreview(!showPreview)}
-            >
-              {showPreview ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-              {showPreview ? 'Masquer aperçu' : 'Afficher aperçu'}
-            </Button>
+            <div className="flex items-center gap-2">
+              <Label className="text-sm font-medium whitespace-nowrap">Nom du formulaire :</Label>
+              <Input
+                value={formData.name}
+                onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                placeholder="Ex: Formulaire de contact"
+                className="w-64"
+              />
+            </div>
           </div>
           <div className="flex gap-2">
             <Button onClick={onCancel} variant="outline" size="sm">
@@ -481,29 +474,42 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex border-b mt-4">
-          {[
-            { id: 'informations', label: 'Informations', icon: FormInput },
-            { id: 'builder', label: 'Constructeur', icon: Layout },
-            { id: 'style', label: 'Style', icon: Palette },
-            { id: 'settings', label: 'Paramètres', icon: Settings }
-          ].map(tab => {
-            const Icon = tab.icon;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id as any)}
-                className={`flex items-center gap-2 px-4 py-2 text-sm font-medium border-b-2 ${
-                  activeTab === tab.id
-                    ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700'
-                }`}
-              >
-                <Icon className="h-4 w-4" />
-                {tab.label}
-              </button>
-            );
-          })}
+        <div className="flex border-b mt-4 justify-between items-center">
+          <div className="flex">
+            {[
+              { id: 'informations', label: 'Informations', icon: FormInput },
+              { id: 'builder', label: 'Constructeur', icon: Layout },
+              { id: 'style', label: 'Style', icon: Palette },
+              { id: 'settings', label: 'Paramètres', icon: Settings }
+            ].map(tab => {
+              const Icon = tab.icon;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id as any)}
+                  className={`flex items-center gap-2 px-4 py-2 text-sm font-medium border-b-2 ${
+                    activeTab === tab.id
+                      ? 'border-blue-500 text-blue-600'
+                      : 'border-transparent text-gray-500 hover:text-gray-700'
+                  }`}
+                >
+                  <Icon className="h-4 w-4" />
+                  {tab.label}
+                </button>
+              );
+            })}
+          </div>
+          
+          {/* Toggle Preview Button */}
+          <Button
+            variant={showPreview ? "default" : "outline"}
+            size="sm"
+            onClick={() => setShowPreview(!showPreview)}
+            className="mr-4 gap-2"
+          >
+            {showPreview ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            {showPreview ? 'Masquer' : 'Aperçu'}
+          </Button>
         </div>
       </div>
 
@@ -525,9 +531,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                       }}
                     />
                   ) : (
-                    <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                      <p className="text-gray-500">Image d'en-tête</p>
-                    </div>
+                    <div className="w-full h-full bg-gray-200"></div>
                   )}
                   <div 
                     className="absolute inset-0 flex flex-col justify-center p-8 text-white"
