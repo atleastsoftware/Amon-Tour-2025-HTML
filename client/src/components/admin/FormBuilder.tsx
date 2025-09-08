@@ -983,7 +983,6 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                   </div>
                 </div>
               )}
-            </div>
           </div>
         </div>
       )}
