@@ -100,6 +100,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState<'builder' | 'style' | 'settings'>('builder');
   const [showPreview, setShowPreview] = useState(true);
+  const [forceRefresh, setForceRefresh] = useState(0);
   const [saving, setSaving] = useState(false);
   const [selectedField, setSelectedField] = useState<string | null>(null);
   
@@ -224,7 +225,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
     };
   };
 
-  const [formData, setFormData] = useState<FormData>(getDefaultFormData());
+  const [formData, setFormData] = useState<FormData>(() => getDefaultFormData());
 
   // Generate unique field ID
   const generateFieldId = () => `field_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
@@ -458,6 +459,16 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
               >
                 {showPreview ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 {showPreview ? 'Masquer aperçu' : 'Afficher aperçu'}
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  setFormData(getDefaultFormData());
+                  setForceRefresh(prev => prev + 1);
+                }}
+              >
+                🔄 Actualiser
               </Button>
             </div>
           </div>
