@@ -398,11 +398,122 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
         </div>
       </div>
 
-      <div className="flex flex-1">
-        {/* Left Panel - Builder */}
-        <div className={`${showPreview ? 'w-1/3' : 'w-full'} border-r bg-white overflow-auto`}>
-          <div className="p-4">
-            {activeTab === 'builder' && (
+      {/* Full Width Preview */}
+      {showPreview && (
+        <div className="bg-gray-100 border-b">
+          <div className="p-6">
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden max-w-6xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 min-h-[500px]">
+                {/* Image Side - Reproduction exacte du site */}
+                <div className="h-64 md:h-auto relative">
+                  {formData.headerImage ? (
+                    <img 
+                      src={formData.headerImage}
+                      alt="Header image"
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.currentTarget.src = '/catamaran-cruise.png';
+                      }}
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                      <p className="text-gray-500">Image d'en-tête</p>
+                    </div>
+                  )}
+                  <div 
+                    className="absolute inset-0 flex flex-col justify-center p-8 text-white"
+                    style={{ 
+                      background: `linear-gradient(to right, ${formData.primaryColor}CC, transparent)` 
+                    }}
+                  >
+                    <h3 className="font-heading font-bold text-3xl mb-3">
+                      {formData.title || 'Titre du formulaire'}
+                    </h3>
+                    <p className="max-w-xs">
+                      {formData.subtitle || formData.description || 'Description du formulaire'}
+                    </p>
+                  </div>
+                </div>
+                
+                {/* Form Side - Reproduction exacte du site */}
+                <div className="p-8">
+                  {formData.fields.length === 0 ? (
+                    <div className="text-center py-16 text-gray-500 h-full flex flex-col items-center justify-center">
+                      <FormInput className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+                      <p>Ajoutez des champs pour voir la prévisualisation</p>
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      {/* Render fields with exact site layout */}
+                      {formData.fields.map((field, index) => {
+                        const nextField = formData.fields[index + 1];
+                        const isHalfWidth = field.style?.width === 'half';
+                        const nextIsHalfWidth = nextField?.style?.width === 'half';
+                        
+                        if (isHalfWidth && nextIsHalfWidth) {
+                          // Skip rendering this field if it's already rendered as part of a grid
+                          if (index % 2 === 1) return null;
+                          
+                          return (
+                            <div key={`grid-${field.id}`} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -20 }}
+                              >
+                                {renderFieldPreview(field)}
+                              </motion.div>
+                              {nextField && (
+                                <motion.div
+                                  initial={{ opacity: 0, y: 20 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  exit={{ opacity: 0, y: -20 }}
+                                >
+                                  {renderFieldPreview(nextField)}
+                                </motion.div>
+                              )}
+                            </div>
+                          );
+                        } else if (!isHalfWidth || (isHalfWidth && !nextIsHalfWidth && index % 2 === 0)) {
+                          return (
+                            <motion.div
+                              key={field.id}
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: -20 }}
+                            >
+                              {renderFieldPreview(field)}
+                            </motion.div>
+                          );
+                        }
+                        return null;
+                      })}
+                      
+                      {/* Submit Button */}
+                      <div className="pt-4">
+                        <Button 
+                          style={{ 
+                            backgroundColor: formData.settings.submitButtonColor || formData.primaryColor,
+                            color: '#ffffff'
+                          }}
+                          className="w-full md:w-auto px-8 py-2"
+                        >
+                          {formData.settings.submitButtonText || 'Envoyer'}
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Bottom Panel - Editor */}
+      <div className="bg-white overflow-auto flex-1">
+        <div className="p-4">
+          {activeTab === 'builder' && (
               <div className="space-y-6">
                 {/* Form Basic Info */}
                 <Card>
@@ -744,121 +855,8 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                   </CardContent>
                 </Card>
               </div>
-            )}
-          </div>
+          )}
         </div>
-
-        {/* Right Panel - Full Screen Preview */}
-        {showPreview && (
-          <div className="flex-1 bg-gray-100 overflow-auto">
-            <div className="p-6">
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden max-w-6xl mx-auto">
-                <div className="grid grid-cols-1 md:grid-cols-2 min-h-[500px]">
-                  {/* Image Side - Reproduction exacte du site */}
-                  <div className="h-64 md:h-auto relative">
-                    {formData.headerImage ? (
-                      <img 
-                        src={formData.headerImage}
-                        alt="Header image"
-                        className="w-full h-full object-cover"
-                        onError={(e) => {
-                          e.currentTarget.src = '/catamaran-cruise.png';
-                        }}
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                        <p className="text-gray-500">Image d'en-tête</p>
-                      </div>
-                    )}
-                    <div 
-                      className="absolute inset-0 flex flex-col justify-center p-8 text-white"
-                      style={{ 
-                        background: `linear-gradient(to right, ${formData.primaryColor}CC, transparent)` 
-                      }}
-                    >
-                      <h3 className="font-heading font-bold text-3xl mb-3">
-                        {formData.title || 'Titre du formulaire'}
-                      </h3>
-                      <p className="max-w-xs">
-                        {formData.subtitle || formData.description || 'Description du formulaire'}
-                      </p>
-                    </div>
-                  </div>
-                  
-                  {/* Form Side - Reproduction exacte du site */}
-                  <div className="p-8">
-                    {formData.fields.length === 0 ? (
-                      <div className="text-center py-16 text-gray-500 h-full flex flex-col items-center justify-center">
-                        <FormInput className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-                        <p>Ajoutez des champs pour voir la prévisualisation</p>
-                      </div>
-                    ) : (
-                      <div className="space-y-4">
-                        {/* Render fields with exact site layout */}
-                        {formData.fields.map((field, index) => {
-                          const nextField = formData.fields[index + 1];
-                          const isHalfWidth = field.style?.width === 'half';
-                          const nextIsHalfWidth = nextField?.style?.width === 'half';
-                          
-                          if (isHalfWidth && nextIsHalfWidth) {
-                            // Skip rendering this field if it's already rendered as part of a grid
-                            if (index % 2 === 1) return null;
-                            
-                            return (
-                              <div key={`grid-${field.id}`} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <motion.div
-                                  initial={{ opacity: 0, y: 20 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  exit={{ opacity: 0, y: -20 }}
-                                >
-                                  {renderFieldPreview(field)}
-                                </motion.div>
-                                {nextField && (
-                                  <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -20 }}
-                                  >
-                                    {renderFieldPreview(nextField)}
-                                  </motion.div>
-                                )}
-                              </div>
-                            );
-                          } else if (!isHalfWidth || (isHalfWidth && !nextIsHalfWidth && index % 2 === 0)) {
-                            return (
-                              <motion.div
-                                key={field.id}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -20 }}
-                              >
-                                {renderFieldPreview(field)}
-                              </motion.div>
-                            );
-                          }
-                          return null;
-                        })}
-                        
-                        {/* Submit Button */}
-                        <div className="pt-4">
-                          <Button 
-                            style={{ 
-                              backgroundColor: formData.settings.submitButtonColor || formData.primaryColor,
-                              color: '#ffffff'
-                            }}
-                            className="w-full md:w-auto px-8 py-2"
-                          >
-                            {formData.settings.submitButtonText || 'Envoyer'}
-                          </Button>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
