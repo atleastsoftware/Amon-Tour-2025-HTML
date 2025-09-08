@@ -843,6 +843,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                       </div>
                     )}
                   </div>
+                </div>
               ) : (
                 /* Layout: Image à gauche/droite */
                 <div className={`grid grid-cols-1 md:grid-cols-2 min-h-[500px] ${formData.layout === 'image-right' ? 'md:grid-flow-col-dense' : ''}`}>
