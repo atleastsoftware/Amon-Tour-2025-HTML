@@ -2131,10 +2131,10 @@ export default function AdminAppearance() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 px-2 pb-4 sm:px-4 sm:pb-4">
+    <div className="min-h-screen bg-gray-50 px-2 pt-2 pb-4 sm:px-4 sm:pt-2 sm:pb-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 mb-6 mt-4">
+        <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 mb-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:justify-between">
             <div className="w-full sm:w-auto">
               <h1 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2 sm:gap-3">
