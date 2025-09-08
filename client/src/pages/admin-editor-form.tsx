@@ -93,97 +93,118 @@ export default function AdminEditorForm() {
     {
       id: 2,
       name: 'Custom Tour Request',
-      title: 'Demande de tour personnalisé',
-      subtitle: 'Créez votre expérience unique en Thaïlande',
-      description: 'Décrivez-nous vos envies et nous créerons le tour parfait pour vous.',
-      layout: 'two-column',
-      backgroundColor: '#f8fafc',
+      title: 'Create Your Custom Trip',
+      subtitle: 'Your travel story starts with your dreams – let us write the rest.',
+      description: 'Tell us what you\'d like to discover, and we\'ll create your personalized itinerary.',
+      layout: 'single-column',
+      backgroundColor: '#ffffff',
       primaryColor: '#1e73be',
-      textColor: '#334155',
+      textColor: '#333333',
+      headerImage: '/catamaran-cruise.png',
       fields: [
         {
           id: 'fullName',
           type: 'text',
-          label: 'Nom complet',
-          placeholder: 'Votre nom',
+          label: 'Full Name *',
+          placeholder: 'Your name',
           required: true,
           style: { width: 'half', marginBottom: 16 }
         },
         {
           id: 'email',
           type: 'email',
-          label: 'Email',
-          placeholder: 'votre@email.com',
+          label: 'Email *',
+          placeholder: 'Your email',
           required: true,
           style: { width: 'half', marginBottom: 16 }
         },
         {
-          id: 'phoneNumber',
+          id: 'countryCode',
+          type: 'select',
+          label: 'Country Code *',
+          placeholder: 'Code',
+          required: true,
+          options: ['🇫🇷 +33', '🇹🇭 +66', '🇺🇸 +1', '🇬🇧 +44', '🇩🇪 +49', '🇪🇸 +34'],
+          style: { width: 'third', marginBottom: 16 }
+        },
+        {
+          id: 'whatsappNumber',
           type: 'phone',
-          label: 'Téléphone',
-          placeholder: '+33 6 XX XX XX XX',
+          label: 'WhatsApp Number *',
+          placeholder: 'Your WhatsApp number',
           required: true,
           style: { width: 'half', marginBottom: 16 }
         },
         {
           id: 'numberOfAdults',
-          type: 'number',
-          label: 'Nombre d\'adultes',
-          placeholder: '2',
-          required: true,
+          type: 'select',
+          label: 'Number of adults',
+          placeholder: 'Select number of adults',
+          required: false,
+          options: ['1 adult', '2 adults', '3 adults', '4 adults', '5 adults', '6+ adults'],
           style: { width: 'half', marginBottom: 16 }
         },
         {
           id: 'numberOfKids',
-          type: 'number',
-          label: 'Nombre d\'enfants',
-          placeholder: '0',
+          type: 'select',
+          label: 'Number of kids (under 12 years old)',
+          placeholder: 'Select number of kids',
           required: false,
+          options: ['No kids', '1 kid', '2 kids', '3 kids', '4 kids', '5+ kids'],
           style: { width: 'half', marginBottom: 16 }
         },
         {
           id: 'tripDates',
-          type: 'text',
-          label: 'Dates de voyage',
-          placeholder: 'Ex: 15-22 juillet 2025',
+          type: 'date',
+          label: 'Dates of trip',
+          placeholder: 'Select trip dates',
           required: false,
-          style: { width: 'half', marginBottom: 16 }
+          style: { width: 'full', marginBottom: 16 }
         },
         {
-          id: 'interests',
-          type: 'checkbox',
-          label: 'Centres d\'intérêt',
+          id: 'duration',
+          type: 'select',
+          label: 'Or approximate duration',
+          placeholder: 'Select duration',
           required: false,
-          options: ['Plage et détente', 'Aventure et nature', 'Culture et temples', 'Gastronomie', 'Sports nautiques', 'Vie nocturne'],
+          options: ['1-3 days', '4-7 days', '8-14 days', '15+ days'],
+          style: { width: 'full', marginBottom: 16 }
+        },
+        {
+          id: 'tripTypes',
+          type: 'checkbox',
+          label: 'Trip Types',
+          required: false,
+          options: ['Culture & History', 'Nature & Adventure', 'Beaches & Islands', 'Family trip', 'Group trip', 'Wedding & Honeymoon'],
           style: { width: 'full', marginBottom: 16 }
         },
         {
           id: 'destinations',
           type: 'checkbox',
-          label: 'Destinations souhaitées',
+          label: 'Destinations',
           required: false,
-          options: ['Bangkok', 'Phuket', 'Koh Phi Phi', 'Krabi', 'Chiang Mai', 'Koh Samui'],
+          options: ['Khao Sok', 'Krabi', 'Koh Mook', 'Bangkok', 'Chiang Mai', 'Others destinations'],
           style: { width: 'full', marginBottom: 16 }
         },
         {
           id: 'message',
           type: 'textarea',
-          label: 'Message et demandes spéciales',
-          placeholder: 'Décrivez-nous votre voyage idéal...',
+          label: 'Describe your ideal trip',
+          placeholder: 'Tell us what you would like to see and do during your journey...',
           required: true,
           style: { width: 'full', marginBottom: 16 }
         }
       ],
       settings: {
-        submitButtonText: 'Demander un devis',
+        submitButtonText: 'Send my request',
         submitButtonColor: '#1e73be',
-        successMessage: 'Merci ! Nous vous contacterons sous 24h avec une proposition personnalisée.',
-        errorMessage: 'Une erreur est survenue. Veuillez réessayer.',
+        successMessage: 'Thank you! We will contact you very soon to discuss your travel project.',
+        errorMessage: 'There was a problem sending your request. Please try again.',
         emailNotification: true
       },
       isActive: true,
       createdAt: '2025-01-01',
-      updatedAt: '2025-01-05'
+      updatedAt: '2025-01-08'
     },
     {
       id: 3,
