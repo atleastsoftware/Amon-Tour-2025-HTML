@@ -113,7 +113,6 @@
   body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     @apply antialiased bg-background text-foreground;
-    padding-top: 50px; /* Espace pour la barre de notification */
   }
 }
 

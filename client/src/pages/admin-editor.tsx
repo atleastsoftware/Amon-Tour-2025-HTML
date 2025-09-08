@@ -37,7 +37,7 @@ export default function AdminEditor() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 px-2 pt-2 pb-4 sm:px-4 sm:pt-2 sm:pb-4">
+    <div className="min-h-screen bg-gray-50 px-2 pb-4 sm:px-4 sm:pb-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 mb-6">
