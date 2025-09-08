@@ -571,7 +571,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
         return (
           <div className={baseFieldClasses} style={fieldStyle}>
             <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
-              {field.label}
+              {field.label}{field.required ? ' *' : ''}
             </Label>
             <Input placeholder={field.placeholder} type={field.type} style={{ color: resolveColor(formData.textColor) }} />
           </div>
@@ -581,7 +581,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
         return (
           <div className={baseFieldClasses} style={fieldStyle}>
             <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
-              {field.label}
+              {field.label}{field.required ? ' *' : ''}
             </Label>
             <Textarea placeholder={field.placeholder} rows={4} style={{ color: resolveColor(formData.textColor) }} />
           </div>
@@ -591,7 +591,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
         return (
           <div className={baseFieldClasses} style={fieldStyle}>
             <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
-              {field.label}
+              {field.label}{field.required ? ' *' : ''}
             </Label>
             <Select>
               <SelectTrigger style={{ color: resolveColor(formData.textColor) }}>
@@ -610,7 +610,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
         return (
           <div className={baseFieldClasses} style={fieldStyle}>
             <Label className="mb-4 block" style={{ color: resolveColor(formData.textColor) }}>
-              {field.label}
+              {field.label}{field.required ? ' *' : ''}
             </Label>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
               {field.options?.map((option, index) => (
@@ -640,7 +640,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
         return (
           <div className={baseFieldClasses} style={fieldStyle}>
             <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
-              {field.label}
+              {field.label}{field.required ? ' *' : ''}
             </Label>
             <div className="space-y-2">
               {field.options?.map((option, index) => (
@@ -662,7 +662,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
         return (
           <div className={baseFieldClasses} style={fieldStyle}>
             <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
-              {field.label}
+              {field.label}{field.required ? ' *' : ''}
             </Label>
             <Input type="file" style={{ color: resolveColor(formData.textColor) }} />
           </div>
@@ -672,7 +672,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
         return (
           <div className={baseFieldClasses} style={fieldStyle}>
             <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
-              {field.label}
+              {field.label}{field.required ? ' *' : ''}
             </Label>
             <Input placeholder={field.placeholder} readOnly className="cursor-pointer" style={{ color: resolveColor(formData.textColor) }} />
           </div>
