@@ -86,7 +86,7 @@ interface FormData {
   subtitle?: string;
   description?: string;
   headerImage?: string;
-  layout: 'image-left' | 'image-right' | 'image-top';
+  layout: 'single-column' | 'two-column' | 'grid';
   backgroundColor: string;
   primaryColor: string;
   frameColor: string;
@@ -320,7 +320,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
       subtitle: 'Your travel story starts with your dreams – let us write the rest.',
       description: 'Créez votre expérience unique en Thaïlande',
       headerImage: '/catamaran-cruise.png',
-      layout: 'image-left' as const,
+      layout: 'single-column' as const,
       backgroundColor: '#ffffff',
       primaryColor: '#1e73be',
       frameColor: '#ffffff',
@@ -705,186 +705,45 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
         <div className="bg-gray-100 border-b">
           <div className="p-6">
             <div className="bg-white rounded-lg shadow-lg overflow-hidden max-w-6xl mx-auto">
-              {formData.layout === 'image-top' ? (
-                /* Layout: Image en haut comme header */
-                <div>
-                  {/* Header image */}
-                  <div className="h-48 relative">
-                    {formData.headerImage ? (
-                      <img 
-                        src={formData.headerImage}
-                        alt="Header image"
-                        className="w-full h-full object-cover"
-                        onError={(e) => {
-                          e.currentTarget.src = '/catamaran-cruise.png';
-                        }}
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-gray-200"></div>
-                    )}
-                    <div 
-                      className="absolute inset-0 flex flex-col justify-center items-center text-center p-8"
-                      style={{ 
-                        background: `linear-gradient(to bottom, ${resolveColor(formData.primaryColor)}CC, transparent)` 
+              <div className="grid grid-cols-1 md:grid-cols-2 min-h-[500px]">
+                {/* Image Side - Reproduction exacte du site */}
+                <div className="h-64 md:h-auto relative">
+                  {formData.headerImage ? (
+                    <img 
+                      src={formData.headerImage}
+                      alt="Header image"
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.currentTarget.src = '/catamaran-cruise.png';
                       }}
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gray-200"></div>
+                  )}
+                  <div 
+                    className="absolute inset-0 flex flex-col justify-center p-8"
+                    style={{ 
+                      background: `linear-gradient(to right, ${resolveColor(formData.primaryColor)}CC, transparent)` 
+                    }}
+                  >
+                    <h3 
+                      className="font-heading font-bold text-3xl mb-3"
+                      style={{ color: resolveColor(formData.titleColor) }}
                     >
-                      <h3 
-                        className="font-heading font-bold text-3xl mb-3"
-                        style={{ color: resolveColor(formData.titleColor) }}
-                      >
-                        {formData.title || 'Titre du formulaire'}
-                      </h3>
-                      <p 
-                        className="max-w-md"
-                        style={{ color: resolveColor(formData.subtitleColor) }}
-                      >
-                        {formData.subtitle || formData.description || 'Description du formulaire'}
-                      </p>
-                    </div>
-                  </div>
-                  
-                  {/* Form below */}
-                  <div className="p-8" style={{ backgroundColor: resolveColor(formData.frameColor) }}>
-                    {formData.fields.length === 0 ? (
-                      <div className="text-center py-16 text-gray-500 h-full flex flex-col items-center justify-center">
-                        <FormInput className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-                        <p>Ajoutez des champs pour voir la prévisualisation</p>
-                      </div>
-                    ) : (
-                      <div className="space-y-4">
-                        {/* Render fields with exact site layout logic */}
-                        {(() => {
-                          const renderedIndexes = new Set();
-                          return formData.fields.map((field, index) => {
-                            if (renderedIndexes.has(index)) return null;
-                            
-                            const nextField = formData.fields[index + 1];
-                            const isHalfWidth = field.style?.width === 'half';
-                            const isThirdWidth = field.style?.width === 'third';
-                            const nextIsHalfWidth = nextField?.style?.width === 'half';
-                            
-                            // Country Code (1/3) + WhatsApp (2/3) special case
-                            if (isThirdWidth && nextField && nextIsHalfWidth && field.id === 'countrycode') {
-                              renderedIndexes.add(index);
-                              renderedIndexes.add(index + 1);
-                              return (
-                                <div key={`phone-grid-${field.id}`} className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                  <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -20 }}
-                                  >
-                                    {renderFieldPreview(field)}
-                                  </motion.div>
-                                  <div className="md:col-span-2">
-                                    <motion.div
-                                      initial={{ opacity: 0, y: 20 }}
-                                      animate={{ opacity: 1, y: 0 }}
-                                      exit={{ opacity: 0, y: -20 }}
-                                    >
-                                      {renderFieldPreview(nextField)}
-                                    </motion.div>
-                                  </div>
-                                </div>
-                              );
-                            }
-                            
-                            // Regular half-width fields (2 columns)
-                            if (isHalfWidth && nextField && nextIsHalfWidth) {
-                              renderedIndexes.add(index);
-                              renderedIndexes.add(index + 1);
-                              return (
-                                <div key={`grid-${field.id}`} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                  <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -20 }}
-                                  >
-                                    {renderFieldPreview(field)}
-                                  </motion.div>
-                                  <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -20 }}
-                                  >
-                                    {renderFieldPreview(nextField)}
-                                  </motion.div>
-                                </div>
-                              );
-                            }
-                            
-                            // Full width fields
-                            renderedIndexes.add(index);
-                            return (
-                              <motion.div
-                                key={field.id}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -20 }}
-                              >
-                                {renderFieldPreview(field)}
-                              </motion.div>
-                            );
-                          }).filter(Boolean);
-                        })()}
-                        
-                        {/* Submit Button */}
-                        <div className="pt-4">
-                          <Button 
-                            style={{ 
-                              backgroundColor: resolveColor(formData.primaryColor),
-                              color: '#ffffff'
-                            }}
-                            className="w-full px-8 py-2"
-                          >
-                            {formData.settings.submitButtonText || 'Envoyer'}
-                          </Button>
-                        </div>
-                      </div>
-                    )}
+                      {formData.title || 'Titre du formulaire'}
+                    </h3>
+                    <p 
+                      className="max-w-xs"
+                      style={{ color: resolveColor(formData.subtitleColor) }}
+                    >
+                      {formData.subtitle || formData.description || 'Description du formulaire'}
+                    </p>
                   </div>
                 </div>
-              ) : (
-                /* Layout: Image à gauche/droite */
-                <div className={`grid grid-cols-1 md:grid-cols-2 min-h-[500px] ${formData.layout === 'image-right' ? 'md:grid-flow-col-dense' : ''}`}>
-                  {/* Image Side */}
-                  <div className={`h-64 md:h-auto relative ${formData.layout === 'image-right' ? 'md:order-2' : ''}`}>
-                    {formData.headerImage ? (
-                      <img 
-                        src={formData.headerImage}
-                        alt="Header image"
-                        className="w-full h-full object-cover"
-                        onError={(e) => {
-                          e.currentTarget.src = '/catamaran-cruise.png';
-                        }}
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-gray-200"></div>
-                    )}
-                    <div 
-                      className="absolute inset-0 flex flex-col justify-center p-8"
-                      style={{ 
-                        background: `linear-gradient(to right, ${resolveColor(formData.primaryColor)}CC, transparent)` 
-                      }}
-                    >
-                      <h3 
-                        className="font-heading font-bold text-3xl mb-3"
-                        style={{ color: resolveColor(formData.titleColor) }}
-                      >
-                        {formData.title || 'Titre du formulaire'}
-                      </h3>
-                      <p 
-                        className="max-w-xs"
-                        style={{ color: resolveColor(formData.subtitleColor) }}
-                      >
-                        {formData.subtitle || formData.description || 'Description du formulaire'}
-                      </p>
-                    </div>
-                  </div>
-                  
-                  {/* Form Side */}
-                  <div className={`p-8 ${formData.layout === 'image-right' ? 'md:order-1' : ''}`} style={{ backgroundColor: resolveColor(formData.frameColor) }}>
-                    {formData.fields.length === 0 ? (
+                
+                {/* Form Side - Reproduction exacte du site */}
+                <div className="p-8" style={{ backgroundColor: resolveColor(formData.frameColor) }}>
+                  {formData.fields.length === 0 ? (
                     <div className="text-center py-16 text-gray-500 h-full flex flex-col items-center justify-center">
                       <FormInput className="h-12 w-12 mx-auto mb-4 text-gray-300" />
                       <p>Ajoutez des champs pour voir la prévisualisation</p>
@@ -981,9 +840,9 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                       </div>
                     </div>
                   )}
-                  </div>
                 </div>
-              )}
+              </div>
+            </div>
           </div>
         </div>
       )}
@@ -1277,30 +1136,6 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
 
             {activeTab === 'style' && (
               <div className="space-y-6">
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-sm">Disposition</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div>
-                      <Label className="text-sm font-medium mb-2 block">Position de l'image</Label>
-                      <Select
-                        value={formData.layout || 'image-left'}
-                        onValueChange={(value) => setFormData(prev => ({ ...prev, layout: value as 'image-left' | 'image-right' | 'image-top' }))}
-                      >
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="image-left">Image à gauche</SelectItem>
-                          <SelectItem value="image-right">Image à droite</SelectItem>
-                          <SelectItem value="image-top">Image en haut (header)</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </CardContent>
-                </Card>
-
                 <Card>
                   <CardHeader>
                     <CardTitle className="text-sm">Couleurs</CardTitle>
