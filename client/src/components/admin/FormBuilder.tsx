@@ -450,28 +450,24 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
       {/* Header Bar */}
       <div className="bg-white border-b p-4 sticky top-0 z-10">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col gap-2">
             <h2 className="text-lg font-semibold">Constructeur de formulaire</h2>
-            <div className="flex gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setShowPreview(!showPreview)}
-              >
-                {showPreview ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                {showPreview ? 'Masquer aperçu' : 'Afficher aperçu'}
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => {
-                  setFormData(getDefaultFormData());
-                  setForceRefresh(prev => prev + 1);
-                }}
-              >
-                🔄 Actualiser
-              </Button>
-            </div>
+            <Input
+              value={formData.name}
+              onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+              placeholder="Nom du formulaire"
+              className="w-80"
+            />
+          </div>
+          <div className="flex gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setShowPreview(!showPreview)}
+            >
+              {showPreview ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+              {showPreview ? 'Masquer aperçu' : 'Afficher aperçu'}
+            </Button>
           </div>
           <div className="flex gap-2">
             <Button onClick={onCancel} variant="outline" size="sm">
@@ -666,14 +662,6 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div>
-                    <Label>Nom du formulaire *</Label>
-                    <Input
-                      value={formData.name}
-                      onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                      placeholder="Ex: Formulaire de contact"
-                    />
-                  </div>
-                  <div>
                     <Label>Titre *</Label>
                     <Input
                       value={formData.title}
@@ -683,19 +671,11 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                   </div>
                   <div>
                     <Label>Sous-titre</Label>
-                    <Input
+                    <Textarea
                       value={formData.subtitle || ''}
                       onChange={(e) => setFormData(prev => ({ ...prev, subtitle: e.target.value }))}
                       placeholder="Ex: Nous vous répondrons rapidement"
-                    />
-                  </div>
-                  <div>
-                    <Label>Description</Label>
-                    <Textarea
-                      value={formData.description || ''}
-                      onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
-                      placeholder="Description du formulaire..."
-                      rows={3}
+                      rows={2}
                     />
                   </div>
                   <div>
