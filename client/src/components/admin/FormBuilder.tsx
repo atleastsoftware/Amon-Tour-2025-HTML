@@ -48,7 +48,8 @@ import {
   Layout,
   Settings,
   Save,
-  FormInput
+  FormInput,
+  Copy
 } from 'lucide-react';
 import { motion, AnimatePresence, Reorder } from 'framer-motion';
 
@@ -284,6 +285,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
   const [forceRefresh, setForceRefresh] = useState(0);
   const [saving, setSaving] = useState(false);
   const [selectedField, setSelectedField] = useState<string | null>(null);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   // Injecter le CSS personnalisé pour les checkboxes
   useEffect(() => {
@@ -1124,36 +1126,20 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
           {activeTab === 'builder' && (
               <div className="space-y-6">
 
-                {/* Field Types */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-sm">Types de champs</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid grid-cols-2 gap-2">
-                      {FIELD_TYPES.map(fieldType => {
-                        const Icon = fieldType.icon;
-                        return (
-                          <Button
-                            key={fieldType.type}
-                            variant="outline"
-                            size="sm"
-                            onClick={() => addField(fieldType.type)}
-                            className="justify-start"
-                          >
-                            <Icon className="h-4 w-4 mr-2" />
-                            {fieldType.label}
-                          </Button>
-                        );
-                      })}
-                    </div>
-                  </CardContent>
-                </Card>
-
                 {/* Form Fields */}
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-sm">Champs du formulaire ({formData.fields.length})</CardTitle>
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="text-sm">Champs du formulaire ({formData.fields.length})</CardTitle>
+                      <Button
+                        size="sm"
+                        onClick={() => addField('text')}
+                        className="h-8"
+                      >
+                        <Plus className="h-4 w-4 mr-2" />
+                        Nouveau champ
+                      </Button>
+                    </div>
                   </CardHeader>
                   <CardContent>
                     {formData.fields.length === 0 ? (
