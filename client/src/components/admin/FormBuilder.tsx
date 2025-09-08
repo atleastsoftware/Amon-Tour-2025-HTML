@@ -553,6 +553,35 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
     }
   };
 
+  const handleSaveDraft = async () => {
+    if (!formData.name.trim()) {
+      toast({
+        title: "Erreur",
+        description: "Le nom du formulaire est obligatoire pour sauvegarder en brouillon.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setSaving(true);
+    try {
+      const draftData = { ...formData, isActive: false };
+      await onSave(draftData);
+      toast({
+        title: "Brouillon sauvegardé",
+        description: "Le formulaire a été sauvegardé en tant que brouillon."
+      });
+    } catch (error) {
+      toast({
+        title: "Erreur",
+        description: "Erreur lors de la sauvegarde du brouillon.",
+        variant: "destructive"
+      });
+    } finally {
+      setSaving(false);
+    }
+  };
+
   // Render field preview - adapted for the real site layout
   const renderFieldPreview = (field: FormField) => {
     const isHalfWidth = field.style?.width === 'half';
@@ -696,15 +725,19 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                 value={formData.name}
                 onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                 placeholder="Ex: Formulaire de contact"
-                className="w-64"
+                className="w-64 h-9"
+                size="sm"
               />
             </div>
           </div>
           <div className="flex gap-2">
-            <Button onClick={onCancel} variant="outline" size="sm">
+            <Button onClick={onCancel} variant="outline" size="sm" className="h-9">
               Annuler
             </Button>
-            <Button onClick={handleSave} disabled={saving} size="sm">
+            <Button onClick={handleSaveDraft} variant="outline" size="sm" className="h-9" disabled={saving}>
+              Brouillon
+            </Button>
+            <Button onClick={handleSave} disabled={saving} size="sm" className="h-9">
               <Save className="h-4 w-4 mr-2" />
               {saving ? 'Sauvegarde...' : 'Sauvegarder'}
             </Button>
