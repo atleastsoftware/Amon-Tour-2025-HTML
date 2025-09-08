@@ -1,7 +1,7 @@
 import { useLocation } from 'wouter';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { FileText, Users, FormInput, ArrowLeft } from 'lucide-react';
+import { FileText, Users, FormInput, ArrowLeft, Edit } from 'lucide-react';
 
 export default function AdminEditor() {
   const [, setLocation] = useLocation();
@@ -37,34 +37,31 @@ export default function AdminEditor() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white">
-      <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-gray-50 p-2 sm:p-4">
+      <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-4">
-            <Button
-              variant="ghost"
+        <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 mb-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:justify-between">
+            <div className="w-full sm:w-auto">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2 sm:gap-3">
+                <Edit className="h-6 w-6 sm:h-7 sm:w-7 text-blue-600 flex-shrink-0" />
+                <span className="truncate">Gestion de Contenu</span>
+              </h1>
+              <p className="text-sm sm:text-base text-gray-600">Gérez facilement le contenu de votre site web avec nos outils d'édition professionnels</p>
+            </div>
+            <Button 
+              variant="outline" 
               onClick={() => setLocation('/admin-appearance')}
-              className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
+              className="flex items-center gap-2 w-full sm:w-auto"
             >
-              <ArrowLeft className="h-4 w-4" />
-              Retour à l'administration
+              <ArrowLeft className="w-4 h-4" />
+              <span>Retour à l'administration</span>
             </Button>
           </div>
         </div>
 
-        {/* Title */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Système de Gestion de Contenu
-          </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Gérez facilement le contenu de votre site web avec nos outils d'édition professionnels
-          </p>
-        </div>
-
         {/* Editor Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           {editorItems.map((item) => {
             const Icon = item.icon;
             return (
@@ -101,20 +98,20 @@ export default function AdminEditor() {
         </div>
 
         {/* Statistics */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-          <Card className="bg-white/70 backdrop-blur-sm border-blue-100">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <Card className="bg-white shadow-sm border border-gray-200">
             <CardContent className="p-6 text-center">
               <div className="text-3xl font-bold text-blue-600 mb-2">5</div>
               <div className="text-gray-600">Pages</div>
             </CardContent>
           </Card>
-          <Card className="bg-white/70 backdrop-blur-sm border-green-100">
+          <Card className="bg-white shadow-sm border border-gray-200">
             <CardContent className="p-6 text-center">
               <div className="text-3xl font-bold text-green-600 mb-2">0</div>
               <div className="text-gray-600">Articles</div>
             </CardContent>
           </Card>
-          <Card className="bg-white/70 backdrop-blur-sm border-orange-100">
+          <Card className="bg-white shadow-sm border border-gray-200">
             <CardContent className="p-6 text-center">
               <div className="text-3xl font-bold text-orange-600 mb-2">0</div>
               <div className="text-gray-600">Formulaires</div>
