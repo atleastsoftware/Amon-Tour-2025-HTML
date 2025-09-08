@@ -311,7 +311,14 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
   
   // Pre-populate with Custom Tour Request form if no initial form provided
   const getDefaultFormData = () => {
-    if (initialForm) return initialForm;
+    if (initialForm) {
+      // S'assurer que les couleurs titre et sous-titre sont blanches pour la visibilité
+      return {
+        ...initialForm,
+        titleColor: initialForm.titleColor || '#ffffff',
+        subtitleColor: initialForm.subtitleColor || '#ffffff',
+      };
+    }
     
     // Default to Custom Tour Request form structure
     return {
