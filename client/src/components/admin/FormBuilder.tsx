@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   Plus,
   Trash2,
@@ -388,14 +389,14 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
       case 'checkbox':
         return (
           <div className={baseFieldClasses} style={fieldStyle}>
-            <Label className="mb-2 block">
+            <Label className="mb-4 block">
               {field.label}
             </Label>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
               {field.options?.map((option, index) => (
-                <div key={index} className="flex items-center space-x-2">
-                  <input type="checkbox" id={`${field.id}-${index}`} className="rounded" />
-                  <Label htmlFor={`${field.id}-${index}`} className="text-sm font-normal cursor-pointer">{option}</Label>
+                <div key={index} className="flex flex-row items-start space-x-3 space-y-0">
+                  <Checkbox id={`${field.id}-${index}`} className="mt-1" />
+                  <Label htmlFor={`${field.id}-${index}`} className="text-sm font-normal cursor-pointer leading-5">{option}</Label>
                 </div>
               ))}
             </div>
