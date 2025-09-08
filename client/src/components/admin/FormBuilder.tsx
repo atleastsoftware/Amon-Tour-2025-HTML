@@ -473,44 +473,6 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
           </div>
         </div>
 
-        {/* Tab Navigation */}
-        <div className="flex border-b mt-4 justify-between items-center">
-          <div className="flex">
-            {[
-              { id: 'informations', label: 'Informations', icon: FormInput },
-              { id: 'builder', label: 'Constructeur', icon: Layout },
-              { id: 'style', label: 'Style', icon: Palette },
-              { id: 'settings', label: 'Paramètres', icon: Settings }
-            ].map(tab => {
-              const Icon = tab.icon;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id as any)}
-                  className={`flex items-center gap-2 px-4 py-2 text-sm font-medium border-b-2 ${
-                    activeTab === tab.id
-                      ? 'border-blue-500 text-blue-600'
-                      : 'border-transparent text-gray-500 hover:text-gray-700'
-                  }`}
-                >
-                  <Icon className="h-4 w-4" />
-                  {tab.label}
-                </button>
-              );
-            })}
-          </div>
-          
-          {/* Toggle Preview Button */}
-          <Button
-            variant={showPreview ? "default" : "outline"}
-            size="sm"
-            onClick={() => setShowPreview(!showPreview)}
-            className="mr-4 gap-2"
-          >
-            {showPreview ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-            {showPreview ? 'Masquer' : 'Aperçu'}
-          </Button>
-        </div>
       </div>
 
       {/* Full Width Preview */}
@@ -640,7 +602,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                             backgroundColor: formData.settings.submitButtonColor || formData.primaryColor,
                             color: '#ffffff'
                           }}
-                          className="w-full md:w-auto px-8 py-2"
+                          className="w-full px-8 py-2"
                         >
                           {formData.settings.submitButtonText || 'Envoyer'}
                         </Button>
@@ -656,6 +618,34 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
 
       {/* Bottom Panel - Editor */}
       <div className="bg-white overflow-auto flex-1">
+        {/* Tab Navigation */}
+        <div className="flex border-b p-4 pb-0">
+          <div className="flex">
+            {[
+              { id: 'informations', label: 'Informations', icon: FormInput },
+              { id: 'builder', label: 'Constructeur', icon: Layout },
+              { id: 'style', label: 'Style', icon: Palette },
+              { id: 'settings', label: 'Paramètres', icon: Settings }
+            ].map(tab => {
+              const Icon = tab.icon;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id as any)}
+                  className={`flex items-center gap-2 px-4 py-2 text-sm font-medium border-b-2 ${
+                    activeTab === tab.id
+                      ? 'border-blue-500 text-blue-600'
+                      : 'border-transparent text-gray-500 hover:text-gray-700'
+                  }`}
+                >
+                  <Icon className="h-4 w-4" />
+                  {tab.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+        
         <div className="p-4">
           {activeTab === 'informations' && (
             <div className="space-y-6">
