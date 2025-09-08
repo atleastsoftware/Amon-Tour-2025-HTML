@@ -99,7 +99,7 @@ const FIELD_TYPES = [
 
 export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuilderProps) {
   const { toast } = useToast();
-  const [activeTab, setActiveTab] = useState<'builder' | 'style' | 'settings'>('builder');
+  const [activeTab, setActiveTab] = useState<'informations' | 'builder' | 'style' | 'settings'>('informations');
   const [showPreview, setShowPreview] = useState(true);
   const [forceRefresh, setForceRefresh] = useState(0);
   const [saving, setSaving] = useState(false);
@@ -487,6 +487,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
         {/* Tab Navigation */}
         <div className="flex border-b mt-4">
           {[
+            { id: 'informations', label: 'Informations', icon: FormInput },
             { id: 'builder', label: 'Constructeur', icon: Layout },
             { id: 'style', label: 'Style', icon: Palette },
             { id: 'settings', label: 'Paramètres', icon: Settings }
@@ -656,58 +657,82 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
       {/* Bottom Panel - Editor */}
       <div className="bg-white overflow-auto flex-1">
         <div className="p-4">
+          {activeTab === 'informations' && (
+            <div className="space-y-6">
+              {/* Form Basic Info */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-sm">Informations générales</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div>
+                    <Label>Nom du formulaire *</Label>
+                    <Input
+                      value={formData.name}
+                      onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                      placeholder="Ex: Formulaire de contact"
+                    />
+                  </div>
+                  <div>
+                    <Label>Titre *</Label>
+                    <Input
+                      value={formData.title}
+                      onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
+                      placeholder="Ex: Contactez-nous"
+                    />
+                  </div>
+                  <div>
+                    <Label>Sous-titre</Label>
+                    <Input
+                      value={formData.subtitle || ''}
+                      onChange={(e) => setFormData(prev => ({ ...prev, subtitle: e.target.value }))}
+                      placeholder="Ex: Nous vous répondrons rapidement"
+                    />
+                  </div>
+                  <div>
+                    <Label>Description</Label>
+                    <Textarea
+                      value={formData.description || ''}
+                      onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
+                      placeholder="Description du formulaire..."
+                      rows={3}
+                    />
+                  </div>
+                  <div>
+                    <Label>Image d'en-tête</Label>
+                    <Input
+                      value={formData.headerImage || ''}
+                      onChange={(e) => setFormData(prev => ({ ...prev, headerImage: e.target.value }))}
+                      placeholder="URL de l'image (ex: /catamaran-cruise.png)"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">Cette image apparaîtra à gauche du formulaire comme sur le site</p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Submit Button Settings */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-sm">Bouton de soumission</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div>
+                    <Label>Texte du bouton</Label>
+                    <Input
+                      value={formData.settings.submitButtonText || 'Envoyer'}
+                      onChange={(e) => setFormData(prev => ({
+                        ...prev,
+                        settings: { ...prev.settings, submitButtonText: e.target.value }
+                      }))}
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+
           {activeTab === 'builder' && (
               <div className="space-y-6">
-                {/* Form Basic Info */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-sm">Informations générales</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div>
-                      <Label>Nom du formulaire *</Label>
-                      <Input
-                        value={formData.name}
-                        onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                        placeholder="Ex: Formulaire de contact"
-                      />
-                    </div>
-                    <div>
-                      <Label>Titre *</Label>
-                      <Input
-                        value={formData.title}
-                        onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
-                        placeholder="Ex: Contactez-nous"
-                      />
-                    </div>
-                    <div>
-                      <Label>Sous-titre</Label>
-                      <Input
-                        value={formData.subtitle || ''}
-                        onChange={(e) => setFormData(prev => ({ ...prev, subtitle: e.target.value }))}
-                        placeholder="Ex: Nous vous répondrons rapidement"
-                      />
-                    </div>
-                    <div>
-                      <Label>Description</Label>
-                      <Textarea
-                        value={formData.description || ''}
-                        onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
-                        placeholder="Description du formulaire..."
-                        rows={3}
-                      />
-                    </div>
-                    <div>
-                      <Label>Image d'en-tête</Label>
-                      <Input
-                        value={formData.headerImage || ''}
-                        onChange={(e) => setFormData(prev => ({ ...prev, headerImage: e.target.value }))}
-                        placeholder="URL de l'image (ex: /catamaran-cruise.png)"
-                      />
-                      <p className="text-xs text-gray-500 mt-1">Cette image apparaîtra à gauche du formulaire comme sur le site</p>
-                    </div>
-                  </CardContent>
-                </Card>
 
                 {/* Field Types */}
                 <Card>
@@ -949,23 +974,6 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
 
             {activeTab === 'settings' && (
               <div className="space-y-6">
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-sm">Bouton de soumission</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div>
-                      <Label>Texte du bouton</Label>
-                      <Input
-                        value={formData.settings.submitButtonText || 'Envoyer'}
-                        onChange={(e) => setFormData(prev => ({
-                          ...prev,
-                          settings: { ...prev.settings, submitButtonText: e.target.value }
-                        }))}
-                      />
-                    </div>
-                  </CardContent>
-                </Card>
 
                 <Card>
                   <CardHeader>
