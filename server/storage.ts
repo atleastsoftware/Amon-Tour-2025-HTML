@@ -23,6 +23,8 @@ import {
   pageBlocks,
   blockTemplates,
   navigationMenuItems,
+  customForms,
+  customFormSubmissions,
   type User,
   type InsertUser,
   type Tour,
@@ -73,6 +75,10 @@ import {
   pageBlockHistory,
   type PageBlockHistory,
   type InsertPageBlockHistory,
+  type CustomForm,
+  type InsertCustomForm,
+  type CustomFormSubmission,
+  type InsertCustomFormSubmission,
 } from "@shared/schema";
 import fs from "fs";
 import path from "path";
@@ -251,6 +257,17 @@ export interface IStorage {
   createBlockTemplate(template: InsertBlockTemplate): Promise<BlockTemplate>;
   updateBlockTemplate(id: number, data: Partial<InsertBlockTemplate>): Promise<BlockTemplate | undefined>;
   deleteBlockTemplate(id: number): Promise<boolean>;
+
+  // Custom Forms operations
+  getCustomForms(): Promise<CustomForm[]>;
+  getCustomForm(id: number): Promise<CustomForm | undefined>;
+  createCustomForm(form: InsertCustomForm): Promise<CustomForm>;
+  updateCustomForm(id: number, form: Partial<InsertCustomForm>): Promise<CustomForm | undefined>;
+  deleteCustomForm(id: number): Promise<boolean>;
+  
+  // Custom Form Submissions operations
+  getCustomFormSubmissions(formId?: number): Promise<CustomFormSubmission[]>;
+  createCustomFormSubmission(submission: InsertCustomFormSubmission): Promise<CustomFormSubmission>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -1842,6 +1859,60 @@ export class DatabaseStorage implements IStorage {
     });
 
     return await this.getNavigationMenuItem(id);
+  }
+
+  // Custom Forms operations
+  async getCustomForms(): Promise<CustomForm[]> {
+    return db.select().from(customForms).orderBy(desc(customForms.updatedAt));
+  }
+
+  async getCustomForm(id: number): Promise<CustomForm | undefined> {
+    const [form] = await db.select().from(customForms).where(eq(customForms.id, id));
+    return form || undefined;
+  }
+
+  async createCustomForm(form: InsertCustomForm): Promise<CustomForm> {
+    const [createdForm] = await db
+      .insert(customForms)
+      .values(form)
+      .returning();
+    return createdForm;
+  }
+
+  async updateCustomForm(id: number, form: Partial<InsertCustomForm>): Promise<CustomForm | undefined> {
+    const [updatedForm] = await db
+      .update(customForms)
+      .set({ ...form, updatedAt: sql`now()` })
+      .where(eq(customForms.id, id))
+      .returning();
+    return updatedForm || undefined;
+  }
+
+  async deleteCustomForm(id: number): Promise<boolean> {
+    try {
+      await db.delete(customForms).where(eq(customForms.id, id));
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  // Custom Form Submissions operations
+  async getCustomFormSubmissions(formId?: number): Promise<CustomFormSubmission[]> {
+    if (formId) {
+      return db.select().from(customFormSubmissions)
+        .where(eq(customFormSubmissions.formId, formId))
+        .orderBy(desc(customFormSubmissions.createdAt));
+    }
+    return db.select().from(customFormSubmissions).orderBy(desc(customFormSubmissions.createdAt));
+  }
+
+  async createCustomFormSubmission(submission: InsertCustomFormSubmission): Promise<CustomFormSubmission> {
+    const [createdSubmission] = await db
+      .insert(customFormSubmissions)
+      .values(submission)
+      .returning();
+    return createdSubmission;
   }
 }
 

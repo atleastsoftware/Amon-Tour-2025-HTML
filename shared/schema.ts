@@ -678,3 +678,79 @@ export const insertNavigationMenuItemSchema = createInsertSchema(navigationMenuI
 // Types
 export type InsertNavigationMenuItem = z.infer<typeof insertNavigationMenuItemSchema>;
 export type NavigationMenuItem = typeof navigationMenuItems.$inferSelect;
+
+// Custom Forms Builder Types
+interface FormField {
+  id: string;
+  type: 'text' | 'email' | 'phone' | 'textarea' | 'select' | 'checkbox' | 'radio' | 'file' | 'date' | 'number';
+  label: string;
+  placeholder?: string;
+  required: boolean;
+  options?: string[]; // For select, radio, checkbox
+  validation?: {
+    minLength?: number;
+    maxLength?: number;
+    pattern?: string;
+  };
+  style?: {
+    width: 'full' | 'half' | 'third';
+    marginBottom?: number;
+  };
+}
+
+interface FormSettings {
+  submitButtonText?: string;
+  submitButtonColor?: string;
+  successMessage?: string;
+  errorMessage?: string;
+  emailNotification?: boolean;
+  redirectUrl?: string;
+}
+
+// Custom Forms Builder
+export const customForms = pgTable("custom_forms", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  title: text("title").notNull(),
+  subtitle: text("subtitle"),
+  description: text("description"),
+  headerImage: text("header_image"),
+  layout: text("layout").notNull().default("single-column"), // single-column, two-column, grid
+  backgroundColor: text("background_color").default("#ffffff"),
+  primaryColor: text("primary_color").default("#1e73be"),
+  textColor: text("text_color").default("#333333"),
+  fields: json("fields").$type<FormField[]>().notNull().default([]),
+  settings: json("settings").$type<FormSettings>().default({}),
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const customFormSubmissions = pgTable("custom_form_submissions", {
+  id: serial("id").primaryKey(),
+  formId: integer("form_id").references(() => customForms.id, { onDelete: "cascade" }).notNull(),
+  data: json("data").$type<Record<string, any>>().notNull(),
+  ipAddress: text("ip_address"),
+  userAgent: text("user_agent"),
+  createdAt: timestamp("created_at").defaultNow(),
+  read: boolean("read").default(false).notNull(),
+});
+
+// Schema validation
+export const insertCustomFormSchema = createInsertSchema(customForms).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertCustomFormSubmissionSchema = createInsertSchema(customFormSubmissions).omit({
+  id: true,
+  createdAt: true,
+});
+
+// Types
+export type InsertCustomForm = z.infer<typeof insertCustomFormSchema>;
+export type CustomForm = typeof customForms.$inferSelect;
+export type InsertCustomFormSubmission = z.infer<typeof insertCustomFormSubmissionSchema>;
+export type CustomFormSubmission = typeof customFormSubmissions.$inferSelect;
+export type { FormField, FormSettings };
