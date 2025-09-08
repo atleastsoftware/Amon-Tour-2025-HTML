@@ -1226,6 +1226,26 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                                         </Select>
                                       </div>
 
+                                      {/* Largeur */}
+                                      <div>
+                                        <Label className="text-xs font-medium">Largeur</Label>
+                                        <Select
+                                          value={field.style?.width || 'full'}
+                                          onValueChange={(value) => updateField(field.id, {
+                                            style: { ...field.style, width: value as any }
+                                          })}
+                                        >
+                                          <SelectTrigger className="h-8">
+                                            <SelectValue />
+                                          </SelectTrigger>
+                                          <SelectContent>
+                                            <SelectItem value="full">Pleine largeur</SelectItem>
+                                            <SelectItem value="half">Demi-largeur</SelectItem>
+                                            <SelectItem value="third">Tiers</SelectItem>
+                                          </SelectContent>
+                                        </Select>
+                                      </div>
+
                                       {/* Configuration basique */}
                                       <div className="grid grid-cols-1 gap-3">
                                         <div>
@@ -1246,32 +1266,12 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                                           />
                                         </div>
                                         
-                                        <div className="flex items-center justify-between">
-                                          <div className="flex items-center space-x-2">
-                                            <Switch
-                                              checked={field.required}
-                                              onCheckedChange={(checked) => updateField(field.id, { required: checked })}
-                                            />
-                                            <Label className="text-xs font-medium">Champ requis</Label>
-                                          </div>
-                                          
-                                          <div className="w-32">
-                                            <Select
-                                              value={field.style?.width || 'full'}
-                                              onValueChange={(value) => updateField(field.id, {
-                                                style: { ...field.style, width: value as any }
-                                              })}
-                                            >
-                                              <SelectTrigger className="h-8">
-                                                <SelectValue />
-                                              </SelectTrigger>
-                                              <SelectContent>
-                                                <SelectItem value="full">Pleine largeur</SelectItem>
-                                                <SelectItem value="half">Demi-largeur</SelectItem>
-                                                <SelectItem value="third">Tiers</SelectItem>
-                                              </SelectContent>
-                                            </Select>
-                                          </div>
+                                        <div className="flex items-center space-x-2">
+                                          <Switch
+                                            checked={field.required}
+                                            onCheckedChange={(checked) => updateField(field.id, { required: checked })}
+                                          />
+                                          <Label className="text-xs font-medium">Champ requis</Label>
                                         </div>
                                         
                                         {/* Options pour select, checkbox, radio */}
