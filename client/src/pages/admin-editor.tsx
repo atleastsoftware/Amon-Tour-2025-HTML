@@ -63,28 +63,6 @@ export default function AdminEditor() {
           </p>
         </div>
 
-        {/* Statistics */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <Card className="bg-white/70 backdrop-blur-sm border-blue-100">
-            <CardContent className="p-6 text-center">
-              <div className="text-3xl font-bold text-blue-600 mb-2">5</div>
-              <div className="text-gray-600">Pages</div>
-            </CardContent>
-          </Card>
-          <Card className="bg-white/70 backdrop-blur-sm border-green-100">
-            <CardContent className="p-6 text-center">
-              <div className="text-3xl font-bold text-green-600 mb-2">0</div>
-              <div className="text-gray-600">Articles</div>
-            </CardContent>
-          </Card>
-          <Card className="bg-white/70 backdrop-blur-sm border-orange-100">
-            <CardContent className="p-6 text-center">
-              <div className="text-3xl font-bold text-orange-600 mb-2">0</div>
-              <div className="text-gray-600">Formulaires</div>
-            </CardContent>
-          </Card>
-        </div>
-
         {/* Editor Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {editorItems.map((item) => {
@@ -122,9 +100,26 @@ export default function AdminEditor() {
           })}
         </div>
 
-        {/* Footer info */}
-        <div className="text-center mt-12 text-gray-500">
-          <p>Système de gestion de contenu Amon Tour - Version 1.0</p>
+        {/* Statistics */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+          <Card className="bg-white/70 backdrop-blur-sm border-blue-100">
+            <CardContent className="p-6 text-center">
+              <div className="text-3xl font-bold text-blue-600 mb-2">5</div>
+              <div className="text-gray-600">Pages</div>
+            </CardContent>
+          </Card>
+          <Card className="bg-white/70 backdrop-blur-sm border-green-100">
+            <CardContent className="p-6 text-center">
+              <div className="text-3xl font-bold text-green-600 mb-2">0</div>
+              <div className="text-gray-600">Articles</div>
+            </CardContent>
+          </Card>
+          <Card className="bg-white/70 backdrop-blur-sm border-orange-100">
+            <CardContent className="p-6 text-center">
+              <div className="text-3xl font-bold text-orange-600 mb-2">0</div>
+              <div className="text-gray-600">Formulaires</div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>
