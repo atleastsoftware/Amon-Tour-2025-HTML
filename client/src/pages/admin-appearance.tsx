@@ -1058,7 +1058,7 @@ function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs }: {
 
   const handleEditPage = () => {
     // Redirect to page editor route
-    window.location.href = `/admin-page-editor?page=${selectedPage}`;
+    window.location.href = `/admin-editor`;
   };
 
   // Check where the page is linked/referenced
@@ -3294,7 +3294,7 @@ export default function AdminAppearance() {
                         variant="outline"
                         className="w-full justify-start text-sm h-8 mb-4"
                         onClick={() => {
-                          window.location.href = '/admin-page-editor';
+                          window.location.href = '/admin-editor';
                         }}
                       >
                         <Layout className="w-4 h-4 mr-2" />
@@ -3455,7 +3455,7 @@ export default function AdminAppearance() {
                           </Button>
                           <Button
                             onClick={() => {
-                              window.location.href = `/admin-page-editor?page=${selectedPage}`;
+                              window.location.href = `/admin-editor`;
                             }}
                           >
                             <Edit className="w-4 h-4 mr-2" />
