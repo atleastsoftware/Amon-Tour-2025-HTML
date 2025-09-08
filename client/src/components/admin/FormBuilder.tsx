@@ -1144,164 +1144,192 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                   <CardContent>
                     {formData.fields.length === 0 ? (
                       <p className="text-gray-500 text-sm py-4 text-center">
-                        Aucun champ ajouté. Utilisez les boutons ci-dessus pour ajouter des champs.
+                        Aucun champ ajouté. Cliquez sur "Nouveau champ" pour commencer.
                       </p>
                     ) : (
                       <Reorder.Group values={formData.fields} onReorder={reorderFields}>
                         {formData.fields.map((field) => (
                           <Reorder.Item key={field.id} value={field}>
-                            <Card 
-                              className={`mb-2 cursor-pointer transition-colors ${
-                                selectedField === field.id ? 'ring-2 ring-blue-500' : ''
-                              }`}
-                              onClick={() => setSelectedField(field.id)}
-                            >
-                              <CardContent className="p-3">
-                                <div className="flex items-center justify-between">
-                                  <div className="flex items-center gap-2">
-                                    <GripVertical className="h-4 w-4 text-gray-400" />
-                                    <Badge variant="outline" className="text-xs">
-                                      {FIELD_TYPES.find(t => t.type === field.type)?.label}
-                                    </Badge>
-                                    <span className="font-medium text-sm">{field.label}</span>
-                                    {field.required && <Badge variant="destructive" className="text-xs">Requis</Badge>}
+                            <div className="mb-2">
+                              <Card className="cursor-move">
+                                <CardContent className="p-3">
+                                  <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-2">
+                                      <Button
+                                        size="sm"
+                                        variant="ghost"
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          setOpenDropdown(openDropdown === field.id ? null : field.id);
+                                        }}
+                                        className="h-6 w-6 p-0"
+                                      >
+                                        <Edit className="h-3 w-3" />
+                                      </Button>
+                                      <GripVertical className="h-4 w-4 text-gray-400" />
+                                      <Badge variant="outline" className="text-xs">
+                                        {FIELD_TYPES.find(t => t.type === field.type)?.label}
+                                      </Badge>
+                                      <span className="font-medium text-sm">{field.label}</span>
+                                      {field.required && <Badge variant="destructive" className="text-xs">Requis</Badge>}
+                                    </div>
+                                    <div className="flex gap-1">
+                                      <Button
+                                        size="sm"
+                                        variant="ghost"
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          duplicateField(field.id);
+                                        }}
+                                        className="h-6 w-6 p-0"
+                                        title="Dupliquer ce champ"
+                                      >
+                                        <Copy className="h-3 w-3" />
+                                      </Button>
+                                      <Button
+                                        size="sm"
+                                        variant="ghost"
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          deleteField(field.id);
+                                        }}
+                                        className="h-6 w-6 p-0 text-red-500 hover:text-red-700"
+                                      >
+                                        <Trash2 className="h-3 w-3" />
+                                      </Button>
+                                    </div>
                                   </div>
-                                  <div className="flex gap-1">
-                                    <Button
-                                      size="sm"
-                                      variant="ghost"
-                                      onClick={(e) => {
-                                        e.stopPropagation();
-                                        duplicateField(field.id);
-                                      }}
-                                      className="h-6 w-6 p-0"
-                                    >
-                                      <Plus className="h-3 w-3" />
-                                    </Button>
-                                    <Button
-                                      size="sm"
-                                      variant="ghost"
-                                      onClick={(e) => {
-                                        e.stopPropagation();
-                                        deleteField(field.id);
-                                      }}
-                                      className="h-6 w-6 p-0 text-red-500 hover:text-red-700"
-                                    >
-                                      <Trash2 className="h-3 w-3" />
-                                    </Button>
-                                  </div>
-                                </div>
-                              </CardContent>
-                            </Card>
+                                  
+                                  {/* Configuration Dropdown */}
+                                  {openDropdown === field.id && (
+                                    <div className="mt-3 pt-3 border-t space-y-4">
+                                      {/* Type de champ */}
+                                      <div>
+                                        <Label className="text-xs font-medium">Type de champ</Label>
+                                        <Select
+                                          value={field.type}
+                                          onValueChange={(value) => updateField(field.id, { type: value as any })}
+                                        >
+                                          <SelectTrigger className="h-8">
+                                            <SelectValue />
+                                          </SelectTrigger>
+                                          <SelectContent>
+                                            {FIELD_TYPES.map(fieldType => (
+                                              <SelectItem key={fieldType.type} value={fieldType.type}>
+                                                <div className="flex items-center gap-2">
+                                                  <fieldType.icon className="h-3 w-3" />
+                                                  {fieldType.label}
+                                                </div>
+                                              </SelectItem>
+                                            ))}
+                                          </SelectContent>
+                                        </Select>
+                                      </div>
+
+                                      {/* Configuration basique */}
+                                      <div className="grid grid-cols-1 gap-3">
+                                        <div>
+                                          <Label className="text-xs font-medium">Label du champ</Label>
+                                          <Input
+                                            value={field.label}
+                                            onChange={(e) => updateField(field.id, { label: e.target.value })}
+                                            className="h-8"
+                                          />
+                                        </div>
+                                        
+                                        <div>
+                                          <Label className="text-xs font-medium">Placeholder</Label>
+                                          <Input
+                                            value={field.placeholder || ''}
+                                            onChange={(e) => updateField(field.id, { placeholder: e.target.value })}
+                                            className="h-8"
+                                          />
+                                        </div>
+                                        
+                                        <div className="flex items-center justify-between">
+                                          <div className="flex items-center space-x-2">
+                                            <Switch
+                                              checked={field.required}
+                                              onCheckedChange={(checked) => updateField(field.id, { required: checked })}
+                                            />
+                                            <Label className="text-xs font-medium">Champ requis</Label>
+                                          </div>
+                                          
+                                          <div className="w-32">
+                                            <Select
+                                              value={field.style?.width || 'full'}
+                                              onValueChange={(value) => updateField(field.id, {
+                                                style: { ...field.style, width: value as any }
+                                              })}
+                                            >
+                                              <SelectTrigger className="h-8">
+                                                <SelectValue />
+                                              </SelectTrigger>
+                                              <SelectContent>
+                                                <SelectItem value="full">Pleine largeur</SelectItem>
+                                                <SelectItem value="half">Demi-largeur</SelectItem>
+                                                <SelectItem value="third">Tiers</SelectItem>
+                                              </SelectContent>
+                                            </Select>
+                                          </div>
+                                        </div>
+                                        
+                                        {/* Options pour select, checkbox, radio */}
+                                        {(field.type === 'select' || field.type === 'checkbox' || field.type === 'radio') && (
+                                          <div>
+                                            <Label className="text-xs font-medium">Options</Label>
+                                            <div className="space-y-2">
+                                              {field.options?.map((option, index) => (
+                                                <div key={index} className="flex gap-2">
+                                                  <Input
+                                                    value={option}
+                                                    onChange={(e) => {
+                                                      const newOptions = [...(field.options || [])];
+                                                      newOptions[index] = e.target.value;
+                                                      updateField(field.id, { options: newOptions });
+                                                    }}
+                                                    className="h-8 flex-1"
+                                                  />
+                                                  <Button
+                                                    size="sm"
+                                                    variant="outline"
+                                                    onClick={() => {
+                                                      const newOptions = field.options?.filter((_, i) => i !== index);
+                                                      updateField(field.id, { options: newOptions });
+                                                    }}
+                                                    className="h-8 w-8 p-0"
+                                                  >
+                                                    <Trash2 className="h-3 w-3" />
+                                                  </Button>
+                                                </div>
+                                              ))}
+                                              <Button
+                                                size="sm"
+                                                variant="outline"
+                                                onClick={() => {
+                                                  const newOptions = [...(field.options || []), `Option ${(field.options?.length || 0) + 1}`];
+                                                  updateField(field.id, { options: newOptions });
+                                                }}
+                                                className="h-8"
+                                              >
+                                                <Plus className="h-3 w-3 mr-2" />
+                                                Ajouter
+                                              </Button>
+                                            </div>
+                                          </div>
+                                        )}
+                                      </div>
+                                    </div>
+                                  )}
+                                </CardContent>
+                              </Card>
+                            </div>
                           </Reorder.Item>
                         ))}
                       </Reorder.Group>
                     )}
                   </CardContent>
                 </Card>
-
-                {/* Field Configuration */}
-                {selectedField && (
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="text-sm">Configuration du champ</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      {(() => {
-                        const field = formData.fields.find(f => f.id === selectedField);
-                        if (!field) return null;
-                        
-                        return (
-                          <div className="space-y-4">
-                            <div>
-                              <Label>Label du champ</Label>
-                              <Input
-                                value={field.label}
-                                onChange={(e) => updateField(field.id, { label: e.target.value })}
-                              />
-                            </div>
-                            
-                            <div>
-                              <Label>Placeholder</Label>
-                              <Input
-                                value={field.placeholder || ''}
-                                onChange={(e) => updateField(field.id, { placeholder: e.target.value })}
-                              />
-                            </div>
-                            
-                            <div className="flex items-center space-x-2">
-                              <Switch
-                                checked={field.required}
-                                onCheckedChange={(checked) => updateField(field.id, { required: checked })}
-                              />
-                              <Label>Champ requis</Label>
-                            </div>
-                            
-                            <div>
-                              <Label>Largeur</Label>
-                              <Select
-                                value={field.style?.width || 'full'}
-                                onValueChange={(value) => updateField(field.id, {
-                                  style: { ...field.style, width: value as any }
-                                })}
-                              >
-                                <SelectTrigger>
-                                  <SelectValue />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectItem value="full">Pleine largeur</SelectItem>
-                                  <SelectItem value="half">Demi-largeur</SelectItem>
-                                  <SelectItem value="third">Tiers de largeur</SelectItem>
-                                </SelectContent>
-                              </Select>
-                            </div>
-                            
-                            {(field.type === 'select' || field.type === 'checkbox' || field.type === 'radio') && (
-                              <div>
-                                <Label>Options</Label>
-                                <div className="space-y-2">
-                                  {field.options?.map((option, index) => (
-                                    <div key={index} className="flex gap-2">
-                                      <Input
-                                        value={option}
-                                        onChange={(e) => {
-                                          const newOptions = [...(field.options || [])];
-                                          newOptions[index] = e.target.value;
-                                          updateField(field.id, { options: newOptions });
-                                        }}
-                                      />
-                                      <Button
-                                        size="sm"
-                                        variant="outline"
-                                        onClick={() => {
-                                          const newOptions = field.options?.filter((_, i) => i !== index);
-                                          updateField(field.id, { options: newOptions });
-                                        }}
-                                      >
-                                        <Trash2 className="h-4 w-4" />
-                                      </Button>
-                                    </div>
-                                  ))}
-                                  <Button
-                                    size="sm"
-                                    variant="outline"
-                                    onClick={() => {
-                                      const newOptions = [...(field.options || []), `Option ${(field.options?.length || 0) + 1}`];
-                                      updateField(field.id, { options: newOptions });
-                                    }}
-                                  >
-                                    <Plus className="h-4 w-4 mr-2" />
-                                    Ajouter une option
-                                  </Button>
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                        );
-                      })()}
-                    </CardContent>
-                  </Card>
-                )}
               </div>
             )}
 
