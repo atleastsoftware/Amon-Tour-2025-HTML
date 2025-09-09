@@ -623,8 +623,8 @@ export default function AdminEditorForm() {
       // Toast après redirection avec message adapté
       setTimeout(() => {
         toast({
-          title: variables.isActive ? "Formulaire publié" : "Formulaire sauvé",
-          description: variables.isActive ? "Le nouveau formulaire a été publié avec succès." : "Le formulaire a été sauvé en brouillon."
+          title: variables.isActive ? "Formulaire publié" : "Formulaire sauvegardé",
+          description: variables.isActive ? "Le nouveau formulaire a été publié avec succès." : "Le formulaire a été sauvegardé en brouillon."
         });
       }, 100);
     },
@@ -649,8 +649,8 @@ export default function AdminEditorForm() {
       // Toast après redirection avec message adapté
       setTimeout(() => {
         toast({
-          title: variables.formData.isActive ? "Formulaire publié" : "Formulaire sauvé",
-          description: variables.formData.isActive ? "Le formulaire a été publié avec succès." : "Le formulaire a été sauvé en brouillon."
+          title: variables.formData.isActive ? "Formulaire publié" : "Formulaire sauvegardé",
+          description: variables.formData.isActive ? "Le formulaire a été publié avec succès." : "Le formulaire a été sauvegardé en brouillon."
         });
       }, 100);
     },
