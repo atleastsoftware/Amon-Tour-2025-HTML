@@ -221,9 +221,9 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
           <MapPin className="w-4 h-4" />
-          Contact Information
+          Informations de contact
         </CardTitle>
-        <CardDescription>Manage footer contact details</CardDescription>
+        <CardDescription>Gérer les détails de contact du pied de page</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {contactInfo.map((item: any, index: number) => (
@@ -315,7 +315,7 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
         
         {/* Add New Contact Info */}
         <div className="border-2 border-dashed border-gray-300 p-4 rounded-lg space-y-3">
-          <h5 className="font-medium text-gray-700">Add New Contact Information</h5>
+          <h5 className="font-medium text-gray-700">Ajouter une nouvelle information de contact</h5>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <div>
               <Label className="text-xs text-gray-500">Admin Label (for reference)</Label>
@@ -394,7 +394,7 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
           
           <Button onClick={addContactInfo} disabled={!newItem.label || !newItem.value} className="w-full">
             <Plus className="w-4 h-4 mr-2" />
-            Add Contact Information
+            Ajouter une information de contact
           </Button>
         </div>
       </CardContent>
@@ -475,9 +475,9 @@ function UsefulLinksManager({ siteSettings, updateSiteSetting, updateSiteSetting
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
           <FileText className="w-4 h-4" />
-          Useful Links
+          Liens utiles
         </CardTitle>
-        <CardDescription>Manage footer navigation links</CardDescription>
+        <CardDescription>Gérer les liens de navigation du pied de page</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {usefulLinks.map((link: any, index: number) => (
@@ -735,9 +735,9 @@ function SocialMediaManager({ siteSettings, updateSiteSetting, updateSiteSetting
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
           <Users className="w-4 h-4" />
-          Social Media
+          Réseaux sociaux
         </CardTitle>
-        <CardDescription>Manage social media links</CardDescription>
+        <CardDescription>Gérer les liens des réseaux sociaux</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {socialMedia.map((social: any, index: number) => (
@@ -799,7 +799,7 @@ function SocialMediaManager({ siteSettings, updateSiteSetting, updateSiteSetting
           </div>
         ))}
         
-        {/* Add New Social Media */}
+        {/* Ajouter un nouveau réseau social */}
         <div className="border-2 border-dashed border-gray-300 p-4 rounded-lg space-y-3">
           <div>
             <Label className="text-xs text-gray-500">Social Platform</Label>
@@ -847,7 +847,7 @@ function SocialMediaManager({ siteSettings, updateSiteSetting, updateSiteSetting
           
           <Button onClick={addSocialMedia} disabled={!newSocial.url || !newSocial.icon} className="w-full">
             <Plus className="w-4 h-4 mr-2" />
-            Add Social Media
+            Ajouter un réseau social
           </Button>
         </div>
       </CardContent>
@@ -894,11 +894,11 @@ function NewsletterManager({ siteSettings, updateSiteSetting, updateSiteSettingM
           <Mail className="w-4 h-4" />
           Newsletter
         </CardTitle>
-        <CardDescription>Configure newsletter section</CardDescription>
+        <CardDescription>Configurer la section newsletter</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex items-center justify-between">
-          <Label>Enable Newsletter</Label>
+          <Label>Activer la newsletter</Label>
           <Switch
             checked={newsletterConfig.enabled}
             onCheckedChange={(checked) => updateNewsletterConfig('enabled', checked)}
@@ -994,11 +994,11 @@ function CopyrightManager({ siteSettings, updateSiteSetting, updateSiteSettingMu
           <FileText className="w-4 h-4" />
           Copyright
         </CardTitle>
-        <CardDescription>Configure copyright text</CardDescription>
+        <CardDescription>Configurer le texte de copyright</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex items-center justify-between">
-          <Label>Enable Copyright</Label>
+          <Label>Activer le copyright</Label>
           <Switch
             checked={copyrightConfig.enabled}
             onCheckedChange={(checked) => updateCopyrightConfig('enabled', checked)}
@@ -3648,16 +3648,16 @@ export default function AdminAppearance() {
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                       <Settings className="w-4 h-4" />
-                      Footer Settings
+                      Paramètres du pied de page
                     </CardTitle>
-                    <CardDescription>Manage footer content</CardDescription>
+                    <CardDescription>Gérer le contenu du pied de page</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-2">
                       {[
-                        { id: 'contact-info', label: 'Contact Information', icon: MapPin },
-                        { id: 'useful-links', label: 'Useful Links', icon: Menu },
-                        { id: 'social-media', label: 'Social Media', icon: Users },
+                        { id: 'contact-info', label: 'Informations de contact', icon: MapPin },
+                        { id: 'useful-links', label: 'Liens utiles', icon: Menu },
+                        { id: 'social-media', label: 'Réseaux sociaux', icon: Users },
                         { id: 'newsletter', label: 'Newsletter', icon: Mail },
                         { id: 'copyright', label: 'Copyright', icon: FileText }
                       ].map(({ id, label, icon: Icon }) => (
