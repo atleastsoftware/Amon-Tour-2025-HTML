@@ -522,7 +522,7 @@ export default function AdminEditorForm() {
   ];
 
   // Query to fetch custom forms
-  const { data: forms = fallbackForms, isLoading: loading } = useQuery({
+  const { data: forms = fallbackForms, isLoading: loading } = useQuery<FormData[]>({
     queryKey: ['/api/admin/custom-forms'],
     enabled: true,
   });
@@ -552,11 +552,7 @@ export default function AdminEditorForm() {
   // Create form mutation
   const createFormMutation = useMutation({
     mutationFn: (formData: Omit<FormData, 'id' | 'createdAt' | 'updatedAt'>) => 
-      apiRequest('/api/admin/custom-forms', {
-        method: 'POST', 
-        body: JSON.stringify(formData),
-        headers: { 'Content-Type': 'application/json' }
-      }),
+      apiRequest('POST', '/api/admin/custom-forms', formData),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/custom-forms'] });
       toast({
@@ -578,11 +574,7 @@ export default function AdminEditorForm() {
   // Update form mutation
   const updateFormMutation = useMutation({
     mutationFn: ({ id, formData }: { id: number; formData: Partial<FormData> }) => 
-      apiRequest(`/api/admin/custom-forms/${id}`, {
-        method: 'PUT', 
-        body: JSON.stringify(formData),
-        headers: { 'Content-Type': 'application/json' }
-      }),
+      apiRequest('PUT', `/api/admin/custom-forms/${id}`, formData),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/custom-forms'] });
       toast({
@@ -603,10 +595,7 @@ export default function AdminEditorForm() {
 
   // Delete form mutation
   const deleteFormMutation = useMutation({
-    mutationFn: (id: number) => apiRequest(`/api/admin/custom-forms/${id}`, { 
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' }
-    }),
+    mutationFn: (id: number) => apiRequest('DELETE', `/api/admin/custom-forms/${id}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/custom-forms'] });
     }
