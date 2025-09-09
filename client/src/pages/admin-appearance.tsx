@@ -1782,6 +1782,16 @@ export default function AdminAppearance() {
       '/contact': 'contact'
     };
     
+    // Also add dynamic mappings for any additional URLs that might match page slugs directly
+    if (pageConfigs && Array.isArray(pageConfigs)) {
+      pageConfigs.forEach(page => {
+        const urlPath = `/${page.pageSlug}`;
+        if (!urlToSlugMap[urlPath]) {
+          urlToSlugMap[urlPath] = page.pageSlug;
+        }
+      });
+    }
+    
     const menuPages = menuItems.map(item => urlToSlugMap[item.url] || item.url.substring(1));
 
     // Static pages that should always be available
@@ -4455,7 +4465,7 @@ function MenuItemDialog({
           <div className="space-y-2">
             <Label htmlFor="url">Lien URL *</Label>
             <div className="flex gap-2">
-              <Select onValueChange={(value) => setFormData(prev => ({ ...prev, url: value }))}>
+              <Select value={formData.url} onValueChange={(value) => setFormData(prev => ({ ...prev, url: value }))}>
                 <SelectTrigger className="w-40">
                   <SelectValue placeholder="Choisir page" />
                 </SelectTrigger>
