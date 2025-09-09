@@ -1031,7 +1031,7 @@ function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs }: {
   if (!currentPageConfig) {
     return (
       <div className="text-center py-12">
-        <div className="text-gray-500">Page configuration not found</div>
+        <div className="text-gray-500">Configuration de page introuvable</div>
       </div>
     );
   }
@@ -2240,7 +2240,7 @@ export default function AdminAppearance() {
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div>
-                        <Label htmlFor="primary-color">Primary Color</Label>
+                        <Label htmlFor="primary-color">Couleur primaire</Label>
                         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 mt-2">
                           <Input
                             id="primary-color"
@@ -2257,7 +2257,7 @@ export default function AdminAppearance() {
                         </div>
                       </div>
                       <div>
-                        <Label htmlFor="secondary-color">Secondary Color</Label>
+                        <Label htmlFor="secondary-color">Couleur secondaire</Label>
                         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 mt-2">
                           <Input
                             id="secondary-color"
@@ -2293,7 +2293,7 @@ export default function AdminAppearance() {
                             />
                           </div>
                           <div>
-                            <Label>Background Color</Label>
+                            <Label>Couleur de fond</Label>
                             <Input
                               type="color"
                               value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}')).background}
@@ -2445,10 +2445,10 @@ export default function AdminAppearance() {
                               setTempNotificationBar((prev: any) => ({ ...prev, enabled: checked }));
                             }}
                           />
-                          <Label htmlFor="notification-enabled">Enable Notification Bar</Label>
+                          <Label htmlFor="notification-enabled">Activer la barre de notification</Label>
                         </div>
                         <div>
-                          <Label>Notification Text</Label>
+                          <Label>Texte de notification</Label>
                           <Input
                             placeholder="📢 L'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr"
                             value={tempNotificationBar?.text || JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text": "📢 L\'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr"}').text}
@@ -2459,7 +2459,7 @@ export default function AdminAppearance() {
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                           <div>
-                            <Label>Background Color</Label>
+                            <Label>Couleur de fond</Label>
                             <div className="flex items-center gap-3">
                               <Input
                                 type="color"
@@ -2551,7 +2551,7 @@ export default function AdminAppearance() {
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div>
-                        <Label>Heading Font</Label>
+                        <Label>Police des titres</Label>
                         <Select 
                           value={tempTypography?.heading_font || JSON.parse(getSiteSetting('theme', 'typography') || '{"heading_font": "Poppins"}').heading_font}
                           onValueChange={(value) => {
@@ -2571,7 +2571,7 @@ export default function AdminAppearance() {
                         </Select>
                       </div>
                       <div>
-                        <Label>Body Font</Label>
+                        <Label>Police du texte</Label>
                         <Select 
                           value={tempTypography?.body_font || JSON.parse(getSiteSetting('theme', 'typography') || '{"body_font": "Inter"}').body_font}
                           onValueChange={(value) => {
@@ -3236,9 +3236,9 @@ export default function AdminAppearance() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                     <Layout className="w-4 h-4" />
-                    Select Page
+                    Sélectionner une page
                   </CardTitle>
-                  <CardDescription>Choose page to edit</CardDescription>
+                  <CardDescription>Choisissez la page à modifier</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
@@ -3531,7 +3531,7 @@ export default function AdminAppearance() {
                               />
                             </div>
                             <div>
-                              <Label htmlFor="block-bg">Background Color</Label>
+                              <Label htmlFor="block-bg">Couleur de fond</Label>
                               <Input
                                 id="block-bg"
                                 type="color"
