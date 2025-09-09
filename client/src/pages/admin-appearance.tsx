@@ -1773,21 +1773,10 @@ export default function AdminAppearance() {
       .filter((item: NavigationMenuItem) => !item.parentId && item.url && item.url.startsWith('/'))
       : [];
     
-    // Extract page slugs directly from menu URLs - more direct approach
-    const menuPages: string[] = [];
-    menuItems.forEach(item => {
+    // Simple and reliable approach: extract slugs from menu URLs
+    const menuPages = menuItems.map(item => {
       const slug = item.url.substring(1); // Remove leading slash
-      
-      if (slug === '') {
-        menuPages.push('home');
-      } else if (slug === 'tours') {
-        // /tours URL can point to either 'experiences' page or 'tours' page
-        menuPages.push('experiences', 'tours');
-      } else if (slug === 'custom-tour') {
-        menuPages.push('custom-tour');
-      } else {
-        menuPages.push(slug);
-      }
+      return slug === '' ? 'home' : slug;
     });
 
     // Static pages that should always be available
@@ -1812,22 +1801,26 @@ export default function AdminAppearance() {
     ];
 
     // Process database pages first
-    pageConfigs.forEach((page: PageConfiguration) => {
-      const pageInfo = { slug: page.pageSlug, name: page.pageName === 'Accueil' ? 'Home' : page.pageName, id: page.id };
-      
-      // Legal pages always go to mentions légales
-      if (page.pageSlug.includes('legal') || page.pageSlug.includes('privacy') || page.pageSlug.includes('terms')) {
-        categories['Mentions légales'].push(pageInfo);
-      }
-      // Pages that are in the main navigation menu go to pages principales
-      else if (menuPages.includes(page.pageSlug)) {
-        categories['Pages principales'].push(pageInfo);
-      }
-      // All other pages go to pages secondaires
-      else {
-        categories['Pages secondaires'].push(pageInfo);
-      }
-    });
+    if (pageConfigs && Array.isArray(pageConfigs)) {
+      pageConfigs.forEach((page: PageConfiguration) => {
+        const pageInfo = { slug: page.pageSlug, name: page.pageName === 'Accueil' ? 'Home' : page.pageName, id: page.id };
+        
+        // Legal pages always go to mentions légales
+        if (page.pageSlug.includes('legal') || page.pageSlug.includes('privacy') || page.pageSlug.includes('terms')) {
+          categories['Mentions légales'].push(pageInfo);
+        }
+        // Check if page is linked in menu (either direct match or special cases)
+        else if (menuPages.includes(page.pageSlug) || 
+                 (page.pageSlug === 'experiences' && menuPages.includes('tours')) ||
+                 (page.pageSlug === 'tours' && menuPages.includes('tours'))) {
+          categories['Pages principales'].push(pageInfo);
+        }
+        // All other pages go to pages secondaires
+        else {
+          categories['Pages secondaires'].push(pageInfo);
+        }
+      });
+    }
 
     // Add static pages that are not already in database
     const existingSlugs = pageConfigs.map(p => p.pageSlug);
