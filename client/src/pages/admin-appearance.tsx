@@ -1768,11 +1768,21 @@ export default function AdminAppearance() {
       'Mentions légales': []
     };
 
-    // Get pages that are in the main navigation menu (no parent)
-    const menuPages = navigationMenuItems ? navigationMenuItems
+    // Get pages that are in the main navigation menu (no parent) and map URLs to page slugs
+    const menuItems = navigationMenuItems ? navigationMenuItems
       .filter((item: NavigationMenuItem) => !item.parentId && item.url && item.url.startsWith('/'))
-      .map((item: NavigationMenuItem) => item.url.substring(1)) // Remove leading slash
       : [];
+    
+    // Create mapping from URL to page slug and preserve order
+    const urlToSlugMap: { [key: string]: string } = {
+      '/': 'home',
+      '/experiences': 'experiences', 
+      '/custom-trip': 'custom-tour',  // Note: URL is custom-trip but page slug is custom-tour
+      '/blog': 'blog',
+      '/contact': 'contact'
+    };
+    
+    const menuPages = menuItems.map(item => urlToSlugMap[item.url] || item.url.substring(1));
 
     // Static pages that should always be available
     const staticPages = [
@@ -1832,12 +1842,30 @@ export default function AdminAppearance() {
       }
     });
 
-    // Always ensure Home is first in Pages principales if it exists
-    const homeIndex = categories['Pages principales'].findIndex(page => page.slug === 'home');
-    if (homeIndex > 0) {
-      const homePage = categories['Pages principales'].splice(homeIndex, 1)[0];
+    // ALWAYS put Home first in Pages principales (even if not in menu)
+    const homePageFromDB = pageConfigs.find(p => p.pageSlug === 'home');
+    const homePageStatic = staticPages.find(p => p.slug === 'home');
+    const homePage = homePageFromDB 
+      ? { slug: homePageFromDB.pageSlug, name: homePageFromDB.pageName === 'Accueil' ? 'Home' : homePageFromDB.pageName, id: homePageFromDB.id }
+      : homePageStatic;
+    
+    if (homePage) {
+      // Remove home from other categories if it exists
+      categories['Pages principales'] = categories['Pages principales'].filter(p => p.slug !== 'home');
+      categories['Pages secondaires'] = categories['Pages secondaires'].filter(p => p.slug !== 'home');
+      
+      // Add Home as first item in Pages principales
       categories['Pages principales'].unshift(homePage);
     }
+    
+    // Sort the remaining Pages principales according to menu order (excluding home)
+    const menuOrder = ['experiences', 'custom-tour', 'blog', 'contact'];
+    const otherMainPages = categories['Pages principales'].filter(p => p.slug !== 'home');
+    const sortedMainPages = menuOrder
+      .map(slug => otherMainPages.find(p => p.slug === slug))
+      .filter(Boolean) as Array<{ slug: string; name: string; id: number }>;
+    
+    categories['Pages principales'] = [homePage, ...sortedMainPages].filter(Boolean) as Array<{ slug: string; name: string; id: number }>;
 
     return categories;
   };
@@ -3875,12 +3903,30 @@ function NavigationMenuManager({ pageConfigs, navigationMenuItems }: { pageConfi
       }
     });
 
-    // Always ensure Home is first in Pages principales if it exists
-    const homeIndex = categories['Pages principales'].findIndex(page => page.slug === 'home');
-    if (homeIndex > 0) {
-      const homePage = categories['Pages principales'].splice(homeIndex, 1)[0];
+    // ALWAYS put Home first in Pages principales (even if not in menu)
+    const homePageFromDB = pageConfigs.find(p => p.pageSlug === 'home');
+    const homePageStatic = staticPages.find(p => p.slug === 'home');
+    const homePage = homePageFromDB 
+      ? { slug: homePageFromDB.pageSlug, name: homePageFromDB.pageName === 'Accueil' ? 'Home' : homePageFromDB.pageName, id: homePageFromDB.id }
+      : homePageStatic;
+    
+    if (homePage) {
+      // Remove home from other categories if it exists
+      categories['Pages principales'] = categories['Pages principales'].filter(p => p.slug !== 'home');
+      categories['Pages secondaires'] = categories['Pages secondaires'].filter(p => p.slug !== 'home');
+      
+      // Add Home as first item in Pages principales
       categories['Pages principales'].unshift(homePage);
     }
+    
+    // Sort the remaining Pages principales according to menu order (excluding home)
+    const menuOrder = ['experiences', 'custom-tour', 'blog', 'contact'];
+    const otherMainPages = categories['Pages principales'].filter(p => p.slug !== 'home');
+    const sortedMainPages = menuOrder
+      .map(slug => otherMainPages.find(p => p.slug === slug))
+      .filter(Boolean) as Array<{ slug: string; name: string; id: number }>;
+    
+    categories['Pages principales'] = [homePage, ...sortedMainPages].filter(Boolean) as Array<{ slug: string; name: string; id: number }>;
 
     return categories;
   };
