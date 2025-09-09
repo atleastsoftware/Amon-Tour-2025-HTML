@@ -3771,31 +3771,10 @@ function NavigationMenuManager({ pageConfigs, navigationMenuItems }: { pageConfi
   // Dynamic page categories based on database and navigation menu
   const getDynamicPageCategories = () => {
     if (!pageConfigs || !Array.isArray(pageConfigs)) {
-      // Fallback to static data if DB not loaded
       return {
-        'Pages principales': [
-          { slug: 'home', name: 'Home Page' },
-          { slug: 'experiences', name: 'Experiences' },
-          { slug: 'custom-tour', name: 'Custom Tour' },
-          { slug: 'contact', name: 'Contact Us' },
-          { slug: 'blog', name: 'Blog' }
-        ],
-        'Pages secondaires': [
-          { slug: 'tours', name: 'Tours' },
-          { slug: 'stays', name: 'Stays' },
-          { slug: 'external-stays', name: 'External Stays' },
-          { slug: 'villas-krabi', name: 'Villas Krabi' },
-          { slug: 'krabi-celebration', name:'Krabi Celebration' },
-          { slug: 'become-partner', name: 'Become Partner' },
-          { slug: 'group-corporate', name: 'Group Corporate' },
-          { slug: 'brochure', name: 'Brochure' },
-          { slug: 'tour-cards', name: 'Tour Cards' }
-        ],
-        'Mentions légales': [
-          { slug: 'legal-notice', name: 'Legal Notice' },
-          { slug: 'privacy-policy', name: 'Privacy Policy' },
-          { slug: 'terms-conditions', name: 'Terms & Conditions' }
-        ]
+        'Pages principales': [],
+        'Pages secondaires': [],
+        'Mentions légales': []
       };
     }
     
@@ -3806,7 +3785,7 @@ function NavigationMenuManager({ pageConfigs, navigationMenuItems }: { pageConfi
     };
 
     // Get pages that are in the main navigation menu (no parent)
-    const menuPages = navigationMenuItems ? navigationMenuItems
+    const menuPages = menuItems ? menuItems
       .filter((item: NavigationMenuItem) => !item.parentId && item.url && item.url.startsWith('/'))
       .map((item: NavigationMenuItem) => item.url.substring(1)) // Remove leading slash
       : [];
@@ -3814,15 +3793,15 @@ function NavigationMenuManager({ pageConfigs, navigationMenuItems }: { pageConfi
     pageConfigs.forEach((page: PageConfiguration) => {
       const pageInfo = { slug: page.pageSlug, name: page.pageName, id: page.id };
       
-      // Legal pages always go to mentions légales
+      // Mentions légales: pages containing legal, privacy, or terms in their slug
       if (page.pageSlug.includes('legal') || page.pageSlug.includes('privacy') || page.pageSlug.includes('terms')) {
         categories['Mentions légales'].push(pageInfo);
       }
-      // Pages that are in the main navigation menu go to pages principales
-      else if (menuPages.includes(page.pageSlug) || page.pageSlug === 'home') {
+      // Pages principales: pages that are in the main navigation menu
+      else if (menuPages.includes(page.pageSlug)) {
         categories['Pages principales'].push(pageInfo);
       }
-      // All other pages go to pages secondaires
+      // Pages secondaires: all other existing pages
       else {
         categories['Pages secondaires'].push(pageInfo);
       }
