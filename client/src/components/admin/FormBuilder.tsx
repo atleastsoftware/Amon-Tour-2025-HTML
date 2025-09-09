@@ -104,6 +104,7 @@ interface FormData {
 interface FormBuilderProps {
   initialForm?: FormData;
   onSave: (form: FormData) => Promise<void>;
+  onSaveDraft?: (form: FormData) => Promise<void>;
   onCancel: () => void;
 }
 
@@ -278,7 +279,7 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
   );
 }
 
-export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuilderProps) {
+export default function FormBuilder({ initialForm, onSave, onSaveDraft, onCancel }: FormBuilderProps) {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState<'informations' | 'builder' | 'style' | 'settings'>('informations');
   const [showPreview, setShowPreview] = useState(true);
@@ -580,8 +581,13 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
 
     setSaving(true);
     try {
-      const draftData = { ...formData, isActive: false };
-      await onSave(draftData);
+      // Utiliser onSaveDraft si disponible, sinon onSave avec isActive: false
+      if (onSaveDraft) {
+        await onSaveDraft(formData);
+      } else {
+        const draftData = { ...formData, isActive: false };
+        await onSave(draftData);
+      }
       // Toast et redirection gérés dans admin-editor-form.tsx
     } catch (error) {
       toast({

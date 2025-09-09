@@ -719,6 +719,24 @@ export default function AdminEditorForm() {
     }
   };
 
+  const handleSaveDraft = async (formData: FormData) => {
+    try {
+      // Assurer que isActive est false pour Brouillon
+      const draftData = { ...formData, isActive: false };
+      
+      if (editingForm?.id) {
+        // Modifier un formulaire existant (avec ID)
+        updateFormMutation.mutate({ id: editingForm.id, formData: draftData });
+      } else {
+        // Créer un nouveau formulaire (sans ID)
+        createFormMutation.mutate(draftData);
+      }
+    } catch (error) {
+      console.error('Erreur lors de la sauvegarde du brouillon:', error);
+      throw error;
+    }
+  };
+
   const handleCancelBuilder = () => {
     setShowBuilder(false);
     setEditingForm(null);
@@ -739,6 +757,7 @@ export default function AdminEditorForm() {
       <FormBuilder
         initialForm={editingForm || undefined}
         onSave={handleSaveForm}
+        onSaveDraft={handleSaveDraft}
         onCancel={handleCancelBuilder}
       />
     );
@@ -800,7 +819,7 @@ export default function AdminEditorForm() {
                               <IconComponent className="h-5 w-5" />
                             </div>
                             <h3 className="text-lg font-semibold text-gray-900">
-                              {form.title === 'Create Your Custom Trip' ? 'Custom Trip' : form.title}
+                              {form.name === 'Custom Trip' ? 'Custom Trip' : form.name}
                             </h3>
                             <Badge 
                               variant={form.isActive ? 'default' : 'secondary'}
