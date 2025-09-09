@@ -737,15 +737,13 @@ export default function AdminEditorForm() {
                     <CardContent className="p-6">
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-3">
-                              <div className="p-2 rounded-lg" style={{ backgroundColor: form.primaryColor + '20', color: form.primaryColor }}>
-                                <IconComponent className="h-5 w-5" />
-                              </div>
-                              <h3 className="text-lg font-semibold text-gray-900">
-                                {form.title === 'Create Your Custom Trip' ? 'Custom Trip' : form.title}
-                              </h3>
+                          <div className="flex items-center gap-3">
+                            <div className="p-2 rounded-lg" style={{ backgroundColor: form.primaryColor + '20', color: form.primaryColor }}>
+                              <IconComponent className="h-5 w-5" />
                             </div>
+                            <h3 className="text-lg font-semibold text-gray-900">
+                              {form.title === 'Create Your Custom Trip' ? 'Custom Trip' : form.title}
+                            </h3>
                             <Badge 
                               variant={form.isActive ? 'default' : 'secondary'}
                             >

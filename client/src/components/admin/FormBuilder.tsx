@@ -474,11 +474,14 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
     
     setSelectedField(newField.id);
     
-    // Scroll automatiquement vers le bas de la liste des champs
+    // Scroll automatiquement vers la prévisualisation du formulaire
     setTimeout(() => {
-      const fieldsContainer = document.querySelector('.fields-container');
-      if (fieldsContainer) {
-        fieldsContainer.scrollTop = fieldsContainer.scrollHeight;
+      const previewSection = document.querySelector('[data-preview-section]');
+      if (previewSection) {
+        previewSection.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
       } else {
         // Fallback: scroll vers le bas de la page
         window.scrollTo({
@@ -765,7 +768,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
 
       {/* Full Width Preview */}
       {showPreview && (
-        <div className="bg-gray-100 border-b">
+        <div className="bg-gray-100 border-b" data-preview-section>
           <div className="p-6">
             <div className="bg-white rounded-lg shadow-lg overflow-hidden max-w-6xl mx-auto">
               {formData.formLayout === 'header' ? (
