@@ -67,7 +67,7 @@ interface FormField {
     pattern?: string;
   };
   style?: {
-    width: 'full' | 'half' | 'third';
+    width?: 'full' | 'half' | 'third' | 'twothirds';
     marginBottom?: number;
   };
 }
