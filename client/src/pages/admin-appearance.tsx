@@ -3871,15 +3871,15 @@ function NavigationMenuManager() {
 
   // Handle save menu item
   const handleSaveMenuItem = (formData: FormData) => {
+    const parentIdValue = formData.get('parentId') as string;
+    
     const itemData = {
       name: formData.get('name') as string,
       url: formData.get('url') as string,
-      description: formData.get('description') as string,
-      iconName: formData.get('iconName') as string,
       target: formData.get('target') as string || '_self',
       isActive: formData.get('isActive') === 'on',
-      parentId: formData.get('parentId') ? parseInt(formData.get('parentId') as string) : undefined,
-      displayOrder: parseInt(formData.get('displayOrder') as string) || 0,
+      parentId: (parentIdValue && parentIdValue !== 'none') ? parseInt(parentIdValue) : null,
+      displayOrder: 0
     };
 
     if (editingItem?.id) {
@@ -4098,16 +4098,6 @@ function MenuItemRow({
             type="button"
             variant="outline"
             size="sm"
-            onClick={() => onAddChild(item.id)}
-            className="flex items-center gap-1"
-          >
-            <Plus className="w-3 h-3" />
-            Sous-menu
-          </Button>
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
             onClick={() => onEdit(item)}
           >
             <Edit className="w-3 h-3" />
@@ -4235,12 +4225,9 @@ function MenuItemDialog({
   const [formData, setFormData] = useState({
     name: '',
     url: '',
-    description: '',
-    iconName: '',
     target: '_self',
     isActive: true,
-    parentId: '',
-    displayOrder: '0'
+    parentId: 'none'
   });
 
   // Update form data when editing item changes
@@ -4249,23 +4236,17 @@ function MenuItemDialog({
       setFormData({
         name: editingItem.name || '',
         url: editingItem.url || '',
-        description: editingItem.description || '',
-        iconName: editingItem.iconName || '',
         target: editingItem.target || '_self',
         isActive: editingItem.isActive ?? true,
-        parentId: editingItem.parentId?.toString() || 'none',
-        displayOrder: editingItem.displayOrder?.toString() || '0'
+        parentId: editingItem.parentId?.toString() || 'none'
       });
     } else {
       setFormData({
         name: '',
         url: '',
-        description: '',
-        iconName: '',
         target: '_self',
         isActive: true,
-        parentId: 'none',
-        displayOrder: '0'
+        parentId: 'none'
       });
     }
   }, [editingItem]);
@@ -4289,52 +4270,48 @@ function MenuItemDialog({
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Name */}
-            <div className="space-y-2">
-              <Label htmlFor="name">Nom du menu *</Label>
+          {/* Name */}
+          <div className="space-y-2">
+            <Label htmlFor="name">Nom du menu *</Label>
+            <Input
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+              placeholder="ex: Accueil, Expériences..."
+              required
+            />
+          </div>
+
+          {/* URL with Page Selector */}
+          <div className="space-y-2">
+            <Label htmlFor="url">Lien URL *</Label>
+            <div className="flex gap-2">
+              <Select onValueChange={(value) => setFormData(prev => ({ ...prev, url: value }))}>
+                <SelectTrigger className="w-40">
+                  <SelectValue placeholder="Choisir page" />
+                </SelectTrigger>
+                <SelectContent>
+                  {pageConfigs && Array.isArray(pageConfigs) ? pageConfigs.map((page) => (
+                    <SelectItem key={page.id} value={`/${page.pageSlug}`}>
+                      {page.pageName}
+                    </SelectItem>
+                  )) : null}
+                </SelectContent>
+              </Select>
               <Input
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                placeholder="ex: Accueil, Expériences..."
+                id="url"
+                name="url"
+                value={formData.url}
+                onChange={(e) => setFormData(prev => ({ ...prev, url: e.target.value }))}
+                placeholder="ou saisir URL personnalisée"
+                className="flex-1"
                 required
               />
             </div>
+          </div>
 
-            {/* URL with Page Selector */}
-            <div className="space-y-2">
-              <Label htmlFor="url">Lien URL *</Label>
-              <div className="flex gap-2">
-                <Select 
-                  value={formData.url} 
-                  onValueChange={(value) => setFormData(prev => ({ ...prev, url: value, name: value === '/' ? 'Home' : value === '/tours' ? 'Experiences' : value === '/custom-tour' ? 'Custom Trip' : value === '/blog' ? 'Blog' : value === '/contact' ? 'Contact' : prev.name }))}
-                >
-                  <SelectTrigger className="w-[200px]">
-                    <SelectValue placeholder="Page du site" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="/">🏠 Home</SelectItem>
-                    <SelectItem value="/tours">🌴 Experiences</SelectItem>
-                    <SelectItem value="/custom-tour">✈️ Custom Trip</SelectItem>
-                    <SelectItem value="/blog">📝 Blog</SelectItem>
-                    <SelectItem value="/contact">📞 Contact</SelectItem>
-                    <SelectItem value="/about">ℹ️ About</SelectItem>
-                  </SelectContent>
-                </Select>
-                <Input
-                  id="url"
-                  name="url"
-                  value={formData.url}
-                  onChange={(e) => setFormData(prev => ({ ...prev, url: e.target.value }))}
-                  placeholder="ou saisir URL personnalisée"
-                  className="flex-1"
-                  required
-                />
-              </div>
-            </div>
-
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Parent Menu */}
             <div className="space-y-2">
               <Label htmlFor="parentId">Menu parent (optionnel)</Label>
@@ -4366,44 +4343,6 @@ function MenuItemDialog({
                 </SelectContent>
               </Select>
             </div>
-
-            {/* Icon Name */}
-            <div className="space-y-2">
-              <Label htmlFor="iconName">Icône (optionnel)</Label>
-              <Input
-                id="iconName"
-                name="iconName"
-                value={formData.iconName}
-                onChange={(e) => setFormData(prev => ({ ...prev, iconName: e.target.value }))}
-                placeholder="ex: Home, Search, Mail..."
-              />
-            </div>
-
-            {/* Display Order */}
-            <div className="space-y-2">
-              <Label htmlFor="displayOrder">Ordre d'affichage</Label>
-              <Input
-                id="displayOrder"
-                name="displayOrder"
-                type="number"
-                value={formData.displayOrder}
-                onChange={(e) => setFormData(prev => ({ ...prev, displayOrder: e.target.value }))}
-                placeholder="0"
-              />
-            </div>
-          </div>
-
-          {/* Description */}
-          <div className="space-y-2">
-            <Label htmlFor="description">Description (optionnel)</Label>
-            <Textarea
-              id="description"
-              name="description"
-              value={formData.description}
-              onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
-              placeholder="Description interne pour l'administration"
-              rows={2}
-            />
           </div>
 
           {/* Active Switch */}
