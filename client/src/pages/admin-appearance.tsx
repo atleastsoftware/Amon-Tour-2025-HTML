@@ -1773,26 +1773,22 @@ export default function AdminAppearance() {
       .filter((item: NavigationMenuItem) => !item.parentId && item.url && item.url.startsWith('/'))
       : [];
     
-    // Create mapping from URL to page slug and preserve order
-    const urlToSlugMap: { [key: string]: string } = {
-      '/': 'home',
-      '/tours': 'experiences',  // Menu "Experiences" points to /tours but page slug is experiences
-      '/custom-tour': 'custom-tour',
-      '/blog': 'blog',
-      '/contact': 'contact'
-    };
-    
-    // Also add dynamic mappings for any additional URLs that might match page slugs directly
-    if (pageConfigs && Array.isArray(pageConfigs)) {
-      pageConfigs.forEach(page => {
-        const urlPath = `/${page.pageSlug}`;
-        if (!urlToSlugMap[urlPath]) {
-          urlToSlugMap[urlPath] = page.pageSlug;
-        }
-      });
-    }
-    
-    const menuPages = menuItems.map(item => urlToSlugMap[item.url] || item.url.substring(1));
+    // Extract page slugs directly from menu URLs - more direct approach
+    const menuPages: string[] = [];
+    menuItems.forEach(item => {
+      const slug = item.url.substring(1); // Remove leading slash
+      
+      if (slug === '') {
+        menuPages.push('home');
+      } else if (slug === 'tours') {
+        // /tours URL can point to either 'experiences' page or 'tours' page
+        menuPages.push('experiences', 'tours');
+      } else if (slug === 'custom-tour') {
+        menuPages.push('custom-tour');
+      } else {
+        menuPages.push(slug);
+      }
+    });
 
     // Static pages that should always be available
     const staticPages = [
