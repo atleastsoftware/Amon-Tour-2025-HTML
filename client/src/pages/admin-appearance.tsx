@@ -1773,20 +1773,16 @@ export default function AdminAppearance() {
       .filter((item: NavigationMenuItem) => !item.parentId && item.url && item.url.startsWith('/'))
       : [];
     
-    // Debug: log menu items
-    console.log('Menu items:', menuItems);
-    
     // Create mapping from URL to page slug and preserve order
     const urlToSlugMap: { [key: string]: string } = {
       '/': 'home',
-      '/experiences': 'experiences', 
-      '/custom-trip': 'custom-tour',  // Note: URL is custom-trip but page slug is custom-tour
+      '/tours': 'experiences',  // Menu "Experiences" points to /tours but page slug is experiences
+      '/custom-tour': 'custom-tour',
       '/blog': 'blog',
       '/contact': 'contact'
     };
     
     const menuPages = menuItems.map(item => urlToSlugMap[item.url] || item.url.substring(1));
-    console.log('Menu pages mapped:', menuPages);
 
     // Static pages that should always be available
     const staticPages = [
