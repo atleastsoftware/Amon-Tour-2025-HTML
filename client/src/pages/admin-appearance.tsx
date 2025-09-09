@@ -3770,19 +3770,24 @@ function NavigationMenuManager({ pageConfigs, navigationMenuItems }: { pageConfi
 
   // Dynamic page categories based on database and navigation menu
   const getDynamicPageCategories = () => {
-    if (!pageConfigs || !Array.isArray(pageConfigs)) {
-      return {
-        'Pages principales': [],
-        'Pages secondaires': [],
-        'Mentions légales': []
-      };
-    }
-    
     const categories: Record<string, Array<{ slug: string; name: string; id: number }>> = {
       'Pages principales': [],
       'Pages secondaires': [],
       'Mentions légales': []
     };
+
+    // Static pages that should always be available
+    const staticPages = [
+      { slug: 'brochure', name: 'Our brochure', id: 999 },
+      { slug: 'krabi-celebration', name: 'Krabi Celebration', id: 998 },
+      { slug: 'fun-garden', name: 'Fun Garden', id: 997 },
+      { slug: 'villas-krabi', name: 'Villas in Krabi', id: 996 },
+      { slug: 'become-partner', name: 'Become Partner', id: 995 },
+      { slug: 'group-corporate', name: 'Group & Corporate', id: 994 },
+      { slug: 'privacy-policy', name: 'Privacy Policy', id: 993 },
+      { slug: 'legal-notice', name: 'Legal Notice', id: 992 },
+      { slug: 'terms-conditions', name: 'Terms & Conditions', id: 991 }
+    ];
 
     // Get pages that are in the main navigation menu (no parent)
     const menuPages = menuItems ? menuItems
@@ -3790,20 +3795,42 @@ function NavigationMenuManager({ pageConfigs, navigationMenuItems }: { pageConfi
       .map((item: NavigationMenuItem) => item.url.substring(1)) // Remove leading slash
       : [];
 
-    pageConfigs.forEach((page: PageConfiguration) => {
-      const pageInfo = { slug: page.pageSlug, name: page.pageName, id: page.id };
-      
-      // Mentions légales: pages containing legal, privacy, or terms in their slug
-      if (page.pageSlug.includes('legal') || page.pageSlug.includes('privacy') || page.pageSlug.includes('terms')) {
-        categories['Mentions légales'].push(pageInfo);
-      }
-      // Pages principales: pages that are in the main navigation menu
-      else if (menuPages.includes(page.pageSlug)) {
-        categories['Pages principales'].push(pageInfo);
-      }
-      // Pages secondaires: all other existing pages
-      else {
-        categories['Pages secondaires'].push(pageInfo);
+    // Process database pages first
+    if (pageConfigs && Array.isArray(pageConfigs)) {
+      pageConfigs.forEach((page: PageConfiguration) => {
+        const pageInfo = { slug: page.pageSlug, name: page.pageName, id: page.id };
+        
+        // Mentions légales: pages containing legal, privacy, or terms in their slug
+        if (page.pageSlug.includes('legal') || page.pageSlug.includes('privacy') || page.pageSlug.includes('terms')) {
+          categories['Mentions légales'].push(pageInfo);
+        }
+        // Pages principales: pages that are in the main navigation menu
+        else if (menuPages.includes(page.pageSlug)) {
+          categories['Pages principales'].push(pageInfo);
+        }
+        // Pages secondaires: all other existing pages
+        else {
+          categories['Pages secondaires'].push(pageInfo);
+        }
+      });
+    }
+
+    // Add static pages that are not already in database
+    const existingSlugs = pageConfigs ? pageConfigs.map(p => p.pageSlug) : [];
+    staticPages.forEach(staticPage => {
+      if (!existingSlugs.includes(staticPage.slug)) {
+        // Mentions légales
+        if (staticPage.slug.includes('legal') || staticPage.slug.includes('privacy') || staticPage.slug.includes('terms')) {
+          categories['Mentions légales'].push(staticPage);
+        }
+        // Pages principales: pages in navigation menu
+        else if (menuPages.includes(staticPage.slug)) {
+          categories['Pages principales'].push(staticPage);
+        }
+        // Pages secondaires: all others
+        else {
+          categories['Pages secondaires'].push(staticPage);
+        }
       }
     });
 
