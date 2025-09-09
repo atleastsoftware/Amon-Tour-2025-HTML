@@ -537,10 +537,12 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
 
     setSaving(true);
     try {
-      await onSave(formData);
+      // Définir explicitement isActive: true pour publier
+      const publishData = { ...formData, isActive: true };
+      await onSave(publishData);
       toast({
-        title: "Formulaire sauvegardé",
-        description: "Le formulaire a été sauvegardé avec succès."
+        title: "Formulaire publié",
+        description: "Le formulaire a été publié avec succès."
       });
     } catch (error) {
       toast({
