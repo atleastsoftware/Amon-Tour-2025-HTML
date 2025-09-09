@@ -2139,9 +2139,9 @@ export default function AdminAppearance() {
             <div className="w-full sm:w-auto">
               <h1 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2 sm:gap-3">
                 <Palette className="h-6 w-6 sm:h-7 sm:w-7 text-blue-600 flex-shrink-0" />
-                <span className="truncate">Site Appearance</span>
+                <span className="truncate">Apparence du Site</span>
               </h1>
-              <p className="text-sm sm:text-base text-gray-600">Customize your website theme, pages, and footer</p>
+              <p className="text-sm sm:text-base text-gray-600">Personnalisez le thème, les pages et le pied de page de votre site</p>
             </div>
             <Button 
               variant="outline" 
@@ -2149,7 +2149,7 @@ export default function AdminAppearance() {
               className="flex items-center gap-2 w-full sm:w-auto"
             >
               <ArrowLeft className="w-4 h-4" />
-              <span>Back to Admin</span>
+              <span>Retour à l'Admin</span>
             </Button>
           </div>
         </div>
@@ -2159,7 +2159,7 @@ export default function AdminAppearance() {
           <TabsList className="grid w-full grid-cols-3 h-auto">
             <TabsTrigger value="theme" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 sm:p-3 text-base sm:text-lg font-semibold">
               <Palette className="w-4 h-4 flex-shrink-0" />
-              <span>Theme</span>
+              <span>Thème</span>
             </TabsTrigger>
             <TabsTrigger value="pages" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 sm:p-3 text-base sm:text-lg font-semibold">
               <Layout className="w-4 h-4 flex-shrink-0" />
@@ -2167,7 +2167,7 @@ export default function AdminAppearance() {
             </TabsTrigger>
             <TabsTrigger value="footer" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 sm:p-3 text-base sm:text-lg font-semibold">
               <Settings className="w-4 h-4 flex-shrink-0" />
-              <span>Footer</span>
+              <span>Pied de page</span>
             </TabsTrigger>
           </TabsList>
 
@@ -2179,9 +2179,9 @@ export default function AdminAppearance() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                     <Palette className="w-4 h-4" />
-                    Page Settings
+                    Paramètres de Page
                   </CardTitle>
-                  <CardDescription>Choose theme section to edit</CardDescription>
+                  <CardDescription>Choisissez la section du thème à modifier</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
