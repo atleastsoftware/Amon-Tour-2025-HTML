@@ -706,16 +706,14 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
               {field.label}{field.required ? ' *' : ''}
             </Label>
             <Input 
-              placeholder={field.placeholder || "Select dates"} 
+              placeholder={field.placeholder || "Select trip dates"} 
               readOnly 
               className="cursor-pointer flatpickr-input" 
               style={{ color: resolveColor(formData.textColor) }}
               onClick={() => {
-                // Simulate calendar opening for preview
-                // In real form, flatpickr would be initialized here
+                alert('Sélecteur de date - Un calendrier s\'ouvrirait ici sur le site réel');
               }}
             />
-            <div className="text-xs text-gray-500 mt-1">📅 Date range picker (flatpickr)</div>
           </div>
         );
         
@@ -1201,7 +1199,8 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                                           <SelectContent>
                                             <SelectItem value="full">Pleine largeur</SelectItem>
                                             <SelectItem value="half">Demi-largeur</SelectItem>
-                                            <SelectItem value="third">Tiers</SelectItem>
+                                            <SelectItem value="third">Tiers (1/3)</SelectItem>
+                                            <SelectItem value="twothirds">Deux tiers (2/3)</SelectItem>
                                           </SelectContent>
                                         </Select>
                                       </div>
