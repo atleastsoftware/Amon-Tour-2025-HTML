@@ -705,7 +705,17 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
             <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
               {field.label}{field.required ? ' *' : ''}
             </Label>
-            <Input placeholder={field.placeholder} readOnly className="cursor-pointer" style={{ color: resolveColor(formData.textColor) }} />
+            <Input 
+              placeholder={field.placeholder || "Select dates"} 
+              readOnly 
+              className="cursor-pointer flatpickr-input" 
+              style={{ color: resolveColor(formData.textColor) }}
+              onClick={() => {
+                // Simulate calendar opening for preview
+                // In real form, flatpickr would be initialized here
+              }}
+            />
+            <div className="text-xs text-gray-500 mt-1">📅 Date range picker (flatpickr)</div>
           </div>
         );
         
