@@ -809,9 +809,10 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                             const isHalfWidth = field.style?.width === 'half';
                             const isThirdWidth = field.style?.width === 'third';
                             const nextIsHalfWidth = nextField?.style?.width === 'half';
+                            const nextIsTwoThirds = nextField?.style?.width === 'twothirds';
                             
                             // Country Code (1/3) + WhatsApp (2/3) special case
-                            if (isThirdWidth && nextField && nextIsHalfWidth && field.id === 'countrycode') {
+                            if (isThirdWidth && nextField && (nextIsTwoThirds || nextIsHalfWidth) && field.id === 'countrycode') {
                               renderedIndexes.add(index);
                               renderedIndexes.add(index + 1);
                               return (
@@ -952,9 +953,10 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                             const isHalfWidth = field.style?.width === 'half';
                             const isThirdWidth = field.style?.width === 'third';
                             const nextIsHalfWidth = nextField?.style?.width === 'half';
+                            const nextIsTwoThirds = nextField?.style?.width === 'twothirds';
                             
                             // Country Code (1/3) + WhatsApp (2/3) special case
-                            if (isThirdWidth && nextField && nextIsHalfWidth && field.id === 'countrycode') {
+                            if (isThirdWidth && nextField && (nextIsTwoThirds || nextIsHalfWidth) && field.id === 'countrycode') {
                               renderedIndexes.add(index);
                               renderedIndexes.add(index + 1);
                               return (
