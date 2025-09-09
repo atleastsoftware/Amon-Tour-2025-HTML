@@ -3647,7 +3647,7 @@ export default function AdminAppearance() {
                   </Dialog>
                   <CardContent>
                     {selectedPage === 'navigation-menu' ? (
-                      <NavigationMenuManager />
+                      <NavigationMenuManager pageConfigs={pageConfigs} />
                     ) : loadingBlocks ? (
                       <div className="text-center py-12">
                         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
@@ -3757,7 +3757,7 @@ export default function AdminAppearance() {
 }
 
 // Navigation Menu Manager Component
-function NavigationMenuManager() {
+function NavigationMenuManager({ pageConfigs }: { pageConfigs?: PageConfiguration[] }) {
   const queryClient = useQueryClient();
   const [editingItem, setEditingItem] = useState<NavigationMenuItem | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
