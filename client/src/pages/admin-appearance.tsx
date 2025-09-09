@@ -1843,7 +1843,7 @@ export default function AdminAppearance() {
     });
 
     // ALWAYS put Home first in Pages principales (even if not in menu)
-    const homePageFromDB = pageConfigs.find(p => p.pageSlug === 'home');
+    const homePageFromDB = pageConfigs?.find(p => p.pageSlug === 'home');
     const homePageStatic = staticPages.find(p => p.slug === 'home');
     const homePage = homePageFromDB 
       ? { slug: homePageFromDB.pageSlug, name: homePageFromDB.pageName === 'Accueil' ? 'Home' : homePageFromDB.pageName, id: homePageFromDB.id }
@@ -3904,7 +3904,7 @@ function NavigationMenuManager({ pageConfigs, navigationMenuItems }: { pageConfi
     });
 
     // ALWAYS put Home first in Pages principales (even if not in menu)
-    const homePageFromDB = pageConfigs.find(p => p.pageSlug === 'home');
+    const homePageFromDB = pageConfigs?.find(p => p.pageSlug === 'home');
     const homePageStatic = staticPages.find(p => p.slug === 'home');
     const homePage = homePageFromDB 
       ? { slug: homePageFromDB.pageSlug, name: homePageFromDB.pageName === 'Accueil' ? 'Home' : homePageFromDB.pageName, id: homePageFromDB.id }
