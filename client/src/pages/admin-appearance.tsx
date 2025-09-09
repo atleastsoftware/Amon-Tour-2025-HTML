@@ -1769,13 +1769,35 @@ export default function AdminAppearance() {
     };
 
     // Get pages that are in the main navigation menu (no parent)
-    const menuPages: string[] = [];
-    
-    // TODO: Implement automatic categorization based on navigation menu
-    // For now, use the existing logic but will be enhanced when navigation data is available
+    const menuPages = navigationMenuItems ? navigationMenuItems
+      .filter((item: NavigationMenuItem) => !item.parentId && item.url && item.url.startsWith('/'))
+      .map((item: NavigationMenuItem) => item.url.substring(1)) // Remove leading slash
+      : [];
 
+    // Static pages that should always be available
+    const staticPages = [
+      { slug: 'home', name: 'Home', id: 999 },
+      { slug: 'blog', name: 'Blog', id: 998 },
+      { slug: 'contact', name: 'Contact', id: 997 },
+      { slug: 'custom-tour', name: 'Custom Tour', id: 996 },
+      { slug: 'experiences', name: 'Experiences', id: 995 },
+      { slug: 'tours', name: 'All Tours', id: 994 },
+      { slug: 'external-stays', name: 'External Stays', id: 993 },
+      { slug: 'stays', name: 'Stays & Accommodations', id: 992 },
+      { slug: 'brochure', name: 'Our brochure', id: 991 },
+      { slug: 'krabi-celebration', name: 'Krabi Celebration', id: 990 },
+      { slug: 'fun-garden', name: 'Fun Garden', id: 989 },
+      { slug: 'villas-krabi', name: 'Villas in Krabi', id: 988 },
+      { slug: 'become-partner', name: 'Become Partner', id: 987 },
+      { slug: 'group-corporate', name: 'Group & Corporate', id: 986 },
+      { slug: 'privacy-policy', name: 'Privacy Policy', id: 985 },
+      { slug: 'legal-notice', name: 'Legal Notice', id: 984 },
+      { slug: 'terms-conditions', name: 'Terms & Conditions', id: 983 }
+    ];
+
+    // Process database pages first
     pageConfigs.forEach((page: PageConfiguration) => {
-      const pageInfo = { slug: page.pageSlug, name: page.pageName, id: page.id };
+      const pageInfo = { slug: page.pageSlug, name: page.pageName === 'Accueil' ? 'Home' : page.pageName, id: page.id };
       
       // Legal pages always go to mentions légales
       if (page.pageSlug.includes('legal') || page.pageSlug.includes('privacy') || page.pageSlug.includes('terms')) {
@@ -1788,6 +1810,25 @@ export default function AdminAppearance() {
       // All other pages go to pages secondaires
       else {
         categories['Pages secondaires'].push(pageInfo);
+      }
+    });
+
+    // Add static pages that are not already in database
+    const existingSlugs = pageConfigs.map(p => p.pageSlug);
+    staticPages.forEach(staticPage => {
+      if (!existingSlugs.includes(staticPage.slug)) {
+        // Legal pages
+        if (staticPage.slug.includes('legal') || staticPage.slug.includes('privacy') || staticPage.slug.includes('terms')) {
+          categories['Mentions légales'].push(staticPage);
+        }
+        // Pages in navigation menu go to pages principales
+        else if (menuPages.includes(staticPage.slug)) {
+          categories['Pages principales'].push(staticPage);
+        }
+        // All others go to pages secondaires
+        else {
+          categories['Pages secondaires'].push(staticPage);
+        }
       }
     });
 
