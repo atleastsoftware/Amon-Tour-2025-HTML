@@ -473,6 +473,20 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
     }));
     
     setSelectedField(newField.id);
+    
+    // Scroll automatiquement vers le bas de la liste des champs
+    setTimeout(() => {
+      const fieldsContainer = document.querySelector('.fields-container');
+      if (fieldsContainer) {
+        fieldsContainer.scrollTop = fieldsContainer.scrollHeight;
+      } else {
+        // Fallback: scroll vers le bas de la page
+        window.scrollTo({
+          top: document.body.scrollHeight,
+          behavior: 'smooth'
+        });
+      }
+    }, 100);
   };
 
   // Update field
@@ -540,10 +554,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
       // Définir explicitement isActive: true pour publier
       const publishData = { ...formData, isActive: true };
       await onSave(publishData);
-      toast({
-        title: "Formulaire publié",
-        description: "Le formulaire a été publié avec succès."
-      });
+      // Toast et redirection gérés dans admin-editor-form.tsx
     } catch (error) {
       toast({
         title: "Erreur",
@@ -569,10 +580,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
     try {
       const draftData = { ...formData, isActive: false };
       await onSave(draftData);
-      toast({
-        title: "Brouillon sauvegardé",
-        description: "Le formulaire a été sauvegardé en tant que brouillon."
-      });
+      // Toast et redirection gérés dans admin-editor-form.tsx
     } catch (error) {
       toast({
         title: "Erreur",
@@ -1099,7 +1107,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                       </Button>
                     </div>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="fields-container max-h-80 overflow-y-auto">
                     {formData.fields.length === 0 ? (
                       <p className="text-gray-500 text-sm py-4 text-center">
                         Aucun champ ajouté. Cliquez sur "Nouveau champ" pour commencer.

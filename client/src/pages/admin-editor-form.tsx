@@ -555,12 +555,16 @@ export default function AdminEditorForm() {
       apiRequest('POST', '/api/admin/custom-forms', formData),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/custom-forms'] });
-      toast({
-        title: "Formulaire publié",
-        description: "Le nouveau formulaire a été publié avec succès."
-      });
+      // Redirection immédiate
       setShowBuilder(false);
       setEditingForm(null);
+      // Toast après redirection pour éviter d'attendre
+      setTimeout(() => {
+        toast({
+          title: "Formulaire publié",
+          description: "Le nouveau formulaire a été publié avec succès."
+        });
+      }, 100);
     },
     onError: (error: any) => {
       toast({
@@ -577,12 +581,16 @@ export default function AdminEditorForm() {
       apiRequest('PUT', `/api/admin/custom-forms/${id}`, formData),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/custom-forms'] });
-      toast({
-        title: "Formulaire publié",
-        description: "Le formulaire a été publié avec succès."
-      });
+      // Redirection immédiate
       setShowBuilder(false);
       setEditingForm(null);
+      // Toast après redirection pour éviter d'attendre
+      setTimeout(() => {
+        toast({
+          title: "Formulaire publié",
+          description: "Le formulaire a été publié avec succès."
+        });
+      }, 100);
     },
     onError: (error: any) => {
       toast({
