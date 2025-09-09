@@ -474,20 +474,21 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
     
     setSelectedField(newField.id);
     
-    // Scroll automatiquement vers le nouveau champ dans la liste des champs
+    // Scroll automatiquement vers le bas de la section des champs
     setTimeout(() => {
       const fieldsSection = document.querySelector('[data-fields-section]');
       if (fieldsSection) {
-        // Calculer la position pour voir les champs + un peu d'espace
+        // Aller au bas de la section des champs
         const rect = fieldsSection.getBoundingClientRect();
         const absoluteTop = window.pageYOffset + rect.top;
+        const sectionHeight = rect.height;
         
         window.scrollTo({
-          top: absoluteTop + 100, // Ajouter un peu d'espace
+          top: absoluteTop + sectionHeight - 100, // Bas de section moins un peu d'espace
           behavior: 'smooth'
         });
       }
-    }, 100);
+    }, 200); // Plus de délai pour s'assurer que le DOM est mis à jour
   };
 
   // Update field

@@ -706,11 +706,11 @@ export default function AdminEditorForm() {
       // Assurer que isActive est true pour Publier
       const publishData = { ...formData, isActive: true };
       
-      if (editingForm) {
-        // Modifier un formulaire existant
-        updateFormMutation.mutate({ id: editingForm.id!, formData: publishData });
+      if (editingForm?.id) {
+        // Modifier un formulaire existant (avec ID)
+        updateFormMutation.mutate({ id: editingForm.id, formData: publishData });
       } else {
-        // Créer un nouveau formulaire
+        // Créer un nouveau formulaire (sans ID)
         createFormMutation.mutate(publishData);
       }
     } catch (error) {
