@@ -3647,7 +3647,7 @@ export default function AdminAppearance() {
                   </Dialog>
                   <CardContent>
                     {selectedPage === 'navigation-menu' ? (
-                      <NavigationMenuManager pageConfigs={pageConfigs} />
+                      <NavigationMenuManager pageConfigs={pageConfigs} navigationMenuItems={navigationMenuItems} />
                     ) : loadingBlocks ? (
                       <div className="text-center py-12">
                         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
@@ -3757,7 +3757,7 @@ export default function AdminAppearance() {
 }
 
 // Navigation Menu Manager Component
-function NavigationMenuManager({ pageConfigs }: { pageConfigs?: PageConfiguration[] }) {
+function NavigationMenuManager({ pageConfigs, navigationMenuItems }: { pageConfigs?: PageConfiguration[]; navigationMenuItems?: NavigationMenuItem[] }) {
   const queryClient = useQueryClient();
   const [editingItem, setEditingItem] = useState<NavigationMenuItem | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -3767,6 +3767,78 @@ function NavigationMenuManager({ pageConfigs }: { pageConfigs?: PageConfiguratio
   const { data: menuItems = [], isLoading } = useQuery<NavigationMenuItem[]>({
     queryKey: ['/api/admin/navigation-menu'],
   });
+
+  // Dynamic page categories based on database and navigation menu
+  const getDynamicPageCategories = () => {
+    if (!pageConfigs || !Array.isArray(pageConfigs)) {
+      // Fallback to static data if DB not loaded
+      return {
+        'Pages principales': [
+          { slug: 'home', name: 'Home Page' },
+          { slug: 'experiences', name: 'Experiences' },
+          { slug: 'custom-tour', name: 'Custom Tour' },
+          { slug: 'contact', name: 'Contact Us' },
+          { slug: 'blog', name: 'Blog' }
+        ],
+        'Pages secondaires': [
+          { slug: 'tours', name: 'Tours' },
+          { slug: 'stays', name: 'Stays' },
+          { slug: 'external-stays', name: 'External Stays' },
+          { slug: 'villas-krabi', name: 'Villas Krabi' },
+          { slug: 'krabi-celebration', name:'Krabi Celebration' },
+          { slug: 'become-partner', name: 'Become Partner' },
+          { slug: 'group-corporate', name: 'Group Corporate' },
+          { slug: 'brochure', name: 'Brochure' },
+          { slug: 'tour-cards', name: 'Tour Cards' }
+        ],
+        'Mentions légales': [
+          { slug: 'legal-notice', name: 'Legal Notice' },
+          { slug: 'privacy-policy', name: 'Privacy Policy' },
+          { slug: 'terms-conditions', name: 'Terms & Conditions' }
+        ]
+      };
+    }
+    
+    const categories: Record<string, Array<{ slug: string; name: string; id: number }>> = {
+      'Pages principales': [],
+      'Pages secondaires': [],
+      'Mentions légales': []
+    };
+
+    // Get pages that are in the main navigation menu (no parent)
+    const menuPages = navigationMenuItems ? navigationMenuItems
+      .filter((item: NavigationMenuItem) => !item.parentId && item.url && item.url.startsWith('/'))
+      .map((item: NavigationMenuItem) => item.url.substring(1)) // Remove leading slash
+      : [];
+
+    pageConfigs.forEach((page: PageConfiguration) => {
+      const pageInfo = { slug: page.pageSlug, name: page.pageName, id: page.id };
+      
+      // Legal pages always go to mentions légales
+      if (page.pageSlug.includes('legal') || page.pageSlug.includes('privacy') || page.pageSlug.includes('terms')) {
+        categories['Mentions légales'].push(pageInfo);
+      }
+      // Pages that are in the main navigation menu go to pages principales
+      else if (menuPages.includes(page.pageSlug) || page.pageSlug === 'home') {
+        categories['Pages principales'].push(pageInfo);
+      }
+      // All other pages go to pages secondaires
+      else {
+        categories['Pages secondaires'].push(pageInfo);
+      }
+    });
+
+    // Always ensure Home is first in Pages principales if it exists
+    const homeIndex = categories['Pages principales'].findIndex(page => page.slug === 'home');
+    if (homeIndex > 0) {
+      const homePage = categories['Pages principales'].splice(homeIndex, 1)[0];
+      categories['Pages principales'].unshift(homePage);
+    }
+
+    return categories;
+  };
+
+  const pageCategories = getDynamicPageCategories();
 
   // Create navigation menu item
   const createMenuItemMutation = useMutation({
