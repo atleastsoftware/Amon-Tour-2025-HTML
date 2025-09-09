@@ -799,73 +799,31 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                       </div>
                     ) : (
                       <div className="space-y-4">
-                        {/* Rendu des champs du formulaire */}
-                        {(() => {
-                          const renderedIndexes = new Set();
-                          return formData.fields.map((field, index) => {
-                            if (renderedIndexes.has(index)) return null;
+                        {/* Rendu des champs du formulaire avec largeurs individuelles */}
+                        <div className="grid grid-cols-12 gap-4">
+                          {formData.fields.map((field, index) => {
+                            let colSpan = 'col-span-12'; // Default: full width
                             
-                            const nextField = formData.fields[index + 1];
-                            const isHalfWidth = field.style?.width === 'half';
-                            const isThirdWidth = field.style?.width === 'third';
-                            const nextIsHalfWidth = nextField?.style?.width === 'half';
-                            const nextIsTwoThirds = nextField?.style?.width === 'twothirds';
-                            
-                            // Country Code (1/3) + WhatsApp (2/3) special case
-                            if (isThirdWidth && nextField && (nextIsTwoThirds || nextIsHalfWidth) && field.id === 'countrycode') {
-                              renderedIndexes.add(index);
-                              renderedIndexes.add(index + 1);
-                              return (
-                                <div key={`phone-grid-${field.id}`} className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                  <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -20 }}
-                                  >
-                                    {renderFieldPreview(field)}
-                                  </motion.div>
-                                  <div className="md:col-span-2">
-                                    <motion.div
-                                      initial={{ opacity: 0, y: 20 }}
-                                      animate={{ opacity: 1, y: 0 }}
-                                      exit={{ opacity: 0, y: -20 }}
-                                    >
-                                      {renderFieldPreview(nextField)}
-                                    </motion.div>
-                                  </div>
-                                </div>
-                              );
+                            switch (field.style?.width) {
+                              case 'half':
+                                colSpan = 'col-span-12 md:col-span-6';
+                                break;
+                              case 'third':
+                                colSpan = 'col-span-12 md:col-span-4';
+                                break;
+                              case 'twothirds':
+                                colSpan = 'col-span-12 md:col-span-8';
+                                break;
+                              case 'full':
+                              default:
+                                colSpan = 'col-span-12';
+                                break;
                             }
                             
-                            // Regular half-width fields (2 columns)
-                            if (isHalfWidth && nextField && nextIsHalfWidth) {
-                              renderedIndexes.add(index);
-                              renderedIndexes.add(index + 1);
-                              return (
-                                <div key={`grid-${field.id}`} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                  <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -20 }}
-                                  >
-                                    {renderFieldPreview(field)}
-                                  </motion.div>
-                                  <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -20 }}
-                                  >
-                                    {renderFieldPreview(nextField)}
-                                  </motion.div>
-                                </div>
-                              );
-                            }
-                            
-                            // Full width fields
-                            renderedIndexes.add(index);
                             return (
                               <motion.div
                                 key={field.id}
+                                className={colSpan}
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -20 }}
@@ -873,8 +831,8 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                                 {renderFieldPreview(field)}
                               </motion.div>
                             );
-                          }).filter(Boolean);
-                        })()}
+                          })}
+                        </div>
                         
                         {/* Submit Button */}
                         <div className="pt-4">
@@ -943,73 +901,31 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                       </div>
                     ) : (
                       <div className="space-y-4">
-                        {/* Rendu des champs du formulaire */}
-                        {(() => {
-                          const renderedIndexes = new Set();
-                          return formData.fields.map((field, index) => {
-                            if (renderedIndexes.has(index)) return null;
+                        {/* Rendu des champs du formulaire avec largeurs individuelles */}
+                        <div className="grid grid-cols-12 gap-4">
+                          {formData.fields.map((field, index) => {
+                            let colSpan = 'col-span-12'; // Default: full width
                             
-                            const nextField = formData.fields[index + 1];
-                            const isHalfWidth = field.style?.width === 'half';
-                            const isThirdWidth = field.style?.width === 'third';
-                            const nextIsHalfWidth = nextField?.style?.width === 'half';
-                            const nextIsTwoThirds = nextField?.style?.width === 'twothirds';
-                            
-                            // Country Code (1/3) + WhatsApp (2/3) special case
-                            if (isThirdWidth && nextField && (nextIsTwoThirds || nextIsHalfWidth) && field.id === 'countrycode') {
-                              renderedIndexes.add(index);
-                              renderedIndexes.add(index + 1);
-                              return (
-                                <div key={`phone-grid-${field.id}`} className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                  <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -20 }}
-                                  >
-                                    {renderFieldPreview(field)}
-                                  </motion.div>
-                                  <div className="md:col-span-2">
-                                    <motion.div
-                                      initial={{ opacity: 0, y: 20 }}
-                                      animate={{ opacity: 1, y: 0 }}
-                                      exit={{ opacity: 0, y: -20 }}
-                                    >
-                                      {renderFieldPreview(nextField)}
-                                    </motion.div>
-                                  </div>
-                                </div>
-                              );
+                            switch (field.style?.width) {
+                              case 'half':
+                                colSpan = 'col-span-12 md:col-span-6';
+                                break;
+                              case 'third':
+                                colSpan = 'col-span-12 md:col-span-4';
+                                break;
+                              case 'twothirds':
+                                colSpan = 'col-span-12 md:col-span-8';
+                                break;
+                              case 'full':
+                              default:
+                                colSpan = 'col-span-12';
+                                break;
                             }
                             
-                            // Regular half-width fields (2 columns)
-                            if (isHalfWidth && nextField && nextIsHalfWidth) {
-                              renderedIndexes.add(index);
-                              renderedIndexes.add(index + 1);
-                              return (
-                                <div key={`grid-${field.id}`} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                  <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -20 }}
-                                  >
-                                    {renderFieldPreview(field)}
-                                  </motion.div>
-                                  <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -20 }}
-                                  >
-                                    {renderFieldPreview(nextField)}
-                                  </motion.div>
-                                </div>
-                              );
-                            }
-                            
-                            // Full width fields
-                            renderedIndexes.add(index);
                             return (
                               <motion.div
                                 key={field.id}
+                                className={colSpan}
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -20 }}
@@ -1017,8 +933,8 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                                 {renderFieldPreview(field)}
                               </motion.div>
                             );
-                          }).filter(Boolean);
-                        })()}
+                          })}
+                        </div>
                         
                         {/* Submit Button */}
                         <div className="pt-4">
