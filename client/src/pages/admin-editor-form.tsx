@@ -40,6 +40,7 @@ export default function AdminEditorForm() {
   const [showBuilder, setShowBuilder] = useState(false);
   const [editingForm, setEditingForm] = useState<FormData | null>(null);
   const [showTitleDialog, setShowTitleDialog] = useState(false);
+  const [newFormName, setNewFormName] = useState('');
   const [newFormTitle, setNewFormTitle] = useState('');
   const queryClient = useQueryClient();
 
@@ -554,15 +555,16 @@ export default function AdminEditorForm() {
 
   const handleAddForm = () => {
     setShowTitleDialog(true);
+    setNewFormName('');
     setNewFormTitle('');
   };
 
   const handleCreateFormWithTitle = () => {
-    if (!newFormTitle.trim()) return;
+    if (!newFormName.trim() || !newFormTitle.trim()) return;
     
     // Créer un formulaire de base simple
     const newForm: FormData = {
-      name: newFormTitle,
+      name: newFormName,
       title: newFormTitle,
       subtitle: 'Sous-titre du formulaire',
       description: 'Description de votre formulaire',
@@ -607,6 +609,7 @@ export default function AdminEditorForm() {
     setEditingForm(newForm);
     setShowBuilder(true);
     setShowTitleDialog(false);
+    setNewFormName('');
     setNewFormTitle('');
   };
 
@@ -882,10 +885,22 @@ export default function AdminEditorForm() {
             <DialogHeader>
               <DialogTitle>Créer un nouveau formulaire</DialogTitle>
               <DialogDescription>
-                Entrez le titre de votre nouveau formulaire. Vous pourrez personnaliser tous les autres éléments par la suite.
+                Entrez le nom et titre de votre nouveau formulaire. Vous pourrez personnaliser tous les autres éléments par la suite.
               </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="name" className="text-right">
+                  Nom
+                </Label>
+                <Input
+                  id="name"
+                  value={newFormName}
+                  onChange={(e) => setNewFormName(e.target.value)}
+                  placeholder="Ex: contact-form"
+                  className="col-span-3"
+                />
+              </div>
               <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="title" className="text-right">
                   Titre
@@ -910,7 +925,7 @@ export default function AdminEditorForm() {
               </Button>
               <Button 
                 onClick={handleCreateFormWithTitle}
-                disabled={!newFormTitle.trim()}
+                disabled={!newFormName.trim() || !newFormTitle.trim()}
               >
                 Créer le formulaire
               </Button>

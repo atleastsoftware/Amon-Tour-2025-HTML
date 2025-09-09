@@ -805,12 +805,14 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                       >
                         {formData.title || 'Titre du formulaire'}
                       </h3>
-                      <p 
-                        className="max-w-md"
-                        style={{ color: resolveColor(formData.subtitleColor) }}
-                      >
-                        {formData.subtitle || formData.description || 'Description du formulaire'}
-                      </p>
+                      {formData.subtitle && (
+                        <p 
+                          className="max-w-md"
+                          style={{ color: resolveColor(formData.subtitleColor) }}
+                        >
+                          {formData.subtitle}
+                        </p>
+                      )}
                     </div>
                   </div>
                   {/* Form Below */}
@@ -907,12 +909,14 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                       >
                         {formData.title || 'Titre du formulaire'}
                       </h3>
-                      <p 
-                        className="max-w-xs"
-                        style={{ color: resolveColor(formData.subtitleColor) }}
-                      >
-                        {formData.subtitle || formData.description || 'Description du formulaire'}
-                      </p>
+                      {formData.subtitle && (
+                        <p 
+                          className="max-w-xs"
+                          style={{ color: resolveColor(formData.subtitleColor) }}
+                        >
+                          {formData.subtitle}
+                        </p>
+                      )}
                     </div>
                   </div>
                   
