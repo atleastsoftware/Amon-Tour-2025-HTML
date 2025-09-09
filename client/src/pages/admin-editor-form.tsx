@@ -15,8 +15,12 @@ interface FormData {
   description?: string;
   headerImage?: string;
   layout: 'single-column' | 'two-column' | 'grid';
+  formLayout: 'columns' | 'columns-reversed' | 'header';
   backgroundColor: string;
   primaryColor: string;
+  frameColor: string;
+  titleColor: string;
+  subtitleColor: string;
   textColor: string;
   fields: any[];
   settings: any;
@@ -42,8 +46,12 @@ export default function AdminEditorForm() {
       subtitle: 'Une question ? Un projet ? Nous sommes à votre écoute',
       description: 'Contactez notre équipe pour toute demande d\'information ou devis personnalisé.',
       layout: 'single-column',
+      formLayout: 'columns',
       backgroundColor: '#ffffff',
       primaryColor: '#1e73be',
+      frameColor: '#ffffff',
+      titleColor: '#1e73be',
+      subtitleColor: '#666666',
       textColor: '#333333',
       fields: [
         {
@@ -97,8 +105,12 @@ export default function AdminEditorForm() {
       subtitle: 'Your travel story starts with your dreams – let us write the rest.',
       description: 'Tell us what you\'d like to discover, and we\'ll create your personalized itinerary.',
       layout: 'single-column',
+      formLayout: 'columns',
       backgroundColor: '#ffffff',
       primaryColor: '#1e73be',
+      frameColor: '#ffffff',
+      titleColor: '#1e73be',
+      subtitleColor: '#666666',
       textColor: '#333333',
       headerImage: '/catamaran-cruise.png',
       fields: [
@@ -213,8 +225,12 @@ export default function AdminEditorForm() {
       subtitle: 'Rejoignez notre réseau de partenaires',
       description: 'Développons ensemble de belles collaborations dans le tourisme thaïlandais.',
       layout: 'single-column',
+      formLayout: 'columns',
       backgroundColor: '#ffffff',
       primaryColor: '#16a34a',
+      frameColor: '#ffffff',
+      titleColor: '#16a34a',
+      subtitleColor: '#666666',
       textColor: '#15803d',
       fields: [
         {
@@ -292,8 +308,12 @@ export default function AdminEditorForm() {
       subtitle: 'Voyages sur mesure pour groupes et entreprises',
       description: 'Organisez votre événement d\'entreprise ou voyage de groupe en Thaïlande.',
       layout: 'single-column',
+      formLayout: 'columns',
       backgroundColor: '#fef3c7',
       primaryColor: '#d97706',
+      frameColor: '#ffffff',
+      titleColor: '#d97706',
+      subtitleColor: '#666666',
       textColor: '#92400e',
       fields: [
         {
@@ -379,8 +399,12 @@ export default function AdminEditorForm() {
       subtitle: 'Restez informé de nos dernières offres',
       description: 'Recevez nos meilleures offres et conseils voyage directement par email.',
       layout: 'single-column',
+      formLayout: 'columns',
       backgroundColor: '#dbeafe',
       primaryColor: '#2563eb',
+      frameColor: '#ffffff',
+      titleColor: '#2563eb',
+      subtitleColor: '#666666',
       textColor: '#1e40af',
       fields: [
         {
@@ -410,8 +434,12 @@ export default function AdminEditorForm() {
       subtitle: 'Organisez votre événement spécial à Krabi',
       description: 'Mariage, anniversaire, lune de miel... Créons ensemble votre moment magique à Krabi.',
       layout: 'single-column',
+      formLayout: 'columns',
       backgroundColor: '#fdf2f8',
       primaryColor: '#ec4899',
+      frameColor: '#ffffff',
+      titleColor: '#ec4899',
+      subtitleColor: '#666666',
       textColor: '#be185d',
       fields: [
         {

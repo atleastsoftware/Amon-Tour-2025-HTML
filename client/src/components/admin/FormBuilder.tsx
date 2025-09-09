@@ -1181,11 +1181,11 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                         {formData.fields.map((field) => (
                           <Reorder.Item key={field.id} value={field}>
                             <div className="mb-2">
-                              <Card className="cursor-move">
+                              <Card>
                                 <CardContent className="p-3">
                                   <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-2">
-                                      <GripVertical className="h-4 w-4 text-gray-400" />
+                                      <GripVertical className="h-4 w-4 text-gray-400 cursor-move" />
                                       <Badge variant="outline" className="text-xs">
                                         {FIELD_TYPES.find(t => t.type === field.type)?.label}
                                       </Badge>
