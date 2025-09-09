@@ -2179,9 +2179,9 @@ export default function AdminAppearance() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                     <Palette className="w-4 h-4" />
-                    Paramètres de Page
+                    Thème
                   </CardTitle>
-                  <CardDescription>Choisissez la section du thème à modifier</CardDescription>
+                  <CardDescription>Personnalisez le style du site</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
@@ -3236,7 +3236,7 @@ export default function AdminAppearance() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                     <Layout className="w-4 h-4" />
-                    Sélectionner une page
+                    Pages
                   </CardTitle>
                   <CardDescription>Choisissez la page à modifier</CardDescription>
                 </CardHeader>
@@ -3431,7 +3431,7 @@ export default function AdminAppearance() {
                       </CardTitle>
                       <CardDescription>
                         {selectedPage === 'navigation-menu' 
-                          ? 'Manage your website navigation menu items. Drag and drop to reorder.'
+                          ? 'Gérez les éléments du menu de navigation de votre site. Glissez-déposez pour réorganiser.'
                           : (() => {
                               const currentPageConfig = pageConfigs.find(p => p.pageSlug === selectedPage);
                               const pageType = currentPageConfig?.pageType === 'main' ? 'principale' : 'secondaire';
@@ -3648,7 +3648,7 @@ export default function AdminAppearance() {
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                       <Settings className="w-4 h-4" />
-                      Paramètres du pied de page
+                      Pied de page
                     </CardTitle>
                     <CardDescription>Gérer le contenu du pied de page</CardDescription>
                   </CardHeader>
