@@ -3878,7 +3878,7 @@ function NavigationMenuManager() {
       url: formData.get('url') as string,
       target: formData.get('target') as string || '_self',
       isActive: formData.get('isActive') === 'on',
-      parentId: (parentIdValue && parentIdValue !== 'none') ? parseInt(parentIdValue) : null,
+      parentId: (parentIdValue && parentIdValue !== 'none') ? parseInt(parentIdValue) : undefined,
       displayOrder: 0
     };
 
@@ -4029,6 +4029,7 @@ function NavigationMenuManager() {
         parentItems={organizedItems}
         onSave={handleSaveMenuItem}
         isLoading={createMenuItemMutation.isPending || updateMenuItemMutation.isPending}
+        pageConfigs={pageConfigs}
       />
     </div>
   );
@@ -4213,7 +4214,8 @@ function MenuItemDialog({
   editingItem,
   parentItems,
   onSave,
-  isLoading
+  isLoading,
+  pageConfigs
 }: {
   isOpen: boolean;
   onClose: () => void;
@@ -4221,6 +4223,7 @@ function MenuItemDialog({
   parentItems: NavigationMenuItem[];
   onSave: (formData: FormData) => void;
   isLoading: boolean;
+  pageConfigs?: PageConfiguration[];
 }) {
   const [formData, setFormData] = useState({
     name: '',
