@@ -476,23 +476,16 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
     
     // Scroll automatiquement vers le nouveau champ dans la liste des champs
     setTimeout(() => {
-      const fieldsContainer = document.querySelector('.fields-container');
-      const lastFieldCard = fieldsContainer?.querySelector('.field-card:last-child');
-      
-      if (lastFieldCard) {
-        lastFieldCard.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center'
+      const fieldsSection = document.querySelector('[data-fields-section]');
+      if (fieldsSection) {
+        // Calculer la position pour voir les champs + un peu d'espace
+        const rect = fieldsSection.getBoundingClientRect();
+        const absoluteTop = window.pageYOffset + rect.top;
+        
+        window.scrollTo({
+          top: absoluteTop + 100, // Ajouter un peu d'espace
+          behavior: 'smooth'
         });
-      } else {
-        // Fallback: scroll vers le bas de la liste des champs
-        const fieldsSection = document.querySelector('[data-fields-section]');
-        if (fieldsSection) {
-          fieldsSection.scrollIntoView({
-            behavior: 'smooth',
-            block: 'end'
-          });
-        }
       }
     }, 100);
   };
