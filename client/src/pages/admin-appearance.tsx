@@ -1817,15 +1817,15 @@ export default function AdminAppearance() {
     const existingSlugs = pageConfigs.map(p => p.pageSlug);
     staticPages.forEach(staticPage => {
       if (!existingSlugs.includes(staticPage.slug)) {
-        // Legal pages
+        // Legal pages go to mentions légales
         if (staticPage.slug.includes('legal') || staticPage.slug.includes('privacy') || staticPage.slug.includes('terms')) {
           categories['Mentions légales'].push(staticPage);
         }
-        // Pages in navigation menu go to pages principales
+        // ONLY pages that are actually in the navigation menu go to pages principales
         else if (menuPages.includes(staticPage.slug)) {
           categories['Pages principales'].push(staticPage);
         }
-        // All others go to pages secondaires
+        // ALL OTHER pages go to pages secondaires (including brochure, krabi-celebration, etc.)
         else {
           categories['Pages secondaires'].push(staticPage);
         }
