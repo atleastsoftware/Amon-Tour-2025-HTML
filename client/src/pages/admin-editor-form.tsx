@@ -3,6 +3,9 @@ import { useLocation } from 'wouter';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { ArrowLeft, Plus, Edit, Trash2, Copy, FormInput, Users, Mail, MessageSquare } from 'lucide-react';
 import FormBuilder from '@/components/admin/FormBuilder';
 import { useToast } from '@/hooks/use-toast';
@@ -36,6 +39,8 @@ export default function AdminEditorForm() {
   const { toast } = useToast();
   const [showBuilder, setShowBuilder] = useState(false);
   const [editingForm, setEditingForm] = useState<FormData | null>(null);
+  const [showTitleDialog, setShowTitleDialog] = useState(false);
+  const [newFormTitle, setNewFormTitle] = useState('');
   const queryClient = useQueryClient();
 
   // Fallback data for initial forms (only used if no API data)
@@ -548,8 +553,61 @@ export default function AdminEditorForm() {
   };
 
   const handleAddForm = () => {
-    setEditingForm(null);
+    setShowTitleDialog(true);
+    setNewFormTitle('');
+  };
+
+  const handleCreateFormWithTitle = () => {
+    if (!newFormTitle.trim()) return;
+    
+    // Créer un formulaire de base simple
+    const newForm: FormData = {
+      name: newFormTitle,
+      title: newFormTitle,
+      subtitle: 'Sous-titre du formulaire',
+      description: 'Description de votre formulaire',
+      layout: 'grid',
+      formLayout: 'header',
+      primaryColor: '#1e73be',
+      secondaryColor: '#E6B64C',
+      textColor: '#333333',
+      titleColor: '#FFFFFF',
+      subtitleColor: '#FFFFFF',
+      frameColor: '#FFFFFF',
+      headerImage: '',
+      fields: [
+        {
+          id: 'name',
+          type: 'text',
+          label: 'Nom complet',
+          placeholder: 'Votre nom',
+          required: true,
+          style: { width: 'full', marginBottom: 16 }
+        },
+        {
+          id: 'email',
+          type: 'email',
+          label: 'Email',
+          placeholder: 'votre@email.com',
+          required: true,
+          style: { width: 'full', marginBottom: 16 }
+        }
+      ],
+      settings: {
+        submitButtonText: 'Envoyer',
+        submitButtonColor: '#1e73be',
+        successMessage: 'Merci pour votre message.',
+        errorMessage: 'Une erreur est survenue.',
+        emailNotification: true,
+        redirectUrl: ''
+      },
+      isActive: false
+    };
+    
+    setEditingForm(newForm);
     setShowBuilder(true);
+    setShowTitleDialog(false);
+    setNewFormTitle('');
   };
 
 
@@ -817,6 +875,48 @@ export default function AdminEditorForm() {
             </>
           )}
         </div>
+
+        {/* Dialog pour créer un nouveau formulaire */}
+        <Dialog open={showTitleDialog} onOpenChange={setShowTitleDialog}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Créer un nouveau formulaire</DialogTitle>
+              <DialogDescription>
+                Entrez le titre de votre nouveau formulaire. Vous pourrez personnaliser tous les autres éléments par la suite.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="title" className="text-right">
+                  Titre
+                </Label>
+                <Input
+                  id="title"
+                  value={newFormTitle}
+                  onChange={(e) => setNewFormTitle(e.target.value)}
+                  placeholder="Ex: Formulaire de contact"
+                  className="col-span-3"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      handleCreateFormWithTitle();
+                    }
+                  }}
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setShowTitleDialog(false)}>
+                Annuler
+              </Button>
+              <Button 
+                onClick={handleCreateFormWithTitle}
+                disabled={!newFormTitle.trim()}
+              >
+                Créer le formulaire
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );

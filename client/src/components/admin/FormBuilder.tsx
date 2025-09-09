@@ -474,20 +474,25 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
     
     setSelectedField(newField.id);
     
-    // Scroll automatiquement vers la prévisualisation du formulaire
+    // Scroll automatiquement vers le nouveau champ dans la liste des champs
     setTimeout(() => {
-      const previewSection = document.querySelector('[data-preview-section]');
-      if (previewSection) {
-        previewSection.scrollIntoView({
+      const fieldsContainer = document.querySelector('.fields-container');
+      const lastFieldCard = fieldsContainer?.querySelector('.field-card:last-child');
+      
+      if (lastFieldCard) {
+        lastFieldCard.scrollIntoView({
           behavior: 'smooth',
           block: 'center'
         });
       } else {
-        // Fallback: scroll vers le bas de la page
-        window.scrollTo({
-          top: document.body.scrollHeight,
-          behavior: 'smooth'
-        });
+        // Fallback: scroll vers le bas de la liste des champs
+        const fieldsSection = document.querySelector('[data-fields-section]');
+        if (fieldsSection) {
+          fieldsSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'end'
+          });
+        }
       }
     }, 100);
   };
@@ -1096,7 +1101,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
               <div className="space-y-6">
 
                 {/* Form Fields */}
-                <Card>
+                <Card data-fields-section>
                   <CardHeader>
                     <div className="flex items-center justify-between">
                       <CardTitle className="text-sm">Champs du formulaire ({formData.fields.length})</CardTitle>
@@ -1119,7 +1124,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                       <Reorder.Group values={formData.fields} onReorder={reorderFields}>
                         {formData.fields.map((field) => (
                           <Reorder.Item key={field.id} value={field}>
-                            <div className="mb-2">
+                            <div className="mb-2 field-card">
                               <Card>
                                 <CardContent className="p-3">
                                   <div className="flex items-center justify-between">
