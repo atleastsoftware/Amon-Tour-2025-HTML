@@ -6,6 +6,8 @@ import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, Plus, Edit, Trash2, FormInput, Users, Mail, MessageSquare } from 'lucide-react';
 import FormBuilder from '@/components/admin/FormBuilder';
 import { useToast } from '@/hooks/use-toast';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { apiRequest } from '@/lib/queryClient';
 
 interface FormData {
   id?: number;
@@ -34,11 +36,10 @@ export default function AdminEditorForm() {
   const { toast } = useToast();
   const [showBuilder, setShowBuilder] = useState(false);
   const [editingForm, setEditingForm] = useState<FormData | null>(null);
-  const [forms, setForms] = useState<FormData[]>([]);
-  const [loading, setLoading] = useState(true);
+  const queryClient = useQueryClient();
 
-  // Formulaires pré-remplis existants du site
-  const prePopulatedForms: FormData[] = [
+  // Fallback data for initial forms (only used if no API data)
+  const fallbackForms: FormData[] = [
     {
       id: 1,
       name: 'Contact Form',
@@ -520,11 +521,11 @@ export default function AdminEditorForm() {
     }
   ];
 
-  useEffect(() => {
-    // Initialiser avec les formulaires pré-remplis
-    setForms(prePopulatedForms);
-    setLoading(false);
-  }, []);
+  // Query to fetch custom forms
+  const { data: forms = fallbackForms, isLoading: loading } = useQuery({
+    queryKey: ['/api/admin/custom-forms'],
+    enabled: true,
+  });
 
   const handleEditForm = (form: FormData) => {
     setEditingForm(form);
@@ -534,7 +535,7 @@ export default function AdminEditorForm() {
   const handleDeleteForm = (formId: number) => {
     const form = forms.find(f => f.id === formId);
     if (form && window.confirm(`Êtes-vous sûr de vouloir supprimer le formulaire "${form.name}" ?`)) {
-      setForms(forms.filter(f => f.id !== formId));
+      deleteFormMutation.mutate(formId);
       toast({
         title: "Formulaire supprimé",
         description: `Le formulaire "${form.name}" a été supprimé avec succès.`
@@ -547,31 +548,82 @@ export default function AdminEditorForm() {
     setShowBuilder(true);
   };
 
-  const handleSaveForm = async (formData: FormData) => {
-    try {
-      if (editingForm) {
-        // Modifier un formulaire existant
-        setForms(forms.map(f => f.id === editingForm.id ? { ...formData, id: editingForm.id, updatedAt: new Date().toISOString() } : f));
-        toast({
-          title: "Formulaire modifié",
-          description: "Le formulaire a été modifié avec succès."
-        });
-      } else {
-        // Créer un nouveau formulaire
-        const newForm = {
-          ...formData,
-          id: Math.max(...forms.map(f => f.id || 0)) + 1,
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString()
-        };
-        setForms([...forms, newForm]);
-        toast({
-          title: "Formulaire créé",
-          description: "Le nouveau formulaire a été créé avec succès."
-        });
-      }
+
+  // Create form mutation
+  const createFormMutation = useMutation({
+    mutationFn: (formData: Omit<FormData, 'id' | 'createdAt' | 'updatedAt'>) => 
+      apiRequest('/api/admin/custom-forms', {
+        method: 'POST', 
+        body: JSON.stringify(formData),
+        headers: { 'Content-Type': 'application/json' }
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/custom-forms'] });
+      toast({
+        title: "Formulaire publié",
+        description: "Le nouveau formulaire a été publié avec succès."
+      });
       setShowBuilder(false);
       setEditingForm(null);
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Erreur",
+        description: "Erreur lors de la publication du formulaire.",
+        variant: "destructive"
+      });
+    }
+  });
+
+  // Update form mutation
+  const updateFormMutation = useMutation({
+    mutationFn: ({ id, formData }: { id: number; formData: Partial<FormData> }) => 
+      apiRequest(`/api/admin/custom-forms/${id}`, {
+        method: 'PUT', 
+        body: JSON.stringify(formData),
+        headers: { 'Content-Type': 'application/json' }
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/custom-forms'] });
+      toast({
+        title: "Formulaire publié",
+        description: "Le formulaire a été publié avec succès."
+      });
+      setShowBuilder(false);
+      setEditingForm(null);
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Erreur",
+        description: "Erreur lors de la publication du formulaire.",
+        variant: "destructive"
+      });
+    }
+  });
+
+  // Delete form mutation
+  const deleteFormMutation = useMutation({
+    mutationFn: (id: number) => apiRequest(`/api/admin/custom-forms/${id}`, { 
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' }
+    }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/custom-forms'] });
+    }
+  });
+
+  const handleSaveForm = async (formData: FormData) => {
+    try {
+      // Assurer que isActive est true pour Publier
+      const publishData = { ...formData, isActive: true };
+      
+      if (editingForm) {
+        // Modifier un formulaire existant
+        updateFormMutation.mutate({ id: editingForm.id!, formData: publishData });
+      } else {
+        // Créer un nouveau formulaire
+        createFormMutation.mutate(publishData);
+      }
     } catch (error) {
       console.error('Erreur lors de la sauvegarde:', error);
       throw error;

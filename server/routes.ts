@@ -25,6 +25,7 @@ import {
   insertPageBlockSchema,
   insertBlockTemplateSchema,
   insertNavigationMenuItemSchema,
+  insertCustomFormSchema,
 } from "@shared/schema";
 import { createPaymentIntent, createOrRetrieveCustomer } from "./stripe";
 import { upload, getPublicFileUrl } from "./upload";
@@ -2002,6 +2003,99 @@ Crawl-delay: 1`;
     } catch (error) {
       console.error("Error fetching Tour Ninja image override by tour ID:", error);
       res.status(500).json({ message: "Failed to fetch image override", error: String(error) });
+    }
+  });
+
+  // ===== CUSTOM FORMS API ROUTES =====
+
+  // Get all custom forms (admin only)
+  app.get("/api/admin/custom-forms", requireAuth, async (req, res) => {
+    try {
+      const forms = await storage.getCustomForms();
+      res.json(forms);
+    } catch (error) {
+      console.error("Error fetching custom forms:", error);
+      res.status(500).json({ message: "Failed to fetch custom forms", error: String(error) });
+    }
+  });
+
+  // Get custom form by ID (admin only)
+  app.get("/api/admin/custom-forms/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid form ID" });
+      }
+
+      const form = await storage.getCustomForm(id);
+      if (!form) {
+        return res.status(404).json({ message: "Custom form not found" });
+      }
+
+      res.json(form);
+    } catch (error) {
+      console.error("Error fetching custom form:", error);
+      res.status(500).json({ message: "Failed to fetch custom form", error: String(error) });
+    }
+  });
+
+  // Create new custom form (admin only)
+  app.post("/api/admin/custom-forms", requireAuth, async (req, res) => {
+    try {
+      const formData = insertCustomFormSchema.parse(req.body);
+      const form = await storage.createCustomForm(formData);
+      res.status(201).json(form);
+    } catch (error: any) {
+      console.error("Error creating custom form:", error);
+      res.status(400).json({ 
+        message: "Failed to create custom form", 
+        error: error.errors || error.message || String(error) 
+      });
+    }
+  });
+
+  // Update custom form (admin only)
+  app.put("/api/admin/custom-forms/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid form ID" });
+      }
+
+      const formData = insertCustomFormSchema.partial().parse(req.body);
+      const updatedForm = await storage.updateCustomForm(id, formData);
+      
+      if (!updatedForm) {
+        return res.status(404).json({ message: "Custom form not found" });
+      }
+
+      res.json(updatedForm);
+    } catch (error: any) {
+      console.error("Error updating custom form:", error);
+      res.status(400).json({ 
+        message: "Failed to update custom form", 
+        error: error.errors || error.message || String(error) 
+      });
+    }
+  });
+
+  // Delete custom form (admin only)
+  app.delete("/api/admin/custom-forms/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid form ID" });
+      }
+
+      const deleted = await storage.deleteCustomForm(id);
+      if (!deleted) {
+        return res.status(404).json({ message: "Custom form not found" });
+      }
+
+      res.json({ message: "Custom form deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting custom form:", error);
+      res.status(500).json({ message: "Failed to delete custom form", error: String(error) });
     }
   });
 

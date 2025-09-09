@@ -738,7 +738,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
             </Button>
             <Button onClick={handleSave} disabled={saving} size="sm" className="h-9">
               <Save className="h-4 w-4 mr-2" />
-              {saving ? 'Sauvegarde...' : 'Sauvegarder'}
+              {saving ? 'Publication...' : 'Publier'}
             </Button>
           </div>
         </div>
