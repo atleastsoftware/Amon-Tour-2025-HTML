@@ -569,7 +569,7 @@ export default function AdminEditorForm() {
       layout: 'grid',
       formLayout: 'header',
       primaryColor: '#1e73be',
-      secondaryColor: '#E6B64C',
+      backgroundColor: '#f8fafc',
       textColor: '#333333',
       titleColor: '#FFFFFF',
       subtitleColor: '#FFFFFF',
@@ -615,16 +615,16 @@ export default function AdminEditorForm() {
   const createFormMutation = useMutation({
     mutationFn: (formData: Omit<FormData, 'id' | 'createdAt' | 'updatedAt'>) => 
       apiRequest('POST', '/api/admin/custom-forms', formData),
-    onSuccess: () => {
+    onSuccess: (data, variables) => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/custom-forms'] });
       // Redirection immédiate
       setShowBuilder(false);
       setEditingForm(null);
-      // Toast après redirection pour éviter d'attendre
+      // Toast après redirection avec message adapté
       setTimeout(() => {
         toast({
-          title: "Formulaire publié",
-          description: "Le nouveau formulaire a été publié avec succès."
+          title: variables.isActive ? "Formulaire publié" : "Formulaire sauvé",
+          description: variables.isActive ? "Le nouveau formulaire a été publié avec succès." : "Le formulaire a été sauvé en brouillon."
         });
       }, 100);
     },
@@ -641,16 +641,16 @@ export default function AdminEditorForm() {
   const updateFormMutation = useMutation({
     mutationFn: ({ id, formData }: { id: number; formData: Partial<FormData> }) => 
       apiRequest('PUT', `/api/admin/custom-forms/${id}`, formData),
-    onSuccess: () => {
+    onSuccess: (data, variables) => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/custom-forms'] });
       // Redirection immédiate
       setShowBuilder(false);
       setEditingForm(null);
-      // Toast après redirection pour éviter d'attendre
+      // Toast après redirection avec message adapté
       setTimeout(() => {
         toast({
-          title: "Formulaire publié",
-          description: "Le formulaire a été publié avec succès."
+          title: variables.formData.isActive ? "Formulaire publié" : "Formulaire sauvé",
+          description: variables.formData.isActive ? "Le formulaire a été publié avec succès." : "Le formulaire a été sauvé en brouillon."
         });
       }, 100);
     },

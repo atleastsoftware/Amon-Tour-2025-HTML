@@ -2,9 +2,18 @@ import { useLocation } from 'wouter';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { FileText, Users, FormInput, ArrowLeft, Edit } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
 
 export default function AdminEditor() {
   const [, setLocation] = useLocation();
+
+  // Query to get forms count
+  const { data: formsData } = useQuery({
+    queryKey: ['/api/admin/custom-forms'],
+    queryFn: () => fetch('/api/admin/custom-forms').then(res => res.json())
+  });
+
+  const activeFormsCount = formsData ? formsData.filter((form: any) => form.isActive).length : 0;
 
   const editorItems = [
     {
@@ -113,7 +122,7 @@ export default function AdminEditor() {
           </Card>
           <Card className="bg-white shadow-sm border border-gray-200">
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-orange-600 mb-1">0</div>
+              <div className="text-2xl font-bold text-orange-600 mb-1">{activeFormsCount}</div>
               <div className="text-gray-600 text-sm">Formulaires</div>
             </CardContent>
           </Card>
