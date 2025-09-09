@@ -1536,6 +1536,16 @@ export default function AdminAppearance() {
     retry: false
   });
 
+  // Fetch navigation menu items for automatic page categorization
+  const { data: navigationMenuItems = [] } = useQuery({
+    queryKey: ['/api/admin/navigation-menu'],
+    queryFn: () => fetch('/api/admin/navigation-menu').then(res => {
+      if (!res.ok) return [];
+      return res.json();
+    }) as Promise<NavigationMenuItem[]>,
+    retry: false
+  });
+
   // Create block mutation
   const createBlockMutation = useMutation({
     mutationFn: (blockData: Partial<PageBlock>) =>
@@ -1721,7 +1731,7 @@ export default function AdminAppearance() {
     );
   }
 
-  // Dynamic page categories based on database
+  // Dynamic page categories based on database and navigation menu
   const getDynamicPageCategories = () => {
     if (!pageConfigs || !Array.isArray(pageConfigs)) {
       // Fallback to static data if DB not loaded
@@ -1758,17 +1768,35 @@ export default function AdminAppearance() {
       'Mentions légales': []
     };
 
+    // Get pages that are in the main navigation menu (no parent)
+    const menuPages: string[] = [];
+    
+    // TODO: Implement automatic categorization based on navigation menu
+    // For now, use the existing logic but will be enhanced when navigation data is available
+
     pageConfigs.forEach((page: PageConfiguration) => {
       const pageInfo = { slug: page.pageSlug, name: page.pageName, id: page.id };
       
-      if (page.pageType === 'main') {
-        categories['Pages principales'].push(pageInfo);
-      } else if (page.pageSlug.includes('legal') || page.pageSlug.includes('privacy') || page.pageSlug.includes('terms')) {
+      // Legal pages always go to mentions légales
+      if (page.pageSlug.includes('legal') || page.pageSlug.includes('privacy') || page.pageSlug.includes('terms')) {
         categories['Mentions légales'].push(pageInfo);
-      } else {
+      }
+      // Pages that are in the main navigation menu go to pages principales
+      else if (menuPages.includes(page.pageSlug)) {
+        categories['Pages principales'].push(pageInfo);
+      }
+      // All other pages go to pages secondaires
+      else {
         categories['Pages secondaires'].push(pageInfo);
       }
     });
+
+    // Always ensure Home is first in Pages principales if it exists
+    const homeIndex = categories['Pages principales'].findIndex(page => page.slug === 'home');
+    if (homeIndex > 0) {
+      const homePage = categories['Pages principales'].splice(homeIndex, 1)[0];
+      categories['Pages principales'].unshift(homePage);
+    }
 
     return categories;
   };
@@ -3292,7 +3320,7 @@ export default function AdminAppearance() {
                     <div className="border-t pt-4">
                       <Button
                         variant="outline"
-                        className="w-full justify-start text-sm h-8 mb-4"
+                        className="w-full justify-start text-sm h-8 mb-4 text-blue-600 border-blue-600 hover:bg-blue-50"
                         onClick={() => {
                           window.location.href = '/admin-editor';
                         }}
@@ -4059,7 +4087,6 @@ function MenuItemRow({
               <Badge variant="outline">Nouvel onglet</Badge>
             )}
           </div>
-          <div className="text-sm text-gray-500 truncate">{item.url}</div>
           {item.description && (
             <div className="text-xs text-gray-400">{item.description}</div>
           )}
@@ -4226,7 +4253,7 @@ function MenuItemDialog({
         iconName: editingItem.iconName || '',
         target: editingItem.target || '_self',
         isActive: editingItem.isActive ?? true,
-        parentId: editingItem.parentId?.toString() || '',
+        parentId: editingItem.parentId?.toString() || 'none',
         displayOrder: editingItem.displayOrder?.toString() || '0'
       });
     } else {
@@ -4237,7 +4264,7 @@ function MenuItemDialog({
         iconName: '',
         target: '_self',
         isActive: true,
-        parentId: '',
+        parentId: 'none',
         displayOrder: '0'
       });
     }
@@ -4316,7 +4343,7 @@ function MenuItemDialog({
                   <SelectValue placeholder="Sélectionner un menu parent" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Aucun (menu principal)</SelectItem>
+                  <SelectItem value="none">Aucun (menu principal)</SelectItem>
                   {parentItems.map((parent) => (
                     <SelectItem key={parent.id} value={parent.id.toString()}>
                       {parent.name}
