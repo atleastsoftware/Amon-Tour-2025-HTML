@@ -1107,7 +1107,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                       </Button>
                     </div>
                   </CardHeader>
-                  <CardContent className="fields-container max-h-80 overflow-y-auto">
+                  <CardContent className="fields-container">
                     {formData.fields.length === 0 ? (
                       <p className="text-gray-500 text-sm py-4 text-center">
                         Aucun champ ajouté. Cliquez sur "Nouveau champ" pour commencer.

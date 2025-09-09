@@ -3,7 +3,7 @@ import { useLocation } from 'wouter';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Plus, Edit, Trash2, FormInput, Users, Mail, MessageSquare } from 'lucide-react';
+import { ArrowLeft, Plus, Edit, Trash2, Copy, FormInput, Users, Mail, MessageSquare } from 'lucide-react';
 import FormBuilder from '@/components/admin/FormBuilder';
 import { useToast } from '@/hooks/use-toast';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -543,6 +543,10 @@ export default function AdminEditorForm() {
     }
   };
 
+  const handleDuplicateForm = (form: FormData) => {
+    duplicateFormMutation.mutate(form);
+  };
+
   const handleAddForm = () => {
     setEditingForm(null);
     setShowBuilder(true);
@@ -606,6 +610,36 @@ export default function AdminEditorForm() {
     mutationFn: (id: number) => apiRequest('DELETE', `/api/admin/custom-forms/${id}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/custom-forms'] });
+    }
+  });
+
+  // Duplicate form mutation
+  const duplicateFormMutation = useMutation({
+    mutationFn: (form: FormData) => {
+      const duplicatedForm = {
+        ...form,
+        name: `Copie ${form.name}`,
+        title: form.title.startsWith('Copie ') ? form.title : `Copie ${form.title}`,
+        isActive: false // Les copies sont sauvegardées en brouillon
+      };
+      delete (duplicatedForm as any).id;
+      delete (duplicatedForm as any).createdAt;
+      delete (duplicatedForm as any).updatedAt;
+      return apiRequest('POST', '/api/admin/custom-forms', duplicatedForm);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/custom-forms'] });
+      toast({
+        title: 'Formulaire dupliqué',
+        description: 'Le formulaire a été dupliqué avec succès.'
+      });
+    },
+    onError: () => {
+      toast({
+        title: 'Erreur',
+        description: 'Erreur lors de la duplication du formulaire.',
+        variant: 'destructive'
+      });
     }
   });
 
@@ -703,34 +737,21 @@ export default function AdminEditorForm() {
                     <CardContent className="p-6">
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
-                          <div className="flex items-center gap-4 mb-2">
+                          <div className="flex items-center justify-between">
                             <div className="flex items-center gap-3">
                               <div className="p-2 rounded-lg" style={{ backgroundColor: form.primaryColor + '20', color: form.primaryColor }}>
                                 <IconComponent className="h-5 w-5" />
                               </div>
-                              <div>
-                                <h3 className="text-lg font-semibold text-gray-900">
-                                  {form.title}
-                                </h3>
-                                <p className="text-sm text-gray-600">{form.name}</p>
-                              </div>
+                              <h3 className="text-lg font-semibold text-gray-900">
+                                {form.title === 'Create Your Custom Trip' ? 'Custom Trip' : form.title}
+                              </h3>
                             </div>
                             <Badge 
                               variant={form.isActive ? 'default' : 'secondary'}
-                              className="ml-2"
                             >
                               {form.isActive ? 'Actif' : 'Inactif'}
                             </Badge>
                           </div>
-                          <div className="flex items-center gap-6 text-sm text-gray-500">
-                            <span>Champs: {form.fields.length}</span>
-                            <span>Layout: {form.layout === 'single-column' ? 'Une colonne' : form.layout === 'two-column' ? 'Deux colonnes' : 'Grille'}</span>
-                            {form.createdAt && <span>Créé le: {new Date(form.createdAt).toLocaleDateString()}</span>}
-                            {form.updatedAt && <span>Modifié le: {new Date(form.updatedAt).toLocaleDateString()}</span>}
-                          </div>
-                          {form.description && (
-                            <p className="text-sm text-gray-600 mt-2 line-clamp-2">{form.description}</p>
-                          )}
                         </div>
                         
                         <div className="flex items-center gap-2">
@@ -742,6 +763,16 @@ export default function AdminEditorForm() {
                           >
                             <Edit className="h-4 w-4" />
                             Modifier
+                          </Button>
+                          
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handleDuplicateForm(form)}
+                            className="flex items-center gap-1 text-blue-600 hover:text-blue-800"
+                          >
+                            <Copy className="h-4 w-4" />
+                            Dupliquer
                           </Button>
                           
                           {form.id && (
