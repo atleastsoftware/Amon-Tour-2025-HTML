@@ -1779,6 +1779,11 @@ export default function AdminAppearance() {
       return slug === '' ? 'home' : slug;
     });
 
+    // Debug log to see what's happening
+    console.log('Debug - menuItems:', menuItems);
+    console.log('Debug - menuPages:', menuPages);
+    console.log('Debug - pageConfigs:', pageConfigs);
+
     // Static pages that should always be available
     const staticPages = [
       { slug: 'home', name: 'Home', id: 999 },
@@ -1823,18 +1828,21 @@ export default function AdminAppearance() {
     }
 
     // Add static pages that are not already in database
-    const existingSlugs = pageConfigs.map(p => p.pageSlug);
+    const existingSlugs = pageConfigs && Array.isArray(pageConfigs) ? pageConfigs.map(p => p.pageSlug) : [];
     staticPages.forEach(staticPage => {
       if (!existingSlugs.includes(staticPage.slug)) {
         // Legal pages go to mentions légales
         if (staticPage.slug.includes('legal') || staticPage.slug.includes('privacy') || staticPage.slug.includes('terms')) {
           categories['Mentions légales'].push(staticPage);
         }
-        // ONLY pages that are actually in the navigation menu go to pages principales
-        else if (menuPages.includes(staticPage.slug)) {
+        // Check if page is linked in menu (direct match or special cases)
+        else if (menuPages.includes(staticPage.slug) || 
+                 (staticPage.slug === 'experiences' && menuPages.includes('tours')) ||
+                 (staticPage.slug === 'tours' && menuPages.includes('tours')) ||
+                 (staticPage.slug === 'external-stays' && menuPages.includes('external-stays'))) {
           categories['Pages principales'].push(staticPage);
         }
-        // ALL OTHER pages go to pages secondaires (including brochure, krabi-celebration, etc.)
+        // All other pages go to pages secondaires
         else {
           categories['Pages secondaires'].push(staticPage);
         }
@@ -1842,7 +1850,7 @@ export default function AdminAppearance() {
     });
 
     // ALWAYS put Home first in Pages principales (even if not in menu)
-    const homePageFromDB = pageConfigs?.find(p => p.pageSlug === 'home');
+    const homePageFromDB = pageConfigs && Array.isArray(pageConfigs) ? pageConfigs.find(p => p.pageSlug === 'home') : null;
     const homePageStatic = staticPages.find(p => p.slug === 'home');
     const homePage = homePageFromDB 
       ? { slug: homePageFromDB.pageSlug, name: homePageFromDB.pageName === 'Accueil' ? 'Home' : homePageFromDB.pageName, id: homePageFromDB.id }
@@ -3903,7 +3911,7 @@ function NavigationMenuManager({ pageConfigs, navigationMenuItems }: { pageConfi
     });
 
     // ALWAYS put Home first in Pages principales (even if not in menu)
-    const homePageFromDB = pageConfigs?.find(p => p.pageSlug === 'home');
+    const homePageFromDB = pageConfigs && Array.isArray(pageConfigs) ? pageConfigs.find(p => p.pageSlug === 'home') : null;
     const homePageStatic = staticPages.find(p => p.slug === 'home');
     const homePage = homePageFromDB 
       ? { slug: homePageFromDB.pageSlug, name: homePageFromDB.pageName === 'Accueil' ? 'Home' : homePageFromDB.pageName, id: homePageFromDB.id }
