@@ -1801,17 +1801,17 @@ export default function AdminAppearance() {
   // Group theme sections by category
   const themeCategories = {
     'Design': [
-      { key: 'colors', name: 'Colors', icon: 'Palette' },
-      { key: 'typography', name: 'Typography', icon: 'Type' }
+      { key: 'colors', name: 'Couleurs', icon: 'Palette' },
+      { key: 'typography', name: 'Typographie', icon: 'Type' }
     ],
-    'Elements': [
-      { key: 'button-styles', name: 'Button Styles', icon: 'MousePointer' },
-      { key: 'announcements', name: 'Announcement Bar', icon: 'Bell' },
-      { key: 'backgrounds', name: 'Pop-up Announcement', icon: 'Bell' }
+    'Éléments': [
+      { key: 'button-styles', name: 'Styles de boutons', icon: 'MousePointer' },
+      { key: 'announcements', name: 'Barre d\'annonces', icon: 'Bell' },
+      { key: 'backgrounds', name: 'Annonce pop-up', icon: 'Bell' }
     ],
-    'Branding': [
+    'Image de marque': [
       { key: 'logo-favicon', name: 'Logo & Favicon', icon: 'Image' },
-      { key: 'seo-metadata', name: 'SEO & Metadata', icon: 'Globe' }
+      { key: 'seo-metadata', name: 'SEO & Métadonnées', icon: 'Globe' }
     ]
   };
 
@@ -2234,9 +2234,9 @@ export default function AdminAppearance() {
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                         <Palette className="w-4 h-4" />
-                        Colors
+                        Couleurs
                       </CardTitle>
-                      <CardDescription>Customize your site's primary and extended color scheme</CardDescription>
+                      <CardDescription>Personnalisez les couleurs principales et étendues de votre site</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div>
@@ -2432,9 +2432,9 @@ export default function AdminAppearance() {
                       <CardHeader>
                         <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                           <Bell className="w-4 h-4" />
-                          Announcement Bar
+                          Barre d'annonces
                         </CardTitle>
-                        <CardDescription>Top notification bar (barre jaune actuelle)</CardDescription>
+                        <CardDescription>Barre de notification en haut (barre jaune actuelle)</CardDescription>
                       </CardHeader>
                       <CardContent className="space-y-4">
                         <div className="flex items-center space-x-2">
@@ -2545,9 +2545,9 @@ export default function AdminAppearance() {
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                         <Type className="w-4 h-4" />
-                        Typography
+                        Typographie
                       </CardTitle>
-                      <CardDescription>Font families and text styles</CardDescription>
+                      <CardDescription>Familles de polices et styles de texte</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div>
@@ -2695,9 +2695,9 @@ export default function AdminAppearance() {
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                         <MousePointer className="w-4 h-4" />
-                        Button Styles
+                        Styles de boutons
                       </CardTitle>
-                      <CardDescription>Customize button appearance and behavior</CardDescription>
+                      <CardDescription>Personnalisez l'apparence et le comportement des boutons</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div>
@@ -2828,9 +2828,9 @@ export default function AdminAppearance() {
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                         <Globe className="w-4 h-4" />
-                        SEO & Metadata
+                        SEO & Métadonnées
                       </CardTitle>
-                      <CardDescription>Global SEO settings and social media metadata</CardDescription>
+                      <CardDescription>Paramètres SEO globaux et métadonnées des réseaux sociaux</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div>
@@ -2899,7 +2899,7 @@ export default function AdminAppearance() {
                         <Image className="w-4 h-4" />
                         Logo & Favicon
                       </CardTitle>
-                      <CardDescription>Manage individual logos with upload/link and size controls</CardDescription>
+                      <CardDescription>Gérez les logos individuels avec téléchargement/lien et contrôles de taille</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
                       {/* Header Logo */}
