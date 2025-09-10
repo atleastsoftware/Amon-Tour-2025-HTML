@@ -1606,13 +1606,14 @@ Crawl-delay: 1`;
   // Secure Tour Ninja API proxy route
   app.get("/api/proxy/tours", async (req, res) => {
     try {
-      // Use working demo credentials until user gets valid API key
-      const apiKey = "tourninja-showcase-2-amontour";
-      const companyId = "2";
+      // Use environment variables for production credentials
+      const apiKey = process.env.TOUR_NINJA_API_KEY || "tourninja-showcase-2-amontour";
+      const companyId = process.env.TOUR_NINJA_COMPANY_ID || "2";
       
       console.log("Tour Ninja API Call:", {
-        apiKey,
+        apiKey: apiKey ? `${apiKey.substring(0, 8)}...` : 'null', // Hide sensitive data
         companyId,
+        usingEnvCredentials: !!(process.env.TOUR_NINJA_API_KEY && process.env.TOUR_NINJA_COMPANY_ID),
         fullUrl: `https://www.tourninja.io/api/public/tours?apiKey=${apiKey}&companyId=${companyId}&limit=100`
       });
       const allowedDomain = process.env.COMPANY_DOMAIN;
@@ -1648,7 +1649,7 @@ Crawl-delay: 1`;
       tourCache.timestamp = 0;
 
       // Try both API endpoints for maximum compatibility
-      const useApiKey = process.env.TOUR_NINJA_API_KEY && process.env.TOUR_NINJA_COMPANY_ID;
+      const useApiKey = !!(process.env.TOUR_NINJA_API_KEY && process.env.TOUR_NINJA_COMPANY_ID);
       const primaryUrl = useApiKey 
         ? `https://www.tourninja.io/api/public/tours?apiKey=${apiKey}&companyId=${companyId}&limit=100`
         : `https://www.tourninja.io/api/public/tours/legacy?companyId=${companyId}`;
