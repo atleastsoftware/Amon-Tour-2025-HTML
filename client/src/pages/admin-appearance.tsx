@@ -1685,15 +1685,8 @@ export default function AdminAppearance() {
     retry: false
   });
 
-  // Fetch navigation menu items for automatic page categorization
-  const { data: navigationMenuItems = [] } = useQuery({
-    queryKey: ['/api/admin/navigation-menu'],
-    queryFn: () => fetch('/api/admin/navigation-menu').then(res => {
-      if (!res.ok) return [];
-      return res.json();
-    }) as Promise<NavigationMenuItem[]>,
-    retry: false
-  });
+  // Note: L'ancienne logique automatique de catégorisation via navigationMenuItems a été supprimée
+  // Maintenant nous utilisons simplement le champ pageType de chaque page
 
   // Create block mutation
   const createBlockMutation = useMutation({
@@ -1905,34 +1898,14 @@ export default function AdminAppearance() {
     );
   }
 
-  // Dynamic page categories based on database and navigation menu
+  // Nouvelle logique simplifiée basée sur le champ pageType
   const getDynamicPageCategories = () => {
     if (!pageConfigs || !Array.isArray(pageConfigs)) {
-      // Fallback to static data if DB not loaded
+      // Fallback si les données ne sont pas encore chargées
       return {
-        'Pages principales': [
-          { slug: 'home', name: 'Home Page' },
-          { slug: 'experiences', name: 'Experiences' },
-          { slug: 'custom-tour', name: 'Custom Tour' },
-          { slug: 'contact', name: 'Contact Us' },
-          { slug: 'blog', name: 'Blog' }
-        ],
-        'Pages secondaires': [
-          { slug: 'tours', name: 'Tours' },
-          { slug: 'stays', name: 'Stays' },
-          { slug: 'external-stays', name: 'External Stays' },
-          { slug: 'villas-krabi', name: 'Villas Krabi' },
-          { slug: 'krabi-celebration', name: 'Krabi Celebration' },
-          { slug: 'become-partner', name: 'Become Partner' },
-          { slug: 'group-corporate', name: 'Group Corporate' },
-          { slug: 'brochure', name: 'Brochure' },
-          { slug: 'tour-cards', name: 'Tour Cards' }
-        ],
-        'Mentions légales': [
-          { slug: 'legal-notice', name: 'Legal Notice' },
-          { slug: 'privacy-policy', name: 'Privacy Policy' },
-          { slug: 'terms-conditions', name: 'Terms & Conditions' }
-        ]
+        'Pages principales': [],
+        'Pages secondaires': [],
+        'Mentions légales': []
       };
     }
     
@@ -1942,107 +1915,36 @@ export default function AdminAppearance() {
       'Mentions légales': []
     };
 
-    // Get pages that are in the main navigation menu (no parent) and map URLs to page slugs
-    const menuItems = navigationMenuItems ? navigationMenuItems
-      .filter((item: NavigationMenuItem) => !item.parentId && item.url && item.url.startsWith('/'))
-      : [];
-    
-    // Simple and reliable approach: extract slugs from menu URLs
-    const menuPages = menuItems.map(item => {
-      const slug = item.url.substring(1); // Remove leading slash
-      return slug === '' ? 'home' : slug;
-    });
-
-
-    // Static pages that should always be available
-    const staticPages = [
-      { slug: 'home', name: 'Home', id: 999 },
-      { slug: 'blog', name: 'Blog', id: 998 },
-      { slug: 'contact', name: 'Contact', id: 997 },
-      { slug: 'custom-tour', name: 'Custom Tour', id: 996 },
-      { slug: 'experiences', name: 'Experiences', id: 995 },
-      { slug: 'tours', name: 'All Tours', id: 994 },
-      { slug: 'external-stays', name: 'External Stays', id: 993 },
-      { slug: 'stays', name: 'Stays & Accommodations', id: 992 },
-      { slug: 'brochure', name: 'Our brochure', id: 991 },
-      { slug: 'krabi-celebration', name: 'Krabi Celebration', id: 990 },
-      { slug: 'fun-garden', name: 'Fun Garden', id: 989 },
-      { slug: 'villas-krabi', name: 'Villas in Krabi', id: 988 },
-      { slug: 'become-partner', name: 'Become Partner', id: 987 },
-      { slug: 'group-corporate', name: 'Group & Corporate', id: 986 },
-      { slug: 'privacy-policy', name: 'Privacy Policy', id: 985 },
-      { slug: 'legal-notice', name: 'Legal Notice', id: 984 },
-      { slug: 'terms-conditions', name: 'Terms & Conditions', id: 983 }
-    ];
-
-    // Process database pages first
-    if (pageConfigs && Array.isArray(pageConfigs)) {
-      pageConfigs.forEach((page: PageConfiguration) => {
-        const pageInfo = { slug: page.pageSlug, name: page.pageName === 'Accueil' ? 'Home' : page.pageName, id: page.id };
-        
-        // Legal pages always go to mentions légales
-        if (page.pageSlug.includes('legal') || page.pageSlug.includes('privacy') || page.pageSlug.includes('terms')) {
-          categories['Mentions légales'].push(pageInfo);
-        }
-        // Check if page is linked in menu (either direct match or special cases)
-        else if (menuPages.includes(page.pageSlug) || 
-                 (page.pageSlug === 'experiences' && menuPages.includes('tours')) ||
-                 (page.pageSlug === 'tours' && menuPages.includes('tours'))) {
+    // Organiser les pages selon leur pageType
+    pageConfigs.forEach((page: PageConfiguration) => {
+      const pageInfo = { 
+        slug: page.pageSlug, 
+        name: page.pageName === 'Accueil' ? 'Home' : page.pageName, 
+        id: page.id 
+      };
+      
+      switch (page.pageType) {
+        case 'main':
           categories['Pages principales'].push(pageInfo);
-        }
-        // All other pages go to pages secondaires
-        else {
+          break;
+        case 'legal':
+          categories['Mentions légales'].push(pageInfo);
+          break;
+        case 'secondary':
+        default:
           categories['Pages secondaires'].push(pageInfo);
-        }
-      });
-    }
-
-    // Add static pages that are not already in database
-    const existingSlugs = pageConfigs && Array.isArray(pageConfigs) ? pageConfigs.map(p => p.pageSlug) : [];
-    staticPages.forEach(staticPage => {
-      if (!existingSlugs.includes(staticPage.slug)) {
-        // Legal pages go to mentions légales
-        if (staticPage.slug.includes('legal') || staticPage.slug.includes('privacy') || staticPage.slug.includes('terms')) {
-          categories['Mentions légales'].push(staticPage);
-        }
-        // Check if page is linked in menu (direct match or special cases)
-        else if (menuPages.includes(staticPage.slug) || 
-                 (staticPage.slug === 'experiences' && menuPages.includes('tours')) ||
-                 (staticPage.slug === 'tours' && menuPages.includes('tours')) ||
-                 (staticPage.slug === 'external-stays' && menuPages.includes('external-stays'))) {
-          categories['Pages principales'].push(staticPage);
-        }
-        // All other pages go to pages secondaires
-        else {
-          categories['Pages secondaires'].push(staticPage);
-        }
+          break;
       }
     });
 
-    // ALWAYS put Home first in Pages principales (even if not in menu)
-    const homePageFromDB = pageConfigs && Array.isArray(pageConfigs) ? pageConfigs.find(p => p.pageSlug === 'home') : null;
-    const homePageStatic = staticPages.find(p => p.slug === 'home');
-    const homePage = homePageFromDB 
-      ? { slug: homePageFromDB.pageSlug, name: homePageFromDB.pageName === 'Accueil' ? 'Home' : homePageFromDB.pageName, id: homePageFromDB.id }
-      : homePageStatic;
-    
+    // Trier les pages principales pour mettre Home en premier
+    const homePage = categories['Pages principales'].find(p => p.slug === 'home');
     if (homePage) {
-      // Remove home from other categories if it exists
-      categories['Pages principales'] = categories['Pages principales'].filter(p => p.slug !== 'home');
-      categories['Pages secondaires'] = categories['Pages secondaires'].filter(p => p.slug !== 'home');
-      
-      // Add Home as first item in Pages principales
-      categories['Pages principales'].unshift(homePage);
+      categories['Pages principales'] = [
+        homePage,
+        ...categories['Pages principales'].filter(p => p.slug !== 'home')
+      ];
     }
-    
-    // Sort the remaining Pages principales according to menu order (excluding home)
-    const menuOrder = ['experiences', 'custom-tour', 'blog', 'contact'];
-    const otherMainPages = categories['Pages principales'].filter(p => p.slug !== 'home');
-    const sortedMainPages = menuOrder
-      .map(slug => otherMainPages.find(p => p.slug === slug))
-      .filter(Boolean) as Array<{ slug: string; name: string; id: number }>;
-    
-    categories['Pages principales'] = [homePage, ...sortedMainPages].filter(Boolean) as Array<{ slug: string; name: string; id: number }>;
 
     return categories;
   };
