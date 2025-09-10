@@ -1,0 +1,107 @@
+Objectif
+
+Rendre la modale d’édition d’image entièrement fonctionnelle et directement reliée au lien/ressource cible dont l’image doit être modifiée (lecture, pré-remplissage, enregistrement, retour UI).
+
+Si la modale actuelle ne couvre pas 100% des besoins, la reconstruire from scratch pour répondre précisément aux fonctions demandées.
+
+Exigences fonctionnelles
+
+Ouverture contextuelle
+
+La modale s’ouvre depuis l’élément (bouton/icone) associé au lien cible (ex : image d’un tour, d’un produit, d’un post…).
+
+La modale reçoit un identifiant de ressource (resourceType, resourceId, fieldKey) et pré-remplit les données existantes (URL actuelle, alt, métadonnées éventuelles).
+
+Sources d’image
+
+Upload (ex : Cloudinary/Storage existant) + sélection depuis médiathèque + saisie d’URL directe (validations).
+
+Actions
+
+Remplacer l’image principale, définir une image personnalisée, réinitialiser à la valeur d’origine, gérer l’alt text.
+
+Boutons : Save, Reset to original, Cancel.
+
+Persistance
+
+Appeler l’API adéquate pour mettre à jour uniquement le champ ciblé (ex : primaryImage / customImage / images[i]), puis revalider côté serveur.
+
+Retours d’erreur gérés dans l’UI (toasts/labels) + états de chargement.
+
+Mise à jour UI
+
+Après succès, mettre à jour l’état local/query cache sans rechargement de page, fermer la modale, afficher une confirmation.
+
+Accessibilité & UX
+
+Focus trap, fermeture ESC, drag & drop, aperçu temps réel, validations (type, taille, ratio optionnel).
+
+Contraintes & sécurité
+
+Audit d’abord : analyser le code avant toute modif, dresser un plan, n’exécuter des changements qu’après validation de la faisabilité à 100%.
+
+Ne pas introduire de propriété fantôme (ex : pas d’originalImage si non prévue). Utiliser le schéma existant (p.ex. images: string[], primaryImage?, customImage?).
+
+Backward compatible : ne pas casser les appels existants.
+
+Livrables attendus
+
+Plan d’audit (court README dans le repo : ce qui existe, ce qui manque, plan d’action).
+
+Implémentation de la modale reliée au lien cible : composants, hooks, services API, validations.
+
+Tests
+
+Unit: logique de sélection/upload/validation.
+
+Intégration: ouverture depuis un lien réel, pré-remplissage, sauvegarde, UI mise à jour.
+
+E2E (Playwright): scénario utilisateur complet.
+
+Doc rapide (MD): comment utiliser la modale (props, exemples), endpoints utilisés, codes d’erreur gérés.
+
+PR avec description, captures GIF/PNG, check-list d’acceptation cochée.
+
+Check-list d’acceptation (doit être VRAIE)
+
+ La modale s’ouvre depuis un lien réel et reçoit resourceType/resourceId/fieldKey.
+
+ Les données actuelles sont pré-remplies.
+
+ Upload + médiathèque + URL directe fonctionnent, avec prévisualisation.
+
+ Le bon champ est mis à jour côté serveur, et l’UI se rafraîchit sans reload.
+
+ Reset to original restaure la valeur serveur précédente.
+
+ Erreurs et états de chargement sont visibles et explicites.
+
+ Tests unit/int/E2E passent en CI.
+
+Workflow Git
+
+Créer branche : feat/image-modal-linked-editor.
+
+Commits atomiques et message clair.
+
+Ouvrir PR vers develop avec le plan d’audit + résultats de tests.
+
+Prévoir un rollback (revert) documenté si nécessaire.
+
+Pistes techniques (adapter aux conventions du repo)
+
+Composant : ImageEditModal.tsx (ou refactor de la modale existante).
+
+Hook : useImageEditor({ resourceType, resourceId, fieldKey }).
+
+Service API : PATCH /api/{resourceType}/{resourceId}/image avec payload { fieldKey, value }.
+
+Validation : Zod pour le payload, limites de taille/type côté client + serveur.
+
+State: React Query (invalidateQueries ciblé) ou contexte local selon archi.
+
+Commande de vérification (exemple)
+
+pnpm dev (ou npm run dev)
+
+pnpm test + pnpm test:e2e

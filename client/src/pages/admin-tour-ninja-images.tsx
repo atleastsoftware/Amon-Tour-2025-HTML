@@ -636,7 +636,7 @@ export default function AdminTourNinjaImages() {
                     {existingOverride ? (
                       // Affiche l'image personnalisée si elle existe
                       <img
-                        src={existingOverride.customImageUrl || existingOverride.directImageUrl}
+                        src={existingOverride.customImageUrl || existingOverride.directImageUrl || ''}
                         alt={tour.name}
                         className="w-full h-full object-cover"
                         onError={(e) => {
@@ -675,17 +675,22 @@ export default function AdminTourNinjaImages() {
                       size="sm"
                       className="w-full"
                       onClick={() => {
-                        // Pré-remplir le formulaire avec les données du tour
-                        setNewOverrideForm({
-                          tourNinjaId: tour.id,
-                          tourName: tour.name,
-                          originalImageUrl: `/api/image-proxy/${tour.id}/presentation`,
-                          imageSourceType: "upload",
-                          image: null,
-                          directImageUrl: "",
-                          description: ""
-                        });
-                        setShowNewDialog(true);
+                        if (existingOverride) {
+                          // Si le tour a déjà une image personnalisée, ouvrir la modale d'édition
+                          setEditingOverride(existingOverride);
+                        } else {
+                          // Sinon, ouvrir la modale de création avec données pré-remplies
+                          setNewOverrideForm({
+                            tourNinjaId: tour.id,
+                            tourName: tour.name,
+                            originalImageUrl: `/api/image-proxy/${tour.id}/presentation`,
+                            imageSourceType: "upload",
+                            image: null,
+                            directImageUrl: "",
+                            description: ""
+                          });
+                          setShowNewDialog(true);
+                        }
                       }}
                     >
                       <ImageIcon className="w-4 h-4 mr-2" />
@@ -736,7 +741,7 @@ export default function AdminTourNinjaImages() {
                 <div className="h-32 w-full bg-gray-100 rounded-md overflow-hidden border">
                   {(editingOverride.customImageUrl || editingOverride.directImageUrl) ? (
                     <img
-                      src={editingOverride.customImageUrl || editingOverride.directImageUrl}
+                      src={editingOverride.customImageUrl || editingOverride.directImageUrl || ''}
                       alt={editingOverride.tourName}
                       className="w-full h-full object-cover"
                       onError={(e) => {
