@@ -37,27 +37,32 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
     >
       <Card className="h-full cursor-pointer hover:shadow-lg transition-shadow overflow-hidden group">
         <div className="relative">
-          {!imageError && (tour.primaryImage || tour.images?.[0]) ? (
+          {!imageError && (tour.primaryImage || tour.images?.[0] || tour.originalImage) ? (
             <div className="h-48 overflow-hidden">
               <img
-                src={tour.primaryImage || tour.images[0]}
+                src={tour.primaryImage || tour.images?.[0] || tour.originalImage}
                 alt={tour.name}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 onLoad={() => {
                   setImageError(false);
-                  const imageType = tour.customImage ? 'image personnalisée' : 'image TourNinja';
+                  const imageType = tour.customImage ? 'image personnalisée' : 'image TourNinja originale';
                   console.log(`✅ Successfully loaded ${imageType} for tour ${tour.name}`);
                 }}
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  const imageType = tour.customImage ? 'image personnalisée' : 'image TourNinja';
-                  console.warn(`❌ Failed to load ${imageType} for tour ${tour.name}:`, tour.primaryImage);
+                  const currentSrc = target.src;
+                  const imageType = tour.customImage && currentSrc === tour.customImage ? 'image personnalisée' : 'image TourNinja';
+                  console.warn(`❌ Failed to load ${imageType} for tour ${tour.name}:`, currentSrc);
                   
-                  // If custom image failed, try original TourNinja image
-                  if (tour.customImage && target.src === tour.customImage && tour.images?.[0]) {
-                    console.log(`🔄 Trying original TourNinja image for tour ${tour.name}:`, tour.images[0]);
+                  // Fallback logic: try in order: customImage -> originalImage -> images[0] -> placeholder
+                  if (tour.customImage && currentSrc === tour.customImage && tour.originalImage) {
+                    console.log(`🔄 Trying original TourNinja image for tour ${tour.name}:`, tour.originalImage);
+                    target.src = tour.originalImage;
+                  } else if (tour.originalImage && currentSrc === tour.originalImage && tour.images?.[0] && tour.images[0] !== tour.originalImage) {
+                    console.log(`🔄 Trying fallback TourNinja image for tour ${tour.name}:`, tour.images[0]);
                     target.src = tour.images[0];
                   } else {
+                    console.log(`❌ All image sources failed for tour ${tour.name}, showing placeholder`);
                     setImageError(true);
                   }
                 }}
