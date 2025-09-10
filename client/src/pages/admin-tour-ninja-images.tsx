@@ -613,184 +613,105 @@ export default function AdminTourNinjaImages() {
         </Dialog>
       </div>
 
-      {/* Search and Filters */}
-      <div className="bg-white p-4 rounded-lg border shadow-sm">
-        <div className="flex flex-col sm:flex-row gap-4">
-          <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-            <Input
-              placeholder="Rechercher par nom de tour ou ID..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
-            />
+      {/* Tour Selection List */}
+      <div className="space-y-4">
+        <h2 className="text-xl font-semibold text-gray-900">Choisir un tour à personnaliser</h2>
+        
+        {isLoading ? (
+          <div className="text-center py-8">
+            <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+            <p className="text-gray-600">Chargement des tours...</p>
           </div>
-          <div className="flex gap-2">
-            <Select value={filterStatus} onValueChange={(value: "all" | "active" | "inactive") => setFilterStatus(value)}>
-              <SelectTrigger className="w-[150px]">
-                <Filter className="w-4 h-4 mr-2" />
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">Tous les statuts</SelectItem>
-                <SelectItem value="active">Images actives</SelectItem>
-                <SelectItem value="inactive">Images inactives</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-        {(searchTerm || filterStatus !== "all") && (
-          <div className="mt-3 text-sm text-gray-600">
-            {filteredOverrides.length} résultat(s) trouvé(s)
-            {searchTerm && (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setSearchTerm("")}
-                className="ml-2 h-6 px-2"
-              >
-                <X className="w-3 h-3 mr-1" />
-                Effacer
-              </Button>
-            )}
-          </div>
-        )}
-      </div>
-
-      {/* Statistics */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <Card>
-          <CardContent className="p-4">
-            <div className="text-2xl font-bold text-blue-600">{(overrides as TourNinjaImageOverride[])?.length || 0}</div>
-            <div className="text-sm text-gray-600">Images personnalisées</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4">
-            <div className="text-2xl font-bold text-green-600">
-              {(overrides as TourNinjaImageOverride[])?.filter((o: TourNinjaImageOverride) => o.isActive).length || 0}
-            </div>
-            <div className="text-sm text-gray-600">Images actives</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4">
-            <div className="text-2xl font-bold text-orange-600">{tours.length}</div>
-            <div className="text-sm text-gray-600">Tours disponibles</div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Overrides Grid */}
-      {filteredOverrides.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredOverrides.map((override: TourNinjaImageOverride) => (
-          <Card key={override.id} className="overflow-hidden">
-            <div className="relative h-48 bg-gray-100">
-              {(override.customImageUrl || override.directImageUrl) ? (
-                <img
-                  src={override.customImageUrl || override.directImageUrl}
-                  alt={override.tourName}
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = 'none';
-                  }}
-                />
-              ) : (
-                <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                  <ImageIcon className="w-12 h-12 text-gray-400" />
-                </div>
-              )}
-              <div className="absolute top-2 right-2">
-                <Badge variant={override.isActive ? "default" : "secondary"}>
-                  {override.isActive ? "Actif" : "Inactif"}
-                </Badge>
-              </div>
-            </div>
-            
-            <CardContent className="p-4">
-              <h3 className="font-semibold text-sm mb-2 line-clamp-2">{override.tourName}</h3>
-              <p className="text-xs text-gray-600 mb-3">ID: {override.tourNinjaId}</p>
+        ) : tours.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {tours.map((tour: any) => {
+              // Trouve l'override existant pour ce tour
+              const existingOverride = (overrides as TourNinjaImageOverride[])?.find(
+                (o: TourNinjaImageOverride) => o.tourNinjaId === tour.id
+              );
               
-              <div className="flex gap-2">
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => toggleMutation.mutate(override.id)}
-                  disabled={toggleMutation.isPending}
-                >
-                  {override.isActive ? (
-                    <EyeOff className="w-3 h-3" />
-                  ) : (
-                    <Eye className="w-3 h-3" />
-                  )}
-                </Button>
-                
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => setEditingOverride(override)}
-                >
-                  <Edit className="w-3 h-3" />
-                </Button>
-                
-                <Button
-                  size="sm"
-                  variant="destructive"
-                  onClick={() => deleteMutation.mutate(override.id)}
-                  disabled={deleteMutation.isPending}
-                >
-                  <Trash2 className="w-3 h-3" />
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-          ))}
-        </div>
-      ) : (
-        <div className="text-center py-16">
-          {searchTerm || filterStatus !== "all" ? (
-            <div className="space-y-4">
-              <div className="w-20 h-20 mx-auto bg-gray-100 rounded-full flex items-center justify-center">
-                <Search className="w-8 h-8 text-gray-400" />
-              </div>
-              <div>
-                <h3 className="text-lg font-medium text-gray-900 mb-2">Aucun résultat trouvé</h3>
-                <p className="text-gray-500 mb-4">Aucune image ne correspond à vos critères de recherche.</p>
-                <Button 
-                  variant="outline" 
-                  onClick={() => {
-                    setSearchTerm("");
-                    setFilterStatus("all");
-                  }}
-                >
-                  Effacer les filtres
-                </Button>
-              </div>
-            </div>
-          ) : (
+              return (
+                <Card key={tour.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+                  <div className="relative h-48 bg-gray-100">
+                    {existingOverride ? (
+                      // Affiche l'image personnalisée si elle existe
+                      <img
+                        src={existingOverride.customImageUrl || existingOverride.directImageUrl}
+                        alt={tour.name}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.style.display = 'none';
+                        }}
+                      />
+                    ) : (
+                      // Affiche l'image TourNinja par défaut
+                      <img
+                        src={`/api/image-proxy/${tour.id}/presentation`}
+                        alt={tour.name}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.style.display = 'none';
+                        }}
+                      />
+                    )}
+                    {existingOverride && (
+                      <div className="absolute top-2 right-2">
+                        <Badge variant={existingOverride.isActive ? "default" : "secondary"}>
+                          {existingOverride.isActive ? "Personnalisé" : "Inactif"}
+                        </Badge>
+                      </div>
+                    )}
+                  </div>
+                  
+                  <CardContent className="p-4">
+                    <h3 className="font-semibold text-sm mb-2 line-clamp-2">{tour.name}</h3>
+                    <p className="text-xs text-gray-600 mb-3">
+                      {tour.price} {tour.currency} • {tour.duration} jour(s)
+                    </p>
+                    
+                    <Button
+                      size="sm"
+                      className="w-full"
+                      onClick={() => {
+                        // Pré-remplir le formulaire avec les données du tour
+                        setNewOverrideForm({
+                          tourNinjaId: tour.id,
+                          tourName: tour.name,
+                          originalImageUrl: `/api/image-proxy/${tour.id}/presentation`,
+                          imageSourceType: "upload",
+                          image: null,
+                          directImageUrl: "",
+                          description: ""
+                        });
+                        setShowNewDialog(true);
+                      }}
+                    >
+                      <ImageIcon className="w-4 h-4 mr-2" />
+                      {existingOverride ? "Modifier l'image" : "Personnaliser l'image"}
+                    </Button>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="text-center py-16">
             <div className="space-y-6">
               <div className="w-24 h-24 mx-auto bg-gradient-to-br from-blue-100 to-blue-200 rounded-full flex items-center justify-center">
                 <ImageIcon className="w-12 h-12 text-blue-600" />
               </div>
               <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">Aucune image personnalisée</h3>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">Aucun tour disponible</h3>
                 <p className="text-gray-500 mb-6 max-w-md mx-auto">
-                  Commencez à personnaliser vos tours en ajoutant vos propres images pour remplacer celles de Tour Ninja.
+                  Impossible de charger les tours depuis Tour Ninja. Veuillez vérifier la connexion API.
                 </p>
-                <Button 
-                  className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800"
-                  onClick={() => setShowNewDialog(true)}
-                >
-                  <Sparkles className="w-4 h-4 mr-2" />
-                  Ajouter votre première image
-                </Button>
               </div>
             </div>
-          )}
-        </div>
-      )}
+          </div>
+        )}
+      </div>
 
       {/* Edit Dialog */}
       <Dialog open={!!editingOverride} onOpenChange={() => setEditingOverride(null)}>
