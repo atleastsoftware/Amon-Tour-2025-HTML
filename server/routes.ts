@@ -1797,6 +1797,60 @@ Crawl-delay: 1`;
         allKeys: Object.keys(apiResponse)
       });
       
+      // If no tours found, try demo credentials as fallback
+      if (!tours || tours.length === 0) {
+        console.log("🔄 No tours found with production credentials, trying demo fallback...");
+        const demoApiKey = "tourninja-showcase-2-amontour";
+        const demoCompanyId = "2";
+        const demoUrl = `https://www.tourninja.io/api/public/tours?apiKey=${demoApiKey}&companyId=${demoCompanyId}&limit=100`;
+        
+        try {
+          const demoResponse = await nodeFetch(demoUrl, {
+            method: 'GET',
+            headers: { 'Accept': 'application/json' }
+          });
+          
+          if (demoResponse.ok) {
+            const demoData = await demoResponse.json();
+            if (demoData.success && demoData.tours && Array.isArray(demoData.tours) && demoData.tours.length > 0) {
+              console.log(`✅ Demo fallback successful: ${demoData.tours.length} tours found`);
+              tours = demoData.tours.map((tour: any) => {
+                const primaryImageUrl = tour.primaryImage;
+                return {
+                  id: tour.id,
+                  name: tour.name || tour.title,
+                  description: tour.description || '',
+                  shortDescription: tour.description ? tour.description.substring(0, 150) + '...' : '',
+                  images: tour.images || (tour.primaryImage ? [tour.primaryImage] : []),
+                  primaryImage: primaryImageUrl ? `/api/proxy/image?url=${encodeURIComponent(primaryImageUrl)}` : null,
+                  fallbackImage: primaryImageUrl ? `/api/proxy/image?url=${encodeURIComponent(primaryImageUrl)}` : null,
+                  presentationImageUrl: primaryImageUrl,
+                  originalPrimaryImage: tour.primaryImage,
+                  price: tour.price || 0,
+                  currency: tour.currency || 'THB',
+                  duration: tour.duration || 1,
+                  location: tour.destination || 'Krabi, Thailand',
+                  bookingUrl: tour.bookingUrl || tour.url || `https://www.tourninja.io/book/${tour.id}`,
+                  detailsUrl: tour.detailsUrl || tour.url || `https://www.tourninja.io/details/${tour.id}`,
+                  presentationUrl: tour.detailsUrl || tour.url || `https://www.tourninja.io/details/${tour.id}`,
+                  externalId: tour.id,
+                  slug: tour.slug || tour.name?.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+                  tourType: tour.tourType || 'group',
+                  maxParticipants: tour.maxParticipants || 12,
+                  isActive: true,
+                  category: tour.category || '',
+                  tags: tour.tags || [],
+                  maxGuests: tour.maxParticipants || 12,
+                  minGuests: 1,
+                };
+              });
+            }
+          }
+        } catch (demoError) {
+          console.error("Demo fallback failed:", demoError);
+        }
+      }
+      
       // Update cache
       tourCache.data = tours;
       tourCache.timestamp = Date.now();
@@ -1805,10 +1859,78 @@ Crawl-delay: 1`;
         success: true,
         data: tours,
         cached: false,
+        fallback: tours.length > 0 && tours[0]?.id ? (tours[0].id.toString().startsWith('demo') ? 'demo' : 'production') : 'none',
         timestamp: Date.now()
       });
     } catch (error) {
       console.error("Error fetching tours from Tour Ninja:", error);
+      
+      // If API failed or returned no tours, try demo credentials as fallback
+      if (!tours || tours.length === 0) {
+        console.log("🔄 No tours found with production credentials, trying demo fallback...");
+        try {
+          const demoApiKey = "tourninja-showcase-2-amontour";
+          const demoCompanyId = "2";
+          const demoUrl = `https://www.tourninja.io/api/public/tours?apiKey=${demoApiKey}&companyId=${demoCompanyId}&limit=100`;
+          
+          const demoResponse = await nodeFetch(demoUrl, {
+            method: 'GET',
+            headers: { 'Accept': 'application/json' },
+            signal: controller.signal
+          });
+          
+          if (demoResponse.ok) {
+            const demoData = await demoResponse.json();
+            if (demoData.success && demoData.tours && Array.isArray(demoData.tours) && demoData.tours.length > 0) {
+              console.log(`✅ Demo fallback successful: ${demoData.tours.length} tours found`);
+              tours = demoData.tours.map((tour: any) => {
+                const primaryImageUrl = tour.primaryImage;
+                return {
+                  id: tour.id,
+                  name: tour.name || tour.title,
+                  description: tour.description || '',
+                  shortDescription: tour.description ? tour.description.substring(0, 150) + '...' : '',
+                  images: tour.images || (tour.primaryImage ? [tour.primaryImage] : []),
+                  primaryImage: primaryImageUrl ? `/api/proxy/image?url=${encodeURIComponent(primaryImageUrl)}` : null,
+                  fallbackImage: primaryImageUrl ? `/api/proxy/image?url=${encodeURIComponent(primaryImageUrl)}` : null,
+                  presentationImageUrl: primaryImageUrl,
+                  originalPrimaryImage: tour.primaryImage,
+                  price: tour.price || 0,
+                  currency: tour.currency || 'THB',
+                  duration: tour.duration || 1,
+                  location: tour.destination || 'Krabi, Thailand',
+                  bookingUrl: tour.bookingUrl || tour.url || `https://www.tourninja.io/book/${tour.id}`,
+                  detailsUrl: tour.detailsUrl || tour.url || `https://www.tourninja.io/details/${tour.id}`,
+                  presentationUrl: tour.detailsUrl || tour.url || `https://www.tourninja.io/details/${tour.id}`,
+                  externalId: tour.id,
+                  slug: tour.slug || tour.name?.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+                  tourType: tour.tourType || 'group',
+                  maxParticipants: tour.maxParticipants || 12,
+                  isActive: true,
+                  category: tour.category || '',
+                  tags: tour.tags || [],
+                  maxGuests: tour.maxParticipants || 12,
+                  minGuests: 1,
+                };
+              });
+              
+              // Update cache and return success
+              tourCache.data = tours;
+              tourCache.timestamp = Date.now();
+              
+              return res.json({
+                success: true,
+                data: tours,
+                cached: false,
+                fallback: 'demo',
+                timestamp: Date.now()
+              });
+            }
+          }
+        } catch (demoError) {
+          console.error("Demo fallback also failed:", demoError);
+        }
+      }
       
       // Fallback to cache if available, even if expired
       if (tourCache.data) {
