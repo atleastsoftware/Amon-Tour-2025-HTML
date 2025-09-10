@@ -61,8 +61,9 @@ export function useTourNinja() {
     }
 
     const processedTours = response.data.map(tour => {
+      // Since we only get active overrides from the public endpoint, no need to check isActive
       const override = (imageOverrides as any[])?.find(
-        (override: any) => override.tourNinjaId === tour.id && override.isActive
+        (override: any) => override.tourNinjaId === tour.id
       );
       
       return {
@@ -97,9 +98,9 @@ export function useTourNinjaWithCustomImages() {
     refetchOnWindowFocus: false,
   });
 
-  // Use admin endpoint to get ALL overrides (not just active ones)
+  // Use public endpoint to get only active overrides
   const { data: imageOverrides, isLoading: overridesLoading } = useQuery({
-    queryKey: ["/api/admin/tour-ninja-images"],
+    queryKey: ["/api/tour-ninja-image-overrides"],
     retry: false,
   });
 
@@ -112,8 +113,9 @@ export function useTourNinjaWithCustomImages() {
     }
 
     const processedTours = response.data.map(tour => {
+      // Since we only get active overrides from the public endpoint, no need to check isActive
       const override = (imageOverrides as any[])?.find(
-        (override: any) => override.tourNinjaId === tour.id && override.isActive
+        (override: any) => override.tourNinjaId === tour.id
       );
       
       return {

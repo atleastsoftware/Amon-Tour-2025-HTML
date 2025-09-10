@@ -1604,6 +1604,19 @@ Crawl-delay: 1`;
     }
   });
 
+  // Public route for active Tour Ninja image overrides
+  app.get('/api/tour-ninja-image-overrides', async (req, res) => {
+    try {
+      const allOverrides = await storage.getTourNinjaImageOverrides();
+      // Filter to only return active overrides for public consumption
+      const activeOverrides = allOverrides.filter(override => override.isActive);
+      res.json(activeOverrides);
+    } catch (error) {
+      console.error('Error fetching active Tour Ninja image overrides:', error);
+      res.status(500).json({ message: 'Failed to fetch active image overrides', error: String(error) });
+    }
+  });
+
   // Secure Tour Ninja API proxy route
   app.get("/api/proxy/tours", async (req, res) => {
     try {
