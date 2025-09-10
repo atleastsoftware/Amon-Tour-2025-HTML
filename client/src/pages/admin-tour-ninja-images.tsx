@@ -107,12 +107,33 @@ export default function AdminTourNinjaImages() {
         body: formData,
       });
       if (!response.ok) throw new Error('Failed to create override');
-      return response.json();
+      const result = await response.json();
+      
+      // ✅ Audit du retour serveur
+      console.log("✅ Create response:", result);
+      
+      return result;
     },
-    onSuccess: () => {
-      // Invalider les données admin ET les données du frontend public
+    onSuccess: (result) => {
+      // ✅ Mise à jour immédiate du state local pour la création
+      if (result && result.id) {
+        // Ajouter le nouvel override au cache admin
+        queryClient.setQueryData(["/api/admin/tour-ninja-images"], (oldData: any) => {
+          if (!oldData) return [result];
+          return [...oldData, result];
+        });
+        
+        // Ajouter au cache frontend public aussi
+        queryClient.setQueryData(["/api/tour-ninja-image-overrides"], (oldData: any) => {
+          if (!oldData) return [result];
+          return [...oldData, result];
+        });
+      }
+      
+      // ✅ Invalidation pour re-fetch
       queryClient.invalidateQueries({ queryKey: ["/api/admin/tour-ninja-images"] });
       queryClient.invalidateQueries({ queryKey: ["/api/tour-ninja-image-overrides"] });
+      
       toast({
         title: "Succès",
         description: "Image personnalisée ajoutée avec succès",
@@ -130,6 +151,7 @@ export default function AdminTourNinjaImages() {
       setImagePreview(null);
     },
     onError: (error) => {
+      console.error("❌ Create failed:", error);
       toast({
         title: "Erreur",
         description: "Impossible d'ajouter l'image personnalisée",
@@ -146,12 +168,54 @@ export default function AdminTourNinjaImages() {
         body: formData,
       });
       if (!response.ok) throw new Error('Failed to update override');
-      return response.json();
+      const result = await response.json();
+      
+      // ✅ Étape 1: Audit du retour serveur - Vérifier la structure de la réponse
+      console.log("✅ Server response:", result);
+      
+      return result;
     },
-    onSuccess: () => {
-      // Invalider les données admin ET les données du frontend public
+    onSuccess: (result, variables) => {
+      // ✅ Étape 2: Mise à jour immédiate du state local
+      const { id } = variables;
+      
+      // Mise à jour optimiste du cache queryClient
+      queryClient.setQueryData(["/api/admin/tour-ninja-images"], (oldData: any) => {
+        if (!oldData) return oldData;
+        
+        return oldData.map((override: TourNinjaImageOverride) => {
+          if (override.id === id) {
+            return {
+              ...override,
+              // Utiliser la nouvelle URL depuis le serveur si disponible
+              customImageUrl: result.customImageUrl || result.imageUrl || override.customImageUrl,
+              updatedAt: new Date().toISOString(),
+            };
+          }
+          return override;
+        });
+      });
+      
+      // Mise à jour du cache frontend public aussi
+      queryClient.setQueryData(["/api/tour-ninja-image-overrides"], (oldData: any) => {
+        if (!oldData) return oldData;
+        
+        return oldData.map((override: TourNinjaImageOverride) => {
+          if (override.id === id) {
+            return {
+              ...override,
+              customImageUrl: result.customImageUrl || result.imageUrl || override.customImageUrl,
+              updatedAt: new Date().toISOString(),
+            };
+          }
+          return override;
+        });
+      });
+      
+      // ✅ Étape 3: Invalidation pour re-fetch (garde l'existant)
       queryClient.invalidateQueries({ queryKey: ["/api/admin/tour-ninja-images"] });
       queryClient.invalidateQueries({ queryKey: ["/api/tour-ninja-image-overrides"] });
+      
       toast({
         title: "Succès",
         description: "Image mise à jour avec succès",
@@ -159,6 +223,7 @@ export default function AdminTourNinjaImages() {
       setEditingOverride(null);
     },
     onError: (error) => {
+      console.error("❌ Update failed:", error);
       toast({
         title: "Erreur",
         description: "Impossible de mettre à jour l'image",
