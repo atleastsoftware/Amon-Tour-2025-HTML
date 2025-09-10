@@ -1779,20 +1779,6 @@ export default function AdminAppearance() {
       return slug === '' ? 'home' : slug;
     });
 
-    // Debug log to see what's happening
-    console.log('Debug - menuItems:', menuItems);
-    console.log('Debug - menuPages:', menuPages);
-    console.log('Debug - pageConfigs:', pageConfigs);
-    
-    // Log the categorization process
-    if (pageConfigs && Array.isArray(pageConfigs)) {
-      pageConfigs.forEach((page: PageConfiguration) => {
-        const isInMenu = menuPages.includes(page.pageSlug) || 
-                        (page.pageSlug === 'experiences' && menuPages.includes('tours')) ||
-                        (page.pageSlug === 'tours' && menuPages.includes('tours'));
-        console.log(`Page "${page.pageSlug}" (${page.pageName}) - In menu: ${isInMenu}, menuPages contains: ${menuPages.join(', ')}`);
-      });
-    }
 
     // Static pages that should always be available
     const staticPages = [

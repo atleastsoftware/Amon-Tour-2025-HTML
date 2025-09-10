@@ -1740,23 +1740,20 @@ Crawl-delay: 1`;
       // The legacy API returns an object with tours array - structure confirmed by Tour Ninja agent
       if (apiResponse.success && apiResponse.tours && Array.isArray(apiResponse.tours)) {
         tours = apiResponse.tours.map((tour: any) => {
-          // Use the actual primary image URL from the API response
-          const primaryImageUrl = tour.primaryImage; // This is already the correct URL from Tour Ninja API
-          const fallbackImageUrl = tour.primaryImage;
-          
-          console.log(`Tour ${tour.name}: Using primary image URL ${primaryImageUrl}`);
+          // TourNinja image URLs are not publicly accessible, use placeholders
+          console.log(`Tour ${tour.name}: Using placeholder (TourNinja images not accessible)`);
           
           return {
             id: tour.id,
             name: tour.name || tour.title,
             description: tour.description || '',
             shortDescription: tour.description ? tour.description.substring(0, 150) + '...' : '',
-            images: tour.images || (tour.primaryImage ? [tour.primaryImage] : []),
-            // Use the actual primary image URL from Tour Ninja API
-            primaryImage: primaryImageUrl ? `/api/proxy/image?url=${encodeURIComponent(primaryImageUrl)}` : null,
-            fallbackImage: fallbackImageUrl ? `/api/proxy/image?url=${encodeURIComponent(fallbackImageUrl)}` : null,
-            presentationImageUrl: primaryImageUrl,
-            originalPrimaryImage: tour.primaryImage,
+            images: [], // TourNinja images not accessible
+            // No primary image - will fallback to placeholder in frontend
+            primaryImage: null,
+            fallbackImage: null,
+            presentationImageUrl: null,
+            originalPrimaryImage: null,
             price: tour.price || 0,
             currency: tour.currency || 'THB',
             duration: tour.duration || 1,
