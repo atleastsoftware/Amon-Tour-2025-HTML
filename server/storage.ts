@@ -1874,7 +1874,7 @@ export class DatabaseStorage implements IStorage {
   async createCustomForm(form: InsertCustomForm): Promise<CustomForm> {
     const [createdForm] = await db
       .insert(customForms)
-      .values(form)
+      .values([form])
       .returning();
     return createdForm;
   }

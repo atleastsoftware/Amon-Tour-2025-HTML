@@ -1,14 +1,28 @@
-import { ObjectStorageService as BaseObjectStorageService } from "./objectStorage";
+// Service de stockage persistant pour les images personnalisées TourNinja
+// Utilise les variables d'environnement Object Storage configurées
 
 /**
  * Service de stockage persistant pour les images personnalisées TourNinja
  * Utilise Replit Object Storage pour assurer la persistance en production
  */
 export class PersistentImageStorageService {
-  private objectStorage: BaseObjectStorageService;
   
   constructor() {
-    this.objectStorage = new BaseObjectStorageService();
+    // Vérifier que les variables d'environnement Object Storage sont configurées
+    if (!process.env.PRIVATE_OBJECT_DIR) {
+      throw new Error("PRIVATE_OBJECT_DIR environment variable not set. Object Storage not configured.");
+    }
+  }
+
+  /**
+   * Récupère le répertoire privé configuré pour Object Storage
+   */
+  getPrivateObjectDir(): string {
+    const dir = process.env.PRIVATE_OBJECT_DIR || "";
+    if (!dir) {
+      throw new Error("PRIVATE_OBJECT_DIR not set. Object Storage not configured.");
+    }
+    return dir;
   }
 
   /**
@@ -25,7 +39,7 @@ export class PersistentImageStorageService {
       const fileName = `tour-ninja-${tourNinjaId}-${timestamp}.${extension}`;
       
       // Uploader vers le répertoire privé
-      const privateDir = this.objectStorage.getPrivateObjectDir();
+      const privateDir = this.getPrivateObjectDir();
       const objectPath = `${privateDir}/tour-images/${fileName}`;
       
       // TODO: Implémenter l'upload vers Object Storage

@@ -29,6 +29,7 @@ import {
 } from "@shared/schema";
 import { createPaymentIntent, createOrRetrieveCustomer } from "./stripe";
 import { upload, getPublicFileUrl } from "./upload";
+import { persistentImageStorage } from "./objectStorageService";
 import path from "path";
 import bcrypt from "bcrypt";
 import rateLimit from "express-rate-limit";
@@ -1889,7 +1890,7 @@ Crawl-delay: 1`;
     }
   });
 
-  // Create new Tour Ninja image override
+  // Create new Tour Ninja image override - AVEC STOCKAGE PERSISTANT
   app.post("/api/admin/tour-ninja-images", requireAuth, upload.single('image'), async (req, res) => {
     try {
       const { tourNinjaId, tourName, originalImageUrl } = req.body;
@@ -1898,15 +1899,28 @@ Crawl-delay: 1`;
         return res.status(400).json({ message: "Image file is required" });
       }
 
+      // 🚀 NOUVELLE LOGIQUE: Upload vers stockage persistant
+      let customImageUrl: string;
+      try {
+        customImageUrl = await persistentImageStorage.uploadTourImage(req.file, tourNinjaId);
+        console.log(`✅ Image uploaded to persistent storage: ${customImageUrl}`);
+      } catch (storageError) {
+        console.warn("⚠️ Persistent storage failed, falling back to local storage:", storageError);
+        customImageUrl = getPublicFileUrl(req.file.filename);
+      }
+
       const overrideData = insertTourNinjaImageOverrideSchema.parse({
         tourNinjaId,
         tourName,
-        customImageUrl: getPublicFileUrl(req.file.filename),
+        customImageUrl,
         originalImageUrl: originalImageUrl || null
       });
 
       const override = await storage.createTourNinjaImageOverride(overrideData);
-      res.status(201).json(override);
+      res.status(201).json({
+        ...override,
+        isPersistent: persistentImageStorage.isPersistentUrl(customImageUrl)
+      });
     } catch (error: any) {
       console.error("Error creating Tour Ninja image override:", error);
       res.status(400).json({ 
@@ -1916,7 +1930,7 @@ Crawl-delay: 1`;
     }
   });
 
-  // Update Tour Ninja image override
+  // Update Tour Ninja image override - AVEC STOCKAGE PERSISTANT
   app.put("/api/admin/tour-ninja-images/:id", requireAuth, upload.single('image'), async (req, res) => {
     try {
       const id = parseInt(req.params.id);
@@ -1930,8 +1944,19 @@ Crawl-delay: 1`;
       if (req.body.originalImageUrl) updateData.originalImageUrl = req.body.originalImageUrl;
       if (req.body.isActive !== undefined) updateData.isActive = req.body.isActive === 'true';
       
+      // 🚀 NOUVELLE LOGIQUE: Upload vers stockage persistant si fichier fourni
       if (req.file) {
-        updateData.customImageUrl = getPublicFileUrl(req.file.filename);
+        try {
+          // Récupérer le tourNinjaId actuel pour l'upload
+          const existingOverride = await storage.getTourNinjaImageOverride(id);
+          const tourNinjaId = existingOverride?.tourNinjaId || `unknown-${Date.now()}`;
+          
+          updateData.customImageUrl = await persistentImageStorage.uploadTourImage(req.file, tourNinjaId);
+          console.log(`✅ Image mise à jour vers stockage persistant: ${updateData.customImageUrl}`);
+        } catch (storageError) {
+          console.warn("⚠️ Persistent storage failed, falling back to local storage:", storageError);
+          updateData.customImageUrl = getPublicFileUrl(req.file.filename);
+        }
       }
 
       const updatedOverride = await storage.updateTourNinjaImageOverride(id, updateData);
@@ -1939,7 +1964,10 @@ Crawl-delay: 1`;
         return res.status(404).json({ message: "Image override not found" });
       }
 
-      res.json(updatedOverride);
+      res.json({
+        ...updatedOverride,
+        isPersistent: updatedOverride.customImageUrl ? persistentImageStorage.isPersistentUrl(updatedOverride.customImageUrl) : false
+      });
     } catch (error) {
       console.error("Error updating Tour Ninja image override:", error);
       res.status(500).json({ message: "Failed to update image override", error: String(error) });
