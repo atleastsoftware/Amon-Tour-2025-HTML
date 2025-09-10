@@ -89,9 +89,6 @@ export default function AdminTourNinjaImages() {
     }
   }, [toast]);
 
-  // Debug: Log des données
-  console.log("🔍 Debug overrides:", { overrides, isLoading, tours: tours.length });
-
   // Filter tours based on search and status
   const filteredOverrides = ((overrides as TourNinjaImageOverride[]) || []).filter((override: TourNinjaImageOverride) => {
     const matchesSearch = override.tourName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -101,8 +98,6 @@ export default function AdminTourNinjaImages() {
                          (filterStatus === "inactive" && !override.isActive);
     return matchesSearch && matchesStatus;
   });
-
-  console.log("🔍 Debug filteredOverrides:", filteredOverrides.length, filteredOverrides);
 
   // Create override mutation
   const createMutation = useMutation({
