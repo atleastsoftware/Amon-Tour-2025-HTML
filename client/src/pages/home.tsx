@@ -303,7 +303,7 @@ export default function Home() {
                       )}
                       <div className="absolute top-4 right-4">
                         <span className="bg-white/90 text-gray-800 px-2 py-1 rounded-full text-xs">
-                          {tour.duration} jour{Number(tour.duration) > 1 ? 's' : ''}
+                          {tour.duration} day{Number(tour.duration) > 1 ? 's' : ''}
                         </span>
                       </div>
                     </div>
