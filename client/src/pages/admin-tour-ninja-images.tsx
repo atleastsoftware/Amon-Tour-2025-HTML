@@ -30,7 +30,9 @@ export default function AdminTourNinjaImages() {
     tourNinjaId: "",
     tourName: "",
     originalImageUrl: "",
+    imageSourceType: "upload" as "upload" | "url",
     image: null as File | null,
+    directImageUrl: "",
     description: ""
   });
 
@@ -120,7 +122,9 @@ export default function AdminTourNinjaImages() {
         tourNinjaId: "",
         tourName: "",
         originalImageUrl: "",
+        imageSourceType: "upload",
         image: null,
+        directImageUrl: "",
         description: ""
       });
       setImagePreview(null);
@@ -210,10 +214,29 @@ export default function AdminTourNinjaImages() {
   });
 
   const handleCreateOverride = () => {
-    if (!newOverrideForm.tourNinjaId || !newOverrideForm.tourName || !newOverrideForm.image) {
+    // Validation selon le type de source
+    if (!newOverrideForm.tourNinjaId || !newOverrideForm.tourName) {
       toast({
         title: "Erreur",
         description: "Veuillez remplir tous les champs requis",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (newOverrideForm.imageSourceType === "upload" && !newOverrideForm.image) {
+      toast({
+        title: "Erreur",
+        description: "Veuillez sélectionner une image à télécharger",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (newOverrideForm.imageSourceType === "url" && !newOverrideForm.directImageUrl) {
+      toast({
+        title: "Erreur",
+        description: "Veuillez saisir une URL d'image valide",
         variant: "destructive",
       });
       return;
@@ -223,7 +246,13 @@ export default function AdminTourNinjaImages() {
     formData.append("tourNinjaId", newOverrideForm.tourNinjaId);
     formData.append("tourName", newOverrideForm.tourName);
     formData.append("originalImageUrl", newOverrideForm.originalImageUrl);
-    formData.append("image", newOverrideForm.image);
+    formData.append("imageSourceType", newOverrideForm.imageSourceType);
+    
+    if (newOverrideForm.imageSourceType === "upload" && newOverrideForm.image) {
+      formData.append("image", newOverrideForm.image);
+    } else if (newOverrideForm.imageSourceType === "url") {
+      formData.append("directImageUrl", newOverrideForm.directImageUrl);
+    }
 
     createMutation.mutate(formData);
   };
@@ -359,7 +388,48 @@ export default function AdminTourNinjaImages() {
                 </div>
               </div>
 
-              {/* Image Upload Zone */}
+              {/* Image Source Type Selection */}
+              <div className="space-y-2">
+                <Label className="text-sm font-medium">Type d'image</Label>
+                <div className="flex gap-4">
+                  <Button
+                    type="button"
+                    variant={newOverrideForm.imageSourceType === "upload" ? "default" : "outline"}
+                    onClick={() => {
+                      setNewOverrideForm(prev => ({ 
+                        ...prev, 
+                        imageSourceType: "upload",
+                        directImageUrl: "",
+                        image: null
+                      }));
+                      setImagePreview(null);
+                    }}
+                    className="flex-1"
+                  >
+                    <Upload className="w-4 h-4 mr-2" />
+                    Télécharger un fichier
+                  </Button>
+                  <Button
+                    type="button"
+                    variant={newOverrideForm.imageSourceType === "url" ? "default" : "outline"}
+                    onClick={() => {
+                      setNewOverrideForm(prev => ({ 
+                        ...prev, 
+                        imageSourceType: "url",
+                        image: null
+                      }));
+                      setImagePreview(null);
+                    }}
+                    className="flex-1"
+                  >
+                    <ImageIcon className="w-4 h-4 mr-2" />
+                    Lien URL
+                  </Button>
+                </div>
+              </div>
+
+              {/* Image Upload Zone - Only show for upload type */}
+              {newOverrideForm.imageSourceType === "upload" && (
               <div className="space-y-2">
                 <Label className="text-sm font-medium">Télécharger votre image</Label>
                 <div
@@ -434,6 +504,44 @@ export default function AdminTourNinjaImages() {
                   />
                 </div>
               </div>
+              )}
+
+              {/* URL Input Zone - Only show for URL type */}
+              {newOverrideForm.imageSourceType === "url" && (
+              <div className="space-y-2">
+                <Label htmlFor="directImageUrl" className="text-sm font-medium">URL de l'image</Label>
+                <Input
+                  id="directImageUrl"
+                  type="url"
+                  placeholder="https://example.com/image.jpg"
+                  value={newOverrideForm.directImageUrl}
+                  onChange={(e) => setNewOverrideForm(prev => ({ ...prev, directImageUrl: e.target.value }))}
+                  className="w-full"
+                />
+                {newOverrideForm.directImageUrl && (
+                  <div className="mt-4">
+                    <div className="relative w-full h-48 rounded-lg overflow-hidden bg-gray-100">
+                      <img
+                        src={newOverrideForm.directImageUrl}
+                        alt="Prévisualisation URL"
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.style.display = 'none';
+                          target.nextElementSibling!.classList.remove('hidden');
+                        }}
+                      />
+                      <div className="hidden absolute inset-0 flex items-center justify-center bg-gray-100 text-gray-500">
+                        <div className="text-center">
+                          <ImageIcon className="w-8 h-8 mx-auto mb-2" />
+                          <p className="text-sm">Image non accessible</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+              )}
 
               {/* Description Optional */}
               <div className="space-y-2">
@@ -463,7 +571,9 @@ export default function AdminTourNinjaImages() {
               <div className="flex gap-3 pt-4">
                 <Button
                   onClick={handleCreateOverride}
-                  disabled={createMutation.isPending || !newOverrideForm.tourNinjaId || !newOverrideForm.image}
+                  disabled={createMutation.isPending || !newOverrideForm.tourNinjaId || 
+                    (newOverrideForm.imageSourceType === "upload" && !newOverrideForm.image) ||
+                    (newOverrideForm.imageSourceType === "url" && !newOverrideForm.directImageUrl)}
                   className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800"
                 >
                   {createMutation.isPending ? (
@@ -487,7 +597,9 @@ export default function AdminTourNinjaImages() {
                       tourNinjaId: "",
                       tourName: "",
                       originalImageUrl: "",
+                      imageSourceType: "upload",
                       image: null,
+                      directImageUrl: "",
                       description: ""
                     });
                   }}
@@ -576,7 +688,7 @@ export default function AdminTourNinjaImages() {
           <Card key={override.id} className="overflow-hidden">
             <div className="relative h-48 bg-gray-100">
               <img
-                src={override.customImageUrl}
+                src={override.customImageUrl || override.directImageUrl || "/api/placeholder-image.svg"}
                 alt={override.tourName}
                 className="w-full h-full object-cover"
                 onError={(e) => {
@@ -684,7 +796,7 @@ export default function AdminTourNinjaImages() {
             <div className="space-y-4">
               <div className="h-32 w-full bg-gray-100 rounded-md overflow-hidden">
                 <img
-                  src={editingOverride.customImageUrl}
+                  src={editingOverride.customImageUrl || editingOverride.directImageUrl || "/api/placeholder-image.svg"}
                   alt={editingOverride.tourName}
                   className="w-full h-full object-cover"
                 />
