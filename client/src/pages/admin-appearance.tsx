@@ -15,6 +15,134 @@ import { toast } from '@/hooks/use-toast';
 import { Edit, Plus, Trash2, Move, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Palette, Layout, Image, Type, FileText, MapPin, Mail, Users, Download, Star, Camera, ArrowLeft, Search, Video, Bell, MousePointer, Globe, Menu, Clock, Link, CheckCircle, AlertCircle, Database } from 'lucide-react';
 import RealBlockPreview from '@/components/admin/RealBlockPreview';
 
+// Composant EditableField pour l'édition inline
+interface EditableFieldProps {
+  label: string;
+  value: string;
+  onSave: (value: string) => void;
+  type?: 'text' | 'textarea';
+  prefix?: string;
+  placeholder?: string;
+  className?: string;
+  rows?: number;
+}
+
+function EditableField({ 
+  label, 
+  value, 
+  onSave, 
+  type = 'text', 
+  prefix = '', 
+  placeholder = '',
+  className = '',
+  rows = 3
+}: EditableFieldProps) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [editValue, setEditValue] = useState(value);
+  const [isSaving, setIsSaving] = useState(false);
+
+  const handleSave = async () => {
+    if (editValue === value) {
+      setIsEditing(false);
+      return;
+    }
+
+    setIsSaving(true);
+    try {
+      await onSave(editValue);
+      setIsEditing(false);
+      toast({ title: "Sauvegardé avec succès!" });
+    } catch (error) {
+      toast({ title: "Erreur lors de la sauvegarde", variant: "destructive" });
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const handleCancel = () => {
+    setEditValue(value);
+    setIsEditing(false);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && type === 'text') {
+      e.preventDefault();
+      handleSave();
+    } else if (e.key === 'Escape') {
+      handleCancel();
+    }
+  };
+
+  return (
+    <div>
+      <label className="text-sm font-medium text-gray-700 mb-2 block">{label}</label>
+      
+      {isEditing ? (
+        <div className="space-y-2">
+          {type === 'textarea' ? (
+            <Textarea
+              value={editValue}
+              onChange={(e) => setEditValue(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder={placeholder}
+              rows={rows}
+              className="w-full"
+              autoFocus
+            />
+          ) : (
+            <div className="flex items-center">
+              {prefix && (
+                <span className="text-sm text-gray-500 mr-1">{prefix}</span>
+              )}
+              <Input
+                value={editValue}
+                onChange={(e) => setEditValue(e.target.value)}
+                onKeyDown={handleKeyDown}
+                placeholder={placeholder}
+                className={`w-full ${className}`}
+                autoFocus
+              />
+            </div>
+          )}
+          
+          <div className="flex gap-2">
+            <Button
+              size="sm"
+              onClick={handleSave}
+              disabled={isSaving}
+              className="h-8"
+            >
+              {isSaving ? 'Sauvegarde...' : 'Sauvegarder'}
+            </Button>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={handleCancel}
+              disabled={isSaving}
+              className="h-8"
+            >
+              Annuler
+            </Button>
+          </div>
+        </div>
+      ) : (
+        <div 
+          onClick={() => setIsEditing(true)}
+          className="min-h-[40px] p-2 bg-gray-50 border rounded cursor-pointer hover:bg-gray-100 transition-colors flex items-center"
+        >
+          {prefix && (
+            <span className="text-sm text-gray-500 mr-1">{prefix}</span>
+          )}
+          <span className={`text-sm text-gray-900 ${className}`}>
+            {value || placeholder || 'Cliquez pour modifier...'}
+          </span>
+          <Edit className="w-3 h-3 ml-auto text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+        </div>
+      )}
+    </div>
+  );
+}
+
 // Interface pour les données d'édition du Hero
 interface HeroEditData {
   title: string;
