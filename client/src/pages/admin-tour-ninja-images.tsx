@@ -715,50 +715,79 @@ export default function AdminTourNinjaImages() {
 
       {/* Edit Dialog */}
       <Dialog open={!!editingOverride} onOpenChange={() => setEditingOverride(null)}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="max-w-lg">
           <DialogHeader>
-            <DialogTitle>Modifier Image</DialogTitle>
+            <DialogTitle className="text-lg font-semibold">
+              <ImageIcon className="w-5 h-5 inline mr-2 text-blue-600" />
+              Modifier l'image du tour
+            </DialogTitle>
           </DialogHeader>
           {editingOverride && (
             <div className="space-y-4">
-              <div className="h-32 w-full bg-gray-100 rounded-md overflow-hidden">
-                {(editingOverride.customImageUrl || editingOverride.directImageUrl) ? (
-                  <img
-                    src={editingOverride.customImageUrl || editingOverride.directImageUrl}
-                    alt={editingOverride.tourName}
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.style.display = 'none';
-                    }}
-                  />
-                ) : (
-                  <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                    <ImageIcon className="w-12 h-12 text-gray-400" />
-                  </div>
-                )}
+              {/* Tour Info */}
+              <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-600">
+                <h3 className="font-semibold text-gray-900 mb-1">{editingOverride.tourName}</h3>
+                <p className="text-sm text-gray-600">ID: {editingOverride.tourNinjaId}</p>
+              </div>
+
+              {/* Current Image */}
+              <div>
+                <Label className="text-sm font-medium text-gray-700 mb-2 block">Image actuelle</Label>
+                <div className="h-32 w-full bg-gray-100 rounded-md overflow-hidden border">
+                  {(editingOverride.customImageUrl || editingOverride.directImageUrl) ? (
+                    <img
+                      src={editingOverride.customImageUrl || editingOverride.directImageUrl}
+                      alt={editingOverride.tourName}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                      }}
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                      <ImageIcon className="w-12 h-12 text-gray-400" />
+                      <span className="ml-2 text-sm text-gray-500">Aucune image personnalisée</span>
+                    </div>
+                  )}
+                </div>
               </div>
               
+              {/* Upload New Image */}
               <div>
-                <Label htmlFor="edit-image">Nouvelle image (optionnel)</Label>
+                <Label htmlFor="edit-image" className="text-sm font-medium text-gray-700 mb-2 block">
+                  Remplacer par une nouvelle image
+                </Label>
                 <Input
                   ref={fileInputRef}
                   id="edit-image"
                   type="file"
                   accept="image/*"
+                  className="border-dashed"
                 />
+                <p className="text-xs text-gray-500 mt-1">Formats acceptés: JPG, PNG, GIF (max 5MB)</p>
               </div>
 
-              <div className="flex gap-2">
+              <div className="flex gap-2 pt-2">
                 <Button
                   onClick={() => {
                     const file = fileInputRef.current?.files?.[0];
                     handleUpdateOverride(editingOverride, file);
                   }}
                   disabled={updateMutation.isPending}
-                  className="flex-1"
+                  className="flex-1 bg-blue-600 hover:bg-blue-700"
                 >
-                  {updateMutation.isPending ? "Mise à jour..." : "Mettre à jour"}
+                  {updateMutation.isPending ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                      Mise à jour...
+                    </>
+                  ) : (
+                    <>
+                      <Check className="w-4 h-4 mr-2" />
+                      Mettre à jour l'image
+                    </>
+                  )}
                 </Button>
                 <Button
                   variant="outline"
