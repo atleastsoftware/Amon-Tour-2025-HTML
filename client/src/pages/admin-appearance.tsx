@@ -1354,35 +1354,37 @@ function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs }: {
             Détails techniques et métadonnées système
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-            <div className="space-y-2">
-              <div className="flex justify-between py-1 border-b border-gray-100">
-                <span className="font-medium text-gray-700">ID Page:</span>
-                <code className="text-gray-600 bg-gray-100 px-1 rounded text-xs">{currentPageConfig.id}</code>
-              </div>
-              <div className="flex justify-between py-1 border-b border-gray-100">
-                <span className="font-medium text-gray-700">Créée le:</span>
-                <span className="text-gray-600">{formatDate(new Date(currentPageConfig.createdAt))}</span>
-              </div>
-            </div>
-            <div className="space-y-2">
-              <div className="flex justify-between py-1 border-b border-gray-100">
-                <span className="font-medium text-gray-700">URL publique:</span>
-                <a 
-                  href={selectedPage === 'home' ? '/' : `/${selectedPage}`} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="text-blue-600 hover:underline text-xs"
-                >
-                  {window.location.origin}{selectedPage === 'home' ? '/' : `/${selectedPage}`}
-                </a>
-              </div>
-              <div className="flex justify-between py-1 border-b border-gray-100">
-                <span className="font-medium text-gray-700">Modifiée le:</span>
-                <span className="text-gray-600">{formatDate(new Date(currentPageConfig.updatedAt || currentPageConfig.createdAt))}</span>
-              </div>
-            </div>
+        <CardContent className="space-y-4">
+          {/* Ligne 1: ID Page */}
+          <div className="flex justify-between items-center py-3 border-b border-gray-100">
+            <span className="font-medium text-gray-700">ID Page:</span>
+            <code className="text-gray-600 bg-gray-100 px-2 py-1 rounded text-sm">{currentPageConfig.id}</code>
+          </div>
+          
+          {/* Ligne 2: URL publique */}
+          <div className="flex justify-between items-center py-3 border-b border-gray-100">
+            <span className="font-medium text-gray-700">URL publique:</span>
+            <a 
+              href={selectedPage === 'home' ? '/' : `/${selectedPage}`} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-blue-600 hover:underline text-sm max-w-xs truncate"
+              title={`${window.location.origin}${selectedPage === 'home' ? '/' : `/${selectedPage}`}`}
+            >
+              {window.location.origin}{selectedPage === 'home' ? '/' : `/${selectedPage}`}
+            </a>
+          </div>
+          
+          {/* Ligne 3: Créée le */}
+          <div className="flex justify-between items-center py-3 border-b border-gray-100">
+            <span className="font-medium text-gray-700">Créée le:</span>
+            <span className="text-gray-600 text-sm">{formatDate(new Date(currentPageConfig.createdAt))}</span>
+          </div>
+          
+          {/* Ligne 4: Modifiée le */}
+          <div className="flex justify-between items-center py-3">
+            <span className="font-medium text-gray-700">Modifiée le:</span>
+            <span className="text-gray-600 text-sm">{formatDate(new Date(currentPageConfig.updatedAt || currentPageConfig.createdAt))}</span>
           </div>
         </CardContent>
       </Card>
