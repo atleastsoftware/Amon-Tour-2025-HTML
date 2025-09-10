@@ -687,15 +687,21 @@ export default function AdminTourNinjaImages() {
           {filteredOverrides.map((override: TourNinjaImageOverride) => (
           <Card key={override.id} className="overflow-hidden">
             <div className="relative h-48 bg-gray-100">
-              <img
-                src={override.customImageUrl || override.directImageUrl || "/api/placeholder-image.svg"}
-                alt={override.tourName}
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.src = "/api/placeholder-image.svg";
-                }}
-              />
+              {(override.customImageUrl || override.directImageUrl) ? (
+                <img
+                  src={override.customImageUrl || override.directImageUrl}
+                  alt={override.tourName}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                  }}
+                />
+              ) : (
+                <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                  <ImageIcon className="w-12 h-12 text-gray-400" />
+                </div>
+              )}
               <div className="absolute top-2 right-2">
                 <Badge variant={override.isActive ? "default" : "secondary"}>
                   {override.isActive ? "Actif" : "Inactif"}
@@ -795,11 +801,21 @@ export default function AdminTourNinjaImages() {
           {editingOverride && (
             <div className="space-y-4">
               <div className="h-32 w-full bg-gray-100 rounded-md overflow-hidden">
-                <img
-                  src={editingOverride.customImageUrl || editingOverride.directImageUrl || "/api/placeholder-image.svg"}
-                  alt={editingOverride.tourName}
-                  className="w-full h-full object-cover"
-                />
+                {(editingOverride.customImageUrl || editingOverride.directImageUrl) ? (
+                  <img
+                    src={editingOverride.customImageUrl || editingOverride.directImageUrl}
+                    alt={editingOverride.tourName}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                    }}
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                    <ImageIcon className="w-12 h-12 text-gray-400" />
+                  </div>
+                )}
               </div>
               
               <div>
