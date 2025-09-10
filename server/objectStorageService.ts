@@ -1,6 +1,9 @@
 // Service de stockage persistant pour les images personnalisées TourNinja
 // Utilise les variables d'environnement Object Storage configurées
 
+import fs from 'fs';
+import path from 'path';
+
 /**
  * Service de stockage persistant pour les images personnalisées TourNinja
  * Utilise Replit Object Storage pour assurer la persistance en production
@@ -38,15 +41,24 @@ export class PersistentImageStorageService {
       const extension = file.originalname.split('.').pop();
       const fileName = `tour-ninja-${tourNinjaId}-${timestamp}.${extension}`;
       
-      // Uploader vers le répertoire privé
-      const privateDir = this.getPrivateObjectDir();
-      const objectPath = `${privateDir}/tour-images/${fileName}`;
+      // Créer le dossier si nécessaire
+      const uploadDir = path.join(process.cwd(), 'objects', 'tour-images');
+      if (!fs.existsSync(uploadDir)) {
+        fs.mkdirSync(uploadDir, { recursive: true });
+      }
       
-      // TODO: Implémenter l'upload vers Object Storage
-      // Pour l'instant, retourner l'URL qui sera générée
+      // Chemin complet du fichier
+      const filePath = path.join(uploadDir, fileName);
+      
+      // Sauvegarder réellement le fichier
+      fs.writeFileSync(filePath, file.buffer);
+      
+      // URL accessible depuis le frontend
       const persistentUrl = `/objects/tour-images/${fileName}`;
       
-      console.log(`✅ Image uploaded to persistent storage: ${persistentUrl}`);
+      console.log(`✅ Image réellement sauvegardée : ${filePath}`);
+      console.log(`✅ URL accessible : ${persistentUrl}`);
+      
       return persistentUrl;
     } catch (error) {
       console.error("❌ Failed to upload image to persistent storage:", error);
