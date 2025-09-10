@@ -2,10 +2,13 @@ import { useState, useMemo, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, Clock, ExternalLink } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { MapPin, Clock, ExternalLink, Settings } from "lucide-react";
 import { TourNinjaTour } from "@/hooks/useTourNinja";
 import { formatTHB } from "@/lib/utils";
 import { useIframe } from "@/contexts/IframeContext";
+import { useIsAuthenticated } from "@/lib/auth";
+import { Link } from "wouter";
 
 interface TourNinjaCardProps {
   tour: TourNinjaTour;
@@ -30,6 +33,7 @@ function getImageCandidates(tour: TourNinjaTour): string[] {
 
 export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
   const { openIframe } = useIframe();
+  const { isAuthenticated } = useIsAuthenticated();
   
   // Calculer les candidats d'images de manière optimisée
   const imageCandidates = useMemo(() => getImageCandidates(tour), [tour]);
@@ -133,6 +137,26 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
               </Badge>
             )}
           </div>
+
+          {/* Bouton d'admin pour gérer les images - visible uniquement pour les utilisateurs connectés */}
+          {isAuthenticated && (
+            <div className="absolute top-3 left-3">
+              <Link
+                href={`/admin-tour-ninja-images?tour=${encodeURIComponent(tour.id)}`}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="bg-white/90 hover:bg-white border-gray-200 text-gray-700 hover:text-gray-900 shadow-sm"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <Settings className="w-3 h-3 mr-1" />
+                  Image
+                </Button>
+              </Link>
+            </div>
+          )}
         </div>
 
         <CardContent className="p-4 flex flex-col justify-between h-full">
