@@ -1801,6 +1801,31 @@ export default function AdminAppearance() {
     }
   });
 
+  // Update page configuration mutation
+  const updatePageConfigMutation = useMutation({
+    mutationFn: (data: { id: number; field: string; value: string }) =>
+      fetch(`/api/admin/page-configurations/${data.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ [data.field]: data.value })
+      }).then(res => {
+        if (!res.ok) throw new Error('Failed to update page configuration');
+        return res.json();
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/page-configurations'] });
+    },
+    onError: (error: any) => {
+      toast({ 
+        title: 'Erreur lors de la sauvegarde', 
+        description: error.message || 'Veuillez réessayer',
+        variant: 'destructive' 
+      });
+      throw error; // Re-throw pour que EditableField puisse gérer l'erreur
+    }
+  });
+
   // Update site setting mutation
   const updateSiteSettingMutation = useMutation({
     mutationFn: (data: { section: string; key: string; value: string }) =>
