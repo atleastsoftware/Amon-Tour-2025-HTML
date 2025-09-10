@@ -18,7 +18,7 @@ import CustomTourForm from "@/components/home/CustomTourForm";
 import CallToAction from "@/components/home/CallToAction";
 import TourCard from "@/components/tour/TourCard";
 import TourCardItem, { TourCardItemProps } from "@/components/tour/TourCardItem";
-import { useTourNinja } from "@/hooks/useTourNinja";
+import { useTourNinjaWithCustomImages } from "@/hooks/useTourNinja";
 import { Link } from "wouter";
 import { useIframe } from "@/contexts/IframeContext";
 
@@ -38,8 +38,8 @@ export default function Home() {
     queryKey: ['/api/tour-cards'],
   });
   
-  // Get Tour Ninja tours
-  const { tours: tourNinjaTours = [], isLoading: tourNinjaLoading } = useTourNinja();
+  // Get Tour Ninja tours with custom images
+  const { tours: tourNinjaTours = [], isLoading: tourNinjaLoading } = useTourNinjaWithCustomImages();
   
   
   // Convert Tour Ninja tours to TourCardItem format

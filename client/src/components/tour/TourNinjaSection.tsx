@@ -1,11 +1,11 @@
 import { motion } from "framer-motion";
 import { RefreshCw, AlertCircle } from "lucide-react";
-import { useTourNinja } from "@/hooks/useTourNinja";
+import { useTourNinjaWithCustomImages } from "@/hooks/useTourNinja";
 import TourNinjaCard from "./TourNinjaCard";
 import { Button } from "@/components/ui/button";
 
 export default function TourNinjaSection() {
-  const { tours, isLoading, error, refetch, cached, fallback, success } = useTourNinja();
+  const { tours, isLoading, error, refetch, cached, fallback, success } = useTourNinjaWithCustomImages();
 
   if (error) {
     return (

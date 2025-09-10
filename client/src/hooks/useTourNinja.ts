@@ -88,33 +88,56 @@ export function useTourNinja() {
   };
 }
 
-// Enhanced hook that includes custom image overrides
+// Enhanced hook that includes custom image overrides (uses admin endpoint for comprehensive data)
 export function useTourNinjaWithCustomImages() {
-  const tourQuery = useTourNinja();
-  
+  const { data: response, isLoading, error, refetch } = useQuery<TourNinjaApiResponse>({
+    queryKey: ['/api/proxy/tours'],
+    retry: 1,
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    refetchOnWindowFocus: false,
+  });
+
+  // Use admin endpoint to get ALL overrides (not just active ones)
   const { data: imageOverrides, isLoading: overridesLoading } = useQuery({
     queryKey: ["/api/admin/tour-ninja-images"],
     retry: false,
   });
 
-  const enhancedTours = tourQuery.tours?.map((tour: TourNinjaTour) => {
-    const override = (imageOverrides as any)?.find((img: any) => 
-      img.tourNinjaId === tour.id.toString() && img.isActive
-    );
+  const [toursWithOverrides, setToursWithOverrides] = useState<TourNinjaTour[]>([]);
+
+  useEffect(() => {
+    if (!response?.data) {
+      setToursWithOverrides([]);
+      return;
+    }
+
+    const processedTours = response.data.map(tour => {
+      const override = (imageOverrides as any[])?.find(
+        (override: any) => override.tourNinjaId === tour.id && override.isActive
+      );
+      
+      return {
+        ...tour,
+        customImage: override?.customImageUrl,
+        primaryImage: override?.customImageUrl || tour.primaryImage,
+        originalImage: tour.primaryImage
+      };
+    });
     
-    return {
-      ...tour,
-      primaryImage: override?.customImageUrl || tour.primaryImage,
-      customImage: override?.customImageUrl || null,
-      originalImage: tour.primaryImage
-    };
-  }) || [];
+    setToursWithOverrides(processedTours);
+  }, [response?.data, imageOverrides]);
 
   return {
-    ...tourQuery,
-    tours: enhancedTours,
-    imageOverrides,
-    isLoading: tourQuery.isLoading || overridesLoading
+    tours: toursWithOverrides,
+    isLoading: isLoading || overridesLoading,
+    error,
+    refetch,
+    cached: response?.cached || false,
+    fallback: response?.fallback || false,
+    success: response?.success || false,
+    message: response?.message,
+    count: toursWithOverrides?.length || 0,
+    imageOverrides
   };
 }
 
