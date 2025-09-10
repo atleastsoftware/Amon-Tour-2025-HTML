@@ -1,0 +1,283 @@
+1) Types & Hooks — corriger l’incohérence
+1.1 Mettre le type en conformité
+
+shared/types.ts (ou l’endroit où est défini TourNinjaTour)
+
+export interface TourNinjaTour {
+  images: string[];
+  primaryImage?: string;
+  customImage?: string;
+  /** Snapshot de l’image primaire d’origine (avant override). */
+  originalImage?: string;
+}
+
+
+Si tu préfères ne pas ajouter originalImage au modèle, tu peux la gérer en variable locale dans le hook (voir 1.2) et retirer toute référence à tour.originalImage dans les composants. Mais comme ton composant l’utilise déjà et que le hook “enhanced” la crée, le plus rapide est de déclarer la propriété optionnelle.
+
+1.2 Unifier les deux hooks
+
+client/src/hooks/useTourNinja.ts
+
+// Standard
+export function useTourNinja(tour: TourNinjaTour, override?: { customImageUrl?: string }) {
+  const originalImage = tour.primaryImage; // snapshot avant override
+  return {
+    ...tour,
+    originalImage,
+    customImage: override?.customImageUrl,
+    primaryImage: override?.customImageUrl || tour.primaryImage,
+  } as TourNinjaTour;
+}
+
+// Enhanced – même logique, pas d’écart de type
+export function useTourNinjaWithCustomImages(tour: TourNinjaTour, override?: { customImageUrl?: string }) {
+  const originalImage = tour.primaryImage;
+  return {
+    ...tour,
+    originalImage,
+    customImage: override?.customImageUrl,
+    primaryImage: override?.customImageUrl || tour.primaryImage,
+  } as TourNinjaTour;
+}
+
+2) Composant — fallback solide sans crash
+2.1 Priorité d’images (robuste)
+
+Ordre recommandé (comme tu l’as listé), avec bascule automatique si une URL échoue :
+
+customImage
+
+images[0]
+
+primaryImage (après override, donc potentiellement = custom)
+
+originalImage (vraie source avant override)
+
+Placeholder
+
+client/src/components/tour/TourNinjaCard.tsx
+
+import { useMemo, useRef, useState, useCallback } from "react";
+
+const PLACEHOLDER = "/img/placeholder-tour.jpg"; // adapte le chemin
+
+function getCandidates(tour: TourNinjaTour): string[] {
+  const list: (string | undefined)[] = [
+    tour.customImage,
+    tour.images?.[0],
+    tour.primaryImage,
+    tour.originalImage,
+  ];
+  // Filtre doublons et valeurs vides
+  const seen = new Set<string>();
+  return list.filter((u): u is string => !!u && !seen.has(u) && !!seen.add(u));
+}
+
+export function TourNinjaCard({ tour }: { tour: TourNinjaTour }) {
+  const candidates = useMemo(() => {
+    const c = getCandidates(tour);
+    return c.length ? c : [PLACEHOLDER];
+  }, [tour]);
+
+  const [idx, setIdx] = useState(0);
+  const [src, setSrc] = useState(candidates[0]);
+  const tried = useRef(new Set<string>([candidates[0]]));
+
+  const onError = useCallback<React.ReactEventHandler<HTMLImageElement>>(() => {
+    // Essaie le prochain candidat
+    const nextIdx = idx + 1;
+    if (nextIdx < candidates.length) {
+      setIdx(nextIdx);
+      const next = candidates[nextIdx];
+      if (!tried.current.has(next)) {
+        tried.current.add(next);
+      }
+      setSrc(next);
+    } else {
+      // Dernier recours : placeholder (si pas déjà tenté)
+      if (!tried.current.has(PLACEHOLDER)) {
+        tried.current.add(PLACEHOLDER);
+        setSrc(PLACEHOLDER);
+      }
+    }
+  }, [idx, candidates]);
+
+  return (
+    <div className="rounded-xl overflow-hidden bg-white/50">
+      <img
+        src={src}
+        alt={tour?.title ?? "Tour"}
+        loading="lazy"
+        onError={onError}
+        className="h-48 w-full object-cover"
+      />
+      {/* ...le reste de la carte... */}
+    </div>
+  );
+}
+
+
+Note : on retire toute dépendance à tour.originalImage dans le JSX de vérification — elle est incluse dans candidates. Plus de crash même si le champ est absent.
+
+3) Backend — implémenter l’Object Storage pour de vrai
+
+Deux drivers simples : local (par défaut) ou s3 (AWS S3 / R2 / MinIO S3-compatible).
+
+3.1 Service d’upload
+
+server/objectStorageService.ts
+
+import fs from "node:fs/promises";
+import path from "node:path";
+import crypto from "node:crypto";
+import mime from "mime-types";
+
+type Driver = "local" | "s3";
+
+const DRIVER = (process.env.STORAGE_DRIVER as Driver) || "local";
+
+// Local
+const OBJECTS_DIR = path.join(process.cwd(), "objects"); // dossier public
+const PUBLIC_BASE = "/objects"; // exposé par Express static
+
+// S3
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+const S3_BUCKET = process.env.S3_BUCKET || "";
+const S3_PUBLIC_BASE = process.env.S3_PUBLIC_BASE || ""; // ex: https://<bucket>.s3.<region>.amazonaws.com
+const s3 = new S3Client({
+  region: process.env.S3_REGION,
+  endpoint: process.env.S3_ENDPOINT, // pour R2/MinIO si besoin
+  forcePathStyle: !!process.env.S3_FORCE_PATH_STYLE,
+  credentials: process.env.S3_ACCESS_KEY_ID
+    ? {
+        accessKeyId: process.env.S3_ACCESS_KEY_ID!,
+        secretAccessKey: process.env.S3_SECRET_ACCESS_KEY!,
+      }
+    : undefined,
+});
+
+function safeFileName(origName: string) {
+  const ext = path.extname(origName) || ".bin";
+  const base = `tour-${Date.now()}-${crypto.randomBytes(6).toString("hex")}${ext}`;
+  return base.replace(/[^a-zA-Z0-9.\-_]/g, "_");
+}
+
+export async function uploadTourImage(file: Express.Multer.File, tourNinjaId: string): Promise<string> {
+  const ext = path.extname(file.originalname) || ".jpg";
+  const key = `tour-images/${tourNinjaId}/${safeFileName(file.originalname)}`;
+  const contentType = mime.lookup(ext) || "application/octet-stream";
+
+  if (DRIVER === "s3") {
+    const cmd = new PutObjectCommand({
+      Bucket: S3_BUCKET,
+      Key: key,
+      Body: file.buffer ?? await fs.readFile(file.path),
+      ContentType: contentType,
+      ACL: "public-read", // si bucket public
+    });
+    await s3.send(cmd);
+    // URL publique
+    return `${S3_PUBLIC_BASE.replace(/\/+$/,"")}/${key}`;
+  }
+
+  // DRIVER === "local"
+  const destPath = path.join(OBJECTS_DIR, key);
+  await fs.mkdir(path.dirname(destPath), { recursive: true });
+  // multer peut fournir file.buffer OU file.path selon config
+  if (file.buffer) {
+    await fs.writeFile(destPath, file.buffer);
+  } else {
+    const buf = await fs.readFile(file.path);
+    await fs.writeFile(destPath, buf);
+  }
+  // URL publique servie par Express static
+  return `${PUBLIC_BASE}/${key}`;
+}
+
+
+✅ Cette version écrit réellement le fichier (local ou S3).
+⚠️ Pense à installer @aws-sdk/client-s3 et mime-types si non présents.
+
+3.2 Servir /objects/*
+
+server/app.ts (ou server/index.ts)
+
+import path from "node:path";
+import express from "express";
+
+const app = express();
+// ... middlewares habituels
+
+// Static pour l’Object Storage local
+app.use("/objects", express.static(path.join(process.cwd(), "objects"), {
+  fallthrough: true,
+  immutable: true,
+  maxAge: "30d",
+}));
+
+// ... routes API
+export default app;
+
+3.3 Utilisation dans la route d’upload
+
+server/routes.ts (extrait)
+
+import multer from "multer";
+import { uploadTourImage } from "./objectStorageService";
+
+const upload = multer({ storage: multer.memoryStorage() }); // mémoire = +simple pour S3; sinon diskStorage
+
+router.post("/api/admin/tour-ninja-images", upload.single("file"), async (req, res, next) => {
+  try {
+    const tourNinjaId = String(req.body.tourNinjaId || "unknown");
+    if (!req.file) return res.status(400).json({ error: "No file" });
+
+    const publicUrl = await uploadTourImage(req.file, tourNinjaId);
+
+    // TODO: persister publicUrl en DB (table overrides), par ex. customImageUrl
+    // await db.insert(...)
+
+    res.json({ ok: true, url: publicUrl });
+  } catch (e) {
+    next(e);
+  }
+});
+
+
+Si tu gardes un temp folder /uploads/tours/, continue de l’utiliser pour l’étape d’uplaod initial si tu veux, mais copie ensuite vers l’object storage via uploadTourImage. L’intérêt du memoryStorage est de supporter S3 sans gérer un fichier temporaire disque.
+
+4) Nettoyage & fiabilisation
+
+URLs cassées : toutes les URLs /objects/... déjà renvoyées sans fichier réel doivent être ré-uploadées une fois la vraie implémentation active.
+
+DB backfill : écris un petit script pour re-uploader les anciennes customImageUrl pointant vers /uploads/tours/... vers /objects/..., puis mets à jour la DB.
+
+CORS/Headers : si tu sers des images depuis un domaine différent, autorise via headers (si besoin de canvas).
+
+Sécurité : si le bucket S3 n’est pas public, génère des URL signées côté serveur (optionnel).
+
+5) Tests éclair (à faire tout de suite)
+
+Upload d’une image → vérifie que l’API renvoie une URL valide (200 OK via navigateur).
+
+Affichage carte : casse volontairement customImage (renomme-la) → l’image bascule sur images[0], puis primaryImage, puis originalImage, puis placeholder.
+
+Refresh : assure-toi que originalImage reste la source d’origine même si customImage change.
+
+S3 (si activé) : STORAGE_DRIVER=s3 + variables d’env → l’URL doit être accessible publiquement.
+
+6) Commits conseillés
+
+feat(images): add optional originalImage to TourNinjaTour
+
+fix(hooks): unify snapshot of originalImage and override logic
+
+fix(ui): robust image fallback chain with onError rotation
+
+feat(storage): real object storage (local|s3) + static /objects
+
+chore(upload): use memoryStorage for S3 compatibility
+
+fix(admin): POST /api/admin/tour-ninja-images returns persisted public url
+
+Si tu veux la variante sans champ originalImage (purge totale) je te fournis un second patch qui supprime toute référence à originalImage côté hooks/composants et s’appuie uniquement sur [customImage, images[0], primaryImage, placeholder]. Mais au vu de ton code actuel, la voie la plus rapide est celle au-dessus.

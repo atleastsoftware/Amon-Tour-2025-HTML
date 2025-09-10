@@ -9,6 +9,7 @@ export interface TourNinjaTour {
   images: string[];
   primaryImage?: string;
   customImage?: string; // Added for image overrides
+  originalImage?: string; // Snapshot de l'image primaire d'origine (avant override)
   price: number;
   currency: string;
   duration: string;
