@@ -258,12 +258,17 @@ export const insertNewsletterSubscriptionSchema = createInsertSchema(newsletterS
 export type InsertNewsletterSubscription = z.infer<typeof insertNewsletterSubscriptionSchema>;
 export type NewsletterSubscription = typeof newsletterSubscriptions.$inferSelect;
 
+// Image source type enum for tour ninja overrides
+export const imageSourceTypeEnum = pgEnum("image_source_type", ["upload", "url"]);
+
 // Tour Ninja Image Override table
 export const tourNinjaImageOverrides = pgTable("tour_ninja_image_overrides", {
   id: serial("id").primaryKey(),
   tourNinjaId: text("tour_ninja_id").notNull().unique(),
   tourName: text("tour_name").notNull(),
-  customImageUrl: text("custom_image_url").notNull(),
+  imageSourceType: imageSourceTypeEnum("image_source_type").notNull().default("upload"),
+  customImageUrl: text("custom_image_url"), // Now optional - for uploaded files
+  directImageUrl: text("direct_image_url"), // New - for external URLs
   originalImageUrl: text("original_image_url"),
   isActive: boolean("is_active").default(true),
   createdAt: timestamp("created_at").defaultNow(),
@@ -274,7 +279,25 @@ export const insertTourNinjaImageOverrideSchema = createInsertSchema(tourNinjaIm
   id: true,
   createdAt: true,
   updatedAt: true,
-});
+}).extend({
+  imageSourceType: z.enum(["upload", "url"]).default("upload"),
+  customImageUrl: z.string().optional(),
+  directImageUrl: z.string().url().optional(),
+}).refine(
+  (data) => {
+    // Must have either customImageUrl or directImageUrl based on source type
+    if (data.imageSourceType === "upload") {
+      return !!data.customImageUrl;
+    } else if (data.imageSourceType === "url") {
+      return !!data.directImageUrl;
+    }
+    return false;
+  },
+  {
+    message: "Either upload a file or provide a valid image URL",
+    path: ["imageSourceType"],
+  }
+);
 
 export type InsertTourNinjaImageOverride = z.infer<typeof insertTourNinjaImageOverrideSchema>;
 export type TourNinjaImageOverride = typeof tourNinjaImageOverrides.$inferSelect;
