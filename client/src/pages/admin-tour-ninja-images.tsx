@@ -108,7 +108,9 @@ export default function AdminTourNinjaImages() {
       return response.json();
     },
     onSuccess: () => {
+      // Invalider les données admin ET les données du frontend public
       queryClient.invalidateQueries({ queryKey: ["/api/admin/tour-ninja-images"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/tour-ninja-image-overrides"] });
       toast({
         title: "Succès",
         description: "Image personnalisée ajoutée avec succès",
@@ -143,7 +145,9 @@ export default function AdminTourNinjaImages() {
       return response.json();
     },
     onSuccess: () => {
+      // Invalider les données admin ET les données du frontend public
       queryClient.invalidateQueries({ queryKey: ["/api/admin/tour-ninja-images"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/tour-ninja-image-overrides"] });
       toast({
         title: "Succès",
         description: "Image mise à jour avec succès",
@@ -165,7 +169,9 @@ export default function AdminTourNinjaImages() {
       return apiRequest(`/api/admin/tour-ninja-images/${id}/toggle`, "PATCH");
     },
     onSuccess: () => {
+      // Invalider les données admin ET les données du frontend public
       queryClient.invalidateQueries({ queryKey: ["/api/admin/tour-ninja-images"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/tour-ninja-image-overrides"] });
       toast({
         title: "Succès",
         description: "Statut de l'image modifié",
@@ -186,7 +192,9 @@ export default function AdminTourNinjaImages() {
       return apiRequest(`/api/admin/tour-ninja-images/${id}`, "DELETE");
     },
     onSuccess: () => {
+      // Invalider les données admin ET les données du frontend public
       queryClient.invalidateQueries({ queryKey: ["/api/admin/tour-ninja-images"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/tour-ninja-image-overrides"] });
       toast({
         title: "Succès",
         description: "Image supprimée avec succès",
