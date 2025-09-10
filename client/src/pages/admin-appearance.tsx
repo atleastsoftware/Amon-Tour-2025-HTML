@@ -1231,63 +1231,82 @@ function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs }: {
             Métadonnées et configuration de la page
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-4">
-              <div>
-                <label className="text-sm font-medium text-gray-700">Nom de la page</label>
-                <p className="mt-1 text-sm text-gray-900 bg-gray-50 p-2 rounded border">
-                  {currentPageConfig.pageName}
-                </p>
-              </div>
-              
-              <div>
-                <label className="text-sm font-medium text-gray-700">Slug/URL</label>
-                <p className="mt-1 text-sm text-gray-900 bg-gray-50 p-2 rounded border font-mono">
-                  /{currentPageConfig.pageSlug}
-                </p>
-              </div>
-              
-              <div>
-                <label className="text-sm font-medium text-gray-700">Type de page</label>
-                <p className="mt-1 text-sm text-gray-900 bg-gray-50 p-2 rounded border">
-                  Page {currentPageConfig.pageType === 'main' ? 'principale' : 'secondaire'}
-                </p>
-              </div>
+        <CardContent className="space-y-6">
+          {/* Ligne 1: Nom de la page + Slug/URL */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <EditableField
+              label="Nom de la page"
+              value={currentPageConfig.pageName}
+              onSave={(value) => updatePageConfigMutation.mutate({ id: currentPageConfig.id, field: 'pageName', value })}
+              type="text"
+            />
+            <EditableField
+              label="Slug/URL"
+              value={currentPageConfig.pageSlug}
+              onSave={(value) => updatePageConfigMutation.mutate({ id: currentPageConfig.id, field: 'pageSlug', value })}
+              type="text"
+              prefix="/"
+              className="font-mono"
+            />
+          </div>
+
+          {/* Ligne 2: Type de page + État */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="text-sm font-medium text-gray-700 mb-2 block">Type de page</label>
+              <Select
+                value={currentPageConfig.pageType}
+                onValueChange={(value) => updatePageConfigMutation.mutate({ id: currentPageConfig.id, field: 'pageType', value })}
+              >
+                <SelectTrigger className="w-full">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="main">Pages principales</SelectItem>
+                  <SelectItem value="secondary">Pages secondaires</SelectItem>
+                  <SelectItem value="legal">Mentions légales</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
-            
-            <div className="space-y-4">
-              <div>
-                <label className="text-sm font-medium text-gray-700">Titre SEO</label>
-                <p className="mt-1 text-sm text-gray-900 bg-gray-50 p-2 rounded border">
-                  {currentPageConfig.seoTitle || 'Non défini'}
-                </p>
-              </div>
-              
-              <div>
-                <label className="text-sm font-medium text-gray-700">Mots-clés SEO</label>
-                <p className="mt-1 text-sm text-gray-900 bg-gray-50 p-2 rounded border">
-                  {currentPageConfig.seoKeywords || 'Non défini'}
-                </p>
-              </div>
-              
-              <div>
-                <label className="text-sm font-medium text-gray-700">État</label>
-                <div className="mt-1 flex items-center gap-2">
-                  <div className={`w-2 h-2 rounded-full ${currentPageConfig.isActive ? 'bg-green-500' : 'bg-red-500'}`}></div>
-                  <span className={`text-sm ${currentPageConfig.isActive ? 'text-green-700' : 'text-red-700'}`}>
-                    {currentPageConfig.isActive ? 'Page active' : 'Page inactive'}
-                  </span>
-                </div>
+            <div>
+              <label className="text-sm font-medium text-gray-700 mb-2 block">État</label>
+              <div className="flex items-center gap-3 p-2 bg-gray-50 rounded border h-10">
+                <div className={`w-2 h-2 rounded-full ${currentPageConfig.isActive ? 'bg-green-500' : 'bg-red-500'}`}></div>
+                <span className={`text-sm font-medium ${currentPageConfig.isActive ? 'text-green-700' : 'text-red-700'}`}>
+                  {currentPageConfig.isActive ? 'Page active' : 'Page inactive'}
+                </span>
               </div>
             </div>
           </div>
-          
+
+          {/* Ligne 3: Titre SEO + Mots-clés SEO */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <EditableField
+              label="Titre SEO"
+              value={currentPageConfig.seoTitle || ''}
+              onSave={(value) => updatePageConfigMutation.mutate({ id: currentPageConfig.id, field: 'seoTitle', value })}
+              type="text"
+              placeholder="Non défini"
+            />
+            <EditableField
+              label="Mots-clés SEO"
+              value={currentPageConfig.seoKeywords || ''}
+              onSave={(value) => updatePageConfigMutation.mutate({ id: currentPageConfig.id, field: 'seoKeywords', value })}
+              type="text"
+              placeholder="Non défini"
+            />
+          </div>
+
+          {/* Ligne 4: Description SEO */}
           <div>
-            <label className="text-sm font-medium text-gray-700">Description SEO</label>
-            <p className="mt-1 text-sm text-gray-900 bg-gray-50 p-3 rounded border">
-              {currentPageConfig.seoDescription || 'Non définie'}
-            </p>
+            <EditableField
+              label="Description SEO"
+              value={currentPageConfig.seoDescription || ''}
+              onSave={(value) => updatePageConfigMutation.mutate({ id: currentPageConfig.id, field: 'seoDescription', value })}
+              type="textarea"
+              placeholder="Non définie"
+              rows={3}
+            />
           </div>
         </CardContent>
       </Card>
