@@ -536,12 +536,15 @@ export const blockTypeEnum = pgEnum("block_type", [
   "interests",     // Section intérêts/destinations
 ]);
 
+// Enum pour les types de pages
+export const pageTypeEnum = pgEnum("page_type", ["main", "secondary", "legal"]);
+
 // Configuration des pages
 export const pageConfigurations = pgTable("page_configurations", {
   id: serial("id").primaryKey(),
   pageSlug: text("page_slug").notNull().unique(), // "home", "experiences", "custom-tour", etc.
   pageName: text("page_name").notNull(), // "Accueil", "Expériences", etc.
-  pageType: text("page_type").notNull(), // "main" ou "secondary"
+  pageType: pageTypeEnum("page_type").notNull(), // "main", "secondary" ou "legal"
   isActive: boolean("is_active").default(true),
   seoTitle: text("seo_title"),
   seoDescription: text("seo_description"),
