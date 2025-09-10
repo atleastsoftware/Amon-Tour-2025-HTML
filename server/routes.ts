@@ -1741,20 +1741,24 @@ Crawl-delay: 1`;
       // The legacy API returns an object with tours array - structure confirmed by Tour Ninja agent
       if (apiResponse.success && apiResponse.tours && Array.isArray(apiResponse.tours)) {
         tours = apiResponse.tours.map((tour: any) => {
-          // TourNinja image URLs are not publicly accessible, use placeholders
-          console.log(`Tour ${tour.name}: Using placeholder (TourNinja images not accessible)`);
+          // Use TourNinja images when available
+          const primaryImage = tour.image || tour.primaryImage || null;
+          if (primaryImage) {
+            console.log(`Tour ${tour.name}: Using TourNinja image (${primaryImage.substring(0, 50)}...)`);
+          } else {
+            console.log(`Tour ${tour.name}: No image available from TourNinja`);
+          }
           
           return {
             id: tour.id,
             name: tour.name || tour.title,
             description: tour.description || '',
             shortDescription: tour.description ? tour.description.substring(0, 150) + '...' : '',
-            images: [], // TourNinja images not accessible
-            // No primary image - will fallback to placeholder in frontend
-            primaryImage: null,
-            fallbackImage: null,
-            presentationImageUrl: null,
-            originalPrimaryImage: null,
+            images: primaryImage ? [primaryImage] : [],
+            primaryImage: primaryImage,
+            fallbackImage: primaryImage,
+            presentationImageUrl: primaryImage,
+            originalPrimaryImage: primaryImage,
             price: tour.price || 0,
             currency: tour.currency || 'THB',
             duration: tour.duration || 1,
