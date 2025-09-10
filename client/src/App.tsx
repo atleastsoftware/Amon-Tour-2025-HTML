@@ -36,7 +36,6 @@ import AdminBlog from "@/pages/admin-blog";
 import AdminNewsletter from "@/pages/admin-newsletter";
 import AdminCustomTours from "@/pages/admin-custom-tours";
 import AdminTourNinjaImages from "@/pages/admin-tour-ninja-images";
-import AdminBulkImageUpload from "@/pages/admin-bulk-image-upload";
 import AdminTranslation from "@/pages/admin-translation";
 import AdminAppearance from "@/pages/admin-appearance";
 import AdminPageEditor from "@/pages/admin-page-editor";
@@ -92,7 +91,6 @@ function Router() {
       <Route path="/admin-newsletter" component={AdminNewsletter} />
       <Route path="/admin-custom-tours" component={AdminCustomTours} />
       <Route path="/admin-tour-ninja-images" component={AdminTourNinjaImages} />
-      <Route path="/admin-bulk-image-upload" component={AdminBulkImageUpload} />
       <Route path="/admin-translation" component={AdminTranslation} />
       <Route path="/admin-appearance" component={AdminAppearance} />
       <Route path="/admin-page-editor" component={AdminPageEditor} />

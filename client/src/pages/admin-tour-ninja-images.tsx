@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useCallback } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { Button } from "@/components/ui/button";
@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { useLocation } from "wouter";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { Upload, Eye, EyeOff, Edit, Trash2, Plus, Image as ImageIcon, Camera, Sparkles, Check, X, Search, Filter } from "lucide-react";
@@ -20,7 +19,6 @@ export default function AdminTourNinjaImages() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [location] = useLocation();
   const [editingOverride, setEditingOverride] = useState<TourNinjaImageOverride | null>(null);
   const [showNewDialog, setShowNewDialog] = useState(false);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -51,27 +49,6 @@ export default function AdminTourNinjaImages() {
   });
 
   const tours = (tourNinjaData as any)?.data || [];
-
-  // Auto-select tour from URL parameter
-  useEffect(() => {
-    if (tours.length > 0) {
-      const urlParams = new URLSearchParams(location.split('?')[1] || '');
-      const tourParam = urlParams.get('tour');
-      
-      if (tourParam) {
-        const selectedTour = tours.find((tour: any) => tour.id === tourParam);
-        if (selectedTour) {
-          setNewOverrideForm(prev => ({
-            ...prev,
-            tourNinjaId: selectedTour.id,
-            tourName: selectedTour.name,
-            originalImageUrl: selectedTour.primaryImage || selectedTour.images?.[0] || ""
-          }));
-          setShowNewDialog(true);
-        }
-      }
-    }
-  }, [tours, location]);
 
   // Drag & Drop handlers
   const handleDrag = useCallback((e: React.DragEvent) => {
@@ -193,7 +170,7 @@ export default function AdminTourNinjaImages() {
   // Toggle override mutation
   const toggleMutation = useMutation({
     mutationFn: async (id: number) => {
-      return apiRequest("PATCH", `/api/admin/tour-ninja-images/${id}/toggle`);
+      return apiRequest(`/api/admin/tour-ninja-images/${id}/toggle`, "PATCH");
     },
     onSuccess: () => {
       // Invalider les données admin ET les données du frontend public
@@ -216,7 +193,7 @@ export default function AdminTourNinjaImages() {
   // Delete override mutation
   const deleteMutation = useMutation({
     mutationFn: async (id: number) => {
-      return apiRequest("DELETE", `/api/admin/tour-ninja-images/${id}`);
+      return apiRequest(`/api/admin/tour-ninja-images/${id}`, "DELETE");
     },
     onSuccess: () => {
       // Invalider les données admin ET les données du frontend public
