@@ -58,6 +58,10 @@ app.use(session({
   }
 }));
 
+// Serve static files for uploaded images
+app.use('/uploads', express.static('uploads'));
+app.use('/objects', express.static('objects'));
+
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;
