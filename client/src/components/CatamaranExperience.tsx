@@ -92,9 +92,87 @@ export default function CatamaranExperience() {
           </StaggerItem>
         </StaggerChildren>
         
+        {/* Photo Gallery Section */}
+        <motion.div 
+          className="mt-20 mb-12"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 300 }}
+              className="overflow-hidden rounded-lg shadow-lg"
+            >
+              <img 
+                src="https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?w=400&h=400&fit=crop" 
+                alt="Catamaran view 1" 
+                className="w-full h-full object-cover"
+              />
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 300 }}
+              className="overflow-hidden rounded-lg shadow-lg"
+            >
+              <img 
+                src="https://images.unsplash.com/photo-1545300849-ac447b458c0e?w=400&h=400&fit=crop" 
+                alt="Catamaran interior" 
+                className="w-full h-full object-cover"
+              />
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 300 }}
+              className="overflow-hidden rounded-lg shadow-lg"
+            >
+              <img 
+                src="https://images.unsplash.com/photo-1621277224630-81a57f52e588?w=400&h=400&fit=crop" 
+                alt="Catamaran deck" 
+                className="w-full h-full object-cover"
+              />
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 300 }}
+              className="overflow-hidden rounded-lg shadow-lg"
+            >
+              <img 
+                src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=400&fit=crop" 
+                alt="Catamaran sailing" 
+                className="w-full h-full object-cover"
+              />
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 300 }}
+              className="overflow-hidden rounded-lg shadow-lg"
+            >
+              <img 
+                src="https://images.unsplash.com/photo-1544551763-92c1e8b2b2a3?w=400&h=400&fit=crop" 
+                alt="Catamaran sunset" 
+                className="w-full h-full object-cover"
+              />
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 300 }}
+              className="overflow-hidden rounded-lg shadow-lg"
+            >
+              <img 
+                src="https://images.unsplash.com/photo-1540946485063-a40da27545f8?w=400&h=400&fit=crop" 
+                alt="Catamaran lounge" 
+                className="w-full h-full object-cover"
+              />
+            </motion.div>
+          </div>
+        </motion.div>
+        
         {/* Lagoon Description Section */}
         <motion.div 
-          className="mt-20"
+          className="mt-8"
           initial={{ y: 20, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true }}
