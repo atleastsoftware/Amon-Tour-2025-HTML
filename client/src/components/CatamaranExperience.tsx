@@ -153,9 +153,10 @@ function PhotoGallery() {
 
 export default function CatamaranExperience() {
   return (
-    <section className="py-16 bg-neutral-light w-full">
-      <div className="w-full px-8 md:px-12 lg:px-16">
-        <div className="text-center mb-12">
+    <section className="w-full bg-blue-50">
+      <div className="w-full px-4 py-12">
+        <div className="bg-white shadow-lg rounded-lg p-8 md:p-12 mx-auto">
+          <div className="text-center mb-12">
           <motion.div 
             initial={{ y: -20, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
@@ -274,6 +275,7 @@ export default function CatamaranExperience() {
         >
           <PhotoGallery />
         </motion.div>
+        </div>
       </div>
     </section>
   );
