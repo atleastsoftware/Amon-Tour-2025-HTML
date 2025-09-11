@@ -4,6 +4,7 @@ import { Loader2 } from "lucide-react";
 
 // Lazy load form components
 const CruiseForm = lazy(() => import("@/components/CruiseForm"));
+const CatamaranExperience = lazy(() => import("@/components/CatamaranExperience"));
 
 interface PageBlock {
   id: number;
@@ -90,18 +91,17 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
 
       case 'text_image':
       case 'about_2col':
-        // Special handling for "The Catamaran Experience" and "What We Offer" sections
+        // Special handling for "The Catamaran Experience" section - use React component for animations
         if (block.identifier === 'catamaran_experience' || block.identifier === 'what_we_offer') {
           return (
-            <div key={block.id} className="bg-white w-full">
-              <div className="w-full">
-                {block.content && (
-                  <div 
-                    className="prose prose-lg max-w-none"
-                    dangerouslySetInnerHTML={{ __html: block.content }}
-                  />
-                )}
-              </div>
+            <div key={block.id} className="w-full">
+              <Suspense fallback={
+                <div className="flex justify-center py-8">
+                  <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+                </div>
+              }>
+                <CatamaranExperience />
+              </Suspense>
             </div>
           );
         }
