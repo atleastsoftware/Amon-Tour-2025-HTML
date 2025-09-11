@@ -153,8 +153,8 @@ function PhotoGallery() {
 
 export default function CatamaranExperience() {
   return (
-    <section className="py-16 bg-neutral-light">
-      <div className="container mx-auto px-4">
+    <section className="py-16 bg-neutral-light w-full">
+      <div className="w-full px-8 md:px-12 lg:px-16">
         <div className="text-center mb-12">
           <motion.div 
             initial={{ y: -20, opacity: 0 }}
@@ -162,9 +162,9 @@ export default function CatamaranExperience() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">The Catamaran Experience</h2>
+            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">The Catamaran Experience: Freedom and Exclusivity</h2>
             <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
-            <p className="text-gray-600 max-w-4xl mx-auto mb-2">
+            <p className="text-gray-600 max-w-6xl mx-auto mb-2">
               Navigate towards exclusivity aboard one of the rare catamaran cruises departing from Krabi. Explore the Andaman Sea as few travelers have the chance to do: in complete freedom, away from tourist circuits, with an itinerary designed entirely for you.
             </p>
             <p className="text-gray-600 max-w-3xl mx-auto">
