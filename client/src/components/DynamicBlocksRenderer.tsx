@@ -220,6 +220,47 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
           </div>
         );
 
+      case 'advantages':
+        return (
+          <div key={block.id} className="py-16 bg-white">
+            <div className="container mx-auto px-4">
+              {block.title && (
+                <h2 className="text-3xl font-bold text-center mb-4">{block.title}</h2>
+              )}
+              {block.subtitle && (
+                <p className="text-xl text-gray-600 text-center mb-8">{block.subtitle}</p>
+              )}
+              {block.content && (
+                <div 
+                  className="prose prose-lg mx-auto max-w-6xl"
+                  dangerouslySetInnerHTML={{ __html: block.content }}
+                />
+              )}
+            </div>
+          </div>
+        );
+
+      case 'card_grid':
+      case 'cards_grid':
+        return (
+          <div key={block.id} className="py-16 bg-gray-50">
+            <div className="container mx-auto px-4">
+              {block.title && (
+                <h2 className="text-3xl font-bold text-center mb-4">{block.title}</h2>
+              )}
+              {block.subtitle && (
+                <p className="text-xl text-gray-600 text-center mb-8">{block.subtitle}</p>
+              )}
+              {block.content && (
+                <div 
+                  className="prose prose-lg mx-auto max-w-6xl"
+                  dangerouslySetInnerHTML={{ __html: block.content }}
+                />
+              )}
+            </div>
+          </div>
+        );
+
       default:
         // Bloc générique pour les types non implémentés
         return (
