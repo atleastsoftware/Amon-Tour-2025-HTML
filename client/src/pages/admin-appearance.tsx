@@ -3524,15 +3524,37 @@ export default function AdminAppearance() {
                     <div className="flex gap-2">
                       {selectedPage !== 'navigation-menu' && (
                         <>
+                          <Button
+                            variant="outline"
+                            onClick={() => {
+                              const pageUrl = selectedPage === 'home' ? '/' : `/${selectedPage}`;
+                              window.open(pageUrl, '_blank');
+                            }}
+                          >
+                            <Eye className="w-4 h-4 mr-2" />
+                            Voir la page
+                          </Button>
+                          <Button
+                            onClick={() => {
+                              // Rediriger directement vers l'édition de la page sélectionnée
+                              if (selectedPage === 'home') {
+                                window.location.href = '/admin-page-editor';
+                              } else {
+                                window.location.href = `/admin-page-editor?page=${selectedPage}`;
+                              }
+                            }}
+                          >
+                            <Edit className="w-4 h-4 mr-2" />
+                            Éditer la page
+                          </Button>
                           {selectedPage !== 'home' && (
                             <AlertDialog>
                               <AlertDialogTrigger asChild>
                                 <Button
-                                  variant="outline"
-                                  className="text-red-600 hover:text-red-700 hover:bg-red-50 border-red-200"
+                                  className="bg-red-600 hover:bg-red-700 text-white px-3"
+                                  title="Supprimer la page"
                                 >
-                                  <Trash className="w-4 h-4 mr-2" />
-                                  Supprimer
+                                  <Trash className="w-4 h-4" />
                                 </Button>
                               </AlertDialogTrigger>
                               <AlertDialogContent>
@@ -3586,29 +3608,6 @@ export default function AdminAppearance() {
                               </AlertDialogContent>
                             </AlertDialog>
                           )}
-                          <Button
-                            variant="outline"
-                            onClick={() => {
-                              const pageUrl = selectedPage === 'home' ? '/' : `/${selectedPage}`;
-                              window.open(pageUrl, '_blank');
-                            }}
-                          >
-                            <Eye className="w-4 h-4 mr-2" />
-                            Voir la page
-                          </Button>
-                          <Button
-                            onClick={() => {
-                              // Rediriger directement vers l'édition de la page sélectionnée
-                              if (selectedPage === 'home') {
-                                window.location.href = '/admin-page-editor';
-                              } else {
-                                window.location.href = `/admin-page-editor?page=${selectedPage}`;
-                              }
-                            }}
-                          >
-                            <Edit className="w-4 h-4 mr-2" />
-                            Éditer la page
-                          </Button>
                         </>
                       )}
                     </div>
