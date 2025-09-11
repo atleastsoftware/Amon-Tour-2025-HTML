@@ -20,12 +20,12 @@ import {
 
 interface PageConfiguration {
   id: number;
-  page_name: string;
-  page_slug: string;
-  page_type: 'main' | 'secondary' | 'legal';
-  is_active: boolean;
-  created_at?: string;
-  updated_at?: string;
+  pageName: string;
+  pageSlug: string;
+  pageType: 'main' | 'secondary' | 'legal';
+  isActive: boolean;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 function AdminEditorPageContent() {
@@ -42,13 +42,12 @@ function AdminEditorPageContent() {
 
   // Transformer les données pour l'affichage
   const pages = pageConfigs.map(page => ({
-    id: page.page_slug,
-    title: page.page_name,
-    slug: page.page_slug === 'home' ? '/' : `/${page.page_slug}`,
-    status: page.is_active ? 'Publié' : 'Brouillon',
-    lastModified: page.updated_at ? new Date(page.updated_at).toLocaleDateString('fr-FR') : 'Non défini',
-    type: page.page_type === 'main' ? 'Page principale' : 
-          page.page_type === 'secondary' ? 'Page secondaire' : 'Mentions légales'
+    id: page.pageSlug,
+    title: page.pageName,
+    slug: page.pageSlug === 'home' ? '/' : `/${page.pageSlug}`,
+    status: page.isActive ? 'Publié' : 'Brouillon',
+    type: page.pageType === 'main' ? 'Page principale' : 
+          page.pageType === 'secondary' ? 'Page secondaire' : 'Mentions légales'
   }));
 
   const handleEditPage = (pageId: string) => {
@@ -135,22 +134,15 @@ function AdminEditorPageContent() {
             <Card key={page.id} className="bg-white border border-gray-200 hover:border-blue-300 transition-colors">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-4 mb-2">
-                      <h3 className="text-lg font-semibold text-gray-900">
-                        {page.title}
-                      </h3>
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                        page.status === 'Publié' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
-                      }`}>
-                        {page.status}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-6 text-sm text-gray-500">
-                      <span>URL: {page.slug}</span>
-                      <span>Type: {page.type}</span>
-                      <span>Modifié le: {page.lastModified}</span>
-                    </div>
+                  <div className="flex items-center gap-4">
+                    <h3 className="text-lg font-semibold text-gray-900">
+                      {page.title || 'Page sans titre'}
+                    </h3>
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      page.status === 'Publié' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                    }`}>
+                      {page.status}
+                    </span>
                   </div>
                   
                   <div className="flex items-center gap-2">
