@@ -26,9 +26,9 @@ export default function CatamaranExperience() {
         
         <StaggerChildren className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Feature 1 - Tailor-made routes */}
-          <StaggerItem>
+          <StaggerItem className="flex">
             <motion.div 
-              className="bg-white p-6 rounded-lg shadow-md text-center flex flex-col items-center relative"
+              className="bg-white p-6 rounded-lg shadow-md text-center flex flex-col items-center relative h-full w-full"
               whileHover={{ 
                 y: -10, 
                 boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
@@ -43,14 +43,14 @@ export default function CatamaranExperience() {
                 <Map size={28} className="text-white" />
               </motion.div>
               <h3 className="font-heading font-bold text-xl mb-2">Tailor-made routes</h3>
-              <p className="text-gray-600">We compose your itinerary to reveal the best of the region, prioritizing preserved sites and exceptional moments.</p>
+              <p className="text-gray-600 flex-grow">We compose your itinerary to reveal the best of the region, prioritizing preserved sites and exceptional moments.</p>
             </motion.div>
           </StaggerItem>
           
           {/* Feature 2 - Expert crew */}
-          <StaggerItem>
+          <StaggerItem className="flex">
             <motion.div 
-              className="bg-white p-6 rounded-lg shadow-md text-center flex flex-col items-center relative"
+              className="bg-white p-6 rounded-lg shadow-md text-center flex flex-col items-center relative h-full w-full"
               whileHover={{ 
                 y: -10, 
                 boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
@@ -65,14 +65,14 @@ export default function CatamaranExperience() {
                 <Zap size={28} className="text-white" />
               </motion.div>
               <h3 className="font-heading font-bold text-xl mb-2">Expert crew</h3>
-              <p className="text-gray-600">Our captains have perfect mastery of these waters. They optimize each navigation by adapting to weather conditions, tides and winds to maximize your pleasure.</p>
+              <p className="text-gray-600 flex-grow">Our captains have perfect mastery of these waters. They optimize each navigation by adapting to weather conditions, tides and winds to maximize your pleasure.</p>
             </motion.div>
           </StaggerItem>
           
           {/* Feature 3 - Total freedom */}
-          <StaggerItem>
+          <StaggerItem className="flex">
             <motion.div 
-              className="bg-white p-6 rounded-lg shadow-md text-center flex flex-col items-center relative"
+              className="bg-white p-6 rounded-lg shadow-md text-center flex flex-col items-center relative h-full w-full"
               whileHover={{ 
                 y: -10, 
                 boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
@@ -87,7 +87,7 @@ export default function CatamaranExperience() {
                 <Globe size={28} className="text-white" />
               </motion.div>
               <h3 className="font-heading font-bold text-xl mb-2">Total freedom</h3>
-              <p className="text-gray-600">Deserted beaches, turquoise lagoons, snorkeling in crystal-clear waters... Your cruise evolves according to your preferences.</p>
+              <p className="text-gray-600 flex-grow">Deserted beaches, turquoise lagoons, snorkeling in crystal-clear waters... Your cruise evolves according to your preferences.</p>
             </motion.div>
           </StaggerItem>
         </StaggerChildren>

@@ -20,8 +20,8 @@ localPort = 33837
 externalPort = 3000
 
 [[ports]]
-localPort = 46499
-externalPort = 3001
+localPort = 39515
+externalPort = 3002
 
 [workflows]
 runButton = "Restart Application"
