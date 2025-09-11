@@ -1688,6 +1688,31 @@ export default function AdminAppearance() {
   // Note: L'ancienne logique automatique de catégorisation via navigationMenuItems a été supprimée
   // Maintenant nous utilisons simplement le champ pageType de chaque page
 
+  // Update page configuration mutation - MOVED HERE to be defined before usage
+  const updatePageConfigMutation = useMutation({
+    mutationFn: (data: { id: number; field: string; value: string }) =>
+      fetch(`/api/admin/page-configurations/${data.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ [data.field]: data.value })
+      }).then(res => {
+        if (!res.ok) throw new Error('Failed to update page configuration');
+        return res.json();
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/page-configurations'] });
+    },
+    onError: (error: any) => {
+      toast({ 
+        title: 'Erreur lors de la sauvegarde', 
+        description: error.message || 'Veuillez réessayer',
+        variant: 'destructive' 
+      });
+      throw error; // Re-throw pour que EditableField puisse gérer l'erreur
+    }
+  });
+
   // Create block mutation
   const createBlockMutation = useMutation({
     mutationFn: (blockData: Partial<PageBlock>) =>
@@ -1815,30 +1840,6 @@ export default function AdminAppearance() {
     }
   });
 
-  // Update page configuration mutation
-  const updatePageConfigMutation = useMutation({
-    mutationFn: (data: { id: number; field: string; value: string }) =>
-      fetch(`/api/admin/page-configurations/${data.id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({ [data.field]: data.value })
-      }).then(res => {
-        if (!res.ok) throw new Error('Failed to update page configuration');
-        return res.json();
-      }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/admin/page-configurations'] });
-    },
-    onError: (error: any) => {
-      toast({ 
-        title: 'Erreur lors de la sauvegarde', 
-        description: error.message || 'Veuillez réessayer',
-        variant: 'destructive' 
-      });
-      throw error; // Re-throw pour que EditableField puisse gérer l'erreur
-    }
-  });
 
   // Update site setting mutation
   const updateSiteSettingMutation = useMutation({
@@ -3795,7 +3796,7 @@ export default function AdminAppearance() {
                   </Dialog>
                   <CardContent>
                     {selectedPage === 'navigation-menu' ? (
-                      <NavigationMenuManager pageConfigs={pageConfigs} navigationMenuItems={navigationMenuItems} />
+                      <NavigationMenuManager pageConfigs={pageConfigs} navigationMenuItems={[]} />
                     ) : loadingBlocks ? (
                       <div className="text-center py-12">
                         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
