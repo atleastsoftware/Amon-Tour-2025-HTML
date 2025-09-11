@@ -105,6 +105,24 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
             </div>
           );
         }
+        // Special handling for pricing section - full width
+        if (block.identifier === 'pricing') {
+          return (
+            <div key={block.id} className="w-full">
+              {block.title && (
+                <div className="container mx-auto px-4 py-8">
+                  <h2 className="text-3xl font-bold text-center mb-4">{block.title}</h2>
+                </div>
+              )}
+              {block.content && (
+                <div 
+                  className="w-full"
+                  dangerouslySetInnerHTML={{ __html: block.content }}
+                />
+              )}
+            </div>
+          );
+        }
         // Default text_image rendering
         return (
           <div key={block.id} className="py-16 bg-white w-full">
