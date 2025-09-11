@@ -3,8 +3,10 @@ import { StaggerChildren, StaggerItem } from "@/components/ui/animations";
 import { Map, Zap, Globe, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 
-// Photo Gallery Grid Component
+// Photo Gallery Carousel Component
 function PhotoGallery() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  
   const images = [
     {
       src: "https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?w=600&h=400&fit=crop",
@@ -32,31 +34,64 @@ function PhotoGallery() {
     }
   ];
 
+  const nextSlide = () => {
+    setCurrentIndex((prev) => Math.min(prev + 1, images.length - 3));
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prev) => Math.max(prev - 1, 0));
+  };
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {images.map((image, index) => (
-        <motion.div
-          key={index}
-          className="relative overflow-hidden rounded-lg shadow-md group cursor-pointer"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: index * 0.1 }}
-          whileHover={{ 
-            y: -10, 
-            boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
-          }}
+    <div className="relative max-w-7xl mx-auto">
+      <div className="relative overflow-hidden">
+        <div 
+          className="flex gap-6 transition-transform duration-500 ease-in-out"
+          style={{ transform: `translateX(-${currentIndex * (100 / 3 + 2)}%)` }}
         >
-          <div className="aspect-w-16 aspect-h-10 relative h-64">
-            <img 
-              src={image.src} 
-              alt={image.alt}
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          </div>
-        </motion.div>
-      ))}
+          {images.map((image, index) => (
+            <motion.div
+              key={index}
+              className="flex-shrink-0 w-full md:w-[calc(33.333%-16px)] relative overflow-hidden rounded-lg shadow-md group cursor-pointer"
+              whileHover={{ 
+                y: -10, 
+                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+              }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <div className="relative h-64">
+                <img 
+                  src={image.src} 
+                  alt={image.alt}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+            </motion.div>
+          ))}
+        </div>
+        
+        {/* Navigation Buttons */}
+        {currentIndex > 0 && (
+          <button
+            onClick={prevSlide}
+            className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-3 rounded-r-lg shadow-lg transition-all duration-200 hover:pl-4 z-10"
+            aria-label="Previous images"
+          >
+            <ChevronLeft className="h-6 w-6" />
+          </button>
+        )}
+        
+        {currentIndex < images.length - 3 && (
+          <button
+            onClick={nextSlide}
+            className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-3 rounded-l-lg shadow-lg transition-all duration-200 hover:pr-4 z-10"
+            aria-label="Next images"
+          >
+            <ChevronRight className="h-6 w-6" />
+          </button>
+        )}
+      </div>
     </div>
   );
 }
@@ -153,7 +188,7 @@ export default function CatamaranExperience() {
         
         {/* Lagoon Description Section */}
         <motion.div 
-          className="mt-8"
+          className="mt-20"
           initial={{ y: 20, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true }}
