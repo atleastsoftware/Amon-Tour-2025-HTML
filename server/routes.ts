@@ -2,6 +2,8 @@ import express, { type Express, type Request, type Response } from "express";
 import { createServer, type Server } from "http";
 import { z } from "zod";
 import { storage } from "./storage";
+import { db } from "./db";
+import { eq } from "drizzle-orm";
 import { 
   insertTourSchema, 
   insertCustomTourRequestSchema, 
@@ -26,6 +28,7 @@ import {
   insertBlockTemplateSchema,
   insertNavigationMenuItemSchema,
   insertCustomFormSchema,
+  pageConfigurations,
 } from "@shared/schema";
 import { createPaymentIntent, createOrRetrieveCustomer } from "./stripe";
 import { upload, getPublicFileUrl } from "./upload";
