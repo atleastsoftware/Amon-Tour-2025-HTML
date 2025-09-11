@@ -1150,10 +1150,11 @@ function CopyrightManager({ siteSettings, updateSiteSetting, updateSiteSettingMu
 }
 
 // Page Management Interface Component - Page Information Dashboard
-function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs }: {
+function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs, updatePageConfigMutation }: {
   selectedPage: string;
   pageBlocks: PageBlock[];
   pageConfigs: PageConfiguration[];
+  updatePageConfigMutation: any;
 }) {
   const currentPageConfig = pageConfigs.find(p => p.pageSlug === selectedPage);
   
@@ -1412,6 +1413,7 @@ export default function AdminAppearance() {
 
   // States for page creation modal
   const [isCreatePageDialogOpen, setIsCreatePageDialogOpen] = useState(false);
+  const [isAddPageModalOpen, setIsAddPageModalOpen] = useState(false);
   const [newPageData, setNewPageData] = useState({
     pageName: '',
     pageSlug: '',
@@ -3480,113 +3482,14 @@ export default function AdminAppearance() {
                       </Button>
                       
                       {/* Add New Page Button */}
-                      <Dialog open={isCreatePageDialogOpen} onOpenChange={setIsCreatePageDialogOpen}>
-                        <DialogTrigger asChild>
-                          <Button
-                            variant="outline"
-                            className="w-full justify-start text-sm h-8 border-dashed border-blue-300 text-blue-600 hover:bg-blue-50"
-                          >
-                            <Plus className="w-4 h-4 mr-2" />
-                            Ajouter une page
-                          </Button>
-                        </DialogTrigger>
-                        <DialogContent className="sm:max-w-md">
-                          <DialogHeader>
-                            <DialogTitle>Créer une nouvelle page</DialogTitle>
-                            <DialogDescription>
-                              Ajoutez une nouvelle page à votre site web avec ses paramètres de base.
-                            </DialogDescription>
-                          </DialogHeader>
-                          <div className="space-y-4">
-                            <div className="grid grid-cols-1 gap-4">
-                              <div>
-                                <Label htmlFor="page-name">Nom de la page*</Label>
-                                <Input
-                                  id="page-name"
-                                  value={newPageData.pageName}
-                                  onChange={(e) => {
-                                    setNewPageData(prev => ({
-                                      ...prev,
-                                      pageName: e.target.value,
-                                      pageSlug: generateSlugFromName(e.target.value)
-                                    }));
-                                  }}
-                                  placeholder="Ex: À propos, Services, Contact"
-                                />
-                              </div>
-                              <div>
-                                <Label htmlFor="page-slug">URL de la page*</Label>
-                                <Input
-                                  id="page-slug"
-                                  value={newPageData.pageSlug}
-                                  onChange={(e) => setNewPageData(prev => ({ ...prev, pageSlug: e.target.value }))}
-                                  placeholder="Ex: about-us, services, contact"
-                                />
-                                <p className="text-xs text-gray-500 mt-1">
-                                  Sera accessible via: /{newPageData.pageSlug}
-                                </p>
-                              </div>
-                              <div>
-                                <Label htmlFor="page-type">Type de page</Label>
-                                <Select value={newPageData.pageType} onValueChange={(value: 'main' | 'secondary') => setNewPageData(prev => ({ ...prev, pageType: value }))}>
-                                  <SelectTrigger>
-                                    <SelectValue />
-                                  </SelectTrigger>
-                                  <SelectContent>
-                                    <SelectItem value="main">Page principale</SelectItem>
-                                    <SelectItem value="secondary">Page secondaire</SelectItem>
-                                  </SelectContent>
-                                </Select>
-                              </div>
-                            </div>
-                            
-                            <div className="border-t pt-4">
-                              <h4 className="font-medium text-sm text-gray-900 mb-3">Paramètres SEO (optionnel)</h4>
-                              <div className="space-y-3">
-                                <div>
-                                  <Label htmlFor="seo-title">Titre SEO</Label>
-                                  <Input
-                                    id="seo-title"
-                                    value={newPageData.seoTitle}
-                                    onChange={(e) => setNewPageData(prev => ({ ...prev, seoTitle: e.target.value }))}
-                                    placeholder="Titre qui apparaîtra dans Google"
-                                  />
-                                </div>
-                                <div>
-                                  <Label htmlFor="seo-description">Description SEO</Label>
-                                  <Textarea
-                                    id="seo-description"
-                                    value={newPageData.seoDescription}
-                                    onChange={(e) => setNewPageData(prev => ({ ...prev, seoDescription: e.target.value }))}
-                                    placeholder="Description qui apparaîtra dans Google (155 caractères max)"
-                                    rows={2}
-                                  />
-                                </div>
-                                <div>
-                                  <Label htmlFor="seo-keywords">Mots-clés SEO</Label>
-                                  <Input
-                                    id="seo-keywords"
-                                    value={newPageData.seoKeywords}
-                                    onChange={(e) => setNewPageData(prev => ({ ...prev, seoKeywords: e.target.value }))}
-                                    placeholder="mots-clés, séparés, par, des, virgules"
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="flex justify-between pt-4">
-                            <Button variant="outline" onClick={() => setIsCreatePageDialogOpen(false)}>
-                              Annuler
-                            </Button>
-                            <Button
-                              onClick={handleCreatePage}
-                              disabled={!newPageData.pageName || createPageMutation.isPending}
-                            >
-                              {createPageMutation.isPending ? 'Création...' : 'Créer la page'}
-                            </Button>
-                          </div>
-                        </DialogContent>
-                      </Dialog>
+                      <Button
+                        variant="outline"
+                        className="w-full justify-start text-sm h-8 border-dashed border-blue-300 text-blue-600 hover:bg-blue-50"
+                        onClick={() => setIsAddPageModalOpen(true)}
+                      >
+                        <Plus className="w-4 h-4 mr-2" />
+                        Ajouter une page
+                      </Button>
                     </div>
                     
                   </div>
@@ -3813,6 +3716,7 @@ export default function AdminAppearance() {
                         selectedPage={selectedPage}
                         pageBlocks={pageBlocks}
                         pageConfigs={pageConfigs}
+                        updatePageConfigMutation={updatePageConfigMutation}
                       />
                     )}
                   </CardContent>
@@ -3907,6 +3811,17 @@ export default function AdminAppearance() {
 
         </Tabs>
       </div>
+      
+      {/* Modal d'ajout de page */}
+      <AddPageModal
+        isOpen={isAddPageModalOpen}
+        onClose={() => setIsAddPageModalOpen(false)}
+        onSuccess={(pageSlug) => {
+          // Depuis admin-appearance, on affiche directement la nouvelle page
+          setSelectedPage(pageSlug);
+          setExpandedCategories(['Pages secondaires']);
+        }}
+      />
     </div>
   );
 }
