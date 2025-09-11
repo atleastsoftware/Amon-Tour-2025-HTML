@@ -3878,13 +3878,29 @@ export default function AdminAppearance() {
       <AddPageModal
         isOpen={isAddPageModalOpen}
         onClose={() => setIsAddPageModalOpen(false)}
-        onSuccess={(pageSlug) => {
-          // Attendre un court instant pour que les données soient rechargées
-          setTimeout(() => {
-            // Depuis admin-appearance, on affiche directement la nouvelle page
-            setSelectedPage(pageSlug);
-            setExpandedCategories(['Pages secondaires']);
-          }, 1000);
+        onSuccess={async (pageSlug) => {
+          // Forcer le rechargement des données
+          await queryClient.invalidateQueries({ queryKey: ['/api/admin/page-configurations'] });
+          await queryClient.refetchQueries({ queryKey: ['/api/admin/page-configurations'] });
+          
+          // Vérifier que la page existe avant de la sélectionner
+          const checkPageExists = async (retries = 10) => {
+            const pages = queryClient.getQueryData<PageConfiguration[]>(['/api/admin/page-configurations']);
+            if (pages && pages.some(p => p.pageSlug === pageSlug)) {
+              // La page existe, on peut la sélectionner
+              setSelectedPage(pageSlug);
+              setExpandedCategories(['Pages secondaires']);
+            } else if (retries > 0) {
+              // Réessayer après un court délai
+              await queryClient.refetchQueries({ queryKey: ['/api/admin/page-configurations'] });
+              setTimeout(() => checkPageExists(retries - 1), 500);
+            } else {
+              // Après toutes les tentatives, forcer un rechargement complet
+              window.location.reload();
+            }
+          };
+          
+          checkPageExists();
         }}
       />
     </div>

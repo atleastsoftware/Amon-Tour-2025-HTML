@@ -254,16 +254,36 @@ function AdminEditorPageContent() {
       <AddPageModal
         isOpen={isAddPageModalOpen}
         onClose={() => setIsAddPageModalOpen(false)}
-        onSuccess={(pageSlug) => {
-          // Attendre un court instant pour que les données soient rechargées
-          setTimeout(() => {
-            // Depuis admin-editor-page, rediriger vers l'édition de la nouvelle page
-            if (pageSlug === 'home') {
-              setLocation('/admin-page-editor');
+        onSuccess={async (pageSlug) => {
+          // Forcer le rechargement des données
+          await queryClient.invalidateQueries({ queryKey: ['/api/admin/page-configurations'] });
+          await queryClient.refetchQueries({ queryKey: ['/api/admin/page-configurations'] });
+          
+          // Vérifier que la page existe avant de rediriger
+          const checkPageExists = async (retries = 10) => {
+            const pages = queryClient.getQueryData<PageConfiguration[]>(['/api/admin/page-configurations']);
+            if (pages && pages.some(p => p.pageSlug === pageSlug)) {
+              // La page existe, on peut rediriger
+              if (pageSlug === 'home') {
+                setLocation('/admin-page-editor');
+              } else {
+                setLocation(`/admin-page-editor?page=${pageSlug}`);
+              }
+            } else if (retries > 0) {
+              // Réessayer après un court délai
+              await queryClient.refetchQueries({ queryKey: ['/api/admin/page-configurations'] });
+              setTimeout(() => checkPageExists(retries - 1), 500);
             } else {
-              setLocation(`/admin-page-editor?page=${pageSlug}`);
+              // Après toutes les tentatives, rediriger quand même
+              if (pageSlug === 'home') {
+                setLocation('/admin-page-editor');
+              } else {
+                setLocation(`/admin-page-editor?page=${pageSlug}`);
+              }
             }
-          }, 1000);
+          };
+          
+          checkPageExists();
         }}
       />
     </div>
