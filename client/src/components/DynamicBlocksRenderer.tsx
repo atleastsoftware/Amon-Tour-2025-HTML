@@ -90,8 +90,8 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
 
       case 'text_image':
       case 'about_2col':
-        // Special handling for "The Catamaran Experience" section
-        if (block.identifier === 'catamaran_experience') {
+        // Special handling for "The Catamaran Experience" and "What We Offer" sections
+        if (block.identifier === 'catamaran_experience' || block.identifier === 'what_we_offer') {
           return (
             <div key={block.id} className="bg-white w-full">
               <div className="w-full">
