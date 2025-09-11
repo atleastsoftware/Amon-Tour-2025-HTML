@@ -255,12 +255,15 @@ function AdminEditorPageContent() {
         isOpen={isAddPageModalOpen}
         onClose={() => setIsAddPageModalOpen(false)}
         onSuccess={(pageSlug) => {
-          // Depuis admin-editor-page, rediriger vers l'édition de la nouvelle page
-          if (pageSlug === 'home') {
-            setLocation('/admin-page-editor');
-          } else {
-            setLocation(`/admin-page-editor?page=${pageSlug}`);
-          }
+          // Attendre un court instant pour que les données soient rechargées
+          setTimeout(() => {
+            // Depuis admin-editor-page, rediriger vers l'édition de la nouvelle page
+            if (pageSlug === 'home') {
+              setLocation('/admin-page-editor');
+            } else {
+              setLocation(`/admin-page-editor?page=${pageSlug}`);
+            }
+          }, 1000);
         }}
       />
     </div>

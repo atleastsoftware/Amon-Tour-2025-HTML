@@ -61,12 +61,16 @@ export function AddPageModal({ isOpen, onClose, onSuccess }: AddPageModalProps) 
       const response = await apiRequest('POST', '/api/admin/page-configurations', data);
       return response.json();
     },
-    onSuccess: (data: any) => {
+    onSuccess: async (data: any) => {
       toast({
         title: "Succès",
         description: "La page a été créée avec succès",
       });
-      queryClient.invalidateQueries({ queryKey: ['/api/admin/page-configurations'] });
+      // Invalider et attendre le rechargement des données
+      await queryClient.invalidateQueries({ queryKey: ['/api/admin/page-configurations'] });
+      await queryClient.refetchQueries({ queryKey: ['/api/admin/page-configurations'] });
+      
+      // Appeler le callback avec le slug de la nouvelle page
       onSuccess(data.pageSlug);
       handleClose();
     },

@@ -3879,9 +3879,12 @@ export default function AdminAppearance() {
         isOpen={isAddPageModalOpen}
         onClose={() => setIsAddPageModalOpen(false)}
         onSuccess={(pageSlug) => {
-          // Depuis admin-appearance, on affiche directement la nouvelle page
-          setSelectedPage(pageSlug);
-          setExpandedCategories(['Pages secondaires']);
+          // Attendre un court instant pour que les données soient rechargées
+          setTimeout(() => {
+            // Depuis admin-appearance, on affiche directement la nouvelle page
+            setSelectedPage(pageSlug);
+            setExpandedCategories(['Pages secondaires']);
+          }, 1000);
         }}
       />
     </div>
