@@ -106,48 +106,6 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
             </div>
           );
         }
-        // Special handling for Hotel Pick-up Service - full width
-        if (block.identifier === 'hotel_pickup') {
-          return (
-            <div key={block.id} className="py-16 bg-white w-full">
-              <div className="w-full">
-                {block.title && (
-                  <h2 className="text-3xl font-bold text-center mb-4">{block.title}</h2>
-                )}
-                {block.subtitle && (
-                  <p className="text-xl text-gray-600 text-center mb-8">{block.subtitle}</p>
-                )}
-                {block.content && (
-                  <div 
-                    className="w-full"
-                    dangerouslySetInnerHTML={{ __html: block.content }}
-                  />
-                )}
-              </div>
-            </div>
-          );
-        }
-        // Special handling for Included/Not Included - full width
-        if (block.identifier === 'included_excluded') {
-          return (
-            <div key={block.id} className="py-16 bg-white w-full">
-              <div className="w-full">
-                {block.title && (
-                  <h2 className="text-3xl font-bold text-center mb-4">{block.title}</h2>
-                )}
-                {block.subtitle && (
-                  <p className="text-xl text-gray-600 text-center mb-8">{block.subtitle}</p>
-                )}
-                {block.content && (
-                  <div 
-                    className="w-full"
-                    dangerouslySetInnerHTML={{ __html: block.content }}
-                  />
-                )}
-              </div>
-            </div>
-          );
-        }
         // Special handling for pricing section - use React component
         if (block.identifier === 'pricing') {
           return (
