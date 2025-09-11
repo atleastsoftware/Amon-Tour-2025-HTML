@@ -5,6 +5,7 @@ import { Loader2 } from "lucide-react";
 // Lazy load form components
 const CruiseForm = lazy(() => import("@/components/CruiseForm"));
 const CatamaranExperience = lazy(() => import("@/components/CatamaranExperience"));
+const LagoonDescription = lazy(() => import("@/components/LagoonDescription"));
 
 interface PageBlock {
   id: number;
@@ -101,6 +102,20 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                 </div>
               }>
                 <CatamaranExperience />
+              </Suspense>
+            </div>
+          );
+        }
+        // Special handling for "Lagoon Description" section
+        if (block.identifier === 'lagoon_description') {
+          return (
+            <div key={block.id} className="w-full">
+              <Suspense fallback={
+                <div className="flex justify-center py-8">
+                  <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+                </div>
+              }>
+                <LagoonDescription />
               </Suspense>
             </div>
           );
