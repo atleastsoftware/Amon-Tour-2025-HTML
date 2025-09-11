@@ -3,99 +3,60 @@ import { StaggerChildren, StaggerItem } from "@/components/ui/animations";
 import { Map, Zap, Globe, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 
-// Photo Carousel Component
-function PhotoCarousel() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  
+// Photo Gallery Grid Component
+function PhotoGallery() {
   const images = [
-    "https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?w=800&h=500&fit=crop",
-    "https://images.unsplash.com/photo-1545300849-ac447b458c0e?w=800&h=500&fit=crop",
-    "https://images.unsplash.com/photo-1621277224630-81a57f52e588?w=800&h=500&fit=crop",
-    "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=500&fit=crop",
-    "https://images.unsplash.com/photo-1544551763-92c1e8b2b2a3?w=800&h=500&fit=crop",
-    "https://images.unsplash.com/photo-1540946485063-a40da27545f8?w=800&h=500&fit=crop"
+    {
+      src: "https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?w=600&h=400&fit=crop",
+      alt: "Thai beach with crystal clear water and speedboat"
+    },
+    {
+      src: "https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=600&h=400&fit=crop",
+      alt: "Phi Phi Islands sunset"
+    },
+    {
+      src: "https://images.unsplash.com/photo-1506665531195-3566af2b4dfa?w=600&h=400&fit=crop",
+      alt: "Krabi limestone cliffs"
+    },
+    {
+      src: "https://images.unsplash.com/photo-1540202249604-58e38348b89a?w=600&h=400&fit=crop",
+      alt: "Thai longtail boat on turquoise water"
+    },
+    {
+      src: "https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=600&h=400&fit=crop",
+      alt: "Maya Bay crystal clear lagoon"
+    },
+    {
+      src: "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?w=600&h=400&fit=crop",
+      alt: "Thailand tropical paradise beach"
+    }
   ];
 
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % images.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
-  };
-
   return (
-    <div className="relative max-w-4xl mx-auto">
-      <div className="relative overflow-hidden rounded-xl shadow-lg">
-        <div 
-          className="flex transition-transform duration-500 ease-in-out"
-          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {images.map((image, index) => (
+        <motion.div
+          key={index}
+          className="relative overflow-hidden rounded-lg shadow-md group cursor-pointer"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: index * 0.1 }}
+          whileHover={{ 
+            y: -10, 
+            boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+          }}
         >
-          {images.map((src, index) => (
-            <div key={index} className="min-w-full">
-              <img 
-                src={src} 
-                alt={`Catamaran ${index + 1}`} 
-                className="w-full h-[300px] md:h-[400px] object-cover"
-              />
-            </div>
-          ))}
-        </div>
-        
-        {/* Navigation Buttons */}
-        <button
-          onClick={prevSlide}
-          className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 p-2 rounded-full shadow-lg transition-all duration-200 hover:scale-110"
-          aria-label="Previous image"
-        >
-          <ChevronLeft className="h-6 w-6" />
-        </button>
-        
-        <button
-          onClick={nextSlide}
-          className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 p-2 rounded-full shadow-lg transition-all duration-200 hover:scale-110"
-          aria-label="Next image"
-        >
-          <ChevronRight className="h-6 w-6" />
-        </button>
-        
-        {/* Dots Indicator */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-          {images.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={`w-2 h-2 rounded-full transition-all duration-200 ${
-                index === currentIndex 
-                  ? 'bg-white w-8' 
-                  : 'bg-white/50 hover:bg-white/75'
-              }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div>
-      </div>
-      
-      {/* Thumbnails */}
-      <div className="mt-4 flex gap-2 overflow-x-auto pb-2">
-        {images.map((src, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentIndex(index)}
-            className={`flex-shrink-0 rounded-lg overflow-hidden transition-all duration-200 ${
-              index === currentIndex 
-                ? 'ring-2 ring-primary ring-offset-2' 
-                : 'opacity-70 hover:opacity-100'
-            }`}
-          >
+          <div className="aspect-w-16 aspect-h-10 relative h-64">
             <img 
-              src={src} 
-              alt={`Thumbnail ${index + 1}`} 
-              className="w-20 h-16 object-cover"
+              src={image.src} 
+              alt={image.alt}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
             />
-          </button>
-        ))}
-      </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          </div>
+        </motion.div>
+      ))}
     </div>
   );
 }
@@ -190,17 +151,6 @@ export default function CatamaranExperience() {
           </StaggerItem>
         </StaggerChildren>
         
-        {/* Photo Gallery Carousel */}
-        <motion.div 
-          className="mt-16 mb-8"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          <PhotoCarousel />
-        </motion.div>
-        
         {/* Lagoon Description Section */}
         <motion.div 
           className="mt-8"
@@ -222,6 +172,17 @@ export default function CatamaranExperience() {
               Perfect for holidays with family, friends or private charter, this boat guarantees your comfort, privacy and freedom to explore the most beautiful islands of the Andaman Sea.
             </p>
           </div>
+        </motion.div>
+        
+        {/* Photo Gallery Section */}
+        <motion.div 
+          className="mt-16"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
+          <PhotoGallery />
         </motion.div>
       </div>
     </section>
