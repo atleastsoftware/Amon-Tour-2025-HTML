@@ -90,6 +90,22 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
 
       case 'text_image':
       case 'about_2col':
+        // Special handling for "The Catamaran Experience" section
+        if (block.identifier === 'catamaran_experience') {
+          return (
+            <div key={block.id} className="bg-white w-full">
+              <div className="w-full">
+                {block.content && (
+                  <div 
+                    className="prose prose-lg max-w-none"
+                    dangerouslySetInnerHTML={{ __html: block.content }}
+                  />
+                )}
+              </div>
+            </div>
+          );
+        }
+        // Default text_image rendering
         return (
           <div key={block.id} className="py-16 bg-white w-full">
             <div className="w-full px-8 md:px-12 lg:px-16 max-w-7xl mx-auto">
