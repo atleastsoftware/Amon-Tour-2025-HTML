@@ -35,7 +35,10 @@ export default function AdminLogin() {
         title: "Succès",
         description: "Connexion réussie",
       });
-      setLocation("/admin");
+      // Rediriger après un court délai pour permettre au toast de s'afficher
+      setTimeout(() => {
+        setLocation("/admin");
+      }, 1000);
     } catch (error) {
       toast({
         title: "Erreur",
