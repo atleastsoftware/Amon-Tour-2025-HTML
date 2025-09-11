@@ -38,7 +38,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
       case 'hero_banner':
       case 'hero_video':
         return (
-          <div key={block.id} className="relative min-h-[60vh] bg-gray-100 flex items-center justify-center">
+          <div key={block.id} className="relative min-h-[60vh] bg-gradient-to-br from-blue-600 to-purple-700 flex items-center justify-center w-full">
             {block.imageUrl && (
               <img 
                 src={block.imageUrl} 
@@ -46,17 +46,20 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                 className="absolute inset-0 w-full h-full object-cover"
               />
             )}
-            <div className="relative z-10 container mx-auto px-4 text-center">
+            <div className="relative z-10 w-full px-8 md:px-12 lg:px-16 text-center">
               {block.title && (
                 <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">{block.title}</h1>
               )}
               {block.subtitle && (
-                <p className="text-xl text-white/90 mb-8">{block.subtitle}</p>
+                <p className="text-xl text-white/90 mb-4">{block.subtitle}</p>
+              )}
+              {block.description && (
+                <p className="text-lg text-white/80 mb-8 max-w-3xl mx-auto">{block.description}</p>
               )}
               {block.ctaText && block.ctaUrl && (
                 <a 
                   href={block.ctaUrl} 
-                  className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+                  className="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors font-semibold shadow-lg"
                 >
                   {block.ctaText}
                 </a>
@@ -88,8 +91,8 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
       case 'text_image':
       case 'about_2col':
         return (
-          <div key={block.id} className="py-16 bg-white">
-            <div className="container mx-auto px-4">
+          <div key={block.id} className="py-16 bg-white w-full">
+            <div className="w-full px-8 md:px-12 lg:px-16 max-w-7xl mx-auto">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                 <div>
                   {block.title && (
@@ -100,7 +103,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                   )}
                   {block.content && (
                     <div 
-                      className="prose prose-lg"
+                      className="prose prose-lg max-w-none"
                       dangerouslySetInnerHTML={{ __html: block.content }}
                     />
                   )}
@@ -173,8 +176,8 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
         // Handle cruise form
         if (block.configuration?.formType === 'cruise' || block.identifier === 'cruise-form') {
           return (
-            <div key={block.id} id={block.identifier || undefined} className="py-16 bg-white">
-              <div className="container mx-auto px-4">
+            <div key={block.id} id={block.identifier || undefined} className="py-16 bg-white w-full">
+              <div className="w-full px-8 md:px-12 lg:px-16 max-w-5xl mx-auto">
                 <Suspense fallback={
                   <div className="flex justify-center py-8">
                     <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
@@ -222,8 +225,8 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
 
       case 'advantages':
         return (
-          <div key={block.id} className="py-16 bg-white">
-            <div className="container mx-auto px-4">
+          <div key={block.id} className="py-16 bg-white w-full">
+            <div className="w-full px-8 md:px-12 lg:px-16">
               {block.title && (
                 <h2 className="text-3xl font-bold text-center mb-4">{block.title}</h2>
               )}
@@ -232,7 +235,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
               )}
               {block.content && (
                 <div 
-                  className="prose prose-lg mx-auto max-w-6xl"
+                  className="prose prose-lg mx-auto max-w-none"
                   dangerouslySetInnerHTML={{ __html: block.content }}
                 />
               )}
@@ -243,8 +246,8 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
       case 'card_grid':
       case 'cards_grid':
         return (
-          <div key={block.id} className="py-16 bg-gray-50">
-            <div className="container mx-auto px-4">
+          <div key={block.id} className="py-16 bg-gray-50 w-full">
+            <div className="w-full px-8 md:px-12 lg:px-16">
               {block.title && (
                 <h2 className="text-3xl font-bold text-center mb-4">{block.title}</h2>
               )}
@@ -253,7 +256,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
               )}
               {block.content && (
                 <div 
-                  className="prose prose-lg mx-auto max-w-6xl"
+                  className="prose prose-lg mx-auto max-w-none"
                   dangerouslySetInnerHTML={{ __html: block.content }}
                 />
               )}
