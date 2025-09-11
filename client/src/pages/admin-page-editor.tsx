@@ -2766,7 +2766,7 @@ export default function AdminPageEditor() {
   const sortedBlocks = [...pageBlocks].sort((a, b) => a.blockOrder - b.blockOrder);
 
   const goBack = () => {
-    setLocation('/admin-appearance');
+    setLocation('/admin-editor-page');
   };
 
   const viewLivePage = () => {
