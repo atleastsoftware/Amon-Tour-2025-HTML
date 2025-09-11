@@ -13,7 +13,14 @@ export default function AdminEditor() {
     queryFn: () => fetch('/api/admin/custom-forms').then(res => res.json())
   });
 
+  // Query to get pages count
+  const { data: pagesData } = useQuery({
+    queryKey: ['/api/admin/page-configurations'],
+    queryFn: () => fetch('/api/admin/page-configurations').then(res => res.json())
+  });
+
   const activeFormsCount = formsData ? formsData.filter((form: any) => form.isActive).length : 0;
+  const pagesCount = pagesData ? pagesData.length : 0;
 
   const editorItems = [
     {
@@ -110,7 +117,7 @@ export default function AdminEditor() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Card className="bg-white shadow-sm border border-gray-200">
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-blue-600 mb-1">5</div>
+              <div className="text-2xl font-bold text-blue-600 mb-1">{pagesCount}</div>
               <div className="text-gray-600 text-sm">Pages</div>
             </CardContent>
           </Card>

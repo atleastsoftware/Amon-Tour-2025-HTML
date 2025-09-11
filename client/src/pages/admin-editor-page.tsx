@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ArrowLeft, Plus, Edit, Trash2, Eye, FileText } from 'lucide-react';
 import { AdminGuard } from '@/components/AdminGuard';
+import { AddPageModal } from '@/components/AddPageModal';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -30,6 +31,7 @@ interface PageConfiguration {
 
 function AdminEditorPageContent() {
   const [, setLocation] = useLocation();
+  const [isAddPageModalOpen, setIsAddPageModalOpen] = useState(false);
 
   // Récupérer toutes les pages depuis la base de données
   const { data: pageConfigs = [], isLoading, error } = useQuery<PageConfiguration[]>({
@@ -71,8 +73,7 @@ function AdminEditorPageContent() {
   };
 
   const handleAddPage = () => {
-    // Logique d'ajout de page à implémenter
-    alert('Création d\'une nouvelle page - À implémenter');
+    setIsAddPageModalOpen(true);
   };
 
   return (
@@ -225,6 +226,20 @@ function AdminEditorPageContent() {
           </Card>
         )}
       </div>
+
+      {/* Modal d'ajout de page */}
+      <AddPageModal
+        isOpen={isAddPageModalOpen}
+        onClose={() => setIsAddPageModalOpen(false)}
+        onSuccess={(pageSlug) => {
+          // Depuis admin-editor-page, rediriger vers l'édition de la nouvelle page
+          if (pageSlug === 'home') {
+            setLocation('/admin-page-editor');
+          } else {
+            setLocation(`/admin-page-editor?page=${pageSlug}`);
+          }
+        }}
+      />
     </div>
   );
 }

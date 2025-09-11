@@ -14,6 +14,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { toast } from '@/hooks/use-toast';
 import { Edit, Plus, Trash2, Move, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Palette, Layout, Image, Type, FileText, MapPin, Mail, Users, Download, Star, Camera, ArrowLeft, Search, Video, Bell, MousePointer, Globe, Menu, Clock, Link, CheckCircle, AlertCircle, Database } from 'lucide-react';
 import RealBlockPreview from '@/components/admin/RealBlockPreview';
+import { AddPageModal } from '@/components/AddPageModal';
 
 // Composant EditableField pour l'édition inline
 interface EditableFieldProps {

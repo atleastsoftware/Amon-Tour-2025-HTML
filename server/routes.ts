@@ -2626,8 +2626,48 @@ Crawl-delay: 1`;
 
   app.post("/api/admin/page-configurations", requireAuth, async (req, res) => {
     try {
-      const validatedData = insertPageConfigurationSchema.parse(req.body);
+      const { sourcePageId, ...pageData } = req.body;
+      
+      // Valider les données de la page
+      const validatedData = insertPageConfigurationSchema.parse(pageData);
+      
+      // Créer la nouvelle page
       const config = await storage.createPageConfiguration(validatedData);
+      
+      // Si on duplique une page existante, copier ses blocks
+      if (sourcePageId) {
+        const sourcePageIdNum = parseInt(sourcePageId);
+        if (!isNaN(sourcePageIdNum)) {
+          // Récupérer la page source
+          const sourcePage = await db.select().from(pageConfigurations).where(eq(pageConfigurations.id, sourcePageIdNum)).limit(1);
+          
+          if (sourcePage.length > 0) {
+            // Récupérer les blocks de la page source
+            const sourceBlocks = await storage.getPageBlocksBySlug(sourcePage[0].pageSlug);
+            
+            // Dupliquer chaque block pour la nouvelle page
+            for (const block of sourceBlocks) {
+              await storage.createPageBlock({
+                pageId: config.id,
+                blockType: block.blockType,
+                blockOrder: block.blockOrder,
+                isActive: block.isActive,
+                title: block.title,
+                subtitle: block.subtitle,
+                content: block.content,
+                ctaText: block.ctaText,
+                ctaUrl: block.ctaUrl,
+                imageUrl: block.imageUrl,
+                backgroundColor: block.backgroundColor,
+                textColor: block.textColor,
+                customCss: block.customCss,
+                metadata: block.metadata
+              });
+            }
+          }
+        }
+      }
+      
       res.status(201).json(config);
     } catch (error) {
       console.error("Error creating page configuration:", error);
