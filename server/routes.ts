@@ -2603,6 +2603,20 @@ Crawl-delay: 1`;
   // Page Builder API Routes
   
   // Page configurations
+  app.get("/api/admin/page-configurations/slug/:slug", async (req, res) => {
+    try {
+      const { slug } = req.params;
+      const config = await storage.getPageConfiguration(slug);
+      if (!config) {
+        return res.status(404).json({ message: "Page configuration not found" });
+      }
+      res.json(config);
+    } catch (error) {
+      console.error("Error fetching page configuration by slug:", error);
+      res.status(500).json({ message: "Failed to fetch page configuration", error: String(error) });
+    }
+  });
+
   app.get("/api/admin/page-configurations", requireAuth, async (req, res) => {
     try {
       const configs = await storage.getPageConfigurations();

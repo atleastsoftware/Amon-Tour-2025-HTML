@@ -43,6 +43,7 @@ import AdminEditor from "@/pages/admin-editor";
 import AdminEditorPage from "@/pages/admin-editor-page";
 import AdminEditorArticle from "@/pages/admin-editor-article";
 import AdminEditorForm from "@/pages/admin-editor-form";
+import DynamicPage from "@/pages/DynamicPage";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 import { IframeProvider } from "@/contexts/IframeContext";
 import IframeModal from "@/components/ui/IframeModal";
@@ -80,6 +81,9 @@ function Router() {
       <Route path="/legal-notice" component={LegalNotice} />
       <Route path="/privacy-policy" component={PrivacyPolicy} />
       <Route path="/terms-conditions" component={TermsConditions} />
+      
+      {/* Dynamic Pages (for pages created via admin) */}
+      <Route path="/:slug" component={DynamicPage} />
       
       {/* Admin Pages */}
       <Route path="/admin-login" component={AdminLogin} />
