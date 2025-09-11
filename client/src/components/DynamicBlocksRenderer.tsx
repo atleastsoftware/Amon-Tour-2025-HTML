@@ -5,6 +5,7 @@ import { Loader2 } from "lucide-react";
 // Lazy load form components
 const CruiseForm = lazy(() => import("@/components/CruiseForm"));
 const CatamaranExperience = lazy(() => import("@/components/CatamaranExperience"));
+const SeasonalPricing = lazy(() => import("@/components/SeasonalPricing"));
 
 interface PageBlock {
   id: number;
@@ -105,16 +106,17 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
             </div>
           );
         }
-        // Special handling for pricing section - full width
+        // Special handling for pricing section - use React component
         if (block.identifier === 'pricing') {
           return (
             <div key={block.id} className="w-full">
-              {block.content && (
-                <div 
-                  className="w-full"
-                  dangerouslySetInnerHTML={{ __html: block.content }}
-                />
-              )}
+              <Suspense fallback={
+                <div className="flex justify-center py-8">
+                  <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+                </div>
+              }>
+                <SeasonalPricing />
+              </Suspense>
             </div>
           );
         }
