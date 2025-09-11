@@ -1541,7 +1541,7 @@ export class DatabaseStorage implements IStorage {
 
   // Page Configuration operations
   async getPageConfigurations(): Promise<PageConfiguration[]> {
-    return db.select().from(pageConfigurations).orderBy(asc(pageConfigurations.pageType), asc(pageConfigurations.pageName));
+    return db.select().from(pageConfigurations).orderBy(asc(pageConfigurations.pageName));
   }
 
   async getPageConfiguration(slug: string): Promise<PageConfiguration | undefined> {

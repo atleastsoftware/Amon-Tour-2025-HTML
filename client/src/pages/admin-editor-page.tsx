@@ -42,15 +42,17 @@ function AdminEditorPageContent() {
     })
   });
 
-  // Transformer les données pour l'affichage
-  const pages = pageConfigs.map(page => ({
-    id: page.pageSlug,
-    title: page.pageName,
-    slug: page.pageSlug === 'home' ? '/' : `/${page.pageSlug}`,
-    status: page.isActive ? 'Active' : 'Inactive',
-    type: page.pageType === 'main' ? 'Page principale' : 
-          page.pageType === 'secondary' ? 'Page secondaire' : 'Mentions légales'
-  }));
+  // Transformer les données pour l'affichage et trier par ordre alphabétique
+  const pages = pageConfigs
+    .map(page => ({
+      id: page.pageSlug,
+      title: page.pageName,
+      slug: page.pageSlug === 'home' ? '/' : `/${page.pageSlug}`,
+      status: page.isActive ? 'Active' : 'Inactive',
+      type: page.pageType === 'main' ? 'Page principale' : 
+            page.pageType === 'secondary' ? 'Page secondaire' : 'Mentions légales'
+    }))
+    .sort((a, b) => a.title.localeCompare(b.title, 'fr'));
 
   const handleEditPage = (pageId: string) => {
     // Rediriger vers l'éditeur de page pour toutes les pages

@@ -1941,14 +1941,24 @@ export default function AdminAppearance() {
       }
     });
 
-    // Trier les pages principales pour mettre Home en premier
+    // Trier toutes les catégories par ordre alphabétique
+    // mais garder Home en premier dans Pages principales
     const homePage = categories['Pages principales'].find(p => p.slug === 'home');
-    if (homePage) {
-      categories['Pages principales'] = [
-        homePage,
-        ...categories['Pages principales'].filter(p => p.slug !== 'home')
-      ];
-    }
+    
+    // Trier Pages principales (sauf Home)
+    const otherMainPages = categories['Pages principales']
+      .filter(p => p.slug !== 'home')
+      .sort((a, b) => a.name.localeCompare(b.name, 'fr'));
+    
+    categories['Pages principales'] = homePage 
+      ? [homePage, ...otherMainPages]
+      : otherMainPages;
+    
+    // Trier Pages secondaires
+    categories['Pages secondaires'].sort((a, b) => a.name.localeCompare(b.name, 'fr'));
+    
+    // Trier Mentions légales
+    categories['Mentions légales'].sort((a, b) => a.name.localeCompare(b.name, 'fr'));
 
     return categories;
   };
@@ -4000,14 +4010,21 @@ function NavigationMenuManager({ pageConfigs, navigationMenuItems }: { pageConfi
       categories['Pages principales'].unshift(homePage);
     }
     
-    // Sort the remaining Pages principales according to menu order (excluding home)
-    const menuOrder = ['experiences', 'custom-tour', 'blog', 'contact'];
-    const otherMainPages = categories['Pages principales'].filter(p => p.slug !== 'home');
-    const sortedMainPages = menuOrder
-      .map(slug => otherMainPages.find(p => p.slug === slug))
-      .filter(Boolean) as Array<{ slug: string; name: string; id: number }>;
+    // Trier toutes les catégories par ordre alphabétique
+    // mais garder Home en premier dans Pages principales
+    const otherMainPages = categories['Pages principales']
+      .filter(p => p.slug !== 'home')
+      .sort((a, b) => a.name.localeCompare(b.name, 'fr'));
     
-    categories['Pages principales'] = [homePage, ...sortedMainPages].filter(Boolean) as Array<{ slug: string; name: string; id: number }>;
+    categories['Pages principales'] = homePage 
+      ? [homePage, ...otherMainPages]
+      : otherMainPages;
+    
+    // Trier Pages secondaires
+    categories['Pages secondaires'].sort((a, b) => a.name.localeCompare(b.name, 'fr'));
+    
+    // Trier Mentions légales
+    categories['Mentions légales'].sort((a, b) => a.name.localeCompare(b.name, 'fr'));
 
     return categories;
   };
