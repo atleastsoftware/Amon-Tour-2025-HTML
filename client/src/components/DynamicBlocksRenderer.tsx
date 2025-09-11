@@ -240,6 +240,22 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
         );
 
       case 'advantages':
+        // Special handling for "Your Cruise, Our Expertise" section
+        if (block.identifier === 'our_expertise') {
+          return (
+            <div key={block.id} className="bg-white w-full">
+              <div className="w-full">
+                {block.content && (
+                  <div 
+                    className="prose prose-lg max-w-none"
+                    dangerouslySetInnerHTML={{ __html: block.content }}
+                  />
+                )}
+              </div>
+            </div>
+          );
+        }
+        // Default advantages rendering
         return (
           <div key={block.id} className="py-16 bg-white w-full">
             <div className="w-full px-8 md:px-12 lg:px-16">
