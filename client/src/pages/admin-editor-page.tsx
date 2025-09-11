@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useLocation } from 'wouter';
+import { useQuery } from '@tanstack/react-query';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -16,60 +17,47 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
+interface PageConfiguration {
+  id: number;
+  page_name: string;
+  page_slug: string;
+  page_type: 'main' | 'secondary' | 'legal';
+  is_active: boolean;
+  created_at?: string;
+  updated_at?: string;
+}
+
 export default function AdminEditorPage() {
   const [, setLocation] = useLocation();
 
-  // Pages existantes (on peut étendre cela plus tard avec une vraie DB)
-  const [pages] = useState([
-    {
-      id: 'home',
-      title: 'Accueil',
-      slug: '/',
-      status: 'Publié',
-      lastModified: '2025-01-08',
-      type: 'Page principale'
-    },
-    {
-      id: 'tours',
-      title: 'Tours',
-      slug: '/tours',
-      status: 'Publié',
-      lastModified: '2025-01-05',
-      type: 'Page secondaire'
-    },
-    {
-      id: 'experiences',
-      title: 'Expériences',
-      slug: '/experiences',
-      status: 'Publié',
-      lastModified: '2025-01-05',
-      type: 'Page secondaire'
-    },
-    {
-      id: 'contact',
-      title: 'Contact',
-      slug: '/contact',
-      status: 'Publié',
-      lastModified: '2025-01-03',
-      type: 'Page secondaire'
-    },
-    {
-      id: 'blog',
-      title: 'Blog',
-      slug: '/blog',
-      status: 'Publié',
-      lastModified: '2024-12-20',
-      type: 'Page secondaire'
-    }
-  ]);
+  // Récupérer toutes les pages depuis la base de données
+  const { data: pageConfigs = [], isLoading, error } = useQuery<PageConfiguration[]>({
+    queryKey: ['/api/admin/page-configurations'],
+    queryFn: () => fetch('/api/admin/page-configurations').then(res => {
+      if (!res.ok) throw new Error('Failed to fetch pages');
+      return res.json();
+    })
+  });
+
+  // Transformer les données pour l'affichage
+  const pages = pageConfigs.map(page => ({
+    id: page.page_slug,
+    title: page.page_name,
+    slug: page.page_slug === 'home' ? '/' : `/${page.page_slug}`,
+    status: page.is_active ? 'Publié' : 'Brouillon',
+    lastModified: page.updated_at ? new Date(page.updated_at).toLocaleDateString('fr-FR') : 'Non défini',
+    type: page.page_type === 'main' ? 'Page principale' : 
+          page.page_type === 'secondary' ? 'Page secondaire' : 'Mentions légales'
+  }));
 
   const handleEditPage = (pageId: string) => {
+    // Rediriger vers l'éditeur de page pour toutes les pages
+    // On peut passer l'ID de la page en paramètre URL si nécessaire
     if (pageId === 'home') {
-      // Pour la page d'accueil, rediriger vers l'éditeur existant
       setLocation('/admin-page-editor');
     } else {
-      // Pour les autres pages, on peut implémenter plus tard
-      alert(`Édition de la page ${pageId} - À implémenter`);
+      // Pour les autres pages, rediriger vers admin-page-editor avec le slug
+      setLocation(`/admin-page-editor?page=${pageId}`);
     }
   };
 
@@ -122,7 +110,25 @@ export default function AdminEditorPage() {
           </Button>
         </div>
 
+        {/* Loading State */}
+        {isLoading && (
+          <div className="text-center py-12">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p className="text-gray-500">Chargement des pages...</p>
+          </div>
+        )}
+
+        {/* Error State */}
+        {error && (
+          <Card className="bg-red-50 border-red-200">
+            <CardContent className="p-6 text-center">
+              <p className="text-red-600">Erreur lors du chargement des pages</p>
+            </CardContent>
+          </Card>
+        )}
+
         {/* Pages List */}
+        {!isLoading && !error && (
         <div className="space-y-4">
           {pages.map((page) => (
             <Card key={page.id} className="bg-white border border-gray-200 hover:border-blue-300 transition-colors">
@@ -204,6 +210,7 @@ export default function AdminEditorPage() {
             </Card>
           ))}
         </div>
+        )}
 
         {/* Empty state if no pages */}
         {pages.length === 0 && (

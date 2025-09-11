@@ -3628,15 +3628,15 @@ export default function AdminAppearance() {
                             }}
                           >
                             <Eye className="w-4 h-4 mr-2" />
-                            Voir le site
+                            Voir la page
                           </Button>
                           <Button
                             onClick={() => {
-                              window.location.href = `/admin-editor`;
+                              window.location.href = `/admin-editor-page`;
                             }}
                           >
                             <Edit className="w-4 h-4 mr-2" />
-                            Modifier la page
+                            Éditer la page
                           </Button>
                         </>
                       )}
