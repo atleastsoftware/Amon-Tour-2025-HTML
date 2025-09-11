@@ -2654,14 +2654,20 @@ Crawl-delay: 1`;
                 pageId: config.id,
                 blockType: block.blockType,
                 blockOrder: block.blockOrder,
+                identifier: block.identifier || `block-${block.blockType}-${block.blockOrder}`,
                 isActive: block.isActive,
                 title: block.title,
                 subtitle: block.subtitle,
+                description: block.description,
                 content: block.content,
+                imageUrl: block.imageUrl,
+                imageAlt: block.imageAlt,
                 ctaText: block.ctaText,
                 ctaUrl: block.ctaUrl,
-                imageUrl: block.imageUrl,
-                backgroundColor: block.backgroundColor
+                ctaStyle: block.ctaStyle,
+                iconName: block.iconName,
+                backgroundColor: block.backgroundColor,
+                configuration: block.configuration
               });
             }
           }
