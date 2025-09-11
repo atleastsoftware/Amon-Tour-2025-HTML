@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ArrowLeft, Plus, Edit, Trash2, Eye, FileText } from 'lucide-react';
+import { AdminGuard } from '@/components/AdminGuard';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -27,7 +28,7 @@ interface PageConfiguration {
   updated_at?: string;
 }
 
-export default function AdminEditorPage() {
+function AdminEditorPageContent() {
   const [, setLocation] = useLocation();
 
   // Récupérer toutes les pages depuis la base de données
@@ -233,5 +234,13 @@ export default function AdminEditorPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function AdminEditorPage() {
+  return (
+    <AdminGuard>
+      <AdminEditorPageContent />
+    </AdminGuard>
   );
 }

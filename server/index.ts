@@ -24,13 +24,13 @@ async function ensureAdminUser() {
         username: "admin",
         password: hashedPassword,
       });
-      log("Admin user created successfully - Username: admin, Password: Amontour2025");
+      log("Admin user created successfully");
     } else {
       // Update existing admin password to new secure password
       log("Updating admin user password to new secure password");
       const hashedPassword = await bcrypt.hash("Amontour2025", 10);
       await storage.updateUserPassword(existingAdmin.id, hashedPassword);
-      log("Admin password updated successfully - Username: admin, Password: Amontour2025");
+      log("Admin password updated successfully");
     }
   } catch (error) {
     log(`Error ensuring admin user: ${error}`);
