@@ -2771,7 +2771,8 @@ export default function AdminPageEditor() {
 
   const viewLivePage = () => {
     // Open the live page in a new tab
-    window.open(`/${pageSlug}`, '_blank');
+    const url = pageSlug === 'home' ? '/' : `/${pageSlug}`;
+    window.open(url, '_blank');
   };
 
   const handlePageChange = (newPageSlug: string) => {
