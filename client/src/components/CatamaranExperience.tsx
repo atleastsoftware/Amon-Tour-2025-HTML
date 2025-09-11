@@ -1,6 +1,104 @@
 import { motion } from "framer-motion";
 import { StaggerChildren, StaggerItem } from "@/components/ui/animations";
-import { Map, Zap, Globe } from "lucide-react";
+import { Map, Zap, Globe, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState } from "react";
+
+// Photo Carousel Component
+function PhotoCarousel() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  
+  const images = [
+    "https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?w=800&h=500&fit=crop",
+    "https://images.unsplash.com/photo-1545300849-ac447b458c0e?w=800&h=500&fit=crop",
+    "https://images.unsplash.com/photo-1621277224630-81a57f52e588?w=800&h=500&fit=crop",
+    "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=500&fit=crop",
+    "https://images.unsplash.com/photo-1544551763-92c1e8b2b2a3?w=800&h=500&fit=crop",
+    "https://images.unsplash.com/photo-1540946485063-a40da27545f8?w=800&h=500&fit=crop"
+  ];
+
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  return (
+    <div className="relative max-w-4xl mx-auto">
+      <div className="relative overflow-hidden rounded-xl shadow-lg">
+        <div 
+          className="flex transition-transform duration-500 ease-in-out"
+          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+        >
+          {images.map((src, index) => (
+            <div key={index} className="min-w-full">
+              <img 
+                src={src} 
+                alt={`Catamaran ${index + 1}`} 
+                className="w-full h-[300px] md:h-[400px] object-cover"
+              />
+            </div>
+          ))}
+        </div>
+        
+        {/* Navigation Buttons */}
+        <button
+          onClick={prevSlide}
+          className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 p-2 rounded-full shadow-lg transition-all duration-200 hover:scale-110"
+          aria-label="Previous image"
+        >
+          <ChevronLeft className="h-6 w-6" />
+        </button>
+        
+        <button
+          onClick={nextSlide}
+          className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 p-2 rounded-full shadow-lg transition-all duration-200 hover:scale-110"
+          aria-label="Next image"
+        >
+          <ChevronRight className="h-6 w-6" />
+        </button>
+        
+        {/* Dots Indicator */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+          {images.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentIndex(index)}
+              className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                index === currentIndex 
+                  ? 'bg-white w-8' 
+                  : 'bg-white/50 hover:bg-white/75'
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+      
+      {/* Thumbnails */}
+      <div className="mt-4 flex gap-2 overflow-x-auto pb-2">
+        {images.map((src, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentIndex(index)}
+            className={`flex-shrink-0 rounded-lg overflow-hidden transition-all duration-200 ${
+              index === currentIndex 
+                ? 'ring-2 ring-primary ring-offset-2' 
+                : 'opacity-70 hover:opacity-100'
+            }`}
+          >
+            <img 
+              src={src} 
+              alt={`Thumbnail ${index + 1}`} 
+              className="w-20 h-16 object-cover"
+            />
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function CatamaranExperience() {
   return (
@@ -92,82 +190,15 @@ export default function CatamaranExperience() {
           </StaggerItem>
         </StaggerChildren>
         
-        {/* Photo Gallery Section */}
+        {/* Photo Gallery Carousel */}
         <motion.div 
-          className="mt-20 mb-12"
+          className="mt-16 mb-8"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 300 }}
-              className="overflow-hidden rounded-lg shadow-lg"
-            >
-              <img 
-                src="https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?w=400&h=400&fit=crop" 
-                alt="Catamaran view 1" 
-                className="w-full h-full object-cover"
-              />
-            </motion.div>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 300 }}
-              className="overflow-hidden rounded-lg shadow-lg"
-            >
-              <img 
-                src="https://images.unsplash.com/photo-1545300849-ac447b458c0e?w=400&h=400&fit=crop" 
-                alt="Catamaran interior" 
-                className="w-full h-full object-cover"
-              />
-            </motion.div>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 300 }}
-              className="overflow-hidden rounded-lg shadow-lg"
-            >
-              <img 
-                src="https://images.unsplash.com/photo-1621277224630-81a57f52e588?w=400&h=400&fit=crop" 
-                alt="Catamaran deck" 
-                className="w-full h-full object-cover"
-              />
-            </motion.div>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 300 }}
-              className="overflow-hidden rounded-lg shadow-lg"
-            >
-              <img 
-                src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=400&fit=crop" 
-                alt="Catamaran sailing" 
-                className="w-full h-full object-cover"
-              />
-            </motion.div>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 300 }}
-              className="overflow-hidden rounded-lg shadow-lg"
-            >
-              <img 
-                src="https://images.unsplash.com/photo-1544551763-92c1e8b2b2a3?w=400&h=400&fit=crop" 
-                alt="Catamaran sunset" 
-                className="w-full h-full object-cover"
-              />
-            </motion.div>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 300 }}
-              className="overflow-hidden rounded-lg shadow-lg"
-            >
-              <img 
-                src="https://images.unsplash.com/photo-1540946485063-a40da27545f8?w=400&h=400&fit=crop" 
-                alt="Catamaran lounge" 
-                className="w-full h-full object-cover"
-              />
-            </motion.div>
-          </div>
+          <PhotoCarousel />
         </motion.div>
         
         {/* Lagoon Description Section */}
