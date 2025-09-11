@@ -242,6 +242,7 @@ export interface IStorage {
   getPageConfiguration(slug: string): Promise<PageConfiguration | undefined>;
   createPageConfiguration(config: InsertPageConfiguration): Promise<PageConfiguration>;
   updatePageConfiguration(id: number, data: Partial<InsertPageConfiguration>): Promise<PageConfiguration | undefined>;
+  deletePageConfiguration(id: number): Promise<boolean>;
   
   // Page Blocks operations
   getPageBlocks(pageId: number): Promise<PageBlock[]>;
@@ -1572,6 +1573,21 @@ export class DatabaseStorage implements IStorage {
       .where(eq(pageConfigurations.id, id))
       .returning();
     return updated || undefined;
+  }
+
+  async deletePageConfiguration(id: number): Promise<boolean> {
+    // D'abord, supprimer tous les blocks associés à cette page
+    await db
+      .delete(pageBlocks)
+      .where(eq(pageBlocks.pageId, id));
+    
+    // Ensuite, supprimer la configuration de la page
+    const result = await db
+      .delete(pageConfigurations)
+      .where(eq(pageConfigurations.id, id))
+      .returning();
+    
+    return result.length > 0;
   }
 
   // Page Blocks operations

@@ -2661,10 +2661,7 @@ Crawl-delay: 1`;
                 ctaText: block.ctaText,
                 ctaUrl: block.ctaUrl,
                 imageUrl: block.imageUrl,
-                backgroundColor: block.backgroundColor,
-                textColor: block.textColor,
-                customCss: block.customCss,
-                metadata: block.metadata
+                backgroundColor: block.backgroundColor
               });
             }
           }
@@ -2702,6 +2699,38 @@ Crawl-delay: 1`;
         return res.status(400).json({ message: "Validation error", errors: error.errors });
       }
       res.status(500).json({ message: "Failed to update page configuration", error: String(error) });
+    }
+  });
+
+  app.delete("/api/admin/page-configurations/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid page configuration ID" });
+      }
+
+      // Vérifier que ce n'est pas la page d'accueil
+      const config = await storage.getPageConfigurations();
+      const pageToDelete = config.find(p => p.id === id);
+      
+      if (!pageToDelete) {
+        return res.status(404).json({ message: "Page configuration not found" });
+      }
+      
+      if (pageToDelete.pageSlug === 'home') {
+        return res.status(400).json({ message: "Cannot delete the home page" });
+      }
+
+      const deleted = await storage.deletePageConfiguration(id);
+      
+      if (!deleted) {
+        return res.status(404).json({ message: "Page configuration not found" });
+      }
+
+      res.json({ message: "Page configuration deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting page configuration:", error);
+      res.status(500).json({ message: "Failed to delete page configuration", error: String(error) });
     }
   });
 

@@ -12,7 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { toast } from '@/hooks/use-toast';
-import { Edit, Plus, Trash2, Move, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Palette, Layout, Image, Type, FileText, MapPin, Mail, Users, Download, Star, Camera, ArrowLeft, Search, Video, Bell, MousePointer, Globe, Menu, Clock, Link, CheckCircle, AlertCircle, Database } from 'lucide-react';
+import { Edit, Plus, Trash2, Move, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Palette, Layout, Image, Type, FileText, MapPin, Mail, Users, Download, Star, Camera, ArrowLeft, Search, Video, Bell, MousePointer, Globe, Menu, Clock, Link, CheckCircle, AlertCircle, Database, Trash } from 'lucide-react';
 import RealBlockPreview from '@/components/admin/RealBlockPreview';
 import { AddPageModal } from '@/components/AddPageModal';
 
@@ -3524,6 +3524,68 @@ export default function AdminAppearance() {
                     <div className="flex gap-2">
                       {selectedPage !== 'navigation-menu' && (
                         <>
+                          {selectedPage !== 'home' && (
+                            <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                <Button
+                                  variant="outline"
+                                  className="text-red-600 hover:text-red-700 hover:bg-red-50 border-red-200"
+                                >
+                                  <Trash className="w-4 h-4 mr-2" />
+                                  Supprimer
+                                </Button>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>Confirmer la suppression</AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    Êtes-vous sûr de vouloir supprimer la page "{
+                                      pageConfigs.find(p => p.pageSlug === selectedPage)?.pageName || selectedPage
+                                    }" ? Cette action est irréversible et supprimera également tous les contenus associés.
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Annuler</AlertDialogCancel>
+                                  <AlertDialogAction
+                                    onClick={async () => {
+                                      const page = pageConfigs.find(p => p.pageSlug === selectedPage);
+                                      if (!page) return;
+                                      
+                                      try {
+                                        const response = await fetch(`/api/admin/page-configurations/${page.id}`, {
+                                          method: 'DELETE',
+                                          credentials: 'include',
+                                        });
+                                        
+                                        if (!response.ok) {
+                                          const error = await response.json();
+                                          throw new Error(error.message || 'Erreur lors de la suppression');
+                                        }
+                                        
+                                        toast({
+                                          title: "Page supprimée",
+                                          description: "La page a été supprimée avec succès.",
+                                        });
+                                        
+                                        // Rafraîchir la page
+                                        window.location.reload();
+                                      } catch (error) {
+                                        console.error('Error deleting page:', error);
+                                        toast({
+                                          title: "Erreur",
+                                          description: "Impossible de supprimer la page.",
+                                          variant: "destructive",
+                                        });
+                                      }
+                                    }}
+                                    className="bg-red-600 hover:bg-red-700"
+                                  >
+                                    Supprimer
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
+                          )}
                           <Button
                             variant="outline"
                             onClick={() => {

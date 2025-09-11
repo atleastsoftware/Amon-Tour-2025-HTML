@@ -63,13 +63,36 @@ function AdminEditorPageContent() {
     }
   };
 
-  const handleDeletePage = (pageId: string) => {
+  const handleDeletePage = async (pageId: string) => {
     if (pageId === 'home') {
       alert('Impossible de supprimer la page d\'accueil');
       return;
     }
-    // Logique de suppression à implémenter
-    alert(`Suppression de la page ${pageId} - À implémenter`);
+    
+    try {
+      // Trouver la page pour obtenir son ID numérique
+      const page = pageConfigs.find(p => p.pageSlug === pageId);
+      if (!page) {
+        alert('Page non trouvée');
+        return;
+      }
+      
+      const response = await fetch(`/api/admin/page-configurations/${page.id}`, {
+        method: 'DELETE',
+        credentials: 'include',
+      });
+      
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Erreur lors de la suppression');
+      }
+      
+      // Rafraîchir la liste des pages
+      window.location.reload();
+    } catch (error) {
+      console.error('Error deleting page:', error);
+      alert(`Erreur lors de la suppression : ${error instanceof Error ? error.message : 'Erreur inconnue'}`);
+    }
   };
 
   const handleAddPage = () => {
