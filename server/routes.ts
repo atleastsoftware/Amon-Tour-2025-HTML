@@ -18,6 +18,7 @@ import {
   insertKrabiCelebrationRequestSchema,
   insertPartnershipRequestSchema,
   insertGroupRequestSchema,
+  insertCruiseRequestSchema,
   insertTourNinjaImageOverrideSchema,
   insertSiteSettingSchema,
   insertContentBlockSchema,
@@ -1304,6 +1305,118 @@ Crawl-delay: 1`;
     } catch (error) {
       console.error("Error deleting partnership request:", error);
       res.status(500).json({ message: "Failed to delete request", error: String(error) });
+    }
+  });
+
+  // Cruise Requests
+  app.post("/api/cruise-requests", async (req, res) => {
+    try {
+      const requestData = insertCruiseRequestSchema.parse(req.body);
+      const request = await storage.createCruiseRequest(requestData);
+      
+      // Log the cruise request for notification purposes
+      console.log("New cruise request received:", {
+        name: requestData.fullName,
+        email: requestData.email,
+        phone: requestData.phone,
+        numberOfGuests: requestData.numberOfGuests,
+        duration: requestData.duration,
+        preferredDates: requestData.preferredDates,
+        itinerary: requestData.itinerary,
+        budget: requestData.budget,
+        specialRequests: requestData.specialRequests
+      });
+      
+      res.status(201).json({ message: "Demande de croisière envoyée avec succès", request });
+    } catch (error) {
+      console.error("Error creating cruise request:", error);
+      res.status(400).json({ message: "Données invalides", error });
+    }
+  });
+
+  app.get("/api/cruise-requests", requireAuth, async (req, res) => {
+    try {
+      const requests = await storage.getCruiseRequests();
+      res.json(requests);
+    } catch (error) {
+      console.error("Error fetching cruise requests:", error);
+      res.status(500).json({ message: "Failed to fetch cruise requests", error: String(error) });
+    }
+  });
+
+  app.get("/api/cruise-requests/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid request ID" });
+      }
+      
+      const request = await storage.getCruiseRequest(id);
+      if (!request) {
+        return res.status(404).json({ message: "Cruise request not found" });
+      }
+      
+      res.json(request);
+    } catch (error) {
+      console.error("Error fetching cruise request:", error);
+      res.status(500).json({ message: "Failed to fetch cruise request", error: String(error) });
+    }
+  });
+
+  app.put("/api/cruise-requests/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid request ID" });
+      }
+      
+      const updated = await storage.updateCruiseRequest(id, req.body);
+      if (!updated) {
+        return res.status(404).json({ message: "Cruise request not found" });
+      }
+      
+      res.json(updated);
+    } catch (error) {
+      console.error("Error updating cruise request:", error);
+      res.status(400).json({ message: "Failed to update cruise request", error: String(error) });
+    }
+  });
+
+  app.patch("/api/cruise-requests/:id/read", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid request ID" });
+      }
+      
+      const updated = await storage.markCruiseRequestAsRead(id);
+      if (!updated) {
+        return res.status(404).json({ message: "Cruise request not found" });
+      }
+      
+      res.json(updated);
+    } catch (error) {
+      console.error("Error marking cruise request as read:", error);
+      res.status(500).json({ message: "Failed to mark cruise request as read", error: String(error) });
+    }
+  });
+
+  app.delete("/api/cruise-requests/:id", requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid request ID" });
+      }
+      
+      const deleted = await storage.deleteCruiseRequest(id);
+      if (!deleted) {
+        return res.status(404).json({ message: "Cruise request not found" });
+      }
+      
+      res.json({ message: "Cruise request deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting cruise request:", error);
+      res.status(500).json({ message: "Failed to delete cruise request", error: String(error) });
     }
   });
 

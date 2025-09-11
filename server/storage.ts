@@ -14,6 +14,7 @@ import {
   krabiCelebrationRequests,
   partnershipRequests,
   groupRequests,
+  cruiseRequests,
   tourNinjaImageOverrides,
   siteSettings,
   contentBlocks,
@@ -54,6 +55,8 @@ import {
   type InsertPartnershipRequest,
   type GroupRequest,
   type InsertGroupRequest,
+  type CruiseRequest,
+  type InsertCruiseRequest,
   type TourNinjaImageOverride,
   type InsertTourNinjaImageOverride,
   type SiteSetting,
@@ -194,6 +197,14 @@ export interface IStorage {
   updateGroupRequest(id: number, data: Partial<GroupRequest>): Promise<GroupRequest | undefined>;
   deleteGroupRequest(id: number): Promise<boolean>;
   markGroupRequestAsRead(id: number): Promise<GroupRequest | undefined>;
+  
+  // Cruise Request operations
+  createCruiseRequest(request: InsertCruiseRequest): Promise<CruiseRequest>;
+  getCruiseRequests(filters?: { read?: boolean }): Promise<CruiseRequest[]>;
+  getCruiseRequest(id: number): Promise<CruiseRequest | undefined>;
+  updateCruiseRequest(id: number, data: Partial<InsertCruiseRequest>): Promise<CruiseRequest | undefined>;
+  markCruiseRequestAsRead(id: number): Promise<CruiseRequest | undefined>;
+  deleteCruiseRequest(id: number): Promise<boolean>;
   
   // Tour Ninja Image Override operations
   createTourNinjaImageOverride(override: InsertTourNinjaImageOverride): Promise<TourNinjaImageOverride>;
@@ -1202,6 +1213,66 @@ export class DatabaseStorage implements IStorage {
 
   async markGroupRequestAsRead(id: number): Promise<GroupRequest | undefined> {
     return this.updateGroupRequest(id, { read: true });
+  }
+
+  // Cruise Request operations
+  async createCruiseRequest(request: InsertCruiseRequest): Promise<CruiseRequest> {
+    const [created] = await db
+      .insert(cruiseRequests)
+      .values(request)
+      .returning();
+    return created;
+  }
+
+  async getCruiseRequests(filters?: { read?: boolean }): Promise<CruiseRequest[]> {
+    if (filters?.read !== undefined) {
+      return await db.select().from(cruiseRequests)
+        .where(eq(cruiseRequests.read, filters.read))
+        .orderBy(desc(cruiseRequests.createdAt));
+    }
+    
+    return await db.select().from(cruiseRequests)
+      .orderBy(desc(cruiseRequests.createdAt));
+  }
+
+  async getCruiseRequest(id: number): Promise<CruiseRequest | undefined> {
+    const [request] = await db
+      .select()
+      .from(cruiseRequests)
+      .where(eq(cruiseRequests.id, id));
+    return request || undefined;
+  }
+
+  async updateCruiseRequest(id: number, data: Partial<InsertCruiseRequest>): Promise<CruiseRequest | undefined> {
+    const [updated] = await db
+      .update(cruiseRequests)
+      .set({
+        ...data,
+        updatedAt: new Date()
+      })
+      .where(eq(cruiseRequests.id, id))
+      .returning();
+    return updated || undefined;
+  }
+
+  async markCruiseRequestAsRead(id: number): Promise<CruiseRequest | undefined> {
+    const [updated] = await db
+      .update(cruiseRequests)
+      .set({ 
+        read: true,
+        updatedAt: new Date()
+      })
+      .where(eq(cruiseRequests.id, id))
+      .returning();
+    return updated || undefined;
+  }
+
+  async deleteCruiseRequest(id: number): Promise<boolean> {
+    const result = await db
+      .delete(cruiseRequests)
+      .where(eq(cruiseRequests.id, id))
+      .returning({ id: cruiseRequests.id });
+    return result.length > 0;
   }
 
   // Tour Ninja Image Override operations

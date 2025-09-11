@@ -1,4 +1,9 @@
 import { motion } from "framer-motion";
+import { lazy, Suspense } from "react";
+import { Loader2 } from "lucide-react";
+
+// Lazy load form components
+const CruiseForm = lazy(() => import("@/components/CruiseForm"));
 
 interface PageBlock {
   id: number;
@@ -159,6 +164,41 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                   dangerouslySetInnerHTML={{ __html: block.content }}
                 />
               )}
+            </div>
+          </div>
+        );
+
+      case 'form':
+      case 'custom_form':
+        // Handle cruise form
+        if (block.configuration?.formType === 'cruise' || block.identifier === 'cruise-form') {
+          return (
+            <div key={block.id} id={block.identifier || undefined} className="py-16 bg-white">
+              <div className="container mx-auto px-4">
+                <Suspense fallback={
+                  <div className="flex justify-center py-8">
+                    <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+                  </div>
+                }>
+                  <CruiseForm />
+                </Suspense>
+              </div>
+            </div>
+          );
+        }
+        // Default form display
+        return (
+          <div key={block.id} className="py-16 bg-white">
+            <div className="container mx-auto px-4">
+              {block.title && (
+                <h2 className="text-3xl font-bold text-center mb-8">{block.title}</h2>
+              )}
+              {block.subtitle && (
+                <p className="text-xl text-gray-600 text-center mb-8">{block.subtitle}</p>
+              )}
+              <div className="max-w-2xl mx-auto bg-gray-100 rounded-lg p-8">
+                <p className="text-gray-600 text-center">Formulaire personnalisé</p>
+              </div>
             </div>
           </div>
         );

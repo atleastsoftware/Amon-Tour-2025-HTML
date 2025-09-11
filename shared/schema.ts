@@ -258,6 +258,42 @@ export const insertNewsletterSubscriptionSchema = createInsertSchema(newsletterS
 export type InsertNewsletterSubscription = z.infer<typeof insertNewsletterSubscriptionSchema>;
 export type NewsletterSubscription = typeof newsletterSubscriptions.$inferSelect;
 
+// Cruise request table
+export const cruiseRequests = pgTable("cruise_requests", {
+  id: serial("id").primaryKey(),
+  fullName: text("full_name").notNull(),
+  email: text("email").notNull(),
+  phone: text("phone"),
+  duration: text("duration").notNull(), // "1 day", "2 days", "3-4 days", "5-6 days", "7+ days"
+  itinerary: text("itinerary"), // Preferred destinations
+  numberOfGuests: integer("number_of_guests").notNull(),
+  preferredDates: text("preferred_dates"),
+  budget: text("budget"), // "low", "high", "very_high"
+  specialRequests: text("special_requests"),
+  status: text("status").default("pending"), // "pending", "contacted", "confirmed", "cancelled"
+  read: boolean("read").default(false),
+  notes: text("notes"), // Admin notes
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const insertCruiseRequestSchema = createInsertSchema(cruiseRequests).omit({
+  id: true,
+  status: true,
+  read: true,
+  notes: true,
+  createdAt: true,
+  updatedAt: true,
+}).extend({
+  email: z.string().email("Email valide requis"),
+  fullName: z.string().min(2, "Nom requis"),
+  numberOfGuests: z.number().min(1, "Nombre de passagers requis").max(8, "Maximum 8 passagers"),
+  duration: z.string().min(1, "Durée requise"),
+});
+
+export type InsertCruiseRequest = z.infer<typeof insertCruiseRequestSchema>;
+export type CruiseRequest = typeof cruiseRequests.$inferSelect;
+
 // Image source type enum for tour ninja overrides
 export const imageSourceTypeEnum = pgEnum("image_source_type", ["upload", "url"]);
 
