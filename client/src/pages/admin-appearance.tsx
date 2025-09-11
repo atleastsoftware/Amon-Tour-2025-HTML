@@ -1273,9 +1273,9 @@ function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs, update
             <div>
               <label className="text-sm font-medium text-gray-700 mb-2 block">État</label>
               <div className="flex items-center gap-3 p-2 bg-gray-50 rounded border h-10">
-                <div className={`w-2 h-2 rounded-full ${currentPageConfig.isActive ? 'bg-green-500' : 'bg-red-500'}`}></div>
-                <span className={`text-sm font-medium ${currentPageConfig.isActive ? 'text-green-700' : 'text-red-700'}`}>
-                  {currentPageConfig.isActive ? 'Page active' : 'Page inactive'}
+                <div className={`w-2 h-2 rounded-full ${currentPageConfig.isActive ? 'bg-green-500' : 'bg-gray-500'}`}></div>
+                <span className={`text-sm font-medium ${currentPageConfig.isActive ? 'text-green-700' : 'text-gray-700'}`}>
+                  {currentPageConfig.isActive ? 'Active' : 'Inactive'}
                 </span>
               </div>
             </div>

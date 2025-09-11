@@ -47,7 +47,7 @@ function AdminEditorPageContent() {
     id: page.pageSlug,
     title: page.pageName,
     slug: page.pageSlug === 'home' ? '/' : `/${page.pageSlug}`,
-    status: page.isActive ? 'Publié' : 'Brouillon',
+    status: page.isActive ? 'Active' : 'Inactive',
     type: page.pageType === 'main' ? 'Page principale' : 
           page.pageType === 'secondary' ? 'Page secondaire' : 'Mentions légales'
   }));
@@ -163,7 +163,7 @@ function AdminEditorPageContent() {
                       {page.title || 'Page sans titre'}
                     </h3>
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                      page.status === 'Publié' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                      page.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
                     }`}>
                       {page.status}
                     </span>
