@@ -3,9 +3,11 @@ import { StaggerChildren, StaggerItem } from "@/components/ui/animations";
 import { Map, Zap, Globe, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 
-// Photo Gallery Carousel Component
+// Photo Gallery Carousel Component with Lightbox
 function PhotoGallery() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
   
   const images = [
     {
@@ -21,8 +23,8 @@ function PhotoGallery() {
       alt: "Krabi limestone cliffs"
     },
     {
-      src: "https://images.unsplash.com/photo-1540202249604-58e38348b89a?w=600&h=400&fit=crop",
-      alt: "Thai longtail boat on turquoise water"
+      src: "https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=600&h=400&fit=crop",
+      alt: "Thai beach paradise with longtail boat"
     },
     {
       src: "https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=600&h=400&fit=crop",
@@ -42,57 +44,110 @@ function PhotoGallery() {
     setCurrentIndex((prev) => Math.max(prev - 1, 0));
   };
 
+  const openLightbox = (index: number) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  };
+
+  const closeLightbox = () => {
+    setLightboxOpen(false);
+  };
+
+  const nextLightboxImage = () => {
+    setLightboxIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const prevLightboxImage = () => {
+    setLightboxIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
   return (
-    <div className="relative max-w-7xl mx-auto">
-      <div className="relative overflow-hidden">
-        <div 
-          className="flex gap-6 transition-transform duration-500 ease-in-out"
-          style={{ transform: `translateX(-${currentIndex * (100 / 3 + 2)}%)` }}
-        >
-          {images.map((image, index) => (
-            <motion.div
-              key={index}
-              className="flex-shrink-0 w-full md:w-[calc(33.333%-16px)] relative overflow-hidden rounded-lg shadow-md group cursor-pointer"
-              whileHover={{ 
-                y: -10, 
-                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
-              }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <div className="relative h-64">
-                <img 
-                  src={image.src} 
-                  alt={image.alt}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+    <>
+      <div className="relative max-w-7xl mx-auto">
+        <div className="relative overflow-hidden">
+          <div 
+            className="flex gap-6 transition-transform duration-500 ease-in-out"
+            style={{ transform: `translateX(-${currentIndex * (100 / 3 + 2)}%)` }}
+          >
+            {images.map((image, index) => (
+              <div
+                key={index}
+                className="flex-shrink-0 w-full md:w-[calc(33.333%-16px)] relative overflow-hidden rounded-lg shadow-md cursor-pointer"
+                onClick={() => openLightbox(index)}
+              >
+                <div className="relative h-64">
+                  <img 
+                    src={image.src} 
+                    alt={image.alt}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               </div>
-            </motion.div>
-          ))}
+            ))}
+          </div>
+          
+          {/* Navigation Buttons */}
+          {currentIndex > 0 && (
+            <button
+              onClick={prevSlide}
+              className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-3 rounded-r-lg shadow-lg transition-all duration-200 hover:pl-4 z-10"
+              aria-label="Previous images"
+            >
+              <ChevronLeft className="h-6 w-6" />
+            </button>
+          )}
+          
+          {currentIndex < images.length - 3 && (
+            <button
+              onClick={nextSlide}
+              className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-3 rounded-l-lg shadow-lg transition-all duration-200 hover:pr-4 z-10"
+              aria-label="Next images"
+            >
+              <ChevronRight className="h-6 w-6" />
+            </button>
+          )}
         </div>
-        
-        {/* Navigation Buttons */}
-        {currentIndex > 0 && (
-          <button
-            onClick={prevSlide}
-            className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-3 rounded-r-lg shadow-lg transition-all duration-200 hover:pl-4 z-10"
-            aria-label="Previous images"
-          >
-            <ChevronLeft className="h-6 w-6" />
-          </button>
-        )}
-        
-        {currentIndex < images.length - 3 && (
-          <button
-            onClick={nextSlide}
-            className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-3 rounded-l-lg shadow-lg transition-all duration-200 hover:pr-4 z-10"
-            aria-label="Next images"
-          >
-            <ChevronRight className="h-6 w-6" />
-          </button>
-        )}
       </div>
-    </div>
+
+      {/* Lightbox */}
+      {lightboxOpen && (
+        <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center" onClick={closeLightbox}>
+          <div className="relative max-w-6xl w-full h-full flex items-center justify-center p-4" onClick={(e) => e.stopPropagation()}>
+            <button
+              onClick={closeLightbox}
+              className="absolute top-4 right-4 text-white bg-black/50 hover:bg-black/70 p-2 rounded-full transition-colors z-10"
+              aria-label="Close gallery"
+            >
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            
+            <button
+              onClick={prevLightboxImage}
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-white bg-black/50 hover:bg-black/70 p-3 rounded-full transition-colors"
+              aria-label="Previous image"
+            >
+              <ChevronLeft className="h-8 w-8" />
+            </button>
+            
+            <img 
+              src={images[lightboxIndex].src.replace('w=600&h=400', 'w=1200&h=800')} 
+              alt={images[lightboxIndex].alt}
+              className="max-w-full max-h-full object-contain"
+            />
+            
+            <button
+              onClick={nextLightboxImage}
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-white bg-black/50 hover:bg-black/70 p-3 rounded-full transition-colors"
+              aria-label="Next image"
+            >
+              <ChevronRight className="h-8 w-8" />
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
