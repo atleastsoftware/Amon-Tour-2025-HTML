@@ -82,8 +82,9 @@ function Router() {
       <Route path="/privacy-policy" component={PrivacyPolicy} />
       <Route path="/terms-conditions" component={TermsConditions} />
       
-      {/* Dynamic Pages (for pages created via admin) */}
-      <Route path="/:slug" component={DynamicPage} />
+      {/* Dynamic Pages (pages créées via admin) - Ajoutez les nouvelles pages ici */}
+      <Route path="/cruises" component={() => <DynamicPage slug="cruises" />} />
+      <Route path="/testt" component={() => <DynamicPage slug="testt" />} />
       
       {/* Admin Pages */}
       <Route path="/admin-login" component={AdminLogin} />

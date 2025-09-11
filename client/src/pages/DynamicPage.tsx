@@ -29,9 +29,13 @@ interface PageBlock {
   isActive: boolean;
 }
 
-export default function DynamicPage() {
+interface DynamicPageProps {
+  slug?: string;
+}
+
+export default function DynamicPage({ slug: propSlug }: DynamicPageProps = {}) {
   const params = useParams();
-  const slug = params.slug || '';
+  const slug = propSlug || params.slug || '';
 
   // Récupérer la configuration de la page
   const { data: pageConfig, isLoading: isLoadingConfig, error: configError } = useQuery<PageConfiguration>({
