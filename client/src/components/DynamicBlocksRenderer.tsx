@@ -109,11 +109,6 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
         if (block.identifier === 'pricing') {
           return (
             <div key={block.id} className="w-full">
-              {block.title && (
-                <div className="container mx-auto px-4 py-8">
-                  <h2 className="text-3xl font-bold text-center mb-4">{block.title}</h2>
-                </div>
-              )}
               {block.content && (
                 <div 
                   className="w-full"
