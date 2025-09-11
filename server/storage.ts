@@ -2005,4 +2005,271 @@ export class DatabaseStorage implements IStorage {
   }
 }
 
-export const storage = new DatabaseStorage();
+// In-memory storage implementation
+export class MemoryStorage implements IStorage {
+  private users: Map<number, User> = new Map();
+  private tours: Map<number, Tour> = new Map();
+  private customTourRequests: Map<number, CustomTourRequest> = new Map();
+  private contactMessages: Map<number, ContactMessage> = new Map();
+  private tourAvailability: Map<number, TourAvailability> = new Map();
+  private reservations: Map<number, Reservation> = new Map();
+  private tourCards: Map<string, TourCard> = new Map();
+  private blogCategories: Map<number, BlogCategory> = new Map();
+  private blogTags: Map<number, BlogTag> = new Map();
+  private blogPosts: Map<number, BlogPost> = new Map();
+  private newsletterSubscriptions: Map<number, NewsletterSubscription> = new Map();
+  private krabiCelebrationRequests: Map<number, KrabiCelebrationRequest> = new Map();
+  private partnershipRequests: Map<number, PartnershipRequest> = new Map();
+  private groupRequests: Map<number, GroupRequest> = new Map();
+  private cruiseRequests: Map<number, CruiseRequest> = new Map();
+  private tourNinjaImageOverrides: Map<number, TourNinjaImageOverride> = new Map();
+  private siteSettings: Map<number, SiteSetting> = new Map();
+  private contentBlocks: Map<number, ContentBlock> = new Map();
+  private staticPages: Map<number, StaticPage> = new Map();
+  private mediaLibrary: Map<number, MediaLibrary> = new Map();
+  private pageConfigurations: Map<number, PageConfiguration> = new Map();
+  private pageBlocks: Map<number, PageBlock> = new Map();
+  private blockTemplates: Map<number, BlockTemplate> = new Map();
+  private navigationMenuItems: Map<number, NavigationMenuItem> = new Map();
+  private customForms: Map<number, CustomForm> = new Map();
+  private customFormSubmissions: Map<number, CustomFormSubmission> = new Map();
+  
+  private nextId = 1;
+
+  constructor() {
+    // Initialize with a default admin user
+    this.users.set(1, {
+      id: 1,
+      username: "admin",
+      password: "$2b$10$8zKGwV0h4xFD7KhZN3Vn3.dKc1W2p3VYhyxf7MK6Q8N9Rk0L4X7Ii" // "Amontour2025"
+    });
+
+    // Add some default footer settings
+    this.siteSettings.set(1, {
+      id: 1,
+      section: "footer",
+      key: "company_name",
+      value: "Amon Tour",
+      type: "text",
+      isActive: true,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    });
+  }
+
+  // User operations
+  async getUser(id: number): Promise<User | undefined> {
+    return this.users.get(id);
+  }
+
+  async getUserByUsername(username: string): Promise<User | undefined> {
+    return Array.from(this.users.values()).find(user => user.username === username);
+  }
+
+  async createUser(user: InsertUser): Promise<User> {
+    const id = this.nextId++;
+    const newUser: User = {
+      ...user,
+      id
+    };
+    this.users.set(id, newUser);
+    return newUser;
+  }
+
+  async updateUserPassword(id: number, hashedPassword: string): Promise<User | undefined> {
+    const user = this.users.get(id);
+    if (!user) return undefined;
+    user.password = hashedPassword;
+    return user;
+  }
+
+  // Tour operations (simplified)
+  async getTours(): Promise<Tour[]> {
+    return Array.from(this.tours.values());
+  }
+
+  async getTour(id: number): Promise<Tour | undefined> {
+    return this.tours.get(id);
+  }
+
+  async createTour(tour: InsertTour): Promise<Tour> {
+    const id = this.nextId++;
+    const newTour: Tour = {
+      ...tour,
+      id,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    } as Tour;
+    this.tours.set(id, newTour);
+    return newTour;
+  }
+
+  async updateTour(id: number, tour: Partial<InsertTour>): Promise<Tour | undefined> {
+    const existingTour = this.tours.get(id);
+    if (!existingTour) return undefined;
+    Object.assign(existingTour, tour, { updatedAt: new Date() });
+    return existingTour;
+  }
+
+  async deleteTour(id: number): Promise<boolean> {
+    return this.tours.delete(id);
+  }
+
+  async getFeaturedTours(): Promise<Tour[]> {
+    return Array.from(this.tours.values()).filter(tour => tour.featured);
+  }
+
+  // Stub implementations for other methods (return empty arrays/undefined)
+  async createCustomTourRequest(): Promise<CustomTourRequest> { throw new Error('Not implemented in memory storage'); }
+  async getCustomTourRequests(): Promise<CustomTourRequest[]> { return []; }
+  async getCustomTourRequest(): Promise<CustomTourRequest | undefined> { return undefined; }
+  async updateCustomTourRequest(): Promise<CustomTourRequest | undefined> { return undefined; }
+  async updateCustomTourRequestStatus(): Promise<CustomTourRequest | undefined> { return undefined; }
+  async deleteCustomTourRequest(): Promise<boolean> { return false; }
+  async getNewCustomTourRequestsCount(): Promise<number> { return 0; }
+  async createContactMessage(): Promise<ContactMessage> { throw new Error('Not implemented in memory storage'); }
+  async getContactMessages(): Promise<ContactMessage[]> { return []; }
+  async createTourAvailability(): Promise<TourAvailability> { throw new Error('Not implemented in memory storage'); }
+  async getTourAvailability(): Promise<TourAvailability | undefined> { return undefined; }
+  async getTourAvailabilities(): Promise<TourAvailability[]> { return []; }
+  async updateTourAvailability(): Promise<TourAvailability | undefined> { return undefined; }
+  async deleteTourAvailability(): Promise<boolean> { return false; }
+  async getAvailabilitiesByDateRange(): Promise<TourAvailability[]> { return []; }
+  async createReservation(): Promise<Reservation> { throw new Error('Not implemented in memory storage'); }
+  async getReservation(): Promise<Reservation | undefined> { return undefined; }
+  async getReservations(): Promise<Reservation[]> { return []; }
+  async getTourReservations(): Promise<Reservation[]> { return []; }
+  async updateReservation(): Promise<Reservation | undefined> { return undefined; }
+  async updateReservationStatus(): Promise<Reservation | undefined> { return undefined; }
+  async updateReservationPayment(): Promise<Reservation | undefined> { return undefined; }
+  async createTourCard(): Promise<TourCard> { throw new Error('Not implemented in memory storage'); }
+  async getTourCards(): Promise<TourCard[]> { return []; }
+  async getTourCard(): Promise<TourCard | undefined> { return undefined; }
+  async updateTourCard(): Promise<TourCard | undefined> { return undefined; }
+  async deleteTourCard(): Promise<boolean> { return false; }
+  async createBlogCategory(): Promise<BlogCategory> { throw new Error('Not implemented in memory storage'); }
+  async getBlogCategories(): Promise<BlogCategory[]> { return []; }
+  async getBlogCategory(): Promise<BlogCategory | undefined> { return undefined; }
+  async updateBlogCategory(): Promise<BlogCategory | undefined> { return undefined; }
+  async deleteBlogCategory(): Promise<boolean> { return false; }
+  async createBlogTag(): Promise<BlogTag> { throw new Error('Not implemented in memory storage'); }
+  async getBlogTags(): Promise<BlogTag[]> { return []; }
+  async getBlogTag(): Promise<BlogTag | undefined> { return undefined; }
+  async updateBlogTag(): Promise<BlogTag | undefined> { return undefined; }
+  async deleteBlogTag(): Promise<boolean> { return false; }
+  async createBlogPost(): Promise<BlogPost> { throw new Error('Not implemented in memory storage'); }
+  async getBlogPosts(): Promise<(BlogPost & { category?: BlogCategory; tags?: BlogTag[] })[]> { return []; }
+  async getPublishedBlogPosts(): Promise<(BlogPost & { category?: BlogCategory; tags?: BlogTag[] })[]> { return []; }
+  async getBlogPost(): Promise<(BlogPost & { category?: BlogCategory; tags?: BlogTag[] }) | undefined> { return undefined; }
+  async getBlogPostBySlug(): Promise<(BlogPost & { category?: BlogCategory; tags?: BlogTag[] }) | undefined> { return undefined; }
+  async updateBlogPost(): Promise<BlogPost | undefined> { return undefined; }
+  async deleteBlogPost(): Promise<boolean> { return false; }
+  async getRelatedBlogPosts(): Promise<(BlogPost & { category?: BlogCategory })[]> { return []; }
+  async createNewsletterSubscription(): Promise<NewsletterSubscription> { throw new Error('Not implemented in memory storage'); }
+  async createNewsletterSubscriptionConfirmed(): Promise<NewsletterSubscription> { throw new Error('Not implemented in memory storage'); }
+  async getNewsletterSubscriptions(): Promise<NewsletterSubscription[]> { return []; }
+  async getNewsletterSubscriptionByEmail(): Promise<NewsletterSubscription | undefined> { return undefined; }
+  async getNewsletterSubscriptionByToken(): Promise<NewsletterSubscription | undefined> { return undefined; }
+  async updateNewsletterSubscription(): Promise<NewsletterSubscription | undefined> { return undefined; }
+  async confirmNewsletterSubscription(): Promise<NewsletterSubscription | undefined> { return undefined; }
+  async unsubscribeNewsletter(): Promise<boolean> { return false; }
+  async createKrabiCelebrationRequest(): Promise<KrabiCelebrationRequest> { throw new Error('Not implemented in memory storage'); }
+  async getKrabiCelebrationRequests(): Promise<KrabiCelebrationRequest[]> { return []; }
+  async getKrabiCelebrationRequest(): Promise<KrabiCelebrationRequest | undefined> { return undefined; }
+  async updateKrabiCelebrationRequest(): Promise<KrabiCelebrationRequest | undefined> { return undefined; }
+  async deleteKrabiCelebrationRequest(): Promise<boolean> { return false; }
+  async markKrabiCelebrationRequestAsRead(): Promise<KrabiCelebrationRequest | undefined> { return undefined; }
+  async createPartnershipRequest(): Promise<PartnershipRequest> { throw new Error('Not implemented in memory storage'); }
+  async getPartnershipRequests(): Promise<PartnershipRequest[]> { return []; }
+  async getPartnershipRequest(): Promise<PartnershipRequest | undefined> { return undefined; }
+  async updatePartnershipRequest(): Promise<PartnershipRequest | undefined> { return undefined; }
+  async deletePartnershipRequest(): Promise<boolean> { return false; }
+  async markPartnershipRequestAsRead(): Promise<PartnershipRequest | undefined> { return undefined; }
+  async createGroupRequest(): Promise<GroupRequest> { throw new Error('Not implemented in memory storage'); }
+  async getGroupRequests(): Promise<GroupRequest[]> { return []; }
+  async getGroupRequest(): Promise<GroupRequest | undefined> { return undefined; }
+  async updateGroupRequest(): Promise<GroupRequest | undefined> { return undefined; }
+  async deleteGroupRequest(): Promise<boolean> { return false; }
+  async markGroupRequestAsRead(): Promise<GroupRequest | undefined> { return undefined; }
+  async createCruiseRequest(): Promise<CruiseRequest> { throw new Error('Not implemented in memory storage'); }
+  async getCruiseRequests(): Promise<CruiseRequest[]> { return []; }
+  async getCruiseRequest(): Promise<CruiseRequest | undefined> { return undefined; }
+  async updateCruiseRequest(): Promise<CruiseRequest | undefined> { return undefined; }
+  async markCruiseRequestAsRead(): Promise<CruiseRequest | undefined> { return undefined; }
+  async deleteCruiseRequest(): Promise<boolean> { return false; }
+  async createTourNinjaImageOverride(): Promise<TourNinjaImageOverride> { throw new Error('Not implemented in memory storage'); }
+  async getTourNinjaImageOverrides(): Promise<TourNinjaImageOverride[]> { return []; }
+  async getTourNinjaImageOverride(): Promise<TourNinjaImageOverride | undefined> { return undefined; }
+  async getTourNinjaImageOverrideByTourId(): Promise<TourNinjaImageOverride | undefined> { return undefined; }
+  async updateTourNinjaImageOverride(): Promise<TourNinjaImageOverride | undefined> { return undefined; }
+  async deleteTourNinjaImageOverride(): Promise<boolean> { return false; }
+  async toggleTourNinjaImageOverride(): Promise<TourNinjaImageOverride | undefined> { return undefined; }
+  async createSiteSetting(): Promise<SiteSetting> { throw new Error('Not implemented in memory storage'); }
+
+  async getSiteSettings(section?: string): Promise<SiteSetting[]> {
+    const allSettings = Array.from(this.siteSettings.values());
+    return section ? allSettings.filter(setting => setting.section === section) : allSettings;
+  }
+
+  async getSiteSetting(section: string, key: string): Promise<SiteSetting | undefined> {
+    return Array.from(this.siteSettings.values()).find(setting => 
+      setting.section === section && setting.key === key
+    );
+  }
+
+  async updateSiteSetting(): Promise<SiteSetting | undefined> { return undefined; }
+  async deleteSiteSetting(): Promise<boolean> { return false; }
+  async createContentBlock(): Promise<ContentBlock> { throw new Error('Not implemented in memory storage'); }
+  async getContentBlocks(): Promise<ContentBlock[]> { return []; }
+  async getContentBlock(): Promise<ContentBlock | undefined> { return undefined; }
+  async getContentBlockByIdentifier(): Promise<ContentBlock | undefined> { return undefined; }
+  async updateContentBlock(): Promise<ContentBlock | undefined> { return undefined; }
+  async deleteContentBlock(): Promise<boolean> { return false; }
+  async toggleContentBlock(): Promise<ContentBlock | undefined> { return undefined; }
+  async createStaticPage(): Promise<StaticPage> { throw new Error('Not implemented in memory storage'); }
+  async getStaticPages(): Promise<StaticPage[]> { return []; }
+  async getStaticPage(): Promise<StaticPage | undefined> { return undefined; }
+  async getStaticPageBySlug(): Promise<StaticPage | undefined> { return undefined; }
+  async updateStaticPage(): Promise<StaticPage | undefined> { return undefined; }
+  async deleteStaticPage(): Promise<boolean> { return false; }
+  async toggleStaticPagePublished(): Promise<StaticPage | undefined> { return undefined; }
+  async createMediaLibraryItem(): Promise<MediaLibrary> { throw new Error('Not implemented in memory storage'); }
+  async getMediaLibraryItems(): Promise<MediaLibrary[]> { return []; }
+  async getMediaLibraryItem(): Promise<MediaLibrary | undefined> { return undefined; }
+  async updateMediaLibraryItem(): Promise<MediaLibrary | undefined> { return undefined; }
+  async deleteMediaLibraryItem(): Promise<boolean> { return false; }
+  async markMediaAsUsed(): Promise<MediaLibrary | undefined> { return undefined; }
+
+  async getPageConfigurations(): Promise<PageConfiguration[]> {
+    return Array.from(this.pageConfigurations.values());
+  }
+
+  async getPageConfiguration(slug: string): Promise<PageConfiguration | undefined> {
+    return Array.from(this.pageConfigurations.values()).find(config => config.pageSlug === slug);
+  }
+
+  async createPageConfiguration(): Promise<PageConfiguration> { throw new Error('Not implemented in memory storage'); }
+  async updatePageConfiguration(): Promise<PageConfiguration | undefined> { return undefined; }
+  async deletePageConfiguration(): Promise<boolean> { return false; }
+  async getPageBlocks(): Promise<PageBlock[]> { return []; }
+  async getPageBlocksBySlug(): Promise<PageBlock[]> { return []; }
+  async createPageBlock(): Promise<PageBlock> { throw new Error('Not implemented in memory storage'); }
+  async updatePageBlock(): Promise<PageBlock | undefined> { return undefined; }
+  async deletePageBlock(): Promise<boolean> { return false; }
+  async reorderPageBlocks(): Promise<boolean> { return false; }
+  async getBlockTemplates(): Promise<BlockTemplate[]> { return []; }
+  async getBlockTemplate(): Promise<BlockTemplate | undefined> { return undefined; }
+  async createBlockTemplate(): Promise<BlockTemplate> { throw new Error('Not implemented in memory storage'); }
+  async updateBlockTemplate(): Promise<BlockTemplate | undefined> { return undefined; }
+  async deleteBlockTemplate(): Promise<boolean> { return false; }
+  async getCustomForms(): Promise<CustomForm[]> { return []; }
+  async getCustomForm(): Promise<CustomForm | undefined> { return undefined; }
+  async createCustomForm(): Promise<CustomForm> { throw new Error('Not implemented in memory storage'); }
+  async updateCustomForm(): Promise<CustomForm | undefined> { return undefined; }
+  async deleteCustomForm(): Promise<boolean> { return false; }
+  async getCustomFormSubmissions(): Promise<CustomFormSubmission[]> { return []; }
+  async createCustomFormSubmission(): Promise<CustomFormSubmission> { throw new Error('Not implemented in memory storage'); }
+}
+
+// Use in-memory storage when database is not available
+export const storage = new MemoryStorage();
