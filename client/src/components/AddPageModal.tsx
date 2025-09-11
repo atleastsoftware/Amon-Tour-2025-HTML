@@ -58,7 +58,8 @@ export function AddPageModal({ isOpen, onClose, onSuccess }: AddPageModalProps) 
       isActive: boolean;
       sourcePageId?: number;
     }) => {
-      return apiRequest('/api/admin/page-configurations', 'POST', data);
+      const response = await apiRequest('POST', '/api/admin/page-configurations', data);
+      return response.json();
     },
     onSuccess: (data: any) => {
       toast({
