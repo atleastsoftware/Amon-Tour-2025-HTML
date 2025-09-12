@@ -140,8 +140,8 @@ function PhotoGallery() {
       <div className="relative max-w-7xl mx-auto">
         <div className="relative overflow-hidden">
           <div 
-            className="flex gap-6 transition-transform duration-500 ease-in-out"
-            style={{ transform: `translateX(-${currentIndex * (100 / visibleCount + (visibleCount === 1 ? 0 : 2))}%)` }}
+            className="flex gap-0 md:gap-6 transition-transform duration-500 ease-in-out"
+            style={{ transform: `translateX(-${currentIndex * (100 / visibleCount)}%)` }}
           >
             {images.map((image, index) => (
               <div
