@@ -96,6 +96,51 @@ export default function SeasonalPricing() {
           >
             <p className="text-gray-600 text-lg">Daily rate for minimum 2 days and one night. Capacity 8 adults max.</p>
           </motion.div>
+          
+          {/* Included and Not Included Cards */}
+          <div className="max-w-5xl mx-auto mt-8 space-y-4">
+            {/* Included in Price Card */}
+            <motion.div 
+              className="bg-white rounded-xl shadow-lg p-6"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+            >
+              <div className="flex items-center mb-4">
+                <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                  <svg className="w-6 h-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold text-gray-900">Included in Price</h3>
+              </div>
+              <p className="text-gray-600 leading-relaxed">
+                Boat rental with captain, assistant and professional English-speaking guide, fuel, semi-rigid dinghy for 5 to 6 people with an 18 HP engine, BBQ, fishing equipment and a paddleboard, fresh fruit, sodas, water. Breakfast (tea, coffee, toast, omelet).
+              </p>
+            </motion.div>
+            
+            {/* Not Included in Price Card */}
+            <motion.div 
+              className="bg-white rounded-xl shadow-lg p-6"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+            >
+              <div className="flex items-center mb-4">
+                <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center mr-3">
+                  <svg className="w-6 h-6 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold text-gray-900">Not Included in Price</h3>
+              </div>
+              <p className="text-gray-600 leading-relaxed">
+                Transfers (on request), national park fees (depending on the itinerary), beer, wine, spirits. Lunch and dinner (Thai cuisine): 500 Baht per person per meal. Please let us know your preferences and we will provision the boat accordingly.
+              </p>
+            </motion.div>
+          </div>
         </div>
       </div>
     </div>
