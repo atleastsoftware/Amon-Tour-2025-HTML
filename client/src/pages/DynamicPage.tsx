@@ -56,9 +56,9 @@ export default function DynamicPage({ slug: propSlug }: DynamicPageProps = {}) {
 
   // Récupérer les blocs de la page
   const { data: blocks = [], isLoading: isLoadingBlocks } = useQuery<PageBlock[]>({
-    queryKey: [`/api/admin/page-blocks/${slug}`],
+    queryKey: [`/api/public/page-blocks/${slug}`],
     queryFn: async () => {
-      const response = await fetch(`/api/admin/page-blocks/${slug}`);
+      const response = await fetch(`/api/public/page-blocks/${slug}`);
       if (!response.ok) {
         return [];
       }

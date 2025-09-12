@@ -2867,7 +2867,21 @@ Crawl-delay: 1`;
     }
   });
 
-  // Page blocks
+  // Page blocks - Public route for dynamic pages
+  app.get("/api/public/page-blocks/:pageSlug", async (req, res) => {
+    try {
+      const { pageSlug } = req.params;
+      const blocks = await storage.getPageBlocksBySlug(pageSlug);
+      // Only return active blocks for public access
+      const activeBlocks = blocks.filter(block => block.isActive);
+      res.json(activeBlocks);
+    } catch (error) {
+      console.error("Error fetching public page blocks:", error);
+      res.status(500).json({ message: "Failed to fetch page blocks", error: String(error) });
+    }
+  });
+
+  // Page blocks - Admin route (protected)
   app.get("/api/admin/page-blocks/:pageSlug", requireAuth, async (req, res) => {
     try {
       const { pageSlug } = req.params;
