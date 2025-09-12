@@ -1,43 +1,117 @@
 import { motion } from "framer-motion";
 import { StaggerChildren, StaggerItem } from "@/components/ui/animations";
 import { Map, Zap, Globe, ChevronLeft, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // Photo Gallery Carousel Component with Lightbox
 function PhotoGallery() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(3);
+  
+  // Responsive visibility - show 1 image on mobile, 2 on tablet, 3 on desktop
+  useEffect(() => {
+    const updateVisibleCount = () => {
+      if (window.innerWidth < 768) {
+        setVisibleCount(1);
+      } else if (window.innerWidth < 1024) {
+        setVisibleCount(2);
+      } else {
+        setVisibleCount(3);
+      }
+    };
+    
+    updateVisibleCount();
+    window.addEventListener('resize', updateVisibleCount);
+    return () => window.removeEventListener('resize', updateVisibleCount);
+  }, []);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   
   const images = [
     {
-      src: "https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?w=600&h=400&fit=crop",
-      alt: "Thai beach with crystal clear water and speedboat"
+      src: "/attached_assets/3046de19-33b6-4374-999b-c01da9abda7d_1757685926513.jpeg",
+      alt: "Lagoon 470 catamaran - Exterior view"
     },
     {
-      src: "https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=600&h=400&fit=crop",
-      alt: "Phi Phi Islands sunset"
+      src: "/attached_assets/30877b23-72c3-4bda-9edf-b8a2334af26a_1757685926513.jpeg",
+      alt: "Lagoon 470 catamaran - Deck area"
     },
     {
-      src: "https://images.unsplash.com/photo-1506665531195-3566af2b4dfa?w=600&h=400&fit=crop",
-      alt: "Krabi limestone cliffs"
+      src: "/attached_assets/32cfb689-7a4b-42a2-a54b-1c1501343059_1757685926513.jpeg",
+      alt: "Lagoon 470 catamaran - Interior cabin"
     },
     {
-      src: "https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=600&h=400&fit=crop",
-      alt: "Thai beach paradise with longtail boat"
+      src: "/attached_assets/626e6d17-dc9b-420e-b3ee-fad71c615c7e_1757685926513.jpeg",
+      alt: "Lagoon 470 catamaran - Living space"
     },
     {
-      src: "https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=600&h=400&fit=crop",
-      alt: "Maya Bay crystal clear lagoon"
+      src: "/attached_assets/6d7d224d-fe2e-4c12-aee4-52d19d976971_1757685926513.jpeg",
+      alt: "Lagoon 470 catamaran - Kitchen area"
     },
     {
-      src: "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?w=600&h=400&fit=crop",
-      alt: "Thailand tropical paradise beach"
+      src: "/attached_assets/7042dca5-8d61-45a3-a177-28202abbebac_1757685926513.jpeg",
+      alt: "Lagoon 470 catamaran - Bathroom"
+    },
+    {
+      src: "/attached_assets/790fc1de-1a62-4e19-93eb-f2529f131485_1757685926513.jpeg",
+      alt: "Lagoon 470 catamaran - Bedroom cabin"
+    },
+    {
+      src: "/attached_assets/8614f431-1592-46d0-af6e-6b5f8bf88f4a_1757685926513.jpeg",
+      alt: "Lagoon 470 catamaran - Cockpit"
+    },
+    {
+      src: "/attached_assets/9b469d5b-7a43-4f13-81e5-36826d34a4d0_1757685926513.jpeg",
+      alt: "Lagoon 470 catamaran - Sailing view"
+    },
+    {
+      src: "/attached_assets/a03261ff-35eb-4352-abf8-9eb698da17ec_1757685926513.jpeg",
+      alt: "Lagoon 470 catamaran - Front deck"
+    },
+    {
+      src: "/attached_assets/a5925b83-84e8-4167-9ebc-2e6721a99ac7_1757685926513.jpeg",
+      alt: "Lagoon 470 catamaran - Navigation area"
+    },
+    {
+      src: "/attached_assets/ad86696b-61b6-436a-a461-6502877efdf7_1757685926513.jpeg",
+      alt: "Lagoon 470 catamaran - Interior detail"
+    },
+    {
+      src: "/attached_assets/0df32598-c5ce-4ab5-b6b8-364340261657_1757686525806.jpeg",
+      alt: "Lagoon 470 catamaran - Panoramic view"
+    },
+    {
+      src: "/attached_assets/5008f297-b9ad-453f-a386-43ce40898224_1757686525806.jpeg",
+      alt: "Lagoon 470 catamaran - Side profile"
+    },
+    {
+      src: "/attached_assets/50d065bb-7fe3-460c-842f-205106b21217_1757686525806.jpeg",
+      alt: "Lagoon 470 catamaran - Anchor area"
+    },
+    {
+      src: "/attached_assets/62bcbbea-64f9-4c84-8dde-f6cf100b06ac_1757686498698.jpeg",
+      alt: "Lagoon 470 catamaran - Stern view"
+    },
+    {
+      src: "/attached_assets/e922cf8c-ae03-4be2-b715-bc1185241ac3_1757686525806.jpeg",
+      alt: "Lagoon 470 catamaran - Trampoline area"
+    },
+    {
+      src: "/attached_assets/ff534450-22ca-4e96-8fac-d503f5939fd9_1757686525806.jpeg",
+      alt: "Lagoon 470 catamaran - Equipment details"
+    },
+    {
+      src: "/attached_assets/c2bbb0b5-ec85-4ff5-afe5-1bc2047eb558_1757686498698.jpeg",
+      alt: "Lagoon 470 catamaran - Salon interior"
+    },
+    {
+      src: "/attached_assets/ec633587-a525-45fc-94f9-ba186247b03d_1757685926513.jpeg",
+      alt: "Lagoon 470 catamaran - Full view"
     }
   ];
 
   const nextSlide = () => {
-    setCurrentIndex((prev) => Math.min(prev + 1, images.length - 3));
+    setCurrentIndex((prev) => Math.min(prev + 1, images.length - visibleCount));
   };
 
   const prevSlide = () => {
@@ -67,12 +141,16 @@ function PhotoGallery() {
         <div className="relative overflow-hidden">
           <div 
             className="flex gap-6 transition-transform duration-500 ease-in-out"
-            style={{ transform: `translateX(-${currentIndex * (100 / 3 + 2)}%)` }}
+            style={{ transform: `translateX(-${currentIndex * (100 / visibleCount + (visibleCount === 1 ? 0 : 2))}%)` }}
           >
             {images.map((image, index) => (
               <div
                 key={index}
-                className="flex-shrink-0 w-full md:w-[calc(33.333%-16px)] relative overflow-hidden rounded-lg shadow-md cursor-pointer"
+                className={`flex-shrink-0 relative overflow-hidden rounded-lg shadow-md cursor-pointer ${
+                  visibleCount === 1 ? 'w-full' : 
+                  visibleCount === 2 ? 'w-full md:w-[calc(50%-12px)]' :
+                  'w-full md:w-[calc(33.333%-16px)]'
+                }`}
                 onClick={() => openLightbox(index)}
               >
                 <div className="relative h-64">
@@ -97,7 +175,7 @@ function PhotoGallery() {
             </button>
           )}
           
-          {currentIndex < images.length - 3 && (
+          {currentIndex < images.length - visibleCount && (
             <button
               onClick={nextSlide}
               className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-3 rounded-l-lg shadow-lg transition-all duration-200 hover:pr-4 z-10"
@@ -111,12 +189,13 @@ function PhotoGallery() {
 
       {/* Lightbox */}
       {lightboxOpen && (
-        <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center" onClick={closeLightbox}>
+        <div className="fixed inset-0 bg-black/90 z-[9999] flex items-center justify-center" onClick={closeLightbox}>
           <div className="relative max-w-6xl w-full h-full flex items-center justify-center p-4" onClick={(e) => e.stopPropagation()}>
             <button
               onClick={closeLightbox}
-              className="absolute top-4 right-4 text-white bg-black/50 hover:bg-black/70 p-2 rounded-full transition-colors z-10"
+              className="absolute top-16 right-4 md:top-4 text-white bg-black/70 hover:bg-black/90 p-3 rounded-full transition-colors z-10 shadow-lg"
               aria-label="Close gallery"
+              data-testid="button-close-gallery"
             >
               <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -132,9 +211,10 @@ function PhotoGallery() {
             </button>
             
             <img 
-              src={images[lightboxIndex].src.replace('w=600&h=400', 'w=1200&h=800')} 
+              src={images[lightboxIndex].src} 
               alt={images[lightboxIndex].alt}
               className="max-w-full max-h-full object-contain"
+              data-testid="img-lightbox"
             />
             
             <button
