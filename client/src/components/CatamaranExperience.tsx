@@ -277,45 +277,91 @@ export default function CatamaranExperience() {
         
         {/* Route Suggestions Section */}
         <motion.div 
-          className="mt-16 max-w-4xl mx-auto"
+          className="mt-16"
           initial={{ y: 20, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.5 }}
         >
-          <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3 text-center">Route suggestions</h2>
-          <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
-          
-          <div className="space-y-4">
-            <div className="flex flex-col md:flex-row">
-              <span className="font-bold text-lg text-primary md:w-32 mb-1 md:mb-0">1 day</span>
-              <span className="text-gray-600 md:ml-4">– Local islands of Ao Nang or Koh Hong archipelago</span>
-            </div>
-            
-            <div className="flex flex-col md:flex-row">
-              <span className="font-bold text-lg text-primary md:w-32 mb-1 md:mb-0">2 days</span>
-              <span className="text-gray-600 md:ml-4">– Head towards Koh Hong or the legendary Koh Phi Phi</span>
-            </div>
-            
-            <div className="flex flex-col md:flex-row">
-              <span className="font-bold text-lg text-primary md:w-32 mb-1 md:mb-0">3/4 days</span>
-              <span className="text-gray-600 md:ml-4">– Combined Phang Nga Bay and Koh Phi Phi</span>
-            </div>
-            
-            <div className="flex flex-col md:flex-row">
-              <span className="font-bold text-lg text-primary md:w-32 mb-1 md:mb-0">5/6 days</span>
-              <span className="text-gray-600 md:ml-4">– Getaway to the preserved waters of Koh Rok and Koh Mook</span>
-            </div>
-            
-            <div className="flex flex-col md:flex-row">
-              <span className="font-bold text-lg text-primary md:w-32 mb-1 md:mb-0">7+ days</span>
-              <span className="text-gray-600 md:ml-4">– Odyssey to the paradise islands of Koh Lipe or Similan</span>
-            </div>
+          <div className="text-center mb-8">
+            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">Route suggestions</h2>
+            <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
+            <p className="text-gray-600 text-lg max-w-4xl mx-auto">
+              Each itinerary adapts to the season and natural conditions to guarantee you an optimal experience.
+            </p>
           </div>
           
-          <p className="text-gray-600 text-center mt-8 italic">
-            Each itinerary adapts to the season and natural conditions to guarantee you an optimal experience.
-          </p>
+          <div className="max-w-5xl mx-auto space-y-4">
+            {/* 1 day */}
+            <motion.div 
+              className="bg-white rounded-xl shadow-lg p-6"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <div className="flex flex-col md:flex-row md:items-center">
+                <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">1 day</span>
+                <span className="text-gray-600 text-lg md:ml-4">– Local islands of Ao Nang or Koh Hong archipelago</span>
+              </div>
+            </motion.div>
+            
+            {/* 2 days */}
+            <motion.div 
+              className="bg-white rounded-xl shadow-lg p-6"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <div className="flex flex-col md:flex-row md:items-center">
+                <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">2 days</span>
+                <span className="text-gray-600 text-lg md:ml-4">– Head towards Koh Hong or the legendary Koh Phi Phi</span>
+              </div>
+            </motion.div>
+            
+            {/* 3/4 days */}
+            <motion.div 
+              className="bg-white rounded-xl shadow-lg p-6"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              <div className="flex flex-col md:flex-row md:items-center">
+                <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">3/4 days</span>
+                <span className="text-gray-600 text-lg md:ml-4">– Combined Phang Nga Bay and Koh Phi Phi</span>
+              </div>
+            </motion.div>
+            
+            {/* 5/6 days */}
+            <motion.div 
+              className="bg-white rounded-xl shadow-lg p-6"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
+              <div className="flex flex-col md:flex-row md:items-center">
+                <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">5/6 days</span>
+                <span className="text-gray-600 text-lg md:ml-4">– Getaway to the preserved waters of Koh Rok and Koh Mook</span>
+              </div>
+            </motion.div>
+            
+            {/* 7+ days */}
+            <motion.div 
+              className="bg-white rounded-xl shadow-lg p-6"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+            >
+              <div className="flex flex-col md:flex-row md:items-center">
+                <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">7+ days</span>
+                <span className="text-gray-600 text-lg md:ml-4">– Odyssey to the paradise islands of Koh Lipe or Similan</span>
+              </div>
+            </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>
