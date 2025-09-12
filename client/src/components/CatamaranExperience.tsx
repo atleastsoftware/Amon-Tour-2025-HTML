@@ -28,39 +28,69 @@ function PhotoGallery() {
   const [lightboxIndex, setLightboxIndex] = useState(0);
   
   const images = [
-    // Vue d'ensemble extérieure
     {
-      src: "/attached_assets/ec633587-a525-45fc-94f9-ba186247b03d_1757685926513.jpeg",
+      src: "/attached_assets/790fc1de-1a62-4e19-93eb-f2529f131485_1757686414762.jpeg",
+      alt: "Lagoon 470 catamaran - Cabine avec lit"
+    },
+    {
+      src: "/attached_assets/626e6d17-dc9b-420e-b3ee-fad71c615c7e_1757686414762.jpeg",
+      alt: "Lagoon 470 catamaran - Espace de vie"
+    },
+    {
+      src: "/attached_assets/3046de19-33b6-4374-999b-c01da9abda7d_1757686414762.jpeg",
+      alt: "Lagoon 470 catamaran - Vue extérieure"
+    },
+    {
+      src: "/attached_assets/a03261ff-35eb-4352-abf8-9eb698da17ec_1757686436923.jpeg",
+      alt: "Lagoon 470 catamaran - Pont avant"
+    },
+    {
+      src: "/attached_assets/9b469d5b-7a43-4f13-81e5-36826d34a4d0_1757686436923.jpeg",
+      alt: "Lagoon 470 catamaran - En navigation"
+    },
+    {
+      src: "/attached_assets/6d7d224d-fe2e-4c12-aee4-52d19d976971_1757686436923.jpeg",
+      alt: "Lagoon 470 catamaran - Cuisine"
+    },
+    {
+      src: "/attached_assets/8614f431-1592-46d0-af6e-6b5f8bf88f4a_1757686457872.jpeg",
+      alt: "Lagoon 470 catamaran - Cockpit"
+    },
+    {
+      src: "/attached_assets/30877b23-72c3-4bda-9edf-b8a2334af26a_1757686457872.jpeg",
+      alt: "Lagoon 470 catamaran - Pont principal"
+    },
+    {
+      src: "/attached_assets/7042dca5-8d61-45a3-a177-28202abbebac_1757686457872.jpeg",
+      alt: "Lagoon 470 catamaran - Salle de bain"
+    },
+    {
+      src: "/attached_assets/ec633587-a525-45fc-94f9-ba186247b03d_1757686483511.jpeg",
       alt: "Lagoon 470 catamaran - Vue d'ensemble"
+    },
+    {
+      src: "/attached_assets/ad86696b-61b6-436a-a461-6502877efdf7_1757686483512.jpeg",
+      alt: "Lagoon 470 catamaran - Détails intérieurs"
+    },
+    {
+      src: "/attached_assets/a5925b83-84e8-4167-9ebc-2e6721a99ac7_1757686483512.jpeg",
+      alt: "Lagoon 470 catamaran - Zone de navigation intérieure"
+    },
+    {
+      src: "/attached_assets/32cfb689-7a4b-42a2-a54b-1c1501343059_1757686498698.jpeg",
+      alt: "Lagoon 470 catamaran - Cabine intérieure"
+    },
+    {
+      src: "/attached_assets/62bcbbea-64f9-4c84-8dde-f6cf100b06ac_1757686498698.jpeg",
+      alt: "Lagoon 470 catamaran - Arrière du catamaran"
+    },
+    {
+      src: "/attached_assets/c2bbb0b5-ec85-4ff5-afe5-1bc2047eb558_1757686498698.jpeg",
+      alt: "Lagoon 470 catamaran - Salon principal"
     },
     {
       src: "/attached_assets/0df32598-c5ce-4ab5-b6b8-364340261657_1757686525806.jpeg",
       alt: "Lagoon 470 catamaran - Vue panoramique"
-    },
-    {
-      src: "/attached_assets/3046de19-33b6-4374-999b-c01da9abda7d_1757685926513.jpeg",
-      alt: "Lagoon 470 catamaran - Vue extérieure"
-    },
-    {
-      src: "/attached_assets/5008f297-b9ad-453f-a386-43ce40898224_1757686525806.jpeg",
-      alt: "Lagoon 470 catamaran - Profil du catamaran"
-    },
-    // Pont et zones de navigation
-    {
-      src: "/attached_assets/9b469d5b-7a43-4f13-81e5-36826d34a4d0_1757685926513.jpeg",
-      alt: "Lagoon 470 catamaran - En navigation"
-    },
-    {
-      src: "/attached_assets/30877b23-72c3-4bda-9edf-b8a2334af26a_1757685926513.jpeg",
-      alt: "Lagoon 470 catamaran - Pont principal"
-    },
-    {
-      src: "/attached_assets/8614f431-1592-46d0-af6e-6b5f8bf88f4a_1757685926513.jpeg",
-      alt: "Lagoon 470 catamaran - Cockpit"
-    },
-    {
-      src: "/attached_assets/a03261ff-35eb-4352-abf8-9eb698da17ec_1757685926513.jpeg",
-      alt: "Lagoon 470 catamaran - Pont avant"
     },
     {
       src: "/attached_assets/e922cf8c-ae03-4be2-b715-bc1185241ac3_1757686525806.jpeg",
@@ -71,43 +101,8 @@ function PhotoGallery() {
       alt: "Lagoon 470 catamaran - Zone d'ancrage"
     },
     {
-      src: "/attached_assets/62bcbbea-64f9-4c84-8dde-f6cf100b06ac_1757686498698.jpeg",
-      alt: "Lagoon 470 catamaran - Arrière du catamaran"
-    },
-    // Espaces intérieurs principaux
-    {
-      src: "/attached_assets/c2bbb0b5-ec85-4ff5-afe5-1bc2047eb558_1757686498698.jpeg",
-      alt: "Lagoon 470 catamaran - Salon principal"
-    },
-    {
-      src: "/attached_assets/626e6d17-dc9b-420e-b3ee-fad71c615c7e_1757685926513.jpeg",
-      alt: "Lagoon 470 catamaran - Espace de vie"
-    },
-    {
-      src: "/attached_assets/6d7d224d-fe2e-4c12-aee4-52d19d976971_1757685926513.jpeg",
-      alt: "Lagoon 470 catamaran - Cuisine"
-    },
-    {
-      src: "/attached_assets/a5925b83-84e8-4167-9ebc-2e6721a99ac7_1757685926513.jpeg",
-      alt: "Lagoon 470 catamaran - Zone de navigation intérieure"
-    },
-    // Cabines et chambres
-    {
-      src: "/attached_assets/32cfb689-7a4b-42a2-a54b-1c1501343059_1757685926513.jpeg",
-      alt: "Lagoon 470 catamaran - Cabine intérieure"
-    },
-    {
-      src: "/attached_assets/790fc1de-1a62-4e19-93eb-f2529f131485_1757685926513.jpeg",
-      alt: "Lagoon 470 catamaran - Cabine avec lit"
-    },
-    {
-      src: "/attached_assets/7042dca5-8d61-45a3-a177-28202abbebac_1757685926513.jpeg",
-      alt: "Lagoon 470 catamaran - Salle de bain"
-    },
-    // Détails et équipements
-    {
-      src: "/attached_assets/ad86696b-61b6-436a-a461-6502877efdf7_1757685926513.jpeg",
-      alt: "Lagoon 470 catamaran - Détails intérieurs"
+      src: "/attached_assets/5008f297-b9ad-453f-a386-43ce40898224_1757686525806.jpeg",
+      alt: "Lagoon 470 catamaran - Profil du catamaran"
     },
     {
       src: "/attached_assets/ff534450-22ca-4e96-8fac-d503f5939fd9_1757686525806.jpeg",
