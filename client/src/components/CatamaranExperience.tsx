@@ -164,12 +164,12 @@ export default function CatamaranExperience() {
           >
             <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">Freedom and Exclusivity</h2>
             <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
-            <p className="text-gray-600 text-lg max-w-4xl mx-auto mb-2">
+            <p className="text-gray-600 text-lg max-w-4xl mx-auto mb-6">
               Navigate towards exclusivity aboard one of the rare catamaran cruises departing from Krabi. Explore the Andaman Sea as few travelers have the chance to do: in complete freedom, away from tourist circuits, with an itinerary designed entirely for you.
             </p>
-            <p className="text-gray-600 text-lg max-w-3xl mx-auto">
+            <h3 className="font-heading font-semibold text-2xl text-primary max-w-3xl mx-auto">
               Your Cruise, Our Expertise:
-            </p>
+            </h3>
           </motion.div>
         </div>
         
