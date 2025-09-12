@@ -107,15 +107,55 @@ function PhotoGallery() {
     {
       src: "/attached_assets/ff534450-22ca-4e96-8fac-d503f5939fd9_1757686525806.jpeg",
       alt: "Lagoon 470 catamaran - Équipements et détails"
+    },
+    {
+      src: "/attached_assets/3a45de92-799e-451b-8716-00521427a91e_1757692962965.jpeg",
+      alt: "Lagoon 470 catamaran - Photo supplémentaire 1"
+    },
+    {
+      src: "/attached_assets/ef2966c4-e873-4654-a14f-ecfaa8d6acd2_1757692962965.jpeg",
+      alt: "Lagoon 470 catamaran - Photo supplémentaire 2"
+    },
+    {
+      src: "/attached_assets/ddfdc492-c289-4bf4-b563-df377b94b3cc_1757692962965.jpeg",
+      alt: "Lagoon 470 catamaran - Photo supplémentaire 3"
+    },
+    {
+      src: "/attached_assets/29ce9bad-cae7-4528-8ce1-8624a63f09b9_1757692962965.jpeg",
+      alt: "Lagoon 470 catamaran - Photo supplémentaire 4"
+    },
+    {
+      src: "/attached_assets/0bd01e0d-320d-49e9-8003-325e3bde7e68_1757692962965.jpeg",
+      alt: "Lagoon 470 catamaran - Photo supplémentaire 5"
+    },
+    {
+      src: "/attached_assets/6a2b81ce-e641-4b05-9fd0-fcf206699dc9_1757692962965.jpeg",
+      alt: "Lagoon 470 catamaran - Photo supplémentaire 6"
+    },
+    {
+      src: "/attached_assets/da5f838c-120c-4ede-8cbf-8d6e086d8061_1757692962965.jpeg",
+      alt: "Lagoon 470 catamaran - Photo supplémentaire 7"
     }
   ];
 
+  // Guard against currentIndex exceeding maxIndex when visibleCount changes
+  useEffect(() => {
+    const maxIndex = Math.max(0, images.length - visibleCount);
+    setCurrentIndex(prev => Math.min(prev, maxIndex));
+  }, [visibleCount, images.length]);
+
   const nextSlide = () => {
-    setCurrentIndex((prev) => Math.min(prev + 1, images.length - visibleCount));
+    setCurrentIndex((prev) => {
+      const maxIndex = Math.max(0, images.length - visibleCount);
+      return prev >= maxIndex ? 0 : prev + 1;
+    });
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => Math.max(prev - 1, 0));
+    setCurrentIndex((prev) => {
+      const maxIndex = Math.max(0, images.length - visibleCount);
+      return prev <= 0 ? maxIndex : prev - 1;
+    });
   };
 
   const openLightbox = (index: number) => {
@@ -164,26 +204,22 @@ function PhotoGallery() {
             ))}
           </div>
           
-          {/* Navigation Buttons */}
-          {currentIndex > 0 && (
-            <button
-              onClick={prevSlide}
-              className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-3 rounded-r-lg shadow-lg transition-all duration-200 hover:pl-4 z-10"
-              aria-label="Previous images"
-            >
-              <ChevronLeft className="h-6 w-6" />
-            </button>
-          )}
+          {/* Navigation Buttons - Always visible for infinite loop */}
+          <button
+            onClick={prevSlide}
+            className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-3 rounded-r-lg shadow-lg transition-all duration-200 hover:pl-4 z-10"
+            aria-label="Previous images"
+          >
+            <ChevronLeft className="h-6 w-6" />
+          </button>
           
-          {currentIndex < images.length - visibleCount && (
-            <button
-              onClick={nextSlide}
-              className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-3 rounded-l-lg shadow-lg transition-all duration-200 hover:pr-4 z-10"
-              aria-label="Next images"
-            >
-              <ChevronRight className="h-6 w-6" />
-            </button>
-          )}
+          <button
+            onClick={nextSlide}
+            className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-3 rounded-l-lg shadow-lg transition-all duration-200 hover:pr-4 z-10"
+            aria-label="Next images"
+          >
+            <ChevronRight className="h-6 w-6" />
+          </button>
         </div>
       </div>
 
