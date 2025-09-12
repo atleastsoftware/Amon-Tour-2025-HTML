@@ -16,7 +16,7 @@ export default function CustomTour() {
       
       <main>
         {/* Hero */}
-        <section className="relative h-[40vh]">
+        <section className="relative h-[50vh]">
           <div className="absolute inset-0 bg-black/40 z-10"></div>
           <div className="absolute inset-0 z-0">
             <img 

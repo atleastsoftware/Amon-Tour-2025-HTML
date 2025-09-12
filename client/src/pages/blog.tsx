@@ -86,7 +86,7 @@ export default function BlogPage() {
       <div className="bg-gray-50">
         {/* Hero Section with Background Image */}
         <section 
-          className="relative py-32 text-white rounded-b-xl overflow-hidden"
+          className="relative h-[50vh] text-white rounded-b-xl overflow-hidden flex items-center justify-center"
           style={{
             backgroundImage: 'url("https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80")',
             backgroundSize: 'cover',

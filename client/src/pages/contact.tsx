@@ -16,7 +16,7 @@ export default function Contact() {
       
       <main>
         {/* Hero Section */}
-        <section className="relative h-[40vh] overflow-hidden">
+        <section className="relative h-[50vh] overflow-hidden">
           <div className="absolute inset-0 bg-black/40 z-10"></div>
           <div className="absolute inset-0 z-0">
             <img 
