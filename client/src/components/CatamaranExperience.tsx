@@ -1,12 +1,13 @@
 import { motion } from "framer-motion";
 import { StaggerChildren, StaggerItem } from "@/components/ui/animations";
 import { Map, Zap, Globe, ChevronLeft, ChevronRight } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 // Photo Gallery Carousel Component with Lightbox
 function PhotoGallery() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(3);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   
   // Responsive visibility - show 1 image on mobile, 2 on tablet, 3 on desktop
   useEffect(() => {
@@ -138,24 +139,52 @@ function PhotoGallery() {
     }
   ];
 
-  // Guard against currentIndex exceeding maxIndex when visibleCount changes
+  // Créer un tableau avec des clones pour l'effet carousel infini
+  const extendedImages = useMemo(() => {
+    if (images.length === 0) return [];
+    
+    // Clone les dernières images au début
+    const startClones = images.slice(-visibleCount);
+    // Clone les premières images à la fin  
+    const endClones = images.slice(0, visibleCount);
+    
+    return [...startClones, ...images, ...endClones];
+  }, [images, visibleCount]);
+
+  // L'index commence à visibleCount (après les clones du début)
   useEffect(() => {
-    const maxIndex = Math.max(0, images.length - visibleCount);
-    setCurrentIndex(prev => Math.min(prev, maxIndex));
-  }, [visibleCount, images.length]);
+    setCurrentIndex(visibleCount);
+  }, [visibleCount]);
 
   const nextSlide = () => {
-    setCurrentIndex((prev) => {
-      const maxIndex = Math.max(0, images.length - visibleCount);
-      return prev >= maxIndex ? 0 : prev + 1;
-    });
+    if (isTransitioning) return;
+    
+    setIsTransitioning(true);
+    setCurrentIndex(prev => prev + 1);
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => {
-      const maxIndex = Math.max(0, images.length - visibleCount);
-      return prev <= 0 ? maxIndex : prev - 1;
-    });
+    if (isTransitioning) return;
+    
+    setIsTransitioning(true);
+    setCurrentIndex(prev => prev - 1);
+  };
+
+  // Gestion des transitions infinies
+  const handleTransitionEnd = () => {
+    setIsTransitioning(false);
+    
+    const totalImages = images.length;
+    const maxRealIndex = totalImages + visibleCount - 1;
+    
+    // Si on est sur les clones de fin, revenir au début réel (sans transition)
+    if (currentIndex > maxRealIndex) {
+      setCurrentIndex(visibleCount);
+    }
+    // Si on est sur les clones de début, aller à la fin réelle (sans transition)
+    else if (currentIndex < visibleCount) {
+      setCurrentIndex(totalImages + visibleCount - 1);
+    }
   };
 
   const openLightbox = (index: number) => {
@@ -180,10 +209,13 @@ function PhotoGallery() {
       <div className="relative max-w-7xl mx-auto">
         <div className="relative overflow-hidden">
           <div 
-            className="flex gap-0 md:gap-6 transition-transform duration-500 ease-in-out"
+            className={`gallery-container flex gap-0 md:gap-6 ${
+              isTransitioning ? 'transition-transform duration-500 ease-in-out' : ''
+            }`}
             style={{ transform: `translateX(-${currentIndex * (100 / visibleCount)}%)` }}
+            onTransitionEnd={handleTransitionEnd}
           >
-            {images.map((image, index) => (
+            {extendedImages.map((image, index) => (
               <div
                 key={index}
                 className={`flex-shrink-0 relative overflow-hidden rounded-lg shadow-md cursor-pointer ${
@@ -191,7 +223,13 @@ function PhotoGallery() {
                   visibleCount === 2 ? 'w-full md:w-[calc(50%-12px)]' :
                   'w-full md:w-[calc(33.333%-16px)]'
                 }`}
-                onClick={() => openLightbox(index)}
+                onClick={() => {
+                  // Calcul de l'index réel pour la lightbox (en excluant les clones)
+                  const realIndex = index >= visibleCount && index < extendedImages.length - visibleCount 
+                    ? index - visibleCount 
+                    : (index - visibleCount + images.length) % images.length;
+                  openLightbox(realIndex);
+                }}
               >
                 <div className="relative h-64">
                   <img 
