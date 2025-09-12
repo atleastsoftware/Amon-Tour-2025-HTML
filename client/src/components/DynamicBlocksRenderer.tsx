@@ -328,7 +328,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
 
   return (
     <>
-      {blocks.map((block, index) => (
+      {blocks?.map((block, index) => (
         <motion.div
           key={block.id}
           initial={{ opacity: 0, y: 20 }}
