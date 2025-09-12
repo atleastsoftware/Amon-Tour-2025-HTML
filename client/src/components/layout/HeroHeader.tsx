@@ -25,19 +25,11 @@ export default function HeroHeader({
 }: HeroHeaderProps) {
   return (
     <section 
-      className={`relative ${heightClass}`} 
+      className={`relative ${heightClass} bg-cover bg-center overflow-hidden isolate`} 
+      style={{ backgroundImage: `url(${bgImageUrl})` }}
       data-testid={dataTestId}
     >
       <div className={`absolute inset-0 ${overlayClass} z-10`}></div>
-      <div className="absolute inset-0 z-0">
-        <img 
-          src={bgImageUrl}
-          alt={alt}
-          className="w-full h-full object-cover"
-          decoding="async"
-          fetchPriority="high"
-        />
-      </div>
       <div className={`container mx-auto px-4 relative z-20 h-full flex flex-col justify-center ${center ? 'items-center text-center' : ''} text-white`}>
         {animate ? (
           <motion.div
