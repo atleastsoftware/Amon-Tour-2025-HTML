@@ -51,7 +51,7 @@ export default function Header() {
 
   // Fetch notification bar settings
   const { data: siteSettings } = useQuery({
-    queryKey: ['/api/admin/site-settings'],
+    queryKey: ['/api/public/header-settings'],
     staleTime: 5 * 60 * 1000 // 5 minutes
   });
   

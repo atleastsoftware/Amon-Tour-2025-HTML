@@ -2283,6 +2283,17 @@ Crawl-delay: 1`;
     }
   });
 
+  // Public Header Settings (no auth required)
+  app.get("/api/public/header-settings", async (req, res) => {
+    try {
+      const settings = await storage.getSiteSettings('header');
+      res.json(settings);
+    } catch (error) {
+      console.error('Error fetching header settings:', error);
+      res.status(500).json({ error: 'Failed to fetch header settings' });
+    }
+  });
+
   // Site Settings routes (requires auth)
   app.get("/api/admin/site-settings", requireAuth, async (req, res) => {
     try {
