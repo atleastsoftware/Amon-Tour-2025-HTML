@@ -299,7 +299,7 @@ export default function CatamaranExperience() {
             >
               <div className="flex flex-col md:flex-row md:items-center">
                 <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">1 day</span>
-                <span className="text-gray-600 text-lg md:ml-4">– Local islands of Ao Nang or Koh Hong archipelago</span>
+                <span className="text-gray-600 text-lg md:ml-4">Local islands of Ao Nang or Koh Hong archipelago</span>
               </div>
             </motion.div>
             
@@ -313,7 +313,7 @@ export default function CatamaranExperience() {
             >
               <div className="flex flex-col md:flex-row md:items-center">
                 <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">2 days</span>
-                <span className="text-gray-600 text-lg md:ml-4">– Head towards Koh Hong or the legendary Koh Phi Phi</span>
+                <span className="text-gray-600 text-lg md:ml-4">Head towards Koh Hong or the legendary Koh Phi Phi</span>
               </div>
             </motion.div>
             
@@ -327,7 +327,7 @@ export default function CatamaranExperience() {
             >
               <div className="flex flex-col md:flex-row md:items-center">
                 <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">3/4 days</span>
-                <span className="text-gray-600 text-lg md:ml-4">– Combined Phang Nga Bay and Koh Phi Phi</span>
+                <span className="text-gray-600 text-lg md:ml-4">Combined Phang Nga Bay and Koh Phi Phi</span>
               </div>
             </motion.div>
             
@@ -341,7 +341,7 @@ export default function CatamaranExperience() {
             >
               <div className="flex flex-col md:flex-row md:items-center">
                 <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">5/6 days</span>
-                <span className="text-gray-600 text-lg md:ml-4">– Getaway to the preserved waters of Koh Rok and Koh Mook</span>
+                <span className="text-gray-600 text-lg md:ml-4">Getaway to the preserved waters of Koh Rok and Koh Mook</span>
               </div>
             </motion.div>
             
@@ -355,7 +355,7 @@ export default function CatamaranExperience() {
             >
               <div className="flex flex-col md:flex-row md:items-center">
                 <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">7+ days</span>
-                <span className="text-gray-600 text-lg md:ml-4">– Odyssey to the paradise islands of Koh Lipe or Similan</span>
+                <span className="text-gray-600 text-lg md:ml-4">Odyssey to the paradise islands of Koh Lipe or Similan</span>
               </div>
             </motion.div>
           </div>
