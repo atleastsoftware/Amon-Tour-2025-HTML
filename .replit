@@ -12,16 +12,8 @@ build = ["npm", "run", "build"]
 run = ["npm", "run", "start"]
 
 [[ports]]
-localPort = 5000
+localPort = 34397
 externalPort = 80
-
-[[ports]]
-localPort = 32977
-externalPort = 3000
-
-[[ports]]
-localPort = 46761
-externalPort = 3001
 
 [workflows]
 runButton = "Restart Application"
