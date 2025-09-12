@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import HeroHeader from "@/components/layout/HeroHeader";
 
 interface BlogPost {
   id: number;
@@ -83,26 +84,13 @@ export default function BlogPage() {
   return (
     <div className="min-h-screen">
       <Header />
-      <div className="bg-gray-50">
+      <div>
         {/* Hero Section */}
-        <section className="relative h-[50vh]">
-          <div className="absolute inset-0 bg-black/40 z-10"></div>
-          <div className="absolute inset-0 z-0">
-            <img 
-              src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
-              alt="Travel blog about Krabi and Thailand" 
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div className="container mx-auto px-4 relative z-20 h-full flex flex-col justify-center items-center text-center text-white">
-            <h1 className="font-heading font-bold text-4xl md:text-5xl mb-4">
-              Travel Blog
-            </h1>
-            <p className="text-lg md:text-xl max-w-2xl">
-              Discover the best of Krabi through our travel guides, tips, and local insights
-            </p>
-          </div>
-        </section>
+        <HeroHeader 
+          title="Travel Blog"
+          subtitle="Discover the best of Krabi through our travel guides, tips, and local insights"
+          alt="Travel blog about Krabi and Thailand"
+        />
 
         {/* Filters Section */}
         <section className="py-8 bg-white border-b">
@@ -182,7 +170,7 @@ export default function BlogPage() {
         </section>
 
         {/* Blog Posts */}
-        <section className="py-12">
+        <section className="py-12 bg-gray-50">
           <div className="container mx-auto px-4">
             {postsLoading ? (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">

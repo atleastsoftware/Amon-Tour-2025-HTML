@@ -4,6 +4,7 @@ import { Tour } from "@shared/schema";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
+import HeroHeader from "@/components/layout/HeroHeader";
 import TourCardItem, { TourCardItemProps } from "@/components/tour/TourCardItem";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -96,36 +97,11 @@ export default function Experiences() {
       
       <main>
         {/* Hero Banner */}
-        <FadeInWhenVisible>
-          <section className="relative h-[50vh]">
-            <div className="absolute inset-0 bg-black/40 z-10"></div>
-            <div className="absolute inset-0 z-0">
-              <img 
-                src="/attached_assets/790fc1de-1a62-4e19-93eb-f2529f131485_1757694001569.jpeg" 
-                alt="Thailand experiences and cultural journeys" 
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="container mx-auto px-4 relative z-20 h-full flex flex-col justify-center items-center text-center text-white">
-              <motion.h1 
-                className="text-4xl md:text-5xl font-heading font-bold mb-4"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                Discover Thailand Experiences
-              </motion.h1>
-              <motion.p 
-                className="text-lg md:text-xl max-w-2xl mx-auto"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              >
-                Immerse yourself in authentic Thai culture with our unique experiences
-              </motion.p>
-            </div>
-          </section>
-        </FadeInWhenVisible>
+        <HeroHeader 
+          title="Discover Thailand Experiences"
+          subtitle="Immerse yourself in authentic Thai culture with our unique experiences"
+          alt="Thailand experiences and cultural journeys"
+        />
         
         {/* Featured Tours Section - Tour Ninja Integration */}
         <section className="py-16 bg-gradient-to-b from-blue-50 to-white">

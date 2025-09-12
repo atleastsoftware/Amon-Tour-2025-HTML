@@ -1,6 +1,7 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
+import HeroHeader from "@/components/layout/HeroHeader";
 import CustomTourForm from "@/components/home/CustomTourForm";
 import { MapPin, Building2, HeadphonesIcon } from "lucide-react";
 
@@ -16,24 +17,11 @@ export default function CustomTour() {
       
       <main>
         {/* Hero */}
-        <section className="relative h-[50vh]">
-          <div className="absolute inset-0 bg-black/40 z-10"></div>
-          <div className="absolute inset-0 z-0">
-            <img 
-              src="/uploads/tours/tour-1745996624172-231261635.jpeg" 
-              alt="Customized tour in Thailand" 
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div className="container mx-auto px-4 relative z-20 h-full flex flex-col justify-center items-center text-center text-white">
-            <h1 className="font-heading font-bold text-4xl md:text-5xl mb-4">
-              Create Your Custom Tour
-            </h1>
-            <p className="text-lg md:text-xl max-w-2xl">
-              Tell us what you'd like to discover, and we'll create your personalized itinerary.
-            </p>
-          </div>
-        </section>
+        <HeroHeader 
+          title="Create Your Custom Tour"
+          subtitle="Tell us what you'd like to discover, and we'll create your personalized itinerary."
+          alt="Customized tour in Thailand"
+        />
         
         {/* Why Choose Custom Tour */}
         <section className="py-16 bg-neutral-light">

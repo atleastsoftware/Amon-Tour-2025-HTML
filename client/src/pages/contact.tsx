@@ -1,6 +1,7 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
+import HeroHeader from "@/components/layout/HeroHeader";
 import { MapPin, Mail, Phone, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -16,30 +17,11 @@ export default function Contact() {
       
       <main>
         {/* Hero Section */}
-        <section className="relative h-[50vh] overflow-hidden">
-          <div className="absolute inset-0 bg-black/40 z-10"></div>
-          <div className="absolute inset-0 z-0">
-            <img 
-              src="/uploads/tours/tour-1745996624172-231261635.jpeg" 
-              alt="Contact Amon Tour in Krabi" 
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div className="container mx-auto px-4 relative z-20 h-full flex flex-col justify-center items-center text-center text-white">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <h1 className="font-heading font-bold text-4xl md:text-5xl mb-4">
-                Contact Us
-              </h1>
-              <p className="text-lg md:text-xl max-w-2xl">
-                We're here to help you plan the perfect experience in Krabi.
-              </p>
-            </motion.div>
-          </div>
-        </section>
+        <HeroHeader 
+          title="Contact Us"
+          subtitle="We're here to help you plan the perfect experience in Krabi."
+          alt="Contact Amon Tour in Krabi"
+        />
 
         {/* Main Content */}
         <section className="py-16 bg-white">
