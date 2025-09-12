@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
+import HeroHeader from "@/components/layout/HeroHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -183,27 +184,12 @@ export default function Tours() {
       <Header />
       
       <main className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100">
-        {/* Hero Section */}
-        <section className="relative py-20 bg-gradient-to-r from-blue-600 to-blue-800">
-          <div className="container mx-auto px-4 text-center text-white">
-            <motion.h1 
-              className="text-4xl md:text-6xl font-bold mb-6"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              Our Experiences
-            </motion.h1>
-            <motion.p 
-              className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              Discover the exceptional beauty of Krabi and southern Thailand
-            </motion.p>
-          </div>
-        </section>
+        {/* Hero */}
+        <HeroHeader 
+          title="Our Experiences"
+          subtitle="Discover the exceptional beauty of Krabi and southern Thailand."
+          alt="Tours and experiences in Thailand"
+        />
 
         {/* Filtres */}
         <section className="container mx-auto px-4 py-8">

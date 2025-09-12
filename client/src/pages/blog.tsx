@@ -88,7 +88,7 @@ export default function BlogPage() {
         {/* Hero Section */}
         <HeroHeader 
           title="Travel Blog"
-          subtitle="Discover the best of Krabi through our travel guides, tips, and local insights"
+          subtitle="Discover the best of Krabi through our travel guides, tips, and local insights."
           alt="Travel blog about Krabi and Thailand"
         />
 
