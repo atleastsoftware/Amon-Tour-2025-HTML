@@ -32,7 +32,6 @@ import VillasKrabi from "@/pages/villas-krabi";
 import Contact from "@/pages/contact";
 import Blog from "@/pages/blog";
 import BlogPost from "@/pages/blog-post";
-// import Cruise from "@/pages/cruise";
 import AdminBlog from "@/pages/admin-blog";
 import AdminNewsletter from "@/pages/admin-newsletter";
 import AdminCustomTours from "@/pages/admin-custom-tours";
@@ -83,8 +82,7 @@ function Router() {
       <Route path="/privacy-policy" component={PrivacyPolicy} />
       <Route path="/terms-conditions" component={TermsConditions} />
       
-      {/* Cruise Page - temporarily disabled */}
-      {/* <Route path="/cruise" component={Cruise} /> */}
+      {/* Cruise Page */}
       <Route path="/cruise" component={() => <DynamicPage slug="cruise" />} />
       
       {/* Dynamic Pages (pages créées via admin) - Ajoutez les nouvelles pages ici */}
