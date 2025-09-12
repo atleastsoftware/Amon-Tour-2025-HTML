@@ -49,7 +49,9 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                 className="absolute inset-0 w-full h-full object-cover"
               />
             )}
-            <div className="relative z-10 w-full px-8 md:px-12 lg:px-16 text-center">
+            {/* Overlay pour améliorer le contraste du texte blanc */}
+            <div className="absolute inset-0 bg-black/40 z-10"></div>
+            <div className="relative z-20 w-full px-8 md:px-12 lg:px-16 text-center">
               {block.title && (
                 <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">{block.title}</h1>
               )}
