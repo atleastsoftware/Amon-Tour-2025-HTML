@@ -46,7 +46,6 @@ export default function Header() {
   const [location] = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [notificationHeight, setNotificationHeight] = useState(0);
   const isBookingPage = location.startsWith('/booking');
   const isHomePage = location === '/';
 
@@ -62,32 +61,6 @@ export default function Header() {
   const notificationConfig = notificationSettings 
     ? (typeof notificationSettings === 'string' ? JSON.parse(notificationSettings) : notificationSettings) 
     : { enabled: true, text: "📢 L'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr", background_color: "#f5c400", text_color: "#000000" };
-
-  // Track notification bar height
-  useEffect(() => {
-    const measureNotificationHeight = () => {
-      if (notificationConfig.enabled) {
-        // Create a temporary element to measure height
-        const temp = document.createElement('div');
-        temp.style.visibility = 'hidden';
-        temp.style.position = 'absolute';
-        temp.style.top = '-9999px';
-        temp.style.fontWeight = 'bold';
-        temp.style.padding = '10px';
-        temp.textContent = notificationConfig.text;
-        document.body.appendChild(temp);
-        const height = temp.offsetHeight;
-        document.body.removeChild(temp);
-        setNotificationHeight(height);
-      } else {
-        setNotificationHeight(0);
-      }
-    };
-
-    measureNotificationHeight();
-    window.addEventListener('resize', measureNotificationHeight);
-    return () => window.removeEventListener('resize', measureNotificationHeight);
-  }, [notificationConfig.enabled, notificationConfig.text]);
 
   // Track scroll position for header transparency
   useEffect(() => {
@@ -111,6 +84,9 @@ export default function Header() {
 
 
 
+  // Calculate the notification bar height (50px + some spacing)
+  const notificationBarHeight = notificationConfig.enabled ? 50 : 0;
+  
   const headerClasses = isHomePage
     ? `fixed left-0 w-full z-50 transition-all duration-300 ${
         scrolled 
@@ -120,8 +96,8 @@ export default function Header() {
     : 'bg-white py-6';
 
   const headerStyle = isHomePage
-    ? { top: `${notificationHeight}px` }
-    : {};
+    ? { top: `${notificationBarHeight}px` }
+    : { marginTop: notificationConfig.enabled ? `${notificationBarHeight}px` : '0' };
 
   return (
     <>
@@ -132,13 +108,18 @@ export default function Header() {
             background: notificationConfig.background_color,
             color: notificationConfig.text_color,
             textAlign: 'center',
-            padding: '10px',
+            padding: '15px 10px',
             fontWeight: 'bold',
             position: 'fixed',
             top: 0,
             left: 0,
             right: 0,
-            zIndex: 60
+            zIndex: 60,
+            height: '50px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            boxSizing: 'border-box'
           }}
         >
           {notificationConfig.text}
