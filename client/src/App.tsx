@@ -83,7 +83,7 @@ function Router() {
       <Route path="/terms-conditions" component={TermsConditions} />
       
       {/* Dynamic Pages (pages créées via admin) - Ajoutez les nouvelles pages ici */}
-      <Route path="/cruises" component={() => <DynamicPage slug="cruises" />} />
+      <Route path="/cruise" component={() => <DynamicPage slug="cruise" />} />
       <Route path="/testt" component={() => <DynamicPage slug="testt" />} />
       
       {/* Admin Pages */}
