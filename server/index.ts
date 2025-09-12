@@ -94,21 +94,6 @@ app.use((req, res, next) => {
 });
 
 (async () => {
-  // Ensure admin user exists in database
-  await ensureAdminUser();
-  
-  // Migrate tours from JSON to database
-  await migrateTours();
-  
-  // Seed authentic blocks for pages - TEMPORAIREMENT DESACTIVE POUR REFONTE HERO
-  // try {
-  //   // Import locally to avoid dependency issues
-  //   const { seedAuthenticBlocks } = await import('./seeds/authentic-blocks');
-  //   await seedAuthenticBlocks();
-  // } catch (error) {
-  //   log('Warning: Could not seed authentic blocks:', error instanceof Error ? error.message : String(error));
-  // }
-  
   const server = await registerRoutes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
@@ -136,7 +121,24 @@ app.use((req, res, next) => {
     port,
     host: "0.0.0.0",
     reusePort: true,
-  }, () => {
+  }, async () => {
     log(`serving on port ${port}`);
+    
+    // Do initialization tasks AFTER the server is listening
+    // This prevents deployment timeouts
+    try {
+      // Ensure admin user exists in database
+      await ensureAdminUser();
+      
+      // Migrate tours from JSON to database only in development
+      // In production, the database should already be populated
+      if (app.get("env") === "development") {
+        await migrateTours();
+      }
+    } catch (error) {
+      log(`Error during server initialization: ${error}`);
+      // Don't crash the server if initialization fails
+      // The app can still serve requests
+    }
   });
 })();
