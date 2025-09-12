@@ -109,9 +109,9 @@ export default function BlogPage() {
         {/* Filters Section */}
         <section className="py-8 bg-white border-b">
           <div className="container mx-auto px-4">
-            <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
-              {/* Search */}
-              <div className="relative w-full lg:w-96">
+            {/* Search Bar - Always Visible */}
+            <div className="mb-6">
+              <div className="relative max-w-md mx-auto lg:mx-0">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                 <Input
                   type="text"
@@ -121,16 +121,19 @@ export default function BlogPage() {
                   className="pl-10"
                 />
               </div>
+            </div>
 
-              {/* Filters - Mobile Optimized */}
-              <div className="w-full lg:w-auto">
-                {/* Categories - Horizontal scroll on mobile */}
-                <div className="mb-3">
-                  <div className="flex gap-2 overflow-x-auto pb-2 px-4 md:px-0" style={{scrollbarWidth: 'none', msOverflowStyle: 'none'}}>
+            {/* Filters - Categories and Tags */}
+            <div className="space-y-4">
+              {/* Categories Row */}
+              <div>
+                <h3 className="text-sm font-medium text-gray-700 mb-3">Categories</h3>
+                <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 md:scrollbar-default">
+                  <div className="flex gap-2 min-w-max">
                     <Button
                       variant={selectedCategory === "" ? "default" : "outline"}
                       size="sm"
-                      className="whitespace-nowrap"
+                      className="whitespace-nowrap flex-shrink-0"
                       onClick={() => setSelectedCategory("")}
                     >
                       All Categories
@@ -140,7 +143,7 @@ export default function BlogPage() {
                         key={category.id}
                         variant={selectedCategory === category.slug ? "default" : "outline"}
                         size="sm"
-                        className="whitespace-nowrap"
+                        className="whitespace-nowrap flex-shrink-0"
                         onClick={() => setSelectedCategory(category.slug)}
                       >
                         🏝️ {category.name}
@@ -148,33 +151,38 @@ export default function BlogPage() {
                     ))}
                   </div>
                 </div>
-
-                {/* Tags - Horizontal scroll on mobile */}
-                {tags.length > 0 && (
-                  <div className="flex gap-2 overflow-x-auto pb-2 px-4 md:px-0" style={{scrollbarWidth: 'none', msOverflowStyle: 'none'}}>
-                    <Button
-                      variant={selectedTag === "" ? "secondary" : "outline"}
-                      size="sm"
-                      className="whitespace-nowrap"
-                      onClick={() => setSelectedTag("")}
-                    >
-                      All Tags
-                    </Button>
-                    {tags.slice(0, 5).map((tag) => (
-                      <Button
-                        key={tag.id}
-                        variant={selectedTag === tag.slug ? "secondary" : "outline"}
-                        size="sm"
-                        className="whitespace-nowrap"
-                        onClick={() => setSelectedTag(tag.slug)}
-                      >
-                        <Tag className="h-3 w-3 mr-1" />
-                        {tag.name}
-                      </Button>
-                    ))}
-                  </div>
-                )}
               </div>
+
+              {/* Tags Row */}
+              {tags.length > 0 && (
+                <div>
+                  <h3 className="text-sm font-medium text-gray-700 mb-3">Tags</h3>
+                  <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 md:scrollbar-default">
+                    <div className="flex gap-2 min-w-max">
+                      <Button
+                        variant={selectedTag === "" ? "secondary" : "outline"}
+                        size="sm"
+                        className="whitespace-nowrap flex-shrink-0"
+                        onClick={() => setSelectedTag("")}
+                      >
+                        All Tags
+                      </Button>
+                      {tags.slice(0, 8).map((tag) => (
+                        <Button
+                          key={tag.id}
+                          variant={selectedTag === tag.slug ? "secondary" : "outline"}
+                          size="sm"
+                          className="whitespace-nowrap flex-shrink-0"
+                          onClick={() => setSelectedTag(tag.slug)}
+                        >
+                          <Tag className="h-3 w-3 mr-1" />
+                          {tag.name}
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </section>
