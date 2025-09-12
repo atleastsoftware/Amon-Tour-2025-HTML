@@ -100,7 +100,7 @@ export default function Experiences() {
           <div 
             className="relative h-[50vh] bg-cover bg-center"
             style={{ 
-              backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://images.unsplash.com/photo-1604159129533-9d35777a0b07?q=80&w=1000&auto=format&fit=crop)"
+              backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(/attached_assets/790fc1de-1a62-4e19-93eb-f2529f131485_1757694001569.jpeg)"
             }}
           >
             <div className="absolute inset-0 flex items-center justify-center text-center px-4">

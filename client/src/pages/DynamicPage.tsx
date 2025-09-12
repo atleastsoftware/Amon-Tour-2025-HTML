@@ -112,6 +112,37 @@ export default function DynamicPage({ slug: propSlug }: DynamicPageProps = {}) {
         transition={{ duration: 0.5 }}
         className="min-h-screen"
       >
+        {/* Hero Section spécial pour la page cruise */}
+        {slug === 'cruise' && (
+          <div 
+            className="relative h-[60vh] bg-cover bg-center"
+            style={{ 
+              backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(/attached_assets/da5f838c-120c-4ede-8cbf-8d6e086d8061_1757693908450.jpeg)"
+            }}
+          >
+            <div className="absolute inset-0 flex items-center justify-center text-center px-4">
+              <div className="max-w-4xl">
+                <motion.h1 
+                  className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-6"
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  Croisières en Catamaran
+                </motion.h1>
+                <motion.p 
+                  className="text-xl md:text-2xl text-white max-w-3xl mx-auto leading-relaxed"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                >
+                  Découvrez les îles paradisiaques de Krabi à bord de notre catamaran Lagoon 470, pour une expérience de liberté totale
+                </motion.p>
+              </div>
+            </div>
+          </div>
+        )}
+        
         {activeBlocks.length > 0 ? (
           <DynamicBlocksRenderer blocks={activeBlocks} />
         ) : (
