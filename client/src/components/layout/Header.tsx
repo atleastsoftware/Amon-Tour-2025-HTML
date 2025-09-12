@@ -196,7 +196,7 @@ export default function Header() {
             Experiences
           </NavLink>
           <NavLink href="/cruise" isActive={location === '/cruise'} isHomePage={isHomePage} scrolled={scrolled}>
-            Cruises
+            Cruise
           </NavLink>
           <NavLink href="/custom-tour" isActive={location === '/custom-tour'} isHomePage={isHomePage} scrolled={scrolled}>
             Custom Trip
@@ -239,7 +239,7 @@ export default function Header() {
                 Experiences
               </NavLink>
               <NavLink href="/cruise" isActive={location === '/cruise'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
-                Cruises
+                Cruise
               </NavLink>
               <NavLink href="/custom-tour" isActive={location === '/custom-tour'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
                 Custom Trip
