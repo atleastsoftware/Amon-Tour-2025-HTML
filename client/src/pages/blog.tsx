@@ -84,25 +84,23 @@ export default function BlogPage() {
     <div className="min-h-screen">
       <Header />
       <div className="bg-gray-50">
-        {/* Hero Section with Background Image */}
-        <section 
-          className="relative h-[50vh] text-white rounded-b-xl overflow-hidden flex items-center justify-center"
-          style={{
-            backgroundImage: 'url("https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80")',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat'
-          }}
-        >
-          {/* Dark translucent overlay */}
-          <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-          
-          {/* Content */}
-          <div className="relative container mx-auto px-4 text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+        {/* Hero Section */}
+        <section className="relative h-[50vh]">
+          <div className="absolute inset-0 bg-black/40 z-10"></div>
+          <div className="absolute inset-0 z-0">
+            <img 
+              src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+              alt="Travel blog about Krabi and Thailand" 
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div className="container mx-auto px-4 relative z-20 h-full flex flex-col justify-center items-center text-center text-white">
+            <h1 className="font-heading font-bold text-4xl md:text-5xl mb-4">
               Travel Blog
             </h1>
-            <p className="text-xl md:text-2xl max-w-3xl mx-auto opacity-90">Discover the best of Krabi through our travel guides, tips, and local insights</p>
+            <p className="text-lg md:text-xl max-w-2xl">
+              Discover the best of Krabi through our travel guides, tips, and local insights
+            </p>
           </div>
         </section>
 

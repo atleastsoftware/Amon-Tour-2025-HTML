@@ -31,10 +31,10 @@ export default function Contact() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h1 className="font-heading font-bold text-4xl md:text-5xl mb-6">
+              <h1 className="font-heading font-bold text-4xl md:text-5xl mb-4">
                 Contact Us
               </h1>
-              <p className="text-xl md:text-2xl max-w-3xl mx-auto">
+              <p className="text-lg md:text-xl max-w-2xl">
                 We're here to help you plan the perfect experience in Krabi.
               </p>
             </motion.div>
