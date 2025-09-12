@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { lazy, Suspense } from "react";
 import { Loader2 } from "lucide-react";
+import Gallery from "@/components/ui/Gallery";
 
 // Lazy load form components
 const CruiseForm = lazy(() => import("@/components/CruiseForm"));
@@ -238,20 +239,16 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
         );
 
       case 'gallery':
+        // Parse images from configuration
+        const galleryImages = block.configuration?.images || [];
         return (
-          <div key={block.id} className="py-16 bg-white">
-            <div className="container mx-auto px-4">
-              {block.title && (
-                <h2 className="text-3xl font-bold text-center mb-8">{block.title}</h2>
-              )}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {/* Les images de la galerie seraient dans la configuration */}
-                <div className="bg-gray-200 h-64 rounded-lg"></div>
-                <div className="bg-gray-200 h-64 rounded-lg"></div>
-                <div className="bg-gray-200 h-64 rounded-lg"></div>
-              </div>
-            </div>
-          </div>
+          <Gallery
+            key={block.id}
+            images={galleryImages}
+            title={block.title || undefined}
+            subtitle={block.subtitle || undefined}
+            className=""
+          />
         );
 
       case 'advantages':
