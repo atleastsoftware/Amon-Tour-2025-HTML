@@ -46,6 +46,7 @@ export default function Header() {
   const [location] = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [notificationHeight, setNotificationHeight] = useState(0);
   const isBookingPage = location.startsWith('/booking');
   const isHomePage = location === '/';
 
@@ -61,6 +62,32 @@ export default function Header() {
   const notificationConfig = notificationSettings 
     ? (typeof notificationSettings === 'string' ? JSON.parse(notificationSettings) : notificationSettings) 
     : { enabled: true, text: "📢 L'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr", background_color: "#f5c400", text_color: "#000000" };
+
+  // Track notification bar height
+  useEffect(() => {
+    const measureNotificationHeight = () => {
+      if (notificationConfig.enabled) {
+        // Create a temporary element to measure height
+        const temp = document.createElement('div');
+        temp.style.visibility = 'hidden';
+        temp.style.position = 'absolute';
+        temp.style.top = '-9999px';
+        temp.style.fontWeight = 'bold';
+        temp.style.padding = '10px';
+        temp.textContent = notificationConfig.text;
+        document.body.appendChild(temp);
+        const height = temp.offsetHeight;
+        document.body.removeChild(temp);
+        setNotificationHeight(height);
+      } else {
+        setNotificationHeight(0);
+      }
+    };
+
+    measureNotificationHeight();
+    window.addEventListener('resize', measureNotificationHeight);
+    return () => window.removeEventListener('resize', measureNotificationHeight);
+  }, [notificationConfig.enabled, notificationConfig.text]);
 
   // Track scroll position for header transparency
   useEffect(() => {
@@ -85,12 +112,16 @@ export default function Header() {
 
 
   const headerClasses = isHomePage
-    ? `fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+    ? `fixed left-0 w-full z-50 transition-all duration-300 ${
         scrolled 
           ? 'bg-white/95 backdrop-blur-md shadow-lg py-4' 
           : 'bg-transparent py-6'
       }`
     : 'bg-white py-6';
+
+  const headerStyle = isHomePage
+    ? { top: `${notificationHeight}px` }
+    : {};
 
   return (
     <>
@@ -114,7 +145,7 @@ export default function Header() {
         </div>
       )}
       
-      <header className={headerClasses} style={{ top: '50px' }}>
+      <header className={headerClasses} style={headerStyle}>
         {/* Main Navigation */}
         <nav className="container mx-auto px-4 flex justify-between items-center">
         {/* Logo */}
