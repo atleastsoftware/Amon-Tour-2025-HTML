@@ -84,16 +84,16 @@ export default function Header() {
 
 
 
-  // Calculate the notification bar height (50px + some spacing)
-  const notificationBarHeight = notificationConfig.enabled ? 50 : 0;
+  // Calculate the notification bar height (more compact)
+  const notificationBarHeight = notificationConfig.enabled ? 40 : 0;
   
   const headerClasses = isHomePage
     ? `fixed left-0 w-full z-50 transition-all duration-300 ${
         scrolled 
-          ? 'bg-white/95 backdrop-blur-md shadow-lg py-4' 
-          : 'bg-transparent py-6'
+          ? 'bg-white/95 backdrop-blur-md shadow-lg py-2' 
+          : 'bg-transparent py-3'
       }`
-    : 'bg-white py-6';
+    : 'bg-white py-3';
 
   const headerStyle = isHomePage
     ? { top: `${notificationBarHeight}px` }
@@ -108,18 +108,19 @@ export default function Header() {
             background: notificationConfig.background_color,
             color: notificationConfig.text_color,
             textAlign: 'center',
-            padding: '15px 10px',
+            padding: '10px 15px',
             fontWeight: 'bold',
             position: 'fixed',
             top: 0,
             left: 0,
             right: 0,
             zIndex: 60,
-            height: '50px',
+            height: '40px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxSizing: 'border-box'
+            boxSizing: 'border-box',
+            fontSize: '14px'
           }}
         >
           {notificationConfig.text}
@@ -152,7 +153,7 @@ export default function Header() {
             <img 
               src={logoAmon} 
               alt="Amon Logo" 
-              className="h-24 w-auto"
+              className="h-16 w-auto"
             />
           </motion.div>
         </Link>
