@@ -111,7 +111,7 @@ export default function BlogPage() {
           <div className="container mx-auto px-4">
             {/* Search Bar - Always Visible */}
             <div className="mb-6">
-              <div className="relative max-w-md mx-auto lg:mx-0">
+              <div className="relative w-full">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                 <Input
                   type="text"
@@ -128,28 +128,26 @@ export default function BlogPage() {
               {/* Categories Row */}
               <div>
                 <h3 className="text-sm font-medium text-gray-700 mb-3">Categories</h3>
-                <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 md:scrollbar-default">
-                  <div className="flex gap-2 min-w-max">
+                <div className="flex flex-wrap gap-2">
+                  <Button
+                    variant={selectedCategory === "" ? "default" : "outline"}
+                    size="sm"
+                    className="whitespace-nowrap"
+                    onClick={() => setSelectedCategory("")}
+                  >
+                    All Categories
+                  </Button>
+                  {categories.map((category) => (
                     <Button
-                      variant={selectedCategory === "" ? "default" : "outline"}
+                      key={category.id}
+                      variant={selectedCategory === category.slug ? "default" : "outline"}
                       size="sm"
-                      className="whitespace-nowrap flex-shrink-0"
-                      onClick={() => setSelectedCategory("")}
+                      className="whitespace-nowrap"
+                      onClick={() => setSelectedCategory(category.slug)}
                     >
-                      All Categories
+                      🏝️ {category.name}
                     </Button>
-                    {categories.map((category) => (
-                      <Button
-                        key={category.id}
-                        variant={selectedCategory === category.slug ? "default" : "outline"}
-                        size="sm"
-                        className="whitespace-nowrap flex-shrink-0"
-                        onClick={() => setSelectedCategory(category.slug)}
-                      >
-                        🏝️ {category.name}
-                      </Button>
-                    ))}
-                  </div>
+                  ))}
                 </div>
               </div>
 
@@ -157,29 +155,27 @@ export default function BlogPage() {
               {tags.length > 0 && (
                 <div>
                   <h3 className="text-sm font-medium text-gray-700 mb-3">Tags</h3>
-                  <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 md:scrollbar-default">
-                    <div className="flex gap-2 min-w-max">
+                  <div className="flex flex-wrap gap-2">
+                    <Button
+                      variant={selectedTag === "" ? "secondary" : "outline"}
+                      size="sm"
+                      className="whitespace-nowrap"
+                      onClick={() => setSelectedTag("")}
+                    >
+                      All Tags
+                    </Button>
+                    {tags.slice(0, 8).map((tag) => (
                       <Button
-                        variant={selectedTag === "" ? "secondary" : "outline"}
+                        key={tag.id}
+                        variant={selectedTag === tag.slug ? "secondary" : "outline"}
                         size="sm"
-                        className="whitespace-nowrap flex-shrink-0"
-                        onClick={() => setSelectedTag("")}
+                        className="whitespace-nowrap"
+                        onClick={() => setSelectedTag(tag.slug)}
                       >
-                        All Tags
+                        <Tag className="h-3 w-3 mr-1" />
+                        {tag.name}
                       </Button>
-                      {tags.slice(0, 8).map((tag) => (
-                        <Button
-                          key={tag.id}
-                          variant={selectedTag === tag.slug ? "secondary" : "outline"}
-                          size="sm"
-                          className="whitespace-nowrap flex-shrink-0"
-                          onClick={() => setSelectedTag(tag.slug)}
-                        >
-                          <Tag className="h-3 w-3 mr-1" />
-                          {tag.name}
-                        </Button>
-                      ))}
-                    </div>
+                    ))}
                   </div>
                 </div>
               )}
