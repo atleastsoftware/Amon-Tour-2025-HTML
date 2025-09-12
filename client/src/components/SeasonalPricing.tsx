@@ -97,6 +97,76 @@ export default function SeasonalPricing() {
             <p className="text-gray-600 text-lg">Daily rate for minimum 2 days and one night. Capacity 8 adults max.</p>
           </motion.div>
           
+          {/* Pickup Locations Cards */}
+          <div className="max-w-5xl mx-auto mt-8 mb-6">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+              {/* Tubkeak */}
+              <motion.div 
+                className="bg-white rounded-lg shadow-md p-4 text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.45 }}
+              >
+                <p className="text-lg font-bold text-gray-900">8:30</p>
+                <p className="text-sm text-gray-600 mt-1">from Tubkeak</p>
+                <p className="text-sm font-bold text-orange-600 mt-2">+1,300 Baht</p>
+              </motion.div>
+              
+              {/* Thalane */}
+              <motion.div 
+                className="bg-white rounded-lg shadow-md p-4 text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.47 }}
+              >
+                <p className="text-lg font-bold text-gray-900">8:30</p>
+                <p className="text-sm text-gray-600 mt-1">from Thalane</p>
+                <p className="text-sm font-bold text-orange-600 mt-2">+1,800 Baht</p>
+              </motion.div>
+              
+              {/* Ao Nang */}
+              <motion.div 
+                className="bg-white rounded-lg shadow-md p-4 text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.49 }}
+              >
+                <p className="text-lg font-bold text-gray-900">8:45</p>
+                <p className="text-sm text-gray-600 mt-1">from Ao Nang</p>
+                <p className="text-sm text-green-600 font-semibold mt-2">No extra fee</p>
+              </motion.div>
+              
+              {/* Klong Mueang */}
+              <motion.div 
+                className="bg-white rounded-lg shadow-md p-4 text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.51 }}
+              >
+                <p className="text-lg font-bold text-gray-900">8:40</p>
+                <p className="text-sm text-gray-600 mt-1">from Klong Mueang</p>
+                <p className="text-sm font-bold text-orange-600 mt-2">+1,000 Baht</p>
+              </motion.div>
+              
+              {/* Railay */}
+              <motion.div 
+                className="bg-white rounded-lg shadow-md p-4 text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.53 }}
+              >
+                <p className="text-lg font-bold text-gray-900">9:00</p>
+                <p className="text-sm text-gray-600 mt-1">from Railay</p>
+                <p className="text-sm text-green-600 font-semibold mt-2">No extra fee</p>
+              </motion.div>
+            </div>
+          </div>
+          
           {/* Included and Not Included Cards */}
           <div className="max-w-5xl mx-auto mt-8 space-y-4">
             {/* Included in Price Card */}
