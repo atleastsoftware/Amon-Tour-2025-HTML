@@ -335,7 +335,7 @@ function MiniaturizedComponent({
           <div className="h-full bg-gray-50 p-2">
             <div className="text-center mb-2">
               <div className="text-[10px] font-bold">{block.title || "Why Choose Us"}</div>
-              <div className="w-4 h-0.5 bg-yellow-500 mx-auto mt-1"></div>
+              <div className="w-4 h-0.5 bg-secondary mx-auto mt-1"></div>
             </div>
             {(() => {
               // Récupérer les blocs d'icônes depuis les données du bloc si disponibles
@@ -369,7 +369,7 @@ function MiniaturizedComponent({
                             }}
                           />
                         ) : (
-                          <div className="w-3 h-3 bg-blue-600 rounded-full" 
+                          <div className="w-3 h-3 bg-primary rounded-full" 
                                style={{ display: iconBlock.mainIcon && (iconBlock.mainIcon.startsWith('http') || iconBlock.mainIcon.startsWith('/')) ? 'none' : 'block' }}>
                             {iconBlock.mainIcon && !iconBlock.mainIcon.startsWith('http') && !iconBlock.mainIcon.startsWith('/') ? (
                               <i className={`${iconBlock.mainIcon} text-white`} style={{ fontSize: '6px' }}></i>
@@ -404,7 +404,7 @@ function MiniaturizedComponent({
           <div className="h-full bg-gray-50 p-2">
             <div className="text-center mb-2">
               <div className="text-[10px] font-bold">{block.title || "Some Ideas For Your Next Trip"}</div>
-              <div className="w-4 h-0.5 bg-yellow-500 mx-auto mt-1"></div>
+              <div className="w-4 h-0.5 bg-secondary mx-auto mt-1"></div>
             </div>
             <div className="grid grid-cols-3 gap-1 h-16">
               <div className="bg-white rounded shadow-sm overflow-hidden">
@@ -439,7 +439,7 @@ function MiniaturizedComponent({
             <div className="text-[10px] font-bold text-white mb-1">{block.title || "Create Your Custom Journey"}</div>
             <div className="text-[8px] text-white opacity-90 mb-2">Whether you're looking for adventure, relaxation, or cultural immersion</div>
             <div className="flex gap-1 justify-center">
-              <div className="bg-blue-600 text-white text-[7px] px-1 py-0.5 rounded font-semibold">About us</div>
+              <div className="bg-primary text-white text-[7px] px-1 py-0.5 rounded font-semibold">About us</div>
               <div className="bg-transparent border border-white text-white text-[7px] px-1 py-0.5 rounded font-semibold">Contact us</div>
             </div>
           </div>
@@ -478,14 +478,14 @@ function MiniaturizedComponent({
       case 'customer_reviews':
       case 'testimonials':
         return (
-          <div className="h-full bg-blue-600 p-2">
+          <div className="h-full bg-primary p-2">
             <div className="text-center mb-2">
               <div className="text-[10px] font-bold text-white">{block.title || "Our Travelers' Reviews"}</div>
-              <div className="w-4 h-0.5 bg-yellow-500 mx-auto mt-1"></div>
+              <div className="w-4 h-0.5 bg-secondary mx-auto mt-1"></div>
             </div>
             <div className="bg-white rounded p-1 mb-1">
               <div className="flex justify-center mb-1">
-                <div className="text-[8px] text-yellow-500">★★★★★</div>
+                <div className="text-[8px] text-secondary">★★★★★</div>
               </div>
               <div className="text-[8px] text-blue-600 font-bold">5.0 on Google</div>
               <div className="text-[6px] text-gray-600">Based on 80 reviews</div>
@@ -539,7 +539,7 @@ function MiniaturizedComponent({
               <div className="h-2 bg-gray-100 rounded"></div>
               <div className="h-2 bg-gray-100 rounded"></div>
               <div className="h-4 bg-gray-100 rounded"></div>
-              <div className="h-3 bg-blue-600 rounded text-center">
+              <div className="h-3 bg-primary rounded text-center">
                 <div className="text-[7px] text-white pt-1">Send Message</div>
               </div>
             </div>
@@ -551,7 +551,7 @@ function MiniaturizedComponent({
           <div className="h-full bg-gray-50 p-2">
             <div className="text-center mb-2">
               <div className="text-[10px] font-bold">{block.title || "Our Popular Experiences"}</div>
-              <div className="w-4 h-0.5 bg-yellow-500 mx-auto mt-1"></div>
+              <div className="w-4 h-0.5 bg-secondary mx-auto mt-1"></div>
             </div>
             <div className="grid grid-cols-3 gap-1 h-12 mb-2">
               <div className="bg-white rounded shadow-sm overflow-hidden">
@@ -603,7 +603,7 @@ function MiniaturizedComponent({
           <div className="h-full bg-gray-50 p-2">
             <div className="text-center mb-2">
               <div className="text-[10px] font-bold">{block.title || "Some Ideas For Your Next Trip"}</div>
-              <div className="w-4 h-0.5 bg-yellow-500 mx-auto mt-1"></div>
+              <div className="w-4 h-0.5 bg-secondary mx-auto mt-1"></div>
             </div>
             <div className="grid grid-cols-3 gap-1 h-12 mb-2">
               <div className="bg-white rounded shadow-sm overflow-hidden">
@@ -1137,7 +1137,7 @@ function BlockEditForm({
                   
                   <Button 
                     onClick={handleSave} 
-                    className={`${hasUnsavedChanges ? 'bg-blue-600 hover:bg-blue-700' : 'bg-green-600 hover:bg-green-700'}`}
+                    className={`${hasUnsavedChanges ? 'bg-primary hover:bg-blue-700' : 'bg-green-600 hover:bg-green-700'}`}
                     disabled={saveVersionMutation.isPending}
                   >
                     <Save className="w-4 h-4 mr-2" />
@@ -1266,7 +1266,7 @@ export default function RealBlockPreview({
                 }
               }}
               title="Modifier le bloc"
-              className="h-7 w-7 p-0 bg-blue-500 hover:bg-blue-600 text-white border-0"
+              className="h-7 w-7 p-0 bg-blue-500 hover:bg-primary text-white border-0"
             >
               <Edit className="h-3 w-3" />
             </Button>

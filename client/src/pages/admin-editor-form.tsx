@@ -407,9 +407,9 @@ export default function AdminEditorForm() {
       layout: 'single-column',
       formLayout: 'columns',
       backgroundColor: '#dbeafe',
-      primaryColor: '#2563eb',
+      primaryColor: '#084F6E',
       frameColor: '#ffffff',
-      titleColor: '#2563eb',
+      titleColor: '#084F6E',
       subtitleColor: '#666666',
       textColor: '#1e40af',
       fields: [
@@ -424,7 +424,7 @@ export default function AdminEditorForm() {
       ],
       settings: {
         submitButtonText: 'S\'abonner',
-        submitButtonColor: '#2563eb',
+        submitButtonColor: '#084F6E',
         successMessage: 'Merci ! Vous êtes maintenant abonné à notre newsletter.',
         errorMessage: 'Une erreur est survenue. Veuillez réessayer.',
         emailNotification: false
@@ -844,7 +844,7 @@ export default function AdminEditorForm() {
                             variant="outline"
                             size="sm"
                             onClick={() => handleDuplicateForm(form)}
-                            className="flex items-center gap-1 text-blue-600 hover:text-blue-800"
+                            className="flex items-center gap-1 text-primary hover:text-primary/80"
                           >
                             <Copy className="h-4 w-4" />
                             Dupliquer

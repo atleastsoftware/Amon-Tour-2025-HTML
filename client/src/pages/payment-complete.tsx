@@ -74,7 +74,7 @@ export default function PaymentComplete() {
       case 'success':
         return (
           <div className="flex flex-col items-center">
-            <CheckCircle className="h-16 w-16 text-green-500 mb-4" />
+            <CheckCircle className="h-16 w-16 text-secondary mb-4" />
             <h2 className="font-heading font-semibold text-2xl mb-2">Paiement réussi !</h2>
             <p className="text-gray-600 text-center max-w-lg mb-6">
               Merci pour votre réservation ! Vous allez recevoir un email de confirmation avec tous les détails de votre tour. 
@@ -94,7 +94,7 @@ export default function PaymentComplete() {
       case 'processing':
         return (
           <div className="flex flex-col items-center">
-            <Clock className="h-16 w-16 text-yellow-500 mb-4" />
+            <Clock className="h-16 w-16 text-secondary mb-4" />
             <h2 className="font-heading font-semibold text-2xl mb-2">Paiement en cours de traitement</h2>
             <p className="text-gray-600 text-center max-w-lg mb-6">
               Votre paiement est en cours de traitement. Nous vous enverrons un email dès que le paiement sera confirmé.

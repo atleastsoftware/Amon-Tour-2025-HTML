@@ -1004,7 +1004,7 @@ export default function FormBuilder({ initialForm, onSave, onSaveDraft, onCancel
                   onClick={() => setActiveTab(tab.id as any)}
                   className={`flex items-center gap-2 px-4 py-2 text-sm font-medium border-b-2 ${
                     activeTab === tab.id
-                      ? 'border-blue-500 text-blue-600'
+                      ? 'border-primary text-primary'
                       : 'border-transparent text-gray-500 hover:text-gray-700'
                   }`}
                 >
@@ -1323,14 +1323,14 @@ export default function FormBuilder({ initialForm, onSave, onSaveDraft, onCancel
                   <CardContent className="space-y-4">
                     <div className="grid grid-cols-1 gap-3">
                       <div 
-                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all hover:border-blue-300 ${
-                          formData.formLayout === 'columns' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
+                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all hover:border-primary/30 ${
+                          formData.formLayout === 'columns' ? 'border-primary bg-primary/10' : 'border-gray-200'
                         }`}
                         onClick={() => setFormData(prev => ({ ...prev, formLayout: 'columns' as const }))}
                       >
                         <div className="flex items-center gap-3 mb-2">
                           <div className="flex gap-1">
-                            <div className="w-4 h-3 bg-blue-200 rounded-sm"></div>
+                            <div className="w-4 h-3 bg-primary/20 rounded-sm"></div>
                             <div className="w-4 h-3 bg-gray-200 rounded-sm"></div>
                           </div>
                           <Label className="font-medium text-sm">Colonnes</Label>
@@ -1339,15 +1339,15 @@ export default function FormBuilder({ initialForm, onSave, onSaveDraft, onCancel
                       </div>
                       
                       <div 
-                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all hover:border-blue-300 ${
-                          formData.formLayout === 'columns-reversed' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
+                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all hover:border-primary/30 ${
+                          formData.formLayout === 'columns-reversed' ? 'border-primary bg-primary/10' : 'border-gray-200'
                         }`}
                         onClick={() => setFormData(prev => ({ ...prev, formLayout: 'columns-reversed' as const }))}
                       >
                         <div className="flex items-center gap-3 mb-2">
                           <div className="flex gap-1">
                             <div className="w-4 h-3 bg-gray-200 rounded-sm"></div>
-                            <div className="w-4 h-3 bg-blue-200 rounded-sm"></div>
+                            <div className="w-4 h-3 bg-primary/20 rounded-sm"></div>
                           </div>
                           <Label className="font-medium text-sm">Colonnes inversées</Label>
                         </div>
@@ -1355,14 +1355,14 @@ export default function FormBuilder({ initialForm, onSave, onSaveDraft, onCancel
                       </div>
                       
                       <div 
-                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all hover:border-blue-300 ${
-                          formData.formLayout === 'header' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
+                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all hover:border-primary/30 ${
+                          formData.formLayout === 'header' ? 'border-primary bg-primary/10' : 'border-gray-200'
                         }`}
                         onClick={() => setFormData(prev => ({ ...prev, formLayout: 'header' as const }))}
                       >
                         <div className="flex items-center gap-3 mb-2">
                           <div className="flex flex-col gap-1">
-                            <div className="w-8 h-2 bg-blue-200 rounded-sm"></div>
+                            <div className="w-8 h-2 bg-primary/20 rounded-sm"></div>
                             <div className="w-8 h-3 bg-gray-200 rounded-sm"></div>
                           </div>
                           <Label className="font-medium text-sm">Header</Label>

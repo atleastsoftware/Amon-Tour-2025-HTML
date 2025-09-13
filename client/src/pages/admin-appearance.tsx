@@ -271,9 +271,9 @@ function renderStylePreview(style: string, value: string): any {
     case 'license_badge':
       return <span className="bg-secondary/20 text-white px-2 py-1 rounded-full text-xs">{value}</span>;
     case 'email':
-      return <a href={`mailto:${value.replace(/^[^:]*:\s*/, '')}`} className="text-blue-600 underline">{value}</a>;
+      return <a href={`mailto:${value.replace(/^[^:]*:\s*/, '')}`} className="text-primary underline">{value}</a>;
     case 'phone_with_title':
-      return <a href={`tel:${value.replace(/^[^:]*:\s*/, '').replace(/\s/g, '')}`} className="text-blue-600">{value}</a>;
+      return <a href={`tel:${value.replace(/^[^:]*:\s*/, '').replace(/\s/g, '')}`} className="text-primary">{value}</a>;
     case 'whatsapp':
       return <span><i className="fab fa-whatsapp"></i> {value}</span>;
     case 'line':
@@ -495,7 +495,7 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
           </div>
           {/* Preview */}
           {newItem.label && newItem.value && (
-            <div className="bg-gray-50 p-3 rounded border-l-4 border-blue-500">
+            <div className="bg-gray-50 p-3 rounded border-l-4 border-primary">
               <Label className="text-xs text-gray-500 block mb-1">Preview on website:</Label>
               <div className="text-sm">
                 {newItem.style === 'phone_with_title' ? (
@@ -505,7 +505,7 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
                 ) : newItem.style === 'line' ? (
                   <span>💬 {newItem.value}</span>
                 ) : newItem.style === 'email' ? (
-                  <a href={`mailto:${newItem.value}`} className="text-blue-600">{newItem.value}</a>
+                  <a href={`mailto:${newItem.value}`} className="text-primary">{newItem.value}</a>
                 ) : newItem.style === 'license_badge' ? (
                   <div className="inline-block bg-white px-3 py-1 rounded-full border text-xs">
                     {newItem.value}
@@ -747,12 +747,12 @@ function UsefulLinksManager({ siteSettings, updateSiteSetting, updateSiteSetting
           </div>
           {/* Preview */}
           {newLink.text && newLink.url && (
-            <div className="bg-gray-50 p-3 rounded border-l-4 border-blue-500">
+            <div className="bg-gray-50 p-3 rounded border-l-4 border-primary">
               <Label className="text-xs text-gray-500 block mb-1">Preview on website:</Label>
               <div className="text-sm">
                 <a 
                   href={newLink.url}
-                  className="text-blue-600 hover:text-blue-800 font-medium"
+                  className="text-primary hover:text-primary/80 font-medium"
                   {...(newLink.url.startsWith('http') ? {
                     target: "_blank",
                     rel: "noopener noreferrer"
@@ -959,12 +959,12 @@ function SocialMediaManager({ siteSettings, updateSiteSetting, updateSiteSetting
           
           {/* Preview */}
           {newSocial.url && newSocial.icon && (
-            <div className="bg-gray-50 p-3 rounded border-l-4 border-blue-500">
+            <div className="bg-gray-50 p-3 rounded border-l-4 border-primary">
               <Label className="text-xs text-gray-500 block mb-1">Preview on website:</Label>
               <div className="text-sm">
                 <a 
                   href={newSocial.url}
-                  className="text-blue-600 hover:text-blue-800"
+                  className="text-primary hover:text-primary/80"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -1273,8 +1273,8 @@ function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs, update
             <div>
               <label className="text-sm font-medium text-gray-700 mb-2 block">État</label>
               <div className="flex items-center gap-3 p-2 bg-gray-50 rounded border h-10">
-                <div className={`w-2 h-2 rounded-full ${currentPageConfig.isActive ? 'bg-green-500' : 'bg-gray-500'}`}></div>
-                <span className={`text-sm font-medium ${currentPageConfig.isActive ? 'text-green-700' : 'text-gray-700'}`}>
+                <div className={`w-2 h-2 rounded-full ${currentPageConfig.isActive ? 'bg-secondary' : 'bg-gray-500'}`}></div>
+                <span className={`text-sm font-medium ${currentPageConfig.isActive ? 'text-secondary' : 'text-gray-700'}`}>
                   {currentPageConfig.isActive ? 'Active' : 'Inactive'}
                 </span>
               </div>
@@ -1330,7 +1330,7 @@ function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs, update
             <div className="space-y-2">
               {pageReferences.map((reference, index) => (
                 <div key={index} className="flex items-center gap-2 p-2 bg-gray-50 rounded">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
+                  <CheckCircle className="w-4 h-4 text-secondary" />
                   <span className="text-sm text-gray-700">{reference}</span>
                 </div>
               ))}
@@ -1370,7 +1370,7 @@ function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs, update
               href={selectedPage === 'home' ? '/' : `/${selectedPage}`} 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="text-blue-600 hover:underline text-sm max-w-xs truncate"
+              className="text-primary hover:underline text-sm max-w-xs truncate"
               title={`${window.location.origin}${selectedPage === 'home' ? '/' : `/${selectedPage}`}`}
             >
               {window.location.origin}{selectedPage === 'home' ? '/' : `/${selectedPage}`}
@@ -1895,7 +1895,7 @@ export default function AdminAppearance() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
           <p className="text-gray-600">Loading appearance settings...</p>
         </div>
       </div>
@@ -2328,7 +2328,7 @@ export default function AdminAppearance() {
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:justify-between">
             <div className="w-full sm:w-auto">
               <h1 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2 sm:gap-3">
-                <Palette className="h-6 w-6 sm:h-7 sm:w-7 text-blue-600 flex-shrink-0" />
+                <Palette className="h-6 w-6 sm:h-7 sm:w-7 text-primary flex-shrink-0" />
                 <span className="truncate">Apparence du Site</span>
               </h1>
               <p className="text-sm sm:text-base text-gray-600">Personnalisez le thème, les pages et le pied de page de votre site</p>
@@ -2567,7 +2567,7 @@ export default function AdminAppearance() {
                         <Button 
                           onClick={saveColors} 
                           disabled={!tempColors}
-                          className="bg-green-600 hover:bg-green-700"
+                          className="bg-secondary hover:bg-secondary/90"
                         >
                           💾 Sauvegarder Couleurs
                         </Button>
@@ -2695,7 +2695,7 @@ export default function AdminAppearance() {
                           <Button 
                             onClick={saveNotificationBar} 
                             disabled={!tempNotificationBar}
-                            className="bg-green-600 hover:bg-green-700"
+                            className="bg-secondary hover:bg-secondary/90"
                           >
                             💾 Sauvegarder Announcement Bar
                           </Button>
@@ -2843,7 +2843,7 @@ export default function AdminAppearance() {
                         <Button 
                           onClick={saveTypography} 
                           disabled={!tempTypography}
-                          className="bg-green-600 hover:bg-green-700"
+                          className="bg-secondary hover:bg-secondary/90"
                         >
                           💾 Sauvegarder Typography
                         </Button>
@@ -2954,7 +2954,7 @@ export default function AdminAppearance() {
                         <Button 
                           onClick={saveButtonStyles} 
                           disabled={!tempButtonStyles}
-                          className="bg-green-600 hover:bg-green-700"
+                          className="bg-secondary hover:bg-secondary/90"
                         >
                           💾 Sauvegarder Button Styles
                         </Button>
@@ -3207,7 +3207,7 @@ export default function AdminAppearance() {
                         <Button 
                           onClick={saveLogoSettings} 
                           disabled={!tempLogoSettings}
-                          className="bg-green-600 hover:bg-green-700"
+                          className="bg-secondary hover:bg-secondary/90"
                         >
                           💾 Sauvegarder Logo Settings
                         </Button>
@@ -3371,7 +3371,7 @@ export default function AdminAppearance() {
                         <Button 
                           onClick={savePopupSettings} 
                           disabled={!tempPopupSettings}
-                          className="bg-green-600 hover:bg-green-700"
+                          className="bg-secondary hover:bg-secondary/90"
                         >
                           💾 Sauvegarder Pop-up Settings
                         </Button>
@@ -3482,7 +3482,7 @@ export default function AdminAppearance() {
                     <div className="border-t pt-4">
                       <Button
                         variant="outline"
-                        className="w-full justify-start text-sm h-8 mb-4 text-blue-600 border-blue-600 hover:bg-blue-50"
+                        className="w-full justify-start text-sm h-8 mb-4 text-primary border-primary hover:bg-primary/10"
                         onClick={() => {
                           window.location.href = '/admin-editor';
                         }}
@@ -3494,7 +3494,7 @@ export default function AdminAppearance() {
                       {/* Add New Page Button */}
                       <Button
                         variant="outline"
-                        className="w-full justify-start text-sm h-8 border-dashed border-blue-300 text-blue-600 hover:bg-blue-50"
+                        className="w-full justify-start text-sm h-8 border-dashed border-primary/30 text-primary hover:bg-primary/10"
                         onClick={() => setIsAddPageModalOpen(true)}
                       >
                         <Plus className="w-4 h-4 mr-2" />
@@ -3779,7 +3779,7 @@ export default function AdminAppearance() {
                       <NavigationMenuManager pageConfigs={pageConfigs} navigationMenuItems={[]} />
                     ) : loadingBlocks ? (
                       <div className="text-center py-12">
-                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
                         <p className="text-gray-500">Loading blocks...</p>
                       </div>
                     ) : (
@@ -4250,7 +4250,7 @@ function NavigationMenuManager({ pageConfigs, navigationMenuItems }: { pageConfi
         </h3>
         {isLoading ? (
           <div className="text-center py-8">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
             <p className="text-gray-500">Chargement...</p>
           </div>
         ) : organizedItems.length === 0 ? (
@@ -4919,7 +4919,7 @@ function RealBlocksEditor({
                                 <span key={index}>
                                   {index === 1 && heroEditData.titleColorPart ? (
                                     <>
-                                      <span className="text-yellow-400">{heroEditData.titleColorPart}</span>
+                                      <span className="text-secondary">{heroEditData.titleColorPart}</span>
                                       {part}
                                     </>
                                   ) : part}
@@ -4933,7 +4933,7 @@ function RealBlocksEditor({
                             
                             <div className="flex flex-col sm:flex-row gap-4 justify-center">
                               <button 
-                                className="px-6 py-3 bg-yellow-500 text-black font-semibold rounded-lg hover:bg-yellow-400 transition-colors"
+                                className="px-6 py-3 bg-secondary text-black font-semibold rounded-lg hover:bg-secondary/90 transition-colors"
                               >
                                 {heroEditData.button1Text}
                               </button>
@@ -4959,7 +4959,7 @@ function RealBlocksEditor({
                     </Button>
                     <Button
                       onClick={saveHeroChanges}
-                      className="bg-blue-600 hover:bg-blue-700"
+                      className="bg-primary hover:bg-primary/90"
                     >
                       Sauvegarder les modifications
                     </Button>
@@ -4972,7 +4972,7 @@ function RealBlocksEditor({
       ))}
       
       {/* Bouton pour ajouter un nouveau bloc */}
-      <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 hover:bg-blue-50 transition-colors">
+      <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-primary/40 hover:bg-primary/10 transition-colors">
         <Plus className="w-8 h-8 mx-auto mb-2 text-gray-400" />
         <p className="text-gray-600 font-medium">Ajouter un nouveau bloc</p>
         <p className="text-sm text-gray-500">Les boutons de création rapide sont disponibles ci-dessous</p>

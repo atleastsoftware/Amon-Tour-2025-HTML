@@ -81,7 +81,7 @@ function ColorPicker({ value, onChange }: ColorPickerProps) {
             type="button"
             onClick={() => handleQuickColorClick('primary')}
             className={`flex items-center gap-2 px-3 py-2 rounded border-2 transition-all hover:scale-105 ${
-              value === 'primary' ? 'border-blue-400 ring-2 ring-blue-200 bg-blue-50' : 'border-gray-200 hover:border-gray-300'
+              value === 'primary' ? 'border-primary ring-2 ring-primary/30 bg-primary/10' : 'border-gray-200 hover:border-gray-300'
             }`}
             title="Couleur principale du thème"
           >
@@ -96,7 +96,7 @@ function ColorPicker({ value, onChange }: ColorPickerProps) {
             type="button"
             onClick={() => handleQuickColorClick('secondary')}
             className={`flex items-center gap-2 px-3 py-2 rounded border-2 transition-all hover:scale-105 ${
-              value === 'secondary' ? 'border-yellow-400 ring-2 ring-yellow-200 bg-yellow-50' : 'border-gray-200 hover:border-gray-300'
+              value === 'secondary' ? 'border-secondary ring-2 ring-secondary/30 bg-secondary/10' : 'border-gray-200 hover:border-gray-300'
             }`}
             title="Couleur secondaire du thème"
           >

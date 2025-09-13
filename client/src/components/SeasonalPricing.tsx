@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 export default function SeasonalPricing() {
   return (
     <div className="w-full">
-      <div className="bg-gradient-to-br from-gray-50 to-blue-50 py-12">
+      <div className="bg-gradient-to-br from-gray-50 to-primary/5 py-12">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <motion.div 
@@ -27,7 +27,7 @@ export default function SeasonalPricing() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-white p-4">
+              <div className="bg-gradient-to-r from-secondary to-secondary/80 text-white p-4">
                 <h3 className="text-xl font-bold">Very High Season</h3>
                 <p className="text-sm opacity-90">Peak period rates</p>
               </div>
@@ -49,7 +49,7 @@ export default function SeasonalPricing() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <div className="bg-gradient-to-r from-orange-500 to-yellow-500 text-white p-4">
+              <div className="bg-gradient-to-r from-primary to-secondary text-white p-4">
                 <h3 className="text-xl font-bold">High Season</h3>
                 <p className="text-sm opacity-90">Premium period rates</p>
               </div>
@@ -72,7 +72,7 @@ export default function SeasonalPricing() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              <div className="bg-gradient-to-r from-green-500 to-teal-500 text-white p-4">
+              <div className="bg-gradient-to-r from-primary/80 to-primary text-white p-4">
                 <h3 className="text-xl font-bold">Low Season</h3>
                 <p className="text-sm opacity-90">Best value rates</p>
               </div>
@@ -110,7 +110,7 @@ export default function SeasonalPricing() {
               >
                 <p className="text-lg font-bold text-gray-900">8:30</p>
                 <p className="text-sm text-gray-600 mt-1">from Tubkeak</p>
-                <p className="text-sm font-bold text-orange-600 mt-2">+1,300 Baht</p>
+                <p className="text-sm font-bold text-secondary mt-2">+1,300 Baht</p>
               </motion.div>
               
               {/* Thalane */}
@@ -123,7 +123,7 @@ export default function SeasonalPricing() {
               >
                 <p className="text-lg font-bold text-gray-900">8:30</p>
                 <p className="text-sm text-gray-600 mt-1">from Thalane</p>
-                <p className="text-sm font-bold text-orange-600 mt-2">+1,800 Baht</p>
+                <p className="text-sm font-bold text-secondary mt-2">+1,800 Baht</p>
               </motion.div>
               
               {/* Ao Nang */}
@@ -136,7 +136,7 @@ export default function SeasonalPricing() {
               >
                 <p className="text-lg font-bold text-gray-900">8:45</p>
                 <p className="text-sm text-gray-600 mt-1">from Ao Nang</p>
-                <p className="text-sm text-green-600 font-semibold mt-2">No extra fee</p>
+                <p className="text-sm text-secondary font-semibold mt-2">No extra fee</p>
               </motion.div>
               
               {/* Klong Mueang */}
@@ -149,7 +149,7 @@ export default function SeasonalPricing() {
               >
                 <p className="text-lg font-bold text-gray-900">8:40</p>
                 <p className="text-sm text-gray-600 mt-1">from Klong Mueang</p>
-                <p className="text-sm font-bold text-orange-600 mt-2">+1,000 Baht</p>
+                <p className="text-sm font-bold text-secondary mt-2">+1,000 Baht</p>
               </motion.div>
               
               {/* Railay */}
@@ -162,7 +162,7 @@ export default function SeasonalPricing() {
               >
                 <p className="text-lg font-bold text-gray-900">9:00</p>
                 <p className="text-sm text-gray-600 mt-1">from Railay</p>
-                <p className="text-sm text-green-600 font-semibold mt-2">No extra fee</p>
+                <p className="text-sm text-secondary font-semibold mt-2">No extra fee</p>
               </motion.div>
             </div>
           </div>
@@ -178,8 +178,8 @@ export default function SeasonalPricing() {
               transition={{ duration: 0.5, delay: 0.5 }}
             >
               <div className="flex items-center mb-4">
-                <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-3">
-                  <svg className="w-6 h-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="w-10 h-10 bg-secondary/20 rounded-full flex items-center justify-center mr-3">
+                  <svg className="w-6 h-6 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
@@ -200,7 +200,7 @@ export default function SeasonalPricing() {
             >
               <div className="flex items-center mb-4">
                 <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center mr-3">
-                  <svg className="w-6 h-6 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-6 h-6 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </div>

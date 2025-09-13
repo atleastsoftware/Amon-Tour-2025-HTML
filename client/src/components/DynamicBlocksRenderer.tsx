@@ -41,7 +41,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
       case 'hero_banner':
       case 'hero_video':
         return (
-          <div key={block.id} className="relative min-h-[50vh] bg-gradient-to-br from-blue-600 to-purple-700 flex items-center justify-center w-full">
+          <div key={block.id} className="relative min-h-[50vh] bg-gradient-to-br from-primary to-secondary flex items-center justify-center w-full">
             {block.imageUrl && (
               <img 
                 src={block.imageUrl} 
@@ -64,7 +64,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
               {block.ctaText && block.ctaUrl && (
                 <a 
                   href={block.ctaUrl} 
-                  className="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors font-semibold shadow-lg"
+                  className="inline-block bg-white text-primary px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors font-semibold shadow-lg"
                 >
                   {block.ctaText}
                 </a>
@@ -101,7 +101,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
             <div key={block.id} className="w-full">
               <Suspense fallback={
                 <div className="flex justify-center py-8">
-                  <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+                  <Loader2 className="h-8 w-8 animate-spin text-primary" />
                 </div>
               }>
                 <CatamaranExperience />
@@ -115,7 +115,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
             <div key={block.id} className="w-full">
               <Suspense fallback={
                 <div className="flex justify-center py-8">
-                  <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+                  <Loader2 className="h-8 w-8 animate-spin text-primary" />
                 </div>
               }>
                 <SeasonalPricing />
@@ -144,7 +144,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                   {block.ctaText && block.ctaUrl && (
                     <a 
                       href={block.ctaUrl} 
-                      className="inline-block mt-6 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                      className="inline-block mt-6 bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors"
                     >
                       {block.ctaText}
                     </a>
@@ -167,7 +167,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
       case 'cta_banner':
       case 'cta_section':
         return (
-          <div key={block.id} className="py-16 bg-blue-600">
+          <div key={block.id} className="py-16 bg-primary">
             <div className="container mx-auto px-4 text-center">
               {block.title && (
                 <h2 className="text-3xl font-bold text-white mb-4">{block.title}</h2>
@@ -178,7 +178,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
               {block.ctaText && block.ctaUrl && (
                 <a 
                   href={block.ctaUrl} 
-                  className="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors font-semibold"
+                  className="inline-block bg-white text-primary px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors font-semibold"
                 >
                   {block.ctaText}
                 </a>
@@ -214,7 +214,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
               <div className="w-full px-8 md:px-12 lg:px-16 max-w-5xl mx-auto">
                 <Suspense fallback={
                   <div className="flex justify-center py-8">
-                    <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+                    <Loader2 className="h-8 w-8 animate-spin text-primary" />
                   </div>
                 }>
                   <CruiseForm />
