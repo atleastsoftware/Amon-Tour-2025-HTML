@@ -114,9 +114,34 @@ app.use((req, res, next) => {
   }
 
   // ALWAYS serve the app on port 5000
-  // this serves both the API and the client.
+  // this serves both the API and the client.  
   // It is the only port that is not firewalled.
   const port = 5000;
+  
+  // Check if the app is already running before attempting to start
+  try {
+    const fetch = (await import('node-fetch')).default;
+    const response = await fetch(`http://127.0.0.1:${port}/`, { 
+      timeout: 2000,
+      signal: AbortSignal.timeout(2000)
+    });
+    if (response.ok) {
+      log(`App already running on port ${port}. Exiting to avoid duplicate instances.`);
+      process.exit(0);
+    }
+  } catch (error) {
+    // If fetch fails, assume no server is running and continue
+    log(`No existing server detected, starting fresh instance...`);
+  }
+  
+  server.on('error', (err: any) => {
+    if (err.code === 'EADDRINUSE') {
+      log(`Port ${port} is already in use. Attempting to use reusePort...`);
+    } else {
+      log(`Server error: ${err.message}`);
+    }
+  });
+  
   server.listen({
     port,
     host: "0.0.0.0",
