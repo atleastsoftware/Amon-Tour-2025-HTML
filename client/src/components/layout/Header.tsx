@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
@@ -46,6 +46,8 @@ export default function Header() {
   const [location] = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [headerHeight, setHeaderHeight] = useState(64);
+  const headerRef = useRef<HTMLElement>(null);
   const isBookingPage = location.startsWith('/booking');
   const isHomePage = location === '/';
 
@@ -62,17 +64,34 @@ export default function Header() {
     ? (typeof notificationSettings === 'string' ? JSON.parse(notificationSettings) : notificationSettings) 
     : { enabled: true, text: "Our previous website is still online at www.Amon-Tour.fr", background_color: "#1e73be", text_color: "#ffffff" };
 
-  // Track scroll position for header transparency
+  // Track scroll position for header transparency and measure header height
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
 
+    const measureHeader = () => {
+      if (headerRef.current) {
+        const rect = headerRef.current.getBoundingClientRect();
+        setHeaderHeight(rect.height);
+      }
+    };
+
     if (isHomePage) {
       window.addEventListener('scroll', handleScroll);
-      return () => window.removeEventListener('scroll', handleScroll);
     }
-  }, [isHomePage]);
+    
+    // Measure header height on mount and when state changes
+    measureHeader();
+    window.addEventListener('resize', measureHeader);
+    
+    return () => {
+      if (isHomePage) {
+        window.removeEventListener('scroll', handleScroll);
+      }
+      window.removeEventListener('resize', measureHeader);
+    };
+  }, [isHomePage, scrolled, isMobileMenuOpen]);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -140,7 +159,7 @@ export default function Header() {
         </div>
       )}
       
-      <header className={headerClasses} style={headerStyle}>
+      <header ref={headerRef} className={headerClasses} style={headerStyle}>
         {/* Main Navigation */}
         <nav className="container mx-auto px-4 flex justify-between items-center">
         {/* Logo */}
@@ -281,6 +300,13 @@ export default function Header() {
         )}
       </AnimatePresence>
     </header>
+    
+    {/* Dynamic spacer to offset fixed headers */}
+    <div 
+      aria-hidden="true" 
+      style={{ height: notificationBarHeight + headerHeight }}
+      className="flex-shrink-0"
+    />
     </>
   );
 }

@@ -115,15 +115,6 @@
     @apply antialiased bg-background text-foreground;
   }
   
-  /* Compensation pour header fixe + barre d'annonce */
-  .main-content {
-    padding-top: 112px; /* 48px barre d'annonce + 64px header */
-  }
-  
-  /* Sur page d'accueil, pas de padding supplémentaire car hero a déjà pt-32 */
-  .home-page .main-content {
-    padding-top: 0;
-  }
 }
 
 /* Modern fonts similar to Airbnb */
