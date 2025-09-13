@@ -84,8 +84,8 @@ export default function Header() {
 
 
 
-  // Calculate the notification bar height (more compact)
-  const notificationBarHeight = notificationConfig.enabled ? 40 : 0;
+  // Calculate the notification bar height (dynamic for mobile)
+  const notificationBarHeight = notificationConfig.enabled ? 60 : 0;
   
   const headerClasses = isHomePage
     ? `fixed left-0 w-full z-50 transition-all duration-300 ${
@@ -108,14 +108,14 @@ export default function Header() {
             background: `linear-gradient(135deg, ${notificationConfig.background_color}, ${notificationConfig.background_color}e6)`,
             color: notificationConfig.text_color,
             textAlign: 'center',
-            padding: '12px 20px',
+            padding: '16px 20px',
             fontWeight: '500',
             position: 'fixed',
             top: 0,
             left: 0,
             right: 0,
             zIndex: 60,
-            height: '40px',
+            minHeight: '48px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -124,10 +124,21 @@ export default function Header() {
             fontFamily: 'inherit',
             letterSpacing: '0.025em',
             boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
-            backdropFilter: 'blur(8px)'
+            backdropFilter: 'blur(8px)',
+            lineHeight: '1.4'
           }}
         >
-          {notificationConfig.text}
+          <span 
+            style={{
+              display: 'inline-block',
+              maxWidth: '100%',
+              wordWrap: 'break-word',
+              hyphens: 'none'
+            }}
+            dangerouslySetInnerHTML={{
+              __html: notificationConfig.text.replace('www.Amon-Tour.fr', '<span style="white-space: nowrap;">www.Amon-Tour.fr</span>')
+            }}
+          />
         </div>
       )}
       
