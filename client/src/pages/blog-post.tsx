@@ -37,8 +37,8 @@ const popularToursData = {
   'phi-phi': {
     id: '_LkIo_9vyF',
     title: "Koh Phi Phi & Ao Nang's local islands",
-    description: "Excursion d'une journée vers les îles paradisiaques de Phi Phi et les îles locales d'Ao Nang. Découvrez des plages de sable blanc, des eaux cristallines et des paysages à couper le souffle.",
-    duration: "1 jour",
+    description: "Full-day excursion to the paradisiacal Phi Phi islands and Ao Nang's local islands. Discover white sand beaches, crystal-clear waters and breathtaking landscapes.",
+    duration: "1 day",
     price: 2500,
     currency: "THB",
     tourNinjaUrl: "https://www.tourninja.io/book/_LkIo_9vyF"
@@ -46,8 +46,8 @@ const popularToursData = {
   'railay': {
     id: '8avSq2JCG8',
     title: "Railay & Ao Nang's local islands", 
-    description: "Explorez la magnifique Railay Beach, accessible uniquement par bateau, et les îles locales d'Ao Nang. Parfait pour l'escalade, la détente et la découverte.",
-    duration: "1 jour",
+    description: "Explore the magnificent Railay Beach, accessible only by boat, and Ao Nang's local islands. Perfect for rock climbing, relaxation and discovery.",
+    duration: "1 day",
     price: 2500,
     currency: "THB",
     tourNinjaUrl: "https://www.tourninja.io/book/8avSq2JCG8"
@@ -55,17 +55,26 @@ const popularToursData = {
   'hong-island': {
     id: '9Pw3VgOKha',
     title: "Koh Hong Archipelago",
-    description: "Découvrez l'archipel de Koh Hong avec ses lagons émeraude cachés, ses plages de sable blanc et ses formations rocheuses spectaculaires. Une expérience inoubliable.",
-    duration: "1 jour", 
+    description: "Discover the Koh Hong archipelago with its hidden emerald lagoons, white sand beaches and spectacular rock formations. An unforgettable experience.",
+    duration: "1 day", 
     price: 2500,
     currency: "THB",
     tourNinjaUrl: "https://www.tourninja.io/book/9Pw3VgOKha"
   },
+  'four-islands': {
+    id: 'gH5kL9mN2p',
+    title: "4 Islands Tour - Krabi's Must-Do Excursion",
+    description: "Visit the famous 4 islands: Chicken Island, Tup Island, Poda Island, and Phra Nang Cave Beach. Perfect introduction to Krabi's natural beauty.",
+    duration: "1 day",
+    price: 1800,
+    currency: "THB",
+    tourNinjaUrl: "https://www.tourninja.io/book/gH5kL9mN2p"
+  },
   'sunset-plankton': {
     id: 'IGdQFwdJK8',
     title: "Koh Hong & Ao Nang's local islands Sunset and Plankton",
-    description: "Expérience magique combinant coucher de soleil sur les îles d'Ao Nang et observation du plancton bioluminescent la nuit. Moment unique et romantique.",
-    duration: "1 jour",
+    description: "Magical experience combining sunset over Ao Nang islands and bioluminescent plankton observation at night. Unique and romantic moment.",
+    duration: "1 day",
     price: 2500,
     currency: "THB",
     tourNinjaUrl: "https://www.tourninja.io/book/IGdQFwdJK8"
@@ -73,8 +82,8 @@ const popularToursData = {
   'catamaran': {
     id: 'Wmx1GfDdXL',
     title: "Catamaran day trip - Ao Nang's local islands",
-    description: "Croisière luxueuse en catamaran vers les îles locales d'Ao Nang. Une expérience premium avec confort et élégance.",
-    duration: "1 jour",
+    description: "Luxurious catamaran cruise to Ao Nang's local islands. A premium experience with comfort and elegance.",
+    duration: "1 day",
     price: 3500,
     currency: "THB",
     tourNinjaUrl: "https://www.tourninja.io/book/Wmx1GfDdXL"
@@ -85,27 +94,36 @@ const popularToursData = {
 const getRelatedTours = (slug: string) => {
   // Map specific articles to relevant Tour Ninja tours
   const tourMapping: { [key: string]: string[] } = {
-    // Phi Phi related articles
+    // Phi Phi related articles (updated English slugs)
+    'phi-phi-islands-from-krabi-complete-guide-unforgettable-excursion': ['phi-phi'],
     'iles-phi-phi-krabi-excursion-guide-complet': ['phi-phi'],
     
-    // Railay related articles  
+    // Railay related articles (updated English slugs)
+    'railay-beach-krabi-complete-guide-spectacular-beach': ['railay'],
     'railay-beach-krabi-guide-complet-plage-spectaculaire': ['railay'],
     'escalade-krabi-guide-complet-railay-beach-capitale-mondiale': ['railay'],
     
-    // Hong Island related articles
+    // Hong Island related articles (updated English slugs)
+    'hong-island-krabi-guide-secret-lagoon-paradise-island': ['hong-island'],
     'hong-island-krabi-lagon-secret-ile-paradisiaque': ['hong-island'],
     
-    // 4 Islands related articles
+    // 4 Islands related articles (updated English slugs)
+    '4-islands-tour-from-krabi-guide-most-popular-excursion': ['four-islands'],
     '4-islands-tour-krabi-excursion-populaire-guide': ['four-islands'],
     
-    // General Krabi articles - show popular tours
+    // General Krabi articles - show popular tours (updated English slugs)
+    'top-15-most-beautiful-beaches-krabi-paradise-guide': ['phi-phi', 'four-islands'],
     'plus-belles-plages-krabi-guide-paradis-tropical': ['phi-phi', 'four-islands'],
+    'complete-guide-krabi-2025-thailand-trip': ['phi-phi', 'railay'],
     'guide-complet-krabi-2025-voyage-thailande': ['phi-phi', 'railay'], 
+    'ao-nang-krabi-complete-guide-essential-tourist-center': ['phi-phi', 'sunset-plankton'],
     'ao-nang-krabi-guide-complet-centre-touristique': ['phi-phi', 'sunset-plankton'],
+    'snorkeling-krabi-best-spots-underwater-world': ['hong-island', 'phi-phi'],
     'snorkeling-krabi-meilleurs-spots-fonds-marins': ['hong-island', 'phi-phi'],
     'krabi-ou-phuket-comparaison-complete-choisir-destination-thai-parfaite': ['phi-phi'],
     
-    // Practical articles
+    // Practical articles (updated English slugs)
+    'krabi-travel-budget-2025-complete-guide-prices-money-saving-tips': ['four-islands'],
     'budget-voyage-krabi-2025-guide-prix-bons-plans': ['four-islands'],
     'quand-partir-krabi-guide-meteo-saisons-meilleure-periode': ['phi-phi'],
     'transport-krabi-guide-complet-moyens-transport-deplacements': ['railay'],
@@ -241,9 +259,9 @@ export default function BlogPostPage() {
   return (
     <div className="min-h-screen">
       <Helmet>
-        <title>{post.title} | Amon Tour - Guide Krabi Thaïlande</title>
+        <title>{post.title} | Amon Tour - Krabi Thailand Guide</title>
         <meta name="description" content={post.metaDescription || post.excerpt} />
-        <meta name="keywords" content={post.metaKeywords || `Krabi, Thaïlande, ${post.title}`} />
+        <meta name="keywords" content={post.metaKeywords || `Krabi, Thailand, ${post.title}`} />
         
         {/* Open Graph Meta Tags for Social Media */}
         <meta property="og:title" content={`${post.title} | Amon Tour`} />
@@ -289,7 +307,7 @@ export default function BlogPostPage() {
               "@type": "WebPage",
               "@id": `https://amon-tour.com/blog/${post.slug}`
             },
-            "articleSection": post.category?.name || "Guide Voyage",
+            "articleSection": post.category?.name || "Travel Guide",
             "keywords": post.metaKeywords ? post.metaKeywords.split(', ') : undefined
           })}
         </script>
@@ -311,7 +329,7 @@ export default function BlogPostPage() {
                 <div className="relative h-64 md:h-96 overflow-hidden">
                   <img
                     src={post.coverImage}
-                    alt={post.imageAltText || `Guide Krabi - ${post.title} | Amon Tour`}
+                    alt={post.imageAltText || `Krabi Guide - ${post.title} | Amon Tour`}
                     title={post.title}
                     className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                     loading="eager"
@@ -389,10 +407,10 @@ export default function BlogPostPage() {
                   <div className="mt-12 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-200 shadow-sm">
                     <h3 className="text-xl font-bold text-blue-900 mb-4 flex items-center gap-2">
                       <span>🌴</span>
-                      Tours Recommandés par Amon Tour
+                      Tours Recommended by Amon Tour
                     </h3>
                     <p className="text-gray-700 mb-6 text-sm">
-                      Découvrez nos circuits guidés pour vivre ces expériences avec nos experts locaux
+                      Discover our guided tours to experience these adventures with our local experts
                     </p>
                     <div className="space-y-4">
                       {getRelatedTours(post.slug).map((tour) => (
@@ -411,7 +429,7 @@ export default function BlogPostPage() {
                                   <strong>
                                     {tour.currency === 'THB' 
                                       ? `${tour.price} THB (~${Math.round(tour.price / 36)}€)`
-                                      : `À partir de ${tour.price}€`
+                                      : `From ${tour.price}€`
                                     }
                                   </strong>
                                 </span>
@@ -423,16 +441,16 @@ export default function BlogPostPage() {
                                 target="_blank" 
                                 rel="noopener noreferrer"
                                 className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-colors text-center shadow-sm"
-                                aria-label={`Voir détails et réserver ${tour.title}`}
+                                aria-label={`View details and book ${tour.title}`}
                               >
-                                Voir Détails
+                                View Details
                               </a>
                               <a 
                                 href={`/contact?tour=${encodeURIComponent(tour.title)}`}
                                 className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg text-sm font-medium transition-colors text-center"
-                                aria-label={`Contacter pour ${tour.title}`}
+                                aria-label={`Contact us for ${tour.title}`}
                               >
-                                Réserver
+                                Book Now
                               </a>
                             </div>
                           </div>
@@ -443,11 +461,11 @@ export default function BlogPostPage() {
                       <div className="flex items-start gap-3">
                         <span className="text-blue-600 text-lg">💡</span>
                         <div>
-                          <p className="font-semibold text-blue-900 mb-1">Pourquoi choisir Amon Tour ?</p>
+                          <p className="font-semibold text-blue-900 mb-1">Why choose Amon Tour?</p>
                           <ul className="text-sm text-blue-800 space-y-1">
-                            <li>• <strong>Guides francophones experts</strong> - Découverte authentique avec explications détaillées</li>
-                            <li>• <strong>Groupes réduits</strong> - Experience personnalisée et de qualité</li>
-                            <li>• <strong>Réservation sécurisée</strong> - Paiement protégé et annulation flexible</li>
+                            <li>• <strong>Expert local guides</strong> - Authentic discovery with detailed explanations</li>
+                            <li>• <strong>Small groups</strong> - Personalized and quality experience</li>
+                            <li>• <strong>Secure booking</strong> - Protected payment and flexible cancellation</li>
                           </ul>
                         </div>
                       </div>
