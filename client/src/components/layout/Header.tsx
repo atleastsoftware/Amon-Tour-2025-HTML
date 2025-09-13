@@ -301,12 +301,14 @@ export default function Header() {
       </AnimatePresence>
     </header>
     
-    {/* Dynamic spacer to offset fixed headers */}
-    <div 
-      aria-hidden="true" 
-      style={{ height: notificationBarHeight + headerHeight }}
-      className="flex-shrink-0"
-    />
+    {/* Dynamic spacer to offset fixed headers - but not on home page when header is transparent */}
+    {!(isHomePage && !scrolled) && (
+      <div 
+        aria-hidden="true" 
+        style={{ height: notificationBarHeight + headerHeight }}
+        className="flex-shrink-0"
+      />
+    )}
     </>
   );
 }
