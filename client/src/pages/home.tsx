@@ -217,7 +217,7 @@ export default function Home() {
         }}
       />
       <Header />
-      <main>
+      <main className="home-page">
         {/* 1. Hero section */}
         <Hero />
         

@@ -140,7 +140,7 @@ export default function Hero() {
     }
   }, []);
   return (
-    <section id="hero" className="relative pt-32 pb-20 min-h-screen flex items-center overflow-hidden">
+    <section id="hero" className="relative pt-28 pb-20 min-h-screen flex items-center overflow-hidden">
       {/* Video Background Section with Fallback Image */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
         {/* Fallback Image */}
