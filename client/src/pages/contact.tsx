@@ -15,7 +15,7 @@ export default function Contact() {
       />
       <Header />
       
-      <main>
+      <main className="main-content">
         {/* Hero Section */}
         <HeroHeader 
           title="Contact Us"

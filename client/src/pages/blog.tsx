@@ -84,7 +84,7 @@ export default function BlogPage() {
   return (
     <div className="min-h-screen">
       <Header />
-      <div>
+      <div className="main-content">
         {/* Hero Section */}
         <HeroHeader 
           title="Travel Blog"

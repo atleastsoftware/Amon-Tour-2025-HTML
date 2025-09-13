@@ -84,8 +84,8 @@ export default function Header() {
 
 
 
-  // Calculate the notification bar height (dynamic for mobile)
-  const notificationBarHeight = notificationConfig.enabled ? 60 : 0;
+  // Calculate the notification bar height (dynamic for mobile/desktop)
+  const notificationBarHeight = notificationConfig.enabled ? 48 : 0;
   
   const headerClasses = isHomePage
     ? `fixed left-0 w-full z-50 transition-all duration-300 ${
@@ -93,11 +93,9 @@ export default function Header() {
           ? 'bg-white/95 backdrop-blur-md shadow-lg py-2' 
           : 'bg-transparent py-3'
       }`
-    : 'bg-white py-3';
+    : 'fixed left-0 w-full z-50 bg-white py-3';
 
-  const headerStyle = isHomePage
-    ? { top: `${notificationBarHeight}px` }
-    : { marginTop: notificationConfig.enabled ? `${notificationBarHeight}px` : '0' };
+  const headerStyle = { top: `${notificationBarHeight}px` };
 
   return (
     <>
@@ -108,14 +106,14 @@ export default function Header() {
             background: `linear-gradient(135deg, ${notificationConfig.background_color}, ${notificationConfig.background_color}e6)`,
             color: notificationConfig.text_color,
             textAlign: 'center',
-            padding: '16px 20px',
+            padding: '12px 20px',
             fontWeight: '500',
             position: 'fixed',
             top: 0,
             left: 0,
             right: 0,
             zIndex: 60,
-            minHeight: '48px',
+            height: '48px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',

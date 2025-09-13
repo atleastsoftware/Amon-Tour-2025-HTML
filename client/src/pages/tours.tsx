@@ -183,7 +183,7 @@ export default function Tours() {
       />
       <Header />
       
-      <main className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100">
+      <main className="main-content min-h-screen bg-gradient-to-br from-blue-50 to-blue-100">
         {/* Hero */}
         <HeroHeader 
           title="Our Experiences"
