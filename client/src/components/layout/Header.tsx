@@ -60,7 +60,7 @@ export default function Header() {
     : null;
   const notificationConfig = notificationSettings 
     ? (typeof notificationSettings === 'string' ? JSON.parse(notificationSettings) : notificationSettings) 
-    : { enabled: true, text: "📢 L'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr", background_color: "#f5c400", text_color: "#000000" };
+    : { enabled: true, text: "Our previous website is still online at www.Amon-Tour.fr", background_color: "#1e40af", text_color: "#ffffff" };
 
   // Track scroll position for header transparency
   useEffect(() => {
@@ -105,11 +105,11 @@ export default function Header() {
       {notificationConfig.enabled && (
         <div 
           style={{
-            background: notificationConfig.background_color,
+            background: `linear-gradient(135deg, ${notificationConfig.background_color}, ${notificationConfig.background_color}e6)`,
             color: notificationConfig.text_color,
             textAlign: 'center',
-            padding: '10px 15px',
-            fontWeight: 'bold',
+            padding: '12px 20px',
+            fontWeight: '500',
             position: 'fixed',
             top: 0,
             left: 0,
@@ -120,7 +120,11 @@ export default function Header() {
             alignItems: 'center',
             justifyContent: 'center',
             boxSizing: 'border-box',
-            fontSize: '14px'
+            fontSize: '14px',
+            fontFamily: 'inherit',
+            letterSpacing: '0.025em',
+            boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+            backdropFilter: 'blur(8px)'
           }}
         >
           {notificationConfig.text}
