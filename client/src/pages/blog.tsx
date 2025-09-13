@@ -200,14 +200,14 @@ export default function BlogPage() {
                           }}
                         />
                         {post.category && (
-                          <Badge className="absolute top-3 left-3 bg-blue-600 text-white">
+                          <Badge className="absolute top-3 left-3 bg-primary text-white">
                             🏝️ {post.category.name}
                           </Badge>
                         )}
                       </div>
                     )}
                     <CardHeader className="pb-3">
-                      <h3 className="text-xl font-semibold line-clamp-2 hover:text-blue-600 transition-colors">
+                      <h3 className="text-xl font-semibold line-clamp-2 hover:text-primary transition-colors">
                         <Link href={`/blog/${post.slug}`}>
                           {post.title}
                         </Link>
@@ -235,7 +235,7 @@ export default function BlogPage() {
                             <Badge 
                               key={tag.id} 
                               variant="outline" 
-                              className="text-xs cursor-pointer hover:bg-blue-50 hover:border-blue-200 transition-colors"
+                              className="text-xs cursor-pointer hover:bg-primary/10 hover:border-primary/30 transition-colors"
                               onClick={() => setSelectedTag(tag.slug)}
                             >
                               📸 {tag.name}

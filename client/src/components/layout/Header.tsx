@@ -62,7 +62,7 @@ export default function Header() {
     : null;
   const notificationConfig = notificationSettings 
     ? (typeof notificationSettings === 'string' ? JSON.parse(notificationSettings) : notificationSettings) 
-    : { enabled: true, text: "Our previous website is still online at www.Amon-Tour.fr", background_color: "#084F6E", text_color: "#ffffff" };
+    : { enabled: true, text: "Our previous website is still online at www.Amon-Tour.fr", background_color: "#3BA8AF", text_color: "#ffffff" };
 
   // Track scroll position for header transparency and measure header height
   useEffect(() => {
