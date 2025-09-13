@@ -142,6 +142,55 @@ export default function BlogPostPage() {
     });
   };
 
+  // Parse inline Markdown formatting (bold, italic)
+  const parseInlineMarkdown = (text: string) => {
+    const parts: (string | JSX.Element)[] = [];
+    let currentIndex = 0;
+    let key = 0;
+    
+    while (currentIndex < text.length) {
+      // Look for **bold** (double asterisks)
+      const boldMatch = text.substring(currentIndex).match(/^\*\*(.+?)\*\*/);
+      if (boldMatch) {
+        if (boldMatch.index! > 0) {
+          parts.push(text.substring(currentIndex, currentIndex + boldMatch.index!));
+        }
+        parts.push(<strong key={key++} className="font-bold">{boldMatch[1]}</strong>);
+        currentIndex += boldMatch[0].length;
+        continue;
+      }
+      
+      // Look for *italic* (single asterisks)
+      const italicMatch = text.substring(currentIndex).match(/^\*(.+?)\*/);
+      if (italicMatch) {
+        if (italicMatch.index! > 0) {
+          parts.push(text.substring(currentIndex, currentIndex + italicMatch.index!));
+        }
+        parts.push(<em key={key++} className="italic">{italicMatch[1]}</em>);
+        currentIndex += italicMatch[0].length;
+        continue;
+      }
+      
+      // No match found, add the next character
+      const nextBoldIndex = text.indexOf('**', currentIndex);
+      const nextItalicIndex = text.indexOf('*', currentIndex);
+      
+      let nextIndex = text.length;
+      if (nextBoldIndex !== -1) nextIndex = Math.min(nextIndex, nextBoldIndex);
+      if (nextItalicIndex !== -1) nextIndex = Math.min(nextIndex, nextItalicIndex);
+      
+      if (nextIndex > currentIndex) {
+        parts.push(text.substring(currentIndex, nextIndex));
+        currentIndex = nextIndex;
+      } else {
+        parts.push(text.charAt(currentIndex));
+        currentIndex++;
+      }
+    }
+    
+    return parts.length === 1 && typeof parts[0] === 'string' ? parts[0] : parts;
+  };
+
   if (isLoading) {
     return (
       <div className="min-h-screen">
@@ -314,24 +363,24 @@ export default function BlogPostPage() {
                 <div className="prose prose-lg max-w-none">
                   {post.content.split('\n').map((paragraph, index) => {
                     if (paragraph.startsWith('# ')) {
-                      return <h1 key={index} className="text-3xl font-bold mt-8 mb-4">{paragraph.slice(2)}</h1>;
+                      return <h1 key={index} className="text-3xl font-bold mt-8 mb-4">{parseInlineMarkdown(paragraph.slice(2))}</h1>;
                     }
                     if (paragraph.startsWith('## ')) {
-                      return <h2 key={index} className="text-2xl font-bold mt-6 mb-3">{paragraph.slice(3)}</h2>;
+                      return <h2 key={index} className="text-2xl font-bold mt-6 mb-3">{parseInlineMarkdown(paragraph.slice(3))}</h2>;
                     }
                     if (paragraph.startsWith('### ')) {
-                      return <h3 key={index} className="text-xl font-bold mt-4 mb-2">{paragraph.slice(4)}</h3>;
+                      return <h3 key={index} className="text-xl font-bold mt-4 mb-2">{parseInlineMarkdown(paragraph.slice(4))}</h3>;
                     }
                     if (paragraph.startsWith('> ')) {
-                      return <blockquote key={index} className="border-l-4 border-blue-500 pl-4 italic text-gray-700 my-4">{paragraph.slice(2)}</blockquote>;
+                      return <blockquote key={index} className="border-l-4 border-blue-500 pl-4 italic text-gray-700 my-4">{parseInlineMarkdown(paragraph.slice(2))}</blockquote>;
                     }
                     if (paragraph.startsWith('- ')) {
-                      return <li key={index} className="ml-4">{paragraph.slice(2)}</li>;
+                      return <li key={index} className="ml-4">{parseInlineMarkdown(paragraph.slice(2))}</li>;
                     }
                     if (paragraph.trim() === '') {
                       return <br key={index} />;
                     }
-                    return <p key={index} className="mb-4 text-gray-700 leading-relaxed">{paragraph}</p>;
+                    return <p key={index} className="mb-4 text-gray-700 leading-relaxed">{parseInlineMarkdown(paragraph)}</p>;
                   })}
                 </div>
                 
