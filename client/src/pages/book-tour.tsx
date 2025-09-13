@@ -237,14 +237,14 @@ const DateSelector = ({
                 {selectedDate && (
                   <div className="flex flex-col">
                     <h4 className="font-medium text-md flex items-center">
-                      <Check className="text-green-500 mr-2 h-4 w-4" />
+                      <Check className="text-[hsl(var(--success))] mr-2 h-4 w-4" />
                       {format(selectedDate, 'dd MMMM yyyy', { locale: fr })}
                     </h4>
                     
                     {getAvailabilityInfo(selectedDate) && (
                       <div className="pl-6 text-sm text-gray-600 flex flex-col gap-1">
                         <div>
-                          <Badge variant="outline" className="text-green-600 bg-green-50 border-green-200">
+                          <Badge variant="outline" className="text-[hsl(var(--success))] bg-[hsl(var(--success)/0.1)] border-[hsl(var(--success)/0.2)]">
                             {getAvailabilityInfo(selectedDate)?.spotsAvailable} places disponibles
                           </Badge>
                         </div>
@@ -274,7 +274,7 @@ const DateSelector = ({
         )}
       </div>
       {availableDates.length === 0 && !isLoading && (
-        <div className="bg-red-50 p-4 rounded-lg border border-red-200 text-red-600 text-center">
+        <div className="bg-[hsl(var(--destructive)/0.1)] p-4 rounded-lg border border-[hsl(var(--destructive)/0.2)] text-[hsl(var(--destructive))] text-center">
           Aucune date disponible pour ce tour. Veuillez nous contacter pour des arrangements personnalisés.
         </div>
       )}
@@ -351,7 +351,7 @@ const BookingSummary = ({
                 <span className="font-semibold">
                   {formatTHB(childPrice)} 
                   {childPrice < adultPrice && (
-                    <span className="text-green-600 text-xs ml-1">
+                    <span className="text-[hsl(var(--success))] text-xs ml-1">
                       (-{Math.round((1 - childPrice/adultPrice) * 100)}%)
                     </span>
                   )}
@@ -432,7 +432,7 @@ const PaymentForm = ({
       </div>
       
       {paymentError && (
-        <div className="text-red-500 bg-red-50 p-3 rounded-md">
+        <div className="text-[hsl(var(--destructive))] bg-[hsl(var(--destructive)/0.1)] p-3 rounded-md">
           {paymentError}
         </div>
       )}
@@ -725,23 +725,23 @@ export default function BookTour() {
             />
             
             {!displayStripe && (
-              <div className="mt-6 bg-blue-50 p-6 rounded-lg shadow-md">
-                <h3 className="font-heading font-semibold text-lg mb-2 text-blue-900">Informations importantes</h3>
-                <ul className="space-y-2 text-blue-800">
+              <div className="mt-6 bg-primary/10 p-6 rounded-lg shadow-md">
+                <h3 className="font-heading font-semibold text-lg mb-2 text-primary">Informations importantes</h3>
+                <ul className="space-y-2 text-primary/90">
                   <li className="flex items-start">
-                    <CalendarIcon className="h-5 w-5 mr-2 text-blue-600 flex-shrink-0 mt-0.5" />
+                    <CalendarIcon className="h-5 w-5 mr-2 text-primary flex-shrink-0 mt-0.5" />
                     <span>Seules les dates disponibles peuvent être sélectionnées dans le calendrier.</span>
                   </li>
                   <li className="flex items-start">
-                    <User className="h-5 w-5 mr-2 text-blue-600 flex-shrink-0 mt-0.5" />
+                    <User className="h-5 w-5 mr-2 text-primary flex-shrink-0 mt-0.5" />
                     <span>Le prix est calculé par personne. Veuillez indiquer le nombre exact de participants.</span>
                   </li>
                   <li className="flex items-start">
-                    <Clock className="h-5 w-5 mr-2 text-blue-600 flex-shrink-0 mt-0.5" />
+                    <Clock className="h-5 w-5 mr-2 text-primary flex-shrink-0 mt-0.5" />
                     <span>Les détails de l'heure de départ vous seront communiqués après la confirmation de votre réservation.</span>
                   </li>
                   <li className="flex items-start">
-                    <Euro className="h-5 w-5 mr-2 text-blue-600 flex-shrink-0 mt-0.5" />
+                    <Euro className="h-5 w-5 mr-2 text-primary flex-shrink-0 mt-0.5" />
                     <span>Le paiement est sécurisé via Stripe. Aucune information bancaire n'est stockée sur notre système.</span>
                   </li>
                 </ul>

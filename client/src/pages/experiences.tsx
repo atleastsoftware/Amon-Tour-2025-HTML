@@ -104,7 +104,7 @@ export default function Experiences() {
         />
         
         {/* Featured Tours Section - Tour Ninja Integration */}
-        <section className="py-16 bg-gradient-to-b from-blue-50 to-white">
+        <section className="py-16 bg-gradient-to-b from-primary/5 to-white">
           <div className="container mx-auto px-4">
             <FadeInWhenVisible>
               <div className="text-center mb-12">
@@ -122,7 +122,7 @@ export default function Experiences() {
               <StaggerItem>
                 <Card className="h-full hover:shadow-xl transition-shadow duration-300 overflow-hidden">
                   <CardHeader className="p-0">
-                    <div className="relative h-48 bg-gradient-to-r from-orange-400 to-red-500">
+                    <div className="relative h-48 bg-gradient-to-r from-primary to-secondary">
                       <img 
                         src="https://images.unsplash.com/photo-1528181304800-259b08848526?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
                         alt="Bangkok temples et palais - Tour guidé" 
@@ -131,7 +131,7 @@ export default function Experiences() {
                       />
                       <div className="absolute inset-0 bg-black bg-opacity-20"></div>
                       <div className="absolute top-4 left-4">
-                        <span className="bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                        <span className="bg-secondary text-white px-3 py-1 rounded-full text-sm font-semibold">
                           Culture & Histoire
                         </span>
                       </div>
@@ -143,12 +143,12 @@ export default function Experiences() {
                       Circuit culturel de 3 jours : Grand Palais, temples sacrés, marchés flottants et gastronomie avec guide francophone expert.
                     </p>
                     <div className="flex items-center justify-between mb-4">
-                      <span className="text-blue-600 font-semibold">3 jours</span>
-                      <span className="text-green-600 font-bold text-lg">À partir de 350€</span>
+                      <span className="text-primary font-semibold">3 jours</span>
+                      <span className="text-secondary font-bold text-lg">À partir de 350€</span>
                     </div>
                     <div className="flex gap-2">
                       <Button 
-                        className="flex-1 bg-blue-600 hover:bg-blue-700"
+                        className="flex-1 bg-primary hover:bg-primary/90"
                         onClick={() => window.open('https://tourninja.com/tours/bangkok-essential', '_blank')}
                       >
                         Voir Détails
@@ -169,7 +169,7 @@ export default function Experiences() {
               <StaggerItem>
                 <Card className="h-full hover:shadow-xl transition-shadow duration-300 overflow-hidden">
                   <CardHeader className="p-0">
-                    <div className="relative h-48 bg-gradient-to-r from-green-400 to-blue-500">
+                    <div className="relative h-48 bg-gradient-to-r from-primary to-secondary">
                       <img 
                         src="https://images.unsplash.com/photo-1551016988-eb38968b55d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
                         alt="Triangle d'Or Nord Thaïlande - Chiang Mai et tribus" 
@@ -178,7 +178,7 @@ export default function Experiences() {
                       />
                       <div className="absolute inset-0 bg-black bg-opacity-20"></div>
                       <div className="absolute top-4 left-4">
-                        <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                        <span className="bg-primary text-white px-3 py-1 rounded-full text-sm font-semibold">
                           Nord & Aventure
                         </span>
                       </div>
@@ -190,12 +190,12 @@ export default function Experiences() {
                       Voyage de 5 jours : Chiang Mai, tribus des montagnes, Temple Blanc, Triangle d'Or et croisière sur le Mékong.
                     </p>
                     <div className="flex items-center justify-between mb-4">
-                      <span className="text-blue-600 font-semibold">5 jours</span>
-                      <span className="text-green-600 font-bold text-lg">À partir de 590€</span>
+                      <span className="text-primary font-semibold">5 jours</span>
+                      <span className="text-secondary font-bold text-lg">À partir de 590€</span>
                     </div>
                     <div className="flex gap-2">
                       <Button 
-                        className="flex-1 bg-blue-600 hover:bg-blue-700"
+                        className="flex-1 bg-primary hover:bg-primary/90"
                         onClick={() => window.open('https://tourninja.com/tours/golden-triangle', '_blank')}
                       >
                         Voir Détails
@@ -216,7 +216,7 @@ export default function Experiences() {
               <StaggerItem>
                 <Card className="h-full hover:shadow-xl transition-shadow duration-300 overflow-hidden">
                   <CardHeader className="p-0">
-                    <div className="relative h-48 bg-gradient-to-r from-cyan-400 to-blue-500">
+                    <div className="relative h-48 bg-gradient-to-r from-secondary to-primary">
                       <img 
                         src="https://images.unsplash.com/photo-1552465011-1c479c548c28?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
                         alt="Îles du Sud Thaïlande - Krabi Phi Phi Railay" 
@@ -237,12 +237,12 @@ export default function Experiences() {
                       Circuit de 7 jours : Phuket, îles Phi Phi, baie de Phang Nga, Krabi et Railay Beach. Plages paradisiaques et activités nautiques.
                     </p>
                     <div className="flex items-center justify-between mb-4">
-                      <span className="text-blue-600 font-semibold">7 jours</span>
-                      <span className="text-green-600 font-bold text-lg">À partir de 790€</span>
+                      <span className="text-primary font-semibold">7 jours</span>
+                      <span className="text-secondary font-bold text-lg">À partir de 790€</span>
                     </div>
                     <div className="flex gap-2">
                       <Button 
-                        className="flex-1 bg-blue-600 hover:bg-blue-700"
+                        className="flex-1 bg-primary hover:bg-primary/90"
                         onClick={() => window.open('https://tourninja.com/tours/southern-islands', '_blank')}
                       >
                         Voir Détails
@@ -271,7 +271,7 @@ export default function Experiences() {
                 <Button 
                   size="lg" 
                   variant="secondary"
-                  className="bg-white text-blue-600 hover:bg-gray-100"
+                  className="bg-white text-primary hover:bg-gray-100"
                   onClick={() => window.location.href = '/contact?subject=Circuit Personnalisé'}
                 >
                   Demander un Devis Gratuit

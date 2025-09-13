@@ -153,7 +153,7 @@ export default function TourCardDisplay({ tourCard, onDelete, onUpdate }: TourCa
                 variant="outline"
                 onClick={() => setIsEditModalOpen(true)}
               >
-                <Edit className="h-4 w-4 text-blue-500" />
+                <Edit className="h-4 w-4 text-primary" />
                 <span className="sr-only">Modifier</span>
               </Button>
             )}
@@ -163,7 +163,7 @@ export default function TourCardDisplay({ tourCard, onDelete, onUpdate }: TourCa
                 variant="outline"
                 onClick={handleDelete}
               >
-                <Trash className="h-4 w-4 text-red-500" />
+                <Trash className="h-4 w-4 text-[hsl(var(--destructive))]" />
                 <span className="sr-only">Supprimer</span>
               </Button>
             )}

@@ -111,14 +111,14 @@ export default function PaymentComplete() {
       case 'error':
         return (
           <div className="flex flex-col items-center">
-            <XCircle className="h-16 w-16 text-red-500 mb-4" />
+            <XCircle className="h-16 w-16 text-[hsl(var(--destructive))] mb-4" />
             <h2 className="font-heading font-semibold text-2xl mb-2">Paiement échoué</h2>
             <p className="text-gray-600 text-center max-w-lg mb-3">
               Une erreur est survenue lors du traitement de votre paiement. 
               Veuillez vérifier vos informations et réessayer.
             </p>
             {paymentError && (
-              <p className="text-red-500 bg-red-50 p-3 rounded-md mb-6">
+              <p className="text-[hsl(var(--destructive))] bg-[hsl(var(--destructive)/0.1)] p-3 rounded-md mb-6">
                 {paymentError}
               </p>
             )}

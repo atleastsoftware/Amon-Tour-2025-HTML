@@ -72,7 +72,7 @@ export default function MarqueeSection() {
   const duplicatedTours = [...iframeTours, ...iframeTours];
 
   return (
-    <div className="bg-gradient-to-r from-blue-900 to-blue-800 py-6 overflow-hidden">
+    <div className="bg-gradient-to-r from-primary to-primary/80 py-6 overflow-hidden">
       <div className="mb-4 text-center">
         <h3 className="text-white text-xl font-heading font-semibold">Some ideas for your next trip</h3>
       </div>

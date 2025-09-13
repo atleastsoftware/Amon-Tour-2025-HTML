@@ -146,13 +146,13 @@ export default function ReservationsManager() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "pending":
-        return <Badge variant="outline" className="bg-amber-50 text-amber-700 border-amber-200">En attente</Badge>;
+        return <Badge variant="outline" className="bg-[hsl(var(--warning)/0.1)] text-[hsl(var(--warning))] border-[hsl(var(--warning)/0.2)]">En attente</Badge>;
       case "confirmed":
-        return <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">Confirmée</Badge>;
+        return <Badge variant="outline" className="bg-[hsl(var(--success)/0.1)] text-[hsl(var(--success))] border-[hsl(var(--success)/0.2)]">Confirmée</Badge>;
       case "cancelled":
-        return <Badge variant="outline" className="bg-red-50 text-red-700 border-red-200">Annulée</Badge>;
+        return <Badge variant="outline" className="bg-[hsl(var(--destructive)/0.1)] text-[hsl(var(--destructive))] border-[hsl(var(--destructive)/0.2)]">Annulée</Badge>;
       case "completed":
-        return <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">Terminée</Badge>;
+        return <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20">Terminée</Badge>;
       default:
         return <Badge variant="outline">Inconnu</Badge>;
     }

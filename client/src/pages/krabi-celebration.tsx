@@ -370,7 +370,7 @@ export default function KrabiCelebration() {
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute top-4 left-4">
-                      <span className="bg-green-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                      <span className="bg-[hsl(var(--success))] text-white px-3 py-1 rounded-full text-sm font-medium">
                         🌴 Jungle Celebration
                       </span>
                     </div>

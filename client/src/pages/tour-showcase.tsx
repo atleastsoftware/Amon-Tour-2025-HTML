@@ -102,7 +102,7 @@ export default function TourShowcase() {
           <div className="container mx-auto px-4">
             <div className="flex items-center justify-center h-96">
               <div className="text-center">
-                <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto"></div>
+                <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto"></div>
                 <p className="mt-4 text-gray-600">Loading tour...</p>
               </div>
             </div>
@@ -149,7 +149,7 @@ export default function TourShowcase() {
         {/* Hero Section */}
         <section className="relative">
           <div 
-            className="h-96 bg-gradient-to-br from-blue-200 to-blue-300 relative overflow-hidden"
+            className="h-96 bg-gradient-to-br from-primary/40 to-primary/60 relative overflow-hidden"
             style={{
               backgroundImage: tour.primaryImage || tour.images[0] 
                 ? `url(${tour.primaryImage || tour.images[0]})` 
@@ -176,7 +176,7 @@ export default function TourShowcase() {
                   </Button>
                   <h1 className="text-4xl md:text-5xl font-bold mb-4">{tour.name}</h1>
                   <div className="flex flex-wrap items-center gap-4 text-sm">
-                    <Badge className="bg-blue-600 text-white">
+                    <Badge className="bg-primary text-white">
                       {formatPrice(tour.price, tour.currency)}
                     </Badge>
                     <div className="flex items-center">
@@ -193,7 +193,7 @@ export default function TourShowcase() {
                     </div>
                     {tour.rating && (
                       <div className="flex items-center">
-                        <Star className="h-4 w-4 mr-1 fill-yellow-400 text-yellow-400" />
+                        <Star className="h-4 w-4 mr-1 fill-[hsl(var(--warning))] text-[hsl(var(--warning))]" />
                         {tour.rating} ({tour.reviewCount || 0} reviews)
                       </div>
                     )}
@@ -251,7 +251,7 @@ export default function TourShowcase() {
                     <h2 className="text-2xl font-bold text-gray-900 mb-6">Itinerary</h2>
                     <div className="space-y-6">
                       {tour.itinerary.map((day, index) => (
-                        <div key={index} className="border-l-4 border-blue-600 pl-6 pb-6">
+                        <div key={index} className="border-l-4 border-primary pl-6 pb-6">
                           <h3 className="text-lg font-semibold text-gray-900 mb-2">
                             Day {day.day}: {day.title}
                           </h3>
@@ -319,7 +319,7 @@ export default function TourShowcase() {
                       <div className="space-y-4">
                         <Button 
                           onClick={handleBookNow}
-                          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 text-lg font-semibold"
+                          className="w-full bg-primary hover:bg-blue-700 text-white py-3 text-lg font-semibold"
                           size="lg"
                         >
                           Book Now
@@ -330,7 +330,7 @@ export default function TourShowcase() {
                           <Button 
                             onClick={handleViewDetails}
                             variant="outline"
-                            className="w-full border-blue-600 text-blue-600 hover:bg-blue-50"
+                            className="w-full border-primary text-blue-600 hover:bg-blue-50"
                             size="lg"
                           >
                             View Details

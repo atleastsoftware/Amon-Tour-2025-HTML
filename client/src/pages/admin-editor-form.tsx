@@ -771,7 +771,7 @@ export default function AdminEditorForm() {
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:justify-between">
             <div className="w-full sm:w-auto">
               <h1 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2 sm:gap-3">
-                <FormInput className="h-6 w-6 sm:h-7 sm:w-7 text-orange-600 flex-shrink-0" />
+                <FormInput className="h-6 w-6 sm:h-7 sm:w-7 text-[hsl(var(--warning))] flex-shrink-0" />
                 <span className="truncate">Éditeur de Formulaires</span>
               </h1>
               <p className="text-sm sm:text-base text-gray-600">Créez et gérez des formulaires personnalisés avec champs dynamiques</p>
@@ -791,7 +791,7 @@ export default function AdminEditorForm() {
         <div className="mb-6">
           <Button 
             onClick={handleAddForm}
-            className="bg-orange-600 hover:bg-orange-700 text-white flex items-center gap-2"
+            className="bg-[hsl(var(--warning))] hover:bg-[hsl(var(--warning)/0.9)] text-white flex items-center gap-2"
           >
             <Plus className="h-4 w-4" />
             Ajouter un formulaire
@@ -802,7 +802,7 @@ export default function AdminEditorForm() {
         <div className="space-y-4">
           {loading ? (
             <div className="text-center py-8">
-              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-orange-600"></div>
+              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[hsl(var(--warning))]"></div>
               <p className="mt-2 text-gray-500">Chargement des formulaires...</p>
             </div>
           ) : (
@@ -810,7 +810,7 @@ export default function AdminEditorForm() {
               {forms.map((form) => {
                 const IconComponent = getFormIcon(form.name);
                 return (
-                  <Card key={form.id} className="bg-white border border-gray-200 hover:border-orange-300 transition-colors">
+                  <Card key={form.id} className="bg-white border border-gray-200 hover:border-[hsl(var(--warning)/0.3)] transition-colors">
                     <CardContent className="p-6">
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
@@ -855,7 +855,7 @@ export default function AdminEditorForm() {
                               variant="outline"
                               size="sm"
                               onClick={() => handleDeleteForm(form.id!)}
-                              className="flex items-center gap-1 text-red-600 hover:text-red-800"
+                              className="flex items-center gap-1 text-[hsl(var(--destructive))] hover:text-[hsl(var(--destructive)/0.8)]"
                             >
                               <Trash2 className="h-4 w-4" />
                               Supprimer
@@ -883,7 +883,7 @@ export default function AdminEditorForm() {
                     </p>
                     <Button 
                       onClick={handleAddForm}
-                      className="bg-orange-600 hover:bg-orange-700 text-white"
+                      className="bg-[hsl(var(--warning))] hover:bg-[hsl(var(--warning)/0.9)] text-white"
                     >
                       <Plus className="h-4 w-4 mr-2" />
                       Créer mon premier formulaire

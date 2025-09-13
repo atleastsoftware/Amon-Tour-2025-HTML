@@ -408,7 +408,7 @@ function MiniaturizedComponent({
             </div>
             <div className="grid grid-cols-3 gap-1 h-16">
               <div className="bg-white rounded shadow-sm overflow-hidden">
-                <div className="h-6 bg-gradient-to-br from-blue-300 to-blue-500"></div>
+                <div className="h-6 bg-gradient-to-br from-primary/60 to-primary"></div>
                 <div className="p-1">
                   <div className="text-[7px] font-semibold">Phi Phi</div>
                   <div className="text-[6px] text-gray-600">$85</div>
@@ -524,7 +524,7 @@ function MiniaturizedComponent({
                 <div className="text-[7px] font-semibold">Email</div>
               </div>
               <div className="bg-white rounded p-1 text-center">
-                <div className="w-3 h-3 bg-red-500 rounded-full mx-auto mb-1"></div>
+                <div className="w-3 h-3 bg-[hsl(var(--destructive))] rounded-full mx-auto mb-1"></div>
                 <div className="text-[7px] font-semibold">Office</div>
               </div>
             </div>
@@ -555,7 +555,7 @@ function MiniaturizedComponent({
             </div>
             <div className="grid grid-cols-3 gap-1 h-12 mb-2">
               <div className="bg-white rounded shadow-sm overflow-hidden">
-                <div className="h-4 bg-gradient-to-br from-blue-300 to-blue-500"></div>
+                <div className="h-4 bg-gradient-to-br from-primary/60 to-primary"></div>
                 <div className="p-1">
                   <div className="text-[6px] font-semibold">Phi Phi</div>
                   <div className="text-[5px] text-gray-600">1 day</div>
@@ -607,7 +607,7 @@ function MiniaturizedComponent({
             </div>
             <div className="grid grid-cols-3 gap-1 h-12 mb-2">
               <div className="bg-white rounded shadow-sm overflow-hidden">
-                <div className="h-4 bg-gradient-to-br from-blue-300 to-blue-500"></div>
+                <div className="h-4 bg-gradient-to-br from-primary/60 to-primary"></div>
                 <div className="p-1">
                   <div className="text-[6px] font-semibold">Phi Phi</div>
                   <div className="text-[5px] text-gray-600">$85</div>
@@ -1116,7 +1116,7 @@ function BlockEditForm({
                     onRestore={() => window.location.reload()} 
                   />
                   {hasUnsavedChanges && (
-                    <div className="flex items-center gap-2 text-orange-600 text-sm">
+                    <div className="flex items-center gap-2 text-[hsl(var(--warning))] text-sm">
                       <Clock className="h-4 w-4" />
                       <span>Modifications non sauvegardées</span>
                     </div>
@@ -1279,7 +1279,7 @@ export default function RealBlockPreview({
                 }
               }}
               title="Supprimer le bloc"
-              className="h-7 w-7 p-0 bg-red-500 hover:bg-red-600 text-white border-0"
+              className="h-7 w-7 p-0 bg-[hsl(var(--destructive))] hover:bg-[hsl(var(--destructive)/0.9)] text-white border-0"
             >
               <Trash2 className="h-3 w-3" />
             </Button>

@@ -29,8 +29,8 @@ export default function AdminEditor() {
       description: 'Créer, modifier, supprimer le contenu des blocs de chaque page',
       icon: FileText,
       route: '/admin-editor-page',
-      color: 'bg-blue-50 border-blue-200 hover:bg-blue-100',
-      iconColor: 'text-blue-600'
+      color: 'bg-primary/5 border-primary/20 hover:bg-primary/10',
+      iconColor: 'text-primary'
     },
     {
       id: 'articles',
@@ -38,8 +38,8 @@ export default function AdminEditor() {
       description: 'Créer et gérer des articles avec des titres, texte, images personnalisés',
       icon: Users,
       route: '/admin-editor-article',
-      color: 'bg-green-50 border-green-200 hover:bg-green-100',
-      iconColor: 'text-green-600'
+      color: 'bg-[hsl(var(--success)/0.05)] border-[hsl(var(--success)/0.2)] hover:bg-[hsl(var(--success)/0.1)]',
+      iconColor: 'text-[hsl(var(--success))]'
     },
     {
       id: 'forms',
@@ -47,8 +47,8 @@ export default function AdminEditor() {
       description: 'Créer et gérer des formulaires personnalisés avec champs dynamiques',
       icon: FormInput,
       route: '/admin-editor-form',
-      color: 'bg-orange-50 border-orange-200 hover:bg-orange-100',
-      iconColor: 'text-orange-600'
+      color: 'bg-[hsl(var(--warning)/0.05)] border-[hsl(var(--warning)/0.2)] hover:bg-[hsl(var(--warning)/0.1)]',
+      iconColor: 'text-[hsl(var(--warning))]'
     }
   ];
 
@@ -60,7 +60,7 @@ export default function AdminEditor() {
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:justify-between">
             <div className="w-full sm:w-auto">
               <h1 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2 sm:gap-3">
-                <Edit className="h-6 w-6 sm:h-7 sm:w-7 text-blue-600 flex-shrink-0" />
+                <Edit className="h-6 w-6 sm:h-7 sm:w-7 text-primary flex-shrink-0" />
                 <span className="truncate">Gestion de Contenu</span>
               </h1>
               <p className="text-sm sm:text-base text-gray-600">Gérez facilement le contenu de votre site web avec nos outils d'édition professionnels</p>
@@ -117,19 +117,19 @@ export default function AdminEditor() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Card className="bg-white shadow-sm border border-gray-200">
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-blue-600 mb-1">{pagesCount}</div>
+              <div className="text-2xl font-bold text-primary mb-1">{pagesCount}</div>
               <div className="text-gray-600 text-sm">Pages</div>
             </CardContent>
           </Card>
           <Card className="bg-white shadow-sm border border-gray-200">
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-green-600 mb-1">0</div>
+              <div className="text-2xl font-bold text-[hsl(var(--success))] mb-1">0</div>
               <div className="text-gray-600 text-sm">Articles</div>
             </CardContent>
           </Card>
           <Card className="bg-white shadow-sm border border-gray-200">
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-orange-600 mb-1">{activeFormsCount}</div>
+              <div className="text-2xl font-bold text-[hsl(var(--warning))] mb-1">{activeFormsCount}</div>
               <div className="text-gray-600 text-sm">Formulaires</div>
             </CardContent>
           </Card>

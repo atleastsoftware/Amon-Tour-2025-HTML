@@ -349,11 +349,11 @@ export default function AdminTourNinjaImages() {
       <div className="p-6">
         <div className="flex items-center justify-center h-64">
           <div className="text-center space-y-4">
-            <div className="text-lg font-medium text-red-600">Authentification requise</div>
+            <div className="text-lg font-medium text-[hsl(var(--destructive))]">Authentification requise</div>
             <p className="text-gray-600">Vous devez vous connecter pour accéder à cette page.</p>
             <Button 
               onClick={() => window.location.href = '/admin-login'}
-              className="bg-blue-600 hover:bg-blue-700"
+              className="bg-primary hover:bg-primary/90"
             >
               Se connecter
             </Button>
@@ -384,7 +384,7 @@ export default function AdminTourNinjaImages() {
         </div>
         <Dialog open={showNewDialog} onOpenChange={setShowNewDialog}>
           <DialogTrigger asChild>
-            <Button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 shadow-lg">
+            <Button className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary shadow-lg">
               <Sparkles className="w-4 h-4 mr-2" />
               Ajouter Image Personnalisée
             </Button>
@@ -392,7 +392,7 @@ export default function AdminTourNinjaImages() {
           <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle className="flex items-center gap-2 text-xl">
-                <Camera className="w-5 h-5 text-blue-600" />
+                <Camera className="w-5 h-5 text-primary" />
                 Personnaliser Image de Tour
               </DialogTitle>
             </DialogHeader>
@@ -446,7 +446,7 @@ export default function AdminTourNinjaImages() {
                 <div className="text-xs text-gray-500 mt-1">
                   Debug: {tours.length} tours chargés
                   {overrides && (overrides as any)?.message && (
-                    <span className="text-orange-600 ml-2">
+                    <span className="text-[hsl(var(--warning))] ml-2">
                       Auth: {(overrides as any).message}
                     </span>
                   )}
@@ -500,7 +500,7 @@ export default function AdminTourNinjaImages() {
                 <div
                   className={`relative border-2 border-dashed rounded-lg p-8 text-center transition-all duration-200 ${
                     dragActive 
-                      ? 'border-blue-500 bg-blue-50' 
+                      ? 'border-primary bg-primary/10' 
                       : 'border-gray-300 hover:border-gray-400'
                   }`}
                   onDragEnter={handleDrag}
@@ -528,7 +528,7 @@ export default function AdminTourNinjaImages() {
                           <X className="w-4 h-4" />
                         </Button>
                       </div>
-                      <p className="text-sm text-green-600 font-medium">
+                      <p className="text-sm text-[hsl(var(--success))] font-medium">
                         <Check className="w-4 h-4 inline mr-1" />
                         Image prête à être téléchargée
                       </p>
@@ -536,7 +536,7 @@ export default function AdminTourNinjaImages() {
                   ) : (
                     <div className="space-y-4">
                       <div className="flex justify-center">
-                        <Upload className={`w-12 h-12 ${dragActive ? 'text-blue-500' : 'text-gray-400'}`} />
+                        <Upload className={`w-12 h-12 ${dragActive ? 'text-primary' : 'text-gray-400'}`} />
                       </div>
                       <div>
                         <p className="text-lg font-medium text-gray-700">
@@ -639,7 +639,7 @@ export default function AdminTourNinjaImages() {
                   disabled={createMutation.isPending || !newOverrideForm.tourNinjaId || 
                     (newOverrideForm.imageSourceType === "upload" && !newOverrideForm.image) ||
                     (newOverrideForm.imageSourceType === "url" && !newOverrideForm.directImageUrl)}
-                  className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800"
+                  className="flex-1 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary"
                 >
                   {createMutation.isPending ? (
                     <>
@@ -684,7 +684,7 @@ export default function AdminTourNinjaImages() {
         
         {isLoading ? (
           <div className="text-center py-8">
-            <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+            <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
             <p className="text-gray-600">Chargement des tours...</p>
           </div>
         ) : tours.length > 0 ? (
@@ -769,8 +769,8 @@ export default function AdminTourNinjaImages() {
         ) : (
           <div className="text-center py-16">
             <div className="space-y-6">
-              <div className="w-24 h-24 mx-auto bg-gradient-to-br from-blue-100 to-blue-200 rounded-full flex items-center justify-center">
-                <ImageIcon className="w-12 h-12 text-blue-600" />
+              <div className="w-24 h-24 mx-auto bg-gradient-to-br from-primary/20 to-primary/30 rounded-full flex items-center justify-center">
+                <ImageIcon className="w-12 h-12 text-primary" />
               </div>
               <div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">Aucun tour disponible</h3>
@@ -788,14 +788,14 @@ export default function AdminTourNinjaImages() {
         <DialogContent className="max-w-lg">
           <DialogHeader>
             <DialogTitle className="text-lg font-semibold">
-              <ImageIcon className="w-5 h-5 inline mr-2 text-blue-600" />
+              <ImageIcon className="w-5 h-5 inline mr-2 text-primary" />
               Modifier l'image du tour
             </DialogTitle>
           </DialogHeader>
           {editingOverride && (
             <div className="space-y-4">
               {/* Tour Info */}
-              <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-600">
+              <div className="bg-primary/10 p-4 rounded-lg border-l-4 border-primary">
                 <h3 className="font-semibold text-gray-900 mb-1">{editingOverride.tourName}</h3>
                 <p className="text-sm text-gray-600">ID: {editingOverride.tourNinjaId}</p>
               </div>
@@ -845,7 +845,7 @@ export default function AdminTourNinjaImages() {
                     handleUpdateOverride(editingOverride, file);
                   }}
                   disabled={updateMutation.isPending}
-                  className="flex-1 bg-blue-600 hover:bg-blue-700"
+                  className="flex-1 bg-primary hover:bg-primary/90"
                 >
                   {updateMutation.isPending ? (
                     <>

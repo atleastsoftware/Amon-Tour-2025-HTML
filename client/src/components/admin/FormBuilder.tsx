@@ -1171,7 +1171,7 @@ export default function FormBuilder({ initialForm, onSave, onSaveDraft, onCancel
                                           e.stopPropagation();
                                           deleteField(field.id);
                                         }}
-                                        className="h-6 w-6 p-0 text-red-500 hover:text-red-700"
+                                        className="h-6 w-6 p-0 text-[hsl(var(--destructive))] hover:text-[hsl(var(--destructive)/0.8)]"
                                       >
                                         <Trash2 className="h-3 w-3" />
                                       </Button>
