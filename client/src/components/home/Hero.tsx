@@ -236,8 +236,8 @@ export default function Hero() {
                 'justify-start'
               }`}>
                 {(heroConfig?.buttons || [
-                  {text: 'See our offers', url: '/tours', color: '#1e73be', style: 'filled'},
-                  {text: 'Custom your trip', url: '/custom-tour', color: '#1e73be', style: 'filled'}
+                  {text: 'See our offers', url: '/tours', color: '#084F6E', style: 'filled'},
+                  {text: 'Custom your trip', url: '/custom-tour', color: '#084F6E', style: 'filled'}
                 ]).map((button: any, index: number) => (
                   <Link key={index} href={button.url}>
                     <motion.span 

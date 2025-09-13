@@ -120,8 +120,8 @@ const FIELD_TYPES = [
 
 // Couleurs principales du système
 const SYSTEM_COLORS = {
-  primary: '#1e73be',
-  secondary: '#E6B64C',
+  primary: '#084F6E',
+  secondary: '#3BA8AF',
   white: '#ffffff',
   gray: '#6b7280',
   dark: '#1f2937'
@@ -129,8 +129,8 @@ const SYSTEM_COLORS = {
 
 // Couleurs principales du thème
 const THEME_COLORS = {
-  primary: '#1e73be',
-  secondary: '#E6B64C'
+  primary: '#084F6E',
+  secondary: '#3BA8AF'
 };
 
 // Composant ColorPicker compact avec sélecteur natif + cases rapides
@@ -305,7 +305,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
     };
   }, []);
 
-  // Fonction pour résoudre la couleur (convertit 'primary' en '#1e73be', etc.)
+  // Fonction pour résoudre la couleur (convertit 'primary' en '#084F6E', etc.)
   const resolveColor = (colorValue: string) => {
     return SYSTEM_COLORS[colorValue as keyof typeof SYSTEM_COLORS] || colorValue;
   };
@@ -332,7 +332,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
       layout: 'single-column' as const,
       formLayout: 'columns' as const,
       backgroundColor: '#ffffff',
-      primaryColor: '#1e73be',
+      primaryColor: '#084F6E',
       frameColor: '#ffffff',
       titleColor: '#ffffff',
       subtitleColor: '#ffffff',
@@ -433,7 +433,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
       ],
       settings: {
         submitButtonText: 'Send my request',
-        submitButtonColor: '#1e73be',
+        submitButtonColor: '#084F6E',
         successMessage: 'We will contact you very soon to discuss your travel project.',
         errorMessage: 'There was a problem sending your request. Please try again.',
         emailNotification: true,

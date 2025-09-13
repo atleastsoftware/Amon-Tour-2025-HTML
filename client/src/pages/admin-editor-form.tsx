@@ -54,9 +54,9 @@ export default function AdminEditorForm() {
       layout: 'single-column',
       formLayout: 'columns',
       backgroundColor: '#ffffff',
-      primaryColor: '#1e73be',
+      primaryColor: '#084F6E',
       frameColor: '#ffffff',
-      titleColor: '#1e73be',
+      titleColor: '#084F6E',
       subtitleColor: '#666666',
       textColor: '#333333',
       fields: [
@@ -95,7 +95,7 @@ export default function AdminEditorForm() {
       ],
       settings: {
         submitButtonText: 'Envoyer le message',
-        submitButtonColor: '#1e73be',
+        submitButtonColor: '#084F6E',
         successMessage: 'Merci ! Votre message a été envoyé avec succès.',
         errorMessage: 'Une erreur est survenue. Veuillez réessayer.',
         emailNotification: true
@@ -113,9 +113,9 @@ export default function AdminEditorForm() {
       layout: 'single-column',
       formLayout: 'columns',
       backgroundColor: '#ffffff',
-      primaryColor: '#1e73be',
+      primaryColor: '#084F6E',
       frameColor: '#ffffff',
-      titleColor: '#1e73be',
+      titleColor: '#084F6E',
       subtitleColor: '#666666',
       textColor: '#333333',
       headerImage: '/catamaran-cruise.png',
@@ -215,7 +215,7 @@ export default function AdminEditorForm() {
       ],
       settings: {
         submitButtonText: 'Send my request',
-        submitButtonColor: '#1e73be',
+        submitButtonColor: '#084F6E',
         successMessage: 'Thank you! We will contact you very soon to discuss your travel project.',
         errorMessage: 'There was a problem sending your request. Please try again.',
         emailNotification: true
@@ -568,7 +568,7 @@ export default function AdminEditorForm() {
       description: 'Description de votre formulaire',
       layout: 'grid',
       formLayout: 'header',
-      primaryColor: '#1e73be',
+      primaryColor: '#084F6E',
       backgroundColor: '#f8fafc',
       textColor: '#333333',
       titleColor: '#FFFFFF',
@@ -595,7 +595,7 @@ export default function AdminEditorForm() {
       ],
       settings: {
         submitButtonText: 'Envoyer',
-        submitButtonColor: '#1e73be',
+        submitButtonColor: '#084F6E',
         successMessage: 'Merci pour votre message.',
         errorMessage: 'Une erreur est survenue.',
         emailNotification: true,

@@ -8,8 +8,8 @@ import { useTourNinja } from '@/hooks/useTourNinja';
 
 // Couleurs principales du thème
 const THEME_COLORS = {
-  primary: '#1e73be',
-  secondary: '#E6B64C'
+  primary: '#084F6E',
+  secondary: '#3BA8AF'
 };
 
 // Composant ColorPicker compact avec sélecteur natif + cases rapides
@@ -268,7 +268,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
           const fullTitle = heroConfig.title || "Your exclusive experiences\nin Krabi –\nTHAILAND";
           const accentText = heroConfig.titleAccentText || "in Krabi –";
           const titleColor = heroConfig.titleColor || '#ffffff';
-          const accentColor = heroConfig.titleAccentColor || '#1e73be';
+          const accentColor = heroConfig.titleAccentColor || '#084F6E';
           
           if (fullTitle.includes(accentText)) {
             const parts = fullTitle.split(accentText);
@@ -292,7 +292,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
               return (
                 <div 
                   className="absolute inset-0 w-full h-full z-0"
-                  style={{ backgroundColor: heroConfig.backgroundColor || '#1e73be' }}
+                  style={{ backgroundColor: heroConfig.backgroundColor || '#084F6E' }}
                 />
               );
             
@@ -369,7 +369,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                   heroConfig.contentAlignment === 'right' ? 'justify-end' :
                   'justify-start'
                 }`}>
-                  {(heroConfig.buttons || [{text: 'See our offers', url: '/tours', color: '#1e73be', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#1e73be', style: 'filled'}]).map((button: any, index: number) => (
+                  {(heroConfig.buttons || [{text: 'See our offers', url: '/tours', color: '#084F6E', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#084F6E', style: 'filled'}]).map((button: any, index: number) => (
                     <span 
                       key={index}
                       className={`px-8 py-3 mt-4 rounded transition-colors cursor-pointer inline-block shadow-lg ${
@@ -378,9 +378,9 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                           : 'bg-transparent border-2 hover:bg-opacity-10'
                       }`}
                       style={{
-                        backgroundColor: (button.style || 'filled') === 'filled' ? (button.color || '#1e73be') : 'transparent',
-                        borderColor: (button.style || 'filled') === 'outline' ? (button.color || '#1e73be') : 'transparent',
-                        color: (button.style || 'filled') === 'outline' ? (button.color || '#1e73be') : '#ffffff'
+                        backgroundColor: (button.style || 'filled') === 'filled' ? (button.color || '#084F6E') : 'transparent',
+                        borderColor: (button.style || 'filled') === 'outline' ? (button.color || '#084F6E') : 'transparent',
+                        color: (button.style || 'filled') === 'outline' ? (button.color || '#084F6E') : '#ffffff'
                       }}
                     >
                       {button.text || `Bouton ${index + 1}`}
@@ -412,7 +412,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                 </h2>
                 <div 
                   className="w-20 h-1 mx-auto mb-8"
-                  style={{ backgroundColor: textConfig.dividerColor || '#E6B64C' }}
+                  style={{ backgroundColor: textConfig.dividerColor || '#3BA8AF' }}
                 ></div>
                 <p 
                   className="text-lg leading-relaxed"
@@ -445,7 +445,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                 </h2>
                 <div 
                   className="w-20 h-1 mx-auto mb-8"
-                  style={{ backgroundColor: expatsConfig.dividerColor || '#E6B64C' }}
+                  style={{ backgroundColor: expatsConfig.dividerColor || '#3BA8AF' }}
                 ></div>
                 <p 
                   className="text-lg leading-relaxed"
@@ -521,7 +521,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                 <div 
                   className="w-20 h-1 mx-auto mb-4"
                   style={{
-                    backgroundColor: popularConfig.dividerColor || '#E6B64C'
+                    backgroundColor: popularConfig.dividerColor || '#3BA8AF'
                   }}
                 ></div>
                 <p 
@@ -668,15 +668,15 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
               
               <div className="flex justify-center gap-4">
                 {/* Utilise les boutons configurés ou le bouton par défaut */}
-                {(liveConfiguration?.buttons?.length ? liveConfiguration.buttons : [{text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'}]).map((button: any, index: number) => (
+                {(liveConfiguration?.buttons?.length ? liveConfiguration.buttons : [{text: 'View All Our Tours', url: '/tours', color: '#084F6E', style: 'filled'}]).map((button: any, index: number) => (
                   <button 
                     key={index}
                     className="text-white px-8 py-3 rounded-lg font-heading font-semibold hover:opacity-90 transition-colors"
                     style={{
-                      backgroundColor: button.style === 'outline' ? 'transparent' : (button.color || '#1e73be'),
-                      borderColor: button.style === 'outline' ? (button.color || '#1e73be') : 'transparent',
+                      backgroundColor: button.style === 'outline' ? 'transparent' : (button.color || '#084F6E'),
+                      borderColor: button.style === 'outline' ? (button.color || '#084F6E') : 'transparent',
                       border: button.style === 'outline' ? '2px solid' : 'none',
-                      color: button.style === 'outline' ? (button.color || '#1e73be') : 'white'
+                      color: button.style === 'outline' ? (button.color || '#084F6E') : 'white'
                     }}
                   >
                     {button.text}
@@ -754,7 +754,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                   <div 
                     className="w-20 h-1 mx-auto mb-4"
                     style={{
-                      backgroundColor: config.dividerColor || '#E6B64C'
+                      backgroundColor: config.dividerColor || '#3BA8AF'
                     }}
                   ></div>
                   <p 
@@ -852,7 +852,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                   </h2>
                   <div 
                     className="w-20 h-1 mx-auto mb-4"
-                    style={{ backgroundColor: featuresConfig.dividerColor || '#E6B64C' }}
+                    style={{ backgroundColor: featuresConfig.dividerColor || '#3BA8AF' }}
                   ></div>
                   <p 
                     className="text-gray-600 max-w-2xl mx-auto"
@@ -1101,7 +1101,7 @@ const BlockEditDropdown = ({
               </p>
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.titleAccentColor || '#1e73be'}
+                  value={formData.titleAccentColor || '#084F6E'}
                   onChange={(value) => updateField('titleAccentColor', value)}
                 />
               </div>
@@ -1135,8 +1135,8 @@ const BlockEditDropdown = ({
                   variant="outline"
                   size="sm"
                   onClick={() => {
-                    const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#1e73be', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#1e73be', style: 'filled'}];
-                    updateField('buttons', [...buttons, {text: 'Nouveau bouton', url: '#', color: '#1e73be', style: 'filled'}]);
+                    const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#084F6E', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#084F6E', style: 'filled'}];
+                    updateField('buttons', [...buttons, {text: 'Nouveau bouton', url: '#', color: '#084F6E', style: 'filled'}]);
                   }}
                 >
                   <Plus className="h-4 w-4 mr-1" /> Ajouter un bouton
@@ -1144,7 +1144,7 @@ const BlockEditDropdown = ({
               </div>
               
               <div className="space-y-3">
-                {(formData.buttons || [{text: 'See our offers', url: '/tours', color: '#1e73be', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#1e73be', style: 'filled'}]).map((button: any, index: number) => (
+                {(formData.buttons || [{text: 'See our offers', url: '/tours', color: '#084F6E', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#084F6E', style: 'filled'}]).map((button: any, index: number) => (
                   <div key={index} className="border rounded-lg p-4 space-y-3">
                     <div className="flex items-center justify-between">
                       <Label className="text-sm font-medium">Bouton {index + 1}</Label>
@@ -1153,7 +1153,7 @@ const BlockEditDropdown = ({
                         variant="ghost"
                         size="sm"
                         onClick={() => {
-                          const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#1e73be', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#1e73be', style: 'filled'}];
+                          const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#084F6E', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#084F6E', style: 'filled'}];
                           const newButtons = buttons.filter((_: any, i: number) => i !== index);
                           updateField('buttons', newButtons);
                         }}
@@ -1168,7 +1168,7 @@ const BlockEditDropdown = ({
                       <Input 
                         value={button.text || ''} 
                         onChange={e => {
-                          const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#1e73be', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#1e73be', style: 'filled'}];
+                          const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#084F6E', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#084F6E', style: 'filled'}];
                           const newButtons = buttons.map((b: any, i: number) => 
                             i === index ? {...b, text: e.target.value} : b
                           );
@@ -1181,7 +1181,7 @@ const BlockEditDropdown = ({
                       <Input 
                         value={button.url || ''} 
                         onChange={e => {
-                          const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#1e73be', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#1e73be', style: 'filled'}];
+                          const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#084F6E', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#084F6E', style: 'filled'}];
                           const newButtons = buttons.map((b: any, i: number) => 
                             i === index ? {...b, url: e.target.value} : b
                           );
@@ -1195,9 +1195,9 @@ const BlockEditDropdown = ({
                     <div>
                       <Label className="text-xs">Couleur</Label>
                       <ColorPicker
-                        value={button.color || '#1e73be'}
+                        value={button.color || '#084F6E'}
                         onChange={(value) => {
-                          const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#1e73be', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#1e73be', style: 'filled'}];
+                          const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#084F6E', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#084F6E', style: 'filled'}];
                           const newButtons = buttons.map((b: any, i: number) => 
                             i === index ? {...b, color: value} : b
                           );
@@ -1211,7 +1211,7 @@ const BlockEditDropdown = ({
                       <Select 
                         value={button.style || 'filled'} 
                         onValueChange={value => {
-                          const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#1e73be', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#1e73be', style: 'filled'}];
+                          const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#084F6E', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#084F6E', style: 'filled'}];
                           const newButtons = buttons.map((b: any, i: number) => 
                             i === index ? {...b, style: value} : b
                           );
@@ -1273,15 +1273,15 @@ const BlockEditDropdown = ({
                     <input 
                       type="color" 
                       id="backgroundColor"
-                      value={formData.backgroundColor || '#1e73be'}
+                      value={formData.backgroundColor || '#084F6E'}
                       onChange={e => updateField('backgroundColor', e.target.value)}
                       className="w-10 h-10 rounded cursor-pointer"
                     style={{ border: 'none', outline: 'none' }}
                     />
                     <Input 
-                      value={formData.backgroundColor || '#1e73be'}
+                      value={formData.backgroundColor || '#084F6E'}
                       onChange={e => updateField('backgroundColor', e.target.value)}
-                      placeholder="#1e73be"
+                      placeholder="#084F6E"
                       className="flex-1"
                     />
                   </div>
@@ -1468,7 +1468,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="divider">Tiret</Label>
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.dividerColor || '#E6B64C'}
+                  value={formData.dividerColor || '#3BA8AF'}
                   onChange={(value) => updateField('dividerColor', value)}
                 />
               </div>
@@ -1521,7 +1521,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="divider">Tiret</Label>
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.dividerColor || '#E6B64C'}
+                  value={formData.dividerColor || '#3BA8AF'}
                   onChange={(value) => updateField('dividerColor', value)}
                 />
               </div>
@@ -1573,7 +1573,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="divider">Tiret</Label>
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.dividerColor || '#E6B64C'}
+                  value={formData.dividerColor || '#3BA8AF'}
                   onChange={(value) => updateField('dividerColor', value)}
                 />
               </div>
@@ -1724,8 +1724,8 @@ const BlockEditDropdown = ({
                   variant="outline"
                   size="sm"
                   onClick={() => {
-                    const buttons = formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'}];
-                    updateField('buttons', [...buttons, {text: 'Nouveau bouton', url: '#', color: '#1e73be', style: 'filled'}]);
+                    const buttons = formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#084F6E', style: 'filled'}];
+                    updateField('buttons', [...buttons, {text: 'Nouveau bouton', url: '#', color: '#084F6E', style: 'filled'}]);
                   }}
                 >
                   <Plus className="h-4 w-4 mr-1" /> Ajouter un bouton
@@ -1733,7 +1733,7 @@ const BlockEditDropdown = ({
               </div>
               
               <div className="space-y-3">
-                {(formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'}]).map((button: any, index: number) => (
+                {(formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#084F6E', style: 'filled'}]).map((button: any, index: number) => (
                   <div key={index} className="border rounded-lg p-4 space-y-3">
                     <div className="flex items-center justify-between">
                       <Label className="text-sm font-medium">Bouton {index + 1}</Label>
@@ -1742,7 +1742,7 @@ const BlockEditDropdown = ({
                         variant="ghost"
                         size="sm"
                         onClick={() => {
-                          const buttons = formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'}];
+                          const buttons = formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#084F6E', style: 'filled'}];
                           const newButtons = buttons.filter((_: any, i: number) => i !== index);
                           updateField('buttons', newButtons);
                         }}
@@ -1757,7 +1757,7 @@ const BlockEditDropdown = ({
                       <Input 
                         value={button.text || ''} 
                         onChange={e => {
-                          const buttons = formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'}];
+                          const buttons = formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#084F6E', style: 'filled'}];
                           const newButtons = [...buttons];
                           newButtons[index] = { ...newButtons[index], text: e.target.value };
                           updateField('buttons', newButtons);
@@ -1770,7 +1770,7 @@ const BlockEditDropdown = ({
                       <Input 
                         value={button.url || ''} 
                         onChange={e => {
-                          const buttons = formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'}];
+                          const buttons = formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#084F6E', style: 'filled'}];
                           const newButtons = [...buttons];
                           newButtons[index] = { ...newButtons[index], url: e.target.value };
                           updateField('buttons', newButtons);
@@ -1784,9 +1784,9 @@ const BlockEditDropdown = ({
                     <div>
                       <Label className="text-xs">Couleur</Label>
                       <ColorPicker
-                        value={button.color || '#1e73be'}
+                        value={button.color || '#084F6E'}
                         onChange={(value) => {
-                          const buttons = formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'}];
+                          const buttons = formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#084F6E', style: 'filled'}];
                           const newButtons = [...buttons];
                           newButtons[index] = { ...newButtons[index], color: value };
                           updateField('buttons', newButtons);
@@ -1798,7 +1798,7 @@ const BlockEditDropdown = ({
                       <Select 
                         value={button.style || 'filled'} 
                         onValueChange={value => {
-                          const buttons = formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#1e73be', style: 'filled'}];
+                          const buttons = formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#084F6E', style: 'filled'}];
                           const newButtons = [...buttons];
                           newButtons[index] = { ...newButtons[index], style: value };
                           updateField('buttons', newButtons);
@@ -1865,7 +1865,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="divider">Tiret</Label>
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.dividerColor || '#E6B64C'}
+                  value={formData.dividerColor || '#3BA8AF'}
                   onChange={(value) => updateField('dividerColor', value)}
                 />
               </div>
@@ -2052,7 +2052,7 @@ const BlockEditDropdown = ({
                 <Label htmlFor="divider">Tiret</Label>
                 <div className="mt-3">
                   <ColorPicker
-                    value={formData.dividerColor || '#E6B64C'}
+                    value={formData.dividerColor || '#3BA8AF'}
                     onChange={(value) => updateField('dividerColor', value)}
                   />
                 </div>

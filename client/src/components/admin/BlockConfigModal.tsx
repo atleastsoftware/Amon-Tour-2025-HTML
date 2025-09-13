@@ -22,8 +22,8 @@ interface BlockConfigModalProps {
 
 // Couleurs principales du système
 const SYSTEM_COLORS = {
-  primary: '#1e73be',
-  secondary: '#E6B64C',
+  primary: '#084F6E',
+  secondary: '#3BA8AF',
   white: '#ffffff',
   gray: '#6b7280',
   dark: '#1f2937'

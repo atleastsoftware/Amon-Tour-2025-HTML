@@ -584,10 +584,10 @@ function MiniaturizedComponent({
                     key={index}
                     className="text-[6px] px-1 py-0.5 rounded"
                     style={{
-                      backgroundColor: (button.style || 'filled') === 'filled' ? (button.color || '#1e73be') : 'transparent',
+                      backgroundColor: (button.style || 'filled') === 'filled' ? (button.color || '#084F6E') : 'transparent',
                       borderWidth: (button.style || 'filled') === 'outline' ? '1px' : '0',
-                      borderColor: (button.style || 'filled') === 'outline' ? (button.color || '#1e73be') : 'transparent',
-                      color: (button.style || 'filled') === 'outline' ? (button.color || '#1e73be') : '#ffffff'
+                      borderColor: (button.style || 'filled') === 'outline' ? (button.color || '#084F6E') : 'transparent',
+                      color: (button.style || 'filled') === 'outline' ? (button.color || '#084F6E') : '#ffffff'
                     }}
                   >
                     {button.text?.substring(0, 10) || `Btn ${index + 1}`}
@@ -636,10 +636,10 @@ function MiniaturizedComponent({
                     key={index}
                     className="text-[6px] px-1 py-0.5 rounded"
                     style={{
-                      backgroundColor: (button.style || 'filled') === 'filled' ? (button.color || '#1e73be') : 'transparent',
+                      backgroundColor: (button.style || 'filled') === 'filled' ? (button.color || '#084F6E') : 'transparent',
                       borderWidth: (button.style || 'filled') === 'outline' ? '1px' : '0',
-                      borderColor: (button.style || 'filled') === 'outline' ? (button.color || '#1e73be') : 'transparent',
-                      color: (button.style || 'filled') === 'outline' ? (button.color || '#1e73be') : '#ffffff'
+                      borderColor: (button.style || 'filled') === 'outline' ? (button.color || '#084F6E') : 'transparent',
+                      color: (button.style || 'filled') === 'outline' ? (button.color || '#084F6E') : '#ffffff'
                     }}
                   >
                     {button.text?.substring(0, 10) || `Btn ${index + 1}`}
@@ -1296,7 +1296,6 @@ export default function RealBlockPreview({
         <div className={block.blockType.includes('hero') ? "w-full h-full" : "transform scale-90 origin-top-left w-[111.11%] h-[111.11%]"}>
           <MiniaturizedComponent 
             block={showEditForm ? previewData : block} 
-            liveConfiguration={liveConfiguration}
           />
         </div>
         

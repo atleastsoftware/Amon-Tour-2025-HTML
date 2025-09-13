@@ -2202,7 +2202,7 @@ export default function AdminAppearance() {
           description: 'Ready for a personalized adventure?',
           ctaText: 'Start Planning',
           ctaUrl: '/custom-tour',
-          configuration: { style: 'banner', backgroundColor: '#1e73be' }
+          configuration: { style: 'banner', backgroundColor: '#084F6E' }
         };
         
       // Media & Maps
@@ -2435,14 +2435,14 @@ export default function AdminAppearance() {
                           <Input
                             id="primary-color"
                             type="color"
-                            value={tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#1e73be'}
+                            value={tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#084F6E'}
                             onChange={(e) => setTempColors((prev: any) => ({ ...prev, primary_color: e.target.value }))}
                             className="w-20 h-10"
                           />
                           <Input
-                            value={tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#1e73be'}
+                            value={tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#084F6E'}
                             onChange={(e) => setTempColors((prev: any) => ({ ...prev, primary_color: e.target.value }))}
-                            placeholder="#1e73be"
+                            placeholder="#084F6E"
                           />
                         </div>
                       </div>
@@ -2452,14 +2452,14 @@ export default function AdminAppearance() {
                           <Input
                             id="secondary-color"
                             type="color"
-                            value={tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#E6B64C'}
+                            value={tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#3BA8AF'}
                             onChange={(e) => setTempColors((prev: any) => ({ ...prev, secondary_color: e.target.value }))}
                             className="w-20 h-10"
                           />
                           <Input
-                            value={tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#E6B64C'}
+                            value={tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#3BA8AF'}
                             onChange={(e) => setTempColors((prev: any) => ({ ...prev, secondary_color: e.target.value }))}
-                            placeholder="#E6B64C"
+                            placeholder="#3BA8AF"
                           />
                         </div>
                       </div>
@@ -2584,14 +2584,14 @@ export default function AdminAppearance() {
                             <div className="text-center">
                               <div 
                                 className="w-12 h-12 rounded-lg mx-auto mb-2 border-2 border-gray-300"
-                                style={{ backgroundColor: tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#1e73be' }}
+                                style={{ backgroundColor: tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#084F6E' }}
                               ></div>
                               <p className="text-xs font-medium">Primary</p>
                             </div>
                             <div className="text-center">
                               <div 
                                 className="w-12 h-12 rounded-lg mx-auto mb-2 border-2 border-gray-300"
-                                style={{ backgroundColor: tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#E6B64C' }}
+                                style={{ backgroundColor: tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#3BA8AF' }}
                               ></div>
                               <p className="text-xs font-medium">Secondary</p>
                             </div>
@@ -2971,7 +2971,7 @@ export default function AdminAppearance() {
                             <button 
                               className="px-4 py-2 text-white transition-all"
                               style={{
-                                backgroundColor: tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#1e73be',
+                                backgroundColor: tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#084F6E',
                                 borderRadius: tempButtonStyles?.border_radius || JSON.parse(getSiteSetting('theme', 'button_styles') || '{"border_radius": "8px"}').border_radius,
                                 boxShadow: (() => {
                                   const shadowStyle = tempButtonStyles?.shadow || JSON.parse(getSiteSetting('theme', 'button_styles') || '{"shadow": "medium"}').shadow;
@@ -2990,8 +2990,8 @@ export default function AdminAppearance() {
                             <button 
                               className="px-4 py-2 border-2 transition-all"
                               style={{
-                                borderColor: getSiteSetting('theme', 'primary_color') || '#1e73be',
-                                color: getSiteSetting('theme', 'primary_color') || '#1e73be',
+                                borderColor: getSiteSetting('theme', 'primary_color') || '#084F6E',
+                                color: getSiteSetting('theme', 'primary_color') || '#084F6E',
                                 borderRadius: JSON.parse(getSiteSetting('theme', 'button_styles') || '{"border_radius": "8px"}').border_radius
                               }}
                             >
@@ -3000,7 +3000,7 @@ export default function AdminAppearance() {
                             <button 
                               className="px-4 py-2 text-white transition-all"
                               style={{
-                                backgroundColor: getSiteSetting('theme', 'secondary_color') || '#E6B64C',
+                                backgroundColor: getSiteSetting('theme', 'secondary_color') || '#3BA8AF',
                                 borderRadius: JSON.parse(getSiteSetting('theme', 'button_styles') || '{"border_radius": "8px"}').border_radius
                               }}
                             >
@@ -3395,7 +3395,7 @@ export default function AdminAppearance() {
                                 </p>
                                 <button 
                                   className="px-6 py-2 text-white rounded font-medium"
-                                  style={{ backgroundColor: getSiteSetting('theme', 'primary_color') || '#1e73be' }}
+                                  style={{ backgroundColor: getSiteSetting('theme', 'primary_color') || '#084F6E' }}
                                 >
                                   {JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"button_text": "Subscribe"}').button_text || "Subscribe"}
                                 </button>
@@ -4903,7 +4903,7 @@ function RealBlocksEditor({
                         <div 
                           className="relative min-h-[300px] flex items-center justify-center text-white"
                           style={{
-                            backgroundImage: heroEditData.imageUrl ? `url(${heroEditData.imageUrl})` : 'linear-gradient(135deg, #1e73be 0%, #0066cc 100%)',
+                            backgroundImage: heroEditData.imageUrl ? `url(${heroEditData.imageUrl})` : 'linear-gradient(135deg, #084F6E 0%, #0066cc 100%)',
                             backgroundSize: 'cover',
                             backgroundPosition: 'center',
                             borderRadius: '8px'
