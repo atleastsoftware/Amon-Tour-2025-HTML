@@ -101,6 +101,7 @@ const getRelatedTours = (slug: string) => {
     // Railay related articles (updated English slugs)
     'railay-beach-krabi-complete-guide-spectacular-beach': ['railay'],
     'railay-beach-krabi-guide-complet-plage-spectaculaire': ['railay'],
+    'rock-climbing-krabi-complete-guide-railay-beach-world-capital': ['railay'],
     'escalade-krabi-guide-complet-railay-beach-capitale-mondiale': ['railay'],
     
     // Hong Island related articles (updated English slugs)
@@ -120,19 +121,28 @@ const getRelatedTours = (slug: string) => {
     'ao-nang-krabi-guide-complet-centre-touristique': ['phi-phi', 'sunset-plankton'],
     'snorkeling-krabi-best-spots-underwater-world': ['hong-island', 'phi-phi'],
     'snorkeling-krabi-meilleurs-spots-fonds-marins': ['hong-island', 'phi-phi'],
+    'krabi-or-phuket-complete-comparison-choose-perfect-thai-destination': ['phi-phi'],
     'krabi-ou-phuket-comparaison-complete-choisir-destination-thai-parfaite': ['phi-phi'],
     
     // Practical articles (updated English slugs)
+    'when-to-visit-krabi-weather-guide-best-seasons-perfect-travel': ['phi-phi'],
+    'quand-partir-krabi-guide-meteo-saisons-meilleure-periode': ['phi-phi'],
     'krabi-travel-budget-2025-complete-guide-prices-money-saving-tips': ['four-islands'],
     'budget-voyage-krabi-2025-guide-prix-bons-plans': ['four-islands'],
-    'quand-partir-krabi-guide-meteo-saisons-meilleure-periode': ['phi-phi'],
+    'transportation-krabi-complete-guide-getting-around-travel-options': ['railay'],
     'transport-krabi-guide-complet-moyens-transport-deplacements': ['railay'],
     'ultimate-guide-to-exploring-krabi-top-islands-and-hidden-gems': ['hong-island', 'sunset-plankton'],
     
-    // Experience articles
+    // Experience articles (updated English slugs)
+    'best-hotels-krabi-2025-guide-luxury-budget-accommodations': ['sunset-plankton'],
     'meilleurs-hotels-krabi-2025-guide-hebergements-luxe-budget': ['sunset-plankton'],
+    'nightlife-krabi-guide-best-bars-pubs-clubs-going-out': ['sunset-plankton'],
     'vie-nocturne-krabi-guide-meilleurs-bars-pubs-clubs-sortir': ['sunset-plankton'],
-    'massage-spa-krabi-guide-meilleurs-centres-bien-etre-soins-traditionnels': ['railay']
+    'massage-spa-krabi-guide-best-wellness-centers-traditional-treatments': ['railay'],
+    'massage-spa-krabi-guide-meilleurs-centres-bien-etre-soins-traditionnels': ['railay'],
+    'best-restaurants-krabi-culinary-guide-thai-specialties-seafood': ['sunset-plankton'],
+    'shopping-krabi-guide-best-markets-shopping-centers-authentic-souvenirs': ['hong-island'],
+    'temples-culture-krabi-spiritual-guide-authentic-thai-traditions': ['catamaran']
   };
   
   const tourKeys = tourMapping[slug] || [];
