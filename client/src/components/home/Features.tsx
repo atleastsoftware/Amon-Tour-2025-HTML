@@ -15,7 +15,7 @@ export default function Features() {
           >
             <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">Why Choose Us</h2>
             <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
-            <p className="text-gray-600 max-w-2xl mx-auto">Experience an exclusive private day trip with our English or French-speaking and certified guides.</p>
+            <p className="text-muted-foreground max-w-2xl mx-auto">Experience an exclusive private day trip with our English or French-speaking and certified guides.</p>
           </motion.div>
         </div>
         
@@ -38,7 +38,7 @@ export default function Features() {
                 <Users size={28} className="text-white" />
               </motion.div>
               <h3 className="font-heading font-bold text-xl mb-2">Private Tours</h3>
-              <p className="text-gray-600">Experience an exclusive day trip with our professional guides and private vehicles.</p>
+              <p className="text-muted-foreground">Experience an exclusive day trip with our professional guides and private vehicles.</p>
               
               <motion.div 
                 className="mt-4 grid grid-cols-3 gap-2"
@@ -98,7 +98,7 @@ export default function Features() {
                 <Compass size={28} className="text-white" />
               </motion.div>
               <h3 className="font-heading font-bold text-xl mb-2">Customized Itineraries</h3>
-              <p className="text-gray-600">Create your own journey based on your desires, your pace, and your interests.</p>
+              <p className="text-muted-foreground">Create your own journey based on your desires, your pace, and your interests.</p>
               
               <motion.div 
                 className="mt-4 grid grid-cols-3 gap-2"
@@ -158,7 +158,7 @@ export default function Features() {
                 <Sparkles size={28} className="text-white" />
               </motion.div>
               <h3 className="font-heading font-bold text-xl mb-2">Authentic Experiences</h3>
-              <p className="text-gray-600">Discover destinations off the beaten path and immerse yourself in the local culture.</p>
+              <p className="text-muted-foreground">Discover destinations off the beaten path and immerse yourself in the local culture.</p>
               
               <motion.div 
                 className="mt-4 grid grid-cols-3 gap-2"

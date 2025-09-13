@@ -155,8 +155,8 @@ export default function TourCardItem({
                 </div>
                 <div className={`inline-block px-3 py-1 rounded-full font-medium text-xs ${
                   type === "tour" 
-                    ? "bg-blue-600 text-white" 
-                    : "bg-amber-500 text-white"
+                    ? "bg-primary text-white" 
+                    : "bg-[hsl(var(--warning))] text-white"
                 }`}>
                   {type === "tour" ? "Tour" : "Experience"}
                 </div>

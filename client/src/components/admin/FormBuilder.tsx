@@ -741,7 +741,7 @@ export default function FormBuilder({ initialForm, onSave, onSaveDraft, onCancel
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header Bar */}
-      <div className="bg-white border-b p-4 sticky top-0 z-10">
+      <div className="bg-card border-b p-4 sticky top-0 z-10">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-6">
             <h2 className="text-lg font-semibold">Constructeur de formulaire</h2>
@@ -775,7 +775,7 @@ export default function FormBuilder({ initialForm, onSave, onSaveDraft, onCancel
       {showPreview && (
         <div className="bg-gray-100 border-b" data-preview-section>
           <div className="p-6">
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden max-w-6xl mx-auto">
+            <div className="bg-card rounded-lg shadow-lg overflow-hidden max-w-6xl mx-auto">
               {formData.formLayout === 'header' ? (
                 // Layout Header - Image en haut, formulaire en dessous
                 <div className="flex flex-col">
@@ -987,7 +987,7 @@ export default function FormBuilder({ initialForm, onSave, onSaveDraft, onCancel
       )}
 
       {/* Bottom Panel - Editor */}
-      <div className="bg-white overflow-auto flex-1">
+      <div className="bg-card overflow-auto flex-1">
         {/* Tab Navigation */}
         <div className="flex border-b p-4 pb-0">
           <div className="flex">

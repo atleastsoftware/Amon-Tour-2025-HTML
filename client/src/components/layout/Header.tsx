@@ -17,7 +17,7 @@ const NavLink = ({ href, isActive, children, onClick, isHomePage, scrolled }: Na
   const textColor = isHomePage && !scrolled 
     ? isActive 
       ? "text-primary drop-shadow-lg" 
-      : "text-white hover:text-primary drop-shadow-lg"
+      : "text-primary-foreground hover:text-primary drop-shadow-lg"
     : isActive 
       ? "text-primary" 
       : "text-neutral-700 hover:text-primary";
@@ -109,10 +109,10 @@ export default function Header() {
   const headerClasses = isHomePage
     ? `fixed left-0 w-full z-50 transition-all duration-300 ${
         scrolled 
-          ? 'bg-white/95 backdrop-blur-md shadow-lg py-2' 
+          ? 'bg-card/95 backdrop-blur-md shadow-lg py-2' 
           : 'bg-transparent py-3'
       }`
-    : 'fixed left-0 w-full z-50 bg-white py-3';
+    : 'fixed left-0 w-full z-50 bg-card py-3';
 
   const headerStyle = { top: `${notificationBarHeight}px` };
 
@@ -194,7 +194,7 @@ export default function Header() {
         <motion.button 
           onClick={toggleMobileMenu}
           className={`md:hidden focus:outline-none ${
-            isHomePage && !scrolled ? 'text-white' : 'text-neutral-700'
+            isHomePage && !scrolled ? 'text-primary-foreground' : 'text-neutral-700'
           }`}
           aria-label="Toggle menu"
           whileTap={{ scale: 0.9 }}
@@ -262,7 +262,7 @@ export default function Header() {
             className={`md:hidden border-t px-4 py-3 overflow-hidden ${
               isHomePage && !scrolled 
                 ? 'bg-black/80 backdrop-blur-md border-white/20' 
-                : 'bg-white border-gray-200'
+                : 'bg-card border-gray-200'
             }`}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}

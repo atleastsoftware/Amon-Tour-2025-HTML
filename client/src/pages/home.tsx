@@ -245,7 +245,7 @@ export default function Home() {
         </section>
         
         {/* 3. Our Popular Experiences */}
-        <section id="tours" className="py-16 bg-white">
+        <section id="tours" className="py-16 bg-background">
           <div className="container mx-auto px-4 text-center mb-8">
             <motion.div
               initial={{ y: -20, opacity: 0 }}
@@ -276,10 +276,10 @@ export default function Home() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: index * 0.1 }}
-                    className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
+                    className="bg-card rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
                   >
                     <div 
-                      className="relative h-48 bg-gradient-to-br from-blue-200 to-blue-300 cursor-pointer"
+                      className="relative h-48 bg-gradient-to-br from-primary/40 to-primary/60 cursor-pointer"
                       onClick={() => {
                         if (tour.presentationUrl) {
                           openIframe(tour.presentationUrl, `Présentation - ${tour.name}`);
@@ -298,11 +298,11 @@ export default function Home() {
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">
-                          <FiChevronRight className="h-16 w-16 text-blue-400" />
+                          <FiChevronRight className="h-16 w-16 text-primary/70" />
                         </div>
                       )}
                       <div className="absolute top-4 right-4">
-                        <span className="bg-white/90 text-gray-800 px-2 py-1 rounded-full text-xs">
+                        <span className="bg-card/90 text-muted-foreground px-2 py-1 rounded-full text-xs">
                           {tour.duration} day{Number(tour.duration) > 1 ? 's' : ''}
                         </span>
                       </div>
@@ -310,7 +310,7 @@ export default function Home() {
                     
                     <div className="p-6">
                       <h3 
-                        className="text-lg font-bold text-gray-800 mb-3 line-clamp-2 cursor-pointer hover:text-blue-600 transition-colors"
+                        className="text-lg font-bold text-gray-800 mb-3 line-clamp-2 cursor-pointer hover:text-primary transition-colors"
                         onClick={() => {
                           if (tour.presentationUrl) {
                             openIframe(tour.presentationUrl, `Présentation - ${tour.name}`);
@@ -333,7 +333,7 @@ export default function Home() {
                               openIframe(tour.detailsUrl, `Détails - ${tour.name}`);
                             }
                           }}
-                          className="flex-1 border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
+                          className="flex-1 border border-primary text-primary hover:bg-primary/10 py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
                         >
                           Details
                           <FiChevronRight className="h-3 w-3" />
@@ -344,7 +344,7 @@ export default function Home() {
                               openIframe(tour.bookingUrl, `Booking - ${tour.name}`);
                             }
                           }}
-                          className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
+                          className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
                         >
                           Book
                           <FiChevronRight className="h-3 w-3" />
@@ -361,7 +361,7 @@ export default function Home() {
             <div className="text-center">
               <Link href="/tours">
                 <motion.span 
-                  className="bg-primary text-white px-8 py-3 rounded-lg font-heading font-semibold hover:bg-primary-dark transition-colors inline-block cursor-pointer"
+                  className="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-heading font-semibold hover:bg-primary-dark transition-colors inline-block cursor-pointer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
                 >View All Our Tours</motion.span>

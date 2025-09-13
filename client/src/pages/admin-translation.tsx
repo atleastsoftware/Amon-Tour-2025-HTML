@@ -23,7 +23,7 @@ export default function AdminTranslation() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto"></div>
-          <p className="mt-4 text-gray-600">Chargement...</p>
+          <p className="mt-4 text-muted-foreground">Chargement...</p>
         </div>
       </div>
     );
@@ -36,7 +36,7 @@ export default function AdminTranslation() {
   return (
     <>
       <Header />
-      <div className="min-h-screen bg-gray-50 pt-24 pb-16">
+      <div className="min-h-screen bg-muted/30 pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-4xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -54,10 +54,10 @@ export default function AdminTranslation() {
                 Retour
               </Button>
               <div>
-                <h1 className="text-3xl font-heading font-bold text-gray-900">
+                <h1 className="text-3xl font-heading font-bold text-foreground">
                   Gestion de la Traduction Automatique
                 </h1>
-                <p className="text-gray-600 mt-2">
+                <p className="text-muted-foreground mt-2">
                   Configuration et contrôle de la traduction automatique basée sur la géolocalisation IP
                 </p>
               </div>

@@ -109,14 +109,14 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
               />
             </div>
           ) : (
-            <div className="h-48 bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center relative overflow-hidden">
+            <div className="h-48 bg-gradient-to-br from-primary/70 to-primary flex items-center justify-center relative overflow-hidden">
               <div className="absolute inset-0 bg-black/20"></div>
               <div className="text-white text-center p-4 relative z-10">
                 <MapPin className="w-8 h-8 mx-auto mb-2" />
                 <span className="text-sm font-medium">Krabi, Thailand</span>
                 <div className="text-xs opacity-80 mt-1">Image de présentation</div>
               </div>
-              <div className="absolute inset-0 bg-gradient-to-br from-transparent to-blue-800/30"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-transparent to-primary/30"></div>
             </div>
           )}
           
@@ -138,7 +138,7 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
         <CardContent className="p-4 flex flex-col justify-between h-full">
           <div>
             <h3 
-              className="font-heading font-semibold text-lg mb-2 line-clamp-2 cursor-pointer hover:text-blue-600 transition-colors"
+              className="font-heading font-semibold text-lg mb-2 line-clamp-2 cursor-pointer hover:text-primary transition-colors"
               onClick={(e) => {
                 e.stopPropagation();
                 if (tour.presentationUrl) {

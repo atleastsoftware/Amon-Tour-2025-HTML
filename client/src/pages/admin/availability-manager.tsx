@@ -500,12 +500,12 @@ export default function AvailabilityManager() {
                             <TableCell>{availability.currentBookings}</TableCell>
                             <TableCell>
                               {remainingSpots <= 0 ? (
-                                <span className="text-red-600 font-semibold flex items-center">
+                                <span className="text-[hsl(var(--destructive))] font-semibold flex items-center">
                                   <AlertTriangle className="h-4 w-4 mr-1" />
                                   Complet
                                 </span>
                               ) : remainingSpots <= 3 ? (
-                                <span className="text-amber-600 font-semibold">
+                                <span className="text-[hsl(var(--warning))] font-semibold">
                                   {remainingSpots}
                                 </span>
                               ) : (
@@ -762,8 +762,8 @@ export default function AvailabilityManager() {
             <DialogDescription>
               Êtes-vous sûr de vouloir supprimer cette disponibilité ?
               {selectedAvailability?.currentBookings !== undefined && selectedAvailability.currentBookings > 0 && (
-                <div className="mt-2 p-3 bg-amber-50 text-amber-900 rounded-md flex items-start">
-                  <AlertTriangle className="h-5 w-5 mr-2 flex-shrink-0 mt-0.5 text-amber-600" />
+                <div className="mt-2 p-3 bg-[hsl(var(--warning)/0.1)] text-[hsl(var(--warning))] rounded-md flex items-start">
+                  <AlertTriangle className="h-5 w-5 mr-2 flex-shrink-0 mt-0.5 text-[hsl(var(--warning))]" />
                   <span>
                     Attention : Cette disponibilité a déjà <strong>{selectedAvailability.currentBookings} réservation(s)</strong>.
                     La suppression affectera ces réservations existantes.

@@ -13,7 +13,7 @@ export default function TourNinjaSection() {
         <div className="container mx-auto px-4">
           <div className="text-center">
             <div className="flex items-center justify-center mb-4">
-              <AlertCircle className="text-red-500 mr-2" size={24} />
+              <AlertCircle className="text-[hsl(var(--destructive))] mr-2" size={24} />
               <h2 className="font-heading font-bold text-2xl">External Tours</h2>
             </div>
             <p className="text-gray-600 mb-4">

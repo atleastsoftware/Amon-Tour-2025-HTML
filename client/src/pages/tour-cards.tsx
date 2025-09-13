@@ -80,7 +80,7 @@ export default function TourCards() {
                 <h2 className="font-heading font-semibold text-xl mb-4">Find Your Experience</h2>
                 <div className="grid grid-cols-1 gap-4">
                   <motion.div whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 400 }}>
-                    <label htmlFor="search" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="search" className="block text-sm font-medium text-foreground mb-1">
                       Search
                     </label>
                     <Input
@@ -105,11 +105,11 @@ export default function TourCards() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5 }}
                     >
-                      <div className="h-56 bg-gray-300"></div>
+                      <div className="h-56 bg-muted"></div>
                       <div className="p-6 space-y-4">
-                        <div className="h-6 bg-gray-300 rounded w-3/4"></div>
-                        <div className="h-4 bg-gray-300 rounded"></div>
-                        <div className="h-4 bg-gray-300 rounded w-1/2"></div>
+                        <div className="h-6 bg-muted rounded w-3/4"></div>
+                        <div className="h-4 bg-muted rounded"></div>
+                        <div className="h-4 bg-muted rounded w-1/2"></div>
                       </div>
                     </motion.div>
                   </StaggerItem>

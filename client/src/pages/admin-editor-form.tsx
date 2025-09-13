@@ -53,12 +53,12 @@ export default function AdminEditorForm() {
       description: 'Contactez notre équipe pour toute demande d\'information ou devis personnalisé.',
       layout: 'single-column',
       formLayout: 'columns',
-      backgroundColor: '#ffffff',
-      primaryColor: '#084F6E',
-      frameColor: '#ffffff',
-      titleColor: '#084F6E',
-      subtitleColor: '#666666',
-      textColor: '#333333',
+      backgroundColor: 'hsl(var(--background))',
+      primaryColor: 'hsl(var(--primary))',
+      frameColor: 'hsl(var(--background))',
+      titleColor: 'hsl(var(--primary))',
+      subtitleColor: 'hsl(var(--muted-foreground))',
+      textColor: 'hsl(var(--foreground))',
       fields: [
         {
           id: 'name',
@@ -95,7 +95,7 @@ export default function AdminEditorForm() {
       ],
       settings: {
         submitButtonText: 'Envoyer le message',
-        submitButtonColor: '#084F6E',
+        submitButtonColor: 'hsl(var(--primary))',
         successMessage: 'Merci ! Votre message a été envoyé avec succès.',
         errorMessage: 'Une erreur est survenue. Veuillez réessayer.',
         emailNotification: true
@@ -112,12 +112,12 @@ export default function AdminEditorForm() {
       description: 'Tell us what you\'d like to discover, and we\'ll create your personalized itinerary.',
       layout: 'single-column',
       formLayout: 'columns',
-      backgroundColor: '#ffffff',
-      primaryColor: '#084F6E',
-      frameColor: '#ffffff',
-      titleColor: '#084F6E',
-      subtitleColor: '#666666',
-      textColor: '#333333',
+      backgroundColor: 'hsl(var(--background))',
+      primaryColor: 'hsl(var(--primary))',
+      frameColor: 'hsl(var(--background))',
+      titleColor: 'hsl(var(--primary))',
+      subtitleColor: 'hsl(var(--muted-foreground))',
+      textColor: 'hsl(var(--foreground))',
       headerImage: '/catamaran-cruise.png',
       fields: [
         {
@@ -215,7 +215,7 @@ export default function AdminEditorForm() {
       ],
       settings: {
         submitButtonText: 'Send my request',
-        submitButtonColor: '#084F6E',
+        submitButtonColor: 'hsl(var(--primary))',
         successMessage: 'Thank you! We will contact you very soon to discuss your travel project.',
         errorMessage: 'There was a problem sending your request. Please try again.',
         emailNotification: true
@@ -232,11 +232,11 @@ export default function AdminEditorForm() {
       description: 'Développons ensemble de belles collaborations dans le tourisme thaïlandais.',
       layout: 'single-column',
       formLayout: 'columns',
-      backgroundColor: '#ffffff',
+      backgroundColor: 'hsl(var(--background))',
       primaryColor: '#16a34a',
-      frameColor: '#ffffff',
+      frameColor: 'hsl(var(--background))',
       titleColor: '#16a34a',
-      subtitleColor: '#666666',
+      subtitleColor: 'hsl(var(--muted-foreground))',
       textColor: '#15803d',
       fields: [
         {
@@ -317,9 +317,9 @@ export default function AdminEditorForm() {
       formLayout: 'columns',
       backgroundColor: '#fef3c7',
       primaryColor: '#d97706',
-      frameColor: '#ffffff',
+      frameColor: 'hsl(var(--background))',
       titleColor: '#d97706',
-      subtitleColor: '#666666',
+      subtitleColor: 'hsl(var(--muted-foreground))',
       textColor: '#92400e',
       fields: [
         {
@@ -407,10 +407,10 @@ export default function AdminEditorForm() {
       layout: 'single-column',
       formLayout: 'columns',
       backgroundColor: '#dbeafe',
-      primaryColor: '#084F6E',
-      frameColor: '#ffffff',
-      titleColor: '#084F6E',
-      subtitleColor: '#666666',
+      primaryColor: 'hsl(var(--primary))',
+      frameColor: 'hsl(var(--background))',
+      titleColor: 'hsl(var(--primary))',
+      subtitleColor: 'hsl(var(--muted-foreground))',
       textColor: '#1e40af',
       fields: [
         {
@@ -424,7 +424,7 @@ export default function AdminEditorForm() {
       ],
       settings: {
         submitButtonText: 'S\'abonner',
-        submitButtonColor: '#084F6E',
+        submitButtonColor: 'hsl(var(--primary))',
         successMessage: 'Merci ! Vous êtes maintenant abonné à notre newsletter.',
         errorMessage: 'Une erreur est survenue. Veuillez réessayer.',
         emailNotification: false
@@ -443,9 +443,9 @@ export default function AdminEditorForm() {
       formLayout: 'columns',
       backgroundColor: '#fdf2f8',
       primaryColor: '#ec4899',
-      frameColor: '#ffffff',
+      frameColor: 'hsl(var(--background))',
       titleColor: '#ec4899',
-      subtitleColor: '#666666',
+      subtitleColor: 'hsl(var(--muted-foreground))',
       textColor: '#be185d',
       fields: [
         {
@@ -568,9 +568,9 @@ export default function AdminEditorForm() {
       description: 'Description de votre formulaire',
       layout: 'grid',
       formLayout: 'header',
-      primaryColor: '#084F6E',
+      primaryColor: 'hsl(var(--primary))',
       backgroundColor: '#f8fafc',
-      textColor: '#333333',
+      textColor: 'hsl(var(--foreground))',
       titleColor: '#FFFFFF',
       subtitleColor: '#FFFFFF',
       frameColor: '#FFFFFF',
@@ -595,7 +595,7 @@ export default function AdminEditorForm() {
       ],
       settings: {
         submitButtonText: 'Envoyer',
-        submitButtonColor: '#084F6E',
+        submitButtonColor: 'hsl(var(--primary))',
         successMessage: 'Merci pour votre message.',
         errorMessage: 'Une erreur est survenue.',
         emailNotification: true,

@@ -73,7 +73,7 @@ export default function AdminDashboard() {
       description: "Gérer les demandes de tours sur mesure",
       icon: <Calendar className="h-6 w-6" />,
       path: "/admin/custom-tours",
-      color: "from-blue-500 to-blue-600",
+      color: "from-primary to-primary/80",
       unreadCount: customTourUnread?.length || 0
     },
     {
@@ -81,7 +81,7 @@ export default function AdminDashboard() {
       description: "Demandes d'événements spéciaux",
       icon: <PartyPopper className="h-6 w-6" />,
       path: "/admin/krabi-celebration",
-      color: "from-pink-500 to-pink-600",
+      color: "from-secondary to-secondary/80",
       unreadCount: krabiUnread?.length || 0
     },
     {
@@ -89,7 +89,7 @@ export default function AdminDashboard() {
       description: "Propositions de collaboration",
       icon: <Handshake className="h-6 w-6" />,
       path: "/admin/partnership-requests",
-      color: "from-indigo-500 to-indigo-600",
+      color: "from-primary/70 to-primary",
       unreadCount: partnershipUnread?.length || 0
     },
     {
@@ -97,7 +97,7 @@ export default function AdminDashboard() {
       description: "Demandes de groupes et corporates",
       icon: <UsersIcon className="h-6 w-6" />,
       path: "/admin/group-requests",
-      color: "from-amber-500 to-amber-600",
+      color: "from-warning to-warning/80",
       unreadCount: groupUnread?.length || 0
     },
     {
@@ -105,14 +105,14 @@ export default function AdminDashboard() {
       description: "Créer et modifier les articles",
       icon: <BookOpen className="h-6 w-6" />,
       path: "/admin/blog",
-      color: "from-purple-500 to-purple-600"
+      color: "from-primary/60 to-primary/80"
     },
     {
       title: "Newsletter",
       description: "Gérer les abonnements newsletter",
       icon: <Newspaper className="h-6 w-6" />,
       path: "/admin/newsletter", 
-      color: "from-orange-500 to-orange-600",
+      color: "from-[hsl(var(--warning))] to-[hsl(var(--warning)/0.8)]",
       unreadCount: newsletterUnconfirmed?.length || 0
     },
     {
@@ -120,28 +120,28 @@ export default function AdminDashboard() {
       description: "Créer et gérer les cartes de présentation",
       icon: <ImagePlus className="h-6 w-6" />,
       path: "/tour-card-builder",
-      color: "from-teal-500 to-teal-600"
+      color: "from-secondary/80 to-secondary"
     },
     {
       title: "Messages de contact",
       description: "Consulter et répondre aux messages",
       icon: <Mail className="h-6 w-6" />,
       path: "/admin/messages",
-      color: "from-green-500 to-green-600"
+      color: "from-[hsl(var(--success))] to-[hsl(var(--success)/0.8)]"
     },
     {
       title: "Paramètres",
       description: "Configuration et préférences",
       icon: <Settings className="h-6 w-6" />,
       path: "/admin/settings",
-      color: "from-gray-500 to-gray-600"
+      color: "from-muted-foreground to-muted-foreground/80"
     }
   ];
 
   return (
     <>
       <Header />
-      <div className="min-h-screen bg-gray-50 pt-24 pb-16">
+      <div className="min-h-screen bg-muted/30 pt-24 pb-16">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -150,8 +150,8 @@ export default function AdminDashboard() {
           >
             <div className="flex justify-between items-center mb-8">
               <div>
-                <h1 className="text-3xl font-heading font-bold text-gray-900">Administration</h1>
-                <p className="text-gray-600 mt-2">Panneau de gestion centralisé</p>
+                <h1 className="text-3xl font-heading font-bold text-foreground">Administration</h1>
+                <p className="text-muted-foreground mt-2">Panneau de gestion centralisé</p>
               </div>
               <Button variant="outline" onClick={handleLogout} className="flex items-center gap-2">
                 <LogOut className="h-4 w-4" />

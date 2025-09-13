@@ -415,14 +415,14 @@ function MiniaturizedComponent({
                 </div>
               </div>
               <div className="bg-white rounded shadow-sm overflow-hidden">
-                <div className="h-6 bg-gradient-to-br from-green-300 to-green-500"></div>
+                <div className="h-6 bg-gradient-to-br from-[hsl(var(--success)/0.6)] to-[hsl(var(--success))]"></div>
                 <div className="p-1">
                   <div className="text-[7px] font-semibold">Phang Nga</div>
                   <div className="text-[6px] text-gray-600">$75</div>
                 </div>
               </div>
               <div className="bg-white rounded shadow-sm overflow-hidden">
-                <div className="h-6 bg-gradient-to-br from-orange-300 to-orange-500"></div>
+                <div className="h-6 bg-gradient-to-br from-[hsl(var(--warning)/0.6)] to-[hsl(var(--warning))]"></div>
                 <div className="p-1">
                   <div className="text-[7px] font-semibold">Railay</div>
                   <div className="text-[6px] text-gray-600">$60</div>
@@ -487,7 +487,7 @@ function MiniaturizedComponent({
               <div className="flex justify-center mb-1">
                 <div className="text-[8px] text-secondary">★★★★★</div>
               </div>
-              <div className="text-[8px] text-blue-600 font-bold">5.0 on Google</div>
+              <div className="text-[8px] text-primary font-bold">5.0 on Google</div>
               <div className="text-[6px] text-gray-600">Based on 80 reviews</div>
             </div>
             <div className="grid grid-cols-2 gap-1 h-10">
@@ -505,7 +505,7 @@ function MiniaturizedComponent({
         
       case 'contact_hero':
         return (
-          <div className="h-full bg-gradient-to-br from-blue-600 to-blue-800 p-2 text-white text-center flex flex-col justify-center">
+          <div className="h-full bg-gradient-to-br from-primary to-primary/80 p-2 text-white text-center flex flex-col justify-center">
             <div className="text-[10px] font-bold mb-1">{block.title || "Contact Us"}</div>
             <div className="text-[8px] opacity-90">{block.description || "Get in touch for your perfect trip"}</div>
           </div>
@@ -516,7 +516,7 @@ function MiniaturizedComponent({
           <div className="h-full bg-gray-50 p-2">
             <div className="grid grid-cols-3 gap-1 h-full">
               <div className="bg-white rounded p-1 text-center">
-                <div className="w-3 h-3 bg-green-500 rounded-full mx-auto mb-1"></div>
+                <div className="w-3 h-3 bg-[hsl(var(--success))] rounded-full mx-auto mb-1"></div>
                 <div className="text-[7px] font-semibold">WhatsApp</div>
               </div>
               <div className="bg-white rounded p-1 text-center">
@@ -562,14 +562,14 @@ function MiniaturizedComponent({
                 </div>
               </div>
               <div className="bg-white rounded shadow-sm overflow-hidden">
-                <div className="h-4 bg-gradient-to-br from-green-300 to-green-500"></div>
+                <div className="h-4 bg-gradient-to-br from-[hsl(var(--success)/0.6)] to-[hsl(var(--success))]"></div>
                 <div className="p-1">
                   <div className="text-[6px] font-semibold">Phang Nga</div>
                   <div className="text-[5px] text-gray-600">1 day</div>
                 </div>
               </div>
               <div className="bg-white rounded shadow-sm overflow-hidden">
-                <div className="h-4 bg-gradient-to-br from-orange-300 to-orange-500"></div>
+                <div className="h-4 bg-gradient-to-br from-[hsl(var(--warning)/0.6)] to-[hsl(var(--warning))]"></div>
                 <div className="p-1">
                   <div className="text-[6px] font-semibold">Railay</div>
                   <div className="text-[5px] text-gray-600">1 day</div>
@@ -614,14 +614,14 @@ function MiniaturizedComponent({
                 </div>
               </div>
               <div className="bg-white rounded shadow-sm overflow-hidden">
-                <div className="h-4 bg-gradient-to-br from-green-300 to-green-500"></div>
+                <div className="h-4 bg-gradient-to-br from-[hsl(var(--success)/0.6)] to-[hsl(var(--success))]"></div>
                 <div className="p-1">
                   <div className="text-[6px] font-semibold">Phang Nga</div>
                   <div className="text-[5px] text-gray-600">$75</div>
                 </div>
               </div>
               <div className="bg-white rounded shadow-sm overflow-hidden">
-                <div className="h-4 bg-gradient-to-br from-orange-300 to-orange-500"></div>
+                <div className="h-4 bg-gradient-to-br from-[hsl(var(--warning)/0.6)] to-[hsl(var(--warning))]"></div>
                 <div className="p-1">
                   <div className="text-[6px] font-semibold">Railay</div>
                   <div className="text-[5px] text-gray-600">$60</div>

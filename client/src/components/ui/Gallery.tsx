@@ -211,7 +211,7 @@ export default function Gallery({ images, title, subtitle, className = "" }: Gal
                     key={index}
                     onClick={() => setCurrentIndex(index)}
                     className={`w-2 h-2 rounded-full transition-colors ${
-                      index === currentIndex ? 'bg-blue-600' : 'bg-gray-300'
+                      index === currentIndex ? 'bg-primary' : 'bg-gray-300'
                     }`}
                     aria-label={`Aller au groupe d'images ${index + 1}`}
                   />

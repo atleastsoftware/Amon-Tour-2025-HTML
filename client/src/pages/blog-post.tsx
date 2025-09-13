@@ -327,7 +327,7 @@ export default function BlogPostPage() {
         <div className="container mx-auto px-4 py-12">
           <div className="max-w-4xl mx-auto">
             {/* Back Button */}
-            <Link href="/blog" className="inline-flex items-center text-blue-600 hover:text-blue-800 mb-8">
+            <Link href="/blog" className="inline-flex items-center text-primary hover:text-primary/80 mb-8">
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Blog
             </Link>
@@ -350,7 +350,7 @@ export default function BlogPostPage() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
                   {post.category && (
-                    <Badge className="absolute top-4 left-4 bg-blue-600 shadow-lg">
+                    <Badge className="absolute top-4 left-4 bg-primary shadow-lg">
                       {post.category.name}
                     </Badge>
                   )}
@@ -400,7 +400,7 @@ export default function BlogPostPage() {
                       return <h3 key={index} className="text-xl font-bold mt-4 mb-2">{parseInlineMarkdown(paragraph.slice(4))}</h3>;
                     }
                     if (paragraph.startsWith('> ')) {
-                      return <blockquote key={index} className="border-l-4 border-blue-500 pl-4 italic text-gray-700 my-4">{parseInlineMarkdown(paragraph.slice(2))}</blockquote>;
+                      return <blockquote key={index} className="border-l-4 border-primary pl-4 italic text-gray-700 my-4">{parseInlineMarkdown(paragraph.slice(2))}</blockquote>;
                     }
                     if (paragraph.startsWith('- ')) {
                       return <li key={index} className="ml-4">{parseInlineMarkdown(paragraph.slice(2))}</li>;
@@ -414,8 +414,8 @@ export default function BlogPostPage() {
                 
                 {/* Related Tours Section - SEO optimized call-to-action */}
                 {getRelatedTours(post.slug).length > 0 && (
-                  <div className="mt-12 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-200 shadow-sm">
-                    <h3 className="text-xl font-bold text-blue-900 mb-4 flex items-center gap-2">
+                  <div className="mt-12 p-6 bg-gradient-to-r from-primary/10 to-primary/20 rounded-xl border border-primary/30 shadow-sm">
+                    <h3 className="text-xl font-bold text-primary mb-4 flex items-center gap-2">
                       <span>🌴</span>
                       Tours Recommended by Amon Tour
                     </h3>
@@ -434,7 +434,7 @@ export default function BlogPostPage() {
                                   <span>⏱️</span>
                                   <strong>{tour.duration}</strong>
                                 </span>
-                                <span className="flex items-center gap-1 text-green-600">
+                                <span className="flex items-center gap-1 text-[hsl(var(--success))]">
                                   <span>💰</span>
                                   <strong>
                                     {tour.currency === 'THB' 
@@ -450,7 +450,7 @@ export default function BlogPostPage() {
                                 href={tour.tourNinjaUrl} 
                                 target="_blank" 
                                 rel="noopener noreferrer"
-                                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-colors text-center shadow-sm"
+                                className="bg-primary hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-colors text-center shadow-sm"
                                 aria-label={`View details and book ${tour.title}`}
                               >
                                 View Details
@@ -471,7 +471,7 @@ export default function BlogPostPage() {
                       <div className="flex items-start gap-3">
                         <span className="text-blue-600 text-lg">💡</span>
                         <div>
-                          <p className="font-semibold text-blue-900 mb-1">Why choose Amon Tour?</p>
+                          <p className="font-semibold text-primary mb-1">Why choose Amon Tour?</p>
                           <ul className="text-sm text-blue-800 space-y-1">
                             <li>• <strong>Expert local guides</strong> - Authentic discovery with detailed explanations</li>
                             <li>• <strong>Small groups</strong> - Personalized and quality experience</li>

@@ -39,17 +39,17 @@ export default function AdminEditorArticle() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 px-2 pb-4 sm:px-4 sm:pb-4">
+    <div className="min-h-screen bg-muted/30 px-2 pb-4 sm:px-4 sm:pb-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 mb-6 mt-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:justify-between">
             <div className="w-full sm:w-auto">
-              <h1 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2 sm:gap-3">
-                <Users className="h-6 w-6 sm:h-7 sm:w-7 text-green-600 flex-shrink-0" />
+              <h1 className="text-xl sm:text-2xl font-bold text-foreground mb-2 flex items-center gap-2 sm:gap-3">
+                <Users className="h-6 w-6 sm:h-7 sm:w-7 text-primary flex-shrink-0" />
                 <span className="truncate">Éditeur d'Articles</span>
               </h1>
-              <p className="text-sm sm:text-base text-gray-600">Créez et gérez des articles avec des titres, texte, images personnalisés</p>
+              <p className="text-sm sm:text-base text-muted-foreground">Créez et gérez des articles avec des titres, texte, images personnalisés</p>
             </div>
             <Button 
               variant="outline" 
@@ -66,7 +66,7 @@ export default function AdminEditorArticle() {
         <div className="mb-6">
           <Button 
             onClick={handleAddArticle}
-            className="bg-green-600 hover:bg-green-700 text-white flex items-center gap-2"
+            className="bg-primary hover:bg-primary/90 text-primary-foreground flex items-center gap-2"
           >
             <Plus className="h-4 w-4" />
             Ajouter un article
@@ -76,21 +76,21 @@ export default function AdminEditorArticle() {
         {/* Articles List */}
         <div className="space-y-4">
           {articles.map((article: any) => (
-            <Card key={article.id} className="bg-white border border-gray-200 hover:border-green-300 transition-colors">
+            <Card key={article.id} className="bg-background border border-border hover:border-primary/50 transition-colors">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-4 mb-2">
-                      <h3 className="text-lg font-semibold text-gray-900">
+                      <h3 className="text-lg font-semibold text-foreground">
                         {article.title}
                       </h3>
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                        article.status === 'Publié' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                        article.status === 'Publié' ? 'bg-success/10 text-success' : 'bg-warning/10 text-warning'
                       }`}>
                         {article.status}
                       </span>
                     </div>
-                    <div className="flex items-center gap-6 text-sm text-gray-500">
+                    <div className="flex items-center gap-6 text-sm text-muted-foreground">
                       <span>Catégorie: {article.category}</span>
                       <span>Créé le: {article.createdAt}</span>
                       <span>Modifié le: {article.lastModified}</span>
@@ -112,7 +112,7 @@ export default function AdminEditorArticle() {
                       variant="outline"
                       size="sm"
                       onClick={() => handleEditArticle(article.id)}
-                      className="flex items-center gap-1 bg-green-50 border-green-200 hover:bg-green-100"
+                      className="flex items-center gap-1 bg-primary/5 border-primary/20 hover:bg-primary/10"
                     >
                       <Edit className="h-4 w-4" />
                       Modifier

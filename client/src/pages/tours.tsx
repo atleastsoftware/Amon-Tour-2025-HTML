@@ -183,7 +183,7 @@ export default function Tours() {
       />
       <Header />
       
-      <main className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100">
+      <main className="min-h-screen bg-gradient-to-br from-primary/10 to-primary/20">
         {/* Hero */}
         <HeroHeader 
           title="Our Experiences"
@@ -299,7 +299,7 @@ export default function Tours() {
                 >
                   <Card className="h-full bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden">
                     <div 
-                      className="relative h-64 bg-gradient-to-br from-blue-200 to-blue-300 cursor-pointer"
+                      className="relative h-64 bg-gradient-to-br from-primary/40 to-primary/60 cursor-pointer"
                       onClick={() => handleTourPresentation(tour)}
                     >
                       {tour.primaryImage ? (
@@ -314,7 +314,7 @@ export default function Tours() {
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">
-                          <MapPin className="h-16 w-16 text-blue-400" />
+                          <MapPin className="h-16 w-16 text-primary/70" />
                         </div>
                       )}
                       <div className="absolute top-4 right-4">
@@ -327,7 +327,7 @@ export default function Tours() {
                     
                     <CardContent className="p-6">
                       <h3 
-                        className="text-xl font-bold text-gray-800 mb-3 line-clamp-2 cursor-pointer hover:text-blue-600 transition-colors"
+                        className="text-xl font-bold text-gray-800 mb-3 line-clamp-2 cursor-pointer hover:text-primary transition-colors"
                         onClick={() => handleTourPresentation(tour)}
                       >
                         {tour.name}
@@ -348,14 +348,14 @@ export default function Tours() {
                         <Button 
                           onClick={() => handleTourDetails(tour)}
                           variant="outline"
-                          className="flex-1 border-blue-600 text-blue-600 hover:bg-blue-50"
+                          className="flex-1 border-primary text-primary hover:bg-primary/10"
                         >
                           View details
                           <ExternalLink className="h-4 w-4 ml-2" />
                         </Button>
                         <Button 
                           onClick={() => handleTourBooking(tour)}
-                          className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
+                          className="flex-1 bg-primary hover:bg-primary/90 text-white"
                         >
                           Book
                           <ExternalLink className="h-4 w-4 ml-2" />

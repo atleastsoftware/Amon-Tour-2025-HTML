@@ -108,9 +108,9 @@ export default function MarqueeSection() {
               <CardContent className="p-4">
                 <h4 className="font-heading font-semibold text-lg mb-2 line-clamp-2">{tour.name}</h4>
                 <div className="flex items-center text-gray-600">
-                  <span className="text-sm">📍 {tour.location}</span>
+                  <span className="text-sm text-muted-foreground">📍 {tour.location}</span>
                 </div>
-                <p className="text-xs text-gray-500 mt-1 line-clamp-2">{tour.shortDescription}</p>
+                <p className="text-xs text-muted-foreground/80 mt-1 line-clamp-2">{tour.shortDescription}</p>
               </CardContent>
             </Card>
           </Link>

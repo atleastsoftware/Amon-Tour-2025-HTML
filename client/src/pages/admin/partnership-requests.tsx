@@ -119,7 +119,7 @@ export default function AdminPartnershipRequests() {
           <div className="container mx-auto px-4">
             <div className="flex items-center justify-center h-96">
               <div className="text-center">
-                <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto"></div>
+                <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto"></div>
                 <p className="mt-4 text-gray-600">Chargement...</p>
               </div>
             </div>
@@ -158,7 +158,7 @@ export default function AdminPartnershipRequests() {
                   Back
                 </Button>
                 <div className="flex items-center gap-3">
-                  <Handshake className="h-8 w-8 text-indigo-600" />
+                  <Handshake className="h-8 w-8 text-primary" />
                   <div>
                     <h1 className="text-3xl font-heading text-gray-900">Demandes de partenariat</h1>
                     <p className="text-gray-600">Propositions de collaboration</p>
@@ -226,7 +226,7 @@ export default function AdminPartnershipRequests() {
                                 href={request.website} 
                                 target="_blank" 
                                 rel="noopener noreferrer"
-                                className="text-blue-600 hover:underline"
+                                className="text-primary hover:underline"
                               >
                                 {request.website}
                               </a>
@@ -279,7 +279,7 @@ export default function AdminPartnershipRequests() {
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <Handshake className="h-5 w-5 text-indigo-600" />
+              <Handshake className="h-5 w-5 text-primary" />
               Demande de partenariat
             </DialogTitle>
             <DialogDescription>
@@ -324,7 +324,7 @@ export default function AdminPartnershipRequests() {
                         href={selectedRequest.website} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="text-blue-600 hover:underline flex items-center gap-1"
+                        className="text-primary hover:underline flex items-center gap-1"
                       >
                         <Globe className="h-4 w-4" />
                         {selectedRequest.website}

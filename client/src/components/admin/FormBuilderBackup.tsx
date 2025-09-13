@@ -118,19 +118,19 @@ const FIELD_TYPES = [
   { type: 'number', label: 'Nombre', icon: Hash },
 ] as const;
 
-// Couleurs principales du système
+// Couleurs principales du système - utilisation du système de tokens CSS
 const SYSTEM_COLORS = {
-  primary: '#084F6E',
-  secondary: '#3BA8AF',
-  white: '#ffffff',
-  gray: '#6b7280',
-  dark: '#1f2937'
+  primary: 'hsl(var(--primary))',
+  secondary: 'hsl(var(--secondary))',
+  white: 'hsl(var(--background))',
+  gray: 'hsl(var(--muted-foreground))',
+  dark: 'hsl(var(--foreground))'
 };
 
 // Couleurs principales du thème
 const THEME_COLORS = {
-  primary: '#084F6E',
-  secondary: '#3BA8AF'
+  primary: 'hsl(var(--primary))',
+  secondary: 'hsl(var(--secondary))'
 };
 
 // Composant ColorPicker compact avec sélecteur natif + cases rapides
@@ -143,7 +143,7 @@ interface ColorPickerProps {
 function ColorPicker({ value, onChange, label }: ColorPickerProps) {
   const [isEditingCustom, setIsEditingCustom] = useState(false);
   const [customInput, setCustomInput] = useState('');
-  const currentColorValue = value || '#ffffff';
+  const currentColorValue = value || 'hsl(var(--background))';
 
   // Fonction pour convertir RGB en HEX si nécessaire
   const ensureHexFormat = (color: string): string => {
@@ -220,7 +220,7 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
         {/* Cadre de couleur personnalisable à gauche */}
         <div className="relative">
           <div 
-            className="w-8 h-8 rounded border border-gray-300 cursor-pointer relative overflow-hidden hover:border-gray-400 transition-colors"
+            className="w-8 h-8 rounded border border-border cursor-pointer relative overflow-hidden hover:border-border/80 transition-colors"
             style={{ backgroundColor: currentColorValue }}
             title="Cliquez pour personnaliser la couleur"
           >
@@ -248,7 +248,7 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
                 setCustomInput('');
               }
             }}
-            placeholder="#ffffff"
+            placeholder="hsl(var(--background))"
             className="flex-1 font-mono text-sm"
             autoFocus
           />
@@ -269,7 +269,7 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
           </Select>
         )}
       </div>
-      <p className="text-xs text-gray-500">
+      <p className="text-xs text-muted-foreground">
         Cliquez sur le carré de couleur pour choisir visuellement ou sur le code couleur pour saisir directement
       </p>
     </div>
@@ -305,7 +305,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
     };
   }, []);
 
-  // Fonction pour résoudre la couleur (convertit 'primary' en '#084F6E', etc.)
+  // Fonction pour résoudre la couleur (convertit 'primary' en variables CSS, etc.)
   const resolveColor = (colorValue: string) => {
     return SYSTEM_COLORS[colorValue as keyof typeof SYSTEM_COLORS] || colorValue;
   };
@@ -316,8 +316,8 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
       // S'assurer que les couleurs titre et sous-titre sont blanches pour la visibilité
       return {
         ...initialForm,
-        titleColor: initialForm.titleColor || '#ffffff',
-        subtitleColor: initialForm.subtitleColor || '#ffffff',
+        titleColor: initialForm.titleColor || 'hsl(var(--background))',
+        subtitleColor: initialForm.subtitleColor || 'hsl(var(--background))',
         formLayout: initialForm.formLayout || 'columns',
       };
     }
@@ -331,12 +331,12 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
       headerImage: '/catamaran-cruise.png',
       layout: 'single-column' as const,
       formLayout: 'columns' as const,
-      backgroundColor: '#ffffff',
-      primaryColor: '#084F6E',
-      frameColor: '#ffffff',
-      titleColor: '#ffffff',
-      subtitleColor: '#ffffff',
-      textColor: '#333333',
+      backgroundColor: 'hsl(var(--background))',
+      primaryColor: 'hsl(var(--primary))',
+      frameColor: 'hsl(var(--background))',
+      titleColor: 'hsl(var(--background))',
+      subtitleColor: 'hsl(var(--background))',
+      textColor: 'hsl(var(--foreground))',
       fields: [
         {
           id: 'fullname',
@@ -433,7 +433,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
       ],
       settings: {
         submitButtonText: 'Send my request',
-        submitButtonColor: '#084F6E',
+        submitButtonColor: 'hsl(var(--primary))',
         successMessage: 'We will contact you very soon to discuss your travel project.',
         errorMessage: 'There was a problem sending your request. Please try again.',
         emailNotification: true,
@@ -681,9 +681,9 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-muted/30">
       {/* Header Bar */}
-      <div className="bg-white border-b p-4 sticky top-0 z-10">
+      <div className="bg-card border-b p-4 sticky top-0 z-10">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-6">
             <h2 className="text-lg font-semibold">Constructeur de formulaire</h2>
@@ -714,7 +714,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
       {showPreview && (
         <div className="bg-gray-100 border-b">
           <div className="p-6">
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden max-w-6xl mx-auto">
+            <div className="bg-card rounded-lg shadow-lg overflow-hidden max-w-6xl mx-auto">
               {formData.formLayout === 'header' ? (
                 // Layout Header - Image en haut, formulaire en dessous
                 <div className="flex flex-col">
@@ -730,7 +730,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                         }}
                       />
                     ) : (
-                      <div className="w-full h-full bg-gray-200"></div>
+                      <div className="w-full h-full bg-muted"></div>
                     )}
                     <div 
                       className="absolute inset-0 flex flex-col justify-center items-center text-center p-8"
@@ -756,8 +756,8 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                   <div className="p-8" style={{ backgroundColor: resolveColor(formData.frameColor) }}>
                     {/* Form Content pour Header Layout */}
                     {formData.fields.length === 0 ? (
-                      <div className="text-center py-16 text-gray-500">
-                        <FormInput className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+                      <div className="text-center py-16 text-muted-foreground">
+                        <FormInput className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
                         <p>Ajoutez des champs pour voir la prévisualisation</p>
                       </div>
                     ) : (
@@ -843,7 +843,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                           <Button 
                             style={{ 
                               backgroundColor: resolveColor(formData.primaryColor),
-                              color: '#ffffff'
+                              color: 'hsl(var(--primary-foreground))'
                             }}
                             className="w-full px-8 py-2"
                           >
@@ -871,7 +871,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                         }}
                       />
                     ) : (
-                      <div className="w-full h-full bg-gray-200"></div>
+                      <div className="w-full h-full bg-muted"></div>
                     )}
                     <div 
                       className="absolute inset-0 flex flex-col justify-center p-8"
@@ -897,8 +897,8 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                   {/* Form Side */}
                   <div className="p-8" style={{ backgroundColor: resolveColor(formData.frameColor) }}>
                     {formData.fields.length === 0 ? (
-                      <div className="text-center py-16 text-gray-500 h-full flex flex-col items-center justify-center">
-                        <FormInput className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+                      <div className="text-center py-16 text-muted-foreground h-full flex flex-col items-center justify-center">
+                        <FormInput className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
                         <p>Ajoutez des champs pour voir la prévisualisation</p>
                       </div>
                     ) : (
@@ -984,7 +984,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                           <Button 
                             style={{ 
                               backgroundColor: resolveColor(formData.primaryColor),
-                              color: '#ffffff'
+                              color: 'hsl(var(--primary-foreground))'
                             }}
                             className="w-full px-8 py-2"
                           >
@@ -1002,7 +1002,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
       )}
 
       {/* Bottom Panel - Editor */}
-      <div className="bg-white overflow-auto flex-1">
+      <div className="bg-card overflow-auto flex-1">
         {/* Tab Navigation */}
         <div className="flex border-b p-4 pb-0">
           <div className="flex">
@@ -1019,8 +1019,8 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                   onClick={() => setActiveTab(tab.id as any)}
                   className={`flex items-center gap-2 px-4 py-2 text-sm font-medium border-b-2 ${
                     activeTab === tab.id
-                      ? 'border-blue-500 text-blue-600'
-                      : 'border-transparent text-gray-500 hover:text-gray-700'
+                      ? 'border-primary text-primary'
+                      : 'border-transparent text-muted-foreground hover:text-foreground'
                   }`}
                 >
                   <Icon className="h-4 w-4" />
@@ -1064,7 +1064,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                       onChange={(e) => setFormData(prev => ({ ...prev, headerImage: e.target.value }))}
                       placeholder="URL de l'image (ex: /catamaran-cruise.png)"
                     />
-                    <p className="text-xs text-gray-500 mt-1">Cette image apparaîtra à gauche du formulaire comme sur le site</p>
+                    <p className="text-xs text-muted-foreground mt-1">Cette image apparaîtra à gauche du formulaire comme sur le site</p>
                   </div>
                 </CardContent>
               </Card>
@@ -1126,7 +1126,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                   </CardHeader>
                   <CardContent>
                     {formData.fields.length === 0 ? (
-                      <p className="text-gray-500 text-sm py-4 text-center">
+                      <p className="text-muted-foreground text-sm py-4 text-center">
                         Aucun champ ajouté. Utilisez les boutons ci-dessus pour ajouter des champs.
                       </p>
                     ) : (
@@ -1135,14 +1135,14 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                           <Reorder.Item key={field.id} value={field}>
                             <Card 
                               className={`mb-2 cursor-pointer transition-colors ${
-                                selectedField === field.id ? 'ring-2 ring-blue-500' : ''
+                                selectedField === field.id ? 'ring-2 ring-primary' : ''
                               }`}
                               onClick={() => setSelectedField(field.id)}
                             >
                               <CardContent className="p-3">
                                 <div className="flex items-center justify-between">
                                   <div className="flex items-center gap-2">
-                                    <GripVertical className="h-4 w-4 text-gray-400" />
+                                    <GripVertical className="h-4 w-4 text-muted-foreground/60" />
                                     <Badge variant="outline" className="text-xs">
                                       {FIELD_TYPES.find(t => t.type === field.type)?.label}
                                     </Badge>
@@ -1294,56 +1294,56 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                 <Card>
                   <CardHeader>
                     <CardTitle className="text-sm">Disposition</CardTitle>
-                    <p className="text-xs text-gray-500">Choisissez comment organiser l'image et le formulaire</p>
+                    <p className="text-xs text-muted-foreground">Choisissez comment organiser l'image et le formulaire</p>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="grid grid-cols-1 gap-3">
                       <div 
-                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all hover:border-blue-300 ${
-                          formData.formLayout === 'columns' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
+                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all hover:border-primary/50 ${
+                          formData.formLayout === 'columns' ? 'border-primary bg-primary/5' : 'border-border'
                         }`}
                         onClick={() => setFormData(prev => ({ ...prev, formLayout: 'columns' as const }))}
                       >
                         <div className="flex items-center gap-3 mb-2">
                           <div className="flex gap-1">
-                            <div className="w-4 h-3 bg-blue-200 rounded-sm"></div>
-                            <div className="w-4 h-3 bg-gray-200 rounded-sm"></div>
+                            <div className="w-4 h-3 bg-primary/20 rounded-sm"></div>
+                            <div className="w-4 h-3 bg-muted rounded-sm"></div>
                           </div>
                           <Label className="font-medium text-sm">Colonnes</Label>
                         </div>
-                        <p className="text-xs text-gray-600">Image et titre à gauche, formulaire à droite</p>
+                        <p className="text-xs text-muted-foreground">Image et titre à gauche, formulaire à droite</p>
                       </div>
                       
                       <div 
-                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all hover:border-blue-300 ${
-                          formData.formLayout === 'columns-reversed' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
+                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all hover:border-primary/50 ${
+                          formData.formLayout === 'columns-reversed' ? 'border-primary bg-primary/5' : 'border-border'
                         }`}
                         onClick={() => setFormData(prev => ({ ...prev, formLayout: 'columns-reversed' as const }))}
                       >
                         <div className="flex items-center gap-3 mb-2">
                           <div className="flex gap-1">
-                            <div className="w-4 h-3 bg-gray-200 rounded-sm"></div>
-                            <div className="w-4 h-3 bg-blue-200 rounded-sm"></div>
+                            <div className="w-4 h-3 bg-muted rounded-sm"></div>
+                            <div className="w-4 h-3 bg-primary/20 rounded-sm"></div>
                           </div>
                           <Label className="font-medium text-sm">Colonnes inversées</Label>
                         </div>
-                        <p className="text-xs text-gray-600">Formulaire à gauche, image et titre à droite</p>
+                        <p className="text-xs text-muted-foreground">Formulaire à gauche, image et titre à droite</p>
                       </div>
                       
                       <div 
-                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all hover:border-blue-300 ${
-                          formData.formLayout === 'header' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
+                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all hover:border-primary/50 ${
+                          formData.formLayout === 'header' ? 'border-primary bg-primary/5' : 'border-border'
                         }`}
                         onClick={() => setFormData(prev => ({ ...prev, formLayout: 'header' as const }))}
                       >
                         <div className="flex items-center gap-3 mb-2">
                           <div className="flex flex-col gap-1">
-                            <div className="w-8 h-2 bg-blue-200 rounded-sm"></div>
-                            <div className="w-8 h-3 bg-gray-200 rounded-sm"></div>
+                            <div className="w-8 h-2 bg-primary/20 rounded-sm"></div>
+                            <div className="w-8 h-3 bg-muted rounded-sm"></div>
                           </div>
                           <Label className="font-medium text-sm">Header</Label>
                         </div>
-                        <p className="text-xs text-gray-600">Image et titre en haut, formulaire en dessous sur toute la largeur</p>
+                        <p className="text-xs text-muted-foreground">Image et titre en haut, formulaire en dessous sur toute la largeur</p>
                       </div>
                     </div>
                   </CardContent>

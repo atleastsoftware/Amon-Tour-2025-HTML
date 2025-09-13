@@ -24,7 +24,7 @@ export default function Contact() {
         />
 
         {/* Main Content */}
-        <section className="py-16 bg-white">
+        <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
               
@@ -38,7 +38,7 @@ export default function Contact() {
                 <h2 className="font-heading font-bold text-2xl md:text-3xl mb-6 text-center">
                   Get In Touch
                 </h2>
-                <p className="text-gray-600 mb-8">
+                <p className="text-muted-foreground mb-8">
                   Ready to explore Krabi? Contact us through any of the methods below. 
                   Our friendly team is here to answer your questions and help you plan 
                   an unforgettable experience.
@@ -47,7 +47,7 @@ export default function Contact() {
                 <div className="space-y-6">
                   {/* Email */}
                   <motion.div 
-                    className="flex items-center space-x-4 p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+                    className="flex items-center space-x-4 p-4 bg-background border border-border rounded-lg shadow-sm hover:shadow-md transition-shadow"
                     whileHover={{ y: -2 }}
                   >
                     <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
@@ -57,7 +57,7 @@ export default function Contact() {
                       <p className="font-heading font-semibold text-primary">Email</p>
                       <a 
                         href="mailto:info@amon-tour.com"
-                        className="text-gray-700 hover:text-primary transition-colors"
+                        className="text-foreground hover:text-primary transition-colors"
                       >
                         info@amon-tour.com
                       </a>
@@ -66,7 +66,7 @@ export default function Contact() {
 
                   {/* Phone */}
                   <motion.div 
-                    className="flex items-center space-x-4 p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+                    className="flex items-center space-x-4 p-4 bg-background border border-border rounded-lg shadow-sm hover:shadow-md transition-shadow"
                     whileHover={{ y: -2 }}
                   >
                     <div className="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center flex-shrink-0">
@@ -76,7 +76,7 @@ export default function Contact() {
                       <p className="font-heading font-semibold text-primary">Phone</p>
                       <a 
                         href="tel:+66962166559"
-                        className="text-gray-700 hover:text-primary transition-colors"
+                        className="text-foreground hover:text-primary transition-colors"
                       >
                         +66 (0)96 216 6559
                       </a>
@@ -85,11 +85,11 @@ export default function Contact() {
 
                   {/* WhatsApp */}
                   <motion.div 
-                    className="flex items-center space-x-4 p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+                    className="flex items-center space-x-4 p-4 bg-background border border-border rounded-lg shadow-sm hover:shadow-md transition-shadow"
                     whileHover={{ y: -2 }}
                   >
-                    <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                      <MessageCircle className="w-6 h-6 text-green-600" />
+                    <div className="w-12 h-12 bg-[hsl(var(--success)/0.1)] rounded-full flex items-center justify-center flex-shrink-0">
+                      <MessageCircle className="w-6 h-6 text-[hsl(var(--success))]" />
                     </div>
                     <div>
                       <p className="font-heading font-semibold text-primary">WhatsApp</p>
@@ -97,7 +97,7 @@ export default function Contact() {
                         href="https://wa.me/66653496445"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-gray-700 hover:text-primary transition-colors"
+                        className="text-foreground hover:text-primary transition-colors"
                       >
                         +66 65 349 6445
                       </a>
@@ -106,29 +106,29 @@ export default function Contact() {
 
                   {/* Line */}
                   <motion.div 
-                    className="flex items-center space-x-4 p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+                    className="flex items-center space-x-4 p-4 bg-background border border-border rounded-lg shadow-sm hover:shadow-md transition-shadow"
                     whileHover={{ y: -2 }}
                   >
-                    <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                      <MessageCircle className="w-6 h-6 text-green-600" />
+                    <div className="w-12 h-12 bg-[hsl(var(--success)/0.1)] rounded-full flex items-center justify-center flex-shrink-0">
+                      <MessageCircle className="w-6 h-6 text-[hsl(var(--success))]" />
                     </div>
                     <div>
                       <p className="font-heading font-semibold text-primary">Line ID</p>
-                      <span className="text-gray-700">amontour</span>
+                      <span className="text-foreground">amontour</span>
                     </div>
                   </motion.div>
                 </div>
 
                 {/* Business Info */}
                 <motion.div 
-                  className="mt-8 p-6 bg-neutral-50 rounded-lg"
+                  className="mt-8 p-6 bg-muted rounded-lg"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.3 }}
                 >
                   <h3 className="font-heading font-bold text-lg mb-3">About Our Company</h3>
-                  <div className="space-y-2 text-sm text-gray-600">
+                  <div className="space-y-2 text-sm text-muted-foreground">
                     <p>
                       <strong>Amon Tour is a brand of:</strong><br />
                       Flame BB Co., Ltd.
@@ -150,7 +150,7 @@ export default function Contact() {
         </section>
 
         {/* Call to Action */}
-        <section className="py-12 bg-neutral-50">
+        <section className="py-12 bg-muted">
           <div className="container mx-auto px-4">
             <motion.div 
               className="text-center max-w-3xl mx-auto"
@@ -162,7 +162,7 @@ export default function Contact() {
               <h3 className="font-heading font-bold text-2xl md:text-3xl mb-4">
                 Ready to Start Your Adventure?
               </h3>
-              <p className="text-gray-600 mb-6">
+              <p className="text-muted-foreground mb-6">
                 Whether you're looking for a private tour, custom itinerary, or have questions about Krabi, 
                 our local experts are ready to help you create unforgettable memories.
               </p>
@@ -171,13 +171,13 @@ export default function Contact() {
                   href="https://wa.me/66653496445" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-heading font-semibold transition-colors"
+                  className="bg-[hsl(var(--success))] hover:bg-[hsl(var(--success)/0.9)] text-[hsl(var(--success-foreground))] px-6 py-3 rounded-lg font-heading font-semibold transition-colors"
                 >
                   Chat on WhatsApp
                 </a>
                 <a 
                   href="mailto:info@amon-tour.com"
-                  className="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-lg font-heading font-semibold transition-colors"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 rounded-lg font-heading font-semibold transition-colors"
                 >
                   Send us an Email
                 </a>

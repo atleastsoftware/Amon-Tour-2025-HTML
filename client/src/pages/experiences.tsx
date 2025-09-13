@@ -225,7 +225,7 @@ export default function Experiences() {
                       />
                       <div className="absolute inset-0 bg-black bg-opacity-20"></div>
                       <div className="absolute top-4 left-4">
-                        <span className="bg-cyan-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                        <span className="bg-secondary text-white px-3 py-1 rounded-full text-sm font-semibold">
                           Plages & Îles
                         </span>
                       </div>

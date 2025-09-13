@@ -60,12 +60,12 @@ export function WhatsAppButton() {
         href="https://wa.me/66653496445"
         target="_blank"
         rel="noopener noreferrer"
-        className={`bg-green-500 text-white rounded-full p-4 shadow-lg flex items-center justify-center hover:bg-green-600 transition-colors cursor-pointer
+        className={`bg-[hsl(var(--success))] text-[hsl(var(--success-foreground))] rounded-full p-4 shadow-lg flex items-center justify-center hover:bg-[hsl(var(--success)/0.9)] transition-colors cursor-pointer
                    ${isMobile ? 'w-16 h-16' : 'w-14 h-14'}`}
         style={{ 
           boxShadow: isHovered 
-            ? "0 0 20px rgba(74, 222, 128, 0.6), 0 8px 16px rgba(0, 0, 0, 0.15)" 
-            : "0 4px 12px rgba(0, 0, 0, 0.15)"
+            ? "0 0 20px hsl(var(--success) / 0.6), 0 8px 16px hsl(var(--foreground) / 0.15)" 
+            : "0 4px 12px hsl(var(--foreground) / 0.15)"
         }}
         whileHover={{ 
           scale: 1.15,

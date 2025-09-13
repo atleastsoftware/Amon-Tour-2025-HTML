@@ -294,7 +294,7 @@ export default function ReservationsManager() {
                                   
                                   {(reservation.status === "pending" || reservation.status === "confirmed") && (
                                     <DropdownMenuItem onClick={() => openStatusDialog(reservation, "cancelled")}>
-                                      <X className="h-4 w-4 mr-2 text-red-600" />
+                                      <X className="h-4 w-4 mr-2 text-destructive" />
                                       Cancel
                                     </DropdownMenuItem>
                                   )}
@@ -479,8 +479,8 @@ export default function ReservationsManager() {
               </div>
               
               {selectedStatus === "cancelled" && (
-                <div className="mt-4 p-3 bg-red-50 text-red-700 rounded-md flex items-start">
-                  <AlertTriangle className="h-5 w-5 mr-2 flex-shrink-0 mt-0.5 text-red-600" />
+                <div className="mt-4 p-3 bg-destructive/10 text-destructive rounded-md flex items-start">
+                  <AlertTriangle className="h-5 w-5 mr-2 flex-shrink-0 mt-0.5 text-destructive" />
                   <span>
                     Attention : L'annulation d'une réservation est définitive. 
                     Le client sera notifié et pourra recevoir un remboursement si applicable.

@@ -53,17 +53,17 @@ export default function AdminEditor() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 px-2 pb-4 sm:px-4 sm:pb-4">
+    <div className="min-h-screen bg-muted/30 px-2 pb-4 sm:px-4 sm:pb-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 mb-6 mt-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:justify-between">
             <div className="w-full sm:w-auto">
-              <h1 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2 sm:gap-3">
+              <h1 className="text-xl sm:text-2xl font-bold text-foreground mb-2 flex items-center gap-2 sm:gap-3">
                 <Edit className="h-6 w-6 sm:h-7 sm:w-7 text-primary flex-shrink-0" />
                 <span className="truncate">Gestion de Contenu</span>
               </h1>
-              <p className="text-sm sm:text-base text-gray-600">Gérez facilement le contenu de votre site web avec nos outils d'édition professionnels</p>
+              <p className="text-sm sm:text-base text-muted-foreground">Gérez facilement le contenu de votre site web avec nos outils d'édition professionnels</p>
             </div>
             <Button 
               variant="outline" 
@@ -90,16 +90,16 @@ export default function AdminEditor() {
                   <div className={`mx-auto w-16 h-16 ${item.iconColor} bg-white rounded-full flex items-center justify-center mb-4 shadow-md`}>
                     <Icon className="h-8 w-8" />
                   </div>
-                  <CardTitle className="text-xl font-bold text-gray-900">
+                  <CardTitle className="text-xl font-bold text-foreground">
                     {item.title}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className="text-center text-gray-700 leading-relaxed">
+                  <CardDescription className="text-center text-muted-foreground leading-relaxed">
                     {item.description}
                   </CardDescription>
                   <Button 
-                    className="w-full mt-6 bg-white text-gray-800 hover:bg-gray-50 border border-gray-200"
+                    className="w-full mt-6 bg-background text-foreground hover:bg-muted/50 border border-border"
                     onClick={(e) => {
                       e.stopPropagation();
                       setLocation(item.route);
@@ -115,22 +115,22 @@ export default function AdminEditor() {
 
         {/* Statistics */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Card className="bg-white shadow-sm border border-gray-200">
+          <Card className="bg-white shadow-sm border border-border">
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-primary mb-1">{pagesCount}</div>
-              <div className="text-gray-600 text-sm">Pages</div>
+              <div className="text-muted-foreground text-sm">Pages</div>
             </CardContent>
           </Card>
-          <Card className="bg-white shadow-sm border border-gray-200">
+          <Card className="bg-white shadow-sm border border-border">
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-[hsl(var(--success))] mb-1">0</div>
-              <div className="text-gray-600 text-sm">Articles</div>
+              <div className="text-muted-foreground text-sm">Articles</div>
             </CardContent>
           </Card>
-          <Card className="bg-white shadow-sm border border-gray-200">
+          <Card className="bg-white shadow-sm border border-border">
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-[hsl(var(--warning))] mb-1">{activeFormsCount}</div>
-              <div className="text-gray-600 text-sm">Formulaires</div>
+              <div className="text-muted-foreground text-sm">Formulaires</div>
             </CardContent>
           </Card>
         </div>

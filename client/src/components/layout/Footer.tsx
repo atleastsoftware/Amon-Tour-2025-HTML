@@ -49,7 +49,7 @@ function renderContactInfo(item: any) {
     case 'license_badge':
       return (
         <p className="mb-3">
-          <span className="bg-secondary/20 text-white px-2 py-1 rounded-full text-xs">
+          <span className="bg-secondary/20 text-secondary-foreground px-2 py-1 rounded-full text-xs">
             {value}
           </span>
         </p>
@@ -153,7 +153,7 @@ export default function Footer() {
   const newsletterConfig = newsletterConfigRaw ? (typeof newsletterConfigRaw === 'string' ? JSON.parse(newsletterConfigRaw) : newsletterConfigRaw) : {};
   
   return (
-    <footer className="bg-black text-white pt-8 pb-4">
+    <footer className="bg-black text-primary-foreground pt-8 pb-4">
       <div className="container mx-auto px-4">
         {/* Logo Area */}
         <div className="flex justify-center mb-6">
@@ -193,7 +193,7 @@ export default function Footer() {
                   <motion.a 
                     key={index}
                     href={social.url}
-                    className="text-white hover:text-secondary transition-colors"
+                    className="text-primary-foreground hover:text-secondary transition-colors"
                     target="_blank"
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.2 }}

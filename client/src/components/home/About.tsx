@@ -10,20 +10,20 @@ export default function About() {
             <h2 className="font-heading font-bold text-3xl md:text-4xl mb-6">
               Who We Are
             </h2>
-            <p className="text-gray-700 mb-4">
+            <p className="text-muted-foreground mb-4">
               We are Éric, Margaux, Gabriel, and Raphaël, a French family living in Krabi, southern Thailand, since 2013.
             </p>
-            <p className="text-gray-700 mb-6">
+            <p className="text-muted-foreground mb-6">
               From our life here, we created Amon Tour — a small, independent travel agency built on a simple idea: personally welcome our travelers to Krabi and offer them a different way to experience Thailand.
             </p>
             
             <h3 className="font-heading font-semibold text-2xl mt-6 mb-3">
               Deep Local Roots
             </h3>
-            <p className="text-gray-700 mb-4">
+            <p className="text-muted-foreground mb-4">
               We live here year-round, in the heart of the region we love. This close connection to the destination allows us to offer exclusive experiences in Krabi, designed and guided by our team of professional local guides or trusted partners.
             </p>
-            <p className="text-gray-700 mb-6">
+            <p className="text-muted-foreground mb-6">
               You're not booking a generic tour — you're being welcomed, guided, and cared for by people who live here, who know the tides, the seasons, the crowds to avoid, and the hidden gems worth discovering.
             </p>
             
@@ -32,7 +32,7 @@ export default function About() {
             <h3 className="font-heading font-semibold text-2xl mt-6 mb-3">
               Our Concept
             </h3>
-            <p className="text-gray-700 mb-6">
+            <p className="text-muted-foreground mb-6">
               Combine the warmth and proximity of a local agency in Krabi with the expertise of a tailor-made travel designer for all of Thailand. At Amon Tour, you're supported before, during, and after your trip. You're in contact with real people – a face, a voice, a team – not a call center or an algorithm. We're here, on the ground, to make your trip a seamless, personal, and unforgettable experience.
             </p>
             <div className="flex items-center space-x-4">
@@ -74,15 +74,15 @@ export default function About() {
                 <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-lg hidden md:block">
                   <div className="flex items-center space-x-2">
                     <div className="flex">
-                      <i className="fas fa-star text-yellow-400"></i>
-                      <i className="fas fa-star text-yellow-400"></i>
-                      <i className="fas fa-star text-yellow-400"></i>
-                      <i className="fas fa-star text-yellow-400"></i>
-                      <i className="fas fa-star text-yellow-400"></i>
+                      <i className="fas fa-star text-secondary"></i>
+                      <i className="fas fa-star text-secondary"></i>
+                      <i className="fas fa-star text-secondary"></i>
+                      <i className="fas fa-star text-secondary"></i>
+                      <i className="fas fa-star text-secondary"></i>
                     </div>
                     <span className="font-semibold">5.0/5</span>
                   </div>
-                  <p className="text-sm text-gray-600">80 reviews on Google</p>
+                  <p className="text-sm text-muted-foreground/80">80 reviews on Google</p>
                   <a 
                     href="https://maps.app.goo.gl/fe17kgt89d64kAHs7" 
                     target="_blank" 

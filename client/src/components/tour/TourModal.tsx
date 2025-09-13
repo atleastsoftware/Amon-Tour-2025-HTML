@@ -91,8 +91,8 @@ export default function TourModal({ isOpen, onClose, tourId, tourName }: TourMod
               {error && (
                 <div className="absolute inset-0 flex items-center justify-center bg-white">
                   <div className="text-center">
-                    <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <X className="h-8 w-8 text-red-600" />
+                    <div className="w-16 h-16 bg-[hsl(var(--destructive)/0.1)] rounded-full flex items-center justify-center mx-auto mb-4">
+                      <X className="h-8 w-8 text-[hsl(var(--destructive))]" />
                     </div>
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">Erreur de chargement</h3>
                     <p className="text-gray-600 mb-4">{error}</p>
