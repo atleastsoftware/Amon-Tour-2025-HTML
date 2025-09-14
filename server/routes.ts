@@ -1213,8 +1213,6 @@ Crawl-delay: 1`;
     try {
       // API key authentication for Tour Ninja
       const authHeader = req.headers.authorization;
-      console.log('[TOUR NINJA SYNC] Incoming request from:', req.ip);
-      console.log('[TOUR NINJA SYNC] Authorization header:', authHeader ? 'Present' : 'Missing');
       
       // Accept both the hardcoded key for Tour Ninja sync and the environment key for internal use
       const validApiKeys = [
@@ -1222,10 +1220,7 @@ Crawl-delay: 1`;
         process.env.TOUR_NINJA_API_KEY // Environment key if set
       ].filter(Boolean);
       
-      console.log('[TOUR NINJA SYNC] Valid API keys configured:', validApiKeys.length);
-      
       if (!authHeader || !authHeader.startsWith('Bearer ')) {
-        console.log('[TOUR NINJA SYNC] AUTH FAILED: Missing or invalid Bearer format');
         return res.status(401).json({ 
           success: false, 
           message: "Authorization header required" 
@@ -1233,18 +1228,13 @@ Crawl-delay: 1`;
       }
 
       const apiKey = authHeader.substring(7); // Remove 'Bearer '
-      console.log('[TOUR NINJA SYNC] Received API key:', apiKey.substring(0, 10) + '...');
-      console.log('[TOUR NINJA SYNC] Key matches TOUR_NINJA_API_KEY_2025?', apiKey === "TOUR_NINJA_API_KEY_2025");
       
       if (!validApiKeys.includes(apiKey)) {
-        console.log('[TOUR NINJA SYNC] AUTH FAILED: Invalid API key');
         return res.status(403).json({ 
           success: false, 
           message: "Invalid API key" 
         });
       }
-      
-      console.log('[TOUR NINJA SYNC] AUTH SUCCESS: Valid API key');
 
       // Get query parameters for filtering
       const { status, since } = req.query;
