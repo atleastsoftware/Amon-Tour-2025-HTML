@@ -29,20 +29,26 @@ export default function Contact() {
             <div className="max-w-4xl mx-auto">
               
               {/* Contact Information */}
+              <div className="text-center mb-12">
+                <motion.div 
+                  initial={{ y: -20, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">Get In Touch</h2>
+                  <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
+                  <p className="text-gray-600 text-lg max-w-4xl mx-auto">
+                    Ready to explore Krabi? Contact us through any of the methods below. Our friendly team is here to answer your questions and help you plan an unforgettable experience.
+                  </p>
+                </motion.div>
+              </div>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                <h2 className="font-heading font-bold text-2xl md:text-3xl mb-6 text-center">
-                  Get In Touch
-                </h2>
-                <p className="text-muted-foreground mb-8">
-                  Ready to explore Krabi? Contact us through any of the methods below. 
-                  Our friendly team is here to answer your questions and help you plan 
-                  an unforgettable experience.
-                </p>
 
                 <div className="space-y-6">
                   {/* Email */}

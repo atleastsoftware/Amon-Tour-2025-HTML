@@ -45,11 +45,11 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
   // Gestionnaire de clic sur la carte
   const handleCardClick = () => {
     if (tour.presentationUrl) {
-      openIframe(tour.presentationUrl, `Présentation - ${tour.name}`);
+      openIframe(tour.presentationUrl, `Presentation - ${tour.name}`);
     } else if (tour.detailsUrl) {
-      openIframe(tour.detailsUrl, `Détails - ${tour.name}`);
+      openIframe(tour.detailsUrl, `Details - ${tour.name}`);
     } else if (tour.bookingUrl) {
-      openIframe(tour.bookingUrl, `Réservation - ${tour.name}`);
+      openIframe(tour.bookingUrl, `Booking - ${tour.name}`);
     }
   };
 
@@ -137,7 +137,7 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
               onClick={(e) => {
                 e.stopPropagation();
                 if (tour.presentationUrl) {
-                  openIframe(tour.presentationUrl, `Présentation - ${tour.name}`);
+                  openIframe(tour.presentationUrl, `Presentation - ${tour.name}`);
                 }
               }}
             >

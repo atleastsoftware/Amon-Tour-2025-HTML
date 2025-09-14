@@ -109,10 +109,10 @@ export default function Experiences() {
             <FadeInWhenVisible>
               <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-                  Tours Guidés Recommandés
+                  Recommended Guided Tours
                 </h2>
                 <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                  Découvrez nos circuits organisés avec guides francophones pour une expérience authentique de la Thaïlande
+                  Discover our organized tours with English-speaking guides for an authentic Thailand experience
                 </p>
               </div>
             </FadeInWhenVisible>
@@ -132,33 +132,33 @@ export default function Experiences() {
                       <div className="absolute inset-0 bg-black bg-opacity-20"></div>
                       <div className="absolute top-4 left-4">
                         <span className="bg-secondary text-white px-3 py-1 rounded-full text-sm font-semibold">
-                          Culture & Histoire
+                          Culture & History
                         </span>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="p-6">
-                    <h3 className="text-xl font-bold text-gray-800 mb-3">Bangkok Essentiel</h3>
+                    <h3 className="text-xl font-bold text-gray-800 mb-3">Bangkok Essential</h3>
                     <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                      Circuit culturel de 3 jours : Grand Palais, temples sacrés, marchés flottants et gastronomie avec guide francophone expert.
+                      3-day cultural tour: Grand Palace, sacred temples, floating markets and gastronomy with expert English-speaking guide.
                     </p>
                     <div className="flex items-center justify-between mb-4">
-                      <span className="text-primary font-semibold">3 jours</span>
-                      <span className="text-secondary font-bold text-lg">À partir de 350€</span>
+                      <span className="text-primary font-semibold">3 days</span>
+                      <span className="text-secondary font-bold text-lg">From $450</span>
                     </div>
                     <div className="flex gap-2">
                       <Button 
                         className="flex-1 bg-primary hover:bg-primary/90"
                         onClick={() => window.open('https://tourninja.com/tours/bangkok-essential', '_blank')}
                       >
-                        Voir Détails
+View Details
                       </Button>
                       <Button 
                         variant="outline" 
                         className="flex-1"
                         onClick={() => window.location.href = '/contact?tour=Bangkok Essentiel'}
                       >
-                        Réserver
+Book Now
                       </Button>
                     </div>
                   </CardContent>
@@ -179,33 +179,33 @@ export default function Experiences() {
                       <div className="absolute inset-0 bg-black bg-opacity-20"></div>
                       <div className="absolute top-4 left-4">
                         <span className="bg-primary text-white px-3 py-1 rounded-full text-sm font-semibold">
-                          Nord & Aventure
+                          North & Adventure
                         </span>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="p-6">
-                    <h3 className="text-xl font-bold text-gray-800 mb-3">Triangle d'Or</h3>
+                    <h3 className="text-xl font-bold text-gray-800 mb-3">Golden Triangle</h3>
                     <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                      Voyage de 5 jours : Chiang Mai, tribus des montagnes, Temple Blanc, Triangle d'Or et croisière sur le Mékong.
+                      5-day journey: Chiang Mai, mountain tribes, White Temple, Golden Triangle and Mekong cruise.
                     </p>
                     <div className="flex items-center justify-between mb-4">
-                      <span className="text-primary font-semibold">5 jours</span>
-                      <span className="text-secondary font-bold text-lg">À partir de 590€</span>
+                      <span className="text-primary font-semibold">5 days</span>
+                      <span className="text-secondary font-bold text-lg">From $750</span>
                     </div>
                     <div className="flex gap-2">
                       <Button 
                         className="flex-1 bg-primary hover:bg-primary/90"
                         onClick={() => window.open('https://tourninja.com/tours/golden-triangle', '_blank')}
                       >
-                        Voir Détails
+View Details
                       </Button>
                       <Button 
                         variant="outline" 
                         className="flex-1"
                         onClick={() => window.location.href = '/contact?tour=Triangle d\'Or'}
                       >
-                        Réserver
+Book Now
                       </Button>
                     </div>
                   </CardContent>
@@ -226,33 +226,33 @@ export default function Experiences() {
                       <div className="absolute inset-0 bg-black bg-opacity-20"></div>
                       <div className="absolute top-4 left-4">
                         <span className="bg-secondary text-white px-3 py-1 rounded-full text-sm font-semibold">
-                          Plages & Îles
+                          Beaches & Islands
                         </span>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="p-6">
-                    <h3 className="text-xl font-bold text-gray-800 mb-3">Îles du Sud</h3>
+                    <h3 className="text-xl font-bold text-gray-800 mb-3">Southern Islands</h3>
                     <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                      Circuit de 7 jours : Phuket, îles Phi Phi, baie de Phang Nga, Krabi et Railay Beach. Plages paradisiaques et activités nautiques.
+                      7-day tour: Phuket, Phi Phi islands, Phang Nga Bay, Krabi and Railay Beach. Paradise beaches and water activities.
                     </p>
                     <div className="flex items-center justify-between mb-4">
-                      <span className="text-primary font-semibold">7 jours</span>
-                      <span className="text-secondary font-bold text-lg">À partir de 790€</span>
+                      <span className="text-primary font-semibold">7 days</span>
+                      <span className="text-secondary font-bold text-lg">From $990</span>
                     </div>
                     <div className="flex gap-2">
                       <Button 
                         className="flex-1 bg-primary hover:bg-primary/90"
                         onClick={() => window.open('https://tourninja.com/tours/southern-islands', '_blank')}
                       >
-                        Voir Détails
+View Details
                       </Button>
                       <Button 
                         variant="outline" 
                         className="flex-1"
                         onClick={() => window.location.href = '/contact?tour=Îles du Sud'}
                       >
-                        Réserver
+Book Now
                       </Button>
                     </div>
                   </CardContent>
@@ -263,18 +263,18 @@ export default function Experiences() {
             {/* Call to Action */}
             <FadeInWhenVisible>
               <div className="bg-blue-600 text-white rounded-xl p-8 text-center">
-                <h3 className="text-2xl font-bold mb-4">Besoin d'un Circuit Personnalisé ?</h3>
+                <h3 className="text-2xl font-bold mb-4">Need a Customized Tour?</h3>
                 <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
-                  Nos experts locaux créent des itinéraires sur mesure selon vos envies et votre budget. 
-                  Contactez-nous pour organiser votre voyage de rêve en Thaïlande.
+                  Our local experts create tailor-made itineraries according to your desires and budget. 
+                  Contact us to organize your dream trip to Thailand.
                 </p>
                 <Button 
                   size="lg" 
                   variant="secondary"
                   className="bg-white text-primary hover:bg-gray-100"
-                  onClick={() => window.location.href = '/contact?subject=Circuit Personnalisé'}
+                  onClick={() => window.location.href = '/contact?subject=Custom Tour'}
                 >
-                  Demander un Devis Gratuit
+                  Request a Free Quote
                 </Button>
               </div>
             </FadeInWhenVisible>
@@ -292,8 +292,8 @@ export default function Experiences() {
                 transition={{ duration: 0.6 }}
               >
                 <h2 className="font-heading font-semibold text-xl mb-4">Filter Experiences</h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <motion.div whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 400 }}>
+                <div className="flex flex-col lg:flex-row gap-4 w-full">
+                  <motion.div whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 400 }} className="flex-1">
                     <label htmlFor="search" className="block text-sm font-medium text-gray-700 mb-1">
                       Search
                     </label>

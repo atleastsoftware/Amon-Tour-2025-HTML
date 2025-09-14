@@ -136,7 +136,7 @@ export default function SeasonalPricing() {
               >
                 <p className="text-lg font-bold text-foreground">8:45</p>
                 <p className="text-sm text-muted-foreground mt-1">from Ao Nang</p>
-                <p className="text-sm text-secondary font-semibold mt-2">No extra fee</p>
+                <p className="text-sm text-primary font-semibold mt-2">No extra fee</p>
               </motion.div>
               
               {/* Klong Mueang */}
@@ -162,7 +162,7 @@ export default function SeasonalPricing() {
               >
                 <p className="text-lg font-bold text-foreground">9:00</p>
                 <p className="text-sm text-muted-foreground mt-1">from Railay</p>
-                <p className="text-sm text-secondary font-semibold mt-2">No extra fee</p>
+                <p className="text-sm text-primary font-semibold mt-2">No extra fee</p>
               </motion.div>
             </div>
           </div>
