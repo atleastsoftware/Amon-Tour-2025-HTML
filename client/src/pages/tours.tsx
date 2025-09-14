@@ -207,9 +207,9 @@ export default function Tours() {
               </Button>
             </div>
 
-            <div className={`grid grid-cols-1 md:grid-cols-5 gap-4 ${showFilters ? 'block' : 'hidden md:grid'}`}>
-              {/* Recherche */}
-              <div className="relative">
+            <div className={`grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-4 w-full ${showFilters ? 'block' : 'hidden md:grid'}`}>
+              {/* Recherche - Plus large sur mobile et desktop */}
+              <div className="relative md:col-span-2 lg:col-span-2">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                 <Input
                   placeholder="Search for a tour..."
@@ -222,7 +222,7 @@ export default function Tours() {
               {/* Prix */}
               <Select value={priceRange} onValueChange={setPriceRange}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Prix" />
+                  <SelectValue placeholder="All prices" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All prices</SelectItem>
@@ -237,7 +237,7 @@ export default function Tours() {
               {/* Durée */}
               <Select value={durationFilter} onValueChange={setDurationFilter}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Durée" />
+                  <SelectValue placeholder="All durations" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All durations</SelectItem>
@@ -252,7 +252,7 @@ export default function Tours() {
               {/* Destination */}
               <Select value={destinationFilter} onValueChange={setDestinationFilter}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Destination" />
+                  <SelectValue placeholder="All destinations" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All destinations</SelectItem>
@@ -264,11 +264,11 @@ export default function Tours() {
                 </SelectContent>
               </Select>
 
-              {/* Reset */}
+              {/* Reset - Prend toute la largeur sur mobile, une colonne sur desktop */}
               {hasActiveFilters && (
-                <Button variant="outline" onClick={clearFilters} className="w-full">
+                <Button variant="outline" onClick={clearFilters} className="w-full md:col-span-4 lg:col-span-5">
                   <X className="h-4 w-4 mr-2" />
-                  Clear
+                  Clear filters
                 </Button>
               )}
             </div>
