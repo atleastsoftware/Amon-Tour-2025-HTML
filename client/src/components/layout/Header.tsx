@@ -161,8 +161,7 @@ export default function Header() {
       
       <header ref={headerRef} className={headerClasses} style={headerStyle}>
         {/* Main Navigation */}
-        <nav className="container mx-auto px-4 flex justify-between items-center">
-        <div className="ml-2">
+        <nav className="container mx-auto pl-6 pr-4 flex justify-between items-center">
         {/* Logo */}
         <Link href="/">
           <motion.div
@@ -190,7 +189,6 @@ export default function Header() {
             />
           </motion.div>
         </Link>
-        </div>
         
         {/* Mobile Menu Button */}
         <motion.button 
