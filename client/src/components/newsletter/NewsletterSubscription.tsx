@@ -96,7 +96,10 @@ export default function NewsletterSubscription() {
         <motion.button 
           type="submit" 
           disabled={isSubmitting || !email.trim()}
-          className="bg-secondary text-white px-4 py-2 rounded-r-md hover:bg-secondary/90 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+          className="px-4 py-2 rounded-r-md text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+          style={{ backgroundColor: '#3BA8AF' }}
+          onMouseEnter={(e) => !isSubmitting && (e.currentTarget.style.backgroundColor = '#2d8a94')}
+          onMouseLeave={(e) => !isSubmitting && (e.currentTarget.style.backgroundColor = '#3BA8AF')}
           aria-label="Subscribe to newsletter"
           whileHover={!isSubmitting ? { scale: 1.05 } : {}}
           whileTap={!isSubmitting ? { scale: 0.95 } : {}}
