@@ -380,7 +380,7 @@ export default function CatamaranExperience() {
               transition={{ type: "spring", stiffness: 300 }}
             >
               <motion.div 
-                className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-4 shadow-lg"
+                className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mb-4 shadow-lg"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >

@@ -21,6 +21,7 @@ import TourCardItem, { TourCardItemProps } from "@/components/tour/TourCardItem"
 import { useTourNinjaWithCustomImages } from "@/hooks/useTourNinja";
 import { Link } from "wouter";
 import { useIframe } from "@/contexts/IframeContext";
+import { Badge } from "@/components/ui/badge";
 
 
 export default function Home() {
@@ -302,9 +303,9 @@ export default function Home() {
                         </div>
                       )}
                       <div className="absolute top-4 right-4">
-                        <span className="bg-primary text-white px-2 py-1 rounded-full text-xs">
+                        <Badge variant="secondary" className="bg-white/90 text-primary font-semibold px-2 py-1">
                           {tour.duration} day{Number(tour.duration) > 1 ? 's' : ''}
-                        </span>
+                        </Badge>
                       </div>
                     </div>
                     

@@ -199,7 +199,7 @@ export default function SeasonalPricing() {
               transition={{ duration: 0.5, delay: 0.6 }}
             >
               <div className="flex items-center mb-4">
-                <div className="w-10 h-10 bg-[hsl(var(--warning)/0.1)] rounded-full flex items-center justify-center mr-3">
+                <div className="w-10 h-10 bg-secondary/20 rounded-full flex items-center justify-center mr-3">
                   <svg className="w-6 h-6 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
