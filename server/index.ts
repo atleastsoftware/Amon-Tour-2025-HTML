@@ -18,22 +18,31 @@ async function ensureAdminUser() {
     
     if (!existingAdmin) {
       // Create admin user if it doesn't exist
+      const adminPassword = process.env.ADMIN_PASSWORD;
+      
+      if (!adminPassword) {
+        if (app.get("env") === "production") {
+          throw new Error("ADMIN_PASSWORD environment variable is required in production");
+        } else {
+          log("WARNING: No ADMIN_PASSWORD set. Using default password for development only.");
+        }
+      }
+      
       log("Creating admin user");
-      const hashedPassword = await bcrypt.hash("Amontour2025", 10);
+      const passwordToUse = adminPassword || "ChangeThisPassword123!";
+      const hashedPassword = await bcrypt.hash(passwordToUse, 10);
       await storage.createUser({
         username: "admin",
         password: hashedPassword,
       });
       log("Admin user created successfully");
     } else {
-      // Update existing admin password to new secure password
-      log("Updating admin user password to new secure password");
-      const hashedPassword = await bcrypt.hash("Amontour2025", 10);
-      await storage.updateUserPassword(existingAdmin.id, hashedPassword);
-      log("Admin password updated successfully");
+      // Admin user already exists, don't update password automatically
+      log("Admin user already exists, skipping password update");
     }
   } catch (error) {
     log(`Error ensuring admin user: ${error}`);
+    throw error; // Re-throw to prevent app startup with insecure configuration
   }
 }
 
@@ -41,8 +50,23 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Trust proxy for Cloud Run deployment
+if (app.get("env") === "production") {
+  app.set('trust proxy', 1);
+}
+
 // Session configuration
 const PgSession = connectPg(session);
+// Validate required environment variables in production
+if (app.get("env") === "production") {
+  if (!process.env.SESSION_SECRET) {
+    throw new Error("SESSION_SECRET environment variable is required in production");
+  }
+  if (!process.env.DATABASE_URL) {
+    throw new Error("DATABASE_URL environment variable is required in production");
+  }
+}
+
 app.use(session({
   store: new PgSession({
     conString: process.env.DATABASE_URL,
@@ -52,7 +76,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: false, // Set to true in production with HTTPS
+    secure: app.get("env") === "production", // Secure cookies in production
     httpOnly: true,
     maxAge: 24 * 60 * 60 * 1000 // 24 hours
   }
@@ -114,7 +138,7 @@ app.use((req, res, next) => {
 
   // Use PORT environment variable for Cloud Run deployment, fallback to 5000 for local development
   // Cloud Run requires listening on the PORT environment variable
-  const port = process.env.PORT || 5000;
+  const port = parseInt(process.env.PORT ?? "5000", 10);
   
   server.listen({
     port,
@@ -140,8 +164,13 @@ app.use((req, res, next) => {
         log("Initialization tasks completed successfully");
       } catch (error) {
         log(`Error during initialization: ${error}`);
-        // Don't crash the server if initialization fails
-        // The app can still serve requests
+        
+        // In production, critical configuration errors should stop the app
+        if (app.get("env") === "production") {
+          log("Critical initialization error in production. Shutting down.");
+          process.exit(1);
+        }
+        // In development, allow the app to continue serving requests
       }
     })();
   });
