@@ -227,7 +227,7 @@ export default function Header() {
         
         {/* Desktop Navigation */}
         <motion.div 
-          className="hidden md:flex space-x-10 items-center ml-[-16px]"
+          className="hidden md:flex space-x-10 items-center ml-[-8px]"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
