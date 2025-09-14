@@ -109,10 +109,10 @@ export default function Header() {
   const headerClasses = isHomePage
     ? `fixed left-0 w-full z-50 transition-all duration-300 ${
         scrolled 
-          ? 'bg-card/95 backdrop-blur-md shadow-lg py-2' 
-          : 'bg-transparent py-3'
+          ? 'bg-card/95 backdrop-blur-md shadow-lg py-1' 
+          : 'bg-transparent py-2'
       }`
-    : 'fixed left-0 w-full z-50 bg-card py-3';
+    : 'fixed left-0 w-full z-50 bg-card py-2';
 
   const headerStyle = { top: `${notificationBarHeight}px` };
 
