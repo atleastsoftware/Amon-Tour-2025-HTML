@@ -49,7 +49,7 @@ function renderContactInfo(item: any) {
     case 'license_badge':
       return (
         <p className="mb-3">
-          <span className="bg-secondary text-white px-2 py-1 rounded-full text-xs">
+          <span className="text-white px-2 py-1 rounded-full text-xs" style={{ backgroundColor: '#2d8a94' }}>
             {value}
           </span>
         </p>
