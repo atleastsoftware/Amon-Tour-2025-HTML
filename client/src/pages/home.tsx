@@ -256,7 +256,7 @@ export default function Home() {
             >
               <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">Our Popular Experiences</h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
-              <p className="text-gray-600 max-w-2xl mx-auto">Step off the beaten path into carefully curated experiences beyond the tourist trail.</p>
+              <p className="text-gray-600 text-lg max-w-2xl mx-auto">Step off the beaten path into carefully curated experiences beyond the tourist trail.</p>
             </motion.div>
           </div>
           

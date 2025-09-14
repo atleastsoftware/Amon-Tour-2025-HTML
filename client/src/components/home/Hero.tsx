@@ -241,7 +241,7 @@ export default function Hero() {
                 ]).map((button: any, index: number) => (
                   <Link key={index} href={button.url}>
                     <motion.span 
-                      className={`px-8 py-3 mt-4 rounded transition-colors cursor-pointer inline-block shadow-lg w-44 text-center ${
+                      className={`px-8 py-3 mt-4 rounded transition-colors cursor-pointer inline-block shadow-lg w-48 text-center ${
                         button.style === 'outline' 
                           ? `border-2 text-white hover:bg-white hover:text-gray-800` 
                           : `text-white hover:opacity-90`

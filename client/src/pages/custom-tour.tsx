@@ -31,7 +31,7 @@ export default function CustomTour() {
                 Why Choose a Custom Tour?
               </h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
-              <p className="text-gray-600 max-w-2xl mx-auto">
+              <p className="text-gray-600 text-lg max-w-2xl mx-auto">
                 A personalized journey offers a unique experience tailored to your desires, pace, and budget.
               </p>
             </div>

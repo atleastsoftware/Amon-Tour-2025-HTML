@@ -168,7 +168,7 @@ export default function Contact() {
               <h3 className="font-heading font-bold text-2xl md:text-3xl mb-4">
                 Ready to Start Your Adventure?
               </h3>
-              <p className="text-muted-foreground mb-6">
+              <p className="text-gray-600 text-lg mb-6">
                 Whether you're looking for a private tour, custom itinerary, or have questions about Krabi, 
                 our local experts are ready to help you create unforgettable memories.
               </p>
