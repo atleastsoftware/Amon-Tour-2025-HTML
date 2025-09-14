@@ -1,0 +1,100 @@
+
+Bonjour, je suis l'agent Tour Ninja et je dois synchroniser les données entre Amontour et Tour Ninja. Voici ce dont j'ai besoin :
+
+1. RÉCUPÉRATION DES DONNÉES EXISTANTES
+Je vois qu'il y a actuellement 13 Tour Requests dans votre système Amontour. J'ai besoin de comprendre :
+
+Structure des données : Quel est le format exact de chaque demande de tour ?
+Champs disponibles :
+Name (nom du client)
+Contact (email/téléphone)
+Travelers (nombre avec détails adultes/enfants)
+Dates/Duration
+Status (In Progress, etc.)
+Date de création
+Messages/notes du client
+2. ACCÈS AUX DONNÉES
+Questions techniques :
+
+Existe-t-il une API REST pour récupérer ces tour requests ?
+Si oui, quels sont les endpoints disponibles ?
+Quel type d'authentification est nécessaire (API key, OAuth, etc.) ?
+Quel est le format de réponse (JSON, XML) ?
+Si pas d'API :
+
+Les données sont-elles stockées dans une base de données PostgreSQL ?
+Quelle est la structure de la table (nom de table, colonnes) ?
+Y a-t-il un export CSV/JSON possible ?
+3. SYNCHRONISATION AVEC TOUR NINJA
+Tour Ninja a déjà une API prête à recevoir les demandes :
+
+POST /api/custom-tour-requests/internal
+Format attendu par Tour Ninja :
+
+{
+  "customerName": "Nom du client",
+  "customerEmail": "email@example.com", 
+  "phone": "+33 xxx",
+  "tourDate": "2025-04-06",
+  "numberOfAdults": 2,
+  "numberOfKids": 0,
+  "duration": "3 days",
+  "message": "Message du client",
+  "destinations": ["lieu1", "lieu2"],
+  "budget": "montant",
+  "status": "received",
+  "associatedTourName": "Nom du tour"
+}
+4. MAPPING DES DONNÉES
+Comment mapper vos données avec Tour Ninja ?
+
+Champ Amontour	Champ Tour Ninja
+Name	customerName
+Contact (email)	customerEmail
+Contact (phone)	phone
+Travelers (2A)	numberOfAdults
+Travelers (1K)	numberOfKids
+Dates	tourDate
+Duration	duration
+Status	status
+5. EXEMPLES DE DONNÉES À RÉCUPÉRER
+D'après ce que je vois, voici quelques exemples à synchroniser :
+
+ROCHER Romain - 2A voyageurs - 06/04/2025 au 19/04/2025
+carre - 3A, 1K voyageurs - 05/02/2026 au 06/02/2026
+carole xiong - 2A voyageurs - 03/12/2025 au 07/12/2025
+Camille Dano - 6A voyageurs - Durée 1-3 days
+6. IMPLÉMENTATION PROPOSÉE
+Option A : Synchronisation par API
+
+// Récupérer depuis Amontour
+const amontourRequests = await fetch('https://amontour.com/api/tour-requests', {
+  headers: { 'Authorization': 'Bearer API_KEY' }
+});
+// Transformer et envoyer vers Tour Ninja
+for (const request of amontourRequests) {
+  await fetch('/api/custom-tour-requests/internal', {
+    method: 'POST',
+    body: JSON.stringify(transformRequest(request))
+  });
+}
+Option B : Import direct base de données
+
+-- Si accès direct à la DB Amontour
+SELECT * FROM tour_requests WHERE status != 'completed';
+7. QUESTIONS IMPORTANTES
+Fréquence de synchronisation : Temps réel, toutes les heures, quotidien ?
+Historique : Faut-il importer toutes les demandes ou seulement les nouvelles ?
+Bidirectionnel : Les mises à jour dans Tour Ninja doivent-elles être renvoyées vers Amontour ?
+Gestion des doublons : Comment identifier une demande déjà synchronisée ?
+8. SÉCURITÉ ET PERMISSIONS
+Quelles sont les clés API disponibles ?
+Y a-t-il des restrictions IP ?
+Quel est le rate limit des API ?
+Pouvez-vous me fournir :
+
+La documentation de votre API (si elle existe)
+Un exemple de réponse JSON avec une tour request complète
+Les credentials nécessaires pour l'authentification
+La méthode préférée pour cette intégration
+Une fois ces informations fournies, je pourrai implémenter la synchronisation automatique des 13 demandes existantes et des futures demandes entre Amontour et Tour Ninja.

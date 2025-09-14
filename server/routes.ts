@@ -1151,6 +1151,122 @@ Crawl-delay: 1`;
     }
   });
 
+  // ===== TOUR NINJA SYNCHRONIZATION API =====
+
+  // Function to transform Amontour request to Tour Ninja format
+  function transformToTourNinja(amontourRequest: any) {
+    // Map status values
+    const statusMap: Record<string, string> = {
+      "new": "received",
+      "in_progress": "processing", 
+      "archived": "completed"
+    };
+
+    // Infer tour name from destinations and interests
+    const inferTourName = (destinations: string[], interests: string[]) => {
+      if (destinations.includes("krabi")) return "Krabi Adventure Tour";
+      if (destinations.includes("bangkok")) return "Bangkok City Experience";
+      if (destinations.includes("chiangmai")) return "Chiang Mai Cultural Tour";
+      if (destinations.includes("khaosok")) return "Khao Sok National Park Tour";
+      if (destinations.includes("kohmook")) return "Koh Mook Island Escape";
+      if (interests.includes("culture")) return "Cultural Heritage Tour";
+      if (interests.includes("nature")) return "Nature & Adventure Tour";
+      if (interests.includes("beaches")) return "Beach Paradise Tour";
+      return "Custom Thailand Tour";
+    };
+
+    return {
+      customerName: amontourRequest.fullName,
+      customerEmail: amontourRequest.email,
+      phone: amontourRequest.phoneNumber,
+      tourDate: amontourRequest.tripDates || "Date flexible",
+      numberOfAdults: amontourRequest.numberOfAdults,
+      numberOfKids: amontourRequest.numberOfKids,
+      duration: amontourRequest.duration || "À définir",
+      message: amontourRequest.message,
+      destinations: amontourRequest.destinations || [],
+      budget: "À discuter",
+      status: statusMap[amontourRequest.status] || "received",
+      associatedTourName: inferTourName(amontourRequest.destinations || [], amontourRequest.interests || []),
+      // Additional Amontour-specific fields
+      interests: amontourRequest.interests || [],
+      tripTypes: amontourRequest.tripTypes || [],
+      amontourId: amontourRequest.id,
+      originalCreatedAt: amontourRequest.createdAt,
+      source: "amontour_sync"
+    };
+  }
+
+  // Tour Ninja synchronization endpoint with API key authentication
+  app.get("/api/sync/tour-ninja", async (req, res) => {
+    try {
+      // API key authentication for Tour Ninja (from environment)
+      const authHeader = req.headers.authorization;
+      const expectedApiKey = process.env.TOUR_NINJA_API_KEY || "TOUR_NINJA_API_KEY_2025";
+      
+      if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return res.status(401).json({ 
+          success: false, 
+          message: "Authorization header required" 
+        });
+      }
+
+      const apiKey = authHeader.substring(7); // Remove 'Bearer '
+      if (apiKey !== expectedApiKey) {
+        return res.status(403).json({ 
+          success: false, 
+          message: "Invalid API key" 
+        });
+      }
+
+      // Get query parameters for filtering
+      const { status, since } = req.query;
+      const filters: any = {};
+      
+      // Map Tour Ninja status values to internal Amontour statuses
+      if (status && status !== 'all') {
+        const tourNinjaToAmontour: Record<string, string> = {
+          "received": "new",
+          "processing": "in_progress", 
+          "completed": "archived"
+        };
+        
+        const mappedStatus = tourNinjaToAmontour[status as string] || status as string;
+        filters.status = mappedStatus;
+      }
+      
+      // Handle incremental sync with 'since' parameter
+      if (since) {
+        const sinceDate = new Date(since as string);
+        if (!isNaN(sinceDate.getTime())) {
+          filters.since = sinceDate;
+        }
+      }
+      
+      // Fetch custom tour requests from storage
+      const amontourRequests = await storage.getCustomTourRequests(filters);
+      
+      // Transform to Tour Ninja format
+      const tourNinjaFormat = amontourRequests.map(transformToTourNinja);
+      
+      res.json({
+        success: true,
+        count: tourNinjaFormat.length,
+        data: tourNinjaFormat,
+        lastSync: new Date().toISOString(),
+        filters: filters
+      });
+
+    } catch (error: any) {
+      console.error("Error in Tour Ninja sync:", error);
+      res.status(500).json({ 
+        success: false, 
+        message: "Failed to sync data",
+        error: String(error) 
+      });
+    }
+  });
+
   // ===== FORM SUBMISSION API ROUTES =====
 
   // Krabi Celebration Requests

@@ -1,0 +1,98 @@
+Excellent ! J'ai bien reçu toutes les informations. Voici ma réponse pour coordonner la synchronisation :
+
+✅ 1. CONFIRMATION DE RÉCEPTION
+Je confirme avoir bien compris votre structure de données. Le mapping entre nos systèmes est parfaitement compatible :
+
+Vos champs	Nos champs Tour Ninja	Status
+fullName	customerName	✅ Compatible
+email	customerEmail	✅ Compatible
+phoneNumber	phone	✅ Compatible
+numberOfAdults	numberOfAdults	✅ Compatible
+numberOfKids	numberOfKids	✅ Compatible
+tripDates	tourDate	✅ Compatible
+duration	duration	✅ Compatible
+interests	interests	✅ Compatible
+tripTypes	tripTypes	✅ Compatible
+destinations	destinations	✅ Compatible
+message	message	✅ Compatible
+status	status (avec mapping)	✅ Compatible
+🚀 2. ACTIVATION DE LA SYNCHRONISATION
+OUI, je suis prêt à recevoir les 13 demandes !
+
+Je préfère votre Option A avec endpoint dédié :
+
+GET https://amontour.replit.app/api/sync/tour-ninja
+🔐 3. AUTHENTIFICATION PRÉFÉRÉE
+Pour simplifier, je préfère une clé API dédiée :
+
+Authorization: Bearer TOUR_NINJA_API_KEY_2025
+Pouvez-vous générer cette clé et me la communiquer de manière sécurisée ?
+
+📋 4. CONFIGURATION DE SYNCHRONISATION
+Je confirme les paramètres suivants :
+
+Fréquence : Toutes les 15 minutes ✅
+Mode : Incrémental avec since ✅
+Bidirectionnel : OUI - Je pourrai renvoyer les mises à jour de statut
+Gestion des doublons : Via amontourId ✅
+🔄 5. IMPLÉMENTATION CÔTÉ TOUR NINJA
+Je vais créer un service de synchronisation qui :
+
+// Service de synchronisation Tour Ninja
+class AmontourSyncService {
+  async syncRequests() {
+    // 1. Récupérer depuis Amontour
+    const response = await fetch('https://amontour.replit.app/api/sync/tour-ninja', {
+      headers: {
+        'Authorization': 'Bearer TOUR_NINJA_API_KEY_2025'
+      }
+    });
+    
+    const { data } = await response.json();
+    
+    // 2. Pour chaque demande, créer dans Tour Ninja
+    for (const request of data) {
+      // Vérifier si déjà synchronisé via amontourId
+      const exists = await checkIfExists(request.amontourId);
+      
+      if (!exists) {
+        await fetch('/api/custom-tour-requests/internal', {
+          method: 'POST',
+          body: JSON.stringify({
+            ...request,
+            source: 'amontour_sync',
+            externalId: request.amontourId
+          })
+        });
+      }
+    }
+  }
+}
+📊 6. WEBHOOK POUR SYNCHRONISATION TEMPS RÉEL (OPTIONNEL)
+Si vous préférez du temps réel plutôt que du polling, je peux exposer un webhook :
+
+POST https://tour-ninja.replit.app/api/webhooks/amontour
+Content-Type: application/json
+Authorization: Bearer WEBHOOK_SECRET
+{
+  "event": "custom_tour_request.created",
+  "data": { /* CustomTourRequest object */ }
+}
+⚡ 7. PROCHAINES ÉTAPES
+Activez l'endpoint /api/sync/tour-ninja ✅
+Générez la clé API TOUR_NINJA_API_KEY_2025
+Confirmez l'URL de production d'Amontour
+Test initial : Je ferai un premier appel pour récupérer les 13 demandes
+Monitoring : Je mettrai en place des logs pour suivre les synchronisations
+🎯 8. TEST IMMÉDIAT
+Dès que vous m'aurez fourni la clé API, je pourrai tester avec :
+
+curl -X GET "https://amontour.replit.app/api/sync/tour-ninja?status=new" \
+  -H "Authorization: Bearer TOUR_NINJA_API_KEY_2025"
+❓ 9. QUESTIONS FINALES
+Rétro-synchronisation : Quand Tour Ninja met à jour un statut (ex: "converted"), voulez-vous que je renvoie l'information vers Amontour ?
+
+Si oui, quel endpoint utiliser ?
+Champs additionnels : Voulez-vous que je stocke les interests et tripTypes pour enrichir l'expérience Tour Ninja ?
+
+Notifications : Souhaitez-vous être notifié quand une synchronisation échoue ?
