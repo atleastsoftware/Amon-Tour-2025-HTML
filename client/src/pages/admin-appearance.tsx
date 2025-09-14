@@ -495,7 +495,7 @@ function ContactInfoManager({ siteSettings, updateSiteSetting, updateSiteSetting
           </div>
           {/* Preview */}
           {newItem.label && newItem.value && (
-            <div className="bg-gray-50 p-3 rounded border-l-4 border-primary">
+            <div className="bg-gray-50 p-3 rounded border-l-4 border-secondary">
               <Label className="text-xs text-gray-500 block mb-1">Preview on website:</Label>
               <div className="text-sm">
                 {newItem.style === 'phone_with_title' ? (
@@ -747,7 +747,7 @@ function UsefulLinksManager({ siteSettings, updateSiteSetting, updateSiteSetting
           </div>
           {/* Preview */}
           {newLink.text && newLink.url && (
-            <div className="bg-gray-50 p-3 rounded border-l-4 border-primary">
+            <div className="bg-gray-50 p-3 rounded border-l-4 border-secondary">
               <Label className="text-xs text-gray-500 block mb-1">Preview on website:</Label>
               <div className="text-sm">
                 <a 
@@ -959,7 +959,7 @@ function SocialMediaManager({ siteSettings, updateSiteSetting, updateSiteSetting
           
           {/* Preview */}
           {newSocial.url && newSocial.icon && (
-            <div className="bg-gray-50 p-3 rounded border-l-4 border-primary">
+            <div className="bg-gray-50 p-3 rounded border-l-4 border-secondary">
               <Label className="text-xs text-gray-500 block mb-1">Preview on website:</Label>
               <div className="text-sm">
                 <a 
@@ -1895,7 +1895,7 @@ export default function AdminAppearance() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-secondary mx-auto mb-4"></div>
           <p className="text-gray-600">Loading appearance settings...</p>
         </div>
       </div>
@@ -3482,7 +3482,7 @@ export default function AdminAppearance() {
                     <div className="border-t pt-4">
                       <Button
                         variant="outline"
-                        className="w-full justify-start text-sm h-8 mb-4 text-primary border-primary hover:bg-primary/10"
+                        className="w-full justify-start text-sm h-8 mb-4 text-primary border-secondary hover:bg-primary/10"
                         onClick={() => {
                           window.location.href = '/admin-editor';
                         }}
@@ -3494,7 +3494,7 @@ export default function AdminAppearance() {
                       {/* Add New Page Button */}
                       <Button
                         variant="outline"
-                        className="w-full justify-start text-sm h-8 border-dashed border-primary/30 text-primary hover:bg-primary/10"
+                        className="w-full justify-start text-sm h-8 border-dashed border-secondary/30 text-primary hover:bg-primary/10"
                         onClick={() => setIsAddPageModalOpen(true)}
                       >
                         <Plus className="w-4 h-4 mr-2" />
@@ -3779,7 +3779,7 @@ export default function AdminAppearance() {
                       <NavigationMenuManager pageConfigs={pageConfigs} navigationMenuItems={[]} />
                     ) : loadingBlocks ? (
                       <div className="text-center py-12">
-                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-secondary mx-auto mb-4"></div>
                         <p className="text-gray-500">Loading blocks...</p>
                       </div>
                     ) : (
@@ -4250,7 +4250,7 @@ function NavigationMenuManager({ pageConfigs, navigationMenuItems }: { pageConfi
         </h3>
         {isLoading ? (
           <div className="text-center py-8">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-secondary mx-auto mb-4"></div>
             <p className="text-gray-500">Chargement...</p>
           </div>
         ) : organizedItems.length === 0 ? (
@@ -4972,7 +4972,7 @@ function RealBlocksEditor({
       ))}
       
       {/* Bouton pour ajouter un nouveau bloc */}
-      <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-primary/40 hover:bg-primary/10 transition-colors">
+      <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-secondary/40 hover:bg-primary/10 transition-colors">
         <Plus className="w-8 h-8 mx-auto mb-2 text-gray-400" />
         <p className="text-gray-600 font-medium">Ajouter un nouveau bloc</p>
         <p className="text-sm text-gray-500">Les boutons de création rapide sont disponibles ci-dessous</p>

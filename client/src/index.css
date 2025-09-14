@@ -70,6 +70,8 @@
   --success-foreground: 210 100% 98%;
   --warning: 45 93% 47%;
   --warning-foreground: 210 100% 98%;
+  --star: 45 100% 60%; /* Couleur jaune harmonieuse pour les étoiles */
+  --star-foreground: 0 0% 0%;
   --ring: 20 14.3% 4.1%;
   --radius: 0.5rem;
   --chart-1: 198 86% 23%;
@@ -110,6 +112,8 @@
   --success-foreground: 0 0% 98%;
   --warning: 45 100% 51%;
   --warning-foreground: 0 0% 98%;
+  --star: 45 100% 65%; /* Couleur jaune harmonieuse pour les étoiles - mode sombre */
+  --star-foreground: 0 0% 0%;
   --ring: 240 4.9% 83.9%;
 }
 

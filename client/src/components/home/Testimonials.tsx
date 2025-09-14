@@ -29,11 +29,11 @@ export default function Testimonials() {
         <div className="bg-white rounded-lg p-6 shadow-lg mb-10">
           <div className="text-center mb-4">
             <div className="flex justify-center mb-3">
-              <i className="fas fa-star text-secondary text-2xl mx-1"></i>
-              <i className="fas fa-star text-secondary text-2xl mx-1"></i>
-              <i className="fas fa-star text-secondary text-2xl mx-1"></i>
-              <i className="fas fa-star text-secondary text-2xl mx-1"></i>
-              <i className="fas fa-star text-secondary text-2xl mx-1"></i>
+              <i className="fas fa-star text-[hsl(var(--star))] text-2xl mx-1"></i>
+              <i className="fas fa-star text-[hsl(var(--star))] text-2xl mx-1"></i>
+              <i className="fas fa-star text-[hsl(var(--star))] text-2xl mx-1"></i>
+              <i className="fas fa-star text-[hsl(var(--star))] text-2xl mx-1"></i>
+              <i className="fas fa-star text-[hsl(var(--star))] text-2xl mx-1"></i>
             </div>
             <h3 className="text-primary font-heading font-bold text-2xl">5.0 on Google</h3>
             <p className="text-muted-foreground">Based on 80 reviews</p>
@@ -46,11 +46,11 @@ export default function Testimonials() {
               {/* Example of preloaded reviews while waiting for widget to load */}
               <div className="bg-muted/30 p-4 rounded-lg shadow-sm flex-shrink-0 w-full md:w-1/3">
                 <div className="flex mb-2">
-                  <i className="fas fa-star text-secondary"></i>
-                  <i className="fas fa-star text-secondary"></i>
-                  <i className="fas fa-star text-secondary"></i>
-                  <i className="fas fa-star text-secondary"></i>
-                  <i className="fas fa-star text-secondary"></i>
+                  <i className="fas fa-star text-[hsl(var(--star))]"></i>
+                  <i className="fas fa-star text-[hsl(var(--star))]"></i>
+                  <i className="fas fa-star text-[hsl(var(--star))]"></i>
+                  <i className="fas fa-star text-[hsl(var(--star))]"></i>
+                  <i className="fas fa-star text-[hsl(var(--star))]"></i>
                 </div>
                 <p className="italic text-muted-foreground text-sm mb-2">
                   "We spent 2 wonderful days with Eric and Margaux who showed us amazing places. A unique and authentic experience..."
@@ -65,11 +65,11 @@ export default function Testimonials() {
 
               <div className="bg-muted/30 p-4 rounded-lg shadow-sm flex-shrink-0 w-full md:w-1/3">
                 <div className="flex mb-2">
-                  <i className="fas fa-star text-secondary"></i>
-                  <i className="fas fa-star text-secondary"></i>
-                  <i className="fas fa-star text-secondary"></i>
-                  <i className="fas fa-star text-secondary"></i>
-                  <i className="fas fa-star text-secondary"></i>
+                  <i className="fas fa-star text-[hsl(var(--star))]"></i>
+                  <i className="fas fa-star text-[hsl(var(--star))]"></i>
+                  <i className="fas fa-star text-[hsl(var(--star))]"></i>
+                  <i className="fas fa-star text-[hsl(var(--star))]"></i>
+                  <i className="fas fa-star text-[hsl(var(--star))]"></i>
                 </div>
                 <p className="italic text-muted-foreground text-sm mb-2">
                   "The French explanations, the Thai meal in a local spot, the magnificent landscapes and the warm welcome from Eric and Margaux, everything was perfect!"
@@ -84,11 +84,11 @@ export default function Testimonials() {
 
               <div className="bg-muted/30 p-4 rounded-lg shadow-sm flex-shrink-0 w-full md:w-1/3">
                 <div className="flex mb-2">
-                  <i className="fas fa-star text-secondary"></i>
-                  <i className="fas fa-star text-secondary"></i>
-                  <i className="fas fa-star text-secondary"></i>
-                  <i className="fas fa-star text-secondary"></i>
-                  <i className="fas fa-star text-secondary"></i>
+                  <i className="fas fa-star text-[hsl(var(--star))]"></i>
+                  <i className="fas fa-star text-[hsl(var(--star))]"></i>
+                  <i className="fas fa-star text-[hsl(var(--star))]"></i>
+                  <i className="fas fa-star text-[hsl(var(--star))]"></i>
+                  <i className="fas fa-star text-[hsl(var(--star))]"></i>
                 </div>
                 <p className="italic text-muted-foreground text-sm mb-2">
                   "An unforgettable day, everything was perfect. We discovered beautiful places away from the tourist crowds. Thanks to Eric and Margaux for their kindness..."

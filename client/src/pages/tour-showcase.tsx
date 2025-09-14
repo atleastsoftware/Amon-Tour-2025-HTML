@@ -102,7 +102,7 @@ export default function TourShowcase() {
           <div className="container mx-auto px-4">
             <div className="flex items-center justify-center h-96">
               <div className="text-center">
-                <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto"></div>
+                <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-secondary mx-auto"></div>
                 <p className="mt-4 text-gray-600">Loading tour...</p>
               </div>
             </div>
@@ -251,7 +251,7 @@ export default function TourShowcase() {
                     <h2 className="text-2xl font-bold text-gray-900 mb-6">Itinerary</h2>
                     <div className="space-y-6">
                       {tour.itinerary.map((day, index) => (
-                        <div key={index} className="border-l-4 border-primary pl-6 pb-6">
+                        <div key={index} className="border-l-4 border-secondary pl-6 pb-6">
                           <h3 className="text-lg font-semibold text-gray-900 mb-2">
                             Day {day.day}: {day.title}
                           </h3>
@@ -330,7 +330,7 @@ export default function TourShowcase() {
                           <Button 
                             onClick={handleViewDetails}
                             variant="outline"
-                            className="w-full border-primary text-blue-600 hover:bg-blue-50"
+                            className="w-full border-secondary text-blue-600 hover:bg-blue-50"
                             size="lg"
                           >
                             View Details

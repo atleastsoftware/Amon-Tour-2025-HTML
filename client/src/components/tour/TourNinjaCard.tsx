@@ -121,24 +121,19 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
           )}
           
           <div className="absolute top-3 right-3 flex flex-col gap-2">
-            <Badge variant="secondary" className="bg-white/90 text-primary font-semibold">
+            <Badge variant="secondary" className="bg-white/90 text-primary font-semibold px-2 py-1">
               {tour.price > 0 
                 ? (tour.currency === 'THB' ? formatTHB(tour.price) : `${tour.price} ${tour.currency || 'THB'}`)
                 : 'Prix sur demande'
               }
             </Badge>
-            {tour.customImage && (
-              <Badge variant="default" className="bg-gold text-white text-xs font-medium">
-                Image personnalisée
-              </Badge>
-            )}
           </div>
         </div>
 
         <CardContent className="p-4 flex flex-col justify-between h-full">
           <div>
             <h3 
-              className="font-heading font-semibold text-lg mb-2 line-clamp-2 cursor-pointer hover:text-primary transition-colors"
+              className="font-heading font-semibold text-lg mb-2 line-clamp-2 cursor-pointer "
               onClick={(e) => {
                 e.stopPropagation();
                 if (tour.presentationUrl) {
