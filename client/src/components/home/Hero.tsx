@@ -194,7 +194,7 @@ export default function Hero() {
         {/* Additional overlay for better text readability */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
       </div>
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-4 relative z-10 pt-12">
         <div className="flex flex-col md:flex-row items-center gap-10">
           {/* Left content - Title and description */}
           <div className="w-full">
@@ -213,7 +213,7 @@ export default function Hero() {
                   }
                 }
               }}
-              className={`max-w-xl ${
+              className={`max-w-xl ml-8 ${
                 heroConfig?.contentAlignment === 'center' ? 'mx-auto text-center' : 
                 heroConfig?.contentAlignment === 'right' ? 'ml-auto text-right' : 
                 'text-left'
