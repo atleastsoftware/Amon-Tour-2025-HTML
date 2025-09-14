@@ -161,7 +161,7 @@ export default function Header() {
       
       <header ref={headerRef} className={headerClasses} style={headerStyle}>
         {/* Main Navigation */}
-        <nav className="container mx-auto pl-6 pr-4 flex justify-between items-center">
+        <nav className="container mx-auto pl-2 pr-4 flex justify-between items-center">
         {/* Logo */}
         <Link href="/">
           <motion.div
