@@ -81,50 +81,48 @@ export default function CookieConsent() {
   if (!isVisible) return null;
 
   return (
-    <div className={`fixed inset-0 bg-black/50 flex items-end justify-center z-[9999] transition-opacity duration-300 ${isClosing ? 'opacity-0' : 'opacity-100'}`} data-testid="cookie-consent-overlay">
-      <div className={`bg-white rounded-t-lg shadow-lg max-w-2xl mx-4 mb-0 p-6 transform transition-transform duration-300 ${isClosing ? 'translate-y-full' : 'translate-y-0'}`} data-testid="cookie-consent-dialog">
-        <div className="flex justify-between items-start mb-4">
-          <h3 className="text-lg font-heading font-semibold text-gray-900">
-            We Respect Your Privacy
-          </h3>
-          <button 
-            onClick={closeDialog}
-            className="text-gray-400 hover:text-gray-600 ml-4"
-            aria-label="Close"
-          >
-            <X size={20} />
-          </button>
-        </div>
-        
-        <p className="text-gray-600 mb-6 leading-relaxed">
-          This website uses cookies to enhance your browsing experience. By continuing to navigate, 
-          you accept our use of cookies to provide you with the best possible experience.
-        </p>
-        
-        <div className="flex flex-col sm:flex-row gap-3 justify-end">
-          <Button 
-            variant="outline" 
-            onClick={handleCustomize}
-            className="text-sm"
-            data-testid="button-cookie-customize"
-          >
-            Customize
-          </Button>
-          <Button 
-            variant="outline" 
-            onClick={handleReject}
-            className="text-sm"
-            data-testid="button-cookie-reject"
-          >
-            Reject All
-          </Button>
-          <Button 
-            onClick={handleAccept}
-            className="text-sm bg-primary hover:bg-primary/90"
-            data-testid="button-cookie-accept"
-          >
-            Accept All
-          </Button>
+    <div className={`fixed bottom-0 left-0 right-0 z-[9999] transition-all duration-300 ${isClosing ? 'translate-y-full opacity-0' : 'translate-y-0 opacity-100'}`} data-testid="cookie-consent-overlay">
+      <div className="bg-white border-t border-gray-200 shadow-lg px-4 py-3" data-testid="cookie-consent-dialog">
+        <div className="container mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="flex-1">
+            <h4 className="text-sm font-semibold text-gray-900 mb-1">We Respect Your Privacy</h4>
+            <p className="text-xs text-gray-600 leading-relaxed">
+              This website uses cookies to enhance your browsing experience. By continuing to navigate, you accept our use of cookies.
+            </p>
+          </div>
+          
+          <div className="flex items-center gap-2 shrink-0">
+            <Button 
+              variant="ghost" 
+              onClick={handleCustomize}
+              className="text-xs px-3 py-1 h-auto"
+              data-testid="button-cookie-customize"
+            >
+              Customize
+            </Button>
+            <Button 
+              variant="outline" 
+              onClick={handleReject}
+              className="text-xs px-3 py-1 h-auto"
+              data-testid="button-cookie-reject"
+            >
+              Reject All
+            </Button>
+            <Button 
+              onClick={handleAccept}
+              className="text-xs px-3 py-1 h-auto bg-primary hover:bg-primary/90"
+              data-testid="button-cookie-accept"
+            >
+              Accept All
+            </Button>
+            <button 
+              onClick={closeDialog}
+              className="text-gray-400 hover:text-gray-600 ml-2"
+              aria-label="Close"
+            >
+              <X size={14} />
+            </button>
+          </div>
         </div>
       </div>
     </div>
