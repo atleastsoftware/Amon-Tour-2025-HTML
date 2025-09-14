@@ -1211,9 +1211,13 @@ Crawl-delay: 1`;
   // Tour Ninja synchronization endpoint with API key authentication
   app.get("/api/sync/tour-ninja", async (req, res) => {
     try {
-      // API key authentication for Tour Ninja (from environment)
+      // API key authentication for Tour Ninja
       const authHeader = req.headers.authorization;
-      const expectedApiKey = process.env.TOUR_NINJA_API_KEY || "TOUR_NINJA_API_KEY_2025";
+      // Accept both the hardcoded key for Tour Ninja sync and the environment key for internal use
+      const validApiKeys = [
+        "TOUR_NINJA_API_KEY_2025", // Tour Ninja's dedicated sync key
+        process.env.TOUR_NINJA_API_KEY // Environment key if set
+      ].filter(Boolean);
       
       if (!authHeader || !authHeader.startsWith('Bearer ')) {
         return res.status(401).json({ 
@@ -1223,7 +1227,7 @@ Crawl-delay: 1`;
       }
 
       const apiKey = authHeader.substring(7); // Remove 'Bearer '
-      if (apiKey !== expectedApiKey) {
+      if (!validApiKeys.includes(apiKey)) {
         return res.status(403).json({ 
           success: false, 
           message: "Invalid API key" 
