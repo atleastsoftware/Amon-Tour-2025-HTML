@@ -16,7 +16,7 @@ export default function HeroHeader({
   title,
   subtitle,
   bgImageUrl = "/attached_assets/790fc1de-1a62-4e19-93eb-f2529f131485_1757694001569.jpeg",
-  heightClass = "h-[50vh]",
+  heightClass = "h-[52vh]",
   overlayClass = "bg-black/50",
   center = true,
   animate = true,
