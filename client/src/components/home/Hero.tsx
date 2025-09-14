@@ -213,7 +213,7 @@ export default function Hero() {
                   }
                 }
               }}
-              className={`max-w-xl ml-8 ${
+              className={`max-w-xl ml-6 ${
                 heroConfig?.contentAlignment === 'center' ? 'mx-auto text-center' : 
                 heroConfig?.contentAlignment === 'right' ? 'ml-auto text-right' : 
                 'text-left'
