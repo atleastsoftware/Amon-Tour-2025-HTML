@@ -101,7 +101,6 @@ app.use((req, res, next) => {
     const message = err.message || "Internal Server Error";
 
     res.status(status).json({ message });
-    throw err;
   });
 
   // importantly only setup vite in development and after
@@ -113,57 +112,36 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
 
+  // Do initialization tasks BEFORE the server starts listening
+  // This ensures they complete before the port opens for deployment
+  try {
+    log("Starting initialization tasks...");
+    
+    // Ensure admin user exists in database
+    await ensureAdminUser();
+    
+    // Migrate tours from JSON to database only in development
+    // In production, the database should already be populated
+    if (app.get("env") === "development") {
+      await migrateTours();
+    }
+    
+    log("Initialization tasks completed successfully");
+  } catch (error) {
+    log(`Error during initialization: ${error}`);
+    // Don't crash the server if initialization fails
+    // The app can still serve requests
+  }
+
   // ALWAYS serve the app on port 5000
   // this serves both the API and the client.  
   // It is the only port that is not firewalled.
   const port = 5000;
   
-  // Check if the app is already running before attempting to start
-  try {
-    const fetch = (await import('node-fetch')).default;
-    const response = await fetch(`http://127.0.0.1:${port}/`, { 
-      timeout: 2000,
-      signal: AbortSignal.timeout(2000)
-    });
-    if (response.ok) {
-      log(`App already running on port ${port}. Exiting to avoid duplicate instances.`);
-      process.exit(0);
-    }
-  } catch (error) {
-    // If fetch fails, assume no server is running and continue
-    log(`No existing server detected, starting fresh instance...`);
-  }
-  
-  server.on('error', (err: any) => {
-    if (err.code === 'EADDRINUSE') {
-      log(`Port ${port} is already in use. Attempting to use reusePort...`);
-    } else {
-      log(`Server error: ${err.message}`);
-    }
-  });
-  
   server.listen({
     port,
     host: "0.0.0.0",
-    reusePort: true,
-  }, async () => {
+  }, () => {
     log(`serving on port ${port}`);
-    
-    // Do initialization tasks AFTER the server is listening
-    // This prevents deployment timeouts
-    try {
-      // Ensure admin user exists in database
-      await ensureAdminUser();
-      
-      // Migrate tours from JSON to database only in development
-      // In production, the database should already be populated
-      if (app.get("env") === "development") {
-        await migrateTours();
-      }
-    } catch (error) {
-      log(`Error during server initialization: ${error}`);
-      // Don't crash the server if initialization fails
-      // The app can still serve requests
-    }
   });
 })();
