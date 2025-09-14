@@ -16,42 +16,124 @@ export default function CookieConsent() {
 
     // Hide any potential third-party cookie banners that might be in French
     const hideFrenchCookieBanners = () => {
-      // Common selectors for third-party cookie consent tools
-      const selectors = [
-        '[class*="cookie"][class*="banner"]',
-        '[class*="consent"][class*="banner"]', 
-        '[id*="cookie"][id*="banner"]',
-        '[id*="consent"]',
-        '[class*="gdpr"]',
-        '.cc-window', // CookieConsent common class
-        '#cookieConsent',
-        '[data-testid*="cookie"]',
-        '[data-role="cookie"]'
-      ];
-      
-      selectors.forEach(selector => {
-        const elements = document.querySelectorAll(selector);
-        elements.forEach(el => {
-          // Hide French cookie banners by checking for French text
-          if (el.textContent?.includes('privée') || 
-              el.textContent?.includes('Personnaliser') ||
-              el.textContent?.includes('Refuser') ||
-              el.textContent?.includes('Accepter')) {
+      // Function to hide French cookie banners in any context (main page or iframe)
+      const hideInContext = (doc: Document) => {
+        // Common selectors for third-party cookie consent tools
+        const selectors = [
+          '[class*="cookie"]', 
+          '[class*="consent"]', 
+          '[id*="cookie"]',
+          '[id*="consent"]',
+          '[class*="gdpr"]',
+          '.cc-window', 
+          '#cookieConsent',
+          '[data-testid*="cookie"]',
+          '[data-role="cookie"]',
+          'div[style*="z-index"]:has-text("privée")',
+          'div[style*="z-index"]:has-text("Personnaliser")'
+        ];
+        
+        selectors.forEach(selector => {
+          try {
+            const elements = doc.querySelectorAll(selector);
+            elements.forEach(el => {
+              const text = el.textContent?.toLowerCase() || '';
+              // Check for French cookie consent terms
+              if (text.includes('privée') || 
+                  text.includes('personnaliser') ||
+                  text.includes('refuser') ||
+                  text.includes('accepter tout') ||
+                  text.includes('nous respectons') ||
+                  text.includes('vie privée') ||
+                  text.includes('navigation')) {
+                (el as HTMLElement).style.display = 'none';
+                console.log('Hidden French cookie banner:', el);
+              }
+            });
+          } catch (e) {
+            // Ignore errors for invalid selectors
+          }
+        });
+        
+        // Also check all high z-index divs that might be cookie banners
+        const highZElements = doc.querySelectorAll('div[style*="z-index"]');
+        highZElements.forEach(el => {
+          const text = el.textContent?.toLowerCase() || '';
+          const style = (el as HTMLElement).style.zIndex;
+          if (parseInt(style) > 1000 && (
+              text.includes('privée') || 
+              text.includes('personnaliser') ||
+              text.includes('refuser') ||
+              text.includes('accepter tout'))) {
             (el as HTMLElement).style.display = 'none';
+            console.log('Hidden high z-index French element:', el);
+          }
+        });
+      };
+      
+      // Hide in main document
+      hideInContext(document);
+      
+      // Also check in iframes
+      try {
+        const iframes = document.querySelectorAll('iframe');
+        iframes.forEach(iframe => {
+          try {
+            if (iframe.contentDocument) {
+              hideInContext(iframe.contentDocument);
+            }
+          } catch (e) {
+            // Cross-origin iframe, can't access
+          }
+        });
+      } catch (e) {
+        // Ignore iframe access errors
+      }
+    };
+
+    // Run immediately and also after delays in case content loads later
+    hideFrenchCookieBanners();
+    setTimeout(hideFrenchCookieBanners, 1000);
+    setTimeout(hideFrenchCookieBanners, 3000);
+    setTimeout(hideFrenchCookieBanners, 5000);
+    
+    // Set up observer for dynamically added content
+    const observer = new MutationObserver((mutations) => {
+      // Check if any added nodes might be cookie dialogs
+      let shouldCheck = false;
+      mutations.forEach(mutation => {
+        mutation.addedNodes.forEach(node => {
+          if (node.nodeType === 1) { // Element node
+            const element = node as Element;
+            const text = element.textContent?.toLowerCase() || '';
+            if (text.includes('cookie') || text.includes('consent') || 
+                text.includes('privée') || text.includes('personnaliser')) {
+              shouldCheck = true;
+            }
           }
         });
       });
-    };
-
-    // Run immediately and also after a delay in case content loads later
-    hideFrenchCookieBanners();
-    setTimeout(hideFrenchCookieBanners, 2000);
+      
+      if (shouldCheck) {
+        setTimeout(hideFrenchCookieBanners, 100);
+      }
+    });
     
-    // Set up observer for dynamically added content
-    const observer = new MutationObserver(hideFrenchCookieBanners);
     observer.observe(document.body, { childList: true, subtree: true });
     
-    return () => observer.disconnect();
+    // Also listen for iframe load events
+    window.addEventListener('message', (event) => {
+      // Check if message is from iframe that might contain cookie consent
+      if (typeof event.data === 'string' && 
+          (event.data.includes('cookie') || event.data.includes('consent'))) {
+        setTimeout(hideFrenchCookieBanners, 500);
+      }
+    });
+    
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('message', hideFrenchCookieBanners);
+    };
   }, []);
 
   const handleAccept = () => {

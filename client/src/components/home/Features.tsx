@@ -52,7 +52,7 @@ export default function Features() {
                   whileHover={{ y: -5 }}
                 >
                   <div className="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center mb-1">
-                    <i className="fas fa-car text-secondary text-sm"></i>
+                    <i className="fas fa-car text-primary text-sm"></i>
                   </div>
                   <span className="text-xs">Private Car</span>
                 </motion.div>
@@ -62,7 +62,7 @@ export default function Features() {
                   whileHover={{ y: -5 }}
                 >
                   <div className="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center mb-1">
-                    <i className="fas fa-language text-secondary text-sm"></i>
+                    <i className="fas fa-language text-primary text-sm"></i>
                   </div>
                   <span className="text-xs">Guide</span>
                 </motion.div>
@@ -72,7 +72,7 @@ export default function Features() {
                   whileHover={{ y: -5 }}
                 >
                   <div className="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center mb-1">
-                    <i className="fas fa-shield-alt text-secondary text-sm"></i>
+                    <i className="fas fa-shield-alt text-primary text-sm"></i>
                   </div>
                   <span className="text-xs">Safety</span>
                 </motion.div>

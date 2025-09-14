@@ -53,21 +53,5 @@ args = "npm run dev"
 integrations = ["javascript_object_storage:1.0.0", "javascript_log_in_with_replit:1.0.0", "javascript_database:1.0.0"]
 
 [[ports]]
-localPort = 5000
-externalPort = 5000
-
-[[ports]]
-localPort = 37079
-externalPort = 3001
-
-[[ports]]
-localPort = 39983
-externalPort = 3000
-
-[[ports]]
-localPort = 46039
-externalPort = 3002
-
-[[ports]]
-localPort = 46405
+localPort = 42463
 externalPort = 80
