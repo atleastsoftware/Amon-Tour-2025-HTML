@@ -292,8 +292,8 @@ Book Now
                 transition={{ duration: 0.6 }}
               >
                 <h2 className="font-heading font-semibold text-xl mb-4">Filter Experiences</h2>
-                <div className="flex flex-col lg:flex-row gap-4 w-full">
-                  <motion.div whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 400 }} className="flex-1">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+                  <motion.div whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 400 }} className="lg:col-span-1">
                     <label htmlFor="search" className="block text-sm font-medium text-gray-700 mb-1">
                       Search
                     </label>
@@ -305,6 +305,11 @@ Book Now
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />
                   </motion.div>
+                  <div className="lg:col-span-3 flex items-end">
+                    <div className="text-sm text-gray-500">
+                      Use the search above to find specific experiences
+                    </div>
+                  </div>
                 </div>
               </motion.div>
             </SlideUpWhenVisible>

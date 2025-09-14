@@ -109,34 +109,8 @@ export default function BlogPage() {
               </div>
             </div>
 
-            {/* Filters - Categories and Tags */}
+            {/* Filters - Tags and Categories (swapped order) */}
             <div className="space-y-4">
-              {/* Categories Row */}
-              <div>
-                <h3 className="text-sm font-medium text-gray-700 mb-3">Categories</h3>
-                <div className="flex flex-wrap gap-2">
-                  <Button
-                    variant={selectedCategory === "" ? "default" : "outline"}
-                    size="sm"
-                    className="whitespace-nowrap"
-                    onClick={() => setSelectedCategory("")}
-                  >
-                    All Categories
-                  </Button>
-                  {categories.map((category) => (
-                    <Button
-                      key={category.id}
-                      variant={selectedCategory === category.slug ? "default" : "outline"}
-                      size="sm"
-                      className="whitespace-nowrap"
-                      onClick={() => setSelectedCategory(category.slug)}
-                    >
-                      🏝️ {category.name}
-                    </Button>
-                  ))}
-                </div>
-              </div>
-
               {/* Tags Row */}
               {tags.length > 0 && (
                 <div>
@@ -165,6 +139,32 @@ export default function BlogPage() {
                   </div>
                 </div>
               )}
+
+              {/* Categories Row */}
+              <div>
+                <h3 className="text-sm font-medium text-gray-700 mb-3">Categories</h3>
+                <div className="flex flex-wrap gap-2">
+                  <Button
+                    variant={selectedCategory === "" ? "default" : "outline"}
+                    size="sm"
+                    className="whitespace-nowrap"
+                    onClick={() => setSelectedCategory("")}
+                  >
+                    All Categories
+                  </Button>
+                  {categories.map((category) => (
+                    <Button
+                      key={category.id}
+                      variant={selectedCategory === category.slug ? "default" : "outline"}
+                      size="sm"
+                      className="whitespace-nowrap"
+                      onClick={() => setSelectedCategory(category.slug)}
+                    >
+                      🏝️ {category.name}
+                    </Button>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </section>
