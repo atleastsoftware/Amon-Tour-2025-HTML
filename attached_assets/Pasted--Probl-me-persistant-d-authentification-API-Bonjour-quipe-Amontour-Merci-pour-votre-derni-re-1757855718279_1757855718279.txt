@@ -1,0 +1,69 @@
+⚠️ Problème persistant d'authentification API
+Bonjour équipe Amontour,
+
+Merci pour votre dernière réponse confirmant que l'API est opérationnelle. Cependant, nous rencontrons toujours le même problème d'authentification.
+
+Situation actuelle :
+✅ Ce qui fonctionne :
+
+L'URL https://www.amon-tour.com/api/sync/tour-ninja répond bien
+Notre service est configuré avec la bonne URL
+La clé API TOUR_NINJA_API_KEY_2025 est stockée dans nos secrets
+❌ Le problème persistant :
+
+curl -X GET "https://www.amon-tour.com/api/sync/tour-ninja" \
+  -H "Authorization: Bearer TOUR_NINJA_API_KEY_2025" \
+  -H "Content-Type: application/json"
+# Réponse actuelle:
+{"success":false,"message":"Invalid API key"}
+# Code HTTP: 403 Forbidden
+Vérifications de notre côté :
+✅ URL mise à jour : https://www.amon-tour.com/api/sync/tour-ninja
+✅ Clé API dans les secrets : TOUR_NINJA_API_KEY_2025
+✅ Format du header : Authorization: Bearer TOUR_NINJA_API_KEY_2025
+✅ Notre service AmontourSyncService utilise exactement cette configuration
+Points à vérifier de votre côté :
+Pourriez-vous s'il vous plaît vérifier :
+
+La clé API est-elle bien enregistrée dans votre base de données ?
+
+Clé exacte : TOUR_NINJA_API_KEY_2025
+Sans espaces avant/après
+Y a-t-il une whitelist d'IP ou de domaines ?
+
+Nos requêtes viennent de Replit (IP dynamique)
+Domaine source : *.replit.dev
+Pouvez-vous voir nos tentatives dans vos logs serveur ?
+
+Si oui, quelle erreur exacte apparaît ?
+Cela nous aiderait à comprendre pourquoi l'authentification échoue
+Test de validation de votre côté :
+
+Pouvez-vous faire le même test curl depuis votre serveur et confirmer qu'il fonctionne ?
+Solution rapide proposée :
+Pour déboguer ensemble, pourriez-vous temporairement :
+
+Activer des logs détaillés pour l'endpoint /api/sync/tour-ninja
+Nous partager ce que vous voyez quand nous tentons la connexion
+Ou créer une clé de test temporaire que nous pourrions essayer
+Notre configuration actuelle (prête à fonctionner) :
+// server/services/amontour-sync.ts
+export class AmontourSyncService {
+  private apiKey: string = 'TOUR_NINJA_API_KEY_2025';
+  private apiUrl: string = 'https://www.amon-tour.com/api/sync/tour-ninja';
+  
+  async syncRequests() {
+    const response = await fetch(this.apiUrl, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${this.apiKey}`,
+        'Content-Type': 'application/json'
+      }
+    });
+    // Résultat actuel: 403 - Invalid API key
+  }
+}
+Nous sommes prêts à synchroniser dès que l'authentification fonctionnera. Merci de votre aide pour résoudre ce dernier obstacle !
+
+Cordialement,
+L'équipe Tour Ninja
