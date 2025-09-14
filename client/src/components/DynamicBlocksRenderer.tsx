@@ -41,7 +41,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
       case 'hero_banner':
       case 'hero_video':
         return (
-          <div key={block.id} className="relative min-h-[50vh] bg-gradient-to-br from-primary to-secondary flex items-center justify-center w-full">
+          <div key={block.id} className="relative h-[52vh] bg-gradient-to-br from-primary to-secondary flex items-center justify-center w-full">
             {block.imageUrl && (
               <img 
                 src={block.imageUrl} 

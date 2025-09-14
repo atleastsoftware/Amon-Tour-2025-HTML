@@ -47,6 +47,7 @@ import DynamicPage from "@/pages/DynamicPage";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 import { IframeProvider } from "@/contexts/IframeContext";
 import IframeModal from "@/components/ui/IframeModal";
+import CookieConsent from "@/components/ui/CookieConsent";
 import { useEffect } from "react";
 import { useLocation } from "wouter";
 
@@ -129,6 +130,7 @@ function App() {
         <Router />
         <WhatsAppButton />
         <IframeModal />
+        <CookieConsent />
       </IframeProvider>
     </TooltipProvider>
   );
