@@ -140,7 +140,7 @@ export default function Hero() {
     }
   }, []);
   return (
-    <section id="hero" className="relative pt-28 pb-16 min-h-screen flex items-center overflow-hidden">
+    <section id="hero" className="relative pt-20 md:pt-28 pb-12 md:pb-16 min-h-screen flex items-center overflow-hidden">
       {/* Video Background Section with Fallback Image */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
         {/* Fallback Image */}
@@ -194,7 +194,7 @@ export default function Hero() {
         {/* Additional overlay for better text readability */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30"></div>
       </div>
-      <div className="container mx-auto px-4 relative z-10 pt-10">
+      <div className="container mx-auto px-4 relative z-10 pt-4 md:pt-10">
         <div className="flex flex-col md:flex-row items-center gap-10">
           {/* Left content - Title and description */}
           <div className="w-full">
@@ -213,7 +213,7 @@ export default function Hero() {
                   }
                 }
               }}
-              className={`max-w-xl ml-6 ${
+              className={`max-w-xl ml-3 md:ml-6 ${
                 heroConfig?.contentAlignment === 'center' ? 'mx-auto text-center' : 
                 heroConfig?.contentAlignment === 'right' ? 'ml-auto text-right' : 
                 'text-left'

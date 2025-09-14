@@ -1,0 +1,64 @@
+Objet : Configuration API pour synchronisation Tour Ninja - Action requise
+
+Bonjour l'équipe Amontour,
+
+Nous avons configuré notre système Tour Ninja pour récupérer automatiquement les demandes de tours personnalisés depuis votre plateforme, mais nous rencontrons actuellement une erreur 404 sur votre API.
+
+Détails techniques de notre implémentation :
+
+Endpoint que nous appelons :
+
+GET https://amontour.replit.app/api/sync/tour-ninja
+Authentification utilisée :
+
+Authorization: Bearer TOUR_NINJA_API_KEY_2025
+Format de données attendu (JSON) :
+
+{
+  "success": true,
+  "count": 13,
+  "data": [
+    {
+      "customerName": "Nom du client",
+      "customerEmail": "email@example.com",
+      "phone": "Téléphone",
+      "tourDate": "2025-01-15",
+      "numberOfAdults": 2,
+      "numberOfKids": 0,
+      "duration": "3 jours",
+      "message": "Message du client",
+      "destinations": ["Phuket", "Krabi"],
+      "budget": "5000 EUR",
+      "status": "pending",
+      "associatedTourName": "Nom du tour",
+      "interests": ["Plages", "Culture"],
+      "tripTypes": ["Relaxation", "Aventure"],
+      "amontourId": 1,
+      "originalCreatedAt": "2025-01-14T10:00:00Z",
+      "source": "amontour"
+    }
+  ],
+  "lastSync": "2025-01-14T12:00:00Z"
+}
+Paramètres optionnels supportés :
+
+?status=pending (pour filtrer par statut)
+?since=2025-01-01T00:00:00Z (pour récupérer uniquement les nouvelles demandes)
+Actions requises de votre côté :
+
+✅ Créer l'endpoint /api/sync/tour-ninja sur votre serveur amontour.replit.app
+✅ Valider la clé API TOUR_NINJA_API_KEY_2025 dans l'en-tête Authorization
+✅ Retourner les 13 demandes de tours personnalisés au format JSON spécifié ci-dessus
+✅ Gérer les paramètres optionnels pour le filtrage (si possible)
+Note importante : Notre système effectue une vérification des doublons basée sur l'amontourId, donc assurez-vous que chaque demande a un ID unique et stable.
+
+Une fois ces configurations effectuées, notre système pourra :
+
+Synchroniser automatiquement les demandes toutes les heures
+Permettre une synchronisation manuelle via notre dashboard
+Afficher un badge "Amontour" pour identifier la source des demandes
+Éviter les doublons grâce à l'ID unique
+Pourriez-vous nous confirmer quand l'endpoint sera disponible ? Nous sommes prêts de notre côté et attendons simplement que votre API soit accessible.
+
+Cordialement,
+L'équipe Tour Ninja
