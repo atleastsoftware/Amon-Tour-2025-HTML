@@ -185,7 +185,7 @@ export default function Header() {
             <img 
               src={logoAmon} 
               alt="Amon Logo" 
-              className="h-20 w-auto mt-1"
+              className="h-20 w-auto mt-1 ml-[-2px]"
             />
           </motion.div>
         </Link>
