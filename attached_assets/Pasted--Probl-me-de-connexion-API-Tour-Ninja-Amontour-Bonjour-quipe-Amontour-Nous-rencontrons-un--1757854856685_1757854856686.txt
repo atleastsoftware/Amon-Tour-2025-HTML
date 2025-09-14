@@ -1,0 +1,65 @@
+🔧 Problème de connexion API Tour Ninja → Amontour
+Bonjour équipe Amontour,
+
+Nous rencontrons un problème de connexion avec votre API. Malgré votre confirmation que l'endpoint est actif, nous recevons toujours une erreur 404 Not Found. Voici les détails techniques pour déboguer ensemble :
+
+Notre implémentation actuelle :
+// Fichier: server/services/amontour-sync.ts
+export class AmontourSyncService {
+  private apiKey: string = 'TOUR_NINJA_API_KEY_2025';
+  private apiUrl: string = 'https://amontour.replit.app/api/sync/tour-ninja';
+  async syncRequests() {
+    const response = await fetch(this.apiUrl, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${this.apiKey}`,
+        'Content-Type': 'application/json'
+      }
+    });
+    // Résultat: 404 Not Found
+  }
+}
+Tests effectués :
+Test direct avec curl :
+curl -X GET "https://amontour.replit.app/api/sync/tour-ninja" \
+  -H "Authorization: Bearer TOUR_NINJA_API_KEY_2025" \
+  -H "Content-Type: application/json"
+# Résultat: Not Found (404)
+Test de la racine de votre API :
+curl https://amontour.replit.app/
+# Résultat: ?
+Questions pour déboguer ensemble :
+✅ L'URL est-elle exactement correcte ?
+
+Nous utilisons : https://amontour.replit.app/api/sync/tour-ninja
+Y a-t-il une différence de casse ou de format ?
+✅ Le header d'authentification est-il correct ?
+
+Nous envoyons : Authorization: Bearer TOUR_NINJA_API_KEY_2025
+Attendez-vous un format différent ?
+✅ Votre serveur est-il bien démarré sur Replit ?
+
+Pouvez-vous vérifier que votre application est en ligne ?
+Y a-t-il des logs côté serveur quand nous tentons la connexion ?
+✅ Y a-t-il une protection CORS ou firewall ?
+
+Notre serveur Node.js appelle depuis Replit aussi
+IP source variable selon l'instance Replit
+Solution proposée pour tester :
+Pouvez-vous :
+
+Partager un exemple de curl fonctionnel que nous pourrions tester ?
+Vérifier vos logs serveur pour voir si nos requêtes arrivent ?
+Confirmer l'URL exacte (avec copier/coller) de votre endpoint ?
+Alternative temporaire :
+Si le problème persiste, pourriez-vous exposer temporairement un endpoint de test comme :
+
+GET https://amontour.replit.app/api/test
+Qui retourne simplement {"status": "ok"} pour vérifier la connectivité de base ?
+
+Notre côté est prêt :
+✅ Clé API stockée : AMONTOUR_API_KEY
+✅ Service de synchronisation implémenté
+✅ Gestion des doublons par amontourId
+✅ Dashboard avec badge "Amontour" pour distinguer les sources
+Nous attendons votre retour pour déboguer ensemble !

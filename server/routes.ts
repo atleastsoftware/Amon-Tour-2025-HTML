@@ -1151,6 +1151,17 @@ Crawl-delay: 1`;
     }
   });
 
+  // ===== TEST ENDPOINT FOR CONNECTIVITY =====
+  
+  // Simple test endpoint to verify API connectivity
+  app.get("/api/test", (req, res) => {
+    res.json({ 
+      status: "ok",
+      message: "Amontour API is running",
+      timestamp: new Date().toISOString()
+    });
+  });
+
   // ===== TOUR NINJA SYNCHRONIZATION API =====
 
   // Function to transform Amontour request to Tour Ninja format
