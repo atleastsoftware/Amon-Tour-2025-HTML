@@ -400,11 +400,11 @@ export default function CatamaranExperience() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3 text-center">This Lagoon 470 catamaran (1999)</h2>
+          <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3 text-center">A Lagoon 470 Catamaran</h2>
           <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
           <div className="max-w-4xl mx-auto space-y-4">
             <p className="text-gray-600 text-lg text-center">
-              constantly improved since 2023, combines comfort and character. It has 4 double cabins with private bathrooms: two cabins with queen-size beds (160 cm) and two with double beds (140 cm). Each cabin is equipped with fans, 220V sockets and large storage spaces.
+              Built in 1999 and constantly improved since 2023, combines comfort and character. It has 4 double cabins with private bathrooms: two cabins with queen-size beds (160 cm) and two with double beds (140 cm). Each cabin is equipped with fans, 220V sockets and large storage spaces.
             </p>
             <p className="text-gray-600 text-lg text-center">
               Spacious and well-designed, the Lagoon offers seamless flow between the interior and exterior living spaces: large, bright living room, equipped kitchen, shaded cockpit, sunbathing area at the front, etc. The discreet engine ensures peaceful navigation.

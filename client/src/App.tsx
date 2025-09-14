@@ -47,8 +47,17 @@ import DynamicPage from "@/pages/DynamicPage";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 import { IframeProvider } from "@/contexts/IframeContext";
 import IframeModal from "@/components/ui/IframeModal";
+import { useEffect } from "react";
+import { useLocation } from "wouter";
 
 function Router() {
+  const [location] = useLocation();
+  
+  // Scroll to top on route change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+
   return (
     <Switch>
       {/* Public Pages */}

@@ -19,7 +19,7 @@ export default function IframeModal() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black/50 z-[9999] flex items-center justify-center p-4"
           onClick={closeIframe}
         >
           <motion.div
@@ -43,7 +43,7 @@ export default function IframeModal() {
                   className="flex items-center gap-2"
                 >
                   <ExternalLink className="h-4 w-4" />
-                  Ouvrir dans un nouvel onglet
+                  Open in new tab
                 </Button>
                 <Button
                   variant="ghost"

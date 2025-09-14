@@ -50,7 +50,7 @@ export default function Tours() {
     if (tour.price > 0) {
       return formatTHB(tour.price);
     }
-    return "Prix sur demande";
+    return "Price on request";
   };
 
   // Extraire les options de filtre dynamiquement des données de l'API
@@ -80,7 +80,7 @@ export default function Tours() {
       { value: "2000-4000", label: "2,000 - 4,000 THB" },
       { value: "4000-6000", label: "4,000 - 6,000 THB" },
       { value: "6000+", label: "6,000+ THB" },
-      { value: "free", label: "Prix sur demande" }
+      { value: "free", label: "Price on request" }
     ];
     
     return { destinations, durations, priceRanges };
@@ -195,7 +195,7 @@ export default function Tours() {
         <section className="container mx-auto px-4 py-8">
           <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
             <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold text-gray-800">Filtres</h2>
+              <h2 className="text-xl font-semibold text-gray-800">Filters</h2>
               <Button
                 variant="ghost"
                 size="sm"
@@ -203,7 +203,7 @@ export default function Tours() {
                 className="md:hidden"
               >
                 <Filter className="h-4 w-4 mr-2" />
-                {showFilters ? 'Masquer' : 'Afficher'} filtres
+                {showFilters ? 'Hide' : 'Show'} filters
               </Button>
             </div>
 
@@ -212,7 +212,7 @@ export default function Tours() {
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                 <Input
-                  placeholder="Rechercher un tour..."
+                  placeholder="Search for a tour..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-10"
@@ -225,7 +225,7 @@ export default function Tours() {
                   <SelectValue placeholder="Prix" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">Tous les prix</SelectItem>
+                  <SelectItem value="all">All prices</SelectItem>
                   {filterOptions.priceRanges.map(range => (
                     <SelectItem key={range.value} value={range.value}>
                       {range.label}
@@ -240,10 +240,10 @@ export default function Tours() {
                   <SelectValue placeholder="Durée" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">Toutes durées</SelectItem>
+                  <SelectItem value="all">All durations</SelectItem>
                   {filterOptions.durations.map(duration => (
                     <SelectItem key={duration} value={duration.toString()}>
-                      {duration} jour{Number(duration) > 1 ? 's' : ''}
+                      {duration} day{Number(duration) > 1 ? 's' : ''}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -255,7 +255,7 @@ export default function Tours() {
                   <SelectValue placeholder="Destination" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">Toutes destinations</SelectItem>
+                  <SelectItem value="all">All destinations</SelectItem>
                   {filterOptions.destinations.map(destination => (
                     <SelectItem key={destination} value={destination}>
                       {destination}
@@ -268,7 +268,7 @@ export default function Tours() {
               {hasActiveFilters && (
                 <Button variant="outline" onClick={clearFilters} className="w-full">
                   <X className="h-4 w-4 mr-2" />
-                  Effacer
+                  Clear
                 </Button>
               )}
             </div>
