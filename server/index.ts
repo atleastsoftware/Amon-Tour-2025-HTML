@@ -112,36 +112,37 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
 
-  // Do initialization tasks BEFORE the server starts listening
-  // This ensures they complete before the port opens for deployment
-  try {
-    log("Starting initialization tasks...");
-    
-    // Ensure admin user exists in database
-    await ensureAdminUser();
-    
-    // Migrate tours from JSON to database only in development
-    // In production, the database should already be populated
-    if (app.get("env") === "development") {
-      await migrateTours();
-    }
-    
-    log("Initialization tasks completed successfully");
-  } catch (error) {
-    log(`Error during initialization: ${error}`);
-    // Don't crash the server if initialization fails
-    // The app can still serve requests
-  }
-
-  // ALWAYS serve the app on port 5000
-  // this serves both the API and the client.  
-  // It is the only port that is not firewalled.
-  const port = 5000;
+  // Use PORT environment variable for Cloud Run deployment, fallback to 5000 for local development
+  // Cloud Run requires listening on the PORT environment variable
+  const port = process.env.PORT || 5000;
   
   server.listen({
     port,
     host: "0.0.0.0",
   }, () => {
     log(`serving on port ${port}`);
+    
+    // Do initialization tasks AFTER the server starts listening
+    // This ensures the port opens immediately for Cloud Run deployment
+    (async () => {
+      try {
+        log("Starting initialization tasks...");
+        
+        // Ensure admin user exists in database
+        await ensureAdminUser();
+        
+        // Migrate tours from JSON to database only in development
+        // In production, the database should already be populated
+        if (app.get("env") === "development") {
+          await migrateTours();
+        }
+        
+        log("Initialization tasks completed successfully");
+      } catch (error) {
+        log(`Error during initialization: ${error}`);
+        // Don't crash the server if initialization fails
+        // The app can still serve requests
+      }
+    })();
   });
 })();
