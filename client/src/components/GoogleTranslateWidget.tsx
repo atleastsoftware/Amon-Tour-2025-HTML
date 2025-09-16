@@ -71,12 +71,7 @@ export default function GoogleTranslateWidget() {
       console.log("Google Translate Widget initialized");
       setIsLoaded(true);
 
-      // Apply saved language after widget loads
-      setTimeout(() => {
-        if (savedLanguage !== "en") {
-          selectLanguage(savedLanguage);
-        }
-      }, 1000);
+      // Don't apply saved language automatically - the cookie handles it
     };
 
     // Load Google Translate script
@@ -145,52 +140,23 @@ export default function GoogleTranslateWidget() {
   const selectLanguage = (langCode: string) => {
     console.log(`Attempting to select language: ${langCode}`);
     
-    // Method 1: Try using the select element
+    // Try using the select element (if it exists)
     const selectElement = document.querySelector(".goog-te-combo") as HTMLSelectElement;
     if (selectElement) {
       console.log(`Found select element, setting to: ${langCode}`);
       selectElement.value = langCode;
       selectElement.dispatchEvent(new Event("change", { bubbles: true }));
-    } else {
-      // Method 2: Try using Google's internal API if available
-      console.log("Select element not found, trying alternative method");
       
-      // Try to find and click the Google Translate element directly
-      const googleTranslateElement = document.querySelector("#google_translate_element");
-      if (googleTranslateElement) {
-        // Create a temporary select element and trigger change
-        const tempSelect = document.createElement("select");
-        tempSelect.className = "goog-te-combo";
-        tempSelect.value = langCode;
-        googleTranslateElement.appendChild(tempSelect);
-        tempSelect.dispatchEvent(new Event("change", { bubbles: true }));
-        setTimeout(() => {
-          googleTranslateElement.removeChild(tempSelect);
-        }, 100);
-      }
+      setCurrentLanguage(langCode);
+      localStorage.setItem("selectedLanguage", langCode);
       
-      // Method 3: Use cookie-based translation
-      const setCookie = (name: string, value: string) => {
-        document.cookie = `${name}=${value};path=/;domain=${window.location.hostname}`;
-      };
-      
-      // Google Translate uses cookies to store language preference
-      setCookie("googtrans", `/en/${langCode}`);
-      setCookie("googtrans", `/en/${langCode}`);
-      
-      // Force reload to apply translation
+      // Apply overrides after translation
       setTimeout(() => {
-        window.location.reload();
-      }, 100);
+        translationOverrideService.applyOverrides();
+      }, 1500);
+    } else {
+      console.log("Select element not found, language will be applied via cookie on reload");
     }
-    
-    setCurrentLanguage(langCode);
-    localStorage.setItem("selectedLanguage", langCode);
-    
-    // Apply overrides after translation
-    setTimeout(() => {
-      translationOverrideService.applyOverrides();
-    }, 1500);
   };
 
   const handleLanguageClick = (langCode: string) => {
