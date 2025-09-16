@@ -1,39 +1,42 @@
 import { Link } from "wouter";
 import amonTourTeam from "@/assets/amon-tour-team.jpg";
+import { translationService } from "@/services/translationService";
 
 export default function About() {
+  const home = translationService.getHome();
+  
   return (
     <section id="who-we-are" className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="order-2 lg:order-1">
             <h2 className="font-heading font-bold text-3xl md:text-4xl mb-6">
-              Who We Are
+              {home.whoWeAreTitle}
             </h2>
             <p className="text-muted-foreground mb-4">
-              We are Éric, Margaux, Gabriel, and Raphaël, a French family living in Krabi, southern Thailand, since 2013.
+              {home.whoWeAreDescription}
             </p>
             <p className="text-muted-foreground mb-6">
-              From our life here, we created Amon Tour — a small, independent travel agency built on a simple idea: personally welcome our travelers to Krabi and offer them a different way to experience Thailand.
+              {home.whoWeAreStory}
             </p>
             
             <h3 className="font-heading font-semibold text-2xl mt-6 mb-3">
-              Deep Local Roots
+              {home.deepLocalRootsTitle}
             </h3>
             <p className="text-muted-foreground mb-4">
-              We live here year-round, in the heart of the region we love. This close connection to the destination allows us to offer exclusive experiences in Krabi, designed and guided by our team of professional local guides or trusted partners.
+              {home.deepLocalRootsDescription}
             </p>
             <p className="text-muted-foreground mb-6">
-              You're not booking a generic tour — you're being welcomed, guided, and cared for by people who live here, who know the tides, the seasons, the crowds to avoid, and the hidden gems worth discovering.
+              {home.deepLocalRootsExplanation}
             </p>
             
 
 
             <h3 className="font-heading font-semibold text-2xl mt-6 mb-3">
-              Our Concept
+              {home.ourConceptTitle}
             </h3>
             <p className="text-muted-foreground mb-6">
-              Combine the warmth and proximity of a local agency in Krabi with the expertise of a tailor-made travel designer for all of Thailand. At Amon Tour, you're supported before, during, and after your trip. You're in contact with real people – a face, a voice, a team – not a call center or an algorithm. We're here, on the ground, to make your trip a seamless, personal, and unforgettable experience.
+              {home.ourConceptDescription}
             </p>
             <div className="flex items-center space-x-4">
               <a 
@@ -43,12 +46,12 @@ export default function About() {
               >
                 <span className="bg-primary text-white px-6 py-2 rounded font-heading font-semibold hover:bg-primary-dark transition-colors cursor-pointer flex items-center">
                   <i className="fab fa-whatsapp mr-2"></i>
-                  Contact Us
+                  {home.contactUs}
                 </span>
               </a>
               <Link href="/custom-tour">
                 <span className="text-primary font-heading font-semibold hover:text-primary-dark transition-colors cursor-pointer">
-                  Create Your Journey →
+                  {home.createYourJourney} →
                 </span>
               </Link>
             </div>
@@ -82,7 +85,7 @@ export default function About() {
                     </div>
                     <span className="font-semibold">5.0/5</span>
                   </div>
-                  <p className="text-sm text-muted-foreground/80">80 reviews on Google</p>
+                  <p className="text-sm text-muted-foreground/80">{home.basedOnReviews}</p>
                   <a 
                     href="https://maps.app.goo.gl/fe17kgt89d64kAHs7" 
                     target="_blank" 

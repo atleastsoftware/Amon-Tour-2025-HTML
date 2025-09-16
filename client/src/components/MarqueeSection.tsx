@@ -2,8 +2,11 @@ import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { translationService } from "@/services/translationService";
 
 export default function MarqueeSection() {
+  const home = translationService.getHome();
+  
   // Tours réels de l'iframe Tour Ninja showcase/2
   const iframeTours = [
     { 
@@ -74,7 +77,7 @@ export default function MarqueeSection() {
   return (
     <div className="bg-gradient-to-r from-primary to-primary/80 py-6 overflow-hidden">
       <div className="mb-4 text-center">
-        <h3 className="text-white text-xl font-heading font-semibold">Some ideas for your next trip</h3>
+        <h3 className="text-white text-xl font-heading font-semibold">{home.someIdeasTitle}</h3>
       </div>
       <motion.div 
         className="flex"

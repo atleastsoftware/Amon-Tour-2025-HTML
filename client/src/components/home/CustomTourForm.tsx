@@ -6,6 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
+import { translationService } from "@/services/translationService";
 
 import {
   Form,
@@ -67,6 +68,7 @@ export default function CustomTourForm() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const datePickerRef = useRef<HTMLInputElement | null>(null);
+  const home = translationService.getHome();
 
   const form = useForm<CustomTourFormData>({
     resolver: zodResolver(customTourSchema),
@@ -121,21 +123,21 @@ export default function CustomTourForm() {
   };
 
   const tripTypeOptions = [
-    { id: "culture", label: "Culture & History" },
-    { id: "nature", label: "Nature & Adventure" },
-    { id: "beaches", label: "Beaches & Islands" },
-    { id: "family", label: "Family trip" },
-    { id: "group", label: "Group trip" },
-    { id: "wedding", label: "Wedding & Honeymoon" },
+    { id: "culture", label: home.cultureHistory },
+    { id: "nature", label: home.natureAdventure },
+    { id: "beaches", label: home.beachesIslands },
+    { id: "family", label: home.familyTrip },
+    { id: "group", label: home.groupTrip },
+    { id: "wedding", label: home.weddingHoneymoon },
   ];
 
   const destinationOptions = [
-    { id: "khaosok", label: "Khao Sok" },
-    { id: "krabi", label: "Krabi" },
-    { id: "kohmook", label: "Koh Mook" },
-    { id: "bangkok", label: "Bangkok" },
-    { id: "chiangmai", label: "Chiang Mai" },
-    { id: "others", label: "Others destinations" },
+    { id: "khaosok", label: home.khaoSok },
+    { id: "krabi", label: home.krabi },
+    { id: "kohmook", label: home.kohMook },
+    { id: "bangkok", label: home.bangkok },
+    { id: "chiangmai", label: home.chiangMai },
+    { id: "others", label: home.othersDestinations },
   ];
 
   const countryCodeOptions = [
@@ -205,8 +207,8 @@ export default function CustomTourForm() {
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-primary/70 to-transparent flex flex-col justify-center p-8 text-white">
-                <h3 className="font-heading font-bold text-3xl mb-3">Create Your Custom Trip</h3>
-                <p className="max-w-xs">Your travel story starts with your dreams – let us write the rest.</p>
+                <h3 className="font-heading font-bold text-3xl mb-3">{home.customTripTitle}</h3>
+                <p className="max-w-xs">{home.customTripSubtitle} {home.customTripDescription}</p>
               </div>
             </div>
             
@@ -220,7 +222,7 @@ export default function CustomTourForm() {
                       name="name"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Full Name *</FormLabel>
+                          <FormLabel>{home.fullName} *</FormLabel>
                           <FormControl>
                             <Input placeholder="Your name" {...field} />
                           </FormControl>
@@ -233,7 +235,7 @@ export default function CustomTourForm() {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Email *</FormLabel>
+                          <FormLabel>{home.email} *</FormLabel>
                           <FormControl>
                             <Input placeholder="Your email" {...field} />
                           </FormControl>
@@ -250,7 +252,7 @@ export default function CustomTourForm() {
                       name="countryCode"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Country Code *</FormLabel>
+                          <FormLabel>{home.countryCode} *</FormLabel>
                           <Select 
                             onValueChange={field.onChange} 
                             defaultValue={field.value}
@@ -278,7 +280,7 @@ export default function CustomTourForm() {
                         name="phoneNumber"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>WhatsApp Number *</FormLabel>
+                            <FormLabel>{home.whatsappNumber} *</FormLabel>
                             <FormControl>
                               <Input placeholder="Your WhatsApp number" {...field} />
                             </FormControl>
@@ -298,7 +300,7 @@ export default function CustomTourForm() {
                       name="adults"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Number of adults</FormLabel>
+                          <FormLabel>{home.numberOfAdults}</FormLabel>
                           <Select 
                             onValueChange={field.onChange} 
                             defaultValue={field.value}
@@ -327,7 +329,7 @@ export default function CustomTourForm() {
                       name="kids"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Number of kids (under 12 years old)</FormLabel>
+                          <FormLabel>{home.numberOfKids}</FormLabel>
                           <Select 
                             onValueChange={field.onChange} 
                             defaultValue={field.value}
@@ -357,7 +359,7 @@ export default function CustomTourForm() {
                     name="dateRange"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Dates of trip</FormLabel>
+                        <FormLabel>{home.datesOfTrip}</FormLabel>
                         <FormControl>
                           <Input
                             placeholder="Select trip dates"
@@ -381,7 +383,7 @@ export default function CustomTourForm() {
                     name="duration"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Or approximate duration</FormLabel>
+                        <FormLabel>{home.approximateDuration}</FormLabel>
                         <Select 
                           onValueChange={field.onChange} 
                           defaultValue={field.value}
@@ -410,7 +412,7 @@ export default function CustomTourForm() {
                     render={() => (
                       <FormItem>
                         <div className="mb-4">
-                          <FormLabel>Trip Types</FormLabel>
+                          <FormLabel>{home.tripTypes}</FormLabel>
                         </div>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                           {tripTypeOptions.map((option) => (
@@ -459,7 +461,7 @@ export default function CustomTourForm() {
                     render={() => (
                       <FormItem>
                         <div className="mb-4">
-                          <FormLabel>Destinations</FormLabel>
+                          <FormLabel>{home.destinations}</FormLabel>
                         </div>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                           {destinationOptions.map((option) => (
@@ -506,7 +508,7 @@ export default function CustomTourForm() {
                     name="message"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Describe your ideal trip</FormLabel>
+                        <FormLabel>{home.describeIdealTrip}</FormLabel>
                         <FormControl>
                           <Textarea 
                             placeholder="Tell us what you would like to see and do during your journey..."
@@ -524,7 +526,7 @@ export default function CustomTourForm() {
                     className="w-full bg-primary text-white py-3 rounded-md font-heading font-semibold hover:bg-primary-dark transition-colors"
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? "Sending..." : "Send my request"}
+                    {isSubmitting ? "Sending..." : home.sendRequest}
                   </Button>
                 </form>
               </Form>

@@ -1,8 +1,11 @@
 import { motion } from "framer-motion";
 import { StaggerChildren, StaggerItem } from "@/components/ui/animations";
 import { Users, Compass, Sparkles } from "lucide-react";
+import { translationService } from "@/services/translationService";
 
 export default function Features() {
+  const home = translationService.getHome();
+  
   return (
     <section className="py-16 bg-neutral-light">
       <div className="container mx-auto px-4">
@@ -13,9 +16,9 @@ export default function Features() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">Why Choose Us</h2>
+            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{home.whyChooseTitle}</h2>
             <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">Experience an exclusive private day trip with our English or French-speaking and certified guides.</p>
+            <p className="text-gray-600 text-lg max-w-2xl mx-auto">{home.whyChooseDescription}</p>
           </motion.div>
         </div>
         
@@ -37,8 +40,8 @@ export default function Features() {
               >
                 <Users size={28} className="text-white" />
               </motion.div>
-              <h3 className="font-heading font-bold text-xl mb-2">Private Tours</h3>
-              <p className="text-muted-foreground">Experience an exclusive day trip with our professional guides and private vehicles.</p>
+              <h3 className="font-heading font-bold text-xl mb-2">{home.privateTours}</h3>
+              <p className="text-muted-foreground">{home.privateToursDesc}</p>
               
               <motion.div 
                 className="mt-4 grid grid-cols-3 gap-2"
@@ -54,7 +57,7 @@ export default function Features() {
                   <div className="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center mb-1">
                     <i className="fas fa-car text-primary text-sm"></i>
                   </div>
-                  <span className="text-xs">Private Car</span>
+                  <span className="text-xs">{home.privateCar}</span>
                 </motion.div>
                 
                 <motion.div 
@@ -64,7 +67,7 @@ export default function Features() {
                   <div className="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center mb-1">
                     <i className="fas fa-language text-primary text-sm"></i>
                   </div>
-                  <span className="text-xs">Guide</span>
+                  <span className="text-xs">{home.guide}</span>
                 </motion.div>
                 
                 <motion.div 
@@ -74,7 +77,7 @@ export default function Features() {
                   <div className="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center mb-1">
                     <i className="fas fa-shield-alt text-primary text-sm"></i>
                   </div>
-                  <span className="text-xs">Safety</span>
+                  <span className="text-xs">{home.safety}</span>
                 </motion.div>
               </motion.div>
             </motion.div>
@@ -97,8 +100,8 @@ export default function Features() {
               >
                 <Compass size={28} className="text-white" />
               </motion.div>
-              <h3 className="font-heading font-bold text-xl mb-2">Customized Itineraries</h3>
-              <p className="text-muted-foreground">Create your own journey based on your desires, your pace, and your interests.</p>
+              <h3 className="font-heading font-bold text-xl mb-2">{home.customizedItineraries}</h3>
+              <p className="text-muted-foreground">{home.customizedItinerariesDesc}</p>
               
               <motion.div 
                 className="mt-4 grid grid-cols-3 gap-2"
@@ -114,7 +117,7 @@ export default function Features() {
                   <div className="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center mb-1">
                     <i className="fas fa-map-marked-alt text-secondary text-sm"></i>
                   </div>
-                  <span className="text-xs">Custom Route</span>
+                  <span className="text-xs">{home.customRoute}</span>
                 </motion.div>
                 
                 <motion.div 
@@ -124,7 +127,7 @@ export default function Features() {
                   <div className="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center mb-1">
                     <i className="fas fa-clock text-secondary text-sm"></i>
                   </div>
-                  <span className="text-xs">Flexible Time</span>
+                  <span className="text-xs">{home.flexibleTime}</span>
                 </motion.div>
                 
                 <motion.div 
@@ -134,7 +137,7 @@ export default function Features() {
                   <div className="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center mb-1">
                     <i className="fas fa-list-check text-secondary text-sm"></i>
                   </div>
-                  <span className="text-xs">Your Pace</span>
+                  <span className="text-xs">{home.yourPace}</span>
                 </motion.div>
               </motion.div>
             </motion.div>
@@ -157,8 +160,8 @@ export default function Features() {
               >
                 <Sparkles size={28} className="text-white" />
               </motion.div>
-              <h3 className="font-heading font-bold text-xl mb-2">Authentic Experiences</h3>
-              <p className="text-muted-foreground">Discover destinations off the beaten path and immerse yourself in the local culture.</p>
+              <h3 className="font-heading font-bold text-xl mb-2">{home.authenticExperiences}</h3>
+              <p className="text-muted-foreground">{home.authenticExperiencesDesc}</p>
               
               <motion.div 
                 className="mt-4 grid grid-cols-3 gap-2"
@@ -174,7 +177,7 @@ export default function Features() {
                   <div className="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center mb-1">
                     <i className="fas fa-utensils text-primary text-sm"></i>
                   </div>
-                  <span className="text-xs">Local Food</span>
+                  <span className="text-xs">{home.localFood}</span>
                 </motion.div>
                 
                 <motion.div 
@@ -184,7 +187,7 @@ export default function Features() {
                   <div className="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center mb-1">
                     <i className="fas fa-hands-helping text-primary text-sm"></i>
                   </div>
-                  <span className="text-xs">Local People</span>
+                  <span className="text-xs">{home.localPeople}</span>
                 </motion.div>
                 
                 <motion.div 
@@ -194,7 +197,7 @@ export default function Features() {
                   <div className="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center mb-1">
                     <i className="fas fa-landmark text-primary text-sm"></i>
                   </div>
-                  <span className="text-xs">Culture</span>
+                  <span className="text-xs">{home.culture}</span>
                 </motion.div>
               </motion.div>
             </motion.div>

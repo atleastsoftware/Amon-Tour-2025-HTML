@@ -1,7 +1,9 @@
 import { useEffect, useRef } from "react";
+import { translationService } from "@/services/translationService";
 
 export default function Testimonials() {
   const googleReviewsRef = useRef<HTMLDivElement>(null);
+  const home = translationService.getHome();
 
   useEffect(() => {
     // To load the Google reviews widget
@@ -20,9 +22,9 @@ export default function Testimonials() {
     <section className="py-16 bg-primary text-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">Our Travelers' Reviews</h2>
+          <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{home.testimonialsTitle}</h2>
           <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
-          <p className="max-w-2xl mx-auto">Discover the authentic experiences of our clients during their journeys with Amon Tour in Thailand.</p>
+          <p className="max-w-2xl mx-auto">{home.testimonialsDescription}</p>
         </div>
         
         {/* Google Reviews Widget */}
@@ -36,7 +38,7 @@ export default function Testimonials() {
               <i className="fas fa-star text-[hsl(var(--star))] text-2xl mx-1"></i>
             </div>
             <h3 className="text-primary font-heading font-bold text-2xl">5.0 on Google</h3>
-            <p className="text-muted-foreground">Based on 80 reviews</p>
+            <p className="text-muted-foreground">{home.basedOnReviews}</p>
           </div>
           
           {/* Google Reviews Widget */}
