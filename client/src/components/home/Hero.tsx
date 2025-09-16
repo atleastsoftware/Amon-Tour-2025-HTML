@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FadeInWhenVisible, SlideUpWhenVisible, StaggerChildren, StaggerItem } from "@/components/ui/animations";
 import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useTranslation } from 'react-i18next';
 import heroImage from "@/assets/DJI_20241115104455_0160_D-min.jpeg";
 
 // Use optimized video (6MB instead of 40MB) for better loading performance
@@ -49,7 +48,6 @@ export default function Hero() {
   const [attemptedFallback, setAttemptedFallback] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const loadTimeoutRef = useRef<NodeJS.Timeout>();
-  const { t } = useTranslation();
 
   // Récupérer les données de configuration du héros (avec gestion d'erreur)
   const { data: heroBlocks } = useQuery({
@@ -89,11 +87,11 @@ export default function Hero() {
   
   // Fonction pour appliquer la couleur au mot spécifique dans le titre
   const renderTitleWithColors = () => {
-    const mainTitle = heroConfig?.titleMainColor || heroConfig?.title || t('hero.title');
-    const colorPart = heroConfig?.titleColorPart || "";
+    const mainTitle = heroConfig?.titleMainColor || heroConfig?.title || "Your exclusive experiences";
+    const colorPart = heroConfig?.titleColorPart || "in Krabi";
     const titlePrimaryColor = heroConfig?.titlePrimaryColor || 'white';
     const titleAccentColor = heroConfig?.titleAccentColor || 'primary';
-    const heroCountry = heroConfig?.heroCountry || '';
+    const heroCountry = heroConfig?.heroCountry || '– THAILAND';
     
     // Si le titre contient le mot à colorier
     if (mainTitle.includes(colorPart)) {
@@ -228,7 +226,8 @@ export default function Hero() {
               <p className={`mb-6 text-lg drop-shadow-md ${
                 getColorClass(heroConfig?.subtitleColor || 'white', 'text-white/90')
               }`}>
-                {heroConfig?.subtitle || t('hero.subtitle')}
+                {heroConfig?.subtitle || "Discover amazing places away from mass tourism in Krabi."}<br/>
+                {heroConfig?.description || "And also Khao Sok, Koh Mook and many more destinations."}
               </p>
               
               <div className={`flex flex-col sm:flex-row gap-4 ${
@@ -237,8 +236,8 @@ export default function Hero() {
                 'justify-start'
               }`}>
                 {(heroConfig?.buttons || [
-                  {text: t('hero.cta'), url: '/tours', color: '#084F6E', style: 'filled'},
-                  {text: t('hero.customTour'), url: '/custom-tour', color: '#084F6E', style: 'filled'}
+                  {text: 'See our offers', url: '/tours', color: '#084F6E', style: 'filled'},
+                  {text: 'Custom your trip', url: '/custom-tour', color: '#084F6E', style: 'filled'}
                 ]).map((button: any, index: number) => (
                   <Link key={index} href={button.url}>
                     <motion.span 
