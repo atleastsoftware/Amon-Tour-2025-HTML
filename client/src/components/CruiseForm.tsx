@@ -229,9 +229,9 @@ export default function CruiseForm() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="low">{cruise.lowSeason}</SelectItem>
-                      <SelectItem value="high">{cruise.highSeason}</SelectItem>
-                      <SelectItem value="very_high">{cruise.veryHighSeason}</SelectItem>
+                      <SelectItem value="low">{cruise.lowSeasonOption}</SelectItem>
+                      <SelectItem value="high">{cruise.highSeasonOption}</SelectItem>
+                      <SelectItem value="very_high">{cruise.veryHighSeasonOption}</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />

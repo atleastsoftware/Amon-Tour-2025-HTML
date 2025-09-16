@@ -168,9 +168,9 @@ export interface Translations {
     sevenPlusDays: string;
     
     // Season options
-    lowSeason: string;
-    highSeason: string;
-    veryHighSeason: string;
+    lowSeasonOption: string;
+    highSeasonOption: string;
+    veryHighSeasonOption: string;
     
     // Placeholders
     fullNamePlaceholder: string;
@@ -187,6 +187,47 @@ export interface Translations {
     errorMessage: string;
     sending: string;
     sendRequest: string;
+
+    // Main cruise page content
+    freedomExclusivity: string;
+    freedomDescription: string;
+    tailorMadeRoutes: string;
+    tailorMadeDesc: string;
+    expertCrew: string;
+    expertCrewDesc: string;
+    totalFreedom: string;
+    totalFreedomDesc: string;
+    lagoonCatamaran: string;
+    lagoonDesc1: string;
+    lagoonDesc2: string;
+    lagoonDesc3: string;
+    routeSuggestions: string;
+    routeDescription: string;
+    oneDayRoute: string;
+    twoDaysRoute: string;
+    threeFourDaysRoute: string;
+    fiveSixDaysRoute: string;
+    sevenPlusDaysRoute: string;
+    
+    // Pricing section
+    seasonalPricing: string;
+    perfectForHolidays: string;
+    peakPeriodRates: string;
+    premiumPeriodRates: string;
+    bestValueRates: string;
+    perDay: string;
+    period: string;
+    dailyRateMinimum: string;
+    fromTubkeak: string;
+    fromThalane: string;
+    fromAoNang: string;
+    fromKlongMueang: string;
+    fromRailay: string;
+    noExtraFee: string;
+    includedInPrice: string;
+    includedDescription: string;
+    notIncludedInPrice: string;
+    notIncludedDescription: string;
   };
 }
 
@@ -340,9 +381,9 @@ const translations: Record<string, Translations> = {
       sevenPlusDays: "7 days and more",
       
       // Season options
-      lowSeason: "Low season (28,000 THB/day)",
-      highSeason: "High season (31,000 THB/day)",
-      veryHighSeason: "Very high season (39,000 THB/day)",
+      lowSeasonOption: "Low season (28,000 THB/day)",
+      highSeasonOption: "High season (31,000 THB/day)",
+      veryHighSeasonOption: "Very high season (39,000 THB/day)",
       
       // Placeholders
       fullNamePlaceholder: "Your full name",
@@ -358,7 +399,53 @@ const translations: Record<string, Translations> = {
       error: "Error",
       errorMessage: "An error occurred. Please try again.",
       sending: "Sending...",
-      sendRequest: "Send Request"
+      sendRequest: "Send Request",
+
+      // Main cruise page content
+      freedomExclusivity: "Freedom and Exclusivity",
+      freedomDescription: "Navigate towards exclusivity aboard one of the rare catamaran cruises departing from Krabi. Explore the Andaman Sea as few travelers have the chance to do: in complete freedom, away from tourist circuits, with an itinerary designed entirely for you.",
+      
+      tailorMadeRoutes: "Tailor-made routes",
+      tailorMadeDesc: "We compose your itinerary to reveal the best of the region, prioritizing preserved sites and exceptional moments.",
+      expertCrew: "Expert crew", 
+      expertCrewDesc: "Our captains have perfect mastery of these waters. They optimize each navigation by adapting to weather conditions, tides and winds to maximize your pleasure.",
+      totalFreedom: "Total freedom",
+      totalFreedomDesc: "Deserted beaches, turquoise lagoons, snorkeling in crystal-clear waters... Your cruise evolves according to your preferences.",
+      
+      lagoonCatamaran: "A Lagoon 470 Catamaran",
+      lagoonDesc1: "Built in 1999 and constantly improved since 2023, combines comfort and character. It has 4 double cabins with private bathrooms: two cabins with queen-size beds (160 cm) and two with double beds (140 cm). Each cabin is equipped with fans, 220V sockets and large storage spaces.",
+      lagoonDesc2: "Spacious and well-designed, the Lagoon offers seamless flow between the interior and exterior living spaces: large, bright living room, equipped kitchen, shaded cockpit, sunbathing area at the front, etc. The discreet engine ensures peaceful navigation.",
+      lagoonDesc3: "Perfect for holidays with family, friends or private charter, this boat guarantees your comfort, privacy and freedom to explore the most beautiful islands of the Andaman Sea.",
+      
+      routeSuggestions: "Route suggestions",
+      routeDescription: "Each itinerary adapts to the season and natural conditions to guarantee you an optimal experience.",
+      oneDayRoute: "Local islands of Ao Nang or Koh Hong archipelago",
+      twoDaysRoute: "Head towards Koh Hong or the legendary Koh Phi Phi",
+      threeFourDaysRoute: "Combined Phang Nga Bay and Koh Phi Phi",
+      fiveSixDaysRoute: "Getaway to the preserved waters of Koh Rok and Koh Mook",
+      sevenPlusDaysRoute: "Odyssey to the paradise islands of Koh Lipe or Similan",
+      
+      // Pricing section
+      seasonalPricing: "Seasonal Pricing",
+      perfectForHolidays: "Perfect for holidays with family, friends or private charter",
+      peakPeriodRates: "Peak period rates",
+      premiumPeriodRates: "Premium period rates", 
+      bestValueRates: "Best value rates",
+      perDay: "per day",
+      period: "Period:",
+      dailyRateMinimum: "Daily rate for minimum 2 days and one night. Capacity 8 adults max.",
+      
+      fromTubkeak: "from Tubkeak",
+      fromThalane: "from Thalane", 
+      fromAoNang: "from Ao Nang",
+      fromKlongMueang: "from Klong Mueang",
+      fromRailay: "from Railay",
+      noExtraFee: "No extra fee",
+      
+      includedInPrice: "Included in Price",
+      includedDescription: "Boat rental with captain, assistant and professional English-speaking guide, fuel, semi-rigid dinghy for 5 to 6 people with an 18 HP engine, BBQ, fishing equipment and a paddleboard, fresh fruit, sodas, water. Breakfast (tea, coffee, toast, omelet).",
+      notIncludedInPrice: "Not Included in Price", 
+      notIncludedDescription: "Transfers (on request), national park fees (depending on the itinerary), beer, wine, spirits. Lunch and dinner (Thai cuisine): 500 Baht per person per meal. Please let us know your preferences and we will provision the boat accordingly."
     }
   },
   fr: {
@@ -510,9 +597,9 @@ const translations: Record<string, Translations> = {
       sevenPlusDays: "7 jours et plus",
       
       // Season options
-      lowSeason: "Basse saison (28 000 THB/jour)",
-      highSeason: "Haute saison (31 000 THB/jour)",
-      veryHighSeason: "Très haute saison (39 000 THB/jour)",
+      lowSeasonOption: "Basse saison (28 000 THB/jour)",
+      highSeasonOption: "Haute saison (31 000 THB/jour)",
+      veryHighSeasonOption: "Très haute saison (39 000 THB/jour)",
       
       // Placeholders
       fullNamePlaceholder: "Votre nom complet",
@@ -528,7 +615,53 @@ const translations: Record<string, Translations> = {
       error: "Erreur",
       errorMessage: "Une erreur s'est produite. Veuillez réessayer.",
       sending: "Envoi en cours...",
-      sendRequest: "Envoyer la demande"
+      sendRequest: "Envoyer la demande",
+
+      // Main cruise page content
+      freedomExclusivity: "Liberté et Exclusivité",
+      freedomDescription: "Naviguez vers l'exclusivité à bord de l'une des rares croisières en catamaran au départ de Krabi. Explorez la mer d'Andaman comme peu de voyageurs ont la chance de le faire : en toute liberté, loin des circuits touristiques, avec un itinéraire conçu entièrement pour vous.",
+      
+      tailorMadeRoutes: "Parcours sur mesure",
+      tailorMadeDesc: "Nous composons votre itinéraire pour révéler le meilleur de la région, en privilégiant les sites préservés et les moments d'exception.",
+      expertCrew: "Équipage expert",
+      expertCrewDesc: "Nos capitaines ont une parfaite maîtrise de ces eaux. Ils optimisent chaque navigation en s'adaptant aux conditions météorologiques, aux marées et aux vents pour maximiser votre plaisir.",
+      totalFreedom: "Liberté totale",
+      totalFreedomDesc: "Plages désertes, lagons turquoise, snorkeling dans des eaux cristallines... Votre croisière évolue selon vos préférences.",
+      
+      lagoonCatamaran: "Un Catamaran Lagoon 470",
+      lagoonDesc1: "Construit en 1999 et constamment amélioré depuis 2023, allie confort et caractère. Il dispose de 4 cabines doubles avec salles de bain privées : deux cabines avec lits queen-size (160 cm) et deux avec lits doubles (140 cm). Chaque cabine est équipée de ventilateurs, prises 220V et grands espaces de rangement.",
+      lagoonDesc2: "Spacieux et bien conçu, le Lagoon offre une circulation fluide entre les espaces de vie intérieurs et extérieurs : grand salon lumineux, cuisine équipée, cockpit ombragé, zone de bronzage à l'avant, etc. Le moteur discret assure une navigation paisible.",
+      lagoonDesc3: "Parfait pour des vacances en famille, entre amis ou en charter privé, ce bateau garantit votre confort, votre intimité et votre liberté d'explorer les plus belles îles de la mer d'Andaman.",
+      
+      routeSuggestions: "Suggestions d'itinéraires",
+      routeDescription: "Chaque itinéraire s'adapte à la saison et aux conditions naturelles pour vous garantir une expérience optimale.",
+      oneDayRoute: "Îles locales d'Ao Nang ou archipel de Koh Hong",
+      twoDaysRoute: "Direction Koh Hong ou le légendaire Koh Phi Phi",
+      threeFourDaysRoute: "Baie de Phang Nga et Koh Phi Phi combinés",
+      fiveSixDaysRoute: "Escapade vers les eaux préservées de Koh Rok et Koh Mook",
+      sevenPlusDaysRoute: "Odyssée vers les îles paradisiaques de Koh Lipe ou Similan",
+      
+      // Pricing section
+      seasonalPricing: "Tarification Saisonnière",
+      perfectForHolidays: "Parfait pour des vacances en famille, entre amis ou en charter privé",
+      peakPeriodRates: "Tarifs période de pointe",
+      premiumPeriodRates: "Tarifs période premium",
+      bestValueRates: "Tarifs meilleur rapport qualité-prix",
+      perDay: "par jour",
+      period: "Période :",
+      dailyRateMinimum: "Tarif journalier pour un minimum de 2 jours et une nuit. Capacité 8 adultes max.",
+      
+      fromTubkeak: "depuis Tubkeak",
+      fromThalane: "depuis Thalane",
+      fromAoNang: "depuis Ao Nang",
+      fromKlongMueang: "depuis Klong Mueang",
+      fromRailay: "depuis Railay",
+      noExtraFee: "Pas de supplément",
+      
+      includedInPrice: "Inclus dans le Prix",
+      includedDescription: "Location bateau avec capitaine, assistant et guide anglophone professionnel, carburant, annexe semi-rigide pour 5 à 6 personnes avec moteur 18 CV, BBQ, équipement de pêche et paddle, fruits frais, sodas, eau. Petit-déjeuner (thé, café, toast, omelette).",
+      notIncludedInPrice: "Non Inclus dans le Prix",
+      notIncludedDescription: "Transferts (sur demande), frais de parcs nationaux (selon l'itinéraire), bière, vin, spiritueux. Déjeuner et dîner (cuisine thaï) : 500 Baht par personne par repas. Merci de nous faire connaître vos préférences et nous approvisionnerons le bateau en conséquence."
     }
   },
   es: {
@@ -680,9 +813,9 @@ const translations: Record<string, Translations> = {
       sevenPlusDays: "7 días y más",
       
       // Season options
-      lowSeason: "Temporada baja (28,000 THB/día)",
-      highSeason: "Temporada alta (31,000 THB/día)",
-      veryHighSeason: "Temporada muy alta (39,000 THB/día)",
+      lowSeasonOption: "Temporada baja (28,000 THB/día)",
+      highSeasonOption: "Temporada alta (31,000 THB/día)",
+      veryHighSeasonOption: "Temporada muy alta (39,000 THB/día)",
       
       // Placeholders
       fullNamePlaceholder: "Su nombre completo",
@@ -698,7 +831,53 @@ const translations: Record<string, Translations> = {
       error: "Error",
       errorMessage: "Ocurrió un error. Por favor intente de nuevo.",
       sending: "Enviando...",
-      sendRequest: "Enviar solicitud"
+      sendRequest: "Enviar solicitud",
+
+      // Main cruise page content
+      freedomExclusivity: "Libertad y Exclusividad",
+      freedomDescription: "Navegue hacia la exclusividad a bordo de uno de los raros cruceros en catamarán que parten de Krabi. Explore el Mar de Andamán como pocos viajeros tienen la oportunidad de hacerlo: en completa libertad, lejos de los circuitos turísticos, con un itinerario diseñado completamente para usted.",
+      
+      tailorMadeRoutes: "Rutas a medida",
+      tailorMadeDesc: "Componemos su itinerario para revelar lo mejor de la región, priorizando sitios preservados y momentos excepcionales.",
+      expertCrew: "Tripulación experta",
+      expertCrewDesc: "Nuestros capitanes tienen un dominio perfecto de estas aguas. Optimizan cada navegación adaptándose a las condiciones meteorológicas, mareas y vientos para maximizar su placer.",
+      totalFreedom: "Libertad total",
+      totalFreedomDesc: "Playas desiertas, lagunas turquesas, snorkel en aguas cristalinas... Su crucero evoluciona según sus preferencias.",
+      
+      lagoonCatamaran: "Un Catamarán Lagoon 470",
+      lagoonDesc1: "Construido en 1999 y constantemente mejorado desde 2023, combina comodidad y carácter. Tiene 4 cabinas dobles con baños privados: dos cabinas con camas queen-size (160 cm) y dos con camas dobles (140 cm). Cada cabina está equipada con ventiladores, enchufes de 220V y grandes espacios de almacenamiento.",
+      lagoonDesc2: "Espacioso y bien diseñado, el Lagoon ofrece un flujo perfecto entre los espacios de vida interiores y exteriores: sala de estar grande y luminosa, cocina equipada, cabina sombreada, área de bronceado en el frente, etc. El motor discreto asegura una navegación tranquila.",
+      lagoonDesc3: "Perfecto para vacaciones en familia, con amigos o charter privado, este barco garantiza su comodidad, privacidad y libertad para explorar las islas más hermosas del Mar de Andamán.",
+      
+      routeSuggestions: "Sugerencias de rutas",
+      routeDescription: "Cada itinerario se adapta a la estación y condiciones naturales para garantizarle una experiencia óptima.",
+      oneDayRoute: "Islas locales de Ao Nang o archipiélago de Koh Hong",
+      twoDaysRoute: "Dirección hacia Koh Hong o la legendaria Koh Phi Phi",
+      threeFourDaysRoute: "Bahía de Phang Nga y Koh Phi Phi combinadas",
+      fiveSixDaysRoute: "Escapada a las aguas preservadas de Koh Rok y Koh Mook",
+      sevenPlusDaysRoute: "Odisea a las islas paradisíacas de Koh Lipe o Similan",
+      
+      // Pricing section
+      seasonalPricing: "Precios Estacionales",
+      perfectForHolidays: "Perfecto para vacaciones en familia, con amigos o charter privado",
+      peakPeriodRates: "Tarifas período pico",
+      premiumPeriodRates: "Tarifas período premium",
+      bestValueRates: "Tarifas mejor valor",
+      perDay: "por día",
+      period: "Período:",
+      dailyRateMinimum: "Tarifa diaria por mínimo 2 días y una noche. Capacidad 8 adultos máx.",
+      
+      fromTubkeak: "desde Tubkeak",
+      fromThalane: "desde Thalane",
+      fromAoNang: "desde Ao Nang",
+      fromKlongMueang: "desde Klong Mueang",
+      fromRailay: "desde Railay",
+      noExtraFee: "Sin cargo extra",
+      
+      includedInPrice: "Incluido en el Precio",
+      includedDescription: "Alquiler de barco con capitán, asistente y guía profesional de habla inglesa, combustible, bote semirrígido para 5 a 6 personas con motor de 18 HP, BBQ, equipo de pesca y paddleboard, frutas frescas, refrescos, agua. Desayuno (té, café, tostadas, tortilla).",
+      notIncludedInPrice: "No Incluido en el Precio",
+      notIncludedDescription: "Traslados (bajo pedido), tarifas de parques nacionales (según el itinerario), cerveza, vino, licores. Almuerzo y cena (cocina tailandesa): 500 Baht por persona por comida. Por favor háganos saber sus preferencias y abasteceremos el barco en consecuencia."
     }
   }
 };

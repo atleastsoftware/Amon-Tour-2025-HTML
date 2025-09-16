@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { StaggerChildren, StaggerItem } from "@/components/ui/animations";
 import { Map, Zap, Globe, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect, useMemo } from "react";
+import { translationService } from "@/services/translationService";
 
 // Photo Gallery Carousel Component with Lightbox
 function PhotoGallery() {
@@ -306,6 +307,8 @@ function PhotoGallery() {
 }
 
 export default function CatamaranExperience() {
+  const cruise = translationService.getCruise();
+  
   return (
     <section className="py-16 bg-neutral-light">
       <div className="container mx-auto px-4">
@@ -316,10 +319,10 @@ export default function CatamaranExperience() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">Freedom and Exclusivity</h2>
+            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{cruise.freedomExclusivity}</h2>
             <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
             <p className="text-gray-600 text-lg max-w-4xl mx-auto">
-              Navigate towards exclusivity aboard one of the rare catamaran cruises departing from Krabi. Explore the Andaman Sea as few travelers have the chance to do: in complete freedom, away from tourist circuits, with an itinerary designed entirely for you.
+              {cruise.freedomDescription}
             </p>
           </motion.div>
         </div>
@@ -342,8 +345,8 @@ export default function CatamaranExperience() {
               >
                 <Map size={28} className="text-white" />
               </motion.div>
-              <h3 className="font-heading font-bold text-xl mb-2">Tailor-made routes</h3>
-              <p className="text-gray-600 flex-grow">We compose your itinerary to reveal the best of the region, prioritizing preserved sites and exceptional moments.</p>
+              <h3 className="font-heading font-bold text-xl mb-2">{cruise.tailorMadeRoutes}</h3>
+              <p className="text-gray-600 flex-grow">{cruise.tailorMadeDesc}</p>
             </motion.div>
           </StaggerItem>
           
@@ -364,8 +367,8 @@ export default function CatamaranExperience() {
               >
                 <Zap size={28} className="text-white" />
               </motion.div>
-              <h3 className="font-heading font-bold text-xl mb-2">Expert crew</h3>
-              <p className="text-gray-600 flex-grow">Our captains have perfect mastery of these waters. They optimize each navigation by adapting to weather conditions, tides and winds to maximize your pleasure.</p>
+              <h3 className="font-heading font-bold text-xl mb-2">{cruise.expertCrew}</h3>
+              <p className="text-gray-600 flex-grow">{cruise.expertCrewDesc}</p>
             </motion.div>
           </StaggerItem>
           
@@ -386,8 +389,8 @@ export default function CatamaranExperience() {
               >
                 <Globe size={28} className="text-white" />
               </motion.div>
-              <h3 className="font-heading font-bold text-xl mb-2">Total freedom</h3>
-              <p className="text-gray-600 flex-grow">Deserted beaches, turquoise lagoons, snorkeling in crystal-clear waters... Your cruise evolves according to your preferences.</p>
+              <h3 className="font-heading font-bold text-xl mb-2">{cruise.totalFreedom}</h3>
+              <p className="text-gray-600 flex-grow">{cruise.totalFreedomDesc}</p>
             </motion.div>
           </StaggerItem>
         </StaggerChildren>
@@ -400,17 +403,17 @@ export default function CatamaranExperience() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3 text-center">A Lagoon 470 Catamaran</h2>
+          <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3 text-center">{cruise.lagoonCatamaran}</h2>
           <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
           <div className="max-w-4xl mx-auto space-y-4">
             <p className="text-gray-600 text-lg text-center">
-              Built in 1999 and constantly improved since 2023, combines comfort and character. It has 4 double cabins with private bathrooms: two cabins with queen-size beds (160 cm) and two with double beds (140 cm). Each cabin is equipped with fans, 220V sockets and large storage spaces.
+              {cruise.lagoonDesc1}
             </p>
             <p className="text-gray-600 text-lg text-center">
-              Spacious and well-designed, the Lagoon offers seamless flow between the interior and exterior living spaces: large, bright living room, equipped kitchen, shaded cockpit, sunbathing area at the front, etc. The discreet engine ensures peaceful navigation.
+              {cruise.lagoonDesc2}
             </p>
             <p className="text-gray-600 text-lg text-center">
-              Perfect for holidays with family, friends or private charter, this boat guarantees your comfort, privacy and freedom to explore the most beautiful islands of the Andaman Sea.
+              {cruise.lagoonDesc3}
             </p>
           </div>
         </motion.div>
@@ -435,10 +438,10 @@ export default function CatamaranExperience() {
           transition={{ duration: 0.5, delay: 0.5 }}
         >
           <div className="text-center mb-8">
-            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">Route suggestions</h2>
+            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{cruise.routeSuggestions}</h2>
             <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
             <p className="text-gray-600 text-lg max-w-4xl mx-auto">
-              Each itinerary adapts to the season and natural conditions to guarantee you an optimal experience.
+              {cruise.routeDescription}
             </p>
           </div>
           
@@ -453,7 +456,7 @@ export default function CatamaranExperience() {
             >
               <div className="flex flex-col md:flex-row md:items-center">
                 <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">1 day</span>
-                <span className="text-gray-600 text-lg md:ml-4">Local islands of Ao Nang or Koh Hong archipelago</span>
+                <span className="text-gray-600 text-lg md:ml-4">{cruise.oneDayRoute}</span>
               </div>
             </motion.div>
             
@@ -467,7 +470,7 @@ export default function CatamaranExperience() {
             >
               <div className="flex flex-col md:flex-row md:items-center">
                 <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">2 days</span>
-                <span className="text-gray-600 text-lg md:ml-4">Head towards Koh Hong or the legendary Koh Phi Phi</span>
+                <span className="text-gray-600 text-lg md:ml-4">{cruise.twoDaysRoute}</span>
               </div>
             </motion.div>
             
@@ -481,7 +484,7 @@ export default function CatamaranExperience() {
             >
               <div className="flex flex-col md:flex-row md:items-center">
                 <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">3/4 days</span>
-                <span className="text-gray-600 text-lg md:ml-4">Combined Phang Nga Bay and Koh Phi Phi</span>
+                <span className="text-gray-600 text-lg md:ml-4">{cruise.threeFourDaysRoute}</span>
               </div>
             </motion.div>
             
@@ -495,7 +498,7 @@ export default function CatamaranExperience() {
             >
               <div className="flex flex-col md:flex-row md:items-center">
                 <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">5/6 days</span>
-                <span className="text-gray-600 text-lg md:ml-4">Getaway to the preserved waters of Koh Rok and Koh Mook</span>
+                <span className="text-gray-600 text-lg md:ml-4">{cruise.fiveSixDaysRoute}</span>
               </div>
             </motion.div>
             
@@ -509,7 +512,7 @@ export default function CatamaranExperience() {
             >
               <div className="flex flex-col md:flex-row md:items-center">
                 <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">7+ days</span>
-                <span className="text-gray-600 text-lg md:ml-4">Odyssey to the paradise islands of Koh Lipe or Similan</span>
+                <span className="text-gray-600 text-lg md:ml-4">{cruise.sevenPlusDaysRoute}</span>
               </div>
             </motion.div>
           </div>

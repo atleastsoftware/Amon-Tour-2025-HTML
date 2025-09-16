@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
+import { translationService } from "@/services/translationService";
 
 export default function SeasonalPricing() {
+  const cruise = translationService.getCruise();
+  
   return (
     <div className="w-full">
       <div className="bg-gradient-to-br from-muted/30 to-primary/5 py-12">
@@ -12,9 +15,9 @@ export default function SeasonalPricing() {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">Seasonal Pricing</h2>
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{cruise.seasonalPricing}</h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
-              <p className="text-muted-foreground text-lg">Perfect for holidays with family, friends or private charter</p>
+              <p className="text-muted-foreground text-lg">{cruise.perfectForHolidays}</p>
             </motion.div>
           </div>
           
@@ -28,14 +31,14 @@ export default function SeasonalPricing() {
               transition={{ duration: 0.5, delay: 0.1 }}
             >
               <div className="bg-gradient-to-r from-secondary to-secondary/80 text-white p-4">
-                <h3 className="text-xl font-bold">Very High Season</h3>
-                <p className="text-sm opacity-90">Peak period rates</p>
+                <h3 className="text-xl font-bold">{cruise.veryHighSeason}</h3>
+                <p className="text-sm opacity-90">{cruise.peakPeriodRates}</p>
               </div>
               <div className="p-6">
                 <p className="text-4xl font-bold text-foreground mb-2">39,000<span className="text-lg ml-2">THB</span></p>
-                <p className="text-sm text-muted-foreground/80 mb-4">per day</p>
+                <p className="text-sm text-muted-foreground/80 mb-4">{cruise.perDay}</p>
                 <div className="border-t pt-4">
-                  <p className="text-sm font-semibold text-muted-foreground">Period:</p>
+                  <p className="text-sm font-semibold text-muted-foreground">{cruise.period}</p>
                   <p className="text-sm text-muted-foreground">Dec 15, 2025 - Jan 15, 2026</p>
                 </div>
               </div>
@@ -50,14 +53,14 @@ export default function SeasonalPricing() {
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               <div className="bg-gradient-to-r from-primary to-secondary text-white p-4">
-                <h3 className="text-xl font-bold">High Season</h3>
-                <p className="text-sm opacity-90">Premium period rates</p>
+                <h3 className="text-xl font-bold">{cruise.highSeason}</h3>
+                <p className="text-sm opacity-90">{cruise.premiumPeriodRates}</p>
               </div>
               <div className="p-6">
                 <p className="text-4xl font-bold text-foreground mb-2">31,000<span className="text-lg ml-2">THB</span></p>
-                <p className="text-sm text-muted-foreground/80 mb-4">per day</p>
+                <p className="text-sm text-muted-foreground/80 mb-4">{cruise.perDay}</p>
                 <div className="border-t pt-4">
-                  <p className="text-sm font-semibold text-muted-foreground">Period:</p>
+                  <p className="text-sm font-semibold text-muted-foreground">{cruise.period}</p>
                   <p className="text-sm text-muted-foreground">Oct 15 - Dec 14, 2025</p>
                   <p className="text-sm text-muted-foreground">Jan 15 - Mar 31, 2026</p>
                 </div>
@@ -73,14 +76,14 @@ export default function SeasonalPricing() {
               transition={{ duration: 0.5, delay: 0.3 }}
             >
               <div className="bg-gradient-to-r from-primary/80 to-primary text-white p-4">
-                <h3 className="text-xl font-bold">Low Season</h3>
-                <p className="text-sm opacity-90">Best value rates</p>
+                <h3 className="text-xl font-bold">{cruise.lowSeason}</h3>
+                <p className="text-sm opacity-90">{cruise.bestValueRates}</p>
               </div>
               <div className="p-6">
                 <p className="text-4xl font-bold text-foreground mb-2">28,000<span className="text-lg ml-2">THB</span></p>
-                <p className="text-sm text-muted-foreground/80 mb-4">per day</p>
+                <p className="text-sm text-muted-foreground/80 mb-4">{cruise.perDay}</p>
                 <div className="border-t pt-4">
-                  <p className="text-sm font-semibold text-muted-foreground">Period:</p>
+                  <p className="text-sm font-semibold text-muted-foreground">{cruise.period}</p>
                   <p className="text-sm text-muted-foreground">Apr 1 - Oct 14, 2026</p>
                 </div>
               </div>
