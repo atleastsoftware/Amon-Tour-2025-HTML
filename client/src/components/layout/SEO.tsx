@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet';
 import { useEffect, useState } from 'react';
+import { translationService } from '@/services/translationService';
 
 interface SEOProps {
   title?: string;
@@ -18,9 +19,9 @@ interface SEOProps {
 }
 
 export default function SEO({
-  title = 'Amon Tour - Authentic Thailand Travel Experiences',
-  description = 'Plan your perfect Thailand vacation with Amon Tour - expert-guided private tours, cultural experiences & custom itineraries. Explore Bangkok, Phuket, Krabi & hidden gems. Family-run agency since 2020.',
-  keywords = 'thailand tours, bangkok travel, phuket tours, krabi tours, private tours thailand, custom thailand itinerary, thailand vacation planner, authentic thai experiences, cultural tours thailand, family travel agency, thailand trip planning, best thailand tours, thailand travel guide',
+  title,
+  description,
+  keywords,
   ogImage = '/Logo Long Blue.png',
   ogType = 'website',
   canonicalUrl,
@@ -33,7 +34,14 @@ export default function SEO({
   reviewSchema,
 }: SEOProps) {
   const siteUrl = 'https://amon-tour.com';
-  const fullTitle = title.includes('Amon Tour') ? title : `${title} | Amon Tour`;
+  const seo = translationService.getSeo();
+  
+  // Use translated defaults if no values provided
+  const finalTitle = title || seo.defaultTitle;
+  const finalDescription = description || seo.defaultDescription;
+  const finalKeywords = keywords || seo.defaultKeywords;
+  
+  const fullTitle = finalTitle.includes('Amon Tour') ? finalTitle : `${finalTitle} | Amon Tour`;
   const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
   const [detectedLanguage, setDetectedLanguage] = useState(language);
   
@@ -59,7 +67,7 @@ export default function SEO({
     "@context": "https://schema.org",
     "@type": "TravelAgency",
     "name": "Amon Tour",
-    "description": description,
+    "description": finalDescription,
     "url": siteUrl,
     "logo": `${siteUrl}/Logo Long Blue.png`,
     "image": fullOgImage,
@@ -149,8 +157,8 @@ export default function SEO({
     <Helmet>
       {/* Basic Meta Tags */}
       <title>{fullTitle}</title>
-      <meta name="description" content={description} />
-      <meta name="keywords" content={keywords} />
+      <meta name="description" content={finalDescription} />
+      <meta name="keywords" content={finalKeywords} />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
       <meta name="language" content={detectedLanguage} />
@@ -162,7 +170,7 @@ export default function SEO({
       
       {/* Open Graph Meta Tags */}
       <meta property="og:title" content={fullTitle} />
-      <meta property="og:description" content={description} />
+      <meta property="og:description" content={finalDescription} />
       <meta property="og:type" content={ogType} />
       <meta property="og:image" content={fullOgImage} />
       <meta property="og:image:width" content="1200" />
@@ -175,7 +183,7 @@ export default function SEO({
       {/* Twitter Card Meta Tags */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
-      <meta name="twitter:description" content={description} />
+      <meta name="twitter:description" content={finalDescription} />
       <meta name="twitter:image" content={fullOgImage} />
       <meta name="twitter:image:alt" content={`${title} - Amon Tour Thailand`} />
       <meta name="twitter:site" content="@amontour" />
