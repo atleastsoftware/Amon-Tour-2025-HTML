@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Switch } from "@/components/ui/switch";
-import { autoTranslate } from "@/lib/autoTranslate";
+// import { autoTranslate } from "@/lib/autoTranslate"; // DISABLED - autoTranslate removed to fix flag conflicts
 import { Globe, Settings, TestTube, Info } from "lucide-react";
 
 export default function TranslationManager() {
@@ -23,25 +23,17 @@ export default function TranslationManager() {
   };
 
   const handleTestTranslation = () => {
-    try {
-      // Clear previous state
-      localStorage.removeItem('amon-tour-translation-choice');
-      
-      // Trigger manual test
-      autoTranslate.manualTrigger();
-      setTestResult('Test déclenché ! Vérifiez si une notification de traduction apparaît.');
-      
-      // Clear test result after 5 seconds
-      setTimeout(() => setTestResult(null), 5000);
-    } catch (error) {
-      setTestResult('Erreur lors du test de traduction');
-    }
+    // AutoTranslate is now disabled - flags provide manual language selection
+    setTestResult('La traduction automatique a été désactivée. Utilisez les drapeaux dans le header pour changer de langue.');
+    setTimeout(() => setTestResult(null), 5000);
   };
 
   const handleResetChoices = () => {
+    // Clear language cookies to reset translation state
+    document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     localStorage.removeItem('amon-tour-translation-choice');
-    setTestResult('Choix utilisateur réinitialisés. La détection automatique se redéclenchera.');
-    setTimeout(() => setTestResult(null), 3000);
+    setTestResult('Choix de langue réinitialisé. La page va se recharger en anglais.');
+    setTimeout(() => window.location.reload(), 1500);
   };
 
   return (
