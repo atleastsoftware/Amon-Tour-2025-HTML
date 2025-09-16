@@ -125,7 +125,10 @@ export default function Header() {
     <>
       {/* Dynamic Notification Header */}
       {notificationConfig.enabled && (
-        <div 
+        <a
+          href="https://amon-tour.fr/"
+          target="_blank"
+          rel="noopener noreferrer"
           style={{
             background: `linear-gradient(135deg, ${notificationConfig.background_color}, ${notificationConfig.background_color}e6)`,
             color: notificationConfig.text_color,
@@ -147,7 +150,18 @@ export default function Header() {
             letterSpacing: '0.025em',
             boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
             backdropFilter: 'blur(8px)',
-            lineHeight: '1.4'
+            lineHeight: '1.4',
+            textDecoration: 'none',
+            cursor: 'pointer',
+            transition: 'all 0.2s ease'
+          }}
+          onMouseOver={(e) => {
+            e.currentTarget.style.opacity = '0.9';
+            e.currentTarget.style.transform = 'translateY(1px)';
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.opacity = '1';
+            e.currentTarget.style.transform = 'translateY(0px)';
           }}
         >
           <span 
@@ -158,10 +172,10 @@ export default function Header() {
               hyphens: 'none'
             }}
             dangerouslySetInnerHTML={{
-              __html: notificationConfig.text.replace('www.Amon-Tour.fr', '<span style="white-space: nowrap;">www.Amon-Tour.fr</span>')
+              __html: notificationConfig.text.replace('www.amon-tour.fr', '<span style="white-space: nowrap;">www.amon-tour.fr</span>')
             }}
           />
-        </div>
+        </a>
       )}
       
       <header ref={headerRef} className={headerClasses} style={headerStyle}>
