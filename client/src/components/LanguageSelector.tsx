@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { translationService } from '../services/translationService';
 
 const languageData = {
   en: { 
@@ -17,7 +18,12 @@ const languageData = {
 
 export default function LanguageSelector() {
   const [isLoading, setIsLoading] = useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState('en');
+  const [currentLanguage, setCurrentLanguage] = useState(translationService.getCurrentLanguage());
+
+  // Update current language when component mounts
+  useEffect(() => {
+    setCurrentLanguage(translationService.getCurrentLanguage());
+  }, []);
 
   const handleLanguageChange = async (langCode: string) => {
     if (isLoading || currentLanguage === langCode) return;
@@ -25,11 +31,14 @@ export default function LanguageSelector() {
     setIsLoading(true);
     
     try {
-      // Future: Will integrate with LinguiJS + Microsoft Translator properly
-      // For now, just store the selection
-      localStorage.setItem('preferred-language', langCode);
-      setCurrentLanguage(langCode);
-      console.log(`Language selected: ${langCode} (LinguiJS integration pending)`);
+      // Change language using translation service
+      const success = translationService.setLanguage(langCode);
+      if (success) {
+        setCurrentLanguage(langCode);
+        // Force page reload to apply translations
+        window.location.reload();
+        console.log(`Language changed to: ${langCode}`);
+      }
     } catch (error) {
       console.error('Failed to switch language:', error);
     } finally {

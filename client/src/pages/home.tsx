@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { translationService } from "@/services/translationService";
 
 import SEO from "@/components/layout/SEO";
 import Hero from "@/components/home/Hero";
@@ -30,6 +31,10 @@ export default function Home() {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [maxScroll, setMaxScroll] = useState(0);
   const { openIframe } = useIframe();
+  
+  // Get translations
+  const tours = translationService.getTours();
+  const common = translationService.getCommon();
   
   const { data: featuredTours, isLoading: isLoadingTours } = useQuery<Tour[]>({
     queryKey: ['/api/tours/featured'],
@@ -254,9 +259,9 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">Our Popular Experiences</h2>
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{tours.featured}</h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
-              <p className="text-gray-600 text-lg max-w-2xl mx-auto">Step off the beaten path into carefully curated experiences beyond the tourist trail.</p>
+              <p className="text-gray-600 text-lg max-w-2xl mx-auto">{tours.description}</p>
             </motion.div>
           </div>
           
@@ -336,7 +341,7 @@ export default function Home() {
                           }}
                           className="flex-1 border border-primary text-primary hover:bg-primary/10 py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
                         >
-                          Details
+                          {common.viewDetails}
                           <FiChevronRight className="h-3 w-3" />
                         </button>
                         <button 
@@ -347,7 +352,7 @@ export default function Home() {
                           }}
                           className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
                         >
-                          Book
+                          {common.bookNow}
                           <FiChevronRight className="h-3 w-3" />
                         </button>
                       </div>
@@ -365,7 +370,7 @@ export default function Home() {
                   className="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-heading font-semibold hover:bg-primary-dark transition-colors inline-block cursor-pointer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
-                >View All Our Tours</motion.span>
+                >{tours.title}</motion.span>
               </Link>
             </div>
           </div>
