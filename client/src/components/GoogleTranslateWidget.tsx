@@ -11,13 +11,25 @@ declare global {
 interface Language {
   code: string;
   name: string;
-  flag: string;
+  flagUrl: string;
 }
 
 const languages: Language[] = [
-  { code: "en", name: "English", flag: "🇬🇧" },
-  { code: "fr", name: "Français", flag: "🇫🇷" },
-  { code: "es", name: "Español", flag: "🇪🇸" }
+  { 
+    code: "en", 
+    name: "English", 
+    flagUrl: "https://flagcdn.com/w40/gb.png"
+  },
+  { 
+    code: "fr", 
+    name: "Français", 
+    flagUrl: "https://flagcdn.com/w40/fr.png"
+  },
+  { 
+    code: "es", 
+    name: "Español", 
+    flagUrl: "https://flagcdn.com/w40/es.png"
+  }
 ];
 
 export default function GoogleTranslateWidget() {
@@ -157,25 +169,31 @@ export default function GoogleTranslateWidget() {
       />
 
       {/* Custom Flag Selector */}
-      <div className="flex items-center gap-1" data-testid="language-switcher">
+      <div className="flex items-center gap-2 relative z-50" data-testid="language-switcher">
         {languages.map((lang) => (
           <button
             key={lang.code}
             onClick={() => handleLanguageClick(lang.code)}
             className={`
-              p-1.5 text-2xl transition-all duration-200 rounded-md
+              relative p-1 transition-all duration-200 rounded-md border-2
               ${currentLanguage === lang.code 
-                ? "scale-110 opacity-100 bg-primary/10" 
-                : "opacity-60 hover:opacity-100 hover:bg-gray-100"
+                ? "scale-110 opacity-100 border-primary shadow-lg" 
+                : "opacity-70 hover:opacity-100 border-transparent hover:border-gray-300"
               }
-              ${!isLoaded && lang.code !== "en" ? "cursor-not-allowed" : "cursor-pointer"}
+              ${!isLoaded && lang.code !== "en" ? "cursor-not-allowed grayscale" : "cursor-pointer"}
             `}
             aria-label={`Switch to ${lang.name}`}
             disabled={!isLoaded && lang.code !== "en"}
             title={lang.name}
             data-testid={`language-${lang.code}`}
+            style={{ zIndex: 50 }}
           >
-            <span role="img" aria-label={lang.name}>{lang.flag}</span>
+            <img 
+              src={lang.flagUrl} 
+              alt={`${lang.name} flag`}
+              className="w-8 h-6 object-cover rounded"
+              loading="eager"
+            />
           </button>
         ))}
       </div>
