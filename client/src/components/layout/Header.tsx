@@ -5,6 +5,7 @@ import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuery } from '@tanstack/react-query';
 import logoAmon from "@/assets/logo-amon.png";
+import GoogleTranslateWidget from "@/components/GoogleTranslateWidget";
 
 type NavLinkProps = {
   href: string;
@@ -262,6 +263,11 @@ export default function Header() {
           <NavLink href="/contact" isActive={location === '/contact'} isHomePage={isHomePage} scrolled={scrolled}>
             Contact
           </NavLink>
+          
+          {/* Language Switcher */}
+          <div className="ml-4 pl-4 border-l border-gray-300/50">
+            <GoogleTranslateWidget />
+          </div>
         </motion.div>
       </nav>
       
@@ -305,6 +311,11 @@ export default function Header() {
               <NavLink href="/contact" isActive={location === '/contact'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
                 Contact
               </NavLink>
+              
+              {/* Language Switcher for Mobile */}
+              <div className="pt-3 mt-3 border-t border-gray-300/30">
+                <GoogleTranslateWidget />
+              </div>
             </motion.div>
           </motion.div>
         )}
