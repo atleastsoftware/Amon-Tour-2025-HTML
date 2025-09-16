@@ -19,8 +19,8 @@ interface SEOProps {
 
 export default function SEO({
   title = 'Amon Tour - Authentic Thailand Travel Experiences',
-  description = 'Discover authentic Thailand with Amon Tour. Expert-guided private tours, cultural experiences, and personalized journeys across Bangkok, Phuket, and beyond. Family-run travel agency offering immersive experiences.',
-  keywords = 'thailand tours, bangkok travel, phuket tours, authentic thai experiences, private tours thailand, cultural tours, thailand vacation, thai adventures, family travel agency',
+  description = 'Plan your perfect Thailand vacation with Amon Tour - expert-guided private tours, cultural experiences & custom itineraries. Explore Bangkok, Phuket, Krabi & hidden gems. Family-run agency since 2020.',
+  keywords = 'thailand tours, bangkok travel, phuket tours, krabi tours, private tours thailand, custom thailand itinerary, thailand vacation planner, authentic thai experiences, cultural tours thailand, family travel agency, thailand trip planning, best thailand tours, thailand travel guide',
   ogImage = '/Logo Long Blue.png',
   ogType = 'website',
   canonicalUrl,
