@@ -1,0 +1,116 @@
+{
+  "nav": {
+    "home": "Home",
+    "tours": "Tours",
+    "about": "About",
+    "contact": "Contact",
+    "blog": "Blog"
+  },
+  "hero": {
+    "title": "Discover the Magic of Krabi",
+    "subtitle": "Unforgettable Tours with Local Experts",
+    "cta": "Explore Our Tours",
+    "customTour": "Custom Tour Request"
+  },
+  "tours": {
+    "title": "Our Tours",
+    "featuredTours": "Featured Tours",
+    "allTours": "All Tours",
+    "from": "From",
+    "duration": "Duration",
+    "days": "days",
+    "hours": "hours",
+    "bookNow": "Book Now",
+    "learnMore": "Learn More",
+    "noTours": "No tours available at the moment"
+  },
+  "customTour": {
+    "title": "Custom Tour Request",
+    "subtitle": "Create your perfect adventure",
+    "fullName": "Full Name",
+    "email": "Email",
+    "phone": "Phone Number",
+    "numberOfPeople": "Number of People",
+    "tourDates": "Tour Dates",
+    "interests": "Interests",
+    "specialRequests": "Special Requests",
+    "submit": "Submit Request",
+    "submitting": "Submitting...",
+    "successMessage": "Your custom tour request has been submitted successfully!",
+    "errorMessage": "Failed to submit request. Please try again."
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Get in touch with our team",
+    "name": "Name",
+    "email": "Email",
+    "subject": "Subject",
+    "message": "Message",
+    "send": "Send Message",
+    "sending": "Sending...",
+    "successMessage": "Your message has been sent successfully!",
+    "errorMessage": "Failed to send message. Please try again.",
+    "info": {
+      "title": "Contact Information",
+      "phone": "Phone",
+      "email": "Email",
+      "address": "Address",
+      "hours": "Hours of Operation"
+    }
+  },
+  "footer": {
+    "aboutUs": "About Us",
+    "quickLinks": "Quick Links",
+    "followUs": "Follow Us",
+    "newsletter": "Newsletter",
+    "newsletterText": "Subscribe to our newsletter for updates and exclusive offers",
+    "subscribe": "Subscribe",
+    "copyright": "All rights reserved",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service"
+  },
+  "about": {
+    "title": "About Amon Tour",
+    "subtitle": "Your Gateway to Thailand's Hidden Treasures",
+    "ourStory": "Our Story",
+    "ourMission": "Our Mission",
+    "whyChooseUs": "Why Choose Us",
+    "localExperts": "Local Experts",
+    "localExpertsDesc": "Our guides are passionate locals who know every hidden gem",
+    "customized": "Customized Tours",
+    "customizedDesc": "We tailor each experience to your preferences",
+    "safety": "Safety First",
+    "safetyDesc": "Your safety and comfort are our top priorities",
+    "sustainable": "Sustainable Tourism",
+    "sustainableDesc": "We support local communities and protect our environment"
+  },
+  "blog": {
+    "title": "Travel Blog",
+    "subtitle": "Tips, Stories, and Insights",
+    "readMore": "Read More",
+    "categories": "Categories",
+    "recentPosts": "Recent Posts",
+    "tags": "Tags",
+    "search": "Search",
+    "noArticles": "No articles found"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Try Again",
+    "viewAll": "View All",
+    "close": "Close",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "share": "Share",
+    "language": "Language",
+    "english": "English",
+    "french": "Français"
+  }
+}
