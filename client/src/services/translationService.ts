@@ -212,6 +212,9 @@ export interface Translations {
     // Pricing section
     seasonalPricing: string;
     perfectForHolidays: string;
+    veryHighSeason: string;
+    highSeason: string;
+    lowSeason: string;
     peakPeriodRates: string;
     premiumPeriodRates: string;
     bestValueRates: string;
@@ -228,6 +231,22 @@ export interface Translations {
     includedDescription: string;
     notIncludedInPrice: string;
     notIncludedDescription: string;
+  };
+  // Custom Tour page
+  customTour: {
+    title: string;
+    subtitle: string;
+    seoTitle: string;
+    seoDescription: string;
+    seoKeywords: string;
+    whyChoose: string;
+    whyChooseDescription: string;
+    flexibleItinerary: string;
+    flexibleItineraryDescription: string;
+    tailoredAccommodations: string;
+    tailoredAccommodationsDescription: string;
+    personalizedSupport: string;
+    personalizedSupportDescription: string;
   };
 }
 
@@ -428,6 +447,9 @@ const translations: Record<string, Translations> = {
       // Pricing section
       seasonalPricing: "Seasonal Pricing",
       perfectForHolidays: "Perfect for holidays with family, friends or private charter",
+      veryHighSeason: "Very High Season",
+      highSeason: "High Season",
+      lowSeason: "Low Season",
       peakPeriodRates: "Peak period rates",
       premiumPeriodRates: "Premium period rates", 
       bestValueRates: "Best value rates",
@@ -446,6 +468,21 @@ const translations: Record<string, Translations> = {
       includedDescription: "Boat rental with captain, assistant and professional English-speaking guide, fuel, semi-rigid dinghy for 5 to 6 people with an 18 HP engine, BBQ, fishing equipment and a paddleboard, fresh fruit, sodas, water. Breakfast (tea, coffee, toast, omelet).",
       notIncludedInPrice: "Not Included in Price", 
       notIncludedDescription: "Transfers (on request), national park fees (depending on the itinerary), beer, wine, spirits. Lunch and dinner (Thai cuisine): 500 Baht per person per meal. Please let us know your preferences and we will provision the boat accordingly."
+    },
+    customTour: {
+      title: "Create Your Custom Tour",
+      subtitle: "Tell us what you'd like to discover, and we'll create your personalized itinerary.",
+      seoTitle: "Create Your Custom Thailand Experience",
+      seoDescription: "Design your own personalized Thailand tour. Tell us your preferences, and our local experts will craft a customized itinerary just for you.",
+      seoKeywords: "custom thailand tour, personalized travel, tailor-made itinerary, private guide thailand, custom travel experience",
+      whyChoose: "Why Choose a Custom Tour?",
+      whyChooseDescription: "A personalized journey offers a unique experience tailored to your desires, pace, and budget.",
+      flexibleItinerary: "Flexible Itinerary",
+      flexibleItineraryDescription: "Choose the destinations that interest you and set your own travel pace.",
+      tailoredAccommodations: "Tailored Accommodations",
+      tailoredAccommodationsDescription: "Select accommodations that match your preferences and budget.",
+      personalizedSupport: "Personalized Support",
+      personalizedSupportDescription: "Benefit from expert advice and an English-speaking guide for an authentic experience."
     }
   },
   fr: {
@@ -644,6 +681,9 @@ const translations: Record<string, Translations> = {
       // Pricing section
       seasonalPricing: "Tarification Saisonnière",
       perfectForHolidays: "Parfait pour des vacances en famille, entre amis ou en charter privé",
+      veryHighSeason: "Très Haute Saison",
+      highSeason: "Haute Saison",
+      lowSeason: "Basse Saison",
       peakPeriodRates: "Tarifs période de pointe",
       premiumPeriodRates: "Tarifs période premium",
       bestValueRates: "Tarifs meilleur rapport qualité-prix",
@@ -662,6 +702,21 @@ const translations: Record<string, Translations> = {
       includedDescription: "Location bateau avec capitaine, assistant et guide anglophone professionnel, carburant, annexe semi-rigide pour 5 à 6 personnes avec moteur 18 CV, BBQ, équipement de pêche et paddle, fruits frais, sodas, eau. Petit-déjeuner (thé, café, toast, omelette).",
       notIncludedInPrice: "Non Inclus dans le Prix",
       notIncludedDescription: "Transferts (sur demande), frais de parcs nationaux (selon l'itinéraire), bière, vin, spiritueux. Déjeuner et dîner (cuisine thaï) : 500 Baht par personne par repas. Merci de nous faire connaître vos préférences et nous approvisionnerons le bateau en conséquence."
+    },
+    customTour: {
+      title: "Créez Votre Voyage Sur Mesure",
+      subtitle: "Dites-nous ce que vous aimeriez découvrir, et nous créerons votre itinéraire personnalisé.",
+      seoTitle: "Créez Votre Expérience Thaïlandaise Sur Mesure",
+      seoDescription: "Concevez votre propre voyage personnalisé en Thaïlande. Dites-nous vos préférences et nos experts locaux créeront un itinéraire sur mesure rien que pour vous.",
+      seoKeywords: "voyage sur mesure thailande, voyage personnalisé, itinéraire sur mesure, guide privé thailande, expérience voyage personnalisée",
+      whyChoose: "Pourquoi Choisir un Voyage Sur Mesure ?",
+      whyChooseDescription: "Un voyage personnalisé offre une expérience unique adaptée à vos envies, votre rythme et votre budget.",
+      flexibleItinerary: "Itinéraire Flexible",
+      flexibleItineraryDescription: "Choisissez les destinations qui vous intéressent et définissez votre propre rythme de voyage.",
+      tailoredAccommodations: "Hébergements Sur Mesure",
+      tailoredAccommodationsDescription: "Sélectionnez des hébergements qui correspondent à vos préférences et votre budget.",
+      personalizedSupport: "Support Personnalisé",
+      personalizedSupportDescription: "Bénéficiez des conseils d'experts et d'un guide anglophone pour une expérience authentique."
     }
   },
   es: {
@@ -860,6 +915,9 @@ const translations: Record<string, Translations> = {
       // Pricing section
       seasonalPricing: "Precios Estacionales",
       perfectForHolidays: "Perfecto para vacaciones en familia, con amigos o charter privado",
+      veryHighSeason: "Temporada Muy Alta",
+      highSeason: "Temporada Alta",
+      lowSeason: "Temporada Baja",
       peakPeriodRates: "Tarifas período pico",
       premiumPeriodRates: "Tarifas período premium",
       bestValueRates: "Tarifas mejor valor",
@@ -878,6 +936,21 @@ const translations: Record<string, Translations> = {
       includedDescription: "Alquiler de barco con capitán, asistente y guía profesional de habla inglesa, combustible, bote semirrígido para 5 a 6 personas con motor de 18 HP, BBQ, equipo de pesca y paddleboard, frutas frescas, refrescos, agua. Desayuno (té, café, tostadas, tortilla).",
       notIncludedInPrice: "No Incluido en el Precio",
       notIncludedDescription: "Traslados (bajo pedido), tarifas de parques nacionales (según el itinerario), cerveza, vino, licores. Almuerzo y cena (cocina tailandesa): 500 Baht por persona por comida. Por favor háganos saber sus preferencias y abasteceremos el barco en consecuencia."
+    },
+    customTour: {
+      title: "Cree Su Tour Personalizado",
+      subtitle: "Díganos qué le gustaría descubrir, y crearemos su itinerario personalizado.",
+      seoTitle: "Cree Su Experiencia Tailandesa Personalizada",
+      seoDescription: "Diseñe su propio tour personalizado por Tailandia. Díganos sus preferencias y nuestros expertos locales crearán un itinerario personalizado solo para usted.",
+      seoKeywords: "tour personalizado tailandia, viaje personalizado, itinerario a medida, guía privado tailandia, experiencia de viaje personalizada",
+      whyChoose: "¿Por Qué Elegir un Tour Personalizado?",
+      whyChooseDescription: "Un viaje personalizado ofrece una experiencia única adaptada a sus deseos, ritmo y presupuesto.",
+      flexibleItinerary: "Itinerario Flexible",
+      flexibleItineraryDescription: "Elija los destinos que le interesen y establezca su propio ritmo de viaje.",
+      tailoredAccommodations: "Alojamientos Personalizados",
+      tailoredAccommodationsDescription: "Seleccione alojamientos que coincidan con sus preferencias y presupuesto.",
+      personalizedSupport: "Soporte Personalizado",
+      personalizedSupportDescription: "Benefíciese del consejo experto y un guía de habla inglesa para una experiencia auténtica."
     }
   }
 };
@@ -937,6 +1010,10 @@ export class TranslationService {
 
   getCruise() {
     return this.getTranslations().cruise;
+  }
+
+  getCustomTour() {
+    return this.getTranslations().customTour;
   }
 
   // Method to translate a specific key path
