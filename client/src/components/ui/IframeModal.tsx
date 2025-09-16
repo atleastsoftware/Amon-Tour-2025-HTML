@@ -1,16 +1,11 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ExternalLink } from "lucide-react";
+import { X } from "lucide-react";
 import { useIframe } from "@/contexts/IframeContext";
 import { Button } from "@/components/ui/button";
 
 export default function IframeModal() {
   const { isOpen, url, title, closeIframe } = useIframe();
 
-  const handleOpenExternal = () => {
-    if (url) {
-      window.open(url, '_blank', 'noopener,noreferrer');
-    }
-  };
 
   return (
     <AnimatePresence>
@@ -36,15 +31,6 @@ export default function IframeModal() {
                 {title}
               </h2>
               <div className="flex items-center gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={handleOpenExternal}
-                  className="flex items-center gap-2"
-                >
-                  <ExternalLink className="h-4 w-4" />
-                  Open in new tab
-                </Button>
                 <Button
                   variant="ghost"
                   size="sm"
