@@ -143,6 +143,51 @@ export interface Translations {
     legalNotice: string;
     allRightsReserved: string;
   };
+  // Cruise page
+  cruise: {
+    title: string;
+    subtitle: string;
+    fullName: string;
+    email: string;
+    phoneNumber: string;
+    numberOfPassengers: string;
+    maximumPassengers: string;
+    desiredDuration: string;
+    chooseDuration: string;
+    preferredDates: string;
+    approximateBudget: string;
+    selectSeason: string;
+    preferredDestinations: string;
+    specialRequests: string;
+    
+    // Duration options
+    oneDay: string;
+    twoDays: string;
+    threeFourDays: string;
+    fiveSixDays: string;
+    sevenPlusDays: string;
+    
+    // Season options
+    lowSeason: string;
+    highSeason: string;
+    veryHighSeason: string;
+    
+    // Placeholders
+    fullNamePlaceholder: string;
+    emailPlaceholder: string;
+    phonePlaceholder: string;
+    datesPlaceholder: string;
+    destinationsPlaceholder: string;
+    specialRequestsPlaceholder: string;
+    
+    // Messages
+    requestSent: string;
+    contactShortly: string;
+    error: string;
+    errorMessage: string;
+    sending: string;
+    sendRequest: string;
+  };
 }
 
 const translations: Record<string, Translations> = {
@@ -270,6 +315,50 @@ const translations: Record<string, Translations> = {
       groupCorporate: "Group & Corporate",
       legalNotice: "Legal Notice",
       allRightsReserved: "All rights reserved."
+    },
+    cruise: {
+      title: "Custom Quote Request",
+      subtitle: "Fill out the form below and we will contact you within 24 hours.",
+      fullName: "Full Name",
+      email: "Email",
+      phoneNumber: "Phone Number (Optional)",
+      numberOfPassengers: "Number of Passengers",
+      maximumPassengers: "Maximum 8 passengers",
+      desiredDuration: "Desired Duration",
+      chooseDuration: "Choose a duration",
+      preferredDates: "Preferred Dates (Optional)",
+      approximateBudget: "Approximate Budget (Optional)",
+      selectSeason: "Select a season",
+      preferredDestinations: "Preferred Destinations (Optional)",
+      specialRequests: "Special Requests (Optional)",
+      
+      // Duration options
+      oneDay: "1 day",
+      twoDays: "2 days",
+      threeFourDays: "3-4 days",
+      fiveSixDays: "5-6 days",
+      sevenPlusDays: "7 days and more",
+      
+      // Season options
+      lowSeason: "Low season (28,000 THB/day)",
+      highSeason: "High season (31,000 THB/day)",
+      veryHighSeason: "Very high season (39,000 THB/day)",
+      
+      // Placeholders
+      fullNamePlaceholder: "Your full name",
+      emailPlaceholder: "your@email.com",
+      phonePlaceholder: "+66 XX XXX XXXX",
+      datesPlaceholder: "Ex: January 15-20, 2025",
+      destinationsPlaceholder: "Ex: Koh Phi Phi, Koh Hong...",
+      specialRequestsPlaceholder: "Dietary requirements, birthday celebration, etc.",
+      
+      // Messages
+      requestSent: "Request sent!",
+      contactShortly: "We will contact you shortly.",
+      error: "Error",
+      errorMessage: "An error occurred. Please try again.",
+      sending: "Sending...",
+      sendRequest: "Send Request"
     }
   },
   fr: {
@@ -396,6 +485,50 @@ const translations: Record<string, Translations> = {
       groupCorporate: "Groupe & Entreprise",
       legalNotice: "Mentions Légales",
       allRightsReserved: "Tous droits réservés."
+    },
+    cruise: {
+      title: "Demande de Devis Personnalisé",
+      subtitle: "Remplissez le formulaire ci-dessous et nous vous contacterons sous 24 heures.",
+      fullName: "Nom complet",
+      email: "Email",
+      phoneNumber: "Numéro de téléphone (Optionnel)",
+      numberOfPassengers: "Nombre de passagers",
+      maximumPassengers: "Maximum 8 passagers",
+      desiredDuration: "Durée souhaitée",
+      chooseDuration: "Choisissez une durée",
+      preferredDates: "Dates préférées (Optionnel)",
+      approximateBudget: "Budget approximatif (Optionnel)",
+      selectSeason: "Sélectionnez une saison",
+      preferredDestinations: "Destinations préférées (Optionnel)",
+      specialRequests: "Demandes spéciales (Optionnel)",
+      
+      // Duration options
+      oneDay: "1 jour",
+      twoDays: "2 jours",
+      threeFourDays: "3-4 jours",
+      fiveSixDays: "5-6 jours",
+      sevenPlusDays: "7 jours et plus",
+      
+      // Season options
+      lowSeason: "Basse saison (28 000 THB/jour)",
+      highSeason: "Haute saison (31 000 THB/jour)",
+      veryHighSeason: "Très haute saison (39 000 THB/jour)",
+      
+      // Placeholders
+      fullNamePlaceholder: "Votre nom complet",
+      emailPlaceholder: "votre@email.com",
+      phonePlaceholder: "+66 XX XXX XXXX",
+      datesPlaceholder: "Ex: 15-20 janvier 2025",
+      destinationsPlaceholder: "Ex: Koh Phi Phi, Koh Hong...",
+      specialRequestsPlaceholder: "Exigences alimentaires, célébration d'anniversaire, etc.",
+      
+      // Messages
+      requestSent: "Demande envoyée !",
+      contactShortly: "Nous vous contacterons sous peu.",
+      error: "Erreur",
+      errorMessage: "Une erreur s'est produite. Veuillez réessayer.",
+      sending: "Envoi en cours...",
+      sendRequest: "Envoyer la demande"
     }
   },
   es: {
@@ -522,6 +655,50 @@ const translations: Record<string, Translations> = {
       groupCorporate: "Grupo y Empresarial",
       legalNotice: "Aviso Legal",
       allRightsReserved: "Todos los derechos reservados."
+    },
+    cruise: {
+      title: "Solicitud de Cotización Personalizada",
+      subtitle: "Complete el formulario a continuación y nos pondremos en contacto con usted en 24 horas.",
+      fullName: "Nombre completo",
+      email: "Email",
+      phoneNumber: "Número de teléfono (Opcional)",
+      numberOfPassengers: "Número de pasajeros",
+      maximumPassengers: "Máximo 8 pasajeros",
+      desiredDuration: "Duración deseada",
+      chooseDuration: "Elija una duración",
+      preferredDates: "Fechas preferidas (Opcional)",
+      approximateBudget: "Presupuesto aproximado (Opcional)",
+      selectSeason: "Seleccione una temporada",
+      preferredDestinations: "Destinos preferidos (Opcional)",
+      specialRequests: "Solicitudes especiales (Opcional)",
+      
+      // Duration options
+      oneDay: "1 día",
+      twoDays: "2 días",
+      threeFourDays: "3-4 días",
+      fiveSixDays: "5-6 días",
+      sevenPlusDays: "7 días y más",
+      
+      // Season options
+      lowSeason: "Temporada baja (28,000 THB/día)",
+      highSeason: "Temporada alta (31,000 THB/día)",
+      veryHighSeason: "Temporada muy alta (39,000 THB/día)",
+      
+      // Placeholders
+      fullNamePlaceholder: "Su nombre completo",
+      emailPlaceholder: "su@email.com",
+      phonePlaceholder: "+66 XX XXX XXXX",
+      datesPlaceholder: "Ej: 15-20 enero 2025",
+      destinationsPlaceholder: "Ej: Koh Phi Phi, Koh Hong...",
+      specialRequestsPlaceholder: "Requisitos dietéticos, celebración de cumpleaños, etc.",
+      
+      // Messages
+      requestSent: "¡Solicitud enviada!",
+      contactShortly: "Nos pondremos en contacto pronto.",
+      error: "Error",
+      errorMessage: "Ocurrió un error. Por favor intente de nuevo.",
+      sending: "Enviando...",
+      sendRequest: "Enviar solicitud"
     }
   }
 };
@@ -577,6 +754,10 @@ export class TranslationService {
 
   getFooter() {
     return this.getTranslations().footer;
+  }
+
+  getCruise() {
+    return this.getTranslations().cruise;
   }
 
   // Method to translate a specific key path

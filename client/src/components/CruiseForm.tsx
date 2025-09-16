@@ -25,6 +25,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { translationService } from "@/services/translationService";
 
 const cruiseFormSchema = z.object({
   fullName: z.string().min(2, "Full name required"),
@@ -53,6 +54,7 @@ type CruiseFormData = {
 export default function CruiseForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
+  const cruise = translationService.getCruise();
   
   const form = useForm<CruiseFormData>({
     resolver: zodResolver(cruiseFormSchema),
@@ -85,15 +87,15 @@ export default function CruiseForm() {
       }
 
       toast({
-        title: "Request sent!",
-        description: "We will contact you shortly.",
+        title: cruise.requestSent,
+        description: cruise.contactShortly,
       });
       
       form.reset();
     } catch (error) {
       toast({
-        title: "Error",
-        description: "An error occurred. Please try again.",
+        title: cruise.error,
+        description: cruise.errorMessage,
         variant: "destructive",
       });
     } finally {
@@ -104,9 +106,9 @@ export default function CruiseForm() {
   return (
     <div className="w-full max-w-2xl mx-auto">
       <div className="text-center mb-8">
-        <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">Custom Quote Request</h2>
+        <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{cruise.title}</h2>
         <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
-        <p className="text-gray-600 text-lg">Fill out the form below and we will contact you within 24 hours.</p>
+        <p className="text-gray-600 text-lg">{cruise.subtitle}</p>
       </div>
       <Card className="w-full">
         <CardContent className="pt-6">
@@ -118,9 +120,9 @@ export default function CruiseForm() {
                 name="fullName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Full Name *</FormLabel>
+                    <FormLabel>{cruise.fullName} *</FormLabel>
                     <FormControl>
-                      <Input placeholder="Your full name" {...field} />
+                      <Input placeholder={cruise.fullNamePlaceholder} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -132,9 +134,9 @@ export default function CruiseForm() {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email *</FormLabel>
+                    <FormLabel>{cruise.email} *</FormLabel>
                     <FormControl>
-                      <Input type="email" placeholder="your@email.com" {...field} />
+                      <Input type="email" placeholder={cruise.emailPlaceholder} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -148,9 +150,9 @@ export default function CruiseForm() {
                 name="phone"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Phone Number (Optional)</FormLabel>
+                    <FormLabel>{cruise.phoneNumber}</FormLabel>
                     <FormControl>
-                      <Input type="tel" placeholder="+66 XX XXX XXXX" {...field} />
+                      <Input type="tel" placeholder={cruise.phonePlaceholder} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -162,11 +164,11 @@ export default function CruiseForm() {
                 name="numberOfGuests"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Number of Passengers</FormLabel>
+                    <FormLabel>{cruise.numberOfPassengers}</FormLabel>
                     <FormControl>
                       <Input type="number" min="1" max="8" {...field} />
                     </FormControl>
-                    <FormDescription>Maximum 8 passengers</FormDescription>
+                    <FormDescription>{cruise.maximumPassengers}</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -179,19 +181,19 @@ export default function CruiseForm() {
                 name="duration"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Desired Duration</FormLabel>
+                    <FormLabel>{cruise.desiredDuration}</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder="Choose a duration" />
+                          <SelectValue placeholder={cruise.chooseDuration} />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="1 day">1 day</SelectItem>
-                        <SelectItem value="2 days">2 days</SelectItem>
-                        <SelectItem value="3-4 days">3-4 days</SelectItem>
-                        <SelectItem value="5-6 days">5-6 days</SelectItem>
-                        <SelectItem value="7+ days">7 days and more</SelectItem>
+                        <SelectItem value="1 day">{cruise.oneDay}</SelectItem>
+                        <SelectItem value="2 days">{cruise.twoDays}</SelectItem>
+                        <SelectItem value="3-4 days">{cruise.threeFourDays}</SelectItem>
+                        <SelectItem value="5-6 days">{cruise.fiveSixDays}</SelectItem>
+                        <SelectItem value="7+ days">{cruise.sevenPlusDays}</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -204,9 +206,9 @@ export default function CruiseForm() {
                 name="preferredDates"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Preferred Dates (Optional)</FormLabel>
+                    <FormLabel>{cruise.preferredDates}</FormLabel>
                     <FormControl>
-                      <Input placeholder="Ex: January 15-20, 2025" {...field} />
+                      <Input placeholder={cruise.datesPlaceholder} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -219,17 +221,17 @@ export default function CruiseForm() {
               name="budget"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Approximate Budget (Optional)</FormLabel>
+                  <FormLabel>{cruise.approximateBudget}</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select a season" />
+                        <SelectValue placeholder={cruise.selectSeason} />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="low">Low season (28,000 THB/day)</SelectItem>
-                      <SelectItem value="high">High season (31,000 THB/day)</SelectItem>
-                      <SelectItem value="very_high">Very high season (39,000 THB/day)</SelectItem>
+                      <SelectItem value="low">{cruise.lowSeason}</SelectItem>
+                      <SelectItem value="high">{cruise.highSeason}</SelectItem>
+                      <SelectItem value="very_high">{cruise.veryHighSeason}</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -242,10 +244,10 @@ export default function CruiseForm() {
               name="itinerary"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Preferred Destinations (Optional)</FormLabel>
+                  <FormLabel>{cruise.preferredDestinations}</FormLabel>
                   <FormControl>
                     <Textarea 
-                      placeholder="Ex: Koh Phi Phi, Koh Hong..." 
+                      placeholder={cruise.destinationsPlaceholder} 
                       className="min-h-[80px]"
                       {...field} 
                     />
@@ -260,10 +262,10 @@ export default function CruiseForm() {
               name="specialRequests"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Special Requests (Optional)</FormLabel>
+                  <FormLabel>{cruise.specialRequests}</FormLabel>
                   <FormControl>
                     <Textarea 
-                      placeholder="Dietary requirements, birthday celebration, etc." 
+                      placeholder={cruise.specialRequestsPlaceholder} 
                       className="min-h-[80px]"
                       {...field} 
                     />
@@ -277,10 +279,10 @@ export default function CruiseForm() {
               {isSubmitting ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Sending...
+                  {cruise.sending}
                 </>
               ) : (
-                "Send Request"
+                cruise.sendRequest
               )}
             </Button>
           </form>
