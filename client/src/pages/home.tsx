@@ -35,6 +35,7 @@ export default function Home() {
   // Get translations
   const tours = translationService.getTours();
   const common = translationService.getCommon();
+  const home = translationService.getHome();
   
   const { data: featuredTours, isLoading: isLoadingTours } = useQuery<Tour[]>({
     queryKey: ['/api/tours/featured'],
@@ -237,14 +238,11 @@ export default function Home() {
               transition={{ duration: 0.6 }}
             >
               <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
-                When expats welcome you in their host country
+                {home.introTitle}
               </h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
               <p className="text-lg text-gray-700 leading-relaxed">
-                This is a family-run travel agency that combines the organization of exclusive activities 
-                with the creation of tailor-made trips throughout the country.
-                Our goal is to offer an immersive experience, far from mass tourism, with personalized service 
-                for every traveler — as if we were welcoming our own family or friends.
+                {home.introDescription}
               </p>
             </motion.div>
           </div>
