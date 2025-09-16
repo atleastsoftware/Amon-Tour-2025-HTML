@@ -492,7 +492,7 @@ const translations: Record<string, Translations> = {
     },
     seo: {
       defaultTitle: "Amon Tour - Authentic Thailand Travel Experiences",
-      defaultDescription: "Plan your perfect Thailand vacation with Amon Tour - expert-guided private tours, cultural experiences & custom itineraries. Explore Bangkok, Phuket, Krabi & hidden gems. Family-run agency since 2020.",
+      defaultDescription: "Plan your perfect Thailand vacation with Amon Tour - expert-guided private tours, cultural experiences & custom itineraries. Explore Bangkok, Phuket, Krabi & hidden gems. Family-run agency since 2017.",
       defaultKeywords: "thailand tours, bangkok travel, phuket tours, krabi tours, private tours thailand, custom thailand itinerary, thailand vacation planner, authentic thai experiences, cultural tours thailand, family travel agency, thailand trip planning, best thailand tours, thailand travel guide"
     }
   },
@@ -731,7 +731,7 @@ const translations: Record<string, Translations> = {
     },
     seo: {
       defaultTitle: "Amon Tour - Expériences Authentiques de Voyage en Thaïlande",
-      defaultDescription: "Planifiez vos vacances parfaites en Thaïlande avec Amon Tour - tours privés avec guides experts, expériences culturelles et itinéraires sur mesure. Explorez Bangkok, Phuket, Krabi et joyaux cachés. Agence familiale depuis 2020.",
+      defaultDescription: "Planifiez vos vacances parfaites en Thaïlande avec Amon Tour - tours privés avec guides experts, expériences culturelles et itinéraires sur mesure. Explorez Bangkok, Phuket, Krabi et joyaux cachés. Agence familiale depuis 2017.",
       defaultKeywords: "tours thaïlande, voyage bangkok, tours phuket, tours krabi, tours privés thaïlande, itinéraire sur mesure thaïlande, planificateur vacances thaïlande, expériences authentiques thaï, tours culturels thaïlande, agence voyage familiale, planification voyage thaïlande, meilleurs tours thaïlande, guide voyage thaïlande"
     }
   },
@@ -970,7 +970,7 @@ const translations: Record<string, Translations> = {
     },
     seo: {
       defaultTitle: "Amon Tour - Experiencias Auténticas de Viaje en Tailandia",
-      defaultDescription: "Planifica tus vacaciones perfectas en Tailandia con Amon Tour - tours privados con guías expertos, experiencias culturales e itinerarios personalizados. Explora Bangkok, Phuket, Krabi y gemas ocultas. Agencia familiar desde 2020.",
+      defaultDescription: "Planifica tus vacaciones perfectas en Tailandia con Amon Tour - tours privados con guías expertos, experiencias culturales e itinerarios personalizados. Explora Bangkok, Phuket, Krabi y gemas ocultas. Agencia familiar desde 2017.",
       defaultKeywords: "tours tailandia, viaje bangkok, tours phuket, tours krabi, tours privados tailandia, itinerario personalizado tailandia, planificador vacaciones tailandia, experiencias auténticas tailandesas, tours culturales tailandia, agencia viajes familiar, planificación viaje tailandia, mejores tours tailandia, guía viaje tailandia"
     }
   }
