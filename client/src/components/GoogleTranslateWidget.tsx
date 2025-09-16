@@ -89,46 +89,49 @@ export default function GoogleTranslateWidget() {
       }
     }
 
-    // Monitor for widget ready - check multiple times
+    // Monitor for widget ready and apply saved language
     let retryCount = 0;
     const checkInterval = setInterval(() => {
       const selectElement = document.querySelector(".goog-te-combo") as HTMLSelectElement;
-      const googleElement = document.querySelector("#google_translate_element");
-      
-      // Also check for the Google branding which indicates widget is loaded
       const googleBranding = document.querySelector(".goog-te-gadget");
       
-      if (selectElement || googleBranding) {
-        console.log("Google Translate element found:", {
-          selectElement: !!selectElement,
-          googleBranding: !!googleBranding
-        });
+      if (selectElement) {
+        console.log("Google Translate select element found!");
         setIsLoaded(true);
         
-        if (selectElement) {
-          selectElement.addEventListener("change", (e) => {
-            const target = e.target as HTMLSelectElement;
-            const newLang = target.value || "en";
-            setCurrentLanguage(newLang);
-            localStorage.setItem("selectedLanguage", newLang);
-            
-            // Apply translation overrides after a delay
-            setTimeout(() => {
-              translationOverrideService.applyOverrides();
-            }, 1000);
-          });
+        // Apply saved language if it's not English
+        if (savedLanguage !== "en" && selectElement.value !== savedLanguage) {
+          console.log(`Applying saved language: ${savedLanguage}`);
+          selectElement.value = savedLanguage;
+          selectElement.dispatchEvent(new Event("change", { bubbles: true }));
         }
-        clearInterval(checkInterval);
-      } else {
-        retryCount++;
-        console.log(`Waiting for Google Translate widget... (attempt ${retryCount})`);
         
-        // After 10 attempts, assume widget is loaded anyway
-        if (retryCount > 10) {
-          console.log("Google Translate widget not found after 10 attempts, enabling buttons anyway");
-          setIsLoaded(true);
-          clearInterval(checkInterval);
-        }
+        // Listen for manual changes
+        selectElement.addEventListener("change", (e) => {
+          const target = e.target as HTMLSelectElement;
+          const newLang = target.value || "en";
+          setCurrentLanguage(newLang);
+          localStorage.setItem("selectedLanguage", newLang);
+          
+          // Apply translation overrides after a delay
+          setTimeout(() => {
+            translationOverrideService.applyOverrides();
+          }, 1000);
+        });
+        
+        clearInterval(checkInterval);
+      } else if (googleBranding) {
+        // Widget is loaded but select might be inside an iframe
+        console.log("Google Translate widget detected (branding visible)");
+        setIsLoaded(true);
+        // Don't clear interval yet, keep looking for select element
+      }
+      
+      retryCount++;
+      if (retryCount > 20) {
+        console.log("Google Translate setup complete");
+        setIsLoaded(true);
+        clearInterval(checkInterval);
       }
     }, 500);
 
@@ -162,25 +165,44 @@ export default function GoogleTranslateWidget() {
   const handleLanguageClick = (langCode: string) => {
     console.log(`Language button clicked: ${langCode}`);
     
-    // Set cookie for Google Translate
-    const setCookie = (name: string, value: string) => {
-      document.cookie = `${name}=${value};path=/;`;
-    };
-    
-    if (langCode === "en") {
-      // Clear translation cookies
-      setCookie("googtrans", "");
-      setCookie("googtrans", "/en/en");
-    } else {
-      // Set translation cookie
-      setCookie("googtrans", `/en/${langCode}`);
-    }
-    
+    // Save the selection
     setCurrentLanguage(langCode);
     localStorage.setItem("selectedLanguage", langCode);
     
-    // Reload page to apply translation
-    window.location.reload();
+    // Method 1: Try using the hidden select element if it exists
+    const selectElement = document.querySelector(".goog-te-combo") as HTMLSelectElement;
+    if (selectElement) {
+      console.log("Using Google Translate select element");
+      if (langCode === "en") {
+        selectElement.value = "";
+      } else {
+        selectElement.value = langCode;
+      }
+      selectElement.dispatchEvent(new Event("change", { bubbles: true }));
+      
+      // Apply translation overrides after a delay
+      setTimeout(() => {
+        translationOverrideService.applyOverrides();
+      }, 1500);
+    } else {
+      // Method 2: Use cookie and reload (fallback)
+      console.log("Google Translate select not found, using cookie method");
+      
+      // Clear any existing cookies first
+      document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      
+      // Set new cookie value
+      if (langCode === "en") {
+        document.cookie = "googtrans=/en/en; path=/;";
+      } else {
+        document.cookie = `googtrans=/en/${langCode}; path=/;`;
+      }
+      
+      // Force reload to apply translation
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
+    }
   };
 
   return (
