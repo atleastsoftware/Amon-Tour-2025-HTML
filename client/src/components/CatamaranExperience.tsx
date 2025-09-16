@@ -455,7 +455,7 @@ export default function CatamaranExperience() {
               transition={{ duration: 0.5, delay: 0.1 }}
             >
               <div className="flex flex-col md:flex-row md:items-center">
-                <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">1 day</span>
+                <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">{cruise.oneDay}</span>
                 <span className="text-gray-600 text-lg md:ml-4">{cruise.oneDayRoute}</span>
               </div>
             </motion.div>
@@ -469,7 +469,7 @@ export default function CatamaranExperience() {
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               <div className="flex flex-col md:flex-row md:items-center">
-                <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">2 days</span>
+                <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">{cruise.twoDays}</span>
                 <span className="text-gray-600 text-lg md:ml-4">{cruise.twoDaysRoute}</span>
               </div>
             </motion.div>
@@ -483,7 +483,7 @@ export default function CatamaranExperience() {
               transition={{ duration: 0.5, delay: 0.3 }}
             >
               <div className="flex flex-col md:flex-row md:items-center">
-                <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">3/4 days</span>
+                <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">{cruise.threeFourDays}</span>
                 <span className="text-gray-600 text-lg md:ml-4">{cruise.threeFourDaysRoute}</span>
               </div>
             </motion.div>
@@ -497,7 +497,7 @@ export default function CatamaranExperience() {
               transition={{ duration: 0.5, delay: 0.4 }}
             >
               <div className="flex flex-col md:flex-row md:items-center">
-                <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">5/6 days</span>
+                <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">{cruise.fiveSixDays}</span>
                 <span className="text-gray-600 text-lg md:ml-4">{cruise.fiveSixDaysRoute}</span>
               </div>
             </motion.div>
@@ -511,7 +511,7 @@ export default function CatamaranExperience() {
               transition={{ duration: 0.5, delay: 0.5 }}
             >
               <div className="flex flex-col md:flex-row md:items-center">
-                <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">7+ days</span>
+                <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">{cruise.sevenPlusDays}</span>
                 <span className="text-gray-600 text-lg md:ml-4">{cruise.sevenPlusDaysRoute}</span>
               </div>
             </motion.div>

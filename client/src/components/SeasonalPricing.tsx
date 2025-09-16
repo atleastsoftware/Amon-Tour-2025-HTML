@@ -97,7 +97,7 @@ export default function SeasonalPricing() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <p className="text-muted-foreground text-lg">Daily rate for minimum 2 days and one night. Capacity 8 adults max.</p>
+            <p className="text-muted-foreground text-lg">{cruise.dailyRateMinimum}</p>
           </motion.div>
           
           {/* Pickup Locations Cards */}
@@ -112,7 +112,7 @@ export default function SeasonalPricing() {
                 transition={{ duration: 0.5, delay: 0.45 }}
               >
                 <p className="text-lg font-bold text-foreground">8:30</p>
-                <p className="text-sm text-muted-foreground mt-1">from Tubkeak</p>
+                <p className="text-sm text-muted-foreground mt-1">{cruise.fromTubkeak}</p>
                 <p className="text-sm font-bold text-secondary mt-2">+1,300 Baht</p>
               </motion.div>
               
@@ -125,7 +125,7 @@ export default function SeasonalPricing() {
                 transition={{ duration: 0.5, delay: 0.47 }}
               >
                 <p className="text-lg font-bold text-foreground">8:30</p>
-                <p className="text-sm text-muted-foreground mt-1">from Thalane</p>
+                <p className="text-sm text-muted-foreground mt-1">{cruise.fromThalane}</p>
                 <p className="text-sm font-bold text-secondary mt-2">+1,800 Baht</p>
               </motion.div>
               
@@ -138,8 +138,8 @@ export default function SeasonalPricing() {
                 transition={{ duration: 0.5, delay: 0.49 }}
               >
                 <p className="text-lg font-bold text-foreground">8:45</p>
-                <p className="text-sm text-muted-foreground mt-1">from Ao Nang</p>
-                <p className="text-sm text-primary font-semibold mt-2">No extra fee</p>
+                <p className="text-sm text-muted-foreground mt-1">{cruise.fromAoNang}</p>
+                <p className="text-sm text-primary font-semibold mt-2">{cruise.noExtraFee}</p>
               </motion.div>
               
               {/* Klong Mueang */}
@@ -151,7 +151,7 @@ export default function SeasonalPricing() {
                 transition={{ duration: 0.5, delay: 0.51 }}
               >
                 <p className="text-lg font-bold text-foreground">8:40</p>
-                <p className="text-sm text-muted-foreground mt-1">from Klong Mueang</p>
+                <p className="text-sm text-muted-foreground mt-1">{cruise.fromKlongMueang}</p>
                 <p className="text-sm font-bold text-secondary mt-2">+1,000 Baht</p>
               </motion.div>
               
@@ -164,8 +164,8 @@ export default function SeasonalPricing() {
                 transition={{ duration: 0.5, delay: 0.53 }}
               >
                 <p className="text-lg font-bold text-foreground">9:00</p>
-                <p className="text-sm text-muted-foreground mt-1">from Railay</p>
-                <p className="text-sm text-primary font-semibold mt-2">No extra fee</p>
+                <p className="text-sm text-muted-foreground mt-1">{cruise.fromRailay}</p>
+                <p className="text-sm text-primary font-semibold mt-2">{cruise.noExtraFee}</p>
               </motion.div>
             </div>
           </div>
@@ -186,10 +186,10 @@ export default function SeasonalPricing() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-bold text-foreground">Included in Price</h3>
+                <h3 className="text-xl font-bold text-foreground">{cruise.includedInPrice}</h3>
               </div>
               <p className="text-muted-foreground leading-relaxed">
-                Boat rental with captain, assistant and professional English-speaking guide, fuel, semi-rigid dinghy for 5 to 6 people with an 18 HP engine, BBQ, fishing equipment and a paddleboard, fresh fruit, sodas, water. Breakfast (tea, coffee, toast, omelet).
+                {cruise.includedDescription}
               </p>
             </motion.div>
             
@@ -207,10 +207,10 @@ export default function SeasonalPricing() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-bold text-foreground">Not Included in Price</h3>
+                <h3 className="text-xl font-bold text-foreground">{cruise.notIncludedInPrice}</h3>
               </div>
               <p className="text-muted-foreground leading-relaxed">
-                Transfers (on request), national park fees (depending on the itinerary), beer, wine, spirits. Lunch and dinner (Thai cuisine): 500 Baht per person per meal. Please let us know your preferences and we will provision the boat accordingly.
+                {cruise.notIncludedDescription}
               </p>
             </motion.div>
           </div>
