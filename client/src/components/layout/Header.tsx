@@ -5,7 +5,7 @@ import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuery } from '@tanstack/react-query';
 import logoAmon from "@/assets/logo-amon.png";
-import SimpleTranslateWidget from "@/components/SimpleTranslateWidget";
+import LanguageSelector from "@/components/LanguageSelector";
 
 type NavLinkProps = {
   href: string;
@@ -264,9 +264,9 @@ export default function Header() {
             Contact
           </NavLink>
           
-          {/* Language Switcher */}
+          {/* Language Selector */}
           <div className="ml-4 pl-4 border-l border-gray-300/50">
-            <SimpleTranslateWidget />
+            <LanguageSelector />
           </div>
         </motion.div>
       </nav>
@@ -312,9 +312,9 @@ export default function Header() {
                 Contact
               </NavLink>
               
-              {/* Language Switcher for Mobile */}
+              {/* Language Selector for Mobile */}
               <div className="pt-3 mt-3 border-t border-gray-300/30">
-                <SimpleTranslateWidget />
+                <LanguageSelector />
               </div>
             </motion.div>
           </motion.div>

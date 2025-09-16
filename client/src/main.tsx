@@ -27,8 +27,8 @@ document.head.appendChild(titleElement);
 createRoot(document.getElementById("root")!).render(
   <ThemeProvider attribute="class" defaultTheme="light">
     <QueryClientProvider client={queryClient}>
-      <App />
-      <Toaster />
+        <App />
+        <Toaster />
     </QueryClientProvider>
   </ThemeProvider>
 );
