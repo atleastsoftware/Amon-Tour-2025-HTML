@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
+import { LanguageSelector } from "@/components/ui/language-selector";
 import logoAmon from "@/assets/logo-amon.png";
 
 type NavLinkProps = {
@@ -50,6 +52,7 @@ export default function Header() {
   const headerRef = useRef<HTMLElement>(null);
   const isBookingPage = location.startsWith('/booking');
   const isHomePage = location === '/';
+  const { t } = useTranslation();
 
   // Fetch notification bar settings
   const { data: siteSettings } = useQuery({
@@ -234,11 +237,11 @@ export default function Header() {
         >
           {!isHomePage && (
             <NavLink href="/" isActive={false} isHomePage={isHomePage} scrolled={scrolled}>
-              Home
+              {t('nav.home')}
             </NavLink>
           )}
           <NavLink href="/tours" isActive={location === '/tours'} isHomePage={isHomePage} scrolled={scrolled}>
-            Experiences
+            {t('nav.tours')}
           </NavLink>
           <NavLink href="/cruise" isActive={location === '/cruise'} isHomePage={isHomePage} scrolled={scrolled}>
             Cruise
@@ -247,11 +250,12 @@ export default function Header() {
             Custom Trip
           </NavLink>
           <NavLink href="/blog" isActive={location === '/blog'} isHomePage={isHomePage} scrolled={scrolled}>
-            Blog
+            {t('nav.blog')}
           </NavLink>
           <NavLink href="/contact" isActive={location === '/contact'} isHomePage={isHomePage} scrolled={scrolled}>
-            Contact
+            {t('nav.contact')}
           </NavLink>
+          <LanguageSelector />
         </motion.div>
       </nav>
       
@@ -277,11 +281,11 @@ export default function Header() {
             >
               {!isHomePage && (
                 <NavLink href="/" isActive={false} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
-                  Home
+                  {t('nav.home')}
                 </NavLink>
               )}
               <NavLink href="/tours" isActive={location === '/tours'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
-                Experiences
+                {t('nav.tours')}
               </NavLink>
               <NavLink href="/cruise" isActive={location === '/cruise'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
                 Cruise
@@ -290,11 +294,14 @@ export default function Header() {
                 Custom Trip
               </NavLink>
               <NavLink href="/blog" isActive={location === '/blog'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
-                Blog
+                {t('nav.blog')}
               </NavLink>
               <NavLink href="/contact" isActive={location === '/contact'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
-                Contact
+                {t('nav.contact')}
               </NavLink>
+              <div className="mt-4">
+                <LanguageSelector />
+              </div>
             </motion.div>
           </motion.div>
         )}
