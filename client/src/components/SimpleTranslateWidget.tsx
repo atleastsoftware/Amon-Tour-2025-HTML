@@ -20,6 +20,7 @@ const languages = [
 
 export default function SimpleTranslateWidget() {
   const [currentLanguage, setCurrentLanguage] = useState<string>("en");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     // Check current language from cookie
@@ -36,37 +37,64 @@ export default function SimpleTranslateWidget() {
       }
     }
 
-    // Initialize Google Translate
-    const script = document.createElement("script");
-    script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-    script.async = true;
-    document.body.appendChild(script);
+    // Check if Google Translate is already loaded to avoid conflicts
+    const existingScript = document.querySelector('script[src*="translate.google.com"]');
+    if (existingScript && window.google?.translate) {
+      console.log("Google Translate already loaded, skipping initialization");
+      return;
+    }
 
-    window.googleTranslateElementInit = () => {
-      new window.google.translate.TranslateElement(
-        {
-          pageLanguage: "en",
-          includedLanguages: "en,fr,es",
-          layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
-          autoDisplay: false
-        },
-        "google_translate_element_simple"
-      );
-    };
+    // Initialize Google Translate only if not already present
+    if (!existingScript) {
+      const script = document.createElement("script");
+      script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+      script.async = true;
+      script.id = "google-translate-simple-script";
+      
+      // Define initialization function with unique name to avoid conflicts
+      window.googleTranslateElementInit = () => {
+        if (window.google?.translate?.TranslateElement) {
+          try {
+            new window.google.translate.TranslateElement(
+              {
+                pageLanguage: "en",
+                includedLanguages: "en,fr,es",
+                layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+              },
+              "google_translate_element_simple"
+            );
+            console.log("SimpleTranslateWidget: Google Translate initialized successfully");
+          } catch (error) {
+            console.error("SimpleTranslateWidget: Error initializing Google Translate", error);
+          }
+        }
+      };
+
+      document.body.appendChild(script);
+    }
 
     return () => {
-      // Cleanup
-      const existingScript = document.querySelector('script[src*="translate.google.com"]');
-      if (existingScript) {
-        existingScript.remove();
+      // Cleanup - only remove our specific script
+      const ourScript = document.getElementById("google-translate-simple-script");
+      if (ourScript) {
+        ourScript.remove();
       }
     };
   }, []);
 
   const handleLanguageChange = (langCode: string) => {
+    if (isLoading) return; // Prevent multiple clicks during loading
+    
+    setIsLoading(true);
+    console.log(`SimpleTranslateWidget: Switching to language ${langCode}`);
+    
     // Set the cookie
     const expires = new Date();
     expires.setFullYear(expires.getFullYear() + 1);
+    
+    // Clear any existing translation cookies first
+    document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     
     if (langCode === "en") {
       // Clear translation
@@ -78,8 +106,10 @@ export default function SimpleTranslateWidget() {
     
     setCurrentLanguage(langCode);
     
-    // Reload the page to apply translation
-    window.location.reload();
+    // Add a small delay before reload to ensure cookie is set
+    setTimeout(() => {
+      window.location.reload();
+    }, 100);
   };
 
   return (
@@ -96,12 +126,14 @@ export default function SimpleTranslateWidget() {
           <button
             key={lang.code}
             onClick={() => handleLanguageChange(lang.code)}
+            disabled={isLoading}
             className={`
-              p-1 transition-all duration-200 rounded-md border-2
+              p-1 transition-all duration-200 rounded-md border-2 relative
               ${currentLanguage === lang.code 
                 ? "scale-110 opacity-100 border-primary shadow-lg" 
                 : "opacity-70 hover:opacity-100 border-transparent hover:border-gray-300"
               }
+              ${isLoading ? "cursor-not-allowed" : "cursor-pointer"}
             `}
             aria-label={`Switch to ${lang.name}`}
             title={lang.name}
@@ -110,9 +142,21 @@ export default function SimpleTranslateWidget() {
             <img 
               src={lang.flagUrl} 
               alt={`${lang.name} flag`}
-              className="w-8 h-6 object-cover rounded"
+              className={`w-8 h-6 object-cover rounded ${isLoading ? "grayscale" : ""}`}
               loading="eager"
+              onError={(e) => {
+                console.warn(`SimpleTranslateWidget: Failed to load flag for ${lang.name}:`, lang.flagUrl);
+                // Fallback: show text instead of flag
+                const target = e.target as HTMLImageElement;
+                target.style.display = 'none';
+                target.parentElement!.innerHTML += `<span class="text-xs font-bold">${lang.code.toUpperCase()}</span>`;
+              }}
             />
+            {isLoading && currentLanguage === lang.code && (
+              <div className="absolute inset-0 flex items-center justify-center bg-black/20 rounded">
+                <div className="w-3 h-3 border border-white border-t-transparent rounded-full animate-spin"></div>
+              </div>
+            )}
           </button>
         ))}
       </div>

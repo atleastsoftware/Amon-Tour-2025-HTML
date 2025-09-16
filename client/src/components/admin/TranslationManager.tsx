@@ -98,7 +98,7 @@ export default function TranslationManager() {
               checked={isAutoEnabled}
               onCheckedChange={handleToggleAuto}
             />
-            <Badge variant={isAutoEnabled ? "success" : "secondary"}>
+            <Badge variant={isAutoEnabled ? "default" : "secondary"}>
               {isAutoEnabled ? "Activé" : "Désactivé"}
             </Badge>
           </div>
