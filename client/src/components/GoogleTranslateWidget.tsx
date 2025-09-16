@@ -51,7 +51,11 @@ export default function GoogleTranslateWidget() {
 
     // Define the Google Translate initialization function
     window.googleTranslateElementInit = () => {
-      if (!window.google?.translate?.TranslateElement) return;
+      console.log("Google Translate Widget initializing...");
+      if (!window.google?.translate?.TranslateElement) {
+        console.error("Google Translate not loaded");
+        return;
+      }
 
       new window.google.translate.TranslateElement(
         {
@@ -64,6 +68,7 @@ export default function GoogleTranslateWidget() {
         "google_translate_element"
       );
 
+      console.log("Google Translate Widget initialized");
       setIsLoaded(true);
 
       // Apply saved language after widget loads
@@ -81,6 +86,7 @@ export default function GoogleTranslateWidget() {
       script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
       script.async = true;
       document.body.appendChild(script);
+      console.log("Loading Google Translate script...");
     } else {
       // Script already loaded, initialize if needed
       if (window.google?.translate?.TranslateElement) {
@@ -88,10 +94,13 @@ export default function GoogleTranslateWidget() {
       }
     }
 
-    // Monitor language changes
+    // Monitor for widget ready
     const checkInterval = setInterval(() => {
       const selectElement = document.querySelector(".goog-te-combo") as HTMLSelectElement;
       if (selectElement) {
+        console.log("Google Translate select element found");
+        setIsLoaded(true);
+        
         selectElement.addEventListener("change", (e) => {
           const target = e.target as HTMLSelectElement;
           const newLang = target.value || "en";
@@ -113,8 +122,10 @@ export default function GoogleTranslateWidget() {
   }, []);
 
   const selectLanguage = (langCode: string) => {
+    console.log(`Attempting to select language: ${langCode}`);
     const selectElement = document.querySelector(".goog-te-combo") as HTMLSelectElement;
     if (selectElement) {
+      console.log(`Found select element, setting to: ${langCode}`);
       selectElement.value = langCode;
       selectElement.dispatchEvent(new Event("change", { bubbles: true }));
       setCurrentLanguage(langCode);
@@ -124,12 +135,35 @@ export default function GoogleTranslateWidget() {
       setTimeout(() => {
         translationOverrideService.applyOverrides();
       }, 1500);
+    } else {
+      console.error("Select element not found!");
     }
   };
 
   const handleLanguageClick = (langCode: string) => {
+    console.log(`Language button clicked: ${langCode}`);
+    
+    if (!isLoaded) {
+      console.log("Widget not loaded yet, waiting...");
+      // Wait for widget to load
+      setTimeout(() => {
+        handleLanguageClick(langCode);
+      }, 500);
+      return;
+    }
+    
     if (langCode === "en") {
       // Clear translation (go back to English)
+      console.log("Clearing translation to return to English");
+      
+      // Try different methods to clear translation
+      const selectElement = document.querySelector(".goog-te-combo") as HTMLSelectElement;
+      if (selectElement) {
+        selectElement.value = "";
+        selectElement.dispatchEvent(new Event("change", { bubbles: true }));
+      }
+      
+      // Also try clicking the close button if available
       const frame = document.querySelector(".goog-te-banner-frame") as HTMLIFrameElement;
       if (frame && frame.contentWindow) {
         try {
@@ -138,14 +172,10 @@ export default function GoogleTranslateWidget() {
             closeButton.click();
           }
         } catch (e) {
-          // Fallback: reload page to clear translation
-          const selectElement = document.querySelector(".goog-te-combo") as HTMLSelectElement;
-          if (selectElement) {
-            selectElement.value = "";
-            selectElement.dispatchEvent(new Event("change", { bubbles: true }));
-          }
+          console.log("Could not access frame content");
         }
       }
+      
       setCurrentLanguage("en");
       localStorage.setItem("selectedLanguage", "en");
     } else {
