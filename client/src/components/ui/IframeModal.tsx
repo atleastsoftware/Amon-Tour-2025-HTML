@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { useIframe } from "@/contexts/IframeContext";
 import { Button } from "@/components/ui/button";
+import logoAmon from "@/assets/logo-amon.png";
 
 export default function IframeModal() {
   const { isOpen, url, title, closeIframe } = useIframe();
@@ -27,9 +28,16 @@ export default function IframeModal() {
           >
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b bg-gray-50 rounded-t-lg">
-              <h2 className="text-lg font-semibold text-gray-800 truncate flex-1 mr-4">
-                {title}
-              </h2>
+              <div className="flex items-center gap-3 flex-1 mr-4">
+                <img 
+                  src={logoAmon} 
+                  alt="Amon Logo" 
+                  className="h-8 w-auto"
+                />
+                <h2 className="text-lg font-semibold text-gray-800 truncate">
+                  {title}
+                </h2>
+              </div>
               <div className="flex items-center gap-2">
                 <Button
                   variant="ghost"
