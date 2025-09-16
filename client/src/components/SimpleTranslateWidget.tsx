@@ -112,78 +112,46 @@ export default function SimpleTranslateWidget() {
   };
 
   const triggerTranslation = (targetLang: string) => {
-    // Wait for Google Translate to be fully loaded
-    const checkAndTranslate = () => {
-      if (window.google?.translate) {
-        try {
-          console.log(`SimpleTranslateWidget: Attempting to trigger ${targetLang} translation`);
-          
-          if (targetLang === "en") {
-            // Restore original language by reloading
-            console.log("SimpleTranslateWidget: Restoring original English content");
-            setTimeout(() => window.location.reload(), 200);
-            return;
-          }
+    console.log(`SimpleTranslateWidget: Attempting to trigger ${targetLang} translation`);
+    
+    if (targetLang === "en") {
+      // For English, just reload to get original content
+      console.log("SimpleTranslateWidget: Restoring original English content");
+      setTimeout(() => window.location.reload(), 200);
+      return;
+    }
 
-          // Try to get existing translate element instance
-          const translateElement = window.google.translate.TranslateElement;
+    // Use a more direct approach - modify the page URL hash to trigger Google Translate
+    const translateURL = `https://translate.google.com/translate?sl=en&tl=${targetLang}&u=${encodeURIComponent(window.location.href)}`;
+    
+    // First try the cookie + reload approach which is more reliable for modern Google Translate
+    console.log(`SimpleTranslateWidget: Setting ${targetLang} cookie and reloading`);
+    
+    // Force Google Translate to detect and translate the page
+    const googleTranslateScript = document.createElement('script');
+    googleTranslateScript.innerHTML = `
+      window.googleTranslateElementInit = function() {
+        setTimeout(() => {
+          const translateElement = document.querySelector('.goog-te-combo');
           if (translateElement) {
-            // Create new translate element with target language
-            const container = document.getElementById("google_translate_element_simple");
-            if (container) {
-              // Clear existing content
-              container.innerHTML = "";
-              
-              // Create new translator instance
-              new translateElement({
-                pageLanguage: "en",
-                includedLanguages: "en,fr,es",
-                layout: translateElement.InlineLayout.SIMPLE,
-                autoDisplay: false
-              }, "google_translate_element_simple");
-              
-              // Wait a moment for the widget to initialize, then trigger translation
-              setTimeout(() => {
-                // Look for the select element and change its value
-                const selectElement = container.querySelector("select");
-                if (selectElement) {
-                  selectElement.value = targetLang;
-                  selectElement.dispatchEvent(new Event('change'));
-                  console.log(`SimpleTranslateWidget: Triggered ${targetLang} translation via select change`);
-                } else {
-                  console.log("SimpleTranslateWidget: Select element not found, trying direct API");
-                  // Fallback: try to trigger translation via direct API call
-                  if (window.google.translate.TranslateService) {
-                    window.google.translate.TranslateService().translatePage("en", targetLang, () => {
-                      console.log(`SimpleTranslateWidget: Direct API translation to ${targetLang} completed`);
-                    });
-                  }
-                }
-                setIsLoading(false);
-              }, 500);
-            } else {
-              console.error("SimpleTranslateWidget: Translation container not found");
-              setIsLoading(false);
-            }
+            translateElement.value = '${targetLang}';
+            translateElement.dispatchEvent(new Event('change', {bubbles: true}));
+            console.log('SimpleTranslateWidget: Direct select triggered for ${targetLang}');
           } else {
-            console.error("SimpleTranslateWidget: TranslateElement not available");
-            setIsLoading(false);
+            console.log('SimpleTranslateWidget: No translate element found, reloading page');
+            window.location.reload();
           }
-        } catch (error) {
-          console.error("SimpleTranslateWidget: Error triggering translation", error);
-          // Fallback to reload approach if direct API fails
-          console.log("SimpleTranslateWidget: Falling back to page reload");
-          setTimeout(() => window.location.reload(), 200);
-        }
-      } else {
-        console.log("SimpleTranslateWidget: Google Translate not ready, waiting...");
-        // Retry after a short delay if Google Translate isn't ready
-        setTimeout(checkAndTranslate, 500);
-      }
-    };
-
-    // Start the translation process
-    setTimeout(checkAndTranslate, 100);
+        }, 1000);
+      };
+    `;
+    
+    document.head.appendChild(googleTranslateScript);
+    
+    // Also reload the page after a short delay to ensure translation takes effect
+    setTimeout(() => {
+      setIsLoading(false);
+      window.location.reload();
+    }, 1500);
   };
 
   return (
