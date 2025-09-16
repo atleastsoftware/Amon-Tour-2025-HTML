@@ -187,6 +187,16 @@ export default function Header() {
               alt="Amon Logo" 
               className="h-20 w-auto mt-1 ml-[-4px]"
             />
+            <span 
+              className={`ml-3 text-3xl font-bold ${
+                isHomePage && !scrolled 
+                  ? 'text-primary-foreground drop-shadow-lg' 
+                  : 'text-primary'
+              }`}
+              style={{ fontFamily: 'Lobster, cursive' }}
+            >
+              Amon Tour
+            </span>
           </motion.div>
         </Link>
         
