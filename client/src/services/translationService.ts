@@ -60,6 +60,8 @@ export interface Translations {
     destinations: string;
     describeIdealTrip: string;
     sendRequest: string;
+    orContactDirectly: string;
+    contactWhatsApp: string;
     
     // Trip type options
     cultureHistory: string;
@@ -187,6 +189,8 @@ export interface Translations {
     errorMessage: string;
     sending: string;
     sendRequest: string;
+    orContactDirectly: string;
+    contactWhatsApp: string;
 
     // Main cruise page content
     freedomExclusivity: string;
@@ -309,6 +313,8 @@ const translations: Record<string, Translations> = {
       destinations: "Destinations",
       describeIdealTrip: "Describe your ideal trip",
       sendRequest: "Send my request",
+      orContactDirectly: "Or contact us directly via WhatsApp",
+      contactWhatsApp: "Contact via WhatsApp",
       
       cultureHistory: "Culture & History",
       natureAdventure: "Nature & Adventure", 
@@ -425,6 +431,8 @@ const translations: Record<string, Translations> = {
       errorMessage: "An error occurred. Please try again.",
       sending: "Sending...",
       sendRequest: "Send Request",
+    orContactDirectly: "Or contact us directly via WhatsApp",
+    contactWhatsApp: "Contact via WhatsApp",
 
       // Main cruise page content
       freedomExclusivity: "Freedom and Exclusivity",
@@ -548,6 +556,8 @@ const translations: Record<string, Translations> = {
       destinations: "Destinations",
       describeIdealTrip: "Décrivez votre voyage idéal",
       sendRequest: "Envoyer ma demande",
+      orContactDirectly: "Ou contactez-nous directement via WhatsApp",
+      contactWhatsApp: "Contacter via WhatsApp",
       
       cultureHistory: "Culture et Histoire",
       natureAdventure: "Nature et Aventure",
@@ -664,6 +674,8 @@ const translations: Record<string, Translations> = {
       errorMessage: "Une erreur s'est produite. Veuillez réessayer.",
       sending: "Envoi en cours...",
       sendRequest: "Envoyer la demande",
+    orContactDirectly: "Ou contactez-nous directement via WhatsApp",
+    contactWhatsApp: "Contacter via WhatsApp",
 
       // Main cruise page content
       freedomExclusivity: "Liberté et Exclusivité",
@@ -787,6 +799,8 @@ const translations: Record<string, Translations> = {
       destinations: "Destinos",
       describeIdealTrip: "Describe tu viaje ideal",
       sendRequest: "Enviar mi solicitud",
+      orContactDirectly: "O contáctanos directamente a través de WhatsApp",
+      contactWhatsApp: "Contactar vía WhatsApp",
       
       cultureHistory: "Cultura e Historia",
       natureAdventure: "Naturaleza y Aventura",
@@ -903,6 +917,8 @@ const translations: Record<string, Translations> = {
       errorMessage: "Ocurrió un error. Por favor intente de nuevo.",
       sending: "Enviando...",
       sendRequest: "Enviar solicitud",
+    orContactDirectly: "O contáctanos directamente a través de WhatsApp",
+    contactWhatsApp: "Contactar vía WhatsApp",
 
       // Main cruise page content
       freedomExclusivity: "Libertad y Exclusividad",
