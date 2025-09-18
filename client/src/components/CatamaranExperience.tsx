@@ -310,7 +310,7 @@ export default function CatamaranExperience() {
   const cruise = translationService.getCruise();
   
   return (
-    <section className="pb-16 pt-16 bg-neutral-light">
+    <section className="py-20 bg-neutral-light">
       <div className="container mx-auto px-4">
         <div className="text-center mb-8">
           <motion.div 
@@ -397,7 +397,7 @@ export default function CatamaranExperience() {
         
         {/* Lagoon Description Section */}
         <motion.div 
-          className="mt-16"
+          className="mt-20"
           initial={{ y: 20, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true }}

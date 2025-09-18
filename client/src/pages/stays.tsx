@@ -108,7 +108,7 @@ export default function Stays() {
       <Header />
       <div className="min-h-screen bg-white pt-16">
         {/* Hero Section */}
-        <section className="bg-white text-gray-900 pb-16 pt-16 md:pb-24 md:pt-24">
+        <section className="bg-white text-gray-900 py-16 md:py-24">
           <div className="container mx-auto px-4">
             <SlideUpWhenVisible>
               <h1 className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl text-center mb-6">
@@ -124,7 +124,7 @@ export default function Stays() {
         </section>
 
         {/* Stays Section */}
-        <section className="pb-16 pt-16">
+        <section className="py-16">
           <div className="container mx-auto px-4">
             <SlideUpWhenVisible>
               <h2 className="font-heading font-bold text-3xl md:text-4xl text-center mb-12">
@@ -202,7 +202,7 @@ export default function Stays() {
       </section>
 
       {/* Call to Action */}
-      <section className="bg-gray-100 pb-16 pt-16">
+      <section className="bg-gray-100 py-16">
           <div className="container mx-auto px-4">
             <div className="bg-white rounded-xl p-8 md:p-12 shadow-lg">
               <div className="flex flex-col md:flex-row items-center justify-between">

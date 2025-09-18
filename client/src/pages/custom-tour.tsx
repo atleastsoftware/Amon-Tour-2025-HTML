@@ -26,10 +26,8 @@ export default function CustomTour() {
           alt="Customized tour in Thailand"
         />
         
-        {/* Centralized spacing system - 32 units (128px) between sections */}
-        <div className="space-y-32">
-          {/* Why Choose Custom Tour */}
-          <section className="py-16 bg-neutral-light">
+        {/* Why Choose Custom Tour */}
+        <section className="py-20 bg-neutral-light">
           <div className="container mx-auto px-4 max-w-4xl text-center">
             <div className="mb-8">
               <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
@@ -74,10 +72,9 @@ export default function CustomTour() {
             </div>
           </div>
         </section>
-          
-          {/* Custom Tour Form */}
-          <CustomTourForm />
-        </div>
+        
+        {/* Custom Tour Form */}
+        <CustomTourForm />
       </main>
       
       <Footer />

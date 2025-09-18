@@ -150,34 +150,32 @@ export default function KrabiCelebration() {
           </div>
         </section>
 
-        {/* Centralized spacing system - 32 units (128px) between sections */}
-        <div className="space-y-32">
-          {/* Introduction */}
-          <section className="py-16 bg-white">
-            <div className="container mx-auto px-4">
-              <motion.div 
-                className="max-w-4xl mx-auto text-center"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-              >
-                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-6">
-                  Create Unforgettable Memories
-                </h2>
-                <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
-                <p className="text-gray-600 text-lg leading-relaxed mb-8">
-                  Let yourself be enchanted by the magic of Krabi and create unforgettable memories with Krabi Celebration, our exclusive service dedicated to exceptional events. With our regional expertise and passion for Thai authenticity, we orchestrate tailor-made celebrations that transform your dreams into reality.
-                </p>
-                <p className="text-gray-600 text-lg leading-relaxed">
-                  Whether you want to propose on a secret beach, celebrate your union in a breathtaking natural setting, or simply share a romantic dinner under the stars, Krabi Celebration puts its expertise and creativity at your service to create truly unique experiences.
-                </p>
-              </motion.div>
-            </div>
-          </section>
+        {/* Introduction */}
+        <section className="py-16 bg-white">
+          <div className="container mx-auto px-4">
+            <motion.div 
+              className="max-w-4xl mx-auto text-center"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-6">
+                Create Unforgettable Memories
+              </h2>
+              <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
+              <p className="text-gray-600 text-lg leading-relaxed mb-8">
+                Let yourself be enchanted by the magic of Krabi and create unforgettable memories with Krabi Celebration, our exclusive service dedicated to exceptional events. With our regional expertise and passion for Thai authenticity, we orchestrate tailor-made celebrations that transform your dreams into reality.
+              </p>
+              <p className="text-gray-600 text-lg leading-relaxed">
+                Whether you want to propose on a secret beach, celebrate your union in a breathtaking natural setting, or simply share a romantic dinner under the stars, Krabi Celebration puts its expertise and creativity at your service to create truly unique experiences.
+              </p>
+            </motion.div>
+          </div>
+        </section>
 
-          {/* Celebration Packages */}
-          <section className="py-16 bg-neutral-50">
+        {/* Celebration Packages */}
+        <section className="py-16 bg-neutral-50">
           <div className="container mx-auto px-4">
             <motion.div 
               className="text-center mb-12"
@@ -414,7 +412,7 @@ export default function KrabiCelebration() {
         </section>
 
         {/* Why Choose Krabi Celebration */}
-        <section className="pb-16 pt-16 bg-white">
+        <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
             <motion.div 
               className="text-center mb-12"
@@ -477,7 +475,7 @@ export default function KrabiCelebration() {
         </section>
 
         {/* Contact Form */}
-        <section id="celebration-form" className="pb-16 pt-16 bg-neutral-50">
+        <section id="celebration-form" className="py-16 bg-neutral-50">
           <div className="container mx-auto px-4">
             <motion.div 
               className="max-w-2xl mx-auto"
@@ -609,7 +607,6 @@ export default function KrabiCelebration() {
             </motion.div>
           </div>
         </section>
-        </div>
       </main>
       
       <Footer />

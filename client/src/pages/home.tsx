@@ -228,169 +228,166 @@ export default function Home() {
         {/* 1. Hero section */}
         <Hero />
         
-        {/* Centralized spacing system - 32 units (128px) between sections */}
-        <div className="space-y-32">
-          {/* 2. Intro paragraph */}
-          <section>
-            <div className="container mx-auto px-4 max-w-4xl text-center">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-              >
-                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
-                  {home.introTitle}
-                </h2>
-                <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
-                <p className="text-lg text-gray-700 leading-relaxed">
-                  {home.introDescription}
-                </p>
-              </motion.div>
-            </div>
-          </section>
+        {/* 2. Intro paragraph */}
+        <section className="py-20">
+          <div className="container mx-auto px-4 max-w-4xl text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
+                {home.introTitle}
+              </h2>
+              <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                {home.introDescription}
+              </p>
+            </motion.div>
+          </div>
+        </section>
+        
+        {/* 3. Our Popular Experiences */}
+        <section id="tours" className="py-20 bg-background">
+          <div className="container mx-auto px-4 max-w-4xl text-center">
+            <motion.div
+              initial={{ y: -20, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{tours.featured}</h2>
+              <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
+              <p className="text-lg text-gray-700 leading-relaxed mb-12">{tours.description}</p>
+            </motion.div>
+          </div>
           
-          {/* 3. Our Popular Experiences */}
-          <section id="tours" className="bg-background py-16">
-            <div className="container mx-auto px-4 max-w-4xl text-center">
-              <motion.div
-                initial={{ y: -20, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-              >
-                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{tours.featured}</h2>
-                <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
-                <p className="text-lg text-gray-700 leading-relaxed mb-12">{tours.description}</p>
-              </motion.div>
-            </div>
-            
-            {/* Tour Ninja Tours Display */}
-            <div className="container mx-auto px-4">
-              {tourNinjaLoading ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {[...Array(6)].map((_, i) => (
-                    <div key={i} className="bg-gray-200 rounded-xl h-80 animate-pulse" />
-                  ))}
-                </div>
-              ) : tourNinjaTours.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                  {tourNinjaTours.slice(0, 6).map((tour: any, index: number) => (
-                    <motion.div
-                      key={tour.id}
-                      initial={{ opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: index * 0.1 }}
-                      className="bg-card rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
+          {/* Tour Ninja Tours Display */}
+          <div className="container mx-auto px-4">
+            {tourNinjaLoading ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[...Array(6)].map((_, i) => (
+                  <div key={i} className="bg-gray-200 rounded-xl h-80 animate-pulse" />
+                ))}
+              </div>
+            ) : tourNinjaTours.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                {tourNinjaTours.slice(0, 6).map((tour: any, index: number) => (
+                  <motion.div
+                    key={tour.id}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    className="bg-card rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
+                  >
+                    <div 
+                      className="relative h-48 bg-gradient-to-br from-primary/40 to-primary/60 cursor-pointer"
+                      onClick={() => {
+                        if (tour.presentationUrl) {
+                          openIframe(tour.presentationUrl, `Présentation - ${tour.name}`);
+                        }
+                      }}
                     >
-                      <div 
-                        className="relative h-48 bg-gradient-to-br from-primary/40 to-primary/60 cursor-pointer"
+                      {tour.primaryImage ? (
+                        <img 
+                          src={tour.primaryImage} 
+                          alt={tour.name}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.style.display = 'none';
+                          }}
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <FiChevronRight className="h-16 w-16 text-primary/70" />
+                        </div>
+                      )}
+                      <div className="absolute top-4 right-4">
+                        <Badge variant="secondary" className="bg-white/90 text-primary font-semibold px-2 py-1">
+                          {tour.duration} day{Number(tour.duration) > 1 ? 's' : ''}
+                        </Badge>
+                      </div>
+                    </div>
+                    
+                    <div className="p-6">
+                      <h3 
+                        className="text-lg font-bold text-gray-800 mb-3 line-clamp-2 cursor-pointer hover:text-primary transition-colors"
                         onClick={() => {
                           if (tour.presentationUrl) {
                             openIframe(tour.presentationUrl, `Présentation - ${tour.name}`);
                           }
                         }}
                       >
-                        {tour.primaryImage ? (
-                          <img 
-                            src={tour.primaryImage} 
-                            alt={tour.name}
-                            className="w-full h-full object-cover"
-                            onError={(e) => {
-                              const target = e.target as HTMLImageElement;
-                              target.style.display = 'none';
-                            }}
-                          />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center">
-                            <FiChevronRight className="h-16 w-16 text-primary/70" />
-                          </div>
-                        )}
-                        <div className="absolute top-4 right-4">
-                          <Badge variant="secondary" className="bg-white/90 text-primary font-semibold px-2 py-1">
-                            {tour.duration} day{Number(tour.duration) > 1 ? 's' : ''}
-                          </Badge>
-                        </div>
-                      </div>
+                        {tour.name}
+                      </h3>
                       
-                      <div className="p-6">
-                        <h3 
-                          className="text-lg font-bold text-gray-800 mb-3 line-clamp-2 cursor-pointer hover:text-primary transition-colors"
+                      {tour.shortDescription && (
+                        <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                          {tour.shortDescription}
+                        </p>
+                      )}
+                      
+                      <div className="flex gap-2">
+                        <button 
                           onClick={() => {
-                            if (tour.presentationUrl) {
-                              openIframe(tour.presentationUrl, `Présentation - ${tour.name}`);
+                            if (tour.detailsUrl) {
+                              openIframe(tour.detailsUrl, `Détails - ${tour.name}`);
                             }
                           }}
+                          className="flex-1 border border-primary text-primary hover:bg-primary/10 py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
                         >
-                          {tour.name}
-                        </h3>
-                        
-                        {tour.shortDescription && (
-                          <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-                            {tour.shortDescription}
-                          </p>
-                        )}
-                        
-                        <div className="flex gap-2">
-                          <button 
-                            onClick={() => {
-                              if (tour.detailsUrl) {
-                                openIframe(tour.detailsUrl, `Détails - ${tour.name}`);
-                              }
-                            }}
-                            className="flex-1 border border-primary text-primary hover:bg-primary/10 py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
-                          >
-                            {common.viewDetails}
-                            <FiChevronRight className="h-3 w-3" />
-                          </button>
-                          <button 
-                            onClick={() => {
-                              if (tour.bookingUrl) {
-                                openIframe(tour.bookingUrl, `Booking - ${tour.name}`);
-                              }
-                            }}
-                            className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
-                          >
-                            {common.bookNow}
-                            <FiChevronRight className="h-3 w-3" />
-                          </button>
-                        </div>
+                          {common.viewDetails}
+                          <FiChevronRight className="h-3 w-3" />
+                        </button>
+                        <button 
+                          onClick={() => {
+                            if (tour.bookingUrl) {
+                              openIframe(tour.bookingUrl, `Booking - ${tour.name}`);
+                            }
+                          }}
+                          className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
+                        >
+                          {common.bookNow}
+                          <FiChevronRight className="h-3 w-3" />
+                        </button>
                       </div>
-                    </motion.div>
-                  ))}
-                </div>
-              ) : null}
-            </div>
-            
-            <div className="container mx-auto px-4 py-8">
-              <div className="text-center">
-                <Link href="/tours">
-                  <motion.span 
-                    className="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-heading font-semibold hover:bg-primary-dark transition-colors inline-block cursor-pointer"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.98 }}
-                  >{tours.title}</motion.span>
-                </Link>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
+            ) : null}
+          </div>
+          
+          <div className="container mx-auto px-4 py-8">
+            <div className="text-center">
+              <Link href="/tours">
+                <motion.span 
+                  className="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-heading font-semibold hover:bg-primary-dark transition-colors inline-block cursor-pointer"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.98 }}
+                >{tours.title}</motion.span>
+              </Link>
             </div>
-          </section>
-          
-          {/* 4. Create Your Custom Trip */}
-          <CustomTourForm />
-          
-          {/* 5. Some Ideas For Your Next Trip */}
-          <TourNinjaSection />
-          
-          {/* 6. Why Choose Us */}
-          <Features />
-          
-          {/* 7. Who We Are */}
-          <About />
-          
-          {/* 8. Our Travelers' Reviews */}
-          <Testimonials />
-        </div>
+          </div>
+        </section>
+        
+        {/* 4. Create Your Custom Trip */}
+        <CustomTourForm />
+        
+        {/* 5. Some Ideas For Your Next Trip */}
+        <TourNinjaSection />
+        
+        {/* 6. Why Choose Us */}
+        <Features />
+        
+        {/* 7. Who We Are */}
+        <About />
+        
+        {/* 8. Our Travelers' Reviews */}
+        <Testimonials />
         
         <CallToAction />
       </main>

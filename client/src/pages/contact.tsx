@@ -23,10 +23,8 @@ export default function Contact() {
           alt="Contact Amon Tour in Krabi"
         />
 
-        {/* Centralized spacing system - 32 units (128px) between sections */}
-        <div className="space-y-32">
-          {/* Main Content */}
-          <section className="py-16 bg-background">
+        {/* Main Content */}
+        <section className="py-20 bg-background">
           <div className="container mx-auto px-4 max-w-4xl text-center">
               
               {/* Contact Information */}
@@ -156,7 +154,7 @@ export default function Contact() {
         </section>
 
         {/* Call to Action */}
-        <section className="pb-16 pt-16 bg-muted">
+        <section className="py-12 bg-muted">
           <div className="container mx-auto px-4">
             <motion.div 
               className="text-center max-w-3xl mx-auto"
@@ -190,8 +188,7 @@ export default function Contact() {
               </div>
             </motion.div>
           </div>
-          </section>
-        </div>
+        </section>
       </main>
       
       <Footer />

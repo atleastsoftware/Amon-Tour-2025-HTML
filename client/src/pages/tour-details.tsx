@@ -49,7 +49,7 @@ export default function TourDetails() {
         />
         <Header />
         <main className="min-h-screen bg-gray-50 pt-20">
-          <div className="container mx-auto px-4 pb-16 pt-16 text-center">
+          <div className="container mx-auto px-4 py-16 text-center">
             <h1 className="text-2xl font-bold text-gray-900 mb-4">Tour non trouvé</h1>
             <p className="text-gray-600 mb-6">{error}</p>
             <Button onClick={handleBack} variant="outline">

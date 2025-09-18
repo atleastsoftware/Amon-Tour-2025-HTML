@@ -146,7 +146,7 @@ export default function BecomePartner() {
         </section>
 
         {/* Why Partner with Us */}
-        <section className="pb-16 pt-16 bg-white">
+        <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
             <motion.div 
               className="text-center mb-12"
@@ -207,7 +207,7 @@ export default function BecomePartner() {
         </section>
 
         {/* Ideal Partners */}
-        <section className="pb-16 pt-16 bg-neutral-50">
+        <section className="py-16 bg-neutral-50">
           <div className="container mx-auto px-4">
             <motion.div 
               className="text-center mb-12"
@@ -277,7 +277,7 @@ export default function BecomePartner() {
         </section>
 
         {/* Partnership Benefits */}
-        <section className="pb-16 pt-16 bg-white">
+        <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
             <motion.div 
               className="max-w-4xl mx-auto"
@@ -363,7 +363,7 @@ export default function BecomePartner() {
         </section>
 
         {/* Contact Form */}
-        <section id="partnership-form" className="pb-16 pt-16 bg-neutral-50">
+        <section id="partnership-form" className="py-16 bg-neutral-50">
           <div className="container mx-auto px-4">
             <motion.div 
               className="max-w-2xl mx-auto"

@@ -4,7 +4,7 @@ import { FadeInWhenVisible } from "@/components/ui/animations";
 
 export default function CustomTourCta() {
   return (
-    <section className="pb-16 pt-16 bg-gray-900 relative">
+    <section className="py-16 bg-gray-900 relative">
       {/* Overlay with semi-transparent gradient */}
       <div 
         className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/60 z-10"
