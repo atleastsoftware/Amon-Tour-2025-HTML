@@ -297,9 +297,9 @@ const translations: Record<string, Translations> = {
       introTitle: "When expats welcome you in their host country",
       introDescription: "Since 2013, our family-run travel agency has been curating exclusive activities around Krabi and designing tailor-made trips all across Thailand. We aim to deliver immersive travel experiences, away from mass tourism, with personalized service for every traveler — welcoming you as part of our family or close friends.",
       
-      customTripTitle: "Create Your Custom Trip",
-      customTripSubtitle: "Your travel story starts with your dreams -",
-      customTripDescription: "let us write the rest.",
+      customTripTitle: "Our Tailor-made trips",
+      customTripSubtitle: "Design your own journey through Thailand",
+      customTripDescription: "Design your own journey through Thailand with our tailor-made stays: from cultural discoveries and family adventures to romantic getaways and island escapes. Every itinerary is crafted to match your wishes, offering authentic experiences, quality services, and a unique immersion far from mass tourism.",
       fullName: "Full Name",
       email: "Email",
       countryCode: "Country Code",
@@ -330,8 +330,8 @@ const translations: Record<string, Translations> = {
       kohMook: "Koh Mook",
       othersDestinations: "Others destinations",
       
-      someIdeasTitle: "Some Ideas For Your Next Trip",
-      someIdeasDescription: "Get inspired by our custom-designed travel experiences.",
+      someIdeasTitle: "Our exclusive experience",
+      someIdeasDescription: "Explore our finest experiences in Krabi, all guaranteed off the beaten path: private and semi-private sea tours, unique land excursions (kayaking through mangroves, waterfalls, tropical jungle, centuries-old trees, temples, karst caves, natural pools), and exclusive 2-day / 1-night packages.",
       
       whyChooseTitle: "Why Choose Us",
       whyChooseDescription: "Experience an exclusive private day trip with our English or French-speaking and certified guides.",
@@ -540,9 +540,9 @@ const translations: Record<string, Translations> = {
       introTitle: "Quand des expats vous reçoivent dans leurs pays d'accueil",
       introDescription: "Depuis 2023, notre agence de voyage familiale conçoit des activités exclusives autour de Krabi et des séjours sur mesure à travers toute la Thaïlande. Notre ambition est d'offrir des expériences de voyage immersives, loin du tourisme de masse, avec un service personnalisé pour chaque voyageur — comme si nous vous accueillions en famille ou entre amis.",
       
-      customTripTitle: "Créez Votre Voyage Sur Mesure",
-      customTripSubtitle: "Votre aventure commence par vos rêves -",
-      customTripDescription: "laissez-nous écrire la suite.",
+      customTripTitle: "Nos séjours personnalisés",
+      customTripSubtitle: "Créez votre propre voyage en Thaïlande",
+      customTripDescription: "Créez votre propre voyage en Thaïlande grâce à nos séjours personnalisés : découvertes culturelles, aventures en famille, escapades romantiques ou séjours insulaires. Chaque itinéraire est conçu selon vos envies, pour offrir des expériences authentiques, des services de qualité et une immersion unique, loin du tourisme de masse.",
       fullName: "Nom complet",
       email: "Email",
       countryCode: "Code pays",
@@ -573,8 +573,8 @@ const translations: Record<string, Translations> = {
       kohMook: "Koh Mook",
       othersDestinations: "Autres destinations",
       
-      someIdeasTitle: "Quelques Idées Pour Votre Prochain Voyage",
-      someIdeasDescription: "Inspirez-vous de nos expériences de voyage conçues sur mesure.",
+      someIdeasTitle: "Nos expériences exclusives",
+      someIdeasDescription: "Naviguez parmi nos plus belles expériences à Krabi, toutes garanties hors du tourisme de masse : croisières en mer privées et semi-privées, excursions terrestres uniques (kayak dans la mangrove, cascades, jungle tropicale, arbres centenaires, temples, grottes karstiques, piscines naturelles) et formules exclusives de 2 jours / 1 nuit.",
       
       whyChooseTitle: "Pourquoi Nous Choisir",
       whyChooseDescription: "Vivez une excursion privée exclusive avec nos guides certifiés francophones ou anglophones.",
@@ -783,9 +783,9 @@ const translations: Record<string, Translations> = {
       introTitle: "Cuando expatriados te reciben en su país de acogida",
       introDescription: "Desde 2013, nuestra agencia de viajes familiar ha estado organizando actividades exclusivas alrededor de Krabi y diseñando viajes a medida por toda Tailandia. Nuestro objetivo es ofrecer experiencias de viaje inmersivas, lejos del turismo de masas, con un servicio personalizado para cada viajero — recibiéndote como parte de nuestra familia o amigos cercanos.",
       
-      customTripTitle: "Crea Tu Viaje Personalizado",
-      customTripSubtitle: "Tu historia de viaje comienza con tus sueños -",
-      customTripDescription: "déjanos escribir el resto.",
+      customTripTitle: "Nuestros viajes a medida",
+      customTripSubtitle: "Diseña tu propio viaje por Tailandia",
+      customTripDescription: "Diseña tu propio viaje por Tailandia con nuestras estancias a medida: desde descubrimientos culturales y aventuras familiares hasta escapadas románticas y retiros isleños. Cada itinerario se elabora según tus deseos, ofreciendo experiencias auténticas, servicios de calidad y una inmersión única, lejos del turismo de masas.",
       fullName: "Nombre completo",
       email: "Email",
       countryCode: "Código de país",
@@ -816,8 +816,8 @@ const translations: Record<string, Translations> = {
       kohMook: "Koh Mook",
       othersDestinations: "Otros destinos",
       
-      someIdeasTitle: "Algunas Ideas Para Tu Próximo Viaje",
-      someIdeasDescription: "Inspírate con nuestras experiencias de viaje diseñadas a medida.",
+      someIdeasTitle: "Nuestras experiencias exclusivas",
+      someIdeasDescription: "Explora nuestras mejores experiencias en Krabi, todas garantizadas fuera de los caminos trillados: tours marítimos privados y semiprivados, excursiones terrestres únicas (kayak por manglares, cascadas, selva tropical, árboles centenarios, templos, cuevas kársticas, piscinas naturales) y paquetes exclusivos de 2 días / 1 noche.",
       
       whyChooseTitle: "Por Qué Elegirnos",
       whyChooseDescription: "Vive una excursión privada exclusiva con nuestros guías certificados de habla inglesa o francesa.",
