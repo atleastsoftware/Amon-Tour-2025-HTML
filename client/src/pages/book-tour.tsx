@@ -162,7 +162,7 @@ const DateSelector = ({
       <h3 className="font-heading font-semibold text-xl">Sélectionnez une date</h3>
       <div className="bg-white p-6 rounded-lg shadow-md">
         {isLoading ? (
-          <div className="flex justify-center items-center py-20">
+          <div className="flex justify-center items-center py-16">
             <div className="animate-spin h-12 w-12 border-4 border-primary border-t-transparent rounded-full"></div>
             <span className="ml-3 text-primary">Chargement du calendrier...</span>
           </div>
@@ -561,7 +561,7 @@ export default function BookTour() {
     <>
       <Header />
       
-      <main className="container mx-auto px-4 py-12">
+      <main className="container mx-auto px-4 py-16">
         <Button
           variant="outline"
           className="mb-8 flex items-center"

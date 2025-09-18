@@ -397,7 +397,7 @@ export default function CatamaranExperience() {
         
         {/* Lagoon Description Section */}
         <motion.div 
-          className="py-16"
+          className="mt-16"
           initial={{ y: 20, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true }}
@@ -420,7 +420,7 @@ export default function CatamaranExperience() {
         
         {/* Photo Gallery Section */}
         <motion.div 
-          className="py-16"
+          className="mt-16"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -431,7 +431,7 @@ export default function CatamaranExperience() {
         
         {/* Route Suggestions Section */}
         <motion.div 
-          className="py-16"
+          className="mt-16"
           initial={{ y: 20, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true }}

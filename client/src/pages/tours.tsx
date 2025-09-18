@@ -192,7 +192,7 @@ export default function Tours() {
         />
 
         {/* Filtres */}
-        <section className="container mx-auto px-4 py-8">
+        <section className="container mx-auto px-4 py-16">
           <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
             <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-4">
               <h2 className="text-xl font-semibold text-gray-800">Filters</h2>
@@ -367,7 +367,7 @@ export default function Tours() {
               ))}
             </motion.div>
           ) : (
-            <div className="text-center py-8">
+            <div className="text-center py-16">
               {tours.length === 0 && !hasActiveFilters ? (
                 <div className="space-y-4">
                   {/* Pas de tours disponibles - garde l'espace propre */}
