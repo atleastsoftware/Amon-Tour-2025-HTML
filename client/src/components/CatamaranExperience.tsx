@@ -310,7 +310,7 @@ export default function CatamaranExperience() {
   const cruise = translationService.getCruise();
   
   return (
-    <section className="py-16 bg-neutral-light">
+    <section className="pb-16 pt-16 bg-neutral-light">
       <div className="container mx-auto px-4">
         <div className="text-center mb-8">
           <motion.div 

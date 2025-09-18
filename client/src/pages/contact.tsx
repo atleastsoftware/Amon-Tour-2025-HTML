@@ -24,7 +24,7 @@ export default function Contact() {
         />
 
         {/* Main Content */}
-        <section className="py-16 bg-background">
+        <section className="pb-16 pt-16 bg-background">
           <div className="container mx-auto px-4 max-w-4xl text-center">
               
               {/* Contact Information */}
@@ -154,7 +154,7 @@ export default function Contact() {
         </section>
 
         {/* Call to Action */}
-        <section className="py-16 bg-muted">
+        <section className="pb-16 pt-16 bg-muted">
           <div className="container mx-auto px-4">
             <motion.div 
               className="text-center max-w-3xl mx-auto"

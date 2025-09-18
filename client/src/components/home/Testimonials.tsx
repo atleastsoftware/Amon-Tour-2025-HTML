@@ -19,7 +19,7 @@ export default function Testimonials() {
   }, []);
 
   return (
-    <section className="py-16 bg-primary text-white">
+    <section className="pb-16 pt-16 bg-primary text-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{home.testimonialsTitle}</h2>

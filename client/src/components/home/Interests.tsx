@@ -60,7 +60,7 @@ const destinations = [
 
 export default function Interests() {
   return (
-    <section id="interests" className="py-16 bg-white">
+    <section id="interests" className="pb-16 pt-16 bg-white">
       <div className="container mx-auto px-4">
         <FadeInWhenVisible>
           <div className="text-center mb-12">

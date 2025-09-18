@@ -127,7 +127,7 @@ export default function Gallery({ images, title, subtitle, className = "" }: Gal
 
   return (
     <>
-      <div className={`py-16 bg-white ${className}`}>
+      <div className={`pb-16 pt-16 bg-white ${className}`}>
         <div className="container mx-auto px-4">
           {(title || subtitle) && (
             <div className="text-center mb-8">
