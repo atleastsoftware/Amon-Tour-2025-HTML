@@ -93,7 +93,7 @@ export default function BlogPage() {
         />
 
         {/* Filters Section */}
-        <section className="py-16 bg-white border-b">
+        <section className="pb-16 pt-16 bg-white border-b">
           <div className="container mx-auto px-4">
             {/* Search Bar - Always Visible */}
             <div className="mb-6">
@@ -170,7 +170,7 @@ export default function BlogPage() {
         </section>
 
         {/* Blog Posts */}
-        <section className="py-16 bg-gray-50">
+        <section className="pb-16 pt-16 bg-gray-50">
           <div className="container mx-auto px-4">
             {postsLoading ? (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -254,7 +254,7 @@ export default function BlogPage() {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-16">
+              <div className="text-center pb-16 pt-16">
                 <h3 className="text-2xl font-bold text-gray-800 mb-4">No Articles Found</h3>
                 <p className="text-gray-600 mb-6">
                   Try adjusting your search criteria or browse all articles.

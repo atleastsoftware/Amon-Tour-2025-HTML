@@ -44,7 +44,7 @@ export default function Brochure() {
         </section>
 
         {/* Brochure Downloads */}
-        <section className="py-16 bg-white">
+        <section className="pb-16 pt-16 bg-white">
           <div className="container mx-auto px-4">
             <motion.div 
               className="max-w-4xl mx-auto"
