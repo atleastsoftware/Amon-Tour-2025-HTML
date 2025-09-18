@@ -8,6 +8,7 @@ import { translationService } from "@/services/translationService";
 
 export default function CustomTour() {
   const customTour = translationService.getCustomTour();
+  const home = translationService.getHome();
   
   return (
     <>
@@ -78,11 +79,11 @@ export default function CustomTour() {
           <div className="container mx-auto px-4 max-w-4xl text-center">
             <div className="mb-8">
               <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
-                Our Tailor-made trips
+                {home.tailorMadeTitle}
               </h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
               <p className="text-lg text-gray-700 leading-relaxed">
-                Design your own journey through Thailand with our tailor-made stays: from cultural discoveries and family adventures to romantic getaways and island escapes. Every itinerary is crafted to match your wishes, offering authentic experiences, quality services, and a unique immersion far from mass tourism.
+                {home.tailorMadeDescription}
               </p>
             </div>
           </div>

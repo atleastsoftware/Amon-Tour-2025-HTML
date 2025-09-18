@@ -121,6 +121,10 @@ export interface Translations {
     testimonialsDescription: string;
     basedOnReviews: string;
     
+    // Tailor-made trips section
+    tailorMadeTitle: string;
+    tailorMadeDescription: string;
+    
     // Action buttons
     contactUs: string;
     createYourJourney: string;
@@ -366,6 +370,9 @@ const translations: Record<string, Translations> = {
       testimonialsDescription: "Discover the authentic experiences of our clients during their journeys with Amon Tour in Thailand.",
       basedOnReviews: "Based on 80 reviews",
       
+      tailorMadeTitle: "Our Tailor-made trips",
+      tailorMadeDescription: "Design your own journey through Thailand with our tailor-made stays: from cultural discoveries and family adventures to romantic getaways and island escapes. Every itinerary is crafted to match your wishes, offering authentic experiences, quality services, and a unique immersion far from mass tourism.",
+      
       contactUs: "Contact Us",
       createYourJourney: "Create Your Journey"
     },
@@ -609,6 +616,9 @@ const translations: Record<string, Translations> = {
       testimonialsDescription: "Découvrez les expériences authentiques de nos clients lors de leurs voyages avec Amon Tour en Thaïlande.",
       basedOnReviews: "Basé sur 80 avis",
       
+      tailorMadeTitle: "Nos séjours personnalisés",
+      tailorMadeDescription: "Créez votre propre voyage en Thaïlande grâce à nos séjours personnalisés : découvertes culturelles, aventures en famille, escapades romantiques ou séjours insulaires. Chaque itinéraire est conçu selon vos envies, pour offrir des expériences authentiques, des services de qualité et une immersion unique, loin du tourisme de masse.",
+      
       contactUs: "Contactez-Nous",
       createYourJourney: "Créez Votre Voyage"
     },
@@ -851,6 +861,9 @@ const translations: Record<string, Translations> = {
       testimonialsTitle: "Reseñas de Nuestros Viajeros",
       testimonialsDescription: "Descubre las experiencias auténticas de nuestros clientes durante sus viajes con Amon Tour en Tailandia.",
       basedOnReviews: "Basado en 80 reseñas",
+      
+      tailorMadeTitle: "Nuestros viajes personalizados",
+      tailorMadeDescription: "Crea tu propio viaje por Tailandia con nuestras estancias personalizadas: desde descubrimientos culturales y aventuras familiares hasta escapadas románticas y retiros insulares. Cada itinerario está diseñado según tus deseos, ofreciendo experiencias auténticas, servicios de calidad y una inmersión única, lejos del turismo de masas.",
       
       contactUs: "Contáctanos",
       createYourJourney: "Crea Tu Viaje"
