@@ -107,8 +107,8 @@ export default function AdminEditorForm() {
     {
       id: 2,
       name: 'Custom Tour Request',
-      title: 'Create Your Custom Trip',
-      subtitle: 'Your travel story starts with your dreams – let us write the rest.',
+      title: 'Our Tailor-made trips',
+      subtitle: 'Design your own journey through Thailand with our tailor-made stays: from cultural discoveries and family adventures to romantic getaways and island escapes. Every itinerary is crafted to match your wishes, offering authentic experiences, quality services, and a unique immersion far from mass tourism.',
       description: 'Tell us what you\'d like to discover, and we\'ll create your personalized itinerary.',
       layout: 'single-column',
       formLayout: 'columns',
