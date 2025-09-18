@@ -295,7 +295,7 @@ const translations: Record<string, Translations> = {
     },
     home: {
       introTitle: "When expats welcome you in their host country",
-      introDescription: "This is a family-run travel agency that combines the organization of exclusive activities with the creation of tailor-made trips throughout the country. Our goal is to offer an immersive experience, far from mass tourism, with personalized service for every traveler — as if we were welcoming our own family or friends.",
+      introDescription: "Since 2013, our family-run travel agency has been curating exclusive activities around Krabi and designing tailor-made trips all across Thailand. We aim to deliver immersive travel experiences, away from mass tourism, with personalized service for every traveler — welcoming you as part of our family or close friends.",
       
       customTripTitle: "Create Your Custom Trip",
       customTripSubtitle: "Your travel story starts with your dreams -",
@@ -537,8 +537,8 @@ const translations: Record<string, Translations> = {
       featured: "Tours Vedettes"
     },
     home: {
-      introTitle: "Quand des expats vous accueillent dans leur pays d'adoption",
-      introDescription: "Il s'agit d'une agence de voyage familiale qui combine l'organisation d'activités exclusives avec la création de voyages sur mesure à travers le pays. Notre objectif est d'offrir une expérience immersive, loin du tourisme de masse, avec un service personnalisé pour chaque voyageur — comme si nous accueillions notre propre famille ou nos amis.",
+      introTitle: "Quand des expats vous reçoivent dans leurs pays d'accueil",
+      introDescription: "Depuis 2023, notre agence de voyage familiale conçoit des activités exclusives autour de Krabi et des séjours sur mesure à travers toute la Thaïlande. Notre ambition est d'offrir des expériences de voyage immersives, loin du tourisme de masse, avec un service personnalisé pour chaque voyageur — comme si nous vous accueillions en famille ou entre amis.",
       
       customTripTitle: "Créez Votre Voyage Sur Mesure",
       customTripSubtitle: "Votre aventure commence par vos rêves -",
@@ -781,7 +781,7 @@ const translations: Record<string, Translations> = {
     },
     home: {
       introTitle: "Cuando expatriados te reciben en su país de acogida",
-      introDescription: "Esta es una agencia de viajes familiar que combina la organización de actividades exclusivas con la creación de viajes a medida por todo el país. Nuestro objetivo es ofrecer una experiencia inmersiva, lejos del turismo de masas, con un servicio personalizado para cada viajero — como si estuviéramos recibiendo a nuestra propia familia o amigos.",
+      introDescription: "Desde 2013, nuestra agencia de viajes familiar ha estado organizando actividades exclusivas alrededor de Krabi y diseñando viajes a medida por toda Tailandia. Nuestro objetivo es ofrecer experiencias de viaje inmersivas, lejos del turismo de masas, con un servicio personalizado para cada viajero — recibiéndote como parte de nuestra familia o amigos cercanos.",
       
       customTripTitle: "Crea Tu Viaje Personalizado",
       customTripSubtitle: "Tu historia de viaje comienza con tus sueños -",
