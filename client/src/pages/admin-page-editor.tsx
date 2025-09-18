@@ -2610,7 +2610,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="title">Titre</Label>
               <Input 
                 id="title"
-                value={formData.title || 'Our Tailor-made trips'} 
+                value={formData.title || 'Create Your Custom Trip'} 
                 onChange={e => updateField('title', e.target.value)}
               />
             </div>
@@ -2618,7 +2618,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="subtitle">Sous-titre</Label>
               <Input 
                 id="subtitle"
-                value={formData.subtitle || 'Design your own journey through Thailand with our tailor-made stays: from cultural discoveries and family adventures to romantic getaways and island escapes. Every itinerary is crafted to match your wishes, offering authentic experiences, quality services, and a unique immersion far from mass tourism.'} 
+                value={formData.subtitle || 'Your travel story starts with your dreams...'} 
                 onChange={e => updateField('subtitle', e.target.value)}
               />
             </div>

@@ -329,8 +329,8 @@ export default function FormBuilder({ initialForm, onSave, onSaveDraft, onCancel
     // Default to Custom Tour Request form structure
     return {
       name: 'Custom Tour Request',
-      title: 'Our Tailor-made trips',
-      subtitle: 'Design your own journey through Thailand with our tailor-made stays: from cultural discoveries and family adventures to romantic getaways and island escapes. Every itinerary is crafted to match your wishes, offering authentic experiences, quality services, and a unique immersion far from mass tourism.',
+      title: 'Create Your Custom Trip',
+      subtitle: 'Your travel story starts with your dreams – let us write the rest.',
       description: 'Créez votre expérience unique en Thaïlande',
       headerImage: '/catamaran-cruise.png',
       layout: 'single-column' as const,
