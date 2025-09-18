@@ -397,7 +397,7 @@ const translations: Record<string, Translations> = {
     },
     cruise: {
       title: "Custom Quote Request",
-      subtitle: "Fill out the form below and we will contact you within 24 hours.",
+      subtitle: "Sail Krabi's Hidden Gems on a Private Catamaran Adventure",
       fullName: "Full Name",
       email: "Email",
       phoneNumber: "Phone Number (Optional)",
@@ -643,7 +643,7 @@ const translations: Record<string, Translations> = {
     },
     cruise: {
       title: "Demande de Devis Personnalisé",
-      subtitle: "Remplissez le formulaire ci-dessous et nous vous contacterons sous 24 heures.",
+      subtitle: "Naviguez vers les trésors cachés de Krabi lors d'une aventure en catamaran privé",
       fullName: "Nom complet",
       email: "Email",
       phoneNumber: "Numéro de téléphone (Optionnel)",
@@ -889,7 +889,7 @@ const translations: Record<string, Translations> = {
     },
     cruise: {
       title: "Solicitud de Cotización Personalizada",
-      subtitle: "Complete el formulario a continuación y nos pondremos en contacto con usted en 24 horas.",
+      subtitle: "Navega hacia las gemas ocultas de Krabi en una aventura privada en catamarán",
       fullName: "Nombre completo",
       email: "Email",
       phoneNumber: "Número de teléfono (Opcional)",

@@ -287,8 +287,9 @@ export const insertCruiseRequestSchema = createInsertSchema(cruiseRequests).omit
 }).extend({
   email: z.string().email("Email valide requis"),
   fullName: z.string().min(2, "Nom requis"),
-  numberOfGuests: z.number().min(1, "Nombre de passagers requis").max(8, "Maximum 8 passagers"),
+  numberOfGuests: z.coerce.number().min(1, "Nombre de passagers requis").max(8, "Maximum 8 passagers"),
   duration: z.string().min(1, "Durée requise"),
+  budget: z.string().optional(), // Make budget optional since it's not in the form anymore
 });
 
 export type InsertCruiseRequest = z.infer<typeof insertCruiseRequestSchema>;

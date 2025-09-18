@@ -16,6 +16,7 @@ import {
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
+import { SiWhatsapp } from "react-icons/si";
 import {
   Form,
   FormControl,
@@ -31,11 +32,10 @@ const cruiseFormSchema = z.object({
   fullName: z.string().min(2, "Full name required"),
   email: z.string().email("Valid email required"),
   phone: z.string().optional(),
-  numberOfGuests: z.number().min(1, "Minimum 1 passenger").max(8, "Maximum 8 passengers"),
+  numberOfGuests: z.coerce.number().min(1, "Minimum 1 passenger").max(8, "Maximum 8 passengers"),
   duration: z.string().min(1, "Duration required"),
   preferredDates: z.string().optional(),
   itinerary: z.string().optional(),
-  budget: z.string().optional(),
   specialRequests: z.string().optional(),
 });
 
@@ -47,7 +47,6 @@ type CruiseFormData = {
   duration: string;
   preferredDates?: string;
   itinerary?: string;
-  budget?: string;
   specialRequests?: string;
 };
 
@@ -66,7 +65,6 @@ export default function CruiseForm() {
       duration: "",
       preferredDates: "",
       itinerary: "",
-      budget: "",
       specialRequests: "",
     },
   });
@@ -216,28 +214,6 @@ export default function CruiseForm() {
               />
             </div>
 
-            <FormField
-              control={form.control}
-              name="budget"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{cruise.approximateBudget}</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder={cruise.selectSeason} />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="low">{cruise.lowSeasonOption}</SelectItem>
-                      <SelectItem value="high">{cruise.highSeasonOption}</SelectItem>
-                      <SelectItem value="very_high">{cruise.veryHighSeasonOption}</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
 
             <FormField
               control={form.control}
@@ -285,6 +261,22 @@ export default function CruiseForm() {
                 cruise.sendRequest
               )}
             </Button>
+            
+            {/* WhatsApp Contact Button */}
+            <div className="mt-4 pt-4 border-t border-gray-200">
+              <p className="text-center text-sm text-gray-600 mb-3">
+                {cruise.orContactDirectly}
+              </p>
+              <a
+                href="https://wa.me/66653496445?text=Hello%20Amon%20Tour,%20I%20would%20like%20to%20inquire%20about%20a%20catamaran%20cruise."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-md font-heading font-semibold transition-colors duration-200 flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+              >
+                <SiWhatsapp className="text-xl" aria-label="WhatsApp" />
+                {cruise.contactWhatsApp}
+              </a>
+            </div>
           </form>
         </Form>
       </CardContent>
