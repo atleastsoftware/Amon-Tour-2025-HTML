@@ -530,15 +530,15 @@ const translations: Record<string, Translations> = {
     },
     tours: {
       title: "Tours & Expériences",
-      description: "Explorez nos meilleures expériences à Krabi, toutes garanties hors des sentiers battus : excursions privées et semi-privées en mer, excursions terrestres uniques (kayak dans les mangroves, chutes d'eau, jungle tropicale, arbres centenaires, temples, grottes karstiques, bassins naturels), et forfaits exclusifs de 2 jours / 1 nuit.",
+      description: "Naviguez parmi nos plus belles expériences à Krabi, toutes garanties hors du tourisme de masse : croisières en mer privées et semi-privées, excursions terrestres uniques (kayak dans la mangrove, cascades, jungle tropicale, arbres centenaires, temples, grottes karstiques, piscines naturelles) et formules exclusives de 2 jours / 1 nuit.",
       duration: "Durée",
       participants: "Participants max",
       price: "À partir de",
       featured: "Nos expériences exclusives"
     },
     home: {
-      introTitle: "Quand des expats vous accueillent dans leur pays d'adoption",
-      introDescription: "Depuis 2013, notre agence de voyage familiale organise des activités exclusives autour de Krabi et conçoit des voyages sur mesure à travers toute la Thaïlande. Nous visons à offrir des expériences de voyage immersives, loin du tourisme de masse, avec un service personnalisé pour chaque voyageur — vous accueillant comme notre famille ou nos amis proches.",
+      introTitle: "Quand des expats vous reçoivent dans leurs pays d'accueil",
+      introDescription: "Depuis 2023, notre agence de voyage familiale conçoit des activités exclusives autour de Krabi et des séjours sur mesure à travers toute la Thaïlande. Notre ambition est d'offrir des expériences de voyage immersives, loin du tourisme de masse, avec un service personnalisé pour chaque voyageur — comme si nous vous accueillions en famille ou entre amis.",
       
       customTripTitle: "Créez Votre Voyage Sur Mesure",
       customTripSubtitle: "Votre aventure commence par vos rêves -",
