@@ -390,7 +390,7 @@ const translations: Record<string, Translations> = {
     },
     cruise: {
       title: "Custom Quote Request",
-      subtitle: "Fill out the form below and we will contact you within 24 hours.",
+      subtitle: "Sail Krabi's Hidden Gems on a Private Catamaran Adventure",
       fullName: "Full Name",
       email: "Email",
       phoneNumber: "Phone Number (Optional)",
@@ -399,7 +399,7 @@ const translations: Record<string, Translations> = {
       desiredDuration: "Desired Duration",
       chooseDuration: "Choose a duration",
       preferredDates: "Preferred Dates (Optional)",
-      approximateBudget: "Approximate Budget (Optional)",
+      // approximateBudget: "Approximate Budget (Optional)", // Removed as requested
       selectSeason: "Select a season",
       preferredDestinations: "Preferred Destinations (Optional)",
       specialRequests: "Special Requests (Optional)",
@@ -633,7 +633,7 @@ const translations: Record<string, Translations> = {
     },
     cruise: {
       title: "Demande de Devis Personnalisé",
-      subtitle: "Remplissez le formulaire ci-dessous et nous vous contacterons sous 24 heures.",
+      subtitle: "Naviguez vers les trésors cachés de Krabi lors d'une aventure en catamaran privé",
       fullName: "Nom complet",
       email: "Email",
       phoneNumber: "Numéro de téléphone (Optionnel)",
@@ -642,7 +642,7 @@ const translations: Record<string, Translations> = {
       desiredDuration: "Durée souhaitée",
       chooseDuration: "Choisissez une durée",
       preferredDates: "Dates préférées (Optionnel)",
-      approximateBudget: "Budget approximatif (Optionnel)",
+      // approximateBudget: "Budget approximatif (Optionnel)", // Removed as requested
       selectSeason: "Sélectionnez une saison",
       preferredDestinations: "Destinations préférées (Optionnel)",
       specialRequests: "Demandes spéciales (Optionnel)",
@@ -876,7 +876,7 @@ const translations: Record<string, Translations> = {
     },
     cruise: {
       title: "Solicitud de Cotización Personalizada",
-      subtitle: "Complete el formulario a continuación y nos pondremos en contacto con usted en 24 horas.",
+      subtitle: "Navega por las gemas ocultas de Krabi en una aventura en catamarán privado",
       fullName: "Nombre completo",
       email: "Email",
       phoneNumber: "Número de teléfono (Opcional)",
@@ -885,7 +885,7 @@ const translations: Record<string, Translations> = {
       desiredDuration: "Duración deseada",
       chooseDuration: "Elija una duración",
       preferredDates: "Fechas preferidas (Opcional)",
-      approximateBudget: "Presupuesto aproximado (Opcional)",
+      // approximateBudget: "Presupuesto aproximado (Opcional)", // Removed as requested
       selectSeason: "Seleccione una temporada",
       preferredDestinations: "Destinos preferidos (Opcional)",
       specialRequests: "Solicitudes especiales (Opcional)",
