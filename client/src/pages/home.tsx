@@ -249,8 +249,8 @@ export default function Home() {
         </section>
         
         {/* 3. Our Popular Experiences */}
-        <section id="tours" className="py-16 bg-background">
-          <div className="container mx-auto px-4 text-center mb-8">
+        <section id="tours" className="py-20 bg-background">
+          <div className="container mx-auto px-4 max-w-4xl text-center">
             <motion.div
               initial={{ y: -20, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
@@ -258,8 +258,8 @@ export default function Home() {
               transition={{ duration: 0.5 }}
             >
               <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{tours.featured}</h2>
-              <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
-              <p className="text-gray-600 text-lg max-w-2xl mx-auto">{tours.description}</p>
+              <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
+              <p className="text-lg text-gray-700 leading-relaxed">{tours.description}</p>
             </motion.div>
           </div>
           
