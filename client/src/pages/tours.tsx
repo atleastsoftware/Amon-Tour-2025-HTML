@@ -191,8 +191,10 @@ export default function Tours() {
           alt="Tours and experiences in Thailand"
         />
 
-        {/* Filtres */}
-        <section className="container mx-auto px-4 pb-16 pt-16">
+        {/* Centralized spacing system - 32 units (128px) between sections */}
+        <div className="space-y-32">
+          {/* Filtres */}
+          <section className="container mx-auto px-4 py-16">
           <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
             <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-4">
               <h2 className="text-xl font-semibold text-gray-800">Filters</h2>
@@ -273,10 +275,10 @@ export default function Tours() {
               )}
             </div>
           </div>
-        </section>
+          </section>
 
-        {/* Tours Grid */}
-        <section className="container mx-auto px-4 pb-16">
+          {/* Tours Grid */}
+          <section className="container mx-auto px-4 py-16">
           {isLoading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[...Array(6)].map((_, i) => (
@@ -367,7 +369,7 @@ export default function Tours() {
               ))}
             </motion.div>
           ) : (
-            <div className="text-center pb-16 pt-16">
+            <div className="text-center py-16">
               {tours.length === 0 && !hasActiveFilters ? (
                 <div className="space-y-4">
                   {/* Pas de tours disponibles - garde l'espace propre */}
@@ -379,7 +381,8 @@ export default function Tours() {
               ) : null}
             </div>
           )}
-        </section>
+          </section>
+        </div>
       </main>
       
       <Footer />
