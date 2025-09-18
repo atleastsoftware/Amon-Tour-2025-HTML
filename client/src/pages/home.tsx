@@ -259,7 +259,7 @@ export default function Home() {
             >
               <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{tours.featured}</h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
-              <p className="text-lg text-gray-700 leading-relaxed">{tours.description}</p>
+              <p className="text-lg text-gray-700 leading-relaxed mb-12">{tours.description}</p>
             </motion.div>
           </div>
           
