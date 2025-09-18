@@ -27,14 +27,14 @@ export default function CustomTour() {
         />
         
         {/* Why Choose Custom Tour */}
-        <section className="py-16 bg-neutral-light">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
+        <section className="py-20 bg-neutral-light">
+          <div className="container mx-auto px-4 max-w-4xl text-center">
+            <div className="mb-8">
               <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
                 {customTour.whyChoose}
               </h2>
-              <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
-              <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+              <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
+              <p className="text-lg text-gray-700 leading-relaxed">
                 {customTour.whyChooseDescription}
               </p>
             </div>
