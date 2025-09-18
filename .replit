@@ -50,7 +50,7 @@ task = "shell.exec"
 args = "npm run dev"
 
 [agent]
-integrations = ["javascript_object_storage:1.0.0", "javascript_log_in_with_replit:1.0.0", "javascript_database:1.0.0", "javascript_stripe:1.0.0"]
+integrations = ["javascript_object_storage:1.0.0", "javascript_log_in_with_replit:1.0.0", "javascript_database:1.0.0"]
 
 [[ports]]
 localPort = 5000
@@ -59,6 +59,10 @@ externalPort = 5000
 [[ports]]
 localPort = 40141
 externalPort = 3001
+
+[[ports]]
+localPort = 40653
+externalPort = 3000
 
 [[ports]]
 localPort = 42463

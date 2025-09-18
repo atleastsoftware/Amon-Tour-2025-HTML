@@ -1456,6 +1456,7 @@ Crawl-delay: 1`;
         duration: requestData.duration,
         preferredDates: requestData.preferredDates,
         itinerary: requestData.itinerary,
+        budget: requestData.budget,
         specialRequests: requestData.specialRequests
       });
       

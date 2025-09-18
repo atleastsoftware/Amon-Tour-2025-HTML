@@ -295,11 +295,11 @@ const translations: Record<string, Translations> = {
     },
     home: {
       introTitle: "When expats welcome you in their host country",
-      introDescription: "Since 2013, our family-run travel agency has been curating exclusive activities around Krabi and designing tailor-made trips all across Thailand. We aim to deliver immersive travel experiences, away from mass tourism, with personalized service for every traveler — welcoming you as part of our family or close friends.",
+      introDescription: "This is a family-run travel agency that combines the organization of exclusive activities with the creation of tailor-made trips throughout the country. Our goal is to offer an immersive experience, far from mass tourism, with personalized service for every traveler — as if we were welcoming our own family or friends.",
       
-      customTripTitle: "Our Tailor-made trips",
-      customTripSubtitle: "Design your own journey through Thailand",
-      customTripDescription: "Design your own journey through Thailand with our tailor-made stays: from cultural discoveries and family adventures to romantic getaways and island escapes. Every itinerary is crafted to match your wishes, offering authentic experiences, quality services, and a unique immersion far from mass tourism.",
+      customTripTitle: "Create Your Custom Trip",
+      customTripSubtitle: "Your travel story starts with your dreams -",
+      customTripDescription: "let us write the rest.",
       fullName: "Full Name",
       email: "Email",
       countryCode: "Country Code",
@@ -330,8 +330,8 @@ const translations: Record<string, Translations> = {
       kohMook: "Koh Mook",
       othersDestinations: "Others destinations",
       
-      someIdeasTitle: "Our exclusive experience",
-      someIdeasDescription: "Explore our finest experiences in Krabi, all guaranteed off the beaten path: private and semi-private sea tours, unique land excursions (kayaking through mangroves, waterfalls, tropical jungle, centuries-old trees, temples, karst caves, natural pools), and exclusive 2-day / 1-night packages.",
+      someIdeasTitle: "Some Ideas For Your Next Trip",
+      someIdeasDescription: "Get inspired by our custom-designed travel experiences.",
       
       whyChooseTitle: "Why Choose Us",
       whyChooseDescription: "Experience an exclusive private day trip with our English or French-speaking and certified guides.",
@@ -390,7 +390,7 @@ const translations: Record<string, Translations> = {
     },
     cruise: {
       title: "Custom Quote Request",
-      subtitle: "Sail Krabi's Hidden Gems on a Private Catamaran Adventure",
+      subtitle: "Fill out the form below and we will contact you within 24 hours.",
       fullName: "Full Name",
       email: "Email",
       phoneNumber: "Phone Number (Optional)",
@@ -399,7 +399,7 @@ const translations: Record<string, Translations> = {
       desiredDuration: "Desired Duration",
       chooseDuration: "Choose a duration",
       preferredDates: "Preferred Dates (Optional)",
-      // approximateBudget: "Approximate Budget (Optional)", // Removed as requested
+      approximateBudget: "Approximate Budget (Optional)",
       selectSeason: "Select a season",
       preferredDestinations: "Preferred Destinations (Optional)",
       specialRequests: "Special Requests (Optional)",
@@ -537,12 +537,12 @@ const translations: Record<string, Translations> = {
       featured: "Tours Vedettes"
     },
     home: {
-      introTitle: "Quand des expats vous reçoivent dans leurs pays d'accueil",
-      introDescription: "Depuis 2023, notre agence de voyage familiale conçoit des activités exclusives autour de Krabi et des séjours sur mesure à travers toute la Thaïlande. Notre ambition est d'offrir des expériences de voyage immersives, loin du tourisme de masse, avec un service personnalisé pour chaque voyageur — comme si nous vous accueillions en famille ou entre amis.",
+      introTitle: "Quand des expats vous accueillent dans leur pays d'adoption",
+      introDescription: "Il s'agit d'une agence de voyage familiale qui combine l'organisation d'activités exclusives avec la création de voyages sur mesure à travers le pays. Notre objectif est d'offrir une expérience immersive, loin du tourisme de masse, avec un service personnalisé pour chaque voyageur — comme si nous accueillions notre propre famille ou nos amis.",
       
-      customTripTitle: "Nos séjours personnalisés",
-      customTripSubtitle: "Créez votre propre voyage en Thaïlande",
-      customTripDescription: "Créez votre propre voyage en Thaïlande grâce à nos séjours personnalisés : découvertes culturelles, aventures en famille, escapades romantiques ou séjours insulaires. Chaque itinéraire est conçu selon vos envies, pour offrir des expériences authentiques, des services de qualité et une immersion unique, loin du tourisme de masse.",
+      customTripTitle: "Créez Votre Voyage Sur Mesure",
+      customTripSubtitle: "Votre aventure commence par vos rêves -",
+      customTripDescription: "laissez-nous écrire la suite.",
       fullName: "Nom complet",
       email: "Email",
       countryCode: "Code pays",
@@ -573,8 +573,8 @@ const translations: Record<string, Translations> = {
       kohMook: "Koh Mook",
       othersDestinations: "Autres destinations",
       
-      someIdeasTitle: "Nos expériences exclusives",
-      someIdeasDescription: "Naviguez parmi nos plus belles expériences à Krabi, toutes garanties hors du tourisme de masse : croisières en mer privées et semi-privées, excursions terrestres uniques (kayak dans la mangrove, cascades, jungle tropicale, arbres centenaires, temples, grottes karstiques, piscines naturelles) et formules exclusives de 2 jours / 1 nuit.",
+      someIdeasTitle: "Quelques Idées Pour Votre Prochain Voyage",
+      someIdeasDescription: "Inspirez-vous de nos expériences de voyage conçues sur mesure.",
       
       whyChooseTitle: "Pourquoi Nous Choisir",
       whyChooseDescription: "Vivez une excursion privée exclusive avec nos guides certifiés francophones ou anglophones.",
@@ -633,7 +633,7 @@ const translations: Record<string, Translations> = {
     },
     cruise: {
       title: "Demande de Devis Personnalisé",
-      subtitle: "Naviguez vers les trésors cachés de Krabi lors d'une aventure en catamaran privé",
+      subtitle: "Remplissez le formulaire ci-dessous et nous vous contacterons sous 24 heures.",
       fullName: "Nom complet",
       email: "Email",
       phoneNumber: "Numéro de téléphone (Optionnel)",
@@ -642,7 +642,7 @@ const translations: Record<string, Translations> = {
       desiredDuration: "Durée souhaitée",
       chooseDuration: "Choisissez une durée",
       preferredDates: "Dates préférées (Optionnel)",
-      // approximateBudget: "Budget approximatif (Optionnel)", // Removed as requested
+      approximateBudget: "Budget approximatif (Optionnel)",
       selectSeason: "Sélectionnez une saison",
       preferredDestinations: "Destinations préférées (Optionnel)",
       specialRequests: "Demandes spéciales (Optionnel)",
@@ -781,11 +781,11 @@ const translations: Record<string, Translations> = {
     },
     home: {
       introTitle: "Cuando expatriados te reciben en su país de acogida",
-      introDescription: "Desde 2013, nuestra agencia de viajes familiar ha estado organizando actividades exclusivas alrededor de Krabi y diseñando viajes a medida por toda Tailandia. Nuestro objetivo es ofrecer experiencias de viaje inmersivas, lejos del turismo de masas, con un servicio personalizado para cada viajero — recibiéndote como parte de nuestra familia o amigos cercanos.",
+      introDescription: "Esta es una agencia de viajes familiar que combina la organización de actividades exclusivas con la creación de viajes a medida por todo el país. Nuestro objetivo es ofrecer una experiencia inmersiva, lejos del turismo de masas, con un servicio personalizado para cada viajero — como si estuviéramos recibiendo a nuestra propia familia o amigos.",
       
-      customTripTitle: "Nuestros viajes a medida",
-      customTripSubtitle: "Diseña tu propio viaje por Tailandia",
-      customTripDescription: "Diseña tu propio viaje por Tailandia con nuestras estancias a medida: desde descubrimientos culturales y aventuras familiares hasta escapadas románticas y retiros isleños. Cada itinerario se elabora según tus deseos, ofreciendo experiencias auténticas, servicios de calidad y una inmersión única, lejos del turismo de masas.",
+      customTripTitle: "Crea Tu Viaje Personalizado",
+      customTripSubtitle: "Tu historia de viaje comienza con tus sueños -",
+      customTripDescription: "déjanos escribir el resto.",
       fullName: "Nombre completo",
       email: "Email",
       countryCode: "Código de país",
@@ -816,8 +816,8 @@ const translations: Record<string, Translations> = {
       kohMook: "Koh Mook",
       othersDestinations: "Otros destinos",
       
-      someIdeasTitle: "Nuestras experiencias exclusivas",
-      someIdeasDescription: "Explora nuestras mejores experiencias en Krabi, todas garantizadas fuera de los caminos trillados: tours marítimos privados y semiprivados, excursiones terrestres únicas (kayak por manglares, cascadas, selva tropical, árboles centenarios, templos, cuevas kársticas, piscinas naturales) y paquetes exclusivos de 2 días / 1 noche.",
+      someIdeasTitle: "Algunas Ideas Para Tu Próximo Viaje",
+      someIdeasDescription: "Inspírate con nuestras experiencias de viaje diseñadas a medida.",
       
       whyChooseTitle: "Por Qué Elegirnos",
       whyChooseDescription: "Vive una excursión privada exclusiva con nuestros guías certificados de habla inglesa o francesa.",
@@ -876,7 +876,7 @@ const translations: Record<string, Translations> = {
     },
     cruise: {
       title: "Solicitud de Cotización Personalizada",
-      subtitle: "Navega por las gemas ocultas de Krabi en una aventura en catamarán privado",
+      subtitle: "Complete el formulario a continuación y nos pondremos en contacto con usted en 24 horas.",
       fullName: "Nombre completo",
       email: "Email",
       phoneNumber: "Número de teléfono (Opcional)",
@@ -885,7 +885,7 @@ const translations: Record<string, Translations> = {
       desiredDuration: "Duración deseada",
       chooseDuration: "Elija una duración",
       preferredDates: "Fechas preferidas (Opcional)",
-      // approximateBudget: "Presupuesto aproximado (Opcional)", // Removed as requested
+      approximateBudget: "Presupuesto aproximado (Opcional)",
       selectSeason: "Seleccione una temporada",
       preferredDestinations: "Destinos preferidos (Opcional)",
       specialRequests: "Solicitudes especiales (Opcional)",
