@@ -229,7 +229,7 @@ export default function Home() {
         <Hero />
         
         {/* 2. Intro paragraph */}
-        <section className="py-20">
+        <section className="py-16">
           <div className="container mx-auto px-4 max-w-4xl text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -249,7 +249,7 @@ export default function Home() {
         </section>
         
         {/* 3. Our Popular Experiences */}
-        <section id="tours" className="py-20 bg-background">
+        <section id="tours" className="py-16 bg-background">
           <div className="container mx-auto px-4 max-w-4xl text-center">
             <motion.div
               initial={{ y: -20, opacity: 0 }}

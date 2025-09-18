@@ -27,7 +27,7 @@ export default function CustomTour() {
         />
         
         {/* Why Choose Custom Tour */}
-        <section className="py-20 bg-neutral-light">
+        <section className="py-16 bg-neutral-light">
           <div className="container mx-auto px-4 max-w-4xl text-center">
             <div className="mb-8">
               <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">

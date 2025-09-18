@@ -104,7 +104,7 @@ export default function Experiences() {
         />
         
         {/* Featured Tours Section - Tour Ninja Integration */}
-        <section className="py-20 bg-gradient-to-b from-primary/5 to-white">
+        <section className="py-16 bg-gradient-to-b from-primary/5 to-white">
           <div className="container mx-auto px-4 max-w-4xl text-center">
             <FadeInWhenVisible>
               <div className="mb-8">
