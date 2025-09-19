@@ -343,6 +343,41 @@ export interface Translations {
     acceptAll: string;
     close: string;
   };
+  // Admin interface
+  admin: {
+    dashboard: string;
+    adminDashboard: string;
+    tourManagement: string;
+    reservationManagement: string;
+    contact: string;
+    tours: string;
+    price: string;
+    featured: string;
+    management: string;
+    settings: string;
+    users: string;
+    analytics: string;
+    overview: string;
+    edit: string;
+    delete: string;
+    view: string;
+    status: string;
+    actions: string;
+    yes: string;
+    no: string;
+    logout: string;
+    backToWebsite: string;
+    customRequests: string;
+    messages: string;
+    reservations: string;
+    title: string;
+    duration: string;
+    manageWebsiteBlurb: string;
+    totalToursCount: string;
+    totalRequestsCount: string;
+    totalMessagesCount: string;
+    addTour: string;
+  };
   // UI elements
   ui: {
     loading: string;
@@ -731,12 +766,39 @@ const translations: Record<string, Translations> = {
       showLess: "Show Less",
       home: "Home"
     },
-    footer: {
+    admin: {
+      dashboard: "Dashboard",
+      adminDashboard: "Admin Dashboard", 
+      tourManagement: "Tour Management",
+      reservationManagement: "Reservation Management",
       contact: "Contact",
-      usefulLinks: "Useful Links",
-      newsletter: "Newsletter",
-      followUs: "Follow Us",
-      copyright: "© 2024 Amon Tour. All rights reserved."
+      tours: "Tours",
+      price: "Price",
+      featured: "Featured",
+      management: "Management",
+      settings: "Settings",
+      users: "Users",
+      analytics: "Analytics",
+      overview: "Overview",
+      edit: "Edit",
+      delete: "Delete",
+      view: "View",
+      status: "Status",
+      actions: "Actions",
+      yes: "Yes",
+      no: "No",
+      logout: "Logout",
+      backToWebsite: "Back to website",
+      customRequests: "Custom Requests",
+      messages: "Messages",
+      reservations: "Reservations",
+      title: "Title",
+      duration: "Duration",
+      manageWebsiteBlurb: "Manage your website and view customer requests.",
+      totalToursCount: "Total number of tours",
+      totalRequestsCount: "Total number of requests",
+      totalMessagesCount: "Total number of messages",
+      addTour: "Add Tour"
     },
     toast: {
       successTitle: "Success",
@@ -1098,12 +1160,39 @@ const translations: Record<string, Translations> = {
       showLess: "Afficher Moins",
       home: "Accueil"
     },
-    footer: {
+    admin: {
+      dashboard: "Tableau de Bord",
+      adminDashboard: "Tableau de Bord Admin", 
+      tourManagement: "Gestion des Tours",
+      reservationManagement: "Gestion des Réservations",
       contact: "Contact",
-      usefulLinks: "Liens Utiles",
-      newsletter: "Newsletter",
-      followUs: "Suivez-nous",
-      copyright: "© 2024 Amon Tour. Tous droits réservés."
+      tours: "Tours",
+      price: "Prix",
+      featured: "En Vedette",
+      management: "Gestion",
+      settings: "Paramètres",
+      users: "Utilisateurs",
+      analytics: "Analyses",
+      overview: "Aperçu",
+      edit: "Modifier",
+      delete: "Supprimer",
+      view: "Voir",
+      status: "Statut",
+      actions: "Actions",
+      yes: "Oui",
+      no: "Non",
+      logout: "Déconnexion",
+      backToWebsite: "Retour au site",
+      customRequests: "Demandes Personnalisées",
+      messages: "Messages",
+      reservations: "Réservations",
+      title: "Titre",
+      duration: "Durée",
+      manageWebsiteBlurb: "Gérez votre site web et consultez les demandes clients.",
+      totalToursCount: "Nombre total de tours",
+      totalRequestsCount: "Nombre total de demandes",
+      totalMessagesCount: "Nombre total de messages",
+      addTour: "Ajouter un Tour"
     },
     toast: {
       successTitle: "Succès",
@@ -1465,12 +1554,39 @@ const translations: Record<string, Translations> = {
       showLess: "Mostrar Menos",
       home: "Inicio"
     },
-    footer: {
+    admin: {
+      dashboard: "Panel de Control",
+      adminDashboard: "Panel de Administración", 
+      tourManagement: "Gestión de Tours",
+      reservationManagement: "Gestión de Reservas",
       contact: "Contacto",
-      usefulLinks: "Enlaces Útiles",
-      newsletter: "Newsletter",
-      followUs: "Síguenos",
-      copyright: "© 2024 Amon Tour. Todos los derechos reservados."
+      tours: "Tours",
+      price: "Precio",
+      featured: "Destacado",
+      management: "Gestión",
+      settings: "Configuración",
+      users: "Usuarios",
+      analytics: "Analíticas",
+      overview: "Resumen",
+      edit: "Editar",
+      delete: "Eliminar",
+      view: "Ver",
+      status: "Estado",
+      actions: "Acciones",
+      yes: "Sí",
+      no: "No",
+      logout: "Cerrar Sesión",
+      backToWebsite: "Volver al sitio",
+      customRequests: "Solicitudes Personalizadas",
+      messages: "Mensajes",
+      reservations: "Reservas",
+      title: "Título",
+      duration: "Duración",
+      manageWebsiteBlurb: "Gestiona tu sitio web y consulta las solicitudes de clientes.",
+      totalToursCount: "Número total de tours",
+      totalRequestsCount: "Número total de solicitudes",
+      totalMessagesCount: "Número total de mensajes",
+      addTour: "Agregar Tour"
     },
     toast: {
       successTitle: "Éxito",
@@ -1540,6 +1656,10 @@ export class TranslationService {
 
   getFooter() {
     return this.getTranslations().footer;
+  }
+
+  getAdmin() {
+    return this.getTranslations().admin;
   }
 
   getCruise() {

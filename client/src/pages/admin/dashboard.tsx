@@ -4,6 +4,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useIsAuthenticated, useLogout } from "@/lib/auth";
 import { Tour, CustomTourRequest, ContactMessage } from "@shared/schema";
 import { useToast } from "@/hooks/use-toast";
+import { translationService } from "@/services/translationService";
 import { apiRequest } from "@/lib/queryClient";
 import { formatTHB } from "@/lib/utils";
 
@@ -127,7 +128,7 @@ export default function Dashboard() {
               </div>
             </Link>
             <div className="hidden md:block text-sm px-3 py-1 bg-primary-dark rounded">
-              Admin Dashboard
+              {translationService.getAdmin().adminDashboard}
             </div>
           </div>
           
@@ -139,12 +140,12 @@ export default function Dashboard() {
               onClick={handleLogout}
             >
               <LogOut className="mr-2 h-4 w-4" />
-              Logout
+              {translationService.getAdmin().logout}
             </Button>
             <Link href="/">
               <span className="text-white hover:text-gray-200 transition-colors cursor-pointer">
                 <ChevronLeft className="mr-2 h-4 w-4 inline" />
-                Back to website
+                {translationService.getAdmin().backToWebsite}
               </span>
             </Link>
           </div>
@@ -153,15 +154,15 @@ export default function Dashboard() {
       
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="font-heading font-bold text-3xl mb-2">Dashboard</h1>
-          <p className="text-gray-600">Manage your website and view customer requests.</p>
+          <h1 className="font-heading font-bold text-3xl mb-2">{translationService.getAdmin().dashboard}</h1>
+          <p className="text-gray-600">{translationService.getAdmin().manageWebsiteBlurb}</p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-xl">Tours</CardTitle>
-              <CardDescription>Total number of tours</CardDescription>
+              <CardTitle className="text-xl">{translationService.getAdmin().tours}</CardTitle>
+              <CardDescription>{translationService.getAdmin().totalToursCount}</CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-3xl font-bold">{tours?.length || 0}</p>
@@ -171,7 +172,7 @@ export default function Dashboard() {
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-xl">Custom Requests</CardTitle>
-              <CardDescription>Total number of requests</CardDescription>
+              <CardDescription>{translationService.getAdmin().totalRequestsCount}</CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-3xl font-bold">{customTourRequests?.length || 0}</p>
@@ -181,7 +182,7 @@ export default function Dashboard() {
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-xl">Messages</CardTitle>
-              <CardDescription>Total number of messages</CardDescription>
+              <CardDescription>{translationService.getAdmin().totalMessagesCount}</CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-3xl font-bold">{contactMessages?.length || 0}</p>
@@ -224,8 +225,8 @@ export default function Dashboard() {
                         <TableRow>
                           <TableHead>Title</TableHead>
                           <TableHead>Duration</TableHead>
-                          <TableHead>Price</TableHead>
-                          <TableHead>Featured</TableHead>
+                          <TableHead>{translationService.getAdmin().price}</TableHead>
+                          <TableHead>{translationService.getAdmin().featured}</TableHead>
                           <TableHead className="text-right">Actions</TableHead>
                         </TableRow>
                       </TableHeader>
@@ -301,9 +302,9 @@ export default function Dashboard() {
                       <TableBody>
                         {customTourRequests.map((request) => (
                           <TableRow key={request.id}>
-                            <TableCell className="font-medium">{request.name}</TableCell>
+                            <TableCell className="font-medium">{request.fullName}</TableCell>
                             <TableCell>{request.email}</TableCell>
-                            <TableCell>{request.travelers}</TableCell>
+                            <TableCell>{request.numberOfAdults + request.numberOfKids}</TableCell>
                             <TableCell>{request.duration}</TableCell>
                             <TableCell>
                               {request.createdAt ? new Date(request.createdAt).toLocaleDateString() : '-'}
