@@ -195,7 +195,7 @@ export default function CustomTourForm() {
   }, [form]);
 
   return (
-    <section id="custom" className="py-16">
+    <section id="custom" className="pt-0 pb-16">
       <div className="container mx-auto px-4">
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
           <div className="grid grid-cols-1 md:grid-cols-2">

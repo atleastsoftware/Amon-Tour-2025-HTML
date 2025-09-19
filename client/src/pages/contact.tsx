@@ -24,12 +24,11 @@ export default function Contact() {
         />
 
         {/* Main Content */}
-        <section className="py-16 bg-background">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
+        <section className="py-20 bg-background">
+          <div className="container mx-auto px-4 max-w-4xl text-center">
               
               {/* Contact Information */}
-              <div className="text-center mb-12">
+              <div className="mb-8">
                 <motion.div 
                   initial={{ y: -20, opacity: 0 }}
                   whileInView={{ y: 0, opacity: 1 }}
@@ -37,8 +36,8 @@ export default function Contact() {
                   transition={{ duration: 0.5 }}
                 >
                   <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">Get In Touch</h2>
-                  <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
-                  <p className="text-gray-600 text-lg max-w-4xl mx-auto">
+                  <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
+                  <p className="text-lg text-gray-700 leading-relaxed">
                     Ready to explore Krabi? Contact us through any of the methods below. Our friendly team is here to answer your questions and help you plan an unforgettable experience.
                   </p>
                 </motion.div>
@@ -151,7 +150,6 @@ export default function Contact() {
                   </div>
                 </motion.div>
               </motion.div>
-            </div>
           </div>
         </section>
 
