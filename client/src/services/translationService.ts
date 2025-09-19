@@ -28,15 +28,6 @@ export interface Translations {
     viewDetails: string;
     bookNow: string;
   };
-  // Tours page
-  tours: {
-    title: string;
-    description: string;
-    duration: string;
-    participants: string;
-    price: string;
-    featured: string;
-  };
   // Home page sections
   home: {
     // Intro section
@@ -313,6 +304,49 @@ export interface Translations {
     southernDescription: string;
     freeQuote: string;
   };
+  // Tours page
+  tours: {
+    title: string;
+    subtitle: string;
+    showFilters: string;
+    hideFilters: string;
+    clearFilters: string;
+    priceOnRequest: string;
+    priceRanges: {
+      range1: string; // 0 - 2,000 THB
+      range2: string; // 2,000 - 4,000 THB 
+      range3: string; // 4,000 - 6,000 THB
+      range4: string; // 6,000+ THB
+      free: string;   // Price on request
+    };
+    filters: {
+      all: string;
+      priceRange: string;
+      duration: string;
+      destination: string;
+      search: string;
+      noResults: string;
+      allPrices: string;
+      allDurations: string;
+      allDestinations: string;
+    };
+    buttons: {
+      viewDetails: string;
+      presentation: string;
+      bookNow: string;
+    };
+    days: {
+      singular: string;
+      plural: string;
+    };
+    altText: string;
+    other: string;
+    reservation: string;
+    faq: Array<{ question: string; answer: string }>;
+    seoTitle: string;
+    seoDescription: string;
+    seoKeywords: string;
+  };
   // Blog page
   blog: {
     title: string;
@@ -450,14 +484,6 @@ const translations: Record<string, Translations> = {
       learnMore: "Learn more",
       viewDetails: "View details",
       bookNow: "Book now"
-    },
-    tours: {
-      title: "Tours & Experiences",
-      description: "Explore our finest experiences in Krabi, all guaranteed off the beaten path: private and semi-private sea tours, unique land excursions (kayaking through mangroves, waterfalls, tropical jungle, centuries-old trees, temples, karst caves, natural pools), and exclusive 2-day / 1-night packages.",
-      duration: "Duration",
-      participants: "Max participants", 
-      price: "From",
-      featured: "Our exclusive experiences"
     },
     home: {
       introTitle: "When expats welcome you in their host country",
@@ -721,6 +747,69 @@ const translations: Record<string, Translations> = {
       freeQuote: "Free Quote",
       altText: "Thailand experiences and cultural journeys"
     },
+    tours: {
+      title: "Our Tours",
+      subtitle: "Discover amazing tours and adventures in Krabi and southern Thailand.",
+      showFilters: "Show Filters",
+      hideFilters: "Hide Filters", 
+      clearFilters: "Clear Filters",
+      priceOnRequest: "Price on request",
+      priceRanges: {
+        range1: "0 - 2,000 THB",
+        range2: "2,000 - 4,000 THB",
+        range3: "4,000 - 6,000 THB", 
+        range4: "6,000+ THB",
+        free: "Price on request"
+      },
+      filters: {
+        all: "All",
+        priceRange: "Price Range",
+        duration: "Duration",
+        destination: "Destination",
+        search: "Search tours...",
+        noResults: "No tours found. Try adjusting your filters.",
+        allPrices: "All Prices",
+        allDurations: "All Durations",
+        allDestinations: "All Destinations"
+      },
+      buttons: {
+        viewDetails: "View Details",
+        presentation: "Presentation", 
+        bookNow: "Book Now"
+      },
+      days: {
+        singular: "day",
+        plural: "days"
+      },
+      altText: "Tours and experiences in Thailand",
+      other: "Other",
+      reservation: "Reservation",
+      faq: [
+        {
+          question: "How long are typical tours with Amon Tour?",
+          answer: "Our tours range from half-day experiences (4-5 hours) to full-day adventures (8-10 hours) and multi-day custom journeys. Most popular tours are full-day experiences that include transportation, guide, and meals."
+        },
+        {
+          question: "What is included in tour prices?",
+          answer: "Tour prices typically include professional English-speaking guide, transportation, entrance fees, safety equipment, and refreshments. Meals are included on full-day tours. Specific inclusions are detailed in each tour description."
+        },
+        {
+          question: "Can tours be customized for special interests?",
+          answer: "Absolutely! We specialize in customizing tours based on your interests - whether it's photography, culture, adventure, relaxation, or family-friendly activities. Contact us to discuss your preferences and we'll create a personalized itinerary."
+        },
+        {
+          question: "What should I bring on a tour?",
+          answer: "Bring sunscreen, hat, comfortable clothing, swimwear for water activities, towel, and camera. We provide safety equipment and refreshments. Specific recommendations are provided when you book based on your chosen tour."
+        },
+        {
+          question: "Are tours suitable for families with children?",
+          answer: "Yes! Many of our tours are family-friendly. We can adapt activities and timing to suit families with children. Our guides are experienced with family groups and ensure safe, enjoyable experiences for all ages."
+        }
+      ],
+      seoTitle: "Tours - Krabi & Southern Thailand Adventures",
+      seoDescription: "Book amazing tours in Krabi and southern Thailand. Private day trips, island hopping, cultural experiences with expert local guides. Best prices guaranteed.",
+      seoKeywords: "krabi tours, thailand tours, phi phi tours, phang nga bay tours, private day trips, island hopping, ao nang tours, railay tours"
+    },
     blog: {
       title: "Travel Blog",
       subtitle: "Discover the best of Krabi through our travel guides, tips, and local insights.",
@@ -850,14 +939,6 @@ const translations: Record<string, Translations> = {
       learnMore: "En savoir plus",
       viewDetails: "Voir les détails",
       bookNow: "Réserver"
-    },
-    tours: {
-      title: "Tours & Expériences",
-      description: "Naviguez parmi nos plus belles expériences à Krabi, toutes garanties hors du tourisme de masse : croisières en mer privées et semi-privées, excursions terrestres uniques (kayak dans la mangrove, cascades, jungle tropicale, arbres centenaires, temples, grottes karstiques, piscines naturelles) et formules exclusives de 2 jours / 1 nuit.",
-      duration: "Durée",
-      participants: "Participants max",
-      price: "À partir de",
-      featured: "Nos expériences exclusives"
     },
     home: {
       introTitle: "Quand des expats vous reçoivent dans leurs pays d'accueil",
@@ -1121,6 +1202,69 @@ const translations: Record<string, Translations> = {
       freeQuote: "Devis Gratuit",
       altText: "Expériences thaïlandaises et voyages culturels"
     },
+    tours: {
+      title: "Nos Tours",
+      subtitle: "Découvrez des tours et aventures incroyables à Krabi et dans le sud de la Thaïlande.",
+      showFilters: "Afficher les Filtres",
+      hideFilters: "Masquer les Filtres",
+      clearFilters: "Effacer les Filtres", 
+      priceOnRequest: "Prix sur demande",
+      priceRanges: {
+        range1: "0 - 2 000 THB",
+        range2: "2 000 - 4 000 THB",
+        range3: "4 000 - 6 000 THB",
+        range4: "6 000+ THB",
+        free: "Prix sur demande"
+      },
+      filters: {
+        all: "Tous",
+        priceRange: "Gamme de Prix",
+        duration: "Durée",
+        destination: "Destination",
+        search: "Rechercher des tours...",
+        noResults: "Aucun tour trouvé. Essayez d'ajuster vos filtres.",
+        allPrices: "Tous les Prix",
+        allDurations: "Toutes les Durées",
+        allDestinations: "Toutes les Destinations"
+      },
+      buttons: {
+        viewDetails: "Voir les Détails",
+        presentation: "Présentation",
+        bookNow: "Réserver Maintenant"
+      },
+      days: {
+        singular: "jour",
+        plural: "jours"
+      },
+      altText: "Tours et expériences en Thaïlande",
+      other: "Autre",
+      reservation: "Réservation",
+      faq: [
+        {
+          question: "Combien de temps durent les tours typiques avec Amon Tour ?",
+          answer: "Nos tours vont des expériences d'une demi-journée (4-5 heures) aux aventures d'une journée complète (8-10 heures) et aux voyages personnalisés de plusieurs jours. Les tours les plus populaires sont des expériences d'une journée complète qui incluent le transport, le guide et les repas."
+        },
+        {
+          question: "Qu'est-ce qui est inclus dans les prix des tours ?",
+          answer: "Les prix des tours incluent généralement un guide professionnel anglophone, le transport, les frais d'entrée, l'équipement de sécurité et les rafraîchissements. Les repas sont inclus dans les tours d'une journée complète. Les inclusions spécifiques sont détaillées dans chaque description de tour."
+        },
+        {
+          question: "Les tours peuvent-ils être personnalisés pour des intérêts spéciaux ?",
+          answer: "Absolument ! Nous nous spécialisons dans la personnalisation des tours selon vos intérêts - que ce soit la photographie, la culture, l'aventure, la détente ou les activités familiales. Contactez-nous pour discuter de vos préférences et nous créerons un itinéraire personnalisé."
+        },
+        {
+          question: "Que dois-je apporter lors d'un tour ?",
+          answer: "Apportez de la crème solaire, un chapeau, des vêtements confortables, un maillot de bain pour les activités aquatiques, une serviette et un appareil photo. Nous fournissons l'équipement de sécurité et les rafraîchissements. Des recommandations spécifiques sont fournies lors de la réservation selon votre tour choisi."
+        },
+        {
+          question: "Les tours conviennent-ils aux familles avec enfants ?",
+          answer: "Oui ! Beaucoup de nos tours sont adaptés aux familles. Nous pouvons adapter les activités et les horaires pour convenir aux familles avec enfants. Nos guides sont expérimentés avec les groupes familiaux et assurent des expériences sûres et agréables pour tous les âges."
+        }
+      ],
+      seoTitle: "Tours - Aventures à Krabi et Sud Thaïlande",
+      seoDescription: "Réservez des tours incroyables à Krabi et dans le sud de la Thaïlande. Excursions privées d'une journée, saut d'îles, expériences culturelles avec guides locaux experts. Meilleurs prix garantis.",
+      seoKeywords: "tours krabi, tours thaïlande, tours phi phi, tours baie phang nga, excursions privées journée, saut îles, tours ao nang, tours railay"
+    },
     blog: {
       title: "Blog de Voyage",
       subtitle: "Découvrez le meilleur de Krabi à travers nos guides de voyage, conseils et aperçus locaux.",
@@ -1250,14 +1394,6 @@ const translations: Record<string, Translations> = {
       learnMore: "Saber más",
       viewDetails: "Ver detalles",
       bookNow: "Reservar"
-    },
-    tours: {
-      title: "Tours y Experiencias",
-      description: "Explora nuestras mejores experiencias en Krabi, todas garantizadas fuera del camino trillado: excursiones privadas y semiprivadas por el mar, excursiones terrestres únicas (kayak por manglares, cascadas, selva tropical, árboles centenarios, templos, cuevas kársticas, piscinas naturales), y paquetes exclusivos de 2 días / 1 noche.",
-      duration: "Duración",
-      participants: "Participantes máx",
-      price: "Desde",
-      featured: "Nuestras experiencias exclusivas"
     },
     home: {
       introTitle: "Cuando expatriados te reciben en su país de acogida",
@@ -1520,6 +1656,69 @@ const translations: Record<string, Translations> = {
       southernDescription: "Las islas del sur de Tailandia ofrecen playas paradisíacas y cultura auténtica.",
       freeQuote: "Cotización Gratuita",
       altText: "Experiencias tailandesas y viajes culturales"
+    },
+    tours: {
+      title: "Nuestros Tours",
+      subtitle: "Descubre tours y aventuras increíbles en Krabi y el sur de Tailandia.",
+      showFilters: "Mostrar Filtros",
+      hideFilters: "Ocultar Filtros",
+      clearFilters: "Limpiar Filtros",
+      priceOnRequest: "Precio a consultar",
+      priceRanges: {
+        range1: "0 - 2,000 THB",
+        range2: "2,000 - 4,000 THB", 
+        range3: "4,000 - 6,000 THB",
+        range4: "6,000+ THB",
+        free: "Precio a consultar"
+      },
+      filters: {
+        all: "Todos",
+        priceRange: "Rango de Precio",
+        duration: "Duración",
+        destination: "Destino",
+        search: "Buscar tours...",
+        noResults: "No se encontraron tours. Intenta ajustar tus filtros.",
+        allPrices: "Todos los Precios",
+        allDurations: "Todas las Duraciones",
+        allDestinations: "Todos los Destinos"
+      },
+      buttons: {
+        viewDetails: "Ver Detalles",
+        presentation: "Presentación",
+        bookNow: "Reservar Ahora"
+      },
+      days: {
+        singular: "día",
+        plural: "días"
+      },
+      altText: "Tours y experiencias en Tailandia",
+      other: "Otro",
+      reservation: "Reserva",
+      faq: [
+        {
+          question: "¿Cuánto duran los tours típicos con Amon Tour?",
+          answer: "Nuestros tours van desde experiencias de medio día (4-5 horas) hasta aventuras de día completo (8-10 horas) y viajes personalizados de varios días. Los tours más populares son experiencias de día completo que incluyen transporte, guía y comidas."
+        },
+        {
+          question: "¿Qué está incluido en los precios de los tours?",
+          answer: "Los precios de los tours generalmente incluyen guía profesional de habla inglesa, transporte, tarifas de entrada, equipo de seguridad y refrigerios. Las comidas están incluidas en los tours de día completo. Las inclusiones específicas se detallan en cada descripción del tour."
+        },
+        {
+          question: "¿Se pueden personalizar los tours para intereses especiales?",
+          answer: "¡Absolutamente! Nos especializamos en personalizar tours según tus intereses - ya sea fotografía, cultura, aventura, relajación o actividades familiares. Contáctanos para discutir tus preferencias y crearemos un itinerario personalizado."
+        },
+        {
+          question: "¿Qué debo traer en un tour?",
+          answer: "Trae protector solar, sombrero, ropa cómoda, traje de baño para actividades acuáticas, toalla y cámara. Proporcionamos equipo de seguridad y refrigerios. Se brindan recomendaciones específicas al reservar según tu tour elegido."
+        },
+        {
+          question: "¿Son los tours adecuados para familias con niños?",
+          answer: "¡Sí! Muchos de nuestros tours son aptos para familias. Podemos adaptar actividades y horarios para familias con niños. Nuestros guías tienen experiencia con grupos familiares y aseguran experiencias seguras y agradables para todas las edades."
+        }
+      ],
+      seoTitle: "Tours - Aventuras en Krabi y Sur de Tailandia",
+      seoDescription: "Reserva tours increíbles en Krabi y el sur de Tailandia. Excursiones privadas de día, salto de islas, experiencias culturales con guías locales expertos. Mejores precios garantizados.",
+      seoKeywords: "tours krabi, tours tailandia, tours phi phi, tours bahía phang nga, excursiones privadas día, salto islas, tours ao nang, tours railay"
     },
     blog: {
       title: "Blog de Viajes",
