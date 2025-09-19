@@ -28,6 +28,15 @@ export interface Translations {
     viewDetails: string;
     bookNow: string;
   };
+  // Tours page
+  tours: {
+    title: string;
+    description: string;
+    duration: string;
+    participants: string;
+    price: string;
+    featured: string;
+  };
   // Home page sections
   home: {
     // Intro section
@@ -253,211 +262,6 @@ export interface Translations {
     defaultDescription: string;
     defaultKeywords: string;
   };
-  // Contact page
-  contact: {
-    title: string;
-    subtitle: string;
-    getTouchTitle: string;
-    getTouchDescription: string;
-    email: string;
-    phone: string;
-    whatsapp: string;
-    lineId: string;
-    aboutCompanyTitle: string;
-    aboutCompanyDescription: string;
-    altText: string;
-    licenseInfo: string;
-    companyDescription: string;
-    readyAdventureTitle: string;
-    readyAdventureDescription: string;
-    chatWhatsApp: string;
-    sendEmail: string;
-  };
-  // Experiences page
-  experiences: {
-    title: string;
-    subtitle: string;
-    recommendedToursTitle: string;
-    recommendedToursDescription: string;
-    cultureHistory: string;
-    northAdventure: string;
-    beachesIslands: string;
-    bangkokEssential: string;
-    bangkokDescription: string;
-    goldenTriangle: string;
-    altText: string;
-    goldenTriangleDescription: string;
-    southernIslands: string;
-    southernIslandsDescription: string;
-    viewDetails: string;
-    bookNow: string;
-    customTourTitle: string;
-    customTourDescription: string;
-    requestQuote: string;
-    filterExperiences: string;
-    search: string;
-    searchPlaceholder: string;
-    searchHint: string;
-    noExperiences: string;
-    days: string;
-    from: string;
-    southernDescription: string;
-    freeQuote: string;
-  };
-  // Tours page
-  tours: {
-    title: string;
-    subtitle: string;
-    showFilters: string;
-    hideFilters: string;
-    clearFilters: string;
-    priceOnRequest: string;
-    priceRanges: {
-      range1: string; // 0 - 2,000 THB
-      range2: string; // 2,000 - 4,000 THB 
-      range3: string; // 4,000 - 6,000 THB
-      range4: string; // 6,000+ THB
-      free: string;   // Price on request
-    };
-    filters: {
-      all: string;
-      priceRange: string;
-      duration: string;
-      destination: string;
-      search: string;
-      noResults: string;
-      allPrices: string;
-      allDurations: string;
-      allDestinations: string;
-    };
-    buttons: {
-      viewDetails: string;
-      presentation: string;
-      bookNow: string;
-    };
-    days: {
-      singular: string;
-      plural: string;
-    };
-    altText: string;
-    other: string;
-    reservation: string;
-    faq: Array<{ question: string; answer: string }>;
-    seoTitle: string;
-    seoDescription: string;
-    seoKeywords: string;
-  };
-  // Blog page
-  blog: {
-    title: string;
-    subtitle: string;
-    searchPlaceholder: string;
-    tags: string;
-    allTags: string;
-    categories: string;
-    allCategories: string;
-    noArticlesTitle: string;
-    noArticlesDescription: string;
-    clearFilters: string;
-    readMore: string;
-  };
-  // Error pages
-  errors: {
-    notFoundTitle: string;
-    notFoundDescription: string;
-    serverErrorTitle: string;
-    serverErrorDescription: string;
-    networkErrorTitle: string;
-    networkErrorDescription: string;
-  };
-  // Cookie consent
-  cookies: {
-    title: string;
-    description: string;
-    customize: string;
-    rejectAll: string;
-    acceptAll: string;
-    close: string;
-  };
-  // Admin interface
-  admin: {
-    dashboard: string;
-    adminDashboard: string;
-    tourManagement: string;
-    reservationManagement: string;
-    contact: string;
-    tours: string;
-    price: string;
-    featured: string;
-    management: string;
-    settings: string;
-    users: string;
-    analytics: string;
-    overview: string;
-    edit: string;
-    delete: string;
-    view: string;
-    status: string;
-    actions: string;
-    yes: string;
-    no: string;
-    logout: string;
-    backToWebsite: string;
-    customRequests: string;
-    messages: string;
-    reservations: string;
-    title: string;
-    duration: string;
-    manageWebsiteBlurb: string;
-    totalToursCount: string;
-    totalRequestsCount: string;
-    totalMessagesCount: string;
-    addTour: string;
-  };
-  // UI elements
-  ui: {
-    loading: string;
-    error: string;
-    success: string;
-    warning: string;
-    close: string;
-    cancel: string;
-    save: string;
-    edit: string;
-    delete: string;
-    confirm: string;
-    back: string;
-    next: string;
-    previous: string;
-    submit: string;
-    reset: string;
-    clear: string;
-    search: string;
-    filter: string;
-    sortBy: string;
-    showMore: string;
-    showLess: string;
-    home: string;
-    filterExperiences: string;
-    searchPlaceholder: string;
-    searchHint: string;
-    noExperiences: string;
-  };
-  // Toast messages
-  toast: {
-    successTitle: string;
-    errorTitle: string;
-    warningTitle: string;
-    infoTitle: string;
-    linkCopied: string;
-    linkCopiedDescription: string;
-    copyError: string;
-    copyErrorDescription: string;
-    formSubmitted: string;
-    formSubmittedDescription: string;
-    formError: string;
-    formErrorDescription: string;
-  };
 }
 
 const translations: Record<string, Translations> = {
@@ -484,6 +288,14 @@ const translations: Record<string, Translations> = {
       learnMore: "Learn more",
       viewDetails: "View details",
       bookNow: "Book now"
+    },
+    tours: {
+      title: "Tours & Experiences",
+      description: "Explore our finest experiences in Krabi, all guaranteed off the beaten path: private and semi-private sea tours, unique land excursions (kayaking through mangroves, waterfalls, tropical jungle, centuries-old trees, temples, karst caves, natural pools), and exclusive 2-day / 1-night packages.",
+      duration: "Duration",
+      participants: "Max participants", 
+      price: "From",
+      featured: "Our exclusive experiences"
     },
     home: {
       introTitle: "When expats welcome you in their host country",
@@ -697,223 +509,6 @@ const translations: Record<string, Translations> = {
       defaultTitle: "Amon Tour - Authentic Thailand Travel Experiences",
       defaultDescription: "Plan your perfect Thailand vacation with Amon Tour - expert-guided private tours, cultural experiences & custom itineraries. Explore Bangkok, Phuket, Krabi & hidden gems. Family-run agency since 2017.",
       defaultKeywords: "thailand tours, bangkok travel, phuket tours, krabi tours, private tours thailand, custom thailand itinerary, thailand vacation planner, authentic thai experiences, cultural tours thailand, family travel agency, thailand trip planning, best thailand tours, thailand travel guide"
-    },
-    contact: {
-      title: "Contact Us",
-      subtitle: "We're here to help you plan the perfect experience in Krabi.",
-      getTouchTitle: "Get In Touch",
-      getTouchDescription: "Ready to explore Krabi? Contact us through any of the methods below. Our friendly team is here to answer your questions and help you plan an unforgettable experience.",
-      email: "Email",
-      phone: "Phone",
-      whatsapp: "WhatsApp",
-      lineId: "Line ID",
-      aboutCompanyTitle: "About Our Company",
-      aboutCompanyDescription: "Amon Tour is a brand of:",
-      altText: "Contact Amon Tour in Krabi",
-      licenseInfo: "TAT License: 34/01995",
-      companyDescription: "We are a licensed tour operator based in Ao Nang, Krabi, specializing in authentic local experiences and personalized travel services.",
-      readyAdventureTitle: "Ready to Start Your Adventure?",
-      readyAdventureDescription: "Whether you're looking for a private tour, custom itinerary, or have questions about Krabi, our local experts are ready to help you create unforgettable memories.",
-      chatWhatsApp: "Chat on WhatsApp",
-      sendEmail: "Send us an Email"
-    },
-    experiences: {
-      title: "Our Experiences",
-      subtitle: "Discover the exceptional beauty of Krabi and southern Thailand.",
-      recommendedToursTitle: "Recommended Guided Tours",
-      recommendedToursDescription: "Discover our organized tours with English-speaking guides for an authentic Thailand experience",
-      cultureHistory: "Culture & History",
-      northAdventure: "North & Adventure",
-      beachesIslands: "Beaches & Islands",
-      bangkokEssential: "Bangkok Essential",
-      bangkokDescription: "3-day cultural tour: Grand Palace, sacred temples, floating markets and gastronomy with expert English-speaking guide.",
-      goldenTriangle: "Golden Triangle",
-      goldenTriangleDescription: "5-day journey: Chiang Mai, mountain tribes, White Temple, Golden Triangle and Mekong cruise.",
-      southernIslands: "Southern Islands",
-      southernIslandsDescription: "7-day tour: Phuket, Phi Phi islands, Phang Nga Bay, Krabi and Railay Beach. Paradise beaches and water activities.",
-      viewDetails: "View Details",
-      bookNow: "Book Now",
-      customTourTitle: "Need a Customized Tour?",
-      customTourDescription: "Our local experts create tailor-made itineraries according to your desires and budget. Contact us to organize your dream trip to Thailand.",
-      requestQuote: "Request a Free Quote",
-      filterExperiences: "Filter Experiences",
-      search: "Search",
-      searchPlaceholder: "Search by title or description...",
-      searchHint: "Use the search above to find specific experiences",
-      noExperiences: "No experiences available matching your search. Try different keywords or create some experiences in the admin panel!",
-      days: "days",
-      from: "From",
-      southernDescription: "The southern islands of Thailand offer paradise beaches and authentic culture.",
-      freeQuote: "Free Quote",
-      altText: "Thailand experiences and cultural journeys"
-    },
-    tours: {
-      title: "Our Tours",
-      subtitle: "Discover amazing tours and adventures in Krabi and southern Thailand.",
-      showFilters: "Show Filters",
-      hideFilters: "Hide Filters", 
-      clearFilters: "Clear Filters",
-      priceOnRequest: "Price on request",
-      priceRanges: {
-        range1: "0 - 2,000 THB",
-        range2: "2,000 - 4,000 THB",
-        range3: "4,000 - 6,000 THB", 
-        range4: "6,000+ THB",
-        free: "Price on request"
-      },
-      filters: {
-        all: "All",
-        priceRange: "Price Range",
-        duration: "Duration",
-        destination: "Destination",
-        search: "Search tours...",
-        noResults: "No tours found. Try adjusting your filters.",
-        allPrices: "All Prices",
-        allDurations: "All Durations",
-        allDestinations: "All Destinations"
-      },
-      buttons: {
-        viewDetails: "View Details",
-        presentation: "Presentation", 
-        bookNow: "Book Now"
-      },
-      days: {
-        singular: "day",
-        plural: "days"
-      },
-      altText: "Tours and experiences in Thailand",
-      other: "Other",
-      reservation: "Reservation",
-      faq: [
-        {
-          question: "How long are typical tours with Amon Tour?",
-          answer: "Our tours range from half-day experiences (4-5 hours) to full-day adventures (8-10 hours) and multi-day custom journeys. Most popular tours are full-day experiences that include transportation, guide, and meals."
-        },
-        {
-          question: "What is included in tour prices?",
-          answer: "Tour prices typically include professional English-speaking guide, transportation, entrance fees, safety equipment, and refreshments. Meals are included on full-day tours. Specific inclusions are detailed in each tour description."
-        },
-        {
-          question: "Can tours be customized for special interests?",
-          answer: "Absolutely! We specialize in customizing tours based on your interests - whether it's photography, culture, adventure, relaxation, or family-friendly activities. Contact us to discuss your preferences and we'll create a personalized itinerary."
-        },
-        {
-          question: "What should I bring on a tour?",
-          answer: "Bring sunscreen, hat, comfortable clothing, swimwear for water activities, towel, and camera. We provide safety equipment and refreshments. Specific recommendations are provided when you book based on your chosen tour."
-        },
-        {
-          question: "Are tours suitable for families with children?",
-          answer: "Yes! Many of our tours are family-friendly. We can adapt activities and timing to suit families with children. Our guides are experienced with family groups and ensure safe, enjoyable experiences for all ages."
-        }
-      ],
-      seoTitle: "Tours - Krabi & Southern Thailand Adventures",
-      seoDescription: "Book amazing tours in Krabi and southern Thailand. Private day trips, island hopping, cultural experiences with expert local guides. Best prices guaranteed.",
-      seoKeywords: "krabi tours, thailand tours, phi phi tours, phang nga bay tours, private day trips, island hopping, ao nang tours, railay tours"
-    },
-    blog: {
-      title: "Travel Blog",
-      subtitle: "Discover the best of Krabi through our travel guides, tips, and local insights.",
-      searchPlaceholder: "Search articles...",
-      tags: "Tags",
-      allTags: "All Tags",
-      categories: "Categories",
-      allCategories: "All Categories",
-      noArticlesTitle: "No Articles Found",
-      noArticlesDescription: "Try adjusting your search criteria or browse all articles.",
-      clearFilters: "Clear Filters",
-      readMore: "Read More"
-    },
-    errors: {
-      notFoundTitle: "404 Page Not Found",
-      notFoundDescription: "Did you forget to add the page to the router?",
-      serverErrorTitle: "500 Server Error",
-      serverErrorDescription: "Something went wrong on our end. Please try again later.",
-      networkErrorTitle: "Network Error",
-      networkErrorDescription: "Please check your internet connection and try again."
-    },
-    cookies: {
-      title: "We Respect Your Privacy",
-      description: "This website uses cookies to enhance your browsing experience. By continuing to navigate, you accept our use of cookies.",
-      customize: "Customize",
-      rejectAll: "Reject All",
-      acceptAll: "Accept All",
-      close: "Close"
-    },
-    ui: {
-      loading: "Loading...",
-      error: "Error",
-      success: "Success",
-      warning: "Warning",
-      close: "Close",
-      cancel: "Cancel",
-      save: "Save",
-      edit: "Edit",
-      delete: "Delete",
-      confirm: "Confirm",
-      back: "Back",
-      next: "Next",
-      previous: "Previous",
-      submit: "Submit",
-      reset: "Reset",
-      clear: "Clear",
-      search: "Search",
-      filter: "Filter",
-      sortBy: "Sort by",
-      showMore: "Show More",
-      showLess: "Show Less",
-      home: "Home",
-      filterExperiences: "Filter Experiences",
-      searchPlaceholder: "Search experiences...",
-      searchHint: "Search by name or description",
-      noExperiences: "No experiences found"
-    },
-    admin: {
-      dashboard: "Dashboard",
-      adminDashboard: "Admin Dashboard", 
-      tourManagement: "Tour Management",
-      reservationManagement: "Reservation Management",
-      contact: "Contact",
-      tours: "Tours",
-      price: "Price",
-      featured: "Featured",
-      management: "Management",
-      settings: "Settings",
-      users: "Users",
-      analytics: "Analytics",
-      overview: "Overview",
-      edit: "Edit",
-      delete: "Delete",
-      view: "View",
-      status: "Status",
-      actions: "Actions",
-      yes: "Yes",
-      no: "No",
-      logout: "Logout",
-      backToWebsite: "Back to website",
-      customRequests: "Custom Requests",
-      messages: "Messages",
-      reservations: "Reservations",
-      title: "Title",
-      duration: "Duration",
-      manageWebsiteBlurb: "Manage your website and view customer requests.",
-      totalToursCount: "Total number of tours",
-      totalRequestsCount: "Total number of requests",
-      totalMessagesCount: "Total number of messages",
-      addTour: "Add Tour"
-    },
-    toast: {
-      successTitle: "Success",
-      errorTitle: "Error",
-      warningTitle: "Warning",
-      infoTitle: "Info",
-      linkCopied: "Link Copied",
-      linkCopiedDescription: "The link has been copied to your clipboard",
-      copyError: "Copy Error",
-      copyErrorDescription: "Unable to copy the link",
-      formSubmitted: "Form Submitted",
-      formSubmittedDescription: "Your request has been sent successfully",
-      formError: "Form Error",
-      formErrorDescription: "Please check your information and try again"
     }
   },
   fr: {
@@ -939,6 +534,14 @@ const translations: Record<string, Translations> = {
       learnMore: "En savoir plus",
       viewDetails: "Voir les détails",
       bookNow: "Réserver"
+    },
+    tours: {
+      title: "Tours & Expériences",
+      description: "Naviguez parmi nos plus belles expériences à Krabi, toutes garanties hors du tourisme de masse : croisières en mer privées et semi-privées, excursions terrestres uniques (kayak dans la mangrove, cascades, jungle tropicale, arbres centenaires, temples, grottes karstiques, piscines naturelles) et formules exclusives de 2 jours / 1 nuit.",
+      duration: "Durée",
+      participants: "Participants max",
+      price: "À partir de",
+      featured: "Nos expériences exclusives"
     },
     home: {
       introTitle: "Quand des expats vous reçoivent dans leurs pays d'accueil",
@@ -1152,223 +755,6 @@ const translations: Record<string, Translations> = {
       defaultTitle: "Amon Tour - Expériences Authentiques de Voyage en Thaïlande",
       defaultDescription: "Planifiez vos vacances parfaites en Thaïlande avec Amon Tour - tours privés avec guides experts, expériences culturelles et itinéraires sur mesure. Explorez Bangkok, Phuket, Krabi et joyaux cachés. Agence familiale depuis 2017.",
       defaultKeywords: "tours thaïlande, voyage bangkok, tours phuket, tours krabi, tours privés thaïlande, itinéraire sur mesure thaïlande, planificateur vacances thaïlande, expériences authentiques thaï, tours culturels thaïlande, agence voyage familiale, planification voyage thaïlande, meilleurs tours thaïlande, guide voyage thaïlande"
-    },
-    contact: {
-      title: "Contactez-Nous",
-      subtitle: "Nous sommes là pour vous aider à planifier l'expérience parfaite à Krabi.",
-      getTouchTitle: "Entrons en Contact",
-      getTouchDescription: "Prêt à explorer Krabi ? Contactez-nous par l'une des méthodes ci-dessous. Notre équipe amicale est là pour répondre à vos questions et vous aider à planifier une expérience inoubliable.",
-      email: "Email",
-      phone: "Téléphone",
-      whatsapp: "WhatsApp",
-      lineId: "Line ID",
-      aboutCompanyTitle: "À Propos de Notre Entreprise",
-      aboutCompanyDescription: "Amon Tour est une marque de :",
-      licenseInfo: "Licence TAT : 34/01995",
-      companyDescription: "Nous sommes un opérateur de tourisme agréé basé à Ao Nang, Krabi, spécialisé dans les expériences locales authentiques et les services de voyage personnalisés.",
-      readyAdventureTitle: "Prêt à Commencer Votre Aventure ?",
-      readyAdventureDescription: "Que vous recherchiez un tour privé, un itinéraire personnalisé ou que vous ayez des questions sur Krabi, nos experts locaux sont prêts à vous aider à créer des souvenirs inoubliables.",
-      chatWhatsApp: "Discuter sur WhatsApp",
-      sendEmail: "Nous envoyer un Email",
-      altText: "Contactez Amon Tour à Krabi"
-    },
-    experiences: {
-      title: "Nos Expériences",
-      subtitle: "Découvrez la beauté exceptionnelle de Krabi et du sud de la Thaïlande.",
-      recommendedToursTitle: "Tours Guidés Recommandés",
-      recommendedToursDescription: "Découvrez nos tours organisés avec des guides anglophones pour une expérience authentique de la Thaïlande",
-      cultureHistory: "Culture et Histoire",
-      northAdventure: "Nord et Aventure",
-      beachesIslands: "Plages et Îles",
-      bangkokEssential: "Bangkok Essentiel",
-      bangkokDescription: "Tour culturel de 3 jours : Grand Palais, temples sacrés, marchés flottants et gastronomie avec guide expert anglophone.",
-      goldenTriangle: "Triangle d'Or",
-      goldenTriangleDescription: "Voyage de 5 jours : Chiang Mai, tribus montagnardes, Temple Blanc, Triangle d'Or et croisière sur le Mékong.",
-      southernIslands: "Îles du Sud",
-      southernIslandsDescription: "Tour de 7 jours : Phuket, îles Phi Phi, baie de Phang Nga, Krabi et plage de Railay. Plages paradisiaques et activités nautiques.",
-      viewDetails: "Voir les Détails",
-      bookNow: "Réserver Maintenant",
-      customTourTitle: "Besoin d'un Tour Personnalisé ?",
-      customTourDescription: "Nos experts locaux créent des itinéraires sur mesure selon vos désirs et votre budget. Contactez-nous pour organiser votre voyage de rêve en Thaïlande.",
-      requestQuote: "Demander un Devis Gratuit",
-      filterExperiences: "Filtrer les Expériences",
-      search: "Rechercher",
-      searchPlaceholder: "Rechercher par titre ou description...",
-      searchHint: "Utilisez la recherche ci-dessus pour trouver des expériences spécifiques",
-      noExperiences: "Aucune expérience disponible correspondant à votre recherche. Essayez des mots-clés différents ou créez des expériences dans le panneau d'administration !",
-      days: "jours",
-      from: "À partir de",
-      southernDescription: "Les îles du sud de la Thaïlande offrent des plages paradisiaques et une culture authentique.",
-      freeQuote: "Devis Gratuit",
-      altText: "Expériences thaïlandaises et voyages culturels"
-    },
-    tours: {
-      title: "Nos Tours",
-      subtitle: "Découvrez des tours et aventures incroyables à Krabi et dans le sud de la Thaïlande.",
-      showFilters: "Afficher les Filtres",
-      hideFilters: "Masquer les Filtres",
-      clearFilters: "Effacer les Filtres", 
-      priceOnRequest: "Prix sur demande",
-      priceRanges: {
-        range1: "0 - 2 000 THB",
-        range2: "2 000 - 4 000 THB",
-        range3: "4 000 - 6 000 THB",
-        range4: "6 000+ THB",
-        free: "Prix sur demande"
-      },
-      filters: {
-        all: "Tous",
-        priceRange: "Gamme de Prix",
-        duration: "Durée",
-        destination: "Destination",
-        search: "Rechercher des tours...",
-        noResults: "Aucun tour trouvé. Essayez d'ajuster vos filtres.",
-        allPrices: "Tous les Prix",
-        allDurations: "Toutes les Durées",
-        allDestinations: "Toutes les Destinations"
-      },
-      buttons: {
-        viewDetails: "Voir les Détails",
-        presentation: "Présentation",
-        bookNow: "Réserver Maintenant"
-      },
-      days: {
-        singular: "jour",
-        plural: "jours"
-      },
-      altText: "Tours et expériences en Thaïlande",
-      other: "Autre",
-      reservation: "Réservation",
-      faq: [
-        {
-          question: "Combien de temps durent les tours typiques avec Amon Tour ?",
-          answer: "Nos tours vont des expériences d'une demi-journée (4-5 heures) aux aventures d'une journée complète (8-10 heures) et aux voyages personnalisés de plusieurs jours. Les tours les plus populaires sont des expériences d'une journée complète qui incluent le transport, le guide et les repas."
-        },
-        {
-          question: "Qu'est-ce qui est inclus dans les prix des tours ?",
-          answer: "Les prix des tours incluent généralement un guide professionnel anglophone, le transport, les frais d'entrée, l'équipement de sécurité et les rafraîchissements. Les repas sont inclus dans les tours d'une journée complète. Les inclusions spécifiques sont détaillées dans chaque description de tour."
-        },
-        {
-          question: "Les tours peuvent-ils être personnalisés pour des intérêts spéciaux ?",
-          answer: "Absolument ! Nous nous spécialisons dans la personnalisation des tours selon vos intérêts - que ce soit la photographie, la culture, l'aventure, la détente ou les activités familiales. Contactez-nous pour discuter de vos préférences et nous créerons un itinéraire personnalisé."
-        },
-        {
-          question: "Que dois-je apporter lors d'un tour ?",
-          answer: "Apportez de la crème solaire, un chapeau, des vêtements confortables, un maillot de bain pour les activités aquatiques, une serviette et un appareil photo. Nous fournissons l'équipement de sécurité et les rafraîchissements. Des recommandations spécifiques sont fournies lors de la réservation selon votre tour choisi."
-        },
-        {
-          question: "Les tours conviennent-ils aux familles avec enfants ?",
-          answer: "Oui ! Beaucoup de nos tours sont adaptés aux familles. Nous pouvons adapter les activités et les horaires pour convenir aux familles avec enfants. Nos guides sont expérimentés avec les groupes familiaux et assurent des expériences sûres et agréables pour tous les âges."
-        }
-      ],
-      seoTitle: "Tours - Aventures à Krabi et Sud Thaïlande",
-      seoDescription: "Réservez des tours incroyables à Krabi et dans le sud de la Thaïlande. Excursions privées d'une journée, saut d'îles, expériences culturelles avec guides locaux experts. Meilleurs prix garantis.",
-      seoKeywords: "tours krabi, tours thaïlande, tours phi phi, tours baie phang nga, excursions privées journée, saut îles, tours ao nang, tours railay"
-    },
-    blog: {
-      title: "Blog de Voyage",
-      subtitle: "Découvrez le meilleur de Krabi à travers nos guides de voyage, conseils et aperçus locaux.",
-      searchPlaceholder: "Rechercher des articles...",
-      tags: "Étiquettes",
-      allTags: "Toutes les Étiquettes",
-      categories: "Catégories",
-      allCategories: "Toutes les Catégories",
-      noArticlesTitle: "Aucun Article Trouvé",
-      noArticlesDescription: "Essayez d'ajuster vos critères de recherche ou parcourez tous les articles.",
-      clearFilters: "Effacer les Filtres",
-      readMore: "Lire Plus"
-    },
-    errors: {
-      notFoundTitle: "404 Page Non Trouvée",
-      notFoundDescription: "Avez-vous oublié d'ajouter la page au routeur ?",
-      serverErrorTitle: "500 Erreur Serveur",
-      serverErrorDescription: "Quelque chose s'est mal passé de notre côté. Veuillez réessayer plus tard.",
-      networkErrorTitle: "Erreur Réseau",
-      networkErrorDescription: "Veuillez vérifier votre connexion internet et réessayer."
-    },
-    cookies: {
-      title: "Nous Respectons Votre Vie Privée",
-      description: "Ce site web utilise des cookies pour améliorer votre expérience de navigation. En continuant à naviguer, vous acceptez notre utilisation des cookies.",
-      customize: "Personnaliser",
-      rejectAll: "Tout Refuser",
-      acceptAll: "Tout Accepter",
-      close: "Fermer"
-    },
-    ui: {
-      loading: "Chargement...",
-      error: "Erreur",
-      success: "Succès",
-      warning: "Avertissement",
-      close: "Fermer",
-      cancel: "Annuler",
-      save: "Enregistrer",
-      edit: "Modifier",
-      delete: "Supprimer",
-      confirm: "Confirmer",
-      back: "Retour",
-      next: "Suivant",
-      previous: "Précédent",
-      submit: "Soumettre",
-      reset: "Réinitialiser",
-      clear: "Effacer",
-      search: "Rechercher",
-      filter: "Filtrer",
-      sortBy: "Trier par",
-      showMore: "Afficher Plus",
-      showLess: "Afficher Moins",
-      home: "Accueil",
-      filterExperiences: "Filtrer les Expériences",
-      searchPlaceholder: "Rechercher des expériences...",
-      searchHint: "Rechercher par nom ou description",
-      noExperiences: "Aucune expérience trouvée"
-    },
-    admin: {
-      dashboard: "Tableau de Bord",
-      adminDashboard: "Tableau de Bord Admin", 
-      tourManagement: "Gestion des Tours",
-      reservationManagement: "Gestion des Réservations",
-      contact: "Contact",
-      tours: "Tours",
-      price: "Prix",
-      featured: "En Vedette",
-      management: "Gestion",
-      settings: "Paramètres",
-      users: "Utilisateurs",
-      analytics: "Analyses",
-      overview: "Aperçu",
-      edit: "Modifier",
-      delete: "Supprimer",
-      view: "Voir",
-      status: "Statut",
-      actions: "Actions",
-      yes: "Oui",
-      no: "Non",
-      logout: "Déconnexion",
-      backToWebsite: "Retour au site",
-      customRequests: "Demandes Personnalisées",
-      messages: "Messages",
-      reservations: "Réservations",
-      title: "Titre",
-      duration: "Durée",
-      manageWebsiteBlurb: "Gérez votre site web et consultez les demandes clients.",
-      totalToursCount: "Nombre total de tours",
-      totalRequestsCount: "Nombre total de demandes",
-      totalMessagesCount: "Nombre total de messages",
-      addTour: "Ajouter un Tour"
-    },
-    toast: {
-      successTitle: "Succès",
-      errorTitle: "Erreur",
-      warningTitle: "Avertissement",
-      infoTitle: "Info",
-      linkCopied: "Lien Copié",
-      linkCopiedDescription: "Le lien a été copié dans votre presse-papiers",
-      copyError: "Erreur de Copie",
-      copyErrorDescription: "Impossible de copier le lien",
-      formSubmitted: "Formulaire Soumis",
-      formSubmittedDescription: "Votre demande a été envoyée avec succès",
-      formError: "Erreur de Formulaire",
-      formErrorDescription: "Veuillez vérifier vos informations et réessayer"
     }
   },
   es: {
@@ -1394,6 +780,14 @@ const translations: Record<string, Translations> = {
       learnMore: "Saber más",
       viewDetails: "Ver detalles",
       bookNow: "Reservar"
+    },
+    tours: {
+      title: "Tours y Experiencias",
+      description: "Explora nuestras mejores experiencias en Krabi, todas garantizadas fuera del camino trillado: excursiones privadas y semiprivadas por el mar, excursiones terrestres únicas (kayak por manglares, cascadas, selva tropical, árboles centenarios, templos, cuevas kársticas, piscinas naturales), y paquetes exclusivos de 2 días / 1 noche.",
+      duration: "Duración",
+      participants: "Participantes máx",
+      price: "Desde",
+      featured: "Nuestras experiencias exclusivas"
     },
     home: {
       introTitle: "Cuando expatriados te reciben en su país de acogida",
@@ -1607,223 +1001,6 @@ const translations: Record<string, Translations> = {
       defaultTitle: "Amon Tour - Experiencias Auténticas de Viaje en Tailandia",
       defaultDescription: "Planifica tus vacaciones perfectas en Tailandia con Amon Tour - tours privados con guías expertos, experiencias culturales e itinerarios personalizados. Explora Bangkok, Phuket, Krabi y gemas ocultas. Agencia familiar desde 2017.",
       defaultKeywords: "tours tailandia, viaje bangkok, tours phuket, tours krabi, tours privados tailandia, itinerario personalizado tailandia, planificador vacaciones tailandia, experiencias auténticas tailandesas, tours culturales tailandia, agencia viajes familiar, planificación viaje tailandia, mejores tours tailandia, guía viaje tailandia"
-    },
-    contact: {
-      title: "Contáctanos",
-      subtitle: "Estamos aquí para ayudarte a planificar la experiencia perfecta en Krabi.",
-      getTouchTitle: "Ponte en Contacto",
-      getTouchDescription: "¿Listo para explorar Krabi? Contáctanos a través de cualquiera de los métodos a continuación. Nuestro equipo amigable está aquí para responder tus preguntas y ayudarte a planificar una experiencia inolvidable.",
-      email: "Email",
-      phone: "Teléfono",
-      whatsapp: "WhatsApp",
-      lineId: "Line ID",
-      aboutCompanyTitle: "Acerca de Nuestra Empresa",
-      aboutCompanyDescription: "Amon Tour es una marca de:",
-      licenseInfo: "Licencia TAT: 34/01995",
-      companyDescription: "Somos un operador turístico licenciado con sede en Ao Nang, Krabi, especializado en experiencias locales auténticas y servicios de viaje personalizados.",
-      readyAdventureTitle: "¿Listo para Comenzar tu Aventura?",
-      readyAdventureDescription: "Ya sea que busques un tour privado, un itinerario personalizado o tengas preguntas sobre Krabi, nuestros expertos locales están listos para ayudarte a crear recuerdos inolvidables.",
-      chatWhatsApp: "Chatear en WhatsApp",
-      sendEmail: "Enviarnos un Email",
-      altText: "Contacta con Amon Tour en Krabi"
-    },
-    experiences: {
-      title: "Nuestras Experiencias",
-      subtitle: "Descubre la belleza excepcional de Krabi y el sur de Tailandia.",
-      recommendedToursTitle: "Tours Guiados Recomendados",
-      recommendedToursDescription: "Descubre nuestros tours organizados con guías de habla inglesa para una experiencia auténtica de Tailandia",
-      cultureHistory: "Cultura e Historia",
-      northAdventure: "Norte y Aventura",
-      beachesIslands: "Playas e Islas",
-      bangkokEssential: "Bangkok Esencial",
-      bangkokDescription: "Tour cultural de 3 días: Gran Palacio, templos sagrados, mercados flotantes y gastronomía con guía experto de habla inglesa.",
-      goldenTriangle: "Triángulo Dorado",
-      goldenTriangleDescription: "Viaje de 5 días: Chiang Mai, tribus montañesas, Templo Blanco, Triángulo Dorado y crucero por el Mekong.",
-      southernIslands: "Islas del Sur",
-      southernIslandsDescription: "Tour de 7 días: Phuket, islas Phi Phi, bahía de Phang Nga, Krabi y playa de Railay. Playas paradisíacas y actividades acuáticas.",
-      viewDetails: "Ver Detalles",
-      bookNow: "Reservar Ahora",
-      customTourTitle: "¿Necesitas un Tour Personalizado?",
-      customTourDescription: "Nuestros expertos locales crean itinerarios a medida según tus deseos y presupuesto. Contáctanos para organizar tu viaje soñado a Tailandia.",
-      requestQuote: "Solicitar Cotización Gratuita",
-      filterExperiences: "Filtrar Experiencias",
-      search: "Buscar",
-      searchPlaceholder: "Buscar por título o descripción...",
-      searchHint: "Usa la búsqueda anterior para encontrar experiencias específicas",
-      noExperiences: "No hay experiencias disponibles que coincidan con tu búsqueda. ¡Prueba palabras clave diferentes o crea algunas experiencias en el panel de administración!",
-      days: "días",
-      from: "Desde",
-      southernDescription: "Las islas del sur de Tailandia ofrecen playas paradisíacas y cultura auténtica.",
-      freeQuote: "Cotización Gratuita",
-      altText: "Experiencias tailandesas y viajes culturales"
-    },
-    tours: {
-      title: "Nuestros Tours",
-      subtitle: "Descubre tours y aventuras increíbles en Krabi y el sur de Tailandia.",
-      showFilters: "Mostrar Filtros",
-      hideFilters: "Ocultar Filtros",
-      clearFilters: "Limpiar Filtros",
-      priceOnRequest: "Precio a consultar",
-      priceRanges: {
-        range1: "0 - 2,000 THB",
-        range2: "2,000 - 4,000 THB", 
-        range3: "4,000 - 6,000 THB",
-        range4: "6,000+ THB",
-        free: "Precio a consultar"
-      },
-      filters: {
-        all: "Todos",
-        priceRange: "Rango de Precio",
-        duration: "Duración",
-        destination: "Destino",
-        search: "Buscar tours...",
-        noResults: "No se encontraron tours. Intenta ajustar tus filtros.",
-        allPrices: "Todos los Precios",
-        allDurations: "Todas las Duraciones",
-        allDestinations: "Todos los Destinos"
-      },
-      buttons: {
-        viewDetails: "Ver Detalles",
-        presentation: "Presentación",
-        bookNow: "Reservar Ahora"
-      },
-      days: {
-        singular: "día",
-        plural: "días"
-      },
-      altText: "Tours y experiencias en Tailandia",
-      other: "Otro",
-      reservation: "Reserva",
-      faq: [
-        {
-          question: "¿Cuánto duran los tours típicos con Amon Tour?",
-          answer: "Nuestros tours van desde experiencias de medio día (4-5 horas) hasta aventuras de día completo (8-10 horas) y viajes personalizados de varios días. Los tours más populares son experiencias de día completo que incluyen transporte, guía y comidas."
-        },
-        {
-          question: "¿Qué está incluido en los precios de los tours?",
-          answer: "Los precios de los tours generalmente incluyen guía profesional de habla inglesa, transporte, tarifas de entrada, equipo de seguridad y refrigerios. Las comidas están incluidas en los tours de día completo. Las inclusiones específicas se detallan en cada descripción del tour."
-        },
-        {
-          question: "¿Se pueden personalizar los tours para intereses especiales?",
-          answer: "¡Absolutamente! Nos especializamos en personalizar tours según tus intereses - ya sea fotografía, cultura, aventura, relajación o actividades familiares. Contáctanos para discutir tus preferencias y crearemos un itinerario personalizado."
-        },
-        {
-          question: "¿Qué debo traer en un tour?",
-          answer: "Trae protector solar, sombrero, ropa cómoda, traje de baño para actividades acuáticas, toalla y cámara. Proporcionamos equipo de seguridad y refrigerios. Se brindan recomendaciones específicas al reservar según tu tour elegido."
-        },
-        {
-          question: "¿Son los tours adecuados para familias con niños?",
-          answer: "¡Sí! Muchos de nuestros tours son aptos para familias. Podemos adaptar actividades y horarios para familias con niños. Nuestros guías tienen experiencia con grupos familiares y aseguran experiencias seguras y agradables para todas las edades."
-        }
-      ],
-      seoTitle: "Tours - Aventuras en Krabi y Sur de Tailandia",
-      seoDescription: "Reserva tours increíbles en Krabi y el sur de Tailandia. Excursiones privadas de día, salto de islas, experiencias culturales con guías locales expertos. Mejores precios garantizados.",
-      seoKeywords: "tours krabi, tours tailandia, tours phi phi, tours bahía phang nga, excursiones privadas día, salto islas, tours ao nang, tours railay"
-    },
-    blog: {
-      title: "Blog de Viajes",
-      subtitle: "Descubre lo mejor de Krabi a través de nuestras guías de viaje, consejos y perspectivas locales.",
-      searchPlaceholder: "Buscar artículos...",
-      tags: "Etiquetas",
-      allTags: "Todas las Etiquetas",
-      categories: "Categorías",
-      allCategories: "Todas las Categorías",
-      noArticlesTitle: "No se Encontraron Artículos",
-      noArticlesDescription: "Intenta ajustar tus criterios de búsqueda o explora todos los artículos.",
-      clearFilters: "Limpiar Filtros",
-      readMore: "Leer Más"
-    },
-    errors: {
-      notFoundTitle: "404 Página No Encontrada",
-      notFoundDescription: "¿Olvidaste agregar la página al enrutador?",
-      serverErrorTitle: "500 Error del Servidor",
-      serverErrorDescription: "Algo salió mal de nuestro lado. Por favor intenta de nuevo más tarde.",
-      networkErrorTitle: "Error de Red",
-      networkErrorDescription: "Por favor verifica tu conexión a internet e intenta de nuevo."
-    },
-    cookies: {
-      title: "Respetamos tu Privacidad",
-      description: "Este sitio web utiliza cookies para mejorar tu experiencia de navegación. Al continuar navegando, aceptas nuestro uso de cookies.",
-      customize: "Personalizar",
-      rejectAll: "Rechazar Todo",
-      acceptAll: "Aceptar Todo",
-      close: "Cerrar"
-    },
-    ui: {
-      loading: "Cargando...",
-      error: "Error",
-      success: "Éxito",
-      warning: "Advertencia",
-      close: "Cerrar",
-      cancel: "Cancelar",
-      save: "Guardar",
-      edit: "Editar",
-      delete: "Eliminar",
-      confirm: "Confirmar",
-      back: "Atrás",
-      next: "Siguiente",
-      previous: "Anterior",
-      submit: "Enviar",
-      reset: "Restablecer",
-      clear: "Limpiar",
-      search: "Buscar",
-      filter: "Filtrar",
-      sortBy: "Ordenar por",
-      showMore: "Mostrar Más",
-      showLess: "Mostrar Menos",
-      home: "Inicio",
-      filterExperiences: "Filtrar Experiencias",
-      searchPlaceholder: "Buscar experiencias...",
-      searchHint: "Buscar por nombre o descripción",
-      noExperiences: "No se encontraron experiencias"
-    },
-    admin: {
-      dashboard: "Panel de Control",
-      adminDashboard: "Panel de Administración", 
-      tourManagement: "Gestión de Tours",
-      reservationManagement: "Gestión de Reservas",
-      contact: "Contacto",
-      tours: "Tours",
-      price: "Precio",
-      featured: "Destacado",
-      management: "Gestión",
-      settings: "Configuración",
-      users: "Usuarios",
-      analytics: "Analíticas",
-      overview: "Resumen",
-      edit: "Editar",
-      delete: "Eliminar",
-      view: "Ver",
-      status: "Estado",
-      actions: "Acciones",
-      yes: "Sí",
-      no: "No",
-      logout: "Cerrar Sesión",
-      backToWebsite: "Volver al sitio",
-      customRequests: "Solicitudes Personalizadas",
-      messages: "Mensajes",
-      reservations: "Reservas",
-      title: "Título",
-      duration: "Duración",
-      manageWebsiteBlurb: "Gestiona tu sitio web y consulta las solicitudes de clientes.",
-      totalToursCount: "Número total de tours",
-      totalRequestsCount: "Número total de solicitudes",
-      totalMessagesCount: "Número total de mensajes",
-      addTour: "Agregar Tour"
-    },
-    toast: {
-      successTitle: "Éxito",
-      errorTitle: "Error",
-      warningTitle: "Advertencia",
-      infoTitle: "Info",
-      linkCopied: "Enlace Copiado",
-      linkCopiedDescription: "El enlace ha sido copiado a tu portapapeles",
-      copyError: "Error de Copia",
-      copyErrorDescription: "No se pudo copiar el enlace",
-      formSubmitted: "Formulario Enviado",
-      formSubmittedDescription: "Tu solicitud ha sido enviada exitosamente",
-      formError: "Error de Formulario",
-      formErrorDescription: "Por favor verifica tu información e intenta de nuevo"
     }
   }
 };
@@ -1881,10 +1058,6 @@ export class TranslationService {
     return this.getTranslations().footer;
   }
 
-  getAdmin() {
-    return this.getTranslations().admin;
-  }
-
   getCruise() {
     return this.getTranslations().cruise;
   }
@@ -1895,34 +1068,6 @@ export class TranslationService {
 
   getSeo() {
     return this.getTranslations().seo;
-  }
-
-  getContact() {
-    return this.getTranslations().contact;
-  }
-
-  getExperiences() {
-    return this.getTranslations().experiences;
-  }
-
-  getBlog() {
-    return this.getTranslations().blog;
-  }
-
-  getErrors() {
-    return this.getTranslations().errors;
-  }
-
-  getCookies() {
-    return this.getTranslations().cookies;
-  }
-
-  getUi() {
-    return this.getTranslations().ui;
-  }
-
-  getToast() {
-    return this.getTranslations().toast;
   }
 
   // Method to translate a specific key path

@@ -14,15 +14,10 @@ import { MapPin, Clock, ExternalLink, Search, Filter, X, AlertCircle } from "luc
 import { formatTHB } from "@/lib/utils";
 import { useTourNinjaWithCustomImages, type TourNinjaTour } from "@/hooks/useTourNinja";
 import { useIframe } from "@/contexts/IframeContext";
-import { translationService } from "@/services/translationService";
 
 export default function Tours() {
   const { tours, isLoading, error, success, cached, fallback } = useTourNinjaWithCustomImages();
   const { openIframe } = useIframe();
-  
-  // Translations
-  const toursData = translationService.getTours();
-  const ui = translationService.getUi();
   
   // Filtres
   const [searchTerm, setSearchTerm] = useState("");
@@ -34,19 +29,19 @@ export default function Tours() {
 
   const handleTourDetails = (tour: TourNinjaTour) => {
     if (tour.detailsUrl) {
-      openIframe(tour.detailsUrl, `${toursData.buttons.viewDetails} - ${tour.name}`);
+      openIframe(tour.detailsUrl, `Details - ${tour.name}`);
     }
   };
 
   const handleTourPresentation = (tour: TourNinjaTour) => {
     if (tour.presentationUrl) {
-      openIframe(tour.presentationUrl, `${toursData.buttons.presentation} - ${tour.name}`);
+      openIframe(tour.presentationUrl, `Presentation - ${tour.name}`);
     }
   };
 
   const handleTourBooking = (tour: TourNinjaTour) => {
     if (tour.bookingUrl) {
-      openIframe(tour.bookingUrl, `${toursData.reservation} - ${tour.name}`);
+      openIframe(tour.bookingUrl, `Reservation - ${tour.name}`);
     }
   };
 
@@ -55,7 +50,7 @@ export default function Tours() {
     if (tour.price > 0) {
       return formatTHB(tour.price);
     }
-    return toursData.priceOnRequest;
+    return "Price on request";
   };
 
   // Extraire les options de filtre dynamiquement des données de l'API
@@ -81,11 +76,11 @@ export default function Tours() {
     const destinations = Array.from(new Set(destinationKeywords)) as string[];
     const durations = Array.from(new Set(tours.map(tour => tour.duration).filter(Boolean)));
     const priceRanges = [
-      { value: "0-2000", label: toursData.priceRanges.range1 },
-      { value: "2000-4000", label: toursData.priceRanges.range2 },
-      { value: "4000-6000", label: toursData.priceRanges.range3 },
-      { value: "6000+", label: toursData.priceRanges.range4 },
-      { value: "free", label: toursData.priceRanges.free }
+      { value: "0-2000", label: "0 - 2,000 THB" },
+      { value: "2000-4000", label: "2,000 - 4,000 THB" },
+      { value: "4000-6000", label: "4,000 - 6,000 THB" },
+      { value: "6000+", label: "6,000+ THB" },
+      { value: "free", label: "Price on request" }
     ];
     
     return { destinations, durations, priceRanges };
@@ -132,7 +127,7 @@ export default function Tours() {
         if (name.includes('laem sak')) return 'Laem Sak';
         if (name.includes('koh kradan')) return 'Koh Kradan';
         if (name.includes('koh ngaï')) return 'Koh Ngaï';
-        return toursData.other;
+        return 'Autre';
       };
 
       const matchesDestination = destinationFilter === "all" || 
@@ -155,31 +150,52 @@ export default function Tours() {
   return (
     <>
       <SEO 
-        title={toursData.seoTitle}
-        description={toursData.seoDescription}
-        keywords={toursData.seoKeywords}
+        title="Thailand Tours & Experiences | Authentic Island Tours Krabi | Amon Tour"
+        description="Explore authentic Thailand tours in Krabi and southern Thailand. Private island tours, cultural experiences, temple visits, and local adventures. Book your authentic Thai experience today."
+        keywords="krabi tours, thailand island tours, phuket experiences, phang nga bay tours, private boat tours thailand, authentic thai experiences, koh phi phi tours, cultural tours thailand"
         canonicalUrl="https://amon-tour.com/tours"
         breadcrumbs={[
-          { name: ui.home, url: "/" },
-          { name: toursData.title, url: "/tours" }
+          { name: "Home", url: "/" },
+          { name: "Tours & Experiences", url: "/tours" }
         ]}
-        faqSchema={toursData.faq}
+        faqSchema={[
+          {
+            question: "How long are typical tours with Amon Tour?",
+            answer: "Our tours range from half-day experiences (4-5 hours) to full-day adventures (8-10 hours) and multi-day custom journeys. Most popular tours are full-day experiences that include transportation, guide, and meals."
+          },
+          {
+            question: "What's included in Amon Tour packages?",
+            answer: "Most tours include private transportation, English/French-speaking guide, entrance fees, meals (as specified), safety equipment for water activities, and insurance. Specific inclusions vary by tour and are clearly listed in each package."
+          },
+          {
+            question: "Can tours be customized for special interests?",
+            answer: "Absolutely! We specialize in customizing tours based on your interests - whether it's photography, culture, adventure, relaxation, or family-friendly activities. Contact us to discuss your preferences and we'll create a personalized itinerary."
+          },
+          {
+            question: "What should I bring on a tour?",
+            answer: "Bring sunscreen, hat, comfortable clothing, swimwear for water activities, towel, and camera. We provide safety equipment and refreshments. Specific recommendations are provided when you book based on your chosen tour."
+          },
+          {
+            question: "Are tours suitable for families with children?",
+            answer: "Yes! Many of our tours are family-friendly. We can adapt activities and timing to suit families with children. Our guides are experienced with family groups and ensure safe, enjoyable experiences for all ages."
+          }
+        ]}
       />
       <Header />
       
       <main className="min-h-screen bg-gradient-to-br from-primary/10 to-primary/20">
         {/* Hero */}
         <HeroHeader 
-          title={toursData.title}
-          subtitle={toursData.subtitle}
-          alt={toursData.altText}
+          title="Our Experiences"
+          subtitle="Discover the exceptional beauty of Krabi and southern Thailand."
+          alt="Tours and experiences in Thailand"
         />
 
         {/* Filtres */}
         <section className="container mx-auto px-4 py-8">
           <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
             <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold text-gray-800">{ui.filter}</h2>
+              <h2 className="text-xl font-semibold text-gray-800">Filters</h2>
               <Button
                 variant="ghost"
                 size="sm"
@@ -187,7 +203,7 @@ export default function Tours() {
                 className="md:hidden"
               >
                 <Filter className="h-4 w-4 mr-2" />
-                {showFilters ? toursData.hideFilters : toursData.showFilters}
+                {showFilters ? 'Hide' : 'Show'} filters
               </Button>
             </div>
 
@@ -196,7 +212,7 @@ export default function Tours() {
               <div className="relative md:col-span-2 lg:col-span-2">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                 <Input
-                  placeholder={toursData.filters.search}
+                  placeholder="Search for a tour..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-10"
@@ -206,10 +222,10 @@ export default function Tours() {
               {/* Prix */}
               <Select value={priceRange} onValueChange={setPriceRange}>
                 <SelectTrigger>
-                  <SelectValue placeholder={toursData.filters.allPrices} />
+                  <SelectValue placeholder="All prices" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">{toursData.filters.allPrices}</SelectItem>
+                  <SelectItem value="all">All prices</SelectItem>
                   {filterOptions.priceRanges.map(range => (
                     <SelectItem key={range.value} value={range.value}>
                       {range.label}
@@ -221,13 +237,13 @@ export default function Tours() {
               {/* Durée */}
               <Select value={durationFilter} onValueChange={setDurationFilter}>
                 <SelectTrigger>
-                  <SelectValue placeholder={toursData.filters.allDurations} />
+                  <SelectValue placeholder="All durations" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">{toursData.filters.allDurations}</SelectItem>
+                  <SelectItem value="all">All durations</SelectItem>
                   {filterOptions.durations.map(duration => (
                     <SelectItem key={duration} value={duration.toString()}>
-                      {duration} {Number(duration) > 1 ? toursData.days.plural : toursData.days.singular}
+                      {duration} day{Number(duration) > 1 ? 's' : ''}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -236,10 +252,10 @@ export default function Tours() {
               {/* Destination */}
               <Select value={destinationFilter} onValueChange={setDestinationFilter}>
                 <SelectTrigger>
-                  <SelectValue placeholder={toursData.filters.allDestinations} />
+                  <SelectValue placeholder="All destinations" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">{toursData.filters.allDestinations}</SelectItem>
+                  <SelectItem value="all">All destinations</SelectItem>
                   {filterOptions.destinations.map(destination => (
                     <SelectItem key={destination} value={destination}>
                       {destination}
@@ -252,7 +268,7 @@ export default function Tours() {
               {hasActiveFilters && (
                 <Button variant="outline" onClick={clearFilters} className="w-full md:col-span-4 lg:col-span-5">
                   <X className="h-4 w-4 mr-2" />
-                  {toursData.clearFilters}
+                  Clear filters
                 </Button>
               )}
             </div>
@@ -304,7 +320,7 @@ export default function Tours() {
                       <div className="absolute top-4 right-4">
                         <Badge variant="secondary" className="bg-white/90 text-gray-800">
                           <Clock className="h-3 w-3 mr-1" />
-                          {tour.duration} {Number(tour.duration) > 1 ? toursData.days.plural : toursData.days.singular}
+                          {tour.duration} day{Number(tour.duration) > 1 ? 's' : ''}
                         </Badge>
                       </div>
                     </div>
@@ -334,14 +350,14 @@ export default function Tours() {
                           variant="outline"
                           className="flex-1 border-primary text-primary hover:bg-primary/10"
                         >
-                          {toursData.buttons.viewDetails}
+                          View details
                           <ExternalLink className="h-4 w-4 ml-2" />
                         </Button>
                         <Button 
                           onClick={() => handleTourBooking(tour)}
                           className="flex-1 bg-primary hover:bg-primary/90 text-white"
                         >
-                          {toursData.buttons.bookNow}
+                          Book
                           <ExternalLink className="h-4 w-4 ml-2" />
                         </Button>
                       </div>

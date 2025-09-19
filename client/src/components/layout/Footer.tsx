@@ -4,7 +4,6 @@ import { FadeInWhenVisible, SlideUpWhenVisible, StaggerChildren, StaggerItem } f
 import NewsletterSubscription from "@/components/newsletter/NewsletterSubscription";
 import logoA from "@/assets/logo-a.png";
 import { useQuery } from '@tanstack/react-query';
-import { translationService } from "@/services/translationService";
 import { 
   Facebook, 
   Instagram, 
@@ -136,9 +135,6 @@ function renderContactInfo(item: any) {
 }
 
 export default function Footer() {
-  // Get translations
-  const footer = translationService.getFooter();
-
   // Fetch dynamic footer content
   const { data: siteSettings } = useQuery({
     queryKey: ['/api/public/footer-settings'],
@@ -180,7 +176,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
           {/* Contact Column */}
           <div>
-            <h4 className="font-heading font-bold text-lg mb-3 text-center">{footer.contact}</h4>
+            <h4 className="font-heading font-bold text-lg mb-3 text-center">Contact</h4>
             <div className="space-y-2 text-center">
               {/* Dynamic Contact Information */}
               {contactInfo.map((item: any, index: number) => (
@@ -213,7 +209,7 @@ export default function Footer() {
           
           {/* Useful Links Column */}
           <div>
-            <h4 className="font-heading font-bold text-lg mb-3 text-center">{footer.usefulLinks}</h4>
+            <h4 className="font-heading font-bold text-lg mb-3 text-center">Useful Links</h4>
             <div className="flex flex-col items-center space-y-2">
               {usefulLinks.map((link: any, index: number) => (
                 <motion.a 

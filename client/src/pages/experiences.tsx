@@ -16,14 +16,10 @@ import {
   StaggerChildren,
   StaggerItem 
 } from "@/components/ui/animations";
-import { translationService } from "@/services/translationService";
 
 // Image is loaded from URL directly
 
 export default function Experiences() {
-  const experiences = translationService.getExperiences();
-  const ui = translationService.getUi();
-  
   const { data: tourCards = [], isLoading } = useQuery<TourCardItemProps[]>({
     queryKey: ['/api/tour-cards'],
   });
@@ -43,13 +39,13 @@ export default function Experiences() {
   return (
     <>
       <SEO 
-        title={experiences.title + " - Amon Tour"}
-        description={experiences.subtitle}
+        title="Thailand Experiences - Cultural Journeys & Authentic Adventures | Amon Tour"
+        description="Immerse yourself in authentic Thailand experiences with Amon Tour. Cultural journeys, local traditions, culinary adventures, and hidden gems away from tourist crowds. Personalized experiences crafted by locals."
         keywords="thailand cultural experiences, authentic thai adventures, cultural immersion thailand, local experiences thailand, thailand culinary tours, traditional thai experiences, cultural journeys thailand, authentic local guides"
         canonicalUrl="https://amon-tour.com/experiences"
         breadcrumbs={[
-          { name: ui.home, url: "/" },
-          { name: experiences.title, url: "/experiences" }
+          { name: "Home", url: "/" },
+          { name: "Experiences", url: "/experiences" }
         ]}
         faqSchema={[
           {
@@ -102,9 +98,9 @@ export default function Experiences() {
       <main>
         {/* Hero Banner */}
         <HeroHeader 
-          title={experiences.title}
-          subtitle={experiences.subtitle}
-          alt={experiences.altText}
+          title="Discover Thailand Experiences"
+          subtitle="Immerse yourself in authentic Thai culture with our unique experiences"
+          alt="Thailand experiences and cultural journeys"
         />
         
         {/* Featured Tours Section - Tour Ninja Integration */}
@@ -113,11 +109,11 @@ export default function Experiences() {
             <FadeInWhenVisible>
               <div className="mb-8">
                 <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
-                  {experiences.recommendedToursTitle}
+                  Recommended Guided Tours
                 </h2>
                 <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
                 <p className="text-lg text-gray-700 leading-relaxed">
-                  {experiences.recommendedToursDescription}
+                  Discover our organized tours with English-speaking guides for an authentic Thailand experience
                 </p>
               </div>
             </FadeInWhenVisible>
@@ -137,33 +133,33 @@ export default function Experiences() {
                       <div className="absolute inset-0 bg-black bg-opacity-20"></div>
                       <div className="absolute top-4 left-4">
                         <span className="bg-secondary text-white px-3 py-1 rounded-full text-sm font-semibold">
-                          {experiences.cultureHistory}
+                          Culture & History
                         </span>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="p-6">
-                    <h3 className="text-xl font-bold text-gray-800 mb-3">{experiences.bangkokEssential}</h3>
+                    <h3 className="text-xl font-bold text-gray-800 mb-3">Bangkok Essential</h3>
                     <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                      {experiences.bangkokDescription}
+                      3-day cultural tour: Grand Palace, sacred temples, floating markets and gastronomy with expert English-speaking guide.
                     </p>
                     <div className="flex items-center justify-between mb-4">
-                      <span className="text-primary font-semibold">3 {experiences.days}</span>
-                      <span className="text-secondary font-bold text-lg">{experiences.from} $450</span>
+                      <span className="text-primary font-semibold">3 days</span>
+                      <span className="text-secondary font-bold text-lg">From $450</span>
                     </div>
                     <div className="flex gap-2">
                       <Button 
                         className="flex-1 bg-primary hover:bg-primary/90"
-                        onClick={() => window.open('https://tourninja.com/tours/bangkok-essential', '_blank', 'noopener,noreferrer')}
+                        onClick={() => window.open('https://tourninja.com/tours/bangkok-essential', '_blank')}
                       >
-{experiences.viewDetails}
+View Details
                       </Button>
                       <Button 
                         variant="outline" 
                         className="flex-1"
                         onClick={() => window.location.href = '/contact?tour=Bangkok Essentiel'}
                       >
-{experiences.bookNow}
+Book Now
                       </Button>
                     </div>
                   </CardContent>
@@ -184,33 +180,33 @@ export default function Experiences() {
                       <div className="absolute inset-0 bg-black bg-opacity-20"></div>
                       <div className="absolute top-4 left-4">
                         <span className="bg-primary text-white px-3 py-1 rounded-full text-sm font-semibold">
-                          {experiences.northAdventure}
+                          North & Adventure
                         </span>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="p-6">
-                    <h3 className="text-xl font-bold text-gray-800 mb-3">{experiences.goldenTriangle}</h3>
+                    <h3 className="text-xl font-bold text-gray-800 mb-3">Golden Triangle</h3>
                     <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                      {experiences.goldenTriangleDescription}
+                      5-day journey: Chiang Mai, mountain tribes, White Temple, Golden Triangle and Mekong cruise.
                     </p>
                     <div className="flex items-center justify-between mb-4">
-                      <span className="text-primary font-semibold">5 {experiences.days}</span>
-                      <span className="text-secondary font-bold text-lg">{experiences.from} $750</span>
+                      <span className="text-primary font-semibold">5 days</span>
+                      <span className="text-secondary font-bold text-lg">From $750</span>
                     </div>
                     <div className="flex gap-2">
                       <Button 
                         className="flex-1 bg-primary hover:bg-primary/90"
-                        onClick={() => window.open('https://tourninja.com/tours/golden-triangle', '_blank', 'noopener,noreferrer')}
+                        onClick={() => window.open('https://tourninja.com/tours/golden-triangle', '_blank')}
                       >
-{experiences.viewDetails}
+View Details
                       </Button>
                       <Button 
                         variant="outline" 
                         className="flex-1"
                         onClick={() => window.location.href = '/contact?tour=Triangle d\'Or'}
                       >
-{experiences.bookNow}
+Book Now
                       </Button>
                     </div>
                   </CardContent>
@@ -231,33 +227,33 @@ export default function Experiences() {
                       <div className="absolute inset-0 bg-black bg-opacity-20"></div>
                       <div className="absolute top-4 left-4">
                         <span className="bg-secondary text-white px-3 py-1 rounded-full text-sm font-semibold">
-                          {experiences.beachesIslands}
+                          Beaches & Islands
                         </span>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="p-6">
-                    <h3 className="text-xl font-bold text-gray-800 mb-3">{experiences.southernIslands}</h3>
+                    <h3 className="text-xl font-bold text-gray-800 mb-3">Southern Islands</h3>
                     <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                      {experiences.southernDescription}
+                      7-day tour: Phuket, Phi Phi islands, Phang Nga Bay, Krabi and Railay Beach. Paradise beaches and water activities.
                     </p>
                     <div className="flex items-center justify-between mb-4">
-                      <span className="text-primary font-semibold">7 {experiences.days}</span>
-                      <span className="text-secondary font-bold text-lg">{experiences.from} $990</span>
+                      <span className="text-primary font-semibold">7 days</span>
+                      <span className="text-secondary font-bold text-lg">From $990</span>
                     </div>
                     <div className="flex gap-2">
                       <Button 
                         className="flex-1 bg-primary hover:bg-primary/90"
-                        onClick={() => window.open('https://tourninja.com/tours/southern-islands', '_blank', 'noopener,noreferrer')}
+                        onClick={() => window.open('https://tourninja.com/tours/southern-islands', '_blank')}
                       >
-{experiences.viewDetails}
+View Details
                       </Button>
                       <Button 
                         variant="outline" 
                         className="flex-1"
                         onClick={() => window.location.href = '/contact?tour=Îles du Sud'}
                       >
-{experiences.bookNow}
+Book Now
                       </Button>
                     </div>
                   </CardContent>
@@ -268,9 +264,10 @@ export default function Experiences() {
             {/* Call to Action */}
             <FadeInWhenVisible>
               <div className="bg-blue-600 text-white rounded-xl p-8 text-center">
-                <h3 className="text-2xl font-bold mb-4">{experiences.customTourTitle}</h3>
+                <h3 className="text-2xl font-bold mb-4">Need a Customized Tour?</h3>
                 <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
-                  {experiences.customTourDescription}
+                  Our local experts create tailor-made itineraries according to your desires and budget. 
+                  Contact us to organize your dream trip to Thailand.
                 </p>
                 <Button 
                   size="lg" 
@@ -278,7 +275,7 @@ export default function Experiences() {
                   className="bg-white text-primary hover:bg-gray-100"
                   onClick={() => window.location.href = '/contact?subject=Custom Tour'}
                 >
-                  {experiences.freeQuote}
+                  Request a Free Quote
                 </Button>
               </div>
             </FadeInWhenVisible>
@@ -295,23 +292,23 @@ export default function Experiences() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <h2 className="font-heading font-semibold text-xl mb-4">{ui.filterExperiences}</h2>
+                <h2 className="font-heading font-semibold text-xl mb-4">Filter Experiences</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
                   <motion.div whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 400 }} className="lg:col-span-1">
                     <label htmlFor="search" className="block text-sm font-medium text-gray-700 mb-1">
-                      {ui.search}
+                      Search
                     </label>
                     <Input
                       id="search"
                       type="text"
-                      placeholder={ui.searchPlaceholder}
+                      placeholder="Search by title or description..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />
                   </motion.div>
                   <div className="lg:col-span-3 flex items-end">
                     <div className="text-sm text-gray-500">
-                      {ui.searchHint}
+                      Use the search above to find specific experiences
                     </div>
                   </div>
                 </div>
@@ -356,7 +353,7 @@ export default function Experiences() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
               >
-                <p className="text-gray-500">{ui.noExperiences}</p>
+                <p className="text-gray-500">No experiences available matching your search. Try different keywords or create some experiences in the admin panel!</p>
               </motion.div>
             )}
           </div>
