@@ -121,10 +121,6 @@ export interface Translations {
     testimonialsDescription: string;
     basedOnReviews: string;
     
-    // Tailor-made trips section
-    tailorMadeTitle: string;
-    tailorMadeDescription: string;
-    
     // Action buttons
     contactUs: string;
     createYourJourney: string;
@@ -291,15 +287,15 @@ const translations: Record<string, Translations> = {
     },
     tours: {
       title: "Tours & Experiences",
-      description: "Explore our finest experiences in Krabi, all guaranteed off the beaten path: private and semi-private sea tours, unique land excursions (kayaking through mangroves, waterfalls, tropical jungle, centuries-old trees, temples, karst caves, natural pools), and exclusive 2-day / 1-night packages.",
+      description: "Explore our curated selection of unique experiences in Thailand",
       duration: "Duration",
       participants: "Max participants", 
       price: "From",
-      featured: "Our exclusive experiences"
+      featured: "Featured Tours"
     },
     home: {
       introTitle: "When expats welcome you in their host country",
-      introDescription: "Since 2013, our family-run travel agency has been curating exclusive activities around Krabi and designing tailor-made trips all across Thailand. We aim to deliver immersive travel experiences, away from mass tourism, with personalized service for every traveler — welcoming you as part of our family or close friends.",
+      introDescription: "This is a family-run travel agency that combines the organization of exclusive activities with the creation of tailor-made trips throughout the country. Our goal is to offer an immersive experience, far from mass tourism, with personalized service for every traveler — as if we were welcoming our own family or friends.",
       
       customTripTitle: "Create Your Custom Trip",
       customTripSubtitle: "Your travel story starts with your dreams -",
@@ -370,9 +366,6 @@ const translations: Record<string, Translations> = {
       testimonialsDescription: "Discover the authentic experiences of our clients during their journeys with Amon Tour in Thailand.",
       basedOnReviews: "Based on 80 reviews",
       
-      tailorMadeTitle: "Our Tailor-made trips",
-      tailorMadeDescription: "Design your own journey through Thailand with our tailor-made stays: from cultural discoveries and family adventures to romantic getaways and island escapes. Every itinerary is crafted to match your wishes, offering authentic experiences, quality services, and a unique immersion far from mass tourism.",
-      
       contactUs: "Contact Us",
       createYourJourney: "Create Your Journey"
     },
@@ -397,7 +390,7 @@ const translations: Record<string, Translations> = {
     },
     cruise: {
       title: "Custom Quote Request",
-      subtitle: "Sail Krabi's Hidden Gems on a Private Catamaran Adventure",
+      subtitle: "Fill out the form below and we will contact you within 24 hours.",
       fullName: "Full Name",
       email: "Email",
       phoneNumber: "Phone Number (Optional)",
@@ -537,15 +530,15 @@ const translations: Record<string, Translations> = {
     },
     tours: {
       title: "Tours & Expériences",
-      description: "Naviguez parmi nos plus belles expériences à Krabi, toutes garanties hors du tourisme de masse : croisières en mer privées et semi-privées, excursions terrestres uniques (kayak dans la mangrove, cascades, jungle tropicale, arbres centenaires, temples, grottes karstiques, piscines naturelles) et formules exclusives de 2 jours / 1 nuit.",
+      description: "Explorez notre sélection d'expériences uniques en Thaïlande",
       duration: "Durée",
       participants: "Participants max",
       price: "À partir de",
-      featured: "Nos expériences exclusives"
+      featured: "Tours Vedettes"
     },
     home: {
-      introTitle: "Quand des expats vous reçoivent dans leurs pays d'accueil",
-      introDescription: "Depuis 2023, notre agence de voyage familiale conçoit des activités exclusives autour de Krabi et des séjours sur mesure à travers toute la Thaïlande. Notre ambition est d'offrir des expériences de voyage immersives, loin du tourisme de masse, avec un service personnalisé pour chaque voyageur — comme si nous vous accueillions en famille ou entre amis.",
+      introTitle: "Quand des expats vous accueillent dans leur pays d'adoption",
+      introDescription: "Il s'agit d'une agence de voyage familiale qui combine l'organisation d'activités exclusives avec la création de voyages sur mesure à travers le pays. Notre objectif est d'offrir une expérience immersive, loin du tourisme de masse, avec un service personnalisé pour chaque voyageur — comme si nous accueillions notre propre famille ou nos amis.",
       
       customTripTitle: "Créez Votre Voyage Sur Mesure",
       customTripSubtitle: "Votre aventure commence par vos rêves -",
@@ -616,9 +609,6 @@ const translations: Record<string, Translations> = {
       testimonialsDescription: "Découvrez les expériences authentiques de nos clients lors de leurs voyages avec Amon Tour en Thaïlande.",
       basedOnReviews: "Basé sur 80 avis",
       
-      tailorMadeTitle: "Nos séjours personnalisés",
-      tailorMadeDescription: "Créez votre propre voyage en Thaïlande grâce à nos séjours personnalisés : découvertes culturelles, aventures en famille, escapades romantiques ou séjours insulaires. Chaque itinéraire est conçu selon vos envies, pour offrir des expériences authentiques, des services de qualité et une immersion unique, loin du tourisme de masse.",
-      
       contactUs: "Contactez-Nous",
       createYourJourney: "Créez Votre Voyage"
     },
@@ -643,7 +633,7 @@ const translations: Record<string, Translations> = {
     },
     cruise: {
       title: "Demande de Devis Personnalisé",
-      subtitle: "Naviguez vers les trésors cachés de Krabi lors d'une aventure en catamaran privé",
+      subtitle: "Remplissez le formulaire ci-dessous et nous vous contacterons sous 24 heures.",
       fullName: "Nom complet",
       email: "Email",
       phoneNumber: "Numéro de téléphone (Optionnel)",
@@ -783,15 +773,15 @@ const translations: Record<string, Translations> = {
     },
     tours: {
       title: "Tours y Experiencias",
-      description: "Explora nuestras mejores experiencias en Krabi, todas garantizadas fuera del camino trillado: excursiones privadas y semiprivadas por el mar, excursiones terrestres únicas (kayak por manglares, cascadas, selva tropical, árboles centenarios, templos, cuevas kársticas, piscinas naturales), y paquetes exclusivos de 2 días / 1 noche.",
+      description: "Explora nuestra selección de experiencias únicas en Tailandia",
       duration: "Duración",
       participants: "Participantes máx",
       price: "Desde",
-      featured: "Nuestras experiencias exclusivas"
+      featured: "Tours Destacados"
     },
     home: {
       introTitle: "Cuando expatriados te reciben en su país de acogida",
-      introDescription: "Desde 2013, nuestra agencia de viajes familiar ha estado organizando actividades exclusivas alrededor de Krabi y diseñando viajes a medida por toda Tailandia. Buscamos ofrecer experiencias de viaje inmersivas, lejos del turismo de masas, con un servicio personalizado para cada viajero — recibiéndote como parte de nuestra familia o amigos cercanos.",
+      introDescription: "Esta es una agencia de viajes familiar que combina la organización de actividades exclusivas con la creación de viajes a medida por todo el país. Nuestro objetivo es ofrecer una experiencia inmersiva, lejos del turismo de masas, con un servicio personalizado para cada viajero — como si estuviéramos recibiendo a nuestra propia familia o amigos.",
       
       customTripTitle: "Crea Tu Viaje Personalizado",
       customTripSubtitle: "Tu historia de viaje comienza con tus sueños -",
@@ -862,9 +852,6 @@ const translations: Record<string, Translations> = {
       testimonialsDescription: "Descubre las experiencias auténticas de nuestros clientes durante sus viajes con Amon Tour en Tailandia.",
       basedOnReviews: "Basado en 80 reseñas",
       
-      tailorMadeTitle: "Nuestros viajes personalizados",
-      tailorMadeDescription: "Crea tu propio viaje por Tailandia con nuestras estancias personalizadas: desde descubrimientos culturales y aventuras familiares hasta escapadas románticas y retiros insulares. Cada itinerario está diseñado según tus deseos, ofreciendo experiencias auténticas, servicios de calidad y una inmersión única, lejos del turismo de masas.",
-      
       contactUs: "Contáctanos",
       createYourJourney: "Crea Tu Viaje"
     },
@@ -889,7 +876,7 @@ const translations: Record<string, Translations> = {
     },
     cruise: {
       title: "Solicitud de Cotización Personalizada",
-      subtitle: "Navega hacia las gemas ocultas de Krabi en una aventura privada en catamarán",
+      subtitle: "Complete el formulario a continuación y nos pondremos en contacto con usted en 24 horas.",
       fullName: "Nombre completo",
       email: "Email",
       phoneNumber: "Número de teléfono (Opcional)",

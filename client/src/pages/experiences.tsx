@@ -104,15 +104,14 @@ export default function Experiences() {
         />
         
         {/* Featured Tours Section - Tour Ninja Integration */}
-        <section className="py-20 bg-gradient-to-b from-primary/5 to-white">
-          <div className="container mx-auto px-4 max-w-4xl text-center">
+        <section className="py-16 bg-gradient-to-b from-primary/5 to-white">
+          <div className="container mx-auto px-4">
             <FadeInWhenVisible>
-              <div className="mb-8">
-                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
                   Recommended Guided Tours
                 </h2>
-                <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
-                <p className="text-lg text-gray-700 leading-relaxed">
+                <p className="text-lg text-gray-600 max-w-2xl mx-auto">
                   Discover our organized tours with English-speaking guides for an authentic Thailand experience
                 </p>
               </div>
