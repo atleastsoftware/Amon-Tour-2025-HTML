@@ -4,13 +4,15 @@ import SEO from "@/components/layout/SEO";
 import HeroHeader from "@/components/layout/HeroHeader";
 import { MapPin, Mail, Phone, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
+import { translationService } from "@/services/translationService";
 
 export default function Contact() {
+  const contact = translationService.getContact();
   return (
     <>
       <SEO 
-        title="Contact Us - Amon Tour Krabi"
-        description="Get in touch with Amon Tour for your perfect Krabi experience. Visit our office in Ao Nang or contact us via phone, email, WhatsApp, or Line."
+        title={contact.title + " - Amon Tour"}
+        description={contact.subtitle}
         keywords="contact amon tour, krabi office, ao nang location, thailand tour operator contact"
       />
       <Header />
@@ -18,9 +20,9 @@ export default function Contact() {
       <main>
         {/* Hero Section */}
         <HeroHeader 
-          title="Contact Us"
-          subtitle="We're here to help you plan the perfect experience in Krabi."
-          alt="Contact Amon Tour in Krabi"
+          title={contact.title}
+          subtitle={contact.subtitle}
+          alt={contact.altText}
         />
 
         {/* Main Content */}
@@ -35,10 +37,10 @@ export default function Contact() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5 }}
                 >
-                  <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">Get In Touch</h2>
+                  <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{contact.getTouchTitle}</h2>
                   <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
                   <p className="text-lg text-gray-700 leading-relaxed">
-                    Ready to explore Krabi? Contact us through any of the methods below. Our friendly team is here to answer your questions and help you plan an unforgettable experience.
+                    {contact.getTouchDescription}
                   </p>
                 </motion.div>
               </div>
@@ -59,7 +61,7 @@ export default function Contact() {
                       <Mail className="w-6 h-6 text-primary" />
                     </div>
                     <div>
-                      <p className="font-heading font-semibold text-primary">Email</p>
+                      <p className="font-heading font-semibold text-primary">{contact.email}</p>
                       <a 
                         href="mailto:info@amon-tour.com"
                         className="text-foreground hover:text-primary transition-colors"
@@ -78,7 +80,7 @@ export default function Contact() {
                       <Phone className="w-6 h-6 text-secondary" />
                     </div>
                     <div>
-                      <p className="font-heading font-semibold text-primary">Phone</p>
+                      <p className="font-heading font-semibold text-primary">{contact.phone}</p>
                       <a 
                         href="tel:+66962166559"
                         className="text-foreground hover:text-primary transition-colors"
@@ -97,7 +99,7 @@ export default function Contact() {
                       <MessageCircle className="w-6 h-6 text-[hsl(var(--success))]" />
                     </div>
                     <div>
-                      <p className="font-heading font-semibold text-primary">WhatsApp</p>
+                      <p className="font-heading font-semibold text-primary">{contact.whatsapp}</p>
                       <a 
                         href="https://wa.me/66653496445"
                         target="_blank"
@@ -118,7 +120,7 @@ export default function Contact() {
                       <MessageCircle className="w-6 h-6 text-[hsl(var(--success))]" />
                     </div>
                     <div>
-                      <p className="font-heading font-semibold text-primary">Line ID</p>
+                      <p className="font-heading font-semibold text-primary">{contact.lineId}</p>
                       <span className="text-foreground">amontour</span>
                     </div>
                   </motion.div>
@@ -132,20 +134,19 @@ export default function Contact() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.3 }}
                 >
-                  <h3 className="font-heading font-bold text-lg mb-3">About Our Company</h3>
+                  <h3 className="font-heading font-bold text-lg mb-3">{contact.aboutCompanyTitle}</h3>
                   <div className="space-y-2 text-sm text-muted-foreground">
                     <p>
-                      <strong>Amon Tour is a brand of:</strong><br />
+                      <strong>{contact.aboutCompanyDescription}</strong><br />
                       Flame BB Co., Ltd.
                     </p>
                     <p>
                       <span className="bg-secondary/20 text-primary px-2 py-1 rounded-full text-xs font-medium">
-                        TAT License: 34/01995
+                        {contact.licenseInfo}
                       </span>
                     </p>
                     <p className="mt-4">
-                      We are a licensed tour operator based in Ao Nang, Krabi, 
-                      specializing in authentic local experiences and personalized travel services.
+                      {contact.companyDescription}
                     </p>
                   </div>
                 </motion.div>
@@ -164,11 +165,10 @@ export default function Contact() {
               transition={{ duration: 0.6 }}
             >
               <h3 className="font-heading font-bold text-2xl md:text-3xl mb-4">
-                Ready to Start Your Adventure?
+                {contact.readyAdventureTitle}
               </h3>
               <p className="text-gray-600 text-lg mb-6">
-                Whether you're looking for a private tour, custom itinerary, or have questions about Krabi, 
-                our local experts are ready to help you create unforgettable memories.
+                {contact.readyAdventureDescription}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a 
@@ -177,13 +177,13 @@ export default function Contact() {
                   rel="noopener noreferrer"
                   className="bg-[hsl(var(--success))] hover:bg-[hsl(var(--success)/0.9)] text-[hsl(var(--success-foreground))] px-6 py-3 rounded-lg font-heading font-semibold transition-colors"
                 >
-                  Chat on WhatsApp
+                  {contact.chatWhatsApp}
                 </a>
                 <a 
                   href="mailto:info@amon-tour.com"
                   className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 rounded-lg font-heading font-semibold transition-colors"
                 >
-                  Send us an Email
+                  {contact.sendEmail}
                 </a>
               </div>
             </motion.div>

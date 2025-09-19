@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { translationService } from '@/services/translationService';
 
 export default function CookieConsent() {
   const [isVisible, setIsVisible] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+  const cookies = translationService.getCookies();
 
   useEffect(() => {
     // Check if user has already made a choice
@@ -122,17 +124,19 @@ export default function CookieConsent() {
     observer.observe(document.body, { childList: true, subtree: true });
     
     // Also listen for iframe load events
-    window.addEventListener('message', (event) => {
+    const messageHandler = (event: MessageEvent) => {
       // Check if message is from iframe that might contain cookie consent
       if (typeof event.data === 'string' && 
           (event.data.includes('cookie') || event.data.includes('consent'))) {
         setTimeout(hideFrenchCookieBanners, 500);
       }
-    });
+    };
+    
+    window.addEventListener('message', messageHandler);
     
     return () => {
       observer.disconnect();
-      window.removeEventListener('message', hideFrenchCookieBanners);
+      window.removeEventListener('message', messageHandler);
     };
   }, []);
 
@@ -167,9 +171,9 @@ export default function CookieConsent() {
       <div className="bg-white border-t border-gray-200 shadow-lg px-4 py-3" data-testid="cookie-consent-dialog">
         <div className="container mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex-1">
-            <h4 className="text-sm font-semibold text-gray-900 mb-1">We Respect Your Privacy</h4>
+            <h4 className="text-sm font-semibold text-gray-900 mb-1">{cookies.title}</h4>
             <p className="text-xs text-gray-600 leading-relaxed">
-              This website uses cookies to enhance your browsing experience. By continuing to navigate, you accept our use of cookies.
+              {cookies.description}
             </p>
           </div>
           
@@ -180,7 +184,7 @@ export default function CookieConsent() {
               className="text-xs px-3 py-1 h-auto"
               data-testid="button-cookie-customize"
             >
-              Customize
+              {cookies.customize}
             </Button>
             <Button 
               variant="outline" 
@@ -188,19 +192,19 @@ export default function CookieConsent() {
               className="text-xs px-3 py-1 h-auto"
               data-testid="button-cookie-reject"
             >
-              Reject All
+              {cookies.rejectAll}
             </Button>
             <Button 
               onClick={handleAccept}
               className="text-xs px-3 py-1 h-auto bg-primary hover:bg-primary/90"
               data-testid="button-cookie-accept"
             >
-              Accept All
+              {cookies.acceptAll}
             </Button>
             <button 
               onClick={closeDialog}
               className="text-gray-400 hover:text-gray-600 ml-2"
-              aria-label="Close"
+              aria-label={cookies.close}
             >
               <X size={14} />
             </button>
