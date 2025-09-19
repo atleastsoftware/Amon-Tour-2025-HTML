@@ -310,6 +310,8 @@ export interface Translations {
     noExperiences: string;
     days: string;
     from: string;
+    southernDescription: string;
+    freeQuote: string;
   };
   // Blog page
   blog: {
@@ -390,7 +392,6 @@ export interface Translations {
     edit: string;
     delete: string;
     confirm: string;
-    home: string;
     back: string;
     next: string;
     previous: string;
@@ -402,6 +403,11 @@ export interface Translations {
     sortBy: string;
     showMore: string;
     showLess: string;
+    home: string;
+    filterExperiences: string;
+    searchPlaceholder: string;
+    searchHint: string;
+    noExperiences: string;
   };
   // Toast messages
   toast: {
@@ -711,6 +717,8 @@ const translations: Record<string, Translations> = {
       noExperiences: "No experiences available matching your search. Try different keywords or create some experiences in the admin panel!",
       days: "days",
       from: "From",
+      southernDescription: "The southern islands of Thailand offer paradise beaches and authentic culture.",
+      freeQuote: "Free Quote",
       altText: "Thailand experiences and cultural journeys"
     },
     blog: {
@@ -764,7 +772,11 @@ const translations: Record<string, Translations> = {
       sortBy: "Sort by",
       showMore: "Show More",
       showLess: "Show Less",
-      home: "Home"
+      home: "Home",
+      filterExperiences: "Filter Experiences",
+      searchPlaceholder: "Search experiences...",
+      searchHint: "Search by name or description",
+      noExperiences: "No experiences found"
     },
     admin: {
       dashboard: "Dashboard",
@@ -1105,6 +1117,8 @@ const translations: Record<string, Translations> = {
       noExperiences: "Aucune expérience disponible correspondant à votre recherche. Essayez des mots-clés différents ou créez des expériences dans le panneau d'administration !",
       days: "jours",
       from: "À partir de",
+      southernDescription: "Les îles du sud de la Thaïlande offrent des plages paradisiaques et une culture authentique.",
+      freeQuote: "Devis Gratuit",
       altText: "Expériences thaïlandaises et voyages culturels"
     },
     blog: {
@@ -1158,7 +1172,11 @@ const translations: Record<string, Translations> = {
       sortBy: "Trier par",
       showMore: "Afficher Plus",
       showLess: "Afficher Moins",
-      home: "Accueil"
+      home: "Accueil",
+      filterExperiences: "Filtrer les Expériences",
+      searchPlaceholder: "Rechercher des expériences...",
+      searchHint: "Rechercher par nom ou description",
+      noExperiences: "Aucune expérience trouvée"
     },
     admin: {
       dashboard: "Tableau de Bord",
@@ -1499,6 +1517,8 @@ const translations: Record<string, Translations> = {
       noExperiences: "No hay experiencias disponibles que coincidan con tu búsqueda. ¡Prueba palabras clave diferentes o crea algunas experiencias en el panel de administración!",
       days: "días",
       from: "Desde",
+      southernDescription: "Las islas del sur de Tailandia ofrecen playas paradisíacas y cultura auténtica.",
+      freeQuote: "Cotización Gratuita",
       altText: "Experiencias tailandesas y viajes culturales"
     },
     blog: {
@@ -1552,7 +1572,11 @@ const translations: Record<string, Translations> = {
       sortBy: "Ordenar por",
       showMore: "Mostrar Más",
       showLess: "Mostrar Menos",
-      home: "Inicio"
+      home: "Inicio",
+      filterExperiences: "Filtrar Experiencias",
+      searchPlaceholder: "Buscar experiencias...",
+      searchHint: "Buscar por nombre o descripción",
+      noExperiences: "No se encontraron experiencias"
     },
     admin: {
       dashboard: "Panel de Control",
