@@ -731,6 +731,13 @@ const translations: Record<string, Translations> = {
       showLess: "Show Less",
       home: "Home"
     },
+    footer: {
+      contact: "Contact",
+      usefulLinks: "Useful Links",
+      newsletter: "Newsletter",
+      followUs: "Follow Us",
+      copyright: "© 2024 Amon Tour. All rights reserved."
+    },
     toast: {
       successTitle: "Success",
       errorTitle: "Error",
@@ -1091,6 +1098,13 @@ const translations: Record<string, Translations> = {
       showLess: "Afficher Moins",
       home: "Accueil"
     },
+    footer: {
+      contact: "Contact",
+      usefulLinks: "Liens Utiles",
+      newsletter: "Newsletter",
+      followUs: "Suivez-nous",
+      copyright: "© 2024 Amon Tour. Tous droits réservés."
+    },
     toast: {
       successTitle: "Succès",
       errorTitle: "Erreur",
@@ -1450,6 +1464,13 @@ const translations: Record<string, Translations> = {
       showMore: "Mostrar Más",
       showLess: "Mostrar Menos",
       home: "Inicio"
+    },
+    footer: {
+      contact: "Contacto",
+      usefulLinks: "Enlaces Útiles",
+      newsletter: "Newsletter",
+      followUs: "Síguenos",
+      copyright: "© 2024 Amon Tour. Todos los derechos reservados."
     },
     toast: {
       successTitle: "Éxito",
