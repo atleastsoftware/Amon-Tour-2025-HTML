@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Switch } from "@/components/ui/switch";
-import { autoTranslate } from "@/lib/autoTranslate"; // REACTIVATED - Auto-translation system enabled
+// import { autoTranslate } from "@/lib/autoTranslate"; // DISABLED - autoTranslate removed to fix flag conflicts
 import { Globe, Settings, TestTube, Info } from "lucide-react";
 
 export default function TranslationManager() {
@@ -23,9 +23,8 @@ export default function TranslationManager() {
   };
 
   const handleTestTranslation = () => {
-    // Trigger auto-translation manually for testing
-    autoTranslate.manualTrigger();
-    setTestResult('Test de traduction déclenché ! Le navigateur devrait proposer la traduction automatique.');
+    // AutoTranslate is now disabled - flags provide manual language selection
+    setTestResult('La traduction automatique a été désactivée. Utilisez les drapeaux dans le header pour changer de langue.');
     setTimeout(() => setTestResult(null), 5000);
   };
 

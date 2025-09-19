@@ -23,8 +23,7 @@ export class AutoBrowserTranslate {
   constructor() {
     // Check if user has already made a language choice
     const userChoice = localStorage.getItem('amon-tour-translation-choice');
-    const autoDisabled = localStorage.getItem('amon-tour-auto-translate') === 'disabled';
-    if (userChoice || autoDisabled) {
+    if (userChoice) {
       this.translationTriggered = true;
     }
   }
@@ -33,17 +32,7 @@ export class AutoBrowserTranslate {
    * Initialize auto-translation detection
    */
   async init(): Promise<void> {
-    // Check if auto-translation is disabled by admin
-    if (localStorage.getItem('amon-tour-auto-translate') === 'disabled') {
-      return;
-    }
-
     if (this.translationTriggered) {
-      return;
-    }
-
-    // Check if manual translation system is already active
-    if (this.isManualTranslationActive()) {
       return;
     }
 
@@ -88,30 +77,6 @@ export class AutoBrowserTranslate {
    */
   private getBrowserLanguage(): string {
     return navigator.language?.split('-')[0]?.toLowerCase() || 'en';
-  }
-
-  /**
-   * Detect if manual translation system is active to avoid conflicts
-   */
-  private isManualTranslationActive(): boolean {
-    try {
-      // Admin disable flag
-      const autoDisabled = localStorage.getItem('amon-tour-auto-translate') === 'disabled';
-      if (autoDisabled) return true;
-
-      // Manual language selection (from TranslationManager or i18n)
-      const manualLang =
-        localStorage.getItem('amon-tour-language') ||
-        localStorage.getItem('i18nextLng') ||
-        localStorage.getItem('preferred-language');
-
-      // User choices that should suppress auto-translate
-      const choice = localStorage.getItem('amon-tour-translation-choice');
-
-      return !!manualLang || choice === 'manual' || choice === 'dismissed';
-    } catch {
-      return false;
-    }
   }
 
   /**
