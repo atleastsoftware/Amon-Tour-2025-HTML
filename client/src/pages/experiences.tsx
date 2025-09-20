@@ -5,6 +5,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
 import HeroHeader from "@/components/layout/HeroHeader";
+import { TranslationService } from "@/services/translationService";
 import TourCardItem, { TourCardItemProps } from "@/components/tour/TourCardItem";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -20,6 +21,9 @@ import {
 // Image is loaded from URL directly
 
 export default function Experiences() {
+  const translationService = new TranslationService();
+  const pageHeaders = translationService.getPageHeaders();
+  
   const { data: tourCards = [], isLoading } = useQuery<TourCardItemProps[]>({
     queryKey: ['/api/tour-cards'],
   });
@@ -98,8 +102,8 @@ export default function Experiences() {
       <main>
         {/* Hero Banner */}
         <HeroHeader 
-          title="Discover Thailand Experiences"
-          subtitle="Immerse yourself in authentic Thai culture with our unique experiences"
+          title={pageHeaders.experiences.title}
+          subtitle={pageHeaders.experiences.subtitle}
           alt="Thailand experiences and cultural journeys"
         />
         
@@ -267,7 +271,7 @@ Book Now
                 <h3 className="text-2xl font-bold mb-4">Need a Customized Tour?</h3>
                 <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
                   Our local experts create tailor-made itineraries according to your desires and budget. 
-                  Contact us to organize your dream trip to Thailand.
+                  {pageHeaders.experiences.organizeDreamTrip}
                 </p>
                 <Button 
                   size="lg" 
@@ -301,7 +305,7 @@ Book Now
                     <Input
                       id="search"
                       type="text"
-                      placeholder="Search by title or description..."
+                      placeholder={pageHeaders.experiences.searchPlaceholder}
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />
