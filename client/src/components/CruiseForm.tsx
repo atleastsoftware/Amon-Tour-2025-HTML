@@ -52,7 +52,6 @@ type CruiseFormData = {
 };
 
 export default function CruiseForm() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
   const cruise = translationService.getCruise();
   
@@ -71,36 +70,67 @@ export default function CruiseForm() {
     },
   });
 
-  const onSubmit = async (data: CruiseFormData) => {
-    setIsSubmitting(true);
-    try {
-      const response = await fetch("/api/cruise-requests", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+  // Generate WhatsApp message from form data
+  const generateWhatsAppMessage = (data: CruiseFormData) => {
+    const lines = [
+      "🛥️ *Cruise Request - Amon Tour*",
+      "",
+      `👤 *Name:* ${data.fullName}`,
+      `📧 *Email:* ${data.email}`,
+    ];
 
-      if (!response.ok) {
-        throw new Error("Error sending request");
-      }
+    if (data.phone) {
+      lines.push(`📱 *Phone:* ${data.phone}`);
+    }
 
+    lines.push(
+      `👥 *Number of Guests:* ${data.numberOfGuests}`,
+      `⏰ *Duration:* ${data.duration}`
+    );
+
+    if (data.preferredDates) {
+      lines.push(`📅 *Preferred Dates:* ${data.preferredDates}`);
+    }
+
+    if (data.budget) {
+      lines.push(`💰 *Budget:* ${data.budget}`);
+    }
+
+    if (data.itinerary) {
+      lines.push(`🗺️ *Preferred Destinations:* ${data.itinerary}`);
+    }
+
+    if (data.specialRequests) {
+      lines.push(`📝 *Special Requests:* ${data.specialRequests}`);
+    }
+
+    lines.push("", "Looking forward to creating an amazing cruise experience for you! 🌊");
+
+    return encodeURIComponent(lines.join('\n'));
+  };
+
+  const handleWhatsAppContact = () => {
+    const formData = form.getValues();
+    
+    // Validate required fields
+    if (!formData.fullName || !formData.email || !formData.duration) {
       toast({
-        title: cruise.requestSent,
-        description: cruise.contactShortly,
-      });
-      
-      form.reset();
-    } catch (error) {
-      toast({
-        title: cruise.error,
-        description: cruise.errorMessage,
+        title: "Missing Information",
+        description: "Please fill in your name, email and preferred duration before contacting us.",
         variant: "destructive",
       });
-    } finally {
-      setIsSubmitting(false);
+      return;
     }
+
+    const message = generateWhatsAppMessage(formData);
+    const whatsappUrl = `https://wa.me/66653496445?text=${message}`;
+    
+    window.open(whatsappUrl, '_blank');
+    
+    toast({
+      title: "Redirecting to WhatsApp",
+      description: "We've prepared your cruise request message for you!",
+    });
   };
 
   return (
@@ -113,7 +143,7 @@ export default function CruiseForm() {
       <Card className="w-full">
         <CardContent className="pt-6">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <FormField
                 control={form.control}
@@ -275,17 +305,20 @@ export default function CruiseForm() {
               )}
             />
 
-            <Button type="submit" className="w-full" disabled={isSubmitting}>
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  {cruise.sending}
-                </>
-              ) : (
-                cruise.sendRequest
-              )}
-            </Button>
-          </form>
+            {/* WhatsApp Contact Button */}
+            <div className="mt-4 pt-4 border-t border-gray-200">
+              <p className="text-center text-sm text-gray-600 mb-3">
+                {cruise.orContactDirectly || "Contact us directly via WhatsApp with your cruise details"}
+              </p>
+              <button
+                onClick={handleWhatsAppContact}
+                className="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-md font-heading font-semibold transition-colors duration-200 flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+              >
+                <i className="fab fa-whatsapp text-xl" aria-hidden="true"></i>
+                {cruise.contactWhatsApp || "Contact via WhatsApp"}
+              </button>
+            </div>
+          </div>
         </Form>
       </CardContent>
     </Card>
