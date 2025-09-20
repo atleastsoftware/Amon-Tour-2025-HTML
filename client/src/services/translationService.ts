@@ -1449,9 +1449,13 @@ export class TranslationService {
     missingInEnglish: string[];
     isComplete: boolean;
   } {
-    const englishKeys = this.extractAllKeys(this.translations.en);
-    const frenchKeys = this.extractAllKeys(this.translations.fr);
-    const spanishKeys = this.extractAllKeys(this.translations.es);
+    // Use getTranslations to ensure proper initialization
+    const translations = this.getTranslations();
+    const englishKeys = this.extractAllKeys(translations);
+    
+    // Get French and Spanish translations directly from the data
+    const frenchKeys = this.extractAllKeys(this.translations?.fr || {});
+    const spanishKeys = this.extractAllKeys(this.translations?.es || {});
 
     const missingInFrench = englishKeys.filter(key => !frenchKeys.includes(key));
     const missingInSpanish = englishKeys.filter(key => !spanishKeys.includes(key));
