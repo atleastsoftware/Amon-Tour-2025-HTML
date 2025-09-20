@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { translationService } from '../services/translationService';
+import { autoTranslate } from '../lib/autoTranslate';
 
 const languageData = {
   en: { 
@@ -31,19 +32,52 @@ export default function LanguageSelector() {
     setIsLoading(true);
     
     try {
-      // Change language using translation service
+      // 1. Disable auto-translation system to prevent conflicts
+      disableAutoTranslation();
+      
+      // 2. Change language using our translation service
       const success = translationService.setLanguage(langCode);
       if (success) {
         setCurrentLanguage(langCode);
-        // Force page reload to apply translations
+        
+        // 3. Mark that user made a manual language choice
+        localStorage.setItem('amon-tour-translation-choice', `manual-${langCode}`);
+        localStorage.setItem('user-chose-language', 'true');
+        
+        // 4. Force page reload to apply translations
         window.location.reload();
-        console.log(`Language changed to: ${langCode}`);
+        console.log(`Manual language changed to: ${langCode}`);
       }
     } catch (error) {
       console.error('Failed to switch language:', error);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  /**
+   * Disable browser auto-translation when user makes manual choice
+   */
+  const disableAutoTranslation = () => {
+    // Set translate="no" on document to disable browser translation
+    document.documentElement.setAttribute('translate', 'no');
+    
+    // Remove any Google Translate widgets
+    const googleTranslateElements = document.querySelectorAll('[id*="google_translate"], .goog-te-banner-frame, .goog-te-menu-frame');
+    googleTranslateElements.forEach(el => el.remove());
+    
+    // Clear any translation meta tags
+    const translationMetas = document.querySelectorAll('meta[name="google-translate-customization"], meta[name="translate"]');
+    translationMetas.forEach(meta => meta.remove());
+    
+    // Hide any translation indicators
+    const indicators = document.querySelectorAll('.translation-indicator');
+    indicators.forEach(indicator => indicator.remove());
+    
+    // Stop auto-translation detection
+    localStorage.setItem('amon-tour-disable-auto-translate', 'true');
+    
+    console.log('Browser auto-translation disabled - using manual TranslationService');
   };
 
   return (
