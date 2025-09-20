@@ -1,17 +1,21 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
+import { TranslationService } from "@/services/translationService";
 import { Download, Globe } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
 export default function Brochure() {
+  const translationService = new TranslationService();
+  const seoMeta = translationService.getSeoMeta();
+  
   return (
     <>
       <SEO 
-        title="Our Brochure - Amon Tour Travel Guide"
-        description="Download our comprehensive travel brochure featuring the best of Krabi and Thailand. Available in French and English with detailed tour information and stunning photography."
-        keywords="amon tour brochure, krabi travel guide, thailand tours pdf, travel brochure download"
+        title={seoMeta.brochureTitle}
+        description={seoMeta.brochureDescription}
+        keywords={seoMeta.brochureKeywords}
       />
       <Header />
       

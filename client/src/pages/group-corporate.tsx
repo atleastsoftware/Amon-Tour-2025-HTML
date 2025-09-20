@@ -2,6 +2,7 @@ import { useState } from "react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
+import { TranslationService } from "@/services/translationService";
 import { Users, Target, Calendar, Award, Building, GraduationCap } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -23,6 +24,8 @@ interface FormData {
 
 export default function GroupCorporate() {
   const { toast } = useToast();
+  const translationService = new TranslationService();
+  const seoMeta = translationService.getSeoMeta();
   const [formData, setFormData] = useState<FormData>({
     companyName: '',
     contactName: '',
@@ -105,9 +108,9 @@ export default function GroupCorporate() {
   return (
     <>
       <SEO 
-        title="Group & Corporate Travel - Tailored Experiences in Krabi"
-        description="Custom group travel solutions for corporate retreats, team building, educational trips, and special events in Krabi, Thailand. Professional planning and on-site support."
-        keywords="corporate retreat krabi, group travel thailand, team building activities, educational tours, company events krabi"
+        title={seoMeta.groupCorporateTitle}
+        description={seoMeta.groupCorporateDescription}
+        keywords={seoMeta.groupCorporateKeywords}
       />
       <Header />
       

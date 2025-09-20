@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import HeroHeader from "@/components/layout/HeroHeader";
+import { TranslationService } from "@/services/translationService";
 
 interface BlogPost {
   id: number;
@@ -46,6 +47,9 @@ interface BlogTag {
 }
 
 export default function BlogPage() {
+  const translationService = new TranslationService();
+  const blogTranslations = translationService.getBlog();
+  
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedTag, setSelectedTag] = useState("");
@@ -87,8 +91,8 @@ export default function BlogPage() {
       <div>
         {/* Hero Section */}
         <HeroHeader 
-          title="Travel Blog"
-          subtitle="Discover the best of Krabi through our travel guides, tips, and local insights."
+          title={blogTranslations.title}
+          subtitle={blogTranslations.subtitle}
           alt="Travel blog about Krabi and Thailand"
         />
 
@@ -101,7 +105,7 @@ export default function BlogPage() {
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                 <Input
                   type="text"
-                  placeholder="Search articles..."
+                  placeholder={blogTranslations.searchPlaceholder}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-10"
@@ -114,7 +118,7 @@ export default function BlogPage() {
               {/* Tags Row */}
               {tags.length > 0 && (
                 <div>
-                  <h3 className="text-sm font-medium text-gray-700 mb-3">Tags</h3>
+                  <h3 className="text-sm font-medium text-gray-700 mb-3">{blogTranslations.tags}</h3>
                   <div className="flex flex-wrap gap-2">
                     <Button
                       variant={selectedTag === "" ? "secondary" : "outline"}
@@ -122,7 +126,7 @@ export default function BlogPage() {
                       className="whitespace-nowrap"
                       onClick={() => setSelectedTag("")}
                     >
-                      All Tags
+                      {blogTranslations.allTags}
                     </Button>
                     {tags.slice(0, 8).map((tag) => (
                       <Button
@@ -142,7 +146,7 @@ export default function BlogPage() {
 
               {/* Categories Row */}
               <div>
-                <h3 className="text-sm font-medium text-gray-700 mb-3">Categories</h3>
+                <h3 className="text-sm font-medium text-gray-700 mb-3">{blogTranslations.categories}</h3>
                 <div className="flex flex-wrap gap-2">
                   <Button
                     variant={selectedCategory === "" ? "default" : "outline"}
@@ -150,7 +154,7 @@ export default function BlogPage() {
                     className="whitespace-nowrap"
                     onClick={() => setSelectedCategory("")}
                   >
-                    All Categories
+                    {blogTranslations.allCategories}
                   </Button>
                   {categories.map((category) => (
                     <Button

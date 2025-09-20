@@ -23,6 +23,7 @@ import {
 export default function Experiences() {
   const translationService = new TranslationService();
   const pageHeaders = translationService.getPageHeaders();
+  const seoMeta = translationService.getSeoMeta();
   
   const { data: tourCards = [], isLoading } = useQuery<TourCardItemProps[]>({
     queryKey: ['/api/tour-cards'],
@@ -43,9 +44,9 @@ export default function Experiences() {
   return (
     <>
       <SEO 
-        title="Thailand Experiences - Cultural Journeys & Authentic Adventures | Amon Tour"
-        description="Immerse yourself in authentic Thailand experiences with Amon Tour. Cultural journeys, local traditions, culinary adventures, and hidden gems away from tourist crowds. Personalized experiences crafted by locals."
-        keywords="thailand cultural experiences, authentic thai adventures, cultural immersion thailand, local experiences thailand, thailand culinary tours, traditional thai experiences, cultural journeys thailand, authentic local guides"
+        title={seoMeta.experiencesTitle}
+        description={seoMeta.experiencesDescription}
+        keywords={seoMeta.experiencesKeywords}
         canonicalUrl="https://amon-tour.com/experiences"
         breadcrumbs={[
           { name: "Home", url: "/" },

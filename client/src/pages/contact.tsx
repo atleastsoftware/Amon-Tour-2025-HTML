@@ -9,13 +9,14 @@ import { motion } from "framer-motion";
 export default function Contact() {
   const translationService = new TranslationService();
   const pageHeaders = translationService.getPageHeaders();
+  const seoMeta = translationService.getSeoMeta();
   
   return (
     <>
       <SEO 
-        title="Contact Us - Amon Tour Krabi"
-        description="Get in touch with Amon Tour for your perfect Krabi experience. Visit our office in Ao Nang or contact us via phone, email, WhatsApp, or Line."
-        keywords="contact amon tour, krabi office, ao nang location, thailand tour operator contact"
+        title={seoMeta.contactTitle}
+        description={seoMeta.contactDescription}
+        keywords={seoMeta.contactKeywords}
       />
       <Header />
       

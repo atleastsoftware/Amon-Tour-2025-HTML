@@ -327,6 +327,21 @@ export interface Translations {
     clearFilters: string;
     contactUs: string;
     aboutUs: string;
+    // Nouvelles traductions ajoutées
+    searchArticles: string;
+    allTags: string;
+    allCategories: string;
+    chatWhatsApp: string;
+    sendEmail: string;
+    close: string;
+    cancel: string;
+    confirm: string;
+    accept: string;
+    reject: string;
+    customize: string;
+    acceptAll: string;
+    rejectAll: string;
+    readMore: string;
   };
   // Toast Messages - Success/error messages
   toasts: {
@@ -348,6 +363,69 @@ export interface Translations {
     defaultTitle: string;
     defaultDescription: string;
     defaultKeywords: string;
+  };
+  // Notification bar
+  notifications: {
+    welcomeBar: string;
+  };
+  // Cookie consent
+  cookies: {
+    title: string;
+    description: string;
+    acceptAll: string;
+    rejectAll: string;
+    customize: string;
+    privacyNotice: string;
+  };
+  // Blog interface
+  blog: {
+    title: string;
+    subtitle: string;
+    tags: string;
+    categories: string;
+    allTags: string;
+    allCategories: string;
+    searchPlaceholder: string;
+    noResults: string;
+    loading: string;
+  };
+  // SEO for all pages
+  seoMeta: {
+    // Contact page
+    contactTitle: string;
+    contactDescription: string;
+    contactKeywords: string;
+    // Experiences page
+    experiencesTitle: string;
+    experiencesDescription: string;
+    experiencesKeywords: string;
+    // Blog page
+    blogTitle: string;
+    blogDescription: string;
+    blogKeywords: string;
+    // Brochure page
+    brochureTitle: string;
+    brochureDescription: string;
+    brochureKeywords: string;
+    // Group corporate page
+    groupCorporateTitle: string;
+    groupCorporateDescription: string;
+    groupCorporateKeywords: string;
+  };
+  // Error pages and messages
+  errors: {
+    notFound: string;
+    tourNotFound: string;
+    articleNotFound: string;
+    pageNotFound: string;
+    somethingWentWrong: string;
+    tryAgain: string;
+    backToHome: string;
+    backToTours: string;
+    backToBlog: string;
+    loading: string;
+    noImage: string;
+    imageLoadFailed: string;
   };
 }
 
@@ -647,7 +725,22 @@ const translations: Record<string, Translations> = {
       downloadPdf: "Download PDF",
       clearFilters: "Clear filters",
       contactUs: "Contact us",
-      aboutUs: "About us"
+      aboutUs: "About us",
+      // Nouvelles traductions ajoutées
+      searchArticles: "Search articles",
+      allTags: "All Tags",
+      allCategories: "All Categories",
+      chatWhatsApp: "Chat on WhatsApp",
+      sendEmail: "Send Email",
+      close: "Close",
+      cancel: "Cancel",
+      confirm: "Confirm",
+      accept: "Accept",
+      reject: "Reject",
+      customize: "Customize",
+      acceptAll: "Accept All",
+      rejectAll: "Reject All",
+      readMore: "Read More"
     },
     toasts: {
       subscriptionSuccess: "Subscription Successful!",
@@ -667,6 +760,59 @@ const translations: Record<string, Translations> = {
       defaultTitle: "Amon Tour - Authentic Thailand Travel Experiences",
       defaultDescription: "Plan your perfect Thailand vacation with Amon Tour - expert-guided private tours, cultural experiences & custom itineraries. Explore Bangkok, Phuket, Krabi & hidden gems. Family-run agency since 2017.",
       defaultKeywords: "thailand tours, bangkok travel, phuket tours, krabi tours, private tours thailand, custom thailand itinerary, thailand vacation planner, authentic thai experiences, cultural tours thailand, family travel agency, thailand trip planning, best thailand tours, thailand travel guide"
+    },
+    notifications: {
+      welcomeBar: "Welcome to Amon Tour! Discover authentic Thailand experiences 🇹🇭"
+    },
+    cookies: {
+      title: "We use cookies",
+      description: "We use cookies to enhance your experience and analyze site usage. By continuing to use this site, you agree to our use of cookies.",
+      acceptAll: "Accept All",
+      rejectAll: "Reject All",
+      customize: "Customize",
+      privacyNotice: "Privacy Notice"
+    },
+    blog: {
+      title: "Travel Blog",
+      subtitle: "Discover Thailand through our expert insights and travel guides",
+      tags: "Tags",
+      categories: "Categories",
+      allTags: "All Tags",
+      allCategories: "All Categories",
+      searchPlaceholder: "Search articles...",
+      noResults: "No articles found",
+      loading: "Loading articles..."
+    },
+    seoMeta: {
+      contactTitle: "Contact Amon Tour - Plan Your Thailand Adventure",
+      contactDescription: "Get in touch with Amon Tour for personalized Thailand travel planning. Expert guidance for Krabi, Bangkok, Phuket tours and custom itineraries.",
+      contactKeywords: "contact amon tour, thailand travel planner, krabi tour agency, custom thailand tours, thailand travel consultation",
+      experiencesTitle: "Thailand Tours & Experiences - Amon Tour",
+      experiencesDescription: "Explore our authentic Thailand tours and experiences. Private tours, cultural adventures, and off-the-beaten-path discoveries in Krabi and beyond.",
+      experiencesKeywords: "thailand tours, krabi experiences, private thailand tours, cultural tours thailand, authentic travel experiences",
+      blogTitle: "Thailand Travel Blog - Amon Tour Insights",
+      blogDescription: "Discover Thailand through our travel blog. Expert tips, cultural insights, and travel guides for Bangkok, Phuket, Krabi and hidden gems.",
+      blogKeywords: "thailand travel blog, thailand travel tips, krabi travel guide, bangkok insights, phuket recommendations",
+      brochureTitle: "Thailand Travel Brochure - Amon Tour",
+      brochureDescription: "Download our comprehensive Thailand travel brochure with tour details, itineraries, and planning information for your perfect vacation.",
+      brochureKeywords: "thailand travel brochure, tour catalog, thailand vacation planning, travel itineraries",
+      groupCorporateTitle: "Corporate & Group Tours Thailand - Amon Tour",
+      groupCorporateDescription: "Specialized corporate and group travel services in Thailand. Team building, incentive trips, and customized group experiences.",
+      groupCorporateKeywords: "corporate tours thailand, group travel thailand, team building thailand, incentive travel"
+    },
+    errors: {
+      notFound: "Not Found",
+      tourNotFound: "Tour not found",
+      articleNotFound: "Article not found",
+      pageNotFound: "Page not found",
+      somethingWentWrong: "Something went wrong",
+      tryAgain: "Try again",
+      backToHome: "Back to Home",
+      backToTours: "Back to Tours",
+      backToBlog: "Back to Blog",
+      loading: "Loading...",
+      noImage: "No image available",
+      imageLoadFailed: "Failed to load image"
     },
     footer: {
       contact: "Contact",
@@ -976,7 +1122,22 @@ const translations: Record<string, Translations> = {
       downloadPdf: "Télécharger PDF",
       clearFilters: "Effacer les filtres",
       contactUs: "Nous contacter",
-      aboutUs: "À propos"
+      aboutUs: "À propos",
+      // Nouvelles traductions ajoutées
+      searchArticles: "Rechercher articles",
+      allTags: "Tous les Tags",
+      allCategories: "Toutes les Catégories",
+      chatWhatsApp: "Chatter sur WhatsApp",
+      sendEmail: "Envoyer Email",
+      close: "Fermer",
+      cancel: "Annuler",
+      confirm: "Confirmer",
+      accept: "Accepter",
+      reject: "Refuser",
+      customize: "Personnaliser",
+      acceptAll: "Tout Accepter",
+      rejectAll: "Tout Refuser",
+      readMore: "Lire Plus"
     },
     toasts: {
       subscriptionSuccess: "Inscription réussie !",
@@ -996,6 +1157,59 @@ const translations: Record<string, Translations> = {
       defaultTitle: "Amon Tour - Expériences Authentiques de Voyage en Thaïlande",
       defaultDescription: "Planifiez vos vacances parfaites en Thaïlande avec Amon Tour - tours privés avec guides experts, expériences culturelles et itinéraires sur mesure. Explorez Bangkok, Phuket, Krabi et joyaux cachés. Agence familiale depuis 2017.",
       defaultKeywords: "tours thaïlande, voyage bangkok, tours phuket, tours krabi, tours privés thaïlande, itinéraire sur mesure thaïlande, planificateur vacances thaïlande, expériences authentiques thaï, tours culturels thaïlande, agence voyage familiale, planification voyage thaïlande, meilleurs tours thaïlande, guide voyage thaïlande"
+    },
+    notifications: {
+      welcomeBar: "Bienvenue chez Amon Tour ! Découvrez des expériences authentiques en Thaïlande 🇹🇭"
+    },
+    cookies: {
+      title: "Nous utilisons des cookies",
+      description: "Nous utilisons des cookies pour améliorer votre expérience et analyser l'utilisation du site. En continuant à utiliser ce site, vous acceptez notre utilisation des cookies.",
+      acceptAll: "Tout Accepter",
+      rejectAll: "Tout Refuser",
+      customize: "Personnaliser",
+      privacyNotice: "Notice de Confidentialité"
+    },
+    blog: {
+      title: "Blog de Voyage",
+      subtitle: "Découvrez la Thaïlande à travers nos conseils d'experts et guides de voyage",
+      tags: "Tags",
+      categories: "Catégories",
+      allTags: "Tous les Tags",
+      allCategories: "Toutes les Catégories",
+      searchPlaceholder: "Rechercher des articles...",
+      noResults: "Aucun article trouvé",
+      loading: "Chargement des articles..."
+    },
+    seoMeta: {
+      contactTitle: "Contactez Amon Tour - Planifiez Votre Aventure en Thaïlande",
+      contactDescription: "Contactez Amon Tour pour la planification personnalisée de voyages en Thaïlande. Conseils d'experts pour les tours de Krabi, Bangkok, Phuket et itinéraires sur mesure.",
+      contactKeywords: "contact amon tour, planificateur voyage thaïlande, agence tour krabi, tours sur mesure thaïlande, consultation voyage thaïlande",
+      experiencesTitle: "Tours et Expériences en Thaïlande - Amon Tour",
+      experiencesDescription: "Explorez nos tours et expériences authentiques en Thaïlande. Tours privés, aventures culturelles et découvertes hors des sentiers battus à Krabi et au-delà.",
+      experiencesKeywords: "tours thaïlande, expériences krabi, tours privés thaïlande, tours culturels thaïlande, expériences voyage authentiques",
+      blogTitle: "Blog Voyage Thaïlande - Conseils Amon Tour",
+      blogDescription: "Découvrez la Thaïlande à travers notre blog voyage. Conseils d'experts, aperçus culturels et guides de voyage pour Bangkok, Phuket, Krabi et joyaux cachés.",
+      blogKeywords: "blog voyage thaïlande, conseils voyage thaïlande, guide krabi, conseils bangkok, recommandations phuket",
+      brochureTitle: "Brochure Voyage Thaïlande - Amon Tour",
+      brochureDescription: "Téléchargez notre brochure complète de voyage en Thaïlande avec détails des tours, itinéraires et informations de planification pour vos vacances parfaites.",
+      brochureKeywords: "brochure voyage thaïlande, catalogue tours, planification vacances thaïlande, itinéraires voyage",
+      groupCorporateTitle: "Tours Corporatifs et Groupes Thaïlande - Amon Tour",
+      groupCorporateDescription: "Services spécialisés de voyage corporatif et groupe en Thaïlande. Team building, voyages incitation et expériences personnalisées pour groupes.",
+      groupCorporateKeywords: "tours corporatifs thaïlande, voyage groupe thaïlande, team building thaïlande, voyage incitation"
+    },
+    errors: {
+      notFound: "Non Trouvé",
+      tourNotFound: "Tour non trouvé",
+      articleNotFound: "Article non trouvé",
+      pageNotFound: "Page non trouvée",
+      somethingWentWrong: "Quelque chose s'est mal passé",
+      tryAgain: "Réessayer",
+      backToHome: "Retour à l'Accueil",
+      backToTours: "Retour aux Tours",
+      backToBlog: "Retour au Blog",
+      loading: "Chargement...",
+      noImage: "Aucune image disponible",
+      imageLoadFailed: "Échec du chargement de l'image"
     },
     footer: {
       contact: "Contact",
@@ -1305,7 +1519,22 @@ const translations: Record<string, Translations> = {
       downloadPdf: "Descargar PDF",
       clearFilters: "Limpiar filtros",
       contactUs: "Contáctanos",
-      aboutUs: "Acerca de nosotros"
+      aboutUs: "Acerca de nosotros",
+      // Nuevas traducciones añadidas
+      searchArticles: "Buscar artículos",
+      allTags: "Todos los Tags",
+      allCategories: "Todas las Categorías",
+      chatWhatsApp: "Chat en WhatsApp",
+      sendEmail: "Enviar Email",
+      close: "Cerrar",
+      cancel: "Cancelar",
+      confirm: "Confirmar",
+      accept: "Aceptar",
+      reject: "Rechazar",
+      customize: "Personalizar",
+      acceptAll: "Aceptar Todo",
+      rejectAll: "Rechazar Todo",
+      readMore: "Leer Más"
     },
     toasts: {
       subscriptionSuccess: "¡Suscripción exitosa!",
@@ -1325,6 +1554,59 @@ const translations: Record<string, Translations> = {
       defaultTitle: "Amon Tour - Experiencias Auténticas de Viaje en Tailandia",
       defaultDescription: "Planifica tus vacaciones perfectas en Tailandia con Amon Tour - tours privados con guías expertos, experiencias culturales e itinerarios personalizados. Explora Bangkok, Phuket, Krabi y gemas ocultas. Agencia familiar desde 2017.",
       defaultKeywords: "tours tailandia, viaje bangkok, tours phuket, tours krabi, tours privados tailandia, itinerario personalizado tailandia, planificador vacaciones tailandia, experiencias auténticas tailandesas, tours culturales tailandia, agencia viajes familiar, planificación viaje tailandia, mejores tours tailandia, guía viaje tailandia"
+    },
+    notifications: {
+      welcomeBar: "¡Bienvenido a Amon Tour! Descubre experiencias auténticas en Tailandia 🇹🇭"
+    },
+    cookies: {
+      title: "Usamos cookies",
+      description: "Utilizamos cookies para mejorar tu experiencia y analizar el uso del sitio. Al continuar usando este sitio, aceptas nuestro uso de cookies.",
+      acceptAll: "Aceptar Todo",
+      rejectAll: "Rechazar Todo",
+      customize: "Personalizar",
+      privacyNotice: "Aviso de Privacidad"
+    },
+    blog: {
+      title: "Blog de Viajes",
+      subtitle: "Descubre Tailandia a través de nuestros consejos expertos y guías de viaje",
+      tags: "Tags",
+      categories: "Categorías",
+      allTags: "Todos los Tags",
+      allCategories: "Todas las Categorías",
+      searchPlaceholder: "Buscar artículos...",
+      noResults: "No se encontraron artículos",
+      loading: "Cargando artículos..."
+    },
+    seoMeta: {
+      contactTitle: "Contacta Amon Tour - Planifica Tu Aventura en Tailandia",
+      contactDescription: "Ponte en contacto con Amon Tour para planificación personalizada de viajes en Tailandia. Orientación experta para tours de Krabi, Bangkok, Phuket e itinerarios personalizados.",
+      contactKeywords: "contacto amon tour, planificador viaje tailandia, agencia tour krabi, tours personalizados tailandia, consulta viaje tailandia",
+      experiencesTitle: "Tours y Experiencias en Tailandia - Amon Tour",
+      experiencesDescription: "Explora nuestros tours y experiencias auténticas en Tailandia. Tours privados, aventuras culturales y descubrimientos fuera de lo común en Krabi y más allá.",
+      experiencesKeywords: "tours tailandia, experiencias krabi, tours privados tailandia, tours culturales tailandia, experiencias viaje auténticas",
+      blogTitle: "Blog Viaje Tailandia - Consejos Amon Tour",
+      blogDescription: "Descubre Tailandia a través de nuestro blog de viajes. Consejos expertos, perspectivas culturales y guías de viaje para Bangkok, Phuket, Krabi y gemas ocultas.",
+      blogKeywords: "blog viaje tailandia, consejos viaje tailandia, guía krabi, consejos bangkok, recomendaciones phuket",
+      brochureTitle: "Folleto Viaje Tailandia - Amon Tour",
+      brochureDescription: "Descarga nuestro folleto integral de viaje a Tailandia con detalles de tours, itinerarios e información de planificación para tus vacaciones perfectas.",
+      brochureKeywords: "folleto viaje tailandia, catálogo tours, planificación vacaciones tailandia, itinerarios viaje",
+      groupCorporateTitle: "Tours Corporativos y Grupos Tailandia - Amon Tour",
+      groupCorporateDescription: "Servicios especializados de viajes corporativos y grupales en Tailandia. Team building, viajes de incentivo y experiencias personalizadas para grupos.",
+      groupCorporateKeywords: "tours corporativos tailandia, viaje grupo tailandia, team building tailandia, viaje incentivo"
+    },
+    errors: {
+      notFound: "No Encontrado",
+      tourNotFound: "Tour no encontrado",
+      articleNotFound: "Artículo no encontrado",
+      pageNotFound: "Página no encontrada",
+      somethingWentWrong: "Algo salió mal",
+      tryAgain: "Intentar de nuevo",
+      backToHome: "Volver al Inicio",
+      backToTours: "Volver a Tours",
+      backToBlog: "Volver al Blog",
+      loading: "Cargando...",
+      noImage: "No hay imagen disponible",
+      imageLoadFailed: "Error al cargar imagen"
     },
     footer: {
       contact: "Contacto",
@@ -1402,6 +1684,27 @@ export class TranslationService {
     return this.getTranslations().customTour;
   }
 
+  // Nouveaux getters pour les sections ajoutées
+  getNotifications() {
+    return this.getTranslations().notifications;
+  }
+
+  getCookies() {
+    return this.getTranslations().cookies;
+  }
+
+  getBlog() {
+    return this.getTranslations().blog;
+  }
+
+  getSeoMeta() {
+    return this.getTranslations().seoMeta;
+  }
+
+  getErrors() {
+    return this.getTranslations().errors;
+  }
+
   getSeo() {
     return this.getTranslations().seo;
   }
@@ -1453,9 +1756,17 @@ export class TranslationService {
     const translations = this.getTranslations();
     const englishKeys = this.extractAllKeys(translations);
     
-    // Get French and Spanish translations directly from the data
-    const frenchKeys = this.extractAllKeys(this.translations?.fr || {});
-    const spanishKeys = this.extractAllKeys(this.translations?.es || {});
+    // Get French and Spanish translations by temporarily switching language
+    const currentLang = this.getCurrentLanguage();
+    
+    this.setLanguage('fr');
+    const frenchKeys = this.extractAllKeys(this.getTranslations());
+    
+    this.setLanguage('es');
+    const spanishKeys = this.extractAllKeys(this.getTranslations());
+    
+    // Restore original language
+    this.setLanguage(currentLang);
 
     const missingInFrench = englishKeys.filter(key => !frenchKeys.includes(key));
     const missingInSpanish = englishKeys.filter(key => !spanishKeys.includes(key));
@@ -1532,7 +1843,11 @@ export class TranslationService {
       }
     }
     
-    const totalKeys = this.extractAllKeys(this.translations.en).length;
+    const currentLang = this.getCurrentLanguage();
+    this.setLanguage('en');
+    const totalKeys = this.extractAllKeys(this.getTranslations()).length;
+    this.setLanguage(currentLang);
+    
     const frenchCompleteness = ((totalKeys - report.missingInFrench.length) / totalKeys * 100).toFixed(1);
     const spanishCompleteness = ((totalKeys - report.missingInSpanish.length) / totalKeys * 100).toFixed(1);
     
