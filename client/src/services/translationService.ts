@@ -134,20 +134,13 @@ export interface Translations {
     contact: string;
     usefulLinks: string;
     newsletter: string;
-    aboutUs: string;
-    followUs: string;
-    privacyPolicy: string;
-    terms: string;
-    subscribeNewsletter: string;
-    privacyRespect: string;
-    ourBrochure: string;
-    krabiCelebration: string;
-    funGarden: string;
-    villasInKrabi: string;
-    becomePartner: string;
-    groupCorporate: string;
+    defaultNewsletterTitle: string;
+    defaultNewsletterDescription: string;
+    defaultPrivacyText: string;
+    copyright: string;
     legalNotice: string;
-    allRightsReserved: string;
+    privacyPolicy: string;
+    termsConditions: string;
   };
   // Cruise page
   cruise: {
@@ -435,25 +428,6 @@ const translations: Record<string, Translations> = {
       contactUs: "Contact Us",
       createYourJourney: "Create Your Journey"
     },
-    footer: {
-      contact: "Contact",
-      usefulLinks: "Useful Links",
-      newsletter: "Newsletter",
-      aboutUs: "About Us",
-      followUs: "Follow Us",
-      privacyPolicy: "Privacy Policy", 
-      terms: "Terms & Conditions",
-      subscribeNewsletter: "Subscribe to receive our special offers and travel tips.",
-      privacyRespect: "We respect your privacy. Unsubscribe at any time.",
-      ourBrochure: "Our brochure",
-      krabiCelebration: "Krabi Celebration",
-      funGarden: "Fun Garden",
-      villasInKrabi: "Villas in Krabi",
-      becomePartner: "Become Partner",
-      groupCorporate: "Group & Corporate",
-      legalNotice: "Legal Notice",
-      allRightsReserved: "All rights reserved."
-    },
     cruise: {
       title: "Custom Quote Request",
       subtitle: "Fill out the form below and we will contact you within 24 hours.",
@@ -625,6 +599,18 @@ const translations: Record<string, Translations> = {
       defaultTitle: "Amon Tour - Authentic Thailand Travel Experiences",
       defaultDescription: "Plan your perfect Thailand vacation with Amon Tour - expert-guided private tours, cultural experiences & custom itineraries. Explore Bangkok, Phuket, Krabi & hidden gems. Family-run agency since 2017.",
       defaultKeywords: "thailand tours, bangkok travel, phuket tours, krabi tours, private tours thailand, custom thailand itinerary, thailand vacation planner, authentic thai experiences, cultural tours thailand, family travel agency, thailand trip planning, best thailand tours, thailand travel guide"
+    },
+    footer: {
+      contact: "Contact",
+      usefulLinks: "Useful Links", 
+      newsletter: "Newsletter",
+      defaultNewsletterTitle: "Newsletter",
+      defaultNewsletterDescription: "Subscribe to receive our special offers and travel tips.",
+      defaultPrivacyText: "We respect your privacy. Unsubscribe at any time.",
+      copyright: "All rights reserved.",
+      legalNotice: "Legal Notice",
+      privacyPolicy: "Privacy Policy",
+      termsConditions: "Terms & Conditions"
     }
   },
   fr: {
@@ -737,25 +723,6 @@ const translations: Record<string, Translations> = {
       
       contactUs: "Contactez-Nous",
       createYourJourney: "Créez Votre Voyage"
-    },
-    footer: {
-      contact: "Contact",
-      usefulLinks: "Liens Utiles",
-      newsletter: "Newsletter",
-      aboutUs: "À Propos",
-      followUs: "Suivez-Nous",
-      privacyPolicy: "Politique de Confidentialité",
-      terms: "Conditions Générales",
-      subscribeNewsletter: "Abonnez-vous pour recevoir nos offres spéciales et conseils voyage.",
-      privacyRespect: "Nous respectons votre vie privée. Désabonnez-vous à tout moment.",
-      ourBrochure: "Notre brochure",
-      krabiCelebration: "Krabi Celebration",
-      funGarden: "Fun Garden",
-      villasInKrabi: "Villas à Krabi",
-      becomePartner: "Devenir Partenaire",
-      groupCorporate: "Groupe & Entreprise",
-      legalNotice: "Mentions Légales",
-      allRightsReserved: "Tous droits réservés."
     },
     cruise: {
       title: "Demande de Devis Personnalisé",
@@ -928,6 +895,18 @@ const translations: Record<string, Translations> = {
       defaultTitle: "Amon Tour - Expériences Authentiques de Voyage en Thaïlande",
       defaultDescription: "Planifiez vos vacances parfaites en Thaïlande avec Amon Tour - tours privés avec guides experts, expériences culturelles et itinéraires sur mesure. Explorez Bangkok, Phuket, Krabi et joyaux cachés. Agence familiale depuis 2017.",
       defaultKeywords: "tours thaïlande, voyage bangkok, tours phuket, tours krabi, tours privés thaïlande, itinéraire sur mesure thaïlande, planificateur vacances thaïlande, expériences authentiques thaï, tours culturels thaïlande, agence voyage familiale, planification voyage thaïlande, meilleurs tours thaïlande, guide voyage thaïlande"
+    },
+    footer: {
+      contact: "Contact",
+      usefulLinks: "Liens Utiles",
+      newsletter: "Newsletter",
+      defaultNewsletterTitle: "Newsletter",
+      defaultNewsletterDescription: "Abonnez-vous pour recevoir nos offres spéciales et conseils voyage.",
+      defaultPrivacyText: "Nous respectons votre vie privée. Désabonnez-vous à tout moment.",
+      copyright: "Tous droits réservés.",
+      legalNotice: "Mentions Légales",
+      privacyPolicy: "Politique de Confidentialité",
+      termsConditions: "Conditions Générales"
     }
   },
   es: {
@@ -1040,25 +1019,6 @@ const translations: Record<string, Translations> = {
       
       contactUs: "Contáctanos",
       createYourJourney: "Crea Tu Viaje"
-    },
-    footer: {
-      contact: "Contacto",
-      usefulLinks: "Enlaces Útiles",
-      newsletter: "Newsletter",
-      aboutUs: "Acerca de Nosotros",
-      followUs: "Síguenos",
-      privacyPolicy: "Política de Privacidad",
-      terms: "Términos y Condiciones",
-      subscribeNewsletter: "Suscríbete para recibir nuestras ofertas especiales y consejos de viaje.",
-      privacyRespect: "Respetamos tu privacidad. Cancela la suscripción en cualquier momento.",
-      ourBrochure: "Nuestro folleto",
-      krabiCelebration: "Krabi Celebration",
-      funGarden: "Fun Garden",
-      villasInKrabi: "Villas en Krabi",
-      becomePartner: "Convertirse en Socio",
-      groupCorporate: "Grupo y Empresarial",
-      legalNotice: "Aviso Legal",
-      allRightsReserved: "Todos los derechos reservados."
     },
     cruise: {
       title: "Solicitud de Cotización Personalizada",
@@ -1231,6 +1191,18 @@ const translations: Record<string, Translations> = {
       defaultTitle: "Amon Tour - Experiencias Auténticas de Viaje en Tailandia",
       defaultDescription: "Planifica tus vacaciones perfectas en Tailandia con Amon Tour - tours privados con guías expertos, experiencias culturales e itinerarios personalizados. Explora Bangkok, Phuket, Krabi y gemas ocultas. Agencia familiar desde 2017.",
       defaultKeywords: "tours tailandia, viaje bangkok, tours phuket, tours krabi, tours privados tailandia, itinerario personalizado tailandia, planificador vacaciones tailandia, experiencias auténticas tailandesas, tours culturales tailandia, agencia viajes familiar, planificación viaje tailandia, mejores tours tailandia, guía viaje tailandia"
+    },
+    footer: {
+      contact: "Contacto",
+      usefulLinks: "Enlaces Útiles",
+      newsletter: "Newsletter",
+      defaultNewsletterTitle: "Newsletter",
+      defaultNewsletterDescription: "Suscríbete para recibir nuestras ofertas especiales y consejos de viaje.",
+      defaultPrivacyText: "Respetamos tu privacidad. Desuscríbete en cualquier momento.",
+      copyright: "Todos los derechos reservados.",
+      legalNotice: "Aviso Legal",
+      privacyPolicy: "Política de Privacidad",
+      termsConditions: "Términos y Condiciones"
     }
   }
 };
