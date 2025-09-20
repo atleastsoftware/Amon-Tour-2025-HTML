@@ -6,6 +6,7 @@ import { translationService } from "@/services/translationService";
 
 // Photo Gallery Carousel Component with Lightbox
 function PhotoGallery() {
+  const accessibility = translationService.getAccessibility();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(3);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -247,7 +248,7 @@ function PhotoGallery() {
           <button
             onClick={prevSlide}
             className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-3 rounded-r-lg shadow-lg transition-all duration-200 hover:pl-4 z-10"
-            aria-label="Previous images"
+            aria-label={accessibility.previousImages}
           >
             <ChevronLeft className="h-6 w-6" />
           </button>
@@ -255,7 +256,7 @@ function PhotoGallery() {
           <button
             onClick={nextSlide}
             className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-3 rounded-l-lg shadow-lg transition-all duration-200 hover:pr-4 z-10"
-            aria-label="Next images"
+            aria-label={accessibility.nextImages}
           >
             <ChevronRight className="h-6 w-6" />
           </button>
@@ -269,7 +270,7 @@ function PhotoGallery() {
             <button
               onClick={closeLightbox}
               className="absolute top-16 right-4 md:top-4 text-white bg-black/70 hover:bg-black/90 p-3 rounded-full transition-colors z-10 shadow-lg"
-              aria-label="Close gallery"
+              aria-label={accessibility.closeGallery}
               data-testid="button-close-gallery"
             >
               <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -280,7 +281,7 @@ function PhotoGallery() {
             <button
               onClick={prevLightboxImage}
               className="absolute left-4 top-1/2 -translate-y-1/2 text-white bg-black/50 hover:bg-black/70 p-3 rounded-full transition-colors"
-              aria-label="Previous image"
+              aria-label={accessibility.previousImage}
             >
               <ChevronLeft className="h-8 w-8" />
             </button>
@@ -295,7 +296,7 @@ function PhotoGallery() {
             <button
               onClick={nextLightboxImage}
               className="absolute right-4 top-1/2 -translate-y-1/2 text-white bg-black/50 hover:bg-black/70 p-3 rounded-full transition-colors"
-              aria-label="Next image"
+              aria-label={accessibility.nextImage}
             >
               <ChevronRight className="h-8 w-8" />
             </button>
@@ -308,6 +309,7 @@ function PhotoGallery() {
 
 export default function CatamaranExperience() {
   const cruise = translationService.getCruise();
+  const accessibility = translationService.getAccessibility();
   
   return (
     <section className="py-20 bg-neutral-light">

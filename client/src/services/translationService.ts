@@ -427,6 +427,23 @@ export interface Translations {
     noImage: string;
     imageLoadFailed: string;
   };
+  // Tour names for marquee section
+  tourNames: {
+    phiPhiIslands: string;
+    jamesBondIsland: string;
+    phuketCityTemple: string;
+    emeraldCaveKayaking: string;
+    elephantSanctuary: string;
+    fourIslandsLongtail: string;
+  };
+  // Accessibility labels
+  accessibility: {
+    previousImages: string;
+    nextImages: string;
+    closeGallery: string;
+    previousImage: string;
+    nextImage: string;
+  };
 }
 
 const translations: Record<string, Translations> = {
@@ -825,6 +842,21 @@ const translations: Record<string, Translations> = {
       legalNotice: "Legal Notice",
       privacyPolicy: "Privacy Policy",
       termsConditions: "Terms & Conditions"
+    },
+    tourNames: {
+      phiPhiIslands: "Phi Phi Islands Speed Boat Tour",
+      jamesBondIsland: "James Bond Island Day Trip",
+      phuketCityTemple: "Phuket City & Temple Tour",
+      emeraldCaveKayaking: "Emerald Cave Kayaking",
+      elephantSanctuary: "Elephant Sanctuary Visit",
+      fourIslandsLongtail: "4 Islands Tour by Longtail"
+    },
+    accessibility: {
+      previousImages: "Previous images",
+      nextImages: "Next images",
+      closeGallery: "Close gallery",
+      previousImage: "Previous image",
+      nextImage: "Next image"
     }
   },
   fr: {
@@ -1222,6 +1254,21 @@ const translations: Record<string, Translations> = {
       legalNotice: "Mentions Légales",
       privacyPolicy: "Politique de Confidentialité",
       termsConditions: "Conditions Générales"
+    },
+    tourNames: {
+      phiPhiIslands: "Tour en Speedboat des Îles Phi Phi",
+      jamesBondIsland: "Excursion à l'Île James Bond",
+      phuketCityTemple: "Tour de la Ville et Temples de Phuket",
+      emeraldCaveKayaking: "Kayak dans la Grotte d'Émeraude",
+      elephantSanctuary: "Visite du Sanctuaire d'Éléphants",
+      fourIslandsLongtail: "Tour des 4 Îles en Longtail"
+    },
+    accessibility: {
+      previousImages: "Images précédentes",
+      nextImages: "Images suivantes",
+      closeGallery: "Fermer la galerie",
+      previousImage: "Image précédente",
+      nextImage: "Image suivante"
     }
   },
   es: {
@@ -1619,6 +1666,21 @@ const translations: Record<string, Translations> = {
       legalNotice: "Aviso Legal",
       privacyPolicy: "Política de Privacidad",
       termsConditions: "Términos y Condiciones"
+    },
+    tourNames: {
+      phiPhiIslands: "Tour en Lancha Rápida a las Islas Phi Phi",
+      jamesBondIsland: "Excursión a la Isla de James Bond",
+      phuketCityTemple: "Tour de la Ciudad y Templos de Phuket",
+      emeraldCaveKayaking: "Kayak en la Cueva Esmeralda",
+      elephantSanctuary: "Visita al Santuario de Elefantes",
+      fourIslandsLongtail: "Tour de 4 Islas en Longtail"
+    },
+    accessibility: {
+      previousImages: "Imágenes anteriores",
+      nextImages: "Siguientes imágenes",
+      closeGallery: "Cerrar galería",
+      previousImage: "Imagen anterior",
+      nextImage: "Siguiente imagen"
     }
   }
 };
@@ -1654,6 +1716,14 @@ export class TranslationService {
   // Helper methods for specific sections
   getNav() {
     return this.getTranslations().nav;
+  }
+
+  getTourNames() {
+    return this.getTranslations().tourNames;
+  }
+
+  getAccessibility() {
+    return this.getTranslations().accessibility;
   }
 
   getHero() {
