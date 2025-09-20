@@ -5,7 +5,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
 import HeroHeader from "@/components/layout/HeroHeader";
-import { TranslationService } from "@/services/translationService";
+import { translationService } from "@/services/translationService";
 import TourCardItem, { TourCardItemProps } from "@/components/tour/TourCardItem";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -21,7 +21,6 @@ import {
 // Image is loaded from URL directly
 
 export default function Experiences() {
-  const translationService = new TranslationService();
   const pageHeaders = translationService.getPageHeaders();
   const seoMeta = translationService.getSeoMeta();
   

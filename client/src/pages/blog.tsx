@@ -9,7 +9,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import HeroHeader from "@/components/layout/HeroHeader";
-import { TranslationService } from "@/services/translationService";
+import { translationService } from "@/services/translationService";
 
 interface BlogPost {
   id: number;
@@ -47,7 +47,6 @@ interface BlogTag {
 }
 
 export default function BlogPage() {
-  const translationService = new TranslationService();
   const blogTranslations = translationService.getBlog();
   
   const [searchTerm, setSearchTerm] = useState("");

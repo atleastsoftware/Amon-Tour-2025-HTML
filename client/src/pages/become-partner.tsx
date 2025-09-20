@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { TranslationService } from "@/services/translationService";
+import { translationService } from "@/services/translationService";
 
 interface FormData {
   companyName: string;
@@ -23,7 +23,6 @@ interface FormData {
 
 export default function BecomePartner() {
   const { toast } = useToast();
-  const translationService = new TranslationService();
   const toasts = translationService.getToasts();
   const [formData, setFormData] = useState<FormData>({
     companyName: '',

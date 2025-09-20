@@ -2,12 +2,11 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
 import HeroHeader from "@/components/layout/HeroHeader";
-import { TranslationService } from "@/services/translationService";
+import { translationService } from "@/services/translationService";
 import { MapPin, Mail, Phone, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function Contact() {
-  const translationService = new TranslationService();
   const pageHeaders = translationService.getPageHeaders();
   const seoMeta = translationService.getSeoMeta();
   

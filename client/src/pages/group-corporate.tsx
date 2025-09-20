@@ -2,7 +2,7 @@ import { useState } from "react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
-import { TranslationService } from "@/services/translationService";
+import { translationService } from "@/services/translationService";
 import { Users, Target, Calendar, Award, Building, GraduationCap } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -24,7 +24,6 @@ interface FormData {
 
 export default function GroupCorporate() {
   const { toast } = useToast();
-  const translationService = new TranslationService();
   const seoMeta = translationService.getSeoMeta();
   const toasts = translationService.getToasts();
   const [formData, setFormData] = useState<FormData>({

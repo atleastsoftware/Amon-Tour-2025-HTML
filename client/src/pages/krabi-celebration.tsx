@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { TranslationService } from "@/services/translationService";
+import { translationService } from "@/services/translationService";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
@@ -29,7 +29,6 @@ interface FormData {
 
 export default function KrabiCelebration() {
   const { toast } = useToast();
-  const translationService = new TranslationService();
   const toasts = translationService.getToasts();
   const [formData, setFormData] = useState<FormData>({
     name: '',

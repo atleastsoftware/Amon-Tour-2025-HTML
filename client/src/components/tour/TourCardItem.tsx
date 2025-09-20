@@ -5,7 +5,7 @@ import { formatTHB } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { TranslationService } from '@/services/translationService';
+import { translationService } from '@/services/translationService';
 import {
   Dialog,
   DialogContent,
@@ -39,7 +39,6 @@ export default function TourCardItem({
   tags = []
 }: TourCardItemProps) {
   const { toast } = useToast();
-  const translationService = new TranslationService();
   const toasts = translationService.getToasts();
   const buttons = translationService.getButtons();
   const [copied, setCopied] = useState(false);

@@ -4,7 +4,7 @@ import { FadeInWhenVisible, SlideUpWhenVisible, StaggerChildren, StaggerItem } f
 import NewsletterSubscription from "@/components/newsletter/NewsletterSubscription";
 import logoA from "@/assets/logo-a.png";
 import { useQuery } from '@tanstack/react-query';
-import { TranslationService } from "@/services/translationService";
+import { translationService } from "@/services/translationService";
 import { 
   Facebook, 
   Instagram, 
@@ -137,7 +137,6 @@ function renderContactInfo(item: any) {
 
 export default function Footer() {
   // Initialize translation service
-  const translationService = new TranslationService();
   const footerTranslations = translationService.getFooter();
   
   // Fetch dynamic footer content
