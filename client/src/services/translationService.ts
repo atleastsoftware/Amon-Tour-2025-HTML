@@ -256,6 +256,65 @@ export interface Translations {
     personalizedSupport: string;
     personalizedSupportDescription: string;
   };
+  // Page Headers - Headers for all pages
+  pageHeaders: {
+    contact: {
+      title: string;
+      subtitle: string;
+      getInTouch: string;
+      readyToExplore: string;
+      email: string;
+      phone: string;
+      location: string;
+      whatsapp: string;
+      line: string;
+    };
+    experiences: {
+      title: string;
+      subtitle: string;
+      searchPlaceholder: string;
+      organizeDreamTrip: string;
+    };
+    blog: {
+      title: string;
+      subtitle: string;
+    };
+    tours: {
+      title: string;
+      subtitle: string;
+    };
+    krabiCelebration: {
+      title: string;
+      subtitle: string;
+    };
+    becomePartner: {
+      title: string;
+      subtitle: string;
+    };
+    groupCorporate: {
+      title: string;
+      subtitle: string;
+    };
+    villasKrabi: {
+      title: string;
+      subtitle: string;
+    };
+    brochure: {
+      title: string;
+      subtitle: string;
+    };
+  };
+  // Messages - General content messages
+  messages: {
+    missingInformation: string;
+    missingInformationDesc: string;
+    redirectingWhatsApp: string;
+    redirectingWhatsAppDesc: string;
+    formSubmitted: string;
+    formSubmittedDesc: string;
+    errorOccurred: string;
+    errorOccurredDesc: string;
+  };
   // SEO defaults
   seo: {
     defaultTitle: string;
@@ -505,6 +564,63 @@ const translations: Record<string, Translations> = {
       personalizedSupport: "Personalized Support",
       personalizedSupportDescription: "Benefit from expert advice and an English-speaking guide for an authentic experience."
     },
+    pageHeaders: {
+      contact: {
+        title: "Contact Us",
+        subtitle: "We're here to help you plan the perfect experience in Krabi.",
+        getInTouch: "Get In Touch",
+        readyToExplore: "Ready to explore Krabi? Contact us through any of the methods below. Our friendly team is here to answer your questions and help you plan an unforgettable experience.",
+        email: "Email",
+        phone: "Phone",
+        location: "Location",
+        whatsapp: "WhatsApp",
+        line: "Line"
+      },
+      experiences: {
+        title: "Discover Thailand Experiences",
+        subtitle: "Immerse yourself in authentic Thai culture with our unique experiences",
+        searchPlaceholder: "Search experiences...",
+        organizeDreamTrip: "Contact us to organize your dream trip to Thailand."
+      },
+      blog: {
+        title: "Travel Blog",
+        subtitle: "Discover the best of Krabi through our travel guides, tips, and local insights."
+      },
+      tours: {
+        title: "Our Experiences",
+        subtitle: "Discover the exceptional beauty of Krabi and southern Thailand."
+      },
+      krabiCelebration: {
+        title: "Krabi Celebration",
+        subtitle: "Unique Moments in Exceptional Settings"
+      },
+      becomePartner: {
+        title: "Become Our Partner",
+        subtitle: "Join our network of trusted local partners"
+      },
+      groupCorporate: {
+        title: "Group & Corporate Travel",
+        subtitle: "Tailored Experiences in Krabi"
+      },
+      villasKrabi: {
+        title: "Villas in Krabi",
+        subtitle: "Curated Villa Selection"
+      },
+      brochure: {
+        title: "Our Brochure",
+        subtitle: "Amon Tour Travel Guide"
+      }
+    },
+    messages: {
+      missingInformation: "Missing Information",
+      missingInformationDesc: "Please fill in all required fields before proceeding.",
+      redirectingWhatsApp: "Redirecting to WhatsApp",
+      redirectingWhatsAppDesc: "We've prepared your message for you!",
+      formSubmitted: "Request Sent",
+      formSubmittedDesc: "We will contact you shortly.",
+      errorOccurred: "Error Occurred",
+      errorOccurredDesc: "An error occurred. Please try again."
+    },
     seo: {
       defaultTitle: "Amon Tour - Authentic Thailand Travel Experiences",
       defaultDescription: "Plan your perfect Thailand vacation with Amon Tour - expert-guided private tours, cultural experiences & custom itineraries. Explore Bangkok, Phuket, Krabi & hidden gems. Family-run agency since 2017.",
@@ -750,6 +866,63 @@ const translations: Record<string, Translations> = {
       tailoredAccommodationsDescription: "Sélectionnez des hébergements qui correspondent à vos préférences et votre budget.",
       personalizedSupport: "Support Personnalisé",
       personalizedSupportDescription: "Bénéficiez des conseils d'experts et d'un guide anglophone pour une expérience authentique."
+    },
+    pageHeaders: {
+      contact: {
+        title: "Nous Contacter",
+        subtitle: "Nous sommes là pour vous aider à planifier la parfaite expérience à Krabi.",
+        getInTouch: "Prenez Contact",
+        readyToExplore: "Prêt à explorer Krabi ? Contactez-nous par n'importe laquelle des méthodes ci-dessous. Notre équipe amicale est là pour répondre à vos questions et vous aider à planifier une expérience inoubliable.",
+        email: "Email",
+        phone: "Téléphone",
+        location: "Emplacement",
+        whatsapp: "WhatsApp",
+        line: "Line"
+      },
+      experiences: {
+        title: "Découvrez les Expériences de Thaïlande",
+        subtitle: "Immergez-vous dans la culture thaï authentique avec nos expériences uniques",
+        searchPlaceholder: "Rechercher des expériences...",
+        organizeDreamTrip: "Contactez-nous pour organiser le voyage de vos rêves en Thaïlande."
+      },
+      blog: {
+        title: "Blog de Voyage",
+        subtitle: "Découvrez le meilleur de Krabi à travers nos guides de voyage, conseils et aperçus locaux."
+      },
+      tours: {
+        title: "Nos Expériences",
+        subtitle: "Découvrez la beauté exceptionnelle de Krabi et du sud de la Thaïlande."
+      },
+      krabiCelebration: {
+        title: "Krabi Celebration",
+        subtitle: "Moments Uniques dans des Cadres Exceptionnels"
+      },
+      becomePartner: {
+        title: "Devenez Notre Partenaire",
+        subtitle: "Rejoignez notre réseau de partenaires locaux de confiance"
+      },
+      groupCorporate: {
+        title: "Voyages de Groupe et d'Entreprise",
+        subtitle: "Expériences Sur Mesure à Krabi"
+      },
+      villasKrabi: {
+        title: "Villas à Krabi",
+        subtitle: "Sélection de Villas Choisies"
+      },
+      brochure: {
+        title: "Notre Brochure",
+        subtitle: "Guide de Voyage Amon Tour"
+      }
+    },
+    messages: {
+      missingInformation: "Informations Manquantes",
+      missingInformationDesc: "Veuillez remplir tous les champs obligatoires avant de continuer.",
+      redirectingWhatsApp: "Redirection vers WhatsApp",
+      redirectingWhatsAppDesc: "Nous avons préparé votre message pour vous !",
+      formSubmitted: "Demande Envoyée",
+      formSubmittedDesc: "Nous vous contacterons sous peu.",
+      errorOccurred: "Erreur Survenue",
+      errorOccurredDesc: "Une erreur s'est produite. Veuillez réessayer."
     },
     seo: {
       defaultTitle: "Amon Tour - Expériences Authentiques de Voyage en Thaïlande",
@@ -997,6 +1170,63 @@ const translations: Record<string, Translations> = {
       personalizedSupport: "Soporte Personalizado",
       personalizedSupportDescription: "Benefíciese del consejo experto y un guía de habla inglesa para una experiencia auténtica."
     },
+    pageHeaders: {
+      contact: {
+        title: "Contáctanos",
+        subtitle: "Estamos aquí para ayudarte a planificar la experiencia perfecta en Krabi.",
+        getInTouch: "Ponte en Contacto",
+        readyToExplore: "¿Listo para explorar Krabi? Contáctanos por cualquiera de los métodos a continuación. Nuestro equipo amigable está aquí para responder tus preguntas y ayudarte a planificar una experiencia inolvidable.",
+        email: "Email",
+        phone: "Teléfono",
+        location: "Ubicación",
+        whatsapp: "WhatsApp",
+        line: "Line"
+      },
+      experiences: {
+        title: "Descubre las Experiencias de Tailandia",
+        subtitle: "Sumérgete en la cultura tailandesa auténtica con nuestras experiencias únicas",
+        searchPlaceholder: "Buscar experiencias...",
+        organizeDreamTrip: "Contáctanos para organizar el viaje de tus sueños a Tailandia."
+      },
+      blog: {
+        title: "Blog de Viajes",
+        subtitle: "Descubre lo mejor de Krabi a través de nuestras guías de viaje, consejos y perspectivas locales."
+      },
+      tours: {
+        title: "Nuestras Experiencias",
+        subtitle: "Descubre la belleza excepcional de Krabi y el sur de Tailandia."
+      },
+      krabiCelebration: {
+        title: "Krabi Celebration",
+        subtitle: "Momentos Únicos en Entornos Excepcionales"
+      },
+      becomePartner: {
+        title: "Conviértete en Nuestro Socio",
+        subtitle: "Únete a nuestra red de socios locales de confianza"
+      },
+      groupCorporate: {
+        title: "Viajes de Grupo y Corporativos",
+        subtitle: "Experiencias Personalizadas en Krabi"
+      },
+      villasKrabi: {
+        title: "Villas en Krabi",
+        subtitle: "Selección Curada de Villas"
+      },
+      brochure: {
+        title: "Nuestro Folleto",
+        subtitle: "Guía de Viaje Amon Tour"
+      }
+    },
+    messages: {
+      missingInformation: "Información Faltante",
+      missingInformationDesc: "Por favor complete todos los campos obligatorios antes de continuar.",
+      redirectingWhatsApp: "Redirigiendo a WhatsApp",
+      redirectingWhatsAppDesc: "¡Hemos preparado tu mensaje para ti!",
+      formSubmitted: "Solicitud Enviada",
+      formSubmittedDesc: "Te contactaremos pronto.",
+      errorOccurred: "Ocurrió un Error",
+      errorOccurredDesc: "Ocurrió un error. Por favor intenta de nuevo."
+    },
     seo: {
       defaultTitle: "Amon Tour - Experiencias Auténticas de Viaje en Tailandia",
       defaultDescription: "Planifica tus vacaciones perfectas en Tailandia con Amon Tour - tours privados con guías expertos, experiencias culturales e itinerarios personalizados. Explora Bangkok, Phuket, Krabi y gemas ocultas. Agencia familiar desde 2017.",
@@ -1068,6 +1298,14 @@ export class TranslationService {
 
   getSeo() {
     return this.getTranslations().seo;
+  }
+
+  getPageHeaders() {
+    return this.getTranslations().pageHeaders;
+  }
+
+  getMessages() {
+    return this.getTranslations().messages;
   }
 
   // Method to translate a specific key path
