@@ -26,6 +26,7 @@ export default function GroupCorporate() {
   const { toast } = useToast();
   const translationService = new TranslationService();
   const seoMeta = translationService.getSeoMeta();
+  const toasts = translationService.getToasts();
   const [formData, setFormData] = useState<FormData>({
     companyName: '',
     contactName: '',
@@ -74,8 +75,8 @@ export default function GroupCorporate() {
       console.log('Group Corporate - Success result:', result);
       
       toast({
-        title: "Group Request Sent!",
-        description: "Thank you for your group inquiry. Our team will create a customized proposal and contact you within 24 hours.",
+        title: toasts.requestSent,
+        description: toasts.requestSentDesc,
         duration: 5000,
       });
 
@@ -94,8 +95,8 @@ export default function GroupCorporate() {
     } catch (error) {
       console.error('Group Corporate - Submit error:', error);
       toast({
-        title: "Error Sending Request",
-        description: "There was a problem sending your group request. Please try again or contact us directly.",
+        title: toasts.requestFailed,
+        description: toasts.requestFailedDesc,
         variant: "destructive",
         duration: 5000,
       });

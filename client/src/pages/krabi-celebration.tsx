@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { TranslationService } from "@/services/translationService";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
@@ -28,6 +29,8 @@ interface FormData {
 
 export default function KrabiCelebration() {
   const { toast } = useToast();
+  const translationService = new TranslationService();
+  const toasts = translationService.getToasts();
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -72,8 +75,8 @@ export default function KrabiCelebration() {
       console.log('Krabi Celebration - Success result:', result);
       
       toast({
-        title: "Request Sent Successfully!",
-        description: "Thank you for your interest in Krabi Celebration. We'll contact you within 24 hours to discuss your dream celebration.",
+        title: toasts.requestSent,
+        description: toasts.requestSentDesc,
         duration: 5000,
       });
 
@@ -92,8 +95,8 @@ export default function KrabiCelebration() {
     } catch (error) {
       console.error('Krabi Celebration - Submit error:', error);
       toast({
-        title: "Error Sending Request",
-        description: "There was a problem sending your request. Please try again or contact us directly.",
+        title: toasts.requestFailed,
+        description: toasts.requestFailedDesc,
         variant: "destructive",
         duration: 5000,
       });
