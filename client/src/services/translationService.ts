@@ -308,6 +308,41 @@ export interface Translations {
     errorOccurred: string;
     errorOccurredDesc: string;
   };
+  // Buttons - Button texts for public interface
+  buttons: {
+    viewDetails: string;
+    bookNow: string;
+    seeOffers: string;
+    customTrip: string;
+    exploreTours: string;
+    createJourney: string;
+    sendRequest: string;
+    contactWhatsApp: string;
+    backToTours: string;
+    home: string;
+    subscribe: string;
+    copyLink: string;
+    shareLink: string;
+    downloadPdf: string;
+    clearFilters: string;
+    contactUs: string;
+    aboutUs: string;
+  };
+  // Toast Messages - Success/error messages
+  toasts: {
+    subscriptionSuccess: string;
+    subscriptionSuccessDesc: string;
+    subscriptionFailed: string;
+    emailAlreadyExists: string;
+    invalidEmail: string;
+    tooManyAttempts: string;
+    linkCopied: string;
+    linkCopyFailed: string;
+    requestSent: string;
+    requestSentDesc: string;
+    requestFailed: string;
+    requestFailedDesc: string;
+  };
   // SEO defaults
   seo: {
     defaultTitle: string;
@@ -594,6 +629,39 @@ const translations: Record<string, Translations> = {
       formSubmittedDesc: "We will contact you shortly.",
       errorOccurred: "Error Occurred",
       errorOccurredDesc: "An error occurred. Please try again."
+    },
+    buttons: {
+      viewDetails: "View details",
+      bookNow: "Book Now",
+      seeOffers: "See our offers",
+      customTrip: "Custom your trip",
+      exploreTours: "Explore Our Tours", 
+      createJourney: "Create Your Journey",
+      sendRequest: "Send Request",
+      contactWhatsApp: "Contact via WhatsApp",
+      backToTours: "Back to tours",
+      home: "Home",
+      subscribe: "Subscribe",
+      copyLink: "Copy Link",
+      shareLink: "Share",
+      downloadPdf: "Download PDF",
+      clearFilters: "Clear filters",
+      contactUs: "Contact us",
+      aboutUs: "About us"
+    },
+    toasts: {
+      subscriptionSuccess: "Subscription Successful!",
+      subscriptionSuccessDesc: "Thank you for subscribing! You have been successfully added to our newsletter.",
+      subscriptionFailed: "Subscription Failed",
+      emailAlreadyExists: "This email is already registered to our newsletter.",
+      invalidEmail: "Please enter a valid email address.",
+      tooManyAttempts: "Too many attempts. Please try again in a few minutes.",
+      linkCopied: "Link Copied",
+      linkCopyFailed: "Failed to copy link",
+      requestSent: "Request Sent",
+      requestSentDesc: "We will respond to your inquiry as soon as possible.",
+      requestFailed: "Request Failed",
+      requestFailedDesc: "There was a problem sending your message. Please try again."
     },
     seo: {
       defaultTitle: "Amon Tour - Authentic Thailand Travel Experiences",
@@ -891,6 +959,39 @@ const translations: Record<string, Translations> = {
       errorOccurred: "Erreur Survenue",
       errorOccurredDesc: "Une erreur s'est produite. Veuillez réessayer."
     },
+    buttons: {
+      viewDetails: "Voir les détails",
+      bookNow: "Réserver",
+      seeOffers: "Voir nos offres",
+      customTrip: "Personnalisez votre voyage",
+      exploreTours: "Explorer Nos Tours",
+      createJourney: "Créez Votre Voyage",
+      sendRequest: "Envoyer ma demande",
+      contactWhatsApp: "Contacter via WhatsApp",
+      backToTours: "Retour aux tours",
+      home: "Accueil",
+      subscribe: "S'abonner",
+      copyLink: "Copier le lien",
+      shareLink: "Partager",
+      downloadPdf: "Télécharger PDF",
+      clearFilters: "Effacer les filtres",
+      contactUs: "Nous contacter",
+      aboutUs: "À propos"
+    },
+    toasts: {
+      subscriptionSuccess: "Inscription réussie !",
+      subscriptionSuccessDesc: "Merci de vous être abonné ! Vous avez été ajouté avec succès à notre newsletter.",
+      subscriptionFailed: "Échec de l'inscription",
+      emailAlreadyExists: "Cette adresse email est déjà inscrite à notre newsletter.",
+      invalidEmail: "Veuillez entrer une adresse email valide.",
+      tooManyAttempts: "Trop de tentatives. Veuillez réessayer dans quelques minutes.",
+      linkCopied: "Lien copié",
+      linkCopyFailed: "Impossible de copier le lien",
+      requestSent: "Demande envoyée",
+      requestSentDesc: "Nous répondrons à votre demande dès que possible.",
+      requestFailed: "Échec de la demande",
+      requestFailedDesc: "Il y a eu un problème lors de l'envoi de votre message. Veuillez réessayer."
+    },
     seo: {
       defaultTitle: "Amon Tour - Expériences Authentiques de Voyage en Thaïlande",
       defaultDescription: "Planifiez vos vacances parfaites en Thaïlande avec Amon Tour - tours privés avec guides experts, expériences culturelles et itinéraires sur mesure. Explorez Bangkok, Phuket, Krabi et joyaux cachés. Agence familiale depuis 2017.",
@@ -1187,6 +1288,39 @@ const translations: Record<string, Translations> = {
       errorOccurred: "Ocurrió un Error",
       errorOccurredDesc: "Ocurrió un error. Por favor intenta de nuevo."
     },
+    buttons: {
+      viewDetails: "Ver detalles",
+      bookNow: "Reservar",
+      seeOffers: "Ver nuestras ofertas",
+      customTrip: "Personaliza tu viaje",
+      exploreTours: "Explorar Nuestros Tours",
+      createJourney: "Crea Tu Viaje",
+      sendRequest: "Enviar solicitud",
+      contactWhatsApp: "Contactar vía WhatsApp",
+      backToTours: "Volver a tours",
+      home: "Inicio",
+      subscribe: "Suscribirse",
+      copyLink: "Copiar enlace",
+      shareLink: "Compartir",
+      downloadPdf: "Descargar PDF",
+      clearFilters: "Limpiar filtros",
+      contactUs: "Contáctanos",
+      aboutUs: "Acerca de nosotros"
+    },
+    toasts: {
+      subscriptionSuccess: "¡Suscripción exitosa!",
+      subscriptionSuccessDesc: "¡Gracias por suscribirte! Has sido añadido exitosamente a nuestro boletín.",
+      subscriptionFailed: "Suscripción fallida",
+      emailAlreadyExists: "Este email ya está registrado en nuestro boletín.",
+      invalidEmail: "Por favor ingresa una dirección de email válida.",
+      tooManyAttempts: "Demasiados intentos. Por favor intenta de nuevo en unos minutos.",
+      linkCopied: "Enlace copiado",
+      linkCopyFailed: "Error al copiar enlace",
+      requestSent: "Solicitud enviada",
+      requestSentDesc: "Responderemos a tu consulta lo antes posible.",
+      requestFailed: "Solicitud fallida",
+      requestFailedDesc: "Hubo un problema enviando tu mensaje. Por favor intenta de nuevo."
+    },
     seo: {
       defaultTitle: "Amon Tour - Experiencias Auténticas de Viaje en Tailandia",
       defaultDescription: "Planifica tus vacaciones perfectas en Tailandia con Amon Tour - tours privados con guías expertos, experiencias culturales e itinerarios personalizados. Explora Bangkok, Phuket, Krabi y gemas ocultas. Agencia familiar desde 2017.",
@@ -1278,6 +1412,14 @@ export class TranslationService {
 
   getMessages() {
     return this.getTranslations().messages;
+  }
+
+  getButtons() {
+    return this.getTranslations().buttons;
+  }
+
+  getToasts() {
+    return this.getTranslations().toasts;
   }
 
   // Method to translate a specific key path
