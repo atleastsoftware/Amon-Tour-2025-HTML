@@ -1438,8 +1438,115 @@ export class TranslationService {
     
     return typeof value === 'string' ? value : keyPath;
   }
+
+  /**
+   * Check translation completeness across all languages
+   * Returns missing keys for each language
+   */
+  checkTranslationCompleteness(): {
+    missingInFrench: string[];
+    missingInSpanish: string[];
+    missingInEnglish: string[];
+    isComplete: boolean;
+  } {
+    const englishKeys = this.extractAllKeys(this.translations.en);
+    const frenchKeys = this.extractAllKeys(this.translations.fr);
+    const spanishKeys = this.extractAllKeys(this.translations.es);
+
+    const missingInFrench = englishKeys.filter(key => !frenchKeys.includes(key));
+    const missingInSpanish = englishKeys.filter(key => !spanishKeys.includes(key));
+    const missingInEnglish = [...frenchKeys, ...spanishKeys]
+      .filter(key => !englishKeys.includes(key))
+      .filter((key, index, array) => array.indexOf(key) === index); // Remove duplicates
+
+    const isComplete = missingInFrench.length === 0 && 
+                      missingInSpanish.length === 0 && 
+                      missingInEnglish.length === 0;
+
+    return {
+      missingInFrench,
+      missingInSpanish,
+      missingInEnglish,
+      isComplete
+    };
+  }
+
+  /**
+   * Extract all nested keys from translation object
+   * Returns array of dot-notation key paths like "nav.home", "footer.contact"
+   */
+  private extractAllKeys(obj: any, prefix: string = ''): string[] {
+    const keys: string[] = [];
+    
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        const currentPath = prefix ? `${prefix}.${key}` : key;
+        
+        if (typeof obj[key] === 'object' && obj[key] !== null) {
+          // Recurse into nested objects
+          keys.push(...this.extractAllKeys(obj[key], currentPath));
+        } else if (typeof obj[key] === 'string') {
+          // Add leaf string keys
+          keys.push(currentPath);
+        }
+      }
+    }
+    
+    return keys;
+  }
+
+  /**
+   * Log translation completeness report to console
+   * Useful for development and debugging
+   */
+  logTranslationReport(): void {
+    const report = this.checkTranslationCompleteness();
+    
+    console.group('🌐 Translation Completeness Report');
+    
+    if (report.isComplete) {
+      console.log('✅ All translations are complete!');
+    } else {
+      console.warn('⚠️  Missing translations found:');
+      
+      if (report.missingInFrench.length > 0) {
+        console.group('🇫🇷 Missing in French:');
+        report.missingInFrench.forEach(key => console.log(`- ${key}`));
+        console.groupEnd();
+      }
+      
+      if (report.missingInSpanish.length > 0) {
+        console.group('🇪🇸 Missing in Spanish:');
+        report.missingInSpanish.forEach(key => console.log(`- ${key}`));
+        console.groupEnd();
+      }
+      
+      if (report.missingInEnglish.length > 0) {
+        console.group('🇬🇧 Missing in English:');
+        report.missingInEnglish.forEach(key => console.log(`- ${key}`));
+        console.groupEnd();
+      }
+    }
+    
+    const totalKeys = this.extractAllKeys(this.translations.en).length;
+    const frenchCompleteness = ((totalKeys - report.missingInFrench.length) / totalKeys * 100).toFixed(1);
+    const spanishCompleteness = ((totalKeys - report.missingInSpanish.length) / totalKeys * 100).toFixed(1);
+    
+    console.log(`📊 Completion rates:`);
+    console.log(`   French: ${frenchCompleteness}%`);
+    console.log(`   Spanish: ${spanishCompleteness}%`);
+    console.groupEnd();
+  }
 }
 
 // Create global translation service instance
 export const translationService = new TranslationService();
 export const t = (key: string) => translationService.translate(key);
+
+// Development: Log translation completeness report
+if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+  // Run check after a short delay to ensure everything is loaded
+  setTimeout(() => {
+    translationService.logTranslationReport();
+  }, 1000);
+}
