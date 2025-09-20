@@ -342,6 +342,7 @@ export interface Translations {
     acceptAll: string;
     rejectAll: string;
     readMore: string;
+    book: string;
   };
   // Toast Messages - Success/error messages
   toasts: {
@@ -757,7 +758,8 @@ const translations: Record<string, Translations> = {
       customize: "Customize",
       acceptAll: "Accept All",
       rejectAll: "Reject All",
-      readMore: "Read More"
+      readMore: "Read More",
+      book: "Book"
     },
     toasts: {
       subscriptionSuccess: "Subscription Successful!",
@@ -1169,7 +1171,8 @@ const translations: Record<string, Translations> = {
       customize: "Personnaliser",
       acceptAll: "Tout Accepter",
       rejectAll: "Tout Refuser",
-      readMore: "Lire Plus"
+      readMore: "Lire Plus",
+      book: "Réserver"
     },
     toasts: {
       subscriptionSuccess: "Inscription réussie !",
@@ -1581,7 +1584,8 @@ const translations: Record<string, Translations> = {
       customize: "Personalizar",
       acceptAll: "Aceptar Todo",
       rejectAll: "Rechazar Todo",
-      readMore: "Leer Más"
+      readMore: "Leer Más",
+      book: "Reservar"
     },
     toasts: {
       subscriptionSuccess: "¡Suscripción exitosa!",

@@ -6,6 +6,7 @@ import { MapPin, Clock, ExternalLink } from "lucide-react";
 import { TourNinjaTour } from "@/hooks/useTourNinja";
 import { formatTHB } from "@/lib/utils";
 import { useIframe } from "@/contexts/IframeContext";
+import { translationService } from "@/services/translationService";
 
 interface TourNinjaCardProps {
   tour: TourNinjaTour;
@@ -181,7 +182,7 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  View details
+                  {translationService.getButtons().viewDetails}
                   <ExternalLink size={12} className="ml-1" />
                 </motion.button>
               )}
@@ -197,7 +198,7 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Book
+                  {translationService.getButtons().book}
                 </motion.button>
               )}
             </div>

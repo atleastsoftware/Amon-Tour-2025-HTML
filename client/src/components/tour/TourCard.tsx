@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { Tour } from "@shared/schema";
 import { formatTHB } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { translationService } from "@/services/translationService";
 
 interface TourCardProps {
   tour: Tour;
@@ -52,7 +53,7 @@ export default function TourCard({ tour }: TourCardProps) {
               className="text-secondary font-semibold cursor-pointer flex items-center"
               whileHover={{ x: 5, color: "#E67E22" }}
             >
-              View details →
+              {translationService.getButtons().viewDetails} →
             </motion.span>
           </Link>
         </div>
@@ -63,7 +64,7 @@ export default function TourCard({ tour }: TourCardProps) {
               whileHover={{ scale: 1.03, backgroundColor: "#E67E22" }}
               whileTap={{ scale: 0.98 }}
             >
-              Book Now
+              {translationService.getButtons().book}
             </motion.span>
           </Link>
         </div>

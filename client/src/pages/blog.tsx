@@ -269,7 +269,7 @@ export default function BlogPage() {
                     setSelectedTag("");
                   }}
                 >
-                  Clear Filters
+                  {blogTranslations.clearFilters}
                 </Button>
               </div>
             )}

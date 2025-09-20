@@ -37,10 +37,10 @@ export default function Brochure() {
             >
               <Download className="w-16 h-16 text-secondary mx-auto mb-6" />
               <h1 className="font-heading font-bold text-4xl md:text-5xl mb-6">
-                Our Travel Brochure
+                {seoMeta.brochureTitle}
               </h1>
               <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-8">
-                Discover the magic of Krabi and Thailand with our comprehensive travel guide
+                {seoMeta.brochureDescription}
               </p>
             </motion.div>
           </div>
