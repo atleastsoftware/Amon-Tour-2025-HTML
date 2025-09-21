@@ -31,7 +31,7 @@ i18n
     
     // Configuration Backend (chargement des fichiers)
     backend: {
-      loadPath: '/locales/{{lng}}/{{ns}}.json',
+      loadPath: '/api-locales/{{lng}}/{{ns}}.json',
     },
     
     // Namespaces (fichiers de traduction)
