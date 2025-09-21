@@ -97,9 +97,9 @@
     "termsConditions": "Terms & Conditions"
   },
   "tours": {
-    "featured": "Our Experiences",
-    "description": "Discover the exceptional beauty of Krabi and southern Thailand.",
-    "title": "Our Experiences"
+    "featured": "Our exclusive experiences",
+    "description": "Explore our finest experiences in Krabi, all guaranteed off the beaten path: private and semi-private sea tours, unique land excursions (kayaking through mangroves, waterfalls, tropical jungle, centuries-old trees, temples, karst caves, natural pools), and exclusive 2-day / 1-night packages.",
+    "title": "Our exclusive experiences"
   },
   "home": {
     "introTitle": "When expats welcome you in their host country",
@@ -113,6 +113,7 @@
     "customTripSubtitleForm": "Your travel story starts with your dreams - let us write the rest.",
     "sendRequest": "Send my request",
     "createYourJourney": "Create Your Journey →",
+    "createYourCustomTrip": "Create Your Custom Trip",
     "whoWeAreTitle": "Who we are",
     "whoWeAreDescription": "We are Eric, Margaux, Gabriel, and Raphaël, a French family living in Krabi, southern Thailand, since 2013.",
     "whoWeAreStory": "From our life here, we created Amon Tour — a small, independent travel agency built on a simple idea: personally welcome our travelers to Krabi and offer them a different way to experience Thailand.",
@@ -222,10 +223,10 @@
     }
   },
   "customTour": {
-    "seoTitle": "Custom Tours Thailand - Personalized Travel Experiences",
+    "seoTitle": "Create Your Custom Tour - Personalized Travel Experiences",
     "seoDescription": "Tell us what you'd like to discover, and we'll create your personalized itinerary.",
     "seoKeywords": "custom tours thailand, personalized travel, tailor made trips thailand",
-    "title": "Custom Tours",
+    "title": "Create Your Custom Tour",
     "subtitle": "Tell us what you'd like to discover, and we'll create your personalized itinerary.",
     "whyChoose": "Why Choose a Custom Tour?",
     "whyChooseDescription": "A personalized journey offers a unique experience tailored to your desires, pace, and budget.",

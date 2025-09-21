@@ -97,9 +97,9 @@
     "termsConditions": "Conditions générales"
   },
   "tours": {
-    "featured": "Nos Expériences",
-    "description": "Découvrez la beauté exceptionnelle de Krabi et du sud de la Thaïlande.",
-    "title": "Nos Expériences"
+    "featured": "Nos expériences exclusives",
+    "description": "Explorez nos plus belles expériences à Krabi, toutes garanties hors des sentiers battus : circuits maritimes privés et semi-privés, excursions terrestres uniques (kayak à travers les mangroves, cascades, jungle tropicale, arbres centenaires, temples, grottes karstiques, bassins naturels), et forfaits exclusifs de 2 jours / 1 nuit.",
+    "title": "Nos expériences exclusives"
   },
   "home": {
     "introTitle": "Quand des expatriés vous accueillent dans leur pays d'adoption",
@@ -116,6 +116,7 @@
     "ourConceptDescription": "Nous créons des voyages sur mesure qui révèlent la vraie beauté de la Thaïlande, en respectant l'environnement et les communautés locales.",
     "contactUs": "Nous contacter",
     "createYourJourney": "Créez votre voyage",
+    "createYourCustomTrip": "Créez Votre Voyage Personnalisé",
     "basedOnReviews": "Basé sur nos avis clients",
     "whyChooseTitle": "Pourquoi nous choisir",
     "whyChooseDescription": "Découvrez ce qui rend nos expériences uniques et inoubliables",
@@ -212,10 +213,10 @@
     }
   },
   "customTour": {
-    "seoTitle": "Tours Personnalisés Thaïlande - Expériences de Voyage Sur Mesure",
+    "seoTitle": "Créez Votre Tour Personnalisé - Expériences de Voyage Sur Mesure",
     "seoDescription": "Créez votre aventure parfaite en Thaïlande avec notre service de tours personnalisés. Itinéraires sur mesure, expertise locale et expériences authentiques.",
     "seoKeywords": "tours personnalisés thailande, voyage sur mesure, voyages tailor made thailande",
-    "title": "Tours Personnalisés",
+    "title": "Créez Votre Tour Personnalisé",
     "subtitle": "Créez votre aventure thaïlandaise parfaite",
     "whyChoose": "Pourquoi Choisir un Tour Personnalisé?",
     "whyChooseDescription": "Chaque voyageur est unique, et votre voyage devrait l'être aussi. Nos tours personnalisés sont conçus spécialement pour vous.",

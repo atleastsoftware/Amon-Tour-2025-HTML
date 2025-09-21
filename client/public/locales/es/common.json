@@ -101,9 +101,9 @@
     "termsConditions": "Términos y condiciones"
   },
   "tours": {
-    "featured": "Nuestros Tours Destacados",
-    "description": "Descubre experiencias auténticas en los destinos más hermosos de Tailandia con nuestros tours privados cuidadosamente diseñados.",
-    "title": "Explora las Joyas Ocultas de Tailandia"
+    "featured": "Nuestras experiencias exclusivas",
+    "description": "Explora nuestras mejores experiencias en Krabi, todas garantizadas fuera de los caminos trillados: tours marítimos privados y semi-privados, excursiones terrestres únicas (kayak a través de manglares, cascadas, selva tropical, árboles centenarios, templos, cuevas kársticas, piscinas naturales) y paquetes exclusivos de 2 días / 1 noche.",
+    "title": "Nuestras experiencias exclusivas"
   },
   "home": {
     "introTitle": "Cuando los expatriados te reciben en su país de adopción",
@@ -120,6 +120,7 @@
     "ourConceptDescription": "Creamos viajes hechos a medida que revelan la verdadera belleza de Tailandia, respetando el medio ambiente y las comunidades locales.",
     "contactUs": "Contáctanos",
     "createYourJourney": "Crea tu viaje",
+    "createYourCustomTrip": "Crea Tu Viaje Personalizado",
     "basedOnReviews": "Basado en las reseñas de nuestros clientes",
     "whyChooseTitle": "Por qué elegirnos",
     "whyChooseDescription": "Descubre lo que hace que nuestras experiencias sean únicas e inolvidables",
@@ -209,17 +210,17 @@
       "line": "LINE"
     },
     "experiences": {
-      "title": "Experiencias Únicas",
-      "subtitle": "Descubre la Tailandia auténtica a través de experiencias locales inmersivas",
+      "title": "Nuestras Experiencias",
+      "subtitle": "Descubre la belleza excepcional de Krabi y el sur de Tailandia.",
       "organizeDreamTrip": "Organiza tu viaje de ensueño",
       "searchPlaceholder": "Buscar experiencias..."
     }
   },
   "customTour": {
-    "seoTitle": "Tours Personalizados Tailandia - Experiencias de Viaje a Medida",
+    "seoTitle": "Crea Tu Tour Personalizado - Experiencias de Viaje a Medida",
     "seoDescription": "Crea tu aventura perfecta en Tailandia con nuestro servicio de tours personalizados. Itinerarios a medida, experiencia local y vivencias auténticas.",
     "seoKeywords": "tours personalizados tailandia, viajes a medida, viajes tailor made tailandia",
-    "title": "Tours Personalizados",
+    "title": "Crea Tu Tour Personalizado",
     "subtitle": "Crea tu aventura tailandesa perfecta",
     "whyChoose": "¿Por Qué Elegir un Tour Personalizado?",
     "whyChooseDescription": "Cada viajero es único, y tu viaje también debería serlo. Nuestros tours personalizados están diseñados específicamente para ti.",
