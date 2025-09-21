@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { translationService } from "@/services/translationService";
 
 import SEO from "@/components/layout/SEO";
 import Hero from "@/components/home/Hero";
@@ -22,7 +23,7 @@ import { useTourNinjaWithCustomImages } from "@/hooks/useTourNinja";
 import { Link } from "wouter";
 import { useIframe } from "@/contexts/IframeContext";
 import { Badge } from "@/components/ui/badge";
-import { useTranslation } from "react-i18next";
+import { I18nextTest } from "@/components/test/I18nextTest";
 
 
 export default function Home() {
@@ -31,7 +32,11 @@ export default function Home() {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [maxScroll, setMaxScroll] = useState(0);
   const { openIframe } = useIframe();
-  const { t } = useTranslation();
+  
+  // Get translations
+  const tours = translationService.getTours();
+  const common = translationService.getCommon();
+  const home = translationService.getHome();
   
   const { data: featuredTours, isLoading: isLoadingTours } = useQuery<Tour[]>({
     queryKey: ['/api/tours/featured'],
@@ -234,11 +239,11 @@ export default function Home() {
               transition={{ duration: 0.6 }}
             >
               <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
-                {t('home.introTitle')}
+                {home.introTitle}
               </h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
               <p className="text-lg text-gray-700 leading-relaxed">
-                {t('home.introDescription')}
+                {home.introDescription}
               </p>
             </motion.div>
           </div>
@@ -253,9 +258,9 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{t('tours.featured')}</h2>
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{tours.featured}</h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
-              <p className="text-lg text-gray-700 leading-relaxed mb-12">{t('tours.description')}</p>
+              <p className="text-lg text-gray-700 leading-relaxed mb-12">{tours.description}</p>
             </motion.div>
           </div>
           
@@ -335,7 +340,7 @@ export default function Home() {
                           }}
                           className="flex-1 border border-primary text-primary hover:bg-primary/10 py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
                         >
-                          {t('buttons.viewDetails')}
+                          {common.viewDetails}
                           <FiChevronRight className="h-3 w-3" />
                         </button>
                         <button 
@@ -346,7 +351,7 @@ export default function Home() {
                           }}
                           className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
                         >
-                          {t('buttons.bookNow')}
+                          {common.bookNow}
                           <FiChevronRight className="h-3 w-3" />
                         </button>
                       </div>
@@ -364,7 +369,7 @@ export default function Home() {
                   className="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-heading font-semibold hover:bg-primary-dark transition-colors inline-block cursor-pointer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
-                >{t('tours.title')}</motion.span>
+                >{tours.title}</motion.span>
               </Link>
             </div>
           </div>
@@ -375,11 +380,11 @@ export default function Home() {
           <div className="container mx-auto px-4 max-w-4xl text-center">
             <div className="mb-8">
               <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
-                {t('home.tailorMadeTitle')}
+                {home.tailorMadeTitle}
               </h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
               <p className="text-lg text-gray-700 leading-relaxed">
-                {t('home.tailorMadeDescription')}
+                {home.tailorMadeDescription}
               </p>
             </div>
           </div>
@@ -402,6 +407,8 @@ export default function Home() {
       </main>
       <Footer />
       
+      {/* 🧪 TEST TEMPORAIRE i18next */}
+      <I18nextTest />
     </>
   );
 }

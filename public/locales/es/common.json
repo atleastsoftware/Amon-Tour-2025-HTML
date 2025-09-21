@@ -36,8 +36,7 @@
     "confirm": "Confirmar",
     "loading": "Cargando...",
     "saving": "Guardando...",
-    "backToTours": "Volver a tours",
-    "from": "Desde"
+    "backToTours": "Volver a tours"
   },
   "forms": {
     "name": "Nombre",
@@ -77,129 +76,8 @@
     "close": "Cerrar"
   },
   "hero": {
-    "title": "Descubre el Auténtico Krabi",
-    "subtitle": "Vive Tailandia",
-    "thailand": "Tailandia",
-    "description": "Únete a nosotros para aventuras inolvidables más allá del sendero turístico con expertos locales", 
     "seeOffers": "Ver nuestras ofertas",
     "customTrip": "Viaje personalizado"
-  },
-  "customTour": {
-    "seoTitle": "Tours Personalizados Tailandia - Experiencias de Viaje a Medida | Amon Tour",
-    "seoDescription": "Crea tu aventura perfecta en Tailandia con nuestros paquetes de tours personalizados. Itinerarios personalizados, alojamientos flexibles y soporte local experto para experiencias inolvidables.",
-    "seoKeywords": "tours personalizados Tailandia, viaje a medida, itinerario personalizado, viaje bespoke Tailandia, paquetes viaje personalizados",
-    "title": "Tours Personalizados",
-    "subtitle": "Hechos a Medida Para Ti",
-    "whyChoose": "¿Por Qué Elegir un Tour Personalizado?",
-    "whyChooseDescription": "Cada viajero es único, y su viaje también debería serlo. Nuestros tours personalizados están diseñados específicamente para ti, teniendo en cuenta tus intereses, presupuesto y estilo de viaje.",
-    "flexibleItinerary": "Itinerario Flexible",
-    "flexibleItineraryDescription": "Diseña tu ruta perfecta con completa libertad para explorar a tu propio ritmo.",
-    "tailoredAccommodations": "Alojamientos Personalizados",
-    "tailoredAccommodationsDescription": "Desde hoteles boutique hasta resorts de lujo, encontramos alojamientos que coincidan con tu estilo y presupuesto.",
-    "personalizedSupport": "Soporte Personalizado",
-    "personalizedSupportDescription": "Soporte local dedicado durante todo tu viaje para una experiencia sin preocupaciones."
-  },
-  "seoMeta": {
-    "brochureTitle": "Amon Tour - Folleto Digital y Guías de Viaje",
-    "brochureDescription": "Descarga nuestras guías de viaje completas y folletos para experiencias auténticas en Krabi, Tailandia. Descubre tesoros ocultos y locales.",
-    "brochureKeywords": "folleto Amon Tour, guía viaje Krabi, viaje Tailandia, experiencias auténticas, tours locales"
-  },
-  "footer": {
-    "contact": "Contacto",
-    "usefulLinks": "Enlaces Útiles",
-    "defaultNewsletterTitle": "Newsletter",
-    "defaultNewsletterDescription": "Mantente actualizado con nuestras últimas ofertas",
-    "defaultPrivacyText": "Respetamos tu privacidad",
-    "copyright": "Todos los derechos reservados.",
-    "legalNotice": "Aviso Legal",
-    "privacyPolicy": "Política de Privacidad",
-    "termsConditions": "Términos y Condiciones"
-  },
-  "toasts": {
-    "linkCopied": "Enlace copiado",
-    "linkCopyFailed": "Error al copiar enlace",
-    "linkCopiedDesc": "El enlace ha sido copiado al portapapeles",
-    "error": "Error"
-  },
-  "accessibility": {
-    "closeGallery": "Cerrar galería",
-    "nextImage": "Siguiente imagen",
-    "nextImages": "Siguientes imágenes",
-    "previousImage": "Imagen anterior", 
-    "previousImages": "Imágenes anteriores"
-  },
-  "home": {
-    "introTitle": "Experiencias Auténticas de Tailandia",
-    "introDescription": "Descubre la magia de Krabi con tours personalizados lejos del turismo masivo",
-    "tailorMadeTitle": "Crea Tu Viaje Personalizado",
-    "tailorMadeDescription": "Cuéntanos tus sueños y crearemos la aventura tailandesa perfecta solo para ti"
-  },
-  "tours": {
-    "featured": "Nuestras Experiencias Populares", 
-    "description": "Tours seleccionados que muestran lo mejor de Krabi y el sur de Tailandia",
-    "title": "Ver Todos los Tours"
-  },
-  "cruise": {
-    "expertCrew": "Tripulación Experta",
-    "expertCrewDesc": "Tripulación profesional con conocimiento local",
-    "fiveSixDays": "5-6 Días",
-    "fiveSixDaysRoute": "Exploración extendida de Krabi y Phang Nga",
-    "freedomDescription": "Autonomía completa para tu aventura en velero",
-    "freedomExclusivity": "Libertad y Exclusividad",
-    "lagoonCatamaran": "Catamarán Lagoon",
-    "lagoonDesc": "Catamarán de lujo para experiencias inolvidables",
-    "lagoonDesc1": "Descubre nuestro magnífico catamarán Lagoon 470",
-    "lagoonDesc2": "Comodidad espaciosa y equipamiento premium",
-    "lagoonDesc3": "Perfecto para aventuras náuticas exclusivas",
-    "oneDay": "1 Día",
-    "oneDayRoute": "Descubre islas locales alrededor de Ao Nang",
-    "routeDescription": "Itinerarios flexibles adaptados a tus deseos",
-    "routeSuggestions": "Sugerencias de Rutas",
-    "sevenPlusDays": "7+ Días",
-    "sevenPlusDaysRoute": "Aventura completa en el Mar de Andamán",
-    "tailorMadeDesc": "Cada ruta diseñada para tu experiencia perfecta",
-    "tailorMadeRoutes": "Rutas a Medida",
-    "threeFourDays": "3-4 Días",
-    "threeFourDaysRoute": "Equilibrio perfecto entre descubrimiento y relajación",
-    "totalFreedom": "Libertad Total",
-    "totalFreedomDesc": "Navega a tu propio ritmo",
-    "twoDays": "2 Días",
-    "twoDaysRoute": "Introducción ideal a la navegación en catamarán"
-  },
-  "features": {
-    "whyChooseTitle": "¿Por Qué Elegir Amon Tour?",
-    "whyChooseDescription": "Descubre qué hace especiales nuestros tours",
-    "privateTours": "Tours Privados",
-    "privateToursDesc": "Experiencias exclusivas diseñadas solo para ti",
-    "privateCar": "Coche Privado",
-    "guide": "Guía Experto",
-    "safety": "Seguridad Primero",
-    "customizedItineraries": "Itinerarios Personalizados",
-    "customizedItinerariesDesc": "Cada viaje diseñado en torno a tus intereses",
-    "customRoute": "Ruta Personalizada",
-    "flexibleTime": "Horarios Flexibles",
-    "yourPace": "A Tu Ritmo",
-    "authenticExperiences": "Experiencias Auténticas",
-    "authenticExperiencesDesc": "Conexiones reales con la cultura y comunidades locales",
-    "localFood": "Comida Local",
-    "localPeople": "Gente Local",
-    "culture": "Cultura"
-  },
-  "about": {
-    "whoWeAreTitle": "Quiénes somos",
-    "whoWeAreDescription": "Descubre lugares extraordinarios lejos del turismo de masas en Krabi. Así como Khao Sok, Koh Mook y muchos otros destinos.",
-    "whoWeAreStory": "Somos una familia francesa establecida en Tailandia desde hace más de 10 años, apasionada por descubrir y compartir nuestra tierra de adopción.",
-    "deepLocalRootsTitle": "Raíces locales profundas",
-    "deepLocalRootsDescription": "Nuestro conocimiento íntimo de la región nos permite ofrecerte experiencias auténticas y únicas.",
-    "deepLocalRootsExplanation": "Gracias a nuestras relaciones privilegiadas con las comunidades locales, te llevamos donde otros no van.",
-    "ourConceptTitle": "Nuestro concepto",
-    "ourConceptDescription": "Viajes a medida que respetan el medio ambiente y las comunidades locales, para una experiencia inolvidable.",
-    "contactUs": "Contáctanos",
-    "createYourJourney": "Crea tu viaje",
-    "basedOnReviews": "Basado en reseñas",
-    "seeAllReviews": "Ver todas las reseñas",
-    "tailorMadeTitle": "Nuestros Viajes a Medida",
-    "tailorMadeDescription": "Cada viaje con nosotros está diseñado con cuidado, atención al detalle, y una comprensión profunda de lo que hace que el viaje sea verdaderamente memorable."
   },
   "errors": {
     "pageNotFound": "404 - Página no encontrada",

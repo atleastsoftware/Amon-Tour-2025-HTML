@@ -4,7 +4,7 @@ import { FadeInWhenVisible, SlideUpWhenVisible, StaggerChildren, StaggerItem } f
 import NewsletterSubscription from "@/components/newsletter/NewsletterSubscription";
 import logoA from "@/assets/logo-a.png";
 import { useQuery } from '@tanstack/react-query';
-import { useTranslation } from "react-i18next";
+import { translationService } from "@/services/translationService";
 import { 
   Facebook, 
   Instagram, 
@@ -136,7 +136,8 @@ function renderContactInfo(item: any) {
 }
 
 export default function Footer() {
-  const { t } = useTranslation();
+  // Initialize translation service
+  const footerTranslations = translationService.getFooter();
   
   // Fetch dynamic footer content
   const { data: siteSettings } = useQuery({
@@ -179,7 +180,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
           {/* Contact Column */}
           <div>
-            <h4 className="font-heading font-bold text-lg mb-3 text-center">{t('footer.contact')}</h4>
+            <h4 className="font-heading font-bold text-lg mb-3 text-center">{footerTranslations.contact}</h4>
             <div className="space-y-2 text-center">
               {/* Dynamic Contact Information */}
               {contactInfo.map((item: any, index: number) => (
@@ -212,7 +213,7 @@ export default function Footer() {
           
           {/* Useful Links Column */}
           <div>
-            <h4 className="font-heading font-bold text-lg mb-3 text-center">{t('footer.usefulLinks')}</h4>
+            <h4 className="font-heading font-bold text-lg mb-3 text-center">{footerTranslations.usefulLinks}</h4>
             <div className="flex flex-col items-center space-y-2">
               {usefulLinks.map((link: any, index: number) => (
                 <motion.a 
@@ -235,14 +236,14 @@ export default function Footer() {
           {newsletterConfig.enabled !== false && (
             <div>
               <h4 className="font-heading font-bold text-lg mb-3 text-center">
-                {newsletterConfig.title || t('footer.defaultNewsletterTitle')}
+                {newsletterConfig.title || footerTranslations.defaultNewsletterTitle}
               </h4>
               <p className="font-heading text-center mb-3">
-                {newsletterConfig.description || t('footer.defaultNewsletterDescription')}
+                {newsletterConfig.description || footerTranslations.defaultNewsletterDescription}
               </p>
               <NewsletterSubscription />
               <p className="font-heading text-center text-sm">
-                {newsletterConfig.privacyText || t('footer.defaultPrivacyText')}
+                {newsletterConfig.privacyText || footerTranslations.defaultPrivacyText}
               </p>
             </div>
           )}
@@ -256,28 +257,28 @@ export default function Footer() {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.5 }}
         >
-          <p className="font-heading">&copy; {new Date().getFullYear()} Flame BB Co., Ltd. (Amon Tour). {t('footer.copyright')}</p>
+          <p className="font-heading">&copy; {new Date().getFullYear()} Flame BB Co., Ltd. (Amon Tour). {footerTranslations.copyright}</p>
           <div className="flex space-x-4 mt-4 md:mt-0">
             <motion.a 
               href="/legal-notice" 
               className="font-heading text-sm hover:text-secondary transition-colors"
               whileHover={{ y: -2 }}
             >
-              {t('footer.legalNotice')}
+              {footerTranslations.legalNotice}
             </motion.a>
             <motion.a 
               href="/privacy-policy" 
               className="font-heading text-sm hover:text-secondary transition-colors"
               whileHover={{ y: -2 }}
             >
-              {t('footer.privacyPolicy')}
+              {footerTranslations.privacyPolicy}
             </motion.a>
             <motion.a 
               href="/terms-conditions" 
               className="font-heading text-sm hover:text-secondary transition-colors"
               whileHover={{ y: -2 }}
             >
-              {t('footer.termsConditions')}
+              {footerTranslations.termsConditions}
             </motion.a>
           </div>
         </motion.div>

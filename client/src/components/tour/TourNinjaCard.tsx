@@ -6,7 +6,7 @@ import { MapPin, Clock, ExternalLink } from "lucide-react";
 import { TourNinjaTour } from "@/hooks/useTourNinja";
 import { formatTHB } from "@/lib/utils";
 import { useIframe } from "@/contexts/IframeContext";
-import { useTranslation } from "react-i18next";
+import { translationService } from "@/services/translationService";
 
 interface TourNinjaCardProps {
   tour: TourNinjaTour;
@@ -31,7 +31,6 @@ function getImageCandidates(tour: TourNinjaTour): string[] {
 
 export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
   const { openIframe } = useIframe();
-  const { t } = useTranslation();
   
   // Calculer les candidats d'images de manière optimisée
   const imageCandidates = useMemo(() => getImageCandidates(tour), [tour]);
@@ -183,7 +182,7 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  {t('buttons.viewDetails')}
+                  {translationService.getButtons().viewDetails}
                   <ExternalLink size={12} className="ml-1" />
                 </motion.button>
               )}
@@ -199,7 +198,7 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  {t('buttons.bookNow')}
+                  {translationService.getButtons().book}
                 </motion.button>
               )}
             </div>
