@@ -102,35 +102,40 @@
     "title": "Explore Thailand's Hidden Gems"
   },
   "home": {
-    "introTitle": "Welcome to Authentic Thailand",
-    "introDescription": "Experience the real Thailand with Amon Tour. We specialize in private, personalized tours that take you beyond the typical tourist spots to discover the authentic culture, stunning landscapes, and warm hospitality that make Thailand truly special.",
+    "introTitle": "When expats welcome you in their host country",
+    "introDescription": "Since 2013, our family-run travel agency has been curating exclusive activities around Krabi and designing tailor-made trips all across Thailand. We aim to deliver immersive travel experiences, away from mass tourism, with personalized service for every traveler — welcoming you as part of our family or close friends.",
     "tailorMadeTitle": "Tailor-Made Experiences",
-    "tailorMadeDescription": "Every journey is unique. Let us create the perfect itinerary based on your interests, preferences, and travel style.",
+    "tailorMadeDescription": "Design your own journey through Thailand with our tailor-made stays: from cultural discoveries and family adventures to romantic getaways and island escapes. Every itinerary is crafted to match your wishes, offering authentic experiences, quality services, and a unique immersion far from mass tourism.",
+    "exclusiveExperiencesTitle": "Our exclusive experiences",
+    "exclusiveExperiencesDescription": "Explore our finest experiences in Krabi, all guaranteed off the beaten path: private and semi-private sea tours, unique land excursions (kayaking through mangroves, waterfalls, tropical jungle, centuries-old trees, temples, karst caves, natural pools), and exclusive 2-day / 1-night packages.",
+    "freedomExclusivityTitle": "Freedom and Exclusivity",
+    "freedomExclusivityDescription": "Navigate towards exclusivity aboard one of the rare catamaran cruises departing from Krabi. Explore the Andaman Sea as few travelers have the chance to do: in complete freedom, away from tourist circuits, with an itinerary designed entirely for you.",
+    "customTripSubtitleForm": "Your travel story starts with your dreams - let us write the rest.",
     "whoWeAreTitle": "Who we are",
-    "whoWeAreDescription": "We are a French family living in Krabi since 2013. Passionate about Thailand, we offer authentic experiences away from mass tourism.",
-    "whoWeAreStory": "Our story began with a love at first sight for this exceptional region. Today, we share our love for Thailand through unique and personalized journeys.",
+    "whoWeAreDescription": "We are Eric, Margaux, Gabriel, and Raphaël, a French family living in Krabi, southern Thailand, since 2013.",
+    "whoWeAreStory": "From our life here, we created Amon Tour — a small, independent travel agency built on a simple idea: personally welcome our travelers to Krabi and offer them a different way to experience Thailand.",
     "deepLocalRootsTitle": "Deep local roots",
-    "deepLocalRootsDescription": "Living here for over 10 years, we have developed a solid local network and deep knowledge of the region.",
-    "deepLocalRootsExplanation": "This immersion allows us to offer you authentic experiences, off the beaten path, in collaboration with trusted local partners.",
+    "deepLocalRootsDescription": "We live here year-round, in the heart of the region we love. This close connection to the destination allows us to offer exclusive experiences in Krabi, designed and guided by our team of professional local guides or trusted partners.",
+    "deepLocalRootsExplanation": "You're not booking a generic tour — you're being welcomed, guided, and cared for by people who live here, who know the tides, the seasons, the crowds to avoid, and the hidden gems worth discovering.",
     "ourConceptTitle": "Our concept",
-    "ourConceptDescription": "We create tailor-made trips that reveal the true beauty of Thailand, respecting the environment and local communities.",
+    "ourConceptDescription": "Combine the warmth and proximity of a local agency in Krabi with the expertise of a tailor-made travel designer for all of Thailand. At Amon Tour, you're supported before, during, and after your trip. You're in contact with real people – a face, a voice, a team – not a call center or an algorithm. We're here, on the ground, to make your trip a seamless, personal, and unforgettable experience.",
     "contactUs": "Contact us",
     "createYourJourney": "Create your journey",
-    "basedOnReviews": "Based on our customer reviews",
+    "basedOnReviews": "Based on 80 reviews",
     "whyChooseTitle": "Why choose us",
-    "whyChooseDescription": "Discover what makes our experiences unique and unforgettable",
+    "whyChooseDescription": "Experience an exclusive private day trip with our English or French-speaking and certified guides.",
     "privateTours": "Private tours",
-    "privateToursDesc": "Enjoy a personalized experience with your own guide and vehicle",
+    "privateToursDesc": "Experience an exclusive day trip with our professional guides and private vehicles.",
     "privateCar": "Private car",
-    "guide": "Personal guide",
+    "guide": "Guide",
     "safety": "Safety",
     "customizedItineraries": "Customized itineraries",
-    "customizedItinerariesDesc": "Let's create your ideal trip together according to your preferences",
+    "customizedItinerariesDesc": "Create your own journey based on your desires, your pace, and your interests.",
     "customRoute": "Custom route",
-    "flexibleTime": "Flexible schedule",
+    "flexibleTime": "Flexible Time",
     "yourPace": "At your pace",
     "authenticExperiences": "Authentic experiences",
-    "authenticExperiencesDesc": "Discover the real Thailand through local encounters",
+    "authenticExperiencesDesc": "Discover destinations off the beaten path and immerse yourself in the local culture.",
     "localFood": "Local food",
     "localPeople": "Local people",
     "culture": "Culture",
@@ -199,9 +204,9 @@
   "pageHeaders": {
     "contact": {
       "title": "Contact Us",
-      "subtitle": "Let's plan your perfect Thai adventure together",
+      "subtitle": "We're here to help you plan the perfect experience in Krabi.",
       "getInTouch": "Get in Touch",
-      "readyToExplore": "Ready to explore Thailand with us? We're here to help you plan the perfect adventure.",
+      "readyToExplore": "Ready to explore Krabi? Contact us through any of the methods below. Our friendly team is here to answer your questions and help you plan an unforgettable experience.",
       "email": "Email",
       "phone": "Phone",
       "whatsapp": "WhatsApp",
@@ -209,29 +214,29 @@
     },
     "experiences": {
       "title": "Unique Experiences",
-      "subtitle": "Discover authentic Thailand through immersive local experiences",
+      "subtitle": "Immerse yourself in authentic Thai culture with our unique experiences",
       "organizeDreamTrip": "Organize your dream trip",
       "searchPlaceholder": "Search experiences..."
     }
   },
   "customTour": {
     "seoTitle": "Custom Tours Thailand - Personalized Travel Experiences",
-    "seoDescription": "Create your perfect Thailand adventure with our custom tour service. Personalized itineraries, local expertise, and authentic experiences.",
+    "seoDescription": "Tell us what you'd like to discover, and we'll create your personalized itinerary.",
     "seoKeywords": "custom tours thailand, personalized travel, tailor made trips thailand",
     "title": "Custom Tours",
-    "subtitle": "Create your perfect Thailand adventure",
+    "subtitle": "Tell us what you'd like to discover, and we'll create your personalized itinerary.",
     "whyChoose": "Why Choose a Custom Tour?",
-    "whyChooseDescription": "Every traveler is unique, and so should be your journey. Our custom tours are designed specifically for you.",
+    "whyChooseDescription": "A personalized journey offers a unique experience tailored to your desires, pace, and budget.",
     "flexibleItinerary": "Flexible Itinerary",
-    "flexibleItineraryDescription": "Adapt your schedule according to your preferences and interests.",
+    "flexibleItineraryDescription": "Choose the destinations that interest you and set your own travel pace.",
     "tailoredAccommodations": "Tailored Accommodations",
-    "tailoredAccommodationsDescription": "From boutique hotels to eco-lodges, choose stays that match your style.",
+    "tailoredAccommodationsDescription": "Select accommodations that match your preferences and budget.",
     "personalizedSupport": "Personalized Support",
-    "personalizedSupportDescription": "Dedicated local guide and 24/7 support throughout your journey."
+    "personalizedSupportDescription": "Benefit from expert advice and an English-speaking guide for an authentic experience."
   },
   "blog": {
     "title": "Travel Blog",
-    "subtitle": "Stories, tips and inspiration for your Thailand adventure",
+    "subtitle": "Discover the best of Krabi through our travel guides, tips, and local insights.",
     "searchPlaceholder": "Search articles...",
     "allCategories": "All Categories",
     "readMore": "Read More",
@@ -248,12 +253,12 @@
     "defaultKeywords": "thailand tours, krabi tours, private tours thailand, authentic experiences, amon tour"
   },
   "testimonials": {
-    "title": "What Our Guests Say",
-    "description": "Read authentic reviews from travelers who experienced Thailand with us"
+    "title": "Our Travelers' Reviews",
+    "description": "Discover the authentic experiences of our clients during their journeys with Amon Tour in Thailand."
   },
   "someIdeas": {
-    "title": "Some Ideas for Your Trip",
-    "description": "Discover our handpicked selection of authentic experiences and adventures"
+    "title": "Some Ideas For Your Next Trip",
+    "description": "Get inspired by our custom-designed travel experiences."
   },
   "tourNames": {
     "phiPhiIslands": "Phi Phi Islands Discovery",
@@ -264,8 +269,8 @@
     "fourIslandsLongtail": "Four Islands Longtail Tour"
   },
   "cruise": {
-    "title": "Private Cruise Booking Request",
-    "subtitle": "Tell us about your ideal cruise experience",
+    "title": "The Catamaran Experience",
+    "subtitle": "Sail Krabi's Hidden Gems on a Private Catamaran Adventure",
     "seasonalPricing": "Seasonal Pricing",
     "perfectForHolidays": "Perfect rates for your holidays",
     "veryHighSeason": "Very High Season",
