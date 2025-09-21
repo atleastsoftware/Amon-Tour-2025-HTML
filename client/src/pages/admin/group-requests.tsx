@@ -314,11 +314,11 @@ export default function AdminGroupRequests() {
                 </div>
               </div>
               
-              {selectedRequest.requirements && (
+              {selectedRequest.description && (
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Exigences spéciales</label>
+                  <label className="text-sm font-medium text-gray-700">Description</label>
                   <p className="text-gray-900 bg-gray-50 p-3 rounded-lg mt-1">
-                    {selectedRequest.requirements}
+                    {selectedRequest.description}
                   </p>
                 </div>
               )}
@@ -330,7 +330,7 @@ export default function AdminGroupRequests() {
                 <div className="flex gap-2">
                   <Button
                     variant="outline"
-                    onClick={() => window.open(`mailto:${selectedRequest.email}?subject=Votre demande de voyage de groupe&body=Bonjour ${selectedRequest.name},%0D%0A%0D%0ANous avons bien reçu votre demande pour un voyage de groupe (${selectedRequest.groupType}).%0D%0A%0D%0ACordialement,%0D%0AÉquipe Amon Tour`)}
+                    onClick={() => window.open(`mailto:${selectedRequest.email}?subject=Votre demande de voyage de groupe&body=Bonjour ${selectedRequest.contactName},%0D%0A%0D%0ANous avons bien reçu votre demande pour un voyage de groupe.%0D%0A%0D%0ACordialement,%0D%0AÉquipe Amon Tour`)}
                   >
                     <Mail className="h-4 w-4 mr-2" />
                     Répondre par email
