@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { translationService } from '../services/translationService';
+import { useTranslation } from 'react-i18next';
 import { autoTranslate } from '../lib/autoTranslate';
 
 const languageData = {
@@ -18,13 +18,14 @@ const languageData = {
 } as const;
 
 export default function LanguageSelector() {
+  const { i18n } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState(translationService.getCurrentLanguage());
+  const [currentLanguage, setCurrentLanguage] = useState(i18n.language || 'en');
 
-  // Update current language when component mounts
+  // Update current language when i18n language changes
   useEffect(() => {
-    setCurrentLanguage(translationService.getCurrentLanguage());
-  }, []);
+    setCurrentLanguage(i18n.language || 'en');
+  }, [i18n.language]);
 
   const handleLanguageChange = async (langCode: string) => {
     if (isLoading || currentLanguage === langCode) return;
@@ -35,19 +36,19 @@ export default function LanguageSelector() {
       // 1. Disable auto-translation system to prevent conflicts
       disableAutoTranslation();
       
-      // 2. Change language using our translation service
-      const success = translationService.setLanguage(langCode);
-      if (success) {
-        setCurrentLanguage(langCode);
-        
-        // 3. Mark that user made a manual language choice
-        localStorage.setItem('amon-tour-translation-choice', `manual-${langCode}`);
-        localStorage.setItem('user-chose-language', 'true');
-        
-        // 4. Force page reload to apply translations
-        window.location.reload();
-        console.log(`Manual language changed to: ${langCode}`);
-      }
+      // 2. Change language using i18next (no reload needed!)
+      await i18n.changeLanguage(langCode);
+      setCurrentLanguage(langCode);
+      
+      // 3. Mark that user made a manual language choice
+      localStorage.setItem('amon-tour-translation-choice', `manual-${langCode}`);
+      localStorage.setItem('user-chose-language', 'true');
+      
+      // 4. No page reload needed - i18next updates automatically!
+      console.log(`Manual language changed to: ${langCode} (smooth transition)`);
+      
+      // 5. Persist language choice for i18next
+      localStorage.setItem('i18nextLng', langCode);
     } catch (error) {
       console.error('Failed to switch language:', error);
     } finally {
