@@ -80,6 +80,11 @@
     "seeOffers": "See our offers",
     "customTrip": "Custom your trip"
   },
+  "seoMeta": {
+    "brochureTitle": "Amon Tour - Digital Brochure & Travel Guides",
+    "brochureDescription": "Download our comprehensive travel guides and brochures for authentic experiences in Krabi, Thailand. Discover hidden gems and local treasures.",
+    "brochureKeywords": "Amon Tour brochure, Krabi travel guide, Thailand travel, authentic experiences, local tours"
+  },
   "toasts": {
     "linkCopied": "Link copied",
     "linkCopyFailed": "Failed to copy link",
