@@ -193,7 +193,10 @@
     "contactKeywords": "contact amon tour, krabi tour contact, thailand tour contact, custom tour inquiry",
     "groupCorporateTitle": "Group & Corporate Tours - Amon Tour",
     "groupCorporateDescription": "Specialized group and corporate travel experiences in Thailand. Team building, conferences, and group adventures in Krabi.",
-    "groupCorporateKeywords": "corporate tours thailand, group travel krabi, team building thailand, corporate events"
+    "groupCorporateKeywords": "corporate tours thailand, group travel krabi, team building thailand, corporate events",
+    "experiencesTitle": "Experiences Thailand - Authentic Local Adventures",
+    "experiencesDescription": "Discover authentic Thailand through unique local experiences. Immersive cultural activities and adventures in Krabi.",
+    "experiencesKeywords": "thailand experiences, authentic local activities, cultural tours krabi"
   },
   "pageHeaders": {
     "contact": {
@@ -205,6 +208,40 @@
       "phone": "Phone",
       "whatsapp": "WhatsApp",
       "line": "LINE"
+    },
+    "experiences": {
+      "title": "Unique Experiences",
+      "subtitle": "Discover authentic Thailand through immersive local experiences",
+      "organizeDreamTrip": "Organize your dream trip",
+      "searchPlaceholder": "Search experiences..."
     }
+  },
+  "customTour": {
+    "seoTitle": "Custom Tours Thailand - Personalized Travel Experiences",
+    "seoDescription": "Create your perfect Thailand adventure with our custom tour service. Personalized itineraries, local expertise, and authentic experiences.",
+    "seoKeywords": "custom tours thailand, personalized travel, tailor made trips thailand",
+    "title": "Custom Tours",
+    "subtitle": "Create your perfect Thailand adventure",
+    "whyChoose": "Why Choose a Custom Tour?",
+    "whyChooseDescription": "Every traveler is unique, and so should be your journey. Our custom tours are designed specifically for you.",
+    "flexibleItinerary": "Flexible Itinerary",
+    "flexibleItineraryDescription": "Adapt your schedule according to your preferences and interests.",
+    "tailoredAccommodations": "Tailored Accommodations",
+    "tailoredAccommodationsDescription": "From boutique hotels to eco-lodges, choose stays that match your style.",
+    "personalizedSupport": "Personalized Support",
+    "personalizedSupportDescription": "Dedicated local guide and 24/7 support throughout your journey."
+  },
+  "blog": {
+    "title": "Travel Blog",
+    "subtitle": "Stories, tips and inspiration for your Thailand adventure",
+    "searchPlaceholder": "Search articles...",
+    "allCategories": "All Categories",
+    "readMore": "Read More",
+    "noArticles": "No articles found",
+    "loading": "Loading articles...",
+    "tags": "Tags",
+    "allTags": "All Tags",
+    "categories": "Categories",
+    "clearFilters": "Clear Filters"
   }
 }

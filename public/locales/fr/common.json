@@ -205,6 +205,40 @@
       "phone": "Téléphone",
       "whatsapp": "WhatsApp",
       "line": "LINE"
+    },
+    "experiences": {
+      "title": "Expériences Uniques",
+      "subtitle": "Découvrez la Thaïlande authentique à travers des expériences locales immersives",
+      "organizeDreamTrip": "Organisez votre voyage de rêve",
+      "searchPlaceholder": "Rechercher des expériences..."
     }
+  },
+  "customTour": {
+    "seoTitle": "Tours Personnalisés Thaïlande - Expériences de Voyage Sur Mesure",
+    "seoDescription": "Créez votre aventure parfaite en Thaïlande avec notre service de tours personnalisés. Itinéraires sur mesure, expertise locale et expériences authentiques.",
+    "seoKeywords": "tours personnalisés thailande, voyage sur mesure, voyages tailor made thailande",
+    "title": "Tours Personnalisés",
+    "subtitle": "Créez votre aventure thaïlandaise parfaite",
+    "whyChoose": "Pourquoi Choisir un Tour Personnalisé?",
+    "whyChooseDescription": "Chaque voyageur est unique, et votre voyage devrait l'être aussi. Nos tours personnalisés sont conçus spécialement pour vous.",
+    "flexibleItinerary": "Itinéraire Flexible",
+    "flexibleItineraryDescription": "Adaptez votre programme selon vos préférences et centres d'intérêt.",
+    "tailoredAccommodations": "Hébergements Sur Mesure",
+    "tailoredAccommodationsDescription": "Des hôtels boutique aux éco-lodges, choisissez des séjours qui correspondent à votre style.",
+    "personalizedSupport": "Support Personnalisé",
+    "personalizedSupportDescription": "Guide local dédié et support 24/7 tout au long de votre voyage."
+  },
+  "blog": {
+    "title": "Blog de Voyage",
+    "subtitle": "Histoires, conseils et inspiration pour votre aventure en Thaïlande",
+    "searchPlaceholder": "Rechercher des articles...",
+    "allCategories": "Toutes les Catégories",
+    "readMore": "Lire Plus",
+    "noArticles": "Aucun article trouvé",
+    "loading": "Chargement des articles...",
+    "tags": "Étiquettes",
+    "allTags": "Toutes les Étiquettes",
+    "categories": "Catégories",
+    "clearFilters": "Effacer les Filtres"
   }
 }

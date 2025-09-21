@@ -205,6 +205,40 @@
       "phone": "Teléfono",
       "whatsapp": "WhatsApp",
       "line": "LINE"
+    },
+    "experiences": {
+      "title": "Experiencias Únicas",
+      "subtitle": "Descubre la Tailandia auténtica a través de experiencias locales inmersivas",
+      "organizeDreamTrip": "Organiza tu viaje de ensueño",
+      "searchPlaceholder": "Buscar experiencias..."
     }
+  },
+  "customTour": {
+    "seoTitle": "Tours Personalizados Tailandia - Experiencias de Viaje a Medida",
+    "seoDescription": "Crea tu aventura perfecta en Tailandia con nuestro servicio de tours personalizados. Itinerarios a medida, experiencia local y vivencias auténticas.",
+    "seoKeywords": "tours personalizados tailandia, viajes a medida, viajes tailor made tailandia",
+    "title": "Tours Personalizados",
+    "subtitle": "Crea tu aventura tailandesa perfecta",
+    "whyChoose": "¿Por Qué Elegir un Tour Personalizado?",
+    "whyChooseDescription": "Cada viajero es único, y tu viaje también debería serlo. Nuestros tours personalizados están diseñados específicamente para ti.",
+    "flexibleItinerary": "Itinerario Flexible",
+    "flexibleItineraryDescription": "Adapta tu horario según tus preferencias e intereses.",
+    "tailoredAccommodations": "Alojamientos a Medida",
+    "tailoredAccommodationsDescription": "Desde hoteles boutique hasta eco-lodges, elige estancias que coincidan con tu estilo.",
+    "personalizedSupport": "Soporte Personalizado",
+    "personalizedSupportDescription": "Guía local dedicado y soporte 24/7 durante todo tu viaje."
+  },
+  "blog": {
+    "title": "Blog de Viajes",
+    "subtitle": "Historias, consejos e inspiración para tu aventura en Tailandia",
+    "searchPlaceholder": "Buscar artículos...",
+    "allCategories": "Todas las Categorías",
+    "readMore": "Leer Más",
+    "noArticles": "No se encontraron artículos",
+    "loading": "Cargando artículos...",
+    "tags": "Etiquetas",
+    "allTags": "Todas las Etiquetas",
+    "categories": "Categorías",
+    "clearFilters": "Limpiar Filtros"
   }
 }

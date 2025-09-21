@@ -5,7 +5,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
 import HeroHeader from "@/components/layout/HeroHeader";
-import { translationService } from "@/services/translationService";
+import { useTranslation } from 'react-i18next';
 import TourCardItem, { TourCardItemProps } from "@/components/tour/TourCardItem";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -21,8 +21,7 @@ import {
 // Image is loaded from URL directly
 
 export default function Experiences() {
-  const pageHeaders = translationService.getPageHeaders();
-  const seoMeta = translationService.getSeoMeta();
+  const { t } = useTranslation();
   
   const { data: tourCards = [], isLoading } = useQuery<TourCardItemProps[]>({
     queryKey: ['/api/tour-cards'],
@@ -43,9 +42,9 @@ export default function Experiences() {
   return (
     <>
       <SEO 
-        title={seoMeta.experiencesTitle}
-        description={seoMeta.experiencesDescription}
-        keywords={seoMeta.experiencesKeywords}
+        title={t('seo.experiencesTitle')}
+        description={t('seo.experiencesDescription')}
+        keywords={t('seo.experiencesKeywords')}
         canonicalUrl="https://amon-tour.com/experiences"
         breadcrumbs={[
           { name: "Home", url: "/" },
@@ -102,8 +101,8 @@ export default function Experiences() {
       <main>
         {/* Hero Banner */}
         <HeroHeader 
-          title={pageHeaders.experiences.title}
-          subtitle={pageHeaders.experiences.subtitle}
+          title={t('pageHeaders.experiences.title')}
+          subtitle={t('pageHeaders.experiences.subtitle')}
           alt="Thailand experiences and cultural journeys"
         />
         
@@ -271,7 +270,7 @@ Book Now
                 <h3 className="text-2xl font-bold mb-4">Need a Customized Tour?</h3>
                 <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
                   Our local experts create tailor-made itineraries according to your desires and budget. 
-                  {pageHeaders.experiences.organizeDreamTrip}
+                  {t('pageHeaders.experiences.organizeDreamTrip')}
                 </p>
                 <Button 
                   size="lg" 
@@ -305,7 +304,7 @@ Book Now
                     <Input
                       id="search"
                       type="text"
-                      placeholder={pageHeaders.experiences.searchPlaceholder}
+                      placeholder={t('pageHeaders.experiences.searchPlaceholder')}
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />
