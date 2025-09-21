@@ -312,6 +312,27 @@
     "includedInPrice": "Inclus dans le prix",
     "includedDescription": "Bateau, carburant, capitaine, équipement de plongée, eau fraîche, fruits, déjeuner",
     "notIncludedInPrice": "Non inclus dans le prix",
-    "notIncludedDescription": "Frais de parc national, boissons gazeuses, boissons alcoolisées"
+    "notIncludedDescription": "Frais de parc national, boissons gazeuses, boissons alcoolisées",
+    "freedomExclusivity": "Liberté et Exclusivité",
+    "freedomDescription": "Naviguez vers l'exclusivité à bord de l'une des rares croisières en catamaran au départ de Krabi. Explorez la mer d'Andaman comme peu de voyageurs ont la chance de le faire : en toute liberté, loin des circuits touristiques, avec un itinéraire conçu entièrement pour vous.",
+    "lagoonCatamaran": "Un Catamaran Lagoon 470",
+    "lagoonDesc1": "Construit en 1999 et constamment amélioré depuis 2023, combine confort et caractère. Il dispose de 4 cabines doubles avec salles de bains privées : deux cabines avec lits queen-size (160 cm) et deux avec lits doubles (140 cm). Chaque cabine est équipée de ventilateurs, prises 220V et grands espaces de rangement.",
+    "lagoonDesc2": "Spacieux et bien conçu, le Lagoon offre un flux harmonieux entre les espaces de vie intérieurs et extérieurs : grand salon lumineux, cuisine équipée, cockpit ombragé, zone de bronzage à l'avant, etc. Le moteur discret assure une navigation paisible.",
+    "lagoonDesc3": "Parfait pour les vacances en famille, entre amis ou en charter privé, ce bateau garantit votre confort, intimité et liberté d'explorer les plus belles îles de la mer d'Andaman.",
+    "routeSuggestions": "Suggestions d'itinéraires",
+    "routeDescription": "Chaque itinéraire s'adapte à la saison et aux conditions naturelles pour vous garantir une expérience optimale.",
+    "oneDayRoute": "Îles locales d'Ao Nang ou archipel de Koh Hong",
+    "twoDaysRoute": "Direction Koh Hong ou les légendaires Koh Phi Phi",
+    "threeFourDaysRoute": "Combiné baie de Phang Nga et Koh Phi Phi",
+    "fiveSixDaysRoute": "Escapade vers les eaux préservées de Koh Rok et Koh Mook",
+    "sevenPlusDaysRoute": "Odyssée vers les îles paradisiaques de Koh Lipe ou Similan",
+    "tailorMadeRoutes": "Itinéraires sur mesure",
+    "tailorMadeDesc": "Nous composons votre itinéraire pour révéler le meilleur de la région, en privilégiant les sites préservés et les moments d'exception.",
+    "expertCrew": "Équipage expert",
+    "expertCrewDesc": "Nos capitaines ont une parfaite maîtrise de ces eaux. Ils optimisent chaque navigation en s'adaptant aux conditions météorologiques, marées et vents pour maximiser votre plaisir.",
+    "totalFreedom": "Liberté totale",
+    "totalFreedomDesc": "Plages désertes, lagons turquoise, snorkeling dans des eaux cristallines... Votre croisière évolue selon vos préférences.",
+    "formTitle": "Demande de Devis Personnalisé",
+    "formSubtitle": "Remplissez le formulaire ci-dessous et nous vous contacterons dans les 24 heures."
   }
 }

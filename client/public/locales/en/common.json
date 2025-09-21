@@ -274,6 +274,8 @@
   "cruise": {
     "title": "The Catamaran Experience",
     "subtitle": "Sail Krabi's Hidden Gems on a Private Catamaran Adventure",
+    "formTitle": "Custom Quote Request",
+    "formSubtitle": "Fill out the form below and we will contact you within 24 hours.",
     "seasonalPricing": "Seasonal Pricing",
     "perfectForHolidays": "Perfect rates for your holidays",
     "veryHighSeason": "Very High Season",
@@ -322,6 +324,25 @@
     "includedInPrice": "Included in Price",
     "includedDescription": "Boat, fuel, captain, snorkeling equipment, fresh water, fruits, lunch",
     "notIncludedInPrice": "Not Included in Price",
-    "notIncludedDescription": "National park fees, soft drinks, alcoholic beverages"
+    "notIncludedDescription": "National park fees, soft drinks, alcoholic beverages",
+    "freedomExclusivity": "Freedom and Exclusivity",
+    "freedomDescription": "Navigate towards exclusivity aboard one of the rare catamaran cruises departing from Krabi. Explore the Andaman Sea as few travelers have the chance to do: in complete freedom, away from tourist circuits, with an itinerary designed entirely for you.",
+    "lagoonCatamaran": "A Lagoon 470 Catamaran",
+    "lagoonDesc1": "Built in 1999 and constantly improved since 2023, combines comfort and character. It has 4 double cabins with private bathrooms: two cabins with queen-size beds (160 cm) and two with double beds (140 cm). Each cabin is equipped with fans, 220V sockets and large storage spaces.",
+    "lagoonDesc2": "Spacious and well-designed, the Lagoon offers seamless flow between the interior and exterior living spaces: large, bright living room, equipped kitchen, shaded cockpit, sunbathing area at the front, etc. The discreet engine ensures peaceful navigation.",
+    "lagoonDesc3": "Perfect for holidays with family, friends or private charter, this boat guarantees your comfort, privacy and freedom to explore the most beautiful islands of the Andaman Sea.",
+    "routeSuggestions": "Route suggestions",
+    "routeDescription": "Each itinerary adapts to the season and natural conditions to guarantee you an optimal experience.",
+    "oneDayRoute": "Local islands of Ao Nang or Koh Hong archipelago",
+    "twoDaysRoute": "Head towards Koh Hong or the legendary Koh Phi Phi",
+    "threeFourDaysRoute": "Combined Phang Nga Bay and Koh Phi Phi",
+    "fiveSixDaysRoute": "Getaway to the preserved waters of Koh Rok and Koh Mook",
+    "sevenPlusDaysRoute": "Odyssey to the paradise islands of Koh Lipe or Similan",
+    "tailorMadeRoutes": "Tailor-made routes",
+    "tailorMadeDesc": "We compose your itinerary to reveal the best of the region, prioritizing preserved sites and exceptional moments.",
+    "expertCrew": "Expert crew",
+    "expertCrewDesc": "Our captains have perfect mastery of these waters. They optimize each navigation by adapting to weather conditions, tides and winds to maximize your pleasure.",
+    "totalFreedom": "Total freedom",
+    "totalFreedomDesc": "Deserted beaches, turquoise lagoons, snorkeling in crystal-clear waters... Your cruise evolves according to your preferences."
   }
 }
