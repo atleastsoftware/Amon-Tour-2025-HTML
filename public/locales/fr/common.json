@@ -36,7 +36,8 @@
     "confirm": "Confirmer",
     "loading": "Chargement...",
     "saving": "Enregistrement...",
-    "backToTours": "Retour aux tours"
+    "backToTours": "Retour aux tours",
+    "from": "À partir de"
   },
   "forms": {
     "name": "Nom",

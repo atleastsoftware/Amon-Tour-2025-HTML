@@ -36,7 +36,8 @@
     "confirm": "Confirmar",
     "loading": "Cargando...",
     "saving": "Guardando...",
-    "backToTours": "Volver a tours"
+    "backToTours": "Volver a tours",
+    "from": "Desde"
   },
   "forms": {
     "name": "Nombre",

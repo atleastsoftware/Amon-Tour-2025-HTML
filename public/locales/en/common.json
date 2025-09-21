@@ -36,7 +36,8 @@
     "confirm": "Confirm",
     "loading": "Loading...",
     "saving": "Saving...",
-    "backToTours": "Back to Tours"
+    "backToTours": "Back to Tours",
+    "from": "From"
   },
   "forms": {
     "name": "Name",
