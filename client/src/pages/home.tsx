@@ -22,7 +22,6 @@ import { useTourNinjaWithCustomImages } from "@/hooks/useTourNinja";
 import { Link } from "wouter";
 import { useIframe } from "@/contexts/IframeContext";
 import { Badge } from "@/components/ui/badge";
-import { I18nextTest } from "@/components/test/I18nextTest";
 import { useTranslation } from "react-i18next";
 
 
@@ -403,8 +402,6 @@ export default function Home() {
       </main>
       <Footer />
       
-      {/* 🧪 TEST TEMPORAIRE i18next */}
-      <I18nextTest />
     </>
   );
 }
