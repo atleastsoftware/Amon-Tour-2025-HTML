@@ -6,6 +6,7 @@ import { queryClient } from "./lib/queryClient";
 import { Toaster } from "./components/ui/toaster";
 import { ThemeProvider } from "next-themes";
 // import "./lib/autoTranslate"; // Auto-translation based on IP geolocation - DISABLED to fix flag conflicts
+import "./lib/i18n"; // Modern i18next system with IP geolocation
 
 // Adding Font Awesome for Thai-inspired icons
 const fontAwesomeLink = document.createElement("link");
@@ -19,10 +20,7 @@ fontLink.rel = "stylesheet";
 fontLink.href = "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@600&display=swap";
 document.head.appendChild(fontLink);
 
-// Set page title
-const titleElement = document.createElement("title");
-titleElement.textContent = "Senthang Siam Tour - Votre spécialiste des voyages en Thaïlande";
-document.head.appendChild(titleElement);
+// Page title will be set dynamically by i18next
 
 createRoot(document.getElementById("root")!).render(
   <ThemeProvider attribute="class" defaultTheme="light">

@@ -1,0 +1,88 @@
+{
+  "site": {
+    "name": "Amon Tour",
+    "tagline": "Descubre la magia de Krabi con experiencias locales auténticas"
+  },
+  "navigation": {
+    "home": "Inicio",
+    "tours": "Tours",
+    "experiences": "Experiencias",
+    "blog": "Blog",
+    "contact": "Contacto",
+    "about": "Acerca de",
+    "stays": "Alojamientos"
+  },
+  "buttons": {
+    "bookNow": "Reservar ahora",
+    "learnMore": "Saber más",
+    "readMore": "Leer más",
+    "viewDetails": "Ver detalles",
+    "contact": "Contacto",
+    "send": "Enviar",
+    "submit": "Enviar",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "add": "Añadir",
+    "create": "Crear",
+    "update": "Actualizar",
+    "view": "Ver",
+    "back": "Volver",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "close": "Cerrar",
+    "open": "Abrir",
+    "confirm": "Confirmar",
+    "loading": "Cargando...",
+    "saving": "Guardando...",
+    "backToTours": "Volver a tours"
+  },
+  "forms": {
+    "name": "Nombre",
+    "fullName": "Nombre completo",
+    "email": "Email",
+    "phone": "Teléfono",
+    "message": "Mensaje",
+    "subject": "Asunto",
+    "required": "Este campo es obligatorio",
+    "emailInvalid": "Por favor, introduce una dirección de email válida",
+    "phoneInvalid": "Por favor, introduce un número de teléfono válido"
+  },
+  "status": {
+    "success": "¡Éxito!",
+    "error": "Error",
+    "loading": "Cargando...",
+    "noResults": "No se encontraron resultados",
+    "tryAgain": "Por favor, inténtalo de nuevo"
+  },
+  "messages": {
+    "requestSent": "Solicitud enviada",
+    "requestSentDesc": "Te contactaremos muy pronto para discutir tu proyecto de viaje.",
+    "requestFailed": "Solicitud Fallida",
+    "requestFailedDesc": "Hubo un problema al enviar tu solicitud. Por favor, inténtalo de nuevo.",
+    "subscriptionSuccess": "¡Suscripción Exitosa!",
+    "subscriptionSuccessDesc": "¡Gracias por suscribirte! Has sido añadido exitosamente a nuestro boletín.",
+    "subscriptionFailed": "Suscripción Fallida",
+    "contactSuccess": "¡Mensaje enviado exitosamente!",
+    "contactSuccessDesc": "Te responderemos lo antes posible."
+  },
+  "cookies": {
+    "title": "Preferencias de cookies",
+    "message": "Utilizamos cookies para mejorar tu experiencia y analizar nuestro tráfico. Por favor, elige tus preferencias:",
+    "customize": "Personalizar",
+    "acceptAll": "Aceptar todo",
+    "rejectAll": "Rechazar todo",
+    "close": "Cerrar"
+  },
+  "errors": {
+    "pageNotFound": "404 - Página no encontrada",
+    "pageNotFoundDesc": "La página que buscas no existe o no está disponible.",
+    "tourNotFound": "Tour no encontrado",
+    "tourNotFoundDesc": "El tour que buscas no existe o ha sido eliminado.",
+    "articleNotFound": "Artículo no encontrado",
+    "articleNotFoundDesc": "El artículo que buscas no existe o ha sido eliminado.",
+    "loadingTour": "Cargando tour...",
+    "imageLoadFailed": "Error al cargar la imagen"
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "site": {
+    "name": "Amon Tour",
+    "tagline": "Discover the magic of Krabi with authentic local experiences"
+  },
+  "navigation": {
+    "home": "Home",
+    "tours": "Tours",
+    "experiences": "Experiences", 
+    "blog": "Blog",
+    "contact": "Contact",
+    "about": "About",
+    "stays": "Stays"
+  },
+  "buttons": {
+    "bookNow": "Book Now",
+    "learnMore": "Learn More",
+    "readMore": "Read More",
+    "viewDetails": "View Details",
+    "contact": "Contact",
+    "send": "Send",
+    "submit": "Submit",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "add": "Add",
+    "create": "Create",
+    "update": "Update",
+    "view": "View",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "close": "Close",
+    "open": "Open",
+    "confirm": "Confirm",
+    "loading": "Loading...",
+    "saving": "Saving...",
+    "backToTours": "Back to Tours"
+  },
+  "forms": {
+    "name": "Name",
+    "fullName": "Full Name",
+    "email": "Email",
+    "phone": "Phone",
+    "message": "Message",
+    "subject": "Subject",
+    "required": "This field is required",
+    "emailInvalid": "Please enter a valid email address",
+    "phoneInvalid": "Please enter a valid phone number"
+  },
+  "status": {
+    "success": "Success!",
+    "error": "Error",
+    "loading": "Loading...",
+    "noResults": "No results found",
+    "tryAgain": "Please try again"
+  },
+  "messages": {
+    "requestSent": "Request sent",
+    "requestSentDesc": "We will contact you very soon to discuss your travel project.",
+    "requestFailed": "Request Failed",
+    "requestFailedDesc": "There was a problem sending your request. Please try again.",
+    "subscriptionSuccess": "Subscription Successful!",
+    "subscriptionSuccessDesc": "Thank you for subscribing! You have been successfully added to our newsletter.",
+    "subscriptionFailed": "Subscription Failed",
+    "contactSuccess": "Message sent successfully!",
+    "contactSuccessDesc": "We'll get back to you as soon as possible."
+  },
+  "cookies": {
+    "title": "Cookie Preferences",
+    "message": "We use cookies to enhance your experience and analyze our traffic. Please choose your preferences:",
+    "customize": "Customize",
+    "acceptAll": "Accept All",
+    "rejectAll": "Reject All",
+    "close": "Close"
+  },
+  "errors": {
+    "pageNotFound": "404 - Page Not Found",
+    "pageNotFoundDesc": "The page you are looking for does not exist or is not available.",
+    "tourNotFound": "Tour Not Found",
+    "tourNotFoundDesc": "The tour you're looking for doesn't exist or has been removed.",
+    "articleNotFound": "Article Not Found",
+    "articleNotFoundDesc": "The article you're looking for doesn't exist or has been removed.",
+    "loadingTour": "Loading tour...",
+    "imageLoadFailed": "Failed to load image"
+  }
+}

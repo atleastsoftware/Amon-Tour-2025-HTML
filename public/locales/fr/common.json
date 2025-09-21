@@ -1,0 +1,88 @@
+{
+  "site": {
+    "name": "Amon Tour",
+    "tagline": "Découvrez la magie de Krabi avec des expériences locales authentiques"
+  },
+  "navigation": {
+    "home": "Accueil",
+    "tours": "Tours",
+    "experiences": "Expériences",
+    "blog": "Blog", 
+    "contact": "Contact",
+    "about": "À propos",
+    "stays": "Hébergements"
+  },
+  "buttons": {
+    "bookNow": "Réserver maintenant",
+    "learnMore": "En savoir plus",
+    "readMore": "Lire la suite",
+    "viewDetails": "Voir les détails",
+    "contact": "Contact",
+    "send": "Envoyer",
+    "submit": "Soumettre",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "add": "Ajouter",
+    "create": "Créer",
+    "update": "Mettre à jour",
+    "view": "Voir",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "close": "Fermer",
+    "open": "Ouvrir",
+    "confirm": "Confirmer",
+    "loading": "Chargement...",
+    "saving": "Enregistrement...",
+    "backToTours": "Retour aux tours"
+  },
+  "forms": {
+    "name": "Nom",
+    "fullName": "Nom complet",
+    "email": "Email",
+    "phone": "Téléphone",
+    "message": "Message",
+    "subject": "Sujet",
+    "required": "Ce champ est requis",
+    "emailInvalid": "Veuillez saisir une adresse email valide",
+    "phoneInvalid": "Veuillez saisir un numéro de téléphone valide"
+  },
+  "status": {
+    "success": "Succès !",
+    "error": "Erreur",
+    "loading": "Chargement...",
+    "noResults": "Aucun résultat trouvé",
+    "tryAgain": "Veuillez réessayer"
+  },
+  "messages": {
+    "requestSent": "Demande envoyée",
+    "requestSentDesc": "Nous vous contacterons très bientôt pour discuter de votre projet de voyage.",
+    "requestFailed": "Échec de la demande",
+    "requestFailedDesc": "Un problème est survenu lors de l'envoi de votre demande. Veuillez réessayer.",
+    "subscriptionSuccess": "Abonnement réussi !",
+    "subscriptionSuccessDesc": "Merci de vous être abonné ! Vous avez été ajouté avec succès à notre newsletter.",
+    "subscriptionFailed": "Échec de l'abonnement",
+    "contactSuccess": "Message envoyé avec succès !",
+    "contactSuccessDesc": "Nous vous répondrons dans les plus brefs délais."
+  },
+  "cookies": {
+    "title": "Préférences des cookies",
+    "message": "Nous utilisons des cookies pour améliorer votre expérience et analyser notre trafic. Veuillez choisir vos préférences :",
+    "customize": "Personnaliser",
+    "acceptAll": "Tout accepter",
+    "rejectAll": "Tout refuser",
+    "close": "Fermer"
+  },
+  "errors": {
+    "pageNotFound": "404 - Page non trouvée",
+    "pageNotFoundDesc": "La page que vous recherchez n'existe pas ou n'est pas disponible.",
+    "tourNotFound": "Tour non trouvé",
+    "tourNotFoundDesc": "Le tour que vous recherchez n'existe pas ou a été supprimé.",
+    "articleNotFound": "Article non trouvé",
+    "articleNotFoundDesc": "L'article que vous recherchez n'existe pas ou a été supprimé.",
+    "loadingTour": "Chargement du tour...",
+    "imageLoadFailed": "Échec du chargement de l'image"
+  }
+}
