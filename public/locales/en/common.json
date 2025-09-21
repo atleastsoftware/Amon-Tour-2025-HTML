@@ -10,7 +10,9 @@
     "blog": "Blog",
     "contact": "Contact",
     "about": "About",
-    "stays": "Stays"
+    "stays": "Stays",
+    "cruise": "Cruise",
+    "customTrip": "Custom Trip"
   },
   "buttons": {
     "bookNow": "Book Now",

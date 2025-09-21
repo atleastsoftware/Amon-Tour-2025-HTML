@@ -10,7 +10,9 @@
     "blog": "Blog", 
     "contact": "Contact",
     "about": "À propos",
-    "stays": "Hébergements"
+    "stays": "Hébergements",
+    "cruise": "Croisière",
+    "customTrip": "Voyage Sur Mesure"
   },
   "buttons": {
     "bookNow": "Réserver maintenant",
