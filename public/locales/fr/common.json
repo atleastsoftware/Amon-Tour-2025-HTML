@@ -132,7 +132,11 @@
     "introTitle": "Expériences Authentiques en Thaïlande",
     "introDescription": "Découvrez la magie de Krabi avec des tours personnalisés loin du tourisme de masse",
     "tailorMadeTitle": "Créez Votre Voyage Sur Mesure",
-    "tailorMadeDescription": "Partagez-nous vos rêves et nous créerons l'aventure thaïlandaise parfaite rien que pour vous"
+    "tailorMadeDescription": "Partagez-nous vos rêves et nous créerons l'aventure thaïlandaise parfaite rien que pour vous",
+    "testimonialsTitle": "Ce Que Disent Nos Clients",
+    "testimonialsDescription": "Expériences réelles de voyageurs qui ont découvert la Thaïlande authentique avec nous",
+    "someIdeasTitle": "Quelques Idées d'Aventures",
+    "someIdeasDescription": "Découvrez nos expériences uniques conçues pour vous offrir le meilleur de la Thaïlande"
   },
   "tours": {
     "featured": "Nos Expériences Populaires", 

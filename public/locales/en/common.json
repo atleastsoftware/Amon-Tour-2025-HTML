@@ -100,6 +100,9 @@
     "personalizedSupportDescription": "Dedicated local support throughout your journey for a worry-free experience."
   },
   "seoMeta": {
+    "defaultTitle": "Amon Tour - Authentic Krabi Experiences",
+    "defaultDescription": "Discover authentic Krabi with local experts. Unique tours, hidden gems, and unforgettable memories.",
+    "defaultKeywords": "Krabi tours, Thailand travel, authentic experiences, local guides",
     "brochureTitle": "Amon Tour - Digital Brochure & Travel Guides",
     "brochureDescription": "Download our comprehensive travel guides and brochures for authentic experiences in Krabi, Thailand. Discover hidden gems and local treasures.",
     "brochureKeywords": "Amon Tour brochure, Krabi travel guide, Thailand travel, authentic experiences, local tours"
@@ -132,7 +135,9 @@
     "introTitle": "Authentic Thailand Experiences",
     "introDescription": "Discover the magic of Krabi with personalized tours far from mass tourism",
     "tailorMadeTitle": "Create Your Custom Trip",
-    "tailorMadeDescription": "Tell us your dreams and we'll create the perfect Thailand adventure just for you"
+    "tailorMadeDescription": "Tell us your dreams and we'll create the perfect Thailand adventure just for you",
+    "testimonialsTitle": "What Our Guests Say",
+    "testimonialsDescription": "Real experiences from travelers who discovered authentic Thailand with us"
   },
   "tours": {
     "featured": "Our Popular Experiences", 

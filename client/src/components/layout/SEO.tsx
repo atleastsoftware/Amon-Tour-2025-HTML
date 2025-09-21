@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet';
 import { useEffect, useState } from 'react';
-import { translationService } from '@/services/translationService';
+import { useTranslation } from 'react-i18next';
 
 interface SEOProps {
   title?: string;
@@ -34,12 +34,12 @@ export default function SEO({
   reviewSchema,
 }: SEOProps) {
   const siteUrl = 'https://amon-tour.com';
-  const seo = translationService.getSeo();
+  const { t } = useTranslation();
   
   // Use translated defaults if no values provided
-  const finalTitle = title || seo.defaultTitle;
-  const finalDescription = description || seo.defaultDescription;
-  const finalKeywords = keywords || seo.defaultKeywords;
+  const finalTitle = title || t('seoMeta.defaultTitle');
+  const finalDescription = description || t('seoMeta.defaultDescription');
+  const finalKeywords = keywords || t('seoMeta.defaultKeywords');
   
   const fullTitle = finalTitle.includes('Amon Tour') ? finalTitle : `${finalTitle} | Amon Tour`;
   const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;

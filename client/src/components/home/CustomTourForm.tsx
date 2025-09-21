@@ -6,7 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
-import { translationService } from "@/services/translationService";
+// Translation service removed - using temporary strings until i18next migration
 
 import {
   Form,
@@ -68,7 +68,38 @@ export default function CustomTourForm() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const datePickerRef = useRef<HTMLInputElement | null>(null);
-  const home = translationService.getHome();
+  // Temporary form labels until i18next integration
+  const home = {
+    customTripTitle: "Plan Your Custom Trip",
+    customTripSubtitle: "Tell us about your dream journey",
+    customTripDescription: "and we'll create the perfect experience for you",
+    fullName: "Full Name",
+    email: "Email",
+    countryCode: "Country Code",
+    whatsappNumber: "WhatsApp Number",
+    numberOfAdults: "Number of Adults",
+    numberOfKids: "Number of Kids",
+    datesOfTrip: "Dates of Trip",
+    approximateDuration: "Approximate Duration",
+    tripTypes: "Trip Types",
+    destinations: "Destinations",
+    describeIdealTrip: "Describe Your Ideal Trip",
+    sendRequest: "Send Request",
+    orContactDirectly: "Or contact us directly via WhatsApp",
+    contactWhatsApp: "Contact via WhatsApp",
+    cultureHistory: "Culture & History",
+    natureAdventure: "Nature & Adventure",
+    beachesIslands: "Beaches & Islands",
+    familyTrip: "Family Trip",
+    groupTrip: "Group Trip",
+    weddingHoneymoon: "Wedding & Honeymoon",
+    khaoSok: "Khao Sok",
+    krabi: "Krabi",
+    kohMook: "Koh Mook",
+    bangkok: "Bangkok",
+    chiangMai: "Chiang Mai",
+    othersDestinations: "Other Destinations"
+  };
 
   const form = useForm<CustomTourFormData>({
     resolver: zodResolver(customTourSchema),
