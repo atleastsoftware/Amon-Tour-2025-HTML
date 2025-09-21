@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { lazy, Suspense } from "react";
 import { Loader2 } from "lucide-react";
 import Gallery from "@/components/ui/Gallery";
+import { useTranslation } from 'react-i18next';
 
 // Lazy load form components
 const CruiseForm = lazy(() => import("@/components/CruiseForm"));
@@ -30,9 +31,11 @@ interface PageBlock {
 
 interface DynamicBlocksRendererProps {
   blocks: PageBlock[];
+  pageSlug?: string;
 }
 
-export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererProps) {
+export default function DynamicBlocksRenderer({ blocks, pageSlug }: DynamicBlocksRendererProps) {
+  const { t } = useTranslation();
   const renderBlock = (block: PageBlock) => {
     // Pour l'instant, on affiche un rendu basique pour chaque type de bloc
     // Dans le futur, chaque type de bloc aura son propre composant
@@ -40,23 +43,44 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
       case 'hero':
       case 'hero_banner':
       case 'hero_video':
+        // Use i18next for cruise page hero, fallback to DB values for other pages
+        const getTitle = () => {
+          if (block.settings?.i18n?.titleKey) {
+            return t(block.settings.i18n.titleKey, block.title || '');
+          }
+          if (pageSlug === 'cruise') {
+            return t('cruise.hero.title', block.title || 'The Catamaran Experience');
+          }
+          return block.title;
+        };
+        
+        const getSubtitle = () => {
+          if (block.settings?.i18n?.subtitleKey) {
+            return t(block.settings.i18n.subtitleKey, block.subtitle || '');
+          }
+          if (pageSlug === 'cruise') {
+            return t('cruise.hero.subtitle', block.subtitle || 'Sail Krabi\'s Hidden Gems on a Private Catamaran Adventure');
+          }
+          return block.subtitle;
+        };
+        
         return (
           <div key={block.id} className="relative h-[52vh] bg-gradient-to-br from-primary to-secondary flex items-center justify-center w-full">
             {block.imageUrl && (
               <img 
                 src={block.imageUrl} 
-                alt={block.imageAlt || block.title || ''} 
+                alt={block.imageAlt || getTitle() || ''} 
                 className="absolute inset-0 w-full h-full object-cover"
               />
             )}
             {/* Overlay pour améliorer le contraste du texte blanc */}
             <div className="absolute inset-0 bg-black/40 z-10"></div>
             <div className="relative z-20 w-full px-8 md:px-12 lg:px-16 text-center">
-              {block.title && (
-                <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">{block.title}</h1>
+              {getTitle() && (
+                <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">{getTitle()}</h1>
               )}
-              {block.subtitle && (
-                <p className="text-xl text-white/90 mb-4">{block.subtitle}</p>
+              {getSubtitle() && (
+                <p className="text-xl text-white/90 mb-4">{getSubtitle()}</p>
               )}
               {block.description && (
                 <p className="text-lg text-white/80 mb-8 max-w-3xl mx-auto">{block.description}</p>

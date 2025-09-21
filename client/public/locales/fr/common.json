@@ -333,7 +333,11 @@
     "totalFreedom": "Liberté totale",
     "totalFreedomDesc": "Plages désertes, lagons turquoise, snorkeling dans des eaux cristallines... Votre croisière évolue selon vos préférences.",
     "formTitle": "Demande de Devis Personnalisé",
-    "formSubtitle": "Remplissez le formulaire ci-dessous et nous vous contacterons dans les 24 heures."
+    "formSubtitle": "Remplissez le formulaire ci-dessous et nous vous contacterons dans les 24 heures.",
+    "hero": {
+      "title": "L'Expérience Catamaran",
+      "subtitle": "Naviguez vers les Joyaux Cachés de Krabi dans une Aventure Privée en Catamaran"
+    }
   },
   "accessibility": {
     "previousImages": "Images précédentes",

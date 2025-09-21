@@ -136,9 +136,9 @@ export default function CruiseForm() {
   return (
     <div className="w-full max-w-2xl mx-auto">
       <div className="text-center mb-8">
-        <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{t('cruise.title')}</h2>
+        <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{t('cruise.formTitle')}</h2>
         <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
-        <p className="text-gray-600 text-lg">{t('cruise.subtitle')}</p>
+        <p className="text-gray-600 text-lg">{t('cruise.formSubtitle')}</p>
       </div>
       <Card className="w-full">
         <CardContent className="pt-6">

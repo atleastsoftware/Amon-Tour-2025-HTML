@@ -337,7 +337,11 @@
     "totalFreedom": "Libertad total",
     "totalFreedomDesc": "Playas desiertas, lagunas turquesa, snorkel en aguas cristalinas... Tu crucero evoluciona según tus preferencias.",
     "formTitle": "Solicitud de Presupuesto Personalizado",
-    "formSubtitle": "Completa el formulario a continuación y te contactaremos en 24 horas."
+    "formSubtitle": "Completa el formulario a continuación y te contactaremos en 24 horas.",
+    "hero": {
+      "title": "La Experiencia Catamarán",
+      "subtitle": "Navega hacia las Joyas Ocultas de Krabi en una Aventura Privada en Catamarán"
+    }
   },
   "accessibility": {
     "previousImages": "Imágenes anteriores",

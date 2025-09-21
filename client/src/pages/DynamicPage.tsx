@@ -113,7 +113,7 @@ export default function DynamicPage({ slug: propSlug }: DynamicPageProps = {}) {
         className="min-h-screen"
       >
         {activeBlocks.length > 0 ? (
-          <DynamicBlocksRenderer blocks={activeBlocks} />
+          <DynamicBlocksRenderer blocks={activeBlocks} pageSlug={slug} />
         ) : (
           <div className="container mx-auto px-4 py-24">
             <div className="text-center">
