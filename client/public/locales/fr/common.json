@@ -345,5 +345,25 @@
     "closeGallery": "Fermer la galerie",
     "previousImage": "Image précédente",
     "nextImage": "Image suivante"
+  },
+  "customTour": {
+    "title": "Créez Votre Voyage Sur Mesure",
+    "subtitle": "Votre histoire de voyage commence par vos rêves - laissez-nous écrire le reste.",
+    "seoTitle": "Créez Votre Voyage Sur Mesure - Amon Tour",
+    "seoDescription": "Concevez votre propre circuit personnalisé en Thaïlande. Dites-nous vos préférences et nos experts locaux créeront un itinéraire sur mesure pour vous.",
+    "seoKeywords": "voyage sur mesure Thaïlande, voyage personnalisé, circuit tailor-made",
+    "whyChoose": "Pourquoi Choisir les Voyages Sur Mesure ?",
+    "whyChooseDescription": "Chaque voyageur est unique, et son voyage devrait l'être aussi. Nos circuits sur mesure sont conçus autour de vos intérêts, préférences et style de voyage.",
+    "flexibleItinerary": "Itinéraire Flexible",
+    "flexibleItineraryDescription": "Adaptez votre programme au fur et à mesure. Changez de plans, prolongez les séjours ou ajoutez de nouvelles destinations selon vos découvertes.",
+    "tailoredAccommodations": "Hébergements Sur Mesure",
+    "tailoredAccommodationsDescription": "Des hôtels de luxe aux séjours locaux authentiques, nous sélectionnons des hébergements qui correspondent à votre style et budget.",
+    "personalizedSupport": "Support Personnalisé",
+    "personalizedSupportDescription": "Guide local dédié et support 24h/24 tout au long de votre voyage pour garantir que tout se déroule parfaitement."
+  },
+  "seo": {
+    "brochureTitle": "Notre Brochure de Voyage",
+    "brochureDescription": "Découvrez la magie de Krabi et de la Thaïlande avec notre guide de voyage complet",
+    "brochureKeywords": "brochure voyage Thaïlande, guide Krabi, inspiration voyage"
   }
 }

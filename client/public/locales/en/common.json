@@ -355,5 +355,25 @@
     "closeGallery": "Close gallery",
     "previousImage": "Previous image",
     "nextImage": "Next image"
+  },
+  "customTour": {
+    "title": "Create Your Custom Trip",
+    "subtitle": "Your travel story starts with your dreams - let us write the rest.",
+    "seoTitle": "Create Your Custom Trip - Amon Tour",
+    "seoDescription": "Design your own personalized Thailand tour. Tell us your preferences, and our local experts will craft a customized itinerary just for you.",
+    "seoKeywords": "custom tour Thailand, personalized travel, tailor-made trip",
+    "whyChoose": "Why Choose Custom Tours?",
+    "whyChooseDescription": "Every traveler is unique, and so should be their journey. Our custom tours are designed around your interests, preferences, and travel style.",
+    "flexibleItinerary": "Flexible Itinerary",
+    "flexibleItineraryDescription": "Adapt your schedule as you go. Change plans, extend stays, or add new destinations based on your discoveries.",
+    "tailoredAccommodations": "Tailored Accommodations",
+    "tailoredAccommodationsDescription": "From luxury resorts to authentic local stays, we select accommodations that match your style and budget.",
+    "personalizedSupport": "Personalized Support",
+    "personalizedSupportDescription": "Dedicated local guide and 24/7 support throughout your journey to ensure everything goes smoothly."
+  },
+  "seo": {
+    "brochureTitle": "Our Travel Brochure",
+    "brochureDescription": "Discover the magic of Krabi and Thailand with our comprehensive travel guide",
+    "brochureKeywords": "Thailand travel brochure, Krabi guide, travel inspiration"
   }
 }

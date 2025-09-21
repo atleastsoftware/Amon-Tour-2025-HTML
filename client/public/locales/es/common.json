@@ -349,5 +349,25 @@
     "closeGallery": "Cerrar galería",
     "previousImage": "Imagen anterior",
     "nextImage": "Imagen siguiente"
+  },
+  "customTour": {
+    "title": "Crea Tu Viaje Personalizado",
+    "subtitle": "Tu historia de viaje comienza con tus sueños - déjanos escribir el resto.",
+    "seoTitle": "Crea Tu Viaje Personalizado - Amon Tour",
+    "seoDescription": "Diseña tu propio tour personalizado por Tailandia. Cuéntanos tus preferencias y nuestros expertos locales crearán un itinerario a medida para ti.",
+    "seoKeywords": "tour personalizado Tailandia, viaje a medida, circuito tailor-made",
+    "whyChoose": "¿Por Qué Elegir Tours Personalizados?",
+    "whyChooseDescription": "Cada viajero es único, y su viaje también debería serlo. Nuestros tours personalizados están diseñados según tus intereses, preferencias y estilo de viaje.",
+    "flexibleItinerary": "Itinerario Flexible",
+    "flexibleItineraryDescription": "Adapta tu horario sobre la marcha. Cambia planes, extiende estancias o añade nuevos destinos basado en tus descubrimientos.",
+    "tailoredAccommodations": "Alojamientos A Medida",
+    "tailoredAccommodationsDescription": "Desde resorts de lujo hasta estancias locales auténticas, seleccionamos alojamientos que coinciden con tu estilo y presupuesto.",
+    "personalizedSupport": "Soporte Personalizado",
+    "personalizedSupportDescription": "Guía local dedicado y soporte 24/7 durante todo tu viaje para asegurar que todo transcurra sin problemas."
+  },
+  "seo": {
+    "brochureTitle": "Nuestro Folleto de Viaje",
+    "brochureDescription": "Descubre la magia de Krabi y Tailandia con nuestra guía de viaje completa",
+    "brochureKeywords": "folleto viaje Tailandia, guía Krabi, inspiración viaje"
   }
 }
