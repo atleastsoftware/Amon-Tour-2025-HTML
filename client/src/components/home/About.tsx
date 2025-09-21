@@ -1,9 +1,9 @@
 import { Link } from "wouter";
 import amonTourTeam from "@/assets/amon-tour-team.jpg";
-import { translationService } from "@/services/translationService";
+import { useTranslation } from 'react-i18next';
 
 export default function About() {
-  const home = translationService.getHome();
+  const { t } = useTranslation();
   
   return (
     <section id="who-we-are" className="py-16 bg-white">
@@ -11,32 +11,32 @@ export default function About() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="order-2 lg:order-1">
             <h2 className="font-heading font-bold text-3xl md:text-4xl mb-6">
-              {home.whoWeAreTitle}
+              {t('about.whoWeAreTitle')}
             </h2>
             <p className="text-muted-foreground mb-4">
-              {home.whoWeAreDescription}
+              {t('about.whoWeAreDescription')}
             </p>
             <p className="text-muted-foreground mb-6">
-              {home.whoWeAreStory}
+              {t('about.whoWeAreStory')}
             </p>
             
             <h3 className="font-heading font-semibold text-2xl mt-6 mb-3">
-              {home.deepLocalRootsTitle}
+              {t('about.deepLocalRootsTitle')}
             </h3>
             <p className="text-muted-foreground mb-4">
-              {home.deepLocalRootsDescription}
+              {t('about.deepLocalRootsDescription')}
             </p>
             <p className="text-muted-foreground mb-6">
-              {home.deepLocalRootsExplanation}
+              {t('about.deepLocalRootsExplanation')}
             </p>
             
 
 
             <h3 className="font-heading font-semibold text-2xl mt-6 mb-3">
-              {home.ourConceptTitle}
+              {t('about.ourConceptTitle')}
             </h3>
             <p className="text-muted-foreground mb-6">
-              {home.ourConceptDescription}
+              {t('about.ourConceptDescription')}
             </p>
             <div className="flex items-center space-x-4">
               <a 
@@ -46,12 +46,12 @@ export default function About() {
               >
                 <span className="bg-primary text-white px-6 py-2 rounded font-heading font-semibold hover:bg-primary-dark transition-colors cursor-pointer flex items-center">
                   <i className="fab fa-whatsapp mr-2"></i>
-                  {home.contactUs}
+                  {t('about.contactUs')}
                 </span>
               </a>
               <Link href="/custom-tour">
                 <span className="text-primary font-heading font-semibold hover:text-primary-dark transition-colors cursor-pointer">
-                  {home.createYourJourney} →
+                  {t('about.createYourJourney')} →
                 </span>
               </Link>
             </div>
@@ -85,14 +85,14 @@ export default function About() {
                     </div>
                     <span className="font-semibold">5.0/5</span>
                   </div>
-                  <p className="text-sm text-muted-foreground/80">{home.basedOnReviews}</p>
+                  <p className="text-sm text-muted-foreground/80">{t('about.basedOnReviews')}</p>
                   <a 
                     href="https://maps.app.goo.gl/fe17kgt89d64kAHs7" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="text-xs text-primary hover:underline mt-1 inline-block"
                   >
-                    See all reviews
+{t('about.seeAllReviews')}
                   </a>
                 </div>
               </div>

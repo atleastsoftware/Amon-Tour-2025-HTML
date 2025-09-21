@@ -79,6 +79,20 @@
     "seeOffers": "Ver nuestras ofertas",
     "customTrip": "Viaje personalizado"
   },
+  "about": {
+    "whoWeAreTitle": "Quiénes somos",
+    "whoWeAreDescription": "Descubre lugares extraordinarios lejos del turismo de masas en Krabi. Así como Khao Sok, Koh Mook y muchos otros destinos.",
+    "whoWeAreStory": "Somos una familia francesa establecida en Tailandia desde hace más de 10 años, apasionada por descubrir y compartir nuestra tierra de adopción.",
+    "deepLocalRootsTitle": "Raíces locales profundas",
+    "deepLocalRootsDescription": "Nuestro conocimiento íntimo de la región nos permite ofrecerte experiencias auténticas y únicas.",
+    "deepLocalRootsExplanation": "Gracias a nuestras relaciones privilegiadas con las comunidades locales, te llevamos donde otros no van.",
+    "ourConceptTitle": "Nuestro concepto",
+    "ourConceptDescription": "Viajes a medida que respetan el medio ambiente y las comunidades locales, para una experiencia inolvidable.",
+    "contactUs": "Contáctanos",
+    "createYourJourney": "Crea tu viaje",
+    "basedOnReviews": "Basado en reseñas",
+    "seeAllReviews": "Ver todas las reseñas"
+  },
   "errors": {
     "pageNotFound": "404 - Página no encontrada",
     "pageNotFoundDesc": "La página que buscas no existe o no está disponible.",
