@@ -100,7 +100,16 @@
     "privacyPolicy": "Política de privacidad",
     "termsConditions": "Términos y condiciones"
   },
+  "tours": {
+    "featured": "Nuestros Tours Destacados",
+    "description": "Descubre experiencias auténticas en los destinos más hermosos de Tailandia con nuestros tours privados cuidadosamente diseñados.",
+    "title": "Explora las Joyas Ocultas de Tailandia"
+  },
   "home": {
+    "introTitle": "Bienvenido a la Tailandia Auténtica",
+    "introDescription": "Vive la verdadera Tailandia con Amon Tour. Nos especializamos en tours privados y personalizados que te llevan más allá de los sitios turísticos típicos para descubrir la cultura auténtica, los paisajes impresionantes y la cálida hospitalidad que hacen de Tailandia algo verdaderamente especial.",
+    "tailorMadeTitle": "Experiencias a Medida",
+    "tailorMadeDescription": "Cada viaje es único. Deja que creemos el itinerario perfecto basado en tus intereses, preferencias y estilo de viaje."
     "whoWeAreTitle": "Quiénes somos",
     "whoWeAreDescription": "Somos una familia francesa que vive en Krabi desde 2013. Apasionados por Tailandia, ofrecemos experiencias auténticas lejos del turismo de masas.",
     "whoWeAreStory": "Nuestra historia comenzó con un flechazo por esta región excepcional. Hoy, compartimos nuestro amor por Tailandia a través de viajes únicos y personalizados.",

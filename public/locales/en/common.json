@@ -100,7 +100,16 @@
     "privacyPolicy": "Privacy Policy",
     "termsConditions": "Terms & Conditions"
   },
+  "tours": {
+    "featured": "Our Featured Tours",
+    "description": "Discover authentic experiences in Thailand's most beautiful destinations with our carefully crafted private tours.",
+    "title": "Explore Thailand's Hidden Gems"
+  },
   "home": {
+    "introTitle": "Welcome to Authentic Thailand",
+    "introDescription": "Experience the real Thailand with Amon Tour. We specialize in private, personalized tours that take you beyond the typical tourist spots to discover the authentic culture, stunning landscapes, and warm hospitality that make Thailand truly special.",
+    "tailorMadeTitle": "Tailor-Made Experiences",
+    "tailorMadeDescription": "Every journey is unique. Let us create the perfect itinerary based on your interests, preferences, and travel style."
     "whoWeAreTitle": "Who we are",
     "whoWeAreDescription": "We are a French family living in Krabi since 2013. Passionate about Thailand, we offer authentic experiences away from mass tourism.",
     "whoWeAreStory": "Our story began with a love at first sight for this exceptional region. Today, we share our love for Thailand through unique and personalized journeys.",

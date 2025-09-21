@@ -100,7 +100,16 @@
     "privacyPolicy": "Politique de confidentialité",
     "termsConditions": "Conditions générales"
   },
+  "tours": {
+    "featured": "Nos Tours Phares",
+    "description": "Découvrez des expériences authentiques dans les plus belles destinations de Thaïlande avec nos tours privés soigneusement conçus.",
+    "title": "Explorez les Joyaux Cachés de la Thaïlande"
+  },
   "home": {
+    "introTitle": "Bienvenue en Thaïlande Authentique",
+    "introDescription": "Vivez la vraie Thaïlande avec Amon Tour. Nous nous spécialisons dans les tours privés et personnalisés qui vous emmènent au-delà des sites touristiques typiques pour découvrir la culture authentique, les paysages époustouflants et la chaleureuse hospitalité qui rendent la Thaïlande vraiment spéciale.",
+    "tailorMadeTitle": "Expériences Sur Mesure",
+    "tailorMadeDescription": "Chaque voyage est unique. Laissez-nous créer l'itinéraire parfait basé sur vos intérêts, préférences et style de voyage."
     "whoWeAreTitle": "Qui nous sommes",
     "whoWeAreDescription": "Nous sommes une famille française installée à Krabi depuis 2013. Passionnés par la Thaïlande, nous proposons des expériences authentiques loin du tourisme de masse.",
     "whoWeAreStory": "Notre histoire a commencé par un coup de cœur pour cette région exceptionnelle. Aujourd'hui, nous partageons notre amour pour la Thaïlande à travers des voyages uniques et personnalisés.",
