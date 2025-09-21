@@ -6,7 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
-import { translationService } from "@/services/translationService";
+import { useTranslation } from 'react-i18next';
 
 import {
   Form,
@@ -68,7 +68,7 @@ export default function CustomTourForm() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const datePickerRef = useRef<HTMLInputElement | null>(null);
-  const home = translationService.getHome();
+  const { t } = useTranslation();
 
   const form = useForm<CustomTourFormData>({
     resolver: zodResolver(customTourSchema),
@@ -123,21 +123,21 @@ export default function CustomTourForm() {
   };
 
   const tripTypeOptions = [
-    { id: "culture", label: home.cultureHistory },
-    { id: "nature", label: home.natureAdventure },
-    { id: "beaches", label: home.beachesIslands },
-    { id: "family", label: home.familyTrip },
-    { id: "group", label: home.groupTrip },
-    { id: "wedding", label: home.weddingHoneymoon },
+    { id: "culture", label: t('home.cultureHistory') },
+    { id: "nature", label: t('home.natureAdventure') },
+    { id: "beaches", label: t('home.beachesIslands') },
+    { id: "family", label: t('home.familyTrip') },
+    { id: "group", label: t('home.groupTrip') },
+    { id: "wedding", label: t('home.weddingHoneymoon') },
   ];
 
   const destinationOptions = [
-    { id: "khaosok", label: home.khaoSok },
-    { id: "krabi", label: home.krabi },
-    { id: "kohmook", label: home.kohMook },
-    { id: "bangkok", label: home.bangkok },
-    { id: "chiangmai", label: home.chiangMai },
-    { id: "others", label: home.othersDestinations },
+    { id: "khaosok", label: t('home.khaoSok') },
+    { id: "krabi", label: t('home.krabi') },
+    { id: "kohmook", label: t('home.kohMook') },
+    { id: "bangkok", label: t('home.bangkok') },
+    { id: "chiangmai", label: t('home.chiangMai') },
+    { id: "others", label: t('home.othersDestinations') },
   ];
 
   const countryCodeOptions = [
@@ -207,8 +207,8 @@ export default function CustomTourForm() {
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-primary/70 to-transparent flex flex-col justify-center p-8 text-white">
-                <h3 className="font-heading font-bold text-3xl mb-3">{home.customTripTitle}</h3>
-                <p className="max-w-xs">{home.customTripSubtitle} {home.customTripDescription}</p>
+                <h3 className="font-heading font-bold text-3xl mb-3">{t('home.customTripTitle')}</h3>
+                <p className="max-w-xs">{t('home.customTripSubtitle')} {t('home.customTripDescription')}</p>
               </div>
             </div>
             
@@ -222,7 +222,7 @@ export default function CustomTourForm() {
                       name="name"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>{home.fullName} *</FormLabel>
+                          <FormLabel>{t('home.fullName')} *</FormLabel>
                           <FormControl>
                             <Input placeholder="Your name" {...field} />
                           </FormControl>
@@ -235,7 +235,7 @@ export default function CustomTourForm() {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>{home.email} *</FormLabel>
+                          <FormLabel>{t('home.email')} *</FormLabel>
                           <FormControl>
                             <Input placeholder="Your email" {...field} />
                           </FormControl>
@@ -252,7 +252,7 @@ export default function CustomTourForm() {
                       name="countryCode"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>{home.countryCode} *</FormLabel>
+                          <FormLabel>{t('home.countryCode')} *</FormLabel>
                           <Select 
                             onValueChange={field.onChange} 
                             defaultValue={field.value}
@@ -280,7 +280,7 @@ export default function CustomTourForm() {
                         name="phoneNumber"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>{home.whatsappNumber} *</FormLabel>
+                            <FormLabel>{t('home.whatsappNumber')} *</FormLabel>
                             <FormControl>
                               <Input placeholder="Your WhatsApp number" {...field} />
                             </FormControl>
@@ -300,7 +300,7 @@ export default function CustomTourForm() {
                       name="adults"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>{home.numberOfAdults}</FormLabel>
+                          <FormLabel>{t('home.numberOfAdults')}</FormLabel>
                           <Select 
                             onValueChange={field.onChange} 
                             defaultValue={field.value}
@@ -329,7 +329,7 @@ export default function CustomTourForm() {
                       name="kids"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>{home.numberOfKids}</FormLabel>
+                          <FormLabel>{t('home.numberOfKids')}</FormLabel>
                           <Select 
                             onValueChange={field.onChange} 
                             defaultValue={field.value}
@@ -359,7 +359,7 @@ export default function CustomTourForm() {
                     name="dateRange"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{home.datesOfTrip}</FormLabel>
+                        <FormLabel>{t('home.datesOfTrip')}</FormLabel>
                         <FormControl>
                           <Input
                             placeholder="Select trip dates"
@@ -383,7 +383,7 @@ export default function CustomTourForm() {
                     name="duration"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{home.approximateDuration}</FormLabel>
+                        <FormLabel>{t('home.approximateDuration')}</FormLabel>
                         <Select 
                           onValueChange={field.onChange} 
                           defaultValue={field.value}
@@ -412,7 +412,7 @@ export default function CustomTourForm() {
                     render={() => (
                       <FormItem>
                         <div className="mb-4">
-                          <FormLabel>{home.tripTypes}</FormLabel>
+                          <FormLabel>{t('home.tripTypes')}</FormLabel>
                         </div>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                           {tripTypeOptions.map((option) => (
@@ -461,7 +461,7 @@ export default function CustomTourForm() {
                     render={() => (
                       <FormItem>
                         <div className="mb-4">
-                          <FormLabel>{home.destinations}</FormLabel>
+                          <FormLabel>{t('home.destinations')}</FormLabel>
                         </div>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                           {destinationOptions.map((option) => (
@@ -508,7 +508,7 @@ export default function CustomTourForm() {
                     name="message"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{home.describeIdealTrip}</FormLabel>
+                        <FormLabel>{t('home.describeIdealTrip')}</FormLabel>
                         <FormControl>
                           <Textarea 
                             placeholder="Tell us what you would like to see and do during your journey..."
@@ -526,13 +526,13 @@ export default function CustomTourForm() {
                     className="w-full bg-primary text-white py-3 rounded-md font-heading font-semibold hover:bg-primary-dark transition-colors"
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? "Sending..." : home.sendRequest}
+                    {isSubmitting ? "Sending..." : t('home.sendRequest')}
                   </Button>
                   
                   {/* WhatsApp Contact Button */}
                   <div className="mt-4 pt-4 border-t border-gray-200">
                     <p className="text-center text-sm text-gray-600 mb-3">
-                      {home.orContactDirectly || "Or contact us directly via WhatsApp"}
+                      {t('home.orContactDirectly', {defaultValue: 'Or contact us directly via WhatsApp'})}
                     </p>
                     <a
                       href="https://wa.me/66653496445?text=Hello%20Amon%20Tour,%20I%20would%20like%20to%20inquire%20about%20a%20custom%20tour."
@@ -541,7 +541,7 @@ export default function CustomTourForm() {
                       className="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-md font-heading font-semibold transition-colors duration-200 flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
                     >
                       <i className="fab fa-whatsapp text-xl" aria-hidden="true"></i>
-                      {home.contactWhatsApp || "Contact via WhatsApp"}
+                      {t('home.contactWhatsApp', {defaultValue: 'Contact via WhatsApp'})}
                     </a>
                   </div>
                 </form>
