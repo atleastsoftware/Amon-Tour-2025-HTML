@@ -1,20 +1,20 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
-import { translationService } from "@/services/translationService";
+import { useTranslation } from 'react-i18next';
 import { Download, Globe } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
 export default function Brochure() {
-  const seoMeta = translationService.getSeoMeta();
+  const { t } = useTranslation();
   
   return (
     <>
       <SEO 
-        title={seoMeta.brochureTitle}
-        description={seoMeta.brochureDescription}
-        keywords={seoMeta.brochureKeywords}
+        title={t('seo.brochureTitle')}
+        description={t('seo.brochureDescription')}
+        keywords={t('seo.brochureKeywords')}
       />
       <Header />
       
@@ -37,10 +37,10 @@ export default function Brochure() {
             >
               <Download className="w-16 h-16 text-secondary mx-auto mb-6" />
               <h1 className="font-heading font-bold text-4xl md:text-5xl mb-6">
-                {seoMeta.brochureTitle}
+                {t('seo.brochureTitle')}
               </h1>
               <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-8">
-                {seoMeta.brochureDescription}
+                {t('seo.brochureDescription')}
               </p>
             </motion.div>
           </div>

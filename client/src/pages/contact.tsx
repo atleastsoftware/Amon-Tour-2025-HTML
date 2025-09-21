@@ -2,28 +2,27 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
 import HeroHeader from "@/components/layout/HeroHeader";
-import { translationService } from "@/services/translationService";
+import { useTranslation } from 'react-i18next';
 import { MapPin, Mail, Phone, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function Contact() {
-  const pageHeaders = translationService.getPageHeaders();
-  const seoMeta = translationService.getSeoMeta();
+  const { t } = useTranslation();
   
   return (
     <>
       <SEO 
-        title={seoMeta.contactTitle}
-        description={seoMeta.contactDescription}
-        keywords={seoMeta.contactKeywords}
+        title={t('seo.contactTitle')}
+        description={t('seo.contactDescription')}
+        keywords={t('seo.contactKeywords')}
       />
       <Header />
       
       <main>
         {/* Hero Section */}
         <HeroHeader 
-          title={pageHeaders.contact.title}
-          subtitle={pageHeaders.contact.subtitle}
+          title={t('pageHeaders.contact.title')}
+          subtitle={t('pageHeaders.contact.subtitle')}
           alt="Contact Amon Tour in Krabi"
         />
 
@@ -39,10 +38,10 @@ export default function Contact() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5 }}
                 >
-                  <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{pageHeaders.contact.getInTouch}</h2>
+                  <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{t('pageHeaders.contact.getInTouch')}</h2>
                   <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
                   <p className="text-lg text-gray-700 leading-relaxed">
-                    {pageHeaders.contact.readyToExplore}
+                    {t('pageHeaders.contact.readyToExplore')}
                   </p>
                 </motion.div>
               </div>
@@ -63,7 +62,7 @@ export default function Contact() {
                       <Mail className="w-6 h-6 text-primary" />
                     </div>
                     <div>
-                      <p className="font-heading font-semibold text-primary">{pageHeaders.contact.email}</p>
+                      <p className="font-heading font-semibold text-primary">{t('pageHeaders.contact.email')}</p>
                       <a 
                         href="mailto:info@amon-tour.com"
                         className="text-foreground hover:text-primary transition-colors"
@@ -82,7 +81,7 @@ export default function Contact() {
                       <Phone className="w-6 h-6 text-secondary" />
                     </div>
                     <div>
-                      <p className="font-heading font-semibold text-primary">{pageHeaders.contact.phone}</p>
+                      <p className="font-heading font-semibold text-primary">{t('pageHeaders.contact.phone')}</p>
                       <a 
                         href="tel:+66962166559"
                         className="text-foreground hover:text-primary transition-colors"
@@ -101,7 +100,7 @@ export default function Contact() {
                       <MessageCircle className="w-6 h-6 text-[hsl(var(--success))]" />
                     </div>
                     <div>
-                      <p className="font-heading font-semibold text-primary">{pageHeaders.contact.whatsapp}</p>
+                      <p className="font-heading font-semibold text-primary">{t('pageHeaders.contact.whatsapp')}</p>
                       <a 
                         href="https://wa.me/66653496445"
                         target="_blank"
@@ -122,7 +121,7 @@ export default function Contact() {
                       <MessageCircle className="w-6 h-6 text-[hsl(var(--success))]" />
                     </div>
                     <div>
-                      <p className="font-heading font-semibold text-primary">{pageHeaders.contact.line}</p>
+                      <p className="font-heading font-semibold text-primary">{t('pageHeaders.contact.line')}</p>
                       <span className="text-foreground">amontour</span>
                     </div>
                   </motion.div>

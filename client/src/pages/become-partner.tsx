@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { translationService } from "@/services/translationService";
+import { useTranslation } from 'react-i18next';
 
 interface FormData {
   companyName: string;
@@ -22,8 +22,8 @@ interface FormData {
 }
 
 export default function BecomePartner() {
+  const { t } = useTranslation();
   const { toast } = useToast();
-  const toasts = translationService.getToasts();
   const [formData, setFormData] = useState<FormData>({
     companyName: '',
     contactName: '',
@@ -87,8 +87,8 @@ export default function BecomePartner() {
     } catch (error) {
       console.error('Partnership - Submit error:', error);
       toast({
-        title: toasts.requestFailed,
-        description: toasts.requestFailedDesc,
+        title: t('toasts.requestFailed'),
+        description: t('toasts.requestFailedDesc'),
         variant: "destructive",
         duration: 5000,
       });

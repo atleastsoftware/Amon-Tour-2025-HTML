@@ -2,7 +2,7 @@ import { useState } from "react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
-import { translationService } from "@/services/translationService";
+import { useTranslation } from 'react-i18next';
 import { Users, Target, Calendar, Award, Building, GraduationCap } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -23,9 +23,8 @@ interface FormData {
 }
 
 export default function GroupCorporate() {
+  const { t } = useTranslation();
   const { toast } = useToast();
-  const seoMeta = translationService.getSeoMeta();
-  const toasts = translationService.getToasts();
   const [formData, setFormData] = useState<FormData>({
     companyName: '',
     contactName: '',
@@ -74,8 +73,8 @@ export default function GroupCorporate() {
       console.log('Group Corporate - Success result:', result);
       
       toast({
-        title: toasts.requestSent,
-        description: toasts.requestSentDesc,
+        title: t('toasts.requestSent'),
+        description: t('toasts.requestSentDesc'),
         duration: 5000,
       });
 
@@ -94,8 +93,8 @@ export default function GroupCorporate() {
     } catch (error) {
       console.error('Group Corporate - Submit error:', error);
       toast({
-        title: toasts.requestFailed,
-        description: toasts.requestFailedDesc,
+        title: t('toasts.requestFailed'),
+        description: t('toasts.requestFailedDesc'),
         variant: "destructive",
         duration: 5000,
       });
@@ -108,9 +107,9 @@ export default function GroupCorporate() {
   return (
     <>
       <SEO 
-        title={seoMeta.groupCorporateTitle}
-        description={seoMeta.groupCorporateDescription}
-        keywords={seoMeta.groupCorporateKeywords}
+        title={t('seo.groupCorporateTitle')}
+        description={t('seo.groupCorporateDescription')}
+        keywords={t('seo.groupCorporateKeywords')}
       />
       <Header />
       

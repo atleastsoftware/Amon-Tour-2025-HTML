@@ -177,5 +177,34 @@
     "articleNotFoundDesc": "El artículo que buscas no existe o ha sido eliminado.",
     "loadingTour": "Cargando tour...",
     "imageLoadFailed": "Error al cargar la imagen"
+  },
+  "toasts": {
+    "requestSent": "¡Solicitud Enviada!",
+    "requestSentDesc": "¡Gracias! Hemos recibido su solicitud y le responderemos pronto.",
+    "requestFailed": "Error Ocurrido",
+    "requestFailedDesc": "Lo sentimos, hubo un error al enviar su solicitud. Por favor, inténtelo de nuevo o contáctenos directamente."
+  },
+  "seo": {
+    "brochureTitle": "Descargar Nuestro Folleto - Amon Tour",
+    "brochureDescription": "Descarga nuestro folleto completo con experiencias auténticas de Tailandia y tours privados en Krabi.",
+    "brochureKeywords": "folleto viaje tailandia, folleto tours krabi, folleto tour privado, folleto amon tour",
+    "contactTitle": "Contáctanos - Amon Tour Krabi",
+    "contactDescription": "Contacta Amon Tour para experiencias personalizadas en Tailandia. Comunícate por teléfono, email, WhatsApp o Line.",
+    "contactKeywords": "contacto amon tour, contacto tour krabi, contacto viaje tailandia, consulta tour personalizado",
+    "groupCorporateTitle": "Tours Grupos y Empresas - Amon Tour",
+    "groupCorporateDescription": "Experiencias de viaje especializadas para grupos y empresas en Tailandia. Team building, conferencias y aventuras grupales en Krabi.",
+    "groupCorporateKeywords": "tours empresas tailandia, viaje grupo krabi, team building tailandia, eventos empresas"
+  },
+  "pageHeaders": {
+    "contact": {
+      "title": "Contáctanos",
+      "subtitle": "Planifiquemos juntos tu aventura tailandesa perfecta",
+      "getInTouch": "Ponte en Contacto",
+      "readyToExplore": "¿Listo para explorar Tailandia con nosotros? Estamos aquí para ayudarte a planificar la aventura perfecta.",
+      "email": "Email",
+      "phone": "Teléfono",
+      "whatsapp": "WhatsApp",
+      "line": "LINE"
+    }
   }
 }

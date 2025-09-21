@@ -177,5 +177,34 @@
     "articleNotFoundDesc": "L'article que vous recherchez n'existe pas ou a été supprimé.",
     "loadingTour": "Chargement du tour...",
     "imageLoadFailed": "Échec du chargement de l'image"
+  },
+  "toasts": {
+    "requestSent": "Demande Envoyée!",
+    "requestSentDesc": "Merci! Nous avons reçu votre demande et vous répondrons bientôt.",
+    "requestFailed": "Erreur Survenue",
+    "requestFailedDesc": "Désolé, il y a eu une erreur lors de l'envoi de votre demande. Veuillez réessayer ou nous contacter directement."
+  },
+  "seo": {
+    "brochureTitle": "Télécharger Notre Brochure - Amon Tour",
+    "brochureDescription": "Téléchargez notre brochure complète présentant des expériences authentiques en Thaïlande et des tours privés à Krabi.",
+    "brochureKeywords": "brochure voyage thailande, brochure tours krabi, brochure tour privé, brochure amon tour",
+    "contactTitle": "Nous Contacter - Amon Tour Krabi",
+    "contactDescription": "Contactez Amon Tour pour des expériences personnalisées en Thaïlande. Joignez-nous par téléphone, email, WhatsApp ou Line.",
+    "contactKeywords": "contact amon tour, contact tour krabi, contact voyage thailande, demande tour personnalisé",
+    "groupCorporateTitle": "Tours Groupes & Entreprises - Amon Tour",
+    "groupCorporateDescription": "Expériences de voyage spécialisées pour groupes et entreprises en Thaïlande. Team building, conférences et aventures de groupe à Krabi.",
+    "groupCorporateKeywords": "tours entreprise thailande, voyage groupe krabi, team building thailande, événements entreprise"
+  },
+  "pageHeaders": {
+    "contact": {
+      "title": "Nous Contacter",
+      "subtitle": "Planifions ensemble votre aventure thaïlandaise parfaite",
+      "getInTouch": "Prenez Contact",
+      "readyToExplore": "Prêt à explorer la Thaïlande avec nous? Nous sommes là pour vous aider à planifier l'aventure parfaite.",
+      "email": "Email",
+      "phone": "Téléphone",
+      "whatsapp": "WhatsApp",
+      "line": "LINE"
+    }
   }
 }
