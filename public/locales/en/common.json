@@ -79,6 +79,17 @@
     "seeOffers": "See our offers",
     "customTrip": "Custom your trip"
   },
+  "footer": {
+    "contact": "Contact",
+    "usefulLinks": "Useful Links",
+    "defaultNewsletterTitle": "Newsletter",
+    "defaultNewsletterDescription": "Stay informed about our latest offers",
+    "defaultPrivacyText": "We respect your privacy",
+    "copyright": "All rights reserved",
+    "legalNotice": "Legal Notice",
+    "privacyPolicy": "Privacy Policy",
+    "termsConditions": "Terms & Conditions"
+  },
   "errors": {
     "pageNotFound": "404 - Page Not Found",
     "pageNotFoundDesc": "The page you are looking for does not exist or is not available.",

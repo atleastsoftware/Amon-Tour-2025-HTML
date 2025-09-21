@@ -79,6 +79,17 @@
     "seeOffers": "Voir nos offres",
     "customTrip": "Voyage sur mesure"
   },
+  "footer": {
+    "contact": "Contact",
+    "usefulLinks": "Liens utiles",
+    "defaultNewsletterTitle": "Newsletter",
+    "defaultNewsletterDescription": "Restez informé de nos dernières offres",
+    "defaultPrivacyText": "Nous respectons votre vie privée",
+    "copyright": "Tous droits réservés",
+    "legalNotice": "Mentions légales",
+    "privacyPolicy": "Politique de confidentialité",
+    "termsConditions": "Conditions générales"
+  },
   "errors": {
     "pageNotFound": "404 - Page non trouvée",
     "pageNotFoundDesc": "La page que vous recherchez n'existe pas ou n'est pas disponible.",
