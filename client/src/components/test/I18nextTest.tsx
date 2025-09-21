@@ -21,10 +21,10 @@ export function I18nextTest() {
           <div>• {t('navigation.home')}</div>
         </div>
         
-        <div className="bg-blue-100 p-2 rounded">
-          <div><strong>🔄 Fallbacks:</strong></div>
-          <div>• {t('hero.seeOffers', 'See our offers')}</div>
-          <div>• {t('hero.customTrip', 'Custom your trip')}</div>
+        <div className="bg-green-100 p-2 rounded">
+          <div><strong>🎯 Nouvelles clés:</strong></div>
+          <div>• {t('hero.seeOffers')}</div>
+          <div>• {t('hero.customTrip')}</div>
         </div>
       </div>
     </div>

@@ -75,6 +75,10 @@
     "rejectAll": "Rechazar todo",
     "close": "Cerrar"
   },
+  "hero": {
+    "seeOffers": "Ver nuestras ofertas",
+    "customTrip": "Viaje personalizado"
+  },
   "errors": {
     "pageNotFound": "404 - Página no encontrada",
     "pageNotFoundDesc": "La página que buscas no existe o no está disponible.",
