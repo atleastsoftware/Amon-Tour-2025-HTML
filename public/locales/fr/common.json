@@ -80,6 +80,12 @@
     "seeOffers": "Voir nos offres",
     "customTrip": "Voyage sur mesure"
   },
+  "toasts": {
+    "linkCopied": "Lien copié",
+    "linkCopyFailed": "Échec de la copie du lien",
+    "linkCopiedDesc": "Le lien a été copié dans votre presse-papiers",
+    "error": "Erreur"
+  },
   "about": {
     "whoWeAreTitle": "Qui sommes-nous",
     "whoWeAreDescription": "Découvrez des lieux extraordinaires loin du tourisme de masse à Krabi. Ainsi que Khao Sok, Koh Mook et bien d'autres destinations.",
