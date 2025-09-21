@@ -25,7 +25,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { translationService } from "@/services/translationService";
+import { useTranslation } from 'react-i18next';
 
 const cruiseFormSchema = z.object({
   fullName: z.string().min(2, "Full name required"),
@@ -52,8 +52,8 @@ type CruiseFormData = {
 };
 
 export default function CruiseForm() {
+  const { t } = useTranslation();
   const { toast } = useToast();
-  const cruise = translationService.getCruise();
   
   const form = useForm<CruiseFormData>({
     resolver: zodResolver(cruiseFormSchema),
@@ -136,9 +136,9 @@ export default function CruiseForm() {
   return (
     <div className="w-full max-w-2xl mx-auto">
       <div className="text-center mb-8">
-        <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{cruise.title}</h2>
+        <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{t('cruise.title')}</h2>
         <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
-        <p className="text-gray-600 text-lg">{cruise.subtitle}</p>
+        <p className="text-gray-600 text-lg">{t('cruise.subtitle')}</p>
       </div>
       <Card className="w-full">
         <CardContent className="pt-6">
@@ -150,9 +150,9 @@ export default function CruiseForm() {
                 name="fullName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{cruise.fullName} *</FormLabel>
+                    <FormLabel>{t('cruise.fullName')} *</FormLabel>
                     <FormControl>
-                      <Input placeholder={cruise.fullNamePlaceholder} {...field} />
+                      <Input placeholder={t('cruise.fullNamePlaceholder')} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -164,9 +164,9 @@ export default function CruiseForm() {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{cruise.email} *</FormLabel>
+                    <FormLabel>{t('cruise.email')} *</FormLabel>
                     <FormControl>
-                      <Input type="email" placeholder={cruise.emailPlaceholder} {...field} />
+                      <Input type="email" placeholder={t('cruise.emailPlaceholder')} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -180,9 +180,9 @@ export default function CruiseForm() {
                 name="phone"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{cruise.phoneNumber}</FormLabel>
+                    <FormLabel>{t('cruise.phoneNumber')}</FormLabel>
                     <FormControl>
-                      <Input type="tel" placeholder={cruise.phonePlaceholder} {...field} />
+                      <Input type="tel" placeholder={t('cruise.phonePlaceholder')} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -194,11 +194,11 @@ export default function CruiseForm() {
                 name="numberOfGuests"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{cruise.numberOfPassengers}</FormLabel>
+                    <FormLabel>{t('cruise.numberOfPassengers')}</FormLabel>
                     <FormControl>
                       <Input type="number" min="1" max="8" {...field} />
                     </FormControl>
-                    <FormDescription>{cruise.maximumPassengers}</FormDescription>
+                    <FormDescription>{t('cruise.maximumPassengers')}</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -211,19 +211,19 @@ export default function CruiseForm() {
                 name="duration"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{cruise.desiredDuration}</FormLabel>
+                    <FormLabel>{t('cruise.desiredDuration')}</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder={cruise.chooseDuration} />
+                          <SelectValue placeholder={t('cruise.chooseDuration')} />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="1 day">{cruise.oneDay}</SelectItem>
-                        <SelectItem value="2 days">{cruise.twoDays}</SelectItem>
-                        <SelectItem value="3-4 days">{cruise.threeFourDays}</SelectItem>
-                        <SelectItem value="5-6 days">{cruise.fiveSixDays}</SelectItem>
-                        <SelectItem value="7+ days">{cruise.sevenPlusDays}</SelectItem>
+                        <SelectItem value="1 day">{t('cruise.oneDay')}</SelectItem>
+                        <SelectItem value="2 days">{t('cruise.twoDays')}</SelectItem>
+                        <SelectItem value="3-4 days">{t('cruise.threeFourDays')}</SelectItem>
+                        <SelectItem value="5-6 days">{t('cruise.fiveSixDays')}</SelectItem>
+                        <SelectItem value="7+ days">{t('cruise.sevenPlusDays')}</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -236,9 +236,9 @@ export default function CruiseForm() {
                 name="preferredDates"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{cruise.preferredDates}</FormLabel>
+                    <FormLabel>{t('cruise.preferredDates')}</FormLabel>
                     <FormControl>
-                      <Input placeholder={cruise.datesPlaceholder} {...field} />
+                      <Input placeholder={t('cruise.datesPlaceholder')} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -251,17 +251,17 @@ export default function CruiseForm() {
               name="budget"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{cruise.approximateBudget}</FormLabel>
+                  <FormLabel>{t('cruise.approximateBudget')}</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder={cruise.selectSeason} />
+                        <SelectValue placeholder={t('cruise.selectSeason')} />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="low">{cruise.lowSeasonOption}</SelectItem>
-                      <SelectItem value="high">{cruise.highSeasonOption}</SelectItem>
-                      <SelectItem value="very_high">{cruise.veryHighSeasonOption}</SelectItem>
+                      <SelectItem value="low">{t('cruise.lowSeasonOption')}</SelectItem>
+                      <SelectItem value="high">{t('cruise.highSeasonOption')}</SelectItem>
+                      <SelectItem value="very_high">{t('cruise.veryHighSeasonOption')}</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -274,10 +274,10 @@ export default function CruiseForm() {
               name="itinerary"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{cruise.preferredDestinations}</FormLabel>
+                  <FormLabel>{t('cruise.preferredDestinations')}</FormLabel>
                   <FormControl>
                     <Textarea 
-                      placeholder={cruise.destinationsPlaceholder} 
+                      placeholder={t('cruise.destinationsPlaceholder')} 
                       className="min-h-[80px]"
                       {...field} 
                     />
@@ -292,10 +292,10 @@ export default function CruiseForm() {
               name="specialRequests"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{cruise.specialRequests}</FormLabel>
+                  <FormLabel>{t('cruise.specialRequests')}</FormLabel>
                   <FormControl>
                     <Textarea 
-                      placeholder={cruise.specialRequestsPlaceholder} 
+                      placeholder={t('cruise.specialRequestsPlaceholder')} 
                       className="min-h-[80px]"
                       {...field} 
                     />
@@ -308,14 +308,14 @@ export default function CruiseForm() {
             {/* WhatsApp Contact Button */}
             <div className="mt-4 pt-4 border-t border-gray-200">
               <p className="text-center text-sm text-gray-600 mb-3">
-                {cruise.orContactDirectly || "Contact us directly via WhatsApp with your cruise details"}
+                {t('cruise.orContactDirectly')}
               </p>
               <button
                 onClick={handleWhatsAppContact}
                 className="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-md font-heading font-semibold transition-colors duration-200 flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
               >
                 <i className="fab fa-whatsapp text-xl" aria-hidden="true"></i>
-                {cruise.contactWhatsApp || "Contact via WhatsApp"}
+                {t('cruise.contactWhatsApp')}
               </button>
             </div>
           </div>

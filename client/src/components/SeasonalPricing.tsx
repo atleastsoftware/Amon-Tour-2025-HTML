@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
-import { translationService } from "@/services/translationService";
+import { useTranslation } from 'react-i18next';
 
 export default function SeasonalPricing() {
-  const cruise = translationService.getCruise();
+  const { t } = useTranslation();
   
   return (
     <div className="w-full">
@@ -15,9 +15,9 @@ export default function SeasonalPricing() {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{cruise.seasonalPricing}</h2>
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{t('cruise.seasonalPricing')}</h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
-              <p className="text-muted-foreground text-lg">{cruise.perfectForHolidays}</p>
+              <p className="text-muted-foreground text-lg">{t('cruise.perfectForHolidays')}</p>
             </motion.div>
           </div>
           
@@ -31,14 +31,14 @@ export default function SeasonalPricing() {
               transition={{ duration: 0.5, delay: 0.1 }}
             >
               <div className="bg-gradient-to-r from-secondary to-secondary/80 text-white p-4">
-                <h3 className="text-xl font-bold">{cruise.veryHighSeason}</h3>
-                <p className="text-sm opacity-90">{cruise.peakPeriodRates}</p>
+                <h3 className="text-xl font-bold">{t('cruise.veryHighSeason')}</h3>
+                <p className="text-sm opacity-90">{t('cruise.peakPeriodRates')}</p>
               </div>
               <div className="p-6">
                 <p className="text-4xl font-bold text-foreground mb-2">39,000<span className="text-lg ml-2">THB</span></p>
-                <p className="text-sm text-muted-foreground/80 mb-4">{cruise.perDay}</p>
+                <p className="text-sm text-muted-foreground/80 mb-4">{t('cruise.perDay')}</p>
                 <div className="border-t pt-4">
-                  <p className="text-sm font-semibold text-muted-foreground">{cruise.period}</p>
+                  <p className="text-sm font-semibold text-muted-foreground">{t('cruise.period')}</p>
                   <p className="text-sm text-muted-foreground">Dec 15, 2025 - Jan 15, 2026</p>
                 </div>
               </div>
@@ -53,14 +53,14 @@ export default function SeasonalPricing() {
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               <div className="bg-gradient-to-r from-primary to-secondary text-white p-4">
-                <h3 className="text-xl font-bold">{cruise.highSeason}</h3>
-                <p className="text-sm opacity-90">{cruise.premiumPeriodRates}</p>
+                <h3 className="text-xl font-bold">{t('cruise.highSeason')}</h3>
+                <p className="text-sm opacity-90">{t('cruise.premiumPeriodRates')}</p>
               </div>
               <div className="p-6">
                 <p className="text-4xl font-bold text-foreground mb-2">31,000<span className="text-lg ml-2">THB</span></p>
-                <p className="text-sm text-muted-foreground/80 mb-4">{cruise.perDay}</p>
+                <p className="text-sm text-muted-foreground/80 mb-4">{t('cruise.perDay')}</p>
                 <div className="border-t pt-4">
-                  <p className="text-sm font-semibold text-muted-foreground">{cruise.period}</p>
+                  <p className="text-sm font-semibold text-muted-foreground">{t('cruise.period')}</p>
                   <p className="text-sm text-muted-foreground">Oct 15 - Dec 14, 2025</p>
                   <p className="text-sm text-muted-foreground">Jan 15 - Mar 31, 2026</p>
                 </div>
@@ -76,14 +76,14 @@ export default function SeasonalPricing() {
               transition={{ duration: 0.5, delay: 0.3 }}
             >
               <div className="bg-gradient-to-r from-primary/80 to-primary text-white p-4">
-                <h3 className="text-xl font-bold">{cruise.lowSeason}</h3>
-                <p className="text-sm opacity-90">{cruise.bestValueRates}</p>
+                <h3 className="text-xl font-bold">{t('cruise.lowSeason')}</h3>
+                <p className="text-sm opacity-90">{t('cruise.bestValueRates')}</p>
               </div>
               <div className="p-6">
                 <p className="text-4xl font-bold text-foreground mb-2">28,000<span className="text-lg ml-2">THB</span></p>
-                <p className="text-sm text-muted-foreground/80 mb-4">{cruise.perDay}</p>
+                <p className="text-sm text-muted-foreground/80 mb-4">{t('cruise.perDay')}</p>
                 <div className="border-t pt-4">
-                  <p className="text-sm font-semibold text-muted-foreground">{cruise.period}</p>
+                  <p className="text-sm font-semibold text-muted-foreground">{t('cruise.period')}</p>
                   <p className="text-sm text-muted-foreground">Apr 1 - Oct 14, 2026</p>
                 </div>
               </div>
@@ -97,7 +97,7 @@ export default function SeasonalPricing() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <p className="text-muted-foreground text-lg">{cruise.dailyRateMinimum}</p>
+            <p className="text-muted-foreground text-lg">{t('cruise.dailyRateMinimum')}</p>
           </motion.div>
           
           {/* Pickup Locations Cards */}
@@ -112,7 +112,7 @@ export default function SeasonalPricing() {
                 transition={{ duration: 0.5, delay: 0.45 }}
               >
                 <p className="text-lg font-bold text-foreground">8:30</p>
-                <p className="text-sm text-muted-foreground mt-1">{cruise.fromTubkeak}</p>
+                <p className="text-sm text-muted-foreground mt-1">{t('cruise.fromTubkeak')}</p>
                 <p className="text-sm font-bold text-secondary mt-2">+1,300 Baht</p>
               </motion.div>
               
@@ -125,7 +125,7 @@ export default function SeasonalPricing() {
                 transition={{ duration: 0.5, delay: 0.47 }}
               >
                 <p className="text-lg font-bold text-foreground">8:30</p>
-                <p className="text-sm text-muted-foreground mt-1">{cruise.fromThalane}</p>
+                <p className="text-sm text-muted-foreground mt-1">{t('cruise.fromThalane')}</p>
                 <p className="text-sm font-bold text-secondary mt-2">+1,800 Baht</p>
               </motion.div>
               
@@ -138,8 +138,8 @@ export default function SeasonalPricing() {
                 transition={{ duration: 0.5, delay: 0.49 }}
               >
                 <p className="text-lg font-bold text-foreground">8:45</p>
-                <p className="text-sm text-muted-foreground mt-1">{cruise.fromAoNang}</p>
-                <p className="text-sm text-primary font-semibold mt-2">{cruise.noExtraFee}</p>
+                <p className="text-sm text-muted-foreground mt-1">{t('cruise.fromAoNang')}</p>
+                <p className="text-sm text-primary font-semibold mt-2">{t('cruise.noExtraFee')}</p>
               </motion.div>
               
               {/* Klong Mueang */}
@@ -151,7 +151,7 @@ export default function SeasonalPricing() {
                 transition={{ duration: 0.5, delay: 0.51 }}
               >
                 <p className="text-lg font-bold text-foreground">8:40</p>
-                <p className="text-sm text-muted-foreground mt-1">{cruise.fromKlongMueang}</p>
+                <p className="text-sm text-muted-foreground mt-1">{t('cruise.fromKlongMueang')}</p>
                 <p className="text-sm font-bold text-secondary mt-2">+1,000 Baht</p>
               </motion.div>
               
@@ -164,8 +164,8 @@ export default function SeasonalPricing() {
                 transition={{ duration: 0.5, delay: 0.53 }}
               >
                 <p className="text-lg font-bold text-foreground">9:00</p>
-                <p className="text-sm text-muted-foreground mt-1">{cruise.fromRailay}</p>
-                <p className="text-sm text-primary font-semibold mt-2">{cruise.noExtraFee}</p>
+                <p className="text-sm text-muted-foreground mt-1">{t('cruise.fromRailay')}</p>
+                <p className="text-sm text-primary font-semibold mt-2">{t('cruise.noExtraFee')}</p>
               </motion.div>
             </div>
           </div>
@@ -186,10 +186,10 @@ export default function SeasonalPricing() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-bold text-foreground">{cruise.includedInPrice}</h3>
+                <h3 className="text-xl font-bold text-foreground">{t('cruise.includedInPrice')}</h3>
               </div>
               <p className="text-muted-foreground leading-relaxed">
-                {cruise.includedDescription}
+                {t('cruise.includedDescription')}
               </p>
             </motion.div>
             
@@ -207,10 +207,10 @@ export default function SeasonalPricing() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-bold text-foreground">{cruise.notIncludedInPrice}</h3>
+                <h3 className="text-xl font-bold text-foreground">{t('cruise.notIncludedInPrice')}</h3>
               </div>
               <p className="text-muted-foreground leading-relaxed">
-                {cruise.notIncludedDescription}
+                {t('cruise.notIncludedDescription')}
               </p>
             </motion.div>
           </div>

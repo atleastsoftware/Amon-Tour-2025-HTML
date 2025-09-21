@@ -2,17 +2,16 @@ import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { translationService } from "@/services/translationService";
+import { useTranslation } from 'react-i18next';
 
 export default function MarqueeSection() {
-  const home = translationService.getHome();
-  const tourNames = translationService.getTourNames();
+  const { t } = useTranslation();
   
   // Tours réels de l'iframe Tour Ninja showcase/2
   const iframeTours = [
     { 
       id: "1",
-      name: tourNames.phiPhiIslands, 
+      name: t('tourNames.phiPhiIslands'), 
       price: 2500, 
       currency: "THB",
       location: "Krabi",
@@ -22,7 +21,7 @@ export default function MarqueeSection() {
     },
     { 
       id: "2",
-      name: tourNames.jamesBondIsland, 
+      name: t('tourNames.jamesBondIsland'), 
       price: 3200, 
       currency: "THB",
       location: "Phang Nga",
@@ -32,7 +31,7 @@ export default function MarqueeSection() {
     },
     { 
       id: "3",
-      name: tourNames.phuketCityTemple, 
+      name: t('tourNames.phuketCityTemple'), 
       price: 1800, 
       currency: "THB",
       location: "Phuket",
@@ -42,7 +41,7 @@ export default function MarqueeSection() {
     },
     { 
       id: "4",
-      name: tourNames.emeraldCaveKayaking, 
+      name: t('tourNames.emeraldCaveKayaking'), 
       price: 2800, 
       currency: "THB",
       location: "Krabi",
@@ -52,7 +51,7 @@ export default function MarqueeSection() {
     },
     { 
       id: "5",
-      name: tourNames.elephantSanctuary, 
+      name: t('tourNames.elephantSanctuary'), 
       price: 2200, 
       currency: "THB",
       location: "Phuket",
@@ -62,7 +61,7 @@ export default function MarqueeSection() {
     },
     { 
       id: "6",
-      name: tourNames.fourIslandsLongtail, 
+      name: t('tourNames.fourIslandsLongtail'), 
       price: 1900, 
       currency: "THB",
       location: "Krabi",
@@ -78,7 +77,7 @@ export default function MarqueeSection() {
   return (
     <div className="bg-gradient-to-r from-primary to-primary/80 py-6 overflow-hidden">
       <div className="mb-4 text-center">
-        <h3 className="text-white text-xl font-heading font-semibold">{home.someIdeasTitle}</h3>
+        <h3 className="text-white text-xl font-heading font-semibold">{t('someIdeas.title')}</h3>
       </div>
       <motion.div 
         className="flex"

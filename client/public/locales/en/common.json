@@ -78,10 +78,6 @@
     "close": "Close"
   },
   "hero": {
-    "seeOffers": "See our offers",
-    "customTrip": "Custom your trip"
-  },
-  "hero": {
     "title": "Your exclusive experiences",
     "subtitle": "in Krabi",
     "thailand": "THAILAND",
@@ -109,7 +105,7 @@
     "introTitle": "Welcome to Authentic Thailand",
     "introDescription": "Experience the real Thailand with Amon Tour. We specialize in private, personalized tours that take you beyond the typical tourist spots to discover the authentic culture, stunning landscapes, and warm hospitality that make Thailand truly special.",
     "tailorMadeTitle": "Tailor-Made Experiences",
-    "tailorMadeDescription": "Every journey is unique. Let us create the perfect itinerary based on your interests, preferences, and travel style."
+    "tailorMadeDescription": "Every journey is unique. Let us create the perfect itinerary based on your interests, preferences, and travel style.",
     "whoWeAreTitle": "Who we are",
     "whoWeAreDescription": "We are a French family living in Krabi since 2013. Passionate about Thailand, we offer authentic experiences away from mass tourism.",
     "whoWeAreStory": "Our story began with a love at first sight for this exceptional region. Today, we share our love for Thailand through unique and personalized journeys.",
@@ -182,7 +178,9 @@
     "requestSent": "Request Sent!",
     "requestSentDesc": "Thank you! We have received your request and will get back to you soon.",
     "requestFailed": "Error Occurred",
-    "requestFailedDesc": "Sorry, there was an error sending your request. Please try again or contact us directly."
+    "requestFailedDesc": "Sorry, there was an error sending your request. Please try again or contact us directly.",
+    "linkCopied": "Link Copied!",
+    "linkCopyFailed": "Failed to copy link"
   },
   "seo": {
     "brochureTitle": "Download Our Brochure - Amon Tour",
@@ -243,5 +241,79 @@
     "allTags": "All Tags",
     "categories": "Categories",
     "clearFilters": "Clear Filters"
+  },
+  "defaultSeo": {
+    "defaultTitle": "Amon Tour - Authentic Thailand Experiences in Krabi",
+    "defaultDescription": "Discover authentic Thailand with Amon Tour. Private tours, local expertise, and unforgettable experiences in Krabi and southern Thailand.",
+    "defaultKeywords": "thailand tours, krabi tours, private tours thailand, authentic experiences, amon tour"
+  },
+  "testimonials": {
+    "title": "What Our Guests Say",
+    "description": "Read authentic reviews from travelers who experienced Thailand with us"
+  },
+  "someIdeas": {
+    "title": "Some Ideas for Your Trip",
+    "description": "Discover our handpicked selection of authentic experiences and adventures"
+  },
+  "tourNames": {
+    "phiPhiIslands": "Phi Phi Islands Discovery",
+    "jamesBondIsland": "James Bond Island Adventure",
+    "phuketCityTemple": "Phuket Cultural Temple Tour",
+    "emeraldCaveKayaking": "Emerald Cave Kayaking",
+    "elephantSanctuary": "Elephant Sanctuary Experience",
+    "fourIslandsLongtail": "Four Islands Longtail Tour"
+  },
+  "cruise": {
+    "title": "Private Cruise Booking Request",
+    "subtitle": "Tell us about your ideal cruise experience",
+    "seasonalPricing": "Seasonal Pricing",
+    "perfectForHolidays": "Perfect rates for your holidays",
+    "veryHighSeason": "Very High Season",
+    "peakPeriodRates": "Peak period rates",
+    "highSeason": "High Season",
+    "premiumPeriodRates": "Premium period rates",
+    "lowSeason": "Low Season",
+    "bestValueRates": "Best value rates",
+    "perDay": "per day",
+    "period": "Period",
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "Enter your full name",
+    "email": "Email Address",
+    "emailPlaceholder": "Enter your email",
+    "phoneNumber": "Phone Number (Optional)",
+    "phonePlaceholder": "Enter your phone number",
+    "numberOfPassengers": "Number of Passengers",
+    "maximumPassengers": "Maximum 8 passengers",
+    "desiredDuration": "Desired Duration",
+    "chooseDuration": "Choose a duration",
+    "oneDay": "1 day",
+    "twoDays": "2 days",
+    "threeFourDays": "3-4 days",
+    "fiveSixDays": "5-6 days",
+    "sevenPlusDays": "7+ days",
+    "preferredDates": "Preferred Dates (Optional)",
+    "datesPlaceholder": "MM/DD/YYYY or date range",
+    "approximateBudget": "Approximate Budget (Optional)",
+    "selectSeason": "Select a season",
+    "lowSeasonOption": "Low season (28,000 THB/day)",
+    "highSeasonOption": "High season (31,000 THB/day)",
+    "veryHighSeasonOption": "Very high season (39,000 THB/day)",
+    "preferredDestinations": "Preferred Destinations (Optional)",
+    "destinationsPlaceholder": "Phi Phi Islands, James Bond Island, etc.",
+    "specialRequests": "Special Requests (Optional)",
+    "specialRequestsPlaceholder": "Dietary requirements, birthday celebration, etc.",
+    "orContactDirectly": "Contact us directly via WhatsApp with your cruise details",
+    "contactWhatsApp": "Contact via WhatsApp",
+    "dailyRateMinimum": "Daily rate (2-day minimum)",
+    "fromTubkeak": "From Tub Keak",
+    "fromThalane": "From Thalane",
+    "fromAoNang": "From Ao Nang",
+    "fromKlongMueang": "From Klong Mueang",
+    "fromRailay": "From Railay",
+    "noExtraFee": "No extra fee for boat pickup",
+    "includedInPrice": "Included in Price",
+    "includedDescription": "Boat, fuel, captain, snorkeling equipment, fresh water, fruits, lunch",
+    "notIncludedInPrice": "Not Included in Price",
+    "notIncludedDescription": "National park fees, soft drinks, alcoholic beverages"
   }
 }

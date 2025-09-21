@@ -109,7 +109,7 @@
     "introTitle": "Bienvenido a la Tailandia Auténtica",
     "introDescription": "Vive la verdadera Tailandia con Amon Tour. Nos especializamos en tours privados y personalizados que te llevan más allá de los sitios turísticos típicos para descubrir la cultura auténtica, los paisajes impresionantes y la cálida hospitalidad que hacen de Tailandia algo verdaderamente especial.",
     "tailorMadeTitle": "Experiencias a Medida",
-    "tailorMadeDescription": "Cada viaje es único. Deja que creemos el itinerario perfecto basado en tus intereses, preferencias y estilo de viaje."
+    "tailorMadeDescription": "Cada viaje es único. Deja que creemos el itinerario perfecto basado en tus intereses, preferencias y estilo de viaje.",
     "whoWeAreTitle": "Quiénes somos",
     "whoWeAreDescription": "Somos una familia francesa que vive en Krabi desde 2013. Apasionados por Tailandia, ofrecemos experiencias auténticas lejos del turismo de masas.",
     "whoWeAreStory": "Nuestra historia comenzó con un flechazo por esta región excepcional. Hoy, compartimos nuestro amor por Tailandia a través de viajes únicos y personalizados.",
@@ -182,7 +182,9 @@
     "requestSent": "¡Solicitud Enviada!",
     "requestSentDesc": "¡Gracias! Hemos recibido su solicitud y le responderemos pronto.",
     "requestFailed": "Error Ocurrido",
-    "requestFailedDesc": "Lo sentimos, hubo un error al enviar su solicitud. Por favor, inténtelo de nuevo o contáctenos directamente."
+    "requestFailedDesc": "Lo sentimos, hubo un error al enviar su solicitud. Por favor, inténtelo de nuevo o contáctenos directamente.",
+    "linkCopied": "¡Enlace Copiado!",
+    "linkCopyFailed": "Error al copiar enlace"
   },
   "seo": {
     "brochureTitle": "Descargar Nuestro Folleto - Amon Tour",
@@ -240,5 +242,79 @@
     "allTags": "Todas las Etiquetas",
     "categories": "Categorías",
     "clearFilters": "Limpiar Filtros"
+  },
+  "defaultSeo": {
+    "defaultTitle": "Amon Tour - Experiencias Auténticas de Tailandia en Krabi",
+    "defaultDescription": "Descubre la Tailandia auténtica con Amon Tour. Tours privados, experiencia local y vivencias inolvidables en Krabi y el sur de Tailandia.",
+    "defaultKeywords": "tours tailandia, tours krabi, tours privados tailandia, experiencias auténticas, amon tour"
+  },
+  "testimonials": {
+    "title": "Lo Que Dicen Nuestros Huéspedes",
+    "description": "Lee reseñas auténticas de viajeros que vivieron Tailandia con nosotros"
+  },
+  "someIdeas": {
+    "title": "Algunas Ideas para Tu Viaje",
+    "description": "Descubre nuestra selección de experiencias auténticas y aventuras"
+  },
+  "tourNames": {
+    "phiPhiIslands": "Descubrimiento Islas Phi Phi",
+    "jamesBondIsland": "Aventura Isla James Bond",
+    "phuketCityTemple": "Tour Cultural Templos Phuket",
+    "emeraldCaveKayaking": "Kayak Cueva Esmeralda",
+    "elephantSanctuary": "Experiencia Santuario Elefantes",
+    "fourIslandsLongtail": "Tour Cuatro Islas Longtail"
+  },
+  "cruise": {
+    "title": "Solicitud de reserva crucero privado",
+    "subtitle": "Cuéntanos sobre tu experiencia de crucero ideal",
+    "seasonalPricing": "Precios de Temporada",
+    "perfectForHolidays": "Tarifas perfectas para tus vacaciones",
+    "veryHighSeason": "Temporada Muy Alta",
+    "peakPeriodRates": "Tarifas período pico",
+    "highSeason": "Temporada Alta",
+    "premiumPeriodRates": "Tarifas período premium",
+    "lowSeason": "Temporada Baja",
+    "bestValueRates": "Tarifas mejor valor",
+    "perDay": "por día",
+    "period": "Período",
+    "fullName": "Nombre completo",
+    "fullNamePlaceholder": "Ingrese su nombre completo",
+    "email": "Dirección de correo",
+    "emailPlaceholder": "Ingrese su correo electrónico",
+    "phoneNumber": "Número de teléfono (Opcional)",
+    "phonePlaceholder": "Ingrese su número de teléfono",
+    "numberOfPassengers": "Número de pasajeros",
+    "maximumPassengers": "Máximo 8 pasajeros",
+    "desiredDuration": "Duración deseada",
+    "chooseDuration": "Elija una duración",
+    "oneDay": "1 día",
+    "twoDays": "2 días",
+    "threeFourDays": "3-4 días",
+    "fiveSixDays": "5-6 días",
+    "sevenPlusDays": "7+ días",
+    "preferredDates": "Fechas preferidas (Opcional)",
+    "datesPlaceholder": "DD/MM/AAAA o rango de fechas",
+    "approximateBudget": "Presupuesto aproximado (Opcional)",
+    "selectSeason": "Seleccione una temporada",
+    "lowSeasonOption": "Temporada baja (28,000 THB/día)",
+    "highSeasonOption": "Temporada alta (31,000 THB/día)",
+    "veryHighSeasonOption": "Temporada muy alta (39,000 THB/día)",
+    "preferredDestinations": "Destinos preferidos (Opcional)",
+    "destinationsPlaceholder": "Islas Phi Phi, Isla James Bond, etc.",
+    "specialRequests": "Solicitudes especiales (Opcional)",
+    "specialRequestsPlaceholder": "Requisitos dietéticos, celebración de cumpleaños, etc.",
+    "orContactDirectly": "Contáctanos directamente por WhatsApp con los detalles de tu crucero",
+    "contactWhatsApp": "Contactar vía WhatsApp",
+    "dailyRateMinimum": "Tarifa diaria (mínimo 2 días)",
+    "fromTubkeak": "Desde Tub Keak",
+    "fromThalane": "Desde Thalane",
+    "fromAoNang": "Desde Ao Nang",
+    "fromKlongMueang": "Desde Klong Mueang",
+    "fromRailay": "Desde Railay",
+    "noExtraFee": "Sin cargo adicional por recogida en barco",
+    "includedInPrice": "Incluido en el precio",
+    "includedDescription": "Barco, combustible, capitán, equipo de snorkel, agua fresca, frutas, almuerzo",
+    "notIncludedInPrice": "No incluido en el precio",
+    "notIncludedDescription": "Tarifas de parque nacional, refrescos, bebidas alcohólicas"
   }
 }
