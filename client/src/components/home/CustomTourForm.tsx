@@ -28,47 +28,47 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 
-const customTourSchema = z.object({
-  name: z.string().min(2, { message: "Full Name is required" }),
-  email: z.string().email({ message: "Invalid email" }),
-  countryCode: z.string().min(1, { message: "Country code is required" }),
-  phoneNumber: z.string().min(8, { message: "Phone number is required" }),
-  adults: z.string().min(1, { message: "Please enter number of adults" }),
-  kids: z.string().optional(),
-  dateRange: z.string().optional(),
-  duration: z.string().optional(),
-  tripTypes: z.array(z.string()).optional(),
-  destinations: z.array(z.string()).optional(),
-  message: z.string().min(10, { message: "Please describe your ideal trip (minimum 10 characters)" }),
-}).refine(
-  (data) => {
-    // At least one of dateRange or duration must be provided
-    return (data.dateRange && data.dateRange.trim() !== "") || 
-           (data.duration && data.duration.trim() !== "");
-  },
-  {
-    message: "Please provide either your trip dates or an approximate duration.",
-    path: ["dateRange"], // This will show the error on the dateRange field
-  }
-).refine(
-  (data) => {
-    // At least one trip type or destination must be selected
-    return (data.tripTypes && data.tripTypes.length > 0) || 
-           (data.destinations && data.destinations.length > 0);
-  },
-  {
-    message: "Please select at least one trip type or destination.",
-    path: ["tripTypes"],
-  }
-);
-
-type CustomTourFormData = z.infer<typeof customTourSchema>;
-
 export default function CustomTourForm() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const datePickerRef = useRef<HTMLInputElement | null>(null);
   const { t } = useTranslation();
+
+  const customTourSchema = z.object({
+    name: z.string().min(2, { message: t('forms.fullNameRequired') }),
+    email: z.string().email({ message: t('forms.emailInvalid') }),
+    countryCode: z.string().min(1, { message: t('forms.countryCodeRequired') }),
+    phoneNumber: z.string().min(8, { message: t('forms.phoneRequired') }),
+    adults: z.string().min(1, { message: t('forms.adultsRequired') }),
+    kids: z.string().optional(),
+    dateRange: z.string().optional(),
+    duration: z.string().optional(),
+    tripTypes: z.array(z.string()).optional(),
+    destinations: z.array(z.string()).optional(),
+    message: z.string().min(10, { message: t('forms.tripDescriptionRequired') }),
+  }).refine(
+    (data) => {
+      // At least one of dateRange or duration must be provided
+      return (data.dateRange && data.dateRange.trim() !== "") || 
+             (data.duration && data.duration.trim() !== "");
+    },
+    {
+      message: t('forms.datesOrDurationRequired'),
+      path: ["dateRange"], // This will show the error on the dateRange field
+    }
+  ).refine(
+    (data) => {
+      // At least one trip type or destination must be selected
+      return (data.tripTypes && data.tripTypes.length > 0) || 
+             (data.destinations && data.destinations.length > 0);
+    },
+    {
+      message: t('forms.selectTypesOrDestinations'),
+      path: ["tripTypes"],
+    }
+  );
+
+  type CustomTourFormData = z.infer<typeof customTourSchema>;
 
   const form = useForm<CustomTourFormData>({
     resolver: zodResolver(customTourSchema),
@@ -224,7 +224,7 @@ export default function CustomTourForm() {
                         <FormItem>
                           <FormLabel>{t('home.fullName')} *</FormLabel>
                           <FormControl>
-                            <Input placeholder="Your name" {...field} />
+                            <Input placeholder={t('forms.placeholders.yourName')} {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -237,7 +237,7 @@ export default function CustomTourForm() {
                         <FormItem>
                           <FormLabel>{t('home.email')} *</FormLabel>
                           <FormControl>
-                            <Input placeholder="Your email" {...field} />
+                            <Input placeholder={t('forms.placeholders.yourEmail')} {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -259,7 +259,7 @@ export default function CustomTourForm() {
                           >
                             <FormControl>
                               <SelectTrigger>
-                                <SelectValue placeholder="Code" />
+                                <SelectValue placeholder={t('forms.placeholders.code')} />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
@@ -282,7 +282,7 @@ export default function CustomTourForm() {
                           <FormItem>
                             <FormLabel>{t('home.whatsappNumber')} *</FormLabel>
                             <FormControl>
-                              <Input placeholder="Your WhatsApp number" {...field} />
+                              <Input placeholder={t('forms.placeholders.phoneNumber')} {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -307,7 +307,7 @@ export default function CustomTourForm() {
                           >
                             <FormControl>
                               <SelectTrigger>
-                                <SelectValue placeholder="Select number of adults" />
+                                <SelectValue placeholder={t('forms.placeholders.selectAdults')} />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
@@ -336,7 +336,7 @@ export default function CustomTourForm() {
                           >
                             <FormControl>
                               <SelectTrigger>
-                                <SelectValue placeholder="Select number of kids" />
+                                <SelectValue placeholder={t('forms.placeholders.selectKids')} />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
@@ -362,7 +362,7 @@ export default function CustomTourForm() {
                         <FormLabel>{t('home.datesOfTrip')}</FormLabel>
                         <FormControl>
                           <Input
-                            placeholder="Select trip dates"
+                            placeholder={t('forms.placeholders.selectDates')}
                             value={field.value}
                             onChange={field.onChange}
                             ref={(el) => {
@@ -390,7 +390,7 @@ export default function CustomTourForm() {
                         >
                           <FormControl>
                             <SelectTrigger>
-                              <SelectValue placeholder="Select duration" />
+                              <SelectValue placeholder={t('forms.placeholders.selectDuration')} />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
@@ -511,7 +511,7 @@ export default function CustomTourForm() {
                         <FormLabel>{t('home.describeIdealTrip')}</FormLabel>
                         <FormControl>
                           <Textarea 
-                            placeholder="Tell us what you would like to see and do during your journey..."
+                            placeholder={t('forms.placeholders.tripDescription')}
                             rows={4}
                             {...field} 
                           />

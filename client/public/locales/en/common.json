@@ -49,7 +49,25 @@
     "subject": "Subject",
     "required": "This field is required",
     "emailInvalid": "Please enter a valid email address",
-    "phoneInvalid": "Please enter a valid phone number"
+    "phoneInvalid": "Please enter a valid phone number",
+    "fullNameRequired": "Full Name is required",
+    "countryCodeRequired": "Country code is required",
+    "phoneRequired": "Phone number is required",
+    "adultsRequired": "Please enter number of adults",
+    "tripDescriptionRequired": "Please describe your ideal trip (minimum 10 characters)",
+    "datesOrDurationRequired": "Please provide either your trip dates or an approximate duration",
+    "selectTypesOrDestinations": "Please select at least one trip type or destination",
+    "placeholders": {
+      "yourName": "Your name",
+      "yourEmail": "Your email",
+      "code": "Code",
+      "phoneNumber": "Your WhatsApp number",
+      "selectAdults": "Select number of adults",
+      "selectKids": "Select number of kids",
+      "selectDates": "Select trip dates",
+      "selectDuration": "Select duration",
+      "tripDescription": "Tell us what you would like to see and do during your journey..."
+    }
   },
   "status": {
     "success": "Success!",

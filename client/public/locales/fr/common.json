@@ -49,7 +49,25 @@
     "subject": "Sujet",
     "required": "Ce champ est requis",
     "emailInvalid": "Veuillez saisir une adresse email valide",
-    "phoneInvalid": "Veuillez saisir un numéro de téléphone valide"
+    "phoneInvalid": "Veuillez saisir un numéro de téléphone valide",
+    "fullNameRequired": "Le nom complet est requis",
+    "countryCodeRequired": "Le code pays est requis",
+    "phoneRequired": "Le numéro de téléphone est requis",
+    "adultsRequired": "Veuillez indiquer le nombre d'adultes",
+    "tripDescriptionRequired": "Veuillez décrire votre voyage idéal (minimum 10 caractères)",
+    "datesOrDurationRequired": "Veuillez indiquer vos dates de voyage ou une durée approximative",
+    "selectTypesOrDestinations": "Veuillez sélectionner au moins un type de voyage ou une destination",
+    "placeholders": {
+      "yourName": "Votre nom",
+      "yourEmail": "Votre email",
+      "code": "Code",
+      "phoneNumber": "Votre numéro WhatsApp",
+      "selectAdults": "Nombre d'adultes",
+      "selectKids": "Nombre d'enfants",
+      "selectDates": "Sélectionner vos dates",
+      "selectDuration": "Sélectionner la durée",
+      "tripDescription": "Dites-nous ce que vous aimeriez voir et faire pendant votre voyage..."
+    }
   },
   "status": {
     "success": "Succès !",
