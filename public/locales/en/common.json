@@ -100,6 +100,19 @@
     "privacyPolicy": "Privacy Policy",
     "termsConditions": "Terms & Conditions"
   },
+  "home": {
+    "whoWeAreTitle": "Who we are",
+    "whoWeAreDescription": "We are a French family living in Krabi since 2013. Passionate about Thailand, we offer authentic experiences away from mass tourism.",
+    "whoWeAreStory": "Our story began with a love at first sight for this exceptional region. Today, we share our love for Thailand through unique and personalized journeys.",
+    "deepLocalRootsTitle": "Deep local roots",
+    "deepLocalRootsDescription": "Living here for over 10 years, we have developed a solid local network and deep knowledge of the region.",
+    "deepLocalRootsExplanation": "This immersion allows us to offer you authentic experiences, off the beaten path, in collaboration with trusted local partners.",
+    "ourConceptTitle": "Our concept",
+    "ourConceptDescription": "We create tailor-made trips that reveal the true beauty of Thailand, respecting the environment and local communities.",
+    "contactUs": "Contact us",
+    "createYourJourney": "Create your journey",
+    "basedOnReviews": "Based on our customer reviews"
+  },
   "errors": {
     "pageNotFound": "404 - Page Not Found",
     "pageNotFoundDesc": "The page you are looking for does not exist or is not available.",

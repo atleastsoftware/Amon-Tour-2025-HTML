@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 import { StaggerChildren, StaggerItem } from "@/components/ui/animations";
 import { Users, Compass, Sparkles } from "lucide-react";
-import { translationService } from "@/services/translationService";
+import { useTranslation } from 'react-i18next';
 
 export default function Features() {
-  const home = translationService.getHome();
+  const { t } = useTranslation();
   
   return (
     <section className="py-16 bg-neutral-light">

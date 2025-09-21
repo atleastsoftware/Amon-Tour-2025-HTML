@@ -100,6 +100,19 @@
     "privacyPolicy": "Politique de confidentialité",
     "termsConditions": "Conditions générales"
   },
+  "home": {
+    "whoWeAreTitle": "Qui nous sommes",
+    "whoWeAreDescription": "Nous sommes une famille française installée à Krabi depuis 2013. Passionnés par la Thaïlande, nous proposons des expériences authentiques loin du tourisme de masse.",
+    "whoWeAreStory": "Notre histoire a commencé par un coup de cœur pour cette région exceptionnelle. Aujourd'hui, nous partageons notre amour pour la Thaïlande à travers des voyages uniques et personnalisés.",
+    "deepLocalRootsTitle": "Des racines locales profondes",
+    "deepLocalRootsDescription": "Vivant sur place depuis plus de 10 ans, nous avons développé un réseau local solide et une connaissance approfondie de la région.",
+    "deepLocalRootsExplanation": "Cette immersion nous permet de vous proposer des expériences authentiques, loin des sentiers battus, en collaboration avec des partenaires locaux de confiance.",
+    "ourConceptTitle": "Notre concept",
+    "ourConceptDescription": "Nous créons des voyages sur mesure qui révèlent la vraie beauté de la Thaïlande, en respectant l'environnement et les communautés locales.",
+    "contactUs": "Nous contacter",
+    "createYourJourney": "Créez votre voyage",
+    "basedOnReviews": "Basé sur nos avis clients"
+  },
   "errors": {
     "pageNotFound": "404 - Page non trouvée",
     "pageNotFoundDesc": "La page que vous recherchez n'existe pas ou n'est pas disponible.",
