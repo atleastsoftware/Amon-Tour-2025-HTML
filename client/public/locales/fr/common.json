@@ -78,10 +78,6 @@
     "close": "Fermer"
   },
   "hero": {
-    "seeOffers": "Voir nos offres",
-    "customTrip": "Voyage sur mesure"
-  },
-  "hero": {
     "title": "Vos expériences exclusives",
     "subtitle": "à Krabi",
     "thailand": "THAÏLANDE",
@@ -101,18 +97,18 @@
     "termsConditions": "Conditions générales"
   },
   "tours": {
-    "featured": "Nos Tours Phares",
-    "description": "Découvrez des expériences authentiques dans les plus belles destinations de Thaïlande avec nos tours privés soigneusement conçus.",
-    "title": "Explorez les Joyaux Cachés de la Thaïlande"
+    "featured": "Nos Expériences",
+    "description": "Découvrez la beauté exceptionnelle de Krabi et du sud de la Thaïlande.",
+    "title": "Nos Expériences"
   },
   "home": {
-    "introTitle": "Bienvenue en Thaïlande Authentique",
-    "introDescription": "Vivez la vraie Thaïlande avec Amon Tour. Nous nous spécialisons dans les tours privés et personnalisés qui vous emmènent au-delà des sites touristiques typiques pour découvrir la culture authentique, les paysages époustouflants et la chaleureuse hospitalité qui rendent la Thaïlande vraiment spéciale.",
-    "tailorMadeTitle": "Expériences Sur Mesure",
-    "tailorMadeDescription": "Chaque voyage est unique. Laissez-nous créer l'itinéraire parfait basé sur vos intérêts, préférences et style de voyage.",
+    "introTitle": "Quand des expatriés vous accueillent dans leur pays d'adoption",
+    "introDescription": "Depuis 2013, notre agence de voyage familiale organise des activités exclusives autour de Krabi et conçoit des voyages sur mesure à travers toute la Thaïlande. Nous visons à offrir des expériences de voyage immersives, loin du tourisme de masse, avec un service personnalisé pour chaque voyageur — vous accueillant comme un membre de notre famille ou nos amis proches.",
+    "tailorMadeTitle": "Nos voyages sur mesure",
+    "tailorMadeDescription": "Concevez votre propre voyage à travers la Thaïlande avec nos séjours sur mesure : découvertes culturelles et aventures familiales jusqu'aux échappes romantiques et évasions insulaires. Chaque itinéraire est conçu pour correspondre à vos souhaits, offrant des expériences authentiques, des services de qualité et une immersion unique loin du tourisme de masse.",
     "whoWeAreTitle": "Qui nous sommes",
-    "whoWeAreDescription": "Nous sommes une famille française installée à Krabi depuis 2013. Passionnés par la Thaïlande, nous proposons des expériences authentiques loin du tourisme de masse.",
-    "whoWeAreStory": "Notre histoire a commencé par un coup de cœur pour cette région exceptionnelle. Aujourd'hui, nous partageons notre amour pour la Thaïlande à travers des voyages uniques et personnalisés.",
+    "whoWeAreDescription": "Nous sommes Eric, Margaux, Gabriel et Raphaël, une famille française vivant à Krabi, dans le sud de la Thaïlande, depuis 2013.",
+    "whoWeAreStory": "De notre vie ici, nous avons créé Amon Tour — une petite agence de voyage indépendante construite sur une idée simple : accueillir personnellement nos voyageurs à Krabi et leur offrir une façon différente de découvrir la Thaïlande.",
     "deepLocalRootsTitle": "Des racines locales profondes",
     "deepLocalRootsDescription": "Vivant sur place depuis plus de 10 ans, nous avons développé un réseau local solide et une connaissance approfondie de la région.",
     "deepLocalRootsExplanation": "Cette immersion nous permet de vous proposer des expériences authentiques, loin des sentiers battus, en collaboration avec des partenaires locaux de confiance.",
@@ -209,8 +205,8 @@
       "line": "LINE"
     },
     "experiences": {
-      "title": "Expériences Uniques",
-      "subtitle": "Découvrez la Thaïlande authentique à travers des expériences locales immersives",
+      "title": "Nos Expériences",
+      "subtitle": "Découvrez la beauté exceptionnelle de Krabi et du sud de la Thaïlande.",
       "organizeDreamTrip": "Organisez votre voyage de rêve",
       "searchPlaceholder": "Rechercher des expériences..."
     }

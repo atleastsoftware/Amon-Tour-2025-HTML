@@ -97,20 +97,22 @@
     "termsConditions": "Terms & Conditions"
   },
   "tours": {
-    "featured": "Our Featured Tours",
-    "description": "Discover authentic experiences in Thailand's most beautiful destinations with our carefully crafted private tours.",
-    "title": "Explore Thailand's Hidden Gems"
+    "featured": "Our Experiences",
+    "description": "Discover the exceptional beauty of Krabi and southern Thailand.",
+    "title": "Our Experiences"
   },
   "home": {
     "introTitle": "When expats welcome you in their host country",
     "introDescription": "Since 2013, our family-run travel agency has been curating exclusive activities around Krabi and designing tailor-made trips all across Thailand. We aim to deliver immersive travel experiences, away from mass tourism, with personalized service for every traveler — welcoming you as part of our family or close friends.",
-    "tailorMadeTitle": "Tailor-Made Experiences",
+    "tailorMadeTitle": "Our Tailor-made trips",
     "tailorMadeDescription": "Design your own journey through Thailand with our tailor-made stays: from cultural discoveries and family adventures to romantic getaways and island escapes. Every itinerary is crafted to match your wishes, offering authentic experiences, quality services, and a unique immersion far from mass tourism.",
     "exclusiveExperiencesTitle": "Our exclusive experiences",
     "exclusiveExperiencesDescription": "Explore our finest experiences in Krabi, all guaranteed off the beaten path: private and semi-private sea tours, unique land excursions (kayaking through mangroves, waterfalls, tropical jungle, centuries-old trees, temples, karst caves, natural pools), and exclusive 2-day / 1-night packages.",
     "freedomExclusivityTitle": "Freedom and Exclusivity",
     "freedomExclusivityDescription": "Navigate towards exclusivity aboard one of the rare catamaran cruises departing from Krabi. Explore the Andaman Sea as few travelers have the chance to do: in complete freedom, away from tourist circuits, with an itinerary designed entirely for you.",
     "customTripSubtitleForm": "Your travel story starts with your dreams - let us write the rest.",
+    "sendRequest": "Send my request",
+    "createYourJourney": "Create Your Journey →",
     "whoWeAreTitle": "Who we are",
     "whoWeAreDescription": "We are Eric, Margaux, Gabriel, and Raphaël, a French family living in Krabi, southern Thailand, since 2013.",
     "whoWeAreStory": "From our life here, we created Amon Tour — a small, independent travel agency built on a simple idea: personally welcome our travelers to Krabi and offer them a different way to experience Thailand.",
@@ -213,8 +215,8 @@
       "line": "LINE"
     },
     "experiences": {
-      "title": "Unique Experiences",
-      "subtitle": "Immerse yourself in authentic Thai culture with our unique experiences",
+      "title": "Our Experiences",
+      "subtitle": "Discover the exceptional beauty of Krabi and southern Thailand.",
       "organizeDreamTrip": "Organize your dream trip",
       "searchPlaceholder": "Search experiences..."
     }
