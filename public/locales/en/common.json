@@ -80,6 +80,21 @@
     "seeOffers": "See our offers",
     "customTrip": "Custom your trip"
   },
+  "customTour": {
+    "seoTitle": "Custom Tours Thailand - Tailor-Made Travel Experiences | Amon Tour",
+    "seoDescription": "Create your perfect Thailand adventure with our custom tour packages. Personalized itineraries, flexible accommodations, and expert local support for unforgettable experiences.",
+    "seoKeywords": "custom tours Thailand, tailor-made travel, personalized itinerary, bespoke travel Thailand, custom travel packages",
+    "title": "Custom Tours",
+    "subtitle": "Tailor-Made for You",
+    "whyChoose": "Why Choose a Custom Tour?",
+    "whyChooseDescription": "Every traveler is unique, and so should be their journey. Our custom tours are designed specifically for you, taking into account your interests, budget, and travel style.",
+    "flexibleItinerary": "Flexible Itinerary",
+    "flexibleItineraryDescription": "Design your perfect route with complete freedom to explore at your own pace.",
+    "tailoredAccommodations": "Tailored Accommodations",
+    "tailoredAccommodationsDescription": "From boutique hotels to luxury resorts, we find accommodations that match your style and budget.",
+    "personalizedSupport": "Personalized Support",
+    "personalizedSupportDescription": "Dedicated local support throughout your journey for a worry-free experience."
+  },
   "seoMeta": {
     "brochureTitle": "Amon Tour - Digital Brochure & Travel Guides",
     "brochureDescription": "Download our comprehensive travel guides and brochures for authentic experiences in Krabi, Thailand. Discover hidden gems and local treasures.",
@@ -103,7 +118,9 @@
     "contactUs": "Contact us",
     "createYourJourney": "Create your journey",
     "basedOnReviews": "Based on reviews",
-    "seeAllReviews": "See all reviews"
+    "seeAllReviews": "See all reviews",
+    "tailorMadeTitle": "Our Tailor-Made Trips",
+    "tailorMadeDescription": "Every journey with us is crafted with care, attention to detail, and a deep understanding of what makes travel truly memorable."
   },
   "errors": {
     "pageNotFound": "404 - Page Not Found",

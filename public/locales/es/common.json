@@ -80,6 +80,21 @@
     "seeOffers": "Ver nuestras ofertas",
     "customTrip": "Viaje personalizado"
   },
+  "customTour": {
+    "seoTitle": "Tours Personalizados Tailandia - Experiencias de Viaje a Medida | Amon Tour",
+    "seoDescription": "Crea tu aventura perfecta en Tailandia con nuestros paquetes de tours personalizados. Itinerarios personalizados, alojamientos flexibles y soporte local experto para experiencias inolvidables.",
+    "seoKeywords": "tours personalizados Tailandia, viaje a medida, itinerario personalizado, viaje bespoke Tailandia, paquetes viaje personalizados",
+    "title": "Tours Personalizados",
+    "subtitle": "Hechos a Medida Para Ti",
+    "whyChoose": "¿Por Qué Elegir un Tour Personalizado?",
+    "whyChooseDescription": "Cada viajero es único, y su viaje también debería serlo. Nuestros tours personalizados están diseñados específicamente para ti, teniendo en cuenta tus intereses, presupuesto y estilo de viaje.",
+    "flexibleItinerary": "Itinerario Flexible",
+    "flexibleItineraryDescription": "Diseña tu ruta perfecta con completa libertad para explorar a tu propio ritmo.",
+    "tailoredAccommodations": "Alojamientos Personalizados",
+    "tailoredAccommodationsDescription": "Desde hoteles boutique hasta resorts de lujo, encontramos alojamientos que coincidan con tu estilo y presupuesto.",
+    "personalizedSupport": "Soporte Personalizado",
+    "personalizedSupportDescription": "Soporte local dedicado durante todo tu viaje para una experiencia sin preocupaciones."
+  },
   "seoMeta": {
     "brochureTitle": "Amon Tour - Folleto Digital y Guías de Viaje",
     "brochureDescription": "Descarga nuestras guías de viaje completas y folletos para experiencias auténticas en Krabi, Tailandia. Descubre tesoros ocultos y locales.",
@@ -103,7 +118,9 @@
     "contactUs": "Contáctanos",
     "createYourJourney": "Crea tu viaje",
     "basedOnReviews": "Basado en reseñas",
-    "seeAllReviews": "Ver todas las reseñas"
+    "seeAllReviews": "Ver todas las reseñas",
+    "tailorMadeTitle": "Nuestros Viajes a Medida",
+    "tailorMadeDescription": "Cada viaje con nosotros está diseñado con cuidado, atención al detalle, y una comprensión profunda de lo que hace que el viaje sea verdaderamente memorable."
   },
   "errors": {
     "pageNotFound": "404 - Página no encontrada",

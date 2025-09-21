@@ -80,6 +80,21 @@
     "seeOffers": "Voir nos offres",
     "customTrip": "Voyage sur mesure"
   },
+  "customTour": {
+    "seoTitle": "Tours Personnalisés Thaïlande - Expériences de Voyage Sur Mesure | Amon Tour",
+    "seoDescription": "Créez votre aventure parfaite en Thaïlande avec nos forfaits de tours personnalisés. Itinéraires personnalisés, hébergements flexibles et support local expert pour des expériences inoubliables.",
+    "seoKeywords": "tours personnalisés Thaïlande, voyage sur mesure, itinéraire personnalisé, voyage bespoke Thaïlande, forfaits voyage personnalisés",
+    "title": "Tours Personnalisés",
+    "subtitle": "Conçus Sur Mesure Pour Vous",
+    "whyChoose": "Pourquoi Choisir un Tour Personnalisé ?",
+    "whyChooseDescription": "Chaque voyageur est unique, et son voyage devrait l'être aussi. Nos tours personnalisés sont conçus spécifiquement pour vous, en tenant compte de vos intérêts, budget et style de voyage.",
+    "flexibleItinerary": "Itinéraire Flexible",
+    "flexibleItineraryDescription": "Concevez votre parcours parfait avec une liberté totale d'explorer à votre rythme.",
+    "tailoredAccommodations": "Hébergements Sur Mesure",
+    "tailoredAccommodationsDescription": "Des hôtels boutique aux complexes de luxe, nous trouvons des hébergements qui correspondent à votre style et budget.",
+    "personalizedSupport": "Support Personnalisé",
+    "personalizedSupportDescription": "Support local dédié tout au long de votre voyage pour une expérience sans souci."
+  },
   "seoMeta": {
     "brochureTitle": "Amon Tour - Brochure Numérique & Guides de Voyage",
     "brochureDescription": "Téléchargez nos guides de voyage complets et brochures pour des expériences authentiques à Krabi, Thaïlande. Découvrez des trésors cachés et locaux.",
@@ -103,7 +118,9 @@
     "contactUs": "Contactez-nous",
     "createYourJourney": "Créer votre voyage",
     "basedOnReviews": "Basé sur les avis",
-    "seeAllReviews": "Voir tous les avis"
+    "seeAllReviews": "Voir tous les avis",
+    "tailorMadeTitle": "Nos Voyages Sur Mesure",
+    "tailorMadeDescription": "Chaque voyage avec nous est conçu avec soin, attention aux détails, et une compréhension profonde de ce qui rend le voyage vraiment mémorable."
   },
   "errors": {
     "pageNotFound": "404 - Page non trouvée",
