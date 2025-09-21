@@ -344,5 +344,12 @@
     "expertCrewDesc": "Our captains have perfect mastery of these waters. They optimize each navigation by adapting to weather conditions, tides and winds to maximize your pleasure.",
     "totalFreedom": "Total freedom",
     "totalFreedomDesc": "Deserted beaches, turquoise lagoons, snorkeling in crystal-clear waters... Your cruise evolves according to your preferences."
+  },
+  "accessibility": {
+    "previousImages": "Previous images",
+    "nextImages": "Next images",
+    "closeGallery": "Close gallery",
+    "previousImage": "Previous image",
+    "nextImage": "Next image"
   }
 }

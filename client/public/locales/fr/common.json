@@ -334,5 +334,12 @@
     "totalFreedomDesc": "Plages désertes, lagons turquoise, snorkeling dans des eaux cristallines... Votre croisière évolue selon vos préférences.",
     "formTitle": "Demande de Devis Personnalisé",
     "formSubtitle": "Remplissez le formulaire ci-dessous et nous vous contacterons dans les 24 heures."
+  },
+  "accessibility": {
+    "previousImages": "Images précédentes",
+    "nextImages": "Images suivantes",
+    "closeGallery": "Fermer la galerie",
+    "previousImage": "Image précédente",
+    "nextImage": "Image suivante"
   }
 }
