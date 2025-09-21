@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useQuery } from '@tanstack/react-query';
 import logoAmon from "@/assets/logo-amon.png";
 import LanguageSelector from "@/components/LanguageSelector";
-import { translationService } from "@/services/translationService";
+import { useTranslation } from "react-i18next";
 
 type NavLinkProps = {
   href: string;
@@ -52,9 +52,7 @@ export default function Header() {
   const headerRef = useRef<HTMLElement>(null);
   const isBookingPage = location.startsWith('/booking');
   const isHomePage = location === '/';
-  
-  // Get translations
-  const nav = translationService.getNav();
+  const { t } = useTranslation();
 
   // Fetch notification bar settings
   const { data: siteSettings } = useQuery({
@@ -267,19 +265,19 @@ export default function Header() {
             </NavLink>
           )}
           <NavLink href="/tours" isActive={location === '/tours'} isHomePage={isHomePage} scrolled={scrolled}>
-            {nav.experiences}
+            {t('navigation.experiences')}
           </NavLink>
           <NavLink href="/cruise" isActive={location === '/cruise'} isHomePage={isHomePage} scrolled={scrolled}>
-            {nav.cruise}
+            Cruise
           </NavLink>
           <NavLink href="/custom-tour" isActive={location === '/custom-tour'} isHomePage={isHomePage} scrolled={scrolled}>
-            {nav.customTrip}
+            Custom Tour
           </NavLink>
           <NavLink href="/blog" isActive={location === '/blog'} isHomePage={isHomePage} scrolled={scrolled}>
-            {nav.blog}
+            {t('navigation.blog')}
           </NavLink>
           <NavLink href="/contact" isActive={location === '/contact'} isHomePage={isHomePage} scrolled={scrolled}>
-            {nav.contact}
+            {t('navigation.contact')}
           </NavLink>
           
           {/* Language Selector */}
@@ -315,19 +313,19 @@ export default function Header() {
                 </NavLink>
               )}
               <NavLink href="/tours" isActive={location === '/tours'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
-                {nav.experiences}
+                {t('navigation.experiences')}
               </NavLink>
               <NavLink href="/cruise" isActive={location === '/cruise'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
-                {nav.cruise}
+                Cruise
               </NavLink>
               <NavLink href="/custom-tour" isActive={location === '/custom-tour'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
-                {nav.customTrip}
+                Custom Tour
               </NavLink>
               <NavLink href="/blog" isActive={location === '/blog'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
-                {nav.blog}
+                {t('navigation.blog')}
               </NavLink>
               <NavLink href="/contact" isActive={location === '/contact'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
-                {nav.contact}
+                {t('navigation.contact')}
               </NavLink>
               
               {/* Language Selector for Mobile */}

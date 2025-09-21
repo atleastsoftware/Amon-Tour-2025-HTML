@@ -77,6 +77,10 @@
     "close": "Fermer"
   },
   "hero": {
+    "title": "Découvrez l'Authentique Krabi",
+    "subtitle": "Vivez la Thaïlande",
+    "thailand": "Thaïlande", 
+    "description": "Rejoignez-nous pour des aventures inoubliables au-delà des sentiers touristiques avec des experts locaux",
     "seeOffers": "Voir nos offres",
     "customTrip": "Voyage sur mesure"
   },
@@ -100,11 +104,86 @@
     "brochureDescription": "Téléchargez nos guides de voyage complets et brochures pour des expériences authentiques à Krabi, Thaïlande. Découvrez des trésors cachés et locaux.",
     "brochureKeywords": "brochure Amon Tour, guide voyage Krabi, voyage Thaïlande, expériences authentiques, tours locaux"
   },
+  "footer": {
+    "contact": "Contact",
+    "usefulLinks": "Liens Utiles",
+    "defaultNewsletterTitle": "Newsletter",
+    "defaultNewsletterDescription": "Restez informé de nos dernières offres",
+    "defaultPrivacyText": "Nous respectons votre vie privée",
+    "copyright": "Tous droits réservés.",
+    "legalNotice": "Mentions Légales",
+    "privacyPolicy": "Politique de Confidentialité",
+    "termsConditions": "Conditions Générales"
+  },
   "toasts": {
     "linkCopied": "Lien copié",
     "linkCopyFailed": "Échec de la copie du lien",
     "linkCopiedDesc": "Le lien a été copié dans votre presse-papiers",
     "error": "Erreur"
+  },
+  "accessibility": {
+    "closeGallery": "Fermer la galerie",
+    "nextImage": "Image suivante",
+    "nextImages": "Images suivantes", 
+    "previousImage": "Image précédente",
+    "previousImages": "Images précédentes"
+  },
+  "home": {
+    "introTitle": "Expériences Authentiques en Thaïlande",
+    "introDescription": "Découvrez la magie de Krabi avec des tours personnalisés loin du tourisme de masse",
+    "tailorMadeTitle": "Créez Votre Voyage Sur Mesure",
+    "tailorMadeDescription": "Partagez-nous vos rêves et nous créerons l'aventure thaïlandaise parfaite rien que pour vous"
+  },
+  "tours": {
+    "featured": "Nos Expériences Populaires", 
+    "description": "Tours sélectionnés présentant le meilleur de Krabi et du sud de la Thaïlande",
+    "title": "Voir Tous les Tours"
+  },
+  "cruise": {
+    "expertCrew": "Équipage Expert",
+    "expertCrewDesc": "Équipage professionnel avec connaissance locale",
+    "fiveSixDays": "5-6 Jours",
+    "fiveSixDaysRoute": "Exploration étendue de Krabi et Phang Nga",
+    "freedomDescription": "Autonomie complète pour votre aventure en voilier",
+    "freedomExclusivity": "Liberté & Exclusivité",
+    "lagoonCatamaran": "Catamaran Lagoon",
+    "lagoonDesc": "Catamaran de luxe pour des expériences inoubliables",
+    "lagoonDesc1": "Découvrez notre magnifique catamaran Lagoon 470",
+    "lagoonDesc2": "Confort spacieux et équipements premium",
+    "lagoonDesc3": "Parfait pour des aventures nautiques exclusives",
+    "oneDay": "1 Jour",
+    "oneDayRoute": "Découverte des îles locales autour d'Ao Nang",
+    "routeDescription": "Itinéraires flexibles adaptés à vos envies",
+    "routeSuggestions": "Suggestions d'Itinéraires",
+    "sevenPlusDays": "7+ Jours",
+    "sevenPlusDaysRoute": "Aventure complète en mer d'Andaman",
+    "tailorMadeDesc": "Chaque parcours conçu pour votre expérience parfaite",
+    "tailorMadeRoutes": "Parcours Sur Mesure",
+    "threeFourDays": "3-4 Jours",
+    "threeFourDaysRoute": "Équilibre parfait entre découverte et détente",
+    "totalFreedom": "Liberté Totale",
+    "totalFreedomDesc": "Naviguez à votre propre rythme",
+    "twoDays": "2 Jours",
+    "twoDaysRoute": "Introduction idéale à la navigation en catamaran"
+  },
+  "features": {
+    "whyChooseTitle": "Pourquoi Choisir Amon Tour ?",
+    "whyChooseDescription": "Découvrez ce qui rend nos tours spéciaux",
+    "privateTours": "Tours Privés",
+    "privateToursDesc": "Expériences exclusives conçues juste pour vous",
+    "privateCar": "Voiture Privée",
+    "guide": "Guide Expert",
+    "safety": "Sécurité Avant Tout",
+    "customizedItineraries": "Itinéraires Personnalisés",
+    "customizedItinerariesDesc": "Chaque voyage conçu autour de vos intérêts",
+    "customRoute": "Parcours Personnalisé",
+    "flexibleTime": "Horaires Flexibles",
+    "yourPace": "À Votre Rythme",
+    "authenticExperiences": "Expériences Authentiques",
+    "authenticExperiencesDesc": "Vraies connexions avec la culture et les communautés locales",
+    "localFood": "Cuisine Locale",
+    "localPeople": "Population Locale",
+    "culture": "Culture"
   },
   "about": {
     "whoWeAreTitle": "Qui sommes-nous",

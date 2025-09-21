@@ -77,6 +77,10 @@
     "close": "Close"
   },
   "hero": {
+    "title": "Discover Authentic Krabi",
+    "subtitle": "Experience Thailand", 
+    "thailand": "Thailand",
+    "description": "Join us for unforgettable adventures beyond the tourist trail with local experts",
     "seeOffers": "See our offers",
     "customTrip": "Custom your trip"
   },
@@ -100,11 +104,86 @@
     "brochureDescription": "Download our comprehensive travel guides and brochures for authentic experiences in Krabi, Thailand. Discover hidden gems and local treasures.",
     "brochureKeywords": "Amon Tour brochure, Krabi travel guide, Thailand travel, authentic experiences, local tours"
   },
+  "footer": {
+    "contact": "Contact",
+    "usefulLinks": "Useful Links",
+    "defaultNewsletterTitle": "Newsletter",
+    "defaultNewsletterDescription": "Stay updated with our latest offers",
+    "defaultPrivacyText": "We respect your privacy",
+    "copyright": "All rights reserved.",
+    "legalNotice": "Legal Notice",
+    "privacyPolicy": "Privacy Policy",
+    "termsConditions": "Terms & Conditions"
+  },
   "toasts": {
     "linkCopied": "Link copied",
     "linkCopyFailed": "Failed to copy link",
     "linkCopiedDesc": "The link has been copied to your clipboard",
     "error": "Error"
+  },
+  "accessibility": {
+    "closeGallery": "Close gallery",
+    "nextImage": "Next image", 
+    "nextImages": "Next images",
+    "previousImage": "Previous image",
+    "previousImages": "Previous images"
+  },
+  "home": {
+    "introTitle": "Authentic Thailand Experiences",
+    "introDescription": "Discover the magic of Krabi with personalized tours far from mass tourism",
+    "tailorMadeTitle": "Create Your Custom Trip",
+    "tailorMadeDescription": "Tell us your dreams and we'll create the perfect Thailand adventure just for you"
+  },
+  "tours": {
+    "featured": "Our Popular Experiences", 
+    "description": "Handpicked tours showcasing the best of Krabi and southern Thailand",
+    "title": "View All Tours"
+  },
+  "cruise": {
+    "expertCrew": "Expert Crew",
+    "expertCrewDesc": "Professional crew with local knowledge",
+    "fiveSixDays": "5-6 Days",
+    "fiveSixDaysRoute": "Extended exploration of Krabi and Phang Nga",
+    "freedomDescription": "Complete autonomy for your sailing adventure",
+    "freedomExclusivity": "Freedom & Exclusivity",
+    "lagoonCatamaran": "Lagoon Catamaran",
+    "lagoonDesc": "Luxury catamaran for unforgettable experiences",
+    "lagoonDesc1": "Discover our magnificent Lagoon 470 catamaran",
+    "lagoonDesc2": "Spacious comfort and premium equipment",
+    "lagoonDesc3": "Perfect for exclusive sailing adventures",
+    "oneDay": "1 Day",
+    "oneDayRoute": "Discover local islands around Ao Nang",
+    "routeDescription": "Flexible itineraries adapted to your desires",
+    "routeSuggestions": "Route Suggestions",
+    "sevenPlusDays": "7+ Days",
+    "sevenPlusDaysRoute": "Complete Andaman Sea adventure",
+    "tailorMadeDesc": "Every route designed for your perfect experience",
+    "tailorMadeRoutes": "Tailor-Made Routes",
+    "threeFourDays": "3-4 Days",
+    "threeFourDaysRoute": "Perfect balance between discovery and relaxation",
+    "totalFreedom": "Total Freedom",
+    "totalFreedomDesc": "Sail at your own pace and rhythm",
+    "twoDays": "2 Days",
+    "twoDaysRoute": "Ideal introduction to catamaran sailing"
+  },
+  "features": {
+    "whyChooseTitle": "Why Choose Amon Tour?",
+    "whyChooseDescription": "Discover what makes our tours special",
+    "privateTours": "Private Tours",
+    "privateToursDesc": "Exclusive experiences tailored just for you",
+    "privateCar": "Private Car",
+    "guide": "Expert Guide",
+    "safety": "Safety First",
+    "customizedItineraries": "Customized Itineraries",
+    "customizedItinerariesDesc": "Every journey designed around your interests",
+    "customRoute": "Custom Route",
+    "flexibleTime": "Flexible Time",
+    "yourPace": "Your Pace",
+    "authenticExperiences": "Authentic Experiences",
+    "authenticExperiencesDesc": "Real connections with local culture and communities",
+    "localFood": "Local Food",
+    "localPeople": "Local People",
+    "culture": "Culture"
   },
   "about": {
     "whoWeAreTitle": "Who we are",
