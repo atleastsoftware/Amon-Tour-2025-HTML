@@ -99,7 +99,10 @@
   "tours": {
     "featured": "Nos expériences exclusives",
     "description": "Explorez nos plus belles expériences à Krabi, toutes garanties hors des sentiers battus : circuits maritimes privés et semi-privés, excursions terrestres uniques (kayak à travers les mangroves, cascades, jungle tropicale, arbres centenaires, temples, grottes karstiques, bassins naturels), et forfaits exclusifs de 2 jours / 1 nuit.",
-    "title": "Nos expériences exclusives"
+    "title": "Nos expériences exclusives",
+    "tour": "Tour",
+    "experience": "Expérience",
+    "onlineBooking": "Réservation en ligne"
   },
   "home": {
     "introTitle": "Quand des expatriés vous accueillent dans leur pays d'adoption",
@@ -186,7 +189,8 @@
     "requestFailed": "Erreur Survenue",
     "requestFailedDesc": "Désolé, il y a eu une erreur lors de l'envoi de votre demande. Veuillez réessayer ou nous contacter directement.",
     "linkCopied": "Lien Copié!",
-    "linkCopyFailed": "Échec de copie du lien"
+    "linkCopyFailed": "Échec de copie du lien",
+    "linkCopiedDesc": "Le lien a été copié dans votre presse-papiers"
   },
   "seo": {
     "brochureTitle": "Télécharger Notre Brochure - Amon Tour",

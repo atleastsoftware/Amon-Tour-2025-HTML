@@ -99,7 +99,10 @@
   "tours": {
     "featured": "Our exclusive experiences",
     "description": "Explore our finest experiences in Krabi, all guaranteed off the beaten path: private and semi-private sea tours, unique land excursions (kayaking through mangroves, waterfalls, tropical jungle, centuries-old trees, temples, karst caves, natural pools), and exclusive 2-day / 1-night packages.",
-    "title": "Our exclusive experiences"
+    "title": "Our exclusive experiences",
+    "tour": "Tour",
+    "experience": "Experience",
+    "onlineBooking": "Online booking"
   },
   "home": {
     "introTitle": "When expats welcome you in their host country",
@@ -186,7 +189,8 @@
     "requestFailed": "Error Occurred",
     "requestFailedDesc": "Sorry, there was an error sending your request. Please try again or contact us directly.",
     "linkCopied": "Link Copied!",
-    "linkCopyFailed": "Failed to copy link"
+    "linkCopyFailed": "Failed to copy link",
+    "linkCopiedDesc": "The link has been copied to your clipboard"
   },
   "seo": {
     "brochureTitle": "Download Our Brochure - Amon Tour",

@@ -63,13 +63,13 @@ export default function TourCardItem({
       setCopied(true);
       toast({
         title: t('toasts.linkCopied'),
-        description: 'Le lien a été copié dans votre presse-papiers',
+        description: t('toasts.linkCopiedDesc'),
       });
       setTimeout(() => setCopied(false), 2000);
     }).catch(err => {
       console.error('Erreur lors de la copie du lien:', err);
       toast({
-        title: 'Erreur',
+        title: t('status.error'),
         description: t('toasts.linkCopyFailed'),
         variant: 'destructive',
       });
@@ -160,7 +160,7 @@ export default function TourCardItem({
                     ? "bg-primary text-white" 
                     : "bg-[hsl(var(--warning))] text-white"
                 }`}>
-                  {type === "tour" ? "Tour" : "Experience"}
+                  {type === "tour" ? t('tours.tour') : t('tours.experience')}
                 </div>
               </div>
             </div>
@@ -231,7 +231,7 @@ export default function TourCardItem({
               <div className="flex-1 mr-2">
                 <h3 className="text-base md:text-lg font-semibold text-primary truncate">{title}</h3>
                 <p className="text-xs md:text-sm text-gray-600 hidden sm:block">
-                  Online booking - {type === "tour" ? "Tour" : "Experience"}
+                  {t('tours.onlineBooking')} - {type === "tour" ? t('tours.tour') : t('tours.experience')}
                 </p>
               </div>
               <Button 
