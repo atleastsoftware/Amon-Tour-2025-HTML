@@ -6,7 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
-// Translation service removed - using temporary strings until i18next migration
+import { useTranslation } from 'react-i18next';
 
 import {
   Form,
