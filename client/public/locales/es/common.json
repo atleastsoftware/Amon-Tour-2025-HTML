@@ -2425,5 +2425,30 @@
         "": "Flame BB Co., Ltd. (Amon Tour)."
       }
     }
+  },
+  "brochure": {
+    "seoTitle": "Descargar Nuestros Folletos de Viaje | Amon Tour Tailandia",
+    "seoDescription": "Inspírese con nuestro folleto bellamente diseñado que presenta las mejores experiencias que Krabi tiene para ofrecer.",
+    "seoKeywords": "Folleto Amon Tour, guía viaje Krabi, tours Tailandia PDF, descarga folleto viaje",
+    "altText": "Folleto Amon Tour",
+    "title": "Descargar Nuestro Folleto",
+    "description": "Inspírese con nuestro folleto bellamente diseñado que presenta las mejores experiencias que Krabi tiene para ofrecer.",
+    "downloadTitle": "Descargar Nuestro Folleto",
+    "downloadDescription": "Inspírese con nuestro folleto bellamente diseñado que presenta las mejores experiencias que Krabi tiene para ofrecer.",
+    "englishVersion": "Versión en Inglés",
+    "englishDescription": "Guía completa de nuestros tours y experiencias en inglés, perfecto para viajeros internacionales.",
+    "downloadEnglish": "Descargar PDF en Inglés",
+    "frenchVersion": "Versión en Francés",
+    "frenchDescription": "Guía completa de nuestros tours y experiencias en francés, ideal para viajeros de habla francesa.",
+    "downloadFrench": "Descargar PDF en Francés",
+    "whatsInside": "¿Qué Hay Dentro de Nuestro Folleto?",
+    "features": {
+      "tourPackages": "• Paquetes turísticos destacados",
+      "photography": "• Fotografía impresionante",
+      "itineraries": "• Itinerarios detallados",
+      "pricing": "• Información de precios",
+      "contact": "• Detalles de contacto",
+      "insights": "• Perspectivas locales"
+    }
   }
 }
