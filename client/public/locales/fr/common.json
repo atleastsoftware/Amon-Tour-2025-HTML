@@ -93,7 +93,20 @@
     "customize": "Personnaliser",
     "acceptAll": "Tout accepter",
     "rejectAll": "Tout refuser",
-    "close": "Fermer"
+    "close": "Fermer",
+    "privacyTitle": "Nous Respectons Votre Vie Privée",
+    "privacyMessage": "Ce site utilise des cookies pour améliorer votre expérience de navigation. En continuant à naviguer, vous acceptez notre utilisation des cookies."
+  },
+  "notifications": {
+    "announcementText": "Bienvenue sur le nouveau site Amon Tour ! Ce site est actuellement en phase de test, quelques problèmes peuvent encore survenir. Pour référence, l'ancien site reste accessible sur www.amon-tour.fr. Merci de votre compréhension"
+  },
+  "someIdeas": {
+    "title": "Quelques idées pour votre voyage",
+    "description": "Voici quelques expériences populaires que nos voyageurs adorent"
+  },
+  "testimonials": {
+    "title": "Ce que disent nos voyageurs",
+    "description": "Lisez les avis authentiques de nos clients"
   },
   "hero": {
     "title": "Vos expériences exclusives",
@@ -107,8 +120,8 @@
     "contact": "Contact",
     "usefulLinks": "Liens utiles",
     "defaultNewsletterTitle": "Newsletter",
-    "defaultNewsletterDescription": "Restez informé de nos dernières offres",
-    "defaultPrivacyText": "Nous respectons votre vie privée",
+    "defaultNewsletterDescription": "Abonnez-vous pour recevoir nos offres spéciales et conseils de voyage",
+    "defaultPrivacyText": "Nous respectons votre vie privée. Désabonnez-vous à tout moment.",
     "copyright": "Tous droits réservés",
     "legalNotice": "Mentions légales",
     "privacyPolicy": "Politique de confidentialité",

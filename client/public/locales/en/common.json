@@ -93,7 +93,20 @@
     "customize": "Customize",
     "acceptAll": "Accept All",
     "rejectAll": "Reject All",
-    "close": "Close"
+    "close": "Close",
+    "privacyTitle": "We Respect Your Privacy",
+    "privacyMessage": "This website uses cookies to enhance your browsing experience. By continuing to navigate, you accept our use of cookies."
+  },
+  "notifications": {
+    "announcementText": "Welcome to the new Amon Tour website! This site is currently in a testing phase, so a few issues may still occur. For any reference, the previous site remains accessible at www.amon-tour.fr. Thank you for your understanding"
+  },
+  "someIdeas": {
+    "title": "Some ideas for your trip",
+    "description": "Here are some popular experiences our travelers love"
+  },
+  "testimonials": {
+    "title": "What our travelers say",
+    "description": "Read authentic reviews from our guests"
   },
   "hero": {
     "title": "Your exclusive experiences",
@@ -107,8 +120,8 @@
     "contact": "Contact",
     "usefulLinks": "Useful Links",
     "defaultNewsletterTitle": "Newsletter",
-    "defaultNewsletterDescription": "Stay informed about our latest offers",
-    "defaultPrivacyText": "We respect your privacy",
+    "defaultNewsletterDescription": "Subscribe to receive our special offers and travel tips",
+    "defaultPrivacyText": "We respect your privacy. Unsubscribe at any time.",
     "copyright": "All rights reserved",
     "legalNotice": "Legal Notice",
     "privacyPolicy": "Privacy Policy",
