@@ -125,11 +125,10 @@ function Router() {
 }
 
 function App() {
-  // Détection automatique de la langue via géolocalisation IP - temporairement désactivée pour corriger crash
-  // TODO: Réactiver quand hooks React seront fixés
-  // useEffect(() => {
-  //   detectCountryAndSetLanguage();
-  // }, []);
+  // Initialize i18next language detection
+  useEffect(() => {
+    detectCountryAndSetLanguage();
+  }, []);
 
   return (
     <TooltipProvider>
