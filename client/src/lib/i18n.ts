@@ -45,12 +45,14 @@ const initializeI18n = () => {
     // Namespaces (fichiers de traduction)
     ns: ['common'],
     defaultNS: 'common',
+    fallbackNS: 'common',
     
     // Options React
     react: {
-      useSuspense: true, // Activer Suspense pour attendre le chargement des traductions
+      useSuspense: false, // Désactiver Suspense pour éviter les problèmes de timing
       bindI18n: 'languageChanged loaded',
       bindI18nStore: 'added removed',
+      defaultTransParent: 'div', // Wrapper par défaut pour les traductions
     },
     
     // Interpolation sécurisée
@@ -61,10 +63,16 @@ const initializeI18n = () => {
     // Configuration pour retourner la clé originale si pas de traduction
     returnNull: false,
     returnEmptyString: false,
+    returnObjects: false,
+    joinArrays: false,
     parseMissingKeyHandler: (key) => {
       console.warn('🚨 i18next missing key:', key);
       return key;
-    }
+    },
+    
+    // Force le chargement immédiat des traductions
+    load: 'languageOnly',
+    preload: ['en', 'fr', 'es'],
   }).then(() => {
     // Exposer i18next globalement pour le debug
     if (typeof window !== 'undefined') {
@@ -78,6 +86,8 @@ const initializeI18n = () => {
 
 // Initialiser immédiatement
 initializeI18n();
+
+export default i18n;
 
 // Fonction pour détecter le pays via IP et rediriger automatiquement
 export const detectCountryAndSetLanguage = async () => {
@@ -129,5 +139,3 @@ export const detectCountryAndSetLanguage = async () => {
     console.log('🌐 Auto-detection failed, using default language (en):', error);
   }
 };
-
-export default i18n;

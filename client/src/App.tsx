@@ -138,7 +138,6 @@ function App() {
         <WhatsAppButton />
         <IframeModal />
         <CookieConsent />
-        <I18nextTest />
       </IframeProvider>
     </TooltipProvider>
   );

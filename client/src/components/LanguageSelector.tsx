@@ -2,7 +2,11 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export default function LanguageSelector() {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation('common');
+  
+  // Test direct pour vérifier la connexion
+  console.log('🔍 LanguageSelector t test:', t('hero.title'));
+  console.log('🔍 LanguageSelector namespace loaded:', !!i18n.getResourceBundle('fr', 'common'));
   
   const languageData = {
     en: {

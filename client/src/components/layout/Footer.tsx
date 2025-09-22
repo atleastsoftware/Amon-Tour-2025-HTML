@@ -4,7 +4,7 @@ import { FadeInWhenVisible, SlideUpWhenVisible, StaggerChildren, StaggerItem } f
 import NewsletterSubscription from "@/components/newsletter/NewsletterSubscription";
 import logoA from "@/assets/logo-a.png";
 import { useQuery } from '@tanstack/react-query';
-import { useTranslation } from 'react-i18next';
+import { t } from '@/lib/translation';
 import { Facebook, Instagram, Mail, MapPin, Phone, Clock } from "lucide-react";
 
 // Helper function to render contact info based on style
@@ -88,9 +88,6 @@ function renderContactInfo(item: any, translateContactText: (text: string) => st
   }
 }
 export default function Footer() {
-  const {
-    t
-  } = useTranslation();
 
   // Initialize i18next translation hook
   // Function to translate footer links
@@ -154,9 +151,7 @@ export default function Footer() {
         }} whileHover={{
           scale: 1.05
         }}>
-            <img src={logoA} alt={t("Amon Tour Logo", {
-            defaultValue: "Amon Tour Logo"
-          })} className="h-12 w-auto" />
+            <img src={logoA} alt="Amon Tour Logo" className="h-12 w-auto" />
           </motion.div>
         </div>
         

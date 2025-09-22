@@ -6,6 +6,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/queryClient";
 import { Toaster } from "./components/ui/toaster";
 import { ThemeProvider } from "next-themes";
+import { I18nextProvider } from "react-i18next";
 import i18n from "./lib/i18n"; // Initialize i18next system
 // import "./lib/autoTranslate"; // Auto-translation temporarily disabled due to reload loops
 
@@ -26,12 +27,16 @@ document.head.appendChild(fontLink);
 // Wait for i18next to be ready before rendering
 function renderApp() {
   createRoot(document.getElementById("root")!).render(
-    <ThemeProvider attribute="class" defaultTheme="light">
-      <QueryClientProvider client={queryClient}>
-        <App />
-        <Toaster />
-      </QueryClientProvider>
-    </ThemeProvider>
+    <I18nextProvider i18n={i18n}>
+      <Suspense fallback={<div>Loading translations...</div>}>
+        <ThemeProvider attribute="class" defaultTheme="light">
+          <QueryClientProvider client={queryClient}>
+            <App />
+            <Toaster />
+          </QueryClientProvider>
+        </ThemeProvider>
+      </Suspense>
+    </I18nextProvider>
   );
 }
 

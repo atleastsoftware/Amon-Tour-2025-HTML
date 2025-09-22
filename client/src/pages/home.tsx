@@ -23,11 +23,14 @@ import { Link } from "wouter";
 import { useIframe } from "@/contexts/IframeContext";
 import { Badge } from "@/components/ui/badge";
 import { I18nextTest } from "@/components/test/I18nextTest";
+import { t } from '@/lib/translation';
+
 export default function Home() {
-  const {
-    t
-  } = useTranslation();
   const [, setLocation] = useLocation();
+  
+  // Test notre nouvelle approche
+  console.log('🔧 DIRECT ACCESS test:', t('hero.title'));
+  console.log('🔧 Global i18next available:', !!(window as any).i18next);
   const carouselRef = useRef<HTMLDivElement>(null);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [maxScroll, setMaxScroll] = useState(0);
@@ -132,9 +135,7 @@ export default function Home() {
     };
   }, []);
   return <>
-      <SEO title={t("Amon Tour - Authentic Thailand Experiences in Krabi", {
-      defaultValue: "Amon Tour - Authentic Thailand Experiences in Krabi"
-    })} description="Discover authentic Thailand with Amon Tour. Expert-guided private tours, cultural experiences, and personalized journeys across Bangkok, Phuket, and beyond. Family-run travel agency offering immersive experiences away from mass tourism." keywords="thailand private tours, bangkok cultural experiences, phuket authentic travel, thailand family travel agency, personalized thailand journeys, thai temple tours, island hopping thailand, authentic thai culture, thailand vacation planning" canonicalUrl="https://amon-tour.com/" breadcrumbs={[{
+      <SEO title={t("defaultSeo.defaultTitle") || "Amon Tour - Authentic Thailand Experiences in Krabi"} description="Discover authentic Thailand with Amon Tour. Expert-guided private tours, cultural experiences, and personalized journeys across Bangkok, Phuket, and beyond. Family-run travel agency offering immersive experiences away from mass tourism." keywords="thailand private tours, bangkok cultural experiences, phuket authentic travel, thailand family travel agency, personalized thailand journeys, thai temple tours, island hopping thailand, authentic thai culture, thailand vacation planning" canonicalUrl="https://amon-tour.com/" breadcrumbs={[{
       name: t('navigation.home'),
       url: "/"
     }]} faqSchema={[{
@@ -158,16 +159,12 @@ export default function Home() {
       reviews: [{
         author: "Sarah M.",
         rating: 5,
-        text: t("Incredible authentic experience! Amon Tour showed us the real Thailand.", {
-          defaultValue: "Incredible authentic experience! Amon Tour showed us the real Thailand."
-        }),
+        text: "Incredible authentic experience! Amon Tour showed us the real Thailand.",
         datePublished: "2024-12-15"
       }, {
         author: "Marc L.",
         rating: 5,
-        text: t("Professional service and amazing local insights. Highly recommended!", {
-          defaultValue: "Professional service and amazing local insights. Highly recommended!"
-        }),
+        text: "Professional service and amazing local insights. Highly recommended!",
         datePublished: "2024-11-20"
       }]
     }} structuredData={{

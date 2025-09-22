@@ -4,7 +4,7 @@ import { FadeInWhenVisible, SlideUpWhenVisible, StaggerChildren, StaggerItem } f
 import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import heroImage from "@/assets/DJI_20241115104455_0160_D-min.jpeg";
-import { useTranslation } from 'react-i18next';
+import { t } from '@/lib/translation';
 
 // Use optimized video (6MB instead of 40MB) for better loading performance
 const backgroundVideo = "/attached_assets/hero-video-optimized.mp4";
@@ -37,9 +37,6 @@ const isMobileDevice = () => {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
 };
 export default function Hero() {
-  const {
-    t
-  } = useTranslation();
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
@@ -143,9 +140,7 @@ export default function Hero() {
       {/* Video Background Section with Fallback Image */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
         {/* Fallback Image */}
-        <img src={heroImage} alt={t("Beautiful Krabi landscape", {
-        defaultValue: "Beautiful Krabi landscape"
-      })} className="absolute top-0 left-0 w-full h-full object-cover" />
+        <img src={heroImage} alt="Beautiful Krabi landscape" className="absolute top-0 left-0 w-full h-full object-cover" />
         
         {/* Video Overlay with intelligent loading and comprehensive fallback */}
         {shouldLoadVideo && !videoError && <video ref={videoRef} autoPlay muted loop playsInline preload="auto" // Charge complètement la vidéo pour éviter les interruptions
@@ -164,9 +159,7 @@ export default function Hero() {
         console.log('Video can play through without interruption');
         setVideoLoaded(true);
       }}>
-            <source src={currentVideoSrc} type="video/mp4" />{t("Your browser does not support the video tag.", {
-          defaultValue: "Your browser does not support the video tag."
-        })}</video>}
+            <source src={currentVideoSrc} type="video/mp4" />Your browser does not support the video tag.</video>}
 
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
