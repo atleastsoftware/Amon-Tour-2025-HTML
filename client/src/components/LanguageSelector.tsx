@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react';
-import { autoTranslate } from '../lib/autoTranslate';
+import { useTranslation } from 'react-i18next';
 
 export default function LanguageSelector() {
+  const { i18n } = useTranslation();
+  
   const languageData = {
     en: {
       name: "English",
       flagUrl: "https://flagcdn.com/w40/gb.png"
     },
     fr: {
-      name: "Français",
+      name: "Français", 
       flagUrl: "https://flagcdn.com/w40/fr.png"
     },
     es: {
@@ -19,13 +21,31 @@ export default function LanguageSelector() {
   
   const [isLoading, setIsLoading] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState(() => {
-    // Detect current language from localStorage or browser
-    const saved = localStorage.getItem('amon-tour-language-choice');
-    if (saved) return saved;
+    // Use i18next current language if available, fallback to saved preference or browser language
+    if (i18n.language && ['en', 'fr', 'es'].includes(i18n.language)) {
+      return i18n.language;
+    }
+    
+    const saved = localStorage.getItem('i18nextLng');
+    if (saved && ['en', 'fr', 'es'].includes(saved)) return saved;
     
     const browserLang = navigator.language?.split('-')[0]?.toLowerCase() || 'en';
     return ['en', 'fr', 'es'].includes(browserLang) ? browserLang : 'en';
   });
+
+  // Sync with i18next language changes
+  useEffect(() => {
+    const handleLanguageChanged = (lng: string) => {
+      if (['en', 'fr', 'es'].includes(lng)) {
+        setCurrentLanguage(lng);
+      }
+    };
+
+    i18n.on('languageChanged', handleLanguageChanged);
+    return () => {
+      i18n.off('languageChanged', handleLanguageChanged);
+    };
+  }, [i18n]);
 
   const handleLanguageChange = async (langCode: string) => {
     if (isLoading || currentLanguage === langCode) return;
@@ -34,52 +54,22 @@ export default function LanguageSelector() {
     setCurrentLanguage(langCode);
     
     try {
-      // Clear any existing translation state
-      clearExistingTranslations();
+      // Change language using i18next
+      await i18n.changeLanguage(langCode);
       
-      // Save user's choice
-      localStorage.setItem('amon-tour-language-choice', langCode);
-      localStorage.setItem('amon-tour-translation-choice', `manual-${langCode}`);
+      // Save user's choice for persistence 
       localStorage.setItem('user-chose-language', 'true');
+      localStorage.setItem('amon-tour-language-choice', langCode);
       
       console.log(`🌐 Language changed to: ${langCode}`);
       
-      if (langCode === 'en') {
-        // Restore English - reload page to clear all translations
-        autoTranslate.restoreEnglish();
-      } else if (langCode === 'fr') {
-        // Trigger French translation
-        autoTranslate.manualTrigger('fr');
-      } else if (langCode === 'es') {
-        // Trigger Spanish translation
-        autoTranslate.manualTrigger('es');
-      }
     } catch (error) {
       console.error('Failed to switch language:', error);
       setCurrentLanguage('en'); // Fallback to English
+      await i18n.changeLanguage('en');
     } finally {
       setIsLoading(false);
     }
-  };
-
-  /**
-   * Clear existing translations before applying new ones
-   */
-  const clearExistingTranslations = () => {
-    // Remove translation attributes temporarily
-    document.documentElement.removeAttribute('translate');
-    
-    // Remove any Google Translate widgets
-    const googleTranslateElements = document.querySelectorAll('[id*="google_translate"], .goog-te-banner-frame, .goog-te-menu-frame');
-    googleTranslateElements.forEach(el => el.remove());
-    
-    // Clear any old translation meta tags
-    const translationMetas = document.querySelectorAll('meta[name="google-translate-customization"], meta[name="translate"]');
-    translationMetas.forEach(meta => meta.remove());
-    
-    // Hide any translation indicators
-    const indicators = document.querySelectorAll('.translation-indicator');
-    indicators.forEach(indicator => indicator.remove());
   };
   return <div className="flex items-center gap-2">
       {Object.entries(languageData).map(([langCode, langData]) => <button key={langCode} onClick={() => handleLanguageChange(langCode)} disabled={isLoading} className={`
