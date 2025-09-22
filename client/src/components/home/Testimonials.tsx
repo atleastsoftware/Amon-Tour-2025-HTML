@@ -1,5 +1,8 @@
 import { useEffect, useRef } from "react";
+import { useTranslation } from 'react-i18next';
+
 export default function Testimonials() {
+  const { t } = useTranslation();
   const googleReviewsRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     // To load the Google reviews widget

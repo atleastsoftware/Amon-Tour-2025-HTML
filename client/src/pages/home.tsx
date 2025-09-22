@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Tour } from "@shared/schema";
+import { useTranslation } from 'react-i18next';
 import { motion } from "framer-motion";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import Header from "@/components/layout/Header";
@@ -24,6 +25,7 @@ import { Badge } from "@/components/ui/badge";
 import { I18nextTest } from "@/components/test/I18nextTest";
 
 export default function Home() {
+  const { t } = useTranslation();
   const [, setLocation] = useLocation();
   
   // Test notre nouvelle approche

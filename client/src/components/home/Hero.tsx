@@ -4,6 +4,7 @@ import { FadeInWhenVisible, SlideUpWhenVisible, StaggerChildren, StaggerItem } f
 import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import heroImage from "@/assets/DJI_20241115104455_0160_D-min.jpeg";
+import { useTranslation } from 'react-i18next';
 
 // Use optimized video (6MB instead of 40MB) for better loading performance
 const backgroundVideo = "/attached_assets/hero-video-optimized.mp4";
@@ -36,6 +37,7 @@ const isMobileDevice = () => {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
 };
 export default function Hero() {
+  const { t } = useTranslation();
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false);

@@ -1,6 +1,9 @@
 import { Link } from "wouter";
 import amonTourTeam from "@/assets/amon-tour-team.jpg";
+import { useTranslation } from 'react-i18next';
+
 export default function About() {
+  const { t } = useTranslation();
   return <section id="who-we-are" className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">

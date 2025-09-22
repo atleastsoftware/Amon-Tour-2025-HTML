@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useQuery } from '@tanstack/react-query';
 import logoAmon from "@/assets/logo-amon.png";
 import LanguageSelector from "@/components/LanguageSelector";
+import { useTranslation } from 'react-i18next';
 type NavLinkProps = {
   href: string;
   isActive: boolean;
@@ -36,6 +37,7 @@ const NavLink = ({
     </Link>;
 };
 export default function Header() {
+  const { t } = useTranslation();
   const [location] = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);

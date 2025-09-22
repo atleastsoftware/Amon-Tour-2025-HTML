@@ -5,6 +5,7 @@ import NewsletterSubscription from "@/components/newsletter/NewsletterSubscripti
 import logoA from "@/assets/logo-a.png";
 import { useQuery } from '@tanstack/react-query';
 import { Facebook, Instagram, Mail, MapPin, Phone, Clock } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 
 // Helper function to render contact info based on style
 function renderContactInfo(item: any, translateContactText: (text: string) => string) {
@@ -87,8 +88,8 @@ function renderContactInfo(item: any, translateContactText: (text: string) => st
   }
 }
 export default function Footer() {
+  const { t } = useTranslation();
 
-  // Initialize i18next translation hook
   // Function to translate footer links
   const translateFooterLink = (englishText: string): string => {
     const linkTranslations: {
