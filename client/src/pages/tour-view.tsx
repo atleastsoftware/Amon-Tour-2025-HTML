@@ -71,9 +71,7 @@ export default function TourView() {
         <div className="container mx-auto px-4 py-16 flex items-center justify-center min-h-[60vh]">
           <div className="animate-pulse">
             <div className="w-32 h-32 bg-gray-200 rounded-full flex items-center justify-center">
-              <span className="text-gray-400">{t("Loading", {
-                defaultValue: "Loading"
-              })}</span>
+              <span className="text-gray-400">{t("status.loading")}</span>
             </div>
           </div>
         </div>
@@ -85,9 +83,7 @@ export default function TourView() {
       
       <main className="container mx-auto px-4 py-8">
         <Button variant="outline" className="mb-6 flex items-center" onClick={() => window.history.back()}>
-          <ArrowLeft className="mr-2 h-4 w-4" />{t("Back", {
-          defaultValue: "Back"
-        })}</Button>
+          <ArrowLeft className="mr-2 h-4 w-4" />{t("buttons.back")}</Button>
         
         <div className="bg-white rounded-xl shadow-md overflow-hidden">
           {/* Gallery */}
@@ -110,20 +106,17 @@ export default function TourView() {
                     </button>
                   </>}
               </> : <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                <span className="text-gray-400">{t("No images available", {
-                defaultValue: "No images available"
-              })}</span>
+                <span className="text-gray-400">{t("errors.imageLoadFailed")}</span>
               </div>}
             
             {/* Price and type badges */}
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
               <div className="flex items-center gap-2 flex-wrap">
-                <div className="inline-block px-4 py-2 rounded-full bg-primary text-white font-medium text-base">{t("From", {
-                  defaultValue: "From"
-                })}{formatPrice(tour.price, tour.currency)}
+                <div className="inline-block px-4 py-2 rounded-full bg-primary text-white font-medium text-base">
+                  {formatPrice(tour.price, tour.currency)}
                 </div>
                 <div className={`inline-block px-4 py-2 rounded-full font-medium text-sm ${tour.type === "tour" ? "bg-blue-600 text-white" : "bg-amber-500 text-white"}`}>
-                  {tour.type === "tour" ? "Tour" : "Experience"}
+                  {tour.type === "tour" ? t("tours.tour") : t("tours.experience")}
                 </div>
               </div>
             </div>
@@ -150,9 +143,7 @@ export default function TourView() {
               <Button className="w-full py-6 text-base" onClick={() => {
               window.location.href = `/booking?link=${encodeURIComponent(tour.customLink)}&title=${encodeURIComponent(tour.title)}&type=${encodeURIComponent(tour.type)}`;
             }}>
-                <ExternalLink className="h-5 w-5 mr-2" />{t("Booknow", {
-                defaultValue: "Booknow"
-              })}</Button>
+                <ExternalLink className="h-5 w-5 mr-2" />{t("buttons.bookNow")}</Button>
             </div>
           </div>
         </div>
