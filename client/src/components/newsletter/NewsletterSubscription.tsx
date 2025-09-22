@@ -3,12 +3,14 @@ import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { z } from "zod";
+import { useTranslation } from 'react-i18next';
 
 const emailSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
 });
 
 export default function NewsletterSubscription() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -31,8 +33,8 @@ export default function NewsletterSubscription() {
       setEmail("");
       
       toast({
-        title: "Subscription Successful!",
-        description: "Thank you for subscribing! You have been successfully added to our newsletter.",
+        title: t('messages.subscriptionSuccess'),
+        description: t('messages.subscriptionSuccessDesc'),
         variant: "default",
       });
       
@@ -43,15 +45,15 @@ export default function NewsletterSubscription() {
       let errorMessage = "Please try again later.";
       
       if (error.message.includes("already registered")) {
-        errorMessage = "This email is already registered to our newsletter.";
+        errorMessage = t('forms.emailAlreadyRegistered');
       } else if (error.message.includes("valid email")) {
-        errorMessage = "Please enter a valid email address.";
+        errorMessage = t('forms.emailInvalid');
       } else if (error.message.includes("Too many")) {
-        errorMessage = "Too many attempts. Please try again in a few minutes.";
+        errorMessage = t('forms.tooManyAttempts');
       }
       
       toast({
-        title: "Subscription Failed",
+        title: t('messages.subscriptionFailed'),
         description: errorMessage,
         variant: "destructive",
       });
@@ -73,9 +75,9 @@ export default function NewsletterSubscription() {
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
             </svg>
-            <span className="font-medium">Subscription successful!</span>
+            <span className="font-medium">{t('messages.subscriptionSuccess')}</span>
           </div>
-          <p className="text-sm mt-1">Please check your email to confirm.</p>
+          <p className="text-sm mt-1">{t('messages.emailConfirmationRequested')}</p>
         </div>
       </motion.div>
     );

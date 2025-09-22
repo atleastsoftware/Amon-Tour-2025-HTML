@@ -57,6 +57,8 @@
     "tripDescriptionRequired": "Please describe your ideal trip (minimum 10 characters)",
     "datesOrDurationRequired": "Please provide either your trip dates or an approximate duration",
     "selectTypesOrDestinations": "Please select at least one trip type or destination",
+    "emailAlreadyRegistered": "This email is already registered to our newsletter",
+    "tooManyAttempts": "Too many attempts. Please try again in a few minutes",
     "placeholders": {
       "yourName": "Your name",
       "yourEmail": "Your email",
@@ -85,7 +87,8 @@
     "subscriptionSuccessDesc": "Thank you for subscribing! You have been successfully added to our newsletter.",
     "subscriptionFailed": "Subscription Failed",
     "contactSuccess": "Message sent successfully!",
-    "contactSuccessDesc": "We'll get back to you as soon as possible."
+    "contactSuccessDesc": "We'll get back to you as soon as possible.",
+    "emailConfirmationRequested": "Please check your email to confirm"
   },
   "cookies": {
     "title": "Cookie Preferences",
