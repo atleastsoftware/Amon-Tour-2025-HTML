@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 
 // Helper function to render contact info based on style
-function renderContactInfo(item: any) {
+function renderContactInfo(item: any, translateContactText: (text: string) => string) {
   const { style, value } = item;
   
   if (!value) return null;
@@ -24,14 +24,14 @@ function renderContactInfo(item: any) {
     case 'title':
       return (
         <p className="text-sm mb-3">
-          <strong>{value}</strong>
+          <strong>{translateContactText(value)}</strong>
         </p>
       );
     
     case 'text':
       return (
         <p className="text-sm mb-3">
-          {value}
+          {translateContactText(value)}
         </p>
       );
     
@@ -40,7 +40,7 @@ function renderContactInfo(item: any) {
         <p className="text-sm mb-3">
           {value.split('\n').map((line: string, idx: number) => (
             <span key={idx}>
-              {line}
+              {translateContactText(line)}
               {idx < value.split('\n').length - 1 && <br />}
             </span>
           ))}
@@ -85,7 +85,7 @@ function renderContactInfo(item: any) {
               href={`tel:${phoneNumber}`}
               className="font-heading hover:text-secondary transition-colors"
             >
-              {value}
+              {translateContactText(value)}
             </a>
           </p>
         </motion.div>
@@ -105,7 +105,7 @@ function renderContactInfo(item: any) {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <i className="fab fa-whatsapp mr-1"></i> {value}
+              <i className="fab fa-whatsapp mr-1"></i> {translateContactText(value)}
             </a>
           </p>
         </motion.div>
@@ -120,7 +120,7 @@ function renderContactInfo(item: any) {
         >
           <p>
             <span className="font-heading">
-              <i className="fab fa-line mr-1"></i> {value}
+              <i className="fab fa-line mr-1"></i> {translateContactText(value)}
             </span>
           </p>
         </motion.div>
@@ -138,6 +138,33 @@ function renderContactInfo(item: any) {
 export default function Footer() {
   // Initialize i18next translation hook
   const { t } = useTranslation();
+  
+  // Function to translate footer links
+  const translateFooterLink = (englishText: string): string => {
+    const linkTranslations: { [key: string]: string } = {
+      "Our brochure": t('footer.links.ourBrochure'),
+      "Krabi Celebration": t('footer.links.krabiCelebration'),
+      "Fun Garden": t('footer.links.funGarden'),
+      "Villas in Krabi": t('footer.links.villasInKrabi'),
+      "Become Partner": t('footer.links.becomePartner'),
+      "Group & Corporate": t('footer.links.groupCorporate')
+    };
+    return linkTranslations[englishText] || englishText;
+  };
+  
+  // Function to translate contact info text
+  const translateContactText = (text: string): string => {
+    if (text.includes("Operations manager:")) {
+      return text.replace("Operations manager:", t('footer.contactTitles.operationsManager'));
+    }
+    if (text.includes("Travel Advisor Manager:")) {
+      return text.replace("Travel Advisor Manager:", t('footer.contactTitles.travelAdvisorManager'));
+    }
+    if (text.includes("Thailand")) {
+      return text.replace("Thailand", t('footer.countries.thailand'));
+    }
+    return text;
+  };
   
   // Fetch dynamic footer content
   const { data: siteSettings } = useQuery({
@@ -185,7 +212,7 @@ export default function Footer() {
               {/* Dynamic Contact Information */}
               {contactInfo.map((item: any, index: number) => (
                 <div key={index}>
-                  {renderContactInfo(item)}
+                  {renderContactInfo(item, translateContactText)}
                 </div>
               ))}
               
@@ -226,7 +253,7 @@ export default function Footer() {
                   } : {})}
                   whileHover={{ y: -2 }}
                 >
-                  {link.text}
+                  {translateFooterLink(link.text)}
                 </motion.a>
               ))}
             </div>

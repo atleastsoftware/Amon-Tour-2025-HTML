@@ -128,7 +128,22 @@
     "copyright": "Tous droits réservés",
     "legalNotice": "Mentions légales",
     "privacyPolicy": "Politique de confidentialité",
-    "termsConditions": "Conditions générales"
+    "termsConditions": "Conditions générales",
+    "links": {
+      "ourBrochure": "Notre brochure",
+      "krabiCelebration": "Krabi Celebration",
+      "funGarden": "Fun Garden",
+      "villasInKrabi": "Villas à Krabi",
+      "becomePartner": "Devenir Partenaire",
+      "groupCorporate": "Groupes & Entreprises"
+    },
+    "contactTitles": {
+      "operationsManager": "Responsable des opérations :",
+      "travelAdvisorManager": "Responsable conseil voyage :"
+    },
+    "countries": {
+      "thailand": "Thaïlande"
+    }
   },
   "tours": {
     "featured": "Nos expériences exclusives",

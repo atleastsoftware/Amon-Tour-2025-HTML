@@ -88,7 +88,7 @@ export default function NewsletterSubscription() {
       <div className="flex justify-center">
         <input 
           type="email" 
-          placeholder="Your email" 
+          placeholder={t('forms.placeholders.yourEmail')} 
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           disabled={isSubmitting}
