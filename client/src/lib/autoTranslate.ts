@@ -17,6 +17,7 @@ interface TranslationConfig {
 
 export class AutoBrowserTranslate {
   private readonly frenchCountries = ['FR', 'BE', 'CH', 'CA', 'MC', 'LU'];
+  private readonly spanishCountries = ['ES', 'MX', 'AR', 'CO', 'PE', 'VE', 'CL', 'EC', 'BO', 'PY', 'UY'];
   private readonly ipApiUrl = 'https://ip-api.com/json/';
   private translationTriggered = false;
 
@@ -53,14 +54,19 @@ export class AutoBrowserTranslate {
       // First check browser language preference
       const browserLang = this.getBrowserLanguage();
       if (browserLang === 'fr') {
-        this.setupFrenchTranslation();
+        this.setupTranslation('fr');
+        return;
+      } else if (browserLang === 'es') {
+        this.setupTranslation('es');
         return;
       }
 
       // Then check IP geolocation
       const location = await this.getLocationFromIP();
       if (this.shouldTriggerFrenchTranslation(location)) {
-        this.setupFrenchTranslation();
+        this.setupTranslation('fr');
+      } else if (this.shouldTriggerSpanishTranslation(location)) {
+        this.setupTranslation('es');
       }
     } catch (error) {
       console.log('Auto-translation detection failed:', error);
@@ -100,9 +106,16 @@ export class AutoBrowserTranslate {
   }
 
   /**
-   * Setup French translation using browser native capabilities
+   * Check if we should trigger Spanish translation
    */
-  private setupFrenchTranslation(): void {
+  private shouldTriggerSpanishTranslation(location: LocationData): boolean {
+    return this.spanishCountries.includes(location.countryCode);
+  }
+
+  /**
+   * Setup translation using browser native capabilities
+   */
+  private setupTranslation(targetLang: 'fr' | 'es'): void {
     this.translationTriggered = true;
     
     // Method 1: Set document language to trigger browser translation prompt
@@ -110,26 +123,33 @@ export class AutoBrowserTranslate {
     document.documentElement.setAttribute('translate', 'yes');
     
     // Method 2: Add meta tags for translation hints
-    this.addTranslationMetaTags();
+    this.addTranslationMetaTags(targetLang);
     
     // Method 3: Try modern browser APIs
-    this.tryModernTranslationAPIs();
+    this.tryModernTranslationAPIs(targetLang);
     
     // Method 4: Fallback to Google Translate Widget if available
     setTimeout(() => {
-      this.setupGoogleTranslateWidget();
+      this.setupGoogleTranslateWidget(targetLang);
     }, 1000);
 
     // Store user's implied preference
-    localStorage.setItem('amon-tour-translation-choice', 'auto-detected');
+    localStorage.setItem('amon-tour-translation-choice', `auto-detected-${targetLang}`);
+  }
+
+  /**
+   * Setup French translation (backward compatibility)
+   */
+  private setupFrenchTranslation(): void {
+    this.setupTranslation('fr');
   }
 
   /**
    * Add meta tags to encourage browser translation
    */
-  private addTranslationMetaTags(): void {
+  private addTranslationMetaTags(targetLang: 'fr' | 'es'): void {
     const metaTags = [
-      { name: 'google-translate-customization', content: 'auto-french' },
+      { name: 'google-translate-customization', content: `auto-${targetLang}` },
       { name: 'translate', content: 'yes' },
       { httpEquiv: 'content-language', content: 'en' }
     ];
@@ -146,17 +166,17 @@ export class AutoBrowserTranslate {
   /**
    * Try modern browser translation APIs (Chrome 138+, Firefox 118+)
    */
-  private async tryModernTranslationAPIs(): Promise<void> {
+  private async tryModernTranslationAPIs(targetLang: 'fr' | 'es'): Promise<void> {
     // Chrome Translator API (if available)
     if ('Translator' in self) {
       try {
         const translator = await (self as any).Translator.create({
           sourceLanguage: 'en',
-          targetLanguage: 'fr'
+          targetLanguage: targetLang
         });
         
         // Add subtle indicator that translation is available
-        this.showTranslationIndicator('chrome');
+        this.showTranslationIndicator('chrome', targetLang);
       } catch (error) {
         console.log('Chrome Translator API not ready:', error);
       }
@@ -164,14 +184,14 @@ export class AutoBrowserTranslate {
     
     // Firefox/Edge - rely on native detection
     if (navigator.userAgent.includes('Firefox') || navigator.userAgent.includes('Edg')) {
-      this.showTranslationIndicator('native');
+      this.showTranslationIndicator('native', targetLang);
     }
   }
 
   /**
    * Setup Google Translate Widget as fallback
    */
-  private setupGoogleTranslateWidget(): void {
+  private setupGoogleTranslateWidget(targetLang: 'fr' | 'es'): void {
     // Only if no native translation has been triggered
     if (!document.querySelector('.goog-te-banner-frame')) {
       const script = document.createElement('script');
@@ -182,7 +202,7 @@ export class AutoBrowserTranslate {
       (window as any).googleTranslateElementInit = () => {
         new (window as any).google.translate.TranslateElement({
           pageLanguage: 'en',
-          includedLanguages: 'fr',
+          includedLanguages: targetLang === 'fr' ? 'fr' : 'es',
           autoDisplay: false,
           layout: (window as any).google.translate.TranslateElement.InlineLayout.SIMPLE
         }, 'google_translate_element');
@@ -201,7 +221,12 @@ export class AutoBrowserTranslate {
   /**
    * Show subtle translation indicator
    */
-  private showTranslationIndicator(type: 'chrome' | 'native' | 'widget'): void {
+  private showTranslationIndicator(type: 'chrome' | 'native' | 'widget', targetLang: 'fr' | 'es'): void {
+    const messages = {
+      fr: '🌐 Traduction française disponible',
+      es: '🌐 Traducción española disponible'
+    };
+    
     const indicator = document.createElement('div');
     indicator.className = 'translation-indicator';
     indicator.innerHTML = `
@@ -219,7 +244,7 @@ export class AutoBrowserTranslate {
         box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         cursor: pointer;
       ">
-        🌐 Traduction française disponible
+        ${messages[targetLang]}
         <span style="margin-left: 8px; opacity: 0.7;">×</span>
       </div>
     `;
@@ -241,12 +266,35 @@ export class AutoBrowserTranslate {
   }
 
   /**
-   * Manual trigger for testing
+   * Manual trigger for specific language
    */
-  public manualTrigger(): void {
+  public manualTrigger(targetLang: 'fr' | 'es' = 'fr'): void {
     this.translationTriggered = false;
     localStorage.removeItem('amon-tour-translation-choice');
-    this.setupFrenchTranslation();
+    this.setupTranslation(targetLang);
+  }
+
+  /**
+   * Clear all translations and restore English
+   */
+  public restoreEnglish(): void {
+    // Remove translation attributes
+    document.documentElement.removeAttribute('translate');
+    document.documentElement.lang = 'en';
+    
+    // Remove translation meta tags
+    const translationMetas = document.querySelectorAll('meta[name="google-translate-customization"], meta[name="translate"]');
+    translationMetas.forEach(meta => meta.remove());
+    
+    // Remove Google Translate widgets
+    const googleTranslateElements = document.querySelectorAll('[id*="google_translate"], .goog-te-banner-frame, .goog-te-menu-frame');
+    googleTranslateElements.forEach(el => el.remove());
+    
+    // Clear localStorage
+    localStorage.removeItem('amon-tour-translation-choice');
+    
+    // Reload page to restore original English
+    window.location.reload();
   }
 }
 
