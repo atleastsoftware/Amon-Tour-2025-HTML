@@ -67,7 +67,7 @@ export default function Header() {
     : null;
   const notificationConfig = notificationSettings 
     ? (typeof notificationSettings === 'string' ? JSON.parse(notificationSettings) : notificationSettings) 
-    : { enabled: true, text: "Welcome to the new Amon Tour website! This site is currently in a testing phase, so a few issues may still occur. For any reference, the previous site remains accessible at www.amon-tour.fr. Thank you for your understanding", background_color: "#3BA8AF", text_color: "#ffffff" };
+    : { enabled: true, text: t('notifications.announcementText'), background_color: "#3BA8AF", text_color: "#ffffff" };
 
   // Track scroll position for header transparency and measure header height
   useEffect(() => {
