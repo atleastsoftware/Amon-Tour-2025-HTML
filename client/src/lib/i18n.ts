@@ -4,17 +4,18 @@ import Backend from 'i18next-http-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
 // Configuration i18next moderne et propre
-i18n
-  .use(Backend) // Charge les traductions depuis /public/locales
-  .use(LanguageDetector) // Détecte automatiquement la langue
-  .use(initReactI18next) // Intégration avec React
-  .init({
+const initializeI18n = () => {
+  return i18n
+    .use(Backend) // Charge les traductions depuis /public/locales
+    .use(LanguageDetector) // Détecte automatiquement la langue
+    .use(initReactI18next) // Intégration avec React
+    .init({
     // Configuration des langues
     fallbackLng: 'en', // Anglais par défaut (comme demandé)
     supportedLngs: ['en', 'fr', 'es'],
     
     // Configuration debug (seulement en développement)
-    debug: false, // Désactiver les logs de debug pour éviter les missingKey
+    debug: false, // Désactiver les logs de debug
     
     // Configuration pour utiliser phrases complètes comme clés
     keySeparator: false, // Permet d'utiliser des phrases avec des points comme clés
@@ -36,6 +37,9 @@ i18n
     // Configuration Backend (chargement des fichiers)
     backend: {
       loadPath: '/locales/{{lng}}/{{ns}}.json',
+      addPath: '/locales/{{lng}}/{{ns}}.json', // Path to post missing resources
+      allowMultiLoading: false,
+      reloadInterval: false,
     },
     
     // Namespaces (fichiers de traduction)
@@ -44,7 +48,9 @@ i18n
     
     // Options React
     react: {
-      useSuspense: false, // Évite les problèmes de suspense
+      useSuspense: true, // Activer Suspense pour attendre le chargement des traductions
+      bindI18n: 'languageChanged loaded',
+      bindI18nStore: 'added removed',
     },
     
     // Interpolation sécurisée
@@ -55,8 +61,23 @@ i18n
     // Configuration pour retourner la clé originale si pas de traduction
     returnNull: false,
     returnEmptyString: false,
-    parseMissingKeyHandler: (key) => key, // Retourne la clé telle quelle si pas de traduction
+    parseMissingKeyHandler: (key) => {
+      console.warn('🚨 i18next missing key:', key);
+      return key;
+    }
+  }).then(() => {
+    // Exposer i18next globalement pour le debug
+    if (typeof window !== 'undefined') {
+      (window as any).i18next = i18n;
+    }
+    console.log('✅ i18next fully initialized and exposed globally');
+  }).catch((error) => {
+    console.error('❌ i18next initialization failed:', error);
   });
+};
+
+// Initialiser immédiatement
+initializeI18n();
 
 // Fonction pour détecter le pays via IP et rediriger automatiquement
 export const detectCountryAndSetLanguage = async () => {
