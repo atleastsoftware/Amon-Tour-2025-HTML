@@ -14,7 +14,11 @@ i18n
     supportedLngs: ['en', 'fr', 'es'],
     
     // Configuration debug (seulement en développement)
-    debug: process.env.NODE_ENV === 'development',
+    debug: false, // Désactiver les logs de debug pour éviter les missingKey
+    
+    // Configuration pour utiliser phrases complètes comme clés
+    keySeparator: false, // Permet d'utiliser des phrases avec des points comme clés
+    saveMissing: false, // Ne pas enregistrer les clés manquantes
     
     // Détection automatique de la langue
     detection: {
@@ -47,6 +51,11 @@ i18n
     interpolation: {
       escapeValue: false, // React échappe déjà
     },
+    
+    // Configuration pour retourner la clé originale si pas de traduction
+    returnNull: false,
+    returnEmptyString: false,
+    parseMissingKeyHandler: (key) => key, // Retourne la clé telle quelle si pas de traduction
   });
 
 // Fonction pour détecter le pays via IP et rediriger automatiquement
