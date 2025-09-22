@@ -40,6 +40,8 @@ function renderApp() {
   );
 }
 
+console.log('📱 Main.tsx loading - about to initialize i18next...');
+
 // Wait for i18next initialization before rendering app
 i18nInitPromise.then(() => {
   console.log('🚀 i18next ready, rendering React app...');
@@ -48,3 +50,5 @@ i18nInitPromise.then(() => {
   console.error('💥 i18next initialization failed, rendering app anyway:', error);
   renderApp(); // Render even if i18next fails to avoid blank page
 });
+
+console.log('📱 Main.tsx setup completed - i18nInitPromise started');
