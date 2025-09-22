@@ -96,11 +96,11 @@ export default function TourCardForm({
           if (title) {
             // Notifier l'utilisateur que le titre a été rempli automatiquement
             toast({
-              title: t("Titre auto-rempli", {
-                defaultValue: "Titre auto-rempli"
+              title: t('Titre auto-rempli', {
+                defaultValue: 'Titre auto-rempli'
               }),
-              description: t("Letitreaxe9txe9autom", {
-                defaultValue: "Letitreaxe9txe9autom"
+              description: t('Le titre a \xE9t\xE9 automatiquement g\xE9n\xE9r\xE9 \xE0 partir du lien.', {
+                defaultValue: 'Le titre a \xE9t\xE9 automatiquement g\xE9n\xE9r\xE9 \xE0 partir du lien.'
               }),
               duration: 3000
             });
@@ -183,11 +183,11 @@ export default function TourCardForm({
     e.preventDefault();
     if (!formData.title) {
       toast({
-        title: t("Erreur", {
-          defaultValue: "Erreur"
+        title: t('Erreur', {
+          defaultValue: 'Erreur'
         }),
-        description: t("Le titre est obligatoire", {
-          defaultValue: "Le titre est obligatoire"
+        description: t('Le titre est obligatoire', {
+          defaultValue: 'Le titre est obligatoire'
         }),
         variant: "destructive"
       });
@@ -195,11 +195,11 @@ export default function TourCardForm({
     }
     if (!formData.customLink) {
       toast({
-        title: t("Erreur", {
-          defaultValue: "Erreur"
+        title: t('Erreur', {
+          defaultValue: 'Erreur'
         }),
-        description: t("Lelienpersonnalisxe9", {
-          defaultValue: "Lelienpersonnalisxe9"
+        description: t('Le lien personnalis\xE9 est obligatoire', {
+          defaultValue: 'Le lien personnalis\xE9 est obligatoire'
         }),
         variant: "destructive"
       });
@@ -207,11 +207,11 @@ export default function TourCardForm({
     }
     if (selectedFiles.length === 0) {
       toast({
-        title: t("Erreur", {
-          defaultValue: "Erreur"
+        title: t('Erreur', {
+          defaultValue: 'Erreur'
         }),
-        description: t("Veuillez ajouter au moins une image", {
-          defaultValue: "Veuillez ajouter au moins une image"
+        description: t('Veuillez ajouter au moins une image', {
+          defaultValue: 'Veuillez ajouter au moins une image'
         }),
         variant: "destructive"
       });
@@ -278,11 +278,11 @@ export default function TourCardForm({
           throw new Error("Invalid response from server when creating tour card");
         }
         toast({
-          title: t("Succxe8s", {
-            defaultValue: "Succxe8s"
+          title: t('Succ\xE8s', {
+            defaultValue: 'Succ\xE8s'
           }),
-          description: t("Fichedetourcrxe9xe9e", {
-            defaultValue: "Fichedetourcrxe9xe9e"
+          description: t('Fiche de tour cr\xE9\xE9e avec succ\xE8s', {
+            defaultValue: 'Fiche de tour cr\xE9\xE9e avec succ\xE8s'
           })
         });
 
@@ -318,11 +318,11 @@ export default function TourCardForm({
       } catch (createError) {
         console.error("Error creating tour card:", createError);
         toast({
-          title: t("Erreur", {
-            defaultValue: "Erreur"
+          title: t('Erreur', {
+            defaultValue: 'Erreur'
           }),
-          description: t("Une erreur est survenue lors de la cr\xE9ation de la fiche", {
-            defaultValue: "Une erreur est survenue lors de la cr\xE9ation de la fiche"
+          description: t('Une erreur est survenue lors de la cr\xE9ation de la fiche', {
+            defaultValue: 'Une erreur est survenue lors de la cr\xE9ation de la fiche'
           }),
           variant: "destructive"
         });
@@ -330,11 +330,11 @@ export default function TourCardForm({
     } catch (error) {
       console.error("Error creating tour card:", error);
       toast({
-        title: t("Erreur", {
-          defaultValue: "Erreur"
+        title: t('Erreur', {
+          defaultValue: 'Erreur'
         }),
-        description: t("Une erreur est survenue lors de la cr\xE9ation de la fiche", {
-          defaultValue: "Une erreur est survenue lors de la cr\xE9ation de la fiche"
+        description: t('Une erreur est survenue lors de la cr\xE9ation de la fiche', {
+          defaultValue: 'Une erreur est survenue lors de la cr\xE9ation de la fiche'
         }),
         variant: "destructive"
       });
@@ -344,55 +344,61 @@ export default function TourCardForm({
   };
   return <Card>
       <CardHeader>
-        <CardTitle>{t("Crxe9erunefichedetou", {
-          defaultValue: "Crxe9erunefichedetou"
+        <CardTitle>{t('Cr\xE9er une fiche de tour', {
+          defaultValue: 'Cr\xE9er une fiche de tour'
         })}</CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <Label htmlFor="title">{t("Nomdusxe9jourtour", {
-              defaultValue: "Nomdusxe9jourtour"
+            <Label htmlFor="title">{t('Nom du s\xE9jour / tour *', {
+              defaultValue: 'Nom du s\xE9jour / tour *'
             })}</Label>
-            <Input id="title" name="title" value={formData.title} onChange={handleInputChange} placeholder={t("Ex: Bangkok Food Tour", {
-            defaultValue: "Ex: Bangkok Food Tour"
+            <Input id="title" name="title" value={formData.title} onChange={handleInputChange} placeholder={t('Ex: Bangkok Food Tour', {
+            defaultValue: 'Ex: Bangkok Food Tour'
           })} required />
           </div>
           
           <div>
-            <Label htmlFor="description">{t("Description (optionnel)", {
-              defaultValue: "Description (optionnel)"
+            <Label htmlFor="description">{t('Description (optionnelle)', {
+              defaultValue: 'Description (optionnelle)'
             })}</Label>
-            <Textarea id="description" name="description" value={formData.description} onChange={handleInputChange} placeholder={t("Dxe9crivezbrixe8veme", {
-            defaultValue: "Dxe9crivezbrixe8veme"
+            <Textarea id="description" name="description" value={formData.description} onChange={handleInputChange} placeholder={t('D\xE9crivez bri\xE8vement ce tour...', {
+            defaultValue: 'D\xE9crivez bri\xE8vement ce tour...'
           })} rows={3} />
           </div>
           
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="price">{t("Prixxe0partirde", {
-                defaultValue: "Prixxe0partirde"
+              <Label htmlFor="price">{t('Prix \xE0 partir de *', {
+                defaultValue: 'Prix \xE0 partir de *'
               })}</Label>
-              <Input id="price" name="price" type="number" min={0} value={formData.price || ""} onChange={handleInputChange} placeholder={t("Ex1500", {
-              defaultValue: "Ex1500"
+              <Input id="price" name="price" type="number" min={0} value={formData.price || ""} onChange={handleInputChange} placeholder={t('Ex: 1500', {
+              defaultValue: 'Ex: 1500'
             })} required />
             </div>
             
             <div>
-              <Label htmlFor="currency">{t("Devise", {
-                defaultValue: "Devise"
+              <Label htmlFor="currency">{t('Devise', {
+                defaultValue: 'Devise'
               })}</Label>
               <select id="currency" name="currency" value={formData.currency} onChange={handleInputChange} className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
-                <option value="THB">{t('common.thb')}</option>
-                <option value="EUR">{t('common.eur')}</option>
-                <option value="USD">{t('common.usd')}</option>
+                <option value="THB">{t('THB', {
+                  defaultValue: 'THB'
+                })}</option>
+                <option value="EUR">{t('EUR', {
+                  defaultValue: 'EUR'
+                })}</option>
+                <option value="USD">{t('USD', {
+                  defaultValue: 'USD'
+                })}</option>
               </select>
             </div>
           </div>
           
           <div>
-            <Label htmlFor="type">{t("Type de fiche *", {
-              defaultValue: "Type de fiche *"
+            <Label htmlFor="type">{t('Type de fiche *', {
+              defaultValue: 'Type de fiche *'
             })}</Label>
             <div className="grid grid-cols-2 gap-4 mt-2">
               <button type="button" onClick={() => setFormData({
@@ -402,11 +408,11 @@ export default function TourCardForm({
                 <div className={`text-2xl ${formData.type === "tour" ? "text-primary" : "text-gray-500"}`}>
                   🚌
                 </div>
-                <span className={`font-medium ${formData.type === "tour" ? "text-primary" : "text-gray-700"}`}>{t("Tour", {
-                  defaultValue: "Tour"
+                <span className={`font-medium ${formData.type === "tour" ? "text-primary" : "text-gray-700"}`}>{t('Tour', {
+                  defaultValue: 'Tour'
                 })}</span>
-                <span className="text-xs text-gray-500">{t("Excursionsguidxe9es", {
-                  defaultValue: "Excursionsguidxe9es"
+                <span className="text-xs text-gray-500">{t('Excursions guid\xE9es', {
+                  defaultValue: 'Excursions guid\xE9es'
                 })}</span>
               </button>
               
@@ -417,36 +423,38 @@ export default function TourCardForm({
                 <div className={`text-2xl ${formData.type === "experience" ? "text-primary" : "text-gray-500"}`}>
                   ✨
                 </div>
-                <span className={`font-medium ${formData.type === "experience" ? "text-primary" : "text-gray-700"}`}>{t("Sxe9jour", {
-                  defaultValue: "Sxe9jour"
+                <span className={`font-medium ${formData.type === "experience" ? "text-primary" : "text-gray-700"}`}>{t('S\xE9jour', {
+                  defaultValue: 'S\xE9jour'
                 })}</span>
-                <span className="text-xs text-gray-500">{t("Activitxe9sdxe9couve", {
-                  defaultValue: "Activitxe9sdxe9couve"
+                <span className="text-xs text-gray-500">{t('Activit\xE9s & D\xE9couvertes', {
+                  defaultValue: 'Activit\xE9s & D\xE9couvertes'
                 })}</span>
               </button>
             </div>
           </div>
           
           <div>
-            <Label htmlFor="customLink">{t("Lienpersonnalisxe9to", {
-              defaultValue: "Lienpersonnalisxe9to"
+            <Label htmlFor="customLink">{t('Lien personnalis\xE9 (Tour Ninja) *', {
+              defaultValue: 'Lien personnalis\xE9 (Tour Ninja) *'
             })}</Label>
-            <Input id="customLink" name="customLink" value={formData.customLink} onChange={handleInputChange} placeholder={t("Ex: https://tourninja.com/tour/xxx", {
-            defaultValue: "Ex: https://tourninja.com/tour/xxx"
+            <Input id="customLink" name="customLink" value={formData.customLink} onChange={handleInputChange} placeholder={t('Ex: https://tourninja.com/tour/xxx', {
+            defaultValue: 'Ex: https://tourninja.com/tour/xxx'
           })} required />
           </div>
           
           <div>
-            <Label htmlFor="tags">{t("Location Tags", {
-              defaultValue: "Location Tags"
+            <Label htmlFor="tags">{t('Location Tags', {
+              defaultValue: 'Location Tags'
             })}</Label>
             <div className="flex items-start gap-2">
               <div className="flex-grow">
-                <Input id="tagInput" value={tagInput} onChange={handleTagInputChange} onKeyDown={handleTagKeyDown} placeholder={t("Ex: Bangkok, Phuket, Koh Samui", {
-                defaultValue: "Ex: Bangkok, Phuket, Koh Samui"
+                <Input id="tagInput" value={tagInput} onChange={handleTagInputChange} onKeyDown={handleTagKeyDown} placeholder={t('Ex: Bangkok, Phuket, Koh Samui', {
+                defaultValue: 'Ex: Bangkok, Phuket, Koh Samui'
               })} />
               </div>
-              <Button type="button" onClick={addTag} variant="outline">{t('common.add')}</Button>
+              <Button type="button" onClick={addTag} variant="outline">{t('Add', {
+                defaultValue: 'Add'
+              })}</Button>
             </div>
             
             {formData.tags.length > 0 && <div className="flex flex-wrap gap-2 mt-2">
@@ -460,8 +468,8 @@ export default function TourCardForm({
           </div>
           
           <div>
-            <Label>{t("Photos1xe03", {
-              defaultValue: "Photos1xe03"
+            <Label>{t('Photos (1 \xE0 3) *', {
+              defaultValue: 'Photos (1 \xE0 3) *'
             })}</Label>
             <div className="mt-2 space-y-4">
               {previewUrls.length > 0 && <div className="grid grid-cols-3 gap-4">
@@ -470,8 +478,8 @@ export default function TourCardForm({
                       <button type="button" onClick={() => removeImage(index)} className="absolute top-2 right-2 bg-white bg-opacity-80 rounded-full p-1 hover:bg-opacity-100 transition-all">
                         <X className="h-4 w-4 text-[hsl(var(--destructive))]" />
                       </button>
-                      {index === 0 && <span className="absolute bottom-2 left-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded">{t("Photo principale", {
-                    defaultValue: "Photo principale"
+                      {index === 0 && <span className="absolute bottom-2 left-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded">{t('Photo principale', {
+                    defaultValue: 'Photo principale'
                   })}</span>}
                     </div>)}
                 </div>}
@@ -481,8 +489,8 @@ export default function TourCardForm({
                     <div className="flex flex-col items-center justify-center pt-5 pb-6">
                       <Upload className="w-8 h-8 mb-3 text-gray-400" />
                       <p className="mb-2 text-sm text-gray-500">
-                        <span className="font-semibold">{t("Cliquez pour ajouter", {
-                        defaultValue: "Cliquez pour ajouter"
+                        <span className="font-semibold">{t('Cliquez pour ajouter', {
+                        defaultValue: 'Cliquez pour ajouter'
                       })}</span> ou glissez-déposez
                       </p>
                       <p className="text-xs text-gray-500">

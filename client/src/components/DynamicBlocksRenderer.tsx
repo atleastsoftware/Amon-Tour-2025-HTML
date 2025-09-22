@@ -170,8 +170,8 @@ export default function DynamicBlocksRenderer({
               {block.title && <h2 className="text-3xl font-bold text-center mb-8">{block.title}</h2>}
               {block.subtitle && <p className="text-xl text-gray-600 text-center mb-8">{block.subtitle}</p>}
               <div className="max-w-2xl mx-auto bg-gray-100 rounded-lg p-8">
-                <p className="text-gray-600 text-center">{t("Formulaire personnalis\xE9", {
-                  defaultValue: "Formulaire personnalis\xE9"
+                <p className="text-gray-600 text-center">{t('Formulaire personnalis\xE9', {
+                  defaultValue: 'Formulaire personnalis\xE9'
                 })}</p>
               </div>
             </div>

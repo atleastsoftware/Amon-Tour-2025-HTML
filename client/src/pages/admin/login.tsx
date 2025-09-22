@@ -21,9 +21,8 @@ const loginSchema = z.object({
 });
 type LoginFormData = z.infer<typeof loginSchema>;
 export default function Login() {
-  const {
-    t
-  } = useTranslation();
+  const { t } = useTranslation();
+
   const [, setLocation] = useLocation();
   const {
     isAuthenticated
@@ -50,22 +49,22 @@ export default function Login() {
     try {
       await login.mutateAsync(data);
       toast({
-        title: t("Login successful", {
-          defaultValue: "Login successful"
+        title: t('Login successful', {
+          defaultValue: 'Login successful'
         }),
-        description: t("You are now logged into the admin dashboard.", {
-          defaultValue: "You are now logged into the admin dashboard."
+        description: t('You are now logged into the admin dashboard.', {
+          defaultValue: 'You are now logged into the admin dashboard.'
         }),
         variant: "default"
       });
       setLocation("/admin/dashboard");
     } catch (error) {
       toast({
-        title: t("Loginerror", {
-          defaultValue: "Loginerror"
+        title: t('Login error', {
+          defaultValue: 'Login error'
         }),
-        description: t("Incorrect username or password.", {
-          defaultValue: "Incorrect username or password."
+        description: t('Incorrect username or password.', {
+          defaultValue: 'Incorrect username or password.'
         }),
         variant: "destructive"
       });
@@ -74,25 +73,25 @@ export default function Login() {
   return <div className="min-h-screen bg-neutral-light flex flex-col items-center justify-center p-4">
       <Link href="/">
         <span className="mb-8 flex items-center cursor-pointer">
-          <span className="text-primary font-heading font-bold text-2xl">{t("Senthang", {
-            defaultValue: "Senthang"
+          <span className="text-primary font-heading font-bold text-2xl">{t('Senthang', {
+            defaultValue: 'Senthang'
           })}</span>
-          <span className="text-secondary font-accent text-2xl ml-1">{t("Siam", {
-            defaultValue: "Siam"
+          <span className="text-secondary font-accent text-2xl ml-1">{t('Siam', {
+            defaultValue: 'Siam'
           })}</span>
-          <span className="text-primary font-heading font-bold text-2xl ml-1">{t("Tour", {
-            defaultValue: "Tour"
+          <span className="text-primary font-heading font-bold text-2xl ml-1">{t('Tour', {
+            defaultValue: 'Tour'
           })}</span>
         </span>
       </Link>
       
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-heading text-center">{t("Admin Dashboard", {
-            defaultValue: "Admin Dashboard"
+          <CardTitle className="text-2xl font-heading text-center">{t('Admin Dashboard', {
+            defaultValue: 'Admin Dashboard'
           })}</CardTitle>
-          <CardDescription className="text-center">{t("Log in to manage your website", {
-            defaultValue: "Log in to manage your website"
+          <CardDescription className="text-center">{t('Log in to manage your website', {
+            defaultValue: 'Log in to manage your website'
           })}</CardDescription>
         </CardHeader>
         <CardContent>
@@ -101,12 +100,12 @@ export default function Login() {
               <FormField control={form.control} name="username" render={({
               field
             }) => <FormItem>
-                    <FormLabel>{t("Username", {
-                  defaultValue: "Username"
+                    <FormLabel>{t('Username', {
+                  defaultValue: 'Username'
                 })}</FormLabel>
                     <FormControl>
-                      <Input placeholder={t("Username", {
-                  defaultValue: "Username"
+                      <Input placeholder={t('Username', {
+                  defaultValue: 'Username'
                 })} {...field} />
                     </FormControl>
                     <FormMessage />
@@ -115,12 +114,12 @@ export default function Login() {
               <FormField control={form.control} name="password" render={({
               field
             }) => <FormItem>
-                    <FormLabel>{t("Password", {
-                  defaultValue: "Password"
+                    <FormLabel>{t('Password', {
+                  defaultValue: 'Password'
                 })}</FormLabel>
                     <FormControl>
-                      <Input type="password" placeholder={t("Password", {
-                  defaultValue: "Password"
+                      <Input type="password" placeholder={t('Password', {
+                  defaultValue: 'Password'
                 })} {...field} />
                     </FormControl>
                     <FormMessage />
@@ -135,8 +134,8 @@ export default function Login() {
         <CardFooter className="flex justify-center">
           <Button variant="link" asChild>
             <Link href="/">
-              <span>{t("Back to website", {
-                defaultValue: "Back to website"
+              <span>{t('Back to website', {
+                defaultValue: 'Back to website'
               })}</span>
             </Link>
           </Button>

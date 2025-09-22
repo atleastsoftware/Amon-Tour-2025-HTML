@@ -14,25 +14,26 @@ interface Language {
 }
 const languages: Language[] = [{
   code: "en",
-  name: t('languages.english'),
+  name: t('English', {
+    defaultValue: 'English'
+  }),
   flagUrl: "https://flagcdn.com/w40/gb.png"
 }, {
   code: "fr",
-  name: t("Franxe7ais", {
-    defaultValue: "Franxe7ais"
+  name: t('Fran\xE7ais', {
+    defaultValue: 'Fran\xE7ais'
   }),
   flagUrl: "https://flagcdn.com/w40/fr.png"
 }, {
   code: "es",
-  name: t("Espaxf1ol", {
-    defaultValue: "Espaxf1ol"
+  name: t('Espa\xF1ol', {
+    defaultValue: 'Espa\xF1ol'
   }),
   flagUrl: "https://flagcdn.com/w40/es.png"
 }];
 export default function GoogleTranslateWidget() {
-  const {
-    t
-  } = useTranslation();
+  const { t } = useTranslation();
+
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState<string>("en");
   const widgetRef = useRef<HTMLDivElement>(null);

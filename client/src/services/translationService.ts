@@ -457,15 +457,15 @@ const translations: Record<string, Translations> = {
       contact: "Contact"
     },
     hero: {
-      title: t("Your exclusive experiences", {
-        defaultValue: "Your exclusive experiences"
+      title: t('Your exclusive experiences', {
+        defaultValue: 'Your exclusive experiences'
       }),
-      subtitle: t("Inkrabi", {
-        defaultValue: "Inkrabi"
+      subtitle: t('in Krabi', {
+        defaultValue: 'in Krabi'
       }),
       thailand: "THAILAND",
-      description: t("Discover amazing places away from mass tourism in Krabi. And also Khao Sok, Koh Mook and many more destinations.", {
-        defaultValue: "Discover amazing places away from mass tourism in Krabi. And also Khao Sok, Koh Mook and many more destinations."
+      description: t('Discover amazing places away from mass tourism in Krabi. And also Khao Sok, Koh Mook and many more destinations.', {
+        defaultValue: 'Discover amazing places away from mass tourism in Krabi. And also Khao Sok, Koh Mook and many more destinations.'
       }),
       seeOffers: "See our offers",
       customTrip: "Custom your trip"
@@ -479,11 +479,11 @@ const translations: Record<string, Translations> = {
       bookNow: "Book now"
     },
     tours: {
-      title: t("Tours & Experiences", {
-        defaultValue: "Tours & Experiences"
+      title: t('Tours & Experiences', {
+        defaultValue: 'Tours & Experiences'
       }),
-      description: t("Explore our finest experiences in Krabi, all guaranteed off the beaten path: private and semi-private sea tours, unique land excursions (kayaking through mangroves, waterfalls, tropical jungle, centuries-old trees, temples, karst caves, natural pools), and exclusive 2-day / 1-night packages.", {
-        defaultValue: "Explore our finest experiences in Krabi, all guaranteed off the beaten path: private and semi-private sea tours, unique land excursions (kayaking through mangroves, waterfalls, tropical jungle, centuries-old trees, temples, karst caves, natural pools), and exclusive 2-day / 1-night packages."
+      description: t('Explore our finest experiences in Krabi, all guaranteed off the beaten path: private and semi-private sea tours, unique land excursions (kayaking through mangroves, waterfalls, tropical jungle, centuries-old trees, temples, karst caves, natural pools), and exclusive 2-day / 1-night packages.', {
+        defaultValue: 'Explore our finest experiences in Krabi, all guaranteed off the beaten path: private and semi-private sea tours, unique land excursions (kayaking through mangroves, waterfalls, tropical jungle, centuries-old trees, temples, karst caves, natural pools), and exclusive 2-day / 1-night packages.'
       }),
       duration: "Duration",
       participants: "Max participants",
@@ -559,11 +559,11 @@ const translations: Record<string, Translations> = {
       createYourJourney: "Create Your Journey"
     },
     cruise: {
-      title: t("Custom Quote Request", {
-        defaultValue: "Custom Quote Request"
+      title: t('Custom Quote Request', {
+        defaultValue: 'Custom Quote Request'
       }),
-      subtitle: t("Fill out the form below and we will contact you within 24 hours.", {
-        defaultValue: "Fill out the form below and we will contact you within 24 hours."
+      subtitle: t('Fill out the form below and we will contact you within 24 hours.', {
+        defaultValue: 'Fill out the form below and we will contact you within 24 hours.'
       }),
       fullName: "Full Name",
       email: "Email",
@@ -647,8 +647,8 @@ const translations: Record<string, Translations> = {
       notIncludedDescription: "Transfers (on request), national park fees (depending on the itinerary), beer, wine, spirits. Lunch and dinner (Thai cuisine): 500 Baht per person per meal. Please let us know your preferences and we will provision the boat accordingly."
     },
     customTour: {
-      title: t("Create Your Custom Tour", {
-        defaultValue: "Create Your Custom Tour"
+      title: t('Create Your Custom Tour', {
+        defaultValue: 'Create Your Custom Tour'
       }),
       subtitle: t('Tell us what you\'d like to discover, and we\'ll create your personalized itinerary.', {
         defaultValue: 'Tell us what you\'d like to discover, and we\'ll create your personalized itinerary.'
@@ -667,8 +667,8 @@ const translations: Record<string, Translations> = {
     },
     pageHeaders: {
       contact: {
-        title: t("Contact us", {
-          defaultValue: "Contact us"
+        title: t('Contact Us', {
+          defaultValue: 'Contact Us'
         }),
         subtitle: t('We\'re here to help you plan the perfect experience in Krabi.', {
           defaultValue: 'We\'re here to help you plan the perfect experience in Krabi.'
@@ -682,65 +682,69 @@ const translations: Record<string, Translations> = {
         line: "Line"
       },
       experiences: {
-        title: t("Discover Thailand Experiences", {
-          defaultValue: "Discover Thailand Experiences"
+        title: t('Discover Thailand Experiences', {
+          defaultValue: 'Discover Thailand Experiences'
         }),
-        subtitle: t("Immerse yourself in authentic Thai culture with our unique experiences", {
-          defaultValue: "Immerse yourself in authentic Thai culture with our unique experiences"
+        subtitle: t('Immerse yourself in authentic Thai culture with our unique experiences', {
+          defaultValue: 'Immerse yourself in authentic Thai culture with our unique experiences'
         }),
         searchPlaceholder: "Search experiences...",
         organizeDreamTrip: "Contact us to organize your dream trip to Thailand."
       },
       blog: {
-        title: t("Travelblog", {
-          defaultValue: "Travelblog"
+        title: t('Travel Blog', {
+          defaultValue: 'Travel Blog'
         }),
-        subtitle: t("Discover the best of Krabi through our travel guides, tips, and local insights.", {
-          defaultValue: "Discover the best of Krabi through our travel guides, tips, and local insights."
+        subtitle: t('Discover the best of Krabi through our travel guides, tips, and local insights.', {
+          defaultValue: 'Discover the best of Krabi through our travel guides, tips, and local insights.'
         })
       },
       tours: {
-        title: t("Our Experiences", {
-          defaultValue: "Our Experiences"
+        title: t('Our Experiences', {
+          defaultValue: 'Our Experiences'
         }),
-        subtitle: t("Discover the exceptional beauty of Krabi and southern Thailand.", {
-          defaultValue: "Discover the exceptional beauty of Krabi and southern Thailand."
+        subtitle: t('Discover the exceptional beauty of Krabi and southern Thailand.', {
+          defaultValue: 'Discover the exceptional beauty of Krabi and southern Thailand.'
         })
       },
       krabiCelebration: {
-        title: t('pages.krabiCelebration.title'),
-        subtitle: t("Unique Moments in Exceptional Settings", {
-          defaultValue: "Unique Moments in Exceptional Settings"
+        title: t('Krabi Celebration', {
+          defaultValue: 'Krabi Celebration'
+        }),
+        subtitle: t('Unique Moments in Exceptional Settings', {
+          defaultValue: 'Unique Moments in Exceptional Settings'
         })
       },
       becomePartner: {
-        title: t("Become Our Partner", {
-          defaultValue: "Become Our Partner"
+        title: t('Become Our Partner', {
+          defaultValue: 'Become Our Partner'
         }),
-        subtitle: t("Join our network of trusted local partners", {
-          defaultValue: "Join our network of trusted local partners"
+        subtitle: t('Join our network of trusted local partners', {
+          defaultValue: 'Join our network of trusted local partners'
         })
       },
       groupCorporate: {
-        title: t("Group & Corporate Travel", {
-          defaultValue: "Group & Corporate Travel"
+        title: t('Group & Corporate Travel', {
+          defaultValue: 'Group & Corporate Travel'
         }),
-        subtitle: t("Tailored Experiences in Krabi", {
-          defaultValue: "Tailored Experiences in Krabi"
+        subtitle: t('Tailored Experiences in Krabi', {
+          defaultValue: 'Tailored Experiences in Krabi'
         })
       },
       villasKrabi: {
-        title: t('pages.villasKrabi.title'),
-        subtitle: t("Curated Villa Selection", {
-          defaultValue: "Curated Villa Selection"
+        title: t('Villas in Krabi', {
+          defaultValue: 'Villas in Krabi'
+        }),
+        subtitle: t('Curated Villa Selection', {
+          defaultValue: 'Curated Villa Selection'
         })
       },
       brochure: {
-        title: t("Our Brochure", {
-          defaultValue: "Our Brochure"
+        title: t('Our Brochure', {
+          defaultValue: 'Our Brochure'
         }),
-        subtitle: t("Amon Tour Travel Guide", {
-          defaultValue: "Amon Tour Travel Guide"
+        subtitle: t('Amon Tour Travel Guide', {
+          defaultValue: 'Amon Tour Travel Guide'
         })
       }
     },
@@ -812,11 +816,11 @@ const translations: Record<string, Translations> = {
       welcomeBar: "Welcome to Amon Tour! Discover authentic Thailand experiences 🇹🇭"
     },
     cookies: {
-      title: t("We use cookies", {
-        defaultValue: "We use cookies"
+      title: t('We use cookies', {
+        defaultValue: 'We use cookies'
       }),
-      description: t("We use cookies to enhance your experience and analyze our traffic. Please choose your preferences:", {
-        defaultValue: "We use cookies to enhance your experience and analyze our traffic. Please choose your preferences:"
+      description: t('We use cookies to enhance your experience and analyze site usage. By continuing to use this site, you agree to our use of cookies.', {
+        defaultValue: 'We use cookies to enhance your experience and analyze site usage. By continuing to use this site, you agree to our use of cookies.'
       }),
       acceptAll: "Accept All",
       rejectAll: "Reject All",
@@ -824,11 +828,11 @@ const translations: Record<string, Translations> = {
       privacyNotice: "Privacy Notice"
     },
     blog: {
-      title: t("Travelblog", {
-        defaultValue: "Travelblog"
+      title: t('Travel Blog', {
+        defaultValue: 'Travel Blog'
       }),
-      subtitle: t("Discover Thailand through your passions and interests. Choose from our curated categories or explore by destination.", {
-        defaultValue: "Discover Thailand through your passions and interests. Choose from our curated categories or explore by destination."
+      subtitle: t('Discover Thailand through our expert insights and travel guides', {
+        defaultValue: 'Discover Thailand through our expert insights and travel guides'
       }),
       tags: "Tags",
       categories: "Categories",
@@ -906,11 +910,11 @@ const translations: Record<string, Translations> = {
       contact: "Contact"
     },
     hero: {
-      title: t("Vosexpxe9riencesexcl", {
-        defaultValue: "Vosexpxe9riencesexcl"
+      title: t('Vos exp\xE9riences exclusives', {
+        defaultValue: 'Vos exp\xE9riences exclusives'
       }),
-      subtitle: t("Xe0krabi", {
-        defaultValue: "Xe0krabi"
+      subtitle: t('\xE0 Krabi', {
+        defaultValue: '\xE0 Krabi'
       }),
       thailand: "THAÏLANDE",
       description: t('D\xE9couvrez des lieux extraordinaires loin du tourisme de masse \xE0 Krabi. Ainsi que Khao Sok, Koh Mook et bien d\'autres destinations.', {
@@ -928,11 +932,11 @@ const translations: Record<string, Translations> = {
       bookNow: "Réserver"
     },
     tours: {
-      title: t("Toursexpxe9riences", {
-        defaultValue: "Toursexpxe9riences"
+      title: t('Tours & Exp\xE9riences', {
+        defaultValue: 'Tours & Exp\xE9riences'
       }),
-      description: t("Naviguez parmi nos plus belles exp\xE9riences \xE0 Krabi, toutes garanties hors du tourisme de masse : croisi\xE8res en mer priv\xE9es et semi-priv\xE9es, excursions terrestres uniques (kayak dans la mangrove, cascades, jungle tropicale, arbres centenaires, temples, grottes karstiques, piscines naturelles) et formules exclusives de 2 jours / 1 nuit.", {
-        defaultValue: "Naviguez parmi nos plus belles exp\xE9riences \xE0 Krabi, toutes garanties hors du tourisme de masse : croisi\xE8res en mer priv\xE9es et semi-priv\xE9es, excursions terrestres uniques (kayak dans la mangrove, cascades, jungle tropicale, arbres centenaires, temples, grottes karstiques, piscines naturelles) et formules exclusives de 2 jours / 1 nuit."
+      description: t('Naviguez parmi nos plus belles exp\xE9riences \xE0 Krabi, toutes garanties hors du tourisme de masse : croisi\xE8res en mer priv\xE9es et semi-priv\xE9es, excursions terrestres uniques (kayak dans la mangrove, cascades, jungle tropicale, arbres centenaires, temples, grottes karstiques, piscines naturelles) et formules exclusives de 2 jours / 1 nuit.', {
+        defaultValue: 'Naviguez parmi nos plus belles exp\xE9riences \xE0 Krabi, toutes garanties hors du tourisme de masse : croisi\xE8res en mer priv\xE9es et semi-priv\xE9es, excursions terrestres uniques (kayak dans la mangrove, cascades, jungle tropicale, arbres centenaires, temples, grottes karstiques, piscines naturelles) et formules exclusives de 2 jours / 1 nuit.'
       }),
       duration: "Durée",
       participants: "Participants max",
@@ -1008,11 +1012,11 @@ const translations: Record<string, Translations> = {
       createYourJourney: "Créez Votre Voyage"
     },
     cruise: {
-      title: t("Demande de Devis Personnalis\xE9", {
-        defaultValue: "Demande de Devis Personnalis\xE9"
+      title: t('Demande de Devis Personnalis\xE9', {
+        defaultValue: 'Demande de Devis Personnalis\xE9'
       }),
-      subtitle: t("Remplissez le formulaire ci-dessous et nous vous contacterons sous 24 heures.", {
-        defaultValue: "Remplissez le formulaire ci-dessous et nous vous contacterons sous 24 heures."
+      subtitle: t('Remplissez le formulaire ci-dessous et nous vous contacterons sous 24 heures.', {
+        defaultValue: 'Remplissez le formulaire ci-dessous et nous vous contacterons sous 24 heures.'
       }),
       fullName: "Nom complet",
       email: "Email",
@@ -1096,11 +1100,11 @@ const translations: Record<string, Translations> = {
       notIncludedDescription: "Transferts (sur demande), frais de parcs nationaux (selon l'itinéraire), bière, vin, spiritueux. Déjeuner et dîner (cuisine thaï) : 500 Baht par personne par repas. Merci de nous faire connaître vos préférences et nous approvisionnerons le bateau en conséquence."
     },
     customTour: {
-      title: t("Crxe9ezvotrevoyagesu", {
-        defaultValue: "Crxe9ezvotrevoyagesu"
+      title: t('Cr\xE9ez Votre Voyage Sur Mesure', {
+        defaultValue: 'Cr\xE9ez Votre Voyage Sur Mesure'
       }),
-      subtitle: t("Dites-nous ce que vous aimeriez d\xE9couvrir, et nous cr\xE9erons votre itin\xE9raire personnalis\xE9.", {
-        defaultValue: "Dites-nous ce que vous aimeriez d\xE9couvrir, et nous cr\xE9erons votre itin\xE9raire personnalis\xE9."
+      subtitle: t('Dites-nous ce que vous aimeriez d\xE9couvrir, et nous cr\xE9erons votre itin\xE9raire personnalis\xE9.', {
+        defaultValue: 'Dites-nous ce que vous aimeriez d\xE9couvrir, et nous cr\xE9erons votre itin\xE9raire personnalis\xE9.'
       }),
       seoTitle: "Créez Votre Expérience Thaïlandaise Sur Mesure",
       seoDescription: "Concevez votre propre voyage personnalisé en Thaïlande. Dites-nous vos préférences et nos experts locaux créeront un itinéraire sur mesure rien que pour vous.",
@@ -1116,11 +1120,11 @@ const translations: Record<string, Translations> = {
     },
     pageHeaders: {
       contact: {
-        title: t("Nous Contacter", {
-          defaultValue: "Nous Contacter"
+        title: t('Nous Contacter', {
+          defaultValue: 'Nous Contacter'
         }),
-        subtitle: t("Noussommeslxe0pourvo", {
-          defaultValue: "Noussommeslxe0pourvo"
+        subtitle: t('Nous sommes l\xE0 pour vous aider \xE0 planifier la parfaite exp\xE9rience \xE0 Krabi.', {
+          defaultValue: 'Nous sommes l\xE0 pour vous aider \xE0 planifier la parfaite exp\xE9rience \xE0 Krabi.'
         }),
         getInTouch: "Prenez Contact",
         readyToExplore: "Prêt à explorer Krabi ? Contactez-nous par n'importe laquelle des méthodes ci-dessous. Notre équipe amicale est là pour répondre à vos questions et vous aider à planifier une expérience inoubliable.",
@@ -1131,67 +1135,69 @@ const translations: Record<string, Translations> = {
         line: "Line"
       },
       experiences: {
-        title: t("Dxe9couvrezlesexpxe9", {
-          defaultValue: "Dxe9couvrezlesexpxe9"
+        title: t('D\xE9couvrez les Exp\xE9riences de Tha\xEFlande', {
+          defaultValue: 'D\xE9couvrez les Exp\xE9riences de Tha\xEFlande'
         }),
-        subtitle: t("Immergez-vous dans la culture tha\xEF authentique avec nos exp\xE9riences uniques", {
-          defaultValue: "Immergez-vous dans la culture tha\xEF authentique avec nos exp\xE9riences uniques"
+        subtitle: t('Immergez-vous dans la culture tha\xEF authentique avec nos exp\xE9riences uniques', {
+          defaultValue: 'Immergez-vous dans la culture tha\xEF authentique avec nos exp\xE9riences uniques'
         }),
         searchPlaceholder: "Rechercher des expériences...",
         organizeDreamTrip: "Contactez-nous pour organiser le voyage de vos rêves en Thaïlande."
       },
       blog: {
-        title: t("Blog de Voyage", {
-          defaultValue: "Blog de Voyage"
+        title: t('Blog de Voyage', {
+          defaultValue: 'Blog de Voyage'
         }),
-        subtitle: t("Dxe9couvrezlemeilleu", {
-          defaultValue: "Dxe9couvrezlemeilleu"
+        subtitle: t('D\xE9couvrez le meilleur de Krabi \xE0 travers nos guides de voyage, conseils et aper\xE7us locaux.', {
+          defaultValue: 'D\xE9couvrez le meilleur de Krabi \xE0 travers nos guides de voyage, conseils et aper\xE7us locaux.'
         })
       },
       tours: {
-        title: t("Nosexpxe9riences", {
-          defaultValue: "Nosexpxe9riences"
+        title: t('Nos Exp\xE9riences', {
+          defaultValue: 'Nos Exp\xE9riences'
         }),
-        subtitle: t("Dxe9couvrezlabeautxe", {
-          defaultValue: "Dxe9couvrezlabeautxe"
+        subtitle: t('D\xE9couvrez la beaut\xE9 exceptionnelle de Krabi et du sud de la Tha\xEFlande.', {
+          defaultValue: 'D\xE9couvrez la beaut\xE9 exceptionnelle de Krabi et du sud de la Tha\xEFlande.'
         })
       },
       krabiCelebration: {
-        title: t('pages.krabiCelebration.title'),
-        subtitle: t("Moments Uniques dans des Cadres Exceptionnels", {
-          defaultValue: "Moments Uniques dans des Cadres Exceptionnels"
+        title: t('Krabi Celebration', {
+          defaultValue: 'Krabi Celebration'
+        }),
+        subtitle: t('Moments Uniques dans des Cadres Exceptionnels', {
+          defaultValue: 'Moments Uniques dans des Cadres Exceptionnels'
         })
       },
       becomePartner: {
-        title: t("Devenez Notre Partenaire", {
-          defaultValue: "Devenez Notre Partenaire"
+        title: t('Devenez Notre Partenaire', {
+          defaultValue: 'Devenez Notre Partenaire'
         }),
-        subtitle: t("Rejoigneznotrerxe9se", {
-          defaultValue: "Rejoigneznotrerxe9se"
+        subtitle: t('Rejoignez notre r\xE9seau de partenaires locaux de confiance', {
+          defaultValue: 'Rejoignez notre r\xE9seau de partenaires locaux de confiance'
         })
       },
       groupCorporate: {
         title: t('Voyages de Groupe et d\'Entreprise', {
           defaultValue: 'Voyages de Groupe et d\'Entreprise'
         }),
-        subtitle: t("Expxe9riencessurmesu", {
-          defaultValue: "Expxe9riencessurmesu"
+        subtitle: t('Exp\xE9riences Sur Mesure \xE0 Krabi', {
+          defaultValue: 'Exp\xE9riences Sur Mesure \xE0 Krabi'
         })
       },
       villasKrabi: {
-        title: t("Villasxe0krabi", {
-          defaultValue: "Villasxe0krabi"
+        title: t('Villas \xE0 Krabi', {
+          defaultValue: 'Villas \xE0 Krabi'
         }),
-        subtitle: t("Sxe9lectiondevillasc", {
-          defaultValue: "Sxe9lectiondevillasc"
+        subtitle: t('S\xE9lection de Villas Choisies', {
+          defaultValue: 'S\xE9lection de Villas Choisies'
         })
       },
       brochure: {
-        title: t("Notre Brochure", {
-          defaultValue: "Notre Brochure"
+        title: t('Notre Brochure', {
+          defaultValue: 'Notre Brochure'
         }),
-        subtitle: t("Guide de Voyage Amon Tour", {
-          defaultValue: "Guide de Voyage Amon Tour"
+        subtitle: t('Guide de Voyage Amon Tour', {
+          defaultValue: 'Guide de Voyage Amon Tour'
         })
       }
     },
@@ -1263,8 +1269,8 @@ const translations: Record<string, Translations> = {
       welcomeBar: "Bienvenue chez Amon Tour ! Découvrez des expériences authentiques en Thaïlande 🇹🇭"
     },
     cookies: {
-      title: t("Nous utilisons des cookies", {
-        defaultValue: "Nous utilisons des cookies"
+      title: t('Nous utilisons des cookies', {
+        defaultValue: 'Nous utilisons des cookies'
       }),
       description: t('Nous utilisons des cookies pour am\xE9liorer votre exp\xE9rience et analyser l\'utilisation du site. En continuant \xE0 utiliser ce site, vous acceptez notre utilisation des cookies.', {
         defaultValue: 'Nous utilisons des cookies pour am\xE9liorer votre exp\xE9rience et analyser l\'utilisation du site. En continuant \xE0 utiliser ce site, vous acceptez notre utilisation des cookies.'
@@ -1275,8 +1281,8 @@ const translations: Record<string, Translations> = {
       privacyNotice: "Notice de Confidentialité"
     },
     blog: {
-      title: t("Blog de Voyage", {
-        defaultValue: "Blog de Voyage"
+      title: t('Blog de Voyage', {
+        defaultValue: 'Blog de Voyage'
       }),
       subtitle: t('D\xE9couvrez la Tha\xEFlande \xE0 travers nos conseils d\'experts et guides de voyage', {
         defaultValue: 'D\xE9couvrez la Tha\xEFlande \xE0 travers nos conseils d\'experts et guides de voyage'
@@ -1357,15 +1363,15 @@ const translations: Record<string, Translations> = {
       contact: "Contacto"
     },
     hero: {
-      title: t("Tus experiencias exclusivas", {
-        defaultValue: "Tus experiencias exclusivas"
+      title: t('Tus experiencias exclusivas', {
+        defaultValue: 'Tus experiencias exclusivas'
       }),
-      subtitle: t("Enkrabi", {
-        defaultValue: "Enkrabi"
+      subtitle: t('en Krabi', {
+        defaultValue: 'en Krabi'
       }),
       thailand: "TAILANDIA",
-      description: t("Descubre lugares incre\xEDbles lejos del turismo masivo en Krabi. Y tambi\xE9n Khao Sok, Koh Mook y muchos m\xE1s destinos.", {
-        defaultValue: "Descubre lugares incre\xEDbles lejos del turismo masivo en Krabi. Y tambi\xE9n Khao Sok, Koh Mook y muchos m\xE1s destinos."
+      description: t('Descubre lugares incre\xEDbles lejos del turismo masivo en Krabi. Y tambi\xE9n Khao Sok, Koh Mook y muchos m\xE1s destinos.', {
+        defaultValue: 'Descubre lugares incre\xEDbles lejos del turismo masivo en Krabi. Y tambi\xE9n Khao Sok, Koh Mook y muchos m\xE1s destinos.'
       }),
       seeOffers: "Ver nuestras ofertas",
       customTrip: "Personaliza tu viaje"
@@ -1379,11 +1385,11 @@ const translations: Record<string, Translations> = {
       bookNow: "Reservar"
     },
     tours: {
-      title: t("Tours y Experiencias", {
-        defaultValue: "Tours y Experiencias"
+      title: t('Tours y Experiencias', {
+        defaultValue: 'Tours y Experiencias'
       }),
-      description: t("Explora nuestras mejores experiencias en Krabi, todas garantizadas fuera del camino trillado: excursiones privadas y semiprivadas por el mar, excursiones terrestres \xFAnicas (kayak por manglares, cascadas, selva tropical, \xE1rboles centenarios, templos, cuevas k\xE1rsticas, piscinas naturales), y paquetes exclusivos de 2 d\xEDas / 1 noche.", {
-        defaultValue: "Explora nuestras mejores experiencias en Krabi, todas garantizadas fuera del camino trillado: excursiones privadas y semiprivadas por el mar, excursiones terrestres \xFAnicas (kayak por manglares, cascadas, selva tropical, \xE1rboles centenarios, templos, cuevas k\xE1rsticas, piscinas naturales), y paquetes exclusivos de 2 d\xEDas / 1 noche."
+      description: t('Explora nuestras mejores experiencias en Krabi, todas garantizadas fuera del camino trillado: excursiones privadas y semiprivadas por el mar, excursiones terrestres \xFAnicas (kayak por manglares, cascadas, selva tropical, \xE1rboles centenarios, templos, cuevas k\xE1rsticas, piscinas naturales), y paquetes exclusivos de 2 d\xEDas / 1 noche.', {
+        defaultValue: 'Explora nuestras mejores experiencias en Krabi, todas garantizadas fuera del camino trillado: excursiones privadas y semiprivadas por el mar, excursiones terrestres \xFAnicas (kayak por manglares, cascadas, selva tropical, \xE1rboles centenarios, templos, cuevas k\xE1rsticas, piscinas naturales), y paquetes exclusivos de 2 d\xEDas / 1 noche.'
       }),
       duration: "Duración",
       participants: "Participantes máx",
@@ -1459,11 +1465,11 @@ const translations: Record<string, Translations> = {
       createYourJourney: "Crea Tu Viaje"
     },
     cruise: {
-      title: t("Solicituddecotizacix", {
-        defaultValue: "Solicituddecotizacix"
+      title: t('Solicitud de Cotizaci\xF3n Personalizada', {
+        defaultValue: 'Solicitud de Cotizaci\xF3n Personalizada'
       }),
-      subtitle: t("Complete el formulario a continuaci\xF3n y nos pondremos en contacto con usted en 24 horas.", {
-        defaultValue: "Complete el formulario a continuaci\xF3n y nos pondremos en contacto con usted en 24 horas."
+      subtitle: t('Complete el formulario a continuaci\xF3n y nos pondremos en contacto con usted en 24 horas.', {
+        defaultValue: 'Complete el formulario a continuaci\xF3n y nos pondremos en contacto con usted en 24 horas.'
       }),
       fullName: "Nombre completo",
       email: "Email",
@@ -1547,11 +1553,11 @@ const translations: Record<string, Translations> = {
       notIncludedDescription: "Traslados (bajo pedido), tarifas de parques nacionales (según el itinerario), cerveza, vino, licores. Almuerzo y cena (cocina tailandesa): 500 Baht por persona por comida. Por favor háganos saber sus preferencias y abasteceremos el barco en consecuencia."
     },
     customTour: {
-      title: t("Cree Su Tour Personalizado", {
-        defaultValue: "Cree Su Tour Personalizado"
+      title: t('Cree Su Tour Personalizado', {
+        defaultValue: 'Cree Su Tour Personalizado'
       }),
-      subtitle: t("Dxedganosquxe9legust", {
-        defaultValue: "Dxedganosquxe9legust"
+      subtitle: t('D\xEDganos qu\xE9 le gustar\xEDa descubrir, y crearemos su itinerario personalizado.', {
+        defaultValue: 'D\xEDganos qu\xE9 le gustar\xEDa descubrir, y crearemos su itinerario personalizado.'
       }),
       seoTitle: "Cree Su Experiencia Tailandesa Personalizada",
       seoDescription: "Diseñe su propio tour personalizado por Tailandia. Díganos sus preferencias y nuestros expertos locales crearán un itinerario personalizado solo para usted.",
@@ -1567,11 +1573,11 @@ const translations: Record<string, Translations> = {
     },
     pageHeaders: {
       contact: {
-        title: t("Contxe1ctanos", {
-          defaultValue: "Contxe1ctanos"
+        title: t('Cont\xE1ctanos', {
+          defaultValue: 'Cont\xE1ctanos'
         }),
-        subtitle: t("Estamosaquxedparaayu", {
-          defaultValue: "Estamosaquxedparaayu"
+        subtitle: t('Estamos aqu\xED para ayudarte a planificar la experiencia perfecta en Krabi.', {
+          defaultValue: 'Estamos aqu\xED para ayudarte a planificar la experiencia perfecta en Krabi.'
         }),
         getInTouch: "Ponte en Contacto",
         readyToExplore: "¿Listo para explorar Krabi? Contáctanos por cualquiera de los métodos a continuación. Nuestro equipo amigable está aquí para responder tus preguntas y ayudarte a planificar una experiencia inolvidable.",
@@ -1582,65 +1588,67 @@ const translations: Record<string, Translations> = {
         line: "Line"
       },
       experiences: {
-        title: t("Descubre las Experiencias de Tailandia", {
-          defaultValue: "Descubre las Experiencias de Tailandia"
+        title: t('Descubre las Experiencias de Tailandia', {
+          defaultValue: 'Descubre las Experiencias de Tailandia'
         }),
-        subtitle: t("Sumxe9rgeteenlacultu", {
-          defaultValue: "Sumxe9rgeteenlacultu"
+        subtitle: t('Sum\xE9rgete en la cultura tailandesa aut\xE9ntica con nuestras experiencias \xFAnicas', {
+          defaultValue: 'Sum\xE9rgete en la cultura tailandesa aut\xE9ntica con nuestras experiencias \xFAnicas'
         }),
         searchPlaceholder: "Buscar experiencias...",
         organizeDreamTrip: "Contáctanos para organizar el viaje de tus sueños a Tailandia."
       },
       blog: {
-        title: t("Blog de Viajes", {
-          defaultValue: "Blog de Viajes"
+        title: t('Blog de Viajes', {
+          defaultValue: 'Blog de Viajes'
         }),
-        subtitle: t("Descubre lo mejor de Krabi a trav\xE9s de nuestras gu\xEDas de viaje, consejos y perspectivas locales.", {
-          defaultValue: "Descubre lo mejor de Krabi a trav\xE9s de nuestras gu\xEDas de viaje, consejos y perspectivas locales."
+        subtitle: t('Descubre lo mejor de Krabi a trav\xE9s de nuestras gu\xEDas de viaje, consejos y perspectivas locales.', {
+          defaultValue: 'Descubre lo mejor de Krabi a trav\xE9s de nuestras gu\xEDas de viaje, consejos y perspectivas locales.'
         })
       },
       tours: {
-        title: t("Nuestras Experiencias", {
-          defaultValue: "Nuestras Experiencias"
+        title: t('Nuestras Experiencias', {
+          defaultValue: 'Nuestras Experiencias'
         }),
-        subtitle: t("Descubre la belleza excepcional de Krabi y el sur de Tailandia.", {
-          defaultValue: "Descubre la belleza excepcional de Krabi y el sur de Tailandia."
+        subtitle: t('Descubre la belleza excepcional de Krabi y el sur de Tailandia.', {
+          defaultValue: 'Descubre la belleza excepcional de Krabi y el sur de Tailandia.'
         })
       },
       krabiCelebration: {
-        title: t('pages.krabiCelebration.title'),
-        subtitle: t("Momentosxdanicosenen", {
-          defaultValue: "Momentosxdanicosenen"
+        title: t('Krabi Celebration', {
+          defaultValue: 'Krabi Celebration'
+        }),
+        subtitle: t('Momentos \xDAnicos en Entornos Excepcionales', {
+          defaultValue: 'Momentos \xDAnicos en Entornos Excepcionales'
         })
       },
       becomePartner: {
-        title: t("Convixe9rteteennuest", {
-          defaultValue: "Convixe9rteteennuest"
+        title: t('Convi\xE9rtete en Nuestro Socio', {
+          defaultValue: 'Convi\xE9rtete en Nuestro Socio'
         }),
         subtitle: "Únete a nuestra red de socios locales de confianza"
       },
       groupCorporate: {
-        title: t("Viajes de Grupo y Corporativos", {
-          defaultValue: "Viajes de Grupo y Corporativos"
+        title: t('Viajes de Grupo y Corporativos', {
+          defaultValue: 'Viajes de Grupo y Corporativos'
         }),
-        subtitle: t("Experiencias Personalizadas en Krabi", {
-          defaultValue: "Experiencias Personalizadas en Krabi"
+        subtitle: t('Experiencias Personalizadas en Krabi', {
+          defaultValue: 'Experiencias Personalizadas en Krabi'
         })
       },
       villasKrabi: {
-        title: t("Villas en Krabi", {
-          defaultValue: "Villas en Krabi"
+        title: t('Villas en Krabi', {
+          defaultValue: 'Villas en Krabi'
         }),
-        subtitle: t("Seleccixf3ncuradadev", {
-          defaultValue: "Seleccixf3ncuradadev"
+        subtitle: t('Selecci\xF3n Curada de Villas', {
+          defaultValue: 'Selecci\xF3n Curada de Villas'
         })
       },
       brochure: {
-        title: t("Nuestro Folleto", {
-          defaultValue: "Nuestro Folleto"
+        title: t('Nuestro Folleto', {
+          defaultValue: 'Nuestro Folleto'
         }),
-        subtitle: t("Guxedadeviajeamontou", {
-          defaultValue: "Guxedadeviajeamontou"
+        subtitle: t('Gu\xEDa de Viaje Amon Tour', {
+          defaultValue: 'Gu\xEDa de Viaje Amon Tour'
         })
       }
     },
@@ -1712,11 +1720,11 @@ const translations: Record<string, Translations> = {
       welcomeBar: "¡Bienvenido a Amon Tour! Descubre experiencias auténticas en Tailandia 🇹🇭"
     },
     cookies: {
-      title: t("Usamos cookies", {
-        defaultValue: "Usamos cookies"
+      title: t('Usamos cookies', {
+        defaultValue: 'Usamos cookies'
       }),
-      description: t("Utilizamos cookies para mejorar tu experiencia y analizar el uso del sitio. Al continuar usando este sitio, aceptas nuestro uso de cookies.", {
-        defaultValue: "Utilizamos cookies para mejorar tu experiencia y analizar el uso del sitio. Al continuar usando este sitio, aceptas nuestro uso de cookies."
+      description: t('Utilizamos cookies para mejorar tu experiencia y analizar el uso del sitio. Al continuar usando este sitio, aceptas nuestro uso de cookies.', {
+        defaultValue: 'Utilizamos cookies para mejorar tu experiencia y analizar el uso del sitio. Al continuar usando este sitio, aceptas nuestro uso de cookies.'
       }),
       acceptAll: "Aceptar Todo",
       rejectAll: "Rechazar Todo",
@@ -1724,11 +1732,11 @@ const translations: Record<string, Translations> = {
       privacyNotice: "Aviso de Privacidad"
     },
     blog: {
-      title: t("Blog de Viajes", {
-        defaultValue: "Blog de Viajes"
+      title: t('Blog de Viajes', {
+        defaultValue: 'Blog de Viajes'
       }),
-      subtitle: t("Descubre Tailandia a trav\xE9s de nuestros consejos expertos y gu\xEDas de viaje", {
-        defaultValue: "Descubre Tailandia a trav\xE9s de nuestros consejos expertos y gu\xEDas de viaje"
+      subtitle: t('Descubre Tailandia a trav\xE9s de nuestros consejos expertos y gu\xEDas de viaje', {
+        defaultValue: 'Descubre Tailandia a trav\xE9s de nuestros consejos expertos y gu\xEDas de viaje'
       }),
       tags: "Tags",
       categories: "Categorías",

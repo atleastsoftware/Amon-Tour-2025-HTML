@@ -15,9 +15,8 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Link } from "wouter";
 import { Edit, Trash2, LogOut, Plus, ChevronLeft, Eye } from "lucide-react";
 export default function Dashboard() {
-  const {
-    t
-  } = useTranslation();
+  const { t } = useTranslation();
+
   const [, setLocation] = useLocation();
   const {
     isAuthenticated,
@@ -66,8 +65,8 @@ export default function Dashboard() {
     try {
       await apiRequest("DELETE", `/api/tours/${tourToDelete.id}`);
       toast({
-        title: t("Tour deleted", {
-          defaultValue: "Tour deleted"
+        title: t('Tour deleted', {
+          defaultValue: 'Tour deleted'
         }),
         description: `"${tourToDelete.title}" has been successfully deleted.`,
         variant: "default"
@@ -79,11 +78,11 @@ export default function Dashboard() {
       setTourToDelete(null);
     } catch (error) {
       toast({
-        title: t("Error", {
-          defaultValue: "Error"
+        title: t('Error', {
+          defaultValue: 'Error'
         }),
-        description: t("A problem occurred while deleting the tour.", {
-          defaultValue: "A problem occurred while deleting the tour."
+        description: t('A problem occurred while deleting the tour.', {
+          defaultValue: 'A problem occurred while deleting the tour.'
         }),
         variant: "destructive"
       });
@@ -103,31 +102,31 @@ export default function Dashboard() {
           <div className="flex items-center space-x-4">
             <Link href="/">
               <div className="flex items-center cursor-pointer">
-                <span className="text-white font-heading font-bold text-xl">{t("Senthang", {
-                  defaultValue: "Senthang"
+                <span className="text-white font-heading font-bold text-xl">{t('Senthang', {
+                  defaultValue: 'Senthang'
                 })}</span>
-                <span className="text-secondary font-accent text-xl ml-1">{t("Siam", {
-                  defaultValue: "Siam"
+                <span className="text-secondary font-accent text-xl ml-1">{t('Siam', {
+                  defaultValue: 'Siam'
                 })}</span>
-                <span className="text-white font-heading font-bold text-xl ml-1">{t("Tour", {
-                  defaultValue: "Tour"
+                <span className="text-white font-heading font-bold text-xl ml-1">{t('Tour', {
+                  defaultValue: 'Tour'
                 })}</span>
               </div>
             </Link>
-            <div className="hidden md:block text-sm px-3 py-1 bg-primary-dark rounded">{t("Admin Dashboard", {
-              defaultValue: "Admin Dashboard"
+            <div className="hidden md:block text-sm px-3 py-1 bg-primary-dark rounded">{t('Admin Dashboard', {
+              defaultValue: 'Admin Dashboard'
             })}</div>
           </div>
           
           <div className="flex items-center space-x-4">
             <Button variant="outline" size="sm" className="text-white border-white hover:bg-primary-dark" onClick={handleLogout}>
-              <LogOut className="mr-2 h-4 w-4" />{t("Logout", {
-              defaultValue: "Logout"
+              <LogOut className="mr-2 h-4 w-4" />{t('Logout', {
+              defaultValue: 'Logout'
             })}</Button>
             <Link href="/">
               <span className="text-white hover:text-gray-200 transition-colors cursor-pointer">
-                <ChevronLeft className="mr-2 h-4 w-4 inline" />{t("Back to website", {
-                defaultValue: "Back to website"
+                <ChevronLeft className="mr-2 h-4 w-4 inline" />{t('Back to website', {
+                defaultValue: 'Back to website'
               })}</span>
             </Link>
           </div>
@@ -136,22 +135,22 @@ export default function Dashboard() {
       
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="font-heading font-bold text-3xl mb-2">{t("Dashboard", {
-            defaultValue: "Dashboard"
+          <h1 className="font-heading font-bold text-3xl mb-2">{t('Dashboard', {
+            defaultValue: 'Dashboard'
           })}</h1>
-          <p className="text-gray-600">{t("Manage your website and view customer requests.", {
-            defaultValue: "Manage your website and view customer requests."
+          <p className="text-gray-600">{t('Manage your website and view customer requests.', {
+            defaultValue: 'Manage your website and view customer requests.'
           })}</p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-xl">{t("Tours", {
-                defaultValue: "Tours"
+              <CardTitle className="text-xl">{t('Tours', {
+                defaultValue: 'Tours'
               })}</CardTitle>
-              <CardDescription>{t("Total number of tours", {
-                defaultValue: "Total number of tours"
+              <CardDescription>{t('Total number of tours', {
+                defaultValue: 'Total number of tours'
               })}</CardDescription>
             </CardHeader>
             <CardContent>
@@ -161,11 +160,11 @@ export default function Dashboard() {
           
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-xl">{t("Custom Requests", {
-                defaultValue: "Custom Requests"
+              <CardTitle className="text-xl">{t('Custom Requests', {
+                defaultValue: 'Custom Requests'
               })}</CardTitle>
-              <CardDescription>{t("Total number of requests", {
-                defaultValue: "Total number of requests"
+              <CardDescription>{t('Total number of requests', {
+                defaultValue: 'Total number of requests'
               })}</CardDescription>
             </CardHeader>
             <CardContent>
@@ -175,11 +174,11 @@ export default function Dashboard() {
           
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-xl">{t("Messages", {
-                defaultValue: "Messages"
+              <CardTitle className="text-xl">{t('Messages', {
+                defaultValue: 'Messages'
               })}</CardTitle>
-              <CardDescription>{t("Total number of messages", {
-                defaultValue: "Total number of messages"
+              <CardDescription>{t('Total number of messages', {
+                defaultValue: 'Total number of messages'
               })}</CardDescription>
             </CardHeader>
             <CardContent>
@@ -190,17 +189,17 @@ export default function Dashboard() {
         
         <Tabs defaultValue="tours">
           <TabsList className="mb-6">
-            <TabsTrigger value="tours">{t("Tours", {
-              defaultValue: "Tours"
+            <TabsTrigger value="tours">{t('Tours', {
+              defaultValue: 'Tours'
             })}</TabsTrigger>
-            <TabsTrigger value="requests">{t("Custom Requests", {
-              defaultValue: "Custom Requests"
+            <TabsTrigger value="requests">{t('Custom Requests', {
+              defaultValue: 'Custom Requests'
             })}</TabsTrigger>
-            <TabsTrigger value="messages">{t("Messages", {
-              defaultValue: "Messages"
+            <TabsTrigger value="messages">{t('Messages', {
+              defaultValue: 'Messages'
             })}</TabsTrigger>
-            <TabsTrigger value="reservations">{t("Reservations", {
-              defaultValue: "Reservations"
+            <TabsTrigger value="reservations">{t('Reservations', {
+              defaultValue: 'Reservations'
             })}</TabsTrigger>
           </TabsList>
           
@@ -208,14 +207,14 @@ export default function Dashboard() {
             <Card>
               <CardHeader>
                 <div className="flex justify-between items-center">
-                  <CardTitle>{t("Tour Management", {
-                    defaultValue: "Tour Management"
+                  <CardTitle>{t('Tour Management', {
+                    defaultValue: 'Tour Management'
                   })}</CardTitle>
                   <Link href="/admin/tour-form">
                     <span>
                       <Button>
-                        <Plus className="mr-2 h-4 w-4" />{t("Addtour", {
-                        defaultValue: "Addtour"
+                        <Plus className="mr-2 h-4 w-4" />{t('Add Tour', {
+                        defaultValue: 'Add Tour'
                       })}</Button>
                     </span>
                   </Link>
@@ -228,20 +227,20 @@ export default function Dashboard() {
                     <Table>
                       <TableHeader>
                         <TableRow>
-                          <TableHead>{t("Title", {
-                          defaultValue: "Title"
+                          <TableHead>{t('Title', {
+                          defaultValue: 'Title'
                         })}</TableHead>
-                          <TableHead>{t("Duration", {
-                          defaultValue: "Duration"
+                          <TableHead>{t('Duration', {
+                          defaultValue: 'Duration'
                         })}</TableHead>
-                          <TableHead>{t("Price", {
-                          defaultValue: "Price"
+                          <TableHead>{t('Price', {
+                          defaultValue: 'Price'
                         })}</TableHead>
-                          <TableHead>{t("Featured", {
-                          defaultValue: "Featured"
+                          <TableHead>{t('Featured', {
+                          defaultValue: 'Featured'
                         })}</TableHead>
-                          <TableHead className="text-right">{t("Actions", {
-                          defaultValue: "Actions"
+                          <TableHead className="text-right">{t('Actions', {
+                          defaultValue: 'Actions'
                         })}</TableHead>
                         </TableRow>
                       </TableHeader>
@@ -272,12 +271,12 @@ export default function Dashboard() {
                       </TableBody>
                     </Table>
                   </div> : <div className="text-center py-8">
-                    <p className="text-gray-500">{t("No tours available.", {
-                    defaultValue: "No tours available."
+                    <p className="text-gray-500">{t('No tours available.', {
+                    defaultValue: 'No tours available.'
                   })}</p>
                     <Link href="/admin/tour-form">
-                      <span className="text-primary hover:underline mt-2 inline-block cursor-pointer">{t("Add your first tour", {
-                      defaultValue: "Add your first tour"
+                      <span className="text-primary hover:underline mt-2 inline-block cursor-pointer">{t('Add your first tour', {
+                      defaultValue: 'Add your first tour'
                     })}</span>
                     </Link>
                   </div>}
@@ -288,8 +287,8 @@ export default function Dashboard() {
           <TabsContent value="requests">
             <Card>
               <CardHeader>
-                <CardTitle>{t("Custom Tour Requests", {
-                  defaultValue: "Custom Tour Requests"
+                <CardTitle>{t('Custom Tour Requests', {
+                  defaultValue: 'Custom Tour Requests'
                 })}</CardTitle>
               </CardHeader>
               <CardContent>
@@ -299,20 +298,20 @@ export default function Dashboard() {
                     <Table>
                       <TableHeader>
                         <TableRow>
-                          <TableHead>{t("Name", {
-                          defaultValue: "Name"
+                          <TableHead>{t('Name', {
+                          defaultValue: 'Name'
                         })}</TableHead>
-                          <TableHead>{t("Email", {
-                          defaultValue: "Email"
+                          <TableHead>{t('Email', {
+                          defaultValue: 'Email'
                         })}</TableHead>
-                          <TableHead>{t("Travelers", {
-                          defaultValue: "Travelers"
+                          <TableHead>{t('Travelers', {
+                          defaultValue: 'Travelers'
                         })}</TableHead>
-                          <TableHead>{t("Duration", {
-                          defaultValue: "Duration"
+                          <TableHead>{t('Duration', {
+                          defaultValue: 'Duration'
                         })}</TableHead>
-                          <TableHead>{t("Date", {
-                          defaultValue: "Date"
+                          <TableHead>{t('Date', {
+                          defaultValue: 'Date'
                         })}</TableHead>
                         </TableRow>
                       </TableHeader>
@@ -329,8 +328,8 @@ export default function Dashboard() {
                       </TableBody>
                     </Table>
                   </div> : <div className="text-center py-8">
-                    <p className="text-gray-500">{t("No custom tour requests available.", {
-                    defaultValue: "No custom tour requests available."
+                    <p className="text-gray-500">{t('No custom tour requests available.', {
+                    defaultValue: 'No custom tour requests available.'
                   })}</p>
                   </div>}
               </CardContent>
@@ -340,8 +339,8 @@ export default function Dashboard() {
           <TabsContent value="messages">
             <Card>
               <CardHeader>
-                <CardTitle>{t("Contact Messages", {
-                  defaultValue: "Contact Messages"
+                <CardTitle>{t('Contact Messages', {
+                  defaultValue: 'Contact Messages'
                 })}</CardTitle>
               </CardHeader>
               <CardContent>
@@ -351,17 +350,17 @@ export default function Dashboard() {
                     <Table>
                       <TableHeader>
                         <TableRow>
-                          <TableHead>{t("Name", {
-                          defaultValue: "Name"
+                          <TableHead>{t('Name', {
+                          defaultValue: 'Name'
                         })}</TableHead>
-                          <TableHead>{t("Email", {
-                          defaultValue: "Email"
+                          <TableHead>{t('Email', {
+                          defaultValue: 'Email'
                         })}</TableHead>
-                          <TableHead>{t("Subject", {
-                          defaultValue: "Subject"
+                          <TableHead>{t('Subject', {
+                          defaultValue: 'Subject'
                         })}</TableHead>
-                          <TableHead>{t("Date", {
-                          defaultValue: "Date"
+                          <TableHead>{t('Date', {
+                          defaultValue: 'Date'
                         })}</TableHead>
                         </TableRow>
                       </TableHeader>
@@ -377,8 +376,8 @@ export default function Dashboard() {
                       </TableBody>
                     </Table>
                   </div> : <div className="text-center py-8">
-                    <p className="text-gray-500">{t("No contact messages available.", {
-                    defaultValue: "No contact messages available."
+                    <p className="text-gray-500">{t('No contact messages available.', {
+                    defaultValue: 'No contact messages available.'
                   })}</p>
                   </div>}
               </CardContent>
@@ -388,36 +387,36 @@ export default function Dashboard() {
           <TabsContent value="reservations">
             <Card>
               <CardHeader>
-                <CardTitle>{t("Reservation Management", {
-                  defaultValue: "Reservation Management"
+                <CardTitle>{t('Reservation Management', {
+                  defaultValue: 'Reservation Management'
                 })}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   <div className="bg-white p-6 rounded-md shadow-sm">
-                    <h3 className="font-heading font-semibold text-xl mb-4">{t("Tour Availability", {
-                      defaultValue: "Tour Availability"
+                    <h3 className="font-heading font-semibold text-xl mb-4">{t('Tour Availability', {
+                      defaultValue: 'Tour Availability'
                     })}</h3>
-                    <p className="text-gray-600 mb-4">{t("Manage the availability dates, capacity, and pricing for your tours. Allow customers to book specific dates.", {
-                      defaultValue: "Manage the availability dates, capacity, and pricing for your tours. Allow customers to book specific dates."
+                    <p className="text-gray-600 mb-4">{t('Manage the availability dates, capacity, and pricing for your tours. Allow customers to book specific dates.', {
+                      defaultValue: 'Manage the availability dates, capacity, and pricing for your tours. Allow customers to book specific dates.'
                     })}</p>
                     <Link href="/admin/availability-manager">
-                      <Button>{t("Manage Availabilities", {
-                        defaultValue: "Manage Availabilities"
+                      <Button>{t('Manage Availabilities', {
+                        defaultValue: 'Manage Availabilities'
                       })}</Button>
                     </Link>
                   </div>
                   
                   <div className="bg-white p-6 rounded-md shadow-sm">
-                    <h3 className="font-heading font-semibold text-xl mb-4">{t("Reservations", {
-                      defaultValue: "Reservations"
+                    <h3 className="font-heading font-semibold text-xl mb-4">{t('Reservations', {
+                      defaultValue: 'Reservations'
                     })}</h3>
-                    <p className="text-gray-600 mb-4">{t("View and manage customer reservations. Confirm bookings, update status, and view payment information.", {
-                      defaultValue: "View and manage customer reservations. Confirm bookings, update status, and view payment information."
+                    <p className="text-gray-600 mb-4">{t('View and manage customer reservations. Confirm bookings, update status, and view payment information.', {
+                      defaultValue: 'View and manage customer reservations. Confirm bookings, update status, and view payment information.'
                     })}</p>
                     <Link href="/admin/reservations-manager">
-                      <Button>{t("Manage Reservations", {
-                        defaultValue: "Manage Reservations"
+                      <Button>{t('Manage Reservations', {
+                        defaultValue: 'Manage Reservations'
                       })}</Button>
                     </Link>
                   </div>
@@ -432,8 +431,8 @@ export default function Dashboard() {
       <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>{t("Confirm Deletion", {
-              defaultValue: "Confirm Deletion"
+            <DialogTitle>{t('Confirm Deletion', {
+              defaultValue: 'Confirm Deletion'
             })}</DialogTitle>
             <DialogDescription>{t('Are you sure you want to delete the tour "', {
               defaultValue: 'Are you sure you want to delete the tour "'
@@ -442,11 +441,11 @@ export default function Dashboard() {
             })}</DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setDeleteDialogOpen(false)}>{t("Cancel", {
-              defaultValue: "Cancel"
+            <Button variant="outline" onClick={() => setDeleteDialogOpen(false)}>{t('Cancel', {
+              defaultValue: 'Cancel'
             })}</Button>
-            <Button variant="destructive" onClick={deleteTour}>{t("Delete", {
-              defaultValue: "Delete"
+            <Button variant="destructive" onClick={deleteTour}>{t('Delete', {
+              defaultValue: 'Delete'
             })}</Button>
           </DialogFooter>
         </DialogContent>

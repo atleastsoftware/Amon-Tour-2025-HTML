@@ -21,9 +21,8 @@ interface FormData {
   description: string;
 }
 export default function GroupCorporate() {
-  const {
-    t
-  } = useTranslation();
+  const { t } = useTranslation();
+
   const {
     toast
   } = useToast();
@@ -110,8 +109,8 @@ export default function GroupCorporate() {
         <section className="relative h-[60vh] overflow-hidden">
           <div className="absolute inset-0 bg-black/40 z-10"></div>
           <div className="absolute inset-0 z-0">
-            <img src="/uploads/tours/tour-1745996624172-231261635.jpeg" alt={t("Group activities in Krabi", {
-            defaultValue: "Group activities in Krabi"
+            <img src="/uploads/tours/tour-1745996624172-231261635.jpeg" alt={t('Group activities in Krabi', {
+            defaultValue: 'Group activities in Krabi'
           })} className="w-full h-full object-cover" />
           </div>
           <div className="container mx-auto px-4 relative z-20 h-full flex flex-col justify-center items-center text-center text-white">
@@ -125,11 +124,11 @@ export default function GroupCorporate() {
             duration: 0.8
           }}>
               <Users className="w-16 h-16 text-secondary mx-auto mb-6" />
-              <h1 className="font-heading font-bold text-4xl md:text-5xl mb-6">{t("Group & Corporate Travel", {
-                defaultValue: "Group & Corporate Travel"
+              <h1 className="font-heading font-bold text-4xl md:text-5xl mb-6">{t('Group & Corporate Travel', {
+                defaultValue: 'Group & Corporate Travel'
               })}</h1>
-              <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-8">{t("Tailored group experiences in Krabi for corporate retreats, team building, educational trips, and special events.", {
-                defaultValue: "Tailored group experiences in Krabi for corporate retreats, team building, educational trips, and special events."
+              <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-8">{t('Tailored group experiences in Krabi for corporate retreats, team building, educational trips, and special events.', {
+                defaultValue: 'Tailored group experiences in Krabi for corporate retreats, team building, educational trips, and special events.'
               })}</p>
               <Button size="lg" className="bg-primary hover:bg-primary/90 text-white" onClick={() => {
               const formSection = document.getElementById('group-form');
@@ -138,8 +137,8 @@ export default function GroupCorporate() {
                   behavior: 'smooth'
                 });
               }
-            }}>{t("Plan Your Group Event", {
-                defaultValue: "Plan Your Group Event"
+            }}>{t('Plan Your Group Event', {
+                defaultValue: 'Plan Your Group Event'
               })}</Button>
             </motion.div>
           </div>
@@ -159,8 +158,8 @@ export default function GroupCorporate() {
           }} transition={{
             duration: 0.6
           }}>
-              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-6">{t("Tailored group experiences in Krabi for corporate retreats, team building, educational trips, and special events.", {
-                defaultValue: "Tailored group experiences in Krabi for corporate retreats, team building, educational trips, and special events."
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-6">{t('Tailored Group Experiences in Krabi', {
+                defaultValue: 'Tailored Group Experiences in Krabi'
               })}</h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
               <p className="text-gray-600 text-lg leading-relaxed">{t('Whether you\'re planning a corporate retreat, educational trip, team-building event, or special celebration, \n                our experienced team creates memorable experiences that bring groups together in Thailand\'s most stunning destination. \n                From logistics coordination to on-site support, we handle every detail so you can focus on your objectives.', {
@@ -184,36 +183,36 @@ export default function GroupCorporate() {
           }} transition={{
             duration: 0.6
           }}>
-              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">{t("What We Offer", {
-                defaultValue: "What We Offer"
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">{t('What We Offer', {
+                defaultValue: 'What We Offer'
               })}</h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-6"></div>
-              <p className="text-gray-600 max-w-2xl mx-auto">{t("Comprehensive group travel solutions designed to exceed your expectations and achieve your goals.", {
-                defaultValue: "Comprehensive group travel solutions designed to exceed your expectations and achieve your goals."
+              <p className="text-gray-600 max-w-2xl mx-auto">{t('Comprehensive group travel solutions designed to exceed your expectations and achieve your goals.', {
+                defaultValue: 'Comprehensive group travel solutions designed to exceed your expectations and achieve your goals.'
               })}</p>
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[{
               icon: <Calendar className="w-8 h-8" />,
-              title: t("Complete logistics", {
-                defaultValue: "Complete logistics"
+              title: t('Complete Logistics', {
+                defaultValue: 'Complete Logistics'
               }),
-              description: t("Transportation, accommodation, dining, and activity coordination from arrival to departure.", {
-                defaultValue: "Transportation, accommodation, dining, and activity coordination from arrival to departure."
+              description: t('Transportation, accommodation, dining, and activity coordination from arrival to departure.', {
+                defaultValue: 'Transportation, accommodation, dining, and activity coordination from arrival to departure.'
               })
             }, {
               icon: <Users className="w-8 h-8" />,
-              title: t("On-Site Support", {
-                defaultValue: "On-Site Support"
+              title: t('On-Site Support', {
+                defaultValue: 'On-Site Support'
               }),
-              description: t("Dedicated local team members to ensure smooth execution and handle any requirements.", {
-                defaultValue: "Dedicated local team members to ensure smooth execution and handle any requirements."
+              description: t('Dedicated local team members to ensure smooth execution and handle any requirements.', {
+                defaultValue: 'Dedicated local team members to ensure smooth execution and handle any requirements.'
               })
             }, {
               icon: <Target className="w-8 h-8" />,
-              title: t("Custom Planning", {
-                defaultValue: "Custom Planning"
+              title: t('Custom Planning', {
+                defaultValue: 'Custom Planning'
               }),
               description: t('Tailored itineraries designed around your group\'s objectives, interests, and budget.', {
                 defaultValue: 'Tailored itineraries designed around your group\'s objectives, interests, and budget.'
@@ -254,43 +253,43 @@ export default function GroupCorporate() {
           }} transition={{
             duration: 0.6
           }}>
-              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">{t("Sample Group Activities", {
-                defaultValue: "Sample Group Activities"
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">{t('Sample Group Activities', {
+                defaultValue: 'Sample Group Activities'
               })}</h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-6"></div>
-              <p className="text-gray-600 max-w-2xl mx-auto">{t("Choose from our curated activities or let us design unique experiences for your group.", {
-                defaultValue: "Choose from our curated activities or let us design unique experiences for your group."
+              <p className="text-gray-600 max-w-2xl mx-auto">{t('Choose from our curated activities or let us design unique experiences for your group.', {
+                defaultValue: 'Choose from our curated activities or let us design unique experiences for your group.'
               })}</p>
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[{
-              title: t("Private Boat Tour", {
-                defaultValue: "Private Boat Tour"
+              title: t('Private Boat Tour', {
+                defaultValue: 'Private Boat Tour'
               }),
-              description: t("Exclusive island-hopping experience with snorkeling, beach time, and Thai lunch", {
-                defaultValue: "Exclusive island-hopping experience with snorkeling, beach time, and Thai lunch"
+              description: t('Exclusive island-hopping experience with snorkeling, beach time, and Thai lunch', {
+                defaultValue: 'Exclusive island-hopping experience with snorkeling, beach time, and Thai lunch'
               }),
               highlights: ["4 Islands Tour", "Private longtail boat", "Snorkeling equipment", "Traditional lunch"]
             }, {
-              title: t("Team Building Adventure", {
-                defaultValue: "Team Building Adventure"
+              title: t('Team Building Adventure', {
+                defaultValue: 'Team Building Adventure'
               }),
-              description: t("Challenging outdoor activities designed to strengthen team bonds and communication", {
-                defaultValue: "Challenging outdoor activities designed to strengthen team bonds and communication"
+              description: t('Challenging outdoor activities designed to strengthen team bonds and communication', {
+                defaultValue: 'Challenging outdoor activities designed to strengthen team bonds and communication'
               }),
               highlights: ["Rock climbing", "Kayak challenges", "Problem-solving games", "Group reflection"]
             }, {
-              title: t("Thai Cooking Class", {
-                defaultValue: "Thai Cooking Class"
+              title: t('Thai Cooking Class', {
+                defaultValue: 'Thai Cooking Class'
               }),
-              description: t("Interactive culinary experience learning authentic Thai recipes together", {
-                defaultValue: "Interactive culinary experience learning authentic Thai recipes together"
+              description: t('Interactive culinary experience learning authentic Thai recipes together', {
+                defaultValue: 'Interactive culinary experience learning authentic Thai recipes together'
               }),
               highlights: ["Market visit", "Hands-on cooking", "Recipe booklet", "Group dining"]
             }, {
-              title: t("Wellness Retreat", {
-                defaultValue: "Wellness Retreat"
+              title: t('Wellness Retreat', {
+                defaultValue: 'Wellness Retreat'
               }),
               description: t('Relaxation and mindfulness activities in Krabi\'s natural setting', {
                 defaultValue: 'Relaxation and mindfulness activities in Krabi\'s natural setting'
@@ -335,68 +334,68 @@ export default function GroupCorporate() {
           }} transition={{
             duration: 0.6
           }}>
-              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">{t("Whoweserve", {
-                defaultValue: "Whoweserve"
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">{t('Who We Serve', {
+                defaultValue: 'Who We Serve'
               })}</h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-6"></div>
-              <p className="text-gray-600 max-w-2xl mx-auto">{t("We specialize in creating meaningful experiences for diverse groups with varying objectives and requirements.", {
-                defaultValue: "We specialize in creating meaningful experiences for diverse groups with varying objectives and requirements."
+              <p className="text-gray-600 max-w-2xl mx-auto">{t('We specialize in creating meaningful experiences for diverse groups with varying objectives and requirements.', {
+                defaultValue: 'We specialize in creating meaningful experiences for diverse groups with varying objectives and requirements.'
               })}</p>
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[{
               icon: <Building className="w-12 h-12" />,
-              title: t("Corporate Groups", {
-                defaultValue: "Corporate Groups"
+              title: t('Corporate Groups', {
+                defaultValue: 'Corporate Groups'
               }),
-              description: t("Executive retreats, team building, company incentive trips, and leadership development programs", {
-                defaultValue: "Executive retreats, team building, company incentive trips, and leadership development programs"
+              description: t('Executive retreats, team building, company incentive trips, and leadership development programs', {
+                defaultValue: 'Executive retreats, team building, company incentive trips, and leadership development programs'
               }),
               size: "10-100+ participants"
             }, {
               icon: <GraduationCap className="w-12 h-12" />,
-              title: t("Educational Trips", {
-                defaultValue: "Educational Trips"
+              title: t('Educational Trips', {
+                defaultValue: 'Educational Trips'
               }),
-              description: t("Student groups, university programs, cultural exchanges, and educational tours", {
-                defaultValue: "Student groups, university programs, cultural exchanges, and educational tours"
+              description: t('Student groups, university programs, cultural exchanges, and educational tours', {
+                defaultValue: 'Student groups, university programs, cultural exchanges, and educational tours'
               }),
               size: "15-50 students"
             }, {
               icon: <Users className="w-12 h-12" />,
-              title: t("Special Interest Groups", {
-                defaultValue: "Special Interest Groups"
+              title: t('Special Interest Groups', {
+                defaultValue: 'Special Interest Groups'
               }),
-              description: t("Wedding parties, yoga retreats, photography tours, and celebration events", {
-                defaultValue: "Wedding parties, yoga retreats, photography tours, and celebration events"
+              description: t('Wedding parties, yoga retreats, photography tours, and celebration events', {
+                defaultValue: 'Wedding parties, yoga retreats, photography tours, and celebration events'
               }),
               size: "8-30 participants"
             }, {
               icon: <Award className="w-12 h-12" />,
-              title: t("Conferences & Seminars", {
-                defaultValue: "Conferences & Seminars"
+              title: t('Conferences & Seminars', {
+                defaultValue: 'Conferences & Seminars'
               }),
-              description: t("Business conferences, workshops, training sessions, and professional meetings", {
-                defaultValue: "Business conferences, workshops, training sessions, and professional meetings"
+              description: t('Business conferences, workshops, training sessions, and professional meetings', {
+                defaultValue: 'Business conferences, workshops, training sessions, and professional meetings'
               }),
               size: "20-200+ attendees"
             }, {
               icon: <Target className="w-12 h-12" />,
-              title: t("Wellness Groups", {
-                defaultValue: "Wellness Groups"
+              title: t('Wellness Groups', {
+                defaultValue: 'Wellness Groups'
               }),
-              description: t("Health and wellness retreats, fitness groups, mindfulness programs, and spa experiences", {
-                defaultValue: "Health and wellness retreats, fitness groups, mindfulness programs, and spa experiences"
+              description: t('Health and wellness retreats, fitness groups, mindfulness programs, and spa experiences', {
+                defaultValue: 'Health and wellness retreats, fitness groups, mindfulness programs, and spa experiences'
               }),
               size: "6-25 participants"
             }, {
               icon: <Calendar className="w-12 h-12" />,
-              title: t("Social Clubs", {
-                defaultValue: "Social Clubs"
+              title: t('Social Clubs', {
+                defaultValue: 'Social Clubs'
               }),
-              description: t("Travel clubs, hobby groups, family reunions, and friend gatherings", {
-                defaultValue: "Travel clubs, hobby groups, family reunions, and friend gatherings"
+              description: t('Travel clubs, hobby groups, family reunions, and friend gatherings', {
+                defaultValue: 'Travel clubs, hobby groups, family reunions, and friend gatherings'
               }),
               size: "8-40 people"
             }].map((audience, index) => <motion.div key={index} className="bg-white p-6 rounded-lg shadow-md" initial={{
@@ -439,8 +438,8 @@ export default function GroupCorporate() {
             duration: 0.6
           }}>
               <div className="text-center mb-8">
-                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">{t("Plan Your Group Experience", {
-                  defaultValue: "Plan Your Group Experience"
+                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">{t('Plan Your Group Experience', {
+                  defaultValue: 'Plan Your Group Experience'
                 })}</h2>
                 <div className="w-20 h-1 bg-secondary mx-auto mb-6"></div>
                 <p className="text-gray-600">{t('Tell us about your group and objectives, and we\'ll create a customized proposal for your Krabi experience.', {
@@ -451,16 +450,16 @@ export default function GroupCorporate() {
               <form onSubmit={handleSubmit} className="bg-neutral-50 p-8 rounded-lg shadow-md space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="contactName">{t("Contact Name *", {
-                      defaultValue: "Contact Name *"
+                    <Label htmlFor="contactName">{t('Contact Name *', {
+                      defaultValue: 'Contact Name *'
                     })}</Label>
-                    <Input id="contactName" name="contactName" value={formData.contactName} onChange={handleInputChange} placeholder={t("Your full name", {
-                    defaultValue: "Your full name"
+                    <Input id="contactName" name="contactName" value={formData.contactName} onChange={handleInputChange} placeholder={t('Your full name', {
+                    defaultValue: 'Your full name'
                   })} required />
                   </div>
                   <div>
-                    <Label htmlFor="email">{t("Email address", {
-                      defaultValue: "Email address"
+                    <Label htmlFor="email">{t('Email Address *', {
+                      defaultValue: 'Email Address *'
                     })}</Label>
                     <Input id="email" name="email" type="email" value={formData.email} onChange={handleInputChange} placeholder="your@email.com" required />
                   </div>
@@ -468,57 +467,57 @@ export default function GroupCorporate() {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="companyName">{t("Company/Organization *", {
-                      defaultValue: "Company/Organization *"
+                    <Label htmlFor="companyName">{t('Company/Organization *', {
+                      defaultValue: 'Company/Organization *'
                     })}</Label>
-                    <Input id="companyName" name="companyName" value={formData.companyName} onChange={handleInputChange} placeholder={t("Your company or organization name", {
-                    defaultValue: "Your company or organization name"
+                    <Input id="companyName" name="companyName" value={formData.companyName} onChange={handleInputChange} placeholder={t('Your company or organization name', {
+                    defaultValue: 'Your company or organization name'
                   })} required />
                   </div>
                   <div>
-                    <Label htmlFor="phone">{t("Phone number", {
-                      defaultValue: "Phone number"
+                    <Label htmlFor="phone">{t('Phone Number', {
+                      defaultValue: 'Phone Number'
                     })}</Label>
-                    <Input id="phone" name="phone" type="tel" value={formData.phone} onChange={handleInputChange} placeholder={t("+66 XXXXXXXXX", {
-                    defaultValue: "+66 XXXXXXXXX"
+                    <Input id="phone" name="phone" type="tel" value={formData.phone} onChange={handleInputChange} placeholder={t('+66 XX XXX XXXX', {
+                    defaultValue: '+66 XX XXX XXXX'
                   })} />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="groupSize">{t("Number of People *", {
-                      defaultValue: "Number of People *"
+                    <Label htmlFor="groupSize">{t('Number of People *', {
+                      defaultValue: 'Number of People *'
                     })}</Label>
-                    <Input id="groupSize" name="groupSize" type="number" value={formData.groupSize} onChange={handleInputChange} placeholder={t("Approximate group size", {
-                    defaultValue: "Approximate group size"
+                    <Input id="groupSize" name="groupSize" type="number" value={formData.groupSize} onChange={handleInputChange} placeholder={t('Approximate group size', {
+                    defaultValue: 'Approximate group size'
                   })} required />
                   </div>
                   <div>
-                    <Label htmlFor="travelDates">{t("Preferred Travel Dates", {
-                      defaultValue: "Preferred Travel Dates"
+                    <Label htmlFor="travelDates">{t('Preferred Travel Dates', {
+                      defaultValue: 'Preferred Travel Dates'
                     })}</Label>
-                    <Input id="travelDates" name="travelDates" value={formData.travelDates} onChange={handleInputChange} placeholder={t("e.g., March 2024 or flexible", {
-                    defaultValue: "e.g., March 2024 or flexible"
+                    <Input id="travelDates" name="travelDates" value={formData.travelDates} onChange={handleInputChange} placeholder={t('e.g., March 2024 or flexible', {
+                    defaultValue: 'e.g., March 2024 or flexible'
                   })} />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="budget">{t("Budget Range", {
-                      defaultValue: "Budget Range"
+                    <Label htmlFor="budget">{t('Budget Range', {
+                      defaultValue: 'Budget Range'
                     })}</Label>
-                    <Input id="budget" name="budget" value={formData.budget} onChange={handleInputChange} placeholder={t("e.g., 50,000 - 100,000 THB", {
-                    defaultValue: "e.g., 50,000 - 100,000 THB"
+                    <Input id="budget" name="budget" value={formData.budget} onChange={handleInputChange} placeholder={t('e.g., 50,000 - 100,000 THB', {
+                    defaultValue: 'e.g., 50,000 - 100,000 THB'
                   })} />
                   </div>
                   <div></div>
                 </div>
 
                 <div>
-                  <Label htmlFor="description">{t("Group Objectives & Requirements *", {
-                    defaultValue: "Group Objectives & Requirements *"
+                  <Label htmlFor="description">{t('Group Objectives & Requirements *', {
+                    defaultValue: 'Group Objectives & Requirements *'
                   })}</Label>
                   <Textarea id="description" name="description" value={formData.description} onChange={handleInputChange} placeholder={t('Describe your group\'s goals, interests, special requirements, preferred activities, and any specific needs...', {
                   defaultValue: 'Describe your group\'s goals, interests, special requirements, preferred activities, and any specific needs...'

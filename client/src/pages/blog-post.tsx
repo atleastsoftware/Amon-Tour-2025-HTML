@@ -36,8 +36,8 @@ interface BlogPost {
 const popularToursData = {
   'phi-phi': {
     id: '_LkIo_9vyF',
-    title: "Koh Phi Phi & Ao Nang's local islands",
-    description: "Full-day excursion to the paradisiacal Phi Phi islands and Ao Nang's local islands. Discover white sand beaches, crystal-clear waters and breathtaking landscapes.",
+    title: 'Koh Phi Phi & Ao Nang\'s local islands',
+    description: 'Full-day excursion to the paradisiacal Phi Phi islands and Ao Nang\'s local islands. Discover white sand beaches, crystal-clear waters and breathtaking landscapes.',
     duration: "1 day",
     price: 2500,
     currency: "THB",
@@ -45,48 +45,48 @@ const popularToursData = {
   },
   'railay': {
     id: '8avSq2JCG8',
-    title: "Railay & Ao Nang's local islands",
-    description: "Explore the magnificent Railay Beach, accessible only by boat, and Ao Nang's local islands. Perfect for rock climbing, relaxation and discovery.",
+    title: 'Railay & Ao Nang\'s local islands',
+    description: 'Explore the magnificent Railay Beach, accessible only by boat, and Ao Nang\'s local islands. Perfect for rock climbing, relaxation and discovery.',
     duration: "1 day",
     price: 2500,
     currency: "THB",
     tourNinjaUrl: "https://www.tourninja.io/book/8avSq2JCG8"
   },
-  'phang-nga': {
-    id: 't1k3AxM19a',
-    title: "Phang Nga Bay: Koh Kudu and Koh Hong",
-    description: "Discover the breathtaking beauty of Phang Nga Bay with its limestone karsts, crystal-clear waters and hidden lagoons.",
+  'hong-island': {
+    id: '9Pw3VgOKha',
+    title: 'Koh Hong Archipelago',
+    description: 'Discover the Koh Hong archipelago with its hidden emerald lagoons, white sand beaches and spectacular rock formations. An unforgettable experience.',
     duration: "1 day",
     price: 2500,
     currency: "THB",
-    tourNinjaUrl: "https://www.tourninja.io/book/t1k3AxM19a"
+    tourNinjaUrl: "https://www.tourninja.io/book/9Pw3VgOKha"
   },
-  'krabi-waterfall': {
-    id: '-Yzd7eCHa0',
-    title: "Krabi: Primary Forest and Waterfall",
-    description: "Explore Krabi's primary forest and discover magnificent waterfalls in an authentic natural setting.",
+  'four-islands': {
+    id: 'gH5kL9mN2p',
+    title: '4 Islands Tour - Krabi\'s Must-Do Excursion',
+    description: 'Visit the famous 4 islands: Chicken Island, Tup Island, Poda Island, and Phra Nang Cave Beach. Perfect introduction to Krabi\'s natural beauty.',
     duration: "1 day",
-    price: 2500,
+    price: 1800,
     currency: "THB",
-    tourNinjaUrl: "https://www.tourninja.io/book/-Yzd7eCHa0"
+    tourNinjaUrl: "https://www.tourninja.io/book/gH5kL9mN2p"
   },
-  'thalane': {
-    id: 'CeNxYxqbXq',
-    title: "Thalane - Mangrove kayaking & natural pools",
-    description: "Kayak through mangroves and discover natural pools in Thalane, one of Krabi's best-kept secrets.",
+  'sunset-plankton': {
+    id: 'IGdQFwdJK8',
+    title: 'Koh Hong & Ao Nang\'s local islands Sunset and Plankton',
+    description: 'Magical experience combining sunset over Ao Nang islands and bioluminescent plankton observation at night. Unique and romantic moment.',
     duration: "1 day",
     price: 2500,
     currency: "THB",
-    tourNinjaUrl: "https://www.tourninja.io/book/CeNxYxqbXq"
+    tourNinjaUrl: "https://www.tourninja.io/book/IGdQFwdJK8"
   },
-  'ao-luk': {
-    id: 'Bh9zKvN-QO',
-    title: "Ao Luk - Temple, Cave and Jungle",
-    description: "Explore Ao Luk's temples, caves and jungle for an authentic cultural and natural experience.",
+  'catamaran': {
+    id: 'Wmx1GfDdXL',
+    title: 'Catamaran day trip - Ao Nang\'s local islands',
+    description: 'Luxurious catamaran cruise to Ao Nang\'s local islands. A premium experience with comfort and elegance.',
     duration: "1 day",
-    price: 2500,
+    price: 3500,
     currency: "THB",
-    tourNinjaUrl: "https://www.tourninja.io/book/Bh9zKvN-QO"
+    tourNinjaUrl: "https://www.tourninja.io/book/Wmx1GfDdXL"
   }
 };
 
@@ -144,9 +144,8 @@ const getRelatedTours = (slug: string) => {
   return tourKeys.map(key => popularToursData[key as keyof typeof popularToursData]).filter(Boolean);
 };
 export default function BlogPostPage() {
-  const {
-    t
-  } = useTranslation();
+  const { t } = useTranslation();
+
   const [, params] = useRoute("/blog/:slug");
   const {
     data: post,
@@ -242,14 +241,16 @@ export default function BlogPostPage() {
         <Header />
         <div className="bg-gray-50 flex items-center justify-center">
           <div className="text-center">
-            <h1 className="text-4xl font-bold text-gray-800 mb-4">{t("Article Not Found", {
-              defaultValue: "Article Not Found"
+            <h1 className="text-4xl font-bold text-gray-800 mb-4">{t('Article Not Found', {
+              defaultValue: 'Article Not Found'
             })}</h1>
-            <p className="text-gray-600 mb-8">{""}</p>
+            <p className="text-gray-600 mb-8">{t('The article you\'re looking for doesn\'t exist or has been removed.', {
+              defaultValue: 'The article you\'re looking for doesn\'t exist or has been removed.'
+            })}</p>
             <Link href="/blog">
               <Button>
-                <ArrowLeft className="h-4 w-4 mr-2" />{t("Backtoblog", {
-                defaultValue: "Backtoblog"
+                <ArrowLeft className="h-4 w-4 mr-2" />{t('Back to Blog', {
+                defaultValue: 'Back to Blog'
               })}</Button>
             </Link>
           </div>
@@ -259,8 +260,8 @@ export default function BlogPostPage() {
   }
   return <div className="min-h-screen">
       <Helmet>
-        <title>{post.title}{t("| Amon Tour - Krabi Thailand Guide", {
-          defaultValue: "| Amon Tour - Krabi Thailand Guide"
+        <title>{post.title}{t('| Amon Tour - Krabi Thailand Guide', {
+          defaultValue: '| Amon Tour - Krabi Thailand Guide'
         })}</title>
         <meta name="description" content={post.metaDescription || post.excerpt} />
         <meta name="keywords" content={post.metaKeywords || `Krabi, Thailand, ${post.title}`} />
@@ -316,8 +317,8 @@ export default function BlogPostPage() {
           <div className="max-w-4xl mx-auto">
             {/* Back Button */}
             <Link href="/blog" className="inline-flex items-center text-primary hover:text-primary/80 mb-8">
-              <ArrowLeft className="h-4 w-4 mr-2" />{t("Backtoblog", {
-              defaultValue: "Backtoblog"
+              <ArrowLeft className="h-4 w-4 mr-2" />{t('Back to Blog', {
+              defaultValue: 'Back to Blog'
             })}</Link>
 
             {/* Article Header */}
@@ -387,11 +388,11 @@ export default function BlogPostPage() {
                 {/* Related Tours Section - SEO optimized call-to-action */}
                 {getRelatedTours(post.slug).length > 0 && <div className="mt-12 p-6 bg-gradient-to-r from-primary/10 to-primary/20 rounded-xl border border-primary/30 shadow-sm">
                     <h3 className="text-xl font-bold text-primary mb-4 flex items-center gap-2">
-                      <span>🌴</span>{t("Tours Recommended by Amon Tour", {
-                    defaultValue: "Tours Recommended by Amon Tour"
+                      <span>🌴</span>{t('Tours Recommended by Amon Tour', {
+                    defaultValue: 'Tours Recommended by Amon Tour'
                   })}</h3>
-                    <p className="text-gray-700 mb-6 text-sm">{t("Discover our guided tours to experience these adventures with our local experts", {
-                    defaultValue: "Discover our guided tours to experience these adventures with our local experts"
+                    <p className="text-gray-700 mb-6 text-sm">{t('Discover our guided tours to experience these adventures with our local experts', {
+                    defaultValue: 'Discover our guided tours to experience these adventures with our local experts'
                   })}</p>
                     <div className="space-y-4">
                       {getRelatedTours(post.slug).map(tour => <div key={tour.id} className="bg-white p-5 rounded-lg shadow-sm border hover:shadow-md transition-shadow">
@@ -413,11 +414,11 @@ export default function BlogPostPage() {
                               </div>
                             </div>
                             <div className="flex flex-col gap-2">
-                              <a href={tour.tourNinjaUrl} target="_blank" rel="noopener noreferrer" className="bg-primary hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-colors text-center shadow-sm" aria-label={`View details and book ${tour.title}`}>{t("View Details", {
-                            defaultValue: "View Details"
+                              <a href={tour.tourNinjaUrl} target="_blank" rel="noopener noreferrer" className="bg-primary hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-colors text-center shadow-sm" aria-label={`View details and book ${tour.title}`}>{t('View Details', {
+                            defaultValue: 'View Details'
                           })}</a>
-                              <a href={`/contact?tour=${encodeURIComponent(tour.title)}`} className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg text-sm font-medium transition-colors text-center" aria-label={`Contact us for ${tour.title}`}>{t("Booknow", {
-                            defaultValue: "Booknow"
+                              <a href={`/contact?tour=${encodeURIComponent(tour.title)}`} className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg text-sm font-medium transition-colors text-center" aria-label={`Contact us for ${tour.title}`}>{t('Book Now', {
+                            defaultValue: 'Book Now'
                           })}</a>
                             </div>
                           </div>
@@ -427,24 +428,24 @@ export default function BlogPostPage() {
                       <div className="flex items-start gap-3">
                         <span className="text-blue-600 text-lg">💡</span>
                         <div>
-                          <p className="font-semibold text-primary mb-1">{t("Why choose Amon Tour?", {
-                          defaultValue: "Why choose Amon Tour?"
+                          <p className="font-semibold text-primary mb-1">{t('Why choose Amon Tour?', {
+                          defaultValue: 'Why choose Amon Tour?'
                         })}</p>
                           <ul className="text-sm text-blue-800 space-y-1">
-                            <li>• <strong>{t("Expert local guides", {
-                              defaultValue: "Expert local guides"
-                            })}</strong>{t("- Authentic discovery with detailed explanations", {
-                            defaultValue: "- Authentic discovery with detailed explanations"
+                            <li>• <strong>{t('Expert local guides', {
+                              defaultValue: 'Expert local guides'
+                            })}</strong>{t('- Authentic discovery with detailed explanations', {
+                            defaultValue: '- Authentic discovery with detailed explanations'
                           })}</li>
-                            <li>• <strong>{t("Small groups", {
-                              defaultValue: "Small groups"
-                            })}</strong>{t("- Personalized and quality experience", {
-                            defaultValue: "- Personalized and quality experience"
+                            <li>• <strong>{t('Small groups', {
+                              defaultValue: 'Small groups'
+                            })}</strong>{t('- Personalized and quality experience', {
+                            defaultValue: '- Personalized and quality experience'
                           })}</li>
-                            <li>• <strong>{t("Secure booking", {
-                              defaultValue: "Secure booking"
-                            })}</strong>{t("- Protected payment and flexible cancellation", {
-                            defaultValue: "- Protected payment and flexible cancellation"
+                            <li>• <strong>{t('Secure booking', {
+                              defaultValue: 'Secure booking'
+                            })}</strong>{t('- Protected payment and flexible cancellation', {
+                            defaultValue: '- Protected payment and flexible cancellation'
                           })}</li>
                           </ul>
                         </div>
@@ -456,8 +457,8 @@ export default function BlogPostPage() {
 
             {/* Related Posts */}
             {(relatedPosts as any[]).length > 0 && <div className="mt-12">
-                <h2 className="text-2xl font-bold text-gray-800 mb-6">{t("Related Articles", {
-                defaultValue: "Related Articles"
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">{t('Related Articles', {
+                defaultValue: 'Related Articles'
               })}</h2>
                 <div className="grid md:grid-cols-2 gap-6">
                   {(relatedPosts as any[]).slice(0, 2).map((relatedPost: any) => <Card key={relatedPost.id} className="overflow-hidden hover:shadow-lg transition-shadow">
@@ -476,8 +477,8 @@ export default function BlogPostPage() {
                       </CardHeader>
                       <CardContent>
                         <Link href={`/blog/${relatedPost.slug}`}>
-                          <Button className="w-full">{t("Readmore", {
-                        defaultValue: "Readmore"
+                          <Button className="w-full">{t('Read More', {
+                        defaultValue: 'Read More'
                       })}<ChevronRight className="h-4 w-4 ml-2" />
                           </Button>
                         </Link>

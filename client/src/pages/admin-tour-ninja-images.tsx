@@ -16,9 +16,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { Progress } from "@/components/ui/progress";
 export default function AdminTourNinjaImages() {
-  const {
-    t
-  } = useTranslation();
+  const { t } = useTranslation();
+
   const {
     toast
   } = useToast();
@@ -87,18 +86,18 @@ export default function AdminTourNinjaImages() {
       reader.onload = e => setImagePreview(e.target?.result as string);
       reader.readAsDataURL(file);
       toast({
-        title: t("Imagesxe9lectionnxe9", {
-          defaultValue: "Imagesxe9lectionnxe9"
+        title: t('Image s\xE9lectionn\xE9e', {
+          defaultValue: 'Image s\xE9lectionn\xE9e'
         }),
         description: `${file.name} prête à être téléchargée`
       });
     } else {
       toast({
-        title: t("Erreur", {
-          defaultValue: "Erreur"
+        title: t('Erreur', {
+          defaultValue: 'Erreur'
         }),
-        description: t("Veuillezsxe9lectionn", {
-          defaultValue: "Veuillezsxe9lectionn"
+        description: t('Veuillez s\xE9lectionner un fichier image valide', {
+          defaultValue: 'Veuillez s\xE9lectionner un fichier image valide'
         }),
         variant: "destructive"
       });
@@ -150,11 +149,11 @@ export default function AdminTourNinjaImages() {
         queryKey: ["/api/tour-ninja-image-overrides"]
       });
       toast({
-        title: t("Succxe8s", {
-          defaultValue: "Succxe8s"
+        title: t('Succ\xE8s', {
+          defaultValue: 'Succ\xE8s'
         }),
-        description: t("Imagepersonnalisxe9e", {
-          defaultValue: "Imagepersonnalisxe9e"
+        description: t('Image personnalis\xE9e ajout\xE9e avec succ\xE8s', {
+          defaultValue: 'Image personnalis\xE9e ajout\xE9e avec succ\xE8s'
         })
       });
       setShowNewDialog(false);
@@ -172,8 +171,8 @@ export default function AdminTourNinjaImages() {
     onError: error => {
       console.error("❌ Create failed:", error);
       toast({
-        title: t("Erreur", {
-          defaultValue: "Erreur"
+        title: t('Erreur', {
+          defaultValue: 'Erreur'
         }),
         description: t('Impossible d\'ajouter l\'image personnalis\xE9e', {
           defaultValue: 'Impossible d\'ajouter l\'image personnalis\xE9e'
@@ -248,11 +247,11 @@ export default function AdminTourNinjaImages() {
         queryKey: ["/api/tour-ninja-image-overrides"]
       });
       toast({
-        title: t("Succxe8s", {
-          defaultValue: "Succxe8s"
+        title: t('Succ\xE8s', {
+          defaultValue: 'Succ\xE8s'
         }),
-        description: t("Imagemisexe0jouravec", {
-          defaultValue: "Imagemisexe0jouravec"
+        description: t('Image mise \xE0 jour avec succ\xE8s', {
+          defaultValue: 'Image mise \xE0 jour avec succ\xE8s'
         })
       });
       setEditingOverride(null);
@@ -260,8 +259,8 @@ export default function AdminTourNinjaImages() {
     onError: error => {
       console.error("❌ Update failed:", error);
       toast({
-        title: t("Erreur", {
-          defaultValue: "Erreur"
+        title: t('Erreur', {
+          defaultValue: 'Erreur'
         }),
         description: t('Impossible de mettre \xE0 jour l\'image', {
           defaultValue: 'Impossible de mettre \xE0 jour l\'image'
@@ -285,8 +284,8 @@ export default function AdminTourNinjaImages() {
         queryKey: ["/api/tour-ninja-image-overrides"]
       });
       toast({
-        title: t("Succxe8s", {
-          defaultValue: "Succxe8s"
+        title: t('Succ\xE8s', {
+          defaultValue: 'Succ\xE8s'
         }),
         description: t('Statut de l\'image modifi\xE9', {
           defaultValue: 'Statut de l\'image modifi\xE9'
@@ -295,11 +294,11 @@ export default function AdminTourNinjaImages() {
     },
     onError: error => {
       toast({
-        title: t("Erreur", {
-          defaultValue: "Erreur"
+        title: t('Erreur', {
+          defaultValue: 'Erreur'
         }),
-        description: t("Impossible de modifier le statut", {
-          defaultValue: "Impossible de modifier le statut"
+        description: t('Impossible de modifier le statut', {
+          defaultValue: 'Impossible de modifier le statut'
         }),
         variant: "destructive"
       });
@@ -320,18 +319,18 @@ export default function AdminTourNinjaImages() {
         queryKey: ["/api/tour-ninja-image-overrides"]
       });
       toast({
-        title: t("Succxe8s", {
-          defaultValue: "Succxe8s"
+        title: t('Succ\xE8s', {
+          defaultValue: 'Succ\xE8s'
         }),
-        description: t("Imagesupprimxe9eavec", {
-          defaultValue: "Imagesupprimxe9eavec"
+        description: t('Image supprim\xE9e avec succ\xE8s', {
+          defaultValue: 'Image supprim\xE9e avec succ\xE8s'
         })
       });
     },
     onError: error => {
       toast({
-        title: t("Erreur", {
-          defaultValue: "Erreur"
+        title: t('Erreur', {
+          defaultValue: 'Erreur'
         }),
         description: t('Impossible de supprimer l\'image', {
           defaultValue: 'Impossible de supprimer l\'image'
@@ -344,11 +343,11 @@ export default function AdminTourNinjaImages() {
     // Validation selon le type de source
     if (!newOverrideForm.tourNinjaId || !newOverrideForm.tourName) {
       toast({
-        title: t("Erreur", {
-          defaultValue: "Erreur"
+        title: t('Erreur', {
+          defaultValue: 'Erreur'
         }),
-        description: t("Veuillez remplir tous les champs", {
-          defaultValue: "Veuillez remplir tous les champs"
+        description: t('Veuillez remplir tous les champs requis', {
+          defaultValue: 'Veuillez remplir tous les champs requis'
         }),
         variant: "destructive"
       });
@@ -356,11 +355,11 @@ export default function AdminTourNinjaImages() {
     }
     if (newOverrideForm.imageSourceType === "upload" && !newOverrideForm.image) {
       toast({
-        title: t("Erreur", {
-          defaultValue: "Erreur"
+        title: t('Erreur', {
+          defaultValue: 'Erreur'
         }),
-        description: t("Veuillezsxe9lectionn", {
-          defaultValue: "Veuillezsxe9lectionn"
+        description: t('Veuillez s\xE9lectionner une image \xE0 t\xE9l\xE9charger', {
+          defaultValue: 'Veuillez s\xE9lectionner une image \xE0 t\xE9l\xE9charger'
         }),
         variant: "destructive"
       });
@@ -368,8 +367,8 @@ export default function AdminTourNinjaImages() {
     }
     if (newOverrideForm.imageSourceType === "url" && !newOverrideForm.directImageUrl) {
       toast({
-        title: t("Erreur", {
-          defaultValue: "Erreur"
+        title: t('Erreur', {
+          defaultValue: 'Erreur'
         }),
         description: t('Veuillez saisir une URL d\'image valide', {
           defaultValue: 'Veuillez saisir une URL d\'image valide'
@@ -417,14 +416,14 @@ export default function AdminTourNinjaImages() {
     return <div className="p-6">
         <div className="flex items-center justify-center h-64">
           <div className="text-center space-y-4">
-            <div className="text-lg font-medium text-[hsl(var(--destructive))]">{t("Authentification requise", {
-              defaultValue: "Authentification requise"
+            <div className="text-lg font-medium text-[hsl(var(--destructive))]">{t('Authentification requise', {
+              defaultValue: 'Authentification requise'
             })}</div>
-            <p className="text-gray-600">{t("Vous devez vous connecter pour acc\xE9der \xE0 cette page.", {
-              defaultValue: "Vous devez vous connecter pour acc\xE9der \xE0 cette page."
+            <p className="text-gray-600">{t('Vous devez vous connecter pour acc\xE9der \xE0 cette page.', {
+              defaultValue: 'Vous devez vous connecter pour acc\xE9der \xE0 cette page.'
             })}</p>
-            <Button onClick={() => window.location.href = '/admin-login'} className="bg-primary hover:bg-primary/90">{t("Se connecter", {
-              defaultValue: "Se connecter"
+            <Button onClick={() => window.location.href = '/admin-login'} className="bg-primary hover:bg-primary/90">{t('Se connecter', {
+              defaultValue: 'Se connecter'
             })}</Button>
           </div>
         </div>
@@ -433,8 +432,8 @@ export default function AdminTourNinjaImages() {
   if (isLoading) {
     return <div className="p-6">
         <div className="flex items-center justify-center h-64">
-          <div className="text-lg">{t("Chargement", {
-            defaultValue: "Chargement"
+          <div className="text-lg">{t('Chargement...', {
+            defaultValue: 'Chargement...'
           })}</div>
         </div>
       </div>;
@@ -442,33 +441,33 @@ export default function AdminTourNinjaImages() {
   return <div className="p-6 space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">{t("Gestion Images Tour Ninja", {
-            defaultValue: "Gestion Images Tour Ninja"
+          <h1 className="text-2xl font-bold text-gray-900">{t('Gestion Images Tour Ninja', {
+            defaultValue: 'Gestion Images Tour Ninja'
           })}</h1>
-          <p className="text-gray-600 mt-1">{t("Remplacez les images Tour Ninja par vos propres images personnalis\xE9es", {
-            defaultValue: "Remplacez les images Tour Ninja par vos propres images personnalis\xE9es"
+          <p className="text-gray-600 mt-1">{t('Remplacez les images Tour Ninja par vos propres images personnalis\xE9es', {
+            defaultValue: 'Remplacez les images Tour Ninja par vos propres images personnalis\xE9es'
           })}</p>
         </div>
         <Dialog open={showNewDialog} onOpenChange={setShowNewDialog}>
           <DialogTrigger asChild>
             <Button className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary shadow-lg">
-              <Sparkles className="w-4 h-4 mr-2" />{t("Ajouter Image Personnalis\xE9e", {
-              defaultValue: "Ajouter Image Personnalis\xE9e"
+              <Sparkles className="w-4 h-4 mr-2" />{t('Ajouter Image Personnalis\xE9e', {
+              defaultValue: 'Ajouter Image Personnalis\xE9e'
             })}</Button>
           </DialogTrigger>
           <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle className="flex items-center gap-2 text-xl">
-                <Camera className="w-5 h-5 text-primary" />{t("Personnaliser Image de Tour", {
-                defaultValue: "Personnaliser Image de Tour"
+                <Camera className="w-5 h-5 text-primary" />{t('Personnaliser Image de Tour', {
+                defaultValue: 'Personnaliser Image de Tour'
               })}</DialogTitle>
             </DialogHeader>
             
             <div className="space-y-6">
               {/* Tour Selection */}
               <div className="space-y-2">
-                <Label htmlFor="tour-select" className="text-sm font-medium">{t("Sxe9lectionnerletour", {
-                  defaultValue: "Sxe9lectionnerletour"
+                <Label htmlFor="tour-select" className="text-sm font-medium">{t('S\xE9lectionner le tour', {
+                  defaultValue: 'S\xE9lectionner le tour'
                 })}</Label>
                 <Select value={newOverrideForm.tourNinjaId} onValueChange={value => {
                 const selectedTour = tours.find((t: any) => t.id.toString() === value);
@@ -480,8 +479,8 @@ export default function AdminTourNinjaImages() {
                 });
               }}>
                   <SelectTrigger className="w-full">
-                    <SelectValue placeholder={t("Choisir un tour...", {
-                    defaultValue: "Choisir un tour..."
+                    <SelectValue placeholder={t('Choisir un tour...', {
+                    defaultValue: 'Choisir un tour...'
                   })} />
                   </SelectTrigger>
                   <SelectContent>
@@ -498,18 +497,18 @@ export default function AdminTourNinjaImages() {
                             <ImageIcon className="w-4 h-4 text-gray-400" />
                             {tour.name}
                           </div>
-                        </SelectItem>) : <SelectItem value="no-tours" disabled>{t("Aucun tour disponible", {
-                      defaultValue: "Aucun tour disponible"
+                        </SelectItem>) : <SelectItem value="no-tours" disabled>{t('Aucun tour disponible', {
+                      defaultValue: 'Aucun tour disponible'
                     })}</SelectItem>}
                   </SelectContent>
                 </Select>
                 
                 {/* Debug info */}
-                <div className="text-xs text-gray-500 mt-1">{t("Debug", {
-                  defaultValue: "Debug"
+                <div className="text-xs text-gray-500 mt-1">{t('Debug:', {
+                  defaultValue: 'Debug:'
                 })}{tours.length} tours chargés
-                  {overrides && (overrides as any)?.message && <span className="text-[hsl(var(--warning))] ml-2">{t("Auth", {
-                    defaultValue: "Auth"
+                  {overrides && (overrides as any)?.message && <span className="text-[hsl(var(--warning))] ml-2">{t('Auth:', {
+                    defaultValue: 'Auth:'
                   })}{(overrides as any).message}
                     </span>}
                 </div>
@@ -530,8 +529,8 @@ export default function AdminTourNinjaImages() {
                   }));
                   setImagePreview(null);
                 }} className="flex-1">
-                    <Upload className="w-4 h-4 mr-2" />{t("Txe9lxe9chargerunfic", {
-                    defaultValue: "Txe9lxe9chargerunfic"
+                    <Upload className="w-4 h-4 mr-2" />{t('T\xE9l\xE9charger un fichier', {
+                    defaultValue: 'T\xE9l\xE9charger un fichier'
                   })}</Button>
                   <Button type="button" variant={newOverrideForm.imageSourceType === "url" ? "default" : "outline"} onClick={() => {
                   setNewOverrideForm(prev => ({
@@ -541,22 +540,22 @@ export default function AdminTourNinjaImages() {
                   }));
                   setImagePreview(null);
                 }} className="flex-1">
-                    <ImageIcon className="w-4 h-4 mr-2" />{t("Lienurl", {
-                    defaultValue: "Lienurl"
+                    <ImageIcon className="w-4 h-4 mr-2" />{t('Lien URL', {
+                    defaultValue: 'Lien URL'
                   })}</Button>
                 </div>
               </div>
 
               {/* Image Upload Zone - Only show for upload type */}
               {newOverrideForm.imageSourceType === "upload" && <div className="space-y-2">
-                <Label className="text-sm font-medium">{t("Txe9lxe9chargervotre", {
-                  defaultValue: "Txe9lxe9chargervotre"
+                <Label className="text-sm font-medium">{t('T\xE9l\xE9charger votre image', {
+                  defaultValue: 'T\xE9l\xE9charger votre image'
                 })}</Label>
                 <div className={`relative border-2 border-dashed rounded-lg p-8 text-center transition-all duration-200 ${dragActive ? 'border-primary bg-primary/10' : 'border-gray-300 hover:border-gray-400'}`} onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}>
                   {imagePreview ? <div className="space-y-4">
                       <div className="relative w-full h-48 rounded-lg overflow-hidden bg-gray-100">
-                        <img src={imagePreview} alt={t("Prxe9visualisation", {
-                      defaultValue: "Prxe9visualisation"
+                        <img src={imagePreview} alt={t('Pr\xE9visualisation', {
+                      defaultValue: 'Pr\xE9visualisation'
                     })} className="w-full h-full object-cover" />
                         <Button variant="destructive" size="sm" className="absolute top-2 right-2" onClick={() => {
                       setImagePreview(null);
@@ -569,8 +568,8 @@ export default function AdminTourNinjaImages() {
                         </Button>
                       </div>
                       <p className="text-sm text-[hsl(var(--success))] font-medium">
-                        <Check className="w-4 h-4 inline mr-1" />{t("Imageprxeatexe0xeatr", {
-                      defaultValue: "Imageprxeatexe0xeatr"
+                        <Check className="w-4 h-4 inline mr-1" />{t('Image pr\xEAte \xE0 \xEAtre t\xE9l\xE9charg\xE9e', {
+                      defaultValue: 'Image pr\xEAte \xE0 \xEAtre t\xE9l\xE9charg\xE9e'
                     })}</p>
                     </div> : <div className="space-y-4">
                       <div className="flex justify-center">
@@ -581,12 +580,12 @@ export default function AdminTourNinjaImages() {
                           {dragActive ? 'Déposez votre image ici' : 'Glissez-déposez votre image ici'}
                         </p>
                         <p className="text-sm text-gray-500">ou</p>
-                        <Button variant="outline" className="mt-2" onClick={() => fileInputRef.current?.click()}>{t("Parcourir les fichiers", {
-                        defaultValue: "Parcourir les fichiers"
+                        <Button variant="outline" className="mt-2" onClick={() => fileInputRef.current?.click()}>{t('Parcourir les fichiers', {
+                        defaultValue: 'Parcourir les fichiers'
                       })}</Button>
                       </div>
-                      <p className="text-xs text-gray-400">{t("Formatssupportxe9sjp", {
-                      defaultValue: "Formatssupportxe9sjp"
+                      <p className="text-xs text-gray-400">{t('Formats support\xE9s: JPG, PNG, WebP (max 10MB)', {
+                      defaultValue: 'Formats support\xE9s: JPG, PNG, WebP (max 10MB)'
                     })}</p>
                     </div>}
                   
@@ -608,8 +607,8 @@ export default function AdminTourNinjaImages() {
               }))} className="w-full" />
                 {newOverrideForm.directImageUrl && <div className="mt-4">
                     <div className="relative w-full h-48 rounded-lg overflow-hidden bg-gray-100">
-                      <img src={newOverrideForm.directImageUrl} alt={t("Prxe9visualisationur", {
-                    defaultValue: "Prxe9visualisationur"
+                      <img src={newOverrideForm.directImageUrl} alt={t('Pr\xE9visualisation URL', {
+                    defaultValue: 'Pr\xE9visualisation URL'
                   })} className="w-full h-full object-cover" onError={e => {
                     const target = e.target as HTMLImageElement;
                     target.style.display = 'none';
@@ -618,8 +617,8 @@ export default function AdminTourNinjaImages() {
                       <div className="hidden absolute inset-0 flex items-center justify-center bg-gray-100 text-gray-500">
                         <div className="text-center">
                           <ImageIcon className="w-8 h-8 mx-auto mb-2" />
-                          <p className="text-sm">{t("Image non accessible", {
-                          defaultValue: "Image non accessible"
+                          <p className="text-sm">{t('Image non accessible', {
+                          defaultValue: 'Image non accessible'
                         })}</p>
                         </div>
                       </div>
@@ -629,11 +628,11 @@ export default function AdminTourNinjaImages() {
 
               {/* Description Optional */}
               <div className="space-y-2">
-                <Label htmlFor="description" className="text-sm font-medium">{t("Description (optionnel)", {
-                  defaultValue: "Description (optionnel)"
+                <Label htmlFor="description" className="text-sm font-medium">{t('Description (optionnel)', {
+                  defaultValue: 'Description (optionnel)'
                 })}</Label>
-                <Textarea id="description" placeholder={t("Ajoutez une description de votre image personnalis\xE9e...", {
-                defaultValue: "Ajoutez une description de votre image personnalis\xE9e..."
+                <Textarea id="description" placeholder={t('Ajoutez une description de votre image personnalis\xE9e...', {
+                defaultValue: 'Ajoutez une description de votre image personnalis\xE9e...'
               })} value={newOverrideForm.description} onChange={e => setNewOverrideForm(prev => ({
                 ...prev,
                 description: e.target.value
@@ -643,8 +642,8 @@ export default function AdminTourNinjaImages() {
               {/* Upload Progress */}
               {createMutation.isPending && <div className="space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span>{t("Txe9lxe9chargementen", {
-                    defaultValue: "Txe9lxe9chargementen"
+                    <span>{t('T\xE9l\xE9chargement en cours...', {
+                    defaultValue: 'T\xE9l\xE9chargement en cours...'
                   })}</span>
                     <span>75%</span>
                   </div>
@@ -655,8 +654,8 @@ export default function AdminTourNinjaImages() {
               <div className="flex gap-3 pt-4">
                 <Button onClick={handleCreateOverride} disabled={createMutation.isPending || !newOverrideForm.tourNinjaId || newOverrideForm.imageSourceType === "upload" && !newOverrideForm.image || newOverrideForm.imageSourceType === "url" && !newOverrideForm.directImageUrl} className="flex-1 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary">
                   {createMutation.isPending ? <>
-                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />{t("Txe9lxe9chargement", {
-                    defaultValue: "Txe9lxe9chargement"
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />{t('T\xE9l\xE9chargement...', {
+                    defaultValue: 'T\xE9l\xE9chargement...'
                   })}</> : <>
                       <Check className="w-4 h-4 mr-2" />{t('Ajouter l\'image', {
                     defaultValue: 'Ajouter l\'image'
@@ -674,8 +673,8 @@ export default function AdminTourNinjaImages() {
                   directImageUrl: "",
                   description: ""
                 });
-              }} className="px-6">{t("Annuler", {
-                  defaultValue: "Annuler"
+              }} className="px-6">{t('Annuler', {
+                  defaultValue: 'Annuler'
                 })}</Button>
               </div>
             </div>
@@ -685,14 +684,14 @@ export default function AdminTourNinjaImages() {
 
       {/* Tour Selection List */}
       <div className="space-y-4">
-        <h2 className="text-xl font-semibold text-gray-900">{t("Choisiruntourxe0pers", {
-          defaultValue: "Choisiruntourxe0pers"
+        <h2 className="text-xl font-semibold text-gray-900">{t('Choisir un tour \xE0 personnaliser', {
+          defaultValue: 'Choisir un tour \xE0 personnaliser'
         })}</h2>
         
         {isLoading ? <div className="text-center py-8">
             <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-            <p className="text-gray-600">{t("Chargement des tours...", {
-            defaultValue: "Chargement des tours..."
+            <p className="text-gray-600">{t('Chargement des tours...', {
+            defaultValue: 'Chargement des tours...'
           })}</p>
           </div> : tours.length > 0 ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {tours.map((tour: any) => {
@@ -754,11 +753,11 @@ export default function AdminTourNinjaImages() {
                 <ImageIcon className="w-12 h-12 text-primary" />
               </div>
               <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">{t("Aucun tour disponible", {
-                defaultValue: "Aucun tour disponible"
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">{t('Aucun tour disponible', {
+                defaultValue: 'Aucun tour disponible'
               })}</h3>
-                <p className="text-gray-500 mb-6 max-w-md mx-auto">{t("Impossible de charger les tours depuis Tour Ninja. Veuillez v\xE9rifier la connexion API.", {
-                defaultValue: "Impossible de charger les tours depuis Tour Ninja. Veuillez v\xE9rifier la connexion API."
+                <p className="text-gray-500 mb-6 max-w-md mx-auto">{t('Impossible de charger les tours depuis Tour Ninja. Veuillez v\xE9rifier la connexion API.', {
+                defaultValue: 'Impossible de charger les tours depuis Tour Ninja. Veuillez v\xE9rifier la connexion API.'
               })}</p>
               </div>
             </div>
@@ -778,13 +777,15 @@ export default function AdminTourNinjaImages() {
               {/* Tour Info */}
               <div className="bg-primary/10 p-4 rounded-lg border-l-4 border-primary">
                 <h3 className="font-semibold text-gray-900 mb-1">{editingOverride.tourName}</h3>
-                <p className="text-sm text-gray-600">{t('common.id')}{editingOverride.tourNinjaId}</p>
+                <p className="text-sm text-gray-600">{t('ID:', {
+                defaultValue: 'ID:'
+              })}{editingOverride.tourNinjaId}</p>
               </div>
 
               {/* Current Image */}
               <div>
-                <Label className="text-sm font-medium text-gray-700 mb-2 block">{t("Image actuelle", {
-                defaultValue: "Image actuelle"
+                <Label className="text-sm font-medium text-gray-700 mb-2 block">{t('Image actuelle', {
+                defaultValue: 'Image actuelle'
               })}</Label>
                 <div className="h-32 w-full bg-gray-100 rounded-md overflow-hidden border">
                   {editingOverride.customImageUrl || editingOverride.directImageUrl ? <img src={editingOverride.customImageUrl || editingOverride.directImageUrl || ''} alt={editingOverride.tourName} className="w-full h-full object-cover" onError={e => {
@@ -792,8 +793,8 @@ export default function AdminTourNinjaImages() {
                 target.style.display = 'none';
               }} /> : <div className="w-full h-full bg-gray-200 flex items-center justify-center">
                       <ImageIcon className="w-12 h-12 text-gray-400" />
-                      <span className="ml-2 text-sm text-gray-500">{t("Aucune image personnalis\xE9e", {
-                    defaultValue: "Aucune image personnalis\xE9e"
+                      <span className="ml-2 text-sm text-gray-500">{t('Aucune image personnalis\xE9e', {
+                    defaultValue: 'Aucune image personnalis\xE9e'
                   })}</span>
                     </div>}
                 </div>
@@ -801,12 +802,12 @@ export default function AdminTourNinjaImages() {
               
               {/* Upload New Image */}
               <div>
-                <Label htmlFor="edit-image" className="text-sm font-medium text-gray-700 mb-2 block">{t("Remplacer par une nouvelle image", {
-                defaultValue: "Remplacer par une nouvelle image"
+                <Label htmlFor="edit-image" className="text-sm font-medium text-gray-700 mb-2 block">{t('Remplacer par une nouvelle image', {
+                defaultValue: 'Remplacer par une nouvelle image'
               })}</Label>
                 <Input ref={fileInputRef} id="edit-image" type="file" accept="image/*" className="border-dashed" />
-                <p className="text-xs text-gray-500 mt-1">{t("Formatsacceptxe9sjpg", {
-                defaultValue: "Formatsacceptxe9sjpg"
+                <p className="text-xs text-gray-500 mt-1">{t('Formats accept\xE9s: JPG, PNG, GIF (max 5MB)', {
+                defaultValue: 'Formats accept\xE9s: JPG, PNG, GIF (max 5MB)'
               })}</p>
               </div>
 
@@ -816,15 +817,15 @@ export default function AdminTourNinjaImages() {
               handleUpdateOverride(editingOverride, file);
             }} disabled={updateMutation.isPending} className="flex-1 bg-primary hover:bg-primary/90">
                   {updateMutation.isPending ? <>
-                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />{t("Misexe0jour", {
-                  defaultValue: "Misexe0jour"
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />{t('Mise \xE0 jour...', {
+                  defaultValue: 'Mise \xE0 jour...'
                 })}</> : <>
                       <Check className="w-4 h-4 mr-2" />{t('Mettre \xE0 jour l\'image', {
                   defaultValue: 'Mettre \xE0 jour l\'image'
                 })}</>}
                 </Button>
-                <Button variant="outline" onClick={() => setEditingOverride(null)} className="flex-1">{t("Annuler", {
-                defaultValue: "Annuler"
+                <Button variant="outline" onClick={() => setEditingOverride(null)} className="flex-1">{t('Annuler', {
+                defaultValue: 'Annuler'
               })}</Button>
               </div>
             </div>}

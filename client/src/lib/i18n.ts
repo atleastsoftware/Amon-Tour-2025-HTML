@@ -3,91 +3,51 @@ import { initReactI18next } from 'react-i18next';
 import Backend from 'i18next-http-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
-// Configuration i18next avec force refresh des ressources
-const initializeI18n = () => {
-  return i18n
-    .use(Backend)
-    .use(LanguageDetector)
-    .use(initReactI18next)
-    .init({
-      // Configuration des langues
-      fallbackLng: 'en',
-      supportedLngs: ['en', 'fr', 'es'],
+// Configuration i18next moderne et propre
+i18n
+  .use(Backend) // Charge les traductions depuis /public/locales
+  .use(LanguageDetector) // Détecte automatiquement la langue
+  .use(initReactI18next) // Intégration avec React
+  .init({
+    // Configuration des langues
+    fallbackLng: 'en', // Anglais par défaut (comme demandé)
+    supportedLngs: ['en', 'fr', 'es'],
+    
+    // Configuration debug (seulement en développement)
+    debug: process.env.NODE_ENV === 'development',
+    
+    // Détection automatique de la langue
+    detection: {
+      // Ordre de priorité pour la détection
+      order: ['localStorage', 'geoLocation', 'navigator', 'htmlTag'],
       
-      // Configuration debug pour diagnostics
-      debug: true,
+      // Cache la sélection dans localStorage
+      caches: ['localStorage'],
       
-      // Configuration pour utiliser phrases complètes comme clés
-      keySeparator: false,
-      saveMissing: false,
-      
-      // Détection automatique de la langue
-      detection: {
-        order: ['localStorage', 'navigator'],
-        caches: ['localStorage'],
-      },
-      
-      // Configuration Backend avec le bon chemin serveur
-      backend: {
-        loadPath: '/api-locales/{{lng}}/{{ns}}.json',
-        allowMultiLoading: false,
-        reloadInterval: false,
-        // Timeout plus long pour s'assurer du chargement
-        requestOptions: {
-          cache: 'no-cache', // Force fresh load
-        },
-      },
-      
-      // Namespaces
-      ns: ['common'],
-      defaultNS: 'common',
-      fallbackNS: 'common',
-      
-      // Options React - CRITIQUE pour la liaison
-      react: {
-        useSuspense: false,
-        bindI18n: 'languageChanged loaded',
-        bindI18nStore: 'added removed',
-        // Force update des composants React
-        transEmptyNodeValue: '',
-        transSupportBasicHtmlNodes: true,
-      },
-      
-      // Interpolation sécurisée
-      interpolation: {
-        escapeValue: false,
-      },
-      
-      // Configuration pour retourner la clé si pas de traduction
-      returnNull: false,
-      returnEmptyString: false,
-      
-      // Force le chargement synchrone des 3 langues
-      load: 'languageOnly',
-      preload: ['en', 'fr', 'es'],
-    })
-    .then(() => {
-      console.log('✅ i18next initialized successfully');
-      
-      // Force le rechargement des ressources pour la langue courante
-      const currentLng = i18n.language || 'en';
-      console.log('🔧 Current language:', currentLng);
-      
-      // Tester immédiatement la traduction
-      const testTranslation = i18n.t('hero.title');
-      console.log('🔧 Test translation hero.title:', testTranslation);
-      
-      // Force refresh des ressources React
-      i18n.emit('loaded', {});
-      
-      return i18n;
-    });
-};
-
-// Exporter la promesse d'initialisation
-export const i18nInitPromise = initializeI18n();
-
-export default i18n;
+      // Configuration géolocalisation
+      lookupFromPathIndex: 0,
+      lookupFromSubdomainIndex: 0,
+    },
+    
+    // Configuration Backend (chargement des fichiers)
+    backend: {
+      loadPath: '/locales/{{lng}}/{{ns}}.json',
+    },
+    
+    // Namespaces (fichiers de traduction)
+    ns: ['common'],
+    defaultNS: 'common',
+    
+    // Options React
+    react: {
+      useSuspense: false, // Évite les problèmes de suspense
+    },
+    
+    // Interpolation sécurisée
+    interpolation: {
+      escapeValue: false, // React échappe déjà
+    },
+  });
 
 // Fonction pour détecter le pays via IP et rediriger automatiquement
 export const detectCountryAndSetLanguage = async () => {
@@ -139,3 +99,5 @@ export const detectCountryAndSetLanguage = async () => {
     console.log('🌐 Auto-detection failed, using default language (en):', error);
   }
 };
+
+export default i18n;

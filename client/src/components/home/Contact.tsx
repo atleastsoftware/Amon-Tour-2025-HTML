@@ -25,9 +25,8 @@ const contactSchema = z.object({
 });
 type ContactFormData = z.infer<typeof contactSchema>;
 export default function Contact() {
-  const {
-    t
-  } = useTranslation();
+  const { t } = useTranslation();
+
   const {
     toast
   } = useToast();
@@ -46,22 +45,22 @@ export default function Contact() {
     try {
       await apiRequest("POST", "/api/contact-messages", data);
       toast({
-        title: t("Message sent", {
-          defaultValue: "Message sent"
+        title: t('Message sent', {
+          defaultValue: 'Message sent'
         }),
-        description: t("We will respond to your inquiry as soon as possible.", {
-          defaultValue: "We will respond to your inquiry as soon as possible."
+        description: t('We will respond to your inquiry as soon as possible.', {
+          defaultValue: 'We will respond to your inquiry as soon as possible.'
         }),
         variant: "default"
       });
       form.reset();
     } catch (error) {
       toast({
-        title: t("Error", {
-          defaultValue: "Error"
+        title: t('Error', {
+          defaultValue: 'Error'
         }),
-        description: t("There was a problem sending your request. Please try again.", {
-          defaultValue: "There was a problem sending your request. Please try again."
+        description: t('There was a problem sending your message. Please try again.', {
+          defaultValue: 'There was a problem sending your message. Please try again.'
         }),
         variant: "destructive"
       });

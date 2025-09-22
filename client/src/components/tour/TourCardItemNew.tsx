@@ -56,8 +56,8 @@ export default function TourCardItem({
     navigator.clipboard.writeText(customLink);
     setCopied(true);
     toast({
-      description: t("Liencopixe9danslepre", {
-        defaultValue: "Liencopixe9danslepre"
+      description: t('Lien copi\xE9 dans le presse-papier!', {
+        defaultValue: 'Lien copi\xE9 dans le presse-papier!'
       })
     });
     setTimeout(() => {
@@ -74,8 +74,8 @@ export default function TourCardItem({
         <Card className="shadow-md overflow-hidden h-full flex flex-col">
           <div className="relative h-48 overflow-hidden bg-gray-100">
             {images && images.length > 0 ? <img src={images[0]} alt={title} className="w-full h-full object-cover" /> : <div className="flex h-full w-full items-center justify-center text-gray-400">
-                <span>{t("Aucune image", {
-                defaultValue: "Aucune image"
+                <span>{t('Aucune image', {
+                defaultValue: 'Aucune image'
               })}</span>
               </div>}
             
@@ -106,8 +106,8 @@ export default function TourCardItem({
               </Button>
               
               <Button variant="default" size="sm" className="flex-1" onClick={() => setIsBookingOpen(true)}>
-                <ExternalLink className="h-4 w-4 mr-1" />{t("Book", {
-                defaultValue: "Book"
+                <ExternalLink className="h-4 w-4 mr-1" />{t('Book', {
+                defaultValue: 'Book'
               })}</Button>
             </div>
           </CardContent>
@@ -120,8 +120,8 @@ export default function TourCardItem({
           <div className="px-6 pt-6 pb-2 flex flex-row items-center justify-between">
             <div>
               <h2 className="text-xl font-semibold">{title}</h2>
-              <p className="text-sm text-gray-500">{t("Rxe9servezdirectemen", {
-                defaultValue: "Rxe9servezdirectemen"
+              <p className="text-sm text-gray-500">{t('R\xE9servez directement votre', {
+                defaultValue: 'R\xE9servez directement votre'
               })}{type === "tour" ? "tour" : "expérience"}
               </p>
             </div>

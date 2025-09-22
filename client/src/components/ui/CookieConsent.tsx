@@ -3,9 +3,8 @@ import { X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
 export default function CookieConsent() {
-  const {
-    t
-  } = useTranslation();
+  const { t } = useTranslation();
+
   const [isVisible, setIsVisible] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   useEffect(() => {
@@ -145,17 +144,17 @@ export default function CookieConsent() {
           </div>
           
           <div className="flex items-center gap-2 shrink-0">
-            <Button variant="ghost" onClick={handleCustomize} className="text-xs px-3 py-1 h-auto" data-testid="button-cookie-customize">{t("Customize", {
-              defaultValue: "Customize"
+            <Button variant="ghost" onClick={handleCustomize} className="text-xs px-3 py-1 h-auto" data-testid="button-cookie-customize">{t('Customize', {
+              defaultValue: 'Customize'
             })}</Button>
-            <Button variant="outline" onClick={handleReject} className="text-xs px-3 py-1 h-auto" data-testid="button-cookie-reject">{t("Rejectall", {
-              defaultValue: "Rejectall"
+            <Button variant="outline" onClick={handleReject} className="text-xs px-3 py-1 h-auto" data-testid="button-cookie-reject">{t('Reject All', {
+              defaultValue: 'Reject All'
             })}</Button>
-            <Button onClick={handleAccept} className="text-xs px-3 py-1 h-auto bg-primary hover:bg-primary/90" data-testid="button-cookie-accept">{t("Acceptall", {
-              defaultValue: "Acceptall"
+            <Button onClick={handleAccept} className="text-xs px-3 py-1 h-auto bg-primary hover:bg-primary/90" data-testid="button-cookie-accept">{t('Accept All', {
+              defaultValue: 'Accept All'
             })}</Button>
-            <button onClick={closeDialog} className="text-gray-400 hover:text-gray-600 ml-2" aria-label={t("Close", {
-            defaultValue: "Close"
+            <button onClick={closeDialog} className="text-gray-400 hover:text-gray-600 ml-2" aria-label={t('Close', {
+            defaultValue: 'Close'
           })}>
               <X size={14} />
             </button>

@@ -1,12 +1,9 @@
 import { Pool, neonConfig } from '@neondatabase/serverless';
-import { drizzle } from 'drizzle-orm/node-postgres';
+import { drizzle } from 'drizzle-orm/neon-serverless';
 import ws from "ws";
 import * as schema from "@shared/schema";
 
-// Configure Neon for serverless environment
 neonConfig.webSocketConstructor = ws;
-neonConfig.useSecureWebSocket = true;
-neonConfig.pipelineConnect = false;
 
 if (!process.env.DATABASE_URL) {
   throw new Error(
@@ -16,10 +13,10 @@ if (!process.env.DATABASE_URL) {
 
 export const pool = new Pool({ 
   connectionString: process.env.DATABASE_URL,
-  max: 1, // Reduced for serverless
-  idleTimeoutMillis: 30000, // Increased idle timeout
-  connectionTimeoutMillis: 10000, // Increased connection timeout 
-  maxUses: 1000, // Reduced max uses to prevent long-lived connections
-  allowExitOnIdle: true // Allow exit on idle for serverless
+  max: 10,
+  idleTimeoutMillis: 10000,
+  connectionTimeoutMillis: 5000,
+  maxUses: 7500,
+  allowExitOnIdle: false
 });
 export const db = drizzle({ client: pool, schema });

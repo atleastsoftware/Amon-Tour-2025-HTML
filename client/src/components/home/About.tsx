@@ -1,9 +1,9 @@
 import { Link } from "wouter";
 import amonTourTeam from "@/assets/amon-tour-team.jpg";
 import { useTranslation } from 'react-i18next';
-
 export default function About() {
   const { t } = useTranslation();
+
   return <section id="who-we-are" className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -52,15 +52,15 @@ export default function About() {
             <div className="space-y-6">
               {/* Family Photo */}
               <div className="relative">
-                <img src="/family-photo.png" alt={t("Amontourfamilyxc9ric", {
-                defaultValue: "Amontourfamilyxc9ric"
+                <img src="/family-photo.png" alt={t('Amon Tour family - \xC9ric, Margaux, Gabriel, and Rapha\xEBl on a Thai beach', {
+                defaultValue: 'Amon Tour family - \xC9ric, Margaux, Gabriel, and Rapha\xEBl on a Thai beach'
               })} className="w-full h-auto rounded-lg shadow-lg" />
               </div>
               
               {/* Team Photo */}
               <div className="relative">
-                <img src={amonTourTeam} alt={t("Amon Tour team with clients on a beautiful Thai beach", {
-                defaultValue: "Amon Tour team with clients on a beautiful Thai beach"
+                <img src={amonTourTeam} alt={t('Amon Tour team with clients on a beautiful Thai beach', {
+                defaultValue: 'Amon Tour team with clients on a beautiful Thai beach'
               })} className="w-full h-auto rounded-lg shadow-lg" />
                 <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-lg hidden md:block">
                   <div className="flex items-center space-x-2">
@@ -74,8 +74,8 @@ export default function About() {
                     <span className="font-semibold">5.0/5</span>
                   </div>
                   <p className="text-sm text-muted-foreground/80">{t('home.basedOnReviews')}</p>
-                  <a href="https://maps.app.goo.gl/fe17kgt89d64kAHs7" target="_blank" rel="noopener noreferrer" className="text-xs text-primary hover:underline mt-1 inline-block">{t("See all reviews", {
-                    defaultValue: "See all reviews"
+                  <a href="https://maps.app.goo.gl/fe17kgt89d64kAHs7" target="_blank" rel="noopener noreferrer" className="text-xs text-primary hover:underline mt-1 inline-block">{t('See all reviews', {
+                    defaultValue: 'See all reviews'
                   })}</a>
                 </div>
               </div>

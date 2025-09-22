@@ -3,9 +3,8 @@ import { Link } from 'wouter';
 import { motion } from 'framer-motion';
 import logo from '@assets/IMG_1454-removebg-preview.png';
 export default function HeaderSimple() {
-  const {
-    t
-  } = useTranslation();
+  const { t } = useTranslation();
+
   return <header className="bg-white shadow-sm py-2 border-b">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center">
@@ -15,24 +14,24 @@ export default function HeaderSimple() {
           }} whileTap={{
             scale: 0.97
           }}>
-              <img src={logo} alt={t("Senthang Siam", {
-              defaultValue: "Senthang Siam"
+              <img src={logo} alt={t('Senthang Siam', {
+              defaultValue: 'Senthang Siam'
             })} className="h-12 mr-3" />
-              <div className="text-primary font-heading font-semibold hidden sm:block">{t("Senthang Siam", {
-                defaultValue: "Senthang Siam"
+              <div className="text-primary font-heading font-semibold hidden sm:block">{t('Senthang Siam', {
+                defaultValue: 'Senthang Siam'
               })}</div>
             </motion.div>
           </Link>
           
           <nav className="flex items-center space-x-2 sm:space-x-6">
             <Link href="/tours">
-              <a className="text-gray-700 hover:text-primary text-sm sm:text-base font-medium">{t("Tours", {
-                defaultValue: "Tours"
+              <a className="text-gray-700 hover:text-primary text-sm sm:text-base font-medium">{t('Tours', {
+                defaultValue: 'Tours'
               })}</a>
             </Link>
             <Link href="/experiences">
-              <a className="text-gray-700 hover:text-primary text-sm sm:text-base font-medium">{t("Experiences", {
-                defaultValue: "Experiences"
+              <a className="text-gray-700 hover:text-primary text-sm sm:text-base font-medium">{t('Experiences', {
+                defaultValue: 'Experiences'
               })}</a>
             </Link>
           </nav>

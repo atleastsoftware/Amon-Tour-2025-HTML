@@ -82,7 +82,9 @@ export default function NewsletterSubscription() {
         <input type="email" placeholder={t('forms.placeholders.yourEmail')} value={email} onChange={e => setEmail(e.target.value)} disabled={isSubmitting} className="px-4 py-2 rounded-l-md w-full max-w-xs text-gray-800 focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed" required />
         <motion.button type="submit" disabled={isSubmitting || !email.trim()} className="px-4 py-2 rounded-r-md text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50" style={{
         backgroundColor: '#3BA8AF'
-      }} onMouseEnter={e => !isSubmitting && (e.currentTarget.style.backgroundColor = '#2d8a94')} onMouseLeave={e => !isSubmitting && (e.currentTarget.style.backgroundColor = '#3BA8AF')} aria-label={t('footer.subscribeNewsletter')} whileHover={!isSubmitting ? {
+      }} onMouseEnter={e => !isSubmitting && (e.currentTarget.style.backgroundColor = '#2d8a94')} onMouseLeave={e => !isSubmitting && (e.currentTarget.style.backgroundColor = '#3BA8AF')} aria-label={t('Subscribe to newsletter', {
+        defaultValue: 'Subscribe to newsletter'
+      })} whileHover={!isSubmitting ? {
         scale: 1.05
       } : {}} whileTap={!isSubmitting ? {
         scale: 0.95

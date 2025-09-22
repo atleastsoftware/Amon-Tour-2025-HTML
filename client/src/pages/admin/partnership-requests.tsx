@@ -27,9 +27,8 @@ interface PartnershipRequest {
   createdAt: string;
 }
 export default function AdminPartnershipRequests() {
-  const {
-    t
-  } = useTranslation();
+  const { t } = useTranslation();
+
   const {
     isAuthenticated,
     isLoading
@@ -61,21 +60,21 @@ export default function AdminPartnershipRequests() {
         queryKey: ["/api/partnership-requests"]
       });
       toast({
-        title: t("Succxe8s", {
-          defaultValue: "Succxe8s"
+        title: t('Succ\xE8s', {
+          defaultValue: 'Succ\xE8s'
         }),
-        description: t("Demandemarquxe9ecomm", {
-          defaultValue: "Demandemarquxe9ecomm"
+        description: t('Demande marqu\xE9e comme lue', {
+          defaultValue: 'Demande marqu\xE9e comme lue'
         })
       });
     },
     onError: () => {
       toast({
-        title: t("Erreur", {
-          defaultValue: "Erreur"
+        title: t('Erreur', {
+          defaultValue: 'Erreur'
         }),
-        description: t("Impossible de marquer la demande comme lue", {
-          defaultValue: "Impossible de marquer la demande comme lue"
+        description: t('Impossible de marquer la demande comme lue', {
+          defaultValue: 'Impossible de marquer la demande comme lue'
         }),
         variant: "destructive"
       });
@@ -91,21 +90,21 @@ export default function AdminPartnershipRequests() {
       });
       setSelectedRequest(null);
       toast({
-        title: t("Succxe8s", {
-          defaultValue: "Succxe8s"
+        title: t('Succ\xE8s', {
+          defaultValue: 'Succ\xE8s'
         }),
-        description: t("Demandesupprimxe9eav", {
-          defaultValue: "Demandesupprimxe9eav"
+        description: t('Demande supprim\xE9e avec succ\xE8s', {
+          defaultValue: 'Demande supprim\xE9e avec succ\xE8s'
         })
       });
     },
     onError: () => {
       toast({
-        title: t("Erreur", {
-          defaultValue: "Erreur"
+        title: t('Erreur', {
+          defaultValue: 'Erreur'
         }),
-        description: t("Impossible de supprimer la demande", {
-          defaultValue: "Impossible de supprimer la demande"
+        description: t('Impossible de supprimer la demande', {
+          defaultValue: 'Impossible de supprimer la demande'
         }),
         variant: "destructive"
       });
@@ -125,8 +124,8 @@ export default function AdminPartnershipRequests() {
             <div className="flex items-center justify-center h-96">
               <div className="text-center">
                 <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto"></div>
-                <p className="mt-4 text-gray-600">{t("Chargement", {
-                  defaultValue: "Chargement"
+                <p className="mt-4 text-gray-600">{t('Chargement...', {
+                  defaultValue: 'Chargement...'
                 })}</p>
               </div>
             </div>
@@ -156,17 +155,17 @@ export default function AdminPartnershipRequests() {
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-4">
                 <Button variant="outline" onClick={() => setLocation("/admin")} className="flex items-center gap-2">
-                  <ArrowLeft className="h-4 w-4" />{t("Back", {
-                  defaultValue: "Back"
+                  <ArrowLeft className="h-4 w-4" />{t('Back', {
+                  defaultValue: 'Back'
                 })}</Button>
                 <div className="flex items-center gap-3">
                   <Handshake className="h-8 w-8 text-primary" />
                   <div>
-                    <h1 className="text-3xl font-heading text-gray-900">{t("Demandes de partenariat", {
-                      defaultValue: "Demandes de partenariat"
+                    <h1 className="text-3xl font-heading text-gray-900">{t('Demandes de partenariat', {
+                      defaultValue: 'Demandes de partenariat'
                     })}</h1>
-                    <p className="text-gray-600">{t("Propositions de collaboration", {
-                      defaultValue: "Propositions de collaboration"
+                    <p className="text-gray-600">{t('Propositions de collaboration', {
+                      defaultValue: 'Propositions de collaboration'
                     })}</p>
                   </div>
                 </div>
@@ -184,8 +183,8 @@ export default function AdminPartnershipRequests() {
 
             <Card>
               <CardHeader>
-                <CardTitle>{t("Demandesrexe7ues", {
-                  defaultValue: "Demandesrexe7ues"
+                <CardTitle>{t('Demandes re\xE7ues (', {
+                  defaultValue: 'Demandes re\xE7ues ('
                 })}{requests.length})</CardTitle>
               </CardHeader>
               <CardContent>
@@ -197,34 +196,34 @@ export default function AdminPartnershipRequests() {
                   </div> : <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead>{t("Statut", {
-                        defaultValue: "Statut"
+                        <TableHead>{t('Statut', {
+                        defaultValue: 'Statut'
                       })}</TableHead>
-                        <TableHead>{t("Contact", {
-                        defaultValue: "Contact"
+                        <TableHead>{t('Contact', {
+                        defaultValue: 'Contact'
                       })}</TableHead>
-                        <TableHead>{t("Entreprise", {
-                        defaultValue: "Entreprise"
+                        <TableHead>{t('Entreprise', {
+                        defaultValue: 'Entreprise'
                       })}</TableHead>
                         <TableHead>{t('Type d\'activit\xE9', {
                         defaultValue: 'Type d\'activit\xE9'
                       })}</TableHead>
-                        <TableHead>{t("Siteweb", {
-                        defaultValue: "Siteweb"
+                        <TableHead>{t('Site web', {
+                        defaultValue: 'Site web'
                       })}</TableHead>
-                        <TableHead>{t("Rexe7ule", {
-                        defaultValue: "Rexe7ule"
+                        <TableHead>{t('Re\xE7u le', {
+                        defaultValue: 'Re\xE7u le'
                       })}</TableHead>
-                        <TableHead>{t("Actions", {
-                        defaultValue: "Actions"
+                        <TableHead>{t('Actions', {
+                        defaultValue: 'Actions'
                       })}</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
                       {requests.map(request => <TableRow key={request.id}>
                           <TableCell>
-                            {!request.read ? <Badge variant="destructive">{t("Nouveau", {
-                          defaultValue: "Nouveau"
+                            {!request.read ? <Badge variant="destructive">{t('Nouveau', {
+                          defaultValue: 'Nouveau'
                         })}</Badge> : <Badge variant="secondary">Lu</Badge>}
                           </TableCell>
                           <TableCell className="font-medium">{request.contactName}</TableCell>
@@ -233,8 +232,8 @@ export default function AdminPartnershipRequests() {
                           <TableCell>
                             {request.website ? <a href={request.website} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
                                 {request.website}
-                              </a> : <span className="text-gray-400">{t("Nonrenseignxe9", {
-                          defaultValue: "Nonrenseignxe9"
+                              </a> : <span className="text-gray-400">{t('Non renseign\xE9', {
+                          defaultValue: 'Non renseign\xE9'
                         })}</span>}
                           </TableCell>
                           <TableCell>
@@ -267,25 +266,25 @@ export default function AdminPartnershipRequests() {
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <Handshake className="h-5 w-5 text-primary" />{t("Demande de partenariat", {
-              defaultValue: "Demande de partenariat"
+              <Handshake className="h-5 w-5 text-primary" />{t('Demande de partenariat', {
+              defaultValue: 'Demande de partenariat'
             })}</DialogTitle>
-            <DialogDescription>{t("Dxe9tailsdelaproposi", {
-              defaultValue: "Dxe9tailsdelaproposi"
+            <DialogDescription>{t('D\xE9tails de la proposition de collaboration', {
+              defaultValue: 'D\xE9tails de la proposition de collaboration'
             })}</DialogDescription>
           </DialogHeader>
           
           {selectedRequest && <div className="space-y-6">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-gray-700">{t("Nom du contact", {
-                  defaultValue: "Nom du contact"
+                  <label className="text-sm font-medium text-gray-700">{t('Nom du contact', {
+                  defaultValue: 'Nom du contact'
                 })}</label>
                   <p className="text-gray-900">{selectedRequest.contactName}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">{t("Email", {
-                  defaultValue: "Email"
+                  <label className="text-sm font-medium text-gray-700">{t('Email', {
+                  defaultValue: 'Email'
                 })}</label>
                   <p className="text-gray-900">{selectedRequest.email}</p>
                 </div>
@@ -299,8 +298,8 @@ export default function AdminPartnershipRequests() {
                   </p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">{t("Type de partenariat", {
-                  defaultValue: "Type de partenariat"
+                  <label className="text-sm font-medium text-gray-700">{t('Type de partenariat', {
+                  defaultValue: 'Type de partenariat'
                 })}</label>
                   <p className="text-gray-900 flex items-center gap-1">
                     <Briefcase className="h-4 w-4" />
@@ -308,14 +307,14 @@ export default function AdminPartnershipRequests() {
                   </p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">{t("Txe9lxe9phone", {
-                  defaultValue: "Txe9lxe9phone"
+                  <label className="text-sm font-medium text-gray-700">{t('T\xE9l\xE9phone', {
+                  defaultValue: 'T\xE9l\xE9phone'
                 })}</label>
                   <p className="text-gray-900">{selectedRequest.phone || 'Non renseigné'}</p>
                 </div>
                 {selectedRequest.website && <div className="col-span-2">
-                    <label className="text-sm font-medium text-gray-700">{t("Siteweb", {
-                  defaultValue: "Siteweb"
+                    <label className="text-sm font-medium text-gray-700">{t('Site web', {
+                  defaultValue: 'Site web'
                 })}</label>
                     <p className="text-gray-900">
                       <a href={selectedRequest.website} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline flex items-center gap-1">
@@ -327,8 +326,8 @@ export default function AdminPartnershipRequests() {
               </div>
               
               {selectedRequest.description && <div>
-                  <label className="text-sm font-medium text-gray-700">{t("Description du projet", {
-                defaultValue: "Description du projet"
+                  <label className="text-sm font-medium text-gray-700">{t('Description du projet', {
+                defaultValue: 'Description du projet'
               })}</label>
                   <p className="text-gray-900 bg-gray-50 p-3 rounded-lg mt-1">
                     {selectedRequest.description}
@@ -336,18 +335,18 @@ export default function AdminPartnershipRequests() {
                 </div>}
               
               <div className="flex items-center justify-between pt-4 border-t">
-                <p className="text-sm text-gray-500">{t("Rexe7ule", {
-                defaultValue: "Rexe7ule"
+                <p className="text-sm text-gray-500">{t('Re\xE7u le', {
+                defaultValue: 'Re\xE7u le'
               })}{new Date(selectedRequest.createdAt).toLocaleString('fr-FR')}
                 </p>
                 <div className="flex gap-2">
                   <Button variant="outline" onClick={() => window.open(`mailto:${selectedRequest.email}?subject=Votre demande de partenariat&body=Bonjour ${selectedRequest.fullName},%0D%0A%0D%0ANous avons bien reçu votre proposition de partenariat pour ${selectedRequest.companyName}.%0D%0A%0D%0ACordialement,%0D%0AÉquipe Amon Tour`)}>
-                    <Mail className="h-4 w-4 mr-2" />{t("Rxe9pondreparemail", {
-                  defaultValue: "Rxe9pondreparemail"
+                    <Mail className="h-4 w-4 mr-2" />{t('R\xE9pondre par email', {
+                  defaultValue: 'R\xE9pondre par email'
                 })}</Button>
                   {!selectedRequest.read && <Button onClick={() => markAsReadMutation.mutate(selectedRequest.id)}>
-                      <CheckCircle2 className="h-4 w-4 mr-2" />{t("Marquer comme lu", {
-                  defaultValue: "Marquer comme lu"
+                      <CheckCircle2 className="h-4 w-4 mr-2" />{t('Marquer comme lu', {
+                  defaultValue: 'Marquer comme lu'
                 })}</Button>}
                 </div>
               </div>

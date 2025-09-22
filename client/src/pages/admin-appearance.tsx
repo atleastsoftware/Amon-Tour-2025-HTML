@@ -51,14 +51,14 @@ function EditableField({
       await onSave(editValue);
       setIsEditing(false);
       toast({
-        title: t("Sauvegardxe9avecsucc", {
-          defaultValue: "Sauvegardxe9avecsucc"
+        title: t('Sauvegard\xE9 avec succ\xE8s!', {
+          defaultValue: 'Sauvegard\xE9 avec succ\xE8s!'
         })
       });
     } catch (error) {
       toast({
-        title: t("Erreur lors de la sauvegarde du formulaire.", {
-          defaultValue: "Erreur lors de la sauvegarde du formulaire."
+        title: t('Erreur lors de la sauvegarde', {
+          defaultValue: 'Erreur lors de la sauvegarde'
         }),
         variant: "destructive"
       });
@@ -91,8 +91,8 @@ function EditableField({
             <Button size="sm" onClick={handleSave} disabled={isSaving} className="h-8">
               {isSaving ? 'Sauvegarde...' : 'Sauvegarder'}
             </Button>
-            <Button size="sm" variant="outline" onClick={handleCancel} disabled={isSaving} className="h-8">{t("Annuler", {
-            defaultValue: "Annuler"
+            <Button size="sm" variant="outline" onClick={handleCancel} disabled={isSaving} className="h-8">{t('Annuler', {
+            defaultValue: 'Annuler'
           })}</Button>
           </div>
         </div> : <div onClick={() => setIsEditing(true)} className="min-h-[40px] p-2 bg-gray-50 border rounded cursor-pointer hover:bg-gray-100 transition-colors flex items-center">
@@ -178,74 +178,74 @@ interface NavigationMenuItem {
 function getPlaceholderForStyle(style: string): string {
   switch (style) {
     case 'title':
-      return t("e.g., Amon Tour is a brand of:", {
-        defaultValue: "e.g., Amon Tour is a brand of:"
+      return t('e.g., Amon Tour is a brand of:', {
+        defaultValue: 'e.g., Amon Tour is a brand of:'
       });
     case 'text':
-      return t("e.g., Flame BB Co., Ltd.", {
-        defaultValue: "e.g., Flame BB Co., Ltd."
+      return t('e.g., Flame BB Co., Ltd.', {
+        defaultValue: 'e.g., Flame BB Co., Ltd.'
       });
     case 'address':
-      return t("e.g., 242 Moo1 Tombol Ao Nang\n81180 Krabi, Thailand", {
-        defaultValue: "e.g., 242 Moo1 Tombol Ao Nang\n81180 Krabi, Thailand"
+      return t('e.g., 242 Moo1 Tombol Ao Nang\n81180 Krabi, Thailand', {
+        defaultValue: 'e.g., 242 Moo1 Tombol Ao Nang\n81180 Krabi, Thailand'
       });
     case 'license_badge':
-      return t("e.g., TAT License: 34/01995", {
-        defaultValue: "e.g., TAT License: 34/01995"
+      return t('e.g., TAT License: 34/01995', {
+        defaultValue: 'e.g., TAT License: 34/01995'
       });
     case 'email':
       return 'e.g., info@amon-tour.com';
     case 'phone_with_title':
-      return t("e.g., Operations manager: +66 (0)6 2574 8788", {
-        defaultValue: "e.g., Operations manager: +66 (0)6 2574 8788"
+      return t('e.g., Operations manager: +66 (0)6 2574 8788', {
+        defaultValue: 'e.g., Operations manager: +66 (0)6 2574 8788'
       });
     case 'whatsapp':
-      return t("e.g., WhatsApp: +66 65 349 6445", {
-        defaultValue: "e.g., WhatsApp: +66 65 349 6445"
+      return t('e.g., WhatsApp: +66 65 349 6445', {
+        defaultValue: 'e.g., WhatsApp: +66 65 349 6445'
       });
     case 'line':
-      return t("e.g., Line ID: amontour", {
-        defaultValue: "e.g., Line ID: amontour"
+      return t('e.g., Line ID: amontour', {
+        defaultValue: 'e.g., Line ID: amontour'
       });
     default:
-      return t("Entervalue", {
-        defaultValue: "Entervalue"
+      return t('Enter value', {
+        defaultValue: 'Enter value'
       });
   }
 }
 function getStyleDisplayName(style: string): string {
   switch (style) {
     case 'title':
-      return t("Title", {
-        defaultValue: "Title"
+      return t('Title', {
+        defaultValue: 'Title'
       });
     case 'text':
-      return t("Text", {
-        defaultValue: "Text"
+      return t('Text', {
+        defaultValue: 'Text'
       });
     case 'address':
-      return t("Address", {
-        defaultValue: "Address"
+      return t('Address', {
+        defaultValue: 'Address'
       });
     case 'license_badge':
-      return t("Badge", {
-        defaultValue: "Badge"
+      return t('Badge', {
+        defaultValue: 'Badge'
       });
     case 'email':
-      return t("Email", {
-        defaultValue: "Email"
+      return t('Email', {
+        defaultValue: 'Email'
       });
     case 'phone_with_title':
-      return t("Phone", {
-        defaultValue: "Phone"
+      return t('Phone', {
+        defaultValue: 'Phone'
       });
     case 'whatsapp':
-      return t("Whatsapp", {
-        defaultValue: "Whatsapp"
+      return t('WhatsApp', {
+        defaultValue: 'WhatsApp'
       });
     case 'line':
-      return t("Line", {
-        defaultValue: "Line"
+      return t('LINE', {
+        defaultValue: 'LINE'
       });
     default:
       return style;
@@ -270,8 +270,8 @@ function getStyleBadgeVariant(style: string): "default" | "secondary" | "destruc
   }
 }
 function renderStylePreview(style: string, value: string): any {
-  if (!value) return <span className="text-gray-400">{t("Nocontent", {
-      defaultValue: "Nocontent"
+  if (!value) return <span className="text-gray-400">{t('No content', {
+      defaultValue: 'No content'
     })}</span>;
   switch (style) {
     case 'title':
@@ -311,50 +311,50 @@ function ContactInfoManager({
       }
     }
     return [{
-      label: t("Brand Introduction", {
-        defaultValue: "Brand Introduction"
+      label: t('Brand Introduction', {
+        defaultValue: 'Brand Introduction'
       }),
       value: 'Amon Tour is a brand of:',
       style: 'title'
     }, {
-      label: t("Company Name *", {
-        defaultValue: "Company Name *"
+      label: t('Company Name', {
+        defaultValue: 'Company Name'
       }),
       value: 'Flame BB Co., Ltd.',
       style: 'text'
     }, {
-      label: t("Address", {
-        defaultValue: "Address"
+      label: t('Address', {
+        defaultValue: 'Address'
       }),
       value: '242 Moo1 Tombol Ao Nang\n81180 Krabi, Thailand',
       style: 'address'
     }, {
-      label: t("Tatlicense", {
-        defaultValue: "Tatlicense"
+      label: t('TAT License', {
+        defaultValue: 'TAT License'
       }),
       value: 'TAT License: 34/01995',
       style: 'license_badge'
     }, {
-      label: t("Email", {
-        defaultValue: "Email"
+      label: t('Email', {
+        defaultValue: 'Email'
       }),
       value: 'info@amon-tour.com',
       style: 'email'
     }, {
-      label: t("Operations Manager", {
-        defaultValue: "Operations Manager"
+      label: t('Operations Manager', {
+        defaultValue: 'Operations Manager'
       }),
       value: 'Operations manager: +66 (0)6 2574 8788',
       style: 'phone_with_title'
     }, {
-      label: t("Travel Advisor", {
-        defaultValue: "Travel Advisor"
+      label: t('Travel Advisor', {
+        defaultValue: 'Travel Advisor'
       }),
       value: 'Travel Advisor Manager: +66 (0)8 0463 4691',
       style: 'phone_with_title'
     }, {
-      label: t("Whatsapp", {
-        defaultValue: "Whatsapp"
+      label: t('WhatsApp', {
+        defaultValue: 'WhatsApp'
       }),
       value: 'WhatsApp: +66 65 349 6445',
       style: 'whatsapp'
@@ -408,34 +408,34 @@ function ContactInfoManager({
   return <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-          <MapPin className="w-4 h-4" />{t("Informations de contact", {
-          defaultValue: "Informations de contact"
+          <MapPin className="w-4 h-4" />{t('Informations de contact', {
+          defaultValue: 'Informations de contact'
         })}</CardTitle>
-        <CardDescription>{t("Gxe9rerlesdxe9tailsd", {
-          defaultValue: "Gxe9rerlesdxe9tailsd"
+        <CardDescription>{t('G\xE9rer les d\xE9tails de contact du pied de page', {
+          defaultValue: 'G\xE9rer les d\xE9tails de contact du pied de page'
         })}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {contactInfo.map((item: any, index: number) => <div key={index} className="border p-4 rounded-lg space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 flex-1">
-                <Input value={item.label} onChange={e => updateContactInfo(index, 'label', e.target.value)} placeholder={t("Label (for admin reference only)", {
-              defaultValue: "Label (for admin reference only)"
+                <Input value={item.label} onChange={e => updateContactInfo(index, 'label', e.target.value)} placeholder={t('Label (for admin reference only)', {
+              defaultValue: 'Label (for admin reference only)'
             })} className="font-medium flex-1" />
               </div>
               <div className="flex gap-1 ml-2">
-                <Button size="sm" variant="ghost" onClick={() => moveContactInfo(index, 'up')} disabled={index === 0} title={t("Moveup", {
-              defaultValue: "Moveup"
+                <Button size="sm" variant="ghost" onClick={() => moveContactInfo(index, 'up')} disabled={index === 0} title={t('Move up', {
+              defaultValue: 'Move up'
             })}>
                   ↑
                 </Button>
-                <Button size="sm" variant="ghost" onClick={() => moveContactInfo(index, 'down')} disabled={index === contactInfo.length - 1} title={t("Movedown", {
-              defaultValue: "Movedown"
+                <Button size="sm" variant="ghost" onClick={() => moveContactInfo(index, 'down')} disabled={index === contactInfo.length - 1} title={t('Move down', {
+              defaultValue: 'Move down'
             })}>
                   ↓
                 </Button>
-                <Button size="sm" variant="ghost" className="text-red-600" onClick={() => deleteContactInfo(index)} title={t("Delete", {
-              defaultValue: "Delete"
+                <Button size="sm" variant="ghost" className="text-red-600" onClick={() => deleteContactInfo(index)} title={t('Delete', {
+              defaultValue: 'Delete'
             })}>
                   <Trash2 className="w-4 h-4" />
                 </Button>
@@ -450,34 +450,34 @@ function ContactInfoManager({
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="title">{t("Titlebold", {
-                      defaultValue: "Titlebold"
+                      <SelectItem value="title">{t('Title (Bold)', {
+                      defaultValue: 'Title (Bold)'
                     })}</SelectItem>
-                      <SelectItem value="text">{t("Text", {
-                      defaultValue: "Text"
+                      <SelectItem value="text">{t('Text', {
+                      defaultValue: 'Text'
                     })}</SelectItem>
-                      <SelectItem value="address">{t("Address", {
-                      defaultValue: "Address"
+                      <SelectItem value="address">{t('Address', {
+                      defaultValue: 'Address'
                     })}</SelectItem>
-                      <SelectItem value="license_badge">{t("License Badge", {
-                      defaultValue: "License Badge"
+                      <SelectItem value="license_badge">{t('License Badge', {
+                      defaultValue: 'License Badge'
                     })}</SelectItem>
-                      <SelectItem value="email">{t("Email", {
-                      defaultValue: "Email"
+                      <SelectItem value="email">{t('Email', {
+                      defaultValue: 'Email'
                     })}</SelectItem>
-                      <SelectItem value="phone_with_title">{t("Phone w/ Title", {
-                      defaultValue: "Phone w/ Title"
+                      <SelectItem value="phone_with_title">{t('Phone w/ Title', {
+                      defaultValue: 'Phone w/ Title'
                     })}</SelectItem>
-                      <SelectItem value="whatsapp">{t("Whatsapp", {
-                      defaultValue: "Whatsapp"
+                      <SelectItem value="whatsapp">{t('WhatsApp', {
+                      defaultValue: 'WhatsApp'
                     })}</SelectItem>
                       <SelectItem value="line">LINE ID</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div className="flex-1">
-                  <Label className="text-xs text-gray-500">{t("Content (appears on website)", {
-                  defaultValue: "Content (appears on website)"
+                  <Label className="text-xs text-gray-500">{t('Content (appears on website)', {
+                  defaultValue: 'Content (appears on website)'
                 })}</Label>
                   {item.style === 'address' ? <Textarea value={item.value} onChange={e => updateContactInfo(index, 'value', e.target.value)} placeholder={getPlaceholderForStyle(item.style)} className="min-h-[60px]" /> : <Input value={item.value} onChange={e => updateContactInfo(index, 'value', e.target.value)} placeholder={getPlaceholderForStyle(item.style)} />}
                 </div>
@@ -488,19 +488,19 @@ function ContactInfoManager({
         
         {/* Add New Contact Info */}
         <div className="border-2 border-dashed border-gray-300 p-4 rounded-lg space-y-3">
-          <h5 className="font-medium text-gray-700">{t("Ajouter une nouvelle information de contact", {
-            defaultValue: "Ajouter une nouvelle information de contact"
+          <h5 className="font-medium text-gray-700">{t('Ajouter une nouvelle information de contact', {
+            defaultValue: 'Ajouter une nouvelle information de contact'
           })}</h5>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <div>
-              <Label className="text-xs text-gray-500">{t("Admin Label (for reference)", {
-                defaultValue: "Admin Label (for reference)"
+              <Label className="text-xs text-gray-500">{t('Admin Label (for reference)', {
+                defaultValue: 'Admin Label (for reference)'
               })}</Label>
               <Input value={newItem.label} onChange={e => setNewItem(prev => ({
               ...prev,
               label: e.target.value
-            }))} placeholder={t("e.g., Fax Number", {
-              defaultValue: "e.g., Fax Number"
+            }))} placeholder={t('e.g., Fax Number', {
+              defaultValue: 'e.g., Fax Number'
             })} />
             </div>
             <div>
@@ -513,26 +513,26 @@ function ContactInfoManager({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="title">{t("Titlebold", {
-                    defaultValue: "Titlebold"
+                  <SelectItem value="title">{t('Title (Bold)', {
+                    defaultValue: 'Title (Bold)'
                   })}</SelectItem>
-                  <SelectItem value="text">{t("Text", {
-                    defaultValue: "Text"
+                  <SelectItem value="text">{t('Text', {
+                    defaultValue: 'Text'
                   })}</SelectItem>
-                  <SelectItem value="address">{t("Address", {
-                    defaultValue: "Address"
+                  <SelectItem value="address">{t('Address', {
+                    defaultValue: 'Address'
                   })}</SelectItem>
-                  <SelectItem value="license_badge">{t("License Badge", {
-                    defaultValue: "License Badge"
+                  <SelectItem value="license_badge">{t('License Badge', {
+                    defaultValue: 'License Badge'
                   })}</SelectItem>
-                  <SelectItem value="email">{t("Email", {
-                    defaultValue: "Email"
+                  <SelectItem value="email">{t('Email', {
+                    defaultValue: 'Email'
                   })}</SelectItem>
-                  <SelectItem value="phone_with_title">{t("Phone w/ Title", {
-                    defaultValue: "Phone w/ Title"
+                  <SelectItem value="phone_with_title">{t('Phone w/ Title', {
+                    defaultValue: 'Phone w/ Title'
                   })}</SelectItem>
-                  <SelectItem value="whatsapp">{t("Whatsapp", {
-                    defaultValue: "Whatsapp"
+                  <SelectItem value="whatsapp">{t('WhatsApp', {
+                    defaultValue: 'WhatsApp'
                   })}</SelectItem>
                   <SelectItem value="line">LINE ID</SelectItem>
                 </SelectContent>
@@ -540,8 +540,8 @@ function ContactInfoManager({
             </div>
           </div>
           <div>
-            <Label className="text-xs text-gray-500">{t("Content (appears on website)", {
-              defaultValue: "Content (appears on website)"
+            <Label className="text-xs text-gray-500">{t('Content (appears on website)', {
+              defaultValue: 'Content (appears on website)'
             })}</Label>
             {newItem.style === 'address' ? <Textarea value={newItem.value} onChange={e => setNewItem(prev => ({
             ...prev,
@@ -553,8 +553,8 @@ function ContactInfoManager({
           </div>
           {/* Preview */}
           {newItem.label && newItem.value && <div className="bg-gray-50 p-3 rounded border-l-4 border-secondary">
-              <Label className="text-xs text-gray-500 block mb-1">{t("Preview on website:", {
-              defaultValue: "Preview on website:"
+              <Label className="text-xs text-gray-500 block mb-1">{t('Preview on website:', {
+              defaultValue: 'Preview on website:'
             })}</Label>
               <div className="text-sm">
                 {newItem.style === 'phone_with_title' ? <span>{newItem.label}: {newItem.value}</span> : newItem.style === 'whatsapp' ? <span>💬 {newItem.value}</span> : newItem.style === 'line' ? <span>💬 {newItem.value}</span> : newItem.style === 'email' ? <a href={`mailto:${newItem.value}`} className="text-primary">{newItem.value}</a> : newItem.style === 'license_badge' ? <div className="inline-block bg-white px-3 py-1 rounded-full border text-xs">
@@ -564,8 +564,8 @@ function ContactInfoManager({
             </div>}
           
           <Button onClick={addContactInfo} disabled={!newItem.label || !newItem.value} className="w-full">
-            <Plus className="w-4 h-4 mr-2" />{t("Ajouter une information de contact", {
-            defaultValue: "Ajouter une information de contact"
+            <Plus className="w-4 h-4 mr-2" />{t('Ajouter une information de contact', {
+            defaultValue: 'Ajouter une information de contact'
           })}</Button>
         </div>
       </CardContent>
@@ -587,31 +587,39 @@ function UsefulLinksManager({
       }
     }
     return [{
-      text: t("Our Brochure", {
-        defaultValue: "Our Brochure"
+      text: t('Our brochure', {
+        defaultValue: 'Our brochure'
       }),
       url: '/brochure',
       type: 'page'
     }, {
-      text: t('pages.krabiCelebration.title'),
+      text: t('Krabi Celebration', {
+        defaultValue: 'Krabi Celebration'
+      }),
       url: '/krabi-celebration',
       type: 'page'
     }, {
-      text: t("Fungarden", {
-        defaultValue: "Fungarden"
+      text: t('Fun Garden', {
+        defaultValue: 'Fun Garden'
       }),
       url: 'https://www.facebook.com/thefungardenkrabi/',
       type: 'custom'
     }, {
-      text: t('pages.villasKrabi.title'),
+      text: t('Villas in Krabi', {
+        defaultValue: 'Villas in Krabi'
+      }),
       url: '/villas-krabi',
       type: 'page'
     }, {
-      text: t('pages.becomePartner.title'),
+      text: t('Become Partner', {
+        defaultValue: 'Become Partner'
+      }),
       url: '/become-partner',
       type: 'page'
     }, {
-      text: t('pages.groupCorporate.title'),
+      text: t('Group & Corporate', {
+        defaultValue: 'Group & Corporate'
+      }),
       url: '/group-corporate',
       type: 'page'
     }];
@@ -623,30 +631,44 @@ function UsefulLinksManager({
     type: 'page'
   });
   const availablePagesInternal = [{
-    label: t("Our Brochure", {
-      defaultValue: "Our Brochure"
+    label: t('Our brochure', {
+      defaultValue: 'Our brochure'
     }),
     value: '/brochure'
   }, {
-    label: t('pages.krabiCelebration.title'),
+    label: t('Krabi Celebration', {
+      defaultValue: 'Krabi Celebration'
+    }),
     value: '/krabi-celebration'
   }, {
-    label: t('pages.villasKrabi.title'),
+    label: t('Villas in Krabi', {
+      defaultValue: 'Villas in Krabi'
+    }),
     value: '/villas-krabi'
   }, {
-    label: t('pages.becomePartner.title'),
+    label: t('Become Partner', {
+      defaultValue: 'Become Partner'
+    }),
     value: '/become-partner'
   }, {
-    label: t('pages.groupCorporate.title'),
+    label: t('Group & Corporate', {
+      defaultValue: 'Group & Corporate'
+    }),
     value: '/group-corporate'
   }, {
-    label: t('privacy.title'),
+    label: t('Privacy Policy', {
+      defaultValue: 'Privacy Policy'
+    }),
     value: '/privacy-policy'
   }, {
-    label: t('legal.title'),
+    label: t('Legal Notice', {
+      defaultValue: 'Legal Notice'
+    }),
     value: '/legal-notice'
   }, {
-    label: t('terms.title'),
+    label: t('Terms & Conditions', {
+      defaultValue: 'Terms & Conditions'
+    }),
     value: '/terms-conditions'
   }];
   const saveUsefulLinks = (newData: any[]) => {
@@ -686,22 +708,22 @@ function UsefulLinksManager({
   return <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-          <FileText className="w-4 h-4" />{t("Liens utiles", {
-          defaultValue: "Liens utiles"
+          <FileText className="w-4 h-4" />{t('Liens utiles', {
+          defaultValue: 'Liens utiles'
         })}</CardTitle>
-        <CardDescription>{t("Gxe9rerlesliensdenav", {
-          defaultValue: "Gxe9rerlesliensdenav"
+        <CardDescription>{t('G\xE9rer les liens de navigation du pied de page', {
+          defaultValue: 'G\xE9rer les liens de navigation du pied de page'
         })}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {usefulLinks.map((link: any, index: number) => <div key={index} className="border p-4 rounded-lg space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex-1">
-                <Label className="text-xs text-gray-500">{t("Content (appears on website)", {
-                defaultValue: "Content (appears on website)"
+                <Label className="text-xs text-gray-500">{t('Content (appears on website)', {
+                defaultValue: 'Content (appears on website)'
               })}</Label>
-                <Input value={link.text} onChange={e => updateUsefulLink(index, 'text', e.target.value)} placeholder={t("e.g., Our brochure", {
-              defaultValue: "e.g., Our brochure"
+                <Input value={link.text} onChange={e => updateUsefulLink(index, 'text', e.target.value)} placeholder={t('e.g., Our brochure', {
+              defaultValue: 'e.g., Our brochure'
             })} className="font-medium" />
               </div>
               <div className="flex gap-2">
@@ -722,46 +744,54 @@ function UsefulLinksManager({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="page">{t("Page", {
-                  defaultValue: "Page"
+                  <SelectItem value="page">{t('Page', {
+                  defaultValue: 'Page'
                 })}</SelectItem>
-                  <SelectItem value="custom">{t("Customurl", {
-                  defaultValue: "Customurl"
+                  <SelectItem value="custom">{t('Custom URL', {
+                  defaultValue: 'Custom URL'
                 })}</SelectItem>
                 </SelectContent>
               </Select>
               {link.type === 'page' ? <Select value={link.url} onValueChange={value => updateUsefulLink(index, 'url', value)}>
                   <SelectTrigger className="flex-1">
-                    <SelectValue placeholder={t("Selectpage", {
-                defaultValue: "Selectpage"
+                    <SelectValue placeholder={t('Select page', {
+                defaultValue: 'Select page'
               })} />
                   </SelectTrigger>
                   <SelectContent>
                     {availablePages.map((page: any) => <SelectItem key={page.slug} value={`/${page.slug}`}>
                         {page.name}
                       </SelectItem>)}
-                    <SelectItem value="/brochure">{t("Download Brochure", {
-                  defaultValue: "Download Brochure"
+                    <SelectItem value="/brochure">{t('Download Brochure', {
+                  defaultValue: 'Download Brochure'
                 })}</SelectItem>
-                    <SelectItem value="/krabi-celebration">{t('pages.krabiCelebration.title')}</SelectItem>
-                    <SelectItem value="/become-partner">{t('pages.becomePartner.title')}</SelectItem>
-                    <SelectItem value="/group-corporate">{t('pages.groupCorporate.title')}</SelectItem>
+                    <SelectItem value="/krabi-celebration">{t('Krabi Celebration', {
+                  defaultValue: 'Krabi Celebration'
+                })}</SelectItem>
+                    <SelectItem value="/become-partner">{t('Become Partner', {
+                  defaultValue: 'Become Partner'
+                })}</SelectItem>
+                    <SelectItem value="/group-corporate">{t('Group & Corporate', {
+                  defaultValue: 'Group & Corporate'
+                })}</SelectItem>
                   </SelectContent>
-                </Select> : <Input value={link.url} onChange={e => updateUsefulLink(index, 'url', e.target.value)} placeholder={t('common.url')} className="flex-1" />}
+                </Select> : <Input value={link.url} onChange={e => updateUsefulLink(index, 'url', e.target.value)} placeholder={t('URL', {
+            defaultValue: 'URL'
+          })} className="flex-1" />}
             </div>
           </div>)}
         
         {/* Add New Link */}
         <div className="border-2 border-dashed border-gray-300 p-4 rounded-lg space-y-3">
           <div>
-            <Label className="text-xs text-gray-500">{t("Content (appears on website)", {
-              defaultValue: "Content (appears on website)"
+            <Label className="text-xs text-gray-500">{t('Content (appears on website)', {
+              defaultValue: 'Content (appears on website)'
             })}</Label>
             <Input value={newLink.text} onChange={e => setNewLink(prev => ({
             ...prev,
             text: e.target.value
-          }))} placeholder={t("e.g., Our brochure", {
-            defaultValue: "e.g., Our brochure"
+          }))} placeholder={t('e.g., Our brochure', {
+            defaultValue: 'e.g., Our brochure'
           })} />
           </div>
           <div className="flex gap-3">
@@ -773,11 +803,11 @@ function UsefulLinksManager({
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="page">{t("Page", {
-                  defaultValue: "Page"
+                <SelectItem value="page">{t('Page', {
+                  defaultValue: 'Page'
                 })}</SelectItem>
-                <SelectItem value="custom">{t("Customurl", {
-                  defaultValue: "Customurl"
+                <SelectItem value="custom">{t('Custom URL', {
+                  defaultValue: 'Custom URL'
                 })}</SelectItem>
               </SelectContent>
             </Select>
@@ -786,30 +816,38 @@ function UsefulLinksManager({
             url: value
           }))}>
                 <SelectTrigger className="flex-1">
-                  <SelectValue placeholder={t("Selectpage", {
-                defaultValue: "Selectpage"
+                  <SelectValue placeholder={t('Select page', {
+                defaultValue: 'Select page'
               })} />
                 </SelectTrigger>
                 <SelectContent>
                   {availablePages.map((page: any) => <SelectItem key={page.slug} value={`/${page.slug}`}>
                       {page.name}
                     </SelectItem>)}
-                  <SelectItem value="/brochure">{t("Download Brochure", {
-                  defaultValue: "Download Brochure"
+                  <SelectItem value="/brochure">{t('Download Brochure', {
+                  defaultValue: 'Download Brochure'
                 })}</SelectItem>
-                  <SelectItem value="/krabi-celebration">{t('pages.krabiCelebration.title')}</SelectItem>
-                  <SelectItem value="/become-partner">{t('pages.becomePartner.title')}</SelectItem>
-                  <SelectItem value="/group-corporate">{t('pages.groupCorporate.title')}</SelectItem>
+                  <SelectItem value="/krabi-celebration">{t('Krabi Celebration', {
+                  defaultValue: 'Krabi Celebration'
+                })}</SelectItem>
+                  <SelectItem value="/become-partner">{t('Become Partner', {
+                  defaultValue: 'Become Partner'
+                })}</SelectItem>
+                  <SelectItem value="/group-corporate">{t('Group & Corporate', {
+                  defaultValue: 'Group & Corporate'
+                })}</SelectItem>
                 </SelectContent>
               </Select> : <Input value={newLink.url} onChange={e => setNewLink(prev => ({
             ...prev,
             url: e.target.value
-          }))} placeholder={t('common.url')} className="flex-1" />}
+          }))} placeholder={t('URL', {
+            defaultValue: 'URL'
+          })} className="flex-1" />}
           </div>
           {/* Preview */}
           {newLink.text && newLink.url && <div className="bg-gray-50 p-3 rounded border-l-4 border-secondary">
-              <Label className="text-xs text-gray-500 block mb-1">{t("Preview on website:", {
-              defaultValue: "Preview on website:"
+              <Label className="text-xs text-gray-500 block mb-1">{t('Preview on website:', {
+              defaultValue: 'Preview on website:'
             })}</Label>
               <div className="text-sm">
                 <a href={newLink.url} className="text-primary hover:text-primary/80 font-medium" {...newLink.url.startsWith('http') ? {
@@ -822,8 +860,8 @@ function UsefulLinksManager({
             </div>}
           
           <Button onClick={addUsefulLink} disabled={!newLink.text || !newLink.url} className="w-full">
-            <Plus className="w-4 h-4 mr-2" />{t("Addlink", {
-            defaultValue: "Addlink"
+            <Plus className="w-4 h-4 mr-2" />{t('Add Link', {
+            defaultValue: 'Add Link'
           })}</Button>
         </div>
       </CardContent>
@@ -844,20 +882,20 @@ function SocialMediaManager({
       }
     }
     return [{
-      name: t("Facebook", {
-        defaultValue: "Facebook"
+      name: t('Facebook', {
+        defaultValue: 'Facebook'
       }),
       url: 'https://web.facebook.com/amontourthailand',
       icon: 'facebook'
     }, {
-      name: t("Instagram", {
-        defaultValue: "Instagram"
+      name: t('Instagram', {
+        defaultValue: 'Instagram'
       }),
       url: 'https://www.instagram.com/amontourthailand/',
       icon: 'instagram'
     }, {
-      name: t("Youtube", {
-        defaultValue: "Youtube"
+      name: t('YouTube', {
+        defaultValue: 'YouTube'
       }),
       url: 'https://www.youtube.com/@amontour4949',
       icon: 'youtube'
@@ -869,68 +907,68 @@ function SocialMediaManager({
     icon: 'facebook'
   });
   const socialPlatforms = [{
-    name: t("Facebook", {
-      defaultValue: "Facebook"
+    name: t('Facebook', {
+      defaultValue: 'Facebook'
     }),
     icon: 'facebook',
-    label: t("Facebook", {
-      defaultValue: "Facebook"
+    label: t('Facebook', {
+      defaultValue: 'Facebook'
     })
   }, {
-    name: t("Instagram", {
-      defaultValue: "Instagram"
+    name: t('Instagram', {
+      defaultValue: 'Instagram'
     }),
     icon: 'instagram',
-    label: t("Instagram", {
-      defaultValue: "Instagram"
+    label: t('Instagram', {
+      defaultValue: 'Instagram'
     })
   }, {
-    name: t("Youtube", {
-      defaultValue: "Youtube"
+    name: t('YouTube', {
+      defaultValue: 'YouTube'
     }),
     icon: 'youtube',
-    label: t("Youtube", {
-      defaultValue: "Youtube"
+    label: t('YouTube', {
+      defaultValue: 'YouTube'
     })
   }, {
-    name: t("Twitter", {
-      defaultValue: "Twitter"
+    name: t('Twitter', {
+      defaultValue: 'Twitter'
     }),
     icon: 'twitter',
-    label: t("Twitter", {
-      defaultValue: "Twitter"
+    label: t('Twitter', {
+      defaultValue: 'Twitter'
     })
   }, {
-    name: t("Linkedin", {
-      defaultValue: "Linkedin"
+    name: t('LinkedIn', {
+      defaultValue: 'LinkedIn'
     }),
     icon: 'linkedin',
-    label: t("Linkedin", {
-      defaultValue: "Linkedin"
+    label: t('LinkedIn', {
+      defaultValue: 'LinkedIn'
     })
   }, {
-    name: t("Tiktok", {
-      defaultValue: "Tiktok"
+    name: t('TikTok', {
+      defaultValue: 'TikTok'
     }),
     icon: 'tiktok',
-    label: t("Tiktok", {
-      defaultValue: "Tiktok"
+    label: t('TikTok', {
+      defaultValue: 'TikTok'
     })
   }, {
-    name: t("Whatsapp", {
-      defaultValue: "Whatsapp"
+    name: t('WhatsApp', {
+      defaultValue: 'WhatsApp'
     }),
     icon: 'whatsapp',
-    label: t("Whatsapp", {
-      defaultValue: "Whatsapp"
+    label: t('WhatsApp', {
+      defaultValue: 'WhatsApp'
     })
   }, {
-    name: t("Telegram", {
-      defaultValue: "Telegram"
+    name: t('Telegram', {
+      defaultValue: 'Telegram'
     }),
     icon: 'telegram',
-    label: t("Telegram", {
-      defaultValue: "Telegram"
+    label: t('Telegram', {
+      defaultValue: 'Telegram'
     })
   }];
   const saveSocialMedia = (newData: any[]) => {
@@ -988,11 +1026,11 @@ function SocialMediaManager({
   return <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-          <Users className="w-4 h-4" />{t("Rxe9seauxsociaux", {
-          defaultValue: "Rxe9seauxsociaux"
+          <Users className="w-4 h-4" />{t('R\xE9seaux sociaux', {
+          defaultValue: 'R\xE9seaux sociaux'
         })}</CardTitle>
-        <CardDescription>{t("Gxe9rerlesliensdesrx", {
-          defaultValue: "Gxe9rerlesliensdesrx"
+        <CardDescription>{t('G\xE9rer les liens des r\xE9seaux sociaux', {
+          defaultValue: 'G\xE9rer les liens des r\xE9seaux sociaux'
         })}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -1024,23 +1062,25 @@ function SocialMediaManager({
                     </SelectItem>)}
                 </SelectContent>
               </Select>
-              <Input value={social.url} onChange={e => updateSocialMedia(index, 'url', e.target.value)} placeholder={t('common.url')} className="flex-1" />
+              <Input value={social.url} onChange={e => updateSocialMedia(index, 'url', e.target.value)} placeholder={t('URL', {
+            defaultValue: 'URL'
+          })} className="flex-1" />
             </div>
           </div>)}
         
         {/* Ajouter un nouveau réseau social */}
         <div className="border-2 border-dashed border-gray-300 p-4 rounded-lg space-y-3">
           <div>
-            <Label className="text-xs text-gray-500">{t("Social Platform", {
-              defaultValue: "Social Platform"
+            <Label className="text-xs text-gray-500">{t('Social Platform', {
+              defaultValue: 'Social Platform'
             })}</Label>
             <Select value={newSocial.icon} onValueChange={value => setNewSocial(prev => ({
             ...prev,
             icon: value
           }))}>
               <SelectTrigger>
-                <SelectValue placeholder={t("Select platform", {
-                defaultValue: "Select platform"
+                <SelectValue placeholder={t('Select platform', {
+                defaultValue: 'Select platform'
               })} />
               </SelectTrigger>
               <SelectContent>
@@ -1051,7 +1091,9 @@ function SocialMediaManager({
             </Select>
           </div>
           <div>
-            <Label className="text-xs text-gray-500">{t('common.url')}</Label>
+            <Label className="text-xs text-gray-500">{t('URL', {
+              defaultValue: 'URL'
+            })}</Label>
             <Input value={newSocial.url} onChange={e => setNewSocial(prev => ({
             ...prev,
             url: e.target.value
@@ -1060,8 +1102,8 @@ function SocialMediaManager({
           
           {/* Preview */}
           {newSocial.url && newSocial.icon && <div className="bg-gray-50 p-3 rounded border-l-4 border-secondary">
-              <Label className="text-xs text-gray-500 block mb-1">{t("Preview on website:", {
-              defaultValue: "Preview on website:"
+              <Label className="text-xs text-gray-500 block mb-1">{t('Preview on website:', {
+              defaultValue: 'Preview on website:'
             })}</Label>
               <div className="text-sm">
                 <a href={newSocial.url} className="text-primary hover:text-primary/80" target="_blank" rel="noopener noreferrer">
@@ -1071,8 +1113,8 @@ function SocialMediaManager({
             </div>}
           
           <Button onClick={addSocialMedia} disabled={!newSocial.url || !newSocial.icon} className="w-full">
-            <Plus className="w-4 h-4 mr-2" />{t("Ajouterunrxe9seausoc", {
-            defaultValue: "Ajouterunrxe9seausoc"
+            <Plus className="w-4 h-4 mr-2" />{t('Ajouter un r\xE9seau social', {
+            defaultValue: 'Ajouter un r\xE9seau social'
           })}</Button>
         </div>
       </CardContent>
@@ -1093,11 +1135,11 @@ function NewsletterManager({
       }
     }
     return {
-      title: t("Newsletter", {
-        defaultValue: "Newsletter"
+      title: t('Newsletter', {
+        defaultValue: 'Newsletter'
       }),
-      description: t("Subscribe to receive our special offers and travel tips.", {
-        defaultValue: "Subscribe to receive our special offers and travel tips."
+      description: t('Subscribe to receive our special offers and travel tips.', {
+        defaultValue: 'Subscribe to receive our special offers and travel tips.'
       }),
       privacy: 'We respect your privacy. Unsubscribe at any time.',
       buttonText: 'Subscribe',
@@ -1120,63 +1162,63 @@ function NewsletterManager({
   return <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-          <Mail className="w-4 h-4" />{t("Newsletter", {
-          defaultValue: "Newsletter"
+          <Mail className="w-4 h-4" />{t('Newsletter', {
+          defaultValue: 'Newsletter'
         })}</CardTitle>
-        <CardDescription>{t("Configurer la section newsletter", {
-          defaultValue: "Configurer la section newsletter"
+        <CardDescription>{t('Configurer la section newsletter', {
+          defaultValue: 'Configurer la section newsletter'
         })}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex items-center justify-between">
-          <Label>{t("Activer la newsletter", {
-            defaultValue: "Activer la newsletter"
+          <Label>{t('Activer la newsletter', {
+            defaultValue: 'Activer la newsletter'
           })}</Label>
           <Switch checked={newsletterConfig.enabled} onCheckedChange={checked => updateNewsletterConfig('enabled', checked)} />
         </div>
         
         <div>
-          <Label htmlFor="newsletter-title">{t("Title", {
-            defaultValue: "Title"
+          <Label htmlFor="newsletter-title">{t('Title', {
+            defaultValue: 'Title'
           })}</Label>
-          <Input id="newsletter-title" value={newsletterConfig.title} onChange={e => updateNewsletterConfig('title', e.target.value)} placeholder={t("Newsletter", {
-          defaultValue: "Newsletter"
+          <Input id="newsletter-title" value={newsletterConfig.title} onChange={e => updateNewsletterConfig('title', e.target.value)} placeholder={t('Newsletter', {
+          defaultValue: 'Newsletter'
         })} />
         </div>
         
         <div>
-          <Label htmlFor="newsletter-description">{t("Description:", {
-            defaultValue: "Description:"
+          <Label htmlFor="newsletter-description">{t('Description', {
+            defaultValue: 'Description'
           })}</Label>
-          <Textarea id="newsletter-description" value={newsletterConfig.description} onChange={e => updateNewsletterConfig('description', e.target.value)} placeholder={t("Subscribe to receive...", {
-          defaultValue: "Subscribe to receive..."
+          <Textarea id="newsletter-description" value={newsletterConfig.description} onChange={e => updateNewsletterConfig('description', e.target.value)} placeholder={t('Subscribe to receive...', {
+          defaultValue: 'Subscribe to receive...'
         })} />
         </div>
         
         <div>
-          <Label htmlFor="newsletter-placeholder">{t("Email Placeholder", {
-            defaultValue: "Email Placeholder"
+          <Label htmlFor="newsletter-placeholder">{t('Email Placeholder', {
+            defaultValue: 'Email Placeholder'
           })}</Label>
-          <Input id="newsletter-placeholder" value={newsletterConfig.placeholderText} onChange={e => updateNewsletterConfig('placeholderText', e.target.value)} placeholder={t("Enter your email", {
-          defaultValue: "Enter your email"
+          <Input id="newsletter-placeholder" value={newsletterConfig.placeholderText} onChange={e => updateNewsletterConfig('placeholderText', e.target.value)} placeholder={t('Enter your email', {
+          defaultValue: 'Enter your email'
         })} />
         </div>
         
         <div>
-          <Label htmlFor="newsletter-button">{t("Buttontext", {
-            defaultValue: "Buttontext"
+          <Label htmlFor="newsletter-button">{t('Button Text', {
+            defaultValue: 'Button Text'
           })}</Label>
-          <Input id="newsletter-button" value={newsletterConfig.buttonText} onChange={e => updateNewsletterConfig('buttonText', e.target.value)} placeholder={t("Subscribe", {
-          defaultValue: "Subscribe"
+          <Input id="newsletter-button" value={newsletterConfig.buttonText} onChange={e => updateNewsletterConfig('buttonText', e.target.value)} placeholder={t('Subscribe', {
+          defaultValue: 'Subscribe'
         })} />
         </div>
         
         <div>
-          <Label htmlFor="newsletter-privacy">{t("Privacy Text", {
-            defaultValue: "Privacy Text"
+          <Label htmlFor="newsletter-privacy">{t('Privacy Text', {
+            defaultValue: 'Privacy Text'
           })}</Label>
-          <Input id="newsletter-privacy" value={newsletterConfig.privacy} onChange={e => updateNewsletterConfig('privacy', e.target.value)} placeholder={t("We respect your privacy...", {
-          defaultValue: "We respect your privacy..."
+          <Input id="newsletter-privacy" value={newsletterConfig.privacy} onChange={e => updateNewsletterConfig('privacy', e.target.value)} placeholder={t('We respect your privacy...', {
+          defaultValue: 'We respect your privacy...'
         })} />
         </div>
       </CardContent>
@@ -1197,8 +1239,8 @@ function CopyrightManager({
       }
     }
     return {
-      text: t("Xa92025flamebbcoltda", {
-        defaultValue: "Xa92025flamebbcoltda"
+      text: t('\xA9 2025 Flame BB Co., Ltd. (Amon Tour). All rights reserved.', {
+        defaultValue: '\xA9 2025 Flame BB Co., Ltd. (Amon Tour). All rights reserved.'
       }),
       enabled: true
     };
@@ -1218,27 +1260,27 @@ function CopyrightManager({
   return <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-          <FileText className="w-4 h-4" />{t("Copyright", {
-          defaultValue: "Copyright"
+          <FileText className="w-4 h-4" />{t('Copyright', {
+          defaultValue: 'Copyright'
         })}</CardTitle>
-        <CardDescription>{t("Configurer le texte de copyright", {
-          defaultValue: "Configurer le texte de copyright"
+        <CardDescription>{t('Configurer le texte de copyright', {
+          defaultValue: 'Configurer le texte de copyright'
         })}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex items-center justify-between">
-          <Label>{t("Activer le copyright", {
-            defaultValue: "Activer le copyright"
+          <Label>{t('Activer le copyright', {
+            defaultValue: 'Activer le copyright'
           })}</Label>
           <Switch checked={copyrightConfig.enabled} onCheckedChange={checked => updateCopyrightConfig('enabled', checked)} />
         </div>
         
         <div>
-          <Label htmlFor="copyright-text">{t("Copyright Text", {
-            defaultValue: "Copyright Text"
+          <Label htmlFor="copyright-text">{t('Copyright Text', {
+            defaultValue: 'Copyright Text'
           })}</Label>
-          <Textarea id="copyright-text" value={copyrightConfig.text} onChange={e => updateCopyrightConfig('text', e.target.value)} placeholder={t("Xa92025flamebbcoltda", {
-          defaultValue: "Xa92025flamebbcoltda"
+          <Textarea id="copyright-text" value={copyrightConfig.text} onChange={e => updateCopyrightConfig('text', e.target.value)} placeholder={t('\xA9 2025 Flame BB Co., Ltd. (Amon Tour). All rights reserved.', {
+          defaultValue: '\xA9 2025 Flame BB Co., Ltd. (Amon Tour). All rights reserved.'
         })} rows={3} />
         </div>
       </CardContent>
@@ -1260,8 +1302,8 @@ function PageManagementInterface({
   const currentPageConfig = pageConfigs.find(p => p.pageSlug === selectedPage);
   if (!currentPageConfig) {
     return <div className="text-center py-12">
-        <div className="text-gray-500">{t("Configuration de page introuvable", {
-          defaultValue: "Configuration de page introuvable"
+        <div className="text-gray-500">{t('Configuration de page introuvable', {
+          defaultValue: 'Configuration de page introuvable'
         })}</div>
       </div>;
   }
@@ -1318,25 +1360,25 @@ function PageManagementInterface({
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <FileText className="w-5 h-5" />{t("Informationsgxe9nxe9", {
-            defaultValue: "Informationsgxe9nxe9"
+            <FileText className="w-5 h-5" />{t('Informations g\xE9n\xE9rales', {
+            defaultValue: 'Informations g\xE9n\xE9rales'
           })}</CardTitle>
-          <CardDescription>{t("Mxe9tadonnxe9esetcon", {
-            defaultValue: "Mxe9tadonnxe9esetcon"
+          <CardDescription>{t('M\xE9tadonn\xE9es et configuration de la page', {
+            defaultValue: 'M\xE9tadonn\xE9es et configuration de la page'
           })}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           {/* Ligne 1: Nom de la page + Slug/URL */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <EditableField label={t("Nom de la page", {
-            defaultValue: "Nom de la page"
+            <EditableField label={t('Nom de la page', {
+            defaultValue: 'Nom de la page'
           })} value={currentPageConfig.pageName} onSave={value => updatePageConfigMutation.mutate({
             id: currentPageConfig.id,
             field: 'pageName',
             value
           })} type="text" />
-            <EditableField label={t("Slugurl", {
-            defaultValue: "Slugurl"
+            <EditableField label={t('Slug/URL', {
+            defaultValue: 'Slug/URL'
           })} value={currentPageConfig.pageSlug} onSave={value => updatePageConfigMutation.mutate({
             id: currentPageConfig.id,
             field: 'pageSlug',
@@ -1347,8 +1389,8 @@ function PageManagementInterface({
           {/* Ligne 2: Type de page + État */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="text-sm font-medium text-gray-700 mb-2 block">{t("Typedepage", {
-                defaultValue: "Typedepage"
+              <label className="text-sm font-medium text-gray-700 mb-2 block">{t('Type de page', {
+                defaultValue: 'Type de page'
               })}</label>
               <Select value={currentPageConfig.pageType} onValueChange={value => updatePageConfigMutation.mutate({
               id: currentPageConfig.id,
@@ -1359,14 +1401,14 @@ function PageManagementInterface({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="main">{t("Pages principales", {
-                    defaultValue: "Pages principales"
+                  <SelectItem value="main">{t('Pages principales', {
+                    defaultValue: 'Pages principales'
                   })}</SelectItem>
-                  <SelectItem value="secondary">{t("Pages secondaires", {
-                    defaultValue: "Pages secondaires"
+                  <SelectItem value="secondary">{t('Pages secondaires', {
+                    defaultValue: 'Pages secondaires'
                   })}</SelectItem>
-                  <SelectItem value="legal">{t("Mentionslxe9gales", {
-                    defaultValue: "Mentionslxe9gales"
+                  <SelectItem value="legal">{t('Mentions l\xE9gales', {
+                    defaultValue: 'Mentions l\xE9gales'
                   })}</SelectItem>
                 </SelectContent>
               </Select>
@@ -1384,36 +1426,36 @@ function PageManagementInterface({
 
           {/* Ligne 3: Titre SEO + Mots-clés SEO */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <EditableField label={t("Titreseo", {
-            defaultValue: "Titreseo"
+            <EditableField label={t('Titre SEO', {
+            defaultValue: 'Titre SEO'
           })} value={currentPageConfig.seoTitle || ''} onSave={value => updatePageConfigMutation.mutate({
             id: currentPageConfig.id,
             field: 'seoTitle',
             value
-          })} type="text" placeholder={t("Nondxe9fini", {
-            defaultValue: "Nondxe9fini"
+          })} type="text" placeholder={t('Non d\xE9fini', {
+            defaultValue: 'Non d\xE9fini'
           })} />
-            <EditableField label={t("Motsclxe9sseo", {
-            defaultValue: "Motsclxe9sseo"
+            <EditableField label={t('Mots-cl\xE9s SEO', {
+            defaultValue: 'Mots-cl\xE9s SEO'
           })} value={currentPageConfig.seoKeywords || ''} onSave={value => updatePageConfigMutation.mutate({
             id: currentPageConfig.id,
             field: 'seoKeywords',
             value
-          })} type="text" placeholder={t("Nondxe9fini", {
-            defaultValue: "Nondxe9fini"
+          })} type="text" placeholder={t('Non d\xE9fini', {
+            defaultValue: 'Non d\xE9fini'
           })} />
           </div>
 
           {/* Ligne 4: Description SEO */}
           <div>
-            <EditableField label={t("Description SEO", {
-            defaultValue: "Description SEO"
+            <EditableField label={t('Description SEO', {
+            defaultValue: 'Description SEO'
           })} value={currentPageConfig.seoDescription || ''} onSave={value => updatePageConfigMutation.mutate({
             id: currentPageConfig.id,
             field: 'seoDescription',
             value
-          })} type="textarea" placeholder={t("Nondxe9finie", {
-            defaultValue: "Nondxe9finie"
+          })} type="textarea" placeholder={t('Non d\xE9finie', {
+            defaultValue: 'Non d\xE9finie'
           })} rows={3} />
           </div>
         </CardContent>
@@ -1423,11 +1465,11 @@ function PageManagementInterface({
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Link className="w-5 h-5" />{t("Oxf9cettepageestratt", {
-            defaultValue: "Oxf9cettepageestratt"
+            <Link className="w-5 h-5" />{t('O\xF9 cette page est rattach\xE9e', {
+            defaultValue: 'O\xF9 cette page est rattach\xE9e'
           })}</CardTitle>
-          <CardDescription>{t("Emplacementsoxf9cett", {
-            defaultValue: "Emplacementsoxf9cett"
+          <CardDescription>{t('Emplacements o\xF9 cette page est r\xE9f\xE9renc\xE9e dans le site', {
+            defaultValue: 'Emplacements o\xF9 cette page est r\xE9f\xE9renc\xE9e dans le site'
           })}</CardDescription>
         </CardHeader>
         <CardContent>
@@ -1449,26 +1491,26 @@ function PageManagementInterface({
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Database className="w-5 h-5" />{t("Informations techniques", {
-            defaultValue: "Informations techniques"
+            <Database className="w-5 h-5" />{t('Informations techniques', {
+            defaultValue: 'Informations techniques'
           })}</CardTitle>
-          <CardDescription>{t("Dxe9tailstechniquese", {
-            defaultValue: "Dxe9tailstechniquese"
+          <CardDescription>{t('D\xE9tails techniques et m\xE9tadonn\xE9es syst\xE8me', {
+            defaultValue: 'D\xE9tails techniques et m\xE9tadonn\xE9es syst\xE8me'
           })}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           {/* Ligne 1: ID Page */}
           <div className="flex justify-between items-center py-3 border-b border-gray-100">
-            <span className="font-medium text-gray-700">{t("Idpage", {
-              defaultValue: "Idpage"
+            <span className="font-medium text-gray-700">{t('ID Page:', {
+              defaultValue: 'ID Page:'
             })}</span>
             <code className="text-gray-600 bg-gray-100 px-2 py-1 rounded text-sm">{currentPageConfig.id}</code>
           </div>
           
           {/* Ligne 2: URL publique */}
           <div className="flex justify-between items-center py-3 border-b border-gray-100">
-            <span className="font-medium text-gray-700">{t("URL publique:", {
-              defaultValue: "URL publique:"
+            <span className="font-medium text-gray-700">{t('URL publique:', {
+              defaultValue: 'URL publique:'
             })}</span>
             <a href={selectedPage === 'home' ? '/' : `/${selectedPage}`} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline text-sm max-w-xs truncate" title={`${window.location.origin}${selectedPage === 'home' ? '/' : `/${selectedPage}`}`}>
               {window.location.origin}{selectedPage === 'home' ? '/' : `/${selectedPage}`}
@@ -1477,16 +1519,16 @@ function PageManagementInterface({
           
           {/* Ligne 3: Créée le */}
           <div className="flex justify-between items-center py-3 border-b border-gray-100">
-            <span className="font-medium text-gray-700">{t("Crxe9xe9ele", {
-              defaultValue: "Crxe9xe9ele"
+            <span className="font-medium text-gray-700">{t('Cr\xE9\xE9e le:', {
+              defaultValue: 'Cr\xE9\xE9e le:'
             })}</span>
             <span className="text-gray-600 text-sm">{formatDate(new Date(currentPageConfig.createdAt))}</span>
           </div>
           
           {/* Ligne 4: Modifiée le */}
           <div className="flex justify-between items-center py-3">
-            <span className="font-medium text-gray-700">{t("Modifixe9ele", {
-              defaultValue: "Modifixe9ele"
+            <span className="font-medium text-gray-700">{t('Modifi\xE9e le:', {
+              defaultValue: 'Modifi\xE9e le:'
             })}</span>
             <span className="text-gray-600 text-sm">{formatDate(new Date(currentPageConfig.updatedAt || currentPageConfig.createdAt))}</span>
           </div>
@@ -1495,9 +1537,8 @@ function PageManagementInterface({
     </div>;
 }
 export default function AdminAppearance() {
-  const {
-    t
-  } = useTranslation();
+  const { t } = useTranslation();
+
   const [, setLocation] = useLocation();
   const [activeCategory, setActiveCategory] = useState<string>('theme');
   const [selectedPage, setSelectedPage] = useState<string>('navigation-menu');
@@ -1539,11 +1580,11 @@ export default function AdminAppearance() {
       if (tempTypography.body_font) updateSiteSetting('theme', 'body_font', tempTypography.body_font);
       setTempTypography(null);
       toast({
-        title: t("Typographysauvegardx", {
-          defaultValue: "Typographysauvegardx"
+        title: t('Typography sauvegard\xE9e !', {
+          defaultValue: 'Typography sauvegard\xE9e !'
         }),
-        description: t("Lespolicesontxe9txe9", {
-          defaultValue: "Lespolicesontxe9txe9"
+        description: t('Les polices ont \xE9t\xE9 appliqu\xE9es au site.', {
+          defaultValue: 'Les polices ont \xE9t\xE9 appliqu\xE9es au site.'
         })
       });
     }
@@ -1555,11 +1596,11 @@ export default function AdminAppearance() {
       if (tempColors.color_palette) updateSiteSetting('theme', 'color_palette', JSON.stringify(tempColors.color_palette));
       setTempColors(null);
       toast({
-        title: t("Couleurssauvegardxe9", {
-          defaultValue: "Couleurssauvegardxe9"
+        title: t('Couleurs sauvegard\xE9es !', {
+          defaultValue: 'Couleurs sauvegard\xE9es !'
         }),
-        description: t("La palette de couleurs a \xE9t\xE9 appliqu\xE9e au site.", {
-          defaultValue: "La palette de couleurs a \xE9t\xE9 appliqu\xE9e au site."
+        description: t('La palette de couleurs a \xE9t\xE9 appliqu\xE9e au site.', {
+          defaultValue: 'La palette de couleurs a \xE9t\xE9 appliqu\xE9e au site.'
         })
       });
     }
@@ -1579,11 +1620,11 @@ export default function AdminAppearance() {
       updateSiteSetting('theme', 'logo_settings', JSON.stringify(tempLogoSettings));
       setTempLogoSettings(null);
       toast({
-        title: t("Logossauvegardxe9s", {
-          defaultValue: "Logossauvegardxe9s"
+        title: t('Logos sauvegard\xE9s !', {
+          defaultValue: 'Logos sauvegard\xE9s !'
         }),
-        description: t("Lesnouveauxlogosontx", {
-          defaultValue: "Lesnouveauxlogosontx"
+        description: t('Les nouveaux logos ont \xE9t\xE9 appliqu\xE9s au site.', {
+          defaultValue: 'Les nouveaux logos ont \xE9t\xE9 appliqu\xE9s au site.'
         })
       });
     }
@@ -1596,8 +1637,8 @@ export default function AdminAppearance() {
         title: t('Barre d\'annonce sauvegard\xE9e !', {
           defaultValue: 'Barre d\'annonce sauvegard\xE9e !'
         }),
-        description: t("Lesparamxe8tresontxe", {
-          defaultValue: "Lesparamxe8tresontxe"
+        description: t('Les param\xE8tres ont \xE9t\xE9 appliqu\xE9s.', {
+          defaultValue: 'Les param\xE8tres ont \xE9t\xE9 appliqu\xE9s.'
         })
       });
     }
@@ -1607,11 +1648,11 @@ export default function AdminAppearance() {
       updateSiteSetting('theme', 'popup_settings', JSON.stringify(tempPopupSettings));
       setTempPopupSettings(null);
       toast({
-        title: t("Popupsauvegardxe9e", {
-          defaultValue: "Popupsauvegardxe9e"
+        title: t('Pop-up sauvegard\xE9e !', {
+          defaultValue: 'Pop-up sauvegard\xE9e !'
         }),
-        description: t("Lesparamxe8tresdepop", {
-          defaultValue: "Lesparamxe8tresdepop"
+        description: t('Les param\xE8tres de pop-up ont \xE9t\xE9 appliqu\xE9s.', {
+          defaultValue: 'Les param\xE8tres de pop-up ont \xE9t\xE9 appliqu\xE9s.'
         })
       });
     }
@@ -1713,15 +1754,15 @@ export default function AdminAppearance() {
         queryKey: ['/api/admin/page-blocks', selectedPage]
       });
       toast({
-        title: t("Heromisxe0jouravecsu", {
-          defaultValue: "Heromisxe0jouravecsu"
+        title: t('Hero mis \xE0 jour avec succ\xE8s!', {
+          defaultValue: 'Hero mis \xE0 jour avec succ\xE8s!'
         })
       });
     } catch (error) {
       console.error('Erreur sauvegarde Hero:', error);
       toast({
-        title: t("Erreur lors de la sauvegarde du formulaire.", {
-          defaultValue: "Erreur lors de la sauvegarde du formulaire."
+        title: t('Erreur lors de la sauvegarde', {
+          defaultValue: 'Erreur lors de la sauvegarde'
         }),
         variant: "destructive"
       });
@@ -1774,12 +1815,12 @@ export default function AdminAppearance() {
   // État pour l'édition Hero séparée
   const [editingHeroBlockId, setEditingHeroBlockId] = useState<number | null>(null);
   const [heroEditData, setHeroEditData] = useState<HeroEditData>({
-    title: t("Your exclusive experiences", {
-      defaultValue: "Your exclusive experiences"
+    title: t('Your exclusive experiences\nin Krabi \u2013 THAILAND', {
+      defaultValue: 'Your exclusive experiences\nin Krabi \u2013 THAILAND'
     }),
     titleColorPart: "in Krabi –",
-    description: t("Discover amazing places away from mass tourism in Krabi. And also Khao Sok, Koh Mook and many more destinations.", {
-      defaultValue: "Discover amazing places away from mass tourism in Krabi. And also Khao Sok, Koh Mook and many more destinations."
+    description: t('Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations.', {
+      defaultValue: 'Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations.'
     }),
     imageUrl: "/attached_assets/DJI_20241115104455_0160_D-min.jpeg",
     videoUrl: "/attached_assets/hero-video-optimized.mp4",
@@ -1861,8 +1902,8 @@ export default function AdminAppearance() {
     },
     onError: (error: any) => {
       toast({
-        title: t("Erreur lors de la sauvegarde du formulaire.", {
-          defaultValue: "Erreur lors de la sauvegarde du formulaire."
+        title: t('Erreur lors de la sauvegarde', {
+          defaultValue: 'Erreur lors de la sauvegarde'
         }),
         description: error.message || 'Veuillez réessayer',
         variant: 'destructive'
@@ -1885,16 +1926,16 @@ export default function AdminAppearance() {
         queryKey: ['/api/admin/page-blocks', selectedPage]
       });
       toast({
-        title: t("Block created successfully", {
-          defaultValue: "Block created successfully"
+        title: t('Block created successfully', {
+          defaultValue: 'Block created successfully'
         })
       });
       setNewBlockType('');
     },
     onError: () => {
       toast({
-        title: t("Error creating block", {
-          defaultValue: "Error creating block"
+        title: t('Error creating block', {
+          defaultValue: 'Error creating block'
         }),
         variant: 'destructive'
       });
@@ -1918,8 +1959,8 @@ export default function AdminAppearance() {
         queryKey: ['/api/admin/page-blocks', selectedPage]
       });
       toast({
-        title: t("Block updated successfully", {
-          defaultValue: "Block updated successfully"
+        title: t('Block updated successfully', {
+          defaultValue: 'Block updated successfully'
         })
       });
       setIsEditingBlock(false);
@@ -1928,8 +1969,8 @@ export default function AdminAppearance() {
     },
     onError: () => {
       toast({
-        title: t("Error updating block", {
-          defaultValue: "Error updating block"
+        title: t('Error updating block', {
+          defaultValue: 'Error updating block'
         }),
         variant: 'destructive'
       });
@@ -1946,15 +1987,15 @@ export default function AdminAppearance() {
         queryKey: ['/api/admin/page-blocks', selectedPage]
       });
       toast({
-        title: t("Block deleted successfully", {
-          defaultValue: "Block deleted successfully"
+        title: t('Block deleted successfully', {
+          defaultValue: 'Block deleted successfully'
         })
       });
     },
     onError: () => {
       toast({
-        title: t("Error deleting block", {
-          defaultValue: "Error deleting block"
+        title: t('Error deleting block', {
+          defaultValue: 'Error deleting block'
         }),
         variant: 'destructive'
       });
@@ -1985,15 +2026,15 @@ export default function AdminAppearance() {
         queryKey: ['/api/admin/page-blocks', selectedPage]
       });
       toast({
-        title: t("Block moved successfully", {
-          defaultValue: "Block moved successfully"
+        title: t('Block moved successfully', {
+          defaultValue: 'Block moved successfully'
         })
       });
     },
     onError: () => {
       toast({
-        title: t("Error moving block", {
-          defaultValue: "Error moving block"
+        title: t('Error moving block', {
+          defaultValue: 'Error moving block'
         }),
         variant: 'destructive'
       });
@@ -2019,15 +2060,15 @@ export default function AdminAppearance() {
         queryKey: ['/api/admin/page-blocks', selectedPage]
       });
       toast({
-        title: t("Block visibility updated", {
-          defaultValue: "Block visibility updated"
+        title: t('Block visibility updated', {
+          defaultValue: 'Block visibility updated'
         })
       });
     },
     onError: () => {
       toast({
-        title: t("Error updating block visibility", {
-          defaultValue: "Error updating block visibility"
+        title: t('Error updating block visibility', {
+          defaultValue: 'Error updating block visibility'
         }),
         variant: 'destructive'
       });
@@ -2062,15 +2103,15 @@ export default function AdminAppearance() {
       });
       setSelectedPage(createdPage.pageSlug);
       toast({
-        title: t("Page created successfully!", {
-          defaultValue: "Page created successfully!"
+        title: t('Page created successfully!', {
+          defaultValue: 'Page created successfully!'
         })
       });
     },
     onError: (error: any) => {
       toast({
-        title: t("Error creating page", {
-          defaultValue: "Error creating page"
+        title: t('Error creating page', {
+          defaultValue: 'Error creating page'
         }),
         description: error.message || 'Please try again',
         variant: 'destructive'
@@ -2098,15 +2139,15 @@ export default function AdminAppearance() {
         queryKey: ['/api/admin/site-settings']
       });
       toast({
-        title: t("Setting updated successfully", {
-          defaultValue: "Setting updated successfully"
+        title: t('Setting updated successfully', {
+          defaultValue: 'Setting updated successfully'
         })
       });
     },
     onError: () => {
       toast({
-        title: t("Error updating setting", {
-          defaultValue: "Error updating setting"
+        title: t('Error updating setting', {
+          defaultValue: 'Error updating setting'
         }),
         variant: 'destructive'
       });
@@ -2122,17 +2163,17 @@ export default function AdminAppearance() {
             <div className="mx-auto w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mb-4">
               <Settings className="w-6 h-6 text-red-600" />
             </div>
-            <CardTitle className="text-xl">{t("Authentication Required", {
-              defaultValue: "Authentication Required"
+            <CardTitle className="text-xl">{t('Authentication Required', {
+              defaultValue: 'Authentication Required'
             })}</CardTitle>
-            <CardDescription>{t("Please log in to access the site appearance management system.", {
-              defaultValue: "Please log in to access the site appearance management system."
+            <CardDescription>{t('Please log in to access the site appearance management system.', {
+              defaultValue: 'Please log in to access the site appearance management system.'
             })}</CardDescription>
           </CardHeader>
           <CardContent>
             <Button onClick={() => setLocation('/admin')} className="w-full">
-              <ArrowLeft className="w-4 h-4 mr-2" />{t("Go to Admin Login", {
-              defaultValue: "Go to Admin Login"
+              <ArrowLeft className="w-4 h-4 mr-2" />{t('Go to Admin Login', {
+              defaultValue: 'Go to Admin Login'
             })}</Button>
           </CardContent>
         </Card>
@@ -2142,8 +2183,8 @@ export default function AdminAppearance() {
     return <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-secondary mx-auto mb-4"></div>
-          <p className="text-gray-600">{t("Loading appearance settings...", {
-            defaultValue: "Loading appearance settings..."
+          <p className="text-gray-600">{t('Loading appearance settings...', {
+            defaultValue: 'Loading appearance settings...'
           })}</p>
         </div>
       </div>;
@@ -2214,8 +2255,8 @@ export default function AdminAppearance() {
   const handleCreatePage = () => {
     if (!newPageData.pageName) {
       toast({
-        title: t("Please enter a page name", {
-          defaultValue: "Please enter a page name"
+        title: t('Please enter a page name', {
+          defaultValue: 'Please enter a page name'
         }),
         variant: 'destructive'
       });
@@ -2234,14 +2275,14 @@ export default function AdminAppearance() {
   const themeCategories = {
     'Design': [{
       key: 'colors',
-      name: t("Couleurs", {
-        defaultValue: "Couleurs"
+      name: t('Couleurs', {
+        defaultValue: 'Couleurs'
       }),
       icon: 'Palette'
     }, {
       key: 'typography',
-      name: t("Typographie", {
-        defaultValue: "Typographie"
+      name: t('Typographie', {
+        defaultValue: 'Typographie'
       }),
       icon: 'Type'
     }],
@@ -2257,21 +2298,21 @@ export default function AdminAppearance() {
       icon: 'Bell'
     }, {
       key: 'backgrounds',
-      name: t("Annonce pop-up", {
-        defaultValue: "Annonce pop-up"
+      name: t('Annonce pop-up', {
+        defaultValue: 'Annonce pop-up'
       }),
       icon: 'Bell'
     }],
     'Image de marque': [{
       key: 'logo-favicon',
-      name: t("Logo & Favicon", {
-        defaultValue: "Logo & Favicon"
+      name: t('Logo & Favicon', {
+        defaultValue: 'Logo & Favicon'
       }),
       icon: 'Image'
     }, {
       key: 'seo-metadata',
-      name: t("Seomxe9tadonnxe9es", {
-        defaultValue: "Seomxe9tadonnxe9es"
+      name: t('SEO & M\xE9tadonn\xE9es', {
+        defaultValue: 'SEO & M\xE9tadonn\xE9es'
       }),
       icon: 'Globe'
     }]
@@ -2279,8 +2320,8 @@ export default function AdminAppearance() {
   const handleCreateBlock = (blockType: string) => {
     if (!Array.isArray(pageConfigs)) {
       toast({
-        title: t("Please log in to manage page content", {
-          defaultValue: "Please log in to manage page content"
+        title: t('Please log in to manage page content', {
+          defaultValue: 'Please log in to manage page content'
         }),
         variant: 'destructive'
       });
@@ -2289,8 +2330,8 @@ export default function AdminAppearance() {
     const selectedPageConfig = pageConfigs && Array.isArray(pageConfigs) ? pageConfigs.find(p => p.pageSlug === selectedPage) : null;
     if (!selectedPageConfig) {
       toast({
-        title: t("Page configuration not found", {
-          defaultValue: "Page configuration not found"
+        title: t('Page configuration not found', {
+          defaultValue: 'Page configuration not found'
         }),
         variant: 'destructive'
       });
@@ -2322,11 +2363,11 @@ export default function AdminAppearance() {
       // Hero Sections
       case 'hero_video':
         return {
-          title: t("Discover the Hidden Gems of Krabi", {
-            defaultValue: "Discover the Hidden Gems of Krabi"
+          title: t('Discover the Hidden Gems of Krabi', {
+            defaultValue: 'Discover the Hidden Gems of Krabi'
           }),
-          subtitle: t("With Expert Local Guides", {
-            defaultValue: "With Expert Local Guides"
+          subtitle: t('With Expert Local Guides', {
+            defaultValue: 'With Expert Local Guides'
           }),
           ctaText: 'Explore Tours',
           ctaUrl: '/experiences',
@@ -2339,11 +2380,11 @@ export default function AdminAppearance() {
         };
       case 'hero_banner':
         return {
-          title: t("Discover Thailand Experiences", {
-            defaultValue: "Discover Thailand Experiences"
+          title: t('Discover Thailand Experiences', {
+            defaultValue: 'Discover Thailand Experiences'
           }),
-          subtitle: t("Immerse yourself in authentic Thai culture with our unique experiences", {
-            defaultValue: "Immerse yourself in authentic Thai culture with our unique experiences"
+          subtitle: t('Immerse yourself in authentic Thai culture with our unique experiences', {
+            defaultValue: 'Immerse yourself in authentic Thai culture with our unique experiences'
           }),
           imageUrl: 'https://images.unsplash.com/photo-1604159129533-9d35777a0b07?q=80&w=1000&auto=format&fit=crop',
           configuration: {
@@ -2353,8 +2394,8 @@ export default function AdminAppearance() {
         };
       case 'hero_simple':
         return {
-          title: t("Create Your Custom Tour", {
-            defaultValue: "Create Your Custom Tour"
+          title: t('Create Your Custom Tour', {
+            defaultValue: 'Create Your Custom Tour'
           }),
           subtitle: t('Tell us what you\'d like to discover, and we\'ll create your personalized itinerary.', {
             defaultValue: 'Tell us what you\'d like to discover, and we\'ll create your personalized itinerary.'
@@ -2369,11 +2410,11 @@ export default function AdminAppearance() {
       // Content Sections  
       case 'text_section':
         return {
-          title: t("When expats welcome you...", {
-            defaultValue: "When expats welcome you..."
+          title: t('When expats welcome you in their host country', {
+            defaultValue: 'When expats welcome you in their host country'
           }),
-          content: t("This is a family-run travel agency that combines the organization of exclusive activities with the creation of tailor-made trips throughout the country. Our goal is to offer an immersive experience, far from mass tourism, with personalized service for every traveler \u2014 as if we were welcoming our own family or friends.", {
-            defaultValue: "This is a family-run travel agency that combines the organization of exclusive activities with the creation of tailor-made trips throughout the country. Our goal is to offer an immersive experience, far from mass tourism, with personalized service for every traveler \u2014 as if we were welcoming our own family or friends."
+          content: t('This is a family-run travel agency that combines the organization of exclusive activities with the creation of tailor-made trips throughout the country. Our goal is to offer an immersive experience, far from mass tourism, with personalized service for every traveler \u2014 as if we were welcoming our own family or friends.', {
+            defaultValue: 'This is a family-run travel agency that combines the organization of exclusive activities with the creation of tailor-made trips throughout the country. Our goal is to offer an immersive experience, far from mass tourism, with personalized service for every traveler \u2014 as if we were welcoming our own family or friends.'
           }),
           configuration: {
             centered: true,
@@ -2382,11 +2423,11 @@ export default function AdminAppearance() {
         };
       case 'text_image':
         return {
-          title: t("Whoweare", {
-            defaultValue: "Whoweare"
+          title: t('Who We Are', {
+            defaultValue: 'Who We Are'
           }),
-          content: t("Wearexc9ricmargauxga", {
-            defaultValue: "Wearexc9ricmargauxga"
+          content: t('We are \xC9ric, Margaux, Gabriel, and Rapha\xEBl, a French family living in Krabi, southern Thailand, since 2013. From our life here, we created Amon Tour \u2014 a small, independent travel agency built on a simple idea: personally welcome our travelers to Krabi and offer them a different way to experience Thailand.', {
+            defaultValue: 'We are \xC9ric, Margaux, Gabriel, and Rapha\xEBl, a French family living in Krabi, southern Thailand, since 2013. From our life here, we created Amon Tour \u2014 a small, independent travel agency built on a simple idea: personally welcome our travelers to Krabi and offer them a different way to experience Thailand.'
           }),
           imageUrl: '/family-photo.png',
           configuration: {
@@ -2396,11 +2437,11 @@ export default function AdminAppearance() {
         };
       case 'about_company':
         return {
-          title: t("Whoweare", {
-            defaultValue: "Whoweare"
+          title: t('Who We Are', {
+            defaultValue: 'Who We Are'
           }),
-          content: t("Wearexc9ricmargauxga", {
-            defaultValue: "Wearexc9ricmargauxga"
+          content: t('We are \xC9ric, Margaux, Gabriel, and Rapha\xEBl, a French family living in Krabi, southern Thailand, since 2013.', {
+            defaultValue: 'We are \xC9ric, Margaux, Gabriel, and Rapha\xEBl, a French family living in Krabi, southern Thailand, since 2013.'
           }),
           imageUrl: '/family-photo.png',
           configuration: {
@@ -2412,11 +2453,11 @@ export default function AdminAppearance() {
       // Interactive Sections
       case 'tour_grid':
         return {
-          title: t("Our Popular Experiences", {
-            defaultValue: "Our Popular Experiences"
+          title: t('Our Popular Experiences', {
+            defaultValue: 'Our Popular Experiences'
           }),
-          description: t("Step off the beaten path...", {
-            defaultValue: "Step off the beaten path..."
+          description: t('Step off the beaten path into carefully curated experiences beyond the tourist trail.', {
+            defaultValue: 'Step off the beaten path into carefully curated experiences beyond the tourist trail.'
           }),
           configuration: {
             columns: 3,
@@ -2426,8 +2467,8 @@ export default function AdminAppearance() {
         };
       case 'cards_grid':
         return {
-          title: t("Featured Experiences", {
-            defaultValue: "Featured Experiences"
+          title: t('Featured Experiences', {
+            defaultValue: 'Featured Experiences'
           }),
           configuration: {
             columns: 3,
@@ -2436,16 +2477,14 @@ export default function AdminAppearance() {
         };
       case 'search_bar':
         return {
-          title: t("Find Your Perfect Experience", {
-            defaultValue: "Find Your Perfect Experience"
+          title: t('Find Your Perfect Experience', {
+            defaultValue: 'Find Your Perfect Experience'
           }),
-          description: t("Search through our curated collection of authentic Thai experiences", {
-            defaultValue: "Search through our curated collection of authentic Thai experiences"
+          description: t('Search through our curated collection of authentic Thai experiences', {
+            defaultValue: 'Search through our curated collection of authentic Thai experiences'
           }),
           configuration: {
-            placeholder: t("Search experiences...", {
-              defaultValue: "Search experiences..."
-            }),
+            placeholder: 'Search experiences...',
             showFilters: true
           }
         };
@@ -2453,36 +2492,36 @@ export default function AdminAppearance() {
       // Features & Layout
       case 'features_3col':
         return {
-          title: t("Why Choose Us", {
-            defaultValue: "Why Choose Us"
+          title: t('Why Choose Us', {
+            defaultValue: 'Why Choose Us'
           }),
-          description: t("Experience an exclusive private day trip with our English or French-speaking and certified guides.", {
-            defaultValue: "Experience an exclusive private day trip with our English or French-speaking and certified guides."
+          description: t('Experience an exclusive private day trip with our English or French-speaking and certified guides.', {
+            defaultValue: 'Experience an exclusive private day trip with our English or French-speaking and certified guides.'
           }),
           configuration: {
             columns: 3,
             features: [{
-              title: t("Private Tours", {
-                defaultValue: "Private Tours"
+              title: t('Private Tours', {
+                defaultValue: 'Private Tours'
               }),
-              description: t("Experience an exclusive private day trip with our English or French-speaking and certified guides.", {
-                defaultValue: "Experience an exclusive private day trip with our English or French-speaking and certified guides."
+              description: t('Experience an exclusive day trip with our professional guides and private vehicles.', {
+                defaultValue: 'Experience an exclusive day trip with our professional guides and private vehicles.'
               }),
               icon: 'users'
             }, {
-              title: t("Local expertise", {
-                defaultValue: "Local expertise"
+              title: t('Local Expertise', {
+                defaultValue: 'Local Expertise'
               }),
-              description: t("Born and raised locals who know every hidden gem and authentic experience.", {
-                defaultValue: "Born and raised locals who know every hidden gem and authentic experience."
+              description: t('Born and raised locals who know every hidden gem and authentic experience.', {
+                defaultValue: 'Born and raised locals who know every hidden gem and authentic experience.'
               }),
               icon: 'compass'
             }, {
-              title: t("Personalized service", {
-                defaultValue: "Personalized service"
+              title: t('Personalized Service', {
+                defaultValue: 'Personalized Service'
               }),
-              description: t("Tailored experiences designed just for you, away from mass tourism.", {
-                defaultValue: "Tailored experiences designed just for you, away from mass tourism."
+              description: t('Tailored experiences designed just for you, away from mass tourism.', {
+                defaultValue: 'Tailored experiences designed just for you, away from mass tourism.'
               }),
               icon: 'sparkles'
             }]
@@ -2490,33 +2529,33 @@ export default function AdminAppearance() {
         };
       case 'features_grid':
         return {
-          title: t("Why Choose a Custom Tour?", {
-            defaultValue: "Why Choose a Custom Tour?"
+          title: t('Why Choose a Custom Tour?', {
+            defaultValue: 'Why Choose a Custom Tour?'
           }),
           configuration: {
             columns: 3,
             features: [{
-              title: t("Flexible Itinerary", {
-                defaultValue: "Flexible Itinerary"
+              title: t('Flexible Itinerary', {
+                defaultValue: 'Flexible Itinerary'
               }),
-              description: t("Choose the destinations that interest you and set your own travel pace.", {
-                defaultValue: "Choose the destinations that interest you and set your own travel pace."
+              description: t('Choose the destinations that interest you and set your own travel pace.', {
+                defaultValue: 'Choose the destinations that interest you and set your own travel pace.'
               }),
               icon: 'map-pin'
             }, {
-              title: t("Tailored Accommodations", {
-                defaultValue: "Tailored Accommodations"
+              title: t('Tailored Accommodations', {
+                defaultValue: 'Tailored Accommodations'
               }),
-              description: t("Select accommodations that match your preferences and budget.", {
-                defaultValue: "Select accommodations that match your preferences and budget."
+              description: t('Select accommodations that match your preferences and budget.', {
+                defaultValue: 'Select accommodations that match your preferences and budget.'
               }),
               icon: 'building'
             }, {
-              title: t("Personalized Support", {
-                defaultValue: "Personalized Support"
+              title: t('Personalized Support', {
+                defaultValue: 'Personalized Support'
               }),
-              description: t("Benefit from expert advice and an English-speaking guide for an authentic experience.", {
-                defaultValue: "Benefit from expert advice and an English-speaking guide for an authentic experience."
+              description: t('Benefit from expert advice and an English-speaking guide for an authentic experience.', {
+                defaultValue: 'Benefit from expert advice and an English-speaking guide for an authentic experience.'
               }),
               icon: 'headphones'
             }]
@@ -2524,21 +2563,21 @@ export default function AdminAppearance() {
         };
       case 'testimonials':
         return {
-          title: t("What Our Travelers Say", {
-            defaultValue: "What Our Travelers Say"
+          title: t('What Our Travelers Say', {
+            defaultValue: 'What Our Travelers Say'
           }),
           configuration: {
             autoplay: true,
             testimonials: [{
               author: 'Sarah M.',
-              text: t("Incredible authentic experience! Amon Tour showed us the real Thailand.", {
-                defaultValue: "Incredible authentic experience! Amon Tour showed us the real Thailand."
+              text: t('Incredible authentic experience! Amon Tour showed us the real Thailand.', {
+                defaultValue: 'Incredible authentic experience! Amon Tour showed us the real Thailand.'
               }),
               rating: 5
             }, {
               author: 'Marc L.',
-              text: t("Professional service and amazing local insights. Highly recommended!", {
-                defaultValue: "Professional service and amazing local insights. Highly recommended!"
+              text: t('Professional service and amazing local insights. Highly recommended!', {
+                defaultValue: 'Professional service and amazing local insights. Highly recommended!'
               }),
               rating: 5
             }]
@@ -2548,39 +2587,39 @@ export default function AdminAppearance() {
       // Contact & Forms
       case 'contact_form':
         return {
-          title: t("Getintouch", {
-            defaultValue: "Getintouch"
+          title: t('Get in Touch', {
+            defaultValue: 'Get in Touch'
           }),
-          description: t("Ready to start your Thailand adventure? Contact us today.", {
-            defaultValue: "Ready to start your Thailand adventure? Contact us today."
+          description: t('Ready to start your Thailand adventure? Contact us today.', {
+            defaultValue: 'Ready to start your Thailand adventure? Contact us today.'
           }),
           configuration: {
             formType: 'contact',
             fields: [{
               name: 'name',
-              label: t("Full Name", {
-                defaultValue: "Full Name"
+              label: t('Full Name', {
+                defaultValue: 'Full Name'
               }),
               type: 'text',
               required: true
             }, {
               name: 'email',
-              label: t("Email address", {
-                defaultValue: "Email address"
+              label: t('Email Address', {
+                defaultValue: 'Email Address'
               }),
               type: 'email',
               required: true
             }, {
               name: 'phone',
-              label: t("Phone number", {
-                defaultValue: "Phone number"
+              label: t('Phone Number', {
+                defaultValue: 'Phone Number'
               }),
               type: 'tel',
               required: false
             }, {
               name: 'whatsapp',
-              label: t("WhatsApp Number", {
-                defaultValue: "WhatsApp Number"
+              label: t('WhatsApp Number', {
+                defaultValue: 'WhatsApp Number'
               }),
               type: 'tel',
               required: false
@@ -2591,8 +2630,8 @@ export default function AdminAppearance() {
               required: false
             }, {
               name: 'message',
-              label: t("Message", {
-                defaultValue: "Message"
+              label: t('Message', {
+                defaultValue: 'Message'
               }),
               type: 'textarea',
               required: true
@@ -2602,11 +2641,11 @@ export default function AdminAppearance() {
         };
       case 'contact_cards':
         return {
-          title: t("Getintouch", {
-            defaultValue: "Getintouch"
+          title: t('Get In Touch', {
+            defaultValue: 'Get In Touch'
           }),
-          description: t("Ready to explore Krabi? Contact us through any of the methods below. Our friendly team is here to answer your questions and help you plan an unforgettable experience.", {
-            defaultValue: "Ready to explore Krabi? Contact us through any of the methods below. Our friendly team is here to answer your questions and help you plan an unforgettable experience."
+          description: t('Ready to explore Krabi? Contact us through any of the methods below. Our friendly team is here to answer your questions and help you plan an unforgettable experience.', {
+            defaultValue: 'Ready to explore Krabi? Contact us through any of the methods below. Our friendly team is here to answer your questions and help you plan an unforgettable experience.'
           }),
           configuration: {
             contacts: [{
@@ -2630,11 +2669,11 @@ export default function AdminAppearance() {
         };
       case 'custom_form':
         return {
-          title: t("Plan Your Custom Experience", {
-            defaultValue: "Plan Your Custom Experience"
+          title: t('Plan Your Custom Experience', {
+            defaultValue: 'Plan Your Custom Experience'
           }),
-          description: t("Tell us about your dream Thailand adventure and we will create a personalized itinerary just for you.", {
-            defaultValue: "Tell us about your dream Thailand adventure and we will create a personalized itinerary just for you."
+          description: t('Tell us about your dream Thailand adventure and we will create a personalized itinerary just for you.', {
+            defaultValue: 'Tell us about your dream Thailand adventure and we will create a personalized itinerary just for you.'
           }),
           configuration: {
             formType: 'custom_tour'
@@ -2644,11 +2683,11 @@ export default function AdminAppearance() {
       // Call to Actions
       case 'cta_section':
         return {
-          title: t("Ready to Start Your Adventure?", {
-            defaultValue: "Ready to Start Your Adventure?"
+          title: t('Ready to Start Your Adventure?', {
+            defaultValue: 'Ready to Start Your Adventure?'
           }),
-          description: t("Join thousands of satisfied travelers who discovered Thailand with us.", {
-            defaultValue: "Join thousands of satisfied travelers who discovered Thailand with us."
+          description: t('Join thousands of satisfied travelers who discovered Thailand with us.', {
+            defaultValue: 'Join thousands of satisfied travelers who discovered Thailand with us.'
           }),
           ctaText: 'Book Your Tour Now',
           ctaUrl: '/experiences',
@@ -2658,11 +2697,11 @@ export default function AdminAppearance() {
         };
       case 'cta_banner':
         return {
-          title: t("Create Your Perfect Custom Tour", {
-            defaultValue: "Create Your Perfect Custom Tour"
+          title: t('Create Your Perfect Custom Tour', {
+            defaultValue: 'Create Your Perfect Custom Tour'
           }),
-          description: t("Ready for a personalized adventure?", {
-            defaultValue: "Ready for a personalized adventure?"
+          description: t('Ready for a personalized adventure?', {
+            defaultValue: 'Ready for a personalized adventure?'
           }),
           ctaText: 'Start Planning',
           ctaUrl: '/custom-tour',
@@ -2675,11 +2714,11 @@ export default function AdminAppearance() {
       // Media & Maps
       case 'map_section':
         return {
-          title: t("Find Us in Krabi", {
-            defaultValue: "Find Us in Krabi"
+          title: t('Find Us in Krabi', {
+            defaultValue: 'Find Us in Krabi'
           }),
-          description: t("Visit our office in Ao Nang or contact us for directions.", {
-            defaultValue: "Visit our office in Ao Nang or contact us for directions."
+          description: t('Visit our office in Ao Nang or contact us for directions.', {
+            defaultValue: 'Visit our office in Ao Nang or contact us for directions.'
           }),
           configuration: {
             location: {
@@ -2692,11 +2731,11 @@ export default function AdminAppearance() {
         };
       case 'gallery':
         return {
-          title: t("Experience Gallery", {
-            defaultValue: "Experience Gallery"
+          title: t('Experience Gallery', {
+            defaultValue: 'Experience Gallery'
           }),
-          description: t("See the beauty of Thailand through our tours", {
-            defaultValue: "See the beauty of Thailand through our tours"
+          description: t('See the beauty of Thailand through our tours', {
+            defaultValue: 'See the beauty of Thailand through our tours'
           }),
           configuration: {
             columns: 4,
@@ -2705,11 +2744,11 @@ export default function AdminAppearance() {
         };
       case 'video_section':
         return {
-          title: t("Experience Thailand Like Never Before", {
-            defaultValue: "Experience Thailand Like Never Before"
+          title: t('Experience Thailand Like Never Before', {
+            defaultValue: 'Experience Thailand Like Never Before'
           }),
-          description: t("Watch our latest adventure videos", {
-            defaultValue: "Watch our latest adventure videos"
+          description: t('Watch our latest adventure videos', {
+            defaultValue: 'Watch our latest adventure videos'
           }),
           configuration: {
             autoplay: false,
@@ -2720,24 +2759,22 @@ export default function AdminAppearance() {
       // Social & Newsletter
       case 'newsletter':
         return {
-          title: t("Stay Updated", {
-            defaultValue: "Stay Updated"
+          title: t('Stay Updated', {
+            defaultValue: 'Stay Updated'
           }),
-          description: t("Get the latest travel tips and exclusive offers from Amon Tour", {
-            defaultValue: "Get the latest travel tips and exclusive offers from Amon Tour"
+          description: t('Get the latest travel tips and exclusive offers from Amon Tour', {
+            defaultValue: 'Get the latest travel tips and exclusive offers from Amon Tour'
           }),
           configuration: {
-            placeholder: t("Enter your email", {
-              defaultValue: "Enter your email"
-            }),
+            placeholder: 'Enter your email',
             buttonText: 'Subscribe',
             privacy: 'We respect your privacy and never share your information.'
           }
         };
       case 'social_media':
         return {
-          title: t("Follow Our Adventures", {
-            defaultValue: "Follow Our Adventures"
+          title: t('Follow Our Adventures', {
+            defaultValue: 'Follow Our Adventures'
           }),
           configuration: {
             platforms: [{
@@ -2754,8 +2791,8 @@ export default function AdminAppearance() {
         };
       default:
         return {
-          title: t("Newblock", {
-            defaultValue: "Newblock"
+          title: t('New Block', {
+            defaultValue: 'New Block'
           }),
           iconName: '',
           backgroundColor: 'white',
@@ -2853,12 +2890,12 @@ export default function AdminAppearance() {
             <div className="w-full sm:w-auto">
               <h1 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2 sm:gap-3">
                 <Palette className="h-6 w-6 sm:h-7 sm:w-7 text-primary flex-shrink-0" />
-                <span className="truncate">{t("Apparence du site", {
-                  defaultValue: "Apparence du site"
+                <span className="truncate">{t('Apparence du Site', {
+                  defaultValue: 'Apparence du Site'
                 })}</span>
               </h1>
-              <p className="text-sm sm:text-base text-gray-600">{t("Personnalisezlethxe8", {
-                defaultValue: "Personnalisezlethxe8"
+              <p className="text-sm sm:text-base text-gray-600">{t('Personnalisez le th\xE8me, les pages et le pied de page de votre site', {
+                defaultValue: 'Personnalisez le th\xE8me, les pages et le pied de page de votre site'
               })}</p>
             </div>
             <Button variant="outline" onClick={() => setLocation('/admin')} className="flex items-center gap-2 w-full sm:w-auto">
@@ -2875,20 +2912,20 @@ export default function AdminAppearance() {
           <TabsList className="grid w-full grid-cols-3 h-auto">
             <TabsTrigger value="theme" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 sm:p-3 text-base sm:text-lg font-semibold">
               <Palette className="w-4 h-4 flex-shrink-0" />
-              <span>{t("Thxe8me", {
-                defaultValue: "Thxe8me"
+              <span>{t('Th\xE8me', {
+                defaultValue: 'Th\xE8me'
               })}</span>
             </TabsTrigger>
             <TabsTrigger value="pages" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 sm:p-3 text-base sm:text-lg font-semibold">
               <Layout className="w-4 h-4 flex-shrink-0" />
-              <span>{t("Pages", {
-                defaultValue: "Pages"
+              <span>{t('Pages', {
+                defaultValue: 'Pages'
               })}</span>
             </TabsTrigger>
             <TabsTrigger value="footer" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 sm:p-3 text-base sm:text-lg font-semibold">
               <Settings className="w-4 h-4 flex-shrink-0" />
-              <span>{t("Pieddepage", {
-                defaultValue: "Pieddepage"
+              <span>{t('Pied de page', {
+                defaultValue: 'Pied de page'
               })}</span>
             </TabsTrigger>
           </TabsList>
@@ -2900,8 +2937,8 @@ export default function AdminAppearance() {
               <Card className="lg:col-span-1">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                    <Palette className="w-4 h-4" />{t("Thxe8me", {
-                    defaultValue: "Thxe8me"
+                    <Palette className="w-4 h-4" />{t('Th\xE8me', {
+                    defaultValue: 'Th\xE8me'
                   })}</CardTitle>
                   <CardDescription>Personnalisez le style du site</CardDescription>
                 </CardHeader>
@@ -2935,17 +2972,17 @@ export default function AdminAppearance() {
                 {selectedThemeSection === 'colors' && <Card>
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                        <Palette className="w-4 h-4" />{t("Couleurs", {
-                      defaultValue: "Couleurs"
+                        <Palette className="w-4 h-4" />{t('Couleurs', {
+                      defaultValue: 'Couleurs'
                     })}</CardTitle>
-                      <CardDescription>{t("Personnalisez les couleurs principales et \xE9tendues de votre site", {
-                      defaultValue: "Personnalisez les couleurs principales et \xE9tendues de votre site"
+                      <CardDescription>{t('Personnalisez les couleurs principales et \xE9tendues de votre site', {
+                      defaultValue: 'Personnalisez les couleurs principales et \xE9tendues de votre site'
                     })}</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div>
-                        <Label htmlFor="primary-color">{t("Couleur primaire", {
-                        defaultValue: "Couleur primaire"
+                        <Label htmlFor="primary-color">{t('Couleur primaire', {
+                        defaultValue: 'Couleur primaire'
                       })}</Label>
                         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 mt-2">
                           <Input id="primary-color" type="color" value={tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#084F6E'} onChange={e => setTempColors((prev: any) => ({
@@ -2959,8 +2996,8 @@ export default function AdminAppearance() {
                         </div>
                       </div>
                       <div>
-                        <Label htmlFor="secondary-color">{t("Couleur secondaire", {
-                        defaultValue: "Couleur secondaire"
+                        <Label htmlFor="secondary-color">{t('Couleur secondaire', {
+                        defaultValue: 'Couleur secondaire'
                       })}</Label>
                         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 mt-2">
                           <Input id="secondary-color" type="color" value={tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#3BA8AF'} onChange={e => setTempColors((prev: any) => ({
@@ -2977,13 +3014,13 @@ export default function AdminAppearance() {
                       {/* Extended Color Palette */}
                       <div className="mt-6 pt-6 border-t border-gray-200">
                         <CardTitle className="flex items-center gap-2 text-base sm:text-lg mb-4">
-                          <Palette className="w-4 h-4" />{t("Extended Color Palette", {
-                        defaultValue: "Extended Color Palette"
+                          <Palette className="w-4 h-4" />{t('Extended Color Palette', {
+                        defaultValue: 'Extended Color Palette'
                       })}</CardTitle>
                         <div className="grid grid-cols-2 gap-4">
                           <div>
-                            <Label>{t("Textcolor", {
-                            defaultValue: "Textcolor"
+                            <Label>{t('Text Color', {
+                            defaultValue: 'Text Color'
                           })}</Label>
                             <Input type="color" value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}')).text} onChange={e => {
                           const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}');
@@ -2997,8 +3034,8 @@ export default function AdminAppearance() {
                         }} />
                           </div>
                           <div>
-                            <Label>{t("Couleur de fond", {
-                            defaultValue: "Couleur de fond"
+                            <Label>{t('Couleur de fond', {
+                            defaultValue: 'Couleur de fond'
                           })}</Label>
                             <Input type="color" value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}')).background} onChange={e => {
                           const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}');
@@ -3012,8 +3049,8 @@ export default function AdminAppearance() {
                         }} />
                           </div>
                           <div>
-                            <Label>{t("Textmenu", {
-                            defaultValue: "Textmenu"
+                            <Label>{t('Text Menu', {
+                            defaultValue: 'Text Menu'
                           })}</Label>
                             <Input type="color" value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textMenu": "#374151"}')).textMenu || '#374151'} onChange={e => {
                           const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff", "backgroundFooter": "#000000", "textMenu": "#374151", "backgroundMenu": "#ffffff"}');
@@ -3027,8 +3064,8 @@ export default function AdminAppearance() {
                         }} />
                           </div>
                           <div>
-                            <Label>{t("Background Menu", {
-                            defaultValue: "Background Menu"
+                            <Label>{t('Background Menu', {
+                            defaultValue: 'Background Menu'
                           })}</Label>
                             <Input type="color" value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"backgroundMenu": "#ffffff"}')).backgroundMenu || '#ffffff'} onChange={e => {
                           const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff", "backgroundFooter": "#000000", "textMenu": "#374151", "backgroundMenu": "#ffffff"}');
@@ -3042,8 +3079,8 @@ export default function AdminAppearance() {
                         }} />
                           </div>
                           <div>
-                            <Label>{t("Textfooter", {
-                            defaultValue: "Textfooter"
+                            <Label>{t('Text Footer', {
+                            defaultValue: 'Text Footer'
                           })}</Label>
                             <Input type="color" value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff"}')).textFooter || '#ffffff'} onChange={e => {
                           const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff", "backgroundFooter": "#000000", "textMenu": "#374151", "backgroundMenu": "#ffffff"}');
@@ -3057,8 +3094,8 @@ export default function AdminAppearance() {
                         }} />
                           </div>
                           <div>
-                            <Label>{t("Background Footer", {
-                            defaultValue: "Background Footer"
+                            <Label>{t('Background Footer', {
+                            defaultValue: 'Background Footer'
                           })}</Label>
                             <Input type="color" value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"backgroundFooter": "#000000"}')).backgroundFooter || '#000000'} onChange={e => {
                           const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff", "backgroundFooter": "#000000", "textMenu": "#374151", "backgroundMenu": "#ffffff"}');
@@ -3072,8 +3109,8 @@ export default function AdminAppearance() {
                         }} />
                           </div>
                           <div>
-                            <Label>{t("Errorcolor", {
-                            defaultValue: "Errorcolor"
+                            <Label>{t('Error Color', {
+                            defaultValue: 'Error Color'
                           })}</Label>
                             <Input type="color" value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"error": "#ef4444"}')).error} onChange={e => {
                           const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"error": "#ef4444"}');
@@ -3087,8 +3124,8 @@ export default function AdminAppearance() {
                         }} />
                           </div>
                           <div>
-                            <Label>{t("Success Color", {
-                            defaultValue: "Success Color"
+                            <Label>{t('Success Color', {
+                            defaultValue: 'Success Color'
                           })}</Label>
                             <Input type="color" value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"success": "#10b981"}')).success} onChange={e => {
                           const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"success": "#10b981"}');
@@ -3106,8 +3143,8 @@ export default function AdminAppearance() {
                       
                       {/* Save Button */}
                       <div className="flex justify-end pt-4">
-                        <Button onClick={saveColors} disabled={!tempColors} className="bg-secondary hover:bg-secondary/90">{t("Ud83dudcbesauvegarde", {
-                        defaultValue: "Ud83dudcbesauvegarde"
+                        <Button onClick={saveColors} disabled={!tempColors} className="bg-secondary hover:bg-secondary/90">{t('\uD83D\uDCBE Sauvegarder Couleurs', {
+                        defaultValue: '\uD83D\uDCBE Sauvegarder Couleurs'
                       })}</Button>
                       </div>
 
@@ -3115,8 +3152,8 @@ export default function AdminAppearance() {
                       <div className="mt-6 pt-6 border-t border-gray-200">
                         <div className="flex items-center gap-2 mb-4">
                           <Palette className="w-4 h-4" />
-                          <h3 className="text-base font-semibold">{t("Color Preview", {
-                          defaultValue: "Color Preview"
+                          <h3 className="text-base font-semibold">{t('Color Preview', {
+                          defaultValue: 'Color Preview'
                         })}</h3>
                         </div>
                         <div className="bg-gray-50 p-4 rounded-lg">
@@ -3125,32 +3162,32 @@ export default function AdminAppearance() {
                               <div className="w-12 h-12 rounded-lg mx-auto mb-2 border-2 border-gray-300" style={{
                             backgroundColor: tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#084F6E'
                           }}></div>
-                              <p className="text-xs font-medium">{t("Primary", {
-                              defaultValue: "Primary"
+                              <p className="text-xs font-medium">{t('Primary', {
+                              defaultValue: 'Primary'
                             })}</p>
                             </div>
                             <div className="text-center">
                               <div className="w-12 h-12 rounded-lg mx-auto mb-2 border-2 border-gray-300" style={{
                             backgroundColor: tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#3BA8AF'
                           }}></div>
-                              <p className="text-xs font-medium">{t("Secondary", {
-                              defaultValue: "Secondary"
+                              <p className="text-xs font-medium">{t('Secondary', {
+                              defaultValue: 'Secondary'
                             })}</p>
                             </div>
                             <div className="text-center">
                               <div className="w-12 h-12 rounded-lg mx-auto mb-2 border-2 border-gray-300" style={{
                             backgroundColor: (tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff", "backgroundFooter": "#000000"}')).backgroundFooter
                           }}></div>
-                              <p className="text-xs font-medium">{t("Footerbg", {
-                              defaultValue: "Footerbg"
+                              <p className="text-xs font-medium">{t('Footer BG', {
+                              defaultValue: 'Footer BG'
                             })}</p>
                             </div>
                             <div className="text-center">
                               <div className="w-12 h-12 rounded-lg mx-auto mb-2 border-2 border-gray-300" style={{
                             backgroundColor: (tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textMenu": "#374151", "backgroundMenu": "#ffffff"}')).backgroundMenu
                           }}></div>
-                              <p className="text-xs font-medium">{t("Menubg", {
-                              defaultValue: "Menubg"
+                              <p className="text-xs font-medium">{t('Menu BG', {
+                              defaultValue: 'Menu BG'
                             })}</p>
                             </div>
                           </div>
@@ -3166,8 +3203,8 @@ export default function AdminAppearance() {
                           <Bell className="w-4 h-4" />{t('Barre d\'annonces', {
                         defaultValue: 'Barre d\'annonces'
                       })}</CardTitle>
-                        <CardDescription>{t("Barre de notification en haut (barre jaune actuelle)", {
-                        defaultValue: "Barre de notification en haut (barre jaune actuelle)"
+                        <CardDescription>{t('Barre de notification en haut (barre jaune actuelle)', {
+                        defaultValue: 'Barre de notification en haut (barre jaune actuelle)'
                       })}</CardDescription>
                       </CardHeader>
                       <CardContent className="space-y-4">
@@ -3178,13 +3215,13 @@ export default function AdminAppearance() {
                           enabled: checked
                         }));
                       }} />
-                          <Label htmlFor="notification-enabled">{t("Activer la barre de notification", {
-                          defaultValue: "Activer la barre de notification"
+                          <Label htmlFor="notification-enabled">{t('Activer la barre de notification', {
+                          defaultValue: 'Activer la barre de notification'
                         })}</Label>
                         </div>
                         <div>
-                          <Label>{t("Texte de notification", {
-                          defaultValue: "Texte de notification"
+                          <Label>{t('Texte de notification', {
+                          defaultValue: 'Texte de notification'
                         })}</Label>
                           <Input placeholder={t('\uD83D\uDCE2 L\'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr', {
                         defaultValue: '\uD83D\uDCE2 L\'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr'
@@ -3197,8 +3234,8 @@ export default function AdminAppearance() {
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                           <div>
-                            <Label>{t("Couleur de fond", {
-                            defaultValue: "Couleur de fond"
+                            <Label>{t('Couleur de fond', {
+                            defaultValue: 'Couleur de fond'
                           })}</Label>
                             <div className="flex items-center gap-3">
                               <Input type="color" value={tempNotificationBar?.background_color || JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"background_color": "#f5c400"}').background_color} onChange={e => {
@@ -3216,8 +3253,8 @@ export default function AdminAppearance() {
                             </div>
                           </div>
                           <div>
-                            <Label>{t("Textcolor", {
-                            defaultValue: "Textcolor"
+                            <Label>{t('Text Color', {
+                            defaultValue: 'Text Color'
                           })}</Label>
                             <div className="flex items-center gap-3">
                               <Input type="color" value={tempNotificationBar?.text_color || JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text_color": "#000000"}').text_color} onChange={e => {
@@ -3238,8 +3275,8 @@ export default function AdminAppearance() {
                         
                         {/* Save Button */}
                         <div className="flex justify-end pt-4">
-                          <Button onClick={saveNotificationBar} disabled={!tempNotificationBar} className="bg-secondary hover:bg-secondary/90">{t("Ud83dudcbesauvegarde", {
-                          defaultValue: "Ud83dudcbesauvegarde"
+                          <Button onClick={saveNotificationBar} disabled={!tempNotificationBar} className="bg-secondary hover:bg-secondary/90">{t('\uD83D\uDCBE Sauvegarder Announcement Bar', {
+                          defaultValue: '\uD83D\uDCBE Sauvegarder Announcement Bar'
                         })}</Button>
                         </div>
                         
@@ -3247,8 +3284,8 @@ export default function AdminAppearance() {
                         <div className="mt-6 pt-6 border-t border-gray-200">
                           <div className="flex items-center gap-2 mb-4">
                             <Bell className="w-4 h-4" />
-                            <h3 className="text-base font-semibold">{t("Announcement Bar Preview", {
-                            defaultValue: "Announcement Bar Preview"
+                            <h3 className="text-base font-semibold">{t('Announcement Bar Preview', {
+                            defaultValue: 'Announcement Bar Preview'
                           })}</h3>
                           </div>
                           <div className="bg-gray-100 p-4 rounded-lg">
@@ -3269,15 +3306,15 @@ export default function AdminAppearance() {
                 {selectedThemeSection === 'typography' && <Card>
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                        <Type className="w-4 h-4" />{t("Typographie", {
-                      defaultValue: "Typographie"
+                        <Type className="w-4 h-4" />{t('Typographie', {
+                      defaultValue: 'Typographie'
                     })}</CardTitle>
                       <CardDescription>Familles de polices et styles de texte</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div>
-                        <Label>{t("Police des titres", {
-                        defaultValue: "Police des titres"
+                        <Label>{t('Police des titres', {
+                        defaultValue: 'Police des titres'
                       })}</Label>
                         <Select value={tempTypography?.heading_font || JSON.parse(getSiteSetting('theme', 'typography') || '{"heading_font": "Poppins"}').heading_font} onValueChange={value => {
                       setTempTypography((prev: any) => ({
@@ -3286,32 +3323,32 @@ export default function AdminAppearance() {
                       }));
                     }}>
                           <SelectTrigger>
-                            <SelectValue placeholder={t("Select heading font", {
-                          defaultValue: "Select heading font"
+                            <SelectValue placeholder={t('Select heading font', {
+                          defaultValue: 'Select heading font'
                         })} />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="Poppins">{t("Poppins", {
-                            defaultValue: "Poppins"
+                            <SelectItem value="Poppins">{t('Poppins', {
+                            defaultValue: 'Poppins'
                           })}</SelectItem>
-                            <SelectItem value="Inter">{t("Inter", {
-                            defaultValue: "Inter"
+                            <SelectItem value="Inter">{t('Inter', {
+                            defaultValue: 'Inter'
                           })}</SelectItem>
-                            <SelectItem value="Roboto">{t("Roboto", {
-                            defaultValue: "Roboto"
+                            <SelectItem value="Roboto">{t('Roboto', {
+                            defaultValue: 'Roboto'
                           })}</SelectItem>
-                            <SelectItem value="Open Sans">{t("Opensans", {
-                            defaultValue: "Opensans"
+                            <SelectItem value="Open Sans">{t('Open Sans', {
+                            defaultValue: 'Open Sans'
                           })}</SelectItem>
-                            <SelectItem value="Montserrat">{t("Montserrat", {
-                            defaultValue: "Montserrat"
+                            <SelectItem value="Montserrat">{t('Montserrat', {
+                            defaultValue: 'Montserrat'
                           })}</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
                       <div>
-                        <Label>{t("Police du texte", {
-                        defaultValue: "Police du texte"
+                        <Label>{t('Police du texte', {
+                        defaultValue: 'Police du texte'
                       })}</Label>
                         <Select value={tempTypography?.body_font || JSON.parse(getSiteSetting('theme', 'typography') || '{"body_font": "Inter"}').body_font} onValueChange={value => {
                       setTempTypography((prev: any) => ({
@@ -3320,33 +3357,33 @@ export default function AdminAppearance() {
                       }));
                     }}>
                           <SelectTrigger>
-                            <SelectValue placeholder={t("Select body font", {
-                          defaultValue: "Select body font"
+                            <SelectValue placeholder={t('Select body font', {
+                          defaultValue: 'Select body font'
                         })} />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="Inter">{t("Inter", {
-                            defaultValue: "Inter"
+                            <SelectItem value="Inter">{t('Inter', {
+                            defaultValue: 'Inter'
                           })}</SelectItem>
-                            <SelectItem value="Poppins">{t("Poppins", {
-                            defaultValue: "Poppins"
+                            <SelectItem value="Poppins">{t('Poppins', {
+                            defaultValue: 'Poppins'
                           })}</SelectItem>
-                            <SelectItem value="Roboto">{t("Roboto", {
-                            defaultValue: "Roboto"
+                            <SelectItem value="Roboto">{t('Roboto', {
+                            defaultValue: 'Roboto'
                           })}</SelectItem>
-                            <SelectItem value="Open Sans">{t("Opensans", {
-                            defaultValue: "Opensans"
+                            <SelectItem value="Open Sans">{t('Open Sans', {
+                            defaultValue: 'Open Sans'
                           })}</SelectItem>
-                            <SelectItem value="Lato">{t("Lato", {
-                            defaultValue: "Lato"
+                            <SelectItem value="Lato">{t('Lato', {
+                            defaultValue: 'Lato'
                           })}</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
                       <div className="grid grid-cols-3 gap-4">
                         <div>
-                          <Label>{t("Heading Weight", {
-                          defaultValue: "Heading Weight"
+                          <Label>{t('Heading Weight', {
+                          defaultValue: 'Heading Weight'
                         })}</Label>
                           <Select value={tempTypography?.heading_weight || JSON.parse(getSiteSetting('theme', 'typography') || '{"heading_weight": "600"}').heading_weight} onValueChange={value => {
                         setTempTypography((prev: any) => ({
@@ -3358,24 +3395,24 @@ export default function AdminAppearance() {
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="400">{t("Normal400", {
-                              defaultValue: "Normal400"
+                              <SelectItem value="400">{t('Normal (400)', {
+                              defaultValue: 'Normal (400)'
                             })}</SelectItem>
-                              <SelectItem value="500">{t("Medium500", {
-                              defaultValue: "Medium500"
+                              <SelectItem value="500">{t('Medium (500)', {
+                              defaultValue: 'Medium (500)'
                             })}</SelectItem>
-                              <SelectItem value="600">{t("Semi-bold (600)", {
-                              defaultValue: "Semi-bold (600)"
+                              <SelectItem value="600">{t('Semi-bold (600)', {
+                              defaultValue: 'Semi-bold (600)'
                             })}</SelectItem>
-                              <SelectItem value="700">{t("Bold700", {
-                              defaultValue: "Bold700"
+                              <SelectItem value="700">{t('Bold (700)', {
+                              defaultValue: 'Bold (700)'
                             })}</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
                         <div>
-                          <Label>{t("Bodyweight", {
-                          defaultValue: "Bodyweight"
+                          <Label>{t('Body Weight', {
+                          defaultValue: 'Body Weight'
                         })}</Label>
                           <Select value={tempTypography?.body_weight || JSON.parse(getSiteSetting('theme', 'typography') || '{"body_weight": "400"}').body_weight} onValueChange={value => {
                         setTempTypography((prev: any) => ({
@@ -3387,21 +3424,21 @@ export default function AdminAppearance() {
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="300">{t("Light300", {
-                              defaultValue: "Light300"
+                              <SelectItem value="300">{t('Light (300)', {
+                              defaultValue: 'Light (300)'
                             })}</SelectItem>
-                              <SelectItem value="400">{t("Normal400", {
-                              defaultValue: "Normal400"
+                              <SelectItem value="400">{t('Normal (400)', {
+                              defaultValue: 'Normal (400)'
                             })}</SelectItem>
-                              <SelectItem value="500">{t("Medium500", {
-                              defaultValue: "Medium500"
+                              <SelectItem value="500">{t('Medium (500)', {
+                              defaultValue: 'Medium (500)'
                             })}</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
                         <div>
-                          <Label>{t("Basesize", {
-                          defaultValue: "Basesize"
+                          <Label>{t('Base Size', {
+                          defaultValue: 'Base Size'
                         })}</Label>
                           <Select value={tempTypography?.base_size || JSON.parse(getSiteSetting('theme', 'typography') || '{"base_size": "16px"}').base_size} onValueChange={value => {
                         setTempTypography((prev: any) => ({
@@ -3423,8 +3460,8 @@ export default function AdminAppearance() {
                       
                       {/* Save Button */}
                       <div className="flex justify-end pt-4">
-                        <Button onClick={saveTypography} disabled={!tempTypography} className="bg-secondary hover:bg-secondary/90">{t("Ud83dudcbesauvegarde", {
-                        defaultValue: "Ud83dudcbesauvegarde"
+                        <Button onClick={saveTypography} disabled={!tempTypography} className="bg-secondary hover:bg-secondary/90">{t('\uD83D\uDCBE Sauvegarder Typography', {
+                        defaultValue: '\uD83D\uDCBE Sauvegarder Typography'
                       })}</Button>
                       </div>
                       
@@ -3432,8 +3469,8 @@ export default function AdminAppearance() {
                       <div className="mt-6 pt-6 border-t border-gray-200">
                         <div className="flex items-center gap-2 mb-4">
                           <Type className="w-4 h-4" />
-                          <h3 className="text-base font-semibold">{t("Preview", {
-                          defaultValue: "Preview"
+                          <h3 className="text-base font-semibold">{t('Preview', {
+                          defaultValue: 'Preview'
                         })}</h3>
                         </div>
                         <div className="bg-gray-50 p-4 rounded-lg space-y-3">
@@ -3441,15 +3478,15 @@ export default function AdminAppearance() {
                         fontFamily: tempTypography?.heading_font || JSON.parse(getSiteSetting('theme', 'typography') || '{"heading_font": "Poppins"}').heading_font,
                         fontWeight: tempTypography?.heading_weight || JSON.parse(getSiteSetting('theme', 'typography') || '{"heading_weight": "600"}').heading_weight,
                         fontSize: '24px'
-                      }}>{t("Bienvenue chez Amon Tour", {
-                          defaultValue: "Bienvenue chez Amon Tour"
+                      }}>{t('Bienvenue chez Amon Tour', {
+                          defaultValue: 'Bienvenue chez Amon Tour'
                         })}</div>
                           <div style={{
                         fontFamily: tempTypography?.body_font || JSON.parse(getSiteSetting('theme', 'typography') || '{"body_font": "Inter"}').body_font,
                         fontWeight: tempTypography?.body_weight || JSON.parse(getSiteSetting('theme', 'typography') || '{"body_weight": "400"}').body_weight,
                         fontSize: tempTypography?.base_size || JSON.parse(getSiteSetting('theme', 'typography') || '{"base_size": "16px"}').base_size
-                      }}>{t("Dxe9couvrezlestrxe9s", {
-                          defaultValue: "Dxe9couvrezlestrxe9s"
+                      }}>{t('D\xE9couvrez les tr\xE9sors cach\xE9s de Krabi et du sud de la Tha\xEFlande avec nos exp\xE9riences authentiques et personnalis\xE9es.', {
+                          defaultValue: 'D\xE9couvrez les tr\xE9sors cach\xE9s de Krabi et du sud de la Tha\xEFlande avec nos exp\xE9riences authentiques et personnalis\xE9es.'
                         })}</div>
                         </div>
                       </div>
@@ -3468,8 +3505,8 @@ export default function AdminAppearance() {
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div>
-                        <Label>{t("Border Radius", {
-                        defaultValue: "Border Radius"
+                        <Label>{t('Border Radius', {
+                        defaultValue: 'Border Radius'
                       })}</Label>
                         <Select value={tempButtonStyles?.border_radius || JSON.parse(getSiteSetting('theme', 'button_styles') || '{"border_radius": "8px"}').border_radius} onValueChange={value => {
                       setTempButtonStyles((prev: any) => ({
@@ -3481,20 +3518,20 @@ export default function AdminAppearance() {
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="0px">{t("None0px", {
-                            defaultValue: "None0px"
+                            <SelectItem value="0px">{t('None (0px)', {
+                            defaultValue: 'None (0px)'
                           })}</SelectItem>
-                            <SelectItem value="4px">{t("Small4px", {
-                            defaultValue: "Small4px"
+                            <SelectItem value="4px">{t('Small (4px)', {
+                            defaultValue: 'Small (4px)'
                           })}</SelectItem>
-                            <SelectItem value="8px">{t("Medium8px", {
-                            defaultValue: "Medium8px"
+                            <SelectItem value="8px">{t('Medium (8px)', {
+                            defaultValue: 'Medium (8px)'
                           })}</SelectItem>
-                            <SelectItem value="12px">{t("Large12px", {
-                            defaultValue: "Large12px"
+                            <SelectItem value="12px">{t('Large (12px)', {
+                            defaultValue: 'Large (12px)'
                           })}</SelectItem>
-                            <SelectItem value="50px">{t("Pill50px", {
-                            defaultValue: "Pill50px"
+                            <SelectItem value="50px">{t('Pill (50px)', {
+                            defaultValue: 'Pill (50px)'
                           })}</SelectItem>
                           </SelectContent>
                         </Select>
@@ -3511,24 +3548,24 @@ export default function AdminAppearance() {
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="none">{t("Noshadow", {
-                            defaultValue: "Noshadow"
+                            <SelectItem value="none">{t('No Shadow', {
+                            defaultValue: 'No Shadow'
                           })}</SelectItem>
-                            <SelectItem value="small">{t("Small Shadow", {
-                            defaultValue: "Small Shadow"
+                            <SelectItem value="small">{t('Small Shadow', {
+                            defaultValue: 'Small Shadow'
                           })}</SelectItem>
-                            <SelectItem value="medium">{t("Medium Shadow", {
-                            defaultValue: "Medium Shadow"
+                            <SelectItem value="medium">{t('Medium Shadow', {
+                            defaultValue: 'Medium Shadow'
                           })}</SelectItem>
-                            <SelectItem value="large">{t("Large Shadow", {
-                            defaultValue: "Large Shadow"
+                            <SelectItem value="large">{t('Large Shadow', {
+                            defaultValue: 'Large Shadow'
                           })}</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
                       <div>
-                        <Label>{t("Hover Effect", {
-                        defaultValue: "Hover Effect"
+                        <Label>{t('Hover Effect', {
+                        defaultValue: 'Hover Effect'
                       })}</Label>
                         <Select value={tempButtonStyles?.hover_effect || JSON.parse(getSiteSetting('theme', 'button_styles') || '{"hover_effect": "scale"}').hover_effect} onValueChange={value => {
                       setTempButtonStyles((prev: any) => ({
@@ -3540,17 +3577,17 @@ export default function AdminAppearance() {
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="none">{t("None", {
-                            defaultValue: "None"
+                            <SelectItem value="none">{t('None', {
+                            defaultValue: 'None'
                           })}</SelectItem>
-                            <SelectItem value="scale">{t("Scaleup", {
-                            defaultValue: "Scaleup"
+                            <SelectItem value="scale">{t('Scale Up', {
+                            defaultValue: 'Scale Up'
                           })}</SelectItem>
-                            <SelectItem value="fade">{t("Fade", {
-                            defaultValue: "Fade"
+                            <SelectItem value="fade">{t('Fade', {
+                            defaultValue: 'Fade'
                           })}</SelectItem>
-                            <SelectItem value="shadow">{t("Shadowgrow", {
-                            defaultValue: "Shadowgrow"
+                            <SelectItem value="shadow">{t('Shadow Grow', {
+                            defaultValue: 'Shadow Grow'
                           })}</SelectItem>
                           </SelectContent>
                         </Select>
@@ -3567,8 +3604,8 @@ export default function AdminAppearance() {
                       <div className="mt-6 pt-6 border-t border-gray-200">
                         <div className="flex items-center gap-2 mb-4">
                           <MousePointer className="w-4 h-4" />
-                          <h3 className="text-base font-semibold">{t("Button Preview", {
-                          defaultValue: "Button Preview"
+                          <h3 className="text-base font-semibold">{t('Button Preview', {
+                          defaultValue: 'Button Preview'
                         })}</h3>
                         </div>
                         <div className="bg-gray-50 p-4 rounded-lg space-y-3">
@@ -3586,21 +3623,21 @@ export default function AdminAppearance() {
                             };
                             return shadows[shadowStyle as keyof typeof shadows] || '0 4px 6px -1px rgb(0 0 0 / 0.1)';
                           })()
-                        }}>{t("Primary Button", {
-                            defaultValue: "Primary Button"
+                        }}>{t('Primary Button', {
+                            defaultValue: 'Primary Button'
                           })}</button>
                             <button className="px-4 py-2 border-2 transition-all" style={{
                           borderColor: getSiteSetting('theme', 'primary_color') || '#084F6E',
                           color: getSiteSetting('theme', 'primary_color') || '#084F6E',
                           borderRadius: JSON.parse(getSiteSetting('theme', 'button_styles') || '{"border_radius": "8px"}').border_radius
-                        }}>{t("Outline Button", {
-                            defaultValue: "Outline Button"
+                        }}>{t('Outline Button', {
+                            defaultValue: 'Outline Button'
                           })}</button>
                             <button className="px-4 py-2 text-white transition-all" style={{
                           backgroundColor: getSiteSetting('theme', 'secondary_color') || '#3BA8AF',
                           borderRadius: JSON.parse(getSiteSetting('theme', 'button_styles') || '{"border_radius": "8px"}').border_radius
-                        }}>{t("Secondary Button", {
-                            defaultValue: "Secondary Button"
+                        }}>{t('Secondary Button', {
+                            defaultValue: 'Secondary Button'
                           })}</button>
                           </div>
                         </div>
@@ -3611,20 +3648,20 @@ export default function AdminAppearance() {
                 {selectedThemeSection === 'seo-metadata' && <Card>
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                        <Globe className="w-4 h-4" />{t("Seomxe9tadonnxe9es", {
-                      defaultValue: "Seomxe9tadonnxe9es"
+                        <Globe className="w-4 h-4" />{t('SEO & M\xE9tadonn\xE9es', {
+                      defaultValue: 'SEO & M\xE9tadonn\xE9es'
                     })}</CardTitle>
-                      <CardDescription>{t("Paramxe8tresseogloba", {
-                      defaultValue: "Paramxe8tresseogloba"
+                      <CardDescription>{t('Param\xE8tres SEO globaux et m\xE9tadonn\xE9es des r\xE9seaux sociaux', {
+                      defaultValue: 'Param\xE8tres SEO globaux et m\xE9tadonn\xE9es des r\xE9seaux sociaux'
                     })}</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div>
-                        <Label>{t("Sitetitle", {
-                        defaultValue: "Sitetitle"
+                        <Label>{t('Site Title', {
+                        defaultValue: 'Site Title'
                       })}</Label>
-                        <Input placeholder={t("Amon Tour - Authentic Thailand Experiences in Krabi", {
-                      defaultValue: "Amon Tour - Authentic Thailand Experiences in Krabi"
+                        <Input placeholder={t('Amon Tour - Authentic Thailand Travel Experience', {
+                      defaultValue: 'Amon Tour - Authentic Thailand Travel Experience'
                     })} value={JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"site_title": ""}').site_title} onChange={e => {
                       const current = JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"site_title": ""}');
                       updateSiteSetting('theme', 'seo_meta', JSON.stringify({
@@ -3634,11 +3671,11 @@ export default function AdminAppearance() {
                     }} />
                       </div>
                       <div>
-                        <Label>{t("Tagline", {
-                        defaultValue: "Tagline"
+                        <Label>{t('Tagline', {
+                        defaultValue: 'Tagline'
                       })}</Label>
-                        <Input placeholder={t("Discover the Hidden Gems of Krabi", {
-                      defaultValue: "Discover the Hidden Gems of Krabi"
+                        <Input placeholder={t('Discover the hidden gems of Krabi and southern Thailand', {
+                      defaultValue: 'Discover the hidden gems of Krabi and southern Thailand'
                     })} value={JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"tagline": ""}').tagline} onChange={e => {
                       const current = JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"tagline": ""}');
                       updateSiteSetting('theme', 'seo_meta', JSON.stringify({
@@ -3648,8 +3685,8 @@ export default function AdminAppearance() {
                     }} />
                       </div>
                       <div>
-                        <Label>{t("Meta Description", {
-                        defaultValue: "Meta Description"
+                        <Label>{t('Meta Description', {
+                        defaultValue: 'Meta Description'
                       })}</Label>
                         <Textarea placeholder={t('Experience authentic Thailand with Amon Tour. Discover Krabi\'s hidden islands, local culture, and unforgettable adventures.', {
                       defaultValue: 'Experience authentic Thailand with Amon Tour. Discover Krabi\'s hidden islands, local culture, and unforgettable adventures.'
@@ -3662,11 +3699,11 @@ export default function AdminAppearance() {
                     }} />
                       </div>
                       <div>
-                        <Label>{t("Keywords (comma-separated)", {
-                        defaultValue: "Keywords (comma-separated)"
+                        <Label>{t('Keywords (comma-separated)', {
+                        defaultValue: 'Keywords (comma-separated)'
                       })}</Label>
-                        <Input placeholder={t("Thailand travel, Krabi tours, authentic Thailand, island hopping", {
-                      defaultValue: "Thailand travel, Krabi tours, authentic Thailand, island hopping"
+                        <Input placeholder={t('Thailand travel, Krabi tours, authentic Thailand, island hopping', {
+                      defaultValue: 'Thailand travel, Krabi tours, authentic Thailand, island hopping'
                     })} value={JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"meta_keywords": ""}').meta_keywords} onChange={e => {
                       const current = JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"meta_keywords": ""}');
                       updateSiteSetting('theme', 'seo_meta', JSON.stringify({
@@ -3676,8 +3713,8 @@ export default function AdminAppearance() {
                     }} />
                       </div>
                       <div>
-                        <Label>{t("Open Graph Image URL", {
-                        defaultValue: "Open Graph Image URL"
+                        <Label>{t('Open Graph Image URL', {
+                        defaultValue: 'Open Graph Image URL'
                       })}</Label>
                         <Input placeholder="/src/assets/hero-image.jpg" value={JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"og_image": ""}').og_image} onChange={e => {
                       const current = JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"og_image": ""}');
@@ -3693,23 +3730,23 @@ export default function AdminAppearance() {
                 {selectedThemeSection === 'logo-favicon' && <Card>
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                        <Image className="w-4 h-4" />{t("Logo & Favicon", {
-                      defaultValue: "Logo & Favicon"
+                        <Image className="w-4 h-4" />{t('Logo & Favicon', {
+                      defaultValue: 'Logo & Favicon'
                     })}</CardTitle>
-                      <CardDescription>{t("Gxe9rezleslogosindiv", {
-                      defaultValue: "Gxe9rezleslogosindiv"
+                      <CardDescription>{t('G\xE9rez les logos individuels avec t\xE9l\xE9chargement/lien et contr\xF4les de taille', {
+                      defaultValue: 'G\xE9rez les logos individuels avec t\xE9l\xE9chargement/lien et contr\xF4les de taille'
                     })}</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
                       {/* Header Logo */}
                       <div className="border rounded-lg p-4">
-                        <Label className="text-base font-semibold mb-3 block">{t("Headerlogo", {
-                        defaultValue: "Headerlogo"
+                        <Label className="text-base font-semibold mb-3 block">{t('Header Logo', {
+                        defaultValue: 'Header Logo'
                       })}</Label>
                         <div className="grid grid-cols-2 gap-4">
                           <div>
-                            <Label>{t("Image URL/Path", {
-                            defaultValue: "Image URL/Path"
+                            <Label>{t('Image URL/Path', {
+                            defaultValue: 'Image URL/Path'
                           })}</Label>
                             <Input placeholder="/src/assets/logo-amon.png" value={tempLogoSettings?.header_logo || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": "/src/assets/logo-amon.png"}').header_logo} onChange={e => {
                           setTempLogoSettings((prev: any) => ({
@@ -3719,8 +3756,8 @@ export default function AdminAppearance() {
                         }} />
                           </div>
                           <div>
-                            <Label>{t("Size", {
-                            defaultValue: "Size"
+                            <Label>{t('Size', {
+                            defaultValue: 'Size'
                           })}</Label>
                             <Select value={tempLogoSettings?.header_logo_height || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo_height": "96px"}').header_logo_height} onValueChange={value => {
                           setTempLogoSettings((prev: any) => ({
@@ -3732,20 +3769,20 @@ export default function AdminAppearance() {
                                 <SelectValue />
                               </SelectTrigger>
                               <SelectContent>
-                                <SelectItem value="32px">{t("Small32px", {
-                                defaultValue: "Small32px"
+                                <SelectItem value="32px">{t('Small (32px)', {
+                                defaultValue: 'Small (32px)'
                               })}</SelectItem>
-                                <SelectItem value="48px">{t("Medium48px", {
-                                defaultValue: "Medium48px"
+                                <SelectItem value="48px">{t('Medium (48px)', {
+                                defaultValue: 'Medium (48px)'
                               })}</SelectItem>
-                                <SelectItem value="64px">{t("Large64px", {
-                                defaultValue: "Large64px"
+                                <SelectItem value="64px">{t('Large (64px)', {
+                                defaultValue: 'Large (64px)'
                               })}</SelectItem>
-                                <SelectItem value="96px">{t("Xlarge96px", {
-                                defaultValue: "Xlarge96px"
+                                <SelectItem value="96px">{t('X-Large (96px)', {
+                                defaultValue: 'X-Large (96px)'
                               })}</SelectItem>
-                                <SelectItem value="128px">{t("XX-Large (128px)", {
-                                defaultValue: "XX-Large (128px)"
+                                <SelectItem value="128px">{t('XX-Large (128px)', {
+                                defaultValue: 'XX-Large (128px)'
                               })}</SelectItem>
                               </SelectContent>
                             </Select>
@@ -3755,13 +3792,13 @@ export default function AdminAppearance() {
 
                       {/* Footer Logo */}
                       <div className="border rounded-lg p-4">
-                        <Label className="text-base font-semibold mb-3 block">{t("Footerlogo", {
-                        defaultValue: "Footerlogo"
+                        <Label className="text-base font-semibold mb-3 block">{t('Footer Logo', {
+                        defaultValue: 'Footer Logo'
                       })}</Label>
                         <div className="grid grid-cols-2 gap-4">
                           <div>
-                            <Label>{t("Image URL/Path", {
-                            defaultValue: "Image URL/Path"
+                            <Label>{t('Image URL/Path', {
+                            defaultValue: 'Image URL/Path'
                           })}</Label>
                             <Input placeholder="/src/assets/logo-amon.png" value={tempLogoSettings?.footer_logo || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": "/src/assets/logo-amon.png"}').footer_logo} onChange={e => {
                           setTempLogoSettings((prev: any) => ({
@@ -3771,8 +3808,8 @@ export default function AdminAppearance() {
                         }} />
                           </div>
                           <div>
-                            <Label>{t("Size", {
-                            defaultValue: "Size"
+                            <Label>{t('Size', {
+                            defaultValue: 'Size'
                           })}</Label>
                             <Select value={tempLogoSettings?.footer_logo_height || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo_height": "64px"}').footer_logo_height} onValueChange={value => {
                           setTempLogoSettings((prev: any) => ({
@@ -3784,20 +3821,20 @@ export default function AdminAppearance() {
                                 <SelectValue />
                               </SelectTrigger>
                               <SelectContent>
-                                <SelectItem value="24px">{t("Small24px", {
-                                defaultValue: "Small24px"
+                                <SelectItem value="24px">{t('Small (24px)', {
+                                defaultValue: 'Small (24px)'
                               })}</SelectItem>
-                                <SelectItem value="32px">{t("Medium32px", {
-                                defaultValue: "Medium32px"
+                                <SelectItem value="32px">{t('Medium (32px)', {
+                                defaultValue: 'Medium (32px)'
                               })}</SelectItem>
-                                <SelectItem value="48px">{t("Large48px", {
-                                defaultValue: "Large48px"
+                                <SelectItem value="48px">{t('Large (48px)', {
+                                defaultValue: 'Large (48px)'
                               })}</SelectItem>
-                                <SelectItem value="64px">{t("Xlarge64px", {
-                                defaultValue: "Xlarge64px"
+                                <SelectItem value="64px">{t('X-Large (64px)', {
+                                defaultValue: 'X-Large (64px)'
                               })}</SelectItem>
-                                <SelectItem value="96px">{t("XX-Large (96px)", {
-                                defaultValue: "XX-Large (96px)"
+                                <SelectItem value="96px">{t('XX-Large (96px)', {
+                                defaultValue: 'XX-Large (96px)'
                               })}</SelectItem>
                               </SelectContent>
                             </Select>
@@ -3807,13 +3844,13 @@ export default function AdminAppearance() {
 
                       {/* Favicon Logo */}
                       <div className="border rounded-lg p-4">
-                        <Label className="text-base font-semibold mb-3 block">{t("Favicon Logo", {
-                        defaultValue: "Favicon Logo"
+                        <Label className="text-base font-semibold mb-3 block">{t('Favicon Logo', {
+                        defaultValue: 'Favicon Logo'
                       })}</Label>
                         <div className="grid grid-cols-2 gap-4">
                           <div>
-                            <Label>{t("Image URL/Path", {
-                            defaultValue: "Image URL/Path"
+                            <Label>{t('Image URL/Path', {
+                            defaultValue: 'Image URL/Path'
                           })}</Label>
                             <Input placeholder="/favicon.ico" value={tempLogoSettings?.favicon || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": "/favicon.ico"}').favicon} onChange={e => {
                           setTempLogoSettings((prev: any) => ({
@@ -3823,8 +3860,8 @@ export default function AdminAppearance() {
                         }} />
                           </div>
                           <div>
-                            <Label>{t("Size", {
-                            defaultValue: "Size"
+                            <Label>{t('Size', {
+                            defaultValue: 'Size'
                           })}</Label>
                             <Select value={tempLogoSettings?.favicon_size || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon_size": "32px"}').favicon_size} onValueChange={value => {
                           setTempLogoSettings((prev: any) => ({
@@ -3848,8 +3885,8 @@ export default function AdminAppearance() {
                       
                       {/* Save Button */}
                       <div className="flex justify-end pt-4">
-                        <Button onClick={saveLogoSettings} disabled={!tempLogoSettings} className="bg-secondary hover:bg-secondary/90">{t("Ud83dudcbesauvegarde", {
-                        defaultValue: "Ud83dudcbesauvegarde"
+                        <Button onClick={saveLogoSettings} disabled={!tempLogoSettings} className="bg-secondary hover:bg-secondary/90">{t('\uD83D\uDCBE Sauvegarder Logo Settings', {
+                        defaultValue: '\uD83D\uDCBE Sauvegarder Logo Settings'
                       })}</Button>
                       </div>
                       
@@ -3857,58 +3894,58 @@ export default function AdminAppearance() {
                       <div className="mt-6 pt-6 border-t border-gray-200">
                         <div className="flex items-center gap-2 mb-4">
                           <Image className="w-4 h-4" />
-                          <h3 className="text-base font-semibold">{t("Logo Preview", {
-                          defaultValue: "Logo Preview"
+                          <h3 className="text-base font-semibold">{t('Logo Preview', {
+                          defaultValue: 'Logo Preview'
                         })}</h3>
                         </div>
                         <div className="bg-gray-50 p-4 rounded-lg space-y-6">
                           {/* Header Logo Preview */}
                           <div className="bg-white p-4 rounded border">
-                            <p className="text-sm font-medium mb-2">{t("Headerlogo", {
-                            defaultValue: "Headerlogo"
+                            <p className="text-sm font-medium mb-2">{t('Header Logo', {
+                            defaultValue: 'Header Logo'
                           })}</p>
                             <div className="flex items-center justify-center min-h-[100px] bg-gray-50 rounded">
-                              {JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": "/src/assets/logo-amon.png"}').header_logo ? <img src={JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": "/src/assets/logo-amon.png"}').header_logo.startsWith('/src/') ? logoAmon : JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": "/src/assets/logo-amon.png"}').header_logo} alt={t("Headerlogo", {
-                            defaultValue: "Headerlogo"
+                              {JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": "/src/assets/logo-amon.png"}').header_logo ? <img src={JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": "/src/assets/logo-amon.png"}').header_logo.startsWith('/src/') ? logoAmon : JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": "/src/assets/logo-amon.png"}').header_logo} alt={t('Header Logo', {
+                            defaultValue: 'Header Logo'
                           })} style={{
                             height: JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo_height": "96px"}').header_logo_height,
                             width: 'auto'
-                          }} /> : <div className="text-gray-400 text-sm">{t("Aucunlogoheaderdxe9f", {
-                              defaultValue: "Aucunlogoheaderdxe9f"
+                          }} /> : <div className="text-gray-400 text-sm">{t('Aucun logo header d\xE9fini', {
+                              defaultValue: 'Aucun logo header d\xE9fini'
                             })}</div>}
                             </div>
                           </div>
 
                           {/* Footer Logo Preview */}
                           <div className="bg-black p-4 rounded border">
-                            <p className="text-sm font-medium mb-2 text-white">{t("Footerlogo", {
-                            defaultValue: "Footerlogo"
+                            <p className="text-sm font-medium mb-2 text-white">{t('Footer Logo', {
+                            defaultValue: 'Footer Logo'
                           })}</p>
                             <div className="flex items-center justify-center min-h-[80px] bg-gray-800 rounded">
-                              {JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": "/src/assets/logo-amon.png"}').footer_logo ? <img src={JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": "/src/assets/logo-amon.png"}').footer_logo.startsWith('/src/') ? logoAmon : JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": "/src/assets/logo-amon.png"}').footer_logo} alt={t("Footerlogo", {
-                            defaultValue: "Footerlogo"
+                              {JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": "/src/assets/logo-amon.png"}').footer_logo ? <img src={JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": "/src/assets/logo-amon.png"}').footer_logo.startsWith('/src/') ? logoAmon : JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": "/src/assets/logo-amon.png"}').footer_logo} alt={t('Footer Logo', {
+                            defaultValue: 'Footer Logo'
                           })} style={{
                             height: JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo_height": "64px"}').footer_logo_height,
                             width: 'auto'
-                          }} /> : <div className="text-gray-400 text-sm">{t("Aucunlogofooterdxe9f", {
-                              defaultValue: "Aucunlogofooterdxe9f"
+                          }} /> : <div className="text-gray-400 text-sm">{t('Aucun logo footer d\xE9fini', {
+                              defaultValue: 'Aucun logo footer d\xE9fini'
                             })}</div>}
                             </div>
                           </div>
 
                           {/* Favicon Logo Preview */}
                           <div className="bg-white p-4 rounded border">
-                            <p className="text-sm font-medium mb-2">{t("Favicon Logo", {
-                            defaultValue: "Favicon Logo"
+                            <p className="text-sm font-medium mb-2">{t('Favicon Logo', {
+                            defaultValue: 'Favicon Logo'
                           })}</p>
                             <div className="flex items-center justify-center min-h-[60px] bg-gray-100 rounded">
-                              {tempLogoSettings?.favicon || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": "/favicon.ico"}').favicon ? <img src={(tempLogoSettings?.favicon || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": "/favicon.ico"}').favicon).startsWith('/src/') ? logoAmon : tempLogoSettings?.favicon || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": "/favicon.ico"}').favicon} alt={t("Favicon", {
-                            defaultValue: "Favicon"
+                              {tempLogoSettings?.favicon || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": "/favicon.ico"}').favicon ? <img src={(tempLogoSettings?.favicon || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": "/favicon.ico"}').favicon).startsWith('/src/') ? logoAmon : tempLogoSettings?.favicon || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": "/favicon.ico"}').favicon} alt={t('Favicon', {
+                            defaultValue: 'Favicon'
                           })} style={{
                             height: tempLogoSettings?.favicon_size || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon_size": "32px"}').favicon_size,
                             width: tempLogoSettings?.favicon_size || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon_size": "32px"}').favicon_size
-                          }} /> : <div className="text-gray-400 text-sm">{t("Aucunfavicondxe9fini", {
-                              defaultValue: "Aucunfavicondxe9fini"
+                          }} /> : <div className="text-gray-400 text-sm">{t('Aucun favicon d\xE9fini', {
+                              defaultValue: 'Aucun favicon d\xE9fini'
                             })}</div>}
                             </div>
                           </div>
@@ -3920,11 +3957,11 @@ export default function AdminAppearance() {
                 {selectedThemeSection === 'backgrounds' && <Card>
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                        <Bell className="w-4 h-4" />{t("Pop-up Announcements", {
-                      defaultValue: "Pop-up Announcements"
+                        <Bell className="w-4 h-4" />{t('Pop-up Announcements', {
+                      defaultValue: 'Pop-up Announcements'
                     })}</CardTitle>
-                      <CardDescription>{t("Promotional pop-ups and announcements", {
-                      defaultValue: "Promotional pop-ups and announcements"
+                      <CardDescription>{t('Promotional pop-ups and announcements', {
+                      defaultValue: 'Promotional pop-ups and announcements'
                     })}</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
@@ -3936,13 +3973,13 @@ export default function AdminAppearance() {
                         enabled: checked
                       }));
                     }} />
-                        <Label htmlFor="popup-enabled">{t("Enable Pop-ups", {
-                        defaultValue: "Enable Pop-ups"
+                        <Label htmlFor="popup-enabled">{t('Enable Pop-ups', {
+                        defaultValue: 'Enable Pop-ups'
                       })}</Label>
                       </div>
                       <div>
-                        <Label>{t("Popuptype", {
-                        defaultValue: "Popuptype"
+                        <Label>{t('Pop-up Type', {
+                        defaultValue: 'Pop-up Type'
                       })}</Label>
                         <Select value={tempPopupSettings?.type || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"type": "newsletter"}').type} onValueChange={value => {
                       setTempPopupSettings((prev: any) => ({
@@ -3954,24 +3991,24 @@ export default function AdminAppearance() {
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="newsletter">{t("Newsletter Signup", {
-                            defaultValue: "Newsletter Signup"
+                            <SelectItem value="newsletter">{t('Newsletter Signup', {
+                            defaultValue: 'Newsletter Signup'
                           })}</SelectItem>
-                            <SelectItem value="promotion">{t("Special Promotion", {
-                            defaultValue: "Special Promotion"
+                            <SelectItem value="promotion">{t('Special Promotion', {
+                            defaultValue: 'Special Promotion'
                           })}</SelectItem>
-                            <SelectItem value="announcement">{t("General Announcement", {
-                            defaultValue: "General Announcement"
+                            <SelectItem value="announcement">{t('General Announcement', {
+                            defaultValue: 'General Announcement'
                           })}</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
                       <div>
-                        <Label>{t("Title", {
-                        defaultValue: "Title"
+                        <Label>{t('Title', {
+                        defaultValue: 'Title'
                       })}</Label>
-                        <Input placeholder={t("Special Offer!", {
-                      defaultValue: "Special Offer!"
+                        <Input placeholder={t('Special Offer!', {
+                      defaultValue: 'Special Offer!'
                     })} value={tempPopupSettings?.title || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"title": ""}').title} onChange={e => {
                       setTempPopupSettings((prev: any) => ({
                         ...prev,
@@ -3980,11 +4017,11 @@ export default function AdminAppearance() {
                     }} />
                       </div>
                       <div>
-                        <Label>{t("Description:", {
-                        defaultValue: "Description:"
+                        <Label>{t('Description', {
+                        defaultValue: 'Description'
                       })}</Label>
-                        <Textarea placeholder={t("Subscribe to our newsletter for exclusive travel tips and special offers.", {
-                      defaultValue: "Subscribe to our newsletter for exclusive travel tips and special offers."
+                        <Textarea placeholder={t('Subscribe to our newsletter for exclusive travel tips and special offers.', {
+                      defaultValue: 'Subscribe to our newsletter for exclusive travel tips and special offers.'
                     })} value={tempPopupSettings?.description || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"description": ""}').description} onChange={e => {
                       setTempPopupSettings((prev: any) => ({
                         ...prev,
@@ -3994,11 +4031,11 @@ export default function AdminAppearance() {
                       </div>
                       <div className="grid grid-cols-2 gap-4">
                         <div>
-                          <Label>{t("Buttontext", {
-                          defaultValue: "Buttontext"
+                          <Label>{t('Button Text', {
+                          defaultValue: 'Button Text'
                         })}</Label>
-                          <Input placeholder={t("Subscribe", {
-                        defaultValue: "Subscribe"
+                          <Input placeholder={t('Subscribe', {
+                        defaultValue: 'Subscribe'
                       })} value={tempPopupSettings?.button_text || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"button_text": "Subscribe"}').button_text} onChange={e => {
                         setTempPopupSettings((prev: any) => ({
                           ...prev,
@@ -4007,8 +4044,8 @@ export default function AdminAppearance() {
                       }} />
                         </div>
                         <div>
-                          <Label>{t("Delay (seconds)", {
-                          defaultValue: "Delay (seconds)"
+                          <Label>{t('Delay (seconds)', {
+                          defaultValue: 'Delay (seconds)'
                         })}</Label>
                           <Input type="number" placeholder="5" value={JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"delay": 5000}').delay / 1000} onChange={e => {
                         const current = JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"delay": 5000}');
@@ -4022,8 +4059,8 @@ export default function AdminAppearance() {
                       
                       {/* Save Button */}
                       <div className="flex justify-end pt-4">
-                        <Button onClick={savePopupSettings} disabled={!tempPopupSettings} className="bg-secondary hover:bg-secondary/90">{t("Ud83dudcbesauvegarde", {
-                        defaultValue: "Ud83dudcbesauvegarde"
+                        <Button onClick={savePopupSettings} disabled={!tempPopupSettings} className="bg-secondary hover:bg-secondary/90">{t('\uD83D\uDCBE Sauvegarder Pop-up Settings', {
+                        defaultValue: '\uD83D\uDCBE Sauvegarder Pop-up Settings'
                       })}</Button>
                       </div>
                       
@@ -4031,8 +4068,8 @@ export default function AdminAppearance() {
                       <div className="mt-6 pt-6 border-t border-gray-200">
                         <div className="flex items-center gap-2 mb-4">
                           <Bell className="w-4 h-4" />
-                          <h3 className="text-base font-semibold">{t("Pop-up Preview", {
-                          defaultValue: "Pop-up Preview"
+                          <h3 className="text-base font-semibold">{t('Pop-up Preview', {
+                          defaultValue: 'Pop-up Preview'
                         })}</h3>
                         </div>
                         <div className="bg-gray-100 p-4 rounded-lg">
@@ -4049,13 +4086,13 @@ export default function AdminAppearance() {
                           }}>
                                   {JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"button_text": "Subscribe"}').button_text || "Subscribe"}
                                 </button>
-                                <p className="text-xs text-gray-400">{t("Apparaxeetaprxe8s", {
-                              defaultValue: "Apparaxeetaprxe8s"
+                                <p className="text-xs text-gray-400">{t('Appara\xEEt apr\xE8s', {
+                              defaultValue: 'Appara\xEEt apr\xE8s'
                             })}{JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"delay": 5000}').delay / 1000 || 5} secondes
                                 </p>
                               </div>
-                            </div> : <div className="text-center text-gray-500 py-8">{t("Popupdxe9sactivxe9e", {
-                          defaultValue: "Popupdxe9sactivxe9e"
+                            </div> : <div className="text-center text-gray-500 py-8">{t('Pop-up d\xE9sactiv\xE9e', {
+                          defaultValue: 'Pop-up d\xE9sactiv\xE9e'
                         })}</div>}
                         </div>
                       </div>
@@ -4072,11 +4109,11 @@ export default function AdminAppearance() {
               <Card className="lg:col-span-1">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                    <Layout className="w-4 h-4" />{t("Pages", {
-                    defaultValue: "Pages"
+                    <Layout className="w-4 h-4" />{t('Pages', {
+                    defaultValue: 'Pages'
                   })}</CardTitle>
-                  <CardDescription>{t("Choisissezlapagexe0m", {
-                    defaultValue: "Choisissezlapagexe0m"
+                  <CardDescription>{t('Choisissez la page \xE0 modifier', {
+                    defaultValue: 'Choisissez la page \xE0 modifier'
                   })}</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -4084,8 +4121,8 @@ export default function AdminAppearance() {
                     {/* Menu Principal - Direct Access */}
                     <div className="space-y-2">
                       <Button variant={selectedPage === 'navigation-menu' ? 'default' : 'outline'} className="w-full justify-start text-sm h-8" onClick={() => setSelectedPage('navigation-menu')}>
-                        <Layout className="w-4 h-4 mr-2" />{t("Menu principal", {
-                        defaultValue: "Menu principal"
+                        <Layout className="w-4 h-4 mr-2" />{t('Menu principal', {
+                        defaultValue: 'Menu principal'
                       })}</Button>
                     </div>
                     
@@ -4115,8 +4152,8 @@ export default function AdminAppearance() {
                       
                       {/* Add New Page Button */}
                       <Button variant="outline" className="w-full justify-start text-sm h-8 border-dashed border-secondary/30 text-primary hover:bg-primary/10" onClick={() => setIsAddPageModalOpen(true)}>
-                        <Plus className="w-4 h-4 mr-2" />{t("Ajouter une page", {
-                        defaultValue: "Ajouter une page"
+                        <Plus className="w-4 h-4 mr-2" />{t('Ajouter une page', {
+                        defaultValue: 'Ajouter une page'
                       })}</Button>
                     </div>
                     
@@ -4149,8 +4186,8 @@ export default function AdminAppearance() {
                         const pageUrl = selectedPage === 'home' ? '/' : `/${selectedPage}`;
                         window.open(pageUrl, '_blank');
                       }}>
-                            <Eye className="w-4 h-4 mr-2" />{t("Voirlapage", {
-                          defaultValue: "Voirlapage"
+                            <Eye className="w-4 h-4 mr-2" />{t('Voir la page', {
+                          defaultValue: 'Voir la page'
                         })}</Button>
                           <Button onClick={() => {
                         // Rediriger directement vers l'édition de la page sélectionnée
@@ -4165,16 +4202,16 @@ export default function AdminAppearance() {
                           </Button>
                           {selectedPage !== 'home' && <AlertDialog>
                               <AlertDialogTrigger asChild>
-                                <Button className="bg-red-600 hover:bg-red-700 text-white px-3" title={t("Supprimer la page", {
-                            defaultValue: "Supprimer la page"
+                                <Button className="bg-red-600 hover:bg-red-700 text-white px-3" title={t('Supprimer la page', {
+                            defaultValue: 'Supprimer la page'
                           })}>
                                   <Trash className="w-4 h-4" />
                                 </Button>
                               </AlertDialogTrigger>
                               <AlertDialogContent>
                                 <AlertDialogHeader>
-                                  <AlertDialogTitle>{t("Confirmer la suppression", {
-                                defaultValue: "Confirmer la suppression"
+                                  <AlertDialogTitle>{t('Confirmer la suppression', {
+                                defaultValue: 'Confirmer la suppression'
                               })}</AlertDialogTitle>
                                   <AlertDialogDescription>
                                     Êtes-vous sûr de vouloir supprimer la page "{pageConfigs.find(p => p.pageSlug === selectedPage)?.pageName || selectedPage}{t('" ? Cette action est irr\xE9versible et supprimera \xE9galement tous les contenus associ\xE9s.', {
@@ -4182,8 +4219,8 @@ export default function AdminAppearance() {
                               })}</AlertDialogDescription>
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
-                                  <AlertDialogCancel>{t("Annuler", {
-                                defaultValue: "Annuler"
+                                  <AlertDialogCancel>{t('Annuler', {
+                                defaultValue: 'Annuler'
                               })}</AlertDialogCancel>
                                   <AlertDialogAction onClick={async () => {
                               const page = pageConfigs.find(p => p.pageSlug === selectedPage);
@@ -4198,11 +4235,11 @@ export default function AdminAppearance() {
                                   throw new Error(error.message || 'Erreur lors de la suppression');
                                 }
                                 toast({
-                                  title: t("Pagesupprimxe9e", {
-                                    defaultValue: "Pagesupprimxe9e"
+                                  title: t('Page supprim\xE9e', {
+                                    defaultValue: 'Page supprim\xE9e'
                                   }),
-                                  description: t("Lapageaxe9txe9suppri", {
-                                    defaultValue: "Lapageaxe9txe9suppri"
+                                  description: t('La page a \xE9t\xE9 supprim\xE9e avec succ\xE8s.', {
+                                    defaultValue: 'La page a \xE9t\xE9 supprim\xE9e avec succ\xE8s.'
                                   })
                                 });
 
@@ -4211,17 +4248,17 @@ export default function AdminAppearance() {
                               } catch (error) {
                                 console.error('Error deleting page:', error);
                                 toast({
-                                  title: t("Erreur", {
-                                    defaultValue: "Erreur"
+                                  title: t('Erreur', {
+                                    defaultValue: 'Erreur'
                                   }),
-                                  description: t("Impossible de supprimer la demande", {
-                                    defaultValue: "Impossible de supprimer la demande"
+                                  description: t('Impossible de supprimer la page.', {
+                                    defaultValue: 'Impossible de supprimer la page.'
                                   }),
                                   variant: "destructive"
                                 });
                               }
-                            }} className="bg-red-600 hover:bg-red-700">{t("Supprimer", {
-                                defaultValue: "Supprimer"
+                            }} className="bg-red-600 hover:bg-red-700">{t('Supprimer', {
+                                defaultValue: 'Supprimer'
                               })}</AlertDialogAction>
                                 </AlertDialogFooter>
                               </AlertDialogContent>
@@ -4234,67 +4271,67 @@ export default function AdminAppearance() {
                   <Dialog open={isEditingBlock} onOpenChange={setIsEditingBlock}>
                     <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
                       <DialogHeader>
-                        <DialogTitle>{t("Editblock", {
-                          defaultValue: "Editblock"
+                        <DialogTitle>{t('Edit Block:', {
+                          defaultValue: 'Edit Block:'
                         })}{selectedBlock?.blockType}</DialogTitle>
-                        <DialogDescription>{t("Modify the content and settings for this block", {
-                          defaultValue: "Modify the content and settings for this block"
+                        <DialogDescription>{t('Modify the content and settings for this block', {
+                          defaultValue: 'Modify the content and settings for this block'
                         })}</DialogDescription>
                       </DialogHeader>
                       {selectedBlock && <div className="space-y-4">
                           <div className="grid grid-cols-2 gap-4">
                             <div>
-                              <Label htmlFor="block-title">{t("Title", {
-                              defaultValue: "Title"
+                              <Label htmlFor="block-title">{t('Title', {
+                              defaultValue: 'Title'
                             })}</Label>
                               <Input id="block-title" value={selectedBlock.title || ''} onChange={e => setSelectedBlock({
                             ...selectedBlock,
                             title: e.target.value
-                          })} placeholder={t("Blocktitle", {
-                            defaultValue: "Blocktitle"
+                          })} placeholder={t('Block title', {
+                            defaultValue: 'Block title'
                           })} />
                             </div>
                             <div>
-                              <Label htmlFor="block-subtitle">{t("Subtitle", {
-                              defaultValue: "Subtitle"
+                              <Label htmlFor="block-subtitle">{t('Subtitle', {
+                              defaultValue: 'Subtitle'
                             })}</Label>
                               <Input id="block-subtitle" value={selectedBlock.subtitle || ''} onChange={e => setSelectedBlock({
                             ...selectedBlock,
                             subtitle: e.target.value
-                          })} placeholder={t("Block subtitle", {
-                            defaultValue: "Block subtitle"
+                          })} placeholder={t('Block subtitle', {
+                            defaultValue: 'Block subtitle'
                           })} />
                             </div>
                           </div>
                           
                           <div>
-                            <Label htmlFor="block-description">{t("Description:", {
-                            defaultValue: "Description:"
+                            <Label htmlFor="block-description">{t('Description', {
+                            defaultValue: 'Description'
                           })}</Label>
                             <Textarea id="block-description" value={selectedBlock.description || ''} onChange={e => setSelectedBlock({
                           ...selectedBlock,
                           description: e.target.value
-                        })} placeholder={t("Block description", {
-                          defaultValue: "Block description"
+                        })} placeholder={t('Block description', {
+                          defaultValue: 'Block description'
                         })} rows={3} />
                           </div>
                           
                           <div>
-                            <Label htmlFor="block-content">{t("Content", {
-                            defaultValue: "Content"
+                            <Label htmlFor="block-content">{t('Content', {
+                            defaultValue: 'Content'
                           })}</Label>
                             <Textarea id="block-content" value={selectedBlock.content || ''} onChange={e => setSelectedBlock({
                           ...selectedBlock,
                           content: e.target.value
-                        })} placeholder={t("Block content", {
-                          defaultValue: "Block content"
+                        })} placeholder={t('Block content', {
+                          defaultValue: 'Block content'
                         })} rows={4} />
                           </div>
                           
                           <div className="grid grid-cols-2 gap-4">
                             <div>
-                              <Label htmlFor="block-image">{t("Imageurl", {
-                              defaultValue: "Imageurl"
+                              <Label htmlFor="block-image">{t('Image URL', {
+                              defaultValue: 'Image URL'
                             })}</Label>
                               <Input id="block-image" value={selectedBlock.imageUrl || ''} onChange={e => setSelectedBlock({
                             ...selectedBlock,
@@ -4302,8 +4339,8 @@ export default function AdminAppearance() {
                           })} placeholder="https://example.com/image.jpg" />
                             </div>
                             <div>
-                              <Label htmlFor="block-bg">{t("Couleur de fond", {
-                              defaultValue: "Couleur de fond"
+                              <Label htmlFor="block-bg">{t('Couleur de fond', {
+                              defaultValue: 'Couleur de fond'
                             })}</Label>
                               <Input id="block-bg" type="color" value={selectedBlock.backgroundColor || '#ffffff'} onChange={e => setSelectedBlock({
                             ...selectedBlock,
@@ -4314,19 +4351,19 @@ export default function AdminAppearance() {
                           
                           {(selectedBlock.blockType.includes('cta') || selectedBlock.blockType.includes('hero')) && <div className="grid grid-cols-2 gap-4">
                               <div>
-                                <Label htmlFor="block-cta-text">{t("Buttontext", {
-                              defaultValue: "Buttontext"
+                                <Label htmlFor="block-cta-text">{t('Button Text', {
+                              defaultValue: 'Button Text'
                             })}</Label>
                                 <Input id="block-cta-text" value={selectedBlock.ctaText || ''} onChange={e => setSelectedBlock({
                             ...selectedBlock,
                             ctaText: e.target.value
-                          })} placeholder={t("Call to action text", {
-                            defaultValue: "Call to action text"
+                          })} placeholder={t('Call to action text', {
+                            defaultValue: 'Call to action text'
                           })} />
                               </div>
                               <div>
-                                <Label htmlFor="block-cta-url">{t("Buttonurl", {
-                              defaultValue: "Buttonurl"
+                                <Label htmlFor="block-cta-url">{t('Button URL', {
+                              defaultValue: 'Button URL'
                             })}</Label>
                                 <Input id="block-cta-url" value={selectedBlock.ctaUrl || ''} onChange={e => setSelectedBlock({
                             ...selectedBlock,
@@ -4340,22 +4377,22 @@ export default function AdminAppearance() {
                           ...selectedBlock,
                           isActive: checked
                         })} />
-                            <Label htmlFor="block-active">{t("Block is active", {
-                            defaultValue: "Block is active"
+                            <Label htmlFor="block-active">{t('Block is active', {
+                            defaultValue: 'Block is active'
                           })}</Label>
                           </div>
                           
                           <div className="flex justify-between pt-4">
-                            <Button variant="outline" onClick={() => setIsEditingBlock(false)}>{t("Cancel", {
-                            defaultValue: "Cancel"
+                            <Button variant="outline" onClick={() => setIsEditingBlock(false)}>{t('Cancel', {
+                            defaultValue: 'Cancel'
                           })}</Button>
                             <div className="flex space-x-2">
                               <Button variant="secondary" onClick={() => {
                             const pageUrl = selectedPage === 'home' ? '/' : `/${selectedPage}`;
                             window.open(`${pageUrl}?preview=true`, '_blank');
                           }}>
-                                <Eye className="w-4 h-4 mr-2" />{t("Preview Page", {
-                              defaultValue: "Preview Page"
+                                <Eye className="w-4 h-4 mr-2" />{t('Preview Page', {
+                              defaultValue: 'Preview Page'
                             })}</Button>
                               <Button onClick={() => {
                             if (selectedBlock) {
@@ -4385,8 +4422,8 @@ export default function AdminAppearance() {
                   <CardContent>
                     {selectedPage === 'navigation-menu' ? <NavigationMenuManager pageConfigs={pageConfigs} navigationMenuItems={[]} /> : loadingBlocks ? <div className="text-center py-12">
                         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-secondary mx-auto mb-4"></div>
-                        <p className="text-gray-500">{t("Loading blocks...", {
-                        defaultValue: "Loading blocks..."
+                        <p className="text-gray-500">{t('Loading blocks...', {
+                        defaultValue: 'Loading blocks...'
                       })}</p>
                       </div> : <PageManagementInterface selectedPage={selectedPage} pageBlocks={pageBlocks} pageConfigs={pageConfigs} updatePageConfigMutation={updatePageConfigMutation} />}
                   </CardContent>
@@ -4403,43 +4440,43 @@ export default function AdminAppearance() {
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                      <Settings className="w-4 h-4" />{t("Pieddepage", {
-                      defaultValue: "Pieddepage"
+                      <Settings className="w-4 h-4" />{t('Pied de page', {
+                      defaultValue: 'Pied de page'
                     })}</CardTitle>
-                    <CardDescription>{t("Gxe9rerlecontenudupi", {
-                      defaultValue: "Gxe9rerlecontenudupi"
+                    <CardDescription>{t('G\xE9rer le contenu du pied de page', {
+                      defaultValue: 'G\xE9rer le contenu du pied de page'
                     })}</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-2">
                       {[{
                       id: 'contact-info',
-                      label: t("Informations de contact", {
-                        defaultValue: "Informations de contact"
+                      label: t('Informations de contact', {
+                        defaultValue: 'Informations de contact'
                       }),
                       icon: MapPin
                     }, {
                       id: 'useful-links',
-                      label: t("Liens utiles", {
-                        defaultValue: "Liens utiles"
+                      label: t('Liens utiles', {
+                        defaultValue: 'Liens utiles'
                       }),
                       icon: Menu
                     }, {
                       id: 'social-media',
-                      label: t("Rxe9seauxsociaux", {
-                        defaultValue: "Rxe9seauxsociaux"
+                      label: t('R\xE9seaux sociaux', {
+                        defaultValue: 'R\xE9seaux sociaux'
                       }),
                       icon: Users
                     }, {
                       id: 'newsletter',
-                      label: t("Newsletter", {
-                        defaultValue: "Newsletter"
+                      label: t('Newsletter', {
+                        defaultValue: 'Newsletter'
                       }),
                       icon: Mail
                     }, {
                       id: 'copyright',
-                      label: t("Copyright", {
-                        defaultValue: "Copyright"
+                      label: t('Copyright', {
+                        defaultValue: 'Copyright'
                       }),
                       icon: FileText
                     }].map(({
@@ -4542,43 +4579,57 @@ function NavigationMenuManager({
     // Static pages that should always be available
     const staticPages = [{
       slug: 'brochure',
-      name: t("Our Brochure", {
-        defaultValue: "Our Brochure"
+      name: t('Our brochure', {
+        defaultValue: 'Our brochure'
       }),
       id: 999
     }, {
       slug: 'krabi-celebration',
-      name: t('pages.krabiCelebration.title'),
+      name: t('Krabi Celebration', {
+        defaultValue: 'Krabi Celebration'
+      }),
       id: 998
     }, {
       slug: 'fun-garden',
-      name: t("Fungarden", {
-        defaultValue: "Fungarden"
+      name: t('Fun Garden', {
+        defaultValue: 'Fun Garden'
       }),
       id: 997
     }, {
       slug: 'villas-krabi',
-      name: t('pages.villasKrabi.title'),
+      name: t('Villas in Krabi', {
+        defaultValue: 'Villas in Krabi'
+      }),
       id: 996
     }, {
       slug: 'become-partner',
-      name: t('pages.becomePartner.title'),
+      name: t('Become Partner', {
+        defaultValue: 'Become Partner'
+      }),
       id: 995
     }, {
       slug: 'group-corporate',
-      name: t('pages.groupCorporate.title'),
+      name: t('Group & Corporate', {
+        defaultValue: 'Group & Corporate'
+      }),
       id: 994
     }, {
       slug: 'privacy-policy',
-      name: t('privacy.title'),
+      name: t('Privacy Policy', {
+        defaultValue: 'Privacy Policy'
+      }),
       id: 993
     }, {
       slug: 'legal-notice',
-      name: t('legal.title'),
+      name: t('Legal Notice', {
+        defaultValue: 'Legal Notice'
+      }),
       id: 992
     }, {
       slug: 'terms-conditions',
-      name: t('terms.title'),
+      name: t('Terms & Conditions', {
+        defaultValue: 'Terms & Conditions'
+      }),
       id: 991
     }];
 
@@ -4681,21 +4732,21 @@ function NavigationMenuManager({
       setIsDialogOpen(false);
       setEditingItem(null);
       toast({
-        title: t("Success", {
-          defaultValue: "Success"
+        title: t('Success', {
+          defaultValue: 'Success'
         }),
-        description: t("Menu item created successfully", {
-          defaultValue: "Menu item created successfully"
+        description: t('Menu item created successfully', {
+          defaultValue: 'Menu item created successfully'
         })
       });
     },
     onError: () => {
       toast({
-        title: t("Error", {
-          defaultValue: "Error"
+        title: t('Error', {
+          defaultValue: 'Error'
         }),
-        description: t("Failed to create menu item", {
-          defaultValue: "Failed to create menu item"
+        description: t('Failed to create menu item', {
+          defaultValue: 'Failed to create menu item'
         }),
         variant: "destructive"
       });
@@ -4729,21 +4780,21 @@ function NavigationMenuManager({
       setIsDialogOpen(false);
       setEditingItem(null);
       toast({
-        title: t("Success", {
-          defaultValue: "Success"
+        title: t('Success', {
+          defaultValue: 'Success'
         }),
-        description: t("Menu item updated successfully", {
-          defaultValue: "Menu item updated successfully"
+        description: t('Menu item updated successfully', {
+          defaultValue: 'Menu item updated successfully'
         })
       });
     },
     onError: () => {
       toast({
-        title: t("Error", {
-          defaultValue: "Error"
+        title: t('Error', {
+          defaultValue: 'Error'
         }),
-        description: t("Failed to update menu item", {
-          defaultValue: "Failed to update menu item"
+        description: t('Failed to update menu item', {
+          defaultValue: 'Failed to update menu item'
         }),
         variant: "destructive"
       });
@@ -4765,21 +4816,21 @@ function NavigationMenuManager({
         queryKey: ['/api/admin/navigation-menu']
       });
       toast({
-        title: t("Success", {
-          defaultValue: "Success"
+        title: t('Success', {
+          defaultValue: 'Success'
         }),
-        description: t("Menu item deleted successfully", {
-          defaultValue: "Menu item deleted successfully"
+        description: t('Menu item deleted successfully', {
+          defaultValue: 'Menu item deleted successfully'
         })
       });
     },
     onError: () => {
       toast({
-        title: t("Error", {
-          defaultValue: "Error"
+        title: t('Error', {
+          defaultValue: 'Error'
         }),
-        description: t("Failed to delete menu item", {
-          defaultValue: "Failed to delete menu item"
+        description: t('Failed to delete menu item', {
+          defaultValue: 'Failed to delete menu item'
         }),
         variant: "destructive"
       });
@@ -4815,11 +4866,11 @@ function NavigationMenuManager({
     },
     onError: () => {
       toast({
-        title: t("Error", {
-          defaultValue: "Error"
+        title: t('Error', {
+          defaultValue: 'Error'
         }),
-        description: t("Failed to reorder menu item", {
-          defaultValue: "Failed to reorder menu item"
+        description: t('Failed to reorder menu item', {
+          defaultValue: 'Failed to reorder menu item'
         }),
         variant: "destructive"
       });
@@ -4884,8 +4935,8 @@ function NavigationMenuManager({
       queryKey: ['/api/admin/navigation-menu']
     });
     toast({
-      title: t("Succxe8s", {
-        defaultValue: "Succxe8s"
+      title: t('Succ\xE8s', {
+        defaultValue: 'Succ\xE8s'
       }),
       description: "Éléments de menu corrigés en anglais"
     });
@@ -4920,16 +4971,16 @@ function NavigationMenuManager({
           // Save functionality would go here
           setHasUnsavedChanges(false);
           toast({
-            title: t("Succxe8s", {
-              defaultValue: "Succxe8s"
+            title: t('Succ\xE8s', {
+              defaultValue: 'Succ\xE8s'
             }),
-            description: t("Modifications sauvegard\xE9es", {
-              defaultValue: "Modifications sauvegard\xE9es"
+            description: t('Modifications sauvegard\xE9es', {
+              defaultValue: 'Modifications sauvegard\xE9es'
             })
           });
         }} className="flex items-center gap-2">
-              <Download className="w-4 h-4" />{t("Sauvegarder les modifications", {
-            defaultValue: "Sauvegarder les modifications"
+              <Download className="w-4 h-4" />{t('Sauvegarder les modifications', {
+            defaultValue: 'Sauvegarder les modifications'
           })}</Button>}
         </div>
         
@@ -4937,8 +4988,8 @@ function NavigationMenuManager({
         setEditingItem(null);
         setIsDialogOpen(true);
       }} className="flex items-center gap-2">
-          <Plus className="w-4 h-4" />{t("Ajouterxe9lxe9ment", {
-          defaultValue: "Ajouterxe9lxe9ment"
+          <Plus className="w-4 h-4" />{t('Ajouter \xE9l\xE9ment', {
+          defaultValue: 'Ajouter \xE9l\xE9ment'
         })}</Button>
       </div>
 
@@ -4950,8 +5001,8 @@ function NavigationMenuManager({
         </h3>
         {isLoading ? <div className="text-center py-8">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-secondary mx-auto mb-4"></div>
-            <p className="text-gray-500">{t("Chargement", {
-            defaultValue: "Chargement"
+            <p className="text-gray-500">{t('Chargement...', {
+            defaultValue: 'Chargement...'
           })}</p>
           </div> : organizedItems.length === 0 ? <div className="text-center py-8 text-gray-500">{t('Aucun \xE9l\xE9ment de menu. Cliquez sur "Ajouter \xE9l\xE9ment" pour commencer.', {
           defaultValue: 'Aucun \xE9l\xE9ment de menu. Cliquez sur "Ajouter \xE9l\xE9ment" pour commencer.'
@@ -5017,8 +5068,8 @@ function MenuItemRow({
           <div className="flex items-center gap-2">
             {item.iconName && <Globe className="w-4 h-4 text-gray-500" />}
             <span className="font-medium">{item.name}</span>
-            {item.target === '_blank' && <Badge variant="outline">{t("Nouvel onglet", {
-              defaultValue: "Nouvel onglet"
+            {item.target === '_blank' && <Badge variant="outline">{t('Nouvel onglet', {
+              defaultValue: 'Nouvel onglet'
             })}</Badge>}
           </div>
           {item.description && <div className="text-xs text-gray-400">{item.description}</div>}
@@ -5046,11 +5097,11 @@ function MenuItemRow({
                 })}</AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel>{t("Annuler", {
-                  defaultValue: "Annuler"
+                <AlertDialogCancel>{t('Annuler', {
+                  defaultValue: 'Annuler'
                 })}</AlertDialogCancel>
-                <AlertDialogAction onClick={() => onDelete(item.id)}>{t("Supprimer", {
-                  defaultValue: "Supprimer"
+                <AlertDialogAction onClick={() => onDelete(item.id)}>{t('Supprimer', {
+                  defaultValue: 'Supprimer'
                 })}</AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
@@ -5093,19 +5144,19 @@ function MenuItemRow({
                   </AlertDialogTrigger>
                   <AlertDialogContent>
                     <AlertDialogHeader>
-                      <AlertDialogTitle>{t("Supprimerlesousxe9lx", {
-                    defaultValue: "Supprimerlesousxe9lx"
+                      <AlertDialogTitle>{t('Supprimer le sous-\xE9l\xE9ment', {
+                    defaultValue: 'Supprimer le sous-\xE9l\xE9ment'
                   })}</AlertDialogTitle>
                       <AlertDialogDescription>
                         Êtes-vous sûr de vouloir supprimer "{child.name}" ?
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                      <AlertDialogCancel>{t("Annuler", {
-                    defaultValue: "Annuler"
+                      <AlertDialogCancel>{t('Annuler', {
+                    defaultValue: 'Annuler'
                   })}</AlertDialogCancel>
-                      <AlertDialogAction onClick={() => onDelete(child.id)}>{t("Supprimer", {
-                    defaultValue: "Supprimer"
+                      <AlertDialogAction onClick={() => onDelete(child.id)}>{t('Supprimer', {
+                    defaultValue: 'Supprimer'
                   })}</AlertDialogAction>
                     </AlertDialogFooter>
                   </AlertDialogContent>
@@ -5181,21 +5232,21 @@ function MenuItemDialog({
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Name */}
           <div className="space-y-2">
-            <Label htmlFor="name">{t("Nomdumenu", {
-              defaultValue: "Nomdumenu"
+            <Label htmlFor="name">{t('Nom du menu *', {
+              defaultValue: 'Nom du menu *'
             })}</Label>
             <Input id="name" name="name" value={formData.name} onChange={e => setFormData(prev => ({
             ...prev,
             name: e.target.value
-          }))} placeholder={t("Exaccueilexpxe9rienc", {
-            defaultValue: "Exaccueilexpxe9rienc"
+          }))} placeholder={t('ex: Accueil, Exp\xE9riences...', {
+            defaultValue: 'ex: Accueil, Exp\xE9riences...'
           })} required />
           </div>
 
           {/* URL with Page Selector */}
           <div className="space-y-2">
-            <Label htmlFor="url">{t("Lienurl", {
-              defaultValue: "Lienurl"
+            <Label htmlFor="url">{t('Lien URL *', {
+              defaultValue: 'Lien URL *'
             })}</Label>
             <div className="flex gap-2">
               <Select value={formData.url} onValueChange={value => setFormData(prev => ({
@@ -5203,8 +5254,8 @@ function MenuItemDialog({
               url: value
             }))}>
                 <SelectTrigger className="w-40">
-                  <SelectValue placeholder={t("Choisir page", {
-                  defaultValue: "Choisir page"
+                  <SelectValue placeholder={t('Choisir page', {
+                  defaultValue: 'Choisir page'
                 })} />
                 </SelectTrigger>
                 <SelectContent>
@@ -5216,8 +5267,8 @@ function MenuItemDialog({
               <Input id="url" name="url" value={formData.url} onChange={e => setFormData(prev => ({
               ...prev,
               url: e.target.value
-            }))} placeholder={t("ou saisir URL personnalis\xE9e", {
-              defaultValue: "ou saisir URL personnalis\xE9e"
+            }))} placeholder={t('ou saisir URL personnalis\xE9e', {
+              defaultValue: 'ou saisir URL personnalis\xE9e'
             })} className="flex-1" required />
             </div>
           </div>
@@ -5225,21 +5276,21 @@ function MenuItemDialog({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Parent Menu */}
             <div className="space-y-2">
-              <Label htmlFor="parentId">{t("Menu parent (optionnel)", {
-                defaultValue: "Menu parent (optionnel)"
+              <Label htmlFor="parentId">{t('Menu parent (optionnel)', {
+                defaultValue: 'Menu parent (optionnel)'
               })}</Label>
               <Select name="parentId" value={formData.parentId} onValueChange={value => setFormData(prev => ({
               ...prev,
               parentId: value
             }))}>
                 <SelectTrigger>
-                  <SelectValue placeholder={t("Sxe9lectionnerunmenu", {
-                  defaultValue: "Sxe9lectionnerunmenu"
+                  <SelectValue placeholder={t('S\xE9lectionner un menu parent', {
+                  defaultValue: 'S\xE9lectionner un menu parent'
                 })} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="none">{t("Aucun (menu principal)", {
-                    defaultValue: "Aucun (menu principal)"
+                  <SelectItem value="none">{t('Aucun (menu principal)', {
+                    defaultValue: 'Aucun (menu principal)'
                   })}</SelectItem>
                   {parentItems.map(parent => <SelectItem key={parent.id} value={parent.id.toString()}>
                       {parent.name}
@@ -5250,8 +5301,8 @@ function MenuItemDialog({
 
             {/* Target */}
             <div className="space-y-2">
-              <Label htmlFor="target">{t("Ouvrirdans", {
-                defaultValue: "Ouvrirdans"
+              <Label htmlFor="target">{t('Ouvrir dans', {
+                defaultValue: 'Ouvrir dans'
               })}</Label>
               <Select name="target" value={formData.target} onValueChange={value => setFormData(prev => ({
               ...prev,
@@ -5261,11 +5312,11 @@ function MenuItemDialog({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="_self">{t("Mxeameonglet", {
-                    defaultValue: "Mxeameonglet"
+                  <SelectItem value="_self">{t('M\xEAme onglet', {
+                    defaultValue: 'M\xEAme onglet'
                   })}</SelectItem>
-                  <SelectItem value="_blank">{t("Nouvel onglet", {
-                    defaultValue: "Nouvel onglet"
+                  <SelectItem value="_blank">{t('Nouvel onglet', {
+                    defaultValue: 'Nouvel onglet'
                   })}</SelectItem>
                 </SelectContent>
               </Select>
@@ -5282,8 +5333,8 @@ function MenuItemDialog({
           </div>
 
           <div className="flex justify-end gap-2">
-            <Button type="button" variant="outline" onClick={onClose}>{t("Annuler", {
-              defaultValue: "Annuler"
+            <Button type="button" variant="outline" onClick={onClose}>{t('Annuler', {
+              defaultValue: 'Annuler'
             })}</Button>
             <Button type="submit" disabled={isLoading}>
               {isLoading ? 'Enregistrement...' : 'Enregistrer'}
@@ -5340,21 +5391,21 @@ function RealBlocksEditor({
         queryKey: ['/api/admin/page-blocks', pageSlug]
       });
       toast({
-        title: t("Blocsauvegardxe9", {
-          defaultValue: "Blocsauvegardxe9"
+        title: t('Bloc sauvegard\xE9', {
+          defaultValue: 'Bloc sauvegard\xE9'
         }),
-        description: t("Lesmodificationsontx", {
-          defaultValue: "Lesmodificationsontx"
+        description: t('Les modifications ont \xE9t\xE9 appliqu\xE9es avec succ\xE8s.', {
+          defaultValue: 'Les modifications ont \xE9t\xE9 appliqu\xE9es avec succ\xE8s.'
         })
       });
     },
     onError: () => {
       toast({
-        title: t("Erreur", {
-          defaultValue: "Erreur"
+        title: t('Erreur', {
+          defaultValue: 'Erreur'
         }),
-        description: t("Impossible de sauvegarder les modifications.", {
-          defaultValue: "Impossible de sauvegarder les modifications."
+        description: t('Impossible de sauvegarder les modifications.', {
+          defaultValue: 'Impossible de sauvegarder les modifications.'
         }),
         variant: "destructive"
       });
@@ -5373,11 +5424,11 @@ function RealBlocksEditor({
         queryKey: ['/api/admin/page-blocks', pageSlug]
       });
       toast({
-        title: t("Blocsupprimxe9", {
-          defaultValue: "Blocsupprimxe9"
+        title: t('Bloc supprim\xE9', {
+          defaultValue: 'Bloc supprim\xE9'
         }),
-        description: t("Leblocaxe9txe9suppri", {
-          defaultValue: "Leblocaxe9txe9suppri"
+        description: t('Le bloc a \xE9t\xE9 supprim\xE9 avec succ\xE8s.', {
+          defaultValue: 'Le bloc a \xE9t\xE9 supprim\xE9 avec succ\xE8s.'
         })
       });
     }
@@ -5453,15 +5504,15 @@ function RealBlocksEditor({
   if (!pageBlocks.length) {
     return <div className="text-center py-12">
         <Layout className="w-12 h-12 mx-auto mb-4 text-gray-400" />
-        <h3 className="text-lg font-medium text-gray-900 mb-2">{t("Aucunbloctrouvxe9", {
-          defaultValue: "Aucunbloctrouvxe9"
+        <h3 className="text-lg font-medium text-gray-900 mb-2">{t('Aucun bloc trouv\xE9', {
+          defaultValue: 'Aucun bloc trouv\xE9'
         })}</h3>
         <p className="text-gray-500 mb-4">{t('Cette page n\'a pas encore de blocs de contenu.', {
           defaultValue: 'Cette page n\'a pas encore de blocs de contenu.'
         })}</p>
         <Button>
-          <Plus className="w-4 h-4 mr-2" />{t("Ajouter un bloc", {
-          defaultValue: "Ajouter un bloc"
+          <Plus className="w-4 h-4 mr-2" />{t('Ajouter un bloc', {
+          defaultValue: 'Ajouter un bloc'
         })}</Button>
       </div>;
   }
@@ -5474,11 +5525,11 @@ function RealBlocksEditor({
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Palette className="w-5 h-5" />{t("Xc9ditionherosection", {
-                defaultValue: "Xc9ditionherosection"
+                    <Palette className="w-5 h-5" />{t('\xC9dition Hero Section', {
+                defaultValue: '\xC9dition Hero Section'
               })}</CardTitle>
-                  <CardDescription>{t("Modifier le contenu de la section Hero avec pr\xE9visualisation en temps r\xE9el", {
-                defaultValue: "Modifier le contenu de la section Hero avec pr\xE9visualisation en temps r\xE9el"
+                  <CardDescription>{t('Modifier le contenu de la section Hero avec pr\xE9visualisation en temps r\xE9el', {
+                defaultValue: 'Modifier le contenu de la section Hero avec pr\xE9visualisation en temps r\xE9el'
               })}</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -5486,38 +5537,38 @@ function RealBlocksEditor({
                     {/* Formulaire d'édition */}
                     <div className="space-y-4">
                       <div>
-                        <Label htmlFor="hero-title">{t("Titre Principal", {
-                      defaultValue: "Titre Principal"
+                        <Label htmlFor="hero-title">{t('Titre Principal', {
+                      defaultValue: 'Titre Principal'
                     })}</Label>
                         <Textarea id="hero-title" value={heroEditData.title} onChange={e => setHeroEditData(prev => ({
                     ...prev,
                     title: e.target.value
-                  }))} placeholder={t("Titre de la section Hero", {
-                    defaultValue: "Titre de la section Hero"
+                  }))} placeholder={t('Titre de la section Hero', {
+                    defaultValue: 'Titre de la section Hero'
                   })} rows={2} />
                       </div>
 
                       <div>
-                        <Label htmlFor="hero-colored-part">{t("Partiedutitrexe0colo", {
-                      defaultValue: "Partiedutitrexe0colo"
+                        <Label htmlFor="hero-colored-part">{t('Partie du titre \xE0 colorer', {
+                      defaultValue: 'Partie du titre \xE0 colorer'
                     })}</Label>
                         <Input id="hero-colored-part" value={heroEditData.titleColorPart} onChange={e => setHeroEditData(prev => ({
                     ...prev,
                     titleColorPart: e.target.value
-                  }))} placeholder={t("Partie du titre en couleur", {
-                    defaultValue: "Partie du titre en couleur"
+                  }))} placeholder={t('Partie du titre en couleur', {
+                    defaultValue: 'Partie du titre en couleur'
                   })} />
                       </div>
 
                       <div>
-                        <Label htmlFor="hero-description">{t("Description:", {
-                      defaultValue: "Description:"
+                        <Label htmlFor="hero-description">{t('Description', {
+                      defaultValue: 'Description'
                     })}</Label>
                         <Textarea id="hero-description" value={heroEditData.description} onChange={e => setHeroEditData(prev => ({
                     ...prev,
                     description: e.target.value
-                  }))} placeholder={t("Description de la section Hero", {
-                    defaultValue: "Description de la section Hero"
+                  }))} placeholder={t('Description de la section Hero', {
+                    defaultValue: 'Description de la section Hero'
                   })} rows={3} />
                       </div>
 
@@ -5532,8 +5583,8 @@ function RealBlocksEditor({
                       </div>
 
                       <div>
-                        <Label htmlFor="hero-video">{t("Urldelavidxe9odefond", {
-                      defaultValue: "Urldelavidxe9odefond"
+                        <Label htmlFor="hero-video">{t('URL de la vid\xE9o de fond (optionnel)', {
+                      defaultValue: 'URL de la vid\xE9o de fond (optionnel)'
                     })}</Label>
                         <Input id="hero-video" type="url" value={heroEditData.videoUrl} onChange={e => setHeroEditData(prev => ({
                     ...prev,
@@ -5543,19 +5594,19 @@ function RealBlocksEditor({
 
                       <div className="grid grid-cols-2 gap-4">
                         <div>
-                          <Label htmlFor="hero-button1-text">{t("Bouton 1 - Texte", {
-                        defaultValue: "Bouton 1 - Texte"
+                          <Label htmlFor="hero-button1-text">{t('Bouton 1 - Texte', {
+                        defaultValue: 'Bouton 1 - Texte'
                       })}</Label>
                           <Input id="hero-button1-text" value={heroEditData.button1Text} onChange={e => setHeroEditData(prev => ({
                       ...prev,
                       button1Text: e.target.value
-                    }))} placeholder={t("Texte du premier bouton", {
-                      defaultValue: "Texte du premier bouton"
+                    }))} placeholder={t('Texte du premier bouton', {
+                      defaultValue: 'Texte du premier bouton'
                     })} />
                         </div>
                         <div>
-                          <Label htmlFor="hero-button1-url">{t("Bouton 1 - Lien", {
-                        defaultValue: "Bouton 1 - Lien"
+                          <Label htmlFor="hero-button1-url">{t('Bouton 1 - Lien', {
+                        defaultValue: 'Bouton 1 - Lien'
                       })}</Label>
                           <Input id="hero-button1-url" value={heroEditData.button1Url} onChange={e => setHeroEditData(prev => ({
                       ...prev,
@@ -5566,19 +5617,19 @@ function RealBlocksEditor({
 
                       <div className="grid grid-cols-2 gap-4">
                         <div>
-                          <Label htmlFor="hero-button2-text">{t("Bouton 2 - Texte", {
-                        defaultValue: "Bouton 2 - Texte"
+                          <Label htmlFor="hero-button2-text">{t('Bouton 2 - Texte', {
+                        defaultValue: 'Bouton 2 - Texte'
                       })}</Label>
                           <Input id="hero-button2-text" value={heroEditData.button2Text} onChange={e => setHeroEditData(prev => ({
                       ...prev,
                       button2Text: e.target.value
-                    }))} placeholder={t("Textedudeuxixe8mebou", {
-                      defaultValue: "Textedudeuxixe8mebou"
+                    }))} placeholder={t('Texte du deuxi\xE8me bouton', {
+                      defaultValue: 'Texte du deuxi\xE8me bouton'
                     })} />
                         </div>
                         <div>
-                          <Label htmlFor="hero-button2-url">{t("Bouton 2 - Lien", {
-                        defaultValue: "Bouton 2 - Lien"
+                          <Label htmlFor="hero-button2-url">{t('Bouton 2 - Lien', {
+                        defaultValue: 'Bouton 2 - Lien'
                       })}</Label>
                           <Input id="hero-button2-url" value={heroEditData.button2Url} onChange={e => setHeroEditData(prev => ({
                       ...prev,
@@ -5590,8 +5641,8 @@ function RealBlocksEditor({
 
                     {/* Prévisualisation en temps réel */}
                     <div>
-                      <Label>{t("Prxe9visualisationen", {
-                    defaultValue: "Prxe9visualisationen"
+                      <Label>{t('Pr\xE9visualisation en temps r\xE9el', {
+                    defaultValue: 'Pr\xE9visualisation en temps r\xE9el'
                   })}</Label>
                       <div className="border rounded-lg p-4 bg-gray-50 overflow-hidden">
                         <div className="relative min-h-[300px] flex items-center justify-center text-white" style={{
@@ -5634,11 +5685,11 @@ function RealBlocksEditor({
 
                   {/* Actions du formulaire */}
                   <div className="flex justify-end gap-4 mt-6 pt-4 border-t">
-                    <Button variant="outline" onClick={() => setEditingHeroBlockId(null)}>{t("Annuler", {
-                  defaultValue: "Annuler"
+                    <Button variant="outline" onClick={() => setEditingHeroBlockId(null)}>{t('Annuler', {
+                  defaultValue: 'Annuler'
                 })}</Button>
-                    <Button onClick={saveHeroChanges} className="bg-primary hover:bg-primary/90">{t("Sauvegarder les modifications", {
-                  defaultValue: "Sauvegarder les modifications"
+                    <Button onClick={saveHeroChanges} className="bg-primary hover:bg-primary/90">{t('Sauvegarder les modifications', {
+                  defaultValue: 'Sauvegarder les modifications'
                 })}</Button>
                   </div>
                 </CardContent>
@@ -5649,11 +5700,11 @@ function RealBlocksEditor({
       {/* Bouton pour ajouter un nouveau bloc */}
       <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-secondary/40 hover:bg-primary/10 transition-colors">
         <Plus className="w-8 h-8 mx-auto mb-2 text-gray-400" />
-        <p className="text-gray-600 font-medium">{t("Ajouter un nouveau bloc", {
-          defaultValue: "Ajouter un nouveau bloc"
+        <p className="text-gray-600 font-medium">{t('Ajouter un nouveau bloc', {
+          defaultValue: 'Ajouter un nouveau bloc'
         })}</p>
-        <p className="text-sm text-gray-500">{t("Lesboutonsdecrxe9ati", {
-          defaultValue: "Lesboutonsdecrxe9ati"
+        <p className="text-sm text-gray-500">{t('Les boutons de cr\xE9ation rapide sont disponibles ci-dessous', {
+          defaultValue: 'Les boutons de cr\xE9ation rapide sont disponibles ci-dessous'
         })}</p>
       </div>
     </div>;

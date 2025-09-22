@@ -12,8 +12,7 @@
     "about": "About",
     "stays": "Stays",
     "cruise": "Cruise",
-    "customTrip": "Custom Trip",
-    "toggleMenu": "Toggle menu"
+    "customTrip": "Custom Trip"
   },
   "buttons": {
     "bookNow": "Book Now",
@@ -144,10 +143,7 @@
     },
     "countries": {
       "thailand": "Thailand"
-    },
-    "subscribeNewsletter": "Subscribe to newsletter",
-    "contactWhatsApp": "Contact via WhatsApp",
-    "viewAllReviews": "View all reviews on Google"
+    }
   },
   "tours": {
     "featured": "Our exclusive experiences",
@@ -2425,89 +2421,5 @@
   "Guía de Viaje Amon Tour": "Guía de Viaje Amon Tour",
   "Usamos cookies": "Usamos cookies",
   "Utilizamos cookies para mejorar tu experiencia y analizar el uso del sitio. Al continuar usando este sitio, aceptas nuestro uso de cookies.": "Utilizamos cookies para mejorar tu experiencia y analizar el uso del sitio. Al continuar usando este sitio, aceptas nuestro uso de cookies.",
-  "Descubre Tailandia a través de nuestros consejos expertos y guías de viaje": "Descubre Tailandia a través de nuestros consejos expertos y guías de viaje",
-  "Flame BB Co": {
-    ", Ltd": {
-      " (Amon Tour)": {
-        "": "Flame BB Co., Ltd. (Amon Tour)."
-      }
-    }
-  },
-  "brochure": {
-    "seoTitle": "Download Our Travel Brochures | Amon Tour Thailand",
-    "seoDescription": "Get inspired with our beautifully designed brochure featuring the best experiences Krabi has to offer.",
-    "seoKeywords": "Amon Tour brochure, Krabi travel guide, Thailand tours PDF, travel brochure download",
-    "altText": "Amon Tour brochure",
-    "title": "Download Our Brochure",
-    "description": "Get inspired with our beautifully designed brochure featuring the best experiences Krabi has to offer.",
-    "downloadTitle": "Download Our Brochure",
-    "downloadDescription": "Get inspired with our beautifully designed brochure featuring the best experiences Krabi has to offer.",
-    "englishVersion": "English Version",
-    "englishDescription": "Complete guide to our tours and experiences in English, perfect for international travelers.",
-    "downloadEnglish": "Download English PDF",
-    "frenchVersion": "French Version",
-    "frenchDescription": "Complete guide to our tours and experiences in French, ideal for French-speaking travelers.",
-    "downloadFrench": "Download French PDF",
-    "whatsInside": "What's Inside Our Brochure?",
-    "features": {
-      "tourPackages": "• Featured tour packages",
-      "photography": "• Stunning photography",
-      "itineraries": "• Detailed itineraries",
-      "pricing": "• Pricing information",
-      "contact": "• Contact details",
-      "insights": "• Local insights"
-    }
-  },
-  "languages": {
-    "english": "English",
-    "french": "French",
-    "spanish": "Spanish"
-  },
-  "pages": {
-    "krabiCelebration": {
-      "seoTitle": "Krabi Celebration - Amon Tour",
-      "title": "Krabi Celebration"
-    },
-    "villasKrabi": {
-      "seoTitle": "Villas in Krabi - Luxury Accommodation - Amon Tour",
-      "title": "Villas in Krabi"
-    },
-    "becomePartner": {
-      "seoTitle": "Become Partner - Amon Tour",
-      "title": "Become Partner"
-    },
-    "groupCorporate": {
-      "seoTitle": "Group & Corporate - Amon Tour",
-      "title": "Group & Corporate"
-    },
-    "legalNotice": {
-      "seoTitle": "Legal Notice - Amon Tour"
-    },
-    "privacyPolicy": {
-      "seoTitle": "Privacy Policy - Amon Tour"
-    },
-    "termsConditions": {
-      "seoTitle": "Terms & Conditions - Amon Tour"
-    }
-  },
-  "legal": {
-    "title": "Legal Notice"
-  },
-  "privacy": {
-    "title": "Privacy Policy"
-  },
-  "terms": {
-    "title": "Terms & Conditions"
-  },
-  "company": {
-    "fullName": "Flame BB Co., Ltd. (Amon Tour)."
-  },
-  "common": {
-    "amonLogo": "Amon Logo",
-    "amonTourLogo": "Amon Tour Logo",
-    "didyouforgettoaddth": "Did you forget to add the page to the router?",
-    "amontourexperiencean": "Amon Tour Experience and Krabi Stays",
-    "authenticthailandexp": "Authentic Thailand experiences with local family",
-    "discoverkrabiandsou": "Discover Krabi and southern Thailand like never before"
-  }
+  "Descubre Tailandia a través de nuestros consejos expertos y guías de viaje": "Descubre Tailandia a través de nuestros consejos expertos y guías de viaje"
 }

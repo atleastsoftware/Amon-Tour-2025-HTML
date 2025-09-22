@@ -37,7 +37,6 @@ import AdminNewsletter from "@/pages/admin-newsletter";
 import AdminCustomTours from "@/pages/admin-custom-tours";
 import AdminTourNinjaImages from "@/pages/admin-tour-ninja-images";
 import AdminTranslation from "@/pages/admin-translation";
-import I18nextTest from "@/components/I18nextTest"; // Debug temporaire
 import AdminAppearance from "@/pages/admin-appearance";
 import AdminPageEditor from "@/pages/admin-page-editor";
 import AdminEditor from "@/pages/admin-editor";
@@ -126,10 +125,11 @@ function Router() {
 }
 
 function App() {
-  // Initialize i18next language detection
-  useEffect(() => {
-    detectCountryAndSetLanguage();
-  }, []);
+  // Détection automatique de la langue via géolocalisation IP - temporairement désactivée pour corriger crash
+  // TODO: Réactiver quand hooks React seront fixés
+  // useEffect(() => {
+  //   detectCountryAndSetLanguage();
+  // }, []);
 
   return (
     <TooltipProvider>

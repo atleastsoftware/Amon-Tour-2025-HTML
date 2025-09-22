@@ -8,13 +8,12 @@ import SEO from "@/components/layout/SEO";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Loader2 } from "lucide-react";
 export default function TourIframe() {
-  const {
-    t
-  } = useTranslation();
+  const { t } = useTranslation();
+
   const [match, params] = useRoute("/tour/:id");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [tourName, setTourName] = useState<string>(t("tours.tour"));
+  const [tourName, setTourName] = useState<string>("Détails du tour");
   const tourId = params?.id;
   useEffect(() => {
     if (tourId) {
@@ -41,12 +40,18 @@ export default function TourIframe() {
   };
   if (!match || !tourId) {
     return <>
-        <SEO title={t("errors.tourNotFound")} description={t("errors.tourNotFoundDesc")} />
+        <SEO title={t('Tour non trouv\xE9 - Amontour', {
+        defaultValue: 'Tour non trouv\xE9 - Amontour'
+      })} description="Le tour demandé n'a pas été trouvé." />
         <Header />
         <main className="min-h-screen flex items-center justify-center">
           <div className="text-center">
-            <h1 className="text-2xl font-bold mb-4">{t("errors.tourNotFound")}</h1>
-            <Button onClick={handleBack}>{t("buttons.backToTours")}</Button>
+            <h1 className="text-2xl font-bold mb-4">{t('Tour non trouv\xE9', {
+              defaultValue: 'Tour non trouv\xE9'
+            })}</h1>
+            <Button onClick={handleBack}>{t('Back to tours', {
+              defaultValue: 'Back to tours'
+            })}</Button>
           </div>
         </main>
         <Footer />
@@ -62,7 +67,9 @@ export default function TourIframe() {
         <section className="bg-gray-50 border-b">
           <div className="container mx-auto px-4 py-3">
             <Button onClick={handleBack} variant="outline" size="sm">
-              <ArrowLeft className="h-4 w-4 mr-2" />{t("buttons.backToTours")}</Button>
+              <ArrowLeft className="h-4 w-4 mr-2" />{t('Back to tours', {
+              defaultValue: 'Back to tours'
+            })}</Button>
           </div>
         </section>
 
@@ -80,15 +87,21 @@ export default function TourIframe() {
           }}>
                 <div className="text-center">
                   <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4 text-primary" />
-                  <p className="text-gray-600">{t("errors.loadingTour")}</p>
+                  <p className="text-gray-600">{t('Chargement des d\xE9tails du tour...', {
+                  defaultValue: 'Chargement des d\xE9tails du tour...'
+                })}</p>
                 </div>
               </motion.div>}
             
             {error && <div className="absolute inset-0 flex items-center justify-center bg-white">
                 <div className="text-center">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">{t("status.error")}</h3>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">{t('Erreur de chargement', {
+                  defaultValue: 'Erreur de chargement'
+                })}</h3>
                   <p className="text-gray-600 mb-4">{error}</p>
-                  <Button onClick={handleBack} variant="outline">{t("buttons.backToTours")}</Button>
+                  <Button onClick={handleBack} variant="outline">{t('Back to tours', {
+                  defaultValue: 'Back to tours'
+                })}</Button>
                 </div>
               </div>}
 
@@ -102,7 +115,9 @@ export default function TourIframe() {
           }}>
               <iframe src={`https://www.tourninja.io/details/${tourId}`} width="100%" height="100%" style={{
               border: 'none'
-            }} title={t("tours.tour")} onLoad={() => setIsLoading(false)} onError={() => {
+            }} title={t('D\xE9tails du tour', {
+              defaultValue: 'D\xE9tails du tour'
+            })} onLoad={() => setIsLoading(false)} onError={() => {
               setError("Impossible de charger les détails du tour");
               setIsLoading(false);
             }} allow="fullscreen" sandbox="allow-same-origin allow-scripts allow-popups allow-forms" allowFullScreen />

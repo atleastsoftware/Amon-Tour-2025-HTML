@@ -5,9 +5,8 @@ import { useIframe } from "@/contexts/IframeContext";
 import { Button } from "@/components/ui/button";
 import logoAmon from "@/assets/logo-amon.png";
 export default function IframeModal() {
-  const {
-    t
-  } = useTranslation();
+  const { t } = useTranslation();
+
   const {
     isOpen,
     url,
@@ -37,8 +36,8 @@ export default function IframeModal() {
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b bg-gray-50 rounded-t-lg">
               <div className="flex items-center gap-3 flex-1 mr-4">
-                <img src={logoAmon} alt={t("Amon Logo", {
-              defaultValue: "Amon Logo"
+                <img src={logoAmon} alt={t('Amon Logo', {
+              defaultValue: 'Amon Logo'
             })} className="h-8 w-auto" />
                 <h2 className="text-lg font-semibold text-gray-800 truncate">
                   {title}

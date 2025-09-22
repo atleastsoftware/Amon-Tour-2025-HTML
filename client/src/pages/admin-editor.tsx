@@ -5,9 +5,8 @@ import { Button } from '@/components/ui/button';
 import { FileText, Users, FormInput, ArrowLeft, Edit } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 export default function AdminEditor() {
-  const {
-    t
-  } = useTranslation();
+  const { t } = useTranslation();
+
   const [, setLocation] = useLocation();
 
   // Query to get forms count
@@ -30,8 +29,8 @@ export default function AdminEditor() {
   const editorItems = [{
     id: 'pages',
     title: 'Éditeur de page',
-    description: t("Crxe9ermodifiersuppr", {
-      defaultValue: "Crxe9ermodifiersuppr"
+    description: t('Cr\xE9er, modifier, supprimer le contenu des blocs de chaque page', {
+      defaultValue: 'Cr\xE9er, modifier, supprimer le contenu des blocs de chaque page'
     }),
     icon: FileText,
     route: '/admin-editor-page',
@@ -40,8 +39,8 @@ export default function AdminEditor() {
   }, {
     id: 'articles',
     title: 'Éditeur d\'articles',
-    description: t("Crxe9eretgxe9rerdesa", {
-      defaultValue: "Crxe9eretgxe9rerdesa"
+    description: t('Cr\xE9er et g\xE9rer des articles avec des titres, texte, images personnalis\xE9s', {
+      defaultValue: 'Cr\xE9er et g\xE9rer des articles avec des titres, texte, images personnalis\xE9s'
     }),
     icon: Users,
     route: '/admin-editor-article',
@@ -50,8 +49,8 @@ export default function AdminEditor() {
   }, {
     id: 'forms',
     title: 'Éditeur de formulaires',
-    description: t("Crxe9eretgxe9rerdesf", {
-      defaultValue: "Crxe9eretgxe9rerdesf"
+    description: t('Cr\xE9er et g\xE9rer des formulaires personnalis\xE9s avec champs dynamiques', {
+      defaultValue: 'Cr\xE9er et g\xE9rer des formulaires personnalis\xE9s avec champs dynamiques'
     }),
     icon: FormInput,
     route: '/admin-editor-form',
@@ -66,8 +65,8 @@ export default function AdminEditor() {
             <div className="w-full sm:w-auto">
               <h1 className="text-xl sm:text-2xl font-bold text-foreground mb-2 flex items-center gap-2 sm:gap-3">
                 <Edit className="h-6 w-6 sm:h-7 sm:w-7 text-primary flex-shrink-0" />
-                <span className="truncate">{t("Gestion de Contenu", {
-                  defaultValue: "Gestion de Contenu"
+                <span className="truncate">{t('Gestion de Contenu', {
+                  defaultValue: 'Gestion de Contenu'
                 })}</span>
               </h1>
               <p className="text-sm sm:text-base text-muted-foreground">{t('G\xE9rez facilement le contenu de votre site web avec nos outils d\'\xE9dition professionnels', {
@@ -76,8 +75,8 @@ export default function AdminEditor() {
             </div>
             <Button variant="outline" onClick={() => setLocation('/admin-appearance')} className="flex items-center gap-2 w-full sm:w-auto">
               <ArrowLeft className="w-4 h-4" />
-              <span>{t("Retourxe0siteappeara", {
-                defaultValue: "Retourxe0siteappeara"
+              <span>{t('Retour \xE0 Site Appearance', {
+                defaultValue: 'Retour \xE0 Site Appearance'
               })}</span>
             </Button>
           </div>
@@ -116,24 +115,24 @@ export default function AdminEditor() {
           <Card className="bg-white shadow-sm border border-border">
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-primary mb-1">{pagesCount}</div>
-              <div className="text-muted-foreground text-sm">{t("Pages", {
-                defaultValue: "Pages"
+              <div className="text-muted-foreground text-sm">{t('Pages', {
+                defaultValue: 'Pages'
               })}</div>
             </CardContent>
           </Card>
           <Card className="bg-white shadow-sm border border-border">
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-[hsl(var(--success))] mb-1">0</div>
-              <div className="text-muted-foreground text-sm">{t("Articles", {
-                defaultValue: "Articles"
+              <div className="text-muted-foreground text-sm">{t('Articles', {
+                defaultValue: 'Articles'
               })}</div>
             </CardContent>
           </Card>
           <Card className="bg-white shadow-sm border border-border">
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-[hsl(var(--warning))] mb-1">{activeFormsCount}</div>
-              <div className="text-muted-foreground text-sm">{t("Formulaires", {
-                defaultValue: "Formulaires"
+              <div className="text-muted-foreground text-sm">{t('Formulaires', {
+                defaultValue: 'Formulaires'
               })}</div>
             </CardContent>
           </Card>

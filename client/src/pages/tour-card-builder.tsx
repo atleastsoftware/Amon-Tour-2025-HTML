@@ -25,9 +25,8 @@ interface TourCardData {
   tags?: string[];
 }
 export default function TourCardBuilder() {
-  const {
-    t
-  } = useTranslation();
+  const { t } = useTranslation();
+
   const {
     isAuthenticated,
     isLoading: authLoading
@@ -59,21 +58,21 @@ export default function TourCardBuilder() {
         queryKey: ['/api/tour-cards']
       });
       toast({
-        title: t("Succxe8s", {
-          defaultValue: "Succxe8s"
+        title: t('Succ\xE8s', {
+          defaultValue: 'Succ\xE8s'
         }),
-        description: t("Laficheaxe9txe9suppr", {
-          defaultValue: "Laficheaxe9txe9suppr"
+        description: t('La fiche a \xE9t\xE9 supprim\xE9e avec succ\xE8s', {
+          defaultValue: 'La fiche a \xE9t\xE9 supprim\xE9e avec succ\xE8s'
         })
       });
     },
     onError: () => {
       toast({
-        title: t("Erreur", {
-          defaultValue: "Erreur"
+        title: t('Erreur', {
+          defaultValue: 'Erreur'
         }),
-        description: t("Une erreur est survenue lors de la cr\xE9ation de la fiche", {
-          defaultValue: "Une erreur est survenue lors de la cr\xE9ation de la fiche"
+        description: t('Une erreur est survenue lors de la suppression de la fiche', {
+          defaultValue: 'Une erreur est survenue lors de la suppression de la fiche'
         }),
         variant: "destructive"
       });
@@ -96,21 +95,21 @@ export default function TourCardBuilder() {
         queryKey: ['/api/tour-cards']
       });
       toast({
-        title: t("Succxe8s", {
-          defaultValue: "Succxe8s"
+        title: t('Succ\xE8s', {
+          defaultValue: 'Succ\xE8s'
         }),
-        description: t("Laficheaxe9txe9misex", {
-          defaultValue: "Laficheaxe9txe9misex"
+        description: t('La fiche a \xE9t\xE9 mise \xE0 jour avec succ\xE8s', {
+          defaultValue: 'La fiche a \xE9t\xE9 mise \xE0 jour avec succ\xE8s'
         })
       });
     },
     onError: () => {
       toast({
-        title: t("Erreur", {
-          defaultValue: "Erreur"
+        title: t('Erreur', {
+          defaultValue: 'Erreur'
         }),
-        description: t("Une erreur est survenue lors de la cr\xE9ation de la fiche", {
-          defaultValue: "Une erreur est survenue lors de la cr\xE9ation de la fiche"
+        description: t('Une erreur est survenue lors de la mise \xE0 jour de la fiche', {
+          defaultValue: 'Une erreur est survenue lors de la mise \xE0 jour de la fiche'
         }),
         variant: "destructive"
       });
@@ -136,8 +135,8 @@ export default function TourCardBuilder() {
   const handleUpdateTourCard = (updatedCard: TourCardData) => {
     updateMutation.mutate(updatedCard);
   };
-  if (authLoading) return <div className="container mx-auto p-8 text-center">{t("Chargement", {
-      defaultValue: "Chargement"
+  if (authLoading) return <div className="container mx-auto p-8 text-center">{t('Chargement...', {
+      defaultValue: 'Chargement...'
     })}</div>;
 
   // Force TypeScript to treat tourCards as TourCardData[]
@@ -149,21 +148,21 @@ export default function TourCardBuilder() {
           <div className="flex items-center gap-4">
             <Link href="/admin">
               <Button variant="outline" size="sm">
-                <ArrowLeft className="h-4 w-4 mr-2" />{t("Back to Admin", {
-                defaultValue: "Back to Admin"
+                <ArrowLeft className="h-4 w-4 mr-2" />{t('Back to Admin', {
+                defaultValue: 'Back to Admin'
               })}</Button>
             </Link>
             <div>
-              <h1 className="text-3xl font-heading font-bold">{t("TourCard Builder", {
-                defaultValue: "TourCard Builder"
+              <h1 className="text-3xl font-heading font-bold">{t('TourCard Builder', {
+                defaultValue: 'TourCard Builder'
               })}</h1>
-              <p className="text-gray-600">{t("Crxe9ezfacilementdes", {
-                defaultValue: "Crxe9ezfacilementdes"
+              <p className="text-gray-600">{t('Cr\xE9ez facilement des fiches pour vos tours et s\xE9jours', {
+                defaultValue: 'Cr\xE9ez facilement des fiches pour vos tours et s\xE9jours'
               })}</p>
             </div>
           </div>
-          <Button variant="outline" onClick={handleLogout}>{t("Dxe9connexion", {
-            defaultValue: "Dxe9connexion"
+          <Button variant="outline" onClick={handleLogout}>{t('D\xE9connexion', {
+            defaultValue: 'D\xE9connexion'
           })}</Button>
         </div>
         
@@ -174,15 +173,15 @@ export default function TourCardBuilder() {
           </div>
           
           <div className="lg:col-span-2">
-            <h2 className="text-xl font-heading font-semibold mb-4">{t("Vosfiches", {
-              defaultValue: "Vosfiches"
+            <h2 className="text-xl font-heading font-semibold mb-4">{t('Vos fiches (', {
+              defaultValue: 'Vos fiches ('
             })}{safeCards.length})</h2>
             
-            {cardsLoading ? <div className="text-center py-8">{t("Chargement des fiches...", {
-              defaultValue: "Chargement des fiches..."
+            {cardsLoading ? <div className="text-center py-8">{t('Chargement des fiches...', {
+              defaultValue: 'Chargement des fiches...'
             })}</div> : safeCards.length === 0 ? <div className="bg-gray-50 border border-dashed rounded-lg p-8 text-center">
-                <p className="text-gray-500">{t("Aucune fiche pour le moment. Cr\xE9ez votre premi\xE8re fiche !", {
-                defaultValue: "Aucune fiche pour le moment. Cr\xE9ez votre premi\xE8re fiche !"
+                <p className="text-gray-500">{t('Aucune fiche pour le moment. Cr\xE9ez votre premi\xE8re fiche !', {
+                defaultValue: 'Aucune fiche pour le moment. Cr\xE9ez votre premi\xE8re fiche !'
               })}</p>
               </div> : <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
                 {safeCards.map((card: TourCardData) => <TourCardDisplay key={card.id} tourCard={card} onDelete={handleDeleteTourCard} onUpdate={handleUpdateTourCard} />)}

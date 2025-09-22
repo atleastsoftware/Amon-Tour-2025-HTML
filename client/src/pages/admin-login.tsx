@@ -11,9 +11,8 @@ import { motion } from "framer-motion";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 export default function AdminLogin() {
-  const {
-    t
-  } = useTranslation();
+  const { t } = useTranslation();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const login = useLogin();
@@ -25,11 +24,11 @@ export default function AdminLogin() {
     e.preventDefault();
     if (!username || !password) {
       toast({
-        title: t("Erreur", {
-          defaultValue: "Erreur"
+        title: t('Erreur', {
+          defaultValue: 'Erreur'
         }),
-        description: t("Veuillez remplir tous les champs", {
-          defaultValue: "Veuillez remplir tous les champs"
+        description: t('Veuillez remplir tous les champs', {
+          defaultValue: 'Veuillez remplir tous les champs'
         }),
         variant: "destructive"
       });
@@ -41,11 +40,11 @@ export default function AdminLogin() {
         password
       });
       toast({
-        title: t("Succxe8s", {
-          defaultValue: "Succxe8s"
+        title: t('Succ\xE8s', {
+          defaultValue: 'Succ\xE8s'
         }),
-        description: t("Connexionrxe9ussie", {
-          defaultValue: "Connexionrxe9ussie"
+        description: t('Connexion r\xE9ussie', {
+          defaultValue: 'Connexion r\xE9ussie'
         })
       });
       // Rediriger après un court délai pour permettre au toast de s'afficher
@@ -54,11 +53,11 @@ export default function AdminLogin() {
       }, 1000);
     } catch (error) {
       toast({
-        title: t("Erreur", {
-          defaultValue: "Erreur"
+        title: t('Erreur', {
+          defaultValue: 'Erreur'
         }),
-        description: t("Identifiants incorrects", {
-          defaultValue: "Identifiants incorrects"
+        description: t('Identifiants incorrects', {
+          defaultValue: 'Identifiants incorrects'
         }),
         variant: "destructive"
       });
@@ -79,8 +78,8 @@ export default function AdminLogin() {
         }} className="max-w-md mx-auto">
             <Card>
               <CardHeader>
-                <CardTitle className="text-2xl font-heading">{t("Administration", {
-                  defaultValue: "Administration"
+                <CardTitle className="text-2xl font-heading">{t('Administration', {
+                  defaultValue: 'Administration'
                 })}</CardTitle>
                 <CardDescription>{t('Connectez-vous pour acc\xE9der \xE0 l\'espace administrateur', {
                   defaultValue: 'Connectez-vous pour acc\xE9der \xE0 l\'espace administrateur'
@@ -95,8 +94,8 @@ export default function AdminLogin() {
                     <Input id="username" type="text" value={username} onChange={e => setUsername(e.target.value)} placeholder="admin" />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="password">{t("Motdepasse", {
-                      defaultValue: "Motdepasse"
+                    <Label htmlFor="password">{t('Mot de passe', {
+                      defaultValue: 'Mot de passe'
                     })}</Label>
                     <Input id="password" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••" />
                   </div>
@@ -105,8 +104,8 @@ export default function AdminLogin() {
                   </Button>
                 </form>
               </CardContent>
-              <CardFooter className="flex justify-center text-sm text-muted-foreground">{t("Accxe8srxe9servxe9au", {
-                defaultValue: "Accxe8srxe9servxe9au"
+              <CardFooter className="flex justify-center text-sm text-muted-foreground">{t('Acc\xE8s r\xE9serv\xE9 aux administrateurs', {
+                defaultValue: 'Acc\xE8s r\xE9serv\xE9 aux administrateurs'
               })}</CardFooter>
             </Card>
           </motion.div>

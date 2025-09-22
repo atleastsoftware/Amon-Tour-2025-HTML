@@ -29,9 +29,8 @@ const tourFormSchema = insertTourSchema.extend({
 });
 type TourFormData = z.infer<typeof tourFormSchema>;
 export default function TourForm() {
-  const {
-    t
-  } = useTranslation();
+  const { t } = useTranslation();
+
   const [, setLocation] = useLocation();
   const search = useSearch();
   const params = new URLSearchParams(search);
@@ -98,11 +97,11 @@ export default function TourForm() {
         // Update existing tour
         await apiRequest("PUT", `/api/tours/${tourId}`, data);
         toast({
-          title: t("Tour updated", {
-            defaultValue: "Tour updated"
+          title: t('Tour updated', {
+            defaultValue: 'Tour updated'
           }),
-          description: t("The tour has been successfully updated.", {
-            defaultValue: "The tour has been successfully updated."
+          description: t('The tour has been successfully updated.', {
+            defaultValue: 'The tour has been successfully updated.'
           }),
           variant: "default"
         });
@@ -110,11 +109,11 @@ export default function TourForm() {
         // Create new tour
         await apiRequest("POST", "/api/tours", data);
         toast({
-          title: t("Tour created", {
-            defaultValue: "Tour created"
+          title: t('Tour created', {
+            defaultValue: 'Tour created'
           }),
-          description: t("The new tour has been successfully created.", {
-            defaultValue: "The new tour has been successfully created."
+          description: t('The new tour has been successfully created.', {
+            defaultValue: 'The new tour has been successfully created.'
           }),
           variant: "default"
         });
@@ -132,11 +131,11 @@ export default function TourForm() {
       setLocation("/admin/dashboard");
     } catch (error) {
       toast({
-        title: t("Error", {
-          defaultValue: "Error"
+        title: t('Error', {
+          defaultValue: 'Error'
         }),
-        description: t("There was a problem saving the tour.", {
-          defaultValue: "There was a problem saving the tour."
+        description: t('There was a problem saving the tour.', {
+          defaultValue: 'There was a problem saving the tour.'
         }),
         variant: "destructive"
       });
@@ -156,8 +155,8 @@ export default function TourForm() {
       <div className="container mx-auto px-4">
         <Link href="/admin/dashboard">
           <span className="inline-flex items-center text-primary hover:text-primary-dark mb-6 cursor-pointer">
-            <ArrowLeft className="mr-2 h-5 w-5" />{t("Back to dashboard", {
-            defaultValue: "Back to dashboard"
+            <ArrowLeft className="mr-2 h-5 w-5" />{t('Back to dashboard', {
+            defaultValue: 'Back to dashboard'
           })}</span>
         </Link>
         
@@ -174,16 +173,16 @@ export default function TourForm() {
                 <FormField control={form.control} name="title" render={({
                 field
               }) => <FormItem>
-                      <FormLabel>{t("Title", {
-                    defaultValue: "Title"
+                      <FormLabel>{t('Title', {
+                    defaultValue: 'Title'
                   })}</FormLabel>
                       <FormControl>
-                        <Input placeholder={t("Ex: Bangkok Essential", {
-                    defaultValue: "Ex: Bangkok Essential"
+                        <Input placeholder={t('Ex: Bangkok Essential', {
+                    defaultValue: 'Ex: Bangkok Essential'
                   })} {...field} />
                       </FormControl>
-                      <FormDescription>{t("The main title of the tour.", {
-                    defaultValue: "The main title of the tour."
+                      <FormDescription>{t('The main title of the tour.', {
+                    defaultValue: 'The main title of the tour.'
                   })}</FormDescription>
                       <FormMessage />
                     </FormItem>} />
@@ -192,16 +191,16 @@ export default function TourForm() {
                   <FormField control={form.control} name="duration" render={({
                   field
                 }) => <FormItem>
-                        <FormLabel>{t("Duration", {
-                      defaultValue: "Duration"
+                        <FormLabel>{t('Duration', {
+                      defaultValue: 'Duration'
                     })}</FormLabel>
                         <FormControl>
-                          <Input placeholder={t("Ex3days", {
-                      defaultValue: "Ex3days"
+                          <Input placeholder={t('Ex: 3 days', {
+                      defaultValue: 'Ex: 3 days'
                     })} {...field} />
                         </FormControl>
-                        <FormDescription>{t("Duration of the tour (ex: 3 days, 5 days, etc.)", {
-                      defaultValue: "Duration of the tour (ex: 3 days, 5 days, etc.)"
+                        <FormDescription>{t('Duration of the tour (ex: 3 days, 5 days, etc.)', {
+                      defaultValue: 'Duration of the tour (ex: 3 days, 5 days, etc.)'
                     })}</FormDescription>
                         <FormMessage />
                       </FormItem>} />
@@ -209,16 +208,16 @@ export default function TourForm() {
                   <FormField control={form.control} name="price" render={({
                   field
                 }) => <FormItem>
-                        <FormLabel>{t("Adult Price (THB)", {
-                      defaultValue: "Adult Price (THB)"
+                        <FormLabel>{t('Adult Price (THB)', {
+                      defaultValue: 'Adult Price (THB)'
                     })}</FormLabel>
                         <FormControl>
-                          <Input type="number" min="0" placeholder={t("Ex10000", {
-                      defaultValue: "Ex10000"
+                          <Input type="number" min="0" placeholder={t('Ex: 10000', {
+                      defaultValue: 'Ex: 10000'
                     })} {...field} />
                         </FormControl>
-                        <FormDescription>{t("Adult price in Thai Baht (without the \u0E3F symbol)", {
-                      defaultValue: "Adult price in Thai Baht (without the \u0E3F symbol)"
+                        <FormDescription>{t('Adult price in Thai Baht (without the \u0E3F symbol)', {
+                      defaultValue: 'Adult price in Thai Baht (without the \u0E3F symbol)'
                     })}</FormDescription>
                         <FormMessage />
                       </FormItem>} />
@@ -227,19 +226,19 @@ export default function TourForm() {
                 <FormField control={form.control} name="childPrice" render={({
                 field
               }) => <FormItem>
-                      <FormLabel>{t("Child Price (THB) - Optional", {
-                    defaultValue: "Child Price (THB) - Optional"
+                      <FormLabel>{t('Child Price (THB) - Optional', {
+                    defaultValue: 'Child Price (THB) - Optional'
                   })}</FormLabel>
                       <FormControl>
-                        <Input type="number" min="0" placeholder={t("Ex5000", {
-                    defaultValue: "Ex5000"
+                        <Input type="number" min="0" placeholder={t('Ex: 5000', {
+                    defaultValue: 'Ex: 5000'
                   })} value={field.value || ''} onChange={e => {
                     const value = e.target.value ? parseInt(e.target.value) : undefined;
                     field.onChange(value);
                   }} />
                       </FormControl>
-                      <FormDescription>{t("Special price for children in Thai Baht (leave empty if there is no special child price)", {
-                    defaultValue: "Special price for children in Thai Baht (leave empty if there is no special child price)"
+                      <FormDescription>{t('Special price for children in Thai Baht (leave empty if there is no special child price)', {
+                    defaultValue: 'Special price for children in Thai Baht (leave empty if there is no special child price)'
                   })}</FormDescription>
                       <FormMessage />
                     </FormItem>} />
@@ -247,16 +246,16 @@ export default function TourForm() {
                 <FormField control={form.control} name="shortDescription" render={({
                 field
               }) => <FormItem>
-                      <FormLabel>{t("Short Description", {
-                    defaultValue: "Short Description"
+                      <FormLabel>{t('Short Description', {
+                    defaultValue: 'Short Description'
                   })}</FormLabel>
                       <FormControl>
-                        <Textarea placeholder={t("Brief description of the tour (visible on cards)", {
-                    defaultValue: "Brief description of the tour (visible on cards)"
+                        <Textarea placeholder={t('Brief description of the tour (visible on cards)', {
+                    defaultValue: 'Brief description of the tour (visible on cards)'
                   })} rows={2} {...field} />
                       </FormControl>
-                      <FormDescription>{t("A short description that will appear on tour cards (max. 150 characters).", {
-                    defaultValue: "A short description that will appear on tour cards (max. 150 characters)."
+                      <FormDescription>{t('A short description that will appear on tour cards (max. 150 characters).', {
+                    defaultValue: 'A short description that will appear on tour cards (max. 150 characters).'
                   })}</FormDescription>
                       <FormMessage />
                     </FormItem>} />
@@ -264,16 +263,16 @@ export default function TourForm() {
                 <FormField control={form.control} name="description" render={({
                 field
               }) => <FormItem>
-                      <FormLabel>{t("Full Description", {
-                    defaultValue: "Full Description"
+                      <FormLabel>{t('Full Description', {
+                    defaultValue: 'Full Description'
                   })}</FormLabel>
                       <FormControl>
-                        <Textarea placeholder={t("Detailed description of the tour", {
-                    defaultValue: "Detailed description of the tour"
+                        <Textarea placeholder={t('Detailed description of the tour', {
+                    defaultValue: 'Detailed description of the tour'
                   })} rows={6} {...field} />
                       </FormControl>
-                      <FormDescription>{t("Detailed description of the tour", {
-                    defaultValue: "Detailed description of the tour"
+                      <FormDescription>{t('Detailed description of the tour that will appear on the details page.', {
+                    defaultValue: 'Detailed description of the tour that will appear on the details page.'
                   })}</FormDescription>
                       <FormMessage />
                     </FormItem>} />
@@ -281,25 +280,25 @@ export default function TourForm() {
                 <FormField control={form.control} name="imageUrl" render={({
                 field
               }) => <FormItem>
-                      <FormLabel>{t("Tourimage", {
-                    defaultValue: "Tourimage"
+                      <FormLabel>{t('Tour Image', {
+                    defaultValue: 'Tour Image'
                   })}</FormLabel>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                           <FormControl>
                             <Input placeholder="https://example.com/image.jpg" {...field} className="mb-2" />
                           </FormControl>
-                          <FormDescription>{t("Enter a URL for the main tour image, or use the uploader to the right.", {
-                        defaultValue: "Enter a URL for the main tour image, or use the uploader to the right."
+                          <FormDescription>{t('Enter a URL for the main tour image, or use the uploader to the right.', {
+                        defaultValue: 'Enter a URL for the main tour image, or use the uploader to the right.'
                       })}</FormDescription>
                         </div>
                         <div>
                           <div className="border rounded-md p-4 bg-gray-50">
-                            <p className="text-sm font-medium mb-2">{t("Upload an image", {
-                          defaultValue: "Upload an image"
+                            <p className="text-sm font-medium mb-2">{t('Upload an image', {
+                          defaultValue: 'Upload an image'
                         })}</p>
-                            {isAuthenticated ? <ImageUpload currentImage={field.value} onUploadComplete={url => field.onChange(url)} /> : <div className="text-amber-600 p-4 text-sm">{t("Authentication Required", {
-                          defaultValue: "Authentication Required"
+                            {isAuthenticated ? <ImageUpload currentImage={field.value} onUploadComplete={url => field.onChange(url)} /> : <div className="text-amber-600 p-4 text-sm">{t('Authentication required to upload images. Please use the URL field instead.', {
+                          defaultValue: 'Authentication required to upload images. Please use the URL field instead.'
                         })}</div>}
                           </div>
                         </div>
@@ -310,14 +309,14 @@ export default function TourForm() {
                 <FormField control={form.control} name="tourNinjaUrl" render={({
                 field
               }) => <FormItem>
-                      <FormLabel>{t("TOUR NINJA URL", {
-                    defaultValue: "TOUR NINJA URL"
+                      <FormLabel>{t('TOUR NINJA URL', {
+                    defaultValue: 'TOUR NINJA URL'
                   })}</FormLabel>
                       <FormControl>
                         <Input placeholder="https://tourninja.com/tour/xyz" {...field} />
                       </FormControl>
-                      <FormDescription>{t("The external link to the booking page on TOUR NINJA.", {
-                    defaultValue: "The external link to the booking page on TOUR NINJA."
+                      <FormDescription>{t('The external link to the booking page on TOUR NINJA.', {
+                    defaultValue: 'The external link to the booking page on TOUR NINJA.'
                   })}</FormDescription>
                       <FormMessage />
                     </FormItem>} />
@@ -329,18 +328,18 @@ export default function TourForm() {
                         <Checkbox checked={field.value || false} onCheckedChange={field.onChange} />
                       </FormControl>
                       <div className="space-y-1 leading-none">
-                        <FormLabel>{t("Featured Tour", {
-                      defaultValue: "Featured Tour"
+                        <FormLabel>{t('Featured Tour', {
+                      defaultValue: 'Featured Tour'
                     })}</FormLabel>
-                        <FormDescription>{t("Check this box to highlight this tour on the home page.", {
-                      defaultValue: "Check this box to highlight this tour on the home page."
+                        <FormDescription>{t('Check this box to highlight this tour on the home page.', {
+                      defaultValue: 'Check this box to highlight this tour on the home page.'
                     })}</FormDescription>
                       </div>
                     </FormItem>} />
                 
                 <div className="flex justify-end space-x-2">
-                  <Button type="button" variant="outline" onClick={() => setLocation("/admin/dashboard")}>{t("Cancel", {
-                    defaultValue: "Cancel"
+                  <Button type="button" variant="outline" onClick={() => setLocation("/admin/dashboard")}>{t('Cancel', {
+                    defaultValue: 'Cancel'
                   })}</Button>
                   <Button type="submit" disabled={isSubmitting}>
                     {isSubmitting ? "Saving..." : tourId ? "Update" : "Create tour"}

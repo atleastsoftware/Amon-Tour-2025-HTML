@@ -5,81 +5,80 @@ import { Card, CardContent } from "@/components/ui/card";
 import { MapPin } from "lucide-react";
 import { Link } from "wouter";
 const interestCategories = [{
-  name: t("Culture & History", {
-    defaultValue: "Culture & History"
+  name: t('Culture & History', {
+    defaultValue: 'Culture & History'
   }),
   icon: "fas fa-landmark"
 }, {
-  name: t("Nature & Adventure", {
-    defaultValue: "Nature & Adventure"
+  name: t('Nature & Adventure', {
+    defaultValue: 'Nature & Adventure'
   }),
   icon: "fas fa-mountain"
 }, {
-  name: t("Beaches & Islands", {
-    defaultValue: "Beaches & Islands"
+  name: t('Beaches & Islands', {
+    defaultValue: 'Beaches & Islands'
   }),
   icon: "fas fa-umbrella-beach"
 }, {
-  name: t("Familytrip", {
-    defaultValue: "Familytrip"
+  name: t('Family trip', {
+    defaultValue: 'Family trip'
   }),
   icon: "fas fa-child"
 }, {
-  name: t("Grouptrip", {
-    defaultValue: "Grouptrip"
+  name: t('Group trip', {
+    defaultValue: 'Group trip'
   }),
   icon: "fas fa-users"
 }, {
-  name: t("Wedding & Honeymoon", {
-    defaultValue: "Wedding & Honeymoon"
+  name: t('Wedding & Honeymoon', {
+    defaultValue: 'Wedding & Honeymoon'
   }),
   icon: "fas fa-heart"
 }];
 const destinations = [{
-  name: t("Khaosok", {
-    defaultValue: "Khaosok"
+  name: t('Khao Sok', {
+    defaultValue: 'Khao Sok'
   }),
   icon: "fas fa-tree"
 }, {
-  name: t("Krabi", {
-    defaultValue: "Krabi"
+  name: t('Krabi', {
+    defaultValue: 'Krabi'
   }),
   icon: "fas fa-water"
 }, {
-  name: t("Kohmook", {
-    defaultValue: "Kohmook"
+  name: t('Koh Mook', {
+    defaultValue: 'Koh Mook'
   }),
   icon: "fas fa-island-tropical"
 }, {
-  name: t("Bangkok", {
-    defaultValue: "Bangkok"
+  name: t('Bangkok', {
+    defaultValue: 'Bangkok'
   }),
   icon: "fas fa-city"
 }, {
-  name: t("Chiangmai", {
-    defaultValue: "Chiangmai"
+  name: t('Chiang Mai', {
+    defaultValue: 'Chiang Mai'
   }),
   icon: "fas fa-mountain"
 }, {
-  name: t("Others destinations", {
-    defaultValue: "Others destinations"
+  name: t('Others destinations', {
+    defaultValue: 'Others destinations'
   }),
   icon: "fas fa-map-location-dot"
 }];
 export default function Interests() {
-  const {
-    t
-  } = useTranslation();
+  const { t } = useTranslation();
+
   return <section id="interests" className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <FadeInWhenVisible>
           <div className="text-center mb-12">
-            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{t("Interests", {
-              defaultValue: "Interests"
+            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{t('Interests', {
+              defaultValue: 'Interests'
             })}</h2>
             <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
-            <p className="text-gray-600 max-w-2xl mx-auto">{t("Discover Thailand through your passions and interests. Choose from our curated categories or explore by destination.", {
-              defaultValue: "Discover Thailand through your passions and interests. Choose from our curated categories or explore by destination."
+            <p className="text-gray-600 max-w-2xl mx-auto">{t('Discover Thailand through your passions and interests. Choose from our curated categories or explore by destination.', {
+              defaultValue: 'Discover Thailand through your passions and interests. Choose from our curated categories or explore by destination.'
             })}</p>
           </div>
         </FadeInWhenVisible>

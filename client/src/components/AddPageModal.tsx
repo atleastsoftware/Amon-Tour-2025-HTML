@@ -59,11 +59,11 @@ export function AddPageModal({
     },
     onSuccess: async (data: any) => {
       toast({
-        title: t("Succxe8s", {
-          defaultValue: "Succxe8s"
+        title: t('Succ\xE8s', {
+          defaultValue: 'Succ\xE8s'
         }),
-        description: t("Lapageaxe9txe9crxe9x", {
-          defaultValue: "Lapageaxe9txe9crxe9x"
+        description: t('La page a \xE9t\xE9 cr\xE9\xE9e avec succ\xE8s', {
+          defaultValue: 'La page a \xE9t\xE9 cr\xE9\xE9e avec succ\xE8s'
         })
       });
       // Invalider et attendre le rechargement des données
@@ -80,8 +80,8 @@ export function AddPageModal({
     },
     onError: (error: any) => {
       toast({
-        title: t("Erreur", {
-          defaultValue: "Erreur"
+        title: t('Erreur', {
+          defaultValue: 'Erreur'
         }),
         description: error.message || "Impossible de créer la page",
         variant: "destructive"
@@ -91,11 +91,11 @@ export function AddPageModal({
   const handleSubmit = () => {
     if (!pageName.trim()) {
       toast({
-        title: t("Erreur", {
-          defaultValue: "Erreur"
+        title: t('Erreur', {
+          defaultValue: 'Erreur'
         }),
-        description: t("Le nom de la page est requis", {
-          defaultValue: "Le nom de la page est requis"
+        description: t('Le nom de la page est requis', {
+          defaultValue: 'Le nom de la page est requis'
         }),
         variant: "destructive"
       });
@@ -103,11 +103,11 @@ export function AddPageModal({
     }
     if (createMode === 'duplicate' && !sourcePageId) {
       toast({
-        title: t("Erreur", {
-          defaultValue: "Erreur"
+        title: t('Erreur', {
+          defaultValue: 'Erreur'
         }),
-        description: t("Veuillezsxe9lectionn", {
-          defaultValue: "Veuillezsxe9lectionn"
+        description: t('Veuillez s\xE9lectionner une page \xE0 dupliquer', {
+          defaultValue: 'Veuillez s\xE9lectionner une page \xE0 dupliquer'
         }),
         variant: "destructive"
       });
@@ -153,25 +153,25 @@ export function AddPageModal({
   return <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle>{t("Ajouter une nouvelle page", {
-            defaultValue: "Ajouter une nouvelle page"
+          <DialogTitle>{t('Ajouter une nouvelle page', {
+            defaultValue: 'Ajouter une nouvelle page'
           })}</DialogTitle>
-          <DialogDescription>{t("Crxe9ezunenouvellepa", {
-            defaultValue: "Crxe9ezunenouvellepa"
+          <DialogDescription>{t('Cr\xE9ez une nouvelle page ou dupliquez une page existante', {
+            defaultValue: 'Cr\xE9ez une nouvelle page ou dupliquez une page existante'
           })}</DialogDescription>
         </DialogHeader>
         
         <div className="grid gap-4 py-4">
           {/* Mode de création */}
           <div className="space-y-3">
-            <Label>{t("Modedecrxe9ation", {
-              defaultValue: "Modedecrxe9ation"
+            <Label>{t('Mode de cr\xE9ation', {
+              defaultValue: 'Mode de cr\xE9ation'
             })}</Label>
             <RadioGroup value={createMode} onValueChange={value => setCreateMode(value as 'new' | 'duplicate')}>
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="new" id="new" />
-                <Label htmlFor="new" className="font-normal cursor-pointer">{t("Crxe9erunenouvellepa", {
-                  defaultValue: "Crxe9erunenouvellepa"
+                <Label htmlFor="new" className="font-normal cursor-pointer">{t('Cr\xE9er une nouvelle page vierge', {
+                  defaultValue: 'Cr\xE9er une nouvelle page vierge'
                 })}</Label>
               </div>
               <div className="flex items-center space-x-2">
@@ -185,13 +185,13 @@ export function AddPageModal({
 
           {/* Sélection de la page source (si duplication) */}
           {createMode === 'duplicate' && <div className="space-y-2">
-              <Label htmlFor="source-page">{t("Pagexe0dupliquer", {
-              defaultValue: "Pagexe0dupliquer"
+              <Label htmlFor="source-page">{t('Page \xE0 dupliquer', {
+              defaultValue: 'Page \xE0 dupliquer'
             })}</Label>
               <Select value={sourcePageId} onValueChange={setSourcePageId}>
                 <SelectTrigger id="source-page">
-                  <SelectValue placeholder={t("Sxe9lectionnezunepag", {
-                defaultValue: "Sxe9lectionnezunepag"
+                  <SelectValue placeholder={t('S\xE9lectionnez une page', {
+                defaultValue: 'S\xE9lectionnez une page'
               })} />
                 </SelectTrigger>
                 <SelectContent>
@@ -204,11 +204,11 @@ export function AddPageModal({
 
           {/* Nom de la page */}
           <div className="space-y-2">
-            <Label htmlFor="page-name">{t("Nom de la page", {
-              defaultValue: "Nom de la page"
+            <Label htmlFor="page-name">{t('Nom de la page', {
+              defaultValue: 'Nom de la page'
             })}</Label>
-            <Input id="page-name" value={pageName} onChange={e => setPageName(e.target.value)} placeholder={t("Exxc0propos", {
-            defaultValue: "Exxc0propos"
+            <Input id="page-name" value={pageName} onChange={e => setPageName(e.target.value)} placeholder={t('Ex: \xC0 propos', {
+            defaultValue: 'Ex: \xC0 propos'
           })} disabled={createPageMutation.isPending} />
             <p className="text-sm text-gray-500">{t('L\'URL sera g\xE9n\xE9r\xE9e automatiquement \xE0 partir du nom', {
               defaultValue: 'L\'URL sera g\xE9n\xE9r\xE9e automatiquement \xE0 partir du nom'
@@ -217,13 +217,13 @@ export function AddPageModal({
         </div>
 
         <DialogFooter>
-          <Button variant="outline" onClick={handleClose} disabled={createPageMutation.isPending}>{t("Annuler", {
-            defaultValue: "Annuler"
+          <Button variant="outline" onClick={handleClose} disabled={createPageMutation.isPending}>{t('Annuler', {
+            defaultValue: 'Annuler'
           })}</Button>
           <Button onClick={handleSubmit} disabled={createPageMutation.isPending}>
             {createPageMutation.isPending ? <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />{t("Crxe9ation", {
-              defaultValue: "Crxe9ation"
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />{t('Cr\xE9ation...', {
+              defaultValue: 'Cr\xE9ation...'
             })}</> : 'Ajouter'}
           </Button>
         </DialogFooter>

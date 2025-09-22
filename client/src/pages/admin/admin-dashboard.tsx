@@ -11,9 +11,8 @@ import Footer from "@/components/layout/Footer";
 import { motion } from "framer-motion";
 import { ImagePlus, FileText, BookOpen, Mail, Users, Calendar, PartyPopper, Handshake, UsersIcon, Newspaper, Settings, LogOut } from "lucide-react";
 export default function AdminDashboard() {
-  const {
-    t
-  } = useTranslation();
+  const { t } = useTranslation();
+
   const {
     isAuthenticated,
     isLoading: authLoading
@@ -71,22 +70,24 @@ export default function AdminDashboard() {
     logout.mutate();
     setLocation('/');
   };
-  if (authLoading) return <div className="container mx-auto p-8 text-center">{t("Loading", {
-      defaultValue: "Loading"
+  if (authLoading) return <div className="container mx-auto p-8 text-center">{t('Loading...', {
+      defaultValue: 'Loading...'
     })}</div>;
   const adminSections = [{
-    title: t("Demandespersonnalisx", {
-      defaultValue: "Demandespersonnalisx"
+    title: t('Demandes personnalis\xE9es', {
+      defaultValue: 'Demandes personnalis\xE9es'
     }),
-    description: t("Gxe9rerlesdemandesde", {
-      defaultValue: "Gxe9rerlesdemandesde"
+    description: t('G\xE9rer les demandes de tours sur mesure', {
+      defaultValue: 'G\xE9rer les demandes de tours sur mesure'
     }),
     icon: <Calendar className="h-6 w-6" />,
     path: "/admin/custom-tours",
     color: "from-primary to-primary/80",
     unreadCount: customTourUnread?.length || 0
   }, {
-    title: t('pages.krabiCelebration.title'),
+    title: t('Krabi Celebration', {
+      defaultValue: 'Krabi Celebration'
+    }),
     description: t('Demandes d\'\xE9v\xE9nements sp\xE9ciaux', {
       defaultValue: 'Demandes d\'\xE9v\xE9nements sp\xE9ciaux'
     }),
@@ -95,74 +96,74 @@ export default function AdminDashboard() {
     color: "from-secondary to-secondary/80",
     unreadCount: krabiUnread?.length || 0
   }, {
-    title: t("Demandes de partenariat", {
-      defaultValue: "Demandes de partenariat"
+    title: t('Demandes de partenariat', {
+      defaultValue: 'Demandes de partenariat'
     }),
-    description: t("Propositions de collaboration", {
-      defaultValue: "Propositions de collaboration"
+    description: t('Propositions de collaboration', {
+      defaultValue: 'Propositions de collaboration'
     }),
     icon: <Handshake className="h-6 w-6" />,
     path: "/admin/partnership-requests",
     color: "from-primary/70 to-primary",
     unreadCount: partnershipUnread?.length || 0
   }, {
-    title: t("Groupes & Entreprises", {
-      defaultValue: "Groupes & Entreprises"
+    title: t('Groupes & Entreprises', {
+      defaultValue: 'Groupes & Entreprises'
     }),
-    description: t("Demandes de groupes et corporates", {
-      defaultValue: "Demandes de groupes et corporates"
+    description: t('Demandes de groupes et corporates', {
+      defaultValue: 'Demandes de groupes et corporates'
     }),
     icon: <UsersIcon className="h-6 w-6" />,
     path: "/admin/group-requests",
     color: "from-warning to-warning/80",
     unreadCount: groupUnread?.length || 0
   }, {
-    title: t("Gestion du blog", {
-      defaultValue: "Gestion du blog"
+    title: t('Gestion du blog', {
+      defaultValue: 'Gestion du blog'
     }),
-    description: t("Crxe9eretmodifierles", {
-      defaultValue: "Crxe9eretmodifierles"
+    description: t('Cr\xE9er et modifier les articles', {
+      defaultValue: 'Cr\xE9er et modifier les articles'
     }),
     icon: <BookOpen className="h-6 w-6" />,
     path: "/admin/blog",
     color: "from-primary/60 to-primary/80"
   }, {
-    title: t("Newsletter", {
-      defaultValue: "Newsletter"
+    title: t('Newsletter', {
+      defaultValue: 'Newsletter'
     }),
-    description: t("Gxe9rerlesabonnement", {
-      defaultValue: "Gxe9rerlesabonnement"
+    description: t('G\xE9rer les abonnements newsletter', {
+      defaultValue: 'G\xE9rer les abonnements newsletter'
     }),
     icon: <Newspaper className="h-6 w-6" />,
     path: "/admin/newsletter",
     color: "from-[hsl(var(--warning))] to-[hsl(var(--warning)/0.8)]",
     unreadCount: newsletterUnconfirmed?.length || 0
   }, {
-    title: t("Cartes de tours", {
-      defaultValue: "Cartes de tours"
+    title: t('Cartes de tours', {
+      defaultValue: 'Cartes de tours'
     }),
-    description: t("Crxe9eretgxe9rerlesc", {
-      defaultValue: "Crxe9eretgxe9rerlesc"
+    description: t('Cr\xE9er et g\xE9rer les cartes de pr\xE9sentation', {
+      defaultValue: 'Cr\xE9er et g\xE9rer les cartes de pr\xE9sentation'
     }),
     icon: <ImagePlus className="h-6 w-6" />,
     path: "/tour-card-builder",
     color: "from-secondary/80 to-secondary"
   }, {
-    title: t("Messages de contact", {
-      defaultValue: "Messages de contact"
+    title: t('Messages de contact', {
+      defaultValue: 'Messages de contact'
     }),
-    description: t("Consulteretrxe9pondr", {
-      defaultValue: "Consulteretrxe9pondr"
+    description: t('Consulter et r\xE9pondre aux messages', {
+      defaultValue: 'Consulter et r\xE9pondre aux messages'
     }),
     icon: <Mail className="h-6 w-6" />,
     path: "/admin/messages",
     color: "from-[hsl(var(--success))] to-[hsl(var(--success)/0.8)]"
   }, {
-    title: t("Paramxe8tres", {
-      defaultValue: "Paramxe8tres"
+    title: t('Param\xE8tres', {
+      defaultValue: 'Param\xE8tres'
     }),
-    description: t("Configurationetprxe9", {
-      defaultValue: "Configurationetprxe9"
+    description: t('Configuration et pr\xE9f\xE9rences', {
+      defaultValue: 'Configuration et pr\xE9f\xE9rences'
     }),
     icon: <Settings className="h-6 w-6" />,
     path: "/admin/settings",
@@ -183,16 +184,16 @@ export default function AdminDashboard() {
         }}>
             <div className="flex justify-between items-center mb-8">
               <div>
-                <h1 className="text-3xl font-heading font-bold text-foreground">{t("Administration", {
-                  defaultValue: "Administration"
+                <h1 className="text-3xl font-heading font-bold text-foreground">{t('Administration', {
+                  defaultValue: 'Administration'
                 })}</h1>
-                <p className="text-muted-foreground mt-2">{t("Panneau de gestion centralis\xE9", {
-                  defaultValue: "Panneau de gestion centralis\xE9"
+                <p className="text-muted-foreground mt-2">{t('Panneau de gestion centralis\xE9', {
+                  defaultValue: 'Panneau de gestion centralis\xE9'
                 })}</p>
               </div>
               <Button variant="outline" onClick={handleLogout} className="flex items-center gap-2">
-                <LogOut className="h-4 w-4" />{t("Dxe9connexion", {
-                defaultValue: "Dxe9connexion"
+                <LogOut className="h-4 w-4" />{t('D\xE9connexion', {
+                defaultValue: 'D\xE9connexion'
               })}</Button>
             </div>
 

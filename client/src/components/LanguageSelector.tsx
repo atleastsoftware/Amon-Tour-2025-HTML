@@ -1,79 +1,84 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-
+import { autoTranslate } from '../lib/autoTranslate';
 export default function LanguageSelector() {
-  const { i18n, t } = useTranslation('common');
-  
-  // Test direct pour vérifier la connexion
-  console.log('🔍 LanguageSelector t test:', t('hero.title'));
-  console.log('🔍 LanguageSelector namespace loaded:', !!i18n.getResourceBundle('fr', 'common'));
-  
+  const { t, i18n } = useTranslation();
   const languageData = {
     en: {
-      name: "English",
+      name: t('English', {
+        defaultValue: 'English'
+      }),
       flagUrl: "https://flagcdn.com/w40/gb.png"
     },
     fr: {
-      name: "Français", 
+      name: t('Français', {
+        defaultValue: 'Français'
+      }),
       flagUrl: "https://flagcdn.com/w40/fr.png"
     },
     es: {
-      name: "Español",
+      name: t('Español', {
+        defaultValue: 'Español'
+      }),
       flagUrl: "https://flagcdn.com/w40/es.png"
     }
   } as const;
-  
   const [isLoading, setIsLoading] = useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState(() => {
-    // Use i18next current language if available, fallback to saved preference or browser language
-    if (i18n.language && ['en', 'fr', 'es'].includes(i18n.language)) {
-      return i18n.language;
-    }
-    
-    const saved = localStorage.getItem('i18nextLng');
-    if (saved && ['en', 'fr', 'es'].includes(saved)) return saved;
-    
-    const browserLang = navigator.language?.split('-')[0]?.toLowerCase() || 'en';
-    return ['en', 'fr', 'es'].includes(browserLang) ? browserLang : 'en';
-  });
+  const [currentLanguage, setCurrentLanguage] = useState(i18n.language || 'en');
 
-  // Sync with i18next language changes
+  // Update current language when i18n language changes
   useEffect(() => {
-    const handleLanguageChanged = (lng: string) => {
-      if (['en', 'fr', 'es'].includes(lng)) {
-        setCurrentLanguage(lng);
-      }
-    };
-
-    i18n.on('languageChanged', handleLanguageChanged);
-    return () => {
-      i18n.off('languageChanged', handleLanguageChanged);
-    };
-  }, [i18n]);
-
+    setCurrentLanguage(i18n.language || 'en');
+  }, [i18n.language]);
   const handleLanguageChange = async (langCode: string) => {
     if (isLoading || currentLanguage === langCode) return;
-    
     setIsLoading(true);
-    setCurrentLanguage(langCode);
-    
     try {
-      // Change language using i18next
+      // 1. Disable auto-translation system to prevent conflicts
+      disableAutoTranslation();
+
+      // 2. Change language using i18next (no reload needed!)
       await i18n.changeLanguage(langCode);
-      
-      // Save user's choice for persistence 
+      setCurrentLanguage(langCode);
+
+      // 3. Mark that user made a manual language choice
+      localStorage.setItem('amon-tour-translation-choice', `manual-${langCode}`);
       localStorage.setItem('user-chose-language', 'true');
-      localStorage.setItem('amon-tour-language-choice', langCode);
-      
-      console.log(`🌐 Language changed to: ${langCode}`);
-      
+
+      // 4. No page reload needed - i18next updates automatically!
+      console.log(`Manual language changed to: ${langCode} (smooth transition)`);
+
+      // 5. Persist language choice for i18next
+      localStorage.setItem('i18nextLng', langCode);
     } catch (error) {
       console.error('Failed to switch language:', error);
-      setCurrentLanguage('en'); // Fallback to English
-      await i18n.changeLanguage('en');
     } finally {
       setIsLoading(false);
     }
+  };
+
+  /**
+   * Disable browser auto-translation when user makes manual choice
+   */
+  const disableAutoTranslation = () => {
+    // Set translate="no" on document to disable browser translation
+    document.documentElement.setAttribute('translate', 'no');
+
+    // Remove any Google Translate widgets
+    const googleTranslateElements = document.querySelectorAll('[id*="google_translate"], .goog-te-banner-frame, .goog-te-menu-frame');
+    googleTranslateElements.forEach(el => el.remove());
+
+    // Clear any translation meta tags
+    const translationMetas = document.querySelectorAll('meta[name="google-translate-customization"], meta[name="translate"]');
+    translationMetas.forEach(meta => meta.remove());
+
+    // Hide any translation indicators
+    const indicators = document.querySelectorAll('.translation-indicator');
+    indicators.forEach(indicator => indicator.remove());
+
+    // Stop auto-translation detection
+    localStorage.setItem('amon-tour-disable-auto-translate', 'true');
+    console.log('Browser auto-translation disabled - using manual TranslationService');
   };
   return <div className="flex items-center gap-2">
       {Object.entries(languageData).map(([langCode, langData]) => <button key={langCode} onClick={() => handleLanguageChange(langCode)} disabled={isLoading} className={`

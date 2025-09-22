@@ -12,8 +12,7 @@
     "about": "À propos",
     "stays": "Hébergements",
     "cruise": "Croisière",
-    "customTrip": "Voyage Sur Mesure",
-    "toggleMenu": "Basculer le menu"
+    "customTrip": "Voyage Sur Mesure"
   },
   "buttons": {
     "bookNow": "Réserver maintenant",
@@ -144,10 +143,7 @@
     },
     "countries": {
       "thailand": "Thaïlande"
-    },
-    "subscribeNewsletter": "S'abonner à la newsletter",
-    "contactWhatsApp": "Contacter via WhatsApp",
-    "viewAllReviews": "Voir tous les avis sur Google"
+    }
   },
   "tours": {
     "featured": "Nos expériences exclusives",
@@ -2422,89 +2418,5 @@
   "Guía de Viaje Amon Tour": "Guía de Viaje Amon Tour",
   "Usamos cookies": "Usamos cookies",
   "Utilizamos cookies para mejorar tu experiencia y analizar el uso del sitio. Al continuar usando este sitio, aceptas nuestro uso de cookies.": "Utilizamos cookies para mejorar tu experiencia y analizar el uso del sitio. Al continuar usando este sitio, aceptas nuestro uso de cookies.",
-  "Descubre Tailandia a través de nuestros consejos expertos y guías de viaje": "Descubre Tailandia a través de nuestros consejos expertos y guías de viaje",
-  "Flame BB Co": {
-    ", Ltd": {
-      " (Amon Tour)": {
-        "": "Flame BB Co., Ltd. (Amon Tour)."
-      }
-    }
-  },
-  "brochure": {
-    "seoTitle": "Téléchargez Nos Brochures de Voyage | Amon Tour Thaïlande",
-    "seoDescription": "Inspirez-vous avec notre brochure magnifiquement conçue présentant les meilleures expériences que Krabi a à offrir.",
-    "seoKeywords": "Brochure Amon Tour, guide voyage Krabi, tours Thaïlande PDF, téléchargement brochure voyage",
-    "altText": "Brochure Amon Tour",
-    "title": "Téléchargez Notre Brochure",
-    "description": "Inspirez-vous avec notre brochure magnifiquement conçue présentant les meilleures expériences que Krabi a à offrir.",
-    "downloadTitle": "Téléchargez Notre Brochure",
-    "downloadDescription": "Inspirez-vous avec notre brochure magnifiquement conçue présentant les meilleures expériences que Krabi a à offrir.",
-    "englishVersion": "Version Anglaise",
-    "englishDescription": "Guide complet de nos circuits et expériences en anglais, parfait pour les voyageurs internationaux.",
-    "downloadEnglish": "Télécharger PDF Anglais",
-    "frenchVersion": "Version Française",
-    "frenchDescription": "Guide complet de nos circuits et expériences en français, idéal pour les voyageurs francophones.",
-    "downloadFrench": "Télécharger PDF Français",
-    "whatsInside": "Que Contient Notre Brochure ?",
-    "features": {
-      "tourPackages": "• Forfaits de voyage vedettes",
-      "photography": "• Photographies époustouflantes",
-      "itineraries": "• Itinéraires détaillés",
-      "pricing": "• Informations sur les prix",
-      "contact": "• Coordonnées",
-      "insights": "• Conseils locaux"
-    }
-  },
-  "languages": {
-    "english": "Anglais",
-    "french": "Français",
-    "spanish": "Espagnol"
-  },
-  "pages": {
-    "krabiCelebration": {
-      "seoTitle": "Krabi Celebration - Amon Tour",
-      "title": "Krabi Celebration"
-    },
-    "villasKrabi": {
-      "seoTitle": "Villas à Krabi - Hébergement de Luxe - Amon Tour",
-      "title": "Villas à Krabi"
-    },
-    "becomePartner": {
-      "seoTitle": "Devenir Partenaire - Amon Tour",
-      "title": "Devenir Partenaire"
-    },
-    "groupCorporate": {
-      "seoTitle": "Groupe & Entreprise - Amon Tour",
-      "title": "Groupe & Entreprise"
-    },
-    "legalNotice": {
-      "seoTitle": "Mentions Légales - Amon Tour"
-    },
-    "privacyPolicy": {
-      "seoTitle": "Politique de Confidentialité - Amon Tour"
-    },
-    "termsConditions": {
-      "seoTitle": "Conditions Générales - Amon Tour"
-    }
-  },
-  "legal": {
-    "title": "Mentions Légales"
-  },
-  "privacy": {
-    "title": "Politique de Confidentialité"
-  },
-  "terms": {
-    "title": "Conditions Générales"
-  },
-  "company": {
-    "fullName": "Flame BB Co., Ltd. (Amon Tour)."
-  },
-  "common": {
-    "amonLogo": "Logo Amon",
-    "amonTourLogo": "Logo Amon Tour",
-    "didyouforgettoaddth": "Avez-vous oublié d'ajouter la page au routeur ?",
-    "amontourexperiencean": "Expérience Amon Tour et Séjours Krabi",
-    "authenticthailandexp": "Expériences authentiques de Thaïlande avec famille locale",
-    "discoverkrabiandsou": "Découvrez Krabi et le sud de la Thaïlande comme jamais auparavant"
-  }
+  "Descubre Tailandia a través de nuestros consejos expertos y guías de viaje": "Descubre Tailandia a través de nuestros consejos expertos y guías de viaje"
 }

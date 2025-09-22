@@ -43,9 +43,8 @@ interface BlogTag {
   slug: string;
 }
 export default function BlogPage() {
-  const {
-    t
-  } = useTranslation();
+  const { t } = useTranslation();
+
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedTag, setSelectedTag] = useState("");
@@ -86,8 +85,8 @@ export default function BlogPage() {
       <Header />
       <div>
         {/* Hero Section */}
-        <HeroHeader title={t('blog.title')} subtitle={t('blog.subtitle')} alt={t("Travel blog about Krabi and Thailand", {
-        defaultValue: "Travel blog about Krabi and Thailand"
+        <HeroHeader title={t('blog.title')} subtitle={t('blog.subtitle')} alt={t('Travel blog about Krabi and Thailand', {
+        defaultValue: 'Travel blog about Krabi and Thailand'
       })} />
 
         {/* Filters Section */}
@@ -185,18 +184,18 @@ export default function BlogPage() {
                         </div>}
 
                       <Link href={`/blog/${post.slug}`}>
-                        <Button className="w-full">{t("Readmore", {
-                      defaultValue: "Readmore"
+                        <Button className="w-full">{t('Read More', {
+                      defaultValue: 'Read More'
                     })}</Button>
                       </Link>
                     </CardContent>
                   </Card>)}
               </div> : <div className="text-center py-12">
-                <h3 className="text-2xl font-bold text-gray-800 mb-4">{t("No Articles Found", {
-                defaultValue: "No Articles Found"
+                <h3 className="text-2xl font-bold text-gray-800 mb-4">{t('No Articles Found', {
+                defaultValue: 'No Articles Found'
               })}</h3>
-                <p className="text-gray-600 mb-6">{t("Try adjusting your search criteria or browse all articles.", {
-                defaultValue: "Try adjusting your search criteria or browse all articles."
+                <p className="text-gray-600 mb-6">{t('Try adjusting your search criteria or browse all articles.', {
+                defaultValue: 'Try adjusting your search criteria or browse all articles.'
               })}</p>
                 <Button onClick={() => {
               setSearchTerm("");
