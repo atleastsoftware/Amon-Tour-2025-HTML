@@ -7,7 +7,7 @@ import { queryClient } from "./lib/queryClient";
 import { Toaster } from "./components/ui/toaster";
 import { ThemeProvider } from "next-themes";
 import { I18nextProvider } from "react-i18next";
-import i18n from "./lib/i18n"; // Initialize i18next system
+import i18n, { i18nInitPromise } from "./lib/i18n"; // Initialize i18next system
 // import "./lib/autoTranslate"; // Auto-translation temporarily disabled due to reload loops
 
 // Adding Font Awesome for Thai-inspired icons
@@ -40,5 +40,11 @@ function renderApp() {
   );
 }
 
-// Render app directly
-renderApp();
+// Wait for i18next initialization before rendering app
+i18nInitPromise.then(() => {
+  console.log('🚀 i18next ready, rendering React app...');
+  renderApp();
+}).catch((error) => {
+  console.error('💥 i18next initialization failed, rendering app anyway:', error);
+  renderApp(); // Render even if i18next fails to avoid blank page
+});

@@ -79,13 +79,15 @@ const initializeI18n = () => {
       (window as any).i18next = i18n;
     }
     console.log('✅ i18next fully initialized and exposed globally');
+    return i18n;
   }).catch((error) => {
     console.error('❌ i18next initialization failed:', error);
+    throw error;
   });
 };
 
-// Initialiser immédiatement
-initializeI18n();
+// Exporter la promesse d'initialisation
+export const i18nInitPromise = initializeI18n();
 
 export default i18n;
 
