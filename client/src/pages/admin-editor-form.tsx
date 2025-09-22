@@ -35,9 +35,7 @@ interface FormData {
 }
 export default function AdminEditorForm() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   const [, setLocation] = useLocation();
   const {
     toast

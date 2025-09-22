@@ -9,9 +9,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Loader2 } from "lucide-react";
 export default function TourIframe() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   const [match, params] = useRoute("/tour/:id");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

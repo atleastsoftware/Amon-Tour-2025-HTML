@@ -7,9 +7,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 export default function VillasKrabi() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   return <>
       <SEO title={t('Villas in Krabi - Curated Villa Selection', {
       defaultValue: 'Villas in Krabi - Curated Villa Selection'

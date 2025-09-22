@@ -4,9 +4,7 @@ import { Link } from "wouter";
 import { FadeInWhenVisible } from "@/components/ui/animations";
 export default function CustomTourCta() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   return <section className="py-16 bg-gray-900 relative">
       {/* Overlay with semi-transparent gradient */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/60 z-10" style={{

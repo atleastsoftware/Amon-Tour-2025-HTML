@@ -22,6 +22,8 @@ export const BlockPreview = memo(function BlockPreview({
   block,
   previewMode = false
 }: BlockPreviewProps) {
+  const { t } = useTranslation();
+
   const config = block.configuration || {};
 
   // En mode prévisualisation complète, utiliser les vrais composants
@@ -39,9 +41,6 @@ function RealComponentPreview({
 }: {
   block: PageBlock;
 }) {
-  const {
-    t: t
-  } = useTranslation();
   const config = block.configuration || {};
   switch (block.blockType) {
     case 'hero':
@@ -71,9 +70,6 @@ function SimplifiedPreview({
 }: {
   block: PageBlock;
 }) {
-  const {
-    t: t
-  } = useTranslation();
   const config = block.configuration || {};
   switch (block.blockType) {
     case 'hero':

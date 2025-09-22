@@ -44,9 +44,7 @@ interface BlogTag {
 }
 export default function BlogPage() {
   const { t } = useTranslation();
-  const {
-    t
-  } = useTranslation();
+
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedTag, setSelectedTag] = useState("");

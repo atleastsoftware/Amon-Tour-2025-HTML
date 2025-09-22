@@ -50,9 +50,6 @@ const DateSelector = ({
   onSelectDate: (date: Date | undefined, availability: TourAvailability | undefined) => void;
   selectedDate?: Date;
 }) => {
-  const {
-    t: t
-  } = useTranslation();
   const [availableDates, setAvailableDates] = useState<Date[]>([]);
   const [availabilities, setAvailabilities] = useState<TourAvailability[]>([]);
   const [selectedMonth, setSelectedMonth] = useState<Date>(new Date());
@@ -241,9 +238,6 @@ const BookingSummary = ({
   numberOfChildren?: number;
   availability?: TourAvailability;
 }) => {
-  const {
-    t: t
-  } = useTranslation();
   const adultPrice = availability?.price || tour?.price || 0;
   // Utiliser le prix enfant de la disponibilité, ou celui du tour, ou 75% du prix adulte par défaut
   const childPrice = availability?.childPrice || tour?.childPrice || Math.round(adultPrice * 0.75);
@@ -340,9 +334,6 @@ const PaymentForm = ({
 }: {
   clientSecret: string;
 }) => {
-  const {
-    t: t
-  } = useTranslation();
   const stripe = useStripe();
   const elements = useElements();
   const [isProcessing, setIsProcessing] = useState(false);
@@ -412,9 +403,7 @@ const PaymentForm = ({
 // Composant principal pour la page de réservation
 export default function BookTour() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   const {
     id
   } = useParams();

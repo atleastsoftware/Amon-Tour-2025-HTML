@@ -36,9 +36,7 @@ type CruiseFormData = {
 };
 export default function CruiseForm() {
   const { t } = useTranslation();
-  const {
-    t
-  } = useTranslation();
+
   const {
     toast
   } = useToast();

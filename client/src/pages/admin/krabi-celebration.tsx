@@ -29,9 +29,7 @@ interface KrabiCelebrationRequest {
 }
 export default function AdminKrabiCelebration() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   const {
     isAuthenticated,
     isLoading

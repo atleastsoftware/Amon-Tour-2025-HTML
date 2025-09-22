@@ -6,9 +6,7 @@ import { FileText, Users, FormInput, ArrowLeft, Edit } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 export default function AdminEditor() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   const [, setLocation] = useLocation();
 
   // Query to get forms count

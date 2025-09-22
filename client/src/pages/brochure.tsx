@@ -7,9 +7,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 export default function Brochure() {
   const { t } = useTranslation();
-  const {
-    t
-  } = useTranslation();
+
   return <>
       <SEO title={t('seo.brochureTitle')} description={t('seo.brochureDescription')} keywords={t('seo.brochureKeywords')} />
       <Header />

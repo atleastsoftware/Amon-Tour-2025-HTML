@@ -29,9 +29,7 @@ interface GroupRequest {
 }
 export default function AdminGroupRequests() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   const {
     isAuthenticated,
     isLoading

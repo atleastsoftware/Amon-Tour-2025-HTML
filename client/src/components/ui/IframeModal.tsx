@@ -6,9 +6,7 @@ import { Button } from "@/components/ui/button";
 import logoAmon from "@/assets/logo-amon.png";
 export default function IframeModal() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   const {
     isOpen,
     url,

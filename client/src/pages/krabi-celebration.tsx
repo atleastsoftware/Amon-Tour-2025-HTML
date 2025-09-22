@@ -27,9 +27,7 @@ interface FormData {
 }
 export default function KrabiCelebration() {
   const { t } = useTranslation();
-  const {
-    t
-  } = useTranslation();
+
   const {
     toast
   } = useToast();

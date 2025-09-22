@@ -21,9 +21,7 @@ interface FormData {
 }
 export default function BecomePartner() {
   const { t } = useTranslation();
-  const {
-    t
-  } = useTranslation();
+
   const {
     toast
   } = useToast();

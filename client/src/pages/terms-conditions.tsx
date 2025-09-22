@@ -5,9 +5,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 export default function TermsConditions() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   // Scroll to top on page load
   useEffect(() => {
     window.scrollTo(0, 0);

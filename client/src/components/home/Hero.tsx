@@ -38,6 +38,7 @@ const isMobileDevice = () => {
 };
 export default function Hero() {
   const { t } = useTranslation();
+
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
@@ -49,10 +50,6 @@ export default function Hero() {
   const loadTimeoutRef = useRef<NodeJS.Timeout>();
 
   // Get translations
-  const {
-    t
-  } = useTranslation();
-
   // Récupérer les données de configuration du héros (avec gestion d'erreur)
   const {
     data: heroBlocks
@@ -169,8 +166,7 @@ export default function Hero() {
             <source src={currentVideoSrc} type="video/mp4" />{t('Your browser does not support the video tag.', {
           defaultValue: 'Your browser does not support the video tag.'
         })}</video>}
-        
-        
+
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
         
@@ -233,8 +229,7 @@ export default function Hero() {
               </div>
             </motion.div>
           </div>
-          
-          
+
         </div>
       </div>
     </section>;

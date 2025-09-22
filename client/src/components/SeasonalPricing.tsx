@@ -2,9 +2,7 @@ import { motion } from "framer-motion";
 import { useTranslation } from 'react-i18next';
 export default function SeasonalPricing() {
   const { t } = useTranslation();
-  const {
-    t
-  } = useTranslation();
+
   return <div className="w-full">
       <div className="bg-gradient-to-br from-muted/30 to-primary/5 py-12">
         <div className="container mx-auto px-4">

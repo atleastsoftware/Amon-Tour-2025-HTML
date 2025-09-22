@@ -22,9 +22,7 @@ interface FormData {
 }
 export default function GroupCorporate() {
   const { t } = useTranslation();
-  const {
-    t
-  } = useTranslation();
+
   const {
     toast
   } = useToast();

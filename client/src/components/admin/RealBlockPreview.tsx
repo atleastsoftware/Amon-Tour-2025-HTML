@@ -131,9 +131,6 @@ const PreviewWrapper = ({
   identifier: string;
   children: React.ReactNode;
 }) => {
-  const {
-    t: t
-  } = useTranslation();
   const scaleSettings = calculateOptimalPreviewScale(identifier, 450);
   if (identifier === 'hero_main_v2') {
     // HERO: APPROCHE SPÉCIALE - BACKGROUND ÉTENDU AU CONTENEUR COMPLET
@@ -216,9 +213,6 @@ function MiniaturizedComponent({
   block: PageBlock;
   liveConfiguration?: any;
 }) {
-  const {
-    t: t
-  } = useTranslation();
   const renderVisualPreview = () => {
     const config = block.configuration || {};
     // Merger liveConfiguration si disponible pour les mises à jour en temps réel
@@ -649,8 +643,7 @@ function MiniaturizedComponent({
       })
     }}>
         {renderVisualPreview()}
-        
-        
+
         <div className="absolute inset-0 bg-transparent pointer-events-none" />
       </div>
     </>;
@@ -664,9 +657,6 @@ function BlockHistoryModal({
   block: PageBlock;
   onRestore: (version: number) => void;
 }) {
-  const {
-    t: t
-  } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const {
     data: history,
@@ -796,9 +786,6 @@ function BlockEditForm({
   hasUnsavedChanges?: boolean;
   onCancel?: () => void;
 }) {
-  const {
-    t: t
-  } = useTranslation();
   const queryClient = useQueryClient();
 
   // Sauvegarde automatique de la version avant modification
@@ -1104,9 +1091,8 @@ export default function RealBlockPreview({
   onToggleVisibility,
   onEditHero
 }: RealBlockPreviewProps) {
-  const {
-    t: t
-  } = useTranslation();
+  const { t } = useTranslation();
+
   const [showEditForm, setShowEditForm] = useState(false);
   const [previewData, setPreviewData] = useState(block);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);

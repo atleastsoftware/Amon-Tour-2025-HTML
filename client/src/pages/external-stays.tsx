@@ -6,9 +6,7 @@ import Footer from "@/components/layout/Footer";
 import TourNinjaSection from "@/components/tour/TourNinjaSection";
 export default function ExternalStays() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

@@ -22,9 +22,7 @@ const loginSchema = z.object({
 type LoginFormData = z.infer<typeof loginSchema>;
 export default function Login() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   const [, setLocation] = useLocation();
   const {
     isAuthenticated

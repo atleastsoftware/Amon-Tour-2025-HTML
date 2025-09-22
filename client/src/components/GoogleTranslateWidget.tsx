@@ -33,9 +33,7 @@ const languages: Language[] = [{
 }];
 export default function GoogleTranslateWidget() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState<string>("en");
   const widgetRef = useRef<HTMLDivElement>(null);

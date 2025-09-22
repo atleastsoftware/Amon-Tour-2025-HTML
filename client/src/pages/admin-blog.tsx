@@ -54,9 +54,7 @@ interface BlogCategory {
 }
 export default function AdminBlogNew() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
   const {

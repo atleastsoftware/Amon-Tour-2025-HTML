@@ -9,9 +9,7 @@ import { Switch } from "@/components/ui/switch";
 import { Globe, Settings, TestTube, Info } from "lucide-react";
 export default function TranslationManager() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   const [isAutoEnabled, setIsAutoEnabled] = useState(localStorage.getItem('amon-tour-auto-translate') !== 'disabled');
   const [testResult, setTestResult] = useState<string | null>(null);
   const handleToggleAuto = (enabled: boolean) => {

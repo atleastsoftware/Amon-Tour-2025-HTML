@@ -15,14 +15,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Button } from "@/components/ui/button";
 export default function CustomTourForm() {
   const { t } = useTranslation();
+
   const {
     toast
   } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const datePickerRef = useRef<HTMLInputElement | null>(null);
-  const {
-    t
-  } = useTranslation();
   const customTourSchema = z.object({
     name: z.string().min(2, {
       message: t('forms.fullNameRequired')

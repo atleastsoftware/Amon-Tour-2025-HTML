@@ -32,9 +32,7 @@ interface CustomTourRequest {
 }
 export default function AdminCustomTours() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   const [selectedRequest, setSelectedRequest] = useState<CustomTourRequest | null>(null);
   const [statusFilter, setStatusFilter] = useState("");
   const [searchQuery, setSearchQuery] = useState("");

@@ -36,12 +36,8 @@ interface BlogPost {
 const popularToursData = {
   'phi-phi': {
     id: '_LkIo_9vyF',
-    title: t('Koh Phi Phi & Ao Nang\'s local islands', {
-      defaultValue: 'Koh Phi Phi & Ao Nang\'s local islands'
-    }),
-    description: t('Full-day excursion to the paradisiacal Phi Phi islands and Ao Nang\'s local islands. Discover white sand beaches, crystal-clear waters and breathtaking landscapes.', {
-      defaultValue: 'Full-day excursion to the paradisiacal Phi Phi islands and Ao Nang\'s local islands. Discover white sand beaches, crystal-clear waters and breathtaking landscapes.'
-    }),
+    title: 'Koh Phi Phi & Ao Nang\'s local islands',
+    description: 'Full-day excursion to the paradisiacal Phi Phi islands and Ao Nang\'s local islands. Discover white sand beaches, crystal-clear waters and breathtaking landscapes.',
     duration: "1 day",
     price: 2500,
     currency: "THB",
@@ -49,12 +45,8 @@ const popularToursData = {
   },
   'railay': {
     id: '8avSq2JCG8',
-    title: t('Railay & Ao Nang\'s local islands', {
-      defaultValue: 'Railay & Ao Nang\'s local islands'
-    }),
-    description: t('Explore the magnificent Railay Beach, accessible only by boat, and Ao Nang\'s local islands. Perfect for rock climbing, relaxation and discovery.', {
-      defaultValue: 'Explore the magnificent Railay Beach, accessible only by boat, and Ao Nang\'s local islands. Perfect for rock climbing, relaxation and discovery.'
-    }),
+    title: 'Railay & Ao Nang\'s local islands',
+    description: 'Explore the magnificent Railay Beach, accessible only by boat, and Ao Nang\'s local islands. Perfect for rock climbing, relaxation and discovery.',
     duration: "1 day",
     price: 2500,
     currency: "THB",
@@ -62,12 +54,8 @@ const popularToursData = {
   },
   'hong-island': {
     id: '9Pw3VgOKha',
-    title: t('Koh Hong Archipelago', {
-      defaultValue: 'Koh Hong Archipelago'
-    }),
-    description: t('Discover the Koh Hong archipelago with its hidden emerald lagoons, white sand beaches and spectacular rock formations. An unforgettable experience.', {
-      defaultValue: 'Discover the Koh Hong archipelago with its hidden emerald lagoons, white sand beaches and spectacular rock formations. An unforgettable experience.'
-    }),
+    title: 'Koh Hong Archipelago',
+    description: 'Discover the Koh Hong archipelago with its hidden emerald lagoons, white sand beaches and spectacular rock formations. An unforgettable experience.',
     duration: "1 day",
     price: 2500,
     currency: "THB",
@@ -75,12 +63,8 @@ const popularToursData = {
   },
   'four-islands': {
     id: 'gH5kL9mN2p',
-    title: t('4 Islands Tour - Krabi\'s Must-Do Excursion', {
-      defaultValue: '4 Islands Tour - Krabi\'s Must-Do Excursion'
-    }),
-    description: t('Visit the famous 4 islands: Chicken Island, Tup Island, Poda Island, and Phra Nang Cave Beach. Perfect introduction to Krabi\'s natural beauty.', {
-      defaultValue: 'Visit the famous 4 islands: Chicken Island, Tup Island, Poda Island, and Phra Nang Cave Beach. Perfect introduction to Krabi\'s natural beauty.'
-    }),
+    title: '4 Islands Tour - Krabi\'s Must-Do Excursion',
+    description: 'Visit the famous 4 islands: Chicken Island, Tup Island, Poda Island, and Phra Nang Cave Beach. Perfect introduction to Krabi\'s natural beauty.',
     duration: "1 day",
     price: 1800,
     currency: "THB",
@@ -88,12 +72,8 @@ const popularToursData = {
   },
   'sunset-plankton': {
     id: 'IGdQFwdJK8',
-    title: t('Koh Hong & Ao Nang\'s local islands Sunset and Plankton', {
-      defaultValue: 'Koh Hong & Ao Nang\'s local islands Sunset and Plankton'
-    }),
-    description: t('Magical experience combining sunset over Ao Nang islands and bioluminescent plankton observation at night. Unique and romantic moment.', {
-      defaultValue: 'Magical experience combining sunset over Ao Nang islands and bioluminescent plankton observation at night. Unique and romantic moment.'
-    }),
+    title: 'Koh Hong & Ao Nang\'s local islands Sunset and Plankton',
+    description: 'Magical experience combining sunset over Ao Nang islands and bioluminescent plankton observation at night. Unique and romantic moment.',
     duration: "1 day",
     price: 2500,
     currency: "THB",
@@ -101,12 +81,8 @@ const popularToursData = {
   },
   'catamaran': {
     id: 'Wmx1GfDdXL',
-    title: t('Catamaran day trip - Ao Nang\'s local islands', {
-      defaultValue: 'Catamaran day trip - Ao Nang\'s local islands'
-    }),
-    description: t('Luxurious catamaran cruise to Ao Nang\'s local islands. A premium experience with comfort and elegance.', {
-      defaultValue: 'Luxurious catamaran cruise to Ao Nang\'s local islands. A premium experience with comfort and elegance.'
-    }),
+    title: 'Catamaran day trip - Ao Nang\'s local islands',
+    description: 'Luxurious catamaran cruise to Ao Nang\'s local islands. A premium experience with comfort and elegance.',
     duration: "1 day",
     price: 3500,
     currency: "THB",
@@ -169,9 +145,7 @@ const getRelatedTours = (slug: string) => {
 };
 export default function BlogPostPage() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   const [, params] = useRoute("/blog/:slug");
   const {
     data: post,

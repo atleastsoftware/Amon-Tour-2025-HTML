@@ -38,9 +38,6 @@ function EditableField({
   className = '',
   rows = 3
 }: EditableFieldProps) {
-  const {
-    t: t
-  } = useTranslation();
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState(value);
   const [isSaving, setIsSaving] = useState(false);
@@ -304,9 +301,6 @@ function ContactInfoManager({
   updateSiteSetting,
   updateSiteSettingMutation
 }: any) {
-  const {
-    t: t
-  } = useTranslation();
   const getContactInfo = () => {
     const setting = siteSettings && Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.section === 'footer' && s.key === 'contact_info') : null;
     if (setting?.value) {
@@ -583,9 +577,6 @@ function UsefulLinksManager({
   updateSiteSettingMutation,
   availablePages
 }: any) {
-  const {
-    t: t
-  } = useTranslation();
   const getUsefulLinks = () => {
     const setting = siteSettings && Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.section === 'footer' && s.key === 'useful_links') : null;
     if (setting?.value) {
@@ -881,9 +872,6 @@ function SocialMediaManager({
   updateSiteSetting,
   updateSiteSettingMutation
 }: any) {
-  const {
-    t: t
-  } = useTranslation();
   const getSocialMedia = () => {
     const setting = siteSettings && Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.section === 'footer' && s.key === 'social_media') : null;
     if (setting?.value) {
@@ -1137,9 +1125,6 @@ function NewsletterManager({
   updateSiteSetting,
   updateSiteSettingMutation
 }: any) {
-  const {
-    t: t
-  } = useTranslation();
   const getNewsletterConfig = () => {
     const setting = siteSettings && Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.section === 'footer' && s.key === 'newsletter_config') : null;
     if (setting?.value) {
@@ -1244,9 +1229,6 @@ function CopyrightManager({
   updateSiteSetting,
   updateSiteSettingMutation
 }: any) {
-  const {
-    t: t
-  } = useTranslation();
   const getCopyrightConfig = () => {
     const setting = siteSettings && Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.section === 'footer' && s.key === 'copyright_config') : null;
     if (setting?.value) {
@@ -1317,9 +1299,6 @@ function PageManagementInterface({
   pageConfigs: PageConfiguration[];
   updatePageConfigMutation: any;
 }) {
-  const {
-    t: t
-  } = useTranslation();
   const currentPageConfig = pageConfigs.find(p => p.pageSlug === selectedPage);
   if (!currentPageConfig) {
     return <div className="text-center py-12">
@@ -1482,7 +1461,6 @@ function PageManagementInterface({
         </CardContent>
       </Card>
 
-
       {/* Page References */}
       <Card>
         <CardHeader>
@@ -1508,7 +1486,6 @@ function PageManagementInterface({
             </div>}
         </CardContent>
       </Card>
-
 
       {/* Technical Information */}
       <Card>
@@ -1561,9 +1538,7 @@ function PageManagementInterface({
 }
 export default function AdminAppearance() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   const [, setLocation] = useLocation();
   const [activeCategory, setActiveCategory] = useState<string>('theme');
   const [selectedPage, setSelectedPage] = useState<string>('navigation-menu');
@@ -4457,7 +4432,6 @@ export default function AdminAppearance() {
             </div>
           </TabsContent>
 
-
           {/* Footer Management */}
           <TabsContent value="footer">
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 sm:gap-6">
@@ -4577,9 +4551,6 @@ function NavigationMenuManager({
   pageConfigs?: PageConfiguration[];
   navigationMenuItems?: NavigationMenuItem[];
 }) {
-  const {
-    t: t
-  } = useTranslation();
   const queryClient = useQueryClient();
   const [editingItem, setEditingItem] = useState<NavigationMenuItem | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -5022,7 +4993,6 @@ function NavigationMenuManager({
         })}</Button>
       </div>
 
-
       {/* Menu Items List */}
       <div>
         <h3 className="text-lg font-semibold flex items-center gap-2 mb-4">
@@ -5080,9 +5050,6 @@ function MenuItemRow({
   onReorder: (id: number, direction: 'up' | 'down') => void;
   onAddChild: (parentId: number) => void;
 }) {
-  const {
-    t: t
-  } = useTranslation();
   return <div className="space-y-1">
       {/* Parent Item */}
       <div className="flex items-center gap-3 p-3 border rounded-lg bg-white hover:bg-gray-50">
@@ -5218,9 +5185,6 @@ function MenuItemDialog({
   isLoading: boolean;
   pageConfigs?: PageConfiguration[];
 }) {
-  const {
-    t: t
-  } = useTranslation();
   const [formData, setFormData] = useState({
     name: '',
     url: '',
@@ -5401,9 +5365,6 @@ function RealBlocksEditor({
   saveHeroChanges: () => Promise<void>;
   handleEditHero: (blockId: number) => void;
 }) {
-  const {
-    t: t
-  } = useTranslation();
   const queryClient = useQueryClient();
 
   // Mutations pour les opérations sur les blocs

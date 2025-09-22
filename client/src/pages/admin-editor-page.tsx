@@ -19,9 +19,6 @@ interface PageConfiguration {
   updatedAt?: string;
 }
 function AdminEditorPageContent() {
-  const {
-    t: t
-  } = useTranslation();
   const [, setLocation] = useLocation();
   const [isAddPageModalOpen, setIsAddPageModalOpen] = useState(false);
 
@@ -227,9 +224,7 @@ function AdminEditorPageContent() {
 }
 export default function AdminEditorPage() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   return <AdminGuard>
       <AdminEditorPageContent />
     </AdminGuard>;

@@ -24,9 +24,6 @@ const NavLink = ({
   isHomePage?: boolean;
   scrolled?: boolean;
 }) => {
-  const {
-    t: t
-  } = useTranslation();
   const textColor = isHomePage && !scrolled ? isActive ? "text-primary drop-shadow-lg" : "text-primary-foreground hover:text-primary drop-shadow-lg" : isActive ? "text-primary" : "text-neutral-700 hover:text-primary";
   return <Link href={href}>
       <motion.span onClick={onClick} className={`font-heading font-semibold transition-colors cursor-pointer relative ${textColor}`} whileHover={{
@@ -41,6 +38,7 @@ const NavLink = ({
 };
 export default function Header() {
   const { t } = useTranslation();
+
   const [location] = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -50,10 +48,6 @@ export default function Header() {
   const isHomePage = location === '/';
 
   // Get translations
-  const {
-    t
-  } = useTranslation();
-
   // Fetch notification bar settings
   const {
     data: siteSettings

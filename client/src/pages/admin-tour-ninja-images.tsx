@@ -17,9 +17,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Progress } from "@/components/ui/progress";
 export default function AdminTourNinjaImages() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   const {
     toast
   } = useToast();

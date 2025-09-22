@@ -12,9 +12,7 @@ import { motion } from "framer-motion";
 import { ImagePlus, FileText, BookOpen, Mail, Users, Calendar, PartyPopper, Handshake, UsersIcon, Newspaper, Settings, LogOut } from "lucide-react";
 export default function AdminDashboard() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   const {
     isAuthenticated,
     isLoading: authLoading

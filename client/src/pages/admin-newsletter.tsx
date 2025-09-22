@@ -22,9 +22,7 @@ interface NewsletterSubscription {
 }
 export default function AdminNewsletterPage() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const {

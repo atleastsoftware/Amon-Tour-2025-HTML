@@ -26,9 +26,7 @@ interface TourCardData {
 }
 export default function TourCardBuilder() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   const {
     isAuthenticated,
     isLoading: authLoading

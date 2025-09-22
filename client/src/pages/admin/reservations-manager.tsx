@@ -19,9 +19,7 @@ import { Reservation, Tour, TourAvailability } from "@shared/schema";
 import { formatTHB } from "@/lib/utils";
 export default function ReservationsManager() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   const {
     isAuthenticated
   } = useIsAuthenticated();

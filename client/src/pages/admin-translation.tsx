@@ -10,9 +10,7 @@ import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 export default function AdminTranslation() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   const {
     isAuthenticated,
     isLoading

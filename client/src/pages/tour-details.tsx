@@ -9,9 +9,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, ExternalLink, Loader2 } from "lucide-react";
 export default function TourDetails() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   const [, params] = useRoute("/tour/:id");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

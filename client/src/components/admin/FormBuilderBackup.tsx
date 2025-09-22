@@ -168,9 +168,6 @@ function ColorPicker({
   onChange,
   label
 }: ColorPickerProps) {
-  const {
-    t: t
-  } = useTranslation();
   const [isEditingCustom, setIsEditingCustom] = useState(false);
   const [customInput, setCustomInput] = useState('');
   const currentColorValue = value || 'hsl(var(--background))';
@@ -289,9 +286,8 @@ export default function FormBuilder({
   onSave,
   onCancel
 }: FormBuilderProps) {
-  const {
-    t: t
-  } = useTranslation();
+  const { t } = useTranslation();
+
   const {
     toast
   } = useToast();

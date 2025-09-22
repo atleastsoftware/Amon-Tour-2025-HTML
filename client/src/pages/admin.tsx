@@ -12,9 +12,7 @@ import { motion } from "framer-motion";
 import { ImagePlus, FileText, BookOpen, Mail, Users, Calendar, PartyPopper, Handshake, UsersIcon, Newspaper, Settings, LogOut, Image, Globe, Palette } from "lucide-react";
 export default function Admin() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   const {
     isAuthenticated,
     isLoading: authLoading
@@ -412,7 +410,6 @@ export default function Admin() {
                   </CardContent>
                 </Card>
               </motion.div>
-
 
             </div>
           </motion.div>

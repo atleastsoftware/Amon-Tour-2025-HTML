@@ -8,9 +8,7 @@ import { motion } from 'framer-motion';
 import logoAmon from "@assets/IMG_1454-removebg-preview.png";
 export default function BookingIframe() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   const [, setLocation] = useLocation();
   const [bookingLink, setBookingLink] = useState<string>('');
   const [title, setTitle] = useState<string>('');

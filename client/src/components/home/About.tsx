@@ -3,9 +3,7 @@ import amonTourTeam from "@/assets/amon-tour-team.jpg";
 import { useTranslation } from 'react-i18next';
 export default function About() {
   const { t } = useTranslation();
-  const {
-    t
-  } = useTranslation();
+
   return <section id="who-we-are" className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -29,8 +27,6 @@ export default function About() {
             <p className="text-muted-foreground mb-6">
               {t('home.deepLocalRootsExplanation')}
             </p>
-            
-
 
             <h3 className="font-heading font-semibold text-2xl mt-6 mb-3">
               {t('home.ourConceptTitle')}

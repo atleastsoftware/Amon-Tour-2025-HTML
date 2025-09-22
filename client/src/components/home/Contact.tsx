@@ -26,9 +26,7 @@ const contactSchema = z.object({
 type ContactFormData = z.infer<typeof contactSchema>;
 export default function Contact() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   const {
     toast
   } = useToast();

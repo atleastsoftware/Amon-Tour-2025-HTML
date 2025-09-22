@@ -4,9 +4,7 @@ import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
 export default function CookieConsent() {
   const { t } = useTranslation();
-  const {
-    t
-  } = useTranslation();
+
   const [isVisible, setIsVisible] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   useEffect(() => {

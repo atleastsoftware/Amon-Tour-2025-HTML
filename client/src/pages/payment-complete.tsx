@@ -10,9 +10,7 @@ import { loadStripe } from "@stripe/stripe-js";
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 export default function PaymentComplete() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   const [paymentStatus, setPaymentStatus] = useState<'success' | 'processing' | 'error' | 'loading'>('loading');
   const [paymentError, setPaymentError] = useState<string | null>(null);
   const [, navigate] = useLocation();

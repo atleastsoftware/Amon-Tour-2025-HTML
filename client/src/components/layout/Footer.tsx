@@ -89,11 +89,8 @@ function renderContactInfo(item: any, translateContactText: (text: string) => st
 }
 export default function Footer() {
   const { t } = useTranslation();
-  // Initialize i18next translation hook
-  const {
-    t
-  } = useTranslation();
 
+  // Initialize i18next translation hook
   // Function to translate footer links
   const translateFooterLink = (englishText: string): string => {
     const linkTranslations: {

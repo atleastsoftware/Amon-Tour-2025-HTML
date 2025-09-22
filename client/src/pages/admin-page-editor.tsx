@@ -24,9 +24,6 @@ function ColorPicker({
   onChange,
   label
 }: ColorPickerProps) {
-  const {
-    t: t
-  } = useTranslation();
   const [isEditingCustom, setIsEditingCustom] = useState(false);
   const [customInput, setCustomInput] = useState('');
   const currentColorValue = value || '#ffffff';
@@ -252,9 +249,6 @@ const RealBlockPreview = ({
   isFullscreen: boolean;
   liveConfiguration?: any;
 }) => {
-  const {
-    t: t
-  } = useTranslation();
   const getActualComponent = () => {
     switch (block.identifier) {
       case 'hero_main':
@@ -954,9 +948,6 @@ const BlockEditDropdown = ({
   onCancel: () => void;
   onPreviewUpdate?: (config: any) => void;
 }) => {
-  const {
-    t: t
-  } = useTranslation();
   const [formData, setFormData] = useState(block.configuration || {});
   const updateField = (key: string, value: any) => {
     const newFormData = {
@@ -2692,9 +2683,7 @@ const BlockEditDropdown = ({
 };
 export default function AdminPageEditor() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   const [, setLocation] = useLocation();
   const [previewMode, setPreviewMode] = useState<'normal' | 'fullscreen'>('normal');
   const [editingBlockId, setEditingBlockId] = useState<number | null>(null);

@@ -37,10 +37,9 @@ function ColorPicker({
   value,
   onChange
 }: ColorPickerProps) {
-  const {
-    t: t
-  } = useTranslation();
   const getColorValue = (colorName: string) => {
+  const { t } = useTranslation();
+
     return SYSTEM_COLORS[colorName as keyof typeof SYSTEM_COLORS] || colorName;
   };
   const handleQuickColorClick = (colorName: string) => {
@@ -120,9 +119,6 @@ export function BlockConfigModal({
   block,
   onSave
 }: BlockConfigModalProps) {
-  const {
-    t: t
-  } = useTranslation();
   const [config, setConfig] = useState<any>({});
   const [activeTab, setActiveTab] = useState('content');
   useEffect(() => {

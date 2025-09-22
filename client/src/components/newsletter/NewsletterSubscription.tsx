@@ -9,9 +9,7 @@ const emailSchema = z.object({
 });
 export default function NewsletterSubscription() {
   const { t } = useTranslation();
-  const {
-    t
-  } = useTranslation();
+
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);

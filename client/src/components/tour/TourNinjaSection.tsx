@@ -6,9 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useTranslation } from 'react-i18next';
 export default function TourNinjaSection() {
   const { t } = useTranslation();
-  const {
-    t
-  } = useTranslation();
+
   const {
     tours,
     isLoading,

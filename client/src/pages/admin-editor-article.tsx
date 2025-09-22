@@ -7,9 +7,7 @@ import { ArrowLeft, Plus, Edit, Trash2, Eye, Users } from 'lucide-react';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 export default function AdminEditorArticle() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   const [, setLocation] = useLocation();
 
   // Articles existants (placeholder - sera remplacé par de vraies données plus tard)

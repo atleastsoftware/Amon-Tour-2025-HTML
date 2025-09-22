@@ -28,9 +28,7 @@ interface PartnershipRequest {
 }
 export default function AdminPartnershipRequests() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   const {
     isAuthenticated,
     isLoading

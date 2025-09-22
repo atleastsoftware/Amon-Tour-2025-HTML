@@ -4,9 +4,7 @@ import { motion } from 'framer-motion';
 import logo from '@assets/IMG_1454-removebg-preview.png';
 export default function HeaderSimple() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   return <header className="bg-white shadow-sm py-2 border-b">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center">

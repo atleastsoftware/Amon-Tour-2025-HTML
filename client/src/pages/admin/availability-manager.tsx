@@ -47,9 +47,7 @@ type AvailabilityFormValues = z.infer<typeof availabilitySchema>;
 type BulkAvailabilityFormValues = z.infer<typeof bulkAvailabilitySchema>;
 export default function AvailabilityManager() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   const {
     isAuthenticated
   } = useIsAuthenticated();

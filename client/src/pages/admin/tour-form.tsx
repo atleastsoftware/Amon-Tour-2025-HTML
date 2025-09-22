@@ -30,9 +30,7 @@ const tourFormSchema = insertTourSchema.extend({
 type TourFormData = z.infer<typeof tourFormSchema>;
 export default function TourForm() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   const [, setLocation] = useLocation();
   const search = useSearch();
   const params = new URLSearchParams(search);

@@ -16,9 +16,7 @@ import { Link } from "wouter";
 import { Edit, Trash2, LogOut, Plus, ChevronLeft, Eye } from "lucide-react";
 export default function Dashboard() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   const [, setLocation] = useLocation();
   const {
     isAuthenticated,

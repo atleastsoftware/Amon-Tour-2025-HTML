@@ -12,9 +12,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 export default function AdminLogin() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const login = useLogin();

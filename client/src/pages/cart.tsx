@@ -4,9 +4,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 export default function Cart() {
   const { t } = useTranslation();
-  const {
-    t: t
-  } = useTranslation();
+
   const {
     toast
   } = useToast();
