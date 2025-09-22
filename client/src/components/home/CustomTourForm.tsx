@@ -6,7 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
-import { useTranslation } from 'react-i18next';
+import { t } from '@/lib/translation';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -14,9 +14,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 export default function CustomTourForm() {
-  const {
-    t
-  } = useTranslation();
   const {
     toast
   } = useToast();
@@ -94,23 +91,15 @@ export default function CustomTourForm() {
       };
       await apiRequest("POST", "/api/custom-tour", requestData);
       toast({
-        title: t("Request sent", {
-          defaultValue: "Request sent"
-        }),
-        description: t("We will contact you very soon to discuss your travel project.", {
-          defaultValue: "We will contact you very soon to discuss your travel project."
-        }),
+        title: t("Request sent"),
+        description: t("We will contact you very soon to discuss your travel project."),
         variant: "default"
       });
       form.reset();
     } catch (error) {
       toast({
-        title: t("Error", {
-          defaultValue: "Error"
-        }),
-        description: t("There was a problem sending your request. Please try again.", {
-          defaultValue: "There was a problem sending your request. Please try again."
-        }),
+        title: t("Error"),
+        description: t("There was a problem sending your request. Please try again."),
         variant: "destructive"
       });
     } finally {
@@ -278,9 +267,7 @@ export default function CustomTourForm() {
           <div className="grid grid-cols-1 md:grid-cols-2">
             {/* Image Side */}
             <div className="h-64 md:h-auto relative">
-              <img src="/catamaran-cruise.png" alt={t("Catamaran cruise in Thailand", {
-              defaultValue: "Catamaran cruise in Thailand"
-            })} className="w-full h-full object-cover" />
+              <img src="/catamaran-cruise.png" alt={t("Catamaran cruise in Thailand")} className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-r from-primary/70 to-transparent flex flex-col justify-center p-8 text-white">
                 <h3 className="font-heading font-bold text-3xl mb-3">{t('home.customTripTitle')}</h3>
                 <p className="max-w-xs">{t('home.customTripSubtitle')} {t('home.customTripDescription')}</p>
@@ -382,9 +369,7 @@ export default function CustomTourForm() {
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                              <SelectItem value="0">{t("Nokids", {
-                            defaultValue: "Nokids"
-                          })}</SelectItem>
+                              <SelectItem value="0">{t("Nokids")}</SelectItem>
                               <SelectItem value="1">1 kid</SelectItem>
                               <SelectItem value="2">2 kids</SelectItem>
                               <SelectItem value="3">3 kids</SelectItem>
@@ -494,15 +479,11 @@ export default function CustomTourForm() {
                   {/* WhatsApp Contact Button */}
                   <div className="mt-4 pt-4 border-t border-gray-200">
                     <p className="text-center text-sm text-gray-600 mb-3">
-                      {t("Homeorcontactdirectl", {
-                      defaultValue: "Homeorcontactdirectl"
-                    })}
+                      {t("Homeorcontactdirectl")}
                     </p>
                     <a href="https://wa.me/66653496445?text=Hello%20Amon%20Tour,%20I%20would%20like%20to%20inquire%20about%20a%20custom%20tour." target="_blank" rel="noopener noreferrer" className="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-md font-heading font-semibold transition-colors duration-200 flex items-center justify-center gap-2 shadow-md hover:shadow-lg">
                       <i className="fab fa-whatsapp text-xl" aria-hidden="true"></i>
-                      {t("Homecontactwhatsapp", {
-                      defaultValue: "Homecontactwhatsapp"
-                    })}
+                      {t("Homecontactwhatsapp")}
                     </a>
                   </div>
                 </form>

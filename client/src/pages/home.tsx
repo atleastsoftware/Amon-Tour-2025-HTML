@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import { useTranslation } from 'react-i18next';
 import SEO from "@/components/layout/SEO";
 import Hero from "@/components/home/Hero";
 import Features from "@/components/home/Features";
