@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
+import { useTranslation } from 'react-i18next';
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
@@ -16,6 +17,7 @@ import { useTourNinjaWithCustomImages, type TourNinjaTour } from "@/hooks/useTou
 import { useIframe } from "@/contexts/IframeContext";
 
 export default function Tours() {
+  const { t } = useTranslation();
   const { tours, isLoading, error, success, cached, fallback } = useTourNinjaWithCustomImages();
   const { openIframe } = useIframe();
   
@@ -50,7 +52,7 @@ export default function Tours() {
     if (tour.price > 0) {
       return formatTHB(tour.price);
     }
-    return "Price on request";
+    return t('Price on request', { defaultValue: 'Price on request' });
   };
 
   // Extraire les options de filtre dynamiquement des données de l'API
@@ -186,16 +188,16 @@ export default function Tours() {
       <main className="min-h-screen bg-gradient-to-br from-primary/10 to-primary/20">
         {/* Hero */}
         <HeroHeader 
-          title="Our Experiences"
-          subtitle="Discover the exceptional beauty of Krabi and southern Thailand."
-          alt="Tours and experiences in Thailand"
+          title={t('Our Experiences', { defaultValue: 'Our Experiences' })}
+          subtitle={t('Discover the exceptional beauty of Krabi and southern Thailand.', { defaultValue: 'Discover the exceptional beauty of Krabi and southern Thailand.' })}
+          alt={t('Tours and experiences in Thailand', { defaultValue: 'Tours and experiences in Thailand' })}
         />
 
         {/* Filtres */}
         <section className="container mx-auto px-4 py-8">
           <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
             <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold text-gray-800">Filters</h2>
+              <h2 className="text-xl font-semibold text-gray-800">{t('Filters', { defaultValue: 'Filters' })}</h2>
               <Button
                 variant="ghost"
                 size="sm"
@@ -203,7 +205,7 @@ export default function Tours() {
                 className="md:hidden"
               >
                 <Filter className="h-4 w-4 mr-2" />
-                {showFilters ? 'Hide' : 'Show'} filters
+                {showFilters ? t('Hide', { defaultValue: 'Hide' }) : t('Show', { defaultValue: 'Show' })} {t('filters', { defaultValue: 'filters' })}
               </Button>
             </div>
 
@@ -212,7 +214,7 @@ export default function Tours() {
               <div className="relative md:col-span-2 lg:col-span-2">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                 <Input
-                  placeholder="Search for a tour..."
+                  placeholder={t('Search for a tour...', { defaultValue: 'Search for a tour...' })}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-10"
@@ -222,10 +224,10 @@ export default function Tours() {
               {/* Prix */}
               <Select value={priceRange} onValueChange={setPriceRange}>
                 <SelectTrigger>
-                  <SelectValue placeholder="All prices" />
+                  <SelectValue placeholder={t('All prices', { defaultValue: 'All prices' })} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All prices</SelectItem>
+                  <SelectItem value="all">{t('All prices', { defaultValue: 'All prices' })}</SelectItem>
                   {filterOptions.priceRanges.map(range => (
                     <SelectItem key={range.value} value={range.value}>
                       {range.label}
@@ -237,10 +239,10 @@ export default function Tours() {
               {/* Durée */}
               <Select value={durationFilter} onValueChange={setDurationFilter}>
                 <SelectTrigger>
-                  <SelectValue placeholder="All durations" />
+                  <SelectValue placeholder={t('All durations', { defaultValue: 'All durations' })} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All durations</SelectItem>
+                  <SelectItem value="all">{t('All durations', { defaultValue: 'All durations' })}</SelectItem>
                   {filterOptions.durations.map(duration => (
                     <SelectItem key={duration} value={duration.toString()}>
                       {duration} day{Number(duration) > 1 ? 's' : ''}
@@ -252,10 +254,10 @@ export default function Tours() {
               {/* Destination */}
               <Select value={destinationFilter} onValueChange={setDestinationFilter}>
                 <SelectTrigger>
-                  <SelectValue placeholder="All destinations" />
+                  <SelectValue placeholder={t('All destinations', { defaultValue: 'All destinations' })} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All destinations</SelectItem>
+                  <SelectItem value="all">{t('All destinations', { defaultValue: 'All destinations' })}</SelectItem>
                   {filterOptions.destinations.map(destination => (
                     <SelectItem key={destination} value={destination}>
                       {destination}
@@ -268,7 +270,7 @@ export default function Tours() {
               {hasActiveFilters && (
                 <Button variant="outline" onClick={clearFilters} className="w-full md:col-span-4 lg:col-span-5">
                   <X className="h-4 w-4 mr-2" />
-                  Clear filters
+                  {t('Clear filters', { defaultValue: 'Clear filters' })}
                 </Button>
               )}
             </div>
@@ -350,14 +352,14 @@ export default function Tours() {
                           variant="outline"
                           className="flex-1 border-primary text-primary hover:bg-primary/10"
                         >
-                          View details
+                          {t('View details', { defaultValue: 'View details' })}
                           <ExternalLink className="h-4 w-4 ml-2" />
                         </Button>
                         <Button 
                           onClick={() => handleTourBooking(tour)}
                           className="flex-1 bg-primary hover:bg-primary/90 text-white"
                         >
-                          Book
+                          {t('Book', { defaultValue: 'Book' })}
                           <ExternalLink className="h-4 w-4 ml-2" />
                         </Button>
                       </div>
@@ -374,7 +376,7 @@ export default function Tours() {
                 </div>
               ) : hasActiveFilters ? (
                 <Button onClick={clearFilters} variant="outline">
-                  Effacer les filtres
+                  {t('Clear filters', { defaultValue: 'Clear filters' })}
                 </Button>
               ) : null}
             </div>
