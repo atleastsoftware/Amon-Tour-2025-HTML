@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useTranslation } from 'react-i18next';
 
 export default function CookieConsent() {
+  const { t } = useTranslation();
   const [isVisible, setIsVisible] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
 
@@ -167,9 +169,9 @@ export default function CookieConsent() {
       <div className="bg-white border-t border-gray-200 shadow-lg px-4 py-3" data-testid="cookie-consent-dialog">
         <div className="container mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex-1">
-            <h4 className="text-sm font-semibold text-gray-900 mb-1">We Respect Your Privacy</h4>
+            <h4 className="text-sm font-semibold text-gray-900 mb-1">{t('cookies.privacyTitle')}</h4>
             <p className="text-xs text-gray-600 leading-relaxed">
-              This website uses cookies to enhance your browsing experience. By continuing to navigate, you accept our use of cookies.
+              {t('cookies.privacyMessage')}
             </p>
           </div>
           
