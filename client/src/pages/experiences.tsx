@@ -84,8 +84,8 @@ export default function Experiences() {
       
       <main>
         {/* Hero Banner */}
-        <HeroHeader title={t('pageHeaders.experiences.title')} subtitle={t('pageHeaders.experiences.subtitle')} alt={t("Thailandexperiencesa", {
-        defaultValue: "Thailandexperiencesa"
+        <HeroHeader title={t('pageHeaders.experiences.title')} subtitle={t('pageHeaders.experiences.subtitle')} alt={t("thailand experiences, authentic local activities, cultural tours krabi", {
+        defaultValue: "thailand experiences, authentic local activities, cultural tours krabi"
       })} />
         
         {/* Featured Tours Section - Tour Ninja Integration */}
@@ -93,12 +93,12 @@ export default function Experiences() {
           <div className="container mx-auto px-4 max-w-4xl text-center">
             <FadeInWhenVisible>
               <div className="mb-8">
-                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{t("Recommendedguidedtou", {
-                  defaultValue: "Recommendedguidedtou"
+                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{t("Recommended Guided Tours", {
+                  defaultValue: "Recommended Guided Tours"
                 })}</h2>
                 <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
-                <p className="text-lg text-gray-700 leading-relaxed">{t("Discoverourorganized", {
-                  defaultValue: "Discoverourorganized"
+                <p className="text-lg text-gray-700 leading-relaxed">{t("Discover our organized tours with English-speaking guides for an authentic Thailand experience", {
+                  defaultValue: "Discover our organized tours with English-speaking guides for an authentic Thailand experience"
                 })}</p>
               </div>
             </FadeInWhenVisible>
@@ -109,20 +109,20 @@ export default function Experiences() {
                 <Card className="h-full hover:shadow-xl transition-shadow duration-300 overflow-hidden">
                   <CardHeader className="p-0">
                     <div className="relative h-48 bg-gradient-to-r from-primary to-secondary">
-                      <img src="https://images.unsplash.com/photo-1528181304800-259b08848526?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt={t("Bangkoktemplesetpala", {
-                      defaultValue: "Bangkoktemplesetpala"
+                      <img src="https://images.unsplash.com/photo-1528181304800-259b08848526?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt={t("Bangkok temples et palais - Tour guid\xE9", {
+                      defaultValue: "Bangkok temples et palais - Tour guid\xE9"
                     })} className="w-full h-full object-cover" loading="lazy" />
                       <div className="absolute inset-0 bg-black bg-opacity-20"></div>
                       <div className="absolute top-4 left-4">
-                        <span className="bg-secondary text-white px-3 py-1 rounded-full text-sm font-semibold">{t("Culturehistory", {
-                          defaultValue: "Culturehistory"
+                        <span className="bg-secondary text-white px-3 py-1 rounded-full text-sm font-semibold">{t("Culture & History", {
+                          defaultValue: "Culture & History"
                         })}</span>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="p-6">
-                    <h3 className="text-xl font-bold text-gray-800 mb-3">{t("Bangkokessential", {
-                      defaultValue: "Bangkokessential"
+                    <h3 className="text-xl font-bold text-gray-800 mb-3">{t("Bangkok Essential", {
+                      defaultValue: "Bangkok Essential"
                     })}</h3>
                     <p className="text-gray-600 text-sm mb-4 leading-relaxed">{t("3dayculturaltourgran", {
                       defaultValue: "3dayculturaltourgran"
@@ -134,8 +134,8 @@ export default function Experiences() {
                       })}</span>
                     </div>
                     <div className="flex gap-2">
-                      <Button className="flex-1 bg-primary hover:bg-primary/90" onClick={() => window.open('https://tourninja.com/tours/bangkok-essential', '_blank')}>{t("Viewdetails", {
-                        defaultValue: "Viewdetails"
+                      <Button className="flex-1 bg-primary hover:bg-primary/90" onClick={() => window.open('https://tourninja.com/tours/bangkok-essential', '_blank')}>{t("View Details", {
+                        defaultValue: "View Details"
                       })}</Button>
                       <Button variant="outline" className="flex-1" onClick={() => window.location.href = '/contact?tour=Bangkok Essentiel'}>{t("Booknow", {
                         defaultValue: "Booknow"
@@ -155,15 +155,15 @@ export default function Experiences() {
                     })} className="w-full h-full object-cover" loading="lazy" />
                       <div className="absolute inset-0 bg-black bg-opacity-20"></div>
                       <div className="absolute top-4 left-4">
-                        <span className="bg-primary text-white px-3 py-1 rounded-full text-sm font-semibold">{t("Northadventure", {
-                          defaultValue: "Northadventure"
+                        <span className="bg-primary text-white px-3 py-1 rounded-full text-sm font-semibold">{t("North & Adventure", {
+                          defaultValue: "North & Adventure"
                         })}</span>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="p-6">
-                    <h3 className="text-xl font-bold text-gray-800 mb-3">{t("Goldentriangle", {
-                      defaultValue: "Goldentriangle"
+                    <h3 className="text-xl font-bold text-gray-800 mb-3">{t("Golden Triangle", {
+                      defaultValue: "Golden Triangle"
                     })}</h3>
                     <p className="text-gray-600 text-sm mb-4 leading-relaxed">{t("5dayjourneychiangmai", {
                       defaultValue: "5dayjourneychiangmai"
@@ -175,8 +175,8 @@ export default function Experiences() {
                       })}</span>
                     </div>
                     <div className="flex gap-2">
-                      <Button className="flex-1 bg-primary hover:bg-primary/90" onClick={() => window.open('https://tourninja.com/tours/golden-triangle', '_blank')}>{t("Viewdetails", {
-                        defaultValue: "Viewdetails"
+                      <Button className="flex-1 bg-primary hover:bg-primary/90" onClick={() => window.open('https://tourninja.com/tours/golden-triangle', '_blank')}>{t("View Details", {
+                        defaultValue: "View Details"
                       })}</Button>
                       <Button variant="outline" className="flex-1" onClick={() => window.location.href = '/contact?tour=Triangle d\'Or'}>{t("Booknow", {
                         defaultValue: "Booknow"
@@ -196,15 +196,15 @@ export default function Experiences() {
                     })} className="w-full h-full object-cover" loading="lazy" />
                       <div className="absolute inset-0 bg-black bg-opacity-20"></div>
                       <div className="absolute top-4 left-4">
-                        <span className="bg-secondary text-white px-3 py-1 rounded-full text-sm font-semibold">{t("Beachesislands", {
-                          defaultValue: "Beachesislands"
+                        <span className="bg-secondary text-white px-3 py-1 rounded-full text-sm font-semibold">{t("Beaches & Islands", {
+                          defaultValue: "Beaches & Islands"
                         })}</span>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="p-6">
-                    <h3 className="text-xl font-bold text-gray-800 mb-3">{t("Southernislands", {
-                      defaultValue: "Southernislands"
+                    <h3 className="text-xl font-bold text-gray-800 mb-3">{t("Southern Islands", {
+                      defaultValue: "Southern Islands"
                     })}</h3>
                     <p className="text-gray-600 text-sm mb-4 leading-relaxed">{t("7daytourphuketphiphi", {
                       defaultValue: "7daytourphuketphiphi"
@@ -216,8 +216,8 @@ export default function Experiences() {
                       })}</span>
                     </div>
                     <div className="flex gap-2">
-                      <Button className="flex-1 bg-primary hover:bg-primary/90" onClick={() => window.open('https://tourninja.com/tours/southern-islands', '_blank')}>{t("Viewdetails", {
-                        defaultValue: "Viewdetails"
+                      <Button className="flex-1 bg-primary hover:bg-primary/90" onClick={() => window.open('https://tourninja.com/tours/southern-islands', '_blank')}>{t("View Details", {
+                        defaultValue: "View Details"
                       })}</Button>
                       <Button variant="outline" className="flex-1" onClick={() => window.location.href = '/contact?tour=Îles du Sud'}>{t("Booknow", {
                         defaultValue: "Booknow"
@@ -231,15 +231,15 @@ export default function Experiences() {
             {/* Call to Action */}
             <FadeInWhenVisible>
               <div className="bg-blue-600 text-white rounded-xl p-8 text-center">
-                <h3 className="text-2xl font-bold mb-4">{t("Needacustomizedtour", {
-                  defaultValue: "Needacustomizedtour"
+                <h3 className="text-2xl font-bold mb-4">{t("Need a Customized Tour?", {
+                  defaultValue: "Need a Customized Tour?"
                 })}</h3>
-                <p className="text-blue-100 mb-6 max-w-2xl mx-auto">{t("Ourlocalexpertscreat", {
-                  defaultValue: "Ourlocalexpertscreat"
+                <p className="text-blue-100 mb-6 max-w-2xl mx-auto">{t("Our local experts create tailor-made itineraries according to your desires and budget.", {
+                  defaultValue: "Our local experts create tailor-made itineraries according to your desires and budget."
                 })}{t('pageHeaders.experiences.organizeDreamTrip')}
                 </p>
-                <Button size="lg" variant="secondary" className="bg-white text-primary hover:bg-gray-100" onClick={() => window.location.href = '/contact?subject=Custom Tour'}>{t("Requestafreequote", {
-                  defaultValue: "Requestafreequote"
+                <Button size="lg" variant="secondary" className="bg-white text-primary hover:bg-gray-100" onClick={() => window.location.href = '/contact?subject=Custom Tour'}>{t("Request a Free Quote", {
+                  defaultValue: "Request a Free Quote"
                 })}</Button>
               </div>
             </FadeInWhenVisible>
@@ -259,8 +259,8 @@ export default function Experiences() {
             }} transition={{
               duration: 0.6
             }}>
-                <h2 className="font-heading font-semibold text-xl mb-4">{t("Filterexperiences", {
-                  defaultValue: "Filterexperiences"
+                <h2 className="font-heading font-semibold text-xl mb-4">{t("Filter Experiences", {
+                  defaultValue: "Filter Experiences"
                 })}</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
                   <motion.div whileHover={{
@@ -275,8 +275,8 @@ export default function Experiences() {
                     <Input id="search" type="text" placeholder={t('pageHeaders.experiences.searchPlaceholder')} value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
                   </motion.div>
                   <div className="lg:col-span-3 flex items-end">
-                    <div className="text-sm text-gray-500">{t("Usethesearchabovetof", {
-                      defaultValue: "Usethesearchabovetof"
+                    <div className="text-sm text-gray-500">{t("Use the search above to find specific experiences", {
+                      defaultValue: "Use the search above to find specific experiences"
                     })}</div>
                   </div>
                 </div>
@@ -314,8 +314,8 @@ export default function Experiences() {
           }} transition={{
             duration: 0.5
           }}>
-                <p className="text-gray-500">{t("Noexperiencesavailab", {
-                defaultValue: "Noexperiencesavailab"
+                <p className="text-gray-500">{t("No experiences available matching your search. Try different keywords or create some experiences in the admin panel!", {
+                defaultValue: "No experiences available matching your search. Try different keywords or create some experiences in the admin panel!"
               })}</p>
               </motion.div>}
           </div>

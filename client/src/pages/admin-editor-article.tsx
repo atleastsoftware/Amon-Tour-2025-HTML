@@ -55,8 +55,8 @@ export default function AdminEditorArticle() {
         {/* Add Article Button */}
         <div className="mb-6">
           <Button onClick={handleAddArticle} className="bg-primary hover:bg-primary/90 text-primary-foreground flex items-center gap-2">
-            <Plus className="h-4 w-4" />{t("Ajouterunarticle", {
-            defaultValue: "Ajouterunarticle"
+            <Plus className="h-4 w-4" />{t("Ajouter un article", {
+            defaultValue: "Ajouter un article"
           })}</Button>
         </div>
 

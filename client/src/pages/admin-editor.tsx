@@ -66,8 +66,8 @@ export default function AdminEditor() {
             <div className="w-full sm:w-auto">
               <h1 className="text-xl sm:text-2xl font-bold text-foreground mb-2 flex items-center gap-2 sm:gap-3">
                 <Edit className="h-6 w-6 sm:h-7 sm:w-7 text-primary flex-shrink-0" />
-                <span className="truncate">{t("Gestiondecontenu", {
-                  defaultValue: "Gestiondecontenu"
+                <span className="truncate">{t("Gestion de Contenu", {
+                  defaultValue: "Gestion de Contenu"
                 })}</span>
               </h1>
               <p className="text-sm sm:text-base text-muted-foreground">{t('G\xE9rez facilement le contenu de votre site web avec nos outils d\'\xE9dition professionnels', {

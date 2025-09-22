@@ -200,8 +200,8 @@ export default function ReservationsManager() {
             })}</Button>
             <Link href="/admin/dashboard">
               <span className="text-white hover:text-gray-200 transition-colors cursor-pointer">
-                <ChevronLeft className="mr-2 h-4 w-4 inline" />{t("Backtodashboard", {
-                defaultValue: "Backtodashboard"
+                <ChevronLeft className="mr-2 h-4 w-4 inline" />{t("Back to dashboard", {
+                defaultValue: "Back to dashboard"
               })}</span>
             </Link>
           </div>
@@ -310,8 +310,8 @@ export default function ReservationsManager() {
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent>
                                   <DropdownMenuItem onClick={() => openDetailsDialog(reservation)}>
-                                    <Eye className="h-4 w-4 mr-2" />{t("Viewdetails", {
-                                defaultValue: "Viewdetails"
+                                    <Eye className="h-4 w-4 mr-2" />{t("View Details", {
+                                defaultValue: "View Details"
                               })}</DropdownMenuItem>
                                   
                                   {reservation.status === "pending" && <DropdownMenuItem onClick={() => openStatusDialog(reservation, "confirmed")}>
@@ -320,8 +320,8 @@ export default function ReservationsManager() {
                               })}</DropdownMenuItem>}
                                   
                                   {reservation.status === "confirmed" && <DropdownMenuItem onClick={() => openStatusDialog(reservation, "completed")}>
-                                      <Check className="h-4 w-4 mr-2 text-blue-600" />{t("Markascompleted", {
-                                defaultValue: "Markascompleted"
+                                      <Check className="h-4 w-4 mr-2 text-blue-600" />{t("Mark as completed", {
+                                defaultValue: "Mark as completed"
                               })}</DropdownMenuItem>}
                                   
                                   {(reservation.status === "pending" || reservation.status === "confirmed") && <DropdownMenuItem onClick={() => openStatusDialog(reservation, "cancelled")}>
@@ -381,8 +381,8 @@ export default function ReservationsManager() {
               </div>
               
               <div className="pt-2">
-                <h4 className="font-semibold text-sm text-gray-500 mb-1">{t("Informationsclient", {
-                defaultValue: "Informationsclient"
+                <h4 className="font-semibold text-sm text-gray-500 mb-1">{t("Informations client", {
+                defaultValue: "Informations client"
               })}</h4>
                 <div className="space-y-1">
                   <p><span className="font-medium">{t('common.nom')}</span> {selectedReservation.customerName}</p>
@@ -397,14 +397,14 @@ export default function ReservationsManager() {
               
               <div className="grid grid-cols-2 gap-4 pt-2">
                 <div>
-                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t("Nombredepersonnes", {
-                  defaultValue: "Nombredepersonnes"
+                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t("Nombre de personnes", {
+                  defaultValue: "Nombre de personnes"
                 })}</h4>
                   <p>{selectedReservation.numberOfPeople}</p>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t("Montanttotal", {
-                  defaultValue: "Montanttotal"
+                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t("Montant total", {
+                  defaultValue: "Montant total"
                 })}</h4>
                   <p className="font-semibold">{formatTHB(selectedReservation.totalAmount)}</p>
                 </div>
@@ -418,15 +418,15 @@ export default function ReservationsManager() {
                 </div>}
               
               {selectedReservation.stripePaymentIntentId && <div className="pt-2">
-                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t("Informationsdepaieme", {
-                defaultValue: "Informationsdepaieme"
+                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t("Informations de paiement", {
+                defaultValue: "Informations de paiement"
               })}</h4>
                   <div className="space-y-1">
                     <p><span className="font-medium">{t("Idstripe", {
                     defaultValue: "Idstripe"
                   })}</span> {selectedReservation.stripePaymentIntentId}</p>
-                    <p><span className="font-medium">{t("Clientstripe", {
-                    defaultValue: "Clientstripe"
+                    <p><span className="font-medium">{t("Client Stripe :", {
+                    defaultValue: "Client Stripe :"
                   })}</span> {selectedReservation.stripeCustomerId}</p>
                   </div>
                 </div>}
@@ -488,8 +488,8 @@ export default function ReservationsManager() {
       <Dialog open={isStatusDialogOpen} onOpenChange={setIsStatusDialogOpen}>
         <DialogContent className="sm:max-w-[450px]">
           <DialogHeader>
-            <DialogTitle>{t("Modifierlestatutdela", {
-              defaultValue: "Modifierlestatutdela"
+            <DialogTitle>{t("Modifier le statut de la r\xE9servation", {
+              defaultValue: "Modifier le statut de la r\xE9servation"
             })}</DialogTitle>
             <DialogDescription>
               {selectedStatus === "confirmed" && "Confirm this reservation?"}
@@ -513,11 +513,11 @@ export default function ReservationsManager() {
                 <p><span className="font-medium">{t("Client", {
                   defaultValue: "Client"
                 })}</span> {selectedReservation.customerName}</p>
-                <p><span className="font-medium">{t("Statutactuel", {
-                  defaultValue: "Statutactuel"
+                <p><span className="font-medium">{t("Statut actuel :", {
+                  defaultValue: "Statut actuel :"
                 })}</span> {getStatusBadge(selectedReservation.status)}</p>
-                <p><span className="font-medium">{t("Nouveaustatut", {
-                  defaultValue: "Nouveaustatut"
+                <p><span className="font-medium">{t("Nouveau statut :", {
+                  defaultValue: "Nouveau statut :"
                 })}</span> {getStatusBadge(selectedStatus)}</p>
               </div>
               

@@ -74,8 +74,8 @@ export default function TourCardItem({
         <Card className="shadow-md overflow-hidden h-full flex flex-col">
           <div className="relative h-48 overflow-hidden bg-gray-100">
             {images && images.length > 0 ? <img src={images[0]} alt={title} className="w-full h-full object-cover" /> : <div className="flex h-full w-full items-center justify-center text-gray-400">
-                <span>{t("Aucuneimage", {
-                defaultValue: "Aucuneimage"
+                <span>{t("Aucune image", {
+                defaultValue: "Aucune image"
               })}</span>
               </div>}
             

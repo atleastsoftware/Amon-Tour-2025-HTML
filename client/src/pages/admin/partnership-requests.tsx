@@ -74,8 +74,8 @@ export default function AdminPartnershipRequests() {
         title: t("Erreur", {
           defaultValue: "Erreur"
         }),
-        description: t("Impossibledemarquerl", {
-          defaultValue: "Impossibledemarquerl"
+        description: t("Impossible de marquer la demande comme lue", {
+          defaultValue: "Impossible de marquer la demande comme lue"
         }),
         variant: "destructive"
       });
@@ -104,8 +104,8 @@ export default function AdminPartnershipRequests() {
         title: t("Erreur", {
           defaultValue: "Erreur"
         }),
-        description: t("Impossibledesupprime", {
-          defaultValue: "Impossibledesupprime"
+        description: t("Impossible de supprimer la demande", {
+          defaultValue: "Impossible de supprimer la demande"
         }),
         variant: "destructive"
       });
@@ -162,11 +162,11 @@ export default function AdminPartnershipRequests() {
                 <div className="flex items-center gap-3">
                   <Handshake className="h-8 w-8 text-primary" />
                   <div>
-                    <h1 className="text-3xl font-heading text-gray-900">{t("Demandesdepartenaria", {
-                      defaultValue: "Demandesdepartenaria"
+                    <h1 className="text-3xl font-heading text-gray-900">{t("Demandes de partenariat", {
+                      defaultValue: "Demandes de partenariat"
                     })}</h1>
-                    <p className="text-gray-600">{t("Propositionsdecollab", {
-                      defaultValue: "Propositionsdecollab"
+                    <p className="text-gray-600">{t("Propositions de collaboration", {
+                      defaultValue: "Propositions de collaboration"
                     })}</p>
                   </div>
                 </div>
@@ -267,8 +267,8 @@ export default function AdminPartnershipRequests() {
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <Handshake className="h-5 w-5 text-primary" />{t("Demandedepartenariat", {
-              defaultValue: "Demandedepartenariat"
+              <Handshake className="h-5 w-5 text-primary" />{t("Demande de partenariat", {
+              defaultValue: "Demande de partenariat"
             })}</DialogTitle>
             <DialogDescription>{t("Dxe9tailsdelaproposi", {
               defaultValue: "Dxe9tailsdelaproposi"
@@ -278,8 +278,8 @@ export default function AdminPartnershipRequests() {
           {selectedRequest && <div className="space-y-6">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-gray-700">{t("Nomducontact", {
-                  defaultValue: "Nomducontact"
+                  <label className="text-sm font-medium text-gray-700">{t("Nom du contact", {
+                  defaultValue: "Nom du contact"
                 })}</label>
                   <p className="text-gray-900">{selectedRequest.contactName}</p>
                 </div>
@@ -299,8 +299,8 @@ export default function AdminPartnershipRequests() {
                   </p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">{t("Typedepartenariat", {
-                  defaultValue: "Typedepartenariat"
+                  <label className="text-sm font-medium text-gray-700">{t("Type de partenariat", {
+                  defaultValue: "Type de partenariat"
                 })}</label>
                   <p className="text-gray-900 flex items-center gap-1">
                     <Briefcase className="h-4 w-4" />
@@ -327,8 +327,8 @@ export default function AdminPartnershipRequests() {
               </div>
               
               {selectedRequest.description && <div>
-                  <label className="text-sm font-medium text-gray-700">{t("Descriptionduprojet", {
-                defaultValue: "Descriptionduprojet"
+                  <label className="text-sm font-medium text-gray-700">{t("Description du projet", {
+                defaultValue: "Description du projet"
               })}</label>
                   <p className="text-gray-900 bg-gray-50 p-3 rounded-lg mt-1">
                     {selectedRequest.description}
@@ -346,8 +346,8 @@ export default function AdminPartnershipRequests() {
                   defaultValue: "Rxe9pondreparemail"
                 })}</Button>
                   {!selectedRequest.read && <Button onClick={() => markAsReadMutation.mutate(selectedRequest.id)}>
-                      <CheckCircle2 className="h-4 w-4 mr-2" />{t("Marquercommelu", {
-                  defaultValue: "Marquercommelu"
+                      <CheckCircle2 className="h-4 w-4 mr-2" />{t("Marquer comme lu", {
+                  defaultValue: "Marquer comme lu"
                 })}</Button>}
                 </div>
               </div>

@@ -100,8 +100,8 @@ const FIELD_TYPES = [{
   icon: Phone
 }, {
   type: 'textarea',
-  label: t("Zonedetexte", {
-    defaultValue: "Zonedetexte"
+  label: t("Zone de texte", {
+    defaultValue: "Zone de texte"
   }),
   icon: Type
 }, {
@@ -118,8 +118,8 @@ const FIELD_TYPES = [{
   icon: CheckSquare
 }, {
   type: 'radio',
-  label: t("Boutonsradio", {
-    defaultValue: "Boutonsradio"
+  label: t("Boutons radio", {
+    defaultValue: "Boutons radio"
   }),
   icon: Circle
 }, {
@@ -239,8 +239,8 @@ function ColorPicker({
         <div className="relative">
           <div className="w-8 h-8 rounded border border-border cursor-pointer relative overflow-hidden hover:border-border/80 transition-colors" style={{
           backgroundColor: currentColorValue
-        }} title={t("Cliquezpourpersonnal", {
-          defaultValue: "Cliquezpourpersonnal"
+        }} title={t("Cliquez pour personnaliser la couleur", {
+          defaultValue: "Cliquez pour personnaliser la couleur"
         })}>
             <input type="color" value={currentColorValue} onChange={e => handleColorChange(e.target.value)} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
           </div>
@@ -267,11 +267,11 @@ function ColorPicker({
               <SelectItem value="custom">{t("Rxe9fxe9rencecouleur", {
               defaultValue: "Rxe9fxe9rencecouleur"
             })}</SelectItem>
-              <SelectItem value="primary">{t("Couleurprincipale", {
-              defaultValue: "Couleurprincipale"
+              <SelectItem value="primary">{t("Couleur principale", {
+              defaultValue: "Couleur principale"
             })}</SelectItem>
-              <SelectItem value="secondary">{t("Couleursecondaire", {
-              defaultValue: "Couleursecondaire"
+              <SelectItem value="secondary">{t("Couleur secondaire", {
+              defaultValue: "Couleur secondaire"
             })}</SelectItem>
             </SelectContent>
           </Select>}
@@ -335,14 +335,14 @@ export default function FormBuilder({
 
     // Default to Custom Tour Request form structure
     return {
-      name: t("Customtourrequest", {
-        defaultValue: "Customtourrequest"
+      name: t("Custom Tour Request", {
+        defaultValue: "Custom Tour Request"
       }),
-      title: t("Createyourcustomtrip", {
-        defaultValue: "Createyourcustomtrip"
+      title: t("Create Your Custom Trip", {
+        defaultValue: "Create Your Custom Trip"
       }),
-      subtitle: t("Yourtravelstorystart", {
-        defaultValue: "Yourtravelstorystart"
+      subtitle: t("Your travel story starts with your dreams \u2013 let us write the rest.", {
+        defaultValue: "Your travel story starts with your dreams \u2013 let us write the rest."
       }),
       description: t("Crxe9ezvotreexpxe9ri", {
         defaultValue: "Crxe9ezvotreexpxe9ri"
@@ -385,8 +385,8 @@ export default function FormBuilder({
       }, {
         id: 'countrycode',
         type: 'select' as const,
-        label: t("Countrycode", {
-          defaultValue: "Countrycode"
+        label: t("Country Code *", {
+          defaultValue: "Country Code *"
         }),
         placeholder: t("Code", {
           defaultValue: "Code"
@@ -399,8 +399,8 @@ export default function FormBuilder({
       }, {
         id: 'whatsapp',
         type: 'phone' as const,
-        label: t("Whatsappnumber", {
-          defaultValue: "Whatsappnumber"
+        label: t("WhatsApp Number", {
+          defaultValue: "WhatsApp Number"
         }),
         placeholder: t("Your WhatsApp number", {
           defaultValue: "Your WhatsApp number"
@@ -412,8 +412,8 @@ export default function FormBuilder({
       }, {
         id: 'adults',
         type: 'select' as const,
-        label: t("Numberofadults", {
-          defaultValue: "Numberofadults"
+        label: t("Number of adults", {
+          defaultValue: "Number of adults"
         }),
         placeholder: t("Select number of adults", {
           defaultValue: "Select number of adults"
@@ -426,8 +426,8 @@ export default function FormBuilder({
       }, {
         id: 'kids',
         type: 'select' as const,
-        label: t("Numberofkidsunder12y", {
-          defaultValue: "Numberofkidsunder12y"
+        label: t("Number of kids (under 12 years old)", {
+          defaultValue: "Number of kids (under 12 years old)"
         }),
         placeholder: t("Select number of kids", {
           defaultValue: "Select number of kids"
@@ -440,8 +440,8 @@ export default function FormBuilder({
       }, {
         id: 'dates',
         type: 'date' as const,
-        label: t("Datesoftrip", {
-          defaultValue: "Datesoftrip"
+        label: t("Dates of trip", {
+          defaultValue: "Dates of trip"
         }),
         placeholder: t("Select trip dates", {
           defaultValue: "Select trip dates"
@@ -453,8 +453,8 @@ export default function FormBuilder({
       }, {
         id: 'duration',
         type: 'select' as const,
-        label: t("Orapproximateduratio", {
-          defaultValue: "Orapproximateduratio"
+        label: t("Or approximate duration", {
+          defaultValue: "Or approximate duration"
         }),
         placeholder: t("Select duration", {
           defaultValue: "Select duration"
@@ -489,8 +489,8 @@ export default function FormBuilder({
       }, {
         id: 'message',
         type: 'textarea' as const,
-        label: t("Describeyouridealtri", {
-          defaultValue: "Describeyouridealtri"
+        label: t("Describe your ideal trip", {
+          defaultValue: "Describe your ideal trip"
         }),
         placeholder: t("Tell us what you would like to see and do during your journey...", {
           defaultValue: "Tell us what you would like to see and do during your journey..."
@@ -589,8 +589,8 @@ export default function FormBuilder({
         title: t("Erreur", {
           defaultValue: "Erreur"
         }),
-        description: t("Lenometletitreduform", {
-          defaultValue: "Lenometletitreduform"
+        description: t("Le nom et le titre du formulaire sont obligatoires.", {
+          defaultValue: "Le nom et le titre du formulaire sont obligatoires."
         }),
         variant: "destructive"
       });
@@ -601,8 +601,8 @@ export default function FormBuilder({
         title: t("Erreur", {
           defaultValue: "Erreur"
         }),
-        description: t("Leformulairedoitcont", {
-          defaultValue: "Leformulairedoitcont"
+        description: t("Le formulaire doit contenir au moins un champ.", {
+          defaultValue: "Le formulaire doit contenir au moins un champ."
         }),
         variant: "destructive"
       });
@@ -624,8 +624,8 @@ export default function FormBuilder({
         title: t("Erreur", {
           defaultValue: "Erreur"
         }),
-        description: t("Erreurlorsdelasauveg", {
-          defaultValue: "Erreurlorsdelasauveg"
+        description: t("Erreur lors de la sauvegarde du formulaire.", {
+          defaultValue: "Erreur lors de la sauvegarde du formulaire."
         }),
         variant: "destructive"
       });
@@ -755,18 +755,18 @@ export default function FormBuilder({
       <div className="bg-card border-b p-4 sticky top-0 z-10">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-6">
-            <h2 className="text-lg font-semibold">{t("Constructeurdeformul", {
-              defaultValue: "Constructeurdeformul"
+            <h2 className="text-lg font-semibold">{t("Constructeur de formulaire", {
+              defaultValue: "Constructeur de formulaire"
             })}</h2>
             <div className="flex items-center gap-2">
-              <Label className="text-sm font-medium whitespace-nowrap">{t("Nomduformulaire", {
-                defaultValue: "Nomduformulaire"
+              <Label className="text-sm font-medium whitespace-nowrap">{t("Nom du formulaire :", {
+                defaultValue: "Nom du formulaire :"
               })}</Label>
               <Input value={formData.name} onChange={e => setFormData(prev => ({
               ...prev,
               name: e.target.value
-            }))} placeholder={t("Exformulairedecontac", {
-              defaultValue: "Exformulairedecontac"
+            }))} placeholder={t("Ex: Formulaire de contact", {
+              defaultValue: "Ex: Formulaire de contact"
             })} className="w-64" />
             </div>
           </div>
@@ -792,8 +792,8 @@ export default function FormBuilder({
           <div className="flex flex-col">
                   {/* Image Header */}
                   <div className="h-48 relative">
-                    {formData.headerImage ? <img src={formData.headerImage} alt={t("Headerimage", {
-                defaultValue: "Headerimage"
+                    {formData.headerImage ? <img src={formData.headerImage} alt={t("Header image", {
+                defaultValue: "Header image"
               })} className="w-full h-full object-cover" onError={e => {
                 e.currentTarget.src = '/catamaran-cruise.png';
               }} /> : <div className="w-full h-full bg-muted"></div>}
@@ -819,8 +819,8 @@ export default function FormBuilder({
                     {/* Form Content pour Header Layout */}
                     {formData.fields.length === 0 ? <div className="text-center py-16 text-muted-foreground">
                         <FormInput className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-                        <p>{t("Ajoutezdeschampspour", {
-                    defaultValue: "Ajoutezdeschampspour"
+                        <p>{t("Ajoutez des champs pour voir la pr\xE9visualisation", {
+                    defaultValue: "Ajoutez des champs pour voir la pr\xE9visualisation"
                   })}</p>
                       </div> : <div className="space-y-4">
                         {/* Rendu des champs du formulaire */}
@@ -932,8 +932,8 @@ export default function FormBuilder({
           <div className={`grid grid-cols-1 md:grid-cols-2 min-h-[500px] ${formData.formLayout === 'columns-reversed' ? 'md:[&>:first-child]:order-2 md:[&>:last-child]:order-1' : ''}`}>
                   {/* Image Side */}
                   <div className="h-64 md:h-auto relative">
-                    {formData.headerImage ? <img src={formData.headerImage} alt={t("Headerimage", {
-                defaultValue: "Headerimage"
+                    {formData.headerImage ? <img src={formData.headerImage} alt={t("Header image", {
+                defaultValue: "Header image"
               })} className="w-full h-full object-cover" onError={e => {
                 e.currentTarget.src = '/catamaran-cruise.png';
               }} /> : <div className="w-full h-full bg-muted"></div>}
@@ -959,8 +959,8 @@ export default function FormBuilder({
             }}>
                     {formData.fields.length === 0 ? <div className="text-center py-16 text-muted-foreground h-full flex flex-col items-center justify-center">
                         <FormInput className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-                        <p>{t("Ajoutezdeschampspour", {
-                    defaultValue: "Ajoutezdeschampspour"
+                        <p>{t("Ajoutez des champs pour voir la pr\xE9visualisation", {
+                    defaultValue: "Ajoutez des champs pour voir la pr\xE9visualisation"
                   })}</p>
                       </div> : <div className="space-y-4">
                         {/* Rendu des champs du formulaire */}
@@ -1126,8 +1126,8 @@ export default function FormBuilder({
                     <Input value={formData.title} onChange={e => setFormData(prev => ({
                   ...prev,
                   title: e.target.value
-                }))} placeholder={t("Excontacteznous", {
-                  defaultValue: "Excontacteznous"
+                }))} placeholder={t("Ex: Contactez-nous", {
+                  defaultValue: "Ex: Contactez-nous"
                 })} />
                   </div>
                   <div>
@@ -1161,14 +1161,14 @@ export default function FormBuilder({
               {/* Submit Button Settings */}
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-sm">{t("Boutondesoumission", {
-                  defaultValue: "Boutondesoumission"
+                  <CardTitle className="text-sm">{t("Bouton de soumission", {
+                  defaultValue: "Bouton de soumission"
                 })}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div>
-                    <Label>{t("Textedubouton", {
-                    defaultValue: "Textedubouton"
+                    <Label>{t("Texte du bouton", {
+                    defaultValue: "Texte du bouton"
                   })}</Label>
                     <Input value={formData.settings.submitButtonText || 'Envoyer'} onChange={e => setFormData(prev => ({
                   ...prev,
@@ -1187,8 +1187,8 @@ export default function FormBuilder({
                 {/* Field Types */}
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-sm">{t("Typesdechamps", {
-                  defaultValue: "Typesdechamps"
+                    <CardTitle className="text-sm">{t("Types de champs", {
+                  defaultValue: "Types de champs"
                 })}</CardTitle>
                   </CardHeader>
                   <CardContent>
@@ -1207,8 +1207,8 @@ export default function FormBuilder({
                 {/* Form Fields */}
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-sm">{t("Champsduformulaire", {
-                  defaultValue: "Champsduformulaire"
+                    <CardTitle className="text-sm">{t("Champs du formulaire (", {
+                  defaultValue: "Champs du formulaire ("
                 })}{formData.fields.length})</CardTitle>
                   </CardHeader>
                   <CardContent>
@@ -1254,8 +1254,8 @@ export default function FormBuilder({
                 {/* Field Configuration */}
                 {selectedField && <Card>
                     <CardHeader>
-                      <CardTitle className="text-sm">{t("Configurationduchamp", {
-                  defaultValue: "Configurationduchamp"
+                      <CardTitle className="text-sm">{t("Configuration du champ", {
+                  defaultValue: "Configuration du champ"
                 })}</CardTitle>
                     </CardHeader>
                     <CardContent>
@@ -1264,8 +1264,8 @@ export default function FormBuilder({
                 if (!field) return null;
                 return <div className="space-y-4">
                             <div>
-                              <Label>{t("Labelduchamp", {
-                        defaultValue: "Labelduchamp"
+                              <Label>{t("Label du champ", {
+                        defaultValue: "Label du champ"
                       })}</Label>
                               <Input value={field.label} onChange={e => updateField(field.id, {
                       label: e.target.value
@@ -1285,8 +1285,8 @@ export default function FormBuilder({
                               <Switch checked={field.required} onCheckedChange={checked => updateField(field.id, {
                       required: checked
                     })} />
-                              <Label>{t("Champrequis", {
-                        defaultValue: "Champrequis"
+                              <Label>{t("Champ requis", {
+                        defaultValue: "Champ requis"
                       })}</Label>
                             </div>
                             
@@ -1304,14 +1304,14 @@ export default function FormBuilder({
                                   <SelectValue />
                                 </SelectTrigger>
                                 <SelectContent>
-                                  <SelectItem value="full">{t("Pleinelargeur", {
-                            defaultValue: "Pleinelargeur"
+                                  <SelectItem value="full">{t("Pleine largeur", {
+                            defaultValue: "Pleine largeur"
                           })}</SelectItem>
-                                  <SelectItem value="half">{t("Demilargeur", {
-                            defaultValue: "Demilargeur"
+                                  <SelectItem value="half">{t("Demi-largeur", {
+                            defaultValue: "Demi-largeur"
                           })}</SelectItem>
-                                  <SelectItem value="third">{t("Tiersdelargeur", {
-                            defaultValue: "Tiersdelargeur"
+                                  <SelectItem value="third">{t("Tiers de largeur", {
+                            defaultValue: "Tiers de largeur"
                           })}</SelectItem>
                                 </SelectContent>
                               </Select>
@@ -1345,8 +1345,8 @@ export default function FormBuilder({
                           options: newOptions
                         });
                       }}>
-                                    <Plus className="h-4 w-4 mr-2" />{t("Ajouteruneoption", {
-                          defaultValue: "Ajouteruneoption"
+                                    <Plus className="h-4 w-4 mr-2" />{t("Ajouter une option", {
+                          defaultValue: "Ajouter une option"
                         })}</Button>
                                 </div>
                               </div>}
@@ -1418,8 +1418,8 @@ export default function FormBuilder({
                         defaultValue: "Header"
                       })}</Label>
                         </div>
-                        <p className="text-xs text-muted-foreground">{t("Imageettitreenhautfo", {
-                      defaultValue: "Imageettitreenhautfo"
+                        <p className="text-xs text-muted-foreground">{t("Image et titre en haut, formulaire en dessous sur toute la largeur", {
+                      defaultValue: "Image et titre en haut, formulaire en dessous sur toute la largeur"
                     })}</p>
                       </div>
                     </div>
@@ -1434,8 +1434,8 @@ export default function FormBuilder({
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div>
-                      <ColorPicker label={t("Couleurprincipale", {
-                  defaultValue: "Couleurprincipale"
+                      <ColorPicker label={t("Couleur principale", {
+                  defaultValue: "Couleur principale"
                 })} value={formData.primaryColor} onChange={value => setFormData(prev => ({
                   ...prev,
                   primaryColor: value
@@ -1443,8 +1443,8 @@ export default function FormBuilder({
                     </div>
                     
                     <div>
-                      <ColorPicker label={t("Couleurducadre", {
-                  defaultValue: "Couleurducadre"
+                      <ColorPicker label={t("Couleur du cadre", {
+                  defaultValue: "Couleur du cadre"
                 })} value={formData.frameColor} onChange={value => setFormData(prev => ({
                   ...prev,
                   frameColor: value
@@ -1452,8 +1452,8 @@ export default function FormBuilder({
                     </div>
                     
                     <div>
-                      <ColorPicker label={t("Couleurdutitre", {
-                  defaultValue: "Couleurdutitre"
+                      <ColorPicker label={t("Couleur du titre", {
+                  defaultValue: "Couleur du titre"
                 })} value={formData.titleColor} onChange={value => setFormData(prev => ({
                   ...prev,
                   titleColor: value
@@ -1461,8 +1461,8 @@ export default function FormBuilder({
                     </div>
                     
                     <div>
-                      <ColorPicker label={t("Couleurdusoustitre", {
-                  defaultValue: "Couleurdusoustitre"
+                      <ColorPicker label={t("Couleur du sous-titre", {
+                  defaultValue: "Couleur du sous-titre"
                 })} value={formData.subtitleColor} onChange={value => setFormData(prev => ({
                   ...prev,
                   subtitleColor: value
@@ -1470,8 +1470,8 @@ export default function FormBuilder({
                     </div>
                     
                     <div>
-                      <ColorPicker label={t("Couleurdutexte", {
-                  defaultValue: "Couleurdutexte"
+                      <ColorPicker label={t("Couleur du texte", {
+                  defaultValue: "Couleur du texte"
                 })} value={formData.textColor} onChange={value => setFormData(prev => ({
                   ...prev,
                   textColor: value

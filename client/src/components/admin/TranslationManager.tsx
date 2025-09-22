@@ -40,11 +40,11 @@ export default function TranslationManager() {
             <Globe className="h-6 w-6 text-blue-600" />
           </div>
           <div>
-            <CardTitle className="text-lg font-heading">{t("Gestiondelatraductio", {
-              defaultValue: "Gestiondelatraductio"
+            <CardTitle className="text-lg font-heading">{t("Gestion de la Traduction Automatique", {
+              defaultValue: "Gestion de la Traduction Automatique"
             })}</CardTitle>
-            <CardDescription>{t("Configurationdelatra", {
-              defaultValue: "Configurationdelatra"
+            <CardDescription>{t("Configuration de la traduction automatique bas\xE9e sur la g\xE9olocalisation IP", {
+              defaultValue: "Configuration de la traduction automatique bas\xE9e sur la g\xE9olocalisation IP"
             })}</CardDescription>
           </div>
         </div>
@@ -55,8 +55,8 @@ export default function TranslationManager() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="text-center p-4 bg-green-50 rounded-lg">
             <div className="text-2xl font-bold text-green-600">🇫🇷</div>
-            <div className="text-sm font-medium text-green-800">{t("Cibleprincipale", {
-              defaultValue: "Cibleprincipale"
+            <div className="text-sm font-medium text-green-800">{t("Cible Principale", {
+              defaultValue: "Cible Principale"
             })}</div>
             <div className="text-xs text-green-600">{t("Utilisateursfranxe7a", {
               defaultValue: "Utilisateursfranxe7a"
@@ -76,8 +76,8 @@ export default function TranslationManager() {
             <div className="text-sm font-medium text-purple-800">{t("Traducteurs", {
               defaultValue: "Traducteurs"
             })}</div>
-            <div className="text-xs text-purple-600">{t("Chromeedgefirefox", {
-              defaultValue: "Chromeedgefirefox"
+            <div className="text-xs text-purple-600">{t("Chrome, Edge, Firefox", {
+              defaultValue: "Chrome, Edge, Firefox"
             })}</div>
           </div>
         </div>
@@ -87,8 +87,8 @@ export default function TranslationManager() {
           <div className="flex items-center space-x-3">
             <Settings className="h-5 w-5 text-gray-500" />
             <div>
-              <div className="font-medium">{t("Traductionautomatiqu", {
-                defaultValue: "Traductionautomatiqu"
+              <div className="font-medium">{t("Traduction automatique", {
+                defaultValue: "Traduction automatique"
               })}</div>
               <div className="text-sm text-gray-500">{t("Activerladxe9tection", {
                 defaultValue: "Activerladxe9tection"
@@ -125,8 +125,8 @@ export default function TranslationManager() {
           
           <div className="flex gap-3 flex-wrap">
             <Button variant="outline" onClick={handleTestTranslation} className="flex items-center gap-2">
-              <Globe className="h-4 w-4" />{t("Testerlatraduction", {
-              defaultValue: "Testerlatraduction"
+              <Globe className="h-4 w-4" />{t("Tester la Traduction", {
+              defaultValue: "Tester la Traduction"
             })}</Button>
             
             <Button variant="outline" onClick={handleResetChoices} className="flex items-center gap-2">
@@ -148,8 +148,8 @@ export default function TranslationManager() {
           <div className="mt-3 text-xs text-gray-600 space-y-2">
             <p><strong>{t("Paysdxe9tectxe9s", {
                 defaultValue: "Paysdxe9tectxe9s"
-              })}</strong>{t("Francefrbelgiquebesu", {
-              defaultValue: "Francefrbelgiquebesu"
+              })}</strong>{t("France (FR), Belgique (BE), Suisse (CH), Canada (CA), Monaco (MC), Luxembourg (LU)", {
+              defaultValue: "France (FR), Belgique (BE), Suisse (CH), Canada (CA), Monaco (MC), Luxembourg (LU)"
             })}</p>
             <p><strong>{t("Mxe9thodesdedxe9clen", {
                 defaultValue: "Mxe9thodesdedxe9clen"
@@ -158,14 +158,14 @@ export default function TranslationManager() {
               <li>{t('Attribut HTML translate="yes"', {
                 defaultValue: 'Attribut HTML translate="yes"'
               })}</li>
-              <li>{t("Metatagspoursuggesti", {
-                defaultValue: "Metatagspoursuggesti"
+              <li>{t("Meta tags pour suggestions de traduction", {
+                defaultValue: "Meta tags pour suggestions de traduction"
               })}</li>
-              <li>{t("Apismoderneschrometr", {
-                defaultValue: "Apismoderneschrometr"
+              <li>{t("APIs modernes (Chrome Translator API, Firefox local)", {
+                defaultValue: "APIs modernes (Chrome Translator API, Firefox local)"
               })}</li>
-              <li>{t("Fallbackgoogletransl", {
-                defaultValue: "Fallbackgoogletransl"
+              <li>{t("Fallback Google Translate Widget si disponible", {
+                defaultValue: "Fallback Google Translate Widget si disponible"
               })}</li>
             </ul>
             <p><strong>{t("Stockage", {
@@ -173,8 +173,8 @@ export default function TranslationManager() {
               })}</strong>{t("Prxe9fxe9rencesutili", {
               defaultValue: "Prxe9fxe9rencesutili"
             })}</p>
-            <p><strong>{t("Performance", {
-                defaultValue: "Performance"
+            <p><strong>{t("Performance :", {
+                defaultValue: "Performance :"
               })}</strong>{t("40100mslatencepourgx", {
               defaultValue: "40100mslatencepourgx"
             })}</p>

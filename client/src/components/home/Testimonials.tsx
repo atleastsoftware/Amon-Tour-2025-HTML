@@ -102,8 +102,8 @@ export default function Testimonials() {
                   <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white text-xs mr-2">
                     <span>F</span>
                   </div>
-                  <span className="text-foreground font-medium text-sm">{t("Martinfamily", {
-                    defaultValue: "Martinfamily"
+                  <span className="text-foreground font-medium text-sm">{t("Martin Family", {
+                    defaultValue: "Martin Family"
                   })}</span>
                 </div>
               </div>

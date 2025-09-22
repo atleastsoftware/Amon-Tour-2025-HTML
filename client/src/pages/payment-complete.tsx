@@ -82,19 +82,19 @@ export default function PaymentComplete() {
               <Button onClick={() => navigate("/")}>{t("Backtohome", {
                 defaultValue: "Backtohome"
               })}</Button>
-              <Button variant="outline" onClick={() => navigate("/tours")}>{t("Viewothertours", {
-                defaultValue: "Viewothertours"
+              <Button variant="outline" onClick={() => navigate("/tours")}>{t("View other tours", {
+                defaultValue: "View other tours"
               })}</Button>
             </div>
           </div>;
       case 'processing':
         return <div className="flex flex-col items-center">
             <Clock className="h-16 w-16 text-secondary mb-4" />
-            <h2 className="font-heading font-semibold text-2xl mb-2">{t("Paiementencoursdetra", {
-              defaultValue: "Paiementencoursdetra"
+            <h2 className="font-heading font-semibold text-2xl mb-2">{t("Paiement en cours de traitement", {
+              defaultValue: "Paiement en cours de traitement"
             })}</h2>
-            <p className="text-gray-600 text-center max-w-lg mb-6">{t("Votrepaiementestenco", {
-              defaultValue: "Votrepaiementestenco"
+            <p className="text-gray-600 text-center max-w-lg mb-6">{t("Votre paiement est en cours de traitement. Nous vous enverrons un email d\xE8s que le paiement sera confirm\xE9.\n              Ce processus peut prendre quelques minutes.", {
+              defaultValue: "Votre paiement est en cours de traitement. Nous vous enverrons un email d\xE8s que le paiement sera confirm\xE9.\n              Ce processus peut prendre quelques minutes."
             })}</p>
             <div className="flex gap-4">
               <Button onClick={() => navigate("/")}>{t("Backtohome", {
@@ -108,15 +108,15 @@ export default function PaymentComplete() {
             <h2 className="font-heading font-semibold text-2xl mb-2">{t("Paiementxe9chouxe9", {
               defaultValue: "Paiementxe9chouxe9"
             })}</h2>
-            <p className="text-gray-600 text-center max-w-lg mb-3">{t("Uneerreurestsurvenue", {
-              defaultValue: "Uneerreurestsurvenue"
+            <p className="text-gray-600 text-center max-w-lg mb-3">{t("Une erreur est survenue lors de la cr\xE9ation de la fiche", {
+              defaultValue: "Une erreur est survenue lors de la cr\xE9ation de la fiche"
             })}</p>
             {paymentError && <p className="text-[hsl(var(--destructive))] bg-[hsl(var(--destructive)/0.1)] p-3 rounded-md mb-6">
                 {paymentError}
               </p>}
             <div className="flex gap-4">
-              <Button onClick={() => navigate("/tours")}>{t("Backtotours", {
-                defaultValue: "Backtotours"
+              <Button onClick={() => navigate("/tours")}>{t("Back to Tours", {
+                defaultValue: "Back to Tours"
               })}</Button>
               <Button variant="outline" onClick={() => window.history.back()}>{t("Tryagain", {
                 defaultValue: "Tryagain"

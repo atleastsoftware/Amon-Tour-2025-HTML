@@ -92,14 +92,14 @@ export default function Admin() {
                 <h1 className="text-3xl font-heading font-bold text-gray-900">{t("Administration", {
                   defaultValue: "Administration"
                 })}</h1>
-                <p className="text-gray-600 mt-2">{t("Panneaudegestioncent", {
-                  defaultValue: "Panneaudegestioncent"
+                <p className="text-gray-600 mt-2">{t("Panneau de gestion centralis\xE9", {
+                  defaultValue: "Panneau de gestion centralis\xE9"
                 })}</p>
               </div>
               <div className="flex items-center gap-3">
                 <Button variant="outline" onClick={() => setLocation('/admin-appearance')} className="flex items-center gap-2">
-                  <Palette className="h-4 w-4" />{t("Apparencedusite", {
-                  defaultValue: "Apparencedusite"
+                  <Palette className="h-4 w-4" />{t("Apparence du site", {
+                  defaultValue: "Apparence du site"
                 })}</Button>
                 <Button variant="outline" onClick={handleLogout} className="flex items-center gap-2">
                   <LogOut className="h-4 w-4" />{t("Dxe9connexion", {
@@ -205,8 +205,8 @@ export default function Admin() {
                     </div>
                   </CardHeader>
                   <CardContent className="text-white/90">
-                    <CardDescription className="text-white/80">{t("Propositionsdecollab", {
-                      defaultValue: "Propositionsdecollab"
+                    <CardDescription className="text-white/80">{t("Propositions de collaboration", {
+                      defaultValue: "Propositions de collaboration"
                     })}</CardDescription>
                   </CardContent>
                 </Card>
@@ -233,15 +233,15 @@ export default function Admin() {
                         <UsersIcon className="h-6 w-6" />
                       </div>
                       <div>
-                        <CardTitle className="text-lg font-heading">{t("Groupesentreprises", {
-                          defaultValue: "Groupesentreprises"
+                        <CardTitle className="text-lg font-heading">{t("Groupes & Entreprises", {
+                          defaultValue: "Groupes & Entreprises"
                         })}</CardTitle>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="text-white/90">
-                    <CardDescription className="text-white/80">{t("Demandesdegroupesetc", {
-                      defaultValue: "Demandesdegroupesetc"
+                    <CardDescription className="text-white/80">{t("Demandes de groupes et corporates", {
+                      defaultValue: "Demandes de groupes et corporates"
                     })}</CardDescription>
                   </CardContent>
                 </Card>
@@ -265,8 +265,8 @@ export default function Admin() {
                         <BookOpen className="h-6 w-6" />
                       </div>
                       <div>
-                        <CardTitle className="text-lg font-heading">{t("Gestiondublog", {
-                          defaultValue: "Gestiondublog"
+                        <CardTitle className="text-lg font-heading">{t("Gestion du blog", {
+                          defaultValue: "Gestion du blog"
                         })}</CardTitle>
                       </div>
                     </div>
@@ -332,15 +332,15 @@ export default function Admin() {
                         <Image className="h-6 w-6" />
                       </div>
                       <div>
-                        <CardTitle className="text-lg font-heading">{t("Imagestourninja", {
-                          defaultValue: "Imagestourninja"
+                        <CardTitle className="text-lg font-heading">{t("Images Tour Ninja", {
+                          defaultValue: "Images Tour Ninja"
                         })}</CardTitle>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="text-white/90">
-                    <CardDescription className="text-white/80">{t("Remplacerlesimagesto", {
-                      defaultValue: "Remplacerlesimagesto"
+                    <CardDescription className="text-white/80">{t("Remplacer les images Tour Ninja par vos images", {
+                      defaultValue: "Remplacer les images Tour Ninja par vos images"
                     })}</CardDescription>
                   </CardContent>
                 </Card>
@@ -364,8 +364,8 @@ export default function Admin() {
                         <Globe className="h-6 w-6" />
                       </div>
                       <div>
-                        <CardTitle className="text-lg font-heading">{t("Traductionauto", {
-                          defaultValue: "Traductionauto"
+                        <CardTitle className="text-lg font-heading">{t("Traduction Auto", {
+                          defaultValue: "Traduction Auto"
                         })}</CardTitle>
                       </div>
                     </div>
@@ -396,8 +396,8 @@ export default function Admin() {
                         <ImagePlus className="h-6 w-6" />
                       </div>
                       <div>
-                        <CardTitle className="text-lg font-heading">{t("Cartesdetours", {
-                          defaultValue: "Cartesdetours"
+                        <CardTitle className="text-lg font-heading">{t("Cartes de tours", {
+                          defaultValue: "Cartes de tours"
                         })}</CardTitle>
                       </div>
                     </div>

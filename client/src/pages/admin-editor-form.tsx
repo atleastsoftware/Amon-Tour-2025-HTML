@@ -50,14 +50,14 @@ export default function AdminEditorForm() {
   // Fallback data for initial forms (only used if no API data)
   const fallbackForms: FormData[] = [{
     id: 1,
-    name: t("Contactform", {
-      defaultValue: "Contactform"
+    name: t("Contact Form", {
+      defaultValue: "Contact Form"
     }),
-    title: t("Nouscontacter", {
-      defaultValue: "Nouscontacter"
+    title: t("Nous Contacter", {
+      defaultValue: "Nous Contacter"
     }),
-    subtitle: t("Unequestionunprojetn", {
-      defaultValue: "Unequestionunprojetn"
+    subtitle: t("Une question ? Un projet ? Nous sommes \xE0 votre \xE9coute", {
+      defaultValue: "Une question ? Un projet ? Nous sommes \xE0 votre \xE9coute"
     }),
     description: t('Contactez notre \xE9quipe pour toute demande d\'information ou devis personnalis\xE9.', {
       defaultValue: 'Contactez notre \xE9quipe pour toute demande d\'information ou devis personnalis\xE9.'
@@ -87,8 +87,8 @@ export default function AdminEditorForm() {
     }, {
       id: 'email',
       type: 'email',
-      label: t("Adresseemail", {
-        defaultValue: "Adresseemail"
+      label: t("Adresse email", {
+        defaultValue: "Adresse email"
       }),
       placeholder: 'votre@email.com',
       required: true,
@@ -137,14 +137,14 @@ export default function AdminEditorForm() {
     updatedAt: '2025-01-08'
   }, {
     id: 2,
-    name: t("Customtourrequest", {
-      defaultValue: "Customtourrequest"
+    name: t("Custom Tour Request", {
+      defaultValue: "Custom Tour Request"
     }),
-    title: t("Createyourcustomtrip", {
-      defaultValue: "Createyourcustomtrip"
+    title: t("Create Your Custom Trip", {
+      defaultValue: "Create Your Custom Trip"
     }),
-    subtitle: t("Yourtravelstorystart", {
-      defaultValue: "Yourtravelstorystart"
+    subtitle: t("Your travel story starts with your dreams \u2013 let us write the rest.", {
+      defaultValue: "Your travel story starts with your dreams \u2013 let us write the rest."
     }),
     description: t('Tell us what you\'d like to discover, and we\'ll create your personalized itinerary.', {
       defaultValue: 'Tell us what you\'d like to discover, and we\'ll create your personalized itinerary.'
@@ -189,8 +189,8 @@ export default function AdminEditorForm() {
     }, {
       id: 'countrycode',
       type: 'select',
-      label: t("Countrycode", {
-        defaultValue: "Countrycode"
+      label: t("Country Code *", {
+        defaultValue: "Country Code *"
       }),
       placeholder: t("Code", {
         defaultValue: "Code"
@@ -204,8 +204,8 @@ export default function AdminEditorForm() {
     }, {
       id: 'whatsappNumber',
       type: 'phone',
-      label: t("Whatsappnumber", {
-        defaultValue: "Whatsappnumber"
+      label: t("WhatsApp Number", {
+        defaultValue: "WhatsApp Number"
       }),
       placeholder: t("Your WhatsApp number", {
         defaultValue: "Your WhatsApp number"
@@ -218,8 +218,8 @@ export default function AdminEditorForm() {
     }, {
       id: 'numberOfAdults',
       type: 'select',
-      label: t("Numberofadults", {
-        defaultValue: "Numberofadults"
+      label: t("Number of adults", {
+        defaultValue: "Number of adults"
       }),
       placeholder: t("Select number of adults", {
         defaultValue: "Select number of adults"
@@ -233,8 +233,8 @@ export default function AdminEditorForm() {
     }, {
       id: 'numberOfKids',
       type: 'select',
-      label: t("Numberofkidsunder12y", {
-        defaultValue: "Numberofkidsunder12y"
+      label: t("Number of kids (under 12 years old)", {
+        defaultValue: "Number of kids (under 12 years old)"
       }),
       placeholder: t("Select number of kids", {
         defaultValue: "Select number of kids"
@@ -248,8 +248,8 @@ export default function AdminEditorForm() {
     }, {
       id: 'tripDates',
       type: 'date',
-      label: t("Datesoftrip", {
-        defaultValue: "Datesoftrip"
+      label: t("Dates of trip", {
+        defaultValue: "Dates of trip"
       }),
       placeholder: t("Select trip dates", {
         defaultValue: "Select trip dates"
@@ -262,8 +262,8 @@ export default function AdminEditorForm() {
     }, {
       id: 'duration',
       type: 'select',
-      label: t("Orapproximateduratio", {
-        defaultValue: "Orapproximateduratio"
+      label: t("Or approximate duration", {
+        defaultValue: "Or approximate duration"
       }),
       placeholder: t("Select duration", {
         defaultValue: "Select duration"
@@ -301,8 +301,8 @@ export default function AdminEditorForm() {
     }, {
       id: 'message',
       type: 'textarea',
-      label: t("Describeyouridealtri", {
-        defaultValue: "Describeyouridealtri"
+      label: t("Describe your ideal trip", {
+        defaultValue: "Describe your ideal trip"
       }),
       placeholder: t("Tell us what you would like to see and do during your journey...", {
         defaultValue: "Tell us what you would like to see and do during your journey..."
@@ -325,11 +325,11 @@ export default function AdminEditorForm() {
     updatedAt: '2025-01-08'
   }, {
     id: 3,
-    name: t("Partnershiprequest", {
-      defaultValue: "Partnershiprequest"
+    name: t("Partnership Request", {
+      defaultValue: "Partnership Request"
     }),
-    title: t("Demandedepartenariat", {
-      defaultValue: "Demandedepartenariat"
+    title: t("Demande de partenariat", {
+      defaultValue: "Demande de partenariat"
     }),
     subtitle: t("Rejoigneznotrerxe9se", {
       defaultValue: "Rejoigneznotrerxe9se"
@@ -348,8 +348,8 @@ export default function AdminEditorForm() {
     fields: [{
       id: 'contactName',
       type: 'text',
-      label: t("Nomducontact", {
-        defaultValue: "Nomducontact"
+      label: t("Nom du contact", {
+        defaultValue: "Nom du contact"
       }),
       placeholder: t("Votre nom", {
         defaultValue: "Votre nom"
@@ -376,8 +376,8 @@ export default function AdminEditorForm() {
     }, {
       id: 'email',
       type: 'email',
-      label: t("Emailprofessionnel", {
-        defaultValue: "Emailprofessionnel"
+      label: t("Email professionnel", {
+        defaultValue: "Email professionnel"
       }),
       placeholder: 'contact@entreprise.com',
       required: true,
@@ -414,8 +414,8 @@ export default function AdminEditorForm() {
     }, {
       id: 'partnershipType',
       type: 'select',
-      label: t("Typedepartenariat", {
-        defaultValue: "Typedepartenariat"
+      label: t("Type de partenariat", {
+        defaultValue: "Type de partenariat"
       }),
       required: true,
       options: ['Agence de voyage', 'Hôtelier', 'Blogueur/Influenceur', 'Guide local', 'Transport', 'Autre'],
@@ -450,14 +450,14 @@ export default function AdminEditorForm() {
     updatedAt: '2025-01-03'
   }, {
     id: 4,
-    name: t("Groupcorporatereques", {
-      defaultValue: "Groupcorporatereques"
+    name: t("Group Corporate Request", {
+      defaultValue: "Group Corporate Request"
     }),
-    title: t("Demandegroupeentrepr", {
-      defaultValue: "Demandegroupeentrepr"
+    title: t("Demande groupe & entreprise", {
+      defaultValue: "Demande groupe & entreprise"
     }),
-    subtitle: t("Voyagessurmesurepour", {
-      defaultValue: "Voyagessurmesurepour"
+    subtitle: t("Voyages sur mesure pour groupes et entreprises", {
+      defaultValue: "Voyages sur mesure pour groupes et entreprises"
     }),
     description: t('Organisez votre \xE9v\xE9nement d\'entreprise ou voyage de groupe en Tha\xEFlande.', {
       defaultValue: 'Organisez votre \xE9v\xE9nement d\'entreprise ou voyage de groupe en Tha\xEFlande.'
@@ -473,8 +473,8 @@ export default function AdminEditorForm() {
     fields: [{
       id: 'contactName',
       type: 'text',
-      label: t("Nomduresponsable", {
-        defaultValue: "Nomduresponsable"
+      label: t("Nom du responsable", {
+        defaultValue: "Nom du responsable"
       }),
       placeholder: t("Votre nom", {
         defaultValue: "Votre nom"
@@ -487,8 +487,8 @@ export default function AdminEditorForm() {
     }, {
       id: 'companyName',
       type: 'text',
-      label: t("Entrepriseorganisati", {
-        defaultValue: "Entrepriseorganisati"
+      label: t("Entreprise/Organisation", {
+        defaultValue: "Entreprise/Organisation"
       }),
       placeholder: t("Nom de l'entreprise", {
         defaultValue: "Nom de l'entreprise"
@@ -501,8 +501,8 @@ export default function AdminEditorForm() {
     }, {
       id: 'email',
       type: 'email',
-      label: t("Emaildecontact", {
-        defaultValue: "Emaildecontact"
+      label: t("Email de contact", {
+        defaultValue: "Email de contact"
       }),
       placeholder: 'contact@entreprise.com',
       required: true,
@@ -527,8 +527,8 @@ export default function AdminEditorForm() {
     }, {
       id: 'groupSize',
       type: 'number',
-      label: t("Tailledugroupe", {
-        defaultValue: "Tailledugroupe"
+      label: t("Taille du groupe", {
+        defaultValue: "Taille du groupe"
       }),
       placeholder: '25',
       required: true,
@@ -553,8 +553,8 @@ export default function AdminEditorForm() {
     }, {
       id: 'budget',
       type: 'select',
-      label: t("Budgetparpersonne", {
-        defaultValue: "Budgetparpersonne"
+      label: t("Budget par personne", {
+        defaultValue: "Budget par personne"
       }),
       required: false,
       options: ['500-1000€', '1000-2000€', '2000-3000€', '3000-5000€', '5000€+', 'À déterminer'],
@@ -589,17 +589,17 @@ export default function AdminEditorForm() {
     updatedAt: '2025-01-02'
   }, {
     id: 5,
-    name: t("Newslettersubscripti", {
-      defaultValue: "Newslettersubscripti"
+    name: t("Newsletter Subscription", {
+      defaultValue: "Newsletter Subscription"
     }),
-    title: t("Abonnementnewsletter", {
-      defaultValue: "Abonnementnewsletter"
+    title: t("Abonnement newsletter", {
+      defaultValue: "Abonnement newsletter"
     }),
     subtitle: t("Restezinformxe9denos", {
       defaultValue: "Restezinformxe9denos"
     }),
-    description: t("Receveznosmeilleures", {
-      defaultValue: "Receveznosmeilleures"
+    description: t("Recevez nos meilleures offres et conseils voyage directement par email.", {
+      defaultValue: "Recevez nos meilleures offres et conseils voyage directement par email."
     }),
     layout: 'single-column',
     formLayout: 'columns',
@@ -612,8 +612,8 @@ export default function AdminEditorForm() {
     fields: [{
       id: 'email',
       type: 'email',
-      label: t("Adresseemail", {
-        defaultValue: "Adresseemail"
+      label: t("Adresse email", {
+        defaultValue: "Adresse email"
       }),
       placeholder: 'votre@email.com',
       required: true,
@@ -634,8 +634,8 @@ export default function AdminEditorForm() {
     updatedAt: '2025-01-01'
   }, {
     id: 6,
-    name: t("Krabicelebrationrequ", {
-      defaultValue: "Krabicelebrationrequ"
+    name: t("Krabi Celebration Request", {
+      defaultValue: "Krabi Celebration Request"
     }),
     title: t("Cxe9lxe9brationxe0kr", {
       defaultValue: "Cxe9lxe9brationxe0kr"
@@ -643,8 +643,8 @@ export default function AdminEditorForm() {
     subtitle: t("Organisezvotrexe9vxe", {
       defaultValue: "Organisezvotrexe9vxe"
     }),
-    description: t("Mariageanniversairel", {
-      defaultValue: "Mariageanniversairel"
+    description: t("Mariage, anniversaire, lune de miel... Cr\xE9ons ensemble votre moment magique \xE0 Krabi.", {
+      defaultValue: "Mariage, anniversaire, lune de miel... Cr\xE9ons ensemble votre moment magique \xE0 Krabi."
     }),
     layout: 'single-column',
     formLayout: 'columns',
@@ -735,8 +735,8 @@ export default function AdminEditorForm() {
     }, {
       id: 'budget',
       type: 'select',
-      label: t("Budgetapproximatif", {
-        defaultValue: "Budgetapproximatif"
+      label: t("Budget approximatif", {
+        defaultValue: "Budget approximatif"
       }),
       required: false,
       options: ['1000-3000€', '3000-5000€', '5000-10000€', '10000€+', 'À discuter'],
@@ -808,14 +808,14 @@ export default function AdminEditorForm() {
     // Créer un formulaire de base simple
     const newForm: FormData = {
       name: newFormName,
-      title: t("Titreduformulaire", {
-        defaultValue: "Titreduformulaire"
+      title: t("Titre du formulaire", {
+        defaultValue: "Titre du formulaire"
       }),
-      subtitle: t("Soustitreduformulair", {
-        defaultValue: "Soustitreduformulair"
+      subtitle: t("Sous-titre du formulaire", {
+        defaultValue: "Sous-titre du formulaire"
       }),
-      description: t("Descriptiondevotrefo", {
-        defaultValue: "Descriptiondevotrefo"
+      description: t("Description de votre formulaire", {
+        defaultValue: "Description de votre formulaire"
       }),
       layout: 'grid',
       formLayout: 'header',
@@ -892,8 +892,8 @@ export default function AdminEditorForm() {
         title: t("Erreur", {
           defaultValue: "Erreur"
         }),
-        description: t("Erreurlorsdelapublic", {
-          defaultValue: "Erreurlorsdelapublic"
+        description: t("Erreur lors de la publication du formulaire.", {
+          defaultValue: "Erreur lors de la publication du formulaire."
         }),
         variant: "destructive"
       });
@@ -929,8 +929,8 @@ export default function AdminEditorForm() {
         title: t("Erreur", {
           defaultValue: "Erreur"
         }),
-        description: t("Erreurlorsdelapublic", {
-          defaultValue: "Erreurlorsdelapublic"
+        description: t("Erreur lors de la publication du formulaire.", {
+          defaultValue: "Erreur lors de la publication du formulaire."
         }),
         variant: "destructive"
       });
@@ -979,8 +979,8 @@ export default function AdminEditorForm() {
         title: t("Erreur", {
           defaultValue: "Erreur"
         }),
-        description: t("Erreurlorsdeladuplic", {
-          defaultValue: "Erreurlorsdeladuplic"
+        description: t("Erreur lors de la duplication du formulaire.", {
+          defaultValue: "Erreur lors de la duplication du formulaire."
         }),
         variant: 'destructive'
       });
@@ -1074,8 +1074,8 @@ export default function AdminEditorForm() {
         {/* Add Form Button */}
         <div className="mb-6">
           <Button onClick={handleAddForm} className="bg-[hsl(var(--warning))] hover:bg-[hsl(var(--warning)/0.9)] text-white flex items-center gap-2">
-            <Plus className="h-4 w-4" />{t("Ajouterunformulaire", {
-            defaultValue: "Ajouterunformulaire"
+            <Plus className="h-4 w-4" />{t("Ajouter un formulaire", {
+            defaultValue: "Ajouter un formulaire"
           })}</Button>
         </div>
 
@@ -1083,8 +1083,8 @@ export default function AdminEditorForm() {
         <div className="space-y-4">
           {loading ? <div className="text-center py-8">
               <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[hsl(var(--warning))]"></div>
-              <p className="mt-2 text-gray-500">{t("Chargementdesformula", {
-              defaultValue: "Chargementdesformula"
+              <p className="mt-2 text-gray-500">{t("Chargement des formulaires...", {
+              defaultValue: "Chargement des formulaires..."
             })}</p>
             </div> : <>
               {forms.map(form => {
@@ -1158,15 +1158,15 @@ export default function AdminEditorForm() {
               <DialogTitle>{t("Crxe9erunnouveauform", {
                 defaultValue: "Crxe9erunnouveauform"
               })}</DialogTitle>
-              <DialogDescription>{t("Entrezlenomdevotreno", {
-                defaultValue: "Entrezlenomdevotreno"
+              <DialogDescription>{t("Entrez le nom de votre nouveau formulaire. Vous pourrez personnaliser tous les autres \xE9l\xE9ments par la suite.", {
+                defaultValue: "Entrez le nom de votre nouveau formulaire. Vous pourrez personnaliser tous les autres \xE9l\xE9ments par la suite."
               })}</DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
               <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="name" className="text-right">{t('common.nom')}</Label>
-                <Input id="name" value={newFormName} onChange={e => setNewFormName(e.target.value)} placeholder={t("Excontactform", {
-                defaultValue: "Excontactform"
+                <Input id="name" value={newFormName} onChange={e => setNewFormName(e.target.value)} placeholder={t("Ex: contact-form", {
+                defaultValue: "Ex: contact-form"
               })} className="col-span-3" onKeyDown={e => {
                 if (e.key === 'Enter') {
                   handleCreateFormWithTitle();

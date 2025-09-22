@@ -55,11 +55,11 @@ export default function AdminTranslation() {
                 defaultValue: "Retour"
               })}</Button>
               <div>
-                <h1 className="text-3xl font-heading font-bold text-foreground">{t("Gestiondelatraductio", {
-                  defaultValue: "Gestiondelatraductio"
+                <h1 className="text-3xl font-heading font-bold text-foreground">{t("Gestion de la Traduction Automatique", {
+                  defaultValue: "Gestion de la Traduction Automatique"
                 })}</h1>
-                <p className="text-muted-foreground mt-2">{t("Configurationetcontr", {
-                  defaultValue: "Configurationetcontr"
+                <p className="text-muted-foreground mt-2">{t("Configuration et contr\xF4le de la traduction automatique bas\xE9e sur la g\xE9olocalisation IP", {
+                  defaultValue: "Configuration et contr\xF4le de la traduction automatique bas\xE9e sur la g\xE9olocalisation IP"
                 })}</p>
               </div>
             </div>

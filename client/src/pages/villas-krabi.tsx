@@ -10,8 +10,8 @@ export default function VillasKrabi() {
     t
   } = useTranslation();
   return <>
-      <SEO title={t("Villasinkrabicurated", {
-      defaultValue: "Villasinkrabicurated"
+      <SEO title={t("Villas in Krabi - Curated Villa Selection", {
+      defaultValue: "Villas in Krabi - Curated Villa Selection"
     })} description="Download our curated selection of premium villas in Krabi. Luxury accommodations with stunning views, private pools, and exceptional service for your perfect getaway." keywords="krabi villas, luxury accommodation krabi, private villas thailand, villa rentals krabi, premium stays" />
       <Header />
       
@@ -20,8 +20,8 @@ export default function VillasKrabi() {
         <section className="relative h-[50vh] overflow-hidden">
           <div className="absolute inset-0 bg-black/40 z-10"></div>
           <div className="absolute inset-0 z-0">
-            <img src="/uploads/tours/tour-1745996624172-231261635.jpeg" alt={t("Luxuryvillasinkrabi", {
-            defaultValue: "Luxuryvillasinkrabi"
+            <img src="/uploads/tours/tour-1745996624172-231261635.jpeg" alt={t("Luxury villas in Krabi", {
+            defaultValue: "Luxury villas in Krabi"
           })} className="w-full h-full object-cover" />
           </div>
           <div className="container mx-auto px-4 relative z-20 h-full flex flex-col justify-center items-center text-center text-white">
@@ -36,8 +36,8 @@ export default function VillasKrabi() {
           }}>
               <Home className="w-16 h-16 text-secondary mx-auto mb-6" />
               <h1 className="font-heading font-bold text-4xl md:text-5xl mb-6">{t('pages.villasKrabi.title')}</h1>
-              <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-8">{t("Discoverourcuratedse", {
-                defaultValue: "Discoverourcuratedse"
+              <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-8">{t("Discover our curated selection of premium villas for an unforgettable stay in paradise", {
+                defaultValue: "Discover our curated selection of premium villas for an unforgettable stay in paradise"
               })}</p>
             </motion.div>
           </div>
@@ -58,8 +58,8 @@ export default function VillasKrabi() {
             duration: 0.6
           }}>
               <div className="text-center mb-12">
-                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">{t("Curatedvillaselectio", {
-                  defaultValue: "Curatedvillaselectio"
+                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">{t("Curated Villa Selection", {
+                  defaultValue: "Curated Villa Selection"
                 })}</h2>
                 <div className="w-20 h-1 bg-secondary mx-auto mb-6"></div>
                 <p className="text-gray-600 max-w-2xl mx-auto">{t('We\'ve handpicked the finest villas in Krabi, each offering luxury, privacy, and breathtaking views for your perfect escape.', {
@@ -69,41 +69,41 @@ export default function VillasKrabi() {
 
               <div className="bg-neutral-50 p-8 rounded-lg shadow-md text-center mb-8">
                 <Download className="w-16 h-16 text-primary mx-auto mb-4" />
-                <h3 className="font-heading font-bold text-2xl mb-4">{t("Villaselectionpdf", {
-                  defaultValue: "Villaselectionpdf"
+                <h3 className="font-heading font-bold text-2xl mb-4">{t("Villa Selection PDF", {
+                  defaultValue: "Villa Selection PDF"
                 })}</h3>
-                <p className="text-gray-600 mb-6">{t("Downloadourcomprehen", {
-                  defaultValue: "Downloadourcomprehen"
+                <p className="text-gray-600 mb-6">{t("Download our comprehensive travel brochure featuring authentic Thailand experiences and private tours in Krabi.", {
+                  defaultValue: "Download our comprehensive travel brochure featuring authentic Thailand experiences and private tours in Krabi."
                 })}</p>
                 <Button className="bg-primary hover:bg-primary/90">
-                  <Download className="w-4 h-4 mr-2" />{t("Downloadvillaguide", {
-                  defaultValue: "Downloadvillaguide"
+                  <Download className="w-4 h-4 mr-2" />{t("Download Villa Guide", {
+                  defaultValue: "Download Villa Guide"
                 })}</Button>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {[{
-                title: t("Beachfrontvillas", {
-                  defaultValue: "Beachfrontvillas"
+                title: t("Beachfront Villas", {
+                  defaultValue: "Beachfront Villas"
                 }),
-                description: t("Directbeachaccesswit", {
-                  defaultValue: "Directbeachaccesswit"
+                description: t("Direct beach access with panoramic ocean views", {
+                  defaultValue: "Direct beach access with panoramic ocean views"
                 }),
                 features: ["Private beach", "Infinity pools", "Sea view terraces"]
               }, {
-                title: t("Hilltopretreats", {
-                  defaultValue: "Hilltopretreats"
+                title: t("Hilltop Retreats", {
+                  defaultValue: "Hilltop Retreats"
                 }),
-                description: t("Elevatedpositionswit", {
-                  defaultValue: "Elevatedpositionswit"
+                description: t("Elevated positions with stunning limestone cliff views", {
+                  defaultValue: "Elevated positions with stunning limestone cliff views"
                 }),
                 features: ["Mountain views", "Private gardens", "Sunset terraces"]
               }, {
-                title: t("Junglehideaways", {
-                  defaultValue: "Junglehideaways"
+                title: t("Jungle Hideaways", {
+                  defaultValue: "Jungle Hideaways"
                 }),
-                description: t("Secludedvillassurrou", {
-                  defaultValue: "Secludedvillassurrou"
+                description: t("Secluded villas surrounded by tropical nature", {
+                  defaultValue: "Secluded villas surrounded by tropical nature"
                 }),
                 features: ["Tropical gardens", "Nature sounds", "Privacy & tranquility"]
               }].map((category, index) => <motion.div key={index} className="bg-white border border-gray-200 rounded-lg p-6" initial={{

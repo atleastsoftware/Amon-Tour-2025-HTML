@@ -75,8 +75,8 @@ export default function AdminKrabiCelebration() {
         title: t("Erreur", {
           defaultValue: "Erreur"
         }),
-        description: t("Impossibledemarquerl", {
-          defaultValue: "Impossibledemarquerl"
+        description: t("Impossible de marquer la demande comme lue", {
+          defaultValue: "Impossible de marquer la demande comme lue"
         }),
         variant: "destructive"
       });
@@ -105,8 +105,8 @@ export default function AdminKrabiCelebration() {
         title: t("Erreur", {
           defaultValue: "Erreur"
         }),
-        description: t("Impossibledesupprime", {
-          defaultValue: "Impossibledesupprime"
+        description: t("Impossible de supprimer la demande", {
+          defaultValue: "Impossible de supprimer la demande"
         }),
         variant: "destructive"
       });
@@ -258,8 +258,8 @@ export default function AdminKrabiCelebration() {
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <PartyPopper className="h-5 w-5 text-pink-600" />{t("Demandekrabicelebrat", {
-              defaultValue: "Demandekrabicelebrat"
+              <PartyPopper className="h-5 w-5 text-pink-600" />{t("Demande Krabi Celebration", {
+              defaultValue: "Demande Krabi Celebration"
             })}</DialogTitle>
             <DialogDescription>{t('D\xE9tails de la demande d\'\xE9v\xE9nement sp\xE9cial', {
               defaultValue: 'D\xE9tails de la demande d\'\xE9v\xE9nement sp\xE9cial'
@@ -269,8 +269,8 @@ export default function AdminKrabiCelebration() {
           {selectedRequest && <div className="space-y-6">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-gray-700">{t("Nomducontact", {
-                  defaultValue: "Nomducontact"
+                  <label className="text-sm font-medium text-gray-700">{t("Nom du contact", {
+                  defaultValue: "Nom du contact"
                 })}</label>
                   <p className="text-gray-900">{selectedRequest.name}</p>
                 </div>
@@ -322,8 +322,8 @@ export default function AdminKrabiCelebration() {
               </div>
               
               {selectedRequest.description && <div>
-                  <label className="text-sm font-medium text-gray-700">{t("Description", {
-                defaultValue: "Description"
+                  <label className="text-sm font-medium text-gray-700">{t("Description:", {
+                defaultValue: "Description:"
               })}</label>
                   <p className="text-gray-900 bg-gray-50 p-3 rounded-lg mt-1">
                     {selectedRequest.description}
@@ -341,8 +341,8 @@ export default function AdminKrabiCelebration() {
                   defaultValue: "Rxe9pondreparemail"
                 })}</Button>
                   {!selectedRequest.read && <Button onClick={() => markAsReadMutation.mutate(selectedRequest.id)}>
-                      <CheckCircle2 className="h-4 w-4 mr-2" />{t("Marquercommelu", {
-                  defaultValue: "Marquercommelu"
+                      <CheckCircle2 className="h-4 w-4 mr-2" />{t("Marquer comme lu", {
+                  defaultValue: "Marquer comme lu"
                 })}</Button>}
                 </div>
               </div>

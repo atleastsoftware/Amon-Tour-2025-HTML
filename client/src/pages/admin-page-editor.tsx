@@ -95,8 +95,8 @@ function ColorPicker({
         <div className="relative">
           <div className="w-8 h-8 rounded border border-gray-300 cursor-pointer relative overflow-hidden hover:border-gray-400 transition-colors" style={{
           backgroundColor: currentColorValue
-        }} title={t("Cliquezpourpersonnal", {
-          defaultValue: "Cliquezpourpersonnal"
+        }} title={t("Cliquez pour personnaliser la couleur", {
+          defaultValue: "Cliquez pour personnaliser la couleur"
         })}>
             <input type="color" value={currentColorValue} onChange={e => handleColorChange(e.target.value)} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
           </div>
@@ -123,11 +123,11 @@ function ColorPicker({
               <SelectItem value="custom">{t("Rxe9fxe9rencecouleur", {
               defaultValue: "Rxe9fxe9rencecouleur"
             })}</SelectItem>
-              <SelectItem value="primary">{t("Couleurprincipale", {
-              defaultValue: "Couleurprincipale"
+              <SelectItem value="primary">{t("Couleur principale", {
+              defaultValue: "Couleur principale"
             })}</SelectItem>
-              <SelectItem value="secondary">{t("Couleursecondaire", {
-              defaultValue: "Couleursecondaire"
+              <SelectItem value="secondary">{t("Couleur secondaire", {
+              defaultValue: "Couleur secondaire"
             })}</SelectItem>
             </SelectContent>
           </Select>}
@@ -292,8 +292,8 @@ const RealBlockPreview = ({
               const images = [heroConfig.backgroundImage1, heroConfig.backgroundImage2, heroConfig.backgroundImage3].filter(Boolean);
               return <div className="absolute inset-0 w-full h-full z-0">
                   {images.length > 0 ? <img src={images[0]} // For preview, show first image
-                alt={t("Herobackground", {
-                  defaultValue: "Herobackground"
+                alt={t("Hero background", {
+                  defaultValue: "Hero background"
                 })} className="w-full h-full object-cover" /> : <div className="w-full h-full bg-gray-300 flex items-center justify-center">
                       <span className="text-gray-600">{t("Aucuneimagesxe9lecti", {
                       defaultValue: "Aucuneimagesxe9lecti"
@@ -308,8 +308,8 @@ const RealBlockPreview = ({
                   <video autoPlay muted loop playsInline preload="auto" className="w-full h-full object-cover" style={{
                   objectFit: 'cover'
                 }}>
-                    <source src={videoUrl} type="video/mp4" />{t("Yourbrowserdoesnotsu", {
-                    defaultValue: "Yourbrowserdoesnotsu"
+                    <source src={videoUrl} type="video/mp4" />{t("Your browser does not support the video tag.", {
+                    defaultValue: "Your browser does not support the video tag."
                   })}</video>
                   <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
                 </div>;
@@ -334,15 +334,15 @@ const RealBlockPreview = ({
                 </p>
                 <div className={`flex flex-col sm:flex-row gap-4 ${heroConfig.contentAlignment === 'center' ? 'justify-center' : heroConfig.contentAlignment === 'right' ? 'justify-end' : 'justify-start'}`}>
                   {(heroConfig.buttons || [{
-                  text: t("Seeouroffers", {
-                    defaultValue: "Seeouroffers"
+                  text: t("See our offers", {
+                    defaultValue: "See our offers"
                   }),
                   url: '/tours',
                   color: '#084F6E',
                   style: 'filled'
                 }, {
-                  text: t("Customyourtrip", {
-                    defaultValue: "Customyourtrip"
+                  text: t("Custom your trip", {
+                    defaultValue: "Custom your trip"
                   }),
                   url: '/custom-tour',
                   color: '#084F6E',
@@ -582,8 +582,8 @@ const RealBlockPreview = ({
                       </div>
                       
                       <div className="p-6">
-                        <h3 className="text-lg font-bold text-gray-800 mb-3 line-clamp-2">{t("Tourexperience", {
-                      defaultValue: "Tourexperience"
+                        <h3 className="text-lg font-bold text-gray-800 mb-3 line-clamp-2">{t("Tour Experience", {
+                      defaultValue: "Tour Experience"
                     })}{index + 1}
                         </h3>
                         
@@ -608,8 +608,8 @@ const RealBlockPreview = ({
               <div className="flex justify-center gap-4">
                 {/* Utilise les boutons configurés ou le bouton par défaut */}
                 {(liveConfiguration?.buttons?.length ? liveConfiguration.buttons : [{
-                text: t("Viewallourtours", {
-                  defaultValue: "Viewallourtours"
+                text: t("View All Our Tours", {
+                  defaultValue: "View All Our Tours"
                 }),
                 url: '/tours',
                 color: '#084F6E',
@@ -717,8 +717,8 @@ const RealBlockPreview = ({
             }}>
                   {displayToursPrice.map((tour, index) => <TourNinjaCard key={tour.id || index} tour={tour} index={index} />)}
                 </motion.div> : <div className="text-center py-8">
-                  <p className="text-gray-500">{t("Notoursavailableatth", {
-                  defaultValue: "Notoursavailableatth"
+                  <p className="text-gray-500">{t("No tours available at the moment.", {
+                  defaultValue: "No tours available at the moment."
                 })}</p>
                 </div>}
             </div>
@@ -760,11 +760,11 @@ const RealBlockPreview = ({
                 {(featuresConfig.iconBlocks || [{
                 id: 1,
                 mainIcon: 'fas fa-user-friends',
-                title: t("Privatetours", {
-                  defaultValue: "Privatetours"
+                title: t("Private Tours", {
+                  defaultValue: "Private Tours"
                 }),
-                description: t("Experienceanexclusiv", {
-                  defaultValue: "Experienceanexclusiv"
+                description: t("Experience an exclusive private day trip with our English or French-speaking and certified guides.", {
+                  defaultValue: "Experience an exclusive private day trip with our English or French-speaking and certified guides."
                 }),
                 miniIcons: [{
                   icon: 'fas fa-car',
@@ -785,21 +785,21 @@ const RealBlockPreview = ({
               }, {
                 id: 2,
                 mainIcon: 'fas fa-compass',
-                title: t("Customizeditinerarie", {
-                  defaultValue: "Customizeditinerarie"
+                title: t("Customized Itineraries", {
+                  defaultValue: "Customized Itineraries"
                 }),
-                description: t("Createyourownjourney", {
-                  defaultValue: "Createyourownjourney"
+                description: t("Create your own journey based on your desires, your pace, and your interests.", {
+                  defaultValue: "Create your own journey based on your desires, your pace, and your interests."
                 }),
                 miniIcons: [{
                   icon: 'fas fa-map-marked-alt',
-                  text: t("Customroute", {
-                    defaultValue: "Customroute"
+                  text: t("Custom Route", {
+                    defaultValue: "Custom Route"
                   })
                 }, {
                   icon: 'fas fa-clock',
-                  text: t("Flexibletime", {
-                    defaultValue: "Flexibletime"
+                  text: t("Flexible Time", {
+                    defaultValue: "Flexible Time"
                   })
                 }, {
                   icon: 'fas fa-list-check',
@@ -810,11 +810,11 @@ const RealBlockPreview = ({
               }, {
                 id: 3,
                 mainIcon: 'fas fa-sparkles',
-                title: t("Authenticexperiences", {
-                  defaultValue: "Authenticexperiences"
+                title: t("Authentic Experiences", {
+                  defaultValue: "Authentic Experiences"
                 }),
-                description: t("Discoverdestinations", {
-                  defaultValue: "Discoverdestinations"
+                description: t("Discover destinations off the beaten path and immerse yourself in the local culture.", {
+                  defaultValue: "Discover destinations off the beaten path and immerse yourself in the local culture."
                 }),
                 miniIcons: [{
                   icon: 'fas fa-utensils',
@@ -823,8 +823,8 @@ const RealBlockPreview = ({
                   })
                 }, {
                   icon: 'fas fa-hands-helping',
-                  text: t("Localpeople", {
-                    defaultValue: "Localpeople"
+                  text: t("Local People", {
+                    defaultValue: "Local People"
                   })
                 }, {
                   icon: 'fas fa-landmark',
@@ -979,11 +979,11 @@ const BlockEditDropdown = ({
         return <div className="space-y-6">
             {/* Titre principal */}
             <div>
-              <Label htmlFor="title">{t("Titreprincipal", {
-                defaultValue: "Titreprincipal"
+              <Label htmlFor="title">{t("Titre Principal", {
+                defaultValue: "Titre Principal"
               })}</Label>
-              <Textarea id="title" value={formData.title || block.configuration?.title || 'Your exclusive experiences\nin Krabi –\nTHAILAND'} onChange={e => updateField('title', e.target.value)} placeholder={t("Yourexclusiveexperie", {
-              defaultValue: "Yourexclusiveexperie"
+              <Textarea id="title" value={formData.title || block.configuration?.title || 'Your exclusive experiences\nin Krabi –\nTHAILAND'} onChange={e => updateField('title', e.target.value)} placeholder={t("Your exclusive experiences", {
+              defaultValue: "Your exclusive experiences"
             })} rows={3} className="mt-2" />
               <div className="mt-3">
                 <ColorPicker value={formData.titleColor || '#ffffff'} onChange={value => updateField('titleColor', value)} />
@@ -992,14 +992,14 @@ const BlockEditDropdown = ({
             
             {/* Mot du titre en seconde couleur */}
             <div>
-              <Label htmlFor="titleAccentText">{t("Motdutitreensecondec", {
-                defaultValue: "Motdutitreensecondec"
+              <Label htmlFor="titleAccentText">{t("Mot du titre en seconde couleur", {
+                defaultValue: "Mot du titre en seconde couleur"
               })}</Label>
               <Input id="titleAccentText" value={formData.titleAccentText || 'in Krabi –'} onChange={e => updateField('titleAccentText', e.target.value)} placeholder={t("Inkrabiu2013", {
               defaultValue: "Inkrabiu2013"
             })} className="mt-2" />
-              <p className="text-xs text-gray-500 mt-1">{t("Tapezexactementlesmo", {
-                defaultValue: "Tapezexactementlesmo"
+              <p className="text-xs text-gray-500 mt-1">{t("Tapez exactement les mots du titre que vous voulez colorer", {
+                defaultValue: "Tapez exactement les mots du titre que vous voulez colorer"
               })}</p>
               <div className="mt-3">
                 <ColorPicker value={formData.titleAccentColor || '#084F6E'} onChange={value => updateField('titleAccentColor', value)} />
@@ -1011,8 +1011,8 @@ const BlockEditDropdown = ({
               <Label htmlFor="subtitle">{t("Soustitre", {
                 defaultValue: "Soustitre"
               })}</Label>
-              <Textarea id="subtitle" value={formData.subtitle || block.configuration?.subtitle || 'Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations.'} onChange={e => updateField('subtitle', e.target.value)} placeholder={t("Discoveramazingplace", {
-              defaultValue: "Discoveramazingplace"
+              <Textarea id="subtitle" value={formData.subtitle || block.configuration?.subtitle || 'Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations.'} onChange={e => updateField('subtitle', e.target.value)} placeholder={t("Discover amazing places away from mass tourism in Krabi. And also Khao Sok, Koh Mook and many more destinations.", {
+              defaultValue: "Discover amazing places away from mass tourism in Krabi. And also Khao Sok, Koh Mook and many more destinations."
             })} rows={3} className="mt-2" />
               <div className="mt-3">
                 <ColorPicker value={formData.subtitleColor || '#ffffff'} onChange={value => updateField('subtitleColor', value)} />
@@ -1027,45 +1027,45 @@ const BlockEditDropdown = ({
                 })}</Label>
                 <Button type="button" variant="outline" size="sm" onClick={() => {
                 const buttons = formData.buttons || [{
-                  text: t("Seeouroffers", {
-                    defaultValue: "Seeouroffers"
+                  text: t("See our offers", {
+                    defaultValue: "See our offers"
                   }),
                   url: '/tours',
                   color: '#084F6E',
                   style: 'filled'
                 }, {
-                  text: t("Customyourtrip", {
-                    defaultValue: "Customyourtrip"
+                  text: t("Custom your trip", {
+                    defaultValue: "Custom your trip"
                   }),
                   url: '/custom-tour',
                   color: '#084F6E',
                   style: 'filled'
                 }];
                 updateField('buttons', [...buttons, {
-                  text: t("Nouveaubouton", {
-                    defaultValue: "Nouveaubouton"
+                  text: t("Nouveau bouton", {
+                    defaultValue: "Nouveau bouton"
                   }),
                   url: '#',
                   color: '#084F6E',
                   style: 'filled'
                 }]);
               }}>
-                  <Plus className="h-4 w-4 mr-1" />{t("Ajouterunbouton", {
-                  defaultValue: "Ajouterunbouton"
+                  <Plus className="h-4 w-4 mr-1" />{t("Ajouter un bouton", {
+                  defaultValue: "Ajouter un bouton"
                 })}</Button>
               </div>
               
               <div className="space-y-3">
                 {(formData.buttons || [{
-                text: t("Seeouroffers", {
-                  defaultValue: "Seeouroffers"
+                text: t("See our offers", {
+                  defaultValue: "See our offers"
                 }),
                 url: '/tours',
                 color: '#084F6E',
                 style: 'filled'
               }, {
-                text: t("Customyourtrip", {
-                  defaultValue: "Customyourtrip"
+                text: t("Custom your trip", {
+                  defaultValue: "Custom your trip"
                 }),
                 url: '/custom-tour',
                 color: '#084F6E',
@@ -1077,15 +1077,15 @@ const BlockEditDropdown = ({
                     })}{index + 1}</Label>
                       <Button type="button" variant="ghost" size="sm" onClick={() => {
                     const buttons = formData.buttons || [{
-                      text: t("Seeouroffers", {
-                        defaultValue: "Seeouroffers"
+                      text: t("See our offers", {
+                        defaultValue: "See our offers"
                       }),
                       url: '/tours',
                       color: '#084F6E',
                       style: 'filled'
                     }, {
-                      text: t("Customyourtrip", {
-                        defaultValue: "Customyourtrip"
+                      text: t("Custom your trip", {
+                        defaultValue: "Custom your trip"
                       }),
                       url: '/custom-tour',
                       color: '#084F6E',
@@ -1105,15 +1105,15 @@ const BlockEditDropdown = ({
                       })}</Label>
                       <Input value={button.text || ''} onChange={e => {
                       const buttons = formData.buttons || [{
-                        text: t("Seeouroffers", {
-                          defaultValue: "Seeouroffers"
+                        text: t("See our offers", {
+                          defaultValue: "See our offers"
                         }),
                         url: '/tours',
                         color: '#084F6E',
                         style: 'filled'
                       }, {
-                        text: t("Customyourtrip", {
-                          defaultValue: "Customyourtrip"
+                        text: t("Custom your trip", {
+                          defaultValue: "Custom your trip"
                         }),
                         url: '/custom-tour',
                         color: '#084F6E',
@@ -1130,15 +1130,15 @@ const BlockEditDropdown = ({
                       <Label className="text-xs">{t('common.url')}</Label>
                       <Input value={button.url || ''} onChange={e => {
                       const buttons = formData.buttons || [{
-                        text: t("Seeouroffers", {
-                          defaultValue: "Seeouroffers"
+                        text: t("See our offers", {
+                          defaultValue: "See our offers"
                         }),
                         url: '/tours',
                         color: '#084F6E',
                         style: 'filled'
                       }, {
-                        text: t("Customyourtrip", {
-                          defaultValue: "Customyourtrip"
+                        text: t("Custom your trip", {
+                          defaultValue: "Custom your trip"
                         }),
                         url: '/custom-tour',
                         color: '#084F6E',
@@ -1160,15 +1160,15 @@ const BlockEditDropdown = ({
                       })}</Label>
                       <ColorPicker value={button.color || '#084F6E'} onChange={value => {
                       const buttons = formData.buttons || [{
-                        text: t("Seeouroffers", {
-                          defaultValue: "Seeouroffers"
+                        text: t("See our offers", {
+                          defaultValue: "See our offers"
                         }),
                         url: '/tours',
                         color: '#084F6E',
                         style: 'filled'
                       }, {
-                        text: t("Customyourtrip", {
-                          defaultValue: "Customyourtrip"
+                        text: t("Custom your trip", {
+                          defaultValue: "Custom your trip"
                         }),
                         url: '/custom-tour',
                         color: '#084F6E',
@@ -1186,15 +1186,15 @@ const BlockEditDropdown = ({
                       <Label className="text-xs">Style</Label>
                       <Select value={button.style || 'filled'} onValueChange={value => {
                       const buttons = formData.buttons || [{
-                        text: t("Seeouroffers", {
-                          defaultValue: "Seeouroffers"
+                        text: t("See our offers", {
+                          defaultValue: "See our offers"
                         }),
                         url: '/tours',
                         color: '#084F6E',
                         style: 'filled'
                       }, {
-                        text: t("Customyourtrip", {
-                          defaultValue: "Customyourtrip"
+                        text: t("Custom your trip", {
+                          defaultValue: "Custom your trip"
                         }),
                         url: '/custom-tour',
                         color: '#084F6E',
@@ -1226,8 +1226,8 @@ const BlockEditDropdown = ({
 
             {/* Alignement du contenu */}
             <div>
-              <Label>{t("Alignementducontenu", {
-                defaultValue: "Alignementducontenu"
+              <Label>{t("Alignement du contenu", {
+                defaultValue: "Alignement du contenu"
               })}</Label>
               <div className="mt-3">
                 <Select value={formData.contentAlignment || 'left'} onValueChange={value => updateField('contentAlignment', value)}>
@@ -1263,19 +1263,19 @@ const BlockEditDropdown = ({
                     <SelectItem value="video">{t("Vidxe9o", {
                       defaultValue: "Vidxe9o"
                     })}</SelectItem>
-                    <SelectItem value="images">{t("Imagesenrotation", {
-                      defaultValue: "Imagesenrotation"
+                    <SelectItem value="images">{t("Images en rotation", {
+                      defaultValue: "Images en rotation"
                     })}</SelectItem>
-                    <SelectItem value="color">{t("Couleurunie", {
-                      defaultValue: "Couleurunie"
+                    <SelectItem value="color">{t("Couleur unie", {
+                      defaultValue: "Couleur unie"
                     })}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               
               {formData.backgroundType === 'color' && <div>
-                  <Label htmlFor="backgroundColor">{t("Couleurdefond", {
-                  defaultValue: "Couleurdefond"
+                  <Label htmlFor="backgroundColor">{t("Couleur de fond", {
+                  defaultValue: "Couleur de fond"
                 })}</Label>
                   <div className="flex gap-2">
                     <input type="color" id="backgroundColor" value={formData.backgroundColor || '#084F6E'} onChange={e => updateField('backgroundColor', e.target.value)} className="w-10 h-10 rounded cursor-pointer" style={{
@@ -1311,8 +1311,8 @@ const BlockEditDropdown = ({
                 </div>}
               
               {formData.backgroundType === 'images' && <div className="space-y-3">
-                  <Label>{t("Urlsdesimages3maximu", {
-                  defaultValue: "Urlsdesimages3maximu"
+                  <Label>{t("URLs des images (3 maximum)", {
+                  defaultValue: "URLs des images (3 maximum)"
                 })}</Label>
                   
                   <div className="flex gap-2">
@@ -1387,8 +1387,8 @@ const BlockEditDropdown = ({
               <Label htmlFor="title">{t("Titre", {
                 defaultValue: "Titre"
               })}</Label>
-              <Input id="title" value={formData.title || block.configuration?.title || 'Titre de la section'} onChange={e => updateField('title', e.target.value)} placeholder={t("Titredelasection", {
-              defaultValue: "Titredelasection"
+              <Input id="title" value={formData.title || block.configuration?.title || 'Titre de la section'} onChange={e => updateField('title', e.target.value)} placeholder={t("Titre de la section", {
+              defaultValue: "Titre de la section"
             })} className="mt-2" />
               <div className="mt-3">
                 <ColorPicker value={formData.titleColor || '#333333'} onChange={value => updateField('titleColor', value)} />
@@ -1400,8 +1400,8 @@ const BlockEditDropdown = ({
               <Label htmlFor="content">{t("Contenu", {
                 defaultValue: "Contenu"
               })}</Label>
-              <Textarea id="content" value={formData.content || block.configuration?.content || 'Contenu du texte de cette section. Vous pouvez modifier ce texte dans l\'éditeur.'} onChange={e => updateField('content', e.target.value)} placeholder={t("Contenudutextedecett", {
-              defaultValue: "Contenudutextedecett"
+              <Textarea id="content" value={formData.content || block.configuration?.content || 'Contenu du texte de cette section. Vous pouvez modifier ce texte dans l\'éditeur.'} onChange={e => updateField('content', e.target.value)} placeholder={t("Contenu du texte de cette section...", {
+              defaultValue: "Contenu du texte de cette section..."
             })} rows={4} className="mt-2" />
               <div className="mt-3">
                 <ColorPicker value={formData.contentColor || '#666666'} onChange={value => updateField('contentColor', value)} />
@@ -1425,8 +1425,8 @@ const BlockEditDropdown = ({
               <Label htmlFor="title">{t("Titre", {
                 defaultValue: "Titre"
               })}</Label>
-              <Input id="title" value={formData.title || block.configuration?.title || ''} onChange={e => updateField('title', e.target.value)} placeholder={t("Whenexpatswelcomeyou", {
-              defaultValue: "Whenexpatswelcomeyou"
+              <Input id="title" value={formData.title || block.configuration?.title || ''} onChange={e => updateField('title', e.target.value)} placeholder={t("When expats welcome you...", {
+              defaultValue: "When expats welcome you..."
             })} className="mt-2" />
               <div className="mt-3">
                 <ColorPicker value={formData.titleColor || '#333333'} onChange={value => updateField('titleColor', value)} />
@@ -1438,8 +1438,8 @@ const BlockEditDropdown = ({
               <Label htmlFor="content">{t("Contenu", {
                 defaultValue: "Contenu"
               })}</Label>
-              <Textarea id="content" value={formData.content || block.configuration?.content || ''} onChange={e => updateField('content', e.target.value)} placeholder={t("Contenudelasection", {
-              defaultValue: "Contenudelasection"
+              <Textarea id="content" value={formData.content || block.configuration?.content || ''} onChange={e => updateField('content', e.target.value)} placeholder={t("Contenu de la section...", {
+              defaultValue: "Contenu de la section..."
             })} rows={4} className="mt-2" />
               <div className="mt-3">
                 <ColorPicker value={formData.contentColor || '#666666'} onChange={value => updateField('contentColor', value)} />
@@ -1463,8 +1463,8 @@ const BlockEditDropdown = ({
               <Label htmlFor="title">{t("Titre", {
                 defaultValue: "Titre"
               })}</Label>
-              <Input id="title" value={formData.title || block.configuration?.title || 'Our Popular Experiences'} onChange={e => updateField('title', e.target.value)} placeholder={t("Ourpopularexperience", {
-              defaultValue: "Ourpopularexperience"
+              <Input id="title" value={formData.title || block.configuration?.title || 'Our Popular Experiences'} onChange={e => updateField('title', e.target.value)} placeholder={t("Our Popular Experiences", {
+              defaultValue: "Our Popular Experiences"
             })} className="mt-2" />
               <div className="mt-3">
                 <ColorPicker value={formData.titleColor || '#333333'} onChange={value => updateField('titleColor', value)} />
@@ -1476,8 +1476,8 @@ const BlockEditDropdown = ({
               <Label htmlFor="subtitle">{t("Soustitre", {
                 defaultValue: "Soustitre"
               })}</Label>
-              <Input id="subtitle" value={formData.subtitle || block.configuration?.subtitle || 'Step off the beaten path into carefully curated experiences beyond the tourist trail.'} onChange={e => updateField('subtitle', e.target.value)} placeholder={t("Stepoffthebeatenpath", {
-              defaultValue: "Stepoffthebeatenpath"
+              <Input id="subtitle" value={formData.subtitle || block.configuration?.subtitle || 'Step off the beaten path into carefully curated experiences beyond the tourist trail.'} onChange={e => updateField('subtitle', e.target.value)} placeholder={t("Step off the beaten path...", {
+              defaultValue: "Step off the beaten path..."
             })} className="mt-2" />
               <div className="mt-3">
                 <ColorPicker value={formData.subtitleColor || '#666666'} onChange={value => updateField('subtitleColor', value)} />
@@ -1496,14 +1496,14 @@ const BlockEditDropdown = ({
 
             {/* Configuration de la grille */}
             <div className="space-y-4 border-t pt-4">
-              <h4 className="text-sm font-medium text-gray-900">{t("Configurationdelagri", {
-                defaultValue: "Configurationdelagri"
+              <h4 className="text-sm font-medium text-gray-900">{t("Configuration de la grille", {
+                defaultValue: "Configuration de la grille"
               })}</h4>
               
               {/* Colonnes */}
               <div>
-                <Label className="text-sm font-medium">{t("Colonnesparappareil", {
-                  defaultValue: "Colonnesparappareil"
+                <Label className="text-sm font-medium">{t("Colonnes par appareil", {
+                  defaultValue: "Colonnes par appareil"
                 })}</Label>
                 <div className="grid grid-cols-3 gap-4 mt-2">
                   <div>
@@ -1599,8 +1599,8 @@ const BlockEditDropdown = ({
                     onPreviewUpdate(newFormData);
                   }
                 }} />
-                  <Label htmlFor="show_all_ads" className="text-sm">{t("Touteslesannoncesdis", {
-                    defaultValue: "Touteslesannoncesdis"
+                  <Label htmlFor="show_all_ads" className="text-sm">{t("Toutes les annonces disponibles", {
+                    defaultValue: "Toutes les annonces disponibles"
                   })}</Label>
                 </div>
               </div>
@@ -1614,11 +1614,11 @@ const BlockEditDropdown = ({
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">{t("Touteslesannonces", {
-                      defaultValue: "Touteslesannonces"
+                    <SelectItem value="all">{t("Toutes les annonces", {
+                      defaultValue: "Toutes les annonces"
                     })}</SelectItem>
-                    <SelectItem value="featured">{t("Annoncesvedettes", {
-                      defaultValue: "Annoncesvedettes"
+                    <SelectItem value="featured">{t("Annonces vedettes", {
+                      defaultValue: "Annonces vedettes"
                     })}</SelectItem>
                     <SelectItem value="day_trips">{t('Excursions d\'une journ\xE9e', {
                       defaultValue: 'Excursions d\'une journ\xE9e'
@@ -1642,31 +1642,31 @@ const BlockEditDropdown = ({
                 })}</Label>
                 <Button type="button" variant="outline" size="sm" onClick={() => {
                 const buttons = formData.buttons || [{
-                  text: t("Viewallourtours", {
-                    defaultValue: "Viewallourtours"
+                  text: t("View All Our Tours", {
+                    defaultValue: "View All Our Tours"
                   }),
                   url: '/tours',
                   color: '#084F6E',
                   style: 'filled'
                 }];
                 updateField('buttons', [...buttons, {
-                  text: t("Nouveaubouton", {
-                    defaultValue: "Nouveaubouton"
+                  text: t("Nouveau bouton", {
+                    defaultValue: "Nouveau bouton"
                   }),
                   url: '#',
                   color: '#084F6E',
                   style: 'filled'
                 }]);
               }}>
-                  <Plus className="h-4 w-4 mr-1" />{t("Ajouterunbouton", {
-                  defaultValue: "Ajouterunbouton"
+                  <Plus className="h-4 w-4 mr-1" />{t("Ajouter un bouton", {
+                  defaultValue: "Ajouter un bouton"
                 })}</Button>
               </div>
               
               <div className="space-y-3">
                 {(formData.buttons || [{
-                text: t("Viewallourtours", {
-                  defaultValue: "Viewallourtours"
+                text: t("View All Our Tours", {
+                  defaultValue: "View All Our Tours"
                 }),
                 url: '/tours',
                 color: '#084F6E',
@@ -1678,8 +1678,8 @@ const BlockEditDropdown = ({
                     })}{index + 1}</Label>
                       <Button type="button" variant="ghost" size="sm" onClick={() => {
                     const buttons = formData.buttons || [{
-                      text: t("Viewallourtours", {
-                        defaultValue: "Viewallourtours"
+                      text: t("View All Our Tours", {
+                        defaultValue: "View All Our Tours"
                       }),
                       url: '/tours',
                       color: '#084F6E',
@@ -1699,8 +1699,8 @@ const BlockEditDropdown = ({
                       })}</Label>
                       <Input value={button.text || ''} onChange={e => {
                       const buttons = formData.buttons || [{
-                        text: t("Viewallourtours", {
-                          defaultValue: "Viewallourtours"
+                        text: t("View All Our Tours", {
+                          defaultValue: "View All Our Tours"
                         }),
                         url: '/tours',
                         color: '#084F6E',
@@ -1718,8 +1718,8 @@ const BlockEditDropdown = ({
                       <Label className="text-xs">{t('common.url')}</Label>
                       <Input value={button.url || ''} onChange={e => {
                       const buttons = formData.buttons || [{
-                        text: t("Viewallourtours", {
-                          defaultValue: "Viewallourtours"
+                        text: t("View All Our Tours", {
+                          defaultValue: "View All Our Tours"
                         }),
                         url: '/tours',
                         color: '#084F6E',
@@ -1742,8 +1742,8 @@ const BlockEditDropdown = ({
                       })}</Label>
                       <ColorPicker value={button.color || '#084F6E'} onChange={value => {
                       const buttons = formData.buttons || [{
-                        text: t("Viewallourtours", {
-                          defaultValue: "Viewallourtours"
+                        text: t("View All Our Tours", {
+                          defaultValue: "View All Our Tours"
                         }),
                         url: '/tours',
                         color: '#084F6E',
@@ -1761,8 +1761,8 @@ const BlockEditDropdown = ({
                       <Label className="text-xs">Style</Label>
                       <Select value={button.style || 'filled'} onValueChange={value => {
                       const buttons = formData.buttons || [{
-                        text: t("Viewallourtours", {
-                          defaultValue: "Viewallourtours"
+                        text: t("View All Our Tours", {
+                          defaultValue: "View All Our Tours"
                         }),
                         url: '/tours',
                         color: '#084F6E',
@@ -1800,8 +1800,8 @@ const BlockEditDropdown = ({
               <Label htmlFor="title">{t("Titre", {
                 defaultValue: "Titre"
               })}</Label>
-              <Input id="title" value={formData.title || 'Some Ideas For Your Next Trip'} onChange={e => updateField('title', e.target.value)} placeholder={t("Someideasforyournext", {
-              defaultValue: "Someideasforyournext"
+              <Input id="title" value={formData.title || 'Some Ideas For Your Next Trip'} onChange={e => updateField('title', e.target.value)} placeholder={t("Some Ideas For Your Next Trip", {
+              defaultValue: "Some Ideas For Your Next Trip"
             })} className="mt-2" />
               <div className="mt-3">
                 <ColorPicker value={formData.titleColor || '#333333'} onChange={value => updateField('titleColor', value)} />
@@ -1813,8 +1813,8 @@ const BlockEditDropdown = ({
               <Label htmlFor="subtitle">{t("Soustitre", {
                 defaultValue: "Soustitre"
               })}</Label>
-              <Input id="subtitle" value={formData.subtitle || 'Get inspired by our custom-designed travel experiences.'} onChange={e => updateField('subtitle', e.target.value)} placeholder={t("Getinspiredbyourcust", {
-              defaultValue: "Getinspiredbyourcust"
+              <Input id="subtitle" value={formData.subtitle || 'Get inspired by our custom-designed travel experiences.'} onChange={e => updateField('subtitle', e.target.value)} placeholder={t("Get inspired by our custom-designed travel experiences.", {
+              defaultValue: "Get inspired by our custom-designed travel experiences."
             })} className="mt-2" />
               <div className="mt-3">
                 <ColorPicker value={formData.subtitleColor || '#666666'} onChange={value => updateField('subtitleColor', value)} />
@@ -1833,14 +1833,14 @@ const BlockEditDropdown = ({
 
             {/* Configuration de la grille */}
             <div className="space-y-4 border-t pt-4">
-              <h4 className="text-sm font-medium text-gray-900">{t("Configurationdelagri", {
-                defaultValue: "Configurationdelagri"
+              <h4 className="text-sm font-medium text-gray-900">{t("Configuration de la grille", {
+                defaultValue: "Configuration de la grille"
               })}</h4>
               
               {/* Colonnes */}
               <div>
-                <Label className="text-sm font-medium">{t("Colonnesparappareil", {
-                  defaultValue: "Colonnesparappareil"
+                <Label className="text-sm font-medium">{t("Colonnes par appareil", {
+                  defaultValue: "Colonnes par appareil"
                 })}</Label>
                 <div className="grid grid-cols-3 gap-4 mt-2">
                   <div>
@@ -1936,8 +1936,8 @@ const BlockEditDropdown = ({
                     onPreviewUpdate(newFormData);
                   }
                 }} />
-                  <Label htmlFor="show_all_ads_price" className="text-sm">{t("Touteslesannoncesdis", {
-                    defaultValue: "Touteslesannoncesdis"
+                  <Label htmlFor="show_all_ads_price" className="text-sm">{t("Toutes les annonces disponibles", {
+                    defaultValue: "Toutes les annonces disponibles"
                   })}</Label>
                 </div>
               </div>
@@ -1951,11 +1951,11 @@ const BlockEditDropdown = ({
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">{t("Touteslesannonces", {
-                      defaultValue: "Touteslesannonces"
+                    <SelectItem value="all">{t("Toutes les annonces", {
+                      defaultValue: "Toutes les annonces"
                     })}</SelectItem>
-                    <SelectItem value="featured">{t("Annoncesvedettes", {
-                      defaultValue: "Annoncesvedettes"
+                    <SelectItem value="featured">{t("Annonces vedettes", {
+                      defaultValue: "Annonces vedettes"
                     })}</SelectItem>
                     <SelectItem value="day_trips">{t('Excursions d\'une journ\xE9e', {
                       defaultValue: 'Excursions d\'une journ\xE9e'
@@ -1990,8 +1990,8 @@ const BlockEditDropdown = ({
                 <Label htmlFor="subtitle">{t("Soustitre", {
                   defaultValue: "Soustitre"
                 })}</Label>
-                <Input id="subtitle" placeholder={t("Experienceanexclusiv", {
-                defaultValue: "Experienceanexclusiv"
+                <Input id="subtitle" placeholder={t("Experience an exclusive private day trip with our English or French-speaking and certified guides.", {
+                defaultValue: "Experience an exclusive private day trip with our English or French-speaking and certified guides."
               })} value={formData.subtitle || ''} onChange={e => updateField('subtitle', e.target.value)} className="mt-2" />
                 <div className="mt-3">
                   <ColorPicker value={formData.subtitleColor || '#666666'} onChange={value => updateField('subtitleColor', value)} />
@@ -2021,8 +2021,8 @@ const BlockEditDropdown = ({
                     const newBlock = {
                       id: Date.now(),
                       mainIcon: 'fas fa-sparkles',
-                      title: t("Nouveaubloc", {
-                        defaultValue: "Nouveaubloc"
+                      title: t("Nouveau Bloc", {
+                        defaultValue: "Nouveau Bloc"
                       }),
                       description: t('Description de ce bloc d\'avantages.', {
                         defaultValue: 'Description de ce bloc d\'avantages.'
@@ -2057,11 +2057,11 @@ const BlockEditDropdown = ({
                 const getDefaultBlocks = () => [{
                   id: 1,
                   mainIcon: 'fas fa-user-friends',
-                  title: t("Privatetours", {
-                    defaultValue: "Privatetours"
+                  title: t("Private Tours", {
+                    defaultValue: "Private Tours"
                   }),
-                  description: t("Experienceanexclusiv", {
-                    defaultValue: "Experienceanexclusiv"
+                  description: t("Experience an exclusive private day trip with our English or French-speaking and certified guides.", {
+                    defaultValue: "Experience an exclusive private day trip with our English or French-speaking and certified guides."
                   }),
                   miniIcons: [{
                     icon: 'fas fa-car',
@@ -2082,21 +2082,21 @@ const BlockEditDropdown = ({
                 }, {
                   id: 2,
                   mainIcon: 'fas fa-compass',
-                  title: t("Customizeditinerarie", {
-                    defaultValue: "Customizeditinerarie"
+                  title: t("Customized Itineraries", {
+                    defaultValue: "Customized Itineraries"
                   }),
-                  description: t("Createyourownjourney", {
-                    defaultValue: "Createyourownjourney"
+                  description: t("Create your own journey based on your desires, your pace, and your interests.", {
+                    defaultValue: "Create your own journey based on your desires, your pace, and your interests."
                   }),
                   miniIcons: [{
                     icon: 'fas fa-map-marked-alt',
-                    text: t("Customroute", {
-                      defaultValue: "Customroute"
+                    text: t("Custom Route", {
+                      defaultValue: "Custom Route"
                     })
                   }, {
                     icon: 'fas fa-clock',
-                    text: t("Flexibletime", {
-                      defaultValue: "Flexibletime"
+                    text: t("Flexible Time", {
+                      defaultValue: "Flexible Time"
                     })
                   }, {
                     icon: 'fas fa-list-check',
@@ -2107,11 +2107,11 @@ const BlockEditDropdown = ({
                 }, {
                   id: 3,
                   mainIcon: 'fas fa-sparkles',
-                  title: t("Authenticexperiences", {
-                    defaultValue: "Authenticexperiences"
+                  title: t("Authentic Experiences", {
+                    defaultValue: "Authentic Experiences"
                   }),
-                  description: t("Discoverdestinations", {
-                    defaultValue: "Discoverdestinations"
+                  description: t("Discover destinations off the beaten path and immerse yourself in the local culture.", {
+                    defaultValue: "Discover destinations off the beaten path and immerse yourself in the local culture."
                   }),
                   miniIcons: [{
                     icon: 'fas fa-utensils',
@@ -2120,8 +2120,8 @@ const BlockEditDropdown = ({
                     })
                   }, {
                     icon: 'fas fa-hands-helping',
-                    text: t("Localpeople", {
-                      defaultValue: "Localpeople"
+                    text: t("Local People", {
+                      defaultValue: "Local People"
                     })
                   }, {
                     icon: 'fas fa-landmark',
@@ -2277,8 +2277,8 @@ const BlockEditDropdown = ({
                       </div>
                       
                       <div>
-                        <Label>{t("Description", {
-                        defaultValue: "Description"
+                        <Label>{t("Description:", {
+                        defaultValue: "Description:"
                       })}</Label>
                         <Textarea value={block.description} onChange={e => {
                       const blocks = formData.iconBlocks || [];
@@ -2370,8 +2370,8 @@ const BlockEditDropdown = ({
                                 return b;
                               });
                               updateField('iconBlocks', updatedBlocks);
-                            }} className="bg-blue-500 text-white w-9 h-9 rounded hover:bg-blue-600 transition-colors flex items-center justify-center" title={t("Supprimercetteminiic", {
-                              defaultValue: "Supprimercetteminiic"
+                            }} className="bg-blue-500 text-white w-9 h-9 rounded hover:bg-blue-600 transition-colors flex items-center justify-center" title={t("Supprimer cette mini-ic\xF4ne", {
+                              defaultValue: "Supprimer cette mini-ic\xF4ne"
                             })}>
                                     <Trash2 size={14} />
                                   </button>
@@ -2405,14 +2405,14 @@ const BlockEditDropdown = ({
                             }, {
                               icon: 'fas fa-map-marked-alt',
                               component: <i className="fas fa-map-marked-alt text-xs"></i>,
-                              label: t("Customroute", {
-                                defaultValue: "Customroute"
+                              label: t("Custom Route", {
+                                defaultValue: "Custom Route"
                               })
                             }, {
                               icon: 'fas fa-clock',
                               component: <i className="fas fa-clock text-xs"></i>,
-                              label: t("Flexibletime", {
-                                defaultValue: "Flexibletime"
+                              label: t("Flexible Time", {
+                                defaultValue: "Flexible Time"
                               })
                             }, {
                               icon: 'fas fa-list-check',
@@ -2429,8 +2429,8 @@ const BlockEditDropdown = ({
                             }, {
                               icon: 'fas fa-hands-helping',
                               component: <i className="fas fa-hands-helping text-xs"></i>,
-                              label: t("Localpeople", {
-                                defaultValue: "Localpeople"
+                              label: t("Local People", {
+                                defaultValue: "Local People"
                               })
                             }, {
                               icon: 'fas fa-landmark',
@@ -2571,8 +2571,8 @@ const BlockEditDropdown = ({
               <Input id="title" value={formData.title || 'Who We Are'} onChange={e => updateField('title', e.target.value)} />
             </div>
             <div>
-              <Label htmlFor="mainText">{t("Texteprincipal", {
-                defaultValue: "Texteprincipal"
+              <Label htmlFor="mainText">{t("Texte principal", {
+                defaultValue: "Texte principal"
               })}</Label>
               <Textarea id="mainText" value={formData.mainText || 'We are Éric, Margaux, Gabriel, and Raphaël...'} onChange={e => updateField('mainText', e.target.value)} rows={3} />
             </div>
@@ -2583,8 +2583,8 @@ const BlockEditDropdown = ({
               <Input id="conceptTitle" value={formData.conceptTitle || 'Our Concept'} onChange={e => updateField('conceptTitle', e.target.value)} />
             </div>
             <div>
-              <Label htmlFor="conceptText">{t("Texteconcept", {
-                defaultValue: "Texteconcept"
+              <Label htmlFor="conceptText">{t("Texte concept", {
+                defaultValue: "Texte concept"
               })}</Label>
               <Textarea id="conceptText" value={formData.conceptText || 'Combine the warmth and proximity...'} onChange={e => updateField('conceptText', e.target.value)} rows={3} />
             </div>
@@ -2631,8 +2631,8 @@ const BlockEditDropdown = ({
               <Input id="subtitle" value={formData.subtitle || 'Your travel story starts with your dreams...'} onChange={e => updateField('subtitle', e.target.value)} />
             </div>
             <div>
-              <Label htmlFor="formImage">{t("Imageduformulaire", {
-                defaultValue: "Imageduformulaire"
+              <Label htmlFor="formImage">{t("Image du formulaire", {
+                defaultValue: "Image du formulaire"
               })}</Label>
               <Input id="formImage" value={formData.formImage || '/catamaran-cruise.png'} onChange={e => updateField('formImage', e.target.value)} />
             </div>
@@ -2781,8 +2781,8 @@ export default function AdminPageEditor() {
         title: t("Erreur", {
           defaultValue: "Erreur"
         }),
-        description: t("Impossibledesupprime", {
-          defaultValue: "Impossibledesupprime"
+        description: t("Impossible de supprimer la demande", {
+          defaultValue: "Impossible de supprimer la demande"
         }),
         variant: "destructive"
       });
@@ -2839,8 +2839,8 @@ export default function AdminPageEditor() {
     return <div className="min-h-screen bg-gray-50 p-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center py-12">
-            <div className="text-gray-500">{t("Pageconfigurationnot", {
-              defaultValue: "Pageconfigurationnot"
+            <div className="text-gray-500">{t("Page configuration not found", {
+              defaultValue: "Page configuration not found"
             })}</div>
             <Button onClick={goBack} className="mt-4">
               <ArrowLeft className="w-4 h-4 mr-2" />{t("Retour", {
@@ -2865,8 +2865,8 @@ export default function AdminPageEditor() {
                 </div>
                 <div>
                   <h1 className="text-2xl font-bold text-gray-900">Éditeur de page</h1>
-                  <p className="text-sm text-gray-600">{t("Chaqueblocreproduite", {
-                    defaultValue: "Chaqueblocreproduite"
+                  <p className="text-sm text-gray-600">{t("Chaque bloc reproduit exactement la section correspondante de votre site web.", {
+                    defaultValue: "Chaque bloc reproduit exactement la section correspondante de votre site web."
                   })}</p>
                 </div>
               </div>
@@ -2906,8 +2906,8 @@ export default function AdminPageEditor() {
                 </div>)}
             </div> : pageBlocks.length === 0 ? <div className="text-center py-12 bg-white rounded-xl shadow-sm">
               <Edit className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <div className="text-gray-500 mb-4">{t("Aucunesectionsurcett", {
-              defaultValue: "Aucunesectionsurcett"
+              <div className="text-gray-500 mb-4">{t("Aucune section sur cette page", {
+              defaultValue: "Aucune section sur cette page"
             })}</div>
               <p className="text-gray-400 text-sm mb-6">{t('Les sections de votre site web s\'afficheront ici', {
               defaultValue: 'Les sections de votre site web s\'afficheront ici'
@@ -2988,8 +2988,8 @@ export default function AdminPageEditor() {
                               <AlertDialogContent>
                                 <AlertDialogHeader>
                                   <AlertDialogTitle className="flex items-center gap-2">
-                                    <AlertTriangle className="w-5 h-5 text-red-600" />{t("Supprimercettesectio", {
-                                defaultValue: "Supprimercettesectio"
+                                    <AlertTriangle className="w-5 h-5 text-red-600" />{t("Supprimer cette section", {
+                                defaultValue: "Supprimer cette section"
                               })}</AlertDialogTitle>
                                   <AlertDialogDescription>
                                     Êtes-vous sûr de vouloir supprimer la section "{block.title}{t('" ? \n                                    Cette action est irr\xE9versible et la section dispara\xEEtra d\xE9finitivement de votre site web.', {

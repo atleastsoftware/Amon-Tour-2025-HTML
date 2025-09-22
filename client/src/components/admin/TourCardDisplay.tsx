@@ -59,8 +59,8 @@ export default function TourCardDisplay({
         title: t("Erreur", {
           defaultValue: "Erreur"
         }),
-        description: t("Impossibledecopierle", {
-          defaultValue: "Impossibledecopierle"
+        description: t("Impossible de copier le lien", {
+          defaultValue: "Impossible de copier le lien"
         }),
         variant: "destructive"
       });
@@ -97,8 +97,8 @@ export default function TourCardDisplay({
       <Card className="overflow-hidden flex flex-col h-full">
         <div className="relative aspect-video">
         {tourCard.images.length > 0 ? <img src={tourCard.images[0]} alt={tourCard.title} className="w-full h-full object-cover" /> : <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-            <span className="text-gray-400">{t("Aucuneimage", {
-              defaultValue: "Aucuneimage"
+            <span className="text-gray-400">{t("Aucune image", {
+              defaultValue: "Aucune image"
             })}</span>
           </div>}
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">

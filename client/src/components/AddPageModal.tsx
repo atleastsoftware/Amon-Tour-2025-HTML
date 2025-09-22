@@ -94,8 +94,8 @@ export function AddPageModal({
         title: t("Erreur", {
           defaultValue: "Erreur"
         }),
-        description: t("Lenomdelapageestrequ", {
-          defaultValue: "Lenomdelapageestrequ"
+        description: t("Le nom de la page est requis", {
+          defaultValue: "Le nom de la page est requis"
         }),
         variant: "destructive"
       });
@@ -153,8 +153,8 @@ export function AddPageModal({
   return <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle>{t("Ajouterunenouvellepa", {
-            defaultValue: "Ajouterunenouvellepa"
+          <DialogTitle>{t("Ajouter une nouvelle page", {
+            defaultValue: "Ajouter une nouvelle page"
           })}</DialogTitle>
           <DialogDescription>{t("Crxe9ezunenouvellepa", {
             defaultValue: "Crxe9ezunenouvellepa"
@@ -204,8 +204,8 @@ export function AddPageModal({
 
           {/* Nom de la page */}
           <div className="space-y-2">
-            <Label htmlFor="page-name">{t("Nomdelapage", {
-              defaultValue: "Nomdelapage"
+            <Label htmlFor="page-name">{t("Nom de la page", {
+              defaultValue: "Nom de la page"
             })}</Label>
             <Input id="page-name" value={pageName} onChange={e => setPageName(e.target.value)} placeholder={t("Exxc0propos", {
             defaultValue: "Exxc0propos"

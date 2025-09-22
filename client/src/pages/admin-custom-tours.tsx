@@ -116,8 +116,8 @@ export default function AdminCustomTours() {
         title: t("Success", {
           defaultValue: "Success"
         }),
-        description: t("Statusupdatedsuccess", {
-          defaultValue: "Statusupdatedsuccess"
+        description: t("Status updated successfully", {
+          defaultValue: "Status updated successfully"
         })
       });
       setSelectedRequest(null);
@@ -154,8 +154,8 @@ export default function AdminCustomTours() {
         title: t("Success", {
           defaultValue: "Success"
         }),
-        description: t("Requestdeletedsucces", {
-          defaultValue: "Requestdeletedsucces"
+        description: t("Request deleted successfully", {
+          defaultValue: "Request deleted successfully"
         })
       });
     },
@@ -194,8 +194,8 @@ export default function AdminCustomTours() {
         title: t("Success", {
           defaultValue: "Success"
         }),
-        description: t("Dataexportedsuccessf", {
-          defaultValue: "Dataexportedsuccessf"
+        description: t("Data exported successfully", {
+          defaultValue: "Data exported successfully"
         })
       });
     } catch (error: any) {
@@ -233,8 +233,8 @@ export default function AdminCustomTours() {
     return new Date(dateString).toLocaleDateString();
   };
   return <>
-      <SEO title={t("Customtourrequestsad", {
-      defaultValue: "Customtourrequestsad"
+      <SEO title={t("Custom Tour Requests - Admin", {
+      defaultValue: "Custom Tour Requests - Admin"
     })} description="Manage custom tour requests and inquiries" />
       <Header />
       
@@ -245,12 +245,12 @@ export default function AdminCustomTours() {
             <div className="flex items-center gap-4">
               <Link href="/admin">
                 <Button variant="outline" size="sm">
-                  <ArrowLeft className="h-4 w-4 mr-2" />{t("Backtoadmin", {
-                  defaultValue: "Backtoadmin"
+                  <ArrowLeft className="h-4 w-4 mr-2" />{t("Back to Admin", {
+                  defaultValue: "Back to Admin"
                 })}</Button>
               </Link>
-              <h1 className="text-3xl font-bold text-gray-900">{t("Customtourrequests", {
-                defaultValue: "Customtourrequests"
+              <h1 className="text-3xl font-bold text-gray-900">{t("Custom Tour Requests", {
+                defaultValue: "Custom Tour Requests"
               })}</h1>
             </div>
             <Button onClick={handleExport}>
@@ -266,16 +266,16 @@ export default function AdminCustomTours() {
                 <div className="flex-1">
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                    <Input placeholder={t("Searchbynameoremail", {
-                    defaultValue: "Searchbynameoremail"
+                    <Input placeholder={t("Search by name or email...", {
+                    defaultValue: "Search by name or email..."
                   })} value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="pl-10" />
                   </div>
                 </div>
                 <div className="w-full md:w-48">
                   <Select value={statusFilter} onValueChange={setStatusFilter}>
                     <SelectTrigger>
-                      <SelectValue placeholder={t("Filterbystatus", {
-                      defaultValue: "Filterbystatus"
+                      <SelectValue placeholder={t("Filter by status", {
+                      defaultValue: "Filter by status"
                     })} />
                     </SelectTrigger>
                     <SelectContent>
@@ -299,15 +299,15 @@ export default function AdminCustomTours() {
           {/* Requests Table */}
           <Card>
             <CardHeader>
-              <CardTitle>{t("Tourrequests", {
-                defaultValue: "Tourrequests"
+              <CardTitle>{t("Tour Requests (", {
+                defaultValue: "Tour Requests ("
               })}{requests.length})</CardTitle>
             </CardHeader>
             <CardContent>
-              {isLoading ? <div className="text-center py-8">{t("Loadingrequests", {
-                defaultValue: "Loadingrequests"
-              })}</div> : requests.length === 0 ? <div className="text-center py-8 text-gray-500">{t("Norequestsfound", {
-                defaultValue: "Norequestsfound"
+              {isLoading ? <div className="text-center py-8">{t("Loading requests...", {
+                defaultValue: "Loading requests..."
+              })}</div> : requests.length === 0 ? <div className="text-center py-8 text-gray-500">{t("No requests found.", {
+                defaultValue: "No requests found."
               })}</div> : <div className="overflow-x-auto">
                   <Table>
                     <TableHeader>
@@ -321,8 +321,8 @@ export default function AdminCustomTours() {
                         <TableHead>{t("Travelers", {
                         defaultValue: "Travelers"
                       })}</TableHead>
-                        <TableHead>{t("Datesduration", {
-                        defaultValue: "Datesduration"
+                        <TableHead>{t("Dates/Duration", {
+                        defaultValue: "Dates/Duration"
                       })}</TableHead>
                         <TableHead>{t("Status", {
                         defaultValue: "Status"
@@ -366,8 +366,8 @@ export default function AdminCustomTours() {
                                 <span className="text-gray-600">{t("Duration", {
                             defaultValue: "Duration"
                           })}</span> {request.duration} days
-                              </div> : <span className="text-gray-400">{t("Notspecified", {
-                          defaultValue: "Notspecified"
+                              </div> : <span className="text-gray-400">{t("Not specified", {
+                          defaultValue: "Not specified"
                         })}</span>}
                           </TableCell>
                           <TableCell>{getStatusBadge(request.status)}</TableCell>
@@ -395,8 +395,8 @@ export default function AdminCustomTours() {
       <Dialog open={!!selectedRequest} onOpenChange={() => setSelectedRequest(null)}>
         <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>{t("Requestdetails", {
-              defaultValue: "Requestdetails"
+            <DialogTitle>{t("Request Details", {
+              defaultValue: "Request Details"
             })}</DialogTitle>
           </DialogHeader>
           
@@ -480,8 +480,8 @@ export default function AdminCustomTours() {
                     <label className="text-sm font-medium text-gray-700">{t("Triptiming", {
                   defaultValue: "Triptiming"
                 })}</label>
-                    <p className="text-gray-500">{t("Notspecified", {
-                  defaultValue: "Notspecified"
+                    <p className="text-gray-500">{t("Not specified", {
+                  defaultValue: "Not specified"
                 })}</p>
                   </div>}
               </div>
@@ -494,8 +494,8 @@ export default function AdminCustomTours() {
                 <div className="flex flex-wrap gap-2 mt-1">
                   {selectedRequest.tripTypes && selectedRequest.tripTypes.length > 0 ? selectedRequest.tripTypes.map((tripType, index) => <Badge key={index} variant="secondary">
                         {tripTypeLabels[tripType] || tripType}
-                      </Badge>) : <span className="text-gray-500 text-sm">{t("Notriptypesselected", {
-                  defaultValue: "Notriptypesselected"
+                      </Badge>) : <span className="text-gray-500 text-sm">{t("No trip types selected", {
+                  defaultValue: "No trip types selected"
                 })}</span>}
                 </div>
               </div>
@@ -508,8 +508,8 @@ export default function AdminCustomTours() {
                 <div className="flex flex-wrap gap-2 mt-1">
                   {selectedRequest.destinations && selectedRequest.destinations.length > 0 ? selectedRequest.destinations.map((destination, index) => <Badge key={index} variant="outline">
                         {destinationLabels[destination] || destination}
-                      </Badge>) : <span className="text-gray-500 text-sm">{t("Nodestinationsselect", {
-                  defaultValue: "Nodestinationsselect"
+                      </Badge>) : <span className="text-gray-500 text-sm">{t("No destinations selected", {
+                  defaultValue: "No destinations selected"
                 })}</span>}
                 </div>
               </div>

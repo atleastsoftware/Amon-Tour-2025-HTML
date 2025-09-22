@@ -86,8 +86,8 @@ export default function BlogPage() {
       <Header />
       <div>
         {/* Hero Section */}
-        <HeroHeader title={t('blog.title')} subtitle={t('blog.subtitle')} alt={t("Travelblogaboutkrabi", {
-        defaultValue: "Travelblogaboutkrabi"
+        <HeroHeader title={t('blog.title')} subtitle={t('blog.subtitle')} alt={t("Travel blog about Krabi and Thailand", {
+        defaultValue: "Travel blog about Krabi and Thailand"
       })} />
 
         {/* Filters Section */}
@@ -192,11 +192,11 @@ export default function BlogPage() {
                     </CardContent>
                   </Card>)}
               </div> : <div className="text-center py-12">
-                <h3 className="text-2xl font-bold text-gray-800 mb-4">{t("Noarticlesfound", {
-                defaultValue: "Noarticlesfound"
+                <h3 className="text-2xl font-bold text-gray-800 mb-4">{t("No Articles Found", {
+                defaultValue: "No Articles Found"
               })}</h3>
-                <p className="text-gray-600 mb-6">{t("Tryadjustingyoursear", {
-                defaultValue: "Tryadjustingyoursear"
+                <p className="text-gray-600 mb-6">{t("Try adjusting your search criteria or browse all articles.", {
+                defaultValue: "Try adjusting your search criteria or browse all articles."
               })}</p>
                 <Button onClick={() => {
               setSearchTerm("");

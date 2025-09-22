@@ -31,11 +31,11 @@ export function ImageUpload({
     const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
     if (!validTypes.includes(file.type)) {
       toast({
-        title: t("Invalidfiletype", {
-          defaultValue: "Invalidfiletype"
+        title: t("Invalid file type", {
+          defaultValue: "Invalid file type"
         }),
-        description: t("Pleaseselectajpegpng", {
-          defaultValue: "Pleaseselectajpegpng"
+        description: t("Please select a JPEG, PNG, GIF, or WebP image.", {
+          defaultValue: "Please select a JPEG, PNG, GIF, or WebP image."
         }),
         variant: "destructive"
       });
@@ -46,11 +46,11 @@ export function ImageUpload({
     // Validate file size (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
       toast({
-        title: t("Filetoolarge", {
-          defaultValue: "Filetoolarge"
+        title: t("File too large", {
+          defaultValue: "File too large"
         }),
-        description: t("Pleaseselectanimages", {
-          defaultValue: "Pleaseselectanimages"
+        description: t("Please select an image smaller than 5MB.", {
+          defaultValue: "Please select an image smaller than 5MB."
         }),
         variant: "destructive"
       });
@@ -81,11 +81,11 @@ export function ImageUpload({
         // Handle 401 Unauthorized errors
         if (response.status === 401) {
           toast({
-            title: t("Authenticationrequir", {
-              defaultValue: "Authenticationrequir"
+            title: t("Authentication Required", {
+              defaultValue: "Authentication Required"
             }),
-            description: t("Youneedtobeloggedint", {
-              defaultValue: "Youneedtobeloggedint"
+            description: t("You need to be logged in to upload images.", {
+              defaultValue: "You need to be logged in to upload images."
             }),
             variant: "destructive"
           });
@@ -99,21 +99,21 @@ export function ImageUpload({
       console.log('Upload successful, file URL:', data.file.url);
       onUploadComplete(data.file.url);
       toast({
-        title: t("Uploadsuccessful", {
-          defaultValue: "Uploadsuccessful"
+        title: t("Upload successful", {
+          defaultValue: "Upload successful"
         }),
-        description: t("Yourimagehasbeenuplo", {
-          defaultValue: "Yourimagehasbeenuplo"
+        description: t("Your image has been uploaded successfully.", {
+          defaultValue: "Your image has been uploaded successfully."
         })
       });
     } catch (error) {
       console.error('Upload error:', error);
       toast({
-        title: t("Uploadfailed", {
-          defaultValue: "Uploadfailed"
+        title: t("Upload failed", {
+          defaultValue: "Upload failed"
         }),
-        description: t("Therewasaproblemuplo", {
-          defaultValue: "Therewasaproblemuplo"
+        description: t("There was a problem uploading your image. Please try again.", {
+          defaultValue: "There was a problem uploading your image. Please try again."
         }),
         variant: "destructive"
       });
@@ -150,11 +150,11 @@ export function ImageUpload({
           </Button>
         </div> : <div className="border border-dashed rounded-md p-8 flex flex-col items-center justify-center h-[200px] cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors" onClick={handleBrowseClick}>
           {isUploading ? <Loader className="h-10 w-10 text-primary animate-spin mb-4" /> : <ImageIcon className="h-10 w-10 text-gray-400 mb-4" />}
-          <p className="text-sm text-gray-500 mb-2">{t("Draganddroporclickto", {
-          defaultValue: "Draganddroporclickto"
+          <p className="text-sm text-gray-500 mb-2">{t("Drag and drop or click to upload", {
+          defaultValue: "Drag and drop or click to upload"
         })}</p>
-          <p className="text-xs text-gray-400">{t("Jpegpnggiforwebpmax5", {
-          defaultValue: "Jpegpnggiforwebpmax5"
+          <p className="text-xs text-gray-400">{t("JPEG, PNG, GIF, or WebP (max 5MB)", {
+          defaultValue: "JPEG, PNG, GIF, or WebP (max 5MB)"
         })}</p>
         </div>}
       
@@ -164,8 +164,8 @@ export function ImageUpload({
               <Loader className="mr-2 h-4 w-4 animate-spin" />{t("Uploading", {
             defaultValue: "Uploading"
           })}</> : <>
-              <Upload className="mr-2 h-4 w-4" />{t("Browseforimage", {
-            defaultValue: "Browseforimage"
+              <Upload className="mr-2 h-4 w-4" />{t("Browse for image", {
+            defaultValue: "Browse for image"
           })}</>}
         </Button>
       </div>

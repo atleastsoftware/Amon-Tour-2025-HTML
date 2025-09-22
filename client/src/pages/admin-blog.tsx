@@ -104,8 +104,8 @@ export default function AdminBlogNew() {
         title: t("Success", {
           defaultValue: "Success"
         }),
-        description: t("Postcreatedsuccessfu", {
-          defaultValue: "Postcreatedsuccessfu"
+        description: t("Post created successfully", {
+          defaultValue: "Post created successfully"
         })
       });
     },
@@ -152,8 +152,8 @@ export default function AdminBlogNew() {
         title: t("Success", {
           defaultValue: "Success"
         }),
-        description: t("Postupdatedsuccessfu", {
-          defaultValue: "Postupdatedsuccessfu"
+        description: t("Post updated successfully", {
+          defaultValue: "Post updated successfully"
         })
       });
     },
@@ -189,8 +189,8 @@ export default function AdminBlogNew() {
         title: t("Success", {
           defaultValue: "Success"
         }),
-        description: t("Postdeletedsuccessfu", {
-          defaultValue: "Postdeletedsuccessfu"
+        description: t("Post deleted successfully", {
+          defaultValue: "Post deleted successfully"
         })
       });
     },
@@ -265,8 +265,8 @@ export default function AdminBlogNew() {
     }
   };
   return <>
-      <SEO title={t("Blogmanagementadmin", {
-      defaultValue: "Blogmanagementadmin"
+      <SEO title={t("Blog Management - Admin", {
+      defaultValue: "Blog Management - Admin"
     })} description="Manage blog posts and content" />
       <Header />
       
@@ -277,12 +277,12 @@ export default function AdminBlogNew() {
             <div className="flex items-center gap-4">
               <Link href="/admin">
                 <Button variant="outline" size="sm">
-                  <ArrowLeft className="h-4 w-4 mr-2" />{t("Backtoadmin", {
-                  defaultValue: "Backtoadmin"
+                  <ArrowLeft className="h-4 w-4 mr-2" />{t("Back to Admin", {
+                  defaultValue: "Back to Admin"
                 })}</Button>
               </Link>
-              <h1 className="text-3xl font-bold text-gray-900">{t("Blogmanagement", {
-                defaultValue: "Blogmanagement"
+              <h1 className="text-3xl font-bold text-gray-900">{t("Blog Management", {
+                defaultValue: "Blog Management"
               })}</h1>
             </div>
             <Button onClick={() => setIsCreateDialogOpen(true)}>
@@ -299,10 +299,10 @@ export default function AdminBlogNew() {
               })}</CardTitle>
             </CardHeader>
             <CardContent>
-              {postsLoading ? <div className="text-center py-8">{t("Loadingposts", {
-                defaultValue: "Loadingposts"
-              })}</div> : posts.length === 0 ? <div className="text-center py-8 text-gray-500">{t("Nopostsfoundcreateyo", {
-                defaultValue: "Nopostsfoundcreateyo"
+              {postsLoading ? <div className="text-center py-8">{t("Loading posts...", {
+                defaultValue: "Loading posts..."
+              })}</div> : posts.length === 0 ? <div className="text-center py-8 text-gray-500">{t("No posts found. Create your first post!", {
+                defaultValue: "No posts found. Create your first post!"
               })}</div> : <Table>
                   <TableHeader>
                     <TableRow>
@@ -359,8 +359,8 @@ export default function AdminBlogNew() {
       <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
-            <DialogTitle>{t("Createnewpost", {
-              defaultValue: "Createnewpost"
+            <DialogTitle>{t("Create New Post", {
+              defaultValue: "Create New Post"
             })}</DialogTitle>
           </DialogHeader>
           
@@ -373,8 +373,8 @@ export default function AdminBlogNew() {
                   defaultValue: "Title"
                 })}</FormLabel>
                     <FormControl>
-                      <Input {...field} placeholder={t("Enterposttitle", {
-                  defaultValue: "Enterposttitle"
+                      <Input {...field} placeholder={t("Enter post title", {
+                  defaultValue: "Enter post title"
                 })} />
                     </FormControl>
                     <FormMessage />
@@ -387,8 +387,8 @@ export default function AdminBlogNew() {
                   defaultValue: "Excerpt"
                 })}</FormLabel>
                     <FormControl>
-                      <Textarea {...field} placeholder={t("Briefdescription", {
-                  defaultValue: "Briefdescription"
+                      <Textarea {...field} placeholder={t("Brief description", {
+                  defaultValue: "Brief description"
                 })} rows={2} />
                     </FormControl>
                     <FormMessage />
@@ -397,8 +397,8 @@ export default function AdminBlogNew() {
               <FormField control={createForm.control} name="coverImage" render={({
               field
             }) => <FormItem>
-                    <FormLabel>{t("Coverimageurl", {
-                  defaultValue: "Coverimageurl"
+                    <FormLabel>{t("Cover Image URL", {
+                  defaultValue: "Cover Image URL"
                 })}</FormLabel>
                     <FormControl>
                       <Input {...field} placeholder="https://example.com/image.jpg" />
@@ -413,8 +413,8 @@ export default function AdminBlogNew() {
                   defaultValue: "Content"
                 })}</FormLabel>
                     <FormControl>
-                      <Textarea {...field} placeholder={t("Writeyourcontenthere", {
-                  defaultValue: "Writeyourcontenthere"
+                      <Textarea {...field} placeholder={t("Write your content here", {
+                  defaultValue: "Write your content here"
                 })} rows={10} />
                     </FormControl>
                     <FormMessage />
@@ -430,8 +430,8 @@ export default function AdminBlogNew() {
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder={t("Selectstatus", {
-                        defaultValue: "Selectstatus"
+                            <SelectValue placeholder={t("Select status", {
+                        defaultValue: "Select status"
                       })} />
                           </SelectTrigger>
                         </FormControl>
@@ -456,8 +456,8 @@ export default function AdminBlogNew() {
                       <Select onValueChange={value => field.onChange(value ? parseInt(value) : undefined)} value={field.value?.toString()}>
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder={t("Selectcategory", {
-                        defaultValue: "Selectcategory"
+                            <SelectValue placeholder={t("Select category", {
+                        defaultValue: "Select category"
                       })} />
                           </SelectTrigger>
                         </FormControl>
@@ -502,8 +502,8 @@ export default function AdminBlogNew() {
                   defaultValue: "Title"
                 })}</FormLabel>
                     <FormControl>
-                      <Input {...field} placeholder={t("Enterposttitle", {
-                  defaultValue: "Enterposttitle"
+                      <Input {...field} placeholder={t("Enter post title", {
+                  defaultValue: "Enter post title"
                 })} />
                     </FormControl>
                     <FormMessage />
@@ -516,8 +516,8 @@ export default function AdminBlogNew() {
                   defaultValue: "Excerpt"
                 })}</FormLabel>
                     <FormControl>
-                      <Textarea {...field} placeholder={t("Briefdescription", {
-                  defaultValue: "Briefdescription"
+                      <Textarea {...field} placeholder={t("Brief description", {
+                  defaultValue: "Brief description"
                 })} rows={2} />
                     </FormControl>
                     <FormMessage />
@@ -526,8 +526,8 @@ export default function AdminBlogNew() {
               <FormField control={editForm.control} name="coverImage" render={({
               field
             }) => <FormItem>
-                    <FormLabel>{t("Coverimageurl", {
-                  defaultValue: "Coverimageurl"
+                    <FormLabel>{t("Cover Image URL", {
+                  defaultValue: "Cover Image URL"
                 })}</FormLabel>
                     <FormControl>
                       <Input {...field} placeholder="https://example.com/image.jpg" />
@@ -542,8 +542,8 @@ export default function AdminBlogNew() {
                   defaultValue: "Content"
                 })}</FormLabel>
                     <FormControl>
-                      <Textarea {...field} placeholder={t("Writeyourcontenthere", {
-                  defaultValue: "Writeyourcontenthere"
+                      <Textarea {...field} placeholder={t("Write your content here", {
+                  defaultValue: "Write your content here"
                 })} rows={10} />
                     </FormControl>
                     <FormMessage />
@@ -559,8 +559,8 @@ export default function AdminBlogNew() {
                       <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder={t("Selectstatus", {
-                        defaultValue: "Selectstatus"
+                            <SelectValue placeholder={t("Select status", {
+                        defaultValue: "Select status"
                       })} />
                           </SelectTrigger>
                         </FormControl>
@@ -585,8 +585,8 @@ export default function AdminBlogNew() {
                       <Select onValueChange={value => field.onChange(value ? parseInt(value) : undefined)} value={field.value?.toString()}>
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder={t("Selectcategory", {
-                        defaultValue: "Selectcategory"
+                            <SelectValue placeholder={t("Select category", {
+                        defaultValue: "Select category"
                       })} />
                           </SelectTrigger>
                         </FormControl>

@@ -130,8 +130,8 @@ const DateSelector = ({
       <div className="bg-white p-6 rounded-lg shadow-md">
         {isLoading ? <div className="flex justify-center items-center py-20">
             <div className="animate-spin h-12 w-12 border-4 border-primary border-t-transparent rounded-full"></div>
-            <span className="ml-3 text-primary">{t("Chargementducalendri", {
-            defaultValue: "Chargementducalendri"
+            <span className="ml-3 text-primary">{t("Chargement du calendrier...", {
+            defaultValue: "Chargement du calendrier..."
           })}</span>
           </div> : <>
             <div className="flex items-center justify-between mb-8">
@@ -149,8 +149,8 @@ const DateSelector = ({
               </h3>
               
               <Button variant="outline" size="default" onClick={goToNextMonth} disabled={isAfter(selectedMonth, addMonths(new Date(), 11))} className="flex items-center gap-2 h-10">
-                <span className="hidden sm:inline">{t("Moissuivant", {
-                defaultValue: "Moissuivant"
+                <span className="hidden sm:inline">{t("Mois suivant", {
+                defaultValue: "Mois suivant"
               })}</span>
                 <ChevronRight className="h-4 w-4" />
               </Button>
@@ -218,8 +218,8 @@ const DateSelector = ({
             </div>
           </>}
       </div>
-      {availableDates.length === 0 && !isLoading && <div className="bg-[hsl(var(--destructive)/0.1)] p-4 rounded-lg border border-[hsl(var(--destructive)/0.2)] text-[hsl(var(--destructive))] text-center">{t("Aucunedatedisponible", {
-        defaultValue: "Aucunedatedisponible"
+      {availableDates.length === 0 && !isLoading && <div className="bg-[hsl(var(--destructive)/0.1)] p-4 rounded-lg border border-[hsl(var(--destructive)/0.2)] text-[hsl(var(--destructive))] text-center">{t("Aucune date disponible pour ce tour. Veuillez nous contacter pour des arrangements personnalis\xE9s.", {
+        defaultValue: "Aucune date disponible pour ce tour. Veuillez nous contacter pour des arrangements personnalis\xE9s."
       })}</div>}
     </div>;
 };
@@ -284,23 +284,23 @@ const BookingSummary = ({
             </div>}
           
           <div className="flex justify-between">
-            <span>{t("Prixparadulte", {
-              defaultValue: "Prixparadulte"
+            <span>{t("Prix par adulte:", {
+              defaultValue: "Prix par adulte:"
             })}</span>
             <span className="font-semibold">{formatTHB(adultPrice)}</span>
           </div>
           
           <div className="flex justify-between">
-            <span>{t("Soustotaladultes", {
-              defaultValue: "Soustotaladultes"
+            <span>{t("Sous-total adultes:", {
+              defaultValue: "Sous-total adultes:"
             })}</span>
             <span className="font-semibold">{formatTHB(adultTotal)}</span>
           </div>
           
           {numberOfChildren > 0 && <>
               <div className="flex justify-between">
-                <span>{t("Prixparenfant", {
-                defaultValue: "Prixparenfant"
+                <span>{t("Prix par enfant:", {
+                defaultValue: "Prix par enfant:"
               })}</span>
                 <span className="font-semibold">
                   {formatTHB(childPrice)} 
@@ -310,8 +310,8 @@ const BookingSummary = ({
                 </span>
               </div>
               <div className="flex justify-between">
-                <span>{t("Soustotalenfants", {
-                defaultValue: "Soustotalenfants"
+                <span>{t("Sous-total enfants:", {
+                defaultValue: "Sous-total enfants:"
               })}</span>
                 <span className="font-semibold">{formatTHB(childrenTotal)}</span>
               </div>
@@ -361,8 +361,8 @@ const PaymentForm = ({
       setPaymentError(error.message || "Une erreur est survenue lors du paiement.");
       toast({
         variant: "destructive",
-        title: t("Erreurdepaiement", {
-          defaultValue: "Erreurdepaiement"
+        title: t("Erreur de paiement", {
+          defaultValue: "Erreur de paiement"
         }),
         description: error.message || "Une erreur est survenue lors du paiement."
       });
@@ -516,12 +516,12 @@ export default function BookTour() {
           <h1 className="font-heading font-bold text-2xl mb-4">{t("Erreur", {
             defaultValue: "Erreur"
           })}</h1>
-          <p className="mb-6">{t("Iddetourinvalide", {
-            defaultValue: "Iddetourinvalide"
+          <p className="mb-6">{t("ID de tour invalide.", {
+            defaultValue: "ID de tour invalide."
           })}</p>
           <Button asChild>
-            <a href="/tours">{t("Backtotours", {
-              defaultValue: "Backtotours"
+            <a href="/tours">{t("Back to Tours", {
+              defaultValue: "Back to Tours"
             })}</a>
           </Button>
         </div>
@@ -533,12 +533,12 @@ export default function BookTour() {
       
       <main className="container mx-auto px-4 py-12">
         <Button variant="outline" className="mb-8 flex items-center" onClick={() => navigate(`/tours/${tourId}`)}>
-          <ArrowLeft className="mr-2 h-4 w-4" />{t("Backtotourdetails", {
-          defaultValue: "Backtotourdetails"
+          <ArrowLeft className="mr-2 h-4 w-4" />{t("Back to tour details", {
+          defaultValue: "Back to tour details"
         })}</Button>
         
-        <h1 className="font-heading font-bold text-3xl mb-8">{t("Bookyourtour", {
-          defaultValue: "Bookyourtour"
+        <h1 className="font-heading font-bold text-3xl mb-8">{t("Book your tour", {
+          defaultValue: "Book your tour"
         })}{tourLoading ? "" : `: ${tour?.title}`}
         </h1>
         
@@ -552,8 +552,8 @@ export default function BookTour() {
                 <DateSelector tourId={tourId} onSelectDate={handleDateSelect} selectedDate={selectedDate} />
                 
                 <div className="mt-8">
-                  <h3 className="font-heading font-semibold text-xl mb-4">{t("Vosinformations", {
-                  defaultValue: "Vosinformations"
+                  <h3 className="font-heading font-semibold text-xl mb-4">{t("Vos informations", {
+                  defaultValue: "Vos informations"
                 })}</h3>
                   
                   <Form {...form}>
@@ -606,8 +606,8 @@ export default function BookTour() {
                               <FormControl>
                                 <Input type="number" min={1} max={20} {...field} onChange={e => field.onChange(parseInt(e.target.value))} />
                               </FormControl>
-                              <FormDescription>{t("Personnesde12ansetpl", {
-                          defaultValue: "Personnesde12ansetpl"
+                              <FormDescription>{t("Personnes de 12 ans et plus", {
+                          defaultValue: "Personnes de 12 ans et plus"
                         })}</FormDescription>
                               <FormMessage />
                             </FormItem>} />
@@ -621,8 +621,8 @@ export default function BookTour() {
                               <FormControl>
                                 <Input type="number" min={0} max={15} {...field} onChange={e => field.onChange(parseInt(e.target.value || "0"))} />
                               </FormControl>
-                              <FormDescription>{t("Enfantsdemoinsde12an", {
-                          defaultValue: "Enfantsdemoinsde12an"
+                              <FormDescription>{t("Enfants de moins de 12 ans", {
+                          defaultValue: "Enfants de moins de 12 ans"
                         })}</FormDescription>
                               <FormMessage />
                             </FormItem>} />
@@ -635,8 +635,8 @@ export default function BookTour() {
                         defaultValue: "Demandesspxe9cialeso"
                       })}</FormLabel>
                             <FormControl>
-                              <Textarea placeholder={t("Sivousavezdesbesoins", {
-                        defaultValue: "Sivousavezdesbesoins"
+                              <Textarea placeholder={t("Si vous avez des besoins particuliers, veuillez les indiquer ici...", {
+                        defaultValue: "Si vous avez des besoins particuliers, veuillez les indiquer ici..."
                       })} {...field} />
                             </FormControl>
                             <FormMessage />
@@ -655,14 +655,14 @@ export default function BookTour() {
             <BookingSummary tour={tour} selectedDate={selectedDate} numberOfPeople={form.watch("numberOfPeople") || 1} numberOfChildren={form.watch("numberOfChildren") || 0} availability={selectedAvailability} />
             
             {!displayStripe && <div className="mt-6 bg-primary/10 p-6 rounded-lg shadow-md">
-                <h3 className="font-heading font-semibold text-lg mb-2 text-primary">{t("Informationsimportan", {
-                defaultValue: "Informationsimportan"
+                <h3 className="font-heading font-semibold text-lg mb-2 text-primary">{t("Informations importantes", {
+                defaultValue: "Informations importantes"
               })}</h3>
                 <ul className="space-y-2 text-primary/90">
                   <li className="flex items-start">
                     <CalendarIcon className="h-5 w-5 mr-2 text-primary flex-shrink-0 mt-0.5" />
-                    <span>{t("Seuleslesdatesdispon", {
-                    defaultValue: "Seuleslesdatesdispon"
+                    <span>{t("Seules les dates disponibles peuvent \xEAtre s\xE9lectionn\xE9es dans le calendrier.", {
+                    defaultValue: "Seules les dates disponibles peuvent \xEAtre s\xE9lectionn\xE9es dans le calendrier."
                   })}</span>
                   </li>
                   <li className="flex items-start">

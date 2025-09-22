@@ -28,8 +28,8 @@ export default function AdminLogin() {
         title: t("Erreur", {
           defaultValue: "Erreur"
         }),
-        description: t("Veuillezremplirtousl", {
-          defaultValue: "Veuillezremplirtousl"
+        description: t("Veuillez remplir tous les champs", {
+          defaultValue: "Veuillez remplir tous les champs"
         }),
         variant: "destructive"
       });
@@ -57,8 +57,8 @@ export default function AdminLogin() {
         title: t("Erreur", {
           defaultValue: "Erreur"
         }),
-        description: t("Identifiantsincorrec", {
-          defaultValue: "Identifiantsincorrec"
+        description: t("Identifiants incorrects", {
+          defaultValue: "Identifiants incorrects"
         }),
         variant: "destructive"
       });

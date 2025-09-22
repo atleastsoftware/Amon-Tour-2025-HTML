@@ -112,24 +112,24 @@ function AdminEditorPageContent() {
         {/* Add Page Button */}
         <div className="mb-6">
           <Button onClick={handleAddPage} className="bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-2">
-            <Plus className="h-4 w-4" />{t("Ajouterunepage", {
-            defaultValue: "Ajouterunepage"
+            <Plus className="h-4 w-4" />{t("Ajouter une page", {
+            defaultValue: "Ajouter une page"
           })}</Button>
         </div>
 
         {/* Loading State */}
         {isLoading && <div className="text-center py-12">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-secondary mx-auto mb-4"></div>
-            <p className="text-gray-500">{t("Chargementdespages", {
-            defaultValue: "Chargementdespages"
+            <p className="text-gray-500">{t("Chargement des pages...", {
+            defaultValue: "Chargement des pages..."
           })}</p>
           </div>}
 
         {/* Error State */}
         {error && <Card className="bg-red-50 border-red-200">
             <CardContent className="p-6 text-center">
-              <p className="text-red-600">{t("Erreurlorsduchargeme", {
-              defaultValue: "Erreurlorsduchargeme"
+              <p className="text-red-600">{t("Erreur lors du chargement des pages", {
+              defaultValue: "Erreur lors du chargement des pages"
             })}</p>
             </CardContent>
           </Card>}

@@ -14,8 +14,8 @@ export default function TermsConditions() {
   }, []);
   return <>
       <Helmet>
-        <title>{t("Termsconditionsamont", {
-          defaultValue: "Termsconditionsamont"
+        <title>{t("Terms & Conditions - Amon Tour", {
+          defaultValue: "Terms & Conditions - Amon Tour"
         })}</title>
         <meta name="description" content="Terms and conditions for booking and using services offered by Amon Tour." />
       </Helmet>
@@ -31,11 +31,11 @@ export default function TermsConditions() {
               <h2 className="font-heading text-2xl font-semibold mb-4">{t("1generalterms", {
                 defaultValue: "1generalterms"
               })}</h2>
-              <p className="mb-4">{t("Thesetermsandconditi", {
-                defaultValue: "Thesetermsandconditi"
+              <p className="mb-4">{t("These Terms and Conditions govern your use of the Amon Tour website and services provided by \n                Flame BB Co., Ltd., a company registered in Thailand with TAT license number 34/01995.", {
+                defaultValue: "These Terms and Conditions govern your use of the Amon Tour website and services provided by \n                Flame BB Co., Ltd., a company registered in Thailand with TAT license number 34/01995."
               })}</p>
-              <p className="mb-4">{t("Byaccessingourwebsit", {
-                defaultValue: "Byaccessingourwebsit"
+              <p className="mb-4">{t("By accessing our website or using our services, you agree to be bound by these Terms and Conditions. \n                If you disagree with any part of these terms, please do not use our website or services.", {
+                defaultValue: "By accessing our website or using our services, you agree to be bound by these Terms and Conditions. \n                If you disagree with any part of these terms, please do not use our website or services."
               })}</p>
             </section>
             
@@ -83,20 +83,20 @@ export default function TermsConditions() {
                 defaultValue: "41cancellationbycust"
               })}</p>
               <ul className="list-disc pl-6 mb-4 space-y-1">
-                <li>{t("Morethan30daysbefore", {
-                  defaultValue: "Morethan30daysbefore"
+                <li>{t("More than 30 days before the tour date: Full refund minus administrative fees", {
+                  defaultValue: "More than 30 days before the tour date: Full refund minus administrative fees"
                 })}</li>
                 <li>15-30 days before the tour date: 70% refund</li>
                 <li>7-14 days before the tour date: 50% refund</li>
-                <li>{t("Lessthan7daysbeforet", {
-                  defaultValue: "Lessthan7daysbeforet"
+                <li>{t("Less than 7 days before the tour date: No refund", {
+                  defaultValue: "Less than 7 days before the tour date: No refund"
                 })}</li>
               </ul>
               <p className="mb-4">{t("42cancellationbyamon", {
                 defaultValue: "42cancellationbyamon"
               })}</p>
-              <p className="mb-4">{t("Ifweneedtocancelatou", {
-                defaultValue: "Ifweneedtocancelatou"
+              <p className="mb-4">{t("If we need to cancel a tour due to unforeseen circumstances, adverse weather conditions, or \n                insufficient participants, we will offer you an alternative date or a full refund.", {
+                defaultValue: "If we need to cancel a tour due to unforeseen circumstances, adverse weather conditions, or \n                insufficient participants, we will offer you an alternative date or a full refund."
               })}</p>
             </section>
             
@@ -141,17 +141,17 @@ export default function TermsConditions() {
                 defaultValue: "72wearenotliablefora"
               })}</p>
               <ul className="list-disc pl-6 mb-4 space-y-1">
-                <li>{t("Theactsoromissionsof", {
-                  defaultValue: "Theactsoromissionsof"
+                <li>{t("The acts or omissions of the person affected or any member of their party", {
+                  defaultValue: "The acts or omissions of the person affected or any member of their party"
                 })}</li>
-                <li>{t("Theactsoromissionsof", {
-                  defaultValue: "Theactsoromissionsof"
+                <li>{t("The acts or omissions of the person affected or any member of their party", {
+                  defaultValue: "The acts or omissions of the person affected or any member of their party"
                 })}</li>
-                <li>{t("Unusualorunforeseeab", {
-                  defaultValue: "Unusualorunforeseeab"
+                <li>{t("Unusual or unforeseeable circumstances beyond our control", {
+                  defaultValue: "Unusual or unforeseeable circumstances beyond our control"
                 })}</li>
-                <li>{t("Aneventwhichweorours", {
-                  defaultValue: "Aneventwhichweorours"
+                <li>{t("An event which we or our suppliers could not have foreseen or forestalled even with all due care", {
+                  defaultValue: "An event which we or our suppliers could not have foreseen or forestalled even with all due care"
                 })}</li>
               </ul>
             </section>
@@ -184,8 +184,8 @@ export default function TermsConditions() {
               <h2 className="font-heading text-2xl font-semibold mb-4">{t("10governinglaw", {
                 defaultValue: "10governinglaw"
               })}</h2>
-              <p className="mb-4">{t("Thesetermsandconditi", {
-                defaultValue: "Thesetermsandconditi"
+              <p className="mb-4">{t("These Terms and Conditions govern your use of the Amon Tour website and services provided by \n                Flame BB Co., Ltd., a company registered in Thailand with TAT license number 34/01995.", {
+                defaultValue: "These Terms and Conditions govern your use of the Amon Tour website and services provided by \n                Flame BB Co., Ltd., a company registered in Thailand with TAT license number 34/01995."
               })}</p>
             </section>
             
@@ -193,17 +193,17 @@ export default function TermsConditions() {
               <h2 className="font-heading text-2xl font-semibold mb-4">{t("11contactinformation", {
                 defaultValue: "11contactinformation"
               })}</h2>
-              <p className="mb-4">{t("Ifyouhaveanyquestion", {
-                defaultValue: "Ifyouhaveanyquestion"
+              <p className="mb-4">{t("If you have any questions about this privacy policy or our data practices, please contact us at:", {
+                defaultValue: "If you have any questions about this privacy policy or our data practices, please contact us at:"
               })}</p>
-              <address className="not-italic mb-4">{t("Flamebbcoltd", {
-                defaultValue: "Flamebbcoltd"
+              <address className="not-italic mb-4">{t("Flame BB Co., Ltd.", {
+                defaultValue: "Flame BB Co., Ltd."
               })}<br />{t("2421moo1u2013nathaiu", {
                 defaultValue: "2421moo1u2013nathaiu"
               })}<br />{t("81000krabiu2013thail", {
                 defaultValue: "81000krabiu2013thail"
-              })}<br />{t("Emailinfoamontourcom", {
-                defaultValue: "Emailinfoamontourcom"
+              })}<br />{t("Email: info@amon-tour.com", {
+                defaultValue: "Email: info@amon-tour.com"
               })}</address>
             </section>
           </div>

@@ -5,18 +5,18 @@ import { Card, CardContent } from "@/components/ui/card";
 import { MapPin } from "lucide-react";
 import { Link } from "wouter";
 const interestCategories = [{
-  name: t("Culturehistory", {
-    defaultValue: "Culturehistory"
+  name: t("Culture & History", {
+    defaultValue: "Culture & History"
   }),
   icon: "fas fa-landmark"
 }, {
-  name: t("Natureadventure", {
-    defaultValue: "Natureadventure"
+  name: t("Nature & Adventure", {
+    defaultValue: "Nature & Adventure"
   }),
   icon: "fas fa-mountain"
 }, {
-  name: t("Beachesislands", {
-    defaultValue: "Beachesislands"
+  name: t("Beaches & Islands", {
+    defaultValue: "Beaches & Islands"
   }),
   icon: "fas fa-umbrella-beach"
 }, {
@@ -30,8 +30,8 @@ const interestCategories = [{
   }),
   icon: "fas fa-users"
 }, {
-  name: t("Weddinghoneymoon", {
-    defaultValue: "Weddinghoneymoon"
+  name: t("Wedding & Honeymoon", {
+    defaultValue: "Wedding & Honeymoon"
   }),
   icon: "fas fa-heart"
 }];
@@ -61,8 +61,8 @@ const destinations = [{
   }),
   icon: "fas fa-mountain"
 }, {
-  name: t("Othersdestinations", {
-    defaultValue: "Othersdestinations"
+  name: t("Others destinations", {
+    defaultValue: "Others destinations"
   }),
   icon: "fas fa-map-location-dot"
 }];
@@ -78,8 +78,8 @@ export default function Interests() {
               defaultValue: "Interests"
             })}</h2>
             <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
-            <p className="text-gray-600 max-w-2xl mx-auto">{t("Discoverthailandthro", {
-              defaultValue: "Discoverthailandthro"
+            <p className="text-gray-600 max-w-2xl mx-auto">{t("Discover Thailand through your passions and interests. Choose from our curated categories or explore by destination.", {
+              defaultValue: "Discover Thailand through your passions and interests. Choose from our curated categories or explore by destination."
             })}</p>
           </div>
         </FadeInWhenVisible>

@@ -93,8 +93,8 @@ export default function TourModal({
                     <div className="w-16 h-16 bg-[hsl(var(--destructive)/0.1)] rounded-full flex items-center justify-center mx-auto mb-4">
                       <X className="h-8 w-8 text-[hsl(var(--destructive))]" />
                     </div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">{t("Erreurdechargement", {
-                  defaultValue: "Erreurdechargement"
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">{t("Erreur de chargement", {
+                  defaultValue: "Erreur de chargement"
                 })}</h3>
                     <p className="text-gray-600 mb-4">{error}</p>
                     <Button onClick={onClose} variant="outline">{t("Fermer", {

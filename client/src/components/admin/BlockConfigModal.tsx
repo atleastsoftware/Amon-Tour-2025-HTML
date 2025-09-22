@@ -63,8 +63,8 @@ function ColorPicker({
         <Label className="text-sm font-medium">{t("Rxe9fxe9rencecouleur", {
           defaultValue: "Rxe9fxe9rencecouleur"
         })}</Label>
-        <Input type="text" value={currentColorValue} onChange={handleHexInputChange} placeholder="#ffffff" className="font-mono text-sm" title={t("Tapezlecodecouleurou", {
-        defaultValue: "Tapezlecodecouleurou"
+        <Input type="text" value={currentColorValue} onChange={handleHexInputChange} placeholder="#ffffff" className="font-mono text-sm" title={t("Tapez le code couleur ou s\xE9lectionnez une couleur pr\xE9d\xE9finie", {
+        defaultValue: "Tapez le code couleur ou s\xE9lectionnez une couleur pr\xE9d\xE9finie"
       })} />
       </div>
       
@@ -74,25 +74,25 @@ function ColorPicker({
           defaultValue: "Couleursduthxe8me"
         })}</Label>
         <div className="flex gap-3">
-          <button type="button" onClick={() => handleQuickColorClick('primary')} className={`flex items-center gap-2 px-3 py-2 rounded border-2 transition-all hover:scale-105 ${value === 'primary' ? 'border-primary ring-2 ring-primary/30 bg-primary/10' : 'border-gray-200 hover:border-gray-300'}`} title={t("Couleurprincipaledut", {
-          defaultValue: "Couleurprincipaledut"
+          <button type="button" onClick={() => handleQuickColorClick('primary')} className={`flex items-center gap-2 px-3 py-2 rounded border-2 transition-all hover:scale-105 ${value === 'primary' ? 'border-primary ring-2 ring-primary/30 bg-primary/10' : 'border-gray-200 hover:border-gray-300'}`} title={t("Couleur principale du th\xE8me", {
+          defaultValue: "Couleur principale du th\xE8me"
         })}>
             <div className="w-6 h-6 rounded" style={{
             backgroundColor: SYSTEM_COLORS.primary
           }} />
-            <span className="text-sm font-medium">{t("Couleurprincipale", {
-              defaultValue: "Couleurprincipale"
+            <span className="text-sm font-medium">{t("Couleur principale", {
+              defaultValue: "Couleur principale"
             })}</span>
           </button>
           
-          <button type="button" onClick={() => handleQuickColorClick('secondary')} className={`flex items-center gap-2 px-3 py-2 rounded border-2 transition-all hover:scale-105 ${value === 'secondary' ? 'border-secondary ring-2 ring-secondary/30 bg-secondary/10' : 'border-gray-200 hover:border-gray-300'}`} title={t("Couleursecondairedut", {
-          defaultValue: "Couleursecondairedut"
+          <button type="button" onClick={() => handleQuickColorClick('secondary')} className={`flex items-center gap-2 px-3 py-2 rounded border-2 transition-all hover:scale-105 ${value === 'secondary' ? 'border-secondary ring-2 ring-secondary/30 bg-secondary/10' : 'border-gray-200 hover:border-gray-300'}`} title={t("Couleur secondaire du th\xE8me", {
+          defaultValue: "Couleur secondaire du th\xE8me"
         })}>
             <div className="w-6 h-6 rounded" style={{
             backgroundColor: SYSTEM_COLORS.secondary
           }} />
-            <span className="text-sm font-medium">{t("Couleursecondaire", {
-              defaultValue: "Couleursecondaire"
+            <span className="text-sm font-medium">{t("Couleur secondaire", {
+              defaultValue: "Couleur secondaire"
             })}</span>
           </button>
         </div>
@@ -107,8 +107,8 @@ function ColorPicker({
           <Input type="color" value={currentColorValue} onChange={handleCustomColorChange} className="w-12 h-8 p-0 border cursor-pointer" title={t("Sxe9lectionneurdecou", {
           defaultValue: "Sxe9lectionneurdecou"
         })} />
-          <span className="text-sm text-gray-600">{t("Cliquezpourouvrirles", {
-            defaultValue: "Cliquezpourouvrirles"
+          <span className="text-sm text-gray-600">{t("Cliquez pour ouvrir le s\xE9lectionneur de couleur", {
+            defaultValue: "Cliquez pour ouvrir le s\xE9lectionneur de couleur"
           })}</span>
         </div>
       </div>
@@ -176,8 +176,8 @@ export function BlockConfigModal({
   return <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>{t("Configureblock", {
-            defaultValue: "Configureblock"
+          <DialogTitle>{t("Configure Block:", {
+            defaultValue: "Configure Block:"
           })}{block.blockType}</DialogTitle>
           <div className="flex gap-2">
             <Badge variant="outline">{block.identifier}</Badge>
@@ -213,18 +213,18 @@ export function BlockConfigModal({
                 <Label htmlFor="subtitle">{t("Subtitle", {
                   defaultValue: "Subtitle"
                 })}</Label>
-                <Input id="subtitle" value={config.subtitle || ''} onChange={e => handleConfigChange('subtitle', e.target.value)} placeholder={t("Blocksubtitle", {
-                defaultValue: "Blocksubtitle"
+                <Input id="subtitle" value={config.subtitle || ''} onChange={e => handleConfigChange('subtitle', e.target.value)} placeholder={t("Block subtitle", {
+                defaultValue: "Block subtitle"
               })} />
               </div>
             </div>
 
             <div>
-              <Label htmlFor="description">{t("Description", {
-                defaultValue: "Description"
+              <Label htmlFor="description">{t("Description:", {
+                defaultValue: "Description:"
               })}</Label>
-              <Textarea id="description" value={config.description || ''} onChange={e => handleConfigChange('description', e.target.value)} placeholder={t("Blockdescription", {
-              defaultValue: "Blockdescription"
+              <Textarea id="description" value={config.description || ''} onChange={e => handleConfigChange('description', e.target.value)} placeholder={t("Block description", {
+              defaultValue: "Block description"
             })} rows={3} />
             </div>
 
@@ -232,8 +232,8 @@ export function BlockConfigModal({
               <Label htmlFor="content">{t("Content", {
                 defaultValue: "Content"
               })}</Label>
-              <Textarea id="content" value={config.content || ''} onChange={e => handleConfigChange('content', e.target.value)} placeholder={t("Maincontentsupportsh", {
-              defaultValue: "Maincontentsupportsh"
+              <Textarea id="content" value={config.content || ''} onChange={e => handleConfigChange('content', e.target.value)} placeholder={t("Main content (supports HTML)", {
+              defaultValue: "Main content (supports HTML)"
             })} rows={4} />
             </div>
 
@@ -255,8 +255,8 @@ export function BlockConfigModal({
                 </div>
               </div>
               <div>
-                <Label htmlFor="backgroundColor">{t("Backgroundcolor", {
-                  defaultValue: "Backgroundcolor"
+                <Label htmlFor="backgroundColor">{t("Background Color", {
+                  defaultValue: "Background Color"
                 })}</Label>
                 <Select value={config.backgroundColor || 'white'} onValueChange={value => handleConfigChange('backgroundColor', value)}>
                   <SelectTrigger>
@@ -269,11 +269,11 @@ export function BlockConfigModal({
                     <SelectItem value="gray">{t("Gray", {
                       defaultValue: "Gray"
                     })}</SelectItem>
-                    <SelectItem value="primary">{t("Primaryblue", {
-                      defaultValue: "Primaryblue"
+                    <SelectItem value="primary">{t("Primary Blue", {
+                      defaultValue: "Primary Blue"
                     })}</SelectItem>
-                    <SelectItem value="secondary">{t("Secondarygold", {
-                      defaultValue: "Secondarygold"
+                    <SelectItem value="secondary">{t("Secondary Gold", {
+                      defaultValue: "Secondary Gold"
                     })}</SelectItem>
                     <SelectItem value="dark">{t("Dark", {
                       defaultValue: "Dark"
@@ -293,18 +293,18 @@ export function BlockConfigModal({
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="text-left">{t("Textleftimageright", {
-                      defaultValue: "Textleftimageright"
+                      <SelectItem value="text-left">{t("Text Left, Image Right", {
+                      defaultValue: "Text Left, Image Right"
                     })}</SelectItem>
-                      <SelectItem value="image-left">{t("Imagelefttextright", {
-                      defaultValue: "Imagelefttextright"
+                      <SelectItem value="image-left">{t("Image Left, Text Right", {
+                      defaultValue: "Image Left, Text Right"
                     })}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div>
-                  <Label>{t("Couleurdutexte", {
-                  defaultValue: "Couleurdutexte"
+                  <Label>{t("Couleur du texte", {
+                  defaultValue: "Couleur du texte"
                 })}</Label>
                   <ColorPicker value={config.textColor || 'dark'} onChange={value => handleConfigChange('textColor', value)} />
                 </div>
@@ -314,16 +314,16 @@ export function BlockConfigModal({
           <TabsContent value="actions" className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="ctaText">{t("Calltoactiontext", {
-                  defaultValue: "Calltoactiontext"
+                <Label htmlFor="ctaText">{t("Call to action text", {
+                  defaultValue: "Call to action text"
                 })}</Label>
                 <Input id="ctaText" value={config.ctaText || ''} onChange={e => handleConfigChange('ctaText', e.target.value)} placeholder={t("Learnmore", {
                 defaultValue: "Learnmore"
               })} />
               </div>
               <div>
-                <Label htmlFor="ctaUrl">{t("Calltoactionurl", {
-                  defaultValue: "Calltoactionurl"
+                <Label htmlFor="ctaUrl">{t("Call-to-Action URL", {
+                  defaultValue: "Call-to-Action URL"
                 })}</Label>
                 <Input id="ctaUrl" value={config.ctaUrl || ''} onChange={e => handleConfigChange('ctaUrl', e.target.value)} placeholder="/contact" />
               </div>
@@ -386,8 +386,8 @@ export function BlockConfigModal({
           <TabsContent value="advanced" className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="identifier">{t("Blockidentifier", {
-                  defaultValue: "Blockidentifier"
+                <Label htmlFor="identifier">{t("Block Identifier", {
+                  defaultValue: "Block Identifier"
                 })}</Label>
                 <Input id="identifier" value={block.identifier} disabled className="bg-muted" />
               </div>
@@ -401,15 +401,15 @@ export function BlockConfigModal({
 
             <div className="flex items-center space-x-2">
               <Switch id="isActive" checked={block.isActive !== false} disabled />
-              <Label htmlFor="isActive">{t("Blockisactive", {
-                defaultValue: "Blockisactive"
+              <Label htmlFor="isActive">{t("Block is active", {
+                defaultValue: "Block is active"
               })}</Label>
             </div>
 
             <Card>
               <CardHeader>
-                <CardTitle className="text-sm">{t("Rawconfigurationjson", {
-                  defaultValue: "Rawconfigurationjson"
+                <CardTitle className="text-sm">{t("Raw Configuration (JSON)", {
+                  defaultValue: "Raw Configuration (JSON)"
                 })}</CardTitle>
               </CardHeader>
               <CardContent>
@@ -452,16 +452,16 @@ function renderBlockSpecificContent(blockType: string, config: any, handleConfig
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="titleMainColor">{t("Titreprincipal", {
-                defaultValue: "Titreprincipal"
+              <Label htmlFor="titleMainColor">{t("Titre Principal", {
+                defaultValue: "Titre Principal"
               })}</Label>
               <Textarea id="titleMainColor" value={config.titleMainColor || ''} onChange={e => handleConfigChange('titleMainColor', e.target.value)} placeholder={t("Titreprincipalduhxe9", {
               defaultValue: "Titreprincipalduhxe9"
             })} rows={2} />
             </div>
             <div>
-              <Label htmlFor="titlePrimaryColor">{t("Couleurprincipaledut", {
-                defaultValue: "Couleurprincipaledut"
+              <Label htmlFor="titlePrimaryColor">{t("Couleur principale du th\xE8me", {
+                defaultValue: "Couleur principale du th\xE8me"
               })}</Label>
               <ColorPicker value={config.titlePrimaryColor || 'primary'} onChange={value => handleConfigChange('titlePrimaryColor', value)} />
             </div>
@@ -469,24 +469,24 @@ function renderBlockSpecificContent(blockType: string, config: any, handleConfig
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="titleColorPart">{t("Motdutitreensecondec", {
-                defaultValue: "Motdutitreensecondec"
+              <Label htmlFor="titleColorPart">{t("Mot du titre en seconde couleur", {
+                defaultValue: "Mot du titre en seconde couleur"
               })}</Label>
               <Input id="titleColorPart" value={config.titleColorPart || ''} onChange={e => handleConfigChange('titleColorPart', e.target.value)} placeholder={t("Motxe0colorierdiffxe", {
               defaultValue: "Motxe0colorierdiffxe"
             })} />
             </div>
             <div>
-              <Label htmlFor="titleAccentColor">{t("Couleuraccent", {
-                defaultValue: "Couleuraccent"
+              <Label htmlFor="titleAccentColor">{t("Couleur accent", {
+                defaultValue: "Couleur accent"
               })}</Label>
               <ColorPicker value={config.titleAccentColor || 'secondary'} onChange={value => handleConfigChange('titleAccentColor', value)} />
             </div>
           </div>
 
           <div>
-            <Label htmlFor="subtitleColor">{t("Couleurdusoustitre", {
-              defaultValue: "Couleurdusoustitre"
+            <Label htmlFor="subtitleColor">{t("Couleur du sous-titre", {
+              defaultValue: "Couleur du sous-titre"
             })}</Label>
             <ColorPicker value={config.subtitleColor || 'white'} onChange={value => handleConfigChange('subtitleColor', value)} />
           </div>
@@ -518,14 +518,14 @@ function renderBlockSpecificContent(blockType: string, config: any, handleConfig
                     <Input value={feature.title || ''} onChange={e => handleArrayUpdate('features', index, {
                   ...feature,
                   title: e.target.value
-                })} placeholder={t("Featuretitle", {
-                  defaultValue: "Featuretitle"
+                })} placeholder={t("Feature title", {
+                  defaultValue: "Feature title"
                 })} />
                     <Input value={feature.description || ''} onChange={e => handleArrayUpdate('features', index, {
                   ...feature,
                   description: e.target.value
-                })} placeholder={t("Featuredescription", {
-                  defaultValue: "Featuredescription"
+                })} placeholder={t("Feature description", {
+                  defaultValue: "Feature description"
                 })} />
                     <Button variant="ghost" size="icon" onClick={() => handleArrayRemove('features', index)}>
                       <X className="h-4 w-4" />
@@ -538,8 +538,8 @@ function renderBlockSpecificContent(blockType: string, config: any, handleConfig
             title: t("Newfeature", {
               defaultValue: "Newfeature"
             }),
-            description: t("Featuredescription", {
-              defaultValue: "Featuredescription"
+            description: t("Feature description", {
+              defaultValue: "Feature description"
             })
           })}>
               <Plus className="h-4 w-4 mr-2" />{t("Addfeature", {
@@ -558,41 +558,41 @@ function renderBlockSpecificContent(blockType: string, config: any, handleConfig
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="contact">{t("Contactform", {
-                  defaultValue: "Contactform"
+                <SelectItem value="contact">{t("Contact Form", {
+                  defaultValue: "Contact Form"
                 })}</SelectItem>
-                <SelectItem value="custom_tour">{t("Customtourform", {
-                  defaultValue: "Customtourform"
+                <SelectItem value="custom_tour">{t("Custom Tour Form", {
+                  defaultValue: "Custom Tour Form"
                 })}</SelectItem>
-                <SelectItem value="newsletter">{t("Newslettersignup", {
-                  defaultValue: "Newslettersignup"
+                <SelectItem value="newsletter">{t("Newsletter Signup", {
+                  defaultValue: "Newsletter Signup"
                 })}</SelectItem>
               </SelectContent>
             </Select>
           </div>
           
           <div>
-            <Label htmlFor="submitText">{t("Submitbuttontext", {
-              defaultValue: "Submitbuttontext"
+            <Label htmlFor="submitText">{t("Submit Button Text", {
+              defaultValue: "Submit Button Text"
             })}</Label>
-            <Input id="submitText" value={config.submitText || ''} onChange={e => handleConfigChange('submitText', e.target.value)} placeholder={t("Sendmessage", {
-            defaultValue: "Sendmessage"
+            <Input id="submitText" value={config.submitText || ''} onChange={e => handleConfigChange('submitText', e.target.value)} placeholder={t("Send Message", {
+            defaultValue: "Send Message"
           })} />
           </div>
         </div>;
     case 'card_grid':
       return <div className="space-y-4">
           <div>
-            <Label htmlFor="displayCount">{t("Numberofcards", {
-              defaultValue: "Numberofcards"
+            <Label htmlFor="displayCount">{t("Number of Cards", {
+              defaultValue: "Number of Cards"
             })}</Label>
             <Input id="displayCount" type="number" value={config.displayCount || 6} onChange={e => handleConfigChange('displayCount', parseInt(e.target.value))} min="1" max="12" />
           </div>
           
           <div className="flex items-center space-x-2">
             <Switch id="showTourNinja" checked={config.showTourNinja || false} onCheckedChange={checked => handleConfigChange('showTourNinja', checked)} />
-            <Label htmlFor="showTourNinja">{t("Showtourninjaintegra", {
-              defaultValue: "Showtourninjaintegra"
+            <Label htmlFor="showTourNinja">{t("Show Tour Ninja integration", {
+              defaultValue: "Show Tour Ninja integration"
             })}</Label>
           </div>
         </div>;
@@ -606,8 +606,8 @@ function renderBlockSpecificContent(blockType: string, config: any, handleConfig
               <Input id="rating" type="number" step="0.1" min="0" max="5" value={config.rating || 5.0} onChange={e => handleConfigChange('rating', parseFloat(e.target.value))} />
             </div>
             <div>
-              <Label htmlFor="reviewCount">{t("Reviewcount", {
-                defaultValue: "Reviewcount"
+              <Label htmlFor="reviewCount">{t("Review Count", {
+                defaultValue: "Review Count"
               })}</Label>
               <Input id="reviewCount" type="number" value={config.reviewCount || 80} onChange={e => handleConfigChange('reviewCount', parseInt(e.target.value))} />
             </div>
@@ -615,8 +615,8 @@ function renderBlockSpecificContent(blockType: string, config: any, handleConfig
           
           <div className="flex items-center space-x-2">
             <Switch id="googleReviewsWidget" checked={config.googleReviewsWidget || false} onCheckedChange={checked => handleConfigChange('googleReviewsWidget', checked)} />
-            <Label htmlFor="googleReviewsWidget">{t("Showgooglereviewswid", {
-              defaultValue: "Showgooglereviewswid"
+            <Label htmlFor="googleReviewsWidget">{t("Show Google Reviews widget", {
+              defaultValue: "Show Google Reviews widget"
             })}</Label>
           </div>
         </div>;

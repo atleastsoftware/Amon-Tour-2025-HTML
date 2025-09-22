@@ -105,8 +105,8 @@ export default function TourShowcase() {
             <div className="flex items-center justify-center h-96">
               <div className="text-center">
                 <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-secondary mx-auto"></div>
-                <p className="mt-4 text-gray-600">{t("Loadingtour", {
-                  defaultValue: "Loadingtour"
+                <p className="mt-4 text-gray-600">{t("Loading tour...", {
+                  defaultValue: "Loading tour..."
                 })}</p>
               </div>
             </div>
@@ -121,15 +121,15 @@ export default function TourShowcase() {
         <div className="min-h-screen bg-gray-50 pt-24 pb-16">
           <div className="container mx-auto px-4">
             <div className="text-center py-16">
-              <h1 className="text-3xl font-bold text-gray-900 mb-4">{t("Tournotfound", {
-                defaultValue: "Tournotfound"
+              <h1 className="text-3xl font-bold text-gray-900 mb-4">{t("Tour Not Found", {
+                defaultValue: "Tour Not Found"
               })}</h1>
               <p className="text-gray-600 mb-8">{t('The tour you\'re looking for doesn\'t exist or has been removed.', {
                 defaultValue: 'The tour you\'re looking for doesn\'t exist or has been removed.'
               })}</p>
               <Button onClick={() => setLocation("/tours")} variant="outline">
-                <ArrowLeft className="h-4 w-4 mr-2" />{t("Backtotours", {
-                defaultValue: "Backtotours"
+                <ArrowLeft className="h-4 w-4 mr-2" />{t("Back to Tours", {
+                defaultValue: "Back to Tours"
               })}</Button>
             </div>
           </div>
@@ -162,8 +162,8 @@ export default function TourShowcase() {
                 duration: 0.8
               }}>
                   <Button variant="ghost" onClick={() => setLocation("/tours")} className="text-white hover:text-gray-200 mb-4 p-0">
-                    <ArrowLeft className="h-4 w-4 mr-2" />{t("Backtotours", {
-                    defaultValue: "Backtotours"
+                    <ArrowLeft className="h-4 w-4 mr-2" />{t("Back to Tours", {
+                    defaultValue: "Back to Tours"
                   })}</Button>
                   <h1 className="text-4xl md:text-5xl font-bold mb-4">{tour.name}</h1>
                   <div className="flex flex-wrap items-center gap-4 text-sm">
@@ -212,8 +212,8 @@ export default function TourShowcase() {
               }} transition={{
                 duration: 0.6
               }}>
-                  <h2 className="text-2xl font-bold text-gray-900 mb-4">{t("Aboutthisexperience", {
-                    defaultValue: "Aboutthisexperience"
+                  <h2 className="text-2xl font-bold text-gray-900 mb-4">{t("About This Experience", {
+                    defaultValue: "About This Experience"
                   })}</h2>
                   <div className="prose prose-lg max-w-none text-gray-700">
                     <p>{tour.description}</p>
@@ -338,8 +338,8 @@ export default function TourShowcase() {
                         })}<ExternalLink className="h-5 w-5 ml-2" />
                         </Button>
 
-                        {tour.detailsUrl && <Button onClick={handleViewDetails} variant="outline" className="w-full border-secondary text-blue-600 hover:bg-blue-50" size="lg">{t("Viewdetails", {
-                          defaultValue: "Viewdetails"
+                        {tour.detailsUrl && <Button onClick={handleViewDetails} variant="outline" className="w-full border-secondary text-blue-600 hover:bg-blue-50" size="lg">{t("View Details", {
+                          defaultValue: "View Details"
                         })}<ExternalLink className="h-5 w-5 ml-2" />
                           </Button>}
                       </div>
@@ -347,27 +347,27 @@ export default function TourShowcase() {
                       <div className="pt-6 border-t space-y-3">
                         <div className="flex items-center text-gray-600">
                           <Calendar className="h-5 w-5 mr-3 text-blue-600" />
-                          <span>{t("Flexiblecancellation", {
-                            defaultValue: "Flexiblecancellation"
+                          <span>{t("Flexible cancellation", {
+                            defaultValue: "Flexible cancellation"
                           })}</span>
                         </div>
                         <div className="flex items-center text-gray-600">
                           <Users className="h-5 w-5 mr-3 text-blue-600" />
-                          <span>{t("Smallgroupexperience", {
-                            defaultValue: "Smallgroupexperience"
+                          <span>{t("Small group experience", {
+                            defaultValue: "Small group experience"
                           })}</span>
                         </div>
                         <div className="flex items-center text-gray-600">
                           <MapPin className="h-5 w-5 mr-3 text-blue-600" />
-                          <span>{t("Localexpertguide", {
-                            defaultValue: "Localexpertguide"
+                          <span>{t("Local expert guide", {
+                            defaultValue: "Local expert guide"
                           })}</span>
                         </div>
                       </div>
 
                       {company && <div className="pt-6 border-t text-center">
-                          <p className="text-sm text-gray-500">{t("Organizedby", {
-                          defaultValue: "Organizedby"
+                          <p className="text-sm text-gray-500">{t("Organized by", {
+                          defaultValue: "Organized by"
                         })}</p>
                           <p className="font-semibold text-gray-900">{company.name}</p>
                         </div>}
@@ -393,8 +393,8 @@ export default function TourShowcase() {
           }} transition={{
             duration: 0.6
           }}>
-                <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">{t("Photogallery", {
-                defaultValue: "Photogallery"
+                <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">{t("Photo Gallery", {
+                defaultValue: "Photo Gallery"
               })}</h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                   {tour.images.map((image, index) => <div key={index} className="aspect-square rounded-lg overflow-hidden cursor-pointer hover:opacity-80 transition-opacity" onClick={() => setCurrentImageIndex(index)}>

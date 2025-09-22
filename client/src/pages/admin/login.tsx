@@ -50,11 +50,11 @@ export default function Login() {
     try {
       await login.mutateAsync(data);
       toast({
-        title: t("Loginsuccessful", {
-          defaultValue: "Loginsuccessful"
+        title: t("Login successful", {
+          defaultValue: "Login successful"
         }),
-        description: t("Youarenowloggedintot", {
-          defaultValue: "Youarenowloggedintot"
+        description: t("You are now logged into the admin dashboard.", {
+          defaultValue: "You are now logged into the admin dashboard."
         }),
         variant: "default"
       });
@@ -64,8 +64,8 @@ export default function Login() {
         title: t("Loginerror", {
           defaultValue: "Loginerror"
         }),
-        description: t("Incorrectusernameorp", {
-          defaultValue: "Incorrectusernameorp"
+        description: t("Incorrect username or password.", {
+          defaultValue: "Incorrect username or password."
         }),
         variant: "destructive"
       });
@@ -88,11 +88,11 @@ export default function Login() {
       
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-heading text-center">{t("Admindashboard", {
-            defaultValue: "Admindashboard"
+          <CardTitle className="text-2xl font-heading text-center">{t("Admin Dashboard", {
+            defaultValue: "Admin Dashboard"
           })}</CardTitle>
-          <CardDescription className="text-center">{t("Logintomanageyourweb", {
-            defaultValue: "Logintomanageyourweb"
+          <CardDescription className="text-center">{t("Log in to manage your website", {
+            defaultValue: "Log in to manage your website"
           })}</CardDescription>
         </CardHeader>
         <CardContent>
@@ -135,8 +135,8 @@ export default function Login() {
         <CardFooter className="flex justify-center">
           <Button variant="link" asChild>
             <Link href="/">
-              <span>{t("Backtowebsite", {
-                defaultValue: "Backtowebsite"
+              <span>{t("Back to website", {
+                defaultValue: "Back to website"
               })}</span>
             </Link>
           </Button>

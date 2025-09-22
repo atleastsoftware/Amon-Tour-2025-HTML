@@ -48,8 +48,8 @@ export default function SeasonalPricing() {
                 <p className="text-sm text-muted-foreground/80 mb-4">{t('cruise.perDay')}</p>
                 <div className="border-t pt-4">
                   <p className="text-sm font-semibold text-muted-foreground">{t('cruise.period')}</p>
-                  <p className="text-sm text-muted-foreground">{t("Dec152025jan152026", {
-                    defaultValue: "Dec152025jan152026"
+                  <p className="text-sm text-muted-foreground">{t("Dec 15, 2025 - Jan 15, 2026", {
+                    defaultValue: "Dec 15, 2025 - Jan 15, 2026"
                   })}</p>
                 </div>
               </div>
@@ -77,11 +77,11 @@ export default function SeasonalPricing() {
                 <p className="text-sm text-muted-foreground/80 mb-4">{t('cruise.perDay')}</p>
                 <div className="border-t pt-4">
                   <p className="text-sm font-semibold text-muted-foreground">{t('cruise.period')}</p>
-                  <p className="text-sm text-muted-foreground">{t("Oct15dec142025", {
-                    defaultValue: "Oct15dec142025"
+                  <p className="text-sm text-muted-foreground">{t("Oct 15 - Dec 14, 2025", {
+                    defaultValue: "Oct 15 - Dec 14, 2025"
                   })}</p>
-                  <p className="text-sm text-muted-foreground">{t("Jan15mar312026", {
-                    defaultValue: "Jan15mar312026"
+                  <p className="text-sm text-muted-foreground">{t("Jan 15 - Mar 31, 2026", {
+                    defaultValue: "Jan 15 - Mar 31, 2026"
                   })}</p>
                 </div>
               </div>
@@ -109,8 +109,8 @@ export default function SeasonalPricing() {
                 <p className="text-sm text-muted-foreground/80 mb-4">{t('cruise.perDay')}</p>
                 <div className="border-t pt-4">
                   <p className="text-sm font-semibold text-muted-foreground">{t('cruise.period')}</p>
-                  <p className="text-sm text-muted-foreground">{t("Apr1oct142026", {
-                    defaultValue: "Apr1oct142026"
+                  <p className="text-sm text-muted-foreground">{t("Apr 1 - Oct 14, 2026", {
+                    defaultValue: "Apr 1 - Oct 14, 2026"
                   })}</p>
                 </div>
               </div>

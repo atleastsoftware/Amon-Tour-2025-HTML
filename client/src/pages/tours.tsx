@@ -71,8 +71,8 @@ export default function Tours() {
       if (name.includes('phi phi')) return t("Kohphiphi", {
         defaultValue: "Kohphiphi"
       });
-      if (name.includes('phang nga')) return t("Phangngabay", {
-        defaultValue: "Phangngabay"
+      if (name.includes('phang nga')) return t("Phang Nga Bay", {
+        defaultValue: "Phang Nga Bay"
       });
       if (name.includes('koh hong')) return t("Kohhong", {
         defaultValue: "Kohhong"
@@ -167,8 +167,8 @@ export default function Tours() {
         if (name.includes('phi phi')) return t("Kohphiphi", {
           defaultValue: "Kohphiphi"
         });
-        if (name.includes('phang nga')) return t("Phangngabay", {
-          defaultValue: "Phangngabay"
+        if (name.includes('phang nga')) return t("Phang Nga Bay", {
+          defaultValue: "Phang Nga Bay"
         });
         if (name.includes('koh hong')) return t("Kohhong", {
           defaultValue: "Kohhong"
@@ -216,14 +216,14 @@ export default function Tours() {
   };
   const hasActiveFilters = searchTerm !== "" || priceRange !== "all" || durationFilter !== "all" || destinationFilter !== "all";
   return <>
-      <SEO title={t("Thailandtoursexperie", {
-      defaultValue: "Thailandtoursexperie"
+      <SEO title={t("Thailand Tours & Experiences | Authentic Island Tours Krabi | Amon Tour", {
+      defaultValue: "Thailand Tours & Experiences | Authentic Island Tours Krabi | Amon Tour"
     })} description="Explore authentic Thailand tours in Krabi and southern Thailand. Private island tours, cultural experiences, temple visits, and local adventures. Book your authentic Thai experience today." keywords="krabi tours, thailand island tours, phuket experiences, phang nga bay tours, private boat tours thailand, authentic thai experiences, koh phi phi tours, cultural tours thailand" canonicalUrl="https://amon-tour.com/tours" breadcrumbs={[{
       name: t('navigation.home'),
       url: "/"
     }, {
-      name: t("Toursexperiences", {
-        defaultValue: "Toursexperiences"
+      name: t("Tours & Experiences", {
+        defaultValue: "Tours & Experiences"
       }),
       url: "/tours"
     }]} faqSchema={[{
@@ -246,12 +246,12 @@ export default function Tours() {
       
       <main className="min-h-screen bg-gradient-to-br from-primary/10 to-primary/20">
         {/* Hero */}
-        <HeroHeader title={t("Ourexperiences", {
-        defaultValue: "Ourexperiences"
-      })} subtitle={t("Discovertheexception", {
-        defaultValue: "Discovertheexception"
-      })} alt={t("Toursandexperiencesi", {
-        defaultValue: "Toursandexperiencesi"
+        <HeroHeader title={t("Our Experiences", {
+        defaultValue: "Our Experiences"
+      })} subtitle={t("Discover the exceptional beauty of Krabi and southern Thailand.", {
+        defaultValue: "Discover the exceptional beauty of Krabi and southern Thailand."
+      })} alt={t("Tours and experiences in Thailand", {
+        defaultValue: "Tours and experiences in Thailand"
       })} />
 
         {/* Filtres */}
@@ -277,8 +277,8 @@ export default function Tours() {
               {/* Recherche - Plus large sur mobile et desktop */}
               <div className="relative md:col-span-2 lg:col-span-2">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                <Input placeholder={t("Searchforatour", {
-                defaultValue: "Searchforatour"
+                <Input placeholder={t("Search for a tour...", {
+                defaultValue: "Search for a tour..."
               })} value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="pl-10" />
               </div>
 
@@ -302,13 +302,13 @@ export default function Tours() {
               {/* Durée */}
               <Select value={durationFilter} onValueChange={setDurationFilter}>
                 <SelectTrigger>
-                  <SelectValue placeholder={t("Alldurations", {
-                  defaultValue: "Alldurations"
+                  <SelectValue placeholder={t("All durations", {
+                  defaultValue: "All durations"
                 })} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">{t("Alldurations", {
-                    defaultValue: "Alldurations"
+                  <SelectItem value="all">{t("All durations", {
+                    defaultValue: "All durations"
                   })}</SelectItem>
                   {filterOptions.durations.map(duration => <SelectItem key={duration} value={duration.toString()}>
                       {duration} day{Number(duration) > 1 ? 's' : ''}
@@ -319,13 +319,13 @@ export default function Tours() {
               {/* Destination */}
               <Select value={destinationFilter} onValueChange={setDestinationFilter}>
                 <SelectTrigger>
-                  <SelectValue placeholder={t("Alldestinations", {
-                  defaultValue: "Alldestinations"
+                  <SelectValue placeholder={t("All destinations", {
+                  defaultValue: "All destinations"
                 })} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">{t("Alldestinations", {
-                    defaultValue: "Alldestinations"
+                  <SelectItem value="all">{t("All destinations", {
+                    defaultValue: "All destinations"
                   })}</SelectItem>
                   {filterOptions.destinations.map(destination => <SelectItem key={destination} value={destination}>
                       {destination}
@@ -336,8 +336,8 @@ export default function Tours() {
               {/* Reset - Prend toute la largeur sur mobile, une colonne sur desktop */}
               {hasActiveFilters && <Button variant="outline" onClick={clearFilters} className="w-full md:col-span-4 lg:col-span-5">
                   <X className="h-4 w-4 mr-2" />
-                  {t("Clearfilters", {
-                defaultValue: "Clearfilters"
+                  {t("Clear filters", {
+                defaultValue: "Clear filters"
               })}
                 </Button>}
             </div>
@@ -397,8 +397,8 @@ export default function Tours() {
                       
                       <div className="flex gap-2">
                         <Button onClick={() => handleTourDetails(tour)} variant="outline" className="flex-1 border-primary text-primary hover:bg-primary/10">
-                          {t("Viewdetails", {
-                      defaultValue: "Viewdetails"
+                          {t("View Details", {
+                      defaultValue: "View Details"
                     })}
                           <ExternalLink className="h-4 w-4 ml-2" />
                         </Button>
@@ -416,8 +416,8 @@ export default function Tours() {
               {tours.length === 0 && !hasActiveFilters ? <div className="space-y-4">
                   {/* Pas de tours disponibles - garde l'espace propre */}
                 </div> : hasActiveFilters ? <Button onClick={clearFilters} variant="outline">
-                  {t("Clearfilters", {
-              defaultValue: "Clearfilters"
+                  {t("Clear filters", {
+              defaultValue: "Clear filters"
             })}
                 </Button> : null}
             </div>}

@@ -15,11 +15,11 @@ export default function HeaderSimple() {
           }} whileTap={{
             scale: 0.97
           }}>
-              <img src={logo} alt={t("Senthangsiam", {
-              defaultValue: "Senthangsiam"
+              <img src={logo} alt={t("Senthang Siam", {
+              defaultValue: "Senthang Siam"
             })} className="h-12 mr-3" />
-              <div className="text-primary font-heading font-semibold hidden sm:block">{t("Senthangsiam", {
-                defaultValue: "Senthangsiam"
+              <div className="text-primary font-heading font-semibold hidden sm:block">{t("Senthang Siam", {
+                defaultValue: "Senthang Siam"
               })}</div>
             </motion.div>
           </Link>

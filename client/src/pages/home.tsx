@@ -132,8 +132,8 @@ export default function Home() {
     };
   }, []);
   return <>
-      <SEO title={t("Amontourauthentictha", {
-      defaultValue: "Amontourauthentictha"
+      <SEO title={t("Amon Tour - Authentic Thailand Experiences in Krabi", {
+      defaultValue: "Amon Tour - Authentic Thailand Experiences in Krabi"
     })} description="Discover authentic Thailand with Amon Tour. Expert-guided private tours, cultural experiences, and personalized journeys across Bangkok, Phuket, and beyond. Family-run travel agency offering immersive experiences away from mass tourism." keywords="thailand private tours, bangkok cultural experiences, phuket authentic travel, thailand family travel agency, personalized thailand journeys, thai temple tours, island hopping thailand, authentic thai culture, thailand vacation planning" canonicalUrl="https://amon-tour.com/" breadcrumbs={[{
       name: t('navigation.home'),
       url: "/"
@@ -158,15 +158,15 @@ export default function Home() {
       reviews: [{
         author: "Sarah M.",
         rating: 5,
-        text: t("Incredibleauthentice", {
-          defaultValue: "Incredibleauthentice"
+        text: t("Incredible authentic experience! Amon Tour showed us the real Thailand.", {
+          defaultValue: "Incredible authentic experience! Amon Tour showed us the real Thailand."
         }),
         datePublished: "2024-12-15"
       }, {
         author: "Marc L.",
         rating: 5,
-        text: t("Professionalservicea", {
-          defaultValue: "Professionalservicea"
+        text: t("Professional service and amazing local insights. Highly recommended!", {
+          defaultValue: "Professional service and amazing local insights. Highly recommended!"
         }),
         datePublished: "2024-11-20"
       }]

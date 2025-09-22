@@ -75,8 +75,8 @@ export default function AdminGroupRequests() {
         title: t("Erreur", {
           defaultValue: "Erreur"
         }),
-        description: t("Impossibledemarquerl", {
-          defaultValue: "Impossibledemarquerl"
+        description: t("Impossible de marquer la demande comme lue", {
+          defaultValue: "Impossible de marquer la demande comme lue"
         }),
         variant: "destructive"
       });
@@ -105,8 +105,8 @@ export default function AdminGroupRequests() {
         title: t("Erreur", {
           defaultValue: "Erreur"
         }),
-        description: t("Impossibledesupprime", {
-          defaultValue: "Impossibledesupprime"
+        description: t("Impossible de supprimer la demande", {
+          defaultValue: "Impossible de supprimer la demande"
         }),
         variant: "destructive"
       });
@@ -163,11 +163,11 @@ export default function AdminGroupRequests() {
                 <div className="flex items-center gap-3">
                   <UsersIcon className="h-8 w-8 text-amber-600" />
                   <div>
-                    <h1 className="text-3xl font-heading text-gray-900">{t("Groupesentreprises", {
-                      defaultValue: "Groupesentreprises"
+                    <h1 className="text-3xl font-heading text-gray-900">{t("Groupes & Entreprises", {
+                      defaultValue: "Groupes & Entreprises"
                     })}</h1>
-                    <p className="text-gray-600">{t("Demandesdegroupesetc", {
-                      defaultValue: "Demandesdegroupesetc"
+                    <p className="text-gray-600">{t("Demandes de groupes et corporates", {
+                      defaultValue: "Demandes de groupes et corporates"
                     })}</p>
                   </div>
                 </div>
@@ -210,8 +210,8 @@ export default function AdminGroupRequests() {
                         <TableHead>{t("Participants", {
                         defaultValue: "Participants"
                       })}</TableHead>
-                        <TableHead>{t("Datesdevoyage", {
-                        defaultValue: "Datesdevoyage"
+                        <TableHead>{t("Dates de voyage", {
+                        defaultValue: "Dates de voyage"
                       })}</TableHead>
                         <TableHead>{t("Rexe7ule", {
                         defaultValue: "Rexe7ule"
@@ -262,8 +262,8 @@ export default function AdminGroupRequests() {
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <UsersIcon className="h-5 w-5 text-amber-600" />{t("Demandedegroupe", {
-              defaultValue: "Demandedegroupe"
+              <UsersIcon className="h-5 w-5 text-amber-600" />{t("Demande de groupe", {
+              defaultValue: "Demande de groupe"
             })}</DialogTitle>
             <DialogDescription>{t("Dxe9tailsdelademande", {
               defaultValue: "Dxe9tailsdelademande"
@@ -273,8 +273,8 @@ export default function AdminGroupRequests() {
           {selectedRequest && <div className="space-y-6">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-gray-700">{t("Nomducontact", {
-                  defaultValue: "Nomducontact"
+                  <label className="text-sm font-medium text-gray-700">{t("Nom du contact", {
+                  defaultValue: "Nom du contact"
                 })}</label>
                   <p className="text-gray-900">{selectedRequest.contactName}</p>
                 </div>
@@ -285,8 +285,8 @@ export default function AdminGroupRequests() {
                   <p className="text-gray-900">{selectedRequest.email}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">{t("Entrepriseorganisati", {
-                  defaultValue: "Entrepriseorganisati"
+                  <label className="text-sm font-medium text-gray-700">{t("Entreprise/Organisation", {
+                  defaultValue: "Entreprise/Organisation"
                 })}</label>
                   <p className="text-gray-900">{selectedRequest.companyName}</p>
                 </div>
@@ -297,8 +297,8 @@ export default function AdminGroupRequests() {
                   <p className="text-gray-900">{selectedRequest.phone || 'Non renseigné'}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">{t("Nombredeparticipants", {
-                  defaultValue: "Nombredeparticipants"
+                  <label className="text-sm font-medium text-gray-700">{t("Nombre de participants", {
+                  defaultValue: "Nombre de participants"
                 })}</label>
                   <p className="text-gray-900 flex items-center gap-1">
                     <Users className="h-4 w-4" />
@@ -312,8 +312,8 @@ export default function AdminGroupRequests() {
                   <p className="text-gray-900">{selectedRequest.budget || 'Non précisé'}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">{t("Datesdevoyagesouhait", {
-                  defaultValue: "Datesdevoyagesouhait"
+                  <label className="text-sm font-medium text-gray-700">{t("Dates de voyage souhait\xE9es", {
+                  defaultValue: "Dates de voyage souhait\xE9es"
                 })}</label>
                   <p className="text-gray-900 flex items-center gap-1">
                     <Calendar className="h-4 w-4" />
@@ -323,8 +323,8 @@ export default function AdminGroupRequests() {
               </div>
               
               {selectedRequest.description && <div>
-                  <label className="text-sm font-medium text-gray-700">{t("Description", {
-                defaultValue: "Description"
+                  <label className="text-sm font-medium text-gray-700">{t("Description:", {
+                defaultValue: "Description:"
               })}</label>
                   <p className="text-gray-900 bg-gray-50 p-3 rounded-lg mt-1">
                     {selectedRequest.description}
@@ -342,8 +342,8 @@ export default function AdminGroupRequests() {
                   defaultValue: "Rxe9pondreparemail"
                 })}</Button>
                   {!selectedRequest.read && <Button onClick={() => markAsReadMutation.mutate(selectedRequest.id)}>
-                      <CheckCircle2 className="h-4 w-4 mr-2" />{t("Marquercommelu", {
-                  defaultValue: "Marquercommelu"
+                      <CheckCircle2 className="h-4 w-4 mr-2" />{t("Marquer comme lu", {
+                  defaultValue: "Marquer comme lu"
                 })}</Button>}
                 </div>
               </div>

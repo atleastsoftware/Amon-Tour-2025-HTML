@@ -104,8 +104,8 @@ export default function TourCardEditModal({
         title: t("Erreur", {
           defaultValue: "Erreur"
         }),
-        description: t("Letitreestobligatoir", {
-          defaultValue: "Letitreestobligatoir"
+        description: t("Le titre est obligatoire", {
+          defaultValue: "Le titre est obligatoire"
         }),
         variant: "destructive"
       });
@@ -152,8 +152,8 @@ export default function TourCardEditModal({
         title: t("Erreur", {
           defaultValue: "Erreur"
         }),
-        description: t("Uneerreurestsurvenue", {
-          defaultValue: "Uneerreurestsurvenue"
+        description: t("Une erreur est survenue lors de la cr\xE9ation de la fiche", {
+          defaultValue: "Une erreur est survenue lors de la cr\xE9ation de la fiche"
         }),
         variant: "destructive"
       });
@@ -164,8 +164,8 @@ export default function TourCardEditModal({
   return <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>{t("Modifierlafichedetou", {
-            defaultValue: "Modifierlafichedetou"
+          <DialogTitle>{t("Modifier la fiche de tour", {
+            defaultValue: "Modifier la fiche de tour"
           })}</DialogTitle>
         </DialogHeader>
         
@@ -174,14 +174,14 @@ export default function TourCardEditModal({
             <Label htmlFor="title">{t("Nomdusxe9jourtour", {
               defaultValue: "Nomdusxe9jourtour"
             })}</Label>
-            <Input id="title" name="title" value={formData.title} onChange={handleInputChange} placeholder={t("Exbangkokfoodtour", {
-            defaultValue: "Exbangkokfoodtour"
+            <Input id="title" name="title" value={formData.title} onChange={handleInputChange} placeholder={t("Ex: Bangkok Food Tour", {
+            defaultValue: "Ex: Bangkok Food Tour"
           })} required />
           </div>
           
           <div>
-            <Label htmlFor="description">{t("Description", {
-              defaultValue: "Description"
+            <Label htmlFor="description">{t("Description:", {
+              defaultValue: "Description:"
             })}</Label>
             <Textarea id="description" name="description" value={formData.description || ""} onChange={handleInputChange} placeholder={t("Dxe9crivezbrixe8veme", {
             defaultValue: "Dxe9crivezbrixe8veme"
@@ -211,8 +211,8 @@ export default function TourCardEditModal({
           </div>
           
           <div>
-            <Label htmlFor="type">{t("Typedefiche", {
-              defaultValue: "Typedefiche"
+            <Label htmlFor="type">{t("Type de fiche *", {
+              defaultValue: "Type de fiche *"
             })}</Label>
             <div className="grid grid-cols-2 gap-4 mt-2">
               <button type="button" onClick={() => setFormData({
@@ -239,19 +239,19 @@ export default function TourCardEditModal({
             <Label htmlFor="customLink">{t("Lienpersonnalisxe9to", {
               defaultValue: "Lienpersonnalisxe9to"
             })}</Label>
-            <Input id="customLink" name="customLink" value={formData.customLink} onChange={handleInputChange} placeholder={t("Exhttpstourninjacomt", {
-            defaultValue: "Exhttpstourninjacomt"
+            <Input id="customLink" name="customLink" value={formData.customLink} onChange={handleInputChange} placeholder={t("Ex: https://tourninja.com/tour/xxx", {
+            defaultValue: "Ex: https://tourninja.com/tour/xxx"
           })} required />
           </div>
           
           <div>
-            <Label htmlFor="tags">{t("Tagsdelocalisation", {
-              defaultValue: "Tagsdelocalisation"
+            <Label htmlFor="tags">{t("Tags de localisation", {
+              defaultValue: "Tags de localisation"
             })}</Label>
             <div className="flex items-start gap-2">
               <div className="flex-grow">
-                <Input id="tagInput" value={tagInput} onChange={handleTagInputChange} onKeyDown={handleTagKeyDown} placeholder={t("Exbangkokphuketkohsa", {
-                defaultValue: "Exbangkokphuketkohsa"
+                <Input id="tagInput" value={tagInput} onChange={handleTagInputChange} onKeyDown={handleTagKeyDown} placeholder={t("Ex: Bangkok, Phuket, Koh Samui", {
+                defaultValue: "Ex: Bangkok, Phuket, Koh Samui"
               })} />
               </div>
               <Button type="button" onClick={addTag} variant="outline" size="icon">

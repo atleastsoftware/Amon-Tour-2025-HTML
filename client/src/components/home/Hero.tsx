@@ -143,8 +143,8 @@ export default function Hero() {
       {/* Video Background Section with Fallback Image */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
         {/* Fallback Image */}
-        <img src={heroImage} alt={t("Beautifulkrabilandsc", {
-        defaultValue: "Beautifulkrabilandsc"
+        <img src={heroImage} alt={t("Beautiful Krabi landscape", {
+        defaultValue: "Beautiful Krabi landscape"
       })} className="absolute top-0 left-0 w-full h-full object-cover" />
         
         {/* Video Overlay with intelligent loading and comprehensive fallback */}
@@ -164,8 +164,8 @@ export default function Hero() {
         console.log('Video can play through without interruption');
         setVideoLoaded(true);
       }}>
-            <source src={currentVideoSrc} type="video/mp4" />{t("Yourbrowserdoesnotsu", {
-          defaultValue: "Yourbrowserdoesnotsu"
+            <source src={currentVideoSrc} type="video/mp4" />{t("Your browser does not support the video tag.", {
+          defaultValue: "Your browser does not support the video tag."
         })}</video>}
 
         {/* Gradient Overlay */}

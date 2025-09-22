@@ -95,30 +95,30 @@ export default function AdminDashboard() {
     color: "from-secondary to-secondary/80",
     unreadCount: krabiUnread?.length || 0
   }, {
-    title: t("Demandesdepartenaria", {
-      defaultValue: "Demandesdepartenaria"
+    title: t("Demandes de partenariat", {
+      defaultValue: "Demandes de partenariat"
     }),
-    description: t("Propositionsdecollab", {
-      defaultValue: "Propositionsdecollab"
+    description: t("Propositions de collaboration", {
+      defaultValue: "Propositions de collaboration"
     }),
     icon: <Handshake className="h-6 w-6" />,
     path: "/admin/partnership-requests",
     color: "from-primary/70 to-primary",
     unreadCount: partnershipUnread?.length || 0
   }, {
-    title: t("Groupesentreprises", {
-      defaultValue: "Groupesentreprises"
+    title: t("Groupes & Entreprises", {
+      defaultValue: "Groupes & Entreprises"
     }),
-    description: t("Demandesdegroupesetc", {
-      defaultValue: "Demandesdegroupesetc"
+    description: t("Demandes de groupes et corporates", {
+      defaultValue: "Demandes de groupes et corporates"
     }),
     icon: <UsersIcon className="h-6 w-6" />,
     path: "/admin/group-requests",
     color: "from-warning to-warning/80",
     unreadCount: groupUnread?.length || 0
   }, {
-    title: t("Gestiondublog", {
-      defaultValue: "Gestiondublog"
+    title: t("Gestion du blog", {
+      defaultValue: "Gestion du blog"
     }),
     description: t("Crxe9eretmodifierles", {
       defaultValue: "Crxe9eretmodifierles"
@@ -138,8 +138,8 @@ export default function AdminDashboard() {
     color: "from-[hsl(var(--warning))] to-[hsl(var(--warning)/0.8)]",
     unreadCount: newsletterUnconfirmed?.length || 0
   }, {
-    title: t("Cartesdetours", {
-      defaultValue: "Cartesdetours"
+    title: t("Cartes de tours", {
+      defaultValue: "Cartes de tours"
     }),
     description: t("Crxe9eretgxe9rerlesc", {
       defaultValue: "Crxe9eretgxe9rerlesc"
@@ -148,8 +148,8 @@ export default function AdminDashboard() {
     path: "/tour-card-builder",
     color: "from-secondary/80 to-secondary"
   }, {
-    title: t("Messagesdecontact", {
-      defaultValue: "Messagesdecontact"
+    title: t("Messages de contact", {
+      defaultValue: "Messages de contact"
     }),
     description: t("Consulteretrxe9pondr", {
       defaultValue: "Consulteretrxe9pondr"
@@ -186,8 +186,8 @@ export default function AdminDashboard() {
                 <h1 className="text-3xl font-heading font-bold text-foreground">{t("Administration", {
                   defaultValue: "Administration"
                 })}</h1>
-                <p className="text-muted-foreground mt-2">{t("Panneaudegestioncent", {
-                  defaultValue: "Panneaudegestioncent"
+                <p className="text-muted-foreground mt-2">{t("Panneau de gestion centralis\xE9", {
+                  defaultValue: "Panneau de gestion centralis\xE9"
                 })}</p>
               </div>
               <Button variant="outline" onClick={handleLogout} className="flex items-center gap-2">

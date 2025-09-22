@@ -50,8 +50,8 @@ export default function TourIframe() {
             <h1 className="text-2xl font-bold mb-4">{t("Tournontrouvxe9", {
               defaultValue: "Tournontrouvxe9"
             })}</h1>
-            <Button onClick={handleBack}>{t("Backtotours", {
-              defaultValue: "Backtotours"
+            <Button onClick={handleBack}>{t("Back to Tours", {
+              defaultValue: "Back to Tours"
             })}</Button>
           </div>
         </main>
@@ -68,8 +68,8 @@ export default function TourIframe() {
         <section className="bg-gray-50 border-b">
           <div className="container mx-auto px-4 py-3">
             <Button onClick={handleBack} variant="outline" size="sm">
-              <ArrowLeft className="h-4 w-4 mr-2" />{t("Backtotours", {
-              defaultValue: "Backtotours"
+              <ArrowLeft className="h-4 w-4 mr-2" />{t("Back to Tours", {
+              defaultValue: "Back to Tours"
             })}</Button>
           </div>
         </section>
@@ -96,12 +96,12 @@ export default function TourIframe() {
             
             {error && <div className="absolute inset-0 flex items-center justify-center bg-white">
                 <div className="text-center">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">{t("Erreurdechargement", {
-                  defaultValue: "Erreurdechargement"
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">{t("Erreur de chargement", {
+                  defaultValue: "Erreur de chargement"
                 })}</h3>
                   <p className="text-gray-600 mb-4">{error}</p>
-                  <Button onClick={handleBack} variant="outline">{t("Backtotours", {
-                  defaultValue: "Backtotours"
+                  <Button onClick={handleBack} variant="outline">{t("Back to Tours", {
+                  defaultValue: "Back to Tours"
                 })}</Button>
                 </div>
               </div>}

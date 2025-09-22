@@ -137,8 +137,8 @@ const PreviewWrapper = ({
     return <div className="relative w-full h-[450px] overflow-hidden bg-gray-900">
         {/* Background étendu à tout le conteneur */}
         <div className="absolute inset-0 w-full h-full">
-          <img src="/attached_assets/DJI_20241115104455_0160_D-min.jpeg" alt={t("Beautifulkrabilandsc", {
-          defaultValue: "Beautifulkrabilandsc"
+          <img src="/attached_assets/DJI_20241115104455_0160_D-min.jpeg" alt={t("Beautiful Krabi landscape", {
+          defaultValue: "Beautiful Krabi landscape"
         })} className="absolute top-0 left-0 w-full h-full object-cover" />
           <video autoPlay muted loop playsInline preload="none" className="absolute top-0 left-0 w-full h-full object-cover opacity-100">
             <source src="/attached_assets/hero-video-optimized.mp4" type="video/mp4" />
@@ -288,8 +288,8 @@ function MiniaturizedComponent({
         }
         // Fallback pour d'autres heros
         return <div className="bg-gray-100 p-4 h-32 flex items-center justify-center">
-            <span className="text-gray-600">{t("Herostandard", {
-              defaultValue: "Herostandard"
+            <span className="text-gray-600">{t("Hero Standard", {
+              defaultValue: "Hero Standard"
             })}</span>
           </div>;
       case 'hero_main':
@@ -297,8 +297,8 @@ function MiniaturizedComponent({
         return <div className="w-full" style={{
           height: '800px'
         }}>
-            <iframe src={`/preview/hero?t=${Date.now()}`} className="w-full h-full border-0 rounded-lg overflow-hidden" title={t("Herosectionpreview", {
-            defaultValue: "Herosectionpreview"
+            <iframe src={`/preview/hero?t=${Date.now()}`} className="w-full h-full border-0 rounded-lg overflow-hidden" title={t("Hero Section Preview", {
+            defaultValue: "Hero Section Preview"
           })} key={Date.now()} />
           </div>;
       case 'why_choose_us':
@@ -311,12 +311,12 @@ function MiniaturizedComponent({
             {(() => {
             // Récupérer les blocs d'icônes depuis les données du bloc si disponibles
             const iconBlocks = block.configuration?.iconBlocks || [{
-              title: t("Privatetours", {
-                defaultValue: "Privatetours"
+              title: t("Private Tours", {
+                defaultValue: "Private Tours"
               })
             }, {
-              title: t("Customroutes", {
-                defaultValue: "Customroutes"
+              title: t("Custom Routes", {
+                defaultValue: "Custom Routes"
               })
             }, {
               title: t("Authentic", {
@@ -356,8 +356,8 @@ function MiniaturizedComponent({
       case 'who_we_are':
         return <iframe src="/preview/about" className="w-full border-0 rounded-lg overflow-hidden" style={{
           height: '500px'
-        }} title={t("Aboutsectionpreview", {
-          defaultValue: "Aboutsectionpreview"
+        }} title={t("About Section Preview", {
+          defaultValue: "About Section Preview"
         })} />;
       case 'featured_tours':
         return <div className="h-full bg-gray-50 p-2">
@@ -449,8 +449,8 @@ function MiniaturizedComponent({
               <div className="text-[8px] text-primary font-bold">{t("50ongoogle", {
                 defaultValue: "50ongoogle"
               })}</div>
-              <div className="text-[6px] text-gray-600">{t("Basedon80reviews", {
-                defaultValue: "Basedon80reviews"
+              <div className="text-[6px] text-gray-600">{t("Based on 80 reviews", {
+                defaultValue: "Based on 80 reviews"
               })}</div>
             </div>
             <div className="grid grid-cols-2 gap-1 h-10">
@@ -508,8 +508,8 @@ function MiniaturizedComponent({
               <div className="h-2 bg-gray-100 rounded"></div>
               <div className="h-4 bg-gray-100 rounded"></div>
               <div className="h-3 bg-primary rounded text-center">
-                <div className="text-[7px] text-white pt-1">{t("Sendmessage", {
-                  defaultValue: "Sendmessage"
+                <div className="text-[7px] text-white pt-1">{t("Send Message", {
+                  defaultValue: "Send Message"
                 })}</div>
               </div>
             </div>
@@ -695,8 +695,8 @@ function BlockHistoryModal({
         title: t("Erreur", {
           defaultValue: "Erreur"
         }),
-        description: t("Impossiblederestaure", {
-          defaultValue: "Impossiblederestaure"
+        description: t("Impossible de restaurer cette version.", {
+          defaultValue: "Impossible de restaurer cette version."
         }),
         variant: "destructive"
       });
@@ -714,8 +714,8 @@ function BlockHistoryModal({
       </DialogTrigger>
       <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>{t("Historiquedesversion", {
-            defaultValue: "Historiquedesversion"
+          <DialogTitle>{t("Historique des versions -", {
+            defaultValue: "Historique des versions -"
           })}{block.title || 'Bloc sans titre'}</DialogTitle>
           <DialogDescription>{t('Cliquez sur "Restaurer" pour revenir \xE0 une version ant\xE9rieure', {
             defaultValue: 'Cliquez sur "Restaurer" pour revenir \xE0 une version ant\xE9rieure'
@@ -725,8 +725,8 @@ function BlockHistoryModal({
         {isLoading ? <div className="flex items-center justify-center py-8">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-secondary"></div>
           </div> : <div className="space-y-4">
-            {history?.length === 0 ? <p className="text-gray-500 text-center py-8">{t("Aucunhistoriquedispo", {
-            defaultValue: "Aucunhistoriquedispo"
+            {history?.length === 0 ? <p className="text-gray-500 text-center py-8">{t("Aucun historique disponible", {
+            defaultValue: "Aucun historique disponible"
           })}</p> : history?.map((version: any) => <Card key={version.id} className="p-4">
                   <div className="flex justify-between items-start">
                     <div className="flex-1">
@@ -751,8 +751,8 @@ function BlockHistoryModal({
                         {version.subtitle && <div>{t("Soustitre", {
                     defaultValue: "Soustitre"
                   })}{version.subtitle}</div>}
-                        {version.description && <div>{t("Description", {
-                    defaultValue: "Description"
+                        {version.description && <div>{t("Description:", {
+                    defaultValue: "Description:"
                   })}{version.description.substring(0, 100)}...</div>}
                       </div>
                     </div>
@@ -890,8 +890,8 @@ function BlockEditForm({
                 })}</Label>
                   <Input id="title" value={formData.title} onChange={e => updateFormData({
                 title: e.target.value
-              })} placeholder={t("Titredubloc", {
-                defaultValue: "Titredubloc"
+              })} placeholder={t("Titre du bloc", {
+                defaultValue: "Titre du bloc"
               })} />
                 </div>
                 
@@ -907,13 +907,13 @@ function BlockEditForm({
                 </div>
                 
                 <div className="md:col-span-2">
-                  <Label htmlFor="description">{t("Description", {
-                  defaultValue: "Description"
+                  <Label htmlFor="description">{t("Description:", {
+                  defaultValue: "Description:"
                 })}</Label>
                   <Textarea id="description" value={formData.description} onChange={e => updateFormData({
                 description: e.target.value
-              })} placeholder={t("Descriptiondubloc", {
-                defaultValue: "Descriptiondubloc"
+              })} placeholder={t("Description du bloc", {
+                defaultValue: "Description du bloc"
               })} rows={3} />
                 </div>
                 
@@ -927,8 +927,8 @@ function BlockEditForm({
                 </div>
                 
                 <div>
-                  <Label htmlFor="backgroundColor">{t("Couleurdefond", {
-                  defaultValue: "Couleurdefond"
+                  <Label htmlFor="backgroundColor">{t("Couleur de fond", {
+                  defaultValue: "Couleur de fond"
                 })}</Label>
                   <Input id="backgroundColor" type="color" value={formData.backgroundColor} onChange={e => updateFormData({
                 backgroundColor: e.target.value
@@ -938,8 +938,8 @@ function BlockEditForm({
                 {/* Champs spécifiques pour video_hero - Correspondance parfaite avec la vraie section */}
                 {block.blockType === 'video_hero' && <>
                     <div>
-                      <Label htmlFor="heroSubtitle">{t("Soustitredulieu", {
-                    defaultValue: "Soustitredulieu"
+                      <Label htmlFor="heroSubtitle">{t("Sous-titre du lieu", {
+                    defaultValue: "Sous-titre du lieu"
                   })}</Label>
                       <Input id="heroSubtitle" value={formData.configuration.heroSubtitle || ''} onChange={e => updateConfig('heroSubtitle', e.target.value)} placeholder={t("Inkrabiu2013", {
                   defaultValue: "Inkrabiu2013"
@@ -959,39 +959,39 @@ function BlockEditForm({
                       <Label htmlFor="secondDescription">{t("Descriptioncomplxe9m", {
                     defaultValue: "Descriptioncomplxe9m"
                   })}</Label>
-                      <Textarea id="secondDescription" value={formData.configuration.secondDescription || ''} onChange={e => updateConfig('secondDescription', e.target.value)} placeholder={t("Andalsokhaosokkohmoo", {
-                  defaultValue: "Andalsokhaosokkohmoo"
+                      <Textarea id="secondDescription" value={formData.configuration.secondDescription || ''} onChange={e => updateConfig('secondDescription', e.target.value)} placeholder={t("And also Khao Sok, Koh Mook and many more destinations.", {
+                  defaultValue: "And also Khao Sok, Koh Mook and many more destinations."
                 })} rows={2} />
                     </div>
                     
                     <div>
-                      <Label htmlFor="button1Text">{t("Textedubouton1", {
-                    defaultValue: "Textedubouton1"
+                      <Label htmlFor="button1Text">{t("Texte du bouton 1", {
+                    defaultValue: "Texte du bouton 1"
                   })}</Label>
-                      <Input id="button1Text" value={formData.configuration.button1Text || ''} onChange={e => updateConfig('button1Text', e.target.value)} placeholder={t("Seeouroffers", {
-                  defaultValue: "Seeouroffers"
+                      <Input id="button1Text" value={formData.configuration.button1Text || ''} onChange={e => updateConfig('button1Text', e.target.value)} placeholder={t("See our offers", {
+                  defaultValue: "See our offers"
                 })} />
                     </div>
                     
                     <div>
-                      <Label htmlFor="button1Url">{t("Urldubouton1", {
-                    defaultValue: "Urldubouton1"
+                      <Label htmlFor="button1Url">{t("URL du bouton 1", {
+                    defaultValue: "URL du bouton 1"
                   })}</Label>
                       <Input id="button1Url" value={formData.configuration.button1Url || ''} onChange={e => updateConfig('button1Url', e.target.value)} placeholder="/tours" />
                     </div>
                     
                     <div>
-                      <Label htmlFor="button2Text">{t("Textedubouton2", {
-                    defaultValue: "Textedubouton2"
+                      <Label htmlFor="button2Text">{t("Texte du bouton 2", {
+                    defaultValue: "Texte du bouton 2"
                   })}</Label>
-                      <Input id="button2Text" value={formData.configuration.button2Text || ''} onChange={e => updateConfig('button2Text', e.target.value)} placeholder={t("Customyourtrip", {
-                  defaultValue: "Customyourtrip"
+                      <Input id="button2Text" value={formData.configuration.button2Text || ''} onChange={e => updateConfig('button2Text', e.target.value)} placeholder={t("Custom your trip", {
+                  defaultValue: "Custom your trip"
                 })} />
                     </div>
                     
                     <div>
-                      <Label htmlFor="button2Url">{t("Urldubouton2", {
-                    defaultValue: "Urldubouton2"
+                      <Label htmlFor="button2Url">{t("URL du bouton 2", {
+                    defaultValue: "URL du bouton 2"
                   })}</Label>
                       <Input id="button2Url" value={formData.configuration.button2Url || ''} onChange={e => updateConfig('button2Url', e.target.value)} placeholder="/custom-tour" />
                     </div>
@@ -1014,19 +1014,19 @@ function BlockEditForm({
                 {/* CTA pour les autres types de blocs */}
                 {['hero', 'cta_section', 'custom_tour_cta'].includes(block.blockType) && <>
                     <div>
-                      <Label htmlFor="ctaText">{t("Textedubouton", {
-                    defaultValue: "Textedubouton"
+                      <Label htmlFor="ctaText">{t("Texte du bouton", {
+                    defaultValue: "Texte du bouton"
                   })}</Label>
                       <Input id="ctaText" value={formData.ctaText} onChange={e => updateFormData({
                   ctaText: e.target.value
-                })} placeholder={t("Textedubouton", {
-                  defaultValue: "Textedubouton"
+                })} placeholder={t("Texte du bouton", {
+                  defaultValue: "Texte du bouton"
                 })} />
                     </div>
                     
                     <div>
-                      <Label htmlFor="ctaUrl">{t("Liendubouton", {
-                    defaultValue: "Liendubouton"
+                      <Label htmlFor="ctaUrl">{t("Lien du bouton", {
+                    defaultValue: "Lien du bouton"
                   })}</Label>
                       <Input id="ctaUrl" value={formData.ctaUrl} onChange={e => updateFormData({
                   ctaUrl: e.target.value
@@ -1059,16 +1059,16 @@ function BlockEditForm({
                   <BlockHistoryModal block={block} onRestore={() => window.location.reload()} />
                   {hasUnsavedChanges && <div className="flex items-center gap-2 text-[hsl(var(--warning))] text-sm">
                       <Clock className="h-4 w-4" />
-                      <span>{t("Modificationsnonsauv", {
-                    defaultValue: "Modificationsnonsauv"
+                      <span>{t("Modifications non sauvegard\xE9es", {
+                    defaultValue: "Modifications non sauvegard\xE9es"
                   })}</span>
                     </div>}
                 </div>
                 
                 <div className="flex gap-2">
                   {hasUnsavedChanges && onCancel && <Button variant="outline" size="sm" onClick={onCancel}>
-                      <Undo2 className="w-4 h-4 mr-2" />{t("Annulerlesmodificati", {
-                  defaultValue: "Annulerlesmodificati"
+                      <Undo2 className="w-4 h-4 mr-2" />{t("Annuler les modifications", {
+                  defaultValue: "Annuler les modifications"
                 })}</Button>}
                   
                   <Button onClick={handleSave} className={`${hasUnsavedChanges ? 'bg-primary hover:bg-blue-700' : 'bg-green-600 hover:bg-green-700'}`} disabled={saveVersionMutation.isPending}>
@@ -1176,8 +1176,8 @@ export default function RealBlockPreview({
               // Utiliser le formulaire d'édition standard
               setShowEditForm(!showEditForm);
             }
-          }} title={t("Modifierlebloc", {
-            defaultValue: "Modifierlebloc"
+          }} title={t("Modifier le bloc", {
+            defaultValue: "Modifier le bloc"
           })} className="h-7 w-7 p-0 bg-blue-500 hover:bg-primary text-white border-0">
               <Edit className="h-3 w-3" />
             </Button>
@@ -1185,8 +1185,8 @@ export default function RealBlockPreview({
             if (window.confirm('Êtes-vous sûr de vouloir supprimer ce bloc ?')) {
               onDelete(block.id);
             }
-          }} title={t("Supprimerlebloc", {
-            defaultValue: "Supprimerlebloc"
+          }} title={t("Supprimer le bloc", {
+            defaultValue: "Supprimer le bloc"
           })} className="h-7 w-7 p-0 bg-[hsl(var(--destructive))] hover:bg-[hsl(var(--destructive)/0.9)] text-white border-0">
               <Trash2 className="h-3 w-3" />
             </Button>
@@ -1213,8 +1213,8 @@ export default function RealBlockPreview({
         {/* Indicateur de modifications non sauvegardées */}
         {hasUnsavedChanges && <div className="absolute bottom-3 left-3 z-20">
             <div className="bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-medium shadow-lg flex items-center gap-1">
-              <Clock className="h-3 w-3" />{t("Modificationsnonsauv", {
-            defaultValue: "Modificationsnonsauv"
+              <Clock className="h-3 w-3" />{t("Modifications non sauvegard\xE9es", {
+            defaultValue: "Modifications non sauvegard\xE9es"
           })}</div>
           </div>}
       </div>

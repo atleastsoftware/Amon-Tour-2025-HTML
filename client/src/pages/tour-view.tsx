@@ -110,8 +110,8 @@ export default function TourView() {
                     </button>
                   </>}
               </> : <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                <span className="text-gray-400">{t("Noimagesavailable", {
-                defaultValue: "Noimagesavailable"
+                <span className="text-gray-400">{t("No images available", {
+                defaultValue: "No images available"
               })}</span>
               </div>}
             

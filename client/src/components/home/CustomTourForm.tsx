@@ -94,11 +94,11 @@ export default function CustomTourForm() {
       };
       await apiRequest("POST", "/api/custom-tour", requestData);
       toast({
-        title: t("Requestsent", {
-          defaultValue: "Requestsent"
+        title: t("Request sent", {
+          defaultValue: "Request sent"
         }),
-        description: t("Wewillcontactyouvery", {
-          defaultValue: "Wewillcontactyouvery"
+        description: t("We will contact you very soon to discuss your travel project.", {
+          defaultValue: "We will contact you very soon to discuss your travel project."
         }),
         variant: "default"
       });
@@ -108,8 +108,8 @@ export default function CustomTourForm() {
         title: t("Error", {
           defaultValue: "Error"
         }),
-        description: t("Therewasaproblemsend", {
-          defaultValue: "Therewasaproblemsend"
+        description: t("There was a problem sending your request. Please try again.", {
+          defaultValue: "There was a problem sending your request. Please try again."
         }),
         variant: "destructive"
       });
@@ -278,8 +278,8 @@ export default function CustomTourForm() {
           <div className="grid grid-cols-1 md:grid-cols-2">
             {/* Image Side */}
             <div className="h-64 md:h-auto relative">
-              <img src="/catamaran-cruise.png" alt={t("Catamarancruiseintha", {
-              defaultValue: "Catamarancruiseintha"
+              <img src="/catamaran-cruise.png" alt={t("Catamaran cruise in Thailand", {
+              defaultValue: "Catamaran cruise in Thailand"
             })} className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-r from-primary/70 to-transparent flex flex-col justify-center p-8 text-white">
                 <h3 className="font-heading font-bold text-3xl mb-3">{t('home.customTripTitle')}</h3>

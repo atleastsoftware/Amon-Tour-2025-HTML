@@ -133,8 +133,8 @@ export default function Gallery({
                     <div className="relative h-64">
                       <img src={image.src} alt={image.alt} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
                       <div className="absolute inset-0 bg-black/0 hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                        <div className="opacity-0 hover:opacity-100 transition-opacity duration-300 text-white text-sm bg-black/70 px-3 py-1 rounded">{t("Cliquerpouragrandir", {
-                        defaultValue: "Cliquerpouragrandir"
+                        <div className="opacity-0 hover:opacity-100 transition-opacity duration-300 text-white text-sm bg-black/70 px-3 py-1 rounded">{t("Cliquer pour agrandir", {
+                        defaultValue: "Cliquer pour agrandir"
                       })}</div>
                       </div>
                     </div>
@@ -149,8 +149,8 @@ export default function Gallery({
                       <ChevronLeft className="h-4 w-4 md:h-6 md:w-6" />
                     </button>}
                   
-                  {currentIndex < maxIndex && <button onClick={nextSlide} className="absolute right-2 md:right-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-2 md:p-3 rounded-l-lg shadow-lg transition-all duration-200 hover:pr-3 md:hover:pr-4 z-10" aria-label={t("Imagessuivantes", {
-                defaultValue: "Imagessuivantes"
+                  {currentIndex < maxIndex && <button onClick={nextSlide} className="absolute right-2 md:right-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-2 md:p-3 rounded-l-lg shadow-lg transition-all duration-200 hover:pr-3 md:hover:pr-4 z-10" aria-label={t("Images suivantes", {
+                defaultValue: "Images suivantes"
               })} data-testid="gallery-next-button">
                       <ChevronRight className="h-4 w-4 md:h-6 md:w-6" />
                     </button>}
@@ -171,8 +171,8 @@ export default function Gallery({
       {lightboxOpen && <div className="fixed inset-0 bg-black/95 z-[9999] flex items-center justify-center" onClick={closeLightbox} onKeyDown={handleLightboxKeyDown} tabIndex={-1} data-testid="gallery-lightbox">
           <div ref={lightboxRef} className="relative max-w-6xl w-full h-full flex items-center justify-center p-4" onClick={e => e.stopPropagation()} tabIndex={-1}>
             {/* Close button - Positioned to avoid header collision */}
-            <button onClick={closeLightbox} className="absolute top-6 right-6 text-white bg-black/70 hover:bg-black/90 p-3 rounded-full transition-colors z-10 shadow-lg" aria-label={t("Fermerlagalerie", {
-          defaultValue: "Fermerlagalerie"
+            <button onClick={closeLightbox} className="absolute top-6 right-6 text-white bg-black/70 hover:bg-black/90 p-3 rounded-full transition-colors z-10 shadow-lg" aria-label={t("Fermer la galerie", {
+          defaultValue: "Fermer la galerie"
         })} data-testid="gallery-close-button">
               <X className="w-6 h-6" />
             </button>
@@ -188,8 +188,8 @@ export default function Gallery({
             <img src={images[lightboxIndex].src} alt={images[lightboxIndex].alt} className="max-w-full max-h-full object-contain" data-testid="gallery-lightbox-image" />
             
             {/* Next button */}
-            <button onClick={nextLightboxImage} className="absolute right-4 top-1/2 -translate-y-1/2 text-white bg-black/70 hover:bg-black/90 p-3 rounded-full transition-colors shadow-lg" aria-label={t("Imagesuivante", {
-          defaultValue: "Imagesuivante"
+            <button onClick={nextLightboxImage} className="absolute right-4 top-1/2 -translate-y-1/2 text-white bg-black/70 hover:bg-black/90 p-3 rounded-full transition-colors shadow-lg" aria-label={t("Image suivante", {
+          defaultValue: "Image suivante"
         })} data-testid="gallery-lightbox-next">
               <ChevronRight className="h-6 w-6" />
             </button>

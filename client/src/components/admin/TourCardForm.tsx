@@ -96,8 +96,8 @@ export default function TourCardForm({
           if (title) {
             // Notifier l'utilisateur que le titre a été rempli automatiquement
             toast({
-              title: t("Titreautorempli", {
-                defaultValue: "Titreautorempli"
+              title: t("Titre auto-rempli", {
+                defaultValue: "Titre auto-rempli"
               }),
               description: t("Letitreaxe9txe9autom", {
                 defaultValue: "Letitreaxe9txe9autom"
@@ -186,8 +186,8 @@ export default function TourCardForm({
         title: t("Erreur", {
           defaultValue: "Erreur"
         }),
-        description: t("Letitreestobligatoir", {
-          defaultValue: "Letitreestobligatoir"
+        description: t("Le titre est obligatoire", {
+          defaultValue: "Le titre est obligatoire"
         }),
         variant: "destructive"
       });
@@ -210,8 +210,8 @@ export default function TourCardForm({
         title: t("Erreur", {
           defaultValue: "Erreur"
         }),
-        description: t("Veuillezajouteraumoi", {
-          defaultValue: "Veuillezajouteraumoi"
+        description: t("Veuillez ajouter au moins une image", {
+          defaultValue: "Veuillez ajouter au moins une image"
         }),
         variant: "destructive"
       });
@@ -321,8 +321,8 @@ export default function TourCardForm({
           title: t("Erreur", {
             defaultValue: "Erreur"
           }),
-          description: t("Uneerreurestsurvenue", {
-            defaultValue: "Uneerreurestsurvenue"
+          description: t("Une erreur est survenue lors de la cr\xE9ation de la fiche", {
+            defaultValue: "Une erreur est survenue lors de la cr\xE9ation de la fiche"
           }),
           variant: "destructive"
         });
@@ -333,8 +333,8 @@ export default function TourCardForm({
         title: t("Erreur", {
           defaultValue: "Erreur"
         }),
-        description: t("Uneerreurestsurvenue", {
-          defaultValue: "Uneerreurestsurvenue"
+        description: t("Une erreur est survenue lors de la cr\xE9ation de la fiche", {
+          defaultValue: "Une erreur est survenue lors de la cr\xE9ation de la fiche"
         }),
         variant: "destructive"
       });
@@ -354,14 +354,14 @@ export default function TourCardForm({
             <Label htmlFor="title">{t("Nomdusxe9jourtour", {
               defaultValue: "Nomdusxe9jourtour"
             })}</Label>
-            <Input id="title" name="title" value={formData.title} onChange={handleInputChange} placeholder={t("Exbangkokfoodtour", {
-            defaultValue: "Exbangkokfoodtour"
+            <Input id="title" name="title" value={formData.title} onChange={handleInputChange} placeholder={t("Ex: Bangkok Food Tour", {
+            defaultValue: "Ex: Bangkok Food Tour"
           })} required />
           </div>
           
           <div>
-            <Label htmlFor="description">{t("Descriptionoptionnel", {
-              defaultValue: "Descriptionoptionnel"
+            <Label htmlFor="description">{t("Description (optionnel)", {
+              defaultValue: "Description (optionnel)"
             })}</Label>
             <Textarea id="description" name="description" value={formData.description} onChange={handleInputChange} placeholder={t("Dxe9crivezbrixe8veme", {
             defaultValue: "Dxe9crivezbrixe8veme"
@@ -391,8 +391,8 @@ export default function TourCardForm({
           </div>
           
           <div>
-            <Label htmlFor="type">{t("Typedefiche", {
-              defaultValue: "Typedefiche"
+            <Label htmlFor="type">{t("Type de fiche *", {
+              defaultValue: "Type de fiche *"
             })}</Label>
             <div className="grid grid-cols-2 gap-4 mt-2">
               <button type="button" onClick={() => setFormData({
@@ -431,19 +431,19 @@ export default function TourCardForm({
             <Label htmlFor="customLink">{t("Lienpersonnalisxe9to", {
               defaultValue: "Lienpersonnalisxe9to"
             })}</Label>
-            <Input id="customLink" name="customLink" value={formData.customLink} onChange={handleInputChange} placeholder={t("Exhttpstourninjacomt", {
-            defaultValue: "Exhttpstourninjacomt"
+            <Input id="customLink" name="customLink" value={formData.customLink} onChange={handleInputChange} placeholder={t("Ex: https://tourninja.com/tour/xxx", {
+            defaultValue: "Ex: https://tourninja.com/tour/xxx"
           })} required />
           </div>
           
           <div>
-            <Label htmlFor="tags">{t("Locationtags", {
-              defaultValue: "Locationtags"
+            <Label htmlFor="tags">{t("Location Tags", {
+              defaultValue: "Location Tags"
             })}</Label>
             <div className="flex items-start gap-2">
               <div className="flex-grow">
-                <Input id="tagInput" value={tagInput} onChange={handleTagInputChange} onKeyDown={handleTagKeyDown} placeholder={t("Exbangkokphuketkohsa", {
-                defaultValue: "Exbangkokphuketkohsa"
+                <Input id="tagInput" value={tagInput} onChange={handleTagInputChange} onKeyDown={handleTagKeyDown} placeholder={t("Ex: Bangkok, Phuket, Koh Samui", {
+                defaultValue: "Ex: Bangkok, Phuket, Koh Samui"
               })} />
               </div>
               <Button type="button" onClick={addTag} variant="outline">{t('common.add')}</Button>
@@ -470,8 +470,8 @@ export default function TourCardForm({
                       <button type="button" onClick={() => removeImage(index)} className="absolute top-2 right-2 bg-white bg-opacity-80 rounded-full p-1 hover:bg-opacity-100 transition-all">
                         <X className="h-4 w-4 text-[hsl(var(--destructive))]" />
                       </button>
-                      {index === 0 && <span className="absolute bottom-2 left-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded">{t("Photoprincipale", {
-                    defaultValue: "Photoprincipale"
+                      {index === 0 && <span className="absolute bottom-2 left-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded">{t("Photo principale", {
+                    defaultValue: "Photo principale"
                   })}</span>}
                     </div>)}
                 </div>}
@@ -481,8 +481,8 @@ export default function TourCardForm({
                     <div className="flex flex-col items-center justify-center pt-5 pb-6">
                       <Upload className="w-8 h-8 mb-3 text-gray-400" />
                       <p className="mb-2 text-sm text-gray-500">
-                        <span className="font-semibold">{t("Cliquezpourajouter", {
-                        defaultValue: "Cliquezpourajouter"
+                        <span className="font-semibold">{t("Cliquez pour ajouter", {
+                        defaultValue: "Cliquez pour ajouter"
                       })}</span> ou glissez-déposez
                       </p>
                       <p className="text-xs text-gray-500">

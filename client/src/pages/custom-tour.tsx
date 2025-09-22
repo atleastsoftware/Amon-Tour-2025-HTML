@@ -15,8 +15,8 @@ export default function CustomTour() {
       
       <main>
         {/* Hero */}
-        <HeroHeader title={t('customTour.title')} subtitle={t('customTour.subtitle')} alt={t("Customizedtourinthai", {
-        defaultValue: "Customizedtourinthai"
+        <HeroHeader title={t('customTour.title')} subtitle={t('customTour.subtitle')} alt={t("Customized tour in Thailand", {
+        defaultValue: "Customized tour in Thailand"
       })} />
         
         {/* Why Choose Custom Tour */}

@@ -59,21 +59,21 @@ export default function AdminNewsletterPage() {
       a.click();
       window.URL.revokeObjectURL(url);
       toast({
-        title: t("Exportsuccessful", {
-          defaultValue: "Exportsuccessful"
+        title: t("Export Successful", {
+          defaultValue: "Export Successful"
         }),
-        description: t("Newslettersubscriber", {
-          defaultValue: "Newslettersubscriber"
+        description: t("Newsletter subscribers exported successfully", {
+          defaultValue: "Newsletter subscribers exported successfully"
         }),
         variant: "default"
       });
     } catch (error) {
       toast({
-        title: t("Exportfailed", {
-          defaultValue: "Exportfailed"
+        title: t("Export Failed", {
+          defaultValue: "Export Failed"
         }),
-        description: t("Failedtoexportnewsle", {
-          defaultValue: "Failedtoexportnewsle"
+        description: t("Failed to export newsletter subscribers", {
+          defaultValue: "Failed to export newsletter subscribers"
         }),
         variant: "destructive"
       });
@@ -105,15 +105,15 @@ export default function AdminNewsletterPage() {
           <div className="flex justify-between items-center mb-8">
             <div className="flex items-center gap-4">
               <Button variant="outline" size="sm" onClick={() => setLocation('/admin')} className="flex items-center gap-2">
-                <ArrowLeft className="w-4 h-4" />{t("Backtoadmin", {
-                defaultValue: "Backtoadmin"
+                <ArrowLeft className="w-4 h-4" />{t("Back to Admin", {
+                defaultValue: "Back to Admin"
               })}</Button>
               <div>
-                <h1 className="text-3xl font-bold text-gray-900">{t("Newslettermanagement", {
-                  defaultValue: "Newslettermanagement"
+                <h1 className="text-3xl font-bold text-gray-900">{t("Newsletter Management", {
+                  defaultValue: "Newsletter Management"
                 })}</h1>
-                <p className="text-gray-600 mt-2">{t("Managenewslettersubs", {
-                  defaultValue: "Managenewslettersubs"
+                <p className="text-gray-600 mt-2">{t("Manage newsletter subscriptions and export subscriber lists", {
+                  defaultValue: "Manage newsletter subscriptions and export subscriber lists"
                 })}</p>
               </div>
             </div>
@@ -127,8 +127,8 @@ export default function AdminNewsletterPage() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">{t("Totalsubscribers", {
-                  defaultValue: "Totalsubscribers"
+                <CardTitle className="text-sm font-medium">{t("Total Subscribers", {
+                  defaultValue: "Total Subscribers"
                 })}</CardTitle>
                 <Users className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -151,8 +151,8 @@ export default function AdminNewsletterPage() {
             
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">{t("Pendingconfirmation", {
-                  defaultValue: "Pendingconfirmation"
+                <CardTitle className="text-sm font-medium">{t("Pending Confirmation", {
+                  defaultValue: "Pending Confirmation"
                 })}</CardTitle>
                 <Clock className="h-4 w-4 text-yellow-500" />
               </CardHeader>
@@ -180,33 +180,33 @@ export default function AdminNewsletterPage() {
               <CardTitle>{t("Filters", {
                 defaultValue: "Filters"
               })}</CardTitle>
-              <CardDescription>{t("Searchandfilternewsl", {
-                defaultValue: "Searchandfilternewsl"
+              <CardDescription>{t("Search and filter newsletter subscriptions", {
+                defaultValue: "Search and filter newsletter subscriptions"
               })}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="flex flex-col sm:flex-row gap-4">
                 <div className="relative flex-1">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                  <Input placeholder={t("Searchbyemailaddress", {
-                  defaultValue: "Searchbyemailaddress"
+                  <Input placeholder={t("Search by email address...", {
+                  defaultValue: "Search by email address..."
                 })} value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="pl-10" />
                 </div>
                 <Select value={statusFilter} onValueChange={setStatusFilter}>
                   <SelectTrigger className="w-full sm:w-48">
-                    <SelectValue placeholder={t("Filterbystatus", {
-                    defaultValue: "Filterbystatus"
+                    <SelectValue placeholder={t("Filter by status", {
+                    defaultValue: "Filter by status"
                   })} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">{t("Allsubscribers", {
-                      defaultValue: "Allsubscribers"
+                    <SelectItem value="all">{t("All Subscribers", {
+                      defaultValue: "All Subscribers"
                     })}</SelectItem>
-                    <SelectItem value="confirmed">{t("Confirmedonly", {
-                      defaultValue: "Confirmedonly"
+                    <SelectItem value="confirmed">{t("Confirmed Only", {
+                      defaultValue: "Confirmed Only"
                     })}</SelectItem>
-                    <SelectItem value="unconfirmed">{t("Pendingconfirmation", {
-                      defaultValue: "Pendingconfirmation"
+                    <SelectItem value="unconfirmed">{t("Pending Confirmation", {
+                      defaultValue: "Pending Confirmation"
                     })}</SelectItem>
                     <SelectItem value="unsubscribed">{t("Unsubscribed", {
                       defaultValue: "Unsubscribed"
@@ -220,11 +220,11 @@ export default function AdminNewsletterPage() {
           {/* Subscriptions Table */}
           <Card>
             <CardHeader>
-              <CardTitle>{t("Newslettersubscripti", {
-                defaultValue: "Newslettersubscripti"
+              <CardTitle>{t("Newsletter Subscription", {
+                defaultValue: "Newsletter Subscription"
               })}{filteredSubscriptions.length})</CardTitle>
-              <CardDescription>{t("Completelistofnewsle", {
-                defaultValue: "Completelistofnewsle"
+              <CardDescription>{t("Complete list of newsletter subscribers with their status and subscription details", {
+                defaultValue: "Complete list of newsletter subscribers with their status and subscription details"
               })}</CardDescription>
             </CardHeader>
             <CardContent>
@@ -236,14 +236,14 @@ export default function AdminNewsletterPage() {
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead>{t("Emailaddress", {
-                        defaultValue: "Emailaddress"
+                        <TableHead>{t("Email address", {
+                        defaultValue: "Email address"
                       })}</TableHead>
                         <TableHead>{t("Status", {
                         defaultValue: "Status"
                       })}</TableHead>
-                        <TableHead>{t("Subscribeddate", {
-                        defaultValue: "Subscribeddate"
+                        <TableHead>{t("Subscribed Date", {
+                        defaultValue: "Subscribed Date"
                       })}</TableHead>
                         <TableHead>{t("Language", {
                         defaultValue: "Language"

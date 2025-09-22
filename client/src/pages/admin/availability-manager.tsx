@@ -383,8 +383,8 @@ export default function AvailabilityManager() {
                 })}</span>
               </div>
             </Link>
-            <div className="hidden md:block text-sm px-3 py-1 bg-primary-dark rounded">{t("Gestiondesdisponibil", {
-              defaultValue: "Gestiondesdisponibil"
+            <div className="hidden md:block text-sm px-3 py-1 bg-primary-dark rounded">{t("Gestion des disponibilit\xE9s", {
+              defaultValue: "Gestion des disponibilit\xE9s"
             })}</div>
           </div>
           
@@ -395,8 +395,8 @@ export default function AvailabilityManager() {
             })}</Button>
             <Link href="/admin/dashboard">
               <span className="text-white hover:text-gray-200 transition-colors cursor-pointer">
-                <ChevronLeft className="mr-2 h-4 w-4 inline" />{t("Retourautableaudebor", {
-                defaultValue: "Retourautableaudebor"
+                <ChevronLeft className="mr-2 h-4 w-4 inline" />{t("Retour au tableau de bord", {
+                defaultValue: "Retour au tableau de bord"
               })}</span>
             </Link>
           </div>
@@ -405,8 +405,8 @@ export default function AvailabilityManager() {
       
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="font-heading font-bold text-3xl mb-2">{t("Gestiondesdisponibil", {
-            defaultValue: "Gestiondesdisponibil"
+          <h1 className="font-heading font-bold text-3xl mb-2">{t("Gestion des disponibilit\xE9s", {
+            defaultValue: "Gestion des disponibilit\xE9s"
           })}</h1>
           <p className="text-gray-600">{t("Gxe9rezlesdatesdispo", {
             defaultValue: "Gxe9rezlesdatesdispo"
@@ -418,8 +418,8 @@ export default function AvailabilityManager() {
             <CardTitle>{t("Sxe9lectionnezuntour", {
               defaultValue: "Sxe9lectionnezuntour"
             })}</CardTitle>
-            <CardDescription>{t("Choisissezuntourpour", {
-              defaultValue: "Choisissezuntourpour"
+            <CardDescription>{t("Choisissez un tour pour voir et g\xE9rer ses disponibilit\xE9s", {
+              defaultValue: "Choisissez un tour pour voir et g\xE9rer ses disponibilit\xE9s"
             })}</CardDescription>
           </CardHeader>
           <CardContent>
@@ -431,25 +431,25 @@ export default function AvailabilityManager() {
                 })} />
                 </SelectTrigger>
                 <SelectContent>
-                  {isToursLoading ? <SelectItem value="loading" disabled>{t("Chargementdestours", {
-                    defaultValue: "Chargementdestours"
+                  {isToursLoading ? <SelectItem value="loading" disabled>{t("Chargement des tours...", {
+                    defaultValue: "Chargement des tours..."
                   })}</SelectItem> : tours && tours.length > 0 ? tours.map(tour => <SelectItem key={tour.id} value={tour.id.toString()}>
                         {tour.title}
-                      </SelectItem>) : <SelectItem value="empty" disabled>{t("Aucuntourdisponible", {
-                    defaultValue: "Aucuntourdisponible"
+                      </SelectItem>) : <SelectItem value="empty" disabled>{t("Aucun tour disponible", {
+                    defaultValue: "Aucun tour disponible"
                   })}</SelectItem>}
                 </SelectContent>
               </Select>
               
               <div className="flex gap-2">
                 <Button variant="outline" onClick={openBulkCreateDialog} disabled={!selectedTourId}>
-                  <CalendarRange className="h-4 w-4 mr-2" />{t("Ajouterenmasse", {
-                  defaultValue: "Ajouterenmasse"
+                  <CalendarRange className="h-4 w-4 mr-2" />{t("Ajouter en masse", {
+                  defaultValue: "Ajouter en masse"
                 })}</Button>
                 
                 <Button variant="default" onClick={() => setIsCreateDialogOpen(true)} disabled={!selectedTourId}>
-                  <Plus className="h-4 w-4 mr-2" />{t("Ajouterunedisponibil", {
-                  defaultValue: "Ajouterunedisponibil"
+                  <Plus className="h-4 w-4 mr-2" />{t("Ajouter une disponibilit\xE9", {
+                  defaultValue: "Ajouter une disponibilit\xE9"
                 })}</Button>
               </div>
             </div>
@@ -464,8 +464,8 @@ export default function AvailabilityManager() {
                     {" "}pour {tours.find(t => t.id === selectedTourId)?.title}
                   </span>}
               </CardTitle>
-              <CardDescription>{t("Listedesdatesdisponi", {
-              defaultValue: "Listedesdatesdisponi"
+              <CardDescription>{t("Liste des dates disponibles pour ce tour", {
+              defaultValue: "Liste des dates disponibles pour ce tour"
             })}</CardDescription>
             </CardHeader>
             <CardContent>
@@ -484,8 +484,8 @@ export default function AvailabilityManager() {
                         <TableHead>{t("Rxe9servationsactuel", {
                       defaultValue: "Rxe9servationsactuel"
                     })}</TableHead>
-                        <TableHead>{t("Placesrestantes", {
-                      defaultValue: "Placesrestantes"
+                        <TableHead>{t("Places restantes", {
+                      defaultValue: "Places restantes"
                     })}</TableHead>
                         <TableHead>{t("Prixspxe9cifique", {
                       defaultValue: "Prixspxe9cifique"
@@ -558,8 +558,8 @@ export default function AvailabilityManager() {
       <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
-            <DialogTitle>{t("Ajouterunenouvelledi", {
-              defaultValue: "Ajouterunenouvelledi"
+            <DialogTitle>{t("Ajouter une nouvelle disponibilit\xE9", {
+              defaultValue: "Ajouter une nouvelle disponibilit\xE9"
             })}</DialogTitle>
             <DialogDescription>{t("Crxe9ezunenouvelleda", {
               defaultValue: "Crxe9ezunenouvelleda"
@@ -590,8 +590,8 @@ export default function AvailabilityManager() {
                     <FormControl>
                       <Input type="number" min={1} {...field} onChange={e => field.onChange(parseInt(e.target.value))} />
                     </FormControl>
-                    <FormDescription>{t("Nombremaximumdeperso", {
-                  defaultValue: "Nombremaximumdeperso"
+                    <FormDescription>{t("Nombre maximum de personnes pouvant participer \xE0 ce tour.", {
+                  defaultValue: "Nombre maximum de personnes pouvant participer \xE0 ce tour."
                 })}</FormDescription>
                     <FormMessage />
                   </FormItem>} />
@@ -603,8 +603,8 @@ export default function AvailabilityManager() {
                   defaultValue: "Prixspxe9cifiqueopti"
                 })}</FormLabel>
                     <FormControl>
-                      <Input type="number" min={0} placeholder={t("Laisservidepourutili", {
-                  defaultValue: "Laisservidepourutili"
+                      <Input type="number" min={0} placeholder={t("Laisser vide pour utiliser le prix par d\xE9faut du tour", {
+                  defaultValue: "Laisser vide pour utiliser le prix par d\xE9faut du tour"
                 })} value={field.value === undefined ? "" : field.value} onChange={e => field.onChange(e.target.value ? parseInt(e.target.value) : undefined)} />
                     </FormControl>
                     <FormDescription>{t("Dxe9finissezunprixsp", {
@@ -630,8 +630,8 @@ export default function AvailabilityManager() {
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
-            <DialogTitle>{t("Modifierladisponibil", {
-              defaultValue: "Modifierladisponibil"
+            <DialogTitle>{t("Modifier la disponibilit\xE9", {
+              defaultValue: "Modifier la disponibilit\xE9"
             })}</DialogTitle>
             <DialogDescription>{t("Modifiezlesdxe9tails", {
               defaultValue: "Modifiezlesdxe9tails"
@@ -672,8 +672,8 @@ export default function AvailabilityManager() {
                   defaultValue: "Prixspxe9cifiqueopti"
                 })}</FormLabel>
                     <FormControl>
-                      <Input type="number" min={0} placeholder={t("Laisservidepourutili", {
-                  defaultValue: "Laisservidepourutili"
+                      <Input type="number" min={0} placeholder={t("Laisser vide pour utiliser le prix par d\xE9faut du tour", {
+                  defaultValue: "Laisser vide pour utiliser le prix par d\xE9faut du tour"
                 })} value={field.value === undefined ? "" : field.value} onChange={e => field.onChange(e.target.value ? parseInt(e.target.value) : undefined)} />
                     </FormControl>
                     <FormDescription>{t("Dxe9finissezunprixsp", {
@@ -699,15 +699,15 @@ export default function AvailabilityManager() {
       <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
         <DialogContent className="sm:max-w-[450px]">
           <DialogHeader>
-            <DialogTitle>{t("Confirmdeletion", {
-              defaultValue: "Confirmdeletion"
+            <DialogTitle>{t("Confirm Deletion", {
+              defaultValue: "Confirm Deletion"
             })}</DialogTitle>
             <DialogDescription>
               Êtes-vous sûr de vouloir supprimer cette disponibilité ?
               {selectedAvailability?.currentBookings !== undefined && selectedAvailability.currentBookings > 0 && <div className="mt-2 p-3 bg-[hsl(var(--warning)/0.1)] text-[hsl(var(--warning))] rounded-md flex items-start">
                   <AlertTriangle className="h-5 w-5 mr-2 flex-shrink-0 mt-0.5 text-[hsl(var(--warning))]" />
-                  <span>{t("Attentioncettedispon", {
-                  defaultValue: "Attentioncettedispon"
+                  <span>{t("Attention : Cette disponibilit\xE9 a d\xE9j\xE0", {
+                  defaultValue: "Attention : Cette disponibilit\xE9 a d\xE9j\xE0"
                 })}<strong>{selectedAvailability.currentBookings} réservation(s)</strong>{t("Nlasuppressionaffect", {
                   defaultValue: "Nlasuppressionaffect"
                 })}</span>
@@ -741,11 +741,11 @@ export default function AvailabilityManager() {
       <Dialog open={isBulkCreateDialogOpen} onOpenChange={setIsBulkCreateDialogOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>{t("Createbulkavailabili", {
-              defaultValue: "Createbulkavailabili"
+            <DialogTitle>{t("Create bulk availabilities", {
+              defaultValue: "Create bulk availabilities"
             })}</DialogTitle>
-            <DialogDescription>{t("Activeztouslesjoursp", {
-              defaultValue: "Activeztouslesjoursp"
+            <DialogDescription>{t("Activez tous les jours pour les prochains mois en un seul clic.", {
+              defaultValue: "Activez tous les jours pour les prochains mois en un seul clic."
             })}</DialogDescription>
           </DialogHeader>
           
@@ -804,11 +804,11 @@ export default function AvailabilityManager() {
               field
             }) => <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
                     <div className="space-y-0.5">
-                      <FormLabel>{t("Activertouslesjours", {
-                    defaultValue: "Activertouslesjours"
+                      <FormLabel>{t("Activer tous les jours", {
+                    defaultValue: "Activer tous les jours"
                   })}</FormLabel>
-                      <FormDescription>{t("Touslesjoursserontdi", {
-                    defaultValue: "Touslesjoursserontdi"
+                      <FormDescription>{t("Tous les jours seront disponibles pour ce tour", {
+                    defaultValue: "Tous les jours seront disponibles pour ce tour"
                   })}</FormDescription>
                     </div>
                     <FormControl>
@@ -836,8 +836,8 @@ export default function AvailabilityManager() {
                   defaultValue: "Prixspxe9cifiqueopti"
                 })}</FormLabel>
                     <FormControl>
-                      <Input type="number" min={0} placeholder={t("Laisservidepourutili", {
-                  defaultValue: "Laisservidepourutili"
+                      <Input type="number" min={0} placeholder={t("Laisser vide pour utiliser le prix par d\xE9faut du tour", {
+                  defaultValue: "Laisser vide pour utiliser le prix par d\xE9faut du tour"
                 })} {...field} value={field.value || ""} onChange={e => {
                   const value = e.target.value ? parseInt(e.target.value) : undefined;
                   field.onChange(value);

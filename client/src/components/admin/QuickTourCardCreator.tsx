@@ -41,8 +41,8 @@ export default function QuickTourCardCreator({
         title: t("Erreur", {
           defaultValue: "Erreur"
         }),
-        description: t("Veuillezentreruneurl", {
-          defaultValue: "Veuillezentreruneurl"
+        description: t("Veuillez entrer une URL valide", {
+          defaultValue: "Veuillez entrer une URL valide"
         }),
         variant: "destructive"
       });
@@ -165,8 +165,8 @@ export default function QuickTourCardCreator({
         title: t("Erreur", {
           defaultValue: "Erreur"
         }),
-        description: t("Uneerreurestsurvenue", {
-          defaultValue: "Uneerreurestsurvenue"
+        description: t("Une erreur est survenue lors de la cr\xE9ation de la fiche", {
+          defaultValue: "Une erreur est survenue lors de la cr\xE9ation de la fiche"
         }),
         variant: "destructive"
       });
@@ -185,8 +185,8 @@ export default function QuickTourCardCreator({
               defaultValue: "Lienderxe9servationu"
             })}</Label>
             <div className="flex mt-1.5">
-              <Input id="url" value={url} onChange={e => setUrl(e.target.value)} placeholder={t("Exhttpswwwtourninjai", {
-              defaultValue: "Exhttpswwwtourninjai"
+              <Input id="url" value={url} onChange={e => setUrl(e.target.value)} placeholder={t("Ex: https://www.tourninja.io/tours/bangkok-food-tour", {
+              defaultValue: "Ex: https://www.tourninja.io/tours/bangkok-food-tour"
             })} className="flex-grow" />
               <Button onClick={extractTourInfo} disabled={isExtracting || !url.trim()} className="ml-2 whitespace-nowrap">
                 {isExtracting ? <>
@@ -198,8 +198,8 @@ export default function QuickTourCardCreator({
           </div>
           
           {extractedData && <div className="mt-6 space-y-4 border p-4 rounded-lg bg-gray-50">
-              <h3 className="font-semibold">{t("Informationsextraite", {
-              defaultValue: "Informationsextraite"
+              <h3 className="font-semibold">{t("Informations extraites", {
+              defaultValue: "Informations extraites"
             })}</h3>
               
               <div className="grid grid-cols-2 gap-4">
@@ -218,8 +218,8 @@ export default function QuickTourCardCreator({
               </div>
               
               <div>
-                <Label className="text-sm text-gray-600">{t("Description", {
-                defaultValue: "Description"
+                <Label className="text-sm text-gray-600">{t("Description:", {
+                defaultValue: "Description:"
               })}</Label>
                 <div className="text-sm text-gray-700">{extractedData.description}</div>
               </div>
@@ -238,19 +238,19 @@ export default function QuickTourCardCreator({
                   <div>
                     {extractedData.tags.length > 0 ? extractedData.tags.map((tag, i) => <span key={i} className="inline-block bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs mr-1 mb-1">
                             {tag}
-                          </span>) : <span className="text-sm text-gray-500">{t("Aucuntagextrait", {
-                    defaultValue: "Aucuntagextrait"
+                          </span>) : <span className="text-sm text-gray-500">{t("Aucun tag extrait", {
+                    defaultValue: "Aucun tag extrait"
                   })}</span>}
                   </div>
                 </div>
               </div>
               
               <div className="pt-2">
-                <Button onClick={createTourCard} className="w-full">{t("Createtourcard", {
-                defaultValue: "Createtourcard"
+                <Button onClick={createTourCard} className="w-full">{t("Create tour card", {
+                defaultValue: "Create tour card"
               })}</Button>
-                <div className="text-xs text-center mt-2 text-gray-500">{t("Notevouspourrezmodif", {
-                defaultValue: "Notevouspourrezmodif"
+                <div className="text-xs text-center mt-2 text-gray-500">{t("Note: Vous pourrez modifier tous les d\xE9tails apr\xE8s la cr\xE9ation", {
+                defaultValue: "Note: Vous pourrez modifier tous les d\xE9tails apr\xE8s la cr\xE9ation"
               })}</div>
               </div>
             </div>}

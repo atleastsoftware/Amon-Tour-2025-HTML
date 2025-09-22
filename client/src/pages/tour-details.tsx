@@ -38,8 +38,8 @@ export default function TourDetails() {
   };
   if (error) {
     return <>
-        <SEO title={t("Tournotfoundamontour", {
-        defaultValue: "Tournotfoundamontour"
+        <SEO title={t("Tour Not Found | Amon Tour", {
+        defaultValue: "Tour Not Found | Amon Tour"
       })} description="The requested tour could not be found. Browse our available authentic Thailand experiences." canonicalUrl="https://amon-tour.com/tours" />
         <Header />
         <main className="min-h-screen bg-gray-50 pt-20">
@@ -49,8 +49,8 @@ export default function TourDetails() {
             })}</h1>
             <p className="text-gray-600 mb-6">{error}</p>
             <Button onClick={handleBack} variant="outline">
-              <ArrowLeft className="h-4 w-4 mr-2" />{t("Backtotours", {
-              defaultValue: "Backtotours"
+              <ArrowLeft className="h-4 w-4 mr-2" />{t("Back to Tours", {
+              defaultValue: "Back to Tours"
             })}</Button>
           </div>
         </main>
@@ -58,19 +58,19 @@ export default function TourDetails() {
       </>;
   }
   return <>
-      <SEO title={t("Tourdetailsauthentic", {
-      defaultValue: "Tourdetailsauthentic"
+      <SEO title={t("Tour Details | Authentic Thailand Experience | Amon Tour", {
+      defaultValue: "Tour Details | Authentic Thailand Experience | Amon Tour"
     })} description="Discover complete details of this authentic Thailand tour. Expert guides, personalized service, and unforgettable experiences in Krabi and southern Thailand." keywords="thailand tour details, krabi experience details, authentic thai tour, private tour thailand, island tour booking" canonicalUrl={`https://amon-tour.com/tour/${tourId}`} breadcrumbs={[{
       name: t('navigation.home'),
       url: "/"
     }, {
-      name: t("Toursexperiences", {
-        defaultValue: "Toursexperiences"
+      name: t("Tours & Experiences", {
+        defaultValue: "Tours & Experiences"
       }),
       url: "/tours"
     }, {
-      name: t("Tourdetails", {
-        defaultValue: "Tourdetails"
+      name: t("Tour Details", {
+        defaultValue: "Tour Details"
       }),
       url: `/tour/${tourId}`
     }]} />
@@ -83,13 +83,13 @@ export default function TourDetails() {
           <div className="container mx-auto px-4 py-3">
             <div className="flex items-center justify-between">
               <Button onClick={handleBack} variant="outline" size="sm">
-                <ArrowLeft className="h-4 w-4 mr-2" />{t("Backtotours", {
-                defaultValue: "Backtotours"
+                <ArrowLeft className="h-4 w-4 mr-2" />{t("Back to Tours", {
+                defaultValue: "Back to Tours"
               })}</Button>
               
               <Button onClick={handleOpenExternal} variant="outline" size="sm">
-                <ExternalLink className="h-4 w-4 mr-2" />{t("Ouvrirdansunnouvelon", {
-                defaultValue: "Ouvrirdansunnouvelon"
+                <ExternalLink className="h-4 w-4 mr-2" />{t("Ouvrir dans un nouvel onglet", {
+                defaultValue: "Ouvrir dans un nouvel onglet"
               })}</Button>
             </div>
           </div>

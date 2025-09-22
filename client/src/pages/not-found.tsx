@@ -15,8 +15,8 @@ export default function NotFound() {
             })}</h1>
           </div>
 
-          <p className="mt-4 text-sm text-muted-foreground">{t("Didyouforgettoaddthe", {
-            defaultValue: "Didyouforgettoaddthe"
+          <p className="mt-4 text-sm text-muted-foreground">{t("Did you forget to add the page to the router?", {
+            defaultValue: "Did you forget to add the page to the router?"
           })}</p>
         </CardContent>
       </Card>

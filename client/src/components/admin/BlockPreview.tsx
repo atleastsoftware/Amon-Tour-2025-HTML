@@ -88,8 +88,8 @@ function SimplifiedPreview({
           {block.blockType === 'video_hero' && <div className="mt-6 flex justify-center">
               <div className="bg-black/20 rounded-lg p-4 flex items-center gap-2">
                 <Play className="h-5 w-5" />
-                <span>{t("Videobackground", {
-                defaultValue: "Videobackground"
+                <span>{t("Video Background", {
+                defaultValue: "Video Background"
               })}</span>
               </div>
             </div>}
@@ -119,27 +119,27 @@ function SimplifiedPreview({
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {(config.features || [{
             icon: 'Users',
-            title: t("Privatetours", {
-              defaultValue: "Privatetours"
+            title: t("Private Tours", {
+              defaultValue: "Private Tours"
             }),
-            description: t("Exclusiveexperiences", {
-              defaultValue: "Exclusiveexperiences"
+            description: t("Exclusive experiences", {
+              defaultValue: "Exclusive experiences"
             })
           }, {
             icon: 'Shield',
-            title: t("Localexperts", {
-              defaultValue: "Localexperts"
+            title: t("Local Experts", {
+              defaultValue: "Local Experts"
             }),
-            description: t("Expertguidance", {
-              defaultValue: "Expertguidance"
+            description: t("Expert guidance", {
+              defaultValue: "Expert guidance"
             })
           }, {
             icon: 'Heart',
             title: t("Personalized", {
               defaultValue: "Personalized"
             }),
-            description: t("Tailoredtoyou", {
-              defaultValue: "Tailoredtoyou"
+            description: t("Tailored to you", {
+              defaultValue: "Tailored to you"
             })
           }]).slice(0, 3).map((feature: any, i: number) => {
             const IconComponent = getIconComponent(feature.icon);
@@ -210,8 +210,8 @@ function SimplifiedPreview({
                   <h3 className="font-bold mb-2">{t("Tourtitle", {
                   defaultValue: "Tourtitle"
                 })}{i + 1}</h3>
-                  <p className="text-gray-600 text-sm">{t("Tourdescription", {
-                  defaultValue: "Tourdescription"
+                  <p className="text-gray-600 text-sm">{t("Tour description...", {
+                  defaultValue: "Tour description..."
                 })}</p>
                   <div className="flex justify-between items-center mt-3">
                     <span className="font-bold text-primary">€99</span>
@@ -223,8 +223,8 @@ function SimplifiedPreview({
               </Card>)}
           </div>
           {config.showTourNinja && <div className="mt-4 text-center">
-              <Badge variant="outline">{t("Tourninjaintegration", {
-              defaultValue: "Tourninjaintegration"
+              <Badge variant="outline">{t("Tour Ninja Integration", {
+              defaultValue: "Tour Ninja Integration"
             })}</Badge>
             </div>}
         </div>;
@@ -267,8 +267,8 @@ function SimplifiedPreview({
             title: t("Location", {
               defaultValue: "Location"
             }),
-            description: t("Krabithailand", {
-              defaultValue: "Krabithailand"
+            description: t("Krabi, Thailand", {
+              defaultValue: "Krabi, Thailand"
             })
           }]).map((card: any, i: number) => {
             const IconComponent = getIconComponent(card.icon);
@@ -292,8 +292,8 @@ function SimplifiedPreview({
             <p className="opacity-90">{config.rating || '5.0'} stars • {config.reviewCount || '80'} reviews</p>
           </div>
           {config.googleReviewsWidget && <div className="bg-white text-black p-4 rounded-lg text-center">
-              <Badge variant="secondary">{t("Googlereviewswidget", {
-              defaultValue: "Googlereviewswidget"
+              <Badge variant="secondary">{t("Google Reviews Widget", {
+              defaultValue: "Google Reviews Widget"
             })}</Badge>
             </div>}
         </div>;

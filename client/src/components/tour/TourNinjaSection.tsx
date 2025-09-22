@@ -23,12 +23,12 @@ export default function TourNinjaSection() {
           <div className="text-center">
             <div className="flex items-center justify-center mb-4">
               <AlertCircle className="text-[hsl(var(--destructive))] mr-2" size={24} />
-              <h2 className="font-heading font-bold text-2xl">{t("Externaltours", {
-                defaultValue: "Externaltours"
+              <h2 className="font-heading font-bold text-2xl">{t("External Tours", {
+                defaultValue: "External Tours"
               })}</h2>
             </div>
-            <p className="text-gray-600 mb-4">{t("Unabletoloadexternal", {
-              defaultValue: "Unabletoloadexternal"
+            <p className="text-gray-600 mb-4">{t("Unable to load external tour data. Please check your connection.", {
+              defaultValue: "Unable to load external tour data. Please check your connection."
             })}</p>
             <Button onClick={() => refetch()} variant="outline" className="flex items-center">
               <RefreshCw size={16} className="mr-2" />{t("Tryagain", {
@@ -76,8 +76,8 @@ export default function TourNinjaSection() {
       }}>
             {tours.map((tour, index) => <TourNinjaCard key={tour.id || index} tour={tour} index={index} />)}
           </motion.div> : <div className="text-center py-8">
-            <p className="text-gray-500">{t("Nopartnertoursavaila", {
-            defaultValue: "Nopartnertoursavaila"
+            <p className="text-gray-500">{t("No partner tours available at the moment.", {
+            defaultValue: "No partner tours available at the moment."
           })}</p>
             <Button onClick={() => refetch()} variant="outline" className="mt-4 flex items-center mx-auto">
               <RefreshCw size={16} className="mr-2" />{t("Refresh", {
