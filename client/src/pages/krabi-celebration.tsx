@@ -26,8 +26,9 @@ interface FormData {
   description: string;
 }
 export default function KrabiCelebration() {
-  const { t } = useTranslation();
-
+  const {
+    t
+  } = useTranslation();
   const {
     toast
   } = useToast();
@@ -151,10 +152,16 @@ export default function KrabiCelebration() {
           }} transition={{
             duration: 0.6
           }}>
-              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-6">{t('common.createunforgettablem')}</h2>
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-6">{t("Create unforgettable memories", {
+                defaultValue: "Create unforgettable memories"
+              })}</h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
-              <p className="text-gray-600 text-lg leading-relaxed mb-8">{t('common.letyourselfbeenchant')}</p>
-              <p className="text-gray-600 text-lg leading-relaxed">{t('common.whetheryouwanttoprop')}</p>
+              <p className="text-gray-600 text-lg leading-relaxed mb-8">{t("Let yourself be enchanted", {
+                defaultValue: "Let yourself be enchanted"
+              })}</p>
+              <p className="text-gray-600 text-lg leading-relaxed">{t("Whether you want to propose", {
+                defaultValue: "Whether you want to propose"
+              })}</p>
             </motion.div>
           </div>
         </section>
@@ -173,7 +180,9 @@ export default function KrabiCelebration() {
           }} transition={{
             duration: 0.6
           }}>
-              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">{t('common.ourcelebrationexperi')}</h2>
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">{t("Our celebration experiences", {
+                defaultValue: "Our celebration experiences"
+              })}</h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-6"></div>
               <p className="text-gray-600 max-w-2xl mx-auto">{t('common.choosefromoursignatu')}</p>
             </motion.div>

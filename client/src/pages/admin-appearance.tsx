@@ -1209,8 +1209,9 @@ function PageManagementInterface({
     </div>;
 }
 export default function AdminAppearance() {
-  const { t } = useTranslation();
-
+  const {
+    t
+  } = useTranslation();
   const [, setLocation] = useLocation();
   const [activeCategory, setActiveCategory] = useState<string>('theme');
   const [selectedPage, setSelectedPage] = useState<string>('navigation-menu');
@@ -2044,7 +2045,9 @@ export default function AdminAppearance() {
           title: t('common.findyourperfectexper'),
           description: t('common.searchthroughourcura'),
           configuration: {
-            placeholder: 'Search experiences...',
+            placeholder: t("Search experiences...", {
+              defaultValue: "Search experiences..."
+            }),
             showFilters: true
           }
         };
@@ -2244,7 +2247,9 @@ export default function AdminAppearance() {
           title: t('common.stayupdated'),
           description: t('common.getthelatesttravelti'),
           configuration: {
-            placeholder: 'Enter your email',
+            placeholder: t("Enter your email", {
+              defaultValue: "Enter your email"
+            }),
             buttonText: 'Subscribe',
             privacy: 'We respect your privacy and never share your information.'
           }

@@ -256,8 +256,9 @@ export default function FormBuilder({
   onSave,
   onCancel
 }: FormBuilderProps) {
-  const { t } = useTranslation();
-
+  const {
+    t
+  } = useTranslation();
   const {
     toast
   } = useToast();
@@ -321,7 +322,9 @@ export default function FormBuilder({
         id: 'fullname',
         type: 'text' as const,
         label: t('common.fullname'),
-        placeholder: 'Your name',
+        placeholder: t("Your name", {
+          defaultValue: "Your name"
+        }),
         required: true,
         style: {
           width: 'half' as const
@@ -330,7 +333,9 @@ export default function FormBuilder({
         id: 'email',
         type: 'email' as const,
         label: t('common.email'),
-        placeholder: 'Your email',
+        placeholder: t("Your email", {
+          defaultValue: "Your email"
+        }),
         required: true,
         style: {
           width: 'half' as const
@@ -339,7 +344,9 @@ export default function FormBuilder({
         id: 'countrycode',
         type: 'select' as const,
         label: t('common.countrycode'),
-        placeholder: 'Code',
+        placeholder: t("Code", {
+          defaultValue: "Code"
+        }),
         required: true,
         options: ['🇫🇷 +33', '🇹🇭 +66', '🇺🇸 +1', '🇬🇧 +44', '🇩🇪 +49', '🇪🇸 +34'],
         style: {
@@ -349,7 +356,9 @@ export default function FormBuilder({
         id: 'whatsapp',
         type: 'phone' as const,
         label: t('common.whatsappnumber'),
-        placeholder: 'Your WhatsApp number',
+        placeholder: t("Your WhatsApp number", {
+          defaultValue: "Your WhatsApp number"
+        }),
         required: true,
         style: {
           width: 'half' as const
@@ -358,7 +367,9 @@ export default function FormBuilder({
         id: 'adults',
         type: 'select' as const,
         label: t('common.numberofadults'),
-        placeholder: 'Select number of adults',
+        placeholder: t("Select number of adults", {
+          defaultValue: "Select number of adults"
+        }),
         required: false,
         options: ['1 adult', '2 adults', '3 adults', '4 adults', '5 adults', '6+ adults'],
         style: {
@@ -368,7 +379,9 @@ export default function FormBuilder({
         id: 'kids',
         type: 'select' as const,
         label: t('common.numberofkidsunder12y'),
-        placeholder: 'Select number of kids',
+        placeholder: t("Select number of kids", {
+          defaultValue: "Select number of kids"
+        }),
         required: false,
         options: ['No kids', '1 kid', '2 kids', '3 kids', '4 kids', '5+ kids'],
         style: {
@@ -378,7 +391,9 @@ export default function FormBuilder({
         id: 'dates',
         type: 'date' as const,
         label: t('common.datesoftrip'),
-        placeholder: 'Select trip dates',
+        placeholder: t("Select trip dates", {
+          defaultValue: "Select trip dates"
+        }),
         required: false,
         style: {
           width: 'full' as const
@@ -387,7 +402,9 @@ export default function FormBuilder({
         id: 'duration',
         type: 'select' as const,
         label: t('common.orapproximateduratio'),
-        placeholder: 'Select duration',
+        placeholder: t("Select duration", {
+          defaultValue: "Select duration"
+        }),
         required: false,
         options: ['1-3 days', '4-7 days', '8-14 days', '15+ days'],
         style: {
@@ -415,7 +432,9 @@ export default function FormBuilder({
         id: 'message',
         type: 'textarea' as const,
         label: t('common.describeyouridealtri'),
-        placeholder: 'Tell us what you would like to see and do during your journey...',
+        placeholder: t("Tell us what you would like to see and do during your journey...", {
+          defaultValue: "Tell us what you would like to see and do during your journey..."
+        }),
         required: true,
         style: {
           width: 'full' as const

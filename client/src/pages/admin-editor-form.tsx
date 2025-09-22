@@ -34,8 +34,9 @@ interface FormData {
   updatedAt?: string;
 }
 export default function AdminEditorForm() {
-  const { t } = useTranslation();
-
+  const {
+    t
+  } = useTranslation();
   const [, setLocation] = useLocation();
   const {
     toast
@@ -67,7 +68,9 @@ export default function AdminEditorForm() {
       id: 'name',
       type: 'text',
       label: t('common.nomcomplet'),
-      placeholder: 'Votre nom',
+      placeholder: t("Votre nom", {
+        defaultValue: "Votre nom"
+      }),
       required: true,
       style: {
         width: 'full',
@@ -87,7 +90,9 @@ export default function AdminEditorForm() {
       id: 'subject',
       type: 'text',
       label: t('common.sujet'),
-      placeholder: 'Sujet de votre message',
+      placeholder: t("Sujet de votre message", {
+        defaultValue: "Sujet de votre message"
+      }),
       required: true,
       style: {
         width: 'full',
@@ -97,7 +102,9 @@ export default function AdminEditorForm() {
       id: 'message',
       type: 'textarea',
       label: t('common.message'),
-      placeholder: 'Votre message...',
+      placeholder: t("Votre message...", {
+        defaultValue: "Votre message..."
+      }),
       required: true,
       style: {
         width: 'full',
@@ -135,7 +142,9 @@ export default function AdminEditorForm() {
       id: 'fullName',
       type: 'text',
       label: t('common.fullname'),
-      placeholder: 'Your name',
+      placeholder: t("Your name", {
+        defaultValue: "Your name"
+      }),
       required: true,
       style: {
         width: 'half',
@@ -145,7 +154,9 @@ export default function AdminEditorForm() {
       id: 'email',
       type: 'email',
       label: t('common.email'),
-      placeholder: 'Your email',
+      placeholder: t("Your email", {
+        defaultValue: "Your email"
+      }),
       required: true,
       style: {
         width: 'half',
@@ -155,7 +166,9 @@ export default function AdminEditorForm() {
       id: 'countrycode',
       type: 'select',
       label: t('common.countrycode'),
-      placeholder: 'Code',
+      placeholder: t("Code", {
+        defaultValue: "Code"
+      }),
       required: true,
       options: ['🇫🇷 +33', '🇹🇭 +66', '🇺🇸 +1', '🇬🇧 +44', '🇩🇪 +49', '🇪🇸 +34'],
       style: {
@@ -166,7 +179,9 @@ export default function AdminEditorForm() {
       id: 'whatsappNumber',
       type: 'phone',
       label: t('common.whatsappnumber'),
-      placeholder: 'Your WhatsApp number',
+      placeholder: t("Your WhatsApp number", {
+        defaultValue: "Your WhatsApp number"
+      }),
       required: true,
       style: {
         width: 'half',
@@ -176,7 +191,9 @@ export default function AdminEditorForm() {
       id: 'numberOfAdults',
       type: 'select',
       label: t('common.numberofadults'),
-      placeholder: 'Select number of adults',
+      placeholder: t("Select number of adults", {
+        defaultValue: "Select number of adults"
+      }),
       required: false,
       options: ['1 adult', '2 adults', '3 adults', '4 adults', '5 adults', '6+ adults'],
       style: {
@@ -187,7 +204,9 @@ export default function AdminEditorForm() {
       id: 'numberOfKids',
       type: 'select',
       label: t('common.numberofkidsunder12y'),
-      placeholder: 'Select number of kids',
+      placeholder: t("Select number of kids", {
+        defaultValue: "Select number of kids"
+      }),
       required: false,
       options: ['No kids', '1 kid', '2 kids', '3 kids', '4 kids', '5+ kids'],
       style: {
@@ -198,7 +217,9 @@ export default function AdminEditorForm() {
       id: 'tripDates',
       type: 'date',
       label: t('common.datesoftrip'),
-      placeholder: 'Select trip dates',
+      placeholder: t("Select trip dates", {
+        defaultValue: "Select trip dates"
+      }),
       required: false,
       style: {
         width: 'full',
@@ -208,7 +229,9 @@ export default function AdminEditorForm() {
       id: 'duration',
       type: 'select',
       label: t('common.orapproximateduratio'),
-      placeholder: 'Select duration',
+      placeholder: t("Select duration", {
+        defaultValue: "Select duration"
+      }),
       required: false,
       options: ['1-3 days', '4-7 days', '8-14 days', '15+ days'],
       style: {
@@ -239,7 +262,9 @@ export default function AdminEditorForm() {
       id: 'message',
       type: 'textarea',
       label: t('common.describeyouridealtri'),
-      placeholder: 'Tell us what you would like to see and do during your journey...',
+      placeholder: t("Tell us what you would like to see and do during your journey...", {
+        defaultValue: "Tell us what you would like to see and do during your journey..."
+      }),
       required: true,
       style: {
         width: 'full',
@@ -274,7 +299,9 @@ export default function AdminEditorForm() {
       id: 'contactName',
       type: 'text',
       label: t('common.nomducontact'),
-      placeholder: 'Votre nom',
+      placeholder: t("Votre nom", {
+        defaultValue: "Votre nom"
+      }),
       required: true,
       style: {
         width: 'half',
@@ -286,7 +313,9 @@ export default function AdminEditorForm() {
       label: t('Nom de l\'entreprise', {
         defaultValue: 'Nom de l\'entreprise'
       }),
-      placeholder: 'Nom de votre entreprise',
+      placeholder: t("Nom de votre entreprise", {
+        defaultValue: "Nom de votre entreprise"
+      }),
       required: true,
       style: {
         width: 'half',
@@ -306,7 +335,9 @@ export default function AdminEditorForm() {
       id: 'phone',
       type: 'phone',
       label: t('common.txe9lxe9phone'),
-      placeholder: '+33 1 XX XX XX XX',
+      placeholder: t("+33 1 XX XX XX XX", {
+        defaultValue: "+33 1 XX XX XX XX"
+      }),
       required: false,
       style: {
         width: 'half',
@@ -336,7 +367,9 @@ export default function AdminEditorForm() {
       id: 'description',
       type: 'textarea',
       label: t('common.prxe9sentationdevotr'),
-      placeholder: 'Présentez votre entreprise et votre proposition de partenariat...',
+      placeholder: t("Pr\xE9sentez votre entreprise et votre proposition de partenariat...", {
+        defaultValue: "Pr\xE9sentez votre entreprise et votre proposition de partenariat..."
+      }),
       required: true,
       style: {
         width: 'full',
@@ -373,7 +406,9 @@ export default function AdminEditorForm() {
       id: 'contactName',
       type: 'text',
       label: t('common.nomduresponsable'),
-      placeholder: 'Votre nom',
+      placeholder: t("Votre nom", {
+        defaultValue: "Votre nom"
+      }),
       required: true,
       style: {
         width: 'half',
@@ -383,7 +418,9 @@ export default function AdminEditorForm() {
       id: 'companyName',
       type: 'text',
       label: t('common.entrepriseorganisati'),
-      placeholder: 'Nom de l\'entreprise',
+      placeholder: t("Nom de l'entreprise", {
+        defaultValue: "Nom de l'entreprise"
+      }),
       required: true,
       style: {
         width: 'half',
@@ -403,7 +440,9 @@ export default function AdminEditorForm() {
       id: 'phone',
       type: 'phone',
       label: t('common.txe9lxe9phone'),
-      placeholder: '+33 1 XX XX XX XX',
+      placeholder: t("+33 1 XX XX XX XX", {
+        defaultValue: "+33 1 XX XX XX XX"
+      }),
       required: false,
       style: {
         width: 'half',
@@ -423,7 +462,9 @@ export default function AdminEditorForm() {
       id: 'travelDates',
       type: 'text',
       label: t('common.datessouhaitxe9es'),
-      placeholder: 'Ex: septembre 2025',
+      placeholder: t("Ex: septembre 2025", {
+        defaultValue: "Ex: septembre 2025"
+      }),
       required: false,
       style: {
         width: 'half',
@@ -443,7 +484,9 @@ export default function AdminEditorForm() {
       id: 'description',
       type: 'textarea',
       label: t('common.dxe9tailsduprojet'),
-      placeholder: 'Décrivez votre projet de voyage (objectifs, activités souhaitées, contraintes...)...',
+      placeholder: t("D\xE9crivez votre projet de voyage (objectifs, activit\xE9s souhait\xE9es, contraintes...)...", {
+        defaultValue: "D\xE9crivez votre projet de voyage (objectifs, activit\xE9s souhait\xE9es, contraintes...)..."
+      }),
       required: true,
       style: {
         width: 'full',
@@ -513,7 +556,9 @@ export default function AdminEditorForm() {
       id: 'name',
       type: 'text',
       label: t('common.nomcomplet'),
-      placeholder: 'Votre nom',
+      placeholder: t("Votre nom", {
+        defaultValue: "Votre nom"
+      }),
       required: true,
       style: {
         width: 'half',
@@ -533,7 +578,9 @@ export default function AdminEditorForm() {
       id: 'whatsapp',
       type: 'phone',
       label: t('common.whatsapp'),
-      placeholder: '+33 6 XX XX XX XX',
+      placeholder: t("+33 6 XX XX XX XX", {
+        defaultValue: "+33 6 XX XX XX XX"
+      }),
       required: false,
       style: {
         width: 'full',
@@ -565,7 +612,9 @@ export default function AdminEditorForm() {
       id: 'date',
       type: 'text',
       label: t('common.datesouhaitxe9e'),
-      placeholder: 'Ex: juin 2025',
+      placeholder: t("Ex: juin 2025", {
+        defaultValue: "Ex: juin 2025"
+      }),
       required: true,
       style: {
         width: 'half',
@@ -585,7 +634,9 @@ export default function AdminEditorForm() {
       id: 'description',
       type: 'textarea',
       label: t('common.dxe9tailsdevotrecxe9'),
-      placeholder: 'Décrivez-nous votre vision de cette célébration spéciale...',
+      placeholder: t("D\xE9crivez-nous votre vision de cette c\xE9l\xE9bration sp\xE9ciale...", {
+        defaultValue: "D\xE9crivez-nous votre vision de cette c\xE9l\xE9bration sp\xE9ciale..."
+      }),
       required: false,
       style: {
         width: 'full',
@@ -655,7 +706,9 @@ export default function AdminEditorForm() {
         id: 'name',
         type: 'text',
         label: t('common.nomcomplet'),
-        placeholder: 'Votre nom',
+        placeholder: t("Votre nom", {
+          defaultValue: "Votre nom"
+        }),
         required: true,
         style: {
           width: 'full',

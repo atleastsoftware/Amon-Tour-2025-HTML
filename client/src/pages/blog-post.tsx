@@ -32,12 +32,13 @@ interface BlogPost {
   }[];
 }
 
+
 // Popular Tour Ninja tours mapping - real tokens from API
 const popularToursData = {
   'phi-phi': {
     id: '_LkIo_9vyF',
-    title: 'Koh Phi Phi & Ao Nang\'s local islands',
-    description: 'Full-day excursion to the paradisiacal Phi Phi islands and Ao Nang\'s local islands. Discover white sand beaches, crystal-clear waters and breathtaking landscapes.',
+    title: "Koh Phi Phi & Ao Nang's local islands",
+    description: "Full-day excursion to the paradisiacal Phi Phi islands and Ao Nang's local islands. Discover white sand beaches, crystal-clear waters and breathtaking landscapes.",
     duration: "1 day",
     price: 2500,
     currency: "THB",
@@ -45,48 +46,48 @@ const popularToursData = {
   },
   'railay': {
     id: '8avSq2JCG8',
-    title: 'Railay & Ao Nang\'s local islands',
-    description: 'Explore the magnificent Railay Beach, accessible only by boat, and Ao Nang\'s local islands. Perfect for rock climbing, relaxation and discovery.',
+    title: "Railay & Ao Nang's local islands",
+    description: "Explore the magnificent Railay Beach, accessible only by boat, and Ao Nang's local islands. Perfect for rock climbing, relaxation and discovery.",
     duration: "1 day",
     price: 2500,
     currency: "THB",
     tourNinjaUrl: "https://www.tourninja.io/book/8avSq2JCG8"
   },
-  'hong-island': {
-    id: '9Pw3VgOKha',
-    title: 'Koh Hong Archipelago',
-    description: 'Discover the Koh Hong archipelago with its hidden emerald lagoons, white sand beaches and spectacular rock formations. An unforgettable experience.',
+  'phang-nga': {
+    id: 't1k3AxM19a',
+    title: "Phang Nga Bay: Koh Kudu and Koh Hong",
+    description: "Discover the breathtaking beauty of Phang Nga Bay with its limestone karsts, crystal-clear waters and hidden lagoons.",
+    duration: "1 day", 
+    price: 2500,
+    currency: "THB",
+    tourNinjaUrl: "https://www.tourninja.io/book/t1k3AxM19a"
+  },
+  'krabi-waterfall': {
+    id: '-Yzd7eCHa0',
+    title: "Krabi: Primary Forest and Waterfall",
+    description: "Explore Krabi's primary forest and discover magnificent waterfalls in an authentic natural setting.",
+    duration: "1 day",
+    price: 2500, 
+    currency: "THB",
+    tourNinjaUrl: "https://www.tourninja.io/book/-Yzd7eCHa0"
+  },
+  'thalane': {
+    id: 'CeNxYxqbXq',
+    title: "Thalane - Mangrove kayaking & natural pools",
+    description: "Kayak through mangroves and discover natural pools in Thalane, one of Krabi's best-kept secrets.",
+    duration: "1 day",
+    price: 2500,
+    currency: "THB", 
+    tourNinjaUrl: "https://www.tourninja.io/book/CeNxYxqbXq"
+  },
+  'ao-luk': {
+    id: 'Bh9zKvN-QO',
+    title: "Ao Luk - Temple, Cave and Jungle",
+    description: "Explore Ao Luk's temples, caves and jungle for an authentic cultural and natural experience.",
     duration: "1 day",
     price: 2500,
     currency: "THB",
-    tourNinjaUrl: "https://www.tourninja.io/book/9Pw3VgOKha"
-  },
-  'four-islands': {
-    id: 'gH5kL9mN2p',
-    title: '4 Islands Tour - Krabi\'s Must-Do Excursion',
-    description: 'Visit the famous 4 islands: Chicken Island, Tup Island, Poda Island, and Phra Nang Cave Beach. Perfect introduction to Krabi\'s natural beauty.',
-    duration: "1 day",
-    price: 1800,
-    currency: "THB",
-    tourNinjaUrl: "https://www.tourninja.io/book/gH5kL9mN2p"
-  },
-  'sunset-plankton': {
-    id: 'IGdQFwdJK8',
-    title: 'Koh Hong & Ao Nang\'s local islands Sunset and Plankton',
-    description: 'Magical experience combining sunset over Ao Nang islands and bioluminescent plankton observation at night. Unique and romantic moment.',
-    duration: "1 day",
-    price: 2500,
-    currency: "THB",
-    tourNinjaUrl: "https://www.tourninja.io/book/IGdQFwdJK8"
-  },
-  'catamaran': {
-    id: 'Wmx1GfDdXL',
-    title: 'Catamaran day trip - Ao Nang\'s local islands',
-    description: 'Luxurious catamaran cruise to Ao Nang\'s local islands. A premium experience with comfort and elegance.',
-    duration: "1 day",
-    price: 3500,
-    currency: "THB",
-    tourNinjaUrl: "https://www.tourninja.io/book/Wmx1GfDdXL"
+    tourNinjaUrl: "https://www.tourninja.io/book/Bh9zKvN-QO"
   }
 };
 
@@ -144,8 +145,9 @@ const getRelatedTours = (slug: string) => {
   return tourKeys.map(key => popularToursData[key as keyof typeof popularToursData]).filter(Boolean);
 };
 export default function BlogPostPage() {
-  const { t } = useTranslation();
-
+  const {
+    t
+  } = useTranslation();
   const [, params] = useRoute("/blog/:slug");
   const {
     data: post,
@@ -242,9 +244,7 @@ export default function BlogPostPage() {
         <div className="bg-gray-50 flex items-center justify-center">
           <div className="text-center">
             <h1 className="text-4xl font-bold text-gray-800 mb-4">{t('common.articlenotfound')}</h1>
-            <p className="text-gray-600 mb-8">{t('The article you\'re looking for doesn\'t exist or has been removed.', {
-              defaultValue: 'The article you\'re looking for doesn\'t exist or has been removed.'
-            })}</p>
+            <p className="text-gray-600 mb-8">{""}</p>
             <Link href="/blog">
               <Button>
                 <ArrowLeft className="h-4 w-4 mr-2" />{t('common.backtoblog')}</Button>
