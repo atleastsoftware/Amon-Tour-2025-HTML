@@ -40,15 +40,57 @@ function renderApp() {
   );
 }
 
-console.log('📱 Main.tsx loading - about to initialize i18next...');
+// Ensure only one render
+let hasRendered = false;
 
-// Wait for i18next initialization before rendering app
+function safeRender() {
+  if (!hasRendered) {
+    hasRendered = true;
+    console.log('🚀 Rendering React app with i18next ready');
+    renderApp();
+  }
+}
+
+// Wait for i18next initialization and resource loading
 i18nInitPromise.then(() => {
-  console.log('🚀 i18next ready, rendering React app...');
-  renderApp();
+  console.log('🔧 i18next promise resolved, checking resources...');
+  
+  // Fonction pour vérifier si les ressources sont vraiment chargées
+  const checkResources = () => {
+    const currentLang = i18n.language || 'en';
+    const hasResources = i18n.hasResourceBundle(currentLang, 'common');
+    const testTranslation = i18n.t('hero.title');
+    
+    console.log('🔧 Language:', currentLang, 'Has resources:', hasResources, 'Test:', testTranslation);
+    
+    return hasResources && testTranslation !== 'hero.title';
+  };
+  
+  // Si les ressources sont déjà prêtes
+  if (checkResources()) {
+    console.log('✅ Resources ready, rendering app immediately');
+    safeRender();
+  } else {
+    console.log('⏳ Waiting for resources to load...');
+    
+    // Attendre l'événement loaded
+    const onLoaded = () => {
+      console.log('🔧 Loaded event received');
+      if (checkResources()) {
+        console.log('✅ Resources verified, rendering app');
+        safeRender();
+      }
+    };
+    
+    i18n.on('loaded', onLoaded);
+    
+    // Backup timeout
+    setTimeout(() => {
+      console.log('⚠️ Timeout reached, rendering anyway');
+      safeRender();
+    }, 5000);
+  }
 }).catch((error) => {
-  console.error('💥 i18next initialization failed, rendering app anyway:', error);
-  renderApp(); // Render even if i18next fails to avoid blank page
+  console.error('❌ i18next initialization failed:', error);
+  safeRender();
 });
-
-console.log('📱 Main.tsx setup completed - i18nInitPromise started');

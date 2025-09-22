@@ -1,144 +1,86 @@
-console.log('🔥 i18n.ts MODULE LOADING...');
-
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import Backend from 'i18next-http-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
-console.log('🔥 i18n.ts IMPORTS SUCCESSFUL, about to create initializeI18n...');
-
-// Configuration i18next ULTRA simplifiée pour debug  
+// Configuration i18next avec force refresh des ressources
 const initializeI18n = () => {
-  console.log('🌐 STARTING i18next initialization (ULTRA simplified)...');
-  
   return i18n
-    .use(Backend) // Charge les traductions depuis /public/locales
-    .use(LanguageDetector) // Détecte automatiquement la langue
-    .use(initReactI18next) // Intégration avec React
+    .use(Backend)
+    .use(LanguageDetector)
+    .use(initReactI18next)
     .init({
       // Configuration des langues
-      fallbackLng: 'en', // Anglais par défaut (comme demandé)
+      fallbackLng: 'en',
       supportedLngs: ['en', 'fr', 'es'],
       
       // Configuration debug pour diagnostics
-      debug: true, // ACTIVER temporairement pour debug
+      debug: true,
       
       // Configuration pour utiliser phrases complètes comme clés
       keySeparator: false,
       saveMissing: false,
       
-      // Détection automatique de la langue - SIMPLIFIÉ
+      // Détection automatique de la langue
       detection: {
         order: ['localStorage', 'navigator'],
         caches: ['localStorage'],
       },
       
-      // Configuration Backend (chargement des fichiers) - AVEC LOGS DEBUG
+      // Configuration Backend avec le bon chemin serveur
       backend: {
-        loadPath: '/locales/{{lng}}/{{ns}}.json',
+        loadPath: '/api-locales/{{lng}}/{{ns}}.json',
         allowMultiLoading: false,
         reloadInterval: false,
-        // Ajout de logs pour diagnostiquer le problème de chargement
-        request: (options, url, payload, callback) => {
-          console.log('🔥 i18next backend loading URL:', url);
-          try {
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', url, true);
-            xhr.onreadystatechange = () => {
-              if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                  console.log('✅ i18next backend success for:', url);
-                  callback(null, xhr.responseText, { status: xhr.status, statusText: xhr.statusText });
-                } else {
-                  console.error('❌ i18next backend failed for:', url, 'Status:', xhr.status, xhr.statusText);
-                  callback(new Error(`HTTP ${xhr.status}: ${xhr.statusText}`), null, { status: xhr.status, statusText: xhr.statusText });
-                }
-              }
-            };
-            xhr.send();
-          } catch (error) {
-            console.error('💥 i18next backend request error:', error);
-            callback(error, null, {});
-          }
-        }
+        // Timeout plus long pour s'assurer du chargement
+        requestOptions: {
+          cache: 'no-cache', // Force fresh load
+        },
       },
       
-      // Namespaces (fichiers de traduction)
+      // Namespaces
       ns: ['common'],
       defaultNS: 'common',
       fallbackNS: 'common',
       
-      // Options React - SIMPLIFIÉ
+      // Options React - CRITIQUE pour la liaison
       react: {
         useSuspense: false,
+        bindI18n: 'languageChanged loaded',
+        bindI18nStore: 'added removed',
+        // Force update des composants React
+        transEmptyNodeValue: '',
+        transSupportBasicHtmlNodes: true,
       },
       
       // Interpolation sécurisée
       interpolation: {
-        escapeValue: false, // React échappe déjà
+        escapeValue: false,
       },
       
-      // Configuration pour retourner la clé originale si pas de traduction
+      // Configuration pour retourner la clé si pas de traduction
       returnNull: false,
       returnEmptyString: false,
-      parseMissingKeyHandler: (key) => {
-        console.warn('🚨 i18next missing key:', key);
-        return key;
-      },
       
-      // Force le chargement immédiat des traductions
+      // Force le chargement synchrone des 3 langues
       load: 'languageOnly',
       preload: ['en', 'fr', 'es'],
     })
     .then(() => {
-      console.log('✅ i18next INITIALIZATION COMPLETED');
+      console.log('✅ i18next initialized successfully');
       
-      // Ajouter des écouteurs d'événements pour diagnostiquer
-      i18n.on('loaded', (loaded) => {
-        console.log('🔥 i18next loaded event:', loaded);
-      });
-      
-      i18n.on('failedLoading', (lng, ns, msg) => {
-        console.error('❌ i18next failed loading:', lng, ns, msg);
-      });
-      
-      i18n.on('missingKey', (lng, namespace, key, fallbackValue) => {
-        console.log('🔍 i18next missing key:', lng, namespace, key);
-      });
-      
-      // Vérifier que les traductions sont bien chargées
+      // Force le rechargement des ressources pour la langue courante
       const currentLng = i18n.language || 'en';
-      const resources = i18n.getResourceBundle(currentLng, 'common');
-      console.log('📦 Current language:', currentLng);
-      console.log('📦 Resources loaded:', !!resources);
-      console.log('📦 Resources content:', resources ? Object.keys(resources).slice(0, 5) : 'NONE');
-      console.log('📦 Sample test (hero.title):', i18n.t('hero.title'));
+      console.log('🔧 Current language:', currentLng);
       
-      // Test direct de chargement d'URL
-      console.log('🔥 Testing direct URL access...');
-      fetch('/locales/fr/common.json')
-        .then(res => {
-          console.log('✅ Direct fetch status:', res.status);
-          return res.json();
-        })
-        .then(data => {
-          console.log('✅ Direct fetch data sample:', Object.keys(data).slice(0, 5));
-        })
-        .catch(err => {
-          console.error('❌ Direct fetch failed:', err);
-        });
+      // Tester immédiatement la traduction
+      const testTranslation = i18n.t('hero.title');
+      console.log('🔧 Test translation hero.title:', testTranslation);
       
-      // Exposer i18next globalement pour le debug
-      if (typeof window !== 'undefined') {
-        (window as any).i18next = i18n;
-        console.log('🌐 i18next exposed globally for debugging');
-      }
+      // Force refresh des ressources React
+      i18n.emit('loaded', {});
       
       return i18n;
-    })
-    .catch((error) => {
-      console.error('❌ i18next initialization FAILED:', error);
-      throw error;
     });
 };
 
