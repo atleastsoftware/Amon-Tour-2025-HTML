@@ -1,43 +1,45 @@
+import { useTranslation } from 'react-i18next';
 import { useEffect, useState, useRef } from "react";
 import { translationOverrideService } from "@/services/translationOverrideService";
-
 declare global {
   interface Window {
     google: any;
     googleTranslateElementInit: () => void;
   }
 }
-
 interface Language {
   code: string;
   name: string;
   flagUrl: string;
 }
-
-const languages: Language[] = [
-  { 
-    code: "en", 
-    name: "English", 
-    flagUrl: "https://flagcdn.com/w40/gb.png"
-  },
-  { 
-    code: "fr", 
-    name: "Français", 
-    flagUrl: "https://flagcdn.com/w40/fr.png"
-  },
-  { 
-    code: "es", 
-    name: "Español", 
-    flagUrl: "https://flagcdn.com/w40/es.png"
-  }
-];
-
+const languages: Language[] = [{
+  code: "en",
+  name: t('English', {
+    defaultValue: 'English'
+  }),
+  flagUrl: "https://flagcdn.com/w40/gb.png"
+}, {
+  code: "fr",
+  name: t('Fran\xE7ais', {
+    defaultValue: 'Fran\xE7ais'
+  }),
+  flagUrl: "https://flagcdn.com/w40/fr.png"
+}, {
+  code: "es",
+  name: t('Espa\xF1ol', {
+    defaultValue: 'Espa\xF1ol'
+  }),
+  flagUrl: "https://flagcdn.com/w40/es.png"
+}];
 export default function GoogleTranslateWidget() {
+  const { t } = useTranslation();
+  const {
+    t: t
+  } = useTranslation();
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState<string>("en");
   const widgetRef = useRef<HTMLDivElement>(null);
   const initialized = useRef(false);
-
   useEffect(() => {
     if (initialized.current) return;
     initialized.current = true;
@@ -56,18 +58,13 @@ export default function GoogleTranslateWidget() {
         console.error("Google Translate not loaded");
         return;
       }
-
-      new window.google.translate.TranslateElement(
-        {
-          pageLanguage: "en",
-          includedLanguages: "en,fr,es",
-          layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
-          autoDisplay: false,
-          multilanguagePage: true
-        },
-        "google_translate_element"
-      );
-
+      new window.google.translate.TranslateElement({
+        pageLanguage: "en",
+        includedLanguages: "en,fr,es",
+        layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+        autoDisplay: false,
+        multilanguagePage: true
+      }, "google_translate_element");
       console.log("Google Translate Widget initialized");
       setIsLoaded(true);
 
@@ -94,31 +91,31 @@ export default function GoogleTranslateWidget() {
     const checkInterval = setInterval(() => {
       const selectElement = document.querySelector(".goog-te-combo") as HTMLSelectElement;
       const googleBranding = document.querySelector(".goog-te-gadget");
-      
       if (selectElement) {
         console.log("Google Translate select element found!");
         setIsLoaded(true);
-        
+
         // Apply saved language if it's not English
         if (savedLanguage !== "en" && selectElement.value !== savedLanguage) {
           console.log(`Applying saved language: ${savedLanguage}`);
           selectElement.value = savedLanguage;
-          selectElement.dispatchEvent(new Event("change", { bubbles: true }));
+          selectElement.dispatchEvent(new Event("change", {
+            bubbles: true
+          }));
         }
-        
+
         // Listen for manual changes
-        selectElement.addEventListener("change", (e) => {
+        selectElement.addEventListener("change", e => {
           const target = e.target as HTMLSelectElement;
           const newLang = target.value || "en";
           setCurrentLanguage(newLang);
           localStorage.setItem("selectedLanguage", newLang);
-          
+
           // Apply translation overrides after a delay
           setTimeout(() => {
             translationOverrideService.applyOverrides();
           }, 1000);
         });
-        
         clearInterval(checkInterval);
       } else if (googleBranding) {
         // Widget is loaded but select might be inside an iframe
@@ -126,7 +123,6 @@ export default function GoogleTranslateWidget() {
         setIsLoaded(true);
         // Don't clear interval yet, keep looking for select element
       }
-      
       retryCount++;
       if (retryCount > 20) {
         console.log("Google Translate setup complete");
@@ -134,25 +130,24 @@ export default function GoogleTranslateWidget() {
         clearInterval(checkInterval);
       }
     }, 500);
-
     return () => {
       clearInterval(checkInterval);
     };
   }, []);
-
   const selectLanguage = (langCode: string) => {
     console.log(`Attempting to select language: ${langCode}`);
-    
+
     // Try using the select element (if it exists)
     const selectElement = document.querySelector(".goog-te-combo") as HTMLSelectElement;
     if (selectElement) {
       console.log(`Found select element, setting to: ${langCode}`);
       selectElement.value = langCode;
-      selectElement.dispatchEvent(new Event("change", { bubbles: true }));
-      
+      selectElement.dispatchEvent(new Event("change", {
+        bubbles: true
+      }));
       setCurrentLanguage(langCode);
       localStorage.setItem("selectedLanguage", langCode);
-      
+
       // Apply overrides after translation
       setTimeout(() => {
         translationOverrideService.applyOverrides();
@@ -161,14 +156,13 @@ export default function GoogleTranslateWidget() {
       console.log("Select element not found, language will be applied via cookie on reload");
     }
   };
-
   const handleLanguageClick = (langCode: string) => {
     console.log(`Language button clicked: ${langCode}`);
-    
+
     // Save the selection
     setCurrentLanguage(langCode);
     localStorage.setItem("selectedLanguage", langCode);
-    
+
     // Method 1: Try using the hidden select element if it exists
     const selectElement = document.querySelector(".goog-te-combo") as HTMLSelectElement;
     if (selectElement) {
@@ -178,8 +172,10 @@ export default function GoogleTranslateWidget() {
       } else {
         selectElement.value = langCode;
       }
-      selectElement.dispatchEvent(new Event("change", { bubbles: true }));
-      
+      selectElement.dispatchEvent(new Event("change", {
+        bubbles: true
+      }));
+
       // Apply translation overrides after a delay
       setTimeout(() => {
         translationOverrideService.applyOverrides();
@@ -187,67 +183,44 @@ export default function GoogleTranslateWidget() {
     } else {
       // Method 2: Use cookie and reload (fallback)
       console.log("Google Translate select not found, using cookie method");
-      
+
       // Clear any existing cookies first
       document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-      
+
       // Set new cookie value
       if (langCode === "en") {
         document.cookie = "googtrans=/en/en; path=/;";
       } else {
         document.cookie = `googtrans=/en/${langCode}; path=/;`;
       }
-      
+
       // Force reload to apply translation
       setTimeout(() => {
         window.location.reload();
       }, 100);
     }
   };
-
-  return (
-    <>
+  return <>
       {/* Hidden Google Translate Widget */}
-      <div 
-        id="google_translate_element" 
-        ref={widgetRef}
-        style={{ 
-          position: "absolute",
-          visibility: "hidden",
-          width: 0,
-          height: 0,
-          overflow: "hidden"
-        }}
-      />
+      <div id="google_translate_element" ref={widgetRef} style={{
+      position: "absolute",
+      visibility: "hidden",
+      width: 0,
+      height: 0,
+      overflow: "hidden"
+    }} />
 
       {/* Custom Flag Selector */}
       <div className="flex items-center gap-2 relative z-50" data-testid="language-switcher">
-        {languages.map((lang) => (
-          <button
-            key={lang.code}
-            onClick={() => handleLanguageClick(lang.code)}
-            className={`
+        {languages.map(lang => <button key={lang.code} onClick={() => handleLanguageClick(lang.code)} className={`
               relative p-1 transition-all duration-200 rounded-md border-2
-              ${currentLanguage === lang.code 
-                ? "scale-110 opacity-100 border-primary shadow-lg" 
-                : "opacity-70 hover:opacity-100 border-transparent hover:border-gray-300"
-              }
+              ${currentLanguage === lang.code ? "scale-110 opacity-100 border-primary shadow-lg" : "opacity-70 hover:opacity-100 border-transparent hover:border-gray-300"}
               ${!isLoaded && lang.code !== "en" ? "cursor-not-allowed grayscale" : "cursor-pointer"}
-            `}
-            aria-label={`Switch to ${lang.name}`}
-            disabled={!isLoaded && lang.code !== "en"}
-            title={lang.name}
-            data-testid={`language-${lang.code}`}
-            style={{ zIndex: 50 }}
-          >
-            <img 
-              src={lang.flagUrl} 
-              alt={`${lang.name} flag`}
-              className="w-8 h-6 object-cover rounded"
-              loading="eager"
-            />
-          </button>
-        ))}
+            `} aria-label={`Switch to ${lang.name}`} disabled={!isLoaded && lang.code !== "en"} title={lang.name} data-testid={`language-${lang.code}`} style={{
+        zIndex: 50
+      }}>
+            <img src={lang.flagUrl} alt={`${lang.name} flag`} className="w-8 h-6 object-cover rounded" loading="eager" />
+          </button>)}
       </div>
 
       {/* Custom styles to hide Google Translate banner */}
@@ -303,6 +276,5 @@ export default function GoogleTranslateWidget() {
           display: none !important;
         }
       `}</style>
-    </>
-  );
+    </>;
 }

@@ -1,12 +1,12 @@
 import { Link } from "wouter";
 import amonTourTeam from "@/assets/amon-tour-team.jpg";
 import { useTranslation } from 'react-i18next';
-
 export default function About() {
   const { t } = useTranslation();
-  
-  return (
-    <section id="who-we-are" className="py-16 bg-white">
+  const {
+    t
+  } = useTranslation();
+  return <section id="who-we-are" className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="order-2 lg:order-1">
@@ -39,11 +39,7 @@ export default function About() {
               {t('home.ourConceptDescription')}
             </p>
             <div className="flex items-center space-x-4">
-              <a 
-                href="https://wa.me/66653496445" 
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href="https://wa.me/66653496445" target="_blank" rel="noopener noreferrer">
                 <span className="bg-primary text-white px-6 py-2 rounded font-heading font-semibold hover:bg-primary-dark transition-colors cursor-pointer flex items-center">
                   <i className="fab fa-whatsapp mr-2"></i>
                   {t('home.contactUs')}
@@ -60,20 +56,16 @@ export default function About() {
             <div className="space-y-6">
               {/* Family Photo */}
               <div className="relative">
-                <img 
-                  src="/family-photo.png" 
-                  alt="Amon Tour family - Éric, Margaux, Gabriel, and Raphaël on a Thai beach" 
-                  className="w-full h-auto rounded-lg shadow-lg"
-                />
+                <img src="/family-photo.png" alt={t('Amon Tour family - \xC9ric, Margaux, Gabriel, and Rapha\xEBl on a Thai beach', {
+                defaultValue: 'Amon Tour family - \xC9ric, Margaux, Gabriel, and Rapha\xEBl on a Thai beach'
+              })} className="w-full h-auto rounded-lg shadow-lg" />
               </div>
               
               {/* Team Photo */}
               <div className="relative">
-                <img 
-                  src={amonTourTeam} 
-                  alt="Amon Tour team with clients on a beautiful Thai beach" 
-                  className="w-full h-auto rounded-lg shadow-lg"
-                />
+                <img src={amonTourTeam} alt={t('Amon Tour team with clients on a beautiful Thai beach', {
+                defaultValue: 'Amon Tour team with clients on a beautiful Thai beach'
+              })} className="w-full h-auto rounded-lg shadow-lg" />
                 <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-lg hidden md:block">
                   <div className="flex items-center space-x-2">
                     <div className="flex">
@@ -86,20 +78,14 @@ export default function About() {
                     <span className="font-semibold">5.0/5</span>
                   </div>
                   <p className="text-sm text-muted-foreground/80">{t('home.basedOnReviews')}</p>
-                  <a 
-                    href="https://maps.app.goo.gl/fe17kgt89d64kAHs7" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-xs text-primary hover:underline mt-1 inline-block"
-                  >
-                    See all reviews
-                  </a>
+                  <a href="https://maps.app.goo.gl/fe17kgt89d64kAHs7" target="_blank" rel="noopener noreferrer" className="text-xs text-primary hover:underline mt-1 inline-block">{t('See all reviews', {
+                    defaultValue: 'See all reviews'
+                  })}</a>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 }

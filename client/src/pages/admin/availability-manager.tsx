@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from "react";
 import { useLocation, Link } from "wouter";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
@@ -12,50 +13,13 @@ import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Calendar as CalendarComponent } from "@/components/ui/calendar";
-import { 
-  Card, 
-  CardContent, 
-  CardDescription, 
-  CardFooter, 
-  CardHeader, 
-  CardTitle 
-} from "@/components/ui/card";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Tour, TourAvailability } from "@shared/schema";
 import { formatTHB } from "@/lib/utils";
@@ -65,10 +29,10 @@ const availabilitySchema = z.object({
   tourId: z.number().min(1, "Un tour est requis"),
   date: z.date({
     required_error: "Une date est requise",
-    invalid_type_error: "Format de date invalide",
+    invalid_type_error: "Format de date invalide"
   }),
   maxCapacity: z.number().min(1, "Capacité minimum: 1").max(100, "Capacité maximum: 100"),
-  price: z.number().min(0, "Prix minimum: 0").optional(),
+  price: z.number().min(0, "Prix minimum: 0").optional()
 });
 
 // Schéma pour la création en masse de disponibilités
@@ -77,19 +41,24 @@ const bulkAvailabilitySchema = z.object({
   numberOfMonths: z.number().min(1, "Minimum 1 mois").max(12, "Maximum 12 mois").default(3),
   maxCapacity: z.number().min(1, "Capacité minimum: 1").max(100, "Capacité maximum: 100"),
   price: z.number().min(0, "Prix minimum: 0").optional(),
-  enableAllDays: z.boolean().default(true),
+  enableAllDays: z.boolean().default(true)
 });
-
 type AvailabilityFormValues = z.infer<typeof availabilitySchema>;
 type BulkAvailabilityFormValues = z.infer<typeof bulkAvailabilitySchema>;
-
 export default function AvailabilityManager() {
-  const { isAuthenticated } = useIsAuthenticated();
+  const { t } = useTranslation();
+  const {
+    t: t
+  } = useTranslation();
+  const {
+    isAuthenticated
+  } = useIsAuthenticated();
   const logout = useLogout();
   const [, navigate] = useLocation();
-  const { toast } = useToast();
+  const {
+    toast
+  } = useToast();
   const queryClient = useQueryClient();
-  
   const [selectedTourId, setSelectedTourId] = useState<number>(0);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -97,7 +66,7 @@ export default function AvailabilityManager() {
   const [isBulkCreateDialogOpen, setIsBulkCreateDialogOpen] = useState(false);
   const [selectedAvailability, setSelectedAvailability] = useState<TourAvailability | null>(null);
   const [isCreatingBulk, setIsCreatingBulk] = useState(false);
-  
+
   // Formulaire pour créer/modifier une disponibilité
   const form = useForm<AvailabilityFormValues>({
     resolver: zodResolver(availabilitySchema),
@@ -105,10 +74,10 @@ export default function AvailabilityManager() {
       tourId: 0,
       date: new Date(),
       maxCapacity: 10,
-      price: undefined,
-    },
+      price: undefined
+    }
   });
-  
+
   // Formulaire pour créer des disponibilités en masse
   const bulkForm = useForm<BulkAvailabilityFormValues>({
     resolver: zodResolver(bulkAvailabilitySchema),
@@ -117,35 +86,47 @@ export default function AvailabilityManager() {
       numberOfMonths: 3,
       maxCapacity: 10,
       price: undefined,
-      enableAllDays: true,
-    },
+      enableAllDays: true
+    }
   });
-  
+
   // Récupérer la liste des tours
-  const { data: tours, isLoading: isToursLoading } = useQuery<Tour[]>({
-    queryKey: ["/api/tours"],
+  const {
+    data: tours,
+    isLoading: isToursLoading
+  } = useQuery<Tour[]>({
+    queryKey: ["/api/tours"]
   });
-  
+
   // Récupérer les disponibilités pour le tour sélectionné
-  const { data: availabilities, isLoading: isAvailabilitiesLoading } = useQuery<TourAvailability[]>({
+  const {
+    data: availabilities,
+    isLoading: isAvailabilitiesLoading
+  } = useQuery<TourAvailability[]>({
     queryKey: [`/api/tours/${selectedTourId}/availabilities`],
-    enabled: !!selectedTourId,
+    enabled: !!selectedTourId
   });
-  
+
   // Mutation pour créer une disponibilité
   const createAvailability = useMutation({
     mutationFn: (data: AvailabilityFormValues) => {
       return apiRequest("POST", `/api/tours/${data.tourId}/availabilities`, {
         date: format(data.date, 'yyyy-MM-dd'),
         maxCapacity: data.maxCapacity,
-        price: data.price,
+        price: data.price
       }).then(res => res.json());
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [`/api/tours/${selectedTourId}/availabilities`] });
+      queryClient.invalidateQueries({
+        queryKey: [`/api/tours/${selectedTourId}/availabilities`]
+      });
       toast({
-        title: "Disponibilité créée",
-        description: "La disponibilité a été ajoutée avec succès."
+        title: t('Disponibilit\xE9 cr\xE9\xE9e', {
+          defaultValue: 'Disponibilit\xE9 cr\xE9\xE9e'
+        }),
+        description: t('La disponibilit\xE9 a \xE9t\xE9 ajout\xE9e avec succ\xE8s.', {
+          defaultValue: 'La disponibilit\xE9 a \xE9t\xE9 ajout\xE9e avec succ\xE8s.'
+        })
       });
       setIsCreateDialogOpen(false);
       form.reset();
@@ -153,55 +134,58 @@ export default function AvailabilityManager() {
     onError: (error: any) => {
       toast({
         variant: "destructive",
-        title: "Erreur",
+        title: t('Erreur', {
+          defaultValue: 'Erreur'
+        }),
         description: error.message || "Une erreur est survenue lors de la création de la disponibilité."
       });
     }
   });
-  
+
   // Mutation pour créer des disponibilités en masse
   const createBulkAvailabilities = useMutation({
     mutationFn: async (data: BulkAvailabilityFormValues) => {
       // Calculer la date de début (aujourd'hui) et la date de fin (après X mois)
       const startDate = new Date();
       const endDate = addMonths(startDate, data.numberOfMonths);
-      
+
       // Générer toutes les dates dans la plage
       const allDaysInRange = eachDayOfInterval({
         start: startDate,
         end: endDate
       });
-      
+
       // Si enableAllDays est true, utiliser toutes les dates
       // Sinon, on pourrait filtrer certains jours, mais on met tout par défaut
       const selectedDays = allDaysInRange;
-      
+
       // Créer les disponibilités pour chaque date
       const results = [];
       setIsCreatingBulk(true);
-      
       for (const date of selectedDays) {
         try {
           const response = await apiRequest("POST", `/api/tours/${data.tourId}/availabilities`, {
             date: format(date, 'yyyy-MM-dd'),
             maxCapacity: data.maxCapacity,
-            price: data.price,
+            price: data.price
           });
-          
           const result = await response.json();
           results.push(result);
         } catch (error) {
           console.error(`Erreur lors de la création pour ${format(date, 'yyyy-MM-dd')}:`, error);
         }
       }
-      
       setIsCreatingBulk(false);
       return results;
     },
-    onSuccess: (results) => {
-      queryClient.invalidateQueries({ queryKey: [`/api/tours/${selectedTourId}/availabilities`] });
+    onSuccess: results => {
+      queryClient.invalidateQueries({
+        queryKey: [`/api/tours/${selectedTourId}/availabilities`]
+      });
       toast({
-        title: "Disponibilités créées",
+        title: t('Disponibilit\xE9s cr\xE9\xE9es', {
+          defaultValue: 'Disponibilit\xE9s cr\xE9\xE9es'
+        }),
         description: `${results.length} disponibilités ont été ajoutées avec succès.`
       });
       setIsBulkCreateDialogOpen(false);
@@ -211,26 +195,43 @@ export default function AvailabilityManager() {
       setIsCreatingBulk(false);
       toast({
         variant: "destructive",
-        title: "Erreur",
+        title: t('Erreur', {
+          defaultValue: 'Erreur'
+        }),
         description: error.message || "Une erreur est survenue lors de la création des disponibilités."
       });
     }
   });
-  
+
   // Mutation pour modifier une disponibilité
   const updateAvailability = useMutation({
-    mutationFn: (data: { id: number, values: Partial<AvailabilityFormValues> }) => {
+    mutationFn: (data: {
+      id: number;
+      values: Partial<AvailabilityFormValues>;
+    }) => {
       return apiRequest("PUT", `/api/availabilities/${data.id}`, {
-        ...(data.values.date && { date: format(data.values.date, 'yyyy-MM-dd') }),
-        ...(data.values.maxCapacity && { maxCapacity: data.values.maxCapacity }),
-        ...(data.values.price !== undefined && { price: data.values.price }),
+        ...(data.values.date && {
+          date: format(data.values.date, 'yyyy-MM-dd')
+        }),
+        ...(data.values.maxCapacity && {
+          maxCapacity: data.values.maxCapacity
+        }),
+        ...(data.values.price !== undefined && {
+          price: data.values.price
+        })
       }).then(res => res.json());
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [`/api/tours/${selectedTourId}/availabilities`] });
+      queryClient.invalidateQueries({
+        queryKey: [`/api/tours/${selectedTourId}/availabilities`]
+      });
       toast({
-        title: "Disponibilité mise à jour",
-        description: "La disponibilité a été modifiée avec succès."
+        title: t('Disponibilit\xE9 mise \xE0 jour', {
+          defaultValue: 'Disponibilit\xE9 mise \xE0 jour'
+        }),
+        description: t('La disponibilit\xE9 a \xE9t\xE9 modifi\xE9e avec succ\xE8s.', {
+          defaultValue: 'La disponibilit\xE9 a \xE9t\xE9 modifi\xE9e avec succ\xE8s.'
+        })
       });
       setIsEditDialogOpen(false);
       setSelectedAvailability(null);
@@ -238,22 +239,30 @@ export default function AvailabilityManager() {
     onError: (error: any) => {
       toast({
         variant: "destructive",
-        title: "Erreur",
+        title: t('Erreur', {
+          defaultValue: 'Erreur'
+        }),
         description: error.message || "Une erreur est survenue lors de la modification de la disponibilité."
       });
     }
   });
-  
+
   // Mutation pour supprimer une disponibilité
   const deleteAvailability = useMutation({
     mutationFn: (id: number) => {
       return apiRequest("DELETE", `/api/availabilities/${id}`).then(res => res.json());
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [`/api/tours/${selectedTourId}/availabilities`] });
+      queryClient.invalidateQueries({
+        queryKey: [`/api/tours/${selectedTourId}/availabilities`]
+      });
       toast({
-        title: "Disponibilité supprimée",
-        description: "La disponibilité a été supprimée avec succès."
+        title: t('Disponibilit\xE9 supprim\xE9e', {
+          defaultValue: 'Disponibilit\xE9 supprim\xE9e'
+        }),
+        description: t('La disponibilit\xE9 a \xE9t\xE9 supprim\xE9e avec succ\xE8s.', {
+          defaultValue: 'La disponibilit\xE9 a \xE9t\xE9 supprim\xE9e avec succ\xE8s.'
+        })
       });
       setIsDeleteDialogOpen(false);
       setSelectedAvailability(null);
@@ -261,12 +270,14 @@ export default function AvailabilityManager() {
     onError: (error: any) => {
       toast({
         variant: "destructive",
-        title: "Erreur",
+        title: t('Erreur', {
+          defaultValue: 'Erreur'
+        }),
         description: error.message || "Une erreur est survenue lors de la suppression de la disponibilité."
       });
     }
   });
-  
+
   // Effet pour initialiser le formulaire d'édition
   useEffect(() => {
     if (selectedAvailability && isEditDialogOpen) {
@@ -274,11 +285,11 @@ export default function AvailabilityManager() {
         tourId: selectedAvailability.tourId,
         date: new Date(selectedAvailability.date),
         maxCapacity: selectedAvailability.maxCapacity,
-        price: selectedAvailability.price || undefined,
+        price: selectedAvailability.price || undefined
       });
     }
   }, [selectedAvailability, isEditDialogOpen, form]);
-  
+
   // Effet pour réinitialiser le formulaire lors de l'ouverture de la modal de création
   useEffect(() => {
     if (isCreateDialogOpen) {
@@ -286,11 +297,11 @@ export default function AvailabilityManager() {
         tourId: selectedTourId,
         date: addDays(new Date(), 1),
         maxCapacity: 10,
-        price: undefined,
+        price: undefined
       });
     }
   }, [isCreateDialogOpen, selectedTourId, form]);
-  
+
   // Effet pour réinitialiser le formulaire de création en masse
   useEffect(() => {
     if (isBulkCreateDialogOpen) {
@@ -299,98 +310,95 @@ export default function AvailabilityManager() {
         numberOfMonths: 3,
         maxCapacity: 10,
         price: undefined,
-        enableAllDays: true,
+        enableAllDays: true
       });
     }
   }, [isBulkCreateDialogOpen, selectedTourId, bulkForm]);
-  
+
   // Fonction pour gérer la déconnexion
   const handleLogout = () => {
     logout.mutate();
   };
-  
+
   // Fonction pour ouvrir la modal d'édition
   const openEditDialog = (availability: TourAvailability) => {
     setSelectedAvailability(availability);
     setIsEditDialogOpen(true);
   };
-  
+
   // Fonction pour ouvrir la modal de suppression
   const openDeleteDialog = (availability: TourAvailability) => {
     setSelectedAvailability(availability);
     setIsDeleteDialogOpen(true);
   };
-  
+
   // Fonction pour ouvrir la modal de création en masse
   const openBulkCreateDialog = () => {
     setIsBulkCreateDialogOpen(true);
   };
-  
+
   // Fonction pour soumettre le formulaire de création
   const onSubmitCreate = (values: AvailabilityFormValues) => {
     createAvailability.mutate(values);
   };
-  
+
   // Fonction pour soumettre le formulaire d'édition
   const onSubmitEdit = (values: AvailabilityFormValues) => {
     if (!selectedAvailability) return;
-    
     updateAvailability.mutate({
       id: selectedAvailability.id,
       values
     });
   };
-  
+
   // Fonction pour soumettre le formulaire de création en masse
   const onSubmitBulkCreate = (values: BulkAvailabilityFormValues) => {
     createBulkAvailabilities.mutate(values);
   };
-  
+
   // Fonction pour confirmer la suppression
   const confirmDelete = () => {
     if (!selectedAvailability) return;
-    
     deleteAvailability.mutate(selectedAvailability.id);
   };
-  
+
   // Vérification de l'authentification
   if (!isAuthenticated) {
     navigate("/admin/login");
     return null;
   }
-  
-  return (
-    <div className="min-h-screen bg-gray-50">
+  return <div className="min-h-screen bg-gray-50">
       <header className="bg-primary text-white py-4">
         <div className="container mx-auto px-4 flex justify-between items-center">
           <div className="flex items-center space-x-4">
             <Link href="/">
               <div className="flex items-center cursor-pointer">
-                <span className="text-white font-heading font-bold text-xl">Senthang</span>
-                <span className="text-secondary font-accent text-xl ml-1">Siam</span>
-                <span className="text-white font-heading font-bold text-xl ml-1">Tour</span>
+                <span className="text-white font-heading font-bold text-xl">{t('Senthang', {
+                  defaultValue: 'Senthang'
+                })}</span>
+                <span className="text-secondary font-accent text-xl ml-1">{t('Siam', {
+                  defaultValue: 'Siam'
+                })}</span>
+                <span className="text-white font-heading font-bold text-xl ml-1">{t('Tour', {
+                  defaultValue: 'Tour'
+                })}</span>
               </div>
             </Link>
-            <div className="hidden md:block text-sm px-3 py-1 bg-primary-dark rounded">
-              Gestion des disponibilités
-            </div>
+            <div className="hidden md:block text-sm px-3 py-1 bg-primary-dark rounded">{t('Gestion des disponibilit\xE9s', {
+              defaultValue: 'Gestion des disponibilit\xE9s'
+            })}</div>
           </div>
           
           <div className="flex items-center space-x-4">
-            <Button 
-              variant="outline" 
-              size="sm" 
-              className="text-white border-white hover:bg-primary-dark"
-              onClick={handleLogout}
-            >
-              <LogOut className="mr-2 h-4 w-4" />
-              Déconnexion
-            </Button>
+            <Button variant="outline" size="sm" className="text-white border-white hover:bg-primary-dark" onClick={handleLogout}>
+              <LogOut className="mr-2 h-4 w-4" />{t('D\xE9connexion', {
+              defaultValue: 'D\xE9connexion'
+            })}</Button>
             <Link href="/admin/dashboard">
               <span className="text-white hover:text-gray-200 transition-colors cursor-pointer">
-                <ChevronLeft className="mr-2 h-4 w-4 inline" />
-                Retour au tableau de bord
-              </span>
+                <ChevronLeft className="mr-2 h-4 w-4 inline" />{t('Retour au tableau de bord', {
+                defaultValue: 'Retour au tableau de bord'
+              })}</span>
             </Link>
           </div>
         </div>
@@ -398,258 +406,218 @@ export default function AvailabilityManager() {
       
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="font-heading font-bold text-3xl mb-2">Gestion des disponibilités</h1>
-          <p className="text-gray-600">Gérez les dates disponibles pour chaque tour, ainsi que leurs prix et capacités.</p>
+          <h1 className="font-heading font-bold text-3xl mb-2">{t('Gestion des disponibilit\xE9s', {
+            defaultValue: 'Gestion des disponibilit\xE9s'
+          })}</h1>
+          <p className="text-gray-600">{t('G\xE9rez les dates disponibles pour chaque tour, ainsi que leurs prix et capacit\xE9s.', {
+            defaultValue: 'G\xE9rez les dates disponibles pour chaque tour, ainsi que leurs prix et capacit\xE9s.'
+          })}</p>
         </div>
         
         <Card className="mb-8">
           <CardHeader>
-            <CardTitle>Sélectionnez un tour</CardTitle>
-            <CardDescription>Choisissez un tour pour voir et gérer ses disponibilités</CardDescription>
+            <CardTitle>{t('S\xE9lectionnez un tour', {
+              defaultValue: 'S\xE9lectionnez un tour'
+            })}</CardTitle>
+            <CardDescription>{t('Choisissez un tour pour voir et g\xE9rer ses disponibilit\xE9s', {
+              defaultValue: 'Choisissez un tour pour voir et g\xE9rer ses disponibilit\xE9s'
+            })}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Select
-                value={selectedTourId.toString()}
-                onValueChange={(value) => setSelectedTourId(parseInt(value))}
-              >
+              <Select value={selectedTourId.toString()} onValueChange={value => setSelectedTourId(parseInt(value))}>
                 <SelectTrigger className="w-full sm:w-[300px]">
-                  <SelectValue placeholder="Sélectionnez un tour" />
+                  <SelectValue placeholder={t('S\xE9lectionnez un tour', {
+                  defaultValue: 'S\xE9lectionnez un tour'
+                })} />
                 </SelectTrigger>
                 <SelectContent>
-                  {isToursLoading ? (
-                    <SelectItem value="loading" disabled>Chargement des tours...</SelectItem>
-                  ) : tours && tours.length > 0 ? (
-                    tours.map(tour => (
-                      <SelectItem key={tour.id} value={tour.id.toString()}>
+                  {isToursLoading ? <SelectItem value="loading" disabled>{t('Chargement des tours...', {
+                    defaultValue: 'Chargement des tours...'
+                  })}</SelectItem> : tours && tours.length > 0 ? tours.map(tour => <SelectItem key={tour.id} value={tour.id.toString()}>
                         {tour.title}
-                      </SelectItem>
-                    ))
-                  ) : (
-                    <SelectItem value="empty" disabled>Aucun tour disponible</SelectItem>
-                  )}
+                      </SelectItem>) : <SelectItem value="empty" disabled>{t('Aucun tour disponible', {
+                    defaultValue: 'Aucun tour disponible'
+                  })}</SelectItem>}
                 </SelectContent>
               </Select>
               
               <div className="flex gap-2">
-                <Button 
-                  variant="outline" 
-                  onClick={openBulkCreateDialog}
-                  disabled={!selectedTourId}
-                >
-                  <CalendarRange className="h-4 w-4 mr-2" />
-                  Ajouter en masse
-                </Button>
+                <Button variant="outline" onClick={openBulkCreateDialog} disabled={!selectedTourId}>
+                  <CalendarRange className="h-4 w-4 mr-2" />{t('Ajouter en masse', {
+                  defaultValue: 'Ajouter en masse'
+                })}</Button>
                 
-                <Button 
-                  variant="default" 
-                  onClick={() => setIsCreateDialogOpen(true)}
-                  disabled={!selectedTourId}
-                >
-                  <Plus className="h-4 w-4 mr-2" />
-                  Ajouter une disponibilité
-                </Button>
+                <Button variant="default" onClick={() => setIsCreateDialogOpen(true)} disabled={!selectedTourId}>
+                  <Plus className="h-4 w-4 mr-2" />{t('Ajouter une disponibilit\xE9', {
+                  defaultValue: 'Ajouter une disponibilit\xE9'
+                })}</Button>
               </div>
             </div>
           </CardContent>
         </Card>
         
-        {selectedTourId ? (
-          <Card>
+        {selectedTourId ? <Card>
             <CardHeader>
-              <CardTitle>
-                Disponibilités
-                {tours?.find(t => t.id === selectedTourId) && (
-                  <span className="text-gray-600 font-normal">
+              <CardTitle>{t('Disponibilit\xE9s', {
+              defaultValue: 'Disponibilit\xE9s'
+            })}{tours?.find(t => t.id === selectedTourId) && <span className="text-gray-600 font-normal">
                     {" "}pour {tours.find(t => t.id === selectedTourId)?.title}
-                  </span>
-                )}
+                  </span>}
               </CardTitle>
-              <CardDescription>Liste des dates disponibles pour ce tour</CardDescription>
+              <CardDescription>{t('Liste des dates disponibles pour ce tour', {
+              defaultValue: 'Liste des dates disponibles pour ce tour'
+            })}</CardDescription>
             </CardHeader>
             <CardContent>
-              {isAvailabilitiesLoading ? (
-                <div className="flex justify-center py-8">
+              {isAvailabilitiesLoading ? <div className="flex justify-center py-8">
                   <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full"></div>
-                </div>
-              ) : availabilities && availabilities.length > 0 ? (
-                <div className="overflow-x-auto">
+                </div> : availabilities && availabilities.length > 0 ? <div className="overflow-x-auto">
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead>Date</TableHead>
-                        <TableHead>Capacité</TableHead>
-                        <TableHead>Réservations actuelles</TableHead>
-                        <TableHead>Places restantes</TableHead>
-                        <TableHead>Prix spécifique</TableHead>
-                        <TableHead className="text-right">Actions</TableHead>
+                        <TableHead>{t('Date', {
+                      defaultValue: 'Date'
+                    })}</TableHead>
+                        <TableHead>{t('Capacit\xE9', {
+                      defaultValue: 'Capacit\xE9'
+                    })}</TableHead>
+                        <TableHead>{t('R\xE9servations actuelles', {
+                      defaultValue: 'R\xE9servations actuelles'
+                    })}</TableHead>
+                        <TableHead>{t('Places restantes', {
+                      defaultValue: 'Places restantes'
+                    })}</TableHead>
+                        <TableHead>{t('Prix sp\xE9cifique', {
+                      defaultValue: 'Prix sp\xE9cifique'
+                    })}</TableHead>
+                        <TableHead className="text-right">{t('Actions', {
+                      defaultValue: 'Actions'
+                    })}</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
                       {availabilities.map(availability => {
-                        const isInPast = !isAfter(new Date(availability.date), new Date());
-                        const remainingSpots = availability.maxCapacity - availability.currentBookings;
-                        
-                        return (
-                          <TableRow key={availability.id} className={isInPast ? "bg-gray-100" : ""}>
+                  const isInPast = !isAfter(new Date(availability.date), new Date());
+                  const remainingSpots = availability.maxCapacity - availability.currentBookings;
+                  return <TableRow key={availability.id} className={isInPast ? "bg-gray-100" : ""}>
                             <TableCell className={isInPast ? "text-gray-500" : ""}>
-                              {format(new Date(availability.date), 'dd MMMM yyyy', { locale: fr })}
+                              {format(new Date(availability.date), 'dd MMMM yyyy', {
+                        locale: fr
+                      })}
                               {isInPast && <span className="ml-2 text-xs text-gray-400">(passé)</span>}
                             </TableCell>
                             <TableCell>{availability.maxCapacity}</TableCell>
                             <TableCell>{availability.currentBookings}</TableCell>
                             <TableCell>
-                              {remainingSpots <= 0 ? (
-                                <span className="text-[hsl(var(--destructive))] font-semibold flex items-center">
-                                  <AlertTriangle className="h-4 w-4 mr-1" />
-                                  Complet
-                                </span>
-                              ) : remainingSpots <= 3 ? (
-                                <span className="text-[hsl(var(--warning))] font-semibold">
+                              {remainingSpots <= 0 ? <span className="text-[hsl(var(--destructive))] font-semibold flex items-center">
+                                  <AlertTriangle className="h-4 w-4 mr-1" />{t('Complet', {
+                          defaultValue: 'Complet'
+                        })}</span> : remainingSpots <= 3 ? <span className="text-[hsl(var(--warning))] font-semibold">
                                   {remainingSpots}
-                                </span>
-                              ) : (
-                                <span>{remainingSpots}</span>
-                              )}
+                                </span> : <span>{remainingSpots}</span>}
                             </TableCell>
                             <TableCell>
                               {availability.price ? formatTHB(availability.price) : "-"}
                             </TableCell>
                             <TableCell className="text-right">
                               <div className="flex justify-end space-x-2">
-                                <Button
-                                  variant="outline"
-                                  size="sm"
-                                  disabled={isInPast}
-                                  onClick={() => openEditDialog(availability)}
-                                >
+                                <Button variant="outline" size="sm" disabled={isInPast} onClick={() => openEditDialog(availability)}>
                                   <Edit className="h-4 w-4" />
                                 </Button>
-                                <Button
-                                  variant="destructive"
-                                  size="sm"
-                                  disabled={isInPast && availability.currentBookings > 0}
-                                  onClick={() => openDeleteDialog(availability)}
-                                >
+                                <Button variant="destructive" size="sm" disabled={isInPast && availability.currentBookings > 0} onClick={() => openDeleteDialog(availability)}>
                                   <Trash2 className="h-4 w-4" />
                                 </Button>
                               </div>
                             </TableCell>
-                          </TableRow>
-                        );
-                      })}
+                          </TableRow>;
+                })}
                     </TableBody>
                   </Table>
-                </div>
-              ) : (
-                <div className="text-center py-8">
+                </div> : <div className="text-center py-8">
                   <Calendar className="h-12 w-12 text-gray-400 mx-auto mb-2" />
-                  <p className="text-gray-500 mb-4">Aucune disponibilité pour ce tour.</p>
+                  <p className="text-gray-500 mb-4">{t('Aucune disponibilit\xE9 pour ce tour.', {
+                defaultValue: 'Aucune disponibilit\xE9 pour ce tour.'
+              })}</p>
                   <Button onClick={() => setIsCreateDialogOpen(true)}>
-                    <Plus className="h-4 w-4 mr-2" />
-                    Ajouter la première disponibilité
-                  </Button>
-                </div>
-              )}
+                    <Plus className="h-4 w-4 mr-2" />{t('Ajouter la premi\xE8re disponibilit\xE9', {
+                defaultValue: 'Ajouter la premi\xE8re disponibilit\xE9'
+              })}</Button>
+                </div>}
             </CardContent>
-          </Card>
-        ) : (
-          <div className="text-center py-12 bg-white rounded-lg shadow-sm">
-            <h3 className="font-heading font-semibold text-xl mb-2">Sélectionnez un tour</h3>
-            <p className="text-gray-500">
-              Veuillez sélectionner un tour dans la liste ci-dessus pour gérer ses disponibilités.
-            </p>
-          </div>
-        )}
+          </Card> : <div className="text-center py-12 bg-white rounded-lg shadow-sm">
+            <h3 className="font-heading font-semibold text-xl mb-2">{t('S\xE9lectionnez un tour', {
+            defaultValue: 'S\xE9lectionnez un tour'
+          })}</h3>
+            <p className="text-gray-500">{t('Veuillez s\xE9lectionner un tour dans la liste ci-dessus pour g\xE9rer ses disponibilit\xE9s.', {
+            defaultValue: 'Veuillez s\xE9lectionner un tour dans la liste ci-dessus pour g\xE9rer ses disponibilit\xE9s.'
+          })}</p>
+          </div>}
       </main>
       
       {/* Modal de création de disponibilité */}
       <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
-            <DialogTitle>Ajouter une nouvelle disponibilité</DialogTitle>
-            <DialogDescription>
-              Créez une nouvelle date disponible pour ce tour. Les clients pourront réserver à cette date.
-            </DialogDescription>
+            <DialogTitle>{t('Ajouter une nouvelle disponibilit\xE9', {
+              defaultValue: 'Ajouter une nouvelle disponibilit\xE9'
+            })}</DialogTitle>
+            <DialogDescription>{t('Cr\xE9ez une nouvelle date disponible pour ce tour. Les clients pourront r\xE9server \xE0 cette date.', {
+              defaultValue: 'Cr\xE9ez une nouvelle date disponible pour ce tour. Les clients pourront r\xE9server \xE0 cette date.'
+            })}</DialogDescription>
           </DialogHeader>
           
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmitCreate)} className="space-y-4 pt-4">
-              <FormField
-                control={form.control}
-                name="date"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>Date</FormLabel>
-                    <CalendarComponent
-                      mode="single"
-                      selected={field.value}
-                      onSelect={field.onChange}
-                      disabled={(date) => date <= new Date()}
-                      className="rounded-md border"
-                      locale={fr}
-                    />
-                    <FormDescription>
-                      Sélectionnez la date à laquelle le tour sera disponible.
-                    </FormDescription>
+              <FormField control={form.control} name="date" render={({
+              field
+            }) => <FormItem className="flex flex-col">
+                    <FormLabel>{t('Date', {
+                  defaultValue: 'Date'
+                })}</FormLabel>
+                    <CalendarComponent mode="single" selected={field.value} onSelect={field.onChange} disabled={date => date <= new Date()} className="rounded-md border" locale={fr} />
+                    <FormDescription>{t('S\xE9lectionnez la date \xE0 laquelle le tour sera disponible.', {
+                  defaultValue: 'S\xE9lectionnez la date \xE0 laquelle le tour sera disponible.'
+                })}</FormDescription>
                     <FormMessage />
-                  </FormItem>
-                )}
-              />
+                  </FormItem>} />
               
-              <FormField
-                control={form.control}
-                name="maxCapacity"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Capacité maximale</FormLabel>
+              <FormField control={form.control} name="maxCapacity" render={({
+              field
+            }) => <FormItem>
+                    <FormLabel>{t('Capacit\xE9 maximale', {
+                  defaultValue: 'Capacit\xE9 maximale'
+                })}</FormLabel>
                     <FormControl>
-                      <Input 
-                        type="number" 
-                        min={1} 
-                        {...field}
-                        onChange={(e) => field.onChange(parseInt(e.target.value))}
-                      />
+                      <Input type="number" min={1} {...field} onChange={e => field.onChange(parseInt(e.target.value))} />
                     </FormControl>
-                    <FormDescription>
-                      Nombre maximum de personnes pouvant participer à ce tour.
-                    </FormDescription>
+                    <FormDescription>{t('Nombre maximum de personnes pouvant participer \xE0 ce tour.', {
+                  defaultValue: 'Nombre maximum de personnes pouvant participer \xE0 ce tour.'
+                })}</FormDescription>
                     <FormMessage />
-                  </FormItem>
-                )}
-              />
+                  </FormItem>} />
               
-              <FormField
-                control={form.control}
-                name="price"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Prix spécifique (optionnel)</FormLabel>
+              <FormField control={form.control} name="price" render={({
+              field
+            }) => <FormItem>
+                    <FormLabel>{t('Prix sp\xE9cifique (optionnel)', {
+                  defaultValue: 'Prix sp\xE9cifique (optionnel)'
+                })}</FormLabel>
                     <FormControl>
-                      <Input 
-                        type="number" 
-                        min={0} 
-                        placeholder="Laisser vide pour utiliser le prix par défaut du tour"
-                        value={field.value === undefined ? "" : field.value}
-                        onChange={(e) => field.onChange(e.target.value ? parseInt(e.target.value) : undefined)}
-                      />
+                      <Input type="number" min={0} placeholder={t('Laisser vide pour utiliser le prix par d\xE9faut du tour', {
+                  defaultValue: 'Laisser vide pour utiliser le prix par d\xE9faut du tour'
+                })} value={field.value === undefined ? "" : field.value} onChange={e => field.onChange(e.target.value ? parseInt(e.target.value) : undefined)} />
                     </FormControl>
-                    <FormDescription>
-                      Définissez un prix spécifique pour cette date (si différent du prix par défaut).
-                    </FormDescription>
+                    <FormDescription>{t('D\xE9finissez un prix sp\xE9cifique pour cette date (si diff\xE9rent du prix par d\xE9faut).', {
+                  defaultValue: 'D\xE9finissez un prix sp\xE9cifique pour cette date (si diff\xE9rent du prix par d\xE9faut).'
+                })}</FormDescription>
                     <FormMessage />
-                  </FormItem>
-                )}
-              />
+                  </FormItem>} />
               
               <DialogFooter>
-                <Button 
-                  type="button" 
-                  variant="outline" 
-                  onClick={() => setIsCreateDialogOpen(false)}
-                >
-                  Cancel
-                </Button>
+                <Button type="button" variant="outline" onClick={() => setIsCreateDialogOpen(false)}>{t('Cancel', {
+                  defaultValue: 'Cancel'
+                })}</Button>
                 <Button type="submit" disabled={createAvailability.isPending}>
                   {createAvailability.isPending ? "Creating..." : "Create availability"}
                 </Button>
@@ -663,88 +631,62 @@ export default function AvailabilityManager() {
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
-            <DialogTitle>Modifier la disponibilité</DialogTitle>
-            <DialogDescription>
-              Modifiez les détails de cette disponibilité.
-            </DialogDescription>
+            <DialogTitle>{t('Modifier la disponibilit\xE9', {
+              defaultValue: 'Modifier la disponibilit\xE9'
+            })}</DialogTitle>
+            <DialogDescription>{t('Modifiez les d\xE9tails de cette disponibilit\xE9.', {
+              defaultValue: 'Modifiez les d\xE9tails de cette disponibilit\xE9.'
+            })}</DialogDescription>
           </DialogHeader>
           
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmitEdit)} className="space-y-4 pt-4">
-              <FormField
-                control={form.control}
-                name="date"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>Date</FormLabel>
-                    <CalendarComponent
-                      mode="single"
-                      selected={field.value}
-                      onSelect={field.onChange}
-                      disabled={(date) => date <= new Date()}
-                      className="rounded-md border"
-                      locale={fr}
-                    />
+              <FormField control={form.control} name="date" render={({
+              field
+            }) => <FormItem className="flex flex-col">
+                    <FormLabel>{t('Date', {
+                  defaultValue: 'Date'
+                })}</FormLabel>
+                    <CalendarComponent mode="single" selected={field.value} onSelect={field.onChange} disabled={date => date <= new Date()} className="rounded-md border" locale={fr} />
                     <FormMessage />
-                  </FormItem>
-                )}
-              />
+                  </FormItem>} />
               
-              <FormField
-                control={form.control}
-                name="maxCapacity"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Capacité maximale</FormLabel>
+              <FormField control={form.control} name="maxCapacity" render={({
+              field
+            }) => <FormItem>
+                    <FormLabel>{t('Capacit\xE9 maximale', {
+                  defaultValue: 'Capacit\xE9 maximale'
+                })}</FormLabel>
                     <FormControl>
-                      <Input 
-                        type="number" 
-                        min={selectedAvailability?.currentBookings || 1} 
-                        {...field}
-                        onChange={(e) => field.onChange(parseInt(e.target.value))}
-                      />
+                      <Input type="number" min={selectedAvailability?.currentBookings || 1} {...field} onChange={e => field.onChange(parseInt(e.target.value))} />
                     </FormControl>
                     <FormDescription>
-                      {selectedAvailability?.currentBookings
-                        ? `Minimum: ${selectedAvailability.currentBookings} (nombre de réservations actuelles)`
-                        : "Nombre maximum de personnes pouvant participer à ce tour"}
+                      {selectedAvailability?.currentBookings ? `Minimum: ${selectedAvailability.currentBookings} (nombre de réservations actuelles)` : "Nombre maximum de personnes pouvant participer à ce tour"}
                     </FormDescription>
                     <FormMessage />
-                  </FormItem>
-                )}
-              />
+                  </FormItem>} />
               
-              <FormField
-                control={form.control}
-                name="price"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Prix spécifique (optionnel)</FormLabel>
+              <FormField control={form.control} name="price" render={({
+              field
+            }) => <FormItem>
+                    <FormLabel>{t('Prix sp\xE9cifique (optionnel)', {
+                  defaultValue: 'Prix sp\xE9cifique (optionnel)'
+                })}</FormLabel>
                     <FormControl>
-                      <Input 
-                        type="number" 
-                        min={0} 
-                        placeholder="Laisser vide pour utiliser le prix par défaut du tour"
-                        value={field.value === undefined ? "" : field.value}
-                        onChange={(e) => field.onChange(e.target.value ? parseInt(e.target.value) : undefined)}
-                      />
+                      <Input type="number" min={0} placeholder={t('Laisser vide pour utiliser le prix par d\xE9faut du tour', {
+                  defaultValue: 'Laisser vide pour utiliser le prix par d\xE9faut du tour'
+                })} value={field.value === undefined ? "" : field.value} onChange={e => field.onChange(e.target.value ? parseInt(e.target.value) : undefined)} />
                     </FormControl>
-                    <FormDescription>
-                      Définissez un prix spécifique pour cette date (si différent du prix par défaut).
-                    </FormDescription>
+                    <FormDescription>{t('D\xE9finissez un prix sp\xE9cifique pour cette date (si diff\xE9rent du prix par d\xE9faut).', {
+                  defaultValue: 'D\xE9finissez un prix sp\xE9cifique pour cette date (si diff\xE9rent du prix par d\xE9faut).'
+                })}</FormDescription>
                     <FormMessage />
-                  </FormItem>
-                )}
-              />
+                  </FormItem>} />
               
               <DialogFooter>
-                <Button 
-                  type="button" 
-                  variant="outline" 
-                  onClick={() => setIsEditDialogOpen(false)}
-                >
-                  Cancel
-                </Button>
+                <Button type="button" variant="outline" onClick={() => setIsEditDialogOpen(false)}>{t('Cancel', {
+                  defaultValue: 'Cancel'
+                })}</Button>
                 <Button type="submit" disabled={updateAvailability.isPending}>
                   {updateAvailability.isPending ? "Mise à jour..." : "Mettre à jour"}
                 </Button>
@@ -758,41 +700,38 @@ export default function AvailabilityManager() {
       <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
         <DialogContent className="sm:max-w-[450px]">
           <DialogHeader>
-            <DialogTitle>Confirm deletion</DialogTitle>
+            <DialogTitle>{t('Confirm deletion', {
+              defaultValue: 'Confirm deletion'
+            })}</DialogTitle>
             <DialogDescription>
               Êtes-vous sûr de vouloir supprimer cette disponibilité ?
-              {selectedAvailability?.currentBookings !== undefined && selectedAvailability.currentBookings > 0 && (
-                <div className="mt-2 p-3 bg-[hsl(var(--warning)/0.1)] text-[hsl(var(--warning))] rounded-md flex items-start">
+              {selectedAvailability?.currentBookings !== undefined && selectedAvailability.currentBookings > 0 && <div className="mt-2 p-3 bg-[hsl(var(--warning)/0.1)] text-[hsl(var(--warning))] rounded-md flex items-start">
                   <AlertTriangle className="h-5 w-5 mr-2 flex-shrink-0 mt-0.5 text-[hsl(var(--warning))]" />
-                  <span>
-                    Attention : Cette disponibilité a déjà <strong>{selectedAvailability.currentBookings} réservation(s)</strong>.
-                    La suppression affectera ces réservations existantes.
-                  </span>
-                </div>
-              )}
+                  <span>{t('Attention : Cette disponibilit\xE9 a d\xE9j\xE0', {
+                  defaultValue: 'Attention : Cette disponibilit\xE9 a d\xE9j\xE0'
+                })}<strong>{selectedAvailability.currentBookings} réservation(s)</strong>{t('.\n                    La suppression affectera ces r\xE9servations existantes.', {
+                  defaultValue: '.\n                    La suppression affectera ces r\xE9servations existantes.'
+                })}</span>
+                </div>}
             </DialogDescription>
           </DialogHeader>
           
-          {selectedAvailability && (
-            <div className="py-4 px-2">
-              <p className="mb-2"><strong>Date :</strong> {format(new Date(selectedAvailability.date), 'dd MMMM yyyy', { locale: fr })}</p>
-              <p><strong>Capacité :</strong> {selectedAvailability.maxCapacity} personnes</p>
-            </div>
-          )}
+          {selectedAvailability && <div className="py-4 px-2">
+              <p className="mb-2"><strong>{t('Date :', {
+                defaultValue: 'Date :'
+              })}</strong> {format(new Date(selectedAvailability.date), 'dd MMMM yyyy', {
+              locale: fr
+            })}</p>
+              <p><strong>{t('Capacit\xE9 :', {
+                defaultValue: 'Capacit\xE9 :'
+              })}</strong> {selectedAvailability.maxCapacity} personnes</p>
+            </div>}
           
           <DialogFooter>
-            <Button 
-              type="button" 
-              variant="outline" 
-              onClick={() => setIsDeleteDialogOpen(false)}
-            >
-              Cancel
-            </Button>
-            <Button 
-              variant="destructive" 
-              onClick={confirmDelete} 
-              disabled={deleteAvailability.isPending}
-            >
+            <Button type="button" variant="outline" onClick={() => setIsDeleteDialogOpen(false)}>{t('Cancel', {
+              defaultValue: 'Cancel'
+            })}</Button>
+            <Button variant="destructive" onClick={confirmDelete} disabled={deleteAvailability.isPending}>
               {deleteAvailability.isPending ? "Suppression..." : "Supprimer"}
             </Button>
           </DialogFooter>
@@ -803,155 +742,119 @@ export default function AvailabilityManager() {
       <Dialog open={isBulkCreateDialogOpen} onOpenChange={setIsBulkCreateDialogOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Create bulk availabilities</DialogTitle>
-            <DialogDescription>
-              Activez tous les jours pour les prochains mois en un seul clic.
-            </DialogDescription>
+            <DialogTitle>{t('Create bulk availabilities', {
+              defaultValue: 'Create bulk availabilities'
+            })}</DialogTitle>
+            <DialogDescription>{t('Activez tous les jours pour les prochains mois en un seul clic.', {
+              defaultValue: 'Activez tous les jours pour les prochains mois en un seul clic.'
+            })}</DialogDescription>
           </DialogHeader>
           
           <Form {...bulkForm}>
             <form onSubmit={bulkForm.handleSubmit(onSubmitBulkCreate)} className="space-y-4">
-              <FormField
-                control={bulkForm.control}
-                name="tourId"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Tour</FormLabel>
-                    <Select
-                      disabled={true}
-                      value={selectedTourId.toString()}
-                      onValueChange={(value) => {
-                        field.onChange(parseInt(value));
-                      }}
-                    >
+              <FormField control={bulkForm.control} name="tourId" render={({
+              field
+            }) => <FormItem>
+                    <FormLabel>{t('Tour', {
+                  defaultValue: 'Tour'
+                })}</FormLabel>
+                    <Select disabled={true} value={selectedTourId.toString()} onValueChange={value => {
+                field.onChange(parseInt(value));
+              }}>
                       <SelectTrigger>
-                        <SelectValue placeholder="Sélectionner un tour" />
+                        <SelectValue placeholder={t('S\xE9lectionner un tour', {
+                    defaultValue: 'S\xE9lectionner un tour'
+                  })} />
                       </SelectTrigger>
                       <SelectContent>
-                        {tours?.map(tour => (
-                          <SelectItem key={tour.id} value={tour.id.toString()}>
+                        {tours?.map(tour => <SelectItem key={tour.id} value={tour.id.toString()}>
                             {tour.title}
-                          </SelectItem>
-                        ))}
+                          </SelectItem>)}
                       </SelectContent>
                     </Select>
                     <FormMessage />
-                  </FormItem>
-                )}
-              />
+                  </FormItem>} />
               
-              <FormField
-                control={bulkForm.control}
-                name="numberOfMonths"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Durée (nombre de mois)</FormLabel>
+              <FormField control={bulkForm.control} name="numberOfMonths" render={({
+              field
+            }) => <FormItem>
+                    <FormLabel>{t('Dur\xE9e (nombre de mois)', {
+                  defaultValue: 'Dur\xE9e (nombre de mois)'
+                })}</FormLabel>
                     <div className="flex items-center">
-                      <Select
-                        value={field.value.toString()}
-                        onValueChange={(value) => field.onChange(parseInt(value))}
-                      >
+                      <Select value={field.value.toString()} onValueChange={value => field.onChange(parseInt(value))}>
                         <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Sélectionner une durée" />
+                          <SelectValue placeholder={t('S\xE9lectionner une dur\xE9e', {
+                      defaultValue: 'S\xE9lectionner une dur\xE9e'
+                    })} />
                         </SelectTrigger>
                         <SelectContent>
-                          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((month) => (
-                            <SelectItem key={month} value={month.toString()}>
+                          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(month => <SelectItem key={month} value={month.toString()}>
                               {month} {month === 1 ? 'mois' : 'mois'}
-                            </SelectItem>
-                          ))}
+                            </SelectItem>)}
                         </SelectContent>
                       </Select>
                     </div>
-                    <FormDescription>
-                      Disponibilités créées à partir d'aujourd'hui pour le nombre de mois sélectionné
-                    </FormDescription>
+                    <FormDescription>{t('Disponibilit\xE9s cr\xE9\xE9es \xE0 partir d\'aujourd\'hui pour le nombre de mois s\xE9lectionn\xE9', {
+                  defaultValue: 'Disponibilit\xE9s cr\xE9\xE9es \xE0 partir d\'aujourd\'hui pour le nombre de mois s\xE9lectionn\xE9'
+                })}</FormDescription>
                     <FormMessage />
-                  </FormItem>
-                )}
-              />
+                  </FormItem>} />
               
-              <FormField
-                control={bulkForm.control}
-                name="enableAllDays"
-                render={({ field }) => (
-                  <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+              <FormField control={bulkForm.control} name="enableAllDays" render={({
+              field
+            }) => <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
                     <div className="space-y-0.5">
-                      <FormLabel>Activer tous les jours</FormLabel>
-                      <FormDescription>
-                        Tous les jours seront disponibles pour ce tour
-                      </FormDescription>
+                      <FormLabel>{t('Activer tous les jours', {
+                    defaultValue: 'Activer tous les jours'
+                  })}</FormLabel>
+                      <FormDescription>{t('Tous les jours seront disponibles pour ce tour', {
+                    defaultValue: 'Tous les jours seront disponibles pour ce tour'
+                  })}</FormDescription>
                     </div>
                     <FormControl>
-                      <Switch
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
+                      <Switch checked={field.value} onCheckedChange={field.onChange} />
                     </FormControl>
                     <FormMessage />
-                  </FormItem>
-                )}
-              />
+                  </FormItem>} />
               
-              <FormField
-                control={bulkForm.control}
-                name="maxCapacity"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Capacité maximale</FormLabel>
+              <FormField control={bulkForm.control} name="maxCapacity" render={({
+              field
+            }) => <FormItem>
+                    <FormLabel>{t('Capacit\xE9 maximale', {
+                  defaultValue: 'Capacit\xE9 maximale'
+                })}</FormLabel>
                     <FormControl>
-                      <Input
-                        type="number"
-                        min={1}
-                        max={100}
-                        {...field}
-                        onChange={e => field.onChange(parseInt(e.target.value))}
-                      />
+                      <Input type="number" min={1} max={100} {...field} onChange={e => field.onChange(parseInt(e.target.value))} />
                     </FormControl>
                     <FormMessage />
-                  </FormItem>
-                )}
-              />
+                  </FormItem>} />
               
-              <FormField
-                control={bulkForm.control}
-                name="price"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Prix spécifique (optionnel)</FormLabel>
+              <FormField control={bulkForm.control} name="price" render={({
+              field
+            }) => <FormItem>
+                    <FormLabel>{t('Prix sp\xE9cifique (optionnel)', {
+                  defaultValue: 'Prix sp\xE9cifique (optionnel)'
+                })}</FormLabel>
                     <FormControl>
-                      <Input
-                        type="number"
-                        min={0}
-                        placeholder="Laisser vide pour utiliser le prix par défaut"
-                        {...field}
-                        value={field.value || ""}
-                        onChange={e => {
-                          const value = e.target.value ? parseInt(e.target.value) : undefined;
-                          field.onChange(value);
-                        }}
-                      />
+                      <Input type="number" min={0} placeholder={t('Laisser vide pour utiliser le prix par d\xE9faut', {
+                  defaultValue: 'Laisser vide pour utiliser le prix par d\xE9faut'
+                })} {...field} value={field.value || ""} onChange={e => {
+                  const value = e.target.value ? parseInt(e.target.value) : undefined;
+                  field.onChange(value);
+                }} />
                     </FormControl>
-                    <FormDescription>
-                      Si laissé vide, le prix par défaut du tour sera utilisé
-                    </FormDescription>
+                    <FormDescription>{t('Si laiss\xE9 vide, le prix par d\xE9faut du tour sera utilis\xE9', {
+                  defaultValue: 'Si laiss\xE9 vide, le prix par d\xE9faut du tour sera utilis\xE9'
+                })}</FormDescription>
                     <FormMessage />
-                  </FormItem>
-                )}
-              />
+                  </FormItem>} />
               
               <DialogFooter>
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => setIsBulkCreateDialogOpen(false)}
-                >
-                  Cancel
-                </Button>
-                <Button 
-                  type="submit"
-                  disabled={createBulkAvailabilities.isPending || isCreatingBulk}
-                >
+                <Button type="button" variant="outline" onClick={() => setIsBulkCreateDialogOpen(false)}>{t('Cancel', {
+                  defaultValue: 'Cancel'
+                })}</Button>
+                <Button type="submit" disabled={createBulkAvailabilities.isPending || isCreatingBulk}>
                   {createBulkAvailabilities.isPending || isCreatingBulk ? "Creating..." : "Create availabilities"}
                 </Button>
               </DialogFooter>
@@ -959,6 +862,5 @@ export default function AvailabilityManager() {
           </Form>
         </DialogContent>
       </Dialog>
-    </div>
-  );
+    </div>;
 }

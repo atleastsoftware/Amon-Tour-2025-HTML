@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { useIsAuthenticated, useLogout } from "@/lib/auth";
@@ -12,7 +13,6 @@ import { Link } from "wouter";
 import TourCardForm from "@/components/admin/TourCardForm";
 import TourCardDisplay from "@/components/admin/TourCardDisplay";
 import QuickTourCardCreator from "@/components/admin/QuickTourCardCreator";
-
 interface TourCardData {
   id: string;
   title: string;
@@ -24,19 +24,30 @@ interface TourCardData {
   images: string[];
   tags?: string[];
 }
-
 export default function TourCardBuilder() {
-  const { isAuthenticated, isLoading: authLoading } = useIsAuthenticated();
+  const { t } = useTranslation();
+  const {
+    t: t
+  } = useTranslation();
+  const {
+    isAuthenticated,
+    isLoading: authLoading
+  } = useIsAuthenticated();
   const [, setLocation] = useLocation();
   const logout = useLogout();
-  const { toast } = useToast();
+  const {
+    toast
+  } = useToast();
   const queryClient = useQueryClient();
-  
+
   // Fetch tour cards
-  const { data: tourCards = [], isLoading: cardsLoading } = useQuery({
+  const {
+    data: tourCards = [],
+    isLoading: cardsLoading
+  } = useQuery({
     queryKey: ['/api/tour-cards']
   });
-  
+
   // Delete tour card mutation
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
@@ -45,21 +56,31 @@ export default function TourCardBuilder() {
       });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/tour-cards'] });
+      queryClient.invalidateQueries({
+        queryKey: ['/api/tour-cards']
+      });
       toast({
-        title: "Succès",
-        description: "La fiche a été supprimée avec succès"
+        title: t('Succ\xE8s', {
+          defaultValue: 'Succ\xE8s'
+        }),
+        description: t('La fiche a \xE9t\xE9 supprim\xE9e avec succ\xE8s', {
+          defaultValue: 'La fiche a \xE9t\xE9 supprim\xE9e avec succ\xE8s'
+        })
       });
     },
     onError: () => {
       toast({
-        title: "Erreur",
-        description: "Une erreur est survenue lors de la suppression de la fiche",
+        title: t('Erreur', {
+          defaultValue: 'Erreur'
+        }),
+        description: t('Une erreur est survenue lors de la suppression de la fiche', {
+          defaultValue: 'Une erreur est survenue lors de la suppression de la fiche'
+        }),
         variant: "destructive"
       });
     }
   });
-  
+
   // Update tour card mutation
   const updateMutation = useMutation({
     mutationFn: async (card: TourCardData) => {
@@ -72,67 +93,79 @@ export default function TourCardBuilder() {
       });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/tour-cards'] });
+      queryClient.invalidateQueries({
+        queryKey: ['/api/tour-cards']
+      });
       toast({
-        title: "Succès",
-        description: "La fiche a été mise à jour avec succès"
+        title: t('Succ\xE8s', {
+          defaultValue: 'Succ\xE8s'
+        }),
+        description: t('La fiche a \xE9t\xE9 mise \xE0 jour avec succ\xE8s', {
+          defaultValue: 'La fiche a \xE9t\xE9 mise \xE0 jour avec succ\xE8s'
+        })
       });
     },
     onError: () => {
       toast({
-        title: "Erreur",
-        description: "Une erreur est survenue lors de la mise à jour de la fiche",
+        title: t('Erreur', {
+          defaultValue: 'Erreur'
+        }),
+        description: t('Une erreur est survenue lors de la mise \xE0 jour de la fiche', {
+          defaultValue: 'Une erreur est survenue lors de la mise \xE0 jour de la fiche'
+        }),
         variant: "destructive"
       });
     }
   });
-
   useEffect(() => {
     if (!authLoading && !isAuthenticated) {
       setLocation('/admin-login');
     }
   }, [isAuthenticated, authLoading, setLocation]);
-
   const handleLogout = () => {
     logout.mutate();
     setLocation('/');
   };
-
   const handleNewTourCard = (newCard: TourCardData) => {
-    queryClient.invalidateQueries({ queryKey: ['/api/tour-cards'] });
+    queryClient.invalidateQueries({
+      queryKey: ['/api/tour-cards']
+    });
   };
-  
   const handleDeleteTourCard = (id: string) => {
     deleteMutation.mutate(id);
   };
-  
   const handleUpdateTourCard = (updatedCard: TourCardData) => {
     updateMutation.mutate(updatedCard);
   };
-
-  if (authLoading) return <div className="container mx-auto p-8 text-center">Chargement...</div>;
+  if (authLoading) return <div className="container mx-auto p-8 text-center">{t('Chargement...', {
+      defaultValue: 'Chargement...'
+    })}</div>;
 
   // Force TypeScript to treat tourCards as TourCardData[]
   const safeCards = Array.isArray(tourCards) ? tourCards as TourCardData[] : [];
-  
-  return (
-    <>
+  return <>
       <Header />
       <div className="container mx-auto p-4 pt-20 pb-16">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
           <div className="flex items-center gap-4">
             <Link href="/admin">
               <Button variant="outline" size="sm">
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to Admin
-              </Button>
+                <ArrowLeft className="h-4 w-4 mr-2" />{t('Back to Admin', {
+                defaultValue: 'Back to Admin'
+              })}</Button>
             </Link>
             <div>
-              <h1 className="text-3xl font-heading font-bold">TourCard Builder</h1>
-              <p className="text-gray-600">Créez facilement des fiches pour vos tours et séjours</p>
+              <h1 className="text-3xl font-heading font-bold">{t('TourCard Builder', {
+                defaultValue: 'TourCard Builder'
+              })}</h1>
+              <p className="text-gray-600">{t('Cr\xE9ez facilement des fiches pour vos tours et s\xE9jours', {
+                defaultValue: 'Cr\xE9ez facilement des fiches pour vos tours et s\xE9jours'
+              })}</p>
             </div>
           </div>
-          <Button variant="outline" onClick={handleLogout}>Déconnexion</Button>
+          <Button variant="outline" onClick={handleLogout}>{t('D\xE9connexion', {
+            defaultValue: 'D\xE9connexion'
+          })}</Button>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -142,30 +175,22 @@ export default function TourCardBuilder() {
           </div>
           
           <div className="lg:col-span-2">
-            <h2 className="text-xl font-heading font-semibold mb-4">Vos fiches ({safeCards.length})</h2>
+            <h2 className="text-xl font-heading font-semibold mb-4">{t('Vos fiches (', {
+              defaultValue: 'Vos fiches ('
+            })}{safeCards.length})</h2>
             
-            {cardsLoading ? (
-              <div className="text-center py-8">Chargement des fiches...</div>
-            ) : safeCards.length === 0 ? (
-              <div className="bg-gray-50 border border-dashed rounded-lg p-8 text-center">
-                <p className="text-gray-500">Aucune fiche pour le moment. Créez votre première fiche !</p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-                {safeCards.map((card: TourCardData) => (
-                  <TourCardDisplay 
-                    key={card.id} 
-                    tourCard={card} 
-                    onDelete={handleDeleteTourCard}
-                    onUpdate={handleUpdateTourCard}
-                  />
-                ))}
-              </div>
-            )}
+            {cardsLoading ? <div className="text-center py-8">{t('Chargement des fiches...', {
+              defaultValue: 'Chargement des fiches...'
+            })}</div> : safeCards.length === 0 ? <div className="bg-gray-50 border border-dashed rounded-lg p-8 text-center">
+                <p className="text-gray-500">{t('Aucune fiche pour le moment. Cr\xE9ez votre premi\xE8re fiche !', {
+                defaultValue: 'Aucune fiche pour le moment. Cr\xE9ez votre premi\xE8re fiche !'
+              })}</p>
+              </div> : <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+                {safeCards.map((card: TourCardData) => <TourCardDisplay key={card.id} tourCard={card} onDelete={handleDeleteTourCard} onUpdate={handleUpdateTourCard} />)}
+              </div>}
           </div>
         </div>
       </div>
       <Footer />
-    </>
-  );
+    </>;
 }

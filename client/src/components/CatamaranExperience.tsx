@@ -315,7 +315,6 @@ function PhotoGallery() {
 }
 
 export default function CatamaranExperience() {
-  const { t } = useTranslation();
   const accessibility = {
     previousImages: t('accessibility.previousImages', 'Previous images'),
     nextImages: t('accessibility.nextImages', 'Next images'),

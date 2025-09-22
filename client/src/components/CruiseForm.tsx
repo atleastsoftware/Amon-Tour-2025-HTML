@@ -6,27 +6,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useTranslation } from 'react-i18next';
-
 const cruiseFormSchema = z.object({
   fullName: z.string().min(2, "Full name required"),
   email: z.string().email("Valid email required"),
@@ -36,9 +21,8 @@ const cruiseFormSchema = z.object({
   preferredDates: z.string().optional(),
   itinerary: z.string().optional(),
   budget: z.string().optional(),
-  specialRequests: z.string().optional(),
+  specialRequests: z.string().optional()
 });
-
 type CruiseFormData = {
   fullName: string;
   email: string;
@@ -50,11 +34,14 @@ type CruiseFormData = {
   budget?: string;
   specialRequests?: string;
 };
-
 export default function CruiseForm() {
   const { t } = useTranslation();
-  const { toast } = useToast();
-  
+  const {
+    t
+  } = useTranslation();
+  const {
+    toast
+  } = useToast();
   const form = useForm<CruiseFormData>({
     resolver: zodResolver(cruiseFormSchema),
     defaultValues: {
@@ -66,75 +53,61 @@ export default function CruiseForm() {
       preferredDates: "",
       itinerary: "",
       budget: "",
-      specialRequests: "",
-    },
+      specialRequests: ""
+    }
   });
 
   // Generate WhatsApp message from form data
   const generateWhatsAppMessage = (data: CruiseFormData) => {
-    const lines = [
-      "🛥️ *Cruise Request - Amon Tour*",
-      "",
-      `👤 *Name:* ${data.fullName}`,
-      `📧 *Email:* ${data.email}`,
-    ];
-
+    const lines = ["🛥️ *Cruise Request - Amon Tour*", "", `👤 *Name:* ${data.fullName}`, `📧 *Email:* ${data.email}`];
     if (data.phone) {
       lines.push(`📱 *Phone:* ${data.phone}`);
     }
-
-    lines.push(
-      `👥 *Number of Guests:* ${data.numberOfGuests}`,
-      `⏰ *Duration:* ${data.duration}`
-    );
-
+    lines.push(`👥 *Number of Guests:* ${data.numberOfGuests}`, `⏰ *Duration:* ${data.duration}`);
     if (data.preferredDates) {
       lines.push(`📅 *Preferred Dates:* ${data.preferredDates}`);
     }
-
     if (data.budget) {
       lines.push(`💰 *Budget:* ${data.budget}`);
     }
-
     if (data.itinerary) {
       lines.push(`🗺️ *Preferred Destinations:* ${data.itinerary}`);
     }
-
     if (data.specialRequests) {
       lines.push(`📝 *Special Requests:* ${data.specialRequests}`);
     }
-
     lines.push("", "Looking forward to creating an amazing cruise experience for you! 🌊");
-
     return encodeURIComponent(lines.join('\n'));
   };
-
   const handleWhatsAppContact = () => {
     const formData = form.getValues();
-    
+
     // Validate required fields
     if (!formData.fullName || !formData.email || !formData.duration) {
       toast({
-        title: "Missing Information",
-        description: "Please fill in your name, email and preferred duration before contacting us.",
-        variant: "destructive",
+        title: t('Missing Information', {
+          defaultValue: 'Missing Information'
+        }),
+        description: t('Please fill in your name, email and preferred duration before contacting us.', {
+          defaultValue: 'Please fill in your name, email and preferred duration before contacting us.'
+        }),
+        variant: "destructive"
       });
       return;
     }
-
     const message = generateWhatsAppMessage(formData);
     const whatsappUrl = `https://wa.me/66653496445?text=${message}`;
-    
     window.open(whatsappUrl, '_blank');
-    
     toast({
-      title: "Redirecting to WhatsApp",
-      description: "We've prepared your cruise request message for you!",
+      title: t('Redirecting to WhatsApp', {
+        defaultValue: 'Redirecting to WhatsApp'
+      }),
+      description: t('We\'ve prepared your cruise request message for you!', {
+        defaultValue: 'We\'ve prepared your cruise request message for you!'
+      })
     });
   };
-
-  return (
-    <div className="w-full max-w-2xl mx-auto">
+  return <div className="w-full max-w-2xl mx-auto">
       <div className="text-center mb-8">
         <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{t('cruise.formTitle')}</h2>
         <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
@@ -145,72 +118,54 @@ export default function CruiseForm() {
         <Form {...form}>
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <FormField
-                control={form.control}
-                name="fullName"
-                render={({ field }) => (
-                  <FormItem>
+              <FormField control={form.control} name="fullName" render={({
+                field
+              }) => <FormItem>
                     <FormLabel>{t('cruise.fullName')} *</FormLabel>
                     <FormControl>
                       <Input placeholder={t('cruise.fullNamePlaceholder')} {...field} />
                     </FormControl>
                     <FormMessage />
-                  </FormItem>
-                )}
-              />
+                  </FormItem>} />
               
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
+              <FormField control={form.control} name="email" render={({
+                field
+              }) => <FormItem>
                     <FormLabel>{t('cruise.email')} *</FormLabel>
                     <FormControl>
                       <Input type="email" placeholder={t('cruise.emailPlaceholder')} {...field} />
                     </FormControl>
                     <FormMessage />
-                  </FormItem>
-                )}
-              />
+                  </FormItem>} />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <FormField
-                control={form.control}
-                name="phone"
-                render={({ field }) => (
-                  <FormItem>
+              <FormField control={form.control} name="phone" render={({
+                field
+              }) => <FormItem>
                     <FormLabel>{t('cruise.phoneNumber')}</FormLabel>
                     <FormControl>
                       <Input type="tel" placeholder={t('cruise.phonePlaceholder')} {...field} />
                     </FormControl>
                     <FormMessage />
-                  </FormItem>
-                )}
-              />
+                  </FormItem>} />
               
-              <FormField
-                control={form.control}
-                name="numberOfGuests"
-                render={({ field }) => (
-                  <FormItem>
+              <FormField control={form.control} name="numberOfGuests" render={({
+                field
+              }) => <FormItem>
                     <FormLabel>{t('cruise.numberOfPassengers')}</FormLabel>
                     <FormControl>
                       <Input type="number" min="1" max="8" {...field} />
                     </FormControl>
                     <FormDescription>{t('cruise.maximumPassengers')}</FormDescription>
                     <FormMessage />
-                  </FormItem>
-                )}
-              />
+                  </FormItem>} />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <FormField
-                control={form.control}
-                name="duration"
-                render={({ field }) => (
-                  <FormItem>
+              <FormField control={form.control} name="duration" render={({
+                field
+              }) => <FormItem>
                     <FormLabel>{t('cruise.desiredDuration')}</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
@@ -227,30 +182,22 @@ export default function CruiseForm() {
                       </SelectContent>
                     </Select>
                     <FormMessage />
-                  </FormItem>
-                )}
-              />
+                  </FormItem>} />
               
-              <FormField
-                control={form.control}
-                name="preferredDates"
-                render={({ field }) => (
-                  <FormItem>
+              <FormField control={form.control} name="preferredDates" render={({
+                field
+              }) => <FormItem>
                     <FormLabel>{t('cruise.preferredDates')}</FormLabel>
                     <FormControl>
                       <Input placeholder={t('cruise.datesPlaceholder')} {...field} />
                     </FormControl>
                     <FormMessage />
-                  </FormItem>
-                )}
-              />
+                  </FormItem>} />
             </div>
 
-            <FormField
-              control={form.control}
-              name="budget"
-              render={({ field }) => (
-                <FormItem>
+            <FormField control={form.control} name="budget" render={({
+              field
+            }) => <FormItem>
                   <FormLabel>{t('cruise.approximateBudget')}</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
@@ -265,55 +212,34 @@ export default function CruiseForm() {
                     </SelectContent>
                   </Select>
                   <FormMessage />
-                </FormItem>
-              )}
-            />
+                </FormItem>} />
 
-            <FormField
-              control={form.control}
-              name="itinerary"
-              render={({ field }) => (
-                <FormItem>
+            <FormField control={form.control} name="itinerary" render={({
+              field
+            }) => <FormItem>
                   <FormLabel>{t('cruise.preferredDestinations')}</FormLabel>
                   <FormControl>
-                    <Textarea 
-                      placeholder={t('cruise.destinationsPlaceholder')} 
-                      className="min-h-[80px]"
-                      {...field} 
-                    />
+                    <Textarea placeholder={t('cruise.destinationsPlaceholder')} className="min-h-[80px]" {...field} />
                   </FormControl>
                   <FormMessage />
-                </FormItem>
-              )}
-            />
+                </FormItem>} />
 
-            <FormField
-              control={form.control}
-              name="specialRequests"
-              render={({ field }) => (
-                <FormItem>
+            <FormField control={form.control} name="specialRequests" render={({
+              field
+            }) => <FormItem>
                   <FormLabel>{t('cruise.specialRequests')}</FormLabel>
                   <FormControl>
-                    <Textarea 
-                      placeholder={t('cruise.specialRequestsPlaceholder')} 
-                      className="min-h-[80px]"
-                      {...field} 
-                    />
+                    <Textarea placeholder={t('cruise.specialRequestsPlaceholder')} className="min-h-[80px]" {...field} />
                   </FormControl>
                   <FormMessage />
-                </FormItem>
-              )}
-            />
+                </FormItem>} />
 
             {/* WhatsApp Contact Button */}
             <div className="mt-4 pt-4 border-t border-gray-200">
               <p className="text-center text-sm text-gray-600 mb-3">
                 {t('cruise.orContactDirectly')}
               </p>
-              <button
-                onClick={handleWhatsAppContact}
-                className="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-md font-heading font-semibold transition-colors duration-200 flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
-              >
+              <button onClick={handleWhatsAppContact} className="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-md font-heading font-semibold transition-colors duration-200 flex items-center justify-center gap-2 shadow-md hover:shadow-lg">
                 <i className="fab fa-whatsapp text-xl" aria-hidden="true"></i>
                 {t('cruise.contactWhatsApp')}
               </button>
@@ -322,6 +248,5 @@ export default function CruiseForm() {
         </Form>
       </CardContent>
     </Card>
-    </div>
-  );
+    </div>;
 }

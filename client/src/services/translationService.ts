@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 // Translation Service - Système de traduction statique pour remplacer Google Translate
 // Translations pour les éléments principaux du site Amon Tour
 
@@ -42,7 +43,7 @@ export interface Translations {
     // Intro section
     introTitle: string;
     introDescription: string;
-    
+
     // Custom trip form
     customTripTitle: string;
     customTripSubtitle: string;
@@ -62,7 +63,7 @@ export interface Translations {
     sendRequest: string;
     orContactDirectly: string;
     contactWhatsApp: string;
-    
+
     // Trip type options
     cultureHistory: string;
     natureAdventure: string;
@@ -70,7 +71,7 @@ export interface Translations {
     familyTrip: string;
     groupTrip: string;
     weddingHoneymoon: string;
-    
+
     // Destination options
     khaoSok: string;
     bangkok: string;
@@ -78,11 +79,11 @@ export interface Translations {
     chiangMai: string;
     kohMook: string;
     othersDestinations: string;
-    
+
     // Some Ideas section
     someIdeasTitle: string;
     someIdeasDescription: string;
-    
+
     // Why Choose Us section
     whyChooseTitle: string;
     whyChooseDescription: string;
@@ -101,30 +102,30 @@ export interface Translations {
     localFood: string;
     localPeople: string;
     culture: string;
-    
+
     // Who We Are section
     whoWeAreTitle: string;
     whoWeAreDescription: string;
     whoWeAreStory: string;
-    
+
     // Deep Local Roots section
     deepLocalRootsTitle: string;
     deepLocalRootsDescription: string;
     deepLocalRootsExplanation: string;
-    
+
     // Our Concept section
     ourConceptTitle: string;
     ourConceptDescription: string;
-    
+
     // Testimonials section
     testimonialsTitle: string;
     testimonialsDescription: string;
     basedOnReviews: string;
-    
+
     // Tailor-made trips section
     tailorMadeTitle: string;
     tailorMadeDescription: string;
-    
+
     // Action buttons
     contactUs: string;
     createYourJourney: string;
@@ -158,19 +159,19 @@ export interface Translations {
     selectSeason: string;
     preferredDestinations: string;
     specialRequests: string;
-    
+
     // Duration options
     oneDay: string;
     twoDays: string;
     threeFourDays: string;
     fiveSixDays: string;
     sevenPlusDays: string;
-    
+
     // Season options
     lowSeasonOption: string;
     highSeasonOption: string;
     veryHighSeasonOption: string;
-    
+
     // Placeholders
     fullNamePlaceholder: string;
     emailPlaceholder: string;
@@ -178,7 +179,7 @@ export interface Translations {
     datesPlaceholder: string;
     destinationsPlaceholder: string;
     specialRequestsPlaceholder: string;
-    
+
     // Messages
     requestSent: string;
     contactShortly: string;
@@ -209,7 +210,7 @@ export interface Translations {
     threeFourDaysRoute: string;
     fiveSixDaysRoute: string;
     sevenPlusDaysRoute: string;
-    
+
     // Pricing section
     seasonalPricing: string;
     perfectForHolidays: string;
@@ -446,7 +447,6 @@ export interface Translations {
     nextImage: string;
   };
 }
-
 const translations: Record<string, Translations> = {
   en: {
     nav: {
@@ -457,10 +457,16 @@ const translations: Record<string, Translations> = {
       contact: "Contact"
     },
     hero: {
-      title: "Your exclusive experiences",
-      subtitle: "in Krabi",
+      title: t('Your exclusive experiences', {
+        defaultValue: 'Your exclusive experiences'
+      }),
+      subtitle: t('in Krabi', {
+        defaultValue: 'in Krabi'
+      }),
       thailand: "THAILAND",
-      description: "Discover amazing places away from mass tourism in Krabi. And also Khao Sok, Koh Mook and many more destinations.",
+      description: t('Discover amazing places away from mass tourism in Krabi. And also Khao Sok, Koh Mook and many more destinations.', {
+        defaultValue: 'Discover amazing places away from mass tourism in Krabi. And also Khao Sok, Koh Mook and many more destinations.'
+      }),
       seeOffers: "See our offers",
       customTrip: "Custom your trip"
     },
@@ -473,17 +479,20 @@ const translations: Record<string, Translations> = {
       bookNow: "Book now"
     },
     tours: {
-      title: "Tours & Experiences",
-      description: "Explore our finest experiences in Krabi, all guaranteed off the beaten path: private and semi-private sea tours, unique land excursions (kayaking through mangroves, waterfalls, tropical jungle, centuries-old trees, temples, karst caves, natural pools), and exclusive 2-day / 1-night packages.",
+      title: t('Tours & Experiences', {
+        defaultValue: 'Tours & Experiences'
+      }),
+      description: t('Explore our finest experiences in Krabi, all guaranteed off the beaten path: private and semi-private sea tours, unique land excursions (kayaking through mangroves, waterfalls, tropical jungle, centuries-old trees, temples, karst caves, natural pools), and exclusive 2-day / 1-night packages.', {
+        defaultValue: 'Explore our finest experiences in Krabi, all guaranteed off the beaten path: private and semi-private sea tours, unique land excursions (kayaking through mangroves, waterfalls, tropical jungle, centuries-old trees, temples, karst caves, natural pools), and exclusive 2-day / 1-night packages.'
+      }),
       duration: "Duration",
-      participants: "Max participants", 
+      participants: "Max participants",
       price: "From",
       featured: "Our exclusive experiences"
     },
     home: {
       introTitle: "When expats welcome you in their host country",
       introDescription: "Since 2013, our family-run travel agency has been curating exclusive activities around Krabi and designing tailor-made trips all across Thailand. We aim to deliver immersive travel experiences, away from mass tourism, with personalized service for every traveler — welcoming you as part of our family or close friends.",
-      
       customTripTitle: "Create Your Custom Trip",
       customTripSubtitle: "Your travel story starts with your dreams -",
       customTripDescription: "let us write the rest.",
@@ -502,24 +511,20 @@ const translations: Record<string, Translations> = {
       sendRequest: "Send my request",
       orContactDirectly: "Or contact us directly via WhatsApp",
       contactWhatsApp: "Contact via WhatsApp",
-      
       cultureHistory: "Culture & History",
-      natureAdventure: "Nature & Adventure", 
+      natureAdventure: "Nature & Adventure",
       beachesIslands: "Beaches & Islands",
       familyTrip: "Family trip",
       groupTrip: "Group trip",
       weddingHoneymoon: "Wedding & Honeymoon",
-      
       khaoSok: "Khao Sok",
       bangkok: "Bangkok",
       krabi: "Krabi",
       chiangMai: "Chiang Mai",
       kohMook: "Koh Mook",
       othersDestinations: "Others destinations",
-      
       someIdeasTitle: "Some Ideas For Your Next Trip",
       someIdeasDescription: "Get inspired by our custom-designed travel experiences.",
-      
       whyChooseTitle: "Why Choose Us",
       whyChooseDescription: "Experience an exclusive private day trip with our English or French-speaking and certified guides.",
       privateTours: "Private Tours",
@@ -537,31 +542,29 @@ const translations: Record<string, Translations> = {
       localFood: "Local Food",
       localPeople: "Local People",
       culture: "Culture",
-      
       whoWeAreTitle: "Who We Are",
       whoWeAreDescription: "We are Eric, Margaux, Gabriel, and Raphaël, a French family living in Krabi, southern Thailand, since 2013.",
       whoWeAreStory: "From our life here, we created Amon Tour — a small, independent travel agency built on a simple idea: personally welcome our travelers to Krabi and offer them a different way to experience Thailand.",
-      
       deepLocalRootsTitle: "Deep Local Roots",
       deepLocalRootsDescription: "We live here year-round, in the heart of the region we love. This close connection to the destination allows us to offer exclusive experiences in Krabi, designed and guided by our team of professional local guides or trusted partners.",
       deepLocalRootsExplanation: "You're not booking a generic tour — you're being welcomed, guided, and cared for by people who live here, who know the tides, the seasons, the crowds to avoid, and the hidden gems worth discovering.",
-      
       ourConceptTitle: "Our Concept",
       ourConceptDescription: "Combine the warmth and proximity of a local agency in Krabi with the expertise of a tailor-made travel designer for all of Thailand. At Amon Tour, you're supported before, during, and after your trip. You're in contact with real people – a face, a voice, a team – not a call center or an algorithm. We're here, on the ground, to make your trip a seamless, personal, and unforgettable experience.",
-      
       testimonialsTitle: "Our Travelers' Reviews",
       testimonialsDescription: "Discover the authentic experiences of our clients during their journeys with Amon Tour in Thailand.",
       basedOnReviews: "Based on 80 reviews",
-      
       tailorMadeTitle: "Our Tailor-made trips",
       tailorMadeDescription: "Design your own journey through Thailand with our tailor-made stays: from cultural discoveries and family adventures to romantic getaways and island escapes. Every itinerary is crafted to match your wishes, offering authentic experiences, quality services, and a unique immersion far from mass tourism.",
-      
       contactUs: "Contact Us",
       createYourJourney: "Create Your Journey"
     },
     cruise: {
-      title: "Custom Quote Request",
-      subtitle: "Fill out the form below and we will contact you within 24 hours.",
+      title: t('Custom Quote Request', {
+        defaultValue: 'Custom Quote Request'
+      }),
+      subtitle: t('Fill out the form below and we will contact you within 24 hours.', {
+        defaultValue: 'Fill out the form below and we will contact you within 24 hours.'
+      }),
       fullName: "Full Name",
       email: "Email",
       phoneNumber: "Phone Number (Optional)",
@@ -574,19 +577,16 @@ const translations: Record<string, Translations> = {
       selectSeason: "Select a season",
       preferredDestinations: "Preferred Destinations (Optional)",
       specialRequests: "Special Requests (Optional)",
-      
       // Duration options
       oneDay: "1 day",
       twoDays: "2 days",
       threeFourDays: "3-4 days",
       fiveSixDays: "5-6 days",
       sevenPlusDays: "7 days and more",
-      
       // Season options
       lowSeasonOption: "Low season (28,000 THB/day)",
       highSeasonOption: "High season (31,000 THB/day)",
       veryHighSeasonOption: "Very high season (39,000 THB/day)",
-      
       // Placeholders
       fullNamePlaceholder: "Your full name",
       emailPlaceholder: "your@email.com",
@@ -594,7 +594,6 @@ const translations: Record<string, Translations> = {
       datesPlaceholder: "Ex: January 15-20, 2025",
       destinationsPlaceholder: "Ex: Koh Phi Phi, Koh Hong...",
       specialRequestsPlaceholder: "Dietary requirements, birthday celebration, etc.",
-      
       // Messages
       requestSent: "Request sent!",
       contactShortly: "We will contact you shortly.",
@@ -602,25 +601,21 @@ const translations: Record<string, Translations> = {
       errorMessage: "An error occurred. Please try again.",
       sending: "Sending...",
       sendRequest: "Send Request",
-    orContactDirectly: "Or contact us directly via WhatsApp",
-    contactWhatsApp: "Contact via WhatsApp",
-
+      orContactDirectly: "Or contact us directly via WhatsApp",
+      contactWhatsApp: "Contact via WhatsApp",
       // Main cruise page content
       freedomExclusivity: "Freedom and Exclusivity",
       freedomDescription: "Navigate towards exclusivity aboard one of the rare catamaran cruises departing from Krabi. Explore the Andaman Sea as few travelers have the chance to do: in complete freedom, away from tourist circuits, with an itinerary designed entirely for you.",
-      
       tailorMadeRoutes: "Tailor-made routes",
       tailorMadeDesc: "We compose your itinerary to reveal the best of the region, prioritizing preserved sites and exceptional moments.",
-      expertCrew: "Expert crew", 
+      expertCrew: "Expert crew",
       expertCrewDesc: "Our captains have perfect mastery of these waters. They optimize each navigation by adapting to weather conditions, tides and winds to maximize your pleasure.",
       totalFreedom: "Total freedom",
       totalFreedomDesc: "Deserted beaches, turquoise lagoons, snorkeling in crystal-clear waters... Your cruise evolves according to your preferences.",
-      
       lagoonCatamaran: "A Lagoon 470 Catamaran",
       lagoonDesc1: "Built in 1999 and constantly improved since 2023, combines comfort and character. It has 4 double cabins with private bathrooms: two cabins with queen-size beds (160 cm) and two with double beds (140 cm). Each cabin is equipped with fans, 220V sockets and large storage spaces.",
       lagoonDesc2: "Spacious and well-designed, the Lagoon offers seamless flow between the interior and exterior living spaces: large, bright living room, equipped kitchen, shaded cockpit, sunbathing area at the front, etc. The discreet engine ensures peaceful navigation.",
       lagoonDesc3: "Perfect for holidays with family, friends or private charter, this boat guarantees your comfort, privacy and freedom to explore the most beautiful islands of the Andaman Sea.",
-      
       routeSuggestions: "Route suggestions",
       routeDescription: "Each itinerary adapts to the season and natural conditions to guarantee you an optimal experience.",
       oneDayRoute: "Local islands of Ao Nang or Koh Hong archipelago",
@@ -628,7 +623,6 @@ const translations: Record<string, Translations> = {
       threeFourDaysRoute: "Combined Phang Nga Bay and Koh Phi Phi",
       fiveSixDaysRoute: "Getaway to the preserved waters of Koh Rok and Koh Mook",
       sevenPlusDaysRoute: "Odyssey to the paradise islands of Koh Lipe or Similan",
-      
       // Pricing section
       seasonalPricing: "Seasonal Pricing",
       perfectForHolidays: "Perfect for holidays with family, friends or private charter",
@@ -636,27 +630,29 @@ const translations: Record<string, Translations> = {
       highSeason: "High Season",
       lowSeason: "Low Season",
       peakPeriodRates: "Peak period rates",
-      premiumPeriodRates: "Premium period rates", 
+      premiumPeriodRates: "Premium period rates",
       bestValueRates: "Best value rates",
       perDay: "per day",
       period: "Period:",
       dailyRateMinimum: "Daily rate for minimum 2 days and one night. Capacity 8 adults max.",
-      
       fromTubkeak: "from Tubkeak",
-      fromThalane: "from Thalane", 
+      fromThalane: "from Thalane",
       fromAoNang: "from Ao Nang",
       fromKlongMueang: "from Klong Mueang",
       fromRailay: "from Railay",
       noExtraFee: "No extra fee",
-      
       includedInPrice: "Included in Price",
       includedDescription: "Boat rental with captain, assistant and professional English-speaking guide, fuel, semi-rigid dinghy for 5 to 6 people with an 18 HP engine, BBQ, fishing equipment and a paddleboard, fresh fruit, sodas, water. Breakfast (tea, coffee, toast, omelet).",
-      notIncludedInPrice: "Not Included in Price", 
+      notIncludedInPrice: "Not Included in Price",
       notIncludedDescription: "Transfers (on request), national park fees (depending on the itinerary), beer, wine, spirits. Lunch and dinner (Thai cuisine): 500 Baht per person per meal. Please let us know your preferences and we will provision the boat accordingly."
     },
     customTour: {
-      title: "Create Your Custom Tour",
-      subtitle: "Tell us what you'd like to discover, and we'll create your personalized itinerary.",
+      title: t('Create Your Custom Tour', {
+        defaultValue: 'Create Your Custom Tour'
+      }),
+      subtitle: t('Tell us what you\'d like to discover, and we\'ll create your personalized itinerary.', {
+        defaultValue: 'Tell us what you\'d like to discover, and we\'ll create your personalized itinerary.'
+      }),
       seoTitle: "Create Your Custom Thailand Experience",
       seoDescription: "Design your own personalized Thailand tour. Tell us your preferences, and our local experts will craft a customized itinerary just for you.",
       seoKeywords: "custom thailand tour, personalized travel, tailor-made itinerary, private guide thailand, custom travel experience",
@@ -671,8 +667,12 @@ const translations: Record<string, Translations> = {
     },
     pageHeaders: {
       contact: {
-        title: "Contact Us",
-        subtitle: "We're here to help you plan the perfect experience in Krabi.",
+        title: t('Contact Us', {
+          defaultValue: 'Contact Us'
+        }),
+        subtitle: t('We\'re here to help you plan the perfect experience in Krabi.', {
+          defaultValue: 'We\'re here to help you plan the perfect experience in Krabi.'
+        }),
         getInTouch: "Get In Touch",
         readyToExplore: "Ready to explore Krabi? Contact us through any of the methods below. Our friendly team is here to answer your questions and help you plan an unforgettable experience.",
         email: "Email",
@@ -682,38 +682,70 @@ const translations: Record<string, Translations> = {
         line: "Line"
       },
       experiences: {
-        title: "Discover Thailand Experiences",
-        subtitle: "Immerse yourself in authentic Thai culture with our unique experiences",
+        title: t('Discover Thailand Experiences', {
+          defaultValue: 'Discover Thailand Experiences'
+        }),
+        subtitle: t('Immerse yourself in authentic Thai culture with our unique experiences', {
+          defaultValue: 'Immerse yourself in authentic Thai culture with our unique experiences'
+        }),
         searchPlaceholder: "Search experiences...",
         organizeDreamTrip: "Contact us to organize your dream trip to Thailand."
       },
       blog: {
-        title: "Travel Blog",
-        subtitle: "Discover the best of Krabi through our travel guides, tips, and local insights."
+        title: t('Travel Blog', {
+          defaultValue: 'Travel Blog'
+        }),
+        subtitle: t('Discover the best of Krabi through our travel guides, tips, and local insights.', {
+          defaultValue: 'Discover the best of Krabi through our travel guides, tips, and local insights.'
+        })
       },
       tours: {
-        title: "Our Experiences",
-        subtitle: "Discover the exceptional beauty of Krabi and southern Thailand."
+        title: t('Our Experiences', {
+          defaultValue: 'Our Experiences'
+        }),
+        subtitle: t('Discover the exceptional beauty of Krabi and southern Thailand.', {
+          defaultValue: 'Discover the exceptional beauty of Krabi and southern Thailand.'
+        })
       },
       krabiCelebration: {
-        title: "Krabi Celebration",
-        subtitle: "Unique Moments in Exceptional Settings"
+        title: t('Krabi Celebration', {
+          defaultValue: 'Krabi Celebration'
+        }),
+        subtitle: t('Unique Moments in Exceptional Settings', {
+          defaultValue: 'Unique Moments in Exceptional Settings'
+        })
       },
       becomePartner: {
-        title: "Become Our Partner",
-        subtitle: "Join our network of trusted local partners"
+        title: t('Become Our Partner', {
+          defaultValue: 'Become Our Partner'
+        }),
+        subtitle: t('Join our network of trusted local partners', {
+          defaultValue: 'Join our network of trusted local partners'
+        })
       },
       groupCorporate: {
-        title: "Group & Corporate Travel",
-        subtitle: "Tailored Experiences in Krabi"
+        title: t('Group & Corporate Travel', {
+          defaultValue: 'Group & Corporate Travel'
+        }),
+        subtitle: t('Tailored Experiences in Krabi', {
+          defaultValue: 'Tailored Experiences in Krabi'
+        })
       },
       villasKrabi: {
-        title: "Villas in Krabi",
-        subtitle: "Curated Villa Selection"
+        title: t('Villas in Krabi', {
+          defaultValue: 'Villas in Krabi'
+        }),
+        subtitle: t('Curated Villa Selection', {
+          defaultValue: 'Curated Villa Selection'
+        })
       },
       brochure: {
-        title: "Our Brochure",
-        subtitle: "Amon Tour Travel Guide"
+        title: t('Our Brochure', {
+          defaultValue: 'Our Brochure'
+        }),
+        subtitle: t('Amon Tour Travel Guide', {
+          defaultValue: 'Amon Tour Travel Guide'
+        })
       }
     },
     messages: {
@@ -731,7 +763,7 @@ const translations: Record<string, Translations> = {
       bookNow: "Book Now",
       seeOffers: "See our offers",
       customTrip: "Custom your trip",
-      exploreTours: "Explore Our Tours", 
+      exploreTours: "Explore Our Tours",
       createJourney: "Create Your Journey",
       sendRequest: "Send Request",
       contactWhatsApp: "Contact via WhatsApp",
@@ -784,16 +816,24 @@ const translations: Record<string, Translations> = {
       welcomeBar: "Welcome to Amon Tour! Discover authentic Thailand experiences 🇹🇭"
     },
     cookies: {
-      title: "We use cookies",
-      description: "We use cookies to enhance your experience and analyze site usage. By continuing to use this site, you agree to our use of cookies.",
+      title: t('We use cookies', {
+        defaultValue: 'We use cookies'
+      }),
+      description: t('We use cookies to enhance your experience and analyze site usage. By continuing to use this site, you agree to our use of cookies.', {
+        defaultValue: 'We use cookies to enhance your experience and analyze site usage. By continuing to use this site, you agree to our use of cookies.'
+      }),
       acceptAll: "Accept All",
       rejectAll: "Reject All",
       customize: "Customize",
       privacyNotice: "Privacy Notice"
     },
     blog: {
-      title: "Travel Blog",
-      subtitle: "Discover Thailand through our expert insights and travel guides",
+      title: t('Travel Blog', {
+        defaultValue: 'Travel Blog'
+      }),
+      subtitle: t('Discover Thailand through our expert insights and travel guides', {
+        defaultValue: 'Discover Thailand through our expert insights and travel guides'
+      }),
       tags: "Tags",
       categories: "Categories",
       allTags: "All Tags",
@@ -835,7 +875,7 @@ const translations: Record<string, Translations> = {
     },
     footer: {
       contact: "Contact",
-      usefulLinks: "Useful Links", 
+      usefulLinks: "Useful Links",
       newsletter: "Newsletter",
       defaultNewsletterTitle: "Newsletter",
       defaultNewsletterDescription: "Subscribe to receive our special offers and travel tips.",
@@ -870,10 +910,16 @@ const translations: Record<string, Translations> = {
       contact: "Contact"
     },
     hero: {
-      title: "Vos expériences exclusives",
-      subtitle: "à Krabi",
+      title: t('Vos exp\xE9riences exclusives', {
+        defaultValue: 'Vos exp\xE9riences exclusives'
+      }),
+      subtitle: t('\xE0 Krabi', {
+        defaultValue: '\xE0 Krabi'
+      }),
       thailand: "THAÏLANDE",
-      description: "Découvrez des lieux extraordinaires loin du tourisme de masse à Krabi. Ainsi que Khao Sok, Koh Mook et bien d'autres destinations.",
+      description: t('D\xE9couvrez des lieux extraordinaires loin du tourisme de masse \xE0 Krabi. Ainsi que Khao Sok, Koh Mook et bien d\'autres destinations.', {
+        defaultValue: 'D\xE9couvrez des lieux extraordinaires loin du tourisme de masse \xE0 Krabi. Ainsi que Khao Sok, Koh Mook et bien d\'autres destinations.'
+      }),
       seeOffers: "Voir nos offres",
       customTrip: "Personnalisez votre voyage"
     },
@@ -886,8 +932,12 @@ const translations: Record<string, Translations> = {
       bookNow: "Réserver"
     },
     tours: {
-      title: "Tours & Expériences",
-      description: "Naviguez parmi nos plus belles expériences à Krabi, toutes garanties hors du tourisme de masse : croisières en mer privées et semi-privées, excursions terrestres uniques (kayak dans la mangrove, cascades, jungle tropicale, arbres centenaires, temples, grottes karstiques, piscines naturelles) et formules exclusives de 2 jours / 1 nuit.",
+      title: t('Tours & Exp\xE9riences', {
+        defaultValue: 'Tours & Exp\xE9riences'
+      }),
+      description: t('Naviguez parmi nos plus belles exp\xE9riences \xE0 Krabi, toutes garanties hors du tourisme de masse : croisi\xE8res en mer priv\xE9es et semi-priv\xE9es, excursions terrestres uniques (kayak dans la mangrove, cascades, jungle tropicale, arbres centenaires, temples, grottes karstiques, piscines naturelles) et formules exclusives de 2 jours / 1 nuit.', {
+        defaultValue: 'Naviguez parmi nos plus belles exp\xE9riences \xE0 Krabi, toutes garanties hors du tourisme de masse : croisi\xE8res en mer priv\xE9es et semi-priv\xE9es, excursions terrestres uniques (kayak dans la mangrove, cascades, jungle tropicale, arbres centenaires, temples, grottes karstiques, piscines naturelles) et formules exclusives de 2 jours / 1 nuit.'
+      }),
       duration: "Durée",
       participants: "Participants max",
       price: "À partir de",
@@ -896,7 +946,6 @@ const translations: Record<string, Translations> = {
     home: {
       introTitle: "Quand des expats vous reçoivent dans leurs pays d'accueil",
       introDescription: "Depuis 2023, notre agence de voyage familiale conçoit des activités exclusives autour de Krabi et des séjours sur mesure à travers toute la Thaïlande. Notre ambition est d'offrir des expériences de voyage immersives, loin du tourisme de masse, avec un service personnalisé pour chaque voyageur — comme si nous vous accueillions en famille ou entre amis.",
-      
       customTripTitle: "Créez Votre Voyage Sur Mesure",
       customTripSubtitle: "Votre aventure commence par vos rêves -",
       customTripDescription: "laissez-nous écrire la suite.",
@@ -915,24 +964,20 @@ const translations: Record<string, Translations> = {
       sendRequest: "Envoyer ma demande",
       orContactDirectly: "Ou contactez-nous directement via WhatsApp",
       contactWhatsApp: "Contacter via WhatsApp",
-      
       cultureHistory: "Culture et Histoire",
       natureAdventure: "Nature et Aventure",
       beachesIslands: "Plages et Îles",
       familyTrip: "Voyage en famille",
       groupTrip: "Voyage de groupe",
       weddingHoneymoon: "Mariage et Lune de miel",
-      
       khaoSok: "Khao Sok",
       bangkok: "Bangkok",
       krabi: "Krabi",
       chiangMai: "Chiang Mai",
       kohMook: "Koh Mook",
       othersDestinations: "Autres destinations",
-      
       someIdeasTitle: "Quelques Idées Pour Votre Prochain Voyage",
       someIdeasDescription: "Inspirez-vous de nos expériences de voyage conçues sur mesure.",
-      
       whyChooseTitle: "Pourquoi Nous Choisir",
       whyChooseDescription: "Vivez une excursion privée exclusive avec nos guides certifiés francophones ou anglophones.",
       privateTours: "Tours Privés",
@@ -950,31 +995,29 @@ const translations: Record<string, Translations> = {
       localFood: "Cuisine Locale",
       localPeople: "Population Locale",
       culture: "Culture",
-      
       whoWeAreTitle: "Qui Sommes-Nous",
       whoWeAreDescription: "Nous sommes Eric, Margaux, Gabriel et Raphaël, une famille française vivant à Krabi, dans le sud de la Thaïlande, depuis 2013.",
       whoWeAreStory: "De notre vie ici, nous avons créé Amon Tour — une petite agence de voyage indépendante basée sur une idée simple : accueillir personnellement nos voyageurs à Krabi et leur offrir une façon différente de découvrir la Thaïlande.",
-      
       deepLocalRootsTitle: "Des Racines Locales Profondes",
       deepLocalRootsDescription: "Nous vivons ici toute l'année, au cœur de la région que nous aimons. Cette proximité avec la destination nous permet de proposer des expériences exclusives à Krabi, conçues et guidées par notre équipe de guides locaux professionnels ou partenaires de confiance.",
       deepLocalRootsExplanation: "Vous ne réservez pas un tour générique — vous êtes accueillis, guidés et pris en charge par des gens qui vivent ici, qui connaissent les marées, les saisons, les foules à éviter, et les trésors cachés qui valent le détour.",
-      
       ourConceptTitle: "Notre Concept",
       ourConceptDescription: "Combiner la chaleur et la proximité d'une agence locale à Krabi avec l'expertise d'un concepteur de voyages sur mesure pour toute la Thaïlande. Chez Amon Tour, vous êtes accompagnés avant, pendant et après votre voyage. Vous êtes en contact avec de vraies personnes – un visage, une voix, une équipe – pas un centre d'appels ou un algorithme. Nous sommes là, sur le terrain, pour faire de votre voyage une expérience fluide, personnelle et inoubliable.",
-      
       testimonialsTitle: "Les Avis de Nos Voyageurs",
       testimonialsDescription: "Découvrez les expériences authentiques de nos clients lors de leurs voyages avec Amon Tour en Thaïlande.",
       basedOnReviews: "Basé sur 80 avis",
-      
       tailorMadeTitle: "Nos séjours personnalisés",
       tailorMadeDescription: "Créez votre propre voyage en Thaïlande grâce à nos séjours personnalisés : découvertes culturelles, aventures en famille, escapades romantiques ou séjours insulaires. Chaque itinéraire est conçu selon vos envies, pour offrir des expériences authentiques, des services de qualité et une immersion unique, loin du tourisme de masse.",
-      
       contactUs: "Contactez-Nous",
       createYourJourney: "Créez Votre Voyage"
     },
     cruise: {
-      title: "Demande de Devis Personnalisé",
-      subtitle: "Remplissez le formulaire ci-dessous et nous vous contacterons sous 24 heures.",
+      title: t('Demande de Devis Personnalis\xE9', {
+        defaultValue: 'Demande de Devis Personnalis\xE9'
+      }),
+      subtitle: t('Remplissez le formulaire ci-dessous et nous vous contacterons sous 24 heures.', {
+        defaultValue: 'Remplissez le formulaire ci-dessous et nous vous contacterons sous 24 heures.'
+      }),
       fullName: "Nom complet",
       email: "Email",
       phoneNumber: "Numéro de téléphone (Optionnel)",
@@ -987,19 +1030,16 @@ const translations: Record<string, Translations> = {
       selectSeason: "Sélectionnez une saison",
       preferredDestinations: "Destinations préférées (Optionnel)",
       specialRequests: "Demandes spéciales (Optionnel)",
-      
       // Duration options
       oneDay: "1 jour",
       twoDays: "2 jours",
       threeFourDays: "3-4 jours",
       fiveSixDays: "5-6 jours",
       sevenPlusDays: "7 jours et plus",
-      
       // Season options
       lowSeasonOption: "Basse saison (28 000 THB/jour)",
       highSeasonOption: "Haute saison (31 000 THB/jour)",
       veryHighSeasonOption: "Très haute saison (39 000 THB/jour)",
-      
       // Placeholders
       fullNamePlaceholder: "Votre nom complet",
       emailPlaceholder: "votre@email.com",
@@ -1007,7 +1047,6 @@ const translations: Record<string, Translations> = {
       datesPlaceholder: "Ex: 15-20 janvier 2025",
       destinationsPlaceholder: "Ex: Koh Phi Phi, Koh Hong...",
       specialRequestsPlaceholder: "Exigences alimentaires, célébration d'anniversaire, etc.",
-      
       // Messages
       requestSent: "Demande envoyée !",
       contactShortly: "Nous vous contacterons sous peu.",
@@ -1015,25 +1054,21 @@ const translations: Record<string, Translations> = {
       errorMessage: "Une erreur s'est produite. Veuillez réessayer.",
       sending: "Envoi en cours...",
       sendRequest: "Envoyer la demande",
-    orContactDirectly: "Ou contactez-nous directement via WhatsApp",
-    contactWhatsApp: "Contacter via WhatsApp",
-
+      orContactDirectly: "Ou contactez-nous directement via WhatsApp",
+      contactWhatsApp: "Contacter via WhatsApp",
       // Main cruise page content
       freedomExclusivity: "Liberté et Exclusivité",
       freedomDescription: "Naviguez vers l'exclusivité à bord de l'une des rares croisières en catamaran au départ de Krabi. Explorez la mer d'Andaman comme peu de voyageurs ont la chance de le faire : en toute liberté, loin des circuits touristiques, avec un itinéraire conçu entièrement pour vous.",
-      
       tailorMadeRoutes: "Parcours sur mesure",
       tailorMadeDesc: "Nous composons votre itinéraire pour révéler le meilleur de la région, en privilégiant les sites préservés et les moments d'exception.",
       expertCrew: "Équipage expert",
       expertCrewDesc: "Nos capitaines ont une parfaite maîtrise de ces eaux. Ils optimisent chaque navigation en s'adaptant aux conditions météorologiques, aux marées et aux vents pour maximiser votre plaisir.",
       totalFreedom: "Liberté totale",
       totalFreedomDesc: "Plages désertes, lagons turquoise, snorkeling dans des eaux cristallines... Votre croisière évolue selon vos préférences.",
-      
       lagoonCatamaran: "Un Catamaran Lagoon 470",
       lagoonDesc1: "Construit en 1999 et constamment amélioré depuis 2023, allie confort et caractère. Il dispose de 4 cabines doubles avec salles de bain privées : deux cabines avec lits queen-size (160 cm) et deux avec lits doubles (140 cm). Chaque cabine est équipée de ventilateurs, prises 220V et grands espaces de rangement.",
       lagoonDesc2: "Spacieux et bien conçu, le Lagoon offre une circulation fluide entre les espaces de vie intérieurs et extérieurs : grand salon lumineux, cuisine équipée, cockpit ombragé, zone de bronzage à l'avant, etc. Le moteur discret assure une navigation paisible.",
       lagoonDesc3: "Parfait pour des vacances en famille, entre amis ou en charter privé, ce bateau garantit votre confort, votre intimité et votre liberté d'explorer les plus belles îles de la mer d'Andaman.",
-      
       routeSuggestions: "Suggestions d'itinéraires",
       routeDescription: "Chaque itinéraire s'adapte à la saison et aux conditions naturelles pour vous garantir une expérience optimale.",
       oneDayRoute: "Îles locales d'Ao Nang ou archipel de Koh Hong",
@@ -1041,7 +1076,6 @@ const translations: Record<string, Translations> = {
       threeFourDaysRoute: "Baie de Phang Nga et Koh Phi Phi combinés",
       fiveSixDaysRoute: "Escapade vers les eaux préservées de Koh Rok et Koh Mook",
       sevenPlusDaysRoute: "Odyssée vers les îles paradisiaques de Koh Lipe ou Similan",
-      
       // Pricing section
       seasonalPricing: "Tarification Saisonnière",
       perfectForHolidays: "Parfait pour des vacances en famille, entre amis ou en charter privé",
@@ -1054,22 +1088,24 @@ const translations: Record<string, Translations> = {
       perDay: "par jour",
       period: "Période :",
       dailyRateMinimum: "Tarif journalier pour un minimum de 2 jours et une nuit. Capacité 8 adultes max.",
-      
       fromTubkeak: "depuis Tubkeak",
       fromThalane: "depuis Thalane",
       fromAoNang: "depuis Ao Nang",
       fromKlongMueang: "depuis Klong Mueang",
       fromRailay: "depuis Railay",
       noExtraFee: "Pas de supplément",
-      
       includedInPrice: "Inclus dans le Prix",
       includedDescription: "Location bateau avec capitaine, assistant et guide anglophone professionnel, carburant, annexe semi-rigide pour 5 à 6 personnes avec moteur 18 CV, BBQ, équipement de pêche et paddle, fruits frais, sodas, eau. Petit-déjeuner (thé, café, toast, omelette).",
       notIncludedInPrice: "Non Inclus dans le Prix",
       notIncludedDescription: "Transferts (sur demande), frais de parcs nationaux (selon l'itinéraire), bière, vin, spiritueux. Déjeuner et dîner (cuisine thaï) : 500 Baht par personne par repas. Merci de nous faire connaître vos préférences et nous approvisionnerons le bateau en conséquence."
     },
     customTour: {
-      title: "Créez Votre Voyage Sur Mesure",
-      subtitle: "Dites-nous ce que vous aimeriez découvrir, et nous créerons votre itinéraire personnalisé.",
+      title: t('Cr\xE9ez Votre Voyage Sur Mesure', {
+        defaultValue: 'Cr\xE9ez Votre Voyage Sur Mesure'
+      }),
+      subtitle: t('Dites-nous ce que vous aimeriez d\xE9couvrir, et nous cr\xE9erons votre itin\xE9raire personnalis\xE9.', {
+        defaultValue: 'Dites-nous ce que vous aimeriez d\xE9couvrir, et nous cr\xE9erons votre itin\xE9raire personnalis\xE9.'
+      }),
       seoTitle: "Créez Votre Expérience Thaïlandaise Sur Mesure",
       seoDescription: "Concevez votre propre voyage personnalisé en Thaïlande. Dites-nous vos préférences et nos experts locaux créeront un itinéraire sur mesure rien que pour vous.",
       seoKeywords: "voyage sur mesure thailande, voyage personnalisé, itinéraire sur mesure, guide privé thailande, expérience voyage personnalisée",
@@ -1084,8 +1120,12 @@ const translations: Record<string, Translations> = {
     },
     pageHeaders: {
       contact: {
-        title: "Nous Contacter",
-        subtitle: "Nous sommes là pour vous aider à planifier la parfaite expérience à Krabi.",
+        title: t('Nous Contacter', {
+          defaultValue: 'Nous Contacter'
+        }),
+        subtitle: t('Nous sommes l\xE0 pour vous aider \xE0 planifier la parfaite exp\xE9rience \xE0 Krabi.', {
+          defaultValue: 'Nous sommes l\xE0 pour vous aider \xE0 planifier la parfaite exp\xE9rience \xE0 Krabi.'
+        }),
         getInTouch: "Prenez Contact",
         readyToExplore: "Prêt à explorer Krabi ? Contactez-nous par n'importe laquelle des méthodes ci-dessous. Notre équipe amicale est là pour répondre à vos questions et vous aider à planifier une expérience inoubliable.",
         email: "Email",
@@ -1095,38 +1135,70 @@ const translations: Record<string, Translations> = {
         line: "Line"
       },
       experiences: {
-        title: "Découvrez les Expériences de Thaïlande",
-        subtitle: "Immergez-vous dans la culture thaï authentique avec nos expériences uniques",
+        title: t('D\xE9couvrez les Exp\xE9riences de Tha\xEFlande', {
+          defaultValue: 'D\xE9couvrez les Exp\xE9riences de Tha\xEFlande'
+        }),
+        subtitle: t('Immergez-vous dans la culture tha\xEF authentique avec nos exp\xE9riences uniques', {
+          defaultValue: 'Immergez-vous dans la culture tha\xEF authentique avec nos exp\xE9riences uniques'
+        }),
         searchPlaceholder: "Rechercher des expériences...",
         organizeDreamTrip: "Contactez-nous pour organiser le voyage de vos rêves en Thaïlande."
       },
       blog: {
-        title: "Blog de Voyage",
-        subtitle: "Découvrez le meilleur de Krabi à travers nos guides de voyage, conseils et aperçus locaux."
+        title: t('Blog de Voyage', {
+          defaultValue: 'Blog de Voyage'
+        }),
+        subtitle: t('D\xE9couvrez le meilleur de Krabi \xE0 travers nos guides de voyage, conseils et aper\xE7us locaux.', {
+          defaultValue: 'D\xE9couvrez le meilleur de Krabi \xE0 travers nos guides de voyage, conseils et aper\xE7us locaux.'
+        })
       },
       tours: {
-        title: "Nos Expériences",
-        subtitle: "Découvrez la beauté exceptionnelle de Krabi et du sud de la Thaïlande."
+        title: t('Nos Exp\xE9riences', {
+          defaultValue: 'Nos Exp\xE9riences'
+        }),
+        subtitle: t('D\xE9couvrez la beaut\xE9 exceptionnelle de Krabi et du sud de la Tha\xEFlande.', {
+          defaultValue: 'D\xE9couvrez la beaut\xE9 exceptionnelle de Krabi et du sud de la Tha\xEFlande.'
+        })
       },
       krabiCelebration: {
-        title: "Krabi Celebration",
-        subtitle: "Moments Uniques dans des Cadres Exceptionnels"
+        title: t('Krabi Celebration', {
+          defaultValue: 'Krabi Celebration'
+        }),
+        subtitle: t('Moments Uniques dans des Cadres Exceptionnels', {
+          defaultValue: 'Moments Uniques dans des Cadres Exceptionnels'
+        })
       },
       becomePartner: {
-        title: "Devenez Notre Partenaire",
-        subtitle: "Rejoignez notre réseau de partenaires locaux de confiance"
+        title: t('Devenez Notre Partenaire', {
+          defaultValue: 'Devenez Notre Partenaire'
+        }),
+        subtitle: t('Rejoignez notre r\xE9seau de partenaires locaux de confiance', {
+          defaultValue: 'Rejoignez notre r\xE9seau de partenaires locaux de confiance'
+        })
       },
       groupCorporate: {
-        title: "Voyages de Groupe et d'Entreprise",
-        subtitle: "Expériences Sur Mesure à Krabi"
+        title: t('Voyages de Groupe et d\'Entreprise', {
+          defaultValue: 'Voyages de Groupe et d\'Entreprise'
+        }),
+        subtitle: t('Exp\xE9riences Sur Mesure \xE0 Krabi', {
+          defaultValue: 'Exp\xE9riences Sur Mesure \xE0 Krabi'
+        })
       },
       villasKrabi: {
-        title: "Villas à Krabi",
-        subtitle: "Sélection de Villas Choisies"
+        title: t('Villas \xE0 Krabi', {
+          defaultValue: 'Villas \xE0 Krabi'
+        }),
+        subtitle: t('S\xE9lection de Villas Choisies', {
+          defaultValue: 'S\xE9lection de Villas Choisies'
+        })
       },
       brochure: {
-        title: "Notre Brochure",
-        subtitle: "Guide de Voyage Amon Tour"
+        title: t('Notre Brochure', {
+          defaultValue: 'Notre Brochure'
+        }),
+        subtitle: t('Guide de Voyage Amon Tour', {
+          defaultValue: 'Guide de Voyage Amon Tour'
+        })
       }
     },
     messages: {
@@ -1197,16 +1269,24 @@ const translations: Record<string, Translations> = {
       welcomeBar: "Bienvenue chez Amon Tour ! Découvrez des expériences authentiques en Thaïlande 🇹🇭"
     },
     cookies: {
-      title: "Nous utilisons des cookies",
-      description: "Nous utilisons des cookies pour améliorer votre expérience et analyser l'utilisation du site. En continuant à utiliser ce site, vous acceptez notre utilisation des cookies.",
+      title: t('Nous utilisons des cookies', {
+        defaultValue: 'Nous utilisons des cookies'
+      }),
+      description: t('Nous utilisons des cookies pour am\xE9liorer votre exp\xE9rience et analyser l\'utilisation du site. En continuant \xE0 utiliser ce site, vous acceptez notre utilisation des cookies.', {
+        defaultValue: 'Nous utilisons des cookies pour am\xE9liorer votre exp\xE9rience et analyser l\'utilisation du site. En continuant \xE0 utiliser ce site, vous acceptez notre utilisation des cookies.'
+      }),
       acceptAll: "Tout Accepter",
       rejectAll: "Tout Refuser",
       customize: "Personnaliser",
       privacyNotice: "Notice de Confidentialité"
     },
     blog: {
-      title: "Blog de Voyage",
-      subtitle: "Découvrez la Thaïlande à travers nos conseils d'experts et guides de voyage",
+      title: t('Blog de Voyage', {
+        defaultValue: 'Blog de Voyage'
+      }),
+      subtitle: t('D\xE9couvrez la Tha\xEFlande \xE0 travers nos conseils d\'experts et guides de voyage', {
+        defaultValue: 'D\xE9couvrez la Tha\xEFlande \xE0 travers nos conseils d\'experts et guides de voyage'
+      }),
       tags: "Tags",
       categories: "Catégories",
       allTags: "Tous les Tags",
@@ -1283,10 +1363,16 @@ const translations: Record<string, Translations> = {
       contact: "Contacto"
     },
     hero: {
-      title: "Tus experiencias exclusivas",
-      subtitle: "en Krabi",
-      thailand: "TAILANDIA", 
-      description: "Descubre lugares increíbles lejos del turismo masivo en Krabi. Y también Khao Sok, Koh Mook y muchos más destinos.",
+      title: t('Tus experiencias exclusivas', {
+        defaultValue: 'Tus experiencias exclusivas'
+      }),
+      subtitle: t('en Krabi', {
+        defaultValue: 'en Krabi'
+      }),
+      thailand: "TAILANDIA",
+      description: t('Descubre lugares incre\xEDbles lejos del turismo masivo en Krabi. Y tambi\xE9n Khao Sok, Koh Mook y muchos m\xE1s destinos.', {
+        defaultValue: 'Descubre lugares incre\xEDbles lejos del turismo masivo en Krabi. Y tambi\xE9n Khao Sok, Koh Mook y muchos m\xE1s destinos.'
+      }),
       seeOffers: "Ver nuestras ofertas",
       customTrip: "Personaliza tu viaje"
     },
@@ -1299,8 +1385,12 @@ const translations: Record<string, Translations> = {
       bookNow: "Reservar"
     },
     tours: {
-      title: "Tours y Experiencias",
-      description: "Explora nuestras mejores experiencias en Krabi, todas garantizadas fuera del camino trillado: excursiones privadas y semiprivadas por el mar, excursiones terrestres únicas (kayak por manglares, cascadas, selva tropical, árboles centenarios, templos, cuevas kársticas, piscinas naturales), y paquetes exclusivos de 2 días / 1 noche.",
+      title: t('Tours y Experiencias', {
+        defaultValue: 'Tours y Experiencias'
+      }),
+      description: t('Explora nuestras mejores experiencias en Krabi, todas garantizadas fuera del camino trillado: excursiones privadas y semiprivadas por el mar, excursiones terrestres \xFAnicas (kayak por manglares, cascadas, selva tropical, \xE1rboles centenarios, templos, cuevas k\xE1rsticas, piscinas naturales), y paquetes exclusivos de 2 d\xEDas / 1 noche.', {
+        defaultValue: 'Explora nuestras mejores experiencias en Krabi, todas garantizadas fuera del camino trillado: excursiones privadas y semiprivadas por el mar, excursiones terrestres \xFAnicas (kayak por manglares, cascadas, selva tropical, \xE1rboles centenarios, templos, cuevas k\xE1rsticas, piscinas naturales), y paquetes exclusivos de 2 d\xEDas / 1 noche.'
+      }),
       duration: "Duración",
       participants: "Participantes máx",
       price: "Desde",
@@ -1309,7 +1399,6 @@ const translations: Record<string, Translations> = {
     home: {
       introTitle: "Cuando expatriados te reciben en su país de acogida",
       introDescription: "Desde 2013, nuestra agencia de viajes familiar ha estado organizando actividades exclusivas alrededor de Krabi y diseñando viajes a medida por toda Tailandia. Buscamos ofrecer experiencias de viaje inmersivas, lejos del turismo de masas, con un servicio personalizado para cada viajero — recibiéndote como parte de nuestra familia o amigos cercanos.",
-      
       customTripTitle: "Crea Tu Viaje Personalizado",
       customTripSubtitle: "Tu historia de viaje comienza con tus sueños -",
       customTripDescription: "déjanos escribir el resto.",
@@ -1328,24 +1417,20 @@ const translations: Record<string, Translations> = {
       sendRequest: "Enviar mi solicitud",
       orContactDirectly: "O contáctanos directamente a través de WhatsApp",
       contactWhatsApp: "Contactar vía WhatsApp",
-      
       cultureHistory: "Cultura e Historia",
       natureAdventure: "Naturaleza y Aventura",
       beachesIslands: "Playas e Islas",
       familyTrip: "Viaje familiar",
       groupTrip: "Viaje en grupo",
       weddingHoneymoon: "Boda y Luna de miel",
-      
       khaoSok: "Khao Sok",
       bangkok: "Bangkok",
       krabi: "Krabi",
       chiangMai: "Chiang Mai",
       kohMook: "Koh Mook",
       othersDestinations: "Otros destinos",
-      
       someIdeasTitle: "Algunas Ideas Para Tu Próximo Viaje",
       someIdeasDescription: "Inspírate con nuestras experiencias de viaje diseñadas a medida.",
-      
       whyChooseTitle: "Por Qué Elegirnos",
       whyChooseDescription: "Vive una excursión privada exclusiva con nuestros guías certificados de habla inglesa o francesa.",
       privateTours: "Tours Privados",
@@ -1363,31 +1448,29 @@ const translations: Record<string, Translations> = {
       localFood: "Comida Local",
       localPeople: "Gente Local",
       culture: "Cultura",
-      
       whoWeAreTitle: "Quiénes Somos",
       whoWeAreDescription: "Somos Eric, Margaux, Gabriel y Raphaël, una familia francesa viviendo en Krabi, sur de Tailandia, desde 2013.",
       whoWeAreStory: "De nuestra vida aquí, creamos Amon Tour — una pequeña agencia de viajes independiente construida sobre una idea simple: recibir personalmente a nuestros viajeros en Krabi y ofrecerles una manera diferente de experimentar Tailandia.",
-      
       deepLocalRootsTitle: "Raíces Locales Profundas",
       deepLocalRootsDescription: "Vivimos aquí todo el año, en el corazón de la región que amamos. Esta estrecha conexión con el destino nos permite ofrecer experiencias exclusivas en Krabi, diseñadas y guiadas por nuestro equipo de guías locales profesionales o socios de confianza.",
       deepLocalRootsExplanation: "No estás reservando un tour genérico — estás siendo recibido, guiado y cuidado por personas que viven aquí, que conocen las mareas, las estaciones, las multitudes que evitar, y las gemas ocultas que vale la pena descubrir.",
-      
       ourConceptTitle: "Nuestro Concepto",
       ourConceptDescription: "Combinar la calidez y proximidad de una agencia local en Krabi con la experiencia de un diseñador de viajes a medida para toda Tailandia. En Amon Tour, tienes apoyo antes, durante y después de tu viaje. Estás en contacto con personas reales – una cara, una voz, un equipo – no un centro de llamadas o un algoritmo. Estamos aquí, sobre el terreno, para hacer de tu viaje una experiencia fluida, personal e inolvidable.",
-      
       testimonialsTitle: "Reseñas de Nuestros Viajeros",
       testimonialsDescription: "Descubre las experiencias auténticas de nuestros clientes durante sus viajes con Amon Tour en Tailandia.",
       basedOnReviews: "Basado en 80 reseñas",
-      
       tailorMadeTitle: "Nuestros viajes personalizados",
       tailorMadeDescription: "Crea tu propio viaje por Tailandia con nuestras estancias personalizadas: desde descubrimientos culturales y aventuras familiares hasta escapadas románticas y retiros insulares. Cada itinerario está diseñado según tus deseos, ofreciendo experiencias auténticas, servicios de calidad y una inmersión única, lejos del turismo de masas.",
-      
       contactUs: "Contáctanos",
       createYourJourney: "Crea Tu Viaje"
     },
     cruise: {
-      title: "Solicitud de Cotización Personalizada",
-      subtitle: "Complete el formulario a continuación y nos pondremos en contacto con usted en 24 horas.",
+      title: t('Solicitud de Cotizaci\xF3n Personalizada', {
+        defaultValue: 'Solicitud de Cotizaci\xF3n Personalizada'
+      }),
+      subtitle: t('Complete el formulario a continuaci\xF3n y nos pondremos en contacto con usted en 24 horas.', {
+        defaultValue: 'Complete el formulario a continuaci\xF3n y nos pondremos en contacto con usted en 24 horas.'
+      }),
       fullName: "Nombre completo",
       email: "Email",
       phoneNumber: "Número de teléfono (Opcional)",
@@ -1400,19 +1483,16 @@ const translations: Record<string, Translations> = {
       selectSeason: "Seleccione una temporada",
       preferredDestinations: "Destinos preferidos (Opcional)",
       specialRequests: "Solicitudes especiales (Opcional)",
-      
       // Duration options
       oneDay: "1 día",
       twoDays: "2 días",
       threeFourDays: "3-4 días",
       fiveSixDays: "5-6 días",
       sevenPlusDays: "7 días y más",
-      
       // Season options
       lowSeasonOption: "Temporada baja (28,000 THB/día)",
       highSeasonOption: "Temporada alta (31,000 THB/día)",
       veryHighSeasonOption: "Temporada muy alta (39,000 THB/día)",
-      
       // Placeholders
       fullNamePlaceholder: "Su nombre completo",
       emailPlaceholder: "su@email.com",
@@ -1420,7 +1500,6 @@ const translations: Record<string, Translations> = {
       datesPlaceholder: "Ej: 15-20 enero 2025",
       destinationsPlaceholder: "Ej: Koh Phi Phi, Koh Hong...",
       specialRequestsPlaceholder: "Requisitos dietéticos, celebración de cumpleaños, etc.",
-      
       // Messages
       requestSent: "¡Solicitud enviada!",
       contactShortly: "Nos pondremos en contacto pronto.",
@@ -1428,25 +1507,21 @@ const translations: Record<string, Translations> = {
       errorMessage: "Ocurrió un error. Por favor intente de nuevo.",
       sending: "Enviando...",
       sendRequest: "Enviar solicitud",
-    orContactDirectly: "O contáctanos directamente a través de WhatsApp",
-    contactWhatsApp: "Contactar vía WhatsApp",
-
+      orContactDirectly: "O contáctanos directamente a través de WhatsApp",
+      contactWhatsApp: "Contactar vía WhatsApp",
       // Main cruise page content
       freedomExclusivity: "Libertad y Exclusividad",
       freedomDescription: "Navegue hacia la exclusividad a bordo de uno de los raros cruceros en catamarán que parten de Krabi. Explore el Mar de Andamán como pocos viajeros tienen la oportunidad de hacerlo: en completa libertad, lejos de los circuitos turísticos, con un itinerario diseñado completamente para usted.",
-      
       tailorMadeRoutes: "Rutas a medida",
       tailorMadeDesc: "Componemos su itinerario para revelar lo mejor de la región, priorizando sitios preservados y momentos excepcionales.",
       expertCrew: "Tripulación experta",
       expertCrewDesc: "Nuestros capitanes tienen un dominio perfecto de estas aguas. Optimizan cada navegación adaptándose a las condiciones meteorológicas, mareas y vientos para maximizar su placer.",
       totalFreedom: "Libertad total",
       totalFreedomDesc: "Playas desiertas, lagunas turquesas, snorkel en aguas cristalinas... Su crucero evoluciona según sus preferencias.",
-      
       lagoonCatamaran: "Un Catamarán Lagoon 470",
       lagoonDesc1: "Construido en 1999 y constantemente mejorado desde 2023, combina comodidad y carácter. Tiene 4 cabinas dobles con baños privados: dos cabinas con camas queen-size (160 cm) y dos con camas dobles (140 cm). Cada cabina está equipada con ventiladores, enchufes de 220V y grandes espacios de almacenamiento.",
       lagoonDesc2: "Espacioso y bien diseñado, el Lagoon ofrece un flujo perfecto entre los espacios de vida interiores y exteriores: sala de estar grande y luminosa, cocina equipada, cabina sombreada, área de bronceado en el frente, etc. El motor discreto asegura una navegación tranquila.",
       lagoonDesc3: "Perfecto para vacaciones en familia, con amigos o charter privado, este barco garantiza su comodidad, privacidad y libertad para explorar las islas más hermosas del Mar de Andamán.",
-      
       routeSuggestions: "Sugerencias de rutas",
       routeDescription: "Cada itinerario se adapta a la estación y condiciones naturales para garantizarle una experiencia óptima.",
       oneDayRoute: "Islas locales de Ao Nang o archipiélago de Koh Hong",
@@ -1454,7 +1529,6 @@ const translations: Record<string, Translations> = {
       threeFourDaysRoute: "Bahía de Phang Nga y Koh Phi Phi combinadas",
       fiveSixDaysRoute: "Escapada a las aguas preservadas de Koh Rok y Koh Mook",
       sevenPlusDaysRoute: "Odisea a las islas paradisíacas de Koh Lipe o Similan",
-      
       // Pricing section
       seasonalPricing: "Precios Estacionales",
       perfectForHolidays: "Perfecto para vacaciones en familia, con amigos o charter privado",
@@ -1467,22 +1541,24 @@ const translations: Record<string, Translations> = {
       perDay: "por día",
       period: "Período:",
       dailyRateMinimum: "Tarifa diaria por mínimo 2 días y una noche. Capacidad 8 adultos máx.",
-      
       fromTubkeak: "desde Tubkeak",
       fromThalane: "desde Thalane",
       fromAoNang: "desde Ao Nang",
       fromKlongMueang: "desde Klong Mueang",
       fromRailay: "desde Railay",
       noExtraFee: "Sin cargo extra",
-      
       includedInPrice: "Incluido en el Precio",
       includedDescription: "Alquiler de barco con capitán, asistente y guía profesional de habla inglesa, combustible, bote semirrígido para 5 a 6 personas con motor de 18 HP, BBQ, equipo de pesca y paddleboard, frutas frescas, refrescos, agua. Desayuno (té, café, tostadas, tortilla).",
       notIncludedInPrice: "No Incluido en el Precio",
       notIncludedDescription: "Traslados (bajo pedido), tarifas de parques nacionales (según el itinerario), cerveza, vino, licores. Almuerzo y cena (cocina tailandesa): 500 Baht por persona por comida. Por favor háganos saber sus preferencias y abasteceremos el barco en consecuencia."
     },
     customTour: {
-      title: "Cree Su Tour Personalizado",
-      subtitle: "Díganos qué le gustaría descubrir, y crearemos su itinerario personalizado.",
+      title: t('Cree Su Tour Personalizado', {
+        defaultValue: 'Cree Su Tour Personalizado'
+      }),
+      subtitle: t('D\xEDganos qu\xE9 le gustar\xEDa descubrir, y crearemos su itinerario personalizado.', {
+        defaultValue: 'D\xEDganos qu\xE9 le gustar\xEDa descubrir, y crearemos su itinerario personalizado.'
+      }),
       seoTitle: "Cree Su Experiencia Tailandesa Personalizada",
       seoDescription: "Diseñe su propio tour personalizado por Tailandia. Díganos sus preferencias y nuestros expertos locales crearán un itinerario personalizado solo para usted.",
       seoKeywords: "tour personalizado tailandia, viaje personalizado, itinerario a medida, guía privado tailandia, experiencia de viaje personalizada",
@@ -1497,8 +1573,12 @@ const translations: Record<string, Translations> = {
     },
     pageHeaders: {
       contact: {
-        title: "Contáctanos",
-        subtitle: "Estamos aquí para ayudarte a planificar la experiencia perfecta en Krabi.",
+        title: t('Cont\xE1ctanos', {
+          defaultValue: 'Cont\xE1ctanos'
+        }),
+        subtitle: t('Estamos aqu\xED para ayudarte a planificar la experiencia perfecta en Krabi.', {
+          defaultValue: 'Estamos aqu\xED para ayudarte a planificar la experiencia perfecta en Krabi.'
+        }),
         getInTouch: "Ponte en Contacto",
         readyToExplore: "¿Listo para explorar Krabi? Contáctanos por cualquiera de los métodos a continuación. Nuestro equipo amigable está aquí para responder tus preguntas y ayudarte a planificar una experiencia inolvidable.",
         email: "Email",
@@ -1508,38 +1588,68 @@ const translations: Record<string, Translations> = {
         line: "Line"
       },
       experiences: {
-        title: "Descubre las Experiencias de Tailandia",
-        subtitle: "Sumérgete en la cultura tailandesa auténtica con nuestras experiencias únicas",
+        title: t('Descubre las Experiencias de Tailandia', {
+          defaultValue: 'Descubre las Experiencias de Tailandia'
+        }),
+        subtitle: t('Sum\xE9rgete en la cultura tailandesa aut\xE9ntica con nuestras experiencias \xFAnicas', {
+          defaultValue: 'Sum\xE9rgete en la cultura tailandesa aut\xE9ntica con nuestras experiencias \xFAnicas'
+        }),
         searchPlaceholder: "Buscar experiencias...",
         organizeDreamTrip: "Contáctanos para organizar el viaje de tus sueños a Tailandia."
       },
       blog: {
-        title: "Blog de Viajes",
-        subtitle: "Descubre lo mejor de Krabi a través de nuestras guías de viaje, consejos y perspectivas locales."
+        title: t('Blog de Viajes', {
+          defaultValue: 'Blog de Viajes'
+        }),
+        subtitle: t('Descubre lo mejor de Krabi a trav\xE9s de nuestras gu\xEDas de viaje, consejos y perspectivas locales.', {
+          defaultValue: 'Descubre lo mejor de Krabi a trav\xE9s de nuestras gu\xEDas de viaje, consejos y perspectivas locales.'
+        })
       },
       tours: {
-        title: "Nuestras Experiencias",
-        subtitle: "Descubre la belleza excepcional de Krabi y el sur de Tailandia."
+        title: t('Nuestras Experiencias', {
+          defaultValue: 'Nuestras Experiencias'
+        }),
+        subtitle: t('Descubre la belleza excepcional de Krabi y el sur de Tailandia.', {
+          defaultValue: 'Descubre la belleza excepcional de Krabi y el sur de Tailandia.'
+        })
       },
       krabiCelebration: {
-        title: "Krabi Celebration",
-        subtitle: "Momentos Únicos en Entornos Excepcionales"
+        title: t('Krabi Celebration', {
+          defaultValue: 'Krabi Celebration'
+        }),
+        subtitle: t('Momentos \xDAnicos en Entornos Excepcionales', {
+          defaultValue: 'Momentos \xDAnicos en Entornos Excepcionales'
+        })
       },
       becomePartner: {
-        title: "Conviértete en Nuestro Socio",
+        title: t('Convi\xE9rtete en Nuestro Socio', {
+          defaultValue: 'Convi\xE9rtete en Nuestro Socio'
+        }),
         subtitle: "Únete a nuestra red de socios locales de confianza"
       },
       groupCorporate: {
-        title: "Viajes de Grupo y Corporativos",
-        subtitle: "Experiencias Personalizadas en Krabi"
+        title: t('Viajes de Grupo y Corporativos', {
+          defaultValue: 'Viajes de Grupo y Corporativos'
+        }),
+        subtitle: t('Experiencias Personalizadas en Krabi', {
+          defaultValue: 'Experiencias Personalizadas en Krabi'
+        })
       },
       villasKrabi: {
-        title: "Villas en Krabi",
-        subtitle: "Selección Curada de Villas"
+        title: t('Villas en Krabi', {
+          defaultValue: 'Villas en Krabi'
+        }),
+        subtitle: t('Selecci\xF3n Curada de Villas', {
+          defaultValue: 'Selecci\xF3n Curada de Villas'
+        })
       },
       brochure: {
-        title: "Nuestro Folleto",
-        subtitle: "Guía de Viaje Amon Tour"
+        title: t('Nuestro Folleto', {
+          defaultValue: 'Nuestro Folleto'
+        }),
+        subtitle: t('Gu\xEDa de Viaje Amon Tour', {
+          defaultValue: 'Gu\xEDa de Viaje Amon Tour'
+        })
       }
     },
     messages: {
@@ -1610,16 +1720,24 @@ const translations: Record<string, Translations> = {
       welcomeBar: "¡Bienvenido a Amon Tour! Descubre experiencias auténticas en Tailandia 🇹🇭"
     },
     cookies: {
-      title: "Usamos cookies",
-      description: "Utilizamos cookies para mejorar tu experiencia y analizar el uso del sitio. Al continuar usando este sitio, aceptas nuestro uso de cookies.",
+      title: t('Usamos cookies', {
+        defaultValue: 'Usamos cookies'
+      }),
+      description: t('Utilizamos cookies para mejorar tu experiencia y analizar el uso del sitio. Al continuar usando este sitio, aceptas nuestro uso de cookies.', {
+        defaultValue: 'Utilizamos cookies para mejorar tu experiencia y analizar el uso del sitio. Al continuar usando este sitio, aceptas nuestro uso de cookies.'
+      }),
       acceptAll: "Aceptar Todo",
       rejectAll: "Rechazar Todo",
       customize: "Personalizar",
       privacyNotice: "Aviso de Privacidad"
     },
     blog: {
-      title: "Blog de Viajes",
-      subtitle: "Descubre Tailandia a través de nuestros consejos expertos y guías de viaje",
+      title: t('Blog de Viajes', {
+        defaultValue: 'Blog de Viajes'
+      }),
+      subtitle: t('Descubre Tailandia a trav\xE9s de nuestros consejos expertos y gu\xEDas de viaje', {
+        defaultValue: 'Descubre Tailandia a trav\xE9s de nuestros consejos expertos y gu\xEDas de viaje'
+      }),
       tags: "Tags",
       categories: "Categorías",
       allTags: "Todos los Tags",
@@ -1688,10 +1806,8 @@ const translations: Record<string, Translations> = {
     }
   }
 };
-
 export class TranslationService {
   private currentLanguage: string = 'en';
-  
   constructor() {
     // Load saved language from localStorage
     const savedLanguage = localStorage.getItem('preferred-language');
@@ -1699,11 +1815,9 @@ export class TranslationService {
       this.currentLanguage = savedLanguage;
     }
   }
-
   getCurrentLanguage(): string {
     return this.currentLanguage;
   }
-
   setLanguage(language: string): boolean {
     if (translations[language]) {
       this.currentLanguage = language;
@@ -1712,7 +1826,6 @@ export class TranslationService {
     }
     return false;
   }
-
   getTranslations(): Translations {
     return translations[this.currentLanguage] || translations.en;
   }
@@ -1721,39 +1834,30 @@ export class TranslationService {
   getNav() {
     return this.getTranslations().nav;
   }
-
   getTourNames() {
     return this.getTranslations().tourNames;
   }
-
   getAccessibility() {
     return this.getTranslations().accessibility;
   }
-
   getHero() {
     return this.getTranslations().hero;
   }
-
   getCommon() {
     return this.getTranslations().common;
   }
-
   getTours() {
     return this.getTranslations().tours;
   }
-
   getHome() {
     return this.getTranslations().home;
   }
-
   getFooter() {
     return this.getTranslations().footer;
   }
-
   getCruise() {
     return this.getTranslations().cruise;
   }
-
   getCustomTour() {
     return this.getTranslations().customTour;
   }
@@ -1762,39 +1866,30 @@ export class TranslationService {
   getNotifications() {
     return this.getTranslations().notifications;
   }
-
   getCookies() {
     return this.getTranslations().cookies;
   }
-
   getBlog() {
     return this.getTranslations().blog;
   }
-
   getSeoMeta() {
     return this.getTranslations().seoMeta;
   }
-
   getErrors() {
     return this.getTranslations().errors;
   }
-
   getSeo() {
     return this.getTranslations().seo;
   }
-
   getPageHeaders() {
     return this.getTranslations().pageHeaders;
   }
-
   getMessages() {
     return this.getTranslations().messages;
   }
-
   getButtons() {
     return this.getTranslations().buttons;
   }
-
   getToasts() {
     return this.getTranslations().toasts;
   }
@@ -1803,7 +1898,6 @@ export class TranslationService {
   translate(keyPath: string): string {
     const keys = keyPath.split('.');
     let value: any = this.getTranslations();
-    
     for (const key of keys) {
       if (value && typeof value === 'object' && key in value) {
         value = value[key];
@@ -1812,7 +1906,6 @@ export class TranslationService {
         return keyPath;
       }
     }
-    
     return typeof value === 'string' ? value : keyPath;
   }
 
@@ -1829,29 +1922,21 @@ export class TranslationService {
     // Use getTranslations to ensure proper initialization
     const translations = this.getTranslations();
     const englishKeys = this.extractAllKeys(translations);
-    
+
     // Get French and Spanish translations by temporarily switching language
     const currentLang = this.getCurrentLanguage();
-    
     this.setLanguage('fr');
     const frenchKeys = this.extractAllKeys(this.getTranslations());
-    
     this.setLanguage('es');
     const spanishKeys = this.extractAllKeys(this.getTranslations());
-    
+
     // Restore original language
     this.setLanguage(currentLang);
-
     const missingInFrench = englishKeys.filter(key => !frenchKeys.includes(key));
     const missingInSpanish = englishKeys.filter(key => !spanishKeys.includes(key));
-    const missingInEnglish = [...frenchKeys, ...spanishKeys]
-      .filter(key => !englishKeys.includes(key))
-      .filter((key, index, array) => array.indexOf(key) === index); // Remove duplicates
+    const missingInEnglish = [...frenchKeys, ...spanishKeys].filter(key => !englishKeys.includes(key)).filter((key, index, array) => array.indexOf(key) === index); // Remove duplicates
 
-    const isComplete = missingInFrench.length === 0 && 
-                      missingInSpanish.length === 0 && 
-                      missingInEnglish.length === 0;
-
+    const isComplete = missingInFrench.length === 0 && missingInSpanish.length === 0 && missingInEnglish.length === 0;
     return {
       missingInFrench,
       missingInSpanish,
@@ -1866,11 +1951,9 @@ export class TranslationService {
    */
   private extractAllKeys(obj: any, prefix: string = ''): string[] {
     const keys: string[] = [];
-    
     for (const key in obj) {
       if (obj.hasOwnProperty(key)) {
         const currentPath = prefix ? `${prefix}.${key}` : key;
-        
         if (typeof obj[key] === 'object' && obj[key] !== null) {
           // Recurse into nested objects
           keys.push(...this.extractAllKeys(obj[key], currentPath));
@@ -1880,7 +1963,6 @@ export class TranslationService {
         }
       }
     }
-    
     return keys;
   }
 
@@ -1890,41 +1972,33 @@ export class TranslationService {
    */
   logTranslationReport(): void {
     const report = this.checkTranslationCompleteness();
-    
     console.group('🌐 Translation Completeness Report');
-    
     if (report.isComplete) {
       console.log('✅ All translations are complete!');
     } else {
       console.warn('⚠️  Missing translations found:');
-      
       if (report.missingInFrench.length > 0) {
         console.group('🇫🇷 Missing in French:');
         report.missingInFrench.forEach(key => console.log(`- ${key}`));
         console.groupEnd();
       }
-      
       if (report.missingInSpanish.length > 0) {
         console.group('🇪🇸 Missing in Spanish:');
         report.missingInSpanish.forEach(key => console.log(`- ${key}`));
         console.groupEnd();
       }
-      
       if (report.missingInEnglish.length > 0) {
         console.group('🇬🇧 Missing in English:');
         report.missingInEnglish.forEach(key => console.log(`- ${key}`));
         console.groupEnd();
       }
     }
-    
     const currentLang = this.getCurrentLanguage();
     this.setLanguage('en');
     const totalKeys = this.extractAllKeys(this.getTranslations()).length;
     this.setLanguage(currentLang);
-    
     const frenchCompleteness = ((totalKeys - report.missingInFrench.length) / totalKeys * 100).toFixed(1);
     const spanishCompleteness = ((totalKeys - report.missingInSpanish.length) / totalKeys * 100).toFixed(1);
-    
     console.log(`📊 Completion rates:`);
     console.log(`   French: ${frenchCompleteness}%`);
     console.log(`   Spanish: ${spanishCompleteness}%`);

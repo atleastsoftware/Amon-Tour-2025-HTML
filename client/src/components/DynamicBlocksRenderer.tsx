@@ -8,7 +8,6 @@ import { useTranslation } from 'react-i18next';
 const CruiseForm = lazy(() => import("@/components/CruiseForm"));
 const CatamaranExperience = lazy(() => import("@/components/CatamaranExperience"));
 const SeasonalPricing = lazy(() => import("@/components/SeasonalPricing"));
-
 interface PageBlock {
   id: number;
   blockType: string;
@@ -28,14 +27,17 @@ interface PageBlock {
   settings: any;
   isActive: boolean;
 }
-
 interface DynamicBlocksRendererProps {
   blocks: PageBlock[];
   pageSlug?: string;
 }
-
-export default function DynamicBlocksRenderer({ blocks, pageSlug }: DynamicBlocksRendererProps) {
-  const { t } = useTranslation();
+export default function DynamicBlocksRenderer({
+  blocks,
+  pageSlug
+}: DynamicBlocksRendererProps) {
+  const {
+    t
+  } = useTranslation();
   const renderBlock = (block: PageBlock) => {
     // Pour l'instant, on affiche un rendu basique pour chaque type de bloc
     // Dans le futur, chaque type de bloc aura son propre composant
@@ -53,7 +55,6 @@ export default function DynamicBlocksRenderer({ blocks, pageSlug }: DynamicBlock
           }
           return block.title;
         };
-        
         const getSubtitle = () => {
           if (block.settings?.i18n?.subtitleKey) {
             return t(block.settings.i18n.subtitleKey, block.subtitle || '');
@@ -63,305 +64,180 @@ export default function DynamicBlocksRenderer({ blocks, pageSlug }: DynamicBlock
           }
           return block.subtitle;
         };
-        
-        return (
-          <div key={block.id} className="relative h-[52vh] bg-gradient-to-br from-primary to-secondary flex items-center justify-center w-full">
-            {block.imageUrl && (
-              <img 
-                src={block.imageUrl} 
-                alt={block.imageAlt || getTitle() || ''} 
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-            )}
+        return <div key={block.id} className="relative h-[52vh] bg-gradient-to-br from-primary to-secondary flex items-center justify-center w-full">
+            {block.imageUrl && <img src={block.imageUrl} alt={block.imageAlt || getTitle() || ''} className="absolute inset-0 w-full h-full object-cover" />}
             {/* Overlay pour améliorer le contraste du texte blanc */}
             <div className="absolute inset-0 bg-black/40 z-10"></div>
             <div className="relative z-20 w-full px-8 md:px-12 lg:px-16 text-center">
-              {getTitle() && (
-                <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">{getTitle()}</h1>
-              )}
-              {getSubtitle() && (
-                <p className="text-xl text-white/90 mb-4">{getSubtitle()}</p>
-              )}
-              {block.description && (
-                <p className="text-lg text-white/80 mb-8 max-w-3xl mx-auto">{block.description}</p>
-              )}
-              {block.ctaText && block.ctaUrl && (
-                <a 
-                  href={block.ctaUrl} 
-                  className="inline-block bg-white text-primary px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors font-semibold shadow-lg"
-                >
+              {getTitle() && <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">{getTitle()}</h1>}
+              {getSubtitle() && <p className="text-xl text-white/90 mb-4">{getSubtitle()}</p>}
+              {block.description && <p className="text-lg text-white/80 mb-8 max-w-3xl mx-auto">{block.description}</p>}
+              {block.ctaText && block.ctaUrl && <a href={block.ctaUrl} className="inline-block bg-white text-primary px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors font-semibold shadow-lg">
                   {block.ctaText}
-                </a>
-              )}
+                </a>}
             </div>
-          </div>
-        );
-
+          </div>;
       case 'text_section':
-        return (
-          <div key={block.id} className={`py-16 bg-${block.backgroundColor || 'white'}`}>
+        return <div key={block.id} className={`py-16 bg-${block.backgroundColor || 'white'}`}>
             <div className="container mx-auto px-4">
-              {block.title && (
-                <h2 className="text-3xl font-bold text-center mb-4">{block.title}</h2>
-              )}
-              {block.subtitle && (
-                <p className="text-xl text-gray-600 text-center mb-8">{block.subtitle}</p>
-              )}
-              {block.content && (
-                <div 
-                  className="prose prose-lg mx-auto"
-                  dangerouslySetInnerHTML={{ __html: block.content }}
-                />
-              )}
+              {block.title && <h2 className="text-3xl font-bold text-center mb-4">{block.title}</h2>}
+              {block.subtitle && <p className="text-xl text-gray-600 text-center mb-8">{block.subtitle}</p>}
+              {block.content && <div className="prose prose-lg mx-auto" dangerouslySetInnerHTML={{
+              __html: block.content
+            }} />}
             </div>
-          </div>
-        );
-
+          </div>;
       case 'text_image':
       case 'about_2col':
         // Special handling for "The Catamaran Experience" section - use React component for animations
         if (block.identifier === 'catamaran_experience' || block.identifier === 'what_we_offer') {
-          return (
-            <div key={block.id} className="w-full">
-              <Suspense fallback={
-                <div className="flex justify-center py-8">
+          return <div key={block.id} className="w-full">
+              <Suspense fallback={<div className="flex justify-center py-8">
                   <Loader2 className="h-8 w-8 animate-spin text-primary" />
-                </div>
-              }>
+                </div>}>
                 <CatamaranExperience />
               </Suspense>
-            </div>
-          );
+            </div>;
         }
         // Special handling for pricing section - use React component
         if (block.identifier === 'pricing') {
-          return (
-            <div key={block.id} className="w-full">
-              <Suspense fallback={
-                <div className="flex justify-center py-8">
+          return <div key={block.id} className="w-full">
+              <Suspense fallback={<div className="flex justify-center py-8">
                   <Loader2 className="h-8 w-8 animate-spin text-primary" />
-                </div>
-              }>
+                </div>}>
                 <SeasonalPricing />
               </Suspense>
-            </div>
-          );
+            </div>;
         }
         // Default text_image rendering
-        return (
-          <div key={block.id} className="py-16 bg-white w-full">
+        return <div key={block.id} className="py-16 bg-white w-full">
             <div className="w-full px-8 md:px-12 lg:px-16 max-w-7xl mx-auto">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                 <div>
-                  {block.title && (
-                    <h2 className="text-3xl font-bold mb-4">{block.title}</h2>
-                  )}
-                  {block.subtitle && (
-                    <p className="text-xl text-gray-600 mb-4">{block.subtitle}</p>
-                  )}
-                  {block.content && (
-                    <div 
-                      className="prose prose-lg max-w-none"
-                      dangerouslySetInnerHTML={{ __html: block.content }}
-                    />
-                  )}
-                  {block.ctaText && block.ctaUrl && (
-                    <a 
-                      href={block.ctaUrl} 
-                      className="inline-block mt-6 bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors"
-                    >
+                  {block.title && <h2 className="text-3xl font-bold mb-4">{block.title}</h2>}
+                  {block.subtitle && <p className="text-xl text-gray-600 mb-4">{block.subtitle}</p>}
+                  {block.content && <div className="prose prose-lg max-w-none" dangerouslySetInnerHTML={{
+                  __html: block.content
+                }} />}
+                  {block.ctaText && block.ctaUrl && <a href={block.ctaUrl} className="inline-block mt-6 bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors">
                       {block.ctaText}
-                    </a>
-                  )}
+                    </a>}
                 </div>
-                {block.imageUrl && (
-                  <div>
-                    <img 
-                      src={block.imageUrl} 
-                      alt={block.imageAlt || block.title || ''} 
-                      className="w-full rounded-lg shadow-lg"
-                    />
-                  </div>
-                )}
+                {block.imageUrl && <div>
+                    <img src={block.imageUrl} alt={block.imageAlt || block.title || ''} className="w-full rounded-lg shadow-lg" />
+                  </div>}
               </div>
             </div>
-          </div>
-        );
-
+          </div>;
       case 'cta_banner':
       case 'cta_section':
-        return (
-          <div key={block.id} className="py-16 bg-primary">
+        return <div key={block.id} className="py-16 bg-primary">
             <div className="container mx-auto px-4 text-center">
-              {block.title && (
-                <h2 className="text-3xl font-bold text-white mb-4">{block.title}</h2>
-              )}
-              {block.subtitle && (
-                <p className="text-xl text-white/90 mb-8">{block.subtitle}</p>
-              )}
-              {block.ctaText && block.ctaUrl && (
-                <a 
-                  href={block.ctaUrl} 
-                  className="inline-block bg-white text-primary px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors font-semibold"
-                >
+              {block.title && <h2 className="text-3xl font-bold text-white mb-4">{block.title}</h2>}
+              {block.subtitle && <p className="text-xl text-white/90 mb-8">{block.subtitle}</p>}
+              {block.ctaText && block.ctaUrl && <a href={block.ctaUrl} className="inline-block bg-white text-primary px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors font-semibold">
                   {block.ctaText}
-                </a>
-              )}
+                </a>}
             </div>
-          </div>
-        );
-
+          </div>;
       case 'contact_info':
       case 'contact_cards':
-        return (
-          <div key={block.id} className="py-16 bg-gray-50">
+        return <div key={block.id} className="py-16 bg-gray-50">
             <div className="container mx-auto px-4">
-              {block.title && (
-                <h2 className="text-3xl font-bold text-center mb-8">{block.title}</h2>
-              )}
-              {block.content && (
-                <div 
-                  className="prose prose-lg mx-auto text-center"
-                  dangerouslySetInnerHTML={{ __html: block.content }}
-                />
-              )}
+              {block.title && <h2 className="text-3xl font-bold text-center mb-8">{block.title}</h2>}
+              {block.content && <div className="prose prose-lg mx-auto text-center" dangerouslySetInnerHTML={{
+              __html: block.content
+            }} />}
             </div>
-          </div>
-        );
-
+          </div>;
       case 'form':
       case 'custom_form':
         // Handle cruise form
         if (block.configuration?.formType === 'cruise' || block.identifier === 'cruise-form') {
-          return (
-            <div key={block.id} id={block.identifier || undefined} className="py-16 bg-white w-full">
+          return <div key={block.id} id={block.identifier || undefined} className="py-16 bg-white w-full">
               <div className="w-full px-8 md:px-12 lg:px-16 max-w-5xl mx-auto">
-                <Suspense fallback={
-                  <div className="flex justify-center py-8">
+                <Suspense fallback={<div className="flex justify-center py-8">
                     <Loader2 className="h-8 w-8 animate-spin text-primary" />
-                  </div>
-                }>
+                  </div>}>
                   <CruiseForm />
                 </Suspense>
               </div>
-            </div>
-          );
+            </div>;
         }
         // Default form display
-        return (
-          <div key={block.id} className="py-16 bg-white">
+        return <div key={block.id} className="py-16 bg-white">
             <div className="container mx-auto px-4">
-              {block.title && (
-                <h2 className="text-3xl font-bold text-center mb-8">{block.title}</h2>
-              )}
-              {block.subtitle && (
-                <p className="text-xl text-gray-600 text-center mb-8">{block.subtitle}</p>
-              )}
+              {block.title && <h2 className="text-3xl font-bold text-center mb-8">{block.title}</h2>}
+              {block.subtitle && <p className="text-xl text-gray-600 text-center mb-8">{block.subtitle}</p>}
               <div className="max-w-2xl mx-auto bg-gray-100 rounded-lg p-8">
-                <p className="text-gray-600 text-center">Formulaire personnalisé</p>
+                <p className="text-gray-600 text-center">{t('Formulaire personnalis\xE9', {
+                  defaultValue: 'Formulaire personnalis\xE9'
+                })}</p>
               </div>
             </div>
-          </div>
-        );
-
+          </div>;
       case 'gallery':
         // Parse images from configuration
         const galleryImages = block.configuration?.images || [];
-        return (
-          <Gallery
-            key={block.id}
-            images={galleryImages}
-            title={block.title || undefined}
-            subtitle={block.subtitle || undefined}
-            className=""
-          />
-        );
-
+        return <Gallery key={block.id} images={galleryImages} title={block.title || undefined} subtitle={block.subtitle || undefined} className="" />;
       case 'advantages':
         // Special handling for "Your Cruise, Our Expertise" section
         if (block.identifier === 'our_expertise') {
-          return (
-            <div key={block.id} className="bg-white w-full">
+          return <div key={block.id} className="bg-white w-full">
               <div className="w-full">
-                {block.content && (
-                  <div 
-                    className="prose prose-lg max-w-none"
-                    dangerouslySetInnerHTML={{ __html: block.content }}
-                  />
-                )}
+                {block.content && <div className="prose prose-lg max-w-none" dangerouslySetInnerHTML={{
+                __html: block.content
+              }} />}
               </div>
-            </div>
-          );
+            </div>;
         }
         // Default advantages rendering
-        return (
-          <div key={block.id} className="py-16 bg-white w-full">
+        return <div key={block.id} className="py-16 bg-white w-full">
             <div className="w-full px-8 md:px-12 lg:px-16">
-              {block.title && (
-                <h2 className="text-3xl font-bold text-center mb-4">{block.title}</h2>
-              )}
-              {block.subtitle && (
-                <p className="text-xl text-gray-600 text-center mb-8">{block.subtitle}</p>
-              )}
-              {block.content && (
-                <div 
-                  className="prose prose-lg mx-auto max-w-none"
-                  dangerouslySetInnerHTML={{ __html: block.content }}
-                />
-              )}
+              {block.title && <h2 className="text-3xl font-bold text-center mb-4">{block.title}</h2>}
+              {block.subtitle && <p className="text-xl text-gray-600 text-center mb-8">{block.subtitle}</p>}
+              {block.content && <div className="prose prose-lg mx-auto max-w-none" dangerouslySetInnerHTML={{
+              __html: block.content
+            }} />}
             </div>
-          </div>
-        );
-
+          </div>;
       case 'card_grid':
       case 'cards_grid':
-        return (
-          <div key={block.id} className="py-16 bg-gray-50 w-full">
+        return <div key={block.id} className="py-16 bg-gray-50 w-full">
             <div className="w-full px-8 md:px-12 lg:px-16">
-              {block.title && (
-                <h2 className="text-3xl font-bold text-center mb-4">{block.title}</h2>
-              )}
-              {block.subtitle && (
-                <p className="text-xl text-gray-600 text-center mb-8">{block.subtitle}</p>
-              )}
-              {block.content && (
-                <div 
-                  className="prose prose-lg mx-auto max-w-none"
-                  dangerouslySetInnerHTML={{ __html: block.content }}
-                />
-              )}
+              {block.title && <h2 className="text-3xl font-bold text-center mb-4">{block.title}</h2>}
+              {block.subtitle && <p className="text-xl text-gray-600 text-center mb-8">{block.subtitle}</p>}
+              {block.content && <div className="prose prose-lg mx-auto max-w-none" dangerouslySetInnerHTML={{
+              __html: block.content
+            }} />}
             </div>
-          </div>
-        );
-
+          </div>;
       default:
         // Bloc générique pour les types non implémentés
-        return (
-          <div key={block.id} className="py-16 bg-white">
+        return <div key={block.id} className="py-16 bg-white">
             <div className="container mx-auto px-4">
               <div className="bg-gray-100 rounded-lg p-8 text-center">
-                <p className="text-gray-600">
-                  Bloc de type "{block.blockType}" - {block.title || 'Sans titre'}
+                <p className="text-gray-600">{t('Bloc de type "', {
+                  defaultValue: 'Bloc de type "'
+                })}{block.blockType}" - {block.title || 'Sans titre'}
                 </p>
               </div>
             </div>
-          </div>
-        );
+          </div>;
     }
   };
-
-  return (
-    <>
-      {blocks?.map((block, index) => (
-        <motion.div
-          key={block.id}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: index * 0.1 }}
-        >
+  return <>
+      {blocks?.map((block, index) => <motion.div key={block.id} initial={{
+      opacity: 0,
+      y: 20
+    }} animate={{
+      opacity: 1,
+      y: 0
+    }} transition={{
+      duration: 0.5,
+      delay: index * 0.1
+    }}>
           {renderBlock(block)}
-        </motion.div>
-      ))}
-    </>
-  );
+        </motion.div>)}
+    </>;
 }

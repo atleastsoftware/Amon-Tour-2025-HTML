@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -27,68 +28,67 @@ import TourNinjaSection from '@/components/tour/TourNinjaSection';
 
 const SECTION_DEFINITIONS = {
   // Hero Sections - Grande hauteur avec média
-  hero_main_v2: { 
-    type: 'fullscreen', 
-    originalHeight: 650, 
+  hero_main_v2: {
+    type: 'fullscreen',
+    originalHeight: 650,
     expectedRatio: 'wide',
-    contentDensity: 'sparse' 
+    contentDensity: 'sparse'
   },
-  
   // Content Sections - Hauteur moyenne avec texte/images
-  features: { 
-    type: 'content', 
-    originalHeight: 500, 
+  features: {
+    type: 'content',
+    originalHeight: 500,
     expectedRatio: 'standard',
-    contentDensity: 'medium' 
+    contentDensity: 'medium'
   },
-  about: { 
-    type: 'content', 
-    originalHeight: 400, 
+  about: {
+    type: 'content',
+    originalHeight: 400,
     expectedRatio: 'standard',
-    contentDensity: 'dense' 
+    contentDensity: 'dense'
   },
-  
   // Interaction Sections - Focus sur les CTA
-  contact: { 
-    type: 'form', 
-    originalHeight: 600, 
+  contact: {
+    type: 'form',
+    originalHeight: 600,
     expectedRatio: 'tall',
-    contentDensity: 'medium' 
+    contentDensity: 'medium'
   },
-  custom_tour_cta: { 
-    type: 'cta', 
-    originalHeight: 350, 
+  custom_tour_cta: {
+    type: 'cta',
+    originalHeight: 350,
     expectedRatio: 'compact',
-    contentDensity: 'focused' 
+    contentDensity: 'focused'
   },
-  
   // Dynamic Sections - Contenu variable
-  tour_ninja: { 
-    type: 'dynamic', 
-    originalHeight: 800, 
+  tour_ninja: {
+    type: 'dynamic',
+    originalHeight: 800,
     expectedRatio: 'wide',
-    contentDensity: 'grid' 
+    contentDensity: 'grid'
   },
-  testimonials: { 
-    type: 'testimonial', 
-    originalHeight: 450, 
+  testimonials: {
+    type: 'testimonial',
+    originalHeight: 450,
     expectedRatio: 'standard',
-    contentDensity: 'medium' 
+    contentDensity: 'medium'
   }
 };
 
 // ALGORITHME INTELLIGENT DE CALCUL D'ÉCHELLE
 const calculateOptimalPreviewScale = (identifier: string, containerHeight: number = 450) => {
   const sectionDef = SECTION_DEFINITIONS[identifier as keyof typeof SECTION_DEFINITIONS];
-  
   if (!sectionDef) {
     // Fallback pour sections inconnues
-    return { scale: 1.0, width: '100%', height: '450px' };
+    return {
+      scale: 1.0,
+      width: '100%',
+      height: '450px'
+    };
   }
-  
+
   // CALCUL AUTOMATIQUE BASÉ SUR LE TYPE DE SECTION
   let targetScale: number;
-  
   switch (sectionDef.type) {
     case 'fullscreen':
       // Hero/Fullscreen: Échelle EXACTE pour remplissage parfait sans débordement
@@ -113,10 +113,9 @@ const calculateOptimalPreviewScale = (identifier: string, containerHeight: numbe
     default:
       targetScale = containerHeight / sectionDef.originalHeight;
   }
-  
+
   // COMPENSATION LARGEUR INTELLIGENTE
   const compensatedWidth = `${Math.round(100 / targetScale)}%`;
-  
   return {
     scale: targetScale,
     width: compensatedWidth,
@@ -125,28 +124,26 @@ const calculateOptimalPreviewScale = (identifier: string, containerHeight: numbe
 };
 
 // 🎯 WRAPPER UNIVERSEL POUR PRÉVISUALISATION PARFAITE
-const PreviewWrapper = ({ identifier, children }: { identifier: string, children: React.ReactNode }) => {
+const PreviewWrapper = ({
+  identifier,
+  children
+}: {
+  identifier: string;
+  children: React.ReactNode;
+}) => {
+  const {
+    t: t
+  } = useTranslation();
   const scaleSettings = calculateOptimalPreviewScale(identifier, 450);
-  
   if (identifier === 'hero_main_v2') {
     // HERO: APPROCHE SPÉCIALE - BACKGROUND ÉTENDU AU CONTENEUR COMPLET
-    return (
-      <div className="relative w-full h-[450px] overflow-hidden bg-gray-900">
+    return <div className="relative w-full h-[450px] overflow-hidden bg-gray-900">
         {/* Background étendu à tout le conteneur */}
         <div className="absolute inset-0 w-full h-full">
-          <img
-            src="/attached_assets/DJI_20241115104455_0160_D-min.jpeg"
-            alt="Beautiful Krabi landscape"
-            className="absolute top-0 left-0 w-full h-full object-cover"
-          />
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="none"
-            className="absolute top-0 left-0 w-full h-full object-cover opacity-100"
-          >
+          <img src="/attached_assets/DJI_20241115104455_0160_D-min.jpeg" alt={t('Beautiful Krabi landscape', {
+          defaultValue: 'Beautiful Krabi landscape'
+        })} className="absolute top-0 left-0 w-full h-full object-cover" />
+          <video autoPlay muted loop playsInline preload="none" className="absolute top-0 left-0 w-full h-full object-cover opacity-100">
             <source src="/attached_assets/hero-video-optimized.mp4" type="video/mp4" />
             <source src="/attached_assets/Catamaran%20cruise%20around%20Ao%20Nang%20local%20islands_1750216800850.mp4" type="video/mp4" />
           </video>
@@ -155,43 +152,32 @@ const PreviewWrapper = ({ identifier, children }: { identifier: string, children
         </div>
         
         {/* Contenu réduit mais background complet */}
-        <div 
-          className="relative z-10"
-          style={{ 
-            transform: `scale(${scaleSettings.scale})`, 
-            transformOrigin: 'top left',
-            width: scaleSettings.width, 
-            height: scaleSettings.height
-          }}
-        >
+        <div className="relative z-10" style={{
+        transform: `scale(${scaleSettings.scale})`,
+        transformOrigin: 'top left',
+        width: scaleSettings.width,
+        height: scaleSettings.height
+      }}>
           {children}
         </div>
-      </div>
-    );
+      </div>;
   }
-  
+
   // AUTRES SECTIONS: Wrapper standard
   const effectiveHeight = Math.round(parseInt(scaleSettings.height) * scaleSettings.scale);
-  
-  return (
-    <div 
-      className="relative w-full overflow-hidden bg-white"
-      style={{ height: `${effectiveHeight}px` }}
-    >
-      <div 
-        style={{ 
-          transform: `scale(${scaleSettings.scale})`, 
-          transformOrigin: 'top left',
-          width: scaleSettings.width, 
-          height: scaleSettings.height
-        }}
-      >
+  return <div className="relative w-full overflow-hidden bg-white" style={{
+    height: `${effectiveHeight}px`
+  }}>
+      <div style={{
+      transform: `scale(${scaleSettings.scale})`,
+      transformOrigin: 'top left',
+      width: scaleSettings.width,
+      height: scaleSettings.height
+    }}>
         {children}
       </div>
-    </div>
-  );
+    </div>;
 };
-
 interface PageBlock {
   id: number;
   pageId: number;
@@ -212,7 +198,6 @@ interface PageBlock {
   createdAt: Date;
   updatedAt: Date;
 }
-
 interface RealBlockPreviewProps {
   block: PageBlock;
   onUpdate: (id: number, data: Partial<PageBlock>) => void;
@@ -223,185 +208,165 @@ interface RealBlockPreviewProps {
   onEditHero?: (id: number) => void;
 }
 
-
 // Composant de prévisualisation miniaturisé des vrais composants  
-function MiniaturizedComponent({ 
+function MiniaturizedComponent({
   block,
   liveConfiguration
-}: { 
+}: {
   block: PageBlock;
   liveConfiguration?: any;
 }) {
-
+  const {
+    t: t
+  } = useTranslation();
   const renderVisualPreview = () => {
     const config = block.configuration || {};
     // Merger liveConfiguration si disponible pour les mises à jour en temps réel
-    const mergedConfig = liveConfiguration ? { ...config, ...liveConfiguration } : config;
-    
+    const mergedConfig = liveConfiguration ? {
+      ...config,
+      ...liveConfiguration
+    } : config;
     switch (block.blockType) {
       case 'hero':
         // VÉRIFIER SI C'EST LE BON BLOC AVEC L'IDENTIFIER
         if (block.identifier === 'hero_main_v2') {
           // WRAPPER UNIVERSEL APPLIQUÉ - BACKGROUND ÉTENDU AU CONTENEUR COMPLET
-          return (
-            <PreviewWrapper identifier="hero_main_v2">
+          return <PreviewWrapper identifier="hero_main_v2">
               <section className="relative pt-32 pb-20 min-h-screen flex items-center overflow-hidden">
                   {/* Content EXACT AVEC ANIMATION MOTION - BACKGROUND GÉRÉ PAR WRAPPER */}
                   <div className="container mx-auto px-4 relative z-10">
                     <div className="flex flex-col md:flex-row items-center gap-10">
                       <div className="w-full">
-                        <motion.div
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ 
-                            opacity: 1, 
-                            y: 0,
-                            x: [0, 5, 0, -5, 0],
-                            transition: {
-                              y: { duration: 0.6 },
-                              x: {
-                                repeat: Infinity,
-                                duration: 5,
-                                ease: "easeInOut"
-                              }
-                            }
-                          }}
-                          className="max-w-xl"
-                        >
+                        <motion.div initial={{
+                      opacity: 0,
+                      y: 20
+                    }} animate={{
+                      opacity: 1,
+                      y: 0,
+                      x: [0, 5, 0, -5, 0],
+                      transition: {
+                        y: {
+                          duration: 0.6
+                        },
+                        x: {
+                          repeat: Infinity,
+                          duration: 5,
+                          ease: "easeInOut"
+                        }
+                      }
+                    }} className="max-w-xl">
                           <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight text-white drop-shadow-lg">
                             {(() => {
-                              const title = block.title || "Your exclusive experiences\nin Krabi – THAILAND";
-                              const colorPart = config.titleColorPart || "in Krabi –";
-                              if (!colorPart) return title;
-                              const parts = title.split(colorPart);
-                              return (
-                                <>
+                          const title = block.title || "Your exclusive experiences\nin Krabi – THAILAND";
+                          const colorPart = config.titleColorPart || "in Krabi –";
+                          if (!colorPart) return title;
+                          const parts = title.split(colorPart);
+                          return <>
                                   {parts[0]}
                                   <span className="text-primary drop-shadow-lg">{colorPart}</span>
                                   {parts[1]}
-                                </>
-                              );
-                            })()}
+                                </>;
+                        })()}
                           </h1>
                           
                           <p className="text-white/90 mb-8 text-lg drop-shadow-md">
-                            {(block.description || "Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations.").split('\n').map((line, index) => (
-                              <span key={index}>{line}{index < (block.description || "").split('\n').length - 1 && <br/>}</span>
-                            ))}
+                            {(block.description || "Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations.").split('\n').map((line, index) => <span key={index}>{line}{index < (block.description || "").split('\n').length - 1 && <br />}</span>)}
                           </p>
                           
                           <div className="flex flex-col sm:flex-row gap-4">
-                            <motion.span 
-                              className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg"
-                              whileHover={{ scale: 1.05 }}
-                              whileTap={{ scale: 0.98 }}
-                            >{block.ctaText || "See our offers"}</motion.span>
-                            <motion.span 
-                              className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg"
-                              whileHover={{ scale: 1.05 }}
-                              whileTap={{ scale: 0.98 }}
-                            >{config.button2Text || "Custom your trip"}</motion.span>
+                            <motion.span className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg" whileHover={{
+                          scale: 1.05
+                        }} whileTap={{
+                          scale: 0.98
+                        }}>{block.ctaText || "See our offers"}</motion.span>
+                            <motion.span className="bg-primary text-white px-8 py-3 mt-4 rounded hover:bg-primary-dark transition-colors cursor-pointer inline-block shadow-lg" whileHover={{
+                          scale: 1.05
+                        }} whileTap={{
+                          scale: 0.98
+                        }}>{config.button2Text || "Custom your trip"}</motion.span>
                           </div>
                         </motion.div>
                       </div>
                     </div>
                   </div>
                 </section>
-            </PreviewWrapper>
-          );
+            </PreviewWrapper>;
         }
         // Fallback pour d'autres heros
-        return (
-          <div className="bg-gray-100 p-4 h-32 flex items-center justify-center">
-            <span className="text-gray-600">Hero Standard</span>
-          </div>
-        );
-        
+        return <div className="bg-gray-100 p-4 h-32 flex items-center justify-center">
+            <span className="text-gray-600">{t('Hero Standard', {
+              defaultValue: 'Hero Standard'
+            })}</span>
+          </div>;
       case 'hero_main':
       case 'video_hero':
-        return (
-          <div className="w-full" style={{ height: '800px' }}>
-            <iframe 
-              src={`/preview/hero?t=${Date.now()}`} 
-              className="w-full h-full border-0 rounded-lg overflow-hidden"
-              title="Hero Section Preview"
-              key={Date.now()}
-            />
-          </div>
-        );
-        
+        return <div className="w-full" style={{
+          height: '800px'
+        }}>
+            <iframe src={`/preview/hero?t=${Date.now()}`} className="w-full h-full border-0 rounded-lg overflow-hidden" title={t('Hero Section Preview', {
+            defaultValue: 'Hero Section Preview'
+          })} key={Date.now()} />
+          </div>;
       case 'why_choose_us':
       case 'features':
-        return (
-          <div className="h-full bg-gray-50 p-2">
+        return <div className="h-full bg-gray-50 p-2">
             <div className="text-center mb-2">
               <div className="text-[10px] font-bold">{block.title || "Why Choose Us"}</div>
               <div className="w-4 h-0.5 bg-secondary mx-auto mt-1"></div>
             </div>
             {(() => {
-              // Récupérer les blocs d'icônes depuis les données du bloc si disponibles
-              const iconBlocks = block.configuration?.iconBlocks || [
-                { title: 'Private Tours' },
-                { title: 'Custom Routes' },
-                { title: 'Authentic' }
-              ];
-              
-              // Adapter la grille selon le nombre de blocs (1, 2 ou 3)
-              const gridColsClass = iconBlocks.length === 1 ? 'grid-cols-1' : 
-                                   iconBlocks.length === 2 ? 'grid-cols-2' : 'grid-cols-3';
-              
-              return (
-                <div className={`grid ${gridColsClass} gap-1 h-16 justify-items-center`}>
-                  {iconBlocks.map((iconBlock: any, index: number) => (
-                    <div key={index} className="bg-white rounded p-1 text-center shadow-sm max-w-full">
+            // Récupérer les blocs d'icônes depuis les données du bloc si disponibles
+            const iconBlocks = block.configuration?.iconBlocks || [{
+              title: t('Private Tours', {
+                defaultValue: 'Private Tours'
+              })
+            }, {
+              title: t('Custom Routes', {
+                defaultValue: 'Custom Routes'
+              })
+            }, {
+              title: t('Authentic', {
+                defaultValue: 'Authentic'
+              })
+            }];
+
+            // Adapter la grille selon le nombre de blocs (1, 2 ou 3)
+            const gridColsClass = iconBlocks.length === 1 ? 'grid-cols-1' : iconBlocks.length === 2 ? 'grid-cols-2' : 'grid-cols-3';
+            return <div className={`grid ${gridColsClass} gap-1 h-16 justify-items-center`}>
+                  {iconBlocks.map((iconBlock: any, index: number) => <div key={index} className="bg-white rounded p-1 text-center shadow-sm max-w-full">
                       {/* Afficher l'icône principale configurée ou cercle par défaut */}
                       <div className="w-3 h-3 mx-auto mb-1 flex items-center justify-center">
-                        {iconBlock.mainIcon && (iconBlock.mainIcon.startsWith('http') || iconBlock.mainIcon.startsWith('/')) ? (
-                          <img 
-                            src={iconBlock.mainIcon} 
-                            alt={iconBlock.title} 
-                            className="w-3 h-3 object-cover rounded"
-                            style={{ filter: 'sepia(1) saturate(2) hue-rotate(200deg) brightness(0.8)' }}
-                            onError={(e) => {
-                              // Fallback vers cercle bleu
-                              (e.target as HTMLElement).style.display = 'none';
-                              const fallback = (e.target as HTMLElement).nextElementSibling as HTMLElement;
-                              if (fallback) fallback.style.display = 'block';
-                            }}
-                          />
-                        ) : (
-                          <div className="w-3 h-3 bg-primary rounded-full" 
-                               style={{ display: iconBlock.mainIcon && (iconBlock.mainIcon.startsWith('http') || iconBlock.mainIcon.startsWith('/')) ? 'none' : 'block' }}>
-                            {iconBlock.mainIcon && !iconBlock.mainIcon.startsWith('http') && !iconBlock.mainIcon.startsWith('/') ? (
-                              <i className={`${iconBlock.mainIcon} text-white`} style={{ fontSize: '6px' }}></i>
-                            ) : null}
-                          </div>
-                        )}
+                        {iconBlock.mainIcon && (iconBlock.mainIcon.startsWith('http') || iconBlock.mainIcon.startsWith('/')) ? <img src={iconBlock.mainIcon} alt={iconBlock.title} className="w-3 h-3 object-cover rounded" style={{
+                    filter: 'sepia(1) saturate(2) hue-rotate(200deg) brightness(0.8)'
+                  }} onError={e => {
+                    // Fallback vers cercle bleu
+                    (e.target as HTMLElement).style.display = 'none';
+                    const fallback = (e.target as HTMLElement).nextElementSibling as HTMLElement;
+                    if (fallback) fallback.style.display = 'block';
+                  }} /> : <div className="w-3 h-3 bg-primary rounded-full" style={{
+                    display: iconBlock.mainIcon && (iconBlock.mainIcon.startsWith('http') || iconBlock.mainIcon.startsWith('/')) ? 'none' : 'block'
+                  }}>
+                            {iconBlock.mainIcon && !iconBlock.mainIcon.startsWith('http') && !iconBlock.mainIcon.startsWith('/') ? <i className={`${iconBlock.mainIcon} text-white`} style={{
+                      fontSize: '6px'
+                    }}></i> : null}
+                          </div>}
                       </div>
                       <div className="text-[8px] font-semibold">
                         {iconBlock.title?.substring(0, 12) || `Bloc ${index + 1}`}
                       </div>
-                    </div>
-                  ))}
-                </div>
-              );
-            })()}
-          </div>
-        );
-        
+                    </div>)}
+                </div>;
+          })()}
+          </div>;
       case 'about':
       case 'who_we_are':
-        return (
-          <iframe 
-            src="/preview/about" 
-            className="w-full border-0 rounded-lg overflow-hidden"
-            style={{ height: '500px' }}
-            title="About Section Preview"
-          />
-        );
-        
+        return <iframe src="/preview/about" className="w-full border-0 rounded-lg overflow-hidden" style={{
+          height: '500px'
+        }} title={t('About Section Preview', {
+          defaultValue: 'About Section Preview'
+        })} />;
       case 'featured_tours':
-        return (
-          <div className="h-full bg-gray-50 p-2">
+        return <div className="h-full bg-gray-50 p-2">
             <div className="text-center mb-2">
               <div className="text-[10px] font-bold">{block.title || "Some Ideas For Your Next Trip"}</div>
               <div className="w-4 h-0.5 bg-secondary mx-auto mt-1"></div>
@@ -410,44 +375,50 @@ function MiniaturizedComponent({
               <div className="bg-white rounded shadow-sm overflow-hidden">
                 <div className="h-6 bg-gradient-to-br from-primary/60 to-primary"></div>
                 <div className="p-1">
-                  <div className="text-[7px] font-semibold">Phi Phi</div>
+                  <div className="text-[7px] font-semibold">{t('Phi Phi', {
+                    defaultValue: 'Phi Phi'
+                  })}</div>
                   <div className="text-[6px] text-gray-600">$85</div>
                 </div>
               </div>
               <div className="bg-white rounded shadow-sm overflow-hidden">
                 <div className="h-6 bg-gradient-to-br from-[hsl(var(--success)/0.6)] to-[hsl(var(--success))]"></div>
                 <div className="p-1">
-                  <div className="text-[7px] font-semibold">Phang Nga</div>
+                  <div className="text-[7px] font-semibold">{t('Phang Nga', {
+                    defaultValue: 'Phang Nga'
+                  })}</div>
                   <div className="text-[6px] text-gray-600">$75</div>
                 </div>
               </div>
               <div className="bg-white rounded shadow-sm overflow-hidden">
                 <div className="h-6 bg-gradient-to-br from-[hsl(var(--warning)/0.6)] to-[hsl(var(--warning))]"></div>
                 <div className="p-1">
-                  <div className="text-[7px] font-semibold">Railay</div>
+                  <div className="text-[7px] font-semibold">{t('Railay', {
+                    defaultValue: 'Railay'
+                  })}</div>
                   <div className="text-[6px] text-gray-600">$60</div>
                 </div>
               </div>
             </div>
-          </div>
-        );
-        
+          </div>;
       case 'custom_tour_cta':
       case 'cta_section':
-        return (
-          <div className="h-full bg-gradient-to-r from-gray-800 to-gray-900 p-2 text-center flex flex-col justify-center">
+        return <div className="h-full bg-gradient-to-r from-gray-800 to-gray-900 p-2 text-center flex flex-col justify-center">
             <div className="text-[10px] font-bold text-white mb-1">{block.title || "Create Your Custom Journey"}</div>
-            <div className="text-[8px] text-white opacity-90 mb-2">Whether you're looking for adventure, relaxation, or cultural immersion</div>
+            <div className="text-[8px] text-white opacity-90 mb-2">{t('Whether you\'re looking for adventure, relaxation, or cultural immersion', {
+              defaultValue: 'Whether you\'re looking for adventure, relaxation, or cultural immersion'
+            })}</div>
             <div className="flex gap-1 justify-center">
-              <div className="bg-primary text-white text-[7px] px-1 py-0.5 rounded font-semibold">About us</div>
-              <div className="bg-transparent border border-white text-white text-[7px] px-1 py-0.5 rounded font-semibold">Contact us</div>
+              <div className="bg-primary text-white text-[7px] px-1 py-0.5 rounded font-semibold">{t('About us', {
+                defaultValue: 'About us'
+              })}</div>
+              <div className="bg-transparent border border-white text-white text-[7px] px-1 py-0.5 rounded font-semibold">{t('Contact us', {
+                defaultValue: 'Contact us'
+              })}</div>
             </div>
-          </div>
-        );
-        
+          </div>;
       case 'text_section':
-        return (
-          <div className="h-full bg-white p-3">
+        return <div className="h-full bg-white p-3">
             <div className="text-center max-w-4xl mx-auto">
               <div className="text-[12px] font-bold text-gray-800 mb-2">
                 {block.title || "When expats welcome you in their host country"}
@@ -456,14 +427,11 @@ function MiniaturizedComponent({
                 {block.content || "This is a family-run travel agency that combines the organization of exclusive activities with the creation of tailor-made trips throughout the country. Our goal is to offer an immersive experience, far from mass tourism, with personalized service for every traveler — as if we were welcoming our own family or friends."}
               </div>
             </div>
-          </div>
-        );
-
+          </div>;
       case 'text_image':
       case 'when_expats':
       case 'about_amon_tour':
-        return (
-          <div className="h-full bg-white px-6 py-12">
+        return <div className="h-full bg-white px-6 py-12">
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
                 {block.title || "When expats welcome you in their host country"}
@@ -472,13 +440,10 @@ function MiniaturizedComponent({
                 {block.content || "This is a family-run travel agency that combines the organization of exclusive activities with the creation of tailor-made trips throughout the country. Our goal is to offer an immersive experience, far from mass tourism, with personalized service for every traveler — as if we were welcoming our own family or friends."}
               </div>
             </div>
-          </div>
-        );
-
+          </div>;
       case 'customer_reviews':
       case 'testimonials':
-        return (
-          <div className="h-full bg-primary p-2">
+        return <div className="h-full bg-primary p-2">
             <div className="text-center mb-2">
               <div className="text-[10px] font-bold text-white">{block.title || "Our Travelers' Reviews"}</div>
               <div className="w-4 h-0.5 bg-secondary mx-auto mt-1"></div>
@@ -487,68 +452,76 @@ function MiniaturizedComponent({
               <div className="flex justify-center mb-1">
                 <div className="text-[8px] text-secondary">★★★★★</div>
               </div>
-              <div className="text-[8px] text-primary font-bold">5.0 on Google</div>
-              <div className="text-[6px] text-gray-600">Based on 80 reviews</div>
+              <div className="text-[8px] text-primary font-bold">{t('5.0 on Google', {
+                defaultValue: '5.0 on Google'
+              })}</div>
+              <div className="text-[6px] text-gray-600">{t('Based on 80 reviews', {
+                defaultValue: 'Based on 80 reviews'
+              })}</div>
             </div>
             <div className="grid grid-cols-2 gap-1 h-10">
               <div className="bg-gray-50 rounded p-1">
-                <div className="text-[6px] text-gray-600">"Amazing experience!"</div>
-                <div className="text-[5px] text-gray-500 mt-1">- Sarah M.</div>
+                <div className="text-[6px] text-gray-600">{t('"Amazing experience!"', {
+                  defaultValue: '"Amazing experience!"'
+                })}</div>
+                <div className="text-[5px] text-gray-500 mt-1">{t('- Sarah M.', {
+                  defaultValue: '- Sarah M.'
+                })}</div>
               </div>
               <div className="bg-gray-50 rounded p-1">
-                <div className="text-[6px] text-gray-600">"Perfect trip!"</div>
-                <div className="text-[5px] text-gray-500 mt-1">- John D.</div>
+                <div className="text-[6px] text-gray-600">{t('"Perfect trip!"', {
+                  defaultValue: '"Perfect trip!"'
+                })}</div>
+                <div className="text-[5px] text-gray-500 mt-1">{t('- John D.', {
+                  defaultValue: '- John D.'
+                })}</div>
               </div>
             </div>
-          </div>
-        );
-        
+          </div>;
       case 'contact_hero':
-        return (
-          <div className="h-full bg-gradient-to-br from-primary to-primary/80 p-2 text-white text-center flex flex-col justify-center">
+        return <div className="h-full bg-gradient-to-br from-primary to-primary/80 p-2 text-white text-center flex flex-col justify-center">
             <div className="text-[10px] font-bold mb-1">{block.title || "Contact Us"}</div>
             <div className="text-[8px] opacity-90">{block.description || "Get in touch for your perfect trip"}</div>
-          </div>
-        );
-        
+          </div>;
       case 'contact_methods':
-        return (
-          <div className="h-full bg-gray-50 p-2">
+        return <div className="h-full bg-gray-50 p-2">
             <div className="grid grid-cols-3 gap-1 h-full">
               <div className="bg-white rounded p-1 text-center">
                 <div className="w-3 h-3 bg-[hsl(var(--success))] rounded-full mx-auto mb-1"></div>
-                <div className="text-[7px] font-semibold">WhatsApp</div>
+                <div className="text-[7px] font-semibold">{t('WhatsApp', {
+                  defaultValue: 'WhatsApp'
+                })}</div>
               </div>
               <div className="bg-white rounded p-1 text-center">
                 <div className="w-3 h-3 bg-blue-500 rounded-full mx-auto mb-1"></div>
-                <div className="text-[7px] font-semibold">Email</div>
+                <div className="text-[7px] font-semibold">{t('Email', {
+                  defaultValue: 'Email'
+                })}</div>
               </div>
               <div className="bg-white rounded p-1 text-center">
                 <div className="w-3 h-3 bg-[hsl(var(--destructive))] rounded-full mx-auto mb-1"></div>
-                <div className="text-[7px] font-semibold">Office</div>
+                <div className="text-[7px] font-semibold">{t('Office', {
+                  defaultValue: 'Office'
+                })}</div>
               </div>
             </div>
-          </div>
-        );
-        
+          </div>;
       case 'contact_form':
-        return (
-          <div className="h-full bg-white p-2">
+        return <div className="h-full bg-white p-2">
             <div className="text-[9px] font-bold mb-2 text-center">{block.title || "Send Message"}</div>
             <div className="space-y-1">
               <div className="h-2 bg-gray-100 rounded"></div>
               <div className="h-2 bg-gray-100 rounded"></div>
               <div className="h-4 bg-gray-100 rounded"></div>
               <div className="h-3 bg-primary rounded text-center">
-                <div className="text-[7px] text-white pt-1">Send Message</div>
+                <div className="text-[7px] text-white pt-1">{t('Send Message', {
+                  defaultValue: 'Send Message'
+                })}</div>
               </div>
             </div>
-          </div>
-        );
-
+          </div>;
       case 'popular_experiences':
-        return (
-          <div className="h-full bg-gray-50 p-2">
+        return <div className="h-full bg-gray-50 p-2">
             <div className="text-center mb-2">
               <div className="text-[10px] font-bold">{block.title || "Our Popular Experiences"}</div>
               <div className="w-4 h-0.5 bg-secondary mx-auto mt-1"></div>
@@ -557,50 +530,45 @@ function MiniaturizedComponent({
               <div className="bg-white rounded shadow-sm overflow-hidden">
                 <div className="h-4 bg-gradient-to-br from-primary/60 to-primary"></div>
                 <div className="p-1">
-                  <div className="text-[6px] font-semibold">Phi Phi</div>
+                  <div className="text-[6px] font-semibold">{t('Phi Phi', {
+                    defaultValue: 'Phi Phi'
+                  })}</div>
                   <div className="text-[5px] text-gray-600">1 day</div>
                 </div>
               </div>
               <div className="bg-white rounded shadow-sm overflow-hidden">
                 <div className="h-4 bg-gradient-to-br from-[hsl(var(--success)/0.6)] to-[hsl(var(--success))]"></div>
                 <div className="p-1">
-                  <div className="text-[6px] font-semibold">Phang Nga</div>
+                  <div className="text-[6px] font-semibold">{t('Phang Nga', {
+                    defaultValue: 'Phang Nga'
+                  })}</div>
                   <div className="text-[5px] text-gray-600">1 day</div>
                 </div>
               </div>
               <div className="bg-white rounded shadow-sm overflow-hidden">
                 <div className="h-4 bg-gradient-to-br from-[hsl(var(--warning)/0.6)] to-[hsl(var(--warning))]"></div>
                 <div className="p-1">
-                  <div className="text-[6px] font-semibold">Railay</div>
+                  <div className="text-[6px] font-semibold">{t('Railay', {
+                    defaultValue: 'Railay'
+                  })}</div>
                   <div className="text-[5px] text-gray-600">1 day</div>
                 </div>
               </div>
             </div>
             {/* Afficher les boutons d'action s'ils existent */}
-            {mergedConfig.buttons && mergedConfig.buttons.length > 0 && (
-              <div className="flex gap-0.5 justify-center">
-                {mergedConfig.buttons.slice(0, 2).map((button: any, index: number) => (
-                  <div 
-                    key={index}
-                    className="text-[6px] px-1 py-0.5 rounded"
-                    style={{
-                      backgroundColor: (button.style || 'filled') === 'filled' ? (button.color || '#084F6E') : 'transparent',
-                      borderWidth: (button.style || 'filled') === 'outline' ? '1px' : '0',
-                      borderColor: (button.style || 'filled') === 'outline' ? (button.color || '#084F6E') : 'transparent',
-                      color: (button.style || 'filled') === 'outline' ? (button.color || '#084F6E') : '#ffffff'
-                    }}
-                  >
+            {mergedConfig.buttons && mergedConfig.buttons.length > 0 && <div className="flex gap-0.5 justify-center">
+                {mergedConfig.buttons.slice(0, 2).map((button: any, index: number) => <div key={index} className="text-[6px] px-1 py-0.5 rounded" style={{
+              backgroundColor: (button.style || 'filled') === 'filled' ? button.color || '#084F6E' : 'transparent',
+              borderWidth: (button.style || 'filled') === 'outline' ? '1px' : '0',
+              borderColor: (button.style || 'filled') === 'outline' ? button.color || '#084F6E' : 'transparent',
+              color: (button.style || 'filled') === 'outline' ? button.color || '#084F6E' : '#ffffff'
+            }}>
                     {button.text?.substring(0, 10) || `Btn ${index + 1}`}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        );
-
+                  </div>)}
+              </div>}
+          </div>;
       case 'tour_ninja_section':
-        return (
-          <div className="h-full bg-gray-50 p-2">
+        return <div className="h-full bg-gray-50 p-2">
             <div className="text-center mb-2">
               <div className="text-[10px] font-bold">{block.title || "Some Ideas For Your Next Trip"}</div>
               <div className="w-4 h-0.5 bg-secondary mx-auto mt-1"></div>
@@ -609,64 +577,58 @@ function MiniaturizedComponent({
               <div className="bg-white rounded shadow-sm overflow-hidden">
                 <div className="h-4 bg-gradient-to-br from-primary/60 to-primary"></div>
                 <div className="p-1">
-                  <div className="text-[6px] font-semibold">Phi Phi</div>
+                  <div className="text-[6px] font-semibold">{t('Phi Phi', {
+                    defaultValue: 'Phi Phi'
+                  })}</div>
                   <div className="text-[5px] text-gray-600">$85</div>
                 </div>
               </div>
               <div className="bg-white rounded shadow-sm overflow-hidden">
                 <div className="h-4 bg-gradient-to-br from-[hsl(var(--success)/0.6)] to-[hsl(var(--success))]"></div>
                 <div className="p-1">
-                  <div className="text-[6px] font-semibold">Phang Nga</div>
+                  <div className="text-[6px] font-semibold">{t('Phang Nga', {
+                    defaultValue: 'Phang Nga'
+                  })}</div>
                   <div className="text-[5px] text-gray-600">$75</div>
                 </div>
               </div>
               <div className="bg-white rounded shadow-sm overflow-hidden">
                 <div className="h-4 bg-gradient-to-br from-[hsl(var(--warning)/0.6)] to-[hsl(var(--warning))]"></div>
                 <div className="p-1">
-                  <div className="text-[6px] font-semibold">Railay</div>
+                  <div className="text-[6px] font-semibold">{t('Railay', {
+                    defaultValue: 'Railay'
+                  })}</div>
                   <div className="text-[5px] text-gray-600">$60</div>
                 </div>
               </div>
             </div>
             {/* Afficher les boutons d'action s'ils existent */}
-            {mergedConfig.buttons && mergedConfig.buttons.length > 0 && (
-              <div className="flex gap-0.5 justify-center">
-                {mergedConfig.buttons.slice(0, 2).map((button: any, index: number) => (
-                  <div 
-                    key={index}
-                    className="text-[6px] px-1 py-0.5 rounded"
-                    style={{
-                      backgroundColor: (button.style || 'filled') === 'filled' ? (button.color || '#084F6E') : 'transparent',
-                      borderWidth: (button.style || 'filled') === 'outline' ? '1px' : '0',
-                      borderColor: (button.style || 'filled') === 'outline' ? (button.color || '#084F6E') : 'transparent',
-                      color: (button.style || 'filled') === 'outline' ? (button.color || '#084F6E') : '#ffffff'
-                    }}
-                  >
+            {mergedConfig.buttons && mergedConfig.buttons.length > 0 && <div className="flex gap-0.5 justify-center">
+                {mergedConfig.buttons.slice(0, 2).map((button: any, index: number) => <div key={index} className="text-[6px] px-1 py-0.5 rounded" style={{
+              backgroundColor: (button.style || 'filled') === 'filled' ? button.color || '#084F6E' : 'transparent',
+              borderWidth: (button.style || 'filled') === 'outline' ? '1px' : '0',
+              borderColor: (button.style || 'filled') === 'outline' ? button.color || '#084F6E' : 'transparent',
+              color: (button.style || 'filled') === 'outline' ? button.color || '#084F6E' : '#ffffff'
+            }}>
                     {button.text?.substring(0, 10) || `Btn ${index + 1}`}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        );
-        
+                  </div>)}
+              </div>}
+          </div>;
       default:
-        return (
-          <div className="h-full bg-gray-100 p-2 text-center flex flex-col justify-center">
+        return <div className="h-full bg-gray-100 p-2 text-center flex flex-col justify-center">
             <div className="text-[10px] font-semibold mb-1">{block.title || block.blockType.replace('_', ' ')}</div>
             <div className="text-[8px] text-gray-600 mb-2">{block.description?.substring(0, 50) || "Aperçu du contenu..."}</div>
             <div className="bg-gray-200 px-2 py-1 rounded text-[7px] mx-auto">
               {block.blockType}
             </div>
-          </div>
-        );
+          </div>;
     }
   };
 
   // Blocs héros avec proportions EXACTES du vrai site - rectangle horizontal
   const isHeroBlock = ['hero_main', 'hero', 'video_hero'].includes(block.blockType);
   const isTextBlock = ['text_image', 'text_section', 'when_expats', 'about_amon_tour'].includes(block.blockType);
-  
+
   // Hauteurs optimisées selon le type de contenu
   let previewHeight = '200px';
   if (isHeroBlock) {
@@ -674,50 +636,54 @@ function MiniaturizedComponent({
   } else if (isTextBlock) {
     previewHeight = '300px'; // Plus de hauteur pour afficher le texte complet
   }
-  
-  return (
-    <>
-      <div 
-        className={`group relative overflow-hidden rounded-lg border bg-white ${
-          isHeroBlock ? 'w-full' : ''
-        }`} 
-        style={{ 
-          height: previewHeight, 
-          minHeight: previewHeight,
-          // Proportions rectangle horizontal comme sur le vrai site (16:9 landscape)
-          ...(isHeroBlock ? { width: '100%', aspectRatio: '16/9' } : { aspectRatio: '16/9' })
-        }}
-      >
+  return <>
+      <div className={`group relative overflow-hidden rounded-lg border bg-white ${isHeroBlock ? 'w-full' : ''}`} style={{
+      height: previewHeight,
+      minHeight: previewHeight,
+      // Proportions rectangle horizontal comme sur le vrai site (16:9 landscape)
+      ...(isHeroBlock ? {
+        width: '100%',
+        aspectRatio: '16/9'
+      } : {
+        aspectRatio: '16/9'
+      })
+    }}>
         {renderVisualPreview()}
         
         
         <div className="absolute inset-0 bg-transparent pointer-events-none" />
       </div>
-    </>
-  );
+    </>;
 }
 
 // Modal d'historique des versions
-function BlockHistoryModal({ block, onRestore }: {
+function BlockHistoryModal({
+  block,
+  onRestore
+}: {
   block: PageBlock;
   onRestore: (version: number) => void;
 }) {
+  const {
+    t: t
+  } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
-  
-  const { data: history, isLoading } = useQuery({
+  const {
+    data: history,
+    isLoading
+  } = useQuery({
     queryKey: ['/api/admin/page-blocks', block.id, 'history'],
     queryFn: async () => {
       const response = await fetch(`/api/admin/page-blocks/${block.id}/history`);
       if (!response.ok) throw new Error('Failed to fetch history');
       return response.json();
     },
-    enabled: isOpen,
+    enabled: isOpen
   });
-
   const restoreMutation = useMutation({
     mutationFn: async (version: number) => {
       const response = await fetch(`/api/admin/page-blocks/${block.id}/restore/${version}`, {
-        method: 'POST',
+        method: 'POST'
       });
       if (!response.ok) throw new Error('Failed to restore version');
       return response.json();
@@ -726,104 +692,101 @@ function BlockHistoryModal({ block, onRestore }: {
       setIsOpen(false);
       onRestore(0); // Trigger refresh
       toast({
-        title: "Version restaurée",
-        description: "La version antérieure a été appliquée avec succès.",
+        title: t('Version restaur\xE9e', {
+          defaultValue: 'Version restaur\xE9e'
+        }),
+        description: t('La version ant\xE9rieure a \xE9t\xE9 appliqu\xE9e avec succ\xE8s.', {
+          defaultValue: 'La version ant\xE9rieure a \xE9t\xE9 appliqu\xE9e avec succ\xE8s.'
+        })
       });
     },
     onError: () => {
       toast({
-        title: "Erreur",
-        description: "Impossible de restaurer cette version.",
-        variant: "destructive",
+        title: t('Erreur', {
+          defaultValue: 'Erreur'
+        }),
+        description: t('Impossible de restaurer cette version.', {
+          defaultValue: 'Impossible de restaurer cette version.'
+        }),
+        variant: "destructive"
       });
-    },
+    }
   });
-
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleString('fr-FR');
   };
-
-  return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+  return <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" size="sm">
-          <History className="w-4 h-4 mr-2" />
-          Historique
-        </Button>
+          <History className="w-4 h-4 mr-2" />{t('Historique', {
+          defaultValue: 'Historique'
+        })}</Button>
       </DialogTrigger>
       <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Historique des versions - {block.title || 'Bloc sans titre'}</DialogTitle>
-          <DialogDescription>
-            Cliquez sur "Restaurer" pour revenir à une version antérieure
-          </DialogDescription>
+          <DialogTitle>{t('Historique des versions -', {
+            defaultValue: 'Historique des versions -'
+          })}{block.title || 'Bloc sans titre'}</DialogTitle>
+          <DialogDescription>{t('Cliquez sur "Restaurer" pour revenir \xE0 une version ant\xE9rieure', {
+            defaultValue: 'Cliquez sur "Restaurer" pour revenir \xE0 une version ant\xE9rieure'
+          })}</DialogDescription>
         </DialogHeader>
         
-        {isLoading ? (
-          <div className="flex items-center justify-center py-8">
+        {isLoading ? <div className="flex items-center justify-center py-8">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-secondary"></div>
-          </div>
-        ) : (
-          <div className="space-y-4">
-            {history?.length === 0 ? (
-              <p className="text-gray-500 text-center py-8">Aucun historique disponible</p>
-            ) : (
-              history?.map((version: any) => (
-                <Card key={version.id} className="p-4">
+          </div> : <div className="space-y-4">
+            {history?.length === 0 ? <p className="text-gray-500 text-center py-8">{t('Aucun historique disponible', {
+            defaultValue: 'Aucun historique disponible'
+          })}</p> : history?.map((version: any) => <Card key={version.id} className="p-4">
                   <div className="flex justify-between items-start">
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-2">
                         <Clock className="w-4 h-4 text-gray-500" />
-                        <span className="font-medium">Version {version.version}</span>
+                        <span className="font-medium">{t('Version', {
+                    defaultValue: 'Version'
+                  })}{version.version}</span>
                         <span className="text-sm text-gray-500">
                           {formatDate(version.createdAt)}
                         </span>
                       </div>
                       
-                      {version.changeDescription && (
-                        <p className="text-sm text-gray-600 mb-2">
+                      {version.changeDescription && <p className="text-sm text-gray-600 mb-2">
                           {version.changeDescription}
-                        </p>
-                      )}
+                        </p>}
                       
                       <div className="text-xs text-gray-500 space-y-1">
-                        {version.title && <div>Titre: {version.title}</div>}
-                        {version.subtitle && <div>Sous-titre: {version.subtitle}</div>}
-                        {version.description && (
-                          <div>Description: {version.description.substring(0, 100)}...</div>
-                        )}
+                        {version.title && <div>{t('Titre:', {
+                    defaultValue: 'Titre:'
+                  })}{version.title}</div>}
+                        {version.subtitle && <div>{t('Sous-titre:', {
+                    defaultValue: 'Sous-titre:'
+                  })}{version.subtitle}</div>}
+                        {version.description && <div>{t('Description:', {
+                    defaultValue: 'Description:'
+                  })}{version.description.substring(0, 100)}...</div>}
                       </div>
                     </div>
                     
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => restoreMutation.mutate(version.version)}
-                      disabled={restoreMutation.isPending}
-                    >
-                      <RotateCcw className="w-4 h-4 mr-1" />
-                      Restaurer
-                    </Button>
+                    <Button variant="outline" size="sm" onClick={() => restoreMutation.mutate(version.version)} disabled={restoreMutation.isPending}>
+                      <RotateCcw className="w-4 h-4 mr-1" />{t('Restaurer', {
+                defaultValue: 'Restaurer'
+              })}</Button>
                   </div>
-                </Card>
-              ))
-            )}
-          </div>
-        )}
+                </Card>)}
+          </div>}
       </DialogContent>
-    </Dialog>
-  );
+    </Dialog>;
 }
 
 // Formulaire d'édition en dropdown
-function BlockEditForm({ 
-  block, 
-  onSave, 
-  onPreviewUpdate, 
-  isOpen, 
-  onToggle, 
-  hasUnsavedChanges, 
-  onCancel 
+function BlockEditForm({
+  block,
+  onSave,
+  onPreviewUpdate,
+  isOpen,
+  onToggle,
+  hasUnsavedChanges,
+  onCancel
 }: {
   block: PageBlock;
   onSave: (data: Partial<PageBlock>) => void;
@@ -833,6 +796,9 @@ function BlockEditForm({
   hasUnsavedChanges?: boolean;
   onCancel?: () => void;
 }) {
+  const {
+    t: t
+  } = useTranslation();
   const queryClient = useQueryClient();
 
   // Sauvegarde automatique de la version avant modification
@@ -840,15 +806,21 @@ function BlockEditForm({
     mutationFn: async (changeDescription: string) => {
       const response = await fetch(`/api/admin/page-blocks/${block.id}/save-version`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ changeDescription }),
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          changeDescription
+        })
       });
       if (!response.ok) throw new Error('Failed to save version');
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/admin/page-blocks', block.id, 'history'] });
-    },
+      queryClient.invalidateQueries({
+        queryKey: ['/api/admin/page-blocks', block.id, 'history']
+      });
+    }
   });
   const [formData, setFormData] = useState({
     title: block.title || '',
@@ -859,9 +831,10 @@ function BlockEditForm({
     ctaText: block.ctaText || '',
     ctaUrl: block.ctaUrl || '',
     backgroundColor: block.backgroundColor || '',
-    configuration: { ...block.configuration }
+    configuration: {
+      ...block.configuration
+    }
   });
-
   const handleSave = async () => {
     // Sauvegarder l'état actuel dans l'historique avant modification
     try {
@@ -869,26 +842,34 @@ function BlockEditForm({
     } catch (error) {
       console.warn("Impossible de sauvegarder la version dans l'historique:", error);
     }
-    
+
     // Appliquer les modifications
     onSave(formData);
     toast({
-      title: "Bloc sauvegardé",
-      description: "Les modifications ont été appliquées au site.",
+      title: t('Bloc sauvegard\xE9', {
+        defaultValue: 'Bloc sauvegard\xE9'
+      }),
+      description: t('Les modifications ont \xE9t\xE9 appliqu\xE9es au site.', {
+        defaultValue: 'Les modifications ont \xE9t\xE9 appliqu\xE9es au site.'
+      })
     });
   };
-
   const updateFormData = (newData: Partial<typeof formData>) => {
-    const updatedData = { ...formData, ...newData };
+    const updatedData = {
+      ...formData,
+      ...newData
+    };
     setFormData(updatedData);
     // Déclencher le preview en temps réel
     if (onPreviewUpdate) {
       onPreviewUpdate(updatedData);
     }
   };
-
   const updateConfig = (key: string, value: any) => {
-    const newConfig = { ...formData.configuration, [key]: value };
+    const newConfig = {
+      ...formData.configuration,
+      [key]: value
+    };
     const updatedData = {
       ...formData,
       configuration: newConfig
@@ -899,201 +880,179 @@ function BlockEditForm({
       onPreviewUpdate(updatedData);
     }
   };
-
-  return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          initial={{ height: 0, opacity: 0 }}
-          animate={{ height: 'auto', opacity: 1 }}
-          exit={{ height: 0, opacity: 0 }}
-          transition={{ duration: 0.3 }}
-          className="overflow-hidden"
-        >
+  return <AnimatePresence>
+      {isOpen && <motion.div initial={{
+      height: 0,
+      opacity: 0
+    }} animate={{
+      height: 'auto',
+      opacity: 1
+    }} exit={{
+      height: 0,
+      opacity: 0
+    }} transition={{
+      duration: 0.3
+    }} className="overflow-hidden">
           <Card className="mt-4">
             <CardContent className="p-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Champs de base */}
                 <div>
-                  <Label htmlFor="title">Titre</Label>
-                  <Input
-                    id="title"
-                    value={formData.title}
-                    onChange={(e) => updateFormData({ title: e.target.value })}
-                    placeholder="Titre du bloc"
-                  />
+                  <Label htmlFor="title">{t('Titre', {
+                  defaultValue: 'Titre'
+                })}</Label>
+                  <Input id="title" value={formData.title} onChange={e => updateFormData({
+                title: e.target.value
+              })} placeholder={t('Titre du bloc', {
+                defaultValue: 'Titre du bloc'
+              })} />
                 </div>
                 
                 <div>
-                  <Label htmlFor="subtitle">Sous-titre</Label>
-                  <Input
-                    id="subtitle"
-                    value={formData.subtitle}
-                    onChange={(e) => updateFormData({ subtitle: e.target.value })}
-                    placeholder="Sous-titre"
-                  />
+                  <Label htmlFor="subtitle">{t('Sous-titre', {
+                  defaultValue: 'Sous-titre'
+                })}</Label>
+                  <Input id="subtitle" value={formData.subtitle} onChange={e => updateFormData({
+                subtitle: e.target.value
+              })} placeholder={t('Sous-titre', {
+                defaultValue: 'Sous-titre'
+              })} />
                 </div>
                 
                 <div className="md:col-span-2">
-                  <Label htmlFor="description">Description</Label>
-                  <Textarea
-                    id="description"
-                    value={formData.description}
-                    onChange={(e) => updateFormData({ description: e.target.value })}
-                    placeholder="Description du bloc"
-                    rows={3}
-                  />
+                  <Label htmlFor="description">{t('Description', {
+                  defaultValue: 'Description'
+                })}</Label>
+                  <Textarea id="description" value={formData.description} onChange={e => updateFormData({
+                description: e.target.value
+              })} placeholder={t('Description du bloc', {
+                defaultValue: 'Description du bloc'
+              })} rows={3} />
                 </div>
                 
                 <div>
-                  <Label htmlFor="imageUrl">URL de l'image</Label>
-                  <Input
-                    id="imageUrl"
-                    value={formData.imageUrl}
-                    onChange={(e) => updateFormData({ imageUrl: e.target.value })}
-                    placeholder="https://..."
-                  />
+                  <Label htmlFor="imageUrl">{t('URL de l\'image', {
+                  defaultValue: 'URL de l\'image'
+                })}</Label>
+                  <Input id="imageUrl" value={formData.imageUrl} onChange={e => updateFormData({
+                imageUrl: e.target.value
+              })} placeholder="https://..." />
                 </div>
                 
                 <div>
-                  <Label htmlFor="backgroundColor">Couleur de fond</Label>
-                  <Input
-                    id="backgroundColor"
-                    type="color"
-                    value={formData.backgroundColor}
-                    onChange={(e) => updateFormData({ backgroundColor: e.target.value })}
-                  />
+                  <Label htmlFor="backgroundColor">{t('Couleur de fond', {
+                  defaultValue: 'Couleur de fond'
+                })}</Label>
+                  <Input id="backgroundColor" type="color" value={formData.backgroundColor} onChange={e => updateFormData({
+                backgroundColor: e.target.value
+              })} />
                 </div>
                 
                 {/* Champs spécifiques pour video_hero - Correspondance parfaite avec la vraie section */}
-                {block.blockType === 'video_hero' && (
-                  <>
+                {block.blockType === 'video_hero' && <>
                     <div>
-                      <Label htmlFor="heroSubtitle">Sous-titre du lieu</Label>
-                      <Input
-                        id="heroSubtitle"
-                        value={formData.configuration.heroSubtitle || ''}
-                        onChange={(e) => updateConfig('heroSubtitle', e.target.value)}
-                        placeholder="in Krabi –"
-                      />
+                      <Label htmlFor="heroSubtitle">{t('Sous-titre du lieu', {
+                    defaultValue: 'Sous-titre du lieu'
+                  })}</Label>
+                      <Input id="heroSubtitle" value={formData.configuration.heroSubtitle || ''} onChange={e => updateConfig('heroSubtitle', e.target.value)} placeholder={t('in Krabi \u2013', {
+                  defaultValue: 'in Krabi \u2013'
+                })} />
                     </div>
                     
                     <div>
-                      <Label htmlFor="heroCountry">Pays</Label>
-                      <Input
-                        id="heroCountry"
-                        value={formData.configuration.heroCountry || ''}
-                        onChange={(e) => updateConfig('heroCountry', e.target.value)}
-                        placeholder="THAILAND"
-                      />
+                      <Label htmlFor="heroCountry">{t('Pays', {
+                    defaultValue: 'Pays'
+                  })}</Label>
+                      <Input id="heroCountry" value={formData.configuration.heroCountry || ''} onChange={e => updateConfig('heroCountry', e.target.value)} placeholder={t('THAILAND', {
+                  defaultValue: 'THAILAND'
+                })} />
                     </div>
                     
                     <div className="md:col-span-2">
-                      <Label htmlFor="secondDescription">Description complémentaire</Label>
-                      <Textarea
-                        id="secondDescription"
-                        value={formData.configuration.secondDescription || ''}
-                        onChange={(e) => updateConfig('secondDescription', e.target.value)}
-                        placeholder="And also Khao Sok, Koh Mook and many more destinations."
-                        rows={2}
-                      />
+                      <Label htmlFor="secondDescription">{t('Description compl\xE9mentaire', {
+                    defaultValue: 'Description compl\xE9mentaire'
+                  })}</Label>
+                      <Textarea id="secondDescription" value={formData.configuration.secondDescription || ''} onChange={e => updateConfig('secondDescription', e.target.value)} placeholder={t('And also Khao Sok, Koh Mook and many more destinations.', {
+                  defaultValue: 'And also Khao Sok, Koh Mook and many more destinations.'
+                })} rows={2} />
                     </div>
                     
                     <div>
-                      <Label htmlFor="button1Text">Texte du bouton 1</Label>
-                      <Input
-                        id="button1Text"
-                        value={formData.configuration.button1Text || ''}
-                        onChange={(e) => updateConfig('button1Text', e.target.value)}
-                        placeholder="See our offers"
-                      />
+                      <Label htmlFor="button1Text">{t('Texte du bouton 1', {
+                    defaultValue: 'Texte du bouton 1'
+                  })}</Label>
+                      <Input id="button1Text" value={formData.configuration.button1Text || ''} onChange={e => updateConfig('button1Text', e.target.value)} placeholder={t('See our offers', {
+                  defaultValue: 'See our offers'
+                })} />
                     </div>
                     
                     <div>
-                      <Label htmlFor="button1Url">URL du bouton 1</Label>
-                      <Input
-                        id="button1Url"
-                        value={formData.configuration.button1Url || ''}
-                        onChange={(e) => updateConfig('button1Url', e.target.value)}
-                        placeholder="/tours"
-                      />
+                      <Label htmlFor="button1Url">{t('URL du bouton 1', {
+                    defaultValue: 'URL du bouton 1'
+                  })}</Label>
+                      <Input id="button1Url" value={formData.configuration.button1Url || ''} onChange={e => updateConfig('button1Url', e.target.value)} placeholder="/tours" />
                     </div>
                     
                     <div>
-                      <Label htmlFor="button2Text">Texte du bouton 2</Label>
-                      <Input
-                        id="button2Text"
-                        value={formData.configuration.button2Text || ''}
-                        onChange={(e) => updateConfig('button2Text', e.target.value)}
-                        placeholder="Custom your trip"
-                      />
+                      <Label htmlFor="button2Text">{t('Texte du bouton 2', {
+                    defaultValue: 'Texte du bouton 2'
+                  })}</Label>
+                      <Input id="button2Text" value={formData.configuration.button2Text || ''} onChange={e => updateConfig('button2Text', e.target.value)} placeholder={t('Custom your trip', {
+                  defaultValue: 'Custom your trip'
+                })} />
                     </div>
                     
                     <div>
-                      <Label htmlFor="button2Url">URL du bouton 2</Label>
-                      <Input
-                        id="button2Url"
-                        value={formData.configuration.button2Url || ''}
-                        onChange={(e) => updateConfig('button2Url', e.target.value)}
-                        placeholder="/custom-tour"
-                      />
+                      <Label htmlFor="button2Url">{t('URL du bouton 2', {
+                    defaultValue: 'URL du bouton 2'
+                  })}</Label>
+                      <Input id="button2Url" value={formData.configuration.button2Url || ''} onChange={e => updateConfig('button2Url', e.target.value)} placeholder="/custom-tour" />
                     </div>
                     
                     <div>
-                      <Label htmlFor="videoUrl">URL de la vidéo principale</Label>
-                      <Input
-                        id="videoUrl"
-                        value={formData.configuration.videoUrl || ''}
-                        onChange={(e) => updateConfig('videoUrl', e.target.value)}
-                        placeholder="/attached_assets/hero-video-optimized.mp4"
-                      />
+                      <Label htmlFor="videoUrl">{t('URL de la vid\xE9o principale', {
+                    defaultValue: 'URL de la vid\xE9o principale'
+                  })}</Label>
+                      <Input id="videoUrl" value={formData.configuration.videoUrl || ''} onChange={e => updateConfig('videoUrl', e.target.value)} placeholder="/attached_assets/hero-video-optimized.mp4" />
                     </div>
                     
                     <div>
-                      <Label htmlFor="fallbackVideoUrl">URL de la vidéo de fallback</Label>
-                      <Input
-                        id="fallbackVideoUrl"
-                        value={formData.configuration.fallbackVideoUrl || ''}
-                        onChange={(e) => updateConfig('fallbackVideoUrl', e.target.value)}
-                        placeholder="/attached_assets/Catamaran..."
-                      />
+                      <Label htmlFor="fallbackVideoUrl">{t('URL de la vid\xE9o de fallback', {
+                    defaultValue: 'URL de la vid\xE9o de fallback'
+                  })}</Label>
+                      <Input id="fallbackVideoUrl" value={formData.configuration.fallbackVideoUrl || ''} onChange={e => updateConfig('fallbackVideoUrl', e.target.value)} placeholder="/attached_assets/Catamaran..." />
                     </div>
-                  </>
-                )}
+                  </>}
 
                 {/* CTA pour les autres types de blocs */}
-                {['hero', 'cta_section', 'custom_tour_cta'].includes(block.blockType) && (
-                  <>
+                {['hero', 'cta_section', 'custom_tour_cta'].includes(block.blockType) && <>
                     <div>
-                      <Label htmlFor="ctaText">Texte du bouton</Label>
-                      <Input
-                        id="ctaText"
-                        value={formData.ctaText}
-                        onChange={(e) => updateFormData({ ctaText: e.target.value })}
-                        placeholder="Texte du bouton"
-                      />
+                      <Label htmlFor="ctaText">{t('Texte du bouton', {
+                    defaultValue: 'Texte du bouton'
+                  })}</Label>
+                      <Input id="ctaText" value={formData.ctaText} onChange={e => updateFormData({
+                  ctaText: e.target.value
+                })} placeholder={t('Texte du bouton', {
+                  defaultValue: 'Texte du bouton'
+                })} />
                     </div>
                     
                     <div>
-                      <Label htmlFor="ctaUrl">Lien du bouton</Label>
-                      <Input
-                        id="ctaUrl"
-                        value={formData.ctaUrl}
-                        onChange={(e) => updateFormData({ ctaUrl: e.target.value })}
-                        placeholder="/lien-vers-page"
-                      />
+                      <Label htmlFor="ctaUrl">{t('Lien du bouton', {
+                    defaultValue: 'Lien du bouton'
+                  })}</Label>
+                      <Input id="ctaUrl" value={formData.ctaUrl} onChange={e => updateFormData({
+                  ctaUrl: e.target.value
+                })} placeholder="/lien-vers-page" />
                     </div>
-                  </>
-                )}
+                  </>}
                 
                 {/* Configuration spécifique au type de bloc */}
-                {block.blockType === 'featured_tours' && (
-                  <div>
-                    <Label htmlFor="maxItems">Nombre maximum d'éléments</Label>
-                    <Select
-                      value={formData.configuration.maxItems?.toString() || '6'}
-                      onValueChange={(value) => updateConfig('maxItems', parseInt(value))}
-                    >
+                {block.blockType === 'featured_tours' && <div>
+                    <Label htmlFor="maxItems">{t('Nombre maximum d\'\xE9l\xE9ments', {
+                  defaultValue: 'Nombre maximum d\'\xE9l\xE9ments'
+                })}</Label>
+                    <Select value={formData.configuration.maxItems?.toString() || '6'} onValueChange={value => updateConfig('maxItems', parseInt(value))}>
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
@@ -1104,69 +1063,53 @@ function BlockEditForm({
                         <SelectItem value="12">12 éléments</SelectItem>
                       </SelectContent>
                     </Select>
-                  </div>
-                )}
+                  </div>}
               </div>
               
               {/* Boutons d'action avec indicateur de modifications */}
               <div className="flex justify-between items-center mt-6 pt-4 border-t bg-gray-50 -mx-6 -mb-6 px-6 py-4">
                 <div className="flex items-center gap-3">
-                  <BlockHistoryModal 
-                    block={block} 
-                    onRestore={() => window.location.reload()} 
-                  />
-                  {hasUnsavedChanges && (
-                    <div className="flex items-center gap-2 text-[hsl(var(--warning))] text-sm">
+                  <BlockHistoryModal block={block} onRestore={() => window.location.reload()} />
+                  {hasUnsavedChanges && <div className="flex items-center gap-2 text-[hsl(var(--warning))] text-sm">
                       <Clock className="h-4 w-4" />
-                      <span>Modifications non sauvegardées</span>
-                    </div>
-                  )}
+                      <span>{t('Modifications non sauvegard\xE9es', {
+                    defaultValue: 'Modifications non sauvegard\xE9es'
+                  })}</span>
+                    </div>}
                 </div>
                 
                 <div className="flex gap-2">
-                  {hasUnsavedChanges && onCancel && (
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      onClick={onCancel}
-                    >
-                      <Undo2 className="w-4 h-4 mr-2" />
-                      Annuler les modifications
-                    </Button>
-                  )}
+                  {hasUnsavedChanges && onCancel && <Button variant="outline" size="sm" onClick={onCancel}>
+                      <Undo2 className="w-4 h-4 mr-2" />{t('Annuler les modifications', {
+                  defaultValue: 'Annuler les modifications'
+                })}</Button>}
                   
-                  <Button 
-                    onClick={handleSave} 
-                    className={`${hasUnsavedChanges ? 'bg-primary hover:bg-blue-700' : 'bg-green-600 hover:bg-green-700'}`}
-                    disabled={saveVersionMutation.isPending}
-                  >
+                  <Button onClick={handleSave} className={`${hasUnsavedChanges ? 'bg-primary hover:bg-blue-700' : 'bg-green-600 hover:bg-green-700'}`} disabled={saveVersionMutation.isPending}>
                     <Save className="w-4 h-4 mr-2" />
-                    {saveVersionMutation.isPending ? 'Sauvegarde...' : 
-                     hasUnsavedChanges ? 'Sauvegarder les modifications' : 'Sauvegarder'}
+                    {saveVersionMutation.isPending ? 'Sauvegarde...' : hasUnsavedChanges ? 'Sauvegarder les modifications' : 'Sauvegarder'}
                   </Button>
                 </div>
               </div>
             </CardContent>
           </Card>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
+        </motion.div>}
+    </AnimatePresence>;
 }
-
-export default function RealBlockPreview({ 
-  block, 
-  onUpdate, 
-  onDelete, 
-  onMoveUp, 
-  onMoveDown, 
+export default function RealBlockPreview({
+  block,
+  onUpdate,
+  onDelete,
+  onMoveUp,
+  onMoveDown,
   onToggleVisibility,
   onEditHero
 }: RealBlockPreviewProps) {
+  const {
+    t: t
+  } = useTranslation();
   const [showEditForm, setShowEditForm] = useState(false);
   const [previewData, setPreviewData] = useState(block);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
-
   const getBlockDisplayName = (blockType: string) => {
     const displayNames: Record<string, string> = {
       'hero': 'Hero Section',
@@ -1189,33 +1132,32 @@ export default function RealBlockPreview({
     };
     return displayNames[blockType] || blockType.replace('_', ' ');
   };
-
   const handlePreviewUpdate = (updatedData: Partial<PageBlock>) => {
-    setPreviewData(prev => ({ ...prev, ...updatedData }));
+    setPreviewData(prev => ({
+      ...prev,
+      ...updatedData
+    }));
     setHasUnsavedChanges(true);
   };
-
   const handleSaveChanges = () => {
     onUpdate(block.id, previewData);
     setHasUnsavedChanges(false);
     setShowEditForm(false);
-    toast({ 
-      title: "Bloc mis à jour", 
-      description: "Les modifications ont été sauvegardées avec succès."
+    toast({
+      title: t('Bloc mis \xE0 jour', {
+        defaultValue: 'Bloc mis \xE0 jour'
+      }),
+      description: t('Les modifications ont \xE9t\xE9 sauvegard\xE9es avec succ\xE8s.', {
+        defaultValue: 'Les modifications ont \xE9t\xE9 sauvegard\xE9es avec succ\xE8s.'
+      })
     });
   };
-
   const handleCancelChanges = () => {
     setPreviewData(block);
     setHasUnsavedChanges(false);
     setShowEditForm(false);
   };
-
-  return (
-    <motion.div 
-      layout
-      className="group relative border border-gray-200 rounded-xl overflow-hidden hover:border-blue-400 hover:shadow-lg transition-all duration-300 bg-white"
-    >
+  return <motion.div layout className="group relative border border-gray-200 rounded-xl overflow-hidden hover:border-blue-400 hover:shadow-lg transition-all duration-300 bg-white">
       {/* Header avec titre et boutons d'action toujours visibles */}
       <div className="absolute top-0 left-0 right-0 z-30 bg-gradient-to-b from-black/80 via-black/60 to-transparent p-3">
         <div className="flex items-center justify-between">
@@ -1226,61 +1168,39 @@ export default function RealBlockPreview({
           
           {/* Boutons d'action toujours visibles */}
           <div className="flex gap-1">
-            <Button
-              size="sm"
-              variant={block.isActive ? "secondary" : "default"}
-              onClick={() => onToggleVisibility(block.id)}
-              title={block.isActive ? "Masquer du site web" : "Afficher sur le site web"}
-              className="h-7 w-7 p-0 bg-white/90 hover:bg-white text-gray-700 border-0"
-            >
+            <Button size="sm" variant={block.isActive ? "secondary" : "default"} onClick={() => onToggleVisibility(block.id)} title={block.isActive ? "Masquer du site web" : "Afficher sur le site web"} className="h-7 w-7 p-0 bg-white/90 hover:bg-white text-gray-700 border-0">
               {block.isActive ? <Eye className="h-3 w-3" /> : <EyeOff className="h-3 w-3" />}
             </Button>
-            <Button
-              size="sm"
-              variant="secondary"
-              onClick={() => onMoveUp(block.id)}
-              title="Déplacer vers le haut"
-              className="h-7 w-7 p-0 bg-white/90 hover:bg-white text-gray-700 border-0"
-            >
+            <Button size="sm" variant="secondary" onClick={() => onMoveUp(block.id)} title={t('D\xE9placer vers le haut', {
+            defaultValue: 'D\xE9placer vers le haut'
+          })} className="h-7 w-7 p-0 bg-white/90 hover:bg-white text-gray-700 border-0">
               <ArrowUp className="h-3 w-3" />
             </Button>
-            <Button
-              size="sm"
-              variant="secondary"
-              onClick={() => onMoveDown(block.id)}
-              title="Déplacer vers le bas"
-              className="h-7 w-7 p-0 bg-white/90 hover:bg-white text-gray-700 border-0"
-            >
+            <Button size="sm" variant="secondary" onClick={() => onMoveDown(block.id)} title={t('D\xE9placer vers le bas', {
+            defaultValue: 'D\xE9placer vers le bas'
+          })} className="h-7 w-7 p-0 bg-white/90 hover:bg-white text-gray-700 border-0">
               <ArrowDown className="h-3 w-3" />
             </Button>
-            <Button
-              size="sm"
-              variant="secondary"
-              onClick={() => {
-                if (block.blockType === 'video_hero' && onEditHero) {
-                  // Utiliser le formulaire Hero spécialisé
-                  onEditHero(block.id);
-                } else {
-                  // Utiliser le formulaire d'édition standard
-                  setShowEditForm(!showEditForm);
-                }
-              }}
-              title="Modifier le bloc"
-              className="h-7 w-7 p-0 bg-blue-500 hover:bg-primary text-white border-0"
-            >
+            <Button size="sm" variant="secondary" onClick={() => {
+            if (block.blockType === 'video_hero' && onEditHero) {
+              // Utiliser le formulaire Hero spécialisé
+              onEditHero(block.id);
+            } else {
+              // Utiliser le formulaire d'édition standard
+              setShowEditForm(!showEditForm);
+            }
+          }} title={t('Modifier le bloc', {
+            defaultValue: 'Modifier le bloc'
+          })} className="h-7 w-7 p-0 bg-blue-500 hover:bg-primary text-white border-0">
               <Edit className="h-3 w-3" />
             </Button>
-            <Button
-              size="sm"
-              variant="destructive"
-              onClick={() => {
-                if (window.confirm('Êtes-vous sûr de vouloir supprimer ce bloc ?')) {
-                  onDelete(block.id);
-                }
-              }}
-              title="Supprimer le bloc"
-              className="h-7 w-7 p-0 bg-[hsl(var(--destructive))] hover:bg-[hsl(var(--destructive)/0.9)] text-white border-0"
-            >
+            <Button size="sm" variant="destructive" onClick={() => {
+            if (window.confirm('Êtes-vous sûr de vouloir supprimer ce bloc ?')) {
+              onDelete(block.id);
+            }
+          }} title={t('Supprimer le bloc', {
+            defaultValue: 'Supprimer le bloc'
+          })} className="h-7 w-7 p-0 bg-[hsl(var(--destructive))] hover:bg-[hsl(var(--destructive)/0.9)] text-white border-0">
               <Trash2 className="h-3 w-3" />
             </Button>
           </div>
@@ -1288,50 +1208,32 @@ export default function RealBlockPreview({
       </div>
 
       {/* Prévisualisation visuelle miniaturisée et fidèle */}
-      <div className="relative overflow-hidden bg-white" style={{ 
-        height: block.identifier === 'hero_main_v2' ? '450px' : 
-                block.blockType.includes('hero') ? '800px' : '300px',
-        minHeight: block.identifier === 'hero_main_v2' ? '450px' : '300px'
-      }}>
+      <div className="relative overflow-hidden bg-white" style={{
+      height: block.identifier === 'hero_main_v2' ? '450px' : block.blockType.includes('hero') ? '800px' : '300px',
+      minHeight: block.identifier === 'hero_main_v2' ? '450px' : '300px'
+    }}>
         <div className={block.blockType.includes('hero') ? "w-full h-full" : "transform scale-90 origin-top-left w-[111.11%] h-[111.11%]"}>
-          <MiniaturizedComponent 
-            block={showEditForm ? previewData : block} 
-          />
+          <MiniaturizedComponent block={showEditForm ? previewData : block} />
         </div>
         
         {/* Overlay si bloc masqué */}
-        {!block.isActive && (
-          <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center z-20">
-            <div className="bg-white px-4 py-2 rounded-full text-sm font-medium text-gray-700 shadow-lg">
-              Masqué du site web
-            </div>
-          </div>
-        )}
+        {!block.isActive && <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center z-20">
+            <div className="bg-white px-4 py-2 rounded-full text-sm font-medium text-gray-700 shadow-lg">{t('Masqu\xE9 du site web', {
+            defaultValue: 'Masqu\xE9 du site web'
+          })}</div>
+          </div>}
 
         {/* Indicateur de modifications non sauvegardées */}
-        {hasUnsavedChanges && (
-          <div className="absolute bottom-3 left-3 z-20">
+        {hasUnsavedChanges && <div className="absolute bottom-3 left-3 z-20">
             <div className="bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-medium shadow-lg flex items-center gap-1">
-              <Clock className="h-3 w-3" />
-              Modifications non sauvegardées
-            </div>
-          </div>
-        )}
+              <Clock className="h-3 w-3" />{t('Modifications non sauvegard\xE9es', {
+            defaultValue: 'Modifications non sauvegard\xE9es'
+          })}</div>
+          </div>}
       </div>
 
       {/* Formulaire d'édition déroulant avec preview en temps réel */}
       {/* Masquer le formulaire générique pour le Hero qui a son propre formulaire intégré */}
-      {showEditForm && block.blockType !== 'video_hero' && (
-        <BlockEditForm
-          block={block}
-          onSave={handleSaveChanges}
-          onPreviewUpdate={handlePreviewUpdate}
-          isOpen={showEditForm}
-          onToggle={() => setShowEditForm(!showEditForm)}
-          hasUnsavedChanges={hasUnsavedChanges}
-          onCancel={handleCancelChanges}
-        />
-      )}
-    </motion.div>
-  );
+      {showEditForm && block.blockType !== 'video_hero' && <BlockEditForm block={block} onSave={handleSaveChanges} onPreviewUpdate={handlePreviewUpdate} isOpen={showEditForm} onToggle={() => setShowEditForm(!showEditForm)} hasUnsavedChanges={hasUnsavedChanges} onCancel={handleCancelChanges} />}
+    </motion.div>;
 }
