@@ -34,16 +34,24 @@ PaginationLink.displayName = "PaginationLink";
 const PaginationPrevious = ({
   className,
   ...props
-}: React.ComponentProps<typeof PaginationLink>) => <PaginationLink aria-label={t('common.gotopreviouspage')} size="default" className={cn("gap-1 pl-2.5", className)} {...props}>
+}: React.ComponentProps<typeof PaginationLink>) => <PaginationLink aria-label={t("Gotopreviouspage", {
+  defaultValue: "Gotopreviouspage"
+})} size="default" className={cn("gap-1 pl-2.5", className)} {...props}>
     <ChevronLeft className="h-4 w-4" />
-    <span>{t('common.previous')}</span>
+    <span>{t("Previous", {
+      defaultValue: "Previous"
+    })}</span>
   </PaginationLink>;
 PaginationPrevious.displayName = "PaginationPrevious";
 const PaginationNext = ({
   className,
   ...props
-}: React.ComponentProps<typeof PaginationLink>) => <PaginationLink aria-label={t('common.gotonextpage')} size="default" className={cn("gap-1 pr-2.5", className)} {...props}>
-    <span>{t('common.next')}</span>
+}: React.ComponentProps<typeof PaginationLink>) => <PaginationLink aria-label={t("Gotonextpage", {
+  defaultValue: "Gotonextpage"
+})} size="default" className={cn("gap-1 pr-2.5", className)} {...props}>
+    <span>{t("Next", {
+      defaultValue: "Next"
+    })}</span>
     <ChevronRight className="h-4 w-4" />
   </PaginationLink>;
 PaginationNext.displayName = "PaginationNext";
@@ -52,7 +60,9 @@ const PaginationEllipsis = ({
   ...props
 }: React.ComponentProps<"span">) => <span aria-hidden className={cn("flex h-9 w-9 items-center justify-center", className)} {...props}>
     <MoreHorizontal className="h-4 w-4" />
-    <span className="sr-only">{t('common.morepages')}</span>
+    <span className="sr-only">{t("Morepages", {
+      defaultValue: "Morepages"
+    })}</span>
   </span>;
 PaginationEllipsis.displayName = "PaginationEllipsis";
 export { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious };

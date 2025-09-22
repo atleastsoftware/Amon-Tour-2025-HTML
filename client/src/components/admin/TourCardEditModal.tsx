@@ -101,16 +101,24 @@ export default function TourCardEditModal({
   const handleSave = async () => {
     if (!formData.title) {
       toast({
-        title: t('common.erreur'),
-        description: t('common.letitreestobligatoir'),
+        title: t("Erreur", {
+          defaultValue: "Erreur"
+        }),
+        description: t("Letitreestobligatoir", {
+          defaultValue: "Letitreestobligatoir"
+        }),
         variant: "destructive"
       });
       return;
     }
     if (!formData.customLink) {
       toast({
-        title: t('common.erreur'),
-        description: t('common.lelienpersonnalisxe9'),
+        title: t("Erreur", {
+          defaultValue: "Erreur"
+        }),
+        description: t("Lelienpersonnalisxe9", {
+          defaultValue: "Lelienpersonnalisxe9"
+        }),
         variant: "destructive"
       });
       return;
@@ -129,16 +137,24 @@ export default function TourCardEditModal({
       }
       const updatedCard = await updateResponse.json();
       toast({
-        title: t('common.succxe8s'),
-        description: t('common.fichedetourmisexe0jo')
+        title: t("Succxe8s", {
+          defaultValue: "Succxe8s"
+        }),
+        description: t("Fichedetourmisexe0jo", {
+          defaultValue: "Fichedetourmisexe0jo"
+        })
       });
       onSave(updatedCard);
       onClose();
     } catch (error) {
       console.error("Erreur lors de la mise à jour de la fiche:", error);
       toast({
-        title: t('common.erreur'),
-        description: t('common.uneerreurestsurvenue'),
+        title: t("Erreur", {
+          defaultValue: "Erreur"
+        }),
+        description: t("Uneerreurestsurvenue", {
+          defaultValue: "Uneerreurestsurvenue"
+        }),
         variant: "destructive"
       });
     } finally {
@@ -148,28 +164,44 @@ export default function TourCardEditModal({
   return <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>{t('common.modifierlafichedetou')}</DialogTitle>
+          <DialogTitle>{t("Modifierlafichedetou", {
+            defaultValue: "Modifierlafichedetou"
+          })}</DialogTitle>
         </DialogHeader>
         
         <div className="py-4 space-y-4">
           <div>
-            <Label htmlFor="title">{t('common.nomdusxe9jourtour')}</Label>
-            <Input id="title" name="title" value={formData.title} onChange={handleInputChange} placeholder={t('common.exbangkokfoodtour')} required />
+            <Label htmlFor="title">{t("Nomdusxe9jourtour", {
+              defaultValue: "Nomdusxe9jourtour"
+            })}</Label>
+            <Input id="title" name="title" value={formData.title} onChange={handleInputChange} placeholder={t("Exbangkokfoodtour", {
+            defaultValue: "Exbangkokfoodtour"
+          })} required />
           </div>
           
           <div>
-            <Label htmlFor="description">{t('common.description')}</Label>
-            <Textarea id="description" name="description" value={formData.description || ""} onChange={handleInputChange} placeholder={t('common.dxe9crivezbrixe8veme')} rows={3} />
+            <Label htmlFor="description">{t("Description", {
+              defaultValue: "Description"
+            })}</Label>
+            <Textarea id="description" name="description" value={formData.description || ""} onChange={handleInputChange} placeholder={t("Dxe9crivezbrixe8veme", {
+            defaultValue: "Dxe9crivezbrixe8veme"
+          })} rows={3} />
           </div>
           
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="price">{t('common.prixxe0partirde')}</Label>
-              <Input id="price" name="price" type="number" min={0} value={formData.price || ""} onChange={handleInputChange} placeholder={t('common.ex1500')} required />
+              <Label htmlFor="price">{t("Prixxe0partirde", {
+                defaultValue: "Prixxe0partirde"
+              })}</Label>
+              <Input id="price" name="price" type="number" min={0} value={formData.price || ""} onChange={handleInputChange} placeholder={t("Ex1500", {
+              defaultValue: "Ex1500"
+            })} required />
             </div>
             
             <div>
-              <Label htmlFor="currency">{t('common.devise')}</Label>
+              <Label htmlFor="currency">{t("Devise", {
+                defaultValue: "Devise"
+              })}</Label>
               <select id="currency" name="currency" value={formData.currency} onChange={handleInputChange} className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
                 <option value="THB">{t('common.thb')}</option>
                 <option value="EUR">{t('common.eur')}</option>
@@ -179,34 +211,48 @@ export default function TourCardEditModal({
           </div>
           
           <div>
-            <Label htmlFor="type">{t('common.typedefiche')}</Label>
+            <Label htmlFor="type">{t("Typedefiche", {
+              defaultValue: "Typedefiche"
+            })}</Label>
             <div className="grid grid-cols-2 gap-4 mt-2">
               <button type="button" onClick={() => setFormData({
               ...formData,
               type: "tour"
             })} className={`p-2 border rounded-md flex flex-col items-center justify-center gap-1 ${formData.type === "tour" ? "border-primary bg-primary/10" : "border-gray-200 hover:border-gray-300"}`}>
-                <span className={`font-medium ${formData.type === "tour" ? "text-primary" : "text-gray-700"}`}>{t('common.tour')}</span>
+                <span className={`font-medium ${formData.type === "tour" ? "text-primary" : "text-gray-700"}`}>{t("Tour", {
+                  defaultValue: "Tour"
+                })}</span>
               </button>
               
               <button type="button" onClick={() => setFormData({
               ...formData,
               type: "experience"
             })} className={`p-2 border rounded-md flex flex-col items-center justify-center gap-1 ${formData.type === "experience" ? "border-primary bg-primary/10" : "border-gray-200 hover:border-gray-300"}`}>
-                <span className={`font-medium ${formData.type === "experience" ? "text-primary" : "text-gray-700"}`}>{t('common.expxe9rience')}</span>
+                <span className={`font-medium ${formData.type === "experience" ? "text-primary" : "text-gray-700"}`}>{t("Expxe9rience", {
+                  defaultValue: "Expxe9rience"
+                })}</span>
               </button>
             </div>
           </div>
           
           <div>
-            <Label htmlFor="customLink">{t('common.lienpersonnalisxe9to')}</Label>
-            <Input id="customLink" name="customLink" value={formData.customLink} onChange={handleInputChange} placeholder={t('common.exhttpstourninjacomt')} required />
+            <Label htmlFor="customLink">{t("Lienpersonnalisxe9to", {
+              defaultValue: "Lienpersonnalisxe9to"
+            })}</Label>
+            <Input id="customLink" name="customLink" value={formData.customLink} onChange={handleInputChange} placeholder={t("Exhttpstourninjacomt", {
+            defaultValue: "Exhttpstourninjacomt"
+          })} required />
           </div>
           
           <div>
-            <Label htmlFor="tags">{t('common.tagsdelocalisation')}</Label>
+            <Label htmlFor="tags">{t("Tagsdelocalisation", {
+              defaultValue: "Tagsdelocalisation"
+            })}</Label>
             <div className="flex items-start gap-2">
               <div className="flex-grow">
-                <Input id="tagInput" value={tagInput} onChange={handleTagInputChange} onKeyDown={handleTagKeyDown} placeholder={t('common.exbangkokphuketkohsa')} />
+                <Input id="tagInput" value={tagInput} onChange={handleTagInputChange} onKeyDown={handleTagKeyDown} placeholder={t("Exbangkokphuketkohsa", {
+                defaultValue: "Exbangkokphuketkohsa"
+              })} />
               </div>
               <Button type="button" onClick={addTag} variant="outline" size="icon">
                 <Plus className="h-4 w-4" />
@@ -225,7 +271,9 @@ export default function TourCardEditModal({
         </div>
         
         <DialogFooter>
-          <Button variant="outline" onClick={onClose}>{t('common.cancel')}</Button>
+          <Button variant="outline" onClick={onClose}>{t("Cancel", {
+            defaultValue: "Cancel"
+          })}</Button>
           <Button onClick={handleSave} disabled={isLoading}>
             {isLoading ? "Saving..." : "Save"}
           </Button>

@@ -37,8 +37,9 @@ const NavLink = ({
     </Link>;
 };
 export default function Header() {
-  const { t } = useTranslation();
-
+  const {
+    t
+  } = useTranslation();
   const [location] = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -169,7 +170,9 @@ export default function Header() {
           }} whileHover={{
             scale: 1.05
           }}>
-            <img src={logoAmon} alt={t('common.amonLogo')} className="h-20 w-auto mt-1 ml-[-4px]" />
+            <img src={logoAmon} alt={t("Amon Logo", {
+              defaultValue: "Amon Logo"
+            })} className="h-20 w-auto mt-1 ml-[-4px]" />
             <span className={`ml-3 text-3xl font-bold ${isHomePage && !scrolled ? 'text-primary-foreground drop-shadow-lg' : 'text-primary'}`} style={{
               fontFamily: 'Lobster, cursive'
             }}>{t('site.name')}</span>

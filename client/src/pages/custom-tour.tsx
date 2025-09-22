@@ -6,14 +6,18 @@ import CustomTourForm from "@/components/home/CustomTourForm";
 import { MapPin, Building2, HeadphonesIcon } from "lucide-react";
 import { useTranslation } from 'react-i18next';
 export default function CustomTour() {
-  const { t } = useTranslation();
+  const {
+    t
+  } = useTranslation();
   return <>
       <SEO title={t('customTour.seoTitle')} description={t('customTour.seoDescription')} keywords={t('customTour.seoKeywords')} />
       <Header />
       
       <main>
         {/* Hero */}
-        <HeroHeader title={t('customTour.title')} subtitle={t('customTour.subtitle')} alt={t('common.customizedtourinthai')} />
+        <HeroHeader title={t('customTour.title')} subtitle={t('customTour.subtitle')} alt={t("Customizedtourinthai", {
+        defaultValue: "Customizedtourinthai"
+      })} />
         
         {/* Why Choose Custom Tour */}
         <section className="py-20 bg-neutral-light">

@@ -18,8 +18,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Reservation, Tour, TourAvailability } from "@shared/schema";
 import { formatTHB } from "@/lib/utils";
 export default function ReservationsManager() {
-  const { t } = useTranslation();
-
+  const {
+    t
+  } = useTranslation();
   const {
     isAuthenticated
   } = useIsAuthenticated();
@@ -71,8 +72,12 @@ export default function ReservationsManager() {
         queryKey: ["/api/reservations"]
       });
       toast({
-        title: t('common.statutmisxe0jour'),
-        description: t('common.lestatutdelarxe9serv')
+        title: t("Statutmisxe0jour", {
+          defaultValue: "Statutmisxe0jour"
+        }),
+        description: t("Lestatutdelarxe9serv", {
+          defaultValue: "Lestatutdelarxe9serv"
+        })
       });
       setIsStatusDialogOpen(false);
       setSelectedReservation(null);
@@ -80,7 +85,9 @@ export default function ReservationsManager() {
     onError: (error: any) => {
       toast({
         variant: "destructive",
-        title: t('common.erreur'),
+        title: t("Erreur", {
+          defaultValue: "Erreur"
+        }),
         description: error.message || "Une erreur est survenue lors de la modification du statut."
       });
     }
@@ -134,15 +141,25 @@ export default function ReservationsManager() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "pending":
-        return <Badge variant="outline" className="bg-[hsl(var(--warning)/0.1)] text-[hsl(var(--warning))] border-[hsl(var(--warning)/0.2)]">{t('common.enattente')}</Badge>;
+        return <Badge variant="outline" className="bg-[hsl(var(--warning)/0.1)] text-[hsl(var(--warning))] border-[hsl(var(--warning)/0.2)]">{t("Enattente", {
+            defaultValue: "Enattente"
+          })}</Badge>;
       case "confirmed":
-        return <Badge variant="outline" className="bg-[hsl(var(--success)/0.1)] text-[hsl(var(--success))] border-[hsl(var(--success)/0.2)]">{t('common.confirmxe9e')}</Badge>;
+        return <Badge variant="outline" className="bg-[hsl(var(--success)/0.1)] text-[hsl(var(--success))] border-[hsl(var(--success)/0.2)]">{t("Confirmxe9e", {
+            defaultValue: "Confirmxe9e"
+          })}</Badge>;
       case "cancelled":
-        return <Badge variant="outline" className="bg-[hsl(var(--destructive)/0.1)] text-[hsl(var(--destructive))] border-[hsl(var(--destructive)/0.2)]">{t('common.annulxe9e')}</Badge>;
+        return <Badge variant="outline" className="bg-[hsl(var(--destructive)/0.1)] text-[hsl(var(--destructive))] border-[hsl(var(--destructive)/0.2)]">{t("Annulxe9e", {
+            defaultValue: "Annulxe9e"
+          })}</Badge>;
       case "completed":
-        return <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20">{t('common.terminxe9e')}</Badge>;
+        return <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20">{t("Terminxe9e", {
+            defaultValue: "Terminxe9e"
+          })}</Badge>;
       default:
-        return <Badge variant="outline">{t('common.inconnu')}</Badge>;
+        return <Badge variant="outline">{t("Inconnu", {
+            defaultValue: "Inconnu"
+          })}</Badge>;
     }
   };
 
@@ -160,20 +177,32 @@ export default function ReservationsManager() {
           <div className="flex items-center space-x-4">
             <Link href="/">
               <div className="flex items-center cursor-pointer">
-                <span className="text-white font-heading font-bold text-xl">{t('common.senthang')}</span>
-                <span className="text-secondary font-accent text-xl ml-1">{t('common.siam')}</span>
-                <span className="text-white font-heading font-bold text-xl ml-1">{t('common.tour')}</span>
+                <span className="text-white font-heading font-bold text-xl">{t("Senthang", {
+                  defaultValue: "Senthang"
+                })}</span>
+                <span className="text-secondary font-accent text-xl ml-1">{t("Siam", {
+                  defaultValue: "Siam"
+                })}</span>
+                <span className="text-white font-heading font-bold text-xl ml-1">{t("Tour", {
+                  defaultValue: "Tour"
+                })}</span>
               </div>
             </Link>
-            <div className="hidden md:block text-sm px-3 py-1 bg-primary-dark rounded">{t('common.gestiondesrxe9servat')}</div>
+            <div className="hidden md:block text-sm px-3 py-1 bg-primary-dark rounded">{t("Gestiondesrxe9servat", {
+              defaultValue: "Gestiondesrxe9servat"
+            })}</div>
           </div>
           
           <div className="flex items-center space-x-4">
             <Button variant="outline" size="sm" className="text-white border-white hover:bg-primary-dark" onClick={handleLogout}>
-              <LogOut className="mr-2 h-4 w-4" />{t('common.logout')}</Button>
+              <LogOut className="mr-2 h-4 w-4" />{t("Logout", {
+              defaultValue: "Logout"
+            })}</Button>
             <Link href="/admin/dashboard">
               <span className="text-white hover:text-gray-200 transition-colors cursor-pointer">
-                <ChevronLeft className="mr-2 h-4 w-4 inline" />{t('common.backtodashboard')}</span>
+                <ChevronLeft className="mr-2 h-4 w-4 inline" />{t("Backtodashboard", {
+                defaultValue: "Backtodashboard"
+              })}</span>
             </Link>
           </div>
         </div>
@@ -181,31 +210,51 @@ export default function ReservationsManager() {
       
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="font-heading font-bold text-3xl mb-2">{t('common.gestiondesrxe9servat')}</h1>
-          <p className="text-gray-600">{t('common.consultezetgxe9rezto')}</p>
+          <h1 className="font-heading font-bold text-3xl mb-2">{t("Gestiondesrxe9servat", {
+            defaultValue: "Gestiondesrxe9servat"
+          })}</h1>
+          <p className="text-gray-600">{t("Consultezetgxe9rezto", {
+            defaultValue: "Consultezetgxe9rezto"
+          })}</p>
         </div>
         
         <Card>
           <CardHeader>
             <div className="flex flex-col md:flex-row justify-between">
               <div>
-                <CardTitle>{t('common.rxe9servations')}</CardTitle>
-                <CardDescription>{t('common.listedesrxe9servatio')}</CardDescription>
+                <CardTitle>{t("Rxe9servations", {
+                  defaultValue: "Rxe9servations"
+                })}</CardTitle>
+                <CardDescription>{t("Listedesrxe9servatio", {
+                  defaultValue: "Listedesrxe9servatio"
+                })}</CardDescription>
               </div>
               <div className="mt-4 md:mt-0">
                 <Button variant="outline" className="mr-2" disabled>
-                  <Download className="h-4 w-4 mr-2" />{t('common.exporter')}</Button>
+                  <Download className="h-4 w-4 mr-2" />{t("Exporter", {
+                  defaultValue: "Exporter"
+                })}</Button>
               </div>
             </div>
           </CardHeader>
           <CardContent>
             <Tabs defaultValue="all" value={selectedTab} onValueChange={setSelectedTab}>
               <TabsList className="mb-6">
-                <TabsTrigger value="all">{t('common.toutes')}</TabsTrigger>
-                <TabsTrigger value="pending">{t('common.enattente')}</TabsTrigger>
-                <TabsTrigger value="confirmed">{t('common.confirmxe9es')}</TabsTrigger>
-                <TabsTrigger value="completed">{t('common.terminxe9es')}</TabsTrigger>
-                <TabsTrigger value="cancelled">{t('common.annulxe9es')}</TabsTrigger>
+                <TabsTrigger value="all">{t("Toutes", {
+                  defaultValue: "Toutes"
+                })}</TabsTrigger>
+                <TabsTrigger value="pending">{t("Enattente", {
+                  defaultValue: "Enattente"
+                })}</TabsTrigger>
+                <TabsTrigger value="confirmed">{t("Confirmxe9es", {
+                  defaultValue: "Confirmxe9es"
+                })}</TabsTrigger>
+                <TabsTrigger value="completed">{t("Terminxe9es", {
+                  defaultValue: "Terminxe9es"
+                })}</TabsTrigger>
+                <TabsTrigger value="cancelled">{t("Annulxe9es", {
+                  defaultValue: "Annulxe9es"
+                })}</TabsTrigger>
               </TabsList>
               
               <TabsContent value={selectedTab}>
@@ -216,13 +265,27 @@ export default function ReservationsManager() {
                       <TableHeader>
                         <TableRow>
                           <TableHead>ID</TableHead>
-                          <TableHead>{t('common.tour')}</TableHead>
-                          <TableHead>{t('common.client')}</TableHead>
-                          <TableHead>{t('common.date')}</TableHead>
-                          <TableHead>{t('common.personnes')}</TableHead>
-                          <TableHead>{t('common.montant')}</TableHead>
-                          <TableHead>{t('common.statut')}</TableHead>
-                          <TableHead className="text-right">{t('common.actions')}</TableHead>
+                          <TableHead>{t("Tour", {
+                          defaultValue: "Tour"
+                        })}</TableHead>
+                          <TableHead>{t("Client", {
+                          defaultValue: "Client"
+                        })}</TableHead>
+                          <TableHead>{t("Date", {
+                          defaultValue: "Date"
+                        })}</TableHead>
+                          <TableHead>{t("Personnes", {
+                          defaultValue: "Personnes"
+                        })}</TableHead>
+                          <TableHead>{t("Montant", {
+                          defaultValue: "Montant"
+                        })}</TableHead>
+                          <TableHead>{t("Statut", {
+                          defaultValue: "Statut"
+                        })}</TableHead>
+                          <TableHead className="text-right">{t("Actions", {
+                          defaultValue: "Actions"
+                        })}</TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
@@ -241,20 +304,30 @@ export default function ReservationsManager() {
                             <TableCell className="text-right">
                               <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
-                                  <Button variant="outline" size="sm">{t('common.actions')}</Button>
+                                  <Button variant="outline" size="sm">{t("Actions", {
+                                defaultValue: "Actions"
+                              })}</Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent>
                                   <DropdownMenuItem onClick={() => openDetailsDialog(reservation)}>
-                                    <Eye className="h-4 w-4 mr-2" />{t('common.viewdetails')}</DropdownMenuItem>
+                                    <Eye className="h-4 w-4 mr-2" />{t("Viewdetails", {
+                                defaultValue: "Viewdetails"
+                              })}</DropdownMenuItem>
                                   
                                   {reservation.status === "pending" && <DropdownMenuItem onClick={() => openStatusDialog(reservation, "confirmed")}>
-                                      <Check className="h-4 w-4 mr-2 text-green-600" />{t('common.confirm')}</DropdownMenuItem>}
+                                      <Check className="h-4 w-4 mr-2 text-green-600" />{t("Confirm", {
+                                defaultValue: "Confirm"
+                              })}</DropdownMenuItem>}
                                   
                                   {reservation.status === "confirmed" && <DropdownMenuItem onClick={() => openStatusDialog(reservation, "completed")}>
-                                      <Check className="h-4 w-4 mr-2 text-blue-600" />{t('common.markascompleted')}</DropdownMenuItem>}
+                                      <Check className="h-4 w-4 mr-2 text-blue-600" />{t("Markascompleted", {
+                                defaultValue: "Markascompleted"
+                              })}</DropdownMenuItem>}
                                   
                                   {(reservation.status === "pending" || reservation.status === "confirmed") && <DropdownMenuItem onClick={() => openStatusDialog(reservation, "cancelled")}>
-                                      <X className="h-4 w-4 mr-2 text-destructive" />{t('common.cancel')}</DropdownMenuItem>}
+                                      <X className="h-4 w-4 mr-2 text-destructive" />{t("Cancel", {
+                                defaultValue: "Cancel"
+                              })}</DropdownMenuItem>}
                                 </DropdownMenuContent>
                               </DropdownMenu>
                             </TableCell>
@@ -276,63 +349,93 @@ export default function ReservationsManager() {
       <Dialog open={isDetailsDialogOpen} onOpenChange={setIsDetailsDialogOpen}>
         <DialogContent className="sm:max-w-[550px]">
           <DialogHeader>
-            <DialogTitle>{t('common.dxe9tailsdelarxe9ser')}</DialogTitle>
-            <DialogDescription>{t('common.informationscomplxe8')}</DialogDescription>
+            <DialogTitle>{t("Dxe9tailsdelarxe9ser", {
+              defaultValue: "Dxe9tailsdelarxe9ser"
+            })}</DialogTitle>
+            <DialogDescription>{t("Informationscomplxe8", {
+              defaultValue: "Informationscomplxe8"
+            })}</DialogDescription>
           </DialogHeader>
           
           {selectedReservation && <div className="space-y-4 py-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t('common.numxe9roderxe9servat')}</h4>
+                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t("Numxe9roderxe9servat", {
+                  defaultValue: "Numxe9roderxe9servat"
+                })}</h4>
                   <p className="font-mono">#{selectedReservation.id}</p>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t('common.statut')}</h4>
+                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t("Statut", {
+                  defaultValue: "Statut"
+                })}</h4>
                   <p>{getStatusBadge(selectedReservation.status)}</p>
                 </div>
               </div>
               
               <div className="pt-2">
-                <h4 className="font-semibold text-sm text-gray-500 mb-1">{t('common.tour')}</h4>
+                <h4 className="font-semibold text-sm text-gray-500 mb-1">{t("Tour", {
+                defaultValue: "Tour"
+              })}</h4>
                 <p className="font-medium">{getTourTitle(selectedReservation.tourId)}</p>
               </div>
               
               <div className="pt-2">
-                <h4 className="font-semibold text-sm text-gray-500 mb-1">{t('common.informationsclient')}</h4>
+                <h4 className="font-semibold text-sm text-gray-500 mb-1">{t("Informationsclient", {
+                defaultValue: "Informationsclient"
+              })}</h4>
                 <div className="space-y-1">
                   <p><span className="font-medium">{t('common.nom')}</span> {selectedReservation.customerName}</p>
-                  <p><span className="font-medium">{t('common.email')}</span> {selectedReservation.customerEmail}</p>
-                  <p><span className="font-medium">{t('common.txe9lxe9phone')}</span> {selectedReservation.customerPhone}</p>
+                  <p><span className="font-medium">{t("Email", {
+                    defaultValue: "Email"
+                  })}</span> {selectedReservation.customerEmail}</p>
+                  <p><span className="font-medium">{t("Txe9lxe9phone", {
+                    defaultValue: "Txe9lxe9phone"
+                  })}</span> {selectedReservation.customerPhone}</p>
                 </div>
               </div>
               
               <div className="grid grid-cols-2 gap-4 pt-2">
                 <div>
-                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t('common.nombredepersonnes')}</h4>
+                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t("Nombredepersonnes", {
+                  defaultValue: "Nombredepersonnes"
+                })}</h4>
                   <p>{selectedReservation.numberOfPeople}</p>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t('common.montanttotal')}</h4>
+                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t("Montanttotal", {
+                  defaultValue: "Montanttotal"
+                })}</h4>
                   <p className="font-semibold">{formatTHB(selectedReservation.totalAmount)}</p>
                 </div>
               </div>
               
               {selectedReservation.specialRequests && <div className="pt-2">
-                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t('common.demandesspxe9ciales')}</h4>
+                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t("Demandesspxe9ciales", {
+                defaultValue: "Demandesspxe9ciales"
+              })}</h4>
                   <p className="p-3 bg-gray-50 rounded-md">{selectedReservation.specialRequests}</p>
                 </div>}
               
               {selectedReservation.stripePaymentIntentId && <div className="pt-2">
-                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t('common.informationsdepaieme')}</h4>
+                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t("Informationsdepaieme", {
+                defaultValue: "Informationsdepaieme"
+              })}</h4>
                   <div className="space-y-1">
-                    <p><span className="font-medium">{t('common.idstripe')}</span> {selectedReservation.stripePaymentIntentId}</p>
-                    <p><span className="font-medium">{t('common.clientstripe')}</span> {selectedReservation.stripeCustomerId}</p>
+                    <p><span className="font-medium">{t("Idstripe", {
+                    defaultValue: "Idstripe"
+                  })}</span> {selectedReservation.stripePaymentIntentId}</p>
+                    <p><span className="font-medium">{t("Clientstripe", {
+                    defaultValue: "Clientstripe"
+                  })}</span> {selectedReservation.stripeCustomerId}</p>
                   </div>
                 </div>}
               
               <div className="grid grid-cols-2 gap-4 pt-2">
                 <div>
-                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t('common.datedecrxe9ation')}</h4>
+                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t("Datedecrxe9ation", {
+                  defaultValue: "Datedecrxe9ation"
+                })}</h4>
                   <p>
                     {selectedReservation.createdAt && format(new Date(selectedReservation.createdAt), 'dd/MM/yyyy à HH:mm', {
                   locale: fr
@@ -340,7 +443,9 @@ export default function ReservationsManager() {
                   </p>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t('common.dernixe8remisexe0jou')}</h4>
+                  <h4 className="font-semibold text-sm text-gray-500 mb-1">{t("Dernixe8remisexe0jou", {
+                  defaultValue: "Dernixe8remisexe0jou"
+                })}</h4>
                   <p>
                     {selectedReservation.updatedAt && format(new Date(selectedReservation.updatedAt), 'dd/MM/yyyy à HH:mm', {
                   locale: fr
@@ -357,16 +462,22 @@ export default function ReservationsManager() {
                 setIsDetailsDialogOpen(false);
                 openStatusDialog(selectedReservation, "cancelled");
               }}>
-                    <X className="h-4 w-4 mr-1" />{t('common.cancel')}</Button>}
+                    <X className="h-4 w-4 mr-1" />{t("Cancel", {
+                  defaultValue: "Cancel"
+                })}</Button>}
               </div>
               <div className="flex gap-2 justify-end">
                 {selectedReservation && selectedReservation.status === "pending" && <Button variant="default" size="sm" onClick={() => {
                 setIsDetailsDialogOpen(false);
                 openStatusDialog(selectedReservation, "confirmed");
               }}>
-                    <Check className="h-4 w-4 mr-1" />{t('common.confirm')}</Button>}
+                    <Check className="h-4 w-4 mr-1" />{t("Confirm", {
+                  defaultValue: "Confirm"
+                })}</Button>}
                 
-                <Button variant="outline" onClick={() => setIsDetailsDialogOpen(false)}>{t('common.fermer')}</Button>
+                <Button variant="outline" onClick={() => setIsDetailsDialogOpen(false)}>{t("Fermer", {
+                  defaultValue: "Fermer"
+                })}</Button>
               </div>
             </div>
           </DialogFooter>
@@ -377,7 +488,9 @@ export default function ReservationsManager() {
       <Dialog open={isStatusDialogOpen} onOpenChange={setIsStatusDialogOpen}>
         <DialogContent className="sm:max-w-[450px]">
           <DialogHeader>
-            <DialogTitle>{t('common.modifierlestatutdela')}</DialogTitle>
+            <DialogTitle>{t("Modifierlestatutdela", {
+              defaultValue: "Modifierlestatutdela"
+            })}</DialogTitle>
             <DialogDescription>
               {selectedStatus === "confirmed" && "Confirm this reservation?"}
               {selectedStatus === "cancelled" && "Cancel this reservation?"}
@@ -388,14 +501,24 @@ export default function ReservationsManager() {
           {selectedReservation && <div className="py-4">
               <div className="flex items-center mb-4">
                 <div className="w-2 h-2 rounded-full mr-2 bg-blue-500"></div>
-                <div className="font-medium">{t('common.rxe9servation')}{selectedReservation.id}</div>
+                <div className="font-medium">{t("Rxe9servation", {
+                defaultValue: "Rxe9servation"
+              })}{selectedReservation.id}</div>
               </div>
               
               <div className="space-y-2">
-                <p><span className="font-medium">{t('common.tour')}</span> {getTourTitle(selectedReservation.tourId)}</p>
-                <p><span className="font-medium">{t('common.client')}</span> {selectedReservation.customerName}</p>
-                <p><span className="font-medium">{t('common.statutactuel')}</span> {getStatusBadge(selectedReservation.status)}</p>
-                <p><span className="font-medium">{t('common.nouveaustatut')}</span> {getStatusBadge(selectedStatus)}</p>
+                <p><span className="font-medium">{t("Tour", {
+                  defaultValue: "Tour"
+                })}</span> {getTourTitle(selectedReservation.tourId)}</p>
+                <p><span className="font-medium">{t("Client", {
+                  defaultValue: "Client"
+                })}</span> {selectedReservation.customerName}</p>
+                <p><span className="font-medium">{t("Statutactuel", {
+                  defaultValue: "Statutactuel"
+                })}</span> {getStatusBadge(selectedReservation.status)}</p>
+                <p><span className="font-medium">{t("Nouveaustatut", {
+                  defaultValue: "Nouveaustatut"
+                })}</span> {getStatusBadge(selectedStatus)}</p>
               </div>
               
               {selectedStatus === "cancelled" && <div className="mt-4 p-3 bg-destructive/10 text-destructive rounded-md flex items-start">
@@ -407,7 +530,9 @@ export default function ReservationsManager() {
             </div>}
           
           <DialogFooter>
-            <Button type="button" variant="outline" onClick={() => setIsStatusDialogOpen(false)}>{t('common.cancel')}</Button>
+            <Button type="button" variant="outline" onClick={() => setIsStatusDialogOpen(false)}>{t("Cancel", {
+              defaultValue: "Cancel"
+            })}</Button>
             
             <Button variant={selectedStatus === "cancelled" ? "destructive" : "default"} onClick={confirmStatusChange} disabled={updateReservationStatus.isPending}>
               {updateReservationStatus.isPending ? "Updating..." : selectedStatus === "confirmed" ? "Confirm" : selectedStatus === "cancelled" ? "Cancel reservation" : "Mark as completed"}

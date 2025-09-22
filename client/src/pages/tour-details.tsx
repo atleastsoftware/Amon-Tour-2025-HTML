@@ -8,8 +8,9 @@ import SEO from "@/components/layout/SEO";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ExternalLink, Loader2 } from "lucide-react";
 export default function TourDetails() {
-  const { t } = useTranslation();
-
+  const {
+    t
+  } = useTranslation();
   const [, params] = useRoute("/tour/:id");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -37,28 +38,40 @@ export default function TourDetails() {
   };
   if (error) {
     return <>
-        <SEO title={t('common.tournotfoundamontour')} description="The requested tour could not be found. Browse our available authentic Thailand experiences." canonicalUrl="https://amon-tour.com/tours" />
+        <SEO title={t("Tournotfoundamontour", {
+        defaultValue: "Tournotfoundamontour"
+      })} description="The requested tour could not be found. Browse our available authentic Thailand experiences." canonicalUrl="https://amon-tour.com/tours" />
         <Header />
         <main className="min-h-screen bg-gray-50 pt-20">
           <div className="container mx-auto px-4 py-16 text-center">
-            <h1 className="text-2xl font-bold text-gray-900 mb-4">{t('common.tournontrouvxe9')}</h1>
+            <h1 className="text-2xl font-bold text-gray-900 mb-4">{t("Tournontrouvxe9", {
+              defaultValue: "Tournontrouvxe9"
+            })}</h1>
             <p className="text-gray-600 mb-6">{error}</p>
             <Button onClick={handleBack} variant="outline">
-              <ArrowLeft className="h-4 w-4 mr-2" />{t('common.backtotours')}</Button>
+              <ArrowLeft className="h-4 w-4 mr-2" />{t("Backtotours", {
+              defaultValue: "Backtotours"
+            })}</Button>
           </div>
         </main>
         <Footer />
       </>;
   }
   return <>
-      <SEO title={t('common.tourdetailsauthentic')} description="Discover complete details of this authentic Thailand tour. Expert guides, personalized service, and unforgettable experiences in Krabi and southern Thailand." keywords="thailand tour details, krabi experience details, authentic thai tour, private tour thailand, island tour booking" canonicalUrl={`https://amon-tour.com/tour/${tourId}`} breadcrumbs={[{
+      <SEO title={t("Tourdetailsauthentic", {
+      defaultValue: "Tourdetailsauthentic"
+    })} description="Discover complete details of this authentic Thailand tour. Expert guides, personalized service, and unforgettable experiences in Krabi and southern Thailand." keywords="thailand tour details, krabi experience details, authentic thai tour, private tour thailand, island tour booking" canonicalUrl={`https://amon-tour.com/tour/${tourId}`} breadcrumbs={[{
       name: t('navigation.home'),
       url: "/"
     }, {
-      name: t('common.toursexperiences'),
+      name: t("Toursexperiences", {
+        defaultValue: "Toursexperiences"
+      }),
       url: "/tours"
     }, {
-      name: t('common.tourdetails'),
+      name: t("Tourdetails", {
+        defaultValue: "Tourdetails"
+      }),
       url: `/tour/${tourId}`
     }]} />
       
@@ -70,10 +83,14 @@ export default function TourDetails() {
           <div className="container mx-auto px-4 py-3">
             <div className="flex items-center justify-between">
               <Button onClick={handleBack} variant="outline" size="sm">
-                <ArrowLeft className="h-4 w-4 mr-2" />{t('common.backtotours')}</Button>
+                <ArrowLeft className="h-4 w-4 mr-2" />{t("Backtotours", {
+                defaultValue: "Backtotours"
+              })}</Button>
               
               <Button onClick={handleOpenExternal} variant="outline" size="sm">
-                <ExternalLink className="h-4 w-4 mr-2" />{t('common.ouvrirdansunnouvelon')}</Button>
+                <ExternalLink className="h-4 w-4 mr-2" />{t("Ouvrirdansunnouvelon", {
+                defaultValue: "Ouvrirdansunnouvelon"
+              })}</Button>
             </div>
           </div>
         </section>
@@ -91,7 +108,9 @@ export default function TourDetails() {
         }}>
               <div className="text-center">
                 <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4 text-primary" />
-                <p className="text-gray-600">{t('common.chargementdesdxe9tai')}</p>
+                <p className="text-gray-600">{t("Chargementdesdxe9tai", {
+                defaultValue: "Chargementdesdxe9tai"
+              })}</p>
               </div>
             </motion.div>}
           
@@ -103,7 +122,9 @@ export default function TourDetails() {
           duration: 0.3,
           delay: isLoading ? 0 : 0.2
         }}>
-            <iframe src={`https://www.tourninja.io/details/${tourId}`} className="w-full h-full border-0" title={t('common.dxe9tailsdutour')} onLoad={() => setIsLoading(false)} onError={() => {
+            <iframe src={`https://www.tourninja.io/details/${tourId}`} className="w-full h-full border-0" title={t("Dxe9tailsdutour", {
+            defaultValue: "Dxe9tailsdutour"
+          })} onLoad={() => setIsLoading(false)} onError={() => {
             setError("Impossible de charger les détails du tour");
             setIsLoading(false);
           }} allow="fullscreen" sandbox="allow-same-origin allow-scripts allow-popups allow-forms" style={{

@@ -92,13 +92,19 @@ function AdminEditorPageContent() {
             <div className="w-full sm:w-auto">
               <h1 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2 sm:gap-3">
                 <FileText className="h-6 w-6 sm:h-7 sm:w-7 text-blue-600 flex-shrink-0" />
-                <span className="truncate">{t('common.xc9diteurdepages')}</span>
+                <span className="truncate">{t("Xc9diteurdepages", {
+                  defaultValue: "Xc9diteurdepages"
+                })}</span>
               </h1>
-              <p className="text-sm sm:text-base text-gray-600">{t('common.gxe9rezlecontenuetla')}</p>
+              <p className="text-sm sm:text-base text-gray-600">{t("Gxe9rezlecontenuetla", {
+                defaultValue: "Gxe9rezlecontenuetla"
+              })}</p>
             </div>
             <Button variant="outline" onClick={() => setLocation('/admin-editor')} className="flex items-center gap-2 w-full sm:w-auto">
               <ArrowLeft className="w-4 h-4" />
-              <span>{t('common.retourxe0gestiondeco')}</span>
+              <span>{t("Retourxe0gestiondeco", {
+                defaultValue: "Retourxe0gestiondeco"
+              })}</span>
             </Button>
           </div>
         </div>
@@ -106,19 +112,25 @@ function AdminEditorPageContent() {
         {/* Add Page Button */}
         <div className="mb-6">
           <Button onClick={handleAddPage} className="bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-2">
-            <Plus className="h-4 w-4" />{t('common.ajouterunepage')}</Button>
+            <Plus className="h-4 w-4" />{t("Ajouterunepage", {
+            defaultValue: "Ajouterunepage"
+          })}</Button>
         </div>
 
         {/* Loading State */}
         {isLoading && <div className="text-center py-12">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-secondary mx-auto mb-4"></div>
-            <p className="text-gray-500">{t('common.chargementdespages')}</p>
+            <p className="text-gray-500">{t("Chargementdespages", {
+            defaultValue: "Chargementdespages"
+          })}</p>
           </div>}
 
         {/* Error State */}
         {error && <Card className="bg-red-50 border-red-200">
             <CardContent className="p-6 text-center">
-              <p className="text-red-600">{t('common.erreurlorsduchargeme')}</p>
+              <p className="text-red-600">{t("Erreurlorsduchargeme", {
+              defaultValue: "Erreurlorsduchargeme"
+            })}</p>
             </CardContent>
           </Card>}
 
@@ -138,15 +150,21 @@ function AdminEditorPageContent() {
                   
                   <div className="flex items-center gap-2">
                     <Button variant="outline" size="sm" onClick={() => window.open(page.slug, '_blank')} className="flex items-center gap-1">
-                      <Eye className="h-4 w-4" />{t('common.voir')}</Button>
+                      <Eye className="h-4 w-4" />{t("Voir", {
+                    defaultValue: "Voir"
+                  })}</Button>
                     
                     <Button variant="outline" size="sm" onClick={() => handleEditPage(page.id)} className="flex items-center gap-1 bg-blue-50 border-blue-200 hover:bg-blue-100">
-                      <Edit className="h-4 w-4" />{t('common.modifier')}</Button>
+                      <Edit className="h-4 w-4" />{t("Modifier", {
+                    defaultValue: "Modifier"
+                  })}</Button>
                     
                     {page.id !== 'home' && <AlertDialog>
                         <AlertDialogTrigger asChild>
                           <Button variant="outline" size="sm" className="flex items-center gap-1 text-red-600 border-red-200 hover:bg-red-50">
-                            <Trash2 className="h-4 w-4" />{t('common.supprimer')}</Button>
+                            <Trash2 className="h-4 w-4" />{t("Supprimer", {
+                        defaultValue: "Supprimer"
+                      })}</Button>
                         </AlertDialogTrigger>
                         <AlertDialogContent>
                           <AlertDialogHeader>
@@ -157,8 +175,12 @@ function AdminEditorPageContent() {
                             </AlertDialogDescription>
                           </AlertDialogHeader>
                           <AlertDialogFooter>
-                            <AlertDialogCancel>{t('common.annuler')}</AlertDialogCancel>
-                            <AlertDialogAction onClick={() => handleDeletePage(page.id)} className="bg-red-600 hover:bg-red-700">{t('common.supprimer')}</AlertDialogAction>
+                            <AlertDialogCancel>{t("Annuler", {
+                          defaultValue: "Annuler"
+                        })}</AlertDialogCancel>
+                            <AlertDialogAction onClick={() => handleDeletePage(page.id)} className="bg-red-600 hover:bg-red-700">{t("Supprimer", {
+                          defaultValue: "Supprimer"
+                        })}</AlertDialogAction>
                           </AlertDialogFooter>
                         </AlertDialogContent>
                       </AlertDialog>}
@@ -174,9 +196,15 @@ function AdminEditorPageContent() {
               <div className="text-gray-400 mb-4">
                 <Plus className="h-12 w-12 mx-auto" />
               </div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">{t('common.aucunepagecrxe9xe9e')}</h3>
-              <p className="text-gray-500 mb-6">{t('common.commencezparcrxe9erv')}</p>
-              <Button onClick={handleAddPage} className="bg-blue-600 hover:bg-blue-700">{t('common.crxe9ermapremixe8rep')}</Button>
+              <h3 className="text-lg font-medium text-gray-900 mb-2">{t("Aucunepagecrxe9xe9e", {
+              defaultValue: "Aucunepagecrxe9xe9e"
+            })}</h3>
+              <p className="text-gray-500 mb-6">{t("Commencezparcrxe9erv", {
+              defaultValue: "Commencezparcrxe9erv"
+            })}</p>
+              <Button onClick={handleAddPage} className="bg-blue-600 hover:bg-blue-700">{t("Crxe9ermapremixe8rep", {
+              defaultValue: "Crxe9ermapremixe8rep"
+            })}</Button>
             </CardContent>
           </Card>}
       </div>
@@ -195,8 +223,9 @@ function AdminEditorPageContent() {
     </div>;
 }
 export default function AdminEditorPage() {
-  const { t } = useTranslation();
-
+  const {
+    t
+  } = useTranslation();
   return <AdminGuard>
       <AdminEditorPageContent />
     </AdminGuard>;

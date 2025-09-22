@@ -24,7 +24,9 @@ import { useIframe } from "@/contexts/IframeContext";
 import { Badge } from "@/components/ui/badge";
 import { I18nextTest } from "@/components/test/I18nextTest";
 export default function Home() {
-  const { t } = useTranslation();
+  const {
+    t
+  } = useTranslation();
   const [, setLocation] = useLocation();
   const carouselRef = useRef<HTMLDivElement>(null);
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -130,7 +132,9 @@ export default function Home() {
     };
   }, []);
   return <>
-      <SEO title={t('common.amontourauthentictha')} description="Discover authentic Thailand with Amon Tour. Expert-guided private tours, cultural experiences, and personalized journeys across Bangkok, Phuket, and beyond. Family-run travel agency offering immersive experiences away from mass tourism." keywords="thailand private tours, bangkok cultural experiences, phuket authentic travel, thailand family travel agency, personalized thailand journeys, thai temple tours, island hopping thailand, authentic thai culture, thailand vacation planning" canonicalUrl="https://amon-tour.com/" breadcrumbs={[{
+      <SEO title={t("Amontourauthentictha", {
+      defaultValue: "Amontourauthentictha"
+    })} description="Discover authentic Thailand with Amon Tour. Expert-guided private tours, cultural experiences, and personalized journeys across Bangkok, Phuket, and beyond. Family-run travel agency offering immersive experiences away from mass tourism." keywords="thailand private tours, bangkok cultural experiences, phuket authentic travel, thailand family travel agency, personalized thailand journeys, thai temple tours, island hopping thailand, authentic thai culture, thailand vacation planning" canonicalUrl="https://amon-tour.com/" breadcrumbs={[{
       name: t('navigation.home'),
       url: "/"
     }]} faqSchema={[{
@@ -154,12 +158,16 @@ export default function Home() {
       reviews: [{
         author: "Sarah M.",
         rating: 5,
-        text: t('common.incredibleauthentice'),
+        text: t("Incredibleauthentice", {
+          defaultValue: "Incredibleauthentice"
+        }),
         datePublished: "2024-12-15"
       }, {
         author: "Marc L.",
         rating: 5,
-        text: t('common.professionalservicea'),
+        text: t("Professionalservicea", {
+          defaultValue: "Professionalservicea"
+        }),
         datePublished: "2024-11-20"
       }]
     }} structuredData={{

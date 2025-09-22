@@ -51,11 +51,15 @@ function EditableField({
       await onSave(editValue);
       setIsEditing(false);
       toast({
-        title: t('common.sauvegardxe9avecsucc')
+        title: t("Sauvegardxe9avecsucc", {
+          defaultValue: "Sauvegardxe9avecsucc"
+        })
       });
     } catch (error) {
       toast({
-        title: t('common.erreurlorsdelasauveg'),
+        title: t("Erreurlorsdelasauveg", {
+          defaultValue: "Erreurlorsdelasauveg"
+        }),
         variant: "destructive"
       });
     } finally {
@@ -87,7 +91,9 @@ function EditableField({
             <Button size="sm" onClick={handleSave} disabled={isSaving} className="h-8">
               {isSaving ? 'Sauvegarde...' : 'Sauvegarder'}
             </Button>
-            <Button size="sm" variant="outline" onClick={handleCancel} disabled={isSaving} className="h-8">{t('common.annuler')}</Button>
+            <Button size="sm" variant="outline" onClick={handleCancel} disabled={isSaving} className="h-8">{t("Annuler", {
+            defaultValue: "Annuler"
+          })}</Button>
           </div>
         </div> : <div onClick={() => setIsEditing(true)} className="min-h-[40px] p-2 bg-gray-50 border rounded cursor-pointer hover:bg-gray-100 transition-colors flex items-center">
           {prefix && <span className="text-sm text-gray-500 mr-1">{prefix}</span>}
@@ -172,43 +178,75 @@ interface NavigationMenuItem {
 function getPlaceholderForStyle(style: string): string {
   switch (style) {
     case 'title':
-      return t('common.egamontourisabrandof');
+      return t("Egamontourisabrandof", {
+        defaultValue: "Egamontourisabrandof"
+      });
     case 'text':
-      return t('common.egflamebbcoltd');
+      return t("Egflamebbcoltd", {
+        defaultValue: "Egflamebbcoltd"
+      });
     case 'address':
-      return t('common.eg242moo1tombolaonan');
+      return t("Eg242moo1tombolaonan", {
+        defaultValue: "Eg242moo1tombolaonan"
+      });
     case 'license_badge':
-      return t('common.egtatlicense3401995');
+      return t("Egtatlicense3401995", {
+        defaultValue: "Egtatlicense3401995"
+      });
     case 'email':
       return 'e.g., info@amon-tour.com';
     case 'phone_with_title':
-      return t('common.egoperationsmanager6');
+      return t("Egoperationsmanager6", {
+        defaultValue: "Egoperationsmanager6"
+      });
     case 'whatsapp':
-      return t('common.egwhatsapp6665349644');
+      return t("Egwhatsapp6665349644", {
+        defaultValue: "Egwhatsapp6665349644"
+      });
     case 'line':
-      return t('common.eglineidamontour');
+      return t("Eglineidamontour", {
+        defaultValue: "Eglineidamontour"
+      });
     default:
-      return t('common.entervalue');
+      return t("Entervalue", {
+        defaultValue: "Entervalue"
+      });
   }
 }
 function getStyleDisplayName(style: string): string {
   switch (style) {
     case 'title':
-      return t('common.title');
+      return t("Title", {
+        defaultValue: "Title"
+      });
     case 'text':
-      return t('common.text');
+      return t("Text", {
+        defaultValue: "Text"
+      });
     case 'address':
-      return t('common.address');
+      return t("Address", {
+        defaultValue: "Address"
+      });
     case 'license_badge':
-      return t('common.badge');
+      return t("Badge", {
+        defaultValue: "Badge"
+      });
     case 'email':
-      return t('common.email');
+      return t("Email", {
+        defaultValue: "Email"
+      });
     case 'phone_with_title':
-      return t('common.phone');
+      return t("Phone", {
+        defaultValue: "Phone"
+      });
     case 'whatsapp':
-      return t('common.whatsapp');
+      return t("Whatsapp", {
+        defaultValue: "Whatsapp"
+      });
     case 'line':
-      return t('common.line');
+      return t("Line", {
+        defaultValue: "Line"
+      });
     default:
       return style;
   }
@@ -232,7 +270,9 @@ function getStyleBadgeVariant(style: string): "default" | "secondary" | "destruc
   }
 }
 function renderStylePreview(style: string, value: string): any {
-  if (!value) return <span className="text-gray-400">{t('common.nocontent')}</span>;
+  if (!value) return <span className="text-gray-400">{t("Nocontent", {
+      defaultValue: "Nocontent"
+    })}</span>;
   switch (style) {
     case 'title':
       return <strong>{value}</strong>;
@@ -271,35 +311,51 @@ function ContactInfoManager({
       }
     }
     return [{
-      label: t('common.brandintroduction'),
+      label: t("Brandintroduction", {
+        defaultValue: "Brandintroduction"
+      }),
       value: 'Amon Tour is a brand of:',
       style: 'title'
     }, {
-      label: t('common.companyname'),
+      label: t("Companyname", {
+        defaultValue: "Companyname"
+      }),
       value: 'Flame BB Co., Ltd.',
       style: 'text'
     }, {
-      label: t('common.address'),
+      label: t("Address", {
+        defaultValue: "Address"
+      }),
       value: '242 Moo1 Tombol Ao Nang\n81180 Krabi, Thailand',
       style: 'address'
     }, {
-      label: t('common.tatlicense'),
+      label: t("Tatlicense", {
+        defaultValue: "Tatlicense"
+      }),
       value: 'TAT License: 34/01995',
       style: 'license_badge'
     }, {
-      label: t('common.email'),
+      label: t("Email", {
+        defaultValue: "Email"
+      }),
       value: 'info@amon-tour.com',
       style: 'email'
     }, {
-      label: t('common.operationsmanager'),
+      label: t("Operationsmanager", {
+        defaultValue: "Operationsmanager"
+      }),
       value: 'Operations manager: +66 (0)6 2574 8788',
       style: 'phone_with_title'
     }, {
-      label: t('common.traveladvisor'),
+      label: t("Traveladvisor", {
+        defaultValue: "Traveladvisor"
+      }),
       value: 'Travel Advisor Manager: +66 (0)8 0463 4691',
       style: 'phone_with_title'
     }, {
-      label: t('common.whatsapp'),
+      label: t("Whatsapp", {
+        defaultValue: "Whatsapp"
+      }),
       value: 'WhatsApp: +66 65 349 6445',
       style: 'whatsapp'
     }, {
@@ -352,23 +408,35 @@ function ContactInfoManager({
   return <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-          <MapPin className="w-4 h-4" />{t('common.informationsdecontac')}</CardTitle>
-        <CardDescription>{t('common.gxe9rerlesdxe9tailsd')}</CardDescription>
+          <MapPin className="w-4 h-4" />{t("Informationsdecontac", {
+          defaultValue: "Informationsdecontac"
+        })}</CardTitle>
+        <CardDescription>{t("Gxe9rerlesdxe9tailsd", {
+          defaultValue: "Gxe9rerlesdxe9tailsd"
+        })}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {contactInfo.map((item: any, index: number) => <div key={index} className="border p-4 rounded-lg space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 flex-1">
-                <Input value={item.label} onChange={e => updateContactInfo(index, 'label', e.target.value)} placeholder={t('common.labelforadminreferen')} className="font-medium flex-1" />
+                <Input value={item.label} onChange={e => updateContactInfo(index, 'label', e.target.value)} placeholder={t("Labelforadminreferen", {
+              defaultValue: "Labelforadminreferen"
+            })} className="font-medium flex-1" />
               </div>
               <div className="flex gap-1 ml-2">
-                <Button size="sm" variant="ghost" onClick={() => moveContactInfo(index, 'up')} disabled={index === 0} title={t('common.moveup')}>
+                <Button size="sm" variant="ghost" onClick={() => moveContactInfo(index, 'up')} disabled={index === 0} title={t("Moveup", {
+              defaultValue: "Moveup"
+            })}>
                   ↑
                 </Button>
-                <Button size="sm" variant="ghost" onClick={() => moveContactInfo(index, 'down')} disabled={index === contactInfo.length - 1} title={t('common.movedown')}>
+                <Button size="sm" variant="ghost" onClick={() => moveContactInfo(index, 'down')} disabled={index === contactInfo.length - 1} title={t("Movedown", {
+              defaultValue: "Movedown"
+            })}>
                   ↓
                 </Button>
-                <Button size="sm" variant="ghost" className="text-red-600" onClick={() => deleteContactInfo(index)} title={t('common.delete')}>
+                <Button size="sm" variant="ghost" className="text-red-600" onClick={() => deleteContactInfo(index)} title={t("Delete", {
+              defaultValue: "Delete"
+            })}>
                   <Trash2 className="w-4 h-4" />
                 </Button>
               </div>
@@ -382,19 +450,35 @@ function ContactInfoManager({
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="title">{t('common.titlebold')}</SelectItem>
-                      <SelectItem value="text">{t('common.text')}</SelectItem>
-                      <SelectItem value="address">{t('common.address')}</SelectItem>
-                      <SelectItem value="license_badge">{t('common.licensebadge')}</SelectItem>
-                      <SelectItem value="email">{t('common.email')}</SelectItem>
-                      <SelectItem value="phone_with_title">{t('common.phonewtitle')}</SelectItem>
-                      <SelectItem value="whatsapp">{t('common.whatsapp')}</SelectItem>
+                      <SelectItem value="title">{t("Titlebold", {
+                      defaultValue: "Titlebold"
+                    })}</SelectItem>
+                      <SelectItem value="text">{t("Text", {
+                      defaultValue: "Text"
+                    })}</SelectItem>
+                      <SelectItem value="address">{t("Address", {
+                      defaultValue: "Address"
+                    })}</SelectItem>
+                      <SelectItem value="license_badge">{t("Licensebadge", {
+                      defaultValue: "Licensebadge"
+                    })}</SelectItem>
+                      <SelectItem value="email">{t("Email", {
+                      defaultValue: "Email"
+                    })}</SelectItem>
+                      <SelectItem value="phone_with_title">{t("Phonewtitle", {
+                      defaultValue: "Phonewtitle"
+                    })}</SelectItem>
+                      <SelectItem value="whatsapp">{t("Whatsapp", {
+                      defaultValue: "Whatsapp"
+                    })}</SelectItem>
                       <SelectItem value="line">LINE ID</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div className="flex-1">
-                  <Label className="text-xs text-gray-500">{t('common.contentappearsonwebs')}</Label>
+                  <Label className="text-xs text-gray-500">{t("Contentappearsonwebs", {
+                  defaultValue: "Contentappearsonwebs"
+                })}</Label>
                   {item.style === 'address' ? <Textarea value={item.value} onChange={e => updateContactInfo(index, 'value', e.target.value)} placeholder={getPlaceholderForStyle(item.style)} className="min-h-[60px]" /> : <Input value={item.value} onChange={e => updateContactInfo(index, 'value', e.target.value)} placeholder={getPlaceholderForStyle(item.style)} />}
                 </div>
               </div>
@@ -404,14 +488,20 @@ function ContactInfoManager({
         
         {/* Add New Contact Info */}
         <div className="border-2 border-dashed border-gray-300 p-4 rounded-lg space-y-3">
-          <h5 className="font-medium text-gray-700">{t('common.ajouterunenouvellein')}</h5>
+          <h5 className="font-medium text-gray-700">{t("Ajouterunenouvellein", {
+            defaultValue: "Ajouterunenouvellein"
+          })}</h5>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <div>
-              <Label className="text-xs text-gray-500">{t('common.adminlabelforreferen')}</Label>
+              <Label className="text-xs text-gray-500">{t("Adminlabelforreferen", {
+                defaultValue: "Adminlabelforreferen"
+              })}</Label>
               <Input value={newItem.label} onChange={e => setNewItem(prev => ({
               ...prev,
               label: e.target.value
-            }))} placeholder={t('common.egfaxnumber')} />
+            }))} placeholder={t("Egfaxnumber", {
+              defaultValue: "Egfaxnumber"
+            })} />
             </div>
             <div>
               <Label className="text-xs text-gray-500">Display Style</Label>
@@ -423,20 +513,36 @@ function ContactInfoManager({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="title">{t('common.titlebold')}</SelectItem>
-                  <SelectItem value="text">{t('common.text')}</SelectItem>
-                  <SelectItem value="address">{t('common.address')}</SelectItem>
-                  <SelectItem value="license_badge">{t('common.licensebadge')}</SelectItem>
-                  <SelectItem value="email">{t('common.email')}</SelectItem>
-                  <SelectItem value="phone_with_title">{t('common.phonewtitle')}</SelectItem>
-                  <SelectItem value="whatsapp">{t('common.whatsapp')}</SelectItem>
+                  <SelectItem value="title">{t("Titlebold", {
+                    defaultValue: "Titlebold"
+                  })}</SelectItem>
+                  <SelectItem value="text">{t("Text", {
+                    defaultValue: "Text"
+                  })}</SelectItem>
+                  <SelectItem value="address">{t("Address", {
+                    defaultValue: "Address"
+                  })}</SelectItem>
+                  <SelectItem value="license_badge">{t("Licensebadge", {
+                    defaultValue: "Licensebadge"
+                  })}</SelectItem>
+                  <SelectItem value="email">{t("Email", {
+                    defaultValue: "Email"
+                  })}</SelectItem>
+                  <SelectItem value="phone_with_title">{t("Phonewtitle", {
+                    defaultValue: "Phonewtitle"
+                  })}</SelectItem>
+                  <SelectItem value="whatsapp">{t("Whatsapp", {
+                    defaultValue: "Whatsapp"
+                  })}</SelectItem>
                   <SelectItem value="line">LINE ID</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
           <div>
-            <Label className="text-xs text-gray-500">{t('common.contentappearsonwebs')}</Label>
+            <Label className="text-xs text-gray-500">{t("Contentappearsonwebs", {
+              defaultValue: "Contentappearsonwebs"
+            })}</Label>
             {newItem.style === 'address' ? <Textarea value={newItem.value} onChange={e => setNewItem(prev => ({
             ...prev,
             value: e.target.value
@@ -447,7 +553,9 @@ function ContactInfoManager({
           </div>
           {/* Preview */}
           {newItem.label && newItem.value && <div className="bg-gray-50 p-3 rounded border-l-4 border-secondary">
-              <Label className="text-xs text-gray-500 block mb-1">{t('common.previewonwebsite')}</Label>
+              <Label className="text-xs text-gray-500 block mb-1">{t("Previewonwebsite", {
+              defaultValue: "Previewonwebsite"
+            })}</Label>
               <div className="text-sm">
                 {newItem.style === 'phone_with_title' ? <span>{newItem.label}: {newItem.value}</span> : newItem.style === 'whatsapp' ? <span>💬 {newItem.value}</span> : newItem.style === 'line' ? <span>💬 {newItem.value}</span> : newItem.style === 'email' ? <a href={`mailto:${newItem.value}`} className="text-primary">{newItem.value}</a> : newItem.style === 'license_badge' ? <div className="inline-block bg-white px-3 py-1 rounded-full border text-xs">
                     {newItem.value}
@@ -456,7 +564,9 @@ function ContactInfoManager({
             </div>}
           
           <Button onClick={addContactInfo} disabled={!newItem.label || !newItem.value} className="w-full">
-            <Plus className="w-4 h-4 mr-2" />{t('common.ajouteruneinformatio')}</Button>
+            <Plus className="w-4 h-4 mr-2" />{t("Ajouteruneinformatio", {
+            defaultValue: "Ajouteruneinformatio"
+          })}</Button>
         </div>
       </CardContent>
     </Card>;
@@ -477,7 +587,9 @@ function UsefulLinksManager({
       }
     }
     return [{
-      text: t('common.ourbrochure'),
+      text: t("Ourbrochure", {
+        defaultValue: "Ourbrochure"
+      }),
       url: '/brochure',
       type: 'page'
     }, {
@@ -485,7 +597,9 @@ function UsefulLinksManager({
       url: '/krabi-celebration',
       type: 'page'
     }, {
-      text: t('common.fungarden'),
+      text: t("Fungarden", {
+        defaultValue: "Fungarden"
+      }),
       url: 'https://www.facebook.com/thefungardenkrabi/',
       type: 'custom'
     }, {
@@ -509,7 +623,9 @@ function UsefulLinksManager({
     type: 'page'
   });
   const availablePagesInternal = [{
-    label: t('common.ourbrochure'),
+    label: t("Ourbrochure", {
+      defaultValue: "Ourbrochure"
+    }),
     value: '/brochure'
   }, {
     label: t('pages.krabiCelebration.title'),
@@ -570,15 +686,23 @@ function UsefulLinksManager({
   return <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-          <FileText className="w-4 h-4" />{t('common.liensutiles')}</CardTitle>
-        <CardDescription>{t('common.gxe9rerlesliensdenav')}</CardDescription>
+          <FileText className="w-4 h-4" />{t("Liensutiles", {
+          defaultValue: "Liensutiles"
+        })}</CardTitle>
+        <CardDescription>{t("Gxe9rerlesliensdenav", {
+          defaultValue: "Gxe9rerlesliensdenav"
+        })}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {usefulLinks.map((link: any, index: number) => <div key={index} className="border p-4 rounded-lg space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex-1">
-                <Label className="text-xs text-gray-500">{t('common.contentappearsonwebs')}</Label>
-                <Input value={link.text} onChange={e => updateUsefulLink(index, 'text', e.target.value)} placeholder={t('common.egourbrochure')} className="font-medium" />
+                <Label className="text-xs text-gray-500">{t("Contentappearsonwebs", {
+                defaultValue: "Contentappearsonwebs"
+              })}</Label>
+                <Input value={link.text} onChange={e => updateUsefulLink(index, 'text', e.target.value)} placeholder={t("Egourbrochure", {
+              defaultValue: "Egourbrochure"
+            })} className="font-medium" />
               </div>
               <div className="flex gap-2">
                 <Button size="sm" variant="ghost" onClick={() => moveUsefulLink(index, 'up')} disabled={index === 0}>
@@ -598,19 +722,27 @@ function UsefulLinksManager({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="page">{t('common.page')}</SelectItem>
-                  <SelectItem value="custom">{t('common.customurl')}</SelectItem>
+                  <SelectItem value="page">{t("Page", {
+                  defaultValue: "Page"
+                })}</SelectItem>
+                  <SelectItem value="custom">{t("Customurl", {
+                  defaultValue: "Customurl"
+                })}</SelectItem>
                 </SelectContent>
               </Select>
               {link.type === 'page' ? <Select value={link.url} onValueChange={value => updateUsefulLink(index, 'url', value)}>
                   <SelectTrigger className="flex-1">
-                    <SelectValue placeholder={t('common.selectpage')} />
+                    <SelectValue placeholder={t("Selectpage", {
+                defaultValue: "Selectpage"
+              })} />
                   </SelectTrigger>
                   <SelectContent>
                     {availablePages.map((page: any) => <SelectItem key={page.slug} value={`/${page.slug}`}>
                         {page.name}
                       </SelectItem>)}
-                    <SelectItem value="/brochure">{t('common.downloadbrochure')}</SelectItem>
+                    <SelectItem value="/brochure">{t("Downloadbrochure", {
+                  defaultValue: "Downloadbrochure"
+                })}</SelectItem>
                     <SelectItem value="/krabi-celebration">{t('pages.krabiCelebration.title')}</SelectItem>
                     <SelectItem value="/become-partner">{t('pages.becomePartner.title')}</SelectItem>
                     <SelectItem value="/group-corporate">{t('pages.groupCorporate.title')}</SelectItem>
@@ -622,11 +754,15 @@ function UsefulLinksManager({
         {/* Add New Link */}
         <div className="border-2 border-dashed border-gray-300 p-4 rounded-lg space-y-3">
           <div>
-            <Label className="text-xs text-gray-500">{t('common.contentappearsonwebs')}</Label>
+            <Label className="text-xs text-gray-500">{t("Contentappearsonwebs", {
+              defaultValue: "Contentappearsonwebs"
+            })}</Label>
             <Input value={newLink.text} onChange={e => setNewLink(prev => ({
             ...prev,
             text: e.target.value
-          }))} placeholder={t('common.egourbrochure')} />
+          }))} placeholder={t("Egourbrochure", {
+            defaultValue: "Egourbrochure"
+          })} />
           </div>
           <div className="flex gap-3">
             <Select value={newLink.type} onValueChange={value => setNewLink(prev => ({
@@ -637,8 +773,12 @@ function UsefulLinksManager({
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="page">{t('common.page')}</SelectItem>
-                <SelectItem value="custom">{t('common.customurl')}</SelectItem>
+                <SelectItem value="page">{t("Page", {
+                  defaultValue: "Page"
+                })}</SelectItem>
+                <SelectItem value="custom">{t("Customurl", {
+                  defaultValue: "Customurl"
+                })}</SelectItem>
               </SelectContent>
             </Select>
             {newLink.type === 'page' ? <Select value={newLink.url} onValueChange={value => setNewLink(prev => ({
@@ -646,13 +786,17 @@ function UsefulLinksManager({
             url: value
           }))}>
                 <SelectTrigger className="flex-1">
-                  <SelectValue placeholder={t('common.selectpage')} />
+                  <SelectValue placeholder={t("Selectpage", {
+                defaultValue: "Selectpage"
+              })} />
                 </SelectTrigger>
                 <SelectContent>
                   {availablePages.map((page: any) => <SelectItem key={page.slug} value={`/${page.slug}`}>
                       {page.name}
                     </SelectItem>)}
-                  <SelectItem value="/brochure">{t('common.downloadbrochure')}</SelectItem>
+                  <SelectItem value="/brochure">{t("Downloadbrochure", {
+                  defaultValue: "Downloadbrochure"
+                })}</SelectItem>
                   <SelectItem value="/krabi-celebration">{t('pages.krabiCelebration.title')}</SelectItem>
                   <SelectItem value="/become-partner">{t('pages.becomePartner.title')}</SelectItem>
                   <SelectItem value="/group-corporate">{t('pages.groupCorporate.title')}</SelectItem>
@@ -664,7 +808,9 @@ function UsefulLinksManager({
           </div>
           {/* Preview */}
           {newLink.text && newLink.url && <div className="bg-gray-50 p-3 rounded border-l-4 border-secondary">
-              <Label className="text-xs text-gray-500 block mb-1">{t('common.previewonwebsite')}</Label>
+              <Label className="text-xs text-gray-500 block mb-1">{t("Previewonwebsite", {
+              defaultValue: "Previewonwebsite"
+            })}</Label>
               <div className="text-sm">
                 <a href={newLink.url} className="text-primary hover:text-primary/80 font-medium" {...newLink.url.startsWith('http') ? {
               target: "_blank",
@@ -676,7 +822,9 @@ function UsefulLinksManager({
             </div>}
           
           <Button onClick={addUsefulLink} disabled={!newLink.text || !newLink.url} className="w-full">
-            <Plus className="w-4 h-4 mr-2" />{t('common.addlink')}</Button>
+            <Plus className="w-4 h-4 mr-2" />{t("Addlink", {
+            defaultValue: "Addlink"
+          })}</Button>
         </div>
       </CardContent>
     </Card>;
@@ -696,15 +844,21 @@ function SocialMediaManager({
       }
     }
     return [{
-      name: t('common.facebook'),
+      name: t("Facebook", {
+        defaultValue: "Facebook"
+      }),
       url: 'https://web.facebook.com/amontourthailand',
       icon: 'facebook'
     }, {
-      name: t('common.instagram'),
+      name: t("Instagram", {
+        defaultValue: "Instagram"
+      }),
       url: 'https://www.instagram.com/amontourthailand/',
       icon: 'instagram'
     }, {
-      name: t('common.youtube'),
+      name: t("Youtube", {
+        defaultValue: "Youtube"
+      }),
       url: 'https://www.youtube.com/@amontour4949',
       icon: 'youtube'
     }];
@@ -715,37 +869,69 @@ function SocialMediaManager({
     icon: 'facebook'
   });
   const socialPlatforms = [{
-    name: t('common.facebook'),
+    name: t("Facebook", {
+      defaultValue: "Facebook"
+    }),
     icon: 'facebook',
-    label: t('common.facebook')
+    label: t("Facebook", {
+      defaultValue: "Facebook"
+    })
   }, {
-    name: t('common.instagram'),
+    name: t("Instagram", {
+      defaultValue: "Instagram"
+    }),
     icon: 'instagram',
-    label: t('common.instagram')
+    label: t("Instagram", {
+      defaultValue: "Instagram"
+    })
   }, {
-    name: t('common.youtube'),
+    name: t("Youtube", {
+      defaultValue: "Youtube"
+    }),
     icon: 'youtube',
-    label: t('common.youtube')
+    label: t("Youtube", {
+      defaultValue: "Youtube"
+    })
   }, {
-    name: t('common.twitter'),
+    name: t("Twitter", {
+      defaultValue: "Twitter"
+    }),
     icon: 'twitter',
-    label: t('common.twitter')
+    label: t("Twitter", {
+      defaultValue: "Twitter"
+    })
   }, {
-    name: t('common.linkedin'),
+    name: t("Linkedin", {
+      defaultValue: "Linkedin"
+    }),
     icon: 'linkedin',
-    label: t('common.linkedin')
+    label: t("Linkedin", {
+      defaultValue: "Linkedin"
+    })
   }, {
-    name: t('common.tiktok'),
+    name: t("Tiktok", {
+      defaultValue: "Tiktok"
+    }),
     icon: 'tiktok',
-    label: t('common.tiktok')
+    label: t("Tiktok", {
+      defaultValue: "Tiktok"
+    })
   }, {
-    name: t('common.whatsapp'),
+    name: t("Whatsapp", {
+      defaultValue: "Whatsapp"
+    }),
     icon: 'whatsapp',
-    label: t('common.whatsapp')
+    label: t("Whatsapp", {
+      defaultValue: "Whatsapp"
+    })
   }, {
-    name: t('common.telegram'),
+    name: t("Telegram", {
+      defaultValue: "Telegram"
+    }),
     icon: 'telegram',
-    label: t('common.telegram')
+    label: t("Telegram", {
+      defaultValue: "Telegram"
+    })
   }];
   const saveSocialMedia = (newData: any[]) => {
     setSocialMedia(newData);
@@ -802,8 +988,12 @@ function SocialMediaManager({
   return <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-          <Users className="w-4 h-4" />{t('common.rxe9seauxsociaux')}</CardTitle>
-        <CardDescription>{t('common.gxe9rerlesliensdesrx')}</CardDescription>
+          <Users className="w-4 h-4" />{t("Rxe9seauxsociaux", {
+          defaultValue: "Rxe9seauxsociaux"
+        })}</CardTitle>
+        <CardDescription>{t("Gxe9rerlesliensdesrx", {
+          defaultValue: "Gxe9rerlesliensdesrx"
+        })}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {socialMedia.map((social: any, index: number) => <div key={index} className="border p-4 rounded-lg space-y-3">
@@ -841,13 +1031,17 @@ function SocialMediaManager({
         {/* Ajouter un nouveau réseau social */}
         <div className="border-2 border-dashed border-gray-300 p-4 rounded-lg space-y-3">
           <div>
-            <Label className="text-xs text-gray-500">{t('common.socialplatform')}</Label>
+            <Label className="text-xs text-gray-500">{t("Socialplatform", {
+              defaultValue: "Socialplatform"
+            })}</Label>
             <Select value={newSocial.icon} onValueChange={value => setNewSocial(prev => ({
             ...prev,
             icon: value
           }))}>
               <SelectTrigger>
-                <SelectValue placeholder={t('common.selectplatform')} />
+                <SelectValue placeholder={t("Selectplatform", {
+                defaultValue: "Selectplatform"
+              })} />
               </SelectTrigger>
               <SelectContent>
                 {socialPlatforms.map(platform => <SelectItem key={platform.icon} value={platform.icon}>
@@ -866,7 +1060,9 @@ function SocialMediaManager({
           
           {/* Preview */}
           {newSocial.url && newSocial.icon && <div className="bg-gray-50 p-3 rounded border-l-4 border-secondary">
-              <Label className="text-xs text-gray-500 block mb-1">{t('common.previewonwebsite')}</Label>
+              <Label className="text-xs text-gray-500 block mb-1">{t("Previewonwebsite", {
+              defaultValue: "Previewonwebsite"
+            })}</Label>
               <div className="text-sm">
                 <a href={newSocial.url} className="text-primary hover:text-primary/80" target="_blank" rel="noopener noreferrer">
                   <i className={`fab fa-${newSocial.icon}`}></i>
@@ -875,7 +1071,9 @@ function SocialMediaManager({
             </div>}
           
           <Button onClick={addSocialMedia} disabled={!newSocial.url || !newSocial.icon} className="w-full">
-            <Plus className="w-4 h-4 mr-2" />{t('common.ajouterunrxe9seausoc')}</Button>
+            <Plus className="w-4 h-4 mr-2" />{t("Ajouterunrxe9seausoc", {
+            defaultValue: "Ajouterunrxe9seausoc"
+          })}</Button>
         </div>
       </CardContent>
     </Card>;
@@ -895,8 +1093,12 @@ function NewsletterManager({
       }
     }
     return {
-      title: t('common.newsletter'),
-      description: t('common.subscribetoreceiveou'),
+      title: t("Newsletter", {
+        defaultValue: "Newsletter"
+      }),
+      description: t("Subscribetoreceiveou", {
+        defaultValue: "Subscribetoreceiveou"
+      }),
       privacy: 'We respect your privacy. Unsubscribe at any time.',
       buttonText: 'Subscribe',
       placeholderText: 'Enter your email',
@@ -918,38 +1120,64 @@ function NewsletterManager({
   return <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-          <Mail className="w-4 h-4" />{t('common.newsletter')}</CardTitle>
-        <CardDescription>{t('common.configurerlasectionn')}</CardDescription>
+          <Mail className="w-4 h-4" />{t("Newsletter", {
+          defaultValue: "Newsletter"
+        })}</CardTitle>
+        <CardDescription>{t("Configurerlasectionn", {
+          defaultValue: "Configurerlasectionn"
+        })}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex items-center justify-between">
-          <Label>{t('common.activerlanewsletter')}</Label>
+          <Label>{t("Activerlanewsletter", {
+            defaultValue: "Activerlanewsletter"
+          })}</Label>
           <Switch checked={newsletterConfig.enabled} onCheckedChange={checked => updateNewsletterConfig('enabled', checked)} />
         </div>
         
         <div>
-          <Label htmlFor="newsletter-title">{t('common.title')}</Label>
-          <Input id="newsletter-title" value={newsletterConfig.title} onChange={e => updateNewsletterConfig('title', e.target.value)} placeholder={t('common.newsletter')} />
+          <Label htmlFor="newsletter-title">{t("Title", {
+            defaultValue: "Title"
+          })}</Label>
+          <Input id="newsletter-title" value={newsletterConfig.title} onChange={e => updateNewsletterConfig('title', e.target.value)} placeholder={t("Newsletter", {
+          defaultValue: "Newsletter"
+        })} />
         </div>
         
         <div>
-          <Label htmlFor="newsletter-description">{t('common.description')}</Label>
-          <Textarea id="newsletter-description" value={newsletterConfig.description} onChange={e => updateNewsletterConfig('description', e.target.value)} placeholder={t('common.subscribetoreceive')} />
+          <Label htmlFor="newsletter-description">{t("Description", {
+            defaultValue: "Description"
+          })}</Label>
+          <Textarea id="newsletter-description" value={newsletterConfig.description} onChange={e => updateNewsletterConfig('description', e.target.value)} placeholder={t("Subscribetoreceive", {
+          defaultValue: "Subscribetoreceive"
+        })} />
         </div>
         
         <div>
-          <Label htmlFor="newsletter-placeholder">{t('common.emailplaceholder')}</Label>
-          <Input id="newsletter-placeholder" value={newsletterConfig.placeholderText} onChange={e => updateNewsletterConfig('placeholderText', e.target.value)} placeholder={t('common.enteryouremail')} />
+          <Label htmlFor="newsletter-placeholder">{t("Emailplaceholder", {
+            defaultValue: "Emailplaceholder"
+          })}</Label>
+          <Input id="newsletter-placeholder" value={newsletterConfig.placeholderText} onChange={e => updateNewsletterConfig('placeholderText', e.target.value)} placeholder={t("Enteryouremail", {
+          defaultValue: "Enteryouremail"
+        })} />
         </div>
         
         <div>
-          <Label htmlFor="newsletter-button">{t('common.buttontext')}</Label>
-          <Input id="newsletter-button" value={newsletterConfig.buttonText} onChange={e => updateNewsletterConfig('buttonText', e.target.value)} placeholder={t('common.subscribe')} />
+          <Label htmlFor="newsletter-button">{t("Buttontext", {
+            defaultValue: "Buttontext"
+          })}</Label>
+          <Input id="newsletter-button" value={newsletterConfig.buttonText} onChange={e => updateNewsletterConfig('buttonText', e.target.value)} placeholder={t("Subscribe", {
+          defaultValue: "Subscribe"
+        })} />
         </div>
         
         <div>
-          <Label htmlFor="newsletter-privacy">{t('common.privacytext')}</Label>
-          <Input id="newsletter-privacy" value={newsletterConfig.privacy} onChange={e => updateNewsletterConfig('privacy', e.target.value)} placeholder={t('common.werespectyourprivacy')} />
+          <Label htmlFor="newsletter-privacy">{t("Privacytext", {
+            defaultValue: "Privacytext"
+          })}</Label>
+          <Input id="newsletter-privacy" value={newsletterConfig.privacy} onChange={e => updateNewsletterConfig('privacy', e.target.value)} placeholder={t("Werespectyourprivacy", {
+          defaultValue: "Werespectyourprivacy"
+        })} />
         </div>
       </CardContent>
     </Card>;
@@ -969,7 +1197,9 @@ function CopyrightManager({
       }
     }
     return {
-      text: t('common.xa92025flamebbcoltda'),
+      text: t("Xa92025flamebbcoltda", {
+        defaultValue: "Xa92025flamebbcoltda"
+      }),
       enabled: true
     };
   };
@@ -988,18 +1218,28 @@ function CopyrightManager({
   return <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-          <FileText className="w-4 h-4" />{t('common.copyright')}</CardTitle>
-        <CardDescription>{t('common.configurerletextedec')}</CardDescription>
+          <FileText className="w-4 h-4" />{t("Copyright", {
+          defaultValue: "Copyright"
+        })}</CardTitle>
+        <CardDescription>{t("Configurerletextedec", {
+          defaultValue: "Configurerletextedec"
+        })}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex items-center justify-between">
-          <Label>{t('common.activerlecopyright')}</Label>
+          <Label>{t("Activerlecopyright", {
+            defaultValue: "Activerlecopyright"
+          })}</Label>
           <Switch checked={copyrightConfig.enabled} onCheckedChange={checked => updateCopyrightConfig('enabled', checked)} />
         </div>
         
         <div>
-          <Label htmlFor="copyright-text">{t('common.copyrighttext')}</Label>
-          <Textarea id="copyright-text" value={copyrightConfig.text} onChange={e => updateCopyrightConfig('text', e.target.value)} placeholder={t('common.xa92025flamebbcoltda')} rows={3} />
+          <Label htmlFor="copyright-text">{t("Copyrighttext", {
+            defaultValue: "Copyrighttext"
+          })}</Label>
+          <Textarea id="copyright-text" value={copyrightConfig.text} onChange={e => updateCopyrightConfig('text', e.target.value)} placeholder={t("Xa92025flamebbcoltda", {
+          defaultValue: "Xa92025flamebbcoltda"
+        })} rows={3} />
         </div>
       </CardContent>
     </Card>;
@@ -1020,7 +1260,9 @@ function PageManagementInterface({
   const currentPageConfig = pageConfigs.find(p => p.pageSlug === selectedPage);
   if (!currentPageConfig) {
     return <div className="text-center py-12">
-        <div className="text-gray-500">{t('common.configurationdepagei')}</div>
+        <div className="text-gray-500">{t("Configurationdepagei", {
+          defaultValue: "Configurationdepagei"
+        })}</div>
       </div>;
   }
 
@@ -1076,18 +1318,26 @@ function PageManagementInterface({
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <FileText className="w-5 h-5" />{t('common.informationsgxe9nxe9')}</CardTitle>
-          <CardDescription>{t('common.mxe9tadonnxe9esetcon')}</CardDescription>
+            <FileText className="w-5 h-5" />{t("Informationsgxe9nxe9", {
+            defaultValue: "Informationsgxe9nxe9"
+          })}</CardTitle>
+          <CardDescription>{t("Mxe9tadonnxe9esetcon", {
+            defaultValue: "Mxe9tadonnxe9esetcon"
+          })}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           {/* Ligne 1: Nom de la page + Slug/URL */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <EditableField label={t('common.nomdelapage')} value={currentPageConfig.pageName} onSave={value => updatePageConfigMutation.mutate({
+            <EditableField label={t("Nomdelapage", {
+            defaultValue: "Nomdelapage"
+          })} value={currentPageConfig.pageName} onSave={value => updatePageConfigMutation.mutate({
             id: currentPageConfig.id,
             field: 'pageName',
             value
           })} type="text" />
-            <EditableField label={t('common.slugurl')} value={currentPageConfig.pageSlug} onSave={value => updatePageConfigMutation.mutate({
+            <EditableField label={t("Slugurl", {
+            defaultValue: "Slugurl"
+          })} value={currentPageConfig.pageSlug} onSave={value => updatePageConfigMutation.mutate({
             id: currentPageConfig.id,
             field: 'pageSlug',
             value
@@ -1097,7 +1347,9 @@ function PageManagementInterface({
           {/* Ligne 2: Type de page + État */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="text-sm font-medium text-gray-700 mb-2 block">{t('common.typedepage')}</label>
+              <label className="text-sm font-medium text-gray-700 mb-2 block">{t("Typedepage", {
+                defaultValue: "Typedepage"
+              })}</label>
               <Select value={currentPageConfig.pageType} onValueChange={value => updatePageConfigMutation.mutate({
               id: currentPageConfig.id,
               field: 'pageType',
@@ -1107,9 +1359,15 @@ function PageManagementInterface({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="main">{t('common.pagesprincipales')}</SelectItem>
-                  <SelectItem value="secondary">{t('common.pagessecondaires')}</SelectItem>
-                  <SelectItem value="legal">{t('common.mentionslxe9gales')}</SelectItem>
+                  <SelectItem value="main">{t("Pagesprincipales", {
+                    defaultValue: "Pagesprincipales"
+                  })}</SelectItem>
+                  <SelectItem value="secondary">{t("Pagessecondaires", {
+                    defaultValue: "Pagessecondaires"
+                  })}</SelectItem>
+                  <SelectItem value="legal">{t("Mentionslxe9gales", {
+                    defaultValue: "Mentionslxe9gales"
+                  })}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -1126,25 +1384,37 @@ function PageManagementInterface({
 
           {/* Ligne 3: Titre SEO + Mots-clés SEO */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <EditableField label={t('common.titreseo')} value={currentPageConfig.seoTitle || ''} onSave={value => updatePageConfigMutation.mutate({
+            <EditableField label={t("Titreseo", {
+            defaultValue: "Titreseo"
+          })} value={currentPageConfig.seoTitle || ''} onSave={value => updatePageConfigMutation.mutate({
             id: currentPageConfig.id,
             field: 'seoTitle',
             value
-          })} type="text" placeholder={t('common.nondxe9fini')} />
-            <EditableField label={t('common.motsclxe9sseo')} value={currentPageConfig.seoKeywords || ''} onSave={value => updatePageConfigMutation.mutate({
+          })} type="text" placeholder={t("Nondxe9fini", {
+            defaultValue: "Nondxe9fini"
+          })} />
+            <EditableField label={t("Motsclxe9sseo", {
+            defaultValue: "Motsclxe9sseo"
+          })} value={currentPageConfig.seoKeywords || ''} onSave={value => updatePageConfigMutation.mutate({
             id: currentPageConfig.id,
             field: 'seoKeywords',
             value
-          })} type="text" placeholder={t('common.nondxe9fini')} />
+          })} type="text" placeholder={t("Nondxe9fini", {
+            defaultValue: "Nondxe9fini"
+          })} />
           </div>
 
           {/* Ligne 4: Description SEO */}
           <div>
-            <EditableField label={t('common.descriptionseo')} value={currentPageConfig.seoDescription || ''} onSave={value => updatePageConfigMutation.mutate({
+            <EditableField label={t("Descriptionseo", {
+            defaultValue: "Descriptionseo"
+          })} value={currentPageConfig.seoDescription || ''} onSave={value => updatePageConfigMutation.mutate({
             id: currentPageConfig.id,
             field: 'seoDescription',
             value
-          })} type="textarea" placeholder={t('common.nondxe9finie')} rows={3} />
+          })} type="textarea" placeholder={t("Nondxe9finie", {
+            defaultValue: "Nondxe9finie"
+          })} rows={3} />
           </div>
         </CardContent>
       </Card>
@@ -1153,8 +1423,12 @@ function PageManagementInterface({
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Link className="w-5 h-5" />{t('common.oxf9cettepageestratt')}</CardTitle>
-          <CardDescription>{t('common.emplacementsoxf9cett')}</CardDescription>
+            <Link className="w-5 h-5" />{t("Oxf9cettepageestratt", {
+            defaultValue: "Oxf9cettepageestratt"
+          })}</CardTitle>
+          <CardDescription>{t("Emplacementsoxf9cett", {
+            defaultValue: "Emplacementsoxf9cett"
+          })}</CardDescription>
         </CardHeader>
         <CardContent>
           {pageReferences.length > 0 ? <div className="space-y-2">
@@ -1175,19 +1449,27 @@ function PageManagementInterface({
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Database className="w-5 h-5" />{t('common.informationstechniqu')}</CardTitle>
-          <CardDescription>{t('common.dxe9tailstechniquese')}</CardDescription>
+            <Database className="w-5 h-5" />{t("Informationstechniqu", {
+            defaultValue: "Informationstechniqu"
+          })}</CardTitle>
+          <CardDescription>{t("Dxe9tailstechniquese", {
+            defaultValue: "Dxe9tailstechniquese"
+          })}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           {/* Ligne 1: ID Page */}
           <div className="flex justify-between items-center py-3 border-b border-gray-100">
-            <span className="font-medium text-gray-700">{t('common.idpage')}</span>
+            <span className="font-medium text-gray-700">{t("Idpage", {
+              defaultValue: "Idpage"
+            })}</span>
             <code className="text-gray-600 bg-gray-100 px-2 py-1 rounded text-sm">{currentPageConfig.id}</code>
           </div>
           
           {/* Ligne 2: URL publique */}
           <div className="flex justify-between items-center py-3 border-b border-gray-100">
-            <span className="font-medium text-gray-700">{t('common.urlpublique')}</span>
+            <span className="font-medium text-gray-700">{t("Urlpublique", {
+              defaultValue: "Urlpublique"
+            })}</span>
             <a href={selectedPage === 'home' ? '/' : `/${selectedPage}`} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline text-sm max-w-xs truncate" title={`${window.location.origin}${selectedPage === 'home' ? '/' : `/${selectedPage}`}`}>
               {window.location.origin}{selectedPage === 'home' ? '/' : `/${selectedPage}`}
             </a>
@@ -1195,13 +1477,17 @@ function PageManagementInterface({
           
           {/* Ligne 3: Créée le */}
           <div className="flex justify-between items-center py-3 border-b border-gray-100">
-            <span className="font-medium text-gray-700">{t('common.crxe9xe9ele')}</span>
+            <span className="font-medium text-gray-700">{t("Crxe9xe9ele", {
+              defaultValue: "Crxe9xe9ele"
+            })}</span>
             <span className="text-gray-600 text-sm">{formatDate(new Date(currentPageConfig.createdAt))}</span>
           </div>
           
           {/* Ligne 4: Modifiée le */}
           <div className="flex justify-between items-center py-3">
-            <span className="font-medium text-gray-700">{t('common.modifixe9ele')}</span>
+            <span className="font-medium text-gray-700">{t("Modifixe9ele", {
+              defaultValue: "Modifixe9ele"
+            })}</span>
             <span className="text-gray-600 text-sm">{formatDate(new Date(currentPageConfig.updatedAt || currentPageConfig.createdAt))}</span>
           </div>
         </CardContent>
@@ -1253,8 +1539,12 @@ export default function AdminAppearance() {
       if (tempTypography.body_font) updateSiteSetting('theme', 'body_font', tempTypography.body_font);
       setTempTypography(null);
       toast({
-        title: t('common.typographysauvegardx'),
-        description: t('common.lespolicesontxe9txe9')
+        title: t("Typographysauvegardx", {
+          defaultValue: "Typographysauvegardx"
+        }),
+        description: t("Lespolicesontxe9txe9", {
+          defaultValue: "Lespolicesontxe9txe9"
+        })
       });
     }
   };
@@ -1265,8 +1555,12 @@ export default function AdminAppearance() {
       if (tempColors.color_palette) updateSiteSetting('theme', 'color_palette', JSON.stringify(tempColors.color_palette));
       setTempColors(null);
       toast({
-        title: t('common.couleurssauvegardxe9'),
-        description: t('common.lapalettedecouleursa')
+        title: t("Couleurssauvegardxe9", {
+          defaultValue: "Couleurssauvegardxe9"
+        }),
+        description: t("Lapalettedecouleursa", {
+          defaultValue: "Lapalettedecouleursa"
+        })
       });
     }
   };
@@ -1285,8 +1579,12 @@ export default function AdminAppearance() {
       updateSiteSetting('theme', 'logo_settings', JSON.stringify(tempLogoSettings));
       setTempLogoSettings(null);
       toast({
-        title: t('common.logossauvegardxe9s'),
-        description: t('common.lesnouveauxlogosontx')
+        title: t("Logossauvegardxe9s", {
+          defaultValue: "Logossauvegardxe9s"
+        }),
+        description: t("Lesnouveauxlogosontx", {
+          defaultValue: "Lesnouveauxlogosontx"
+        })
       });
     }
   };
@@ -1298,7 +1596,9 @@ export default function AdminAppearance() {
         title: t('Barre d\'annonce sauvegard\xE9e !', {
           defaultValue: 'Barre d\'annonce sauvegard\xE9e !'
         }),
-        description: t('common.lesparamxe8tresontxe')
+        description: t("Lesparamxe8tresontxe", {
+          defaultValue: "Lesparamxe8tresontxe"
+        })
       });
     }
   };
@@ -1307,8 +1607,12 @@ export default function AdminAppearance() {
       updateSiteSetting('theme', 'popup_settings', JSON.stringify(tempPopupSettings));
       setTempPopupSettings(null);
       toast({
-        title: t('common.popupsauvegardxe9e'),
-        description: t('common.lesparamxe8tresdepop')
+        title: t("Popupsauvegardxe9e", {
+          defaultValue: "Popupsauvegardxe9e"
+        }),
+        description: t("Lesparamxe8tresdepop", {
+          defaultValue: "Lesparamxe8tresdepop"
+        })
       });
     }
   };
@@ -1409,12 +1713,16 @@ export default function AdminAppearance() {
         queryKey: ['/api/admin/page-blocks', selectedPage]
       });
       toast({
-        title: t('common.heromisxe0jouravecsu')
+        title: t("Heromisxe0jouravecsu", {
+          defaultValue: "Heromisxe0jouravecsu"
+        })
       });
     } catch (error) {
       console.error('Erreur sauvegarde Hero:', error);
       toast({
-        title: t('common.erreurlorsdelasauveg'),
+        title: t("Erreurlorsdelasauveg", {
+          defaultValue: "Erreurlorsdelasauveg"
+        }),
         variant: "destructive"
       });
     }
@@ -1466,9 +1774,13 @@ export default function AdminAppearance() {
   // État pour l'édition Hero séparée
   const [editingHeroBlockId, setEditingHeroBlockId] = useState<number | null>(null);
   const [heroEditData, setHeroEditData] = useState<HeroEditData>({
-    title: t('common.yourexclusiveexperie'),
+    title: t("Yourexclusiveexperie", {
+      defaultValue: "Yourexclusiveexperie"
+    }),
     titleColorPart: "in Krabi –",
-    description: t('common.discoveramazingplace'),
+    description: t("Discoveramazingplace", {
+      defaultValue: "Discoveramazingplace"
+    }),
     imageUrl: "/attached_assets/DJI_20241115104455_0160_D-min.jpeg",
     videoUrl: "/attached_assets/hero-video-optimized.mp4",
     button1Text: "See our offers",
@@ -1549,7 +1861,9 @@ export default function AdminAppearance() {
     },
     onError: (error: any) => {
       toast({
-        title: t('common.erreurlorsdelasauveg'),
+        title: t("Erreurlorsdelasauveg", {
+          defaultValue: "Erreurlorsdelasauveg"
+        }),
         description: error.message || 'Veuillez réessayer',
         variant: 'destructive'
       });
@@ -1571,13 +1885,17 @@ export default function AdminAppearance() {
         queryKey: ['/api/admin/page-blocks', selectedPage]
       });
       toast({
-        title: t('common.blockcreatedsuccessf')
+        title: t("Blockcreatedsuccessf", {
+          defaultValue: "Blockcreatedsuccessf"
+        })
       });
       setNewBlockType('');
     },
     onError: () => {
       toast({
-        title: t('common.errorcreatingblock'),
+        title: t("Errorcreatingblock", {
+          defaultValue: "Errorcreatingblock"
+        }),
         variant: 'destructive'
       });
     }
@@ -1600,7 +1918,9 @@ export default function AdminAppearance() {
         queryKey: ['/api/admin/page-blocks', selectedPage]
       });
       toast({
-        title: t('common.blockupdatedsuccessf')
+        title: t("Blockupdatedsuccessf", {
+          defaultValue: "Blockupdatedsuccessf"
+        })
       });
       setIsEditingBlock(false);
       setEditingBlockId(null);
@@ -1608,7 +1928,9 @@ export default function AdminAppearance() {
     },
     onError: () => {
       toast({
-        title: t('common.errorupdatingblock'),
+        title: t("Errorupdatingblock", {
+          defaultValue: "Errorupdatingblock"
+        }),
         variant: 'destructive'
       });
     }
@@ -1624,12 +1946,16 @@ export default function AdminAppearance() {
         queryKey: ['/api/admin/page-blocks', selectedPage]
       });
       toast({
-        title: t('common.blockdeletedsuccessf')
+        title: t("Blockdeletedsuccessf", {
+          defaultValue: "Blockdeletedsuccessf"
+        })
       });
     },
     onError: () => {
       toast({
-        title: t('common.errordeletingblock'),
+        title: t("Errordeletingblock", {
+          defaultValue: "Errordeletingblock"
+        }),
         variant: 'destructive'
       });
     }
@@ -1659,12 +1985,16 @@ export default function AdminAppearance() {
         queryKey: ['/api/admin/page-blocks', selectedPage]
       });
       toast({
-        title: t('common.blockmovedsuccessful')
+        title: t("Blockmovedsuccessful", {
+          defaultValue: "Blockmovedsuccessful"
+        })
       });
     },
     onError: () => {
       toast({
-        title: t('common.errormovingblock'),
+        title: t("Errormovingblock", {
+          defaultValue: "Errormovingblock"
+        }),
         variant: 'destructive'
       });
     }
@@ -1689,12 +2019,16 @@ export default function AdminAppearance() {
         queryKey: ['/api/admin/page-blocks', selectedPage]
       });
       toast({
-        title: t('common.blockvisibilityupdat')
+        title: t("Blockvisibilityupdat", {
+          defaultValue: "Blockvisibilityupdat"
+        })
       });
     },
     onError: () => {
       toast({
-        title: t('common.errorupdatingblockvi'),
+        title: t("Errorupdatingblockvi", {
+          defaultValue: "Errorupdatingblockvi"
+        }),
         variant: 'destructive'
       });
     }
@@ -1728,12 +2062,16 @@ export default function AdminAppearance() {
       });
       setSelectedPage(createdPage.pageSlug);
       toast({
-        title: t('common.pagecreatedsuccessfu')
+        title: t("Pagecreatedsuccessfu", {
+          defaultValue: "Pagecreatedsuccessfu"
+        })
       });
     },
     onError: (error: any) => {
       toast({
-        title: t('common.errorcreatingpage'),
+        title: t("Errorcreatingpage", {
+          defaultValue: "Errorcreatingpage"
+        }),
         description: error.message || 'Please try again',
         variant: 'destructive'
       });
@@ -1760,12 +2098,16 @@ export default function AdminAppearance() {
         queryKey: ['/api/admin/site-settings']
       });
       toast({
-        title: t('common.settingupdatedsucces')
+        title: t("Settingupdatedsucces", {
+          defaultValue: "Settingupdatedsucces"
+        })
       });
     },
     onError: () => {
       toast({
-        title: t('common.errorupdatingsetting'),
+        title: t("Errorupdatingsetting", {
+          defaultValue: "Errorupdatingsetting"
+        }),
         variant: 'destructive'
       });
     }
@@ -1780,12 +2122,18 @@ export default function AdminAppearance() {
             <div className="mx-auto w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mb-4">
               <Settings className="w-6 h-6 text-red-600" />
             </div>
-            <CardTitle className="text-xl">{t('common.authenticationrequir')}</CardTitle>
-            <CardDescription>{t('common.pleaselogintoaccesst')}</CardDescription>
+            <CardTitle className="text-xl">{t("Authenticationrequir", {
+              defaultValue: "Authenticationrequir"
+            })}</CardTitle>
+            <CardDescription>{t("Pleaselogintoaccesst", {
+              defaultValue: "Pleaselogintoaccesst"
+            })}</CardDescription>
           </CardHeader>
           <CardContent>
             <Button onClick={() => setLocation('/admin')} className="w-full">
-              <ArrowLeft className="w-4 h-4 mr-2" />{t('common.gotoadminlogin')}</Button>
+              <ArrowLeft className="w-4 h-4 mr-2" />{t("Gotoadminlogin", {
+              defaultValue: "Gotoadminlogin"
+            })}</Button>
           </CardContent>
         </Card>
       </div>;
@@ -1794,7 +2142,9 @@ export default function AdminAppearance() {
     return <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-secondary mx-auto mb-4"></div>
-          <p className="text-gray-600">{t('common.loadingappearanceset')}</p>
+          <p className="text-gray-600">{t("Loadingappearanceset", {
+            defaultValue: "Loadingappearanceset"
+          })}</p>
         </div>
       </div>;
   }
@@ -1864,7 +2214,9 @@ export default function AdminAppearance() {
   const handleCreatePage = () => {
     if (!newPageData.pageName) {
       toast({
-        title: t('common.pleaseenterapagename'),
+        title: t("Pleaseenterapagename", {
+          defaultValue: "Pleaseenterapagename"
+        }),
         variant: 'destructive'
       });
       return;
@@ -1882,11 +2234,15 @@ export default function AdminAppearance() {
   const themeCategories = {
     'Design': [{
       key: 'colors',
-      name: t('common.couleurs'),
+      name: t("Couleurs", {
+        defaultValue: "Couleurs"
+      }),
       icon: 'Palette'
     }, {
       key: 'typography',
-      name: t('common.typographie'),
+      name: t("Typographie", {
+        defaultValue: "Typographie"
+      }),
       icon: 'Type'
     }],
     'Éléments': [{
@@ -1901,23 +2257,31 @@ export default function AdminAppearance() {
       icon: 'Bell'
     }, {
       key: 'backgrounds',
-      name: t('common.annoncepopup'),
+      name: t("Annoncepopup", {
+        defaultValue: "Annoncepopup"
+      }),
       icon: 'Bell'
     }],
     'Image de marque': [{
       key: 'logo-favicon',
-      name: t('common.logofavicon'),
+      name: t("Logofavicon", {
+        defaultValue: "Logofavicon"
+      }),
       icon: 'Image'
     }, {
       key: 'seo-metadata',
-      name: t('common.seomxe9tadonnxe9es'),
+      name: t("Seomxe9tadonnxe9es", {
+        defaultValue: "Seomxe9tadonnxe9es"
+      }),
       icon: 'Globe'
     }]
   };
   const handleCreateBlock = (blockType: string) => {
     if (!Array.isArray(pageConfigs)) {
       toast({
-        title: t('common.pleaselogintomanagep'),
+        title: t("Pleaselogintomanagep", {
+          defaultValue: "Pleaselogintomanagep"
+        }),
         variant: 'destructive'
       });
       return;
@@ -1925,7 +2289,9 @@ export default function AdminAppearance() {
     const selectedPageConfig = pageConfigs && Array.isArray(pageConfigs) ? pageConfigs.find(p => p.pageSlug === selectedPage) : null;
     if (!selectedPageConfig) {
       toast({
-        title: t('common.pageconfigurationnot'),
+        title: t("Pageconfigurationnot", {
+          defaultValue: "Pageconfigurationnot"
+        }),
         variant: 'destructive'
       });
       return;
@@ -1956,8 +2322,12 @@ export default function AdminAppearance() {
       // Hero Sections
       case 'hero_video':
         return {
-          title: t('common.discoverthehiddengem'),
-          subtitle: t('common.withexpertlocalguide'),
+          title: t("Discoverthehiddengem", {
+            defaultValue: "Discoverthehiddengem"
+          }),
+          subtitle: t("Withexpertlocalguide", {
+            defaultValue: "Withexpertlocalguide"
+          }),
           ctaText: 'Explore Tours',
           ctaUrl: '/experiences',
           imageUrl: '/attached_assets/hero-video-optimized.mp4',
@@ -1969,8 +2339,12 @@ export default function AdminAppearance() {
         };
       case 'hero_banner':
         return {
-          title: t('common.discoverthailandexpe'),
-          subtitle: t('common.immerseyourselfinaut'),
+          title: t("Discoverthailandexpe", {
+            defaultValue: "Discoverthailandexpe"
+          }),
+          subtitle: t("Immerseyourselfinaut", {
+            defaultValue: "Immerseyourselfinaut"
+          }),
           imageUrl: 'https://images.unsplash.com/photo-1604159129533-9d35777a0b07?q=80&w=1000&auto=format&fit=crop',
           configuration: {
             height: '50vh',
@@ -1979,7 +2353,9 @@ export default function AdminAppearance() {
         };
       case 'hero_simple':
         return {
-          title: t('common.createyourcustomtour'),
+          title: t("Createyourcustomtour", {
+            defaultValue: "Createyourcustomtour"
+          }),
           subtitle: t('Tell us what you\'d like to discover, and we\'ll create your personalized itinerary.', {
             defaultValue: 'Tell us what you\'d like to discover, and we\'ll create your personalized itinerary.'
           }),
@@ -1993,8 +2369,12 @@ export default function AdminAppearance() {
       // Content Sections  
       case 'text_section':
         return {
-          title: t('common.whenexpatswelcomeyou'),
-          content: t('common.thisisafamilyruntrav'),
+          title: t("Whenexpatswelcomeyou", {
+            defaultValue: "Whenexpatswelcomeyou"
+          }),
+          content: t("Thisisafamilyruntrav", {
+            defaultValue: "Thisisafamilyruntrav"
+          }),
           configuration: {
             centered: true,
             maxWidth: '4xl'
@@ -2002,8 +2382,12 @@ export default function AdminAppearance() {
         };
       case 'text_image':
         return {
-          title: t('common.whoweare'),
-          content: t('common.wearexc9ricmargauxga'),
+          title: t("Whoweare", {
+            defaultValue: "Whoweare"
+          }),
+          content: t("Wearexc9ricmargauxga", {
+            defaultValue: "Wearexc9ricmargauxga"
+          }),
           imageUrl: '/family-photo.png',
           configuration: {
             alignment: 'left',
@@ -2012,8 +2396,12 @@ export default function AdminAppearance() {
         };
       case 'about_company':
         return {
-          title: t('common.whoweare'),
-          content: t('common.wearexc9ricmargauxga'),
+          title: t("Whoweare", {
+            defaultValue: "Whoweare"
+          }),
+          content: t("Wearexc9ricmargauxga", {
+            defaultValue: "Wearexc9ricmargauxga"
+          }),
           imageUrl: '/family-photo.png',
           configuration: {
             showStats: true,
@@ -2024,8 +2412,12 @@ export default function AdminAppearance() {
       // Interactive Sections
       case 'tour_grid':
         return {
-          title: t('common.ourpopularexperience'),
-          description: t('common.stepoffthebeatenpath'),
+          title: t("Ourpopularexperience", {
+            defaultValue: "Ourpopularexperience"
+          }),
+          description: t("Stepoffthebeatenpath", {
+            defaultValue: "Stepoffthebeatenpath"
+          }),
           configuration: {
             columns: 3,
             showFilters: false,
@@ -2034,7 +2426,9 @@ export default function AdminAppearance() {
         };
       case 'cards_grid':
         return {
-          title: t('common.featuredexperiences'),
+          title: t("Featuredexperiences", {
+            defaultValue: "Featuredexperiences"
+          }),
           configuration: {
             columns: 3,
             cardType: 'experience'
@@ -2042,8 +2436,12 @@ export default function AdminAppearance() {
         };
       case 'search_bar':
         return {
-          title: t('common.findyourperfectexper'),
-          description: t('common.searchthroughourcura'),
+          title: t("Findyourperfectexper", {
+            defaultValue: "Findyourperfectexper"
+          }),
+          description: t("Searchthroughourcura", {
+            defaultValue: "Searchthroughourcura"
+          }),
           configuration: {
             placeholder: t("Search experiences...", {
               defaultValue: "Search experiences..."
@@ -2055,57 +2453,93 @@ export default function AdminAppearance() {
       // Features & Layout
       case 'features_3col':
         return {
-          title: t('common.whychooseus'),
-          description: t('common.experienceanexclusiv'),
+          title: t("Whychooseus", {
+            defaultValue: "Whychooseus"
+          }),
+          description: t("Experienceanexclusiv", {
+            defaultValue: "Experienceanexclusiv"
+          }),
           configuration: {
             columns: 3,
             features: [{
-              title: t('common.privatetours'),
-              description: t('common.experienceanexclusiv'),
+              title: t("Privatetours", {
+                defaultValue: "Privatetours"
+              }),
+              description: t("Experienceanexclusiv", {
+                defaultValue: "Experienceanexclusiv"
+              }),
               icon: 'users'
             }, {
-              title: t('common.localexpertise'),
-              description: t('common.bornandraisedlocalsw'),
+              title: t("Local expertise", {
+                defaultValue: "Local expertise"
+              }),
+              description: t("Bornandraisedlocalsw", {
+                defaultValue: "Bornandraisedlocalsw"
+              }),
               icon: 'compass'
             }, {
-              title: t('common.personalizedservice'),
-              description: t('common.tailoredexperiencesd'),
+              title: t("Personalized service", {
+                defaultValue: "Personalized service"
+              }),
+              description: t("Tailoredexperiencesd", {
+                defaultValue: "Tailoredexperiencesd"
+              }),
               icon: 'sparkles'
             }]
           }
         };
       case 'features_grid':
         return {
-          title: t('common.whychooseacustomtour'),
+          title: t("Whychooseacustomtour", {
+            defaultValue: "Whychooseacustomtour"
+          }),
           configuration: {
             columns: 3,
             features: [{
-              title: t('common.flexibleitinerary'),
-              description: t('common.choosethedestination'),
+              title: t("Flexibleitinerary", {
+                defaultValue: "Flexibleitinerary"
+              }),
+              description: t("Choosethedestination", {
+                defaultValue: "Choosethedestination"
+              }),
               icon: 'map-pin'
             }, {
-              title: t('common.tailoredaccommodatio'),
-              description: t('common.selectaccommodations'),
+              title: t("Tailoredaccommodatio", {
+                defaultValue: "Tailoredaccommodatio"
+              }),
+              description: t("Selectaccommodations", {
+                defaultValue: "Selectaccommodations"
+              }),
               icon: 'building'
             }, {
-              title: t('common.personalizedsupport'),
-              description: t('common.benefitfromexpertadv'),
+              title: t("Personalizedsupport", {
+                defaultValue: "Personalizedsupport"
+              }),
+              description: t("Benefitfromexpertadv", {
+                defaultValue: "Benefitfromexpertadv"
+              }),
               icon: 'headphones'
             }]
           }
         };
       case 'testimonials':
         return {
-          title: t('common.whatourtravelerssay'),
+          title: t("Whatourtravelerssay", {
+            defaultValue: "Whatourtravelerssay"
+          }),
           configuration: {
             autoplay: true,
             testimonials: [{
               author: 'Sarah M.',
-              text: t('common.incredibleauthentice'),
+              text: t("Incredibleauthentice", {
+                defaultValue: "Incredibleauthentice"
+              }),
               rating: 5
             }, {
               author: 'Marc L.',
-              text: t('common.professionalservicea'),
+              text: t("Professionalservicea", {
+                defaultValue: "Professionalservicea"
+              }),
               rating: 5
             }]
           }
@@ -2114,28 +2548,40 @@ export default function AdminAppearance() {
       // Contact & Forms
       case 'contact_form':
         return {
-          title: t('common.getintouch'),
-          description: t('common.readytostartyourthai'),
+          title: t("Getintouch", {
+            defaultValue: "Getintouch"
+          }),
+          description: t("Readytostartyourthai", {
+            defaultValue: "Readytostartyourthai"
+          }),
           configuration: {
             formType: 'contact',
             fields: [{
               name: 'name',
-              label: t('common.fullname'),
+              label: t("Full Name", {
+                defaultValue: "Full Name"
+              }),
               type: 'text',
               required: true
             }, {
               name: 'email',
-              label: t('common.emailaddress'),
+              label: t("Emailaddress", {
+                defaultValue: "Emailaddress"
+              }),
               type: 'email',
               required: true
             }, {
               name: 'phone',
-              label: t('common.phonenumber'),
+              label: t("Phonenumber", {
+                defaultValue: "Phonenumber"
+              }),
               type: 'tel',
               required: false
             }, {
               name: 'whatsapp',
-              label: t('common.whatsappnumber'),
+              label: t("Whatsappnumber", {
+                defaultValue: "Whatsappnumber"
+              }),
               type: 'tel',
               required: false
             }, {
@@ -2145,7 +2591,9 @@ export default function AdminAppearance() {
               required: false
             }, {
               name: 'message',
-              label: t('common.message'),
+              label: t("Message", {
+                defaultValue: "Message"
+              }),
               type: 'textarea',
               required: true
             }],
@@ -2154,8 +2602,12 @@ export default function AdminAppearance() {
         };
       case 'contact_cards':
         return {
-          title: t('common.getintouch'),
-          description: t('common.readytoexplorekrabic'),
+          title: t("Getintouch", {
+            defaultValue: "Getintouch"
+          }),
+          description: t("Readytoexplorekrabic", {
+            defaultValue: "Readytoexplorekrabic"
+          }),
           configuration: {
             contacts: [{
               type: 'email',
@@ -2178,8 +2630,12 @@ export default function AdminAppearance() {
         };
       case 'custom_form':
         return {
-          title: t('common.planyourcustomexperi'),
-          description: t('common.tellusaboutyourdream'),
+          title: t("Planyourcustomexperi", {
+            defaultValue: "Planyourcustomexperi"
+          }),
+          description: t("Tellusaboutyourdream", {
+            defaultValue: "Tellusaboutyourdream"
+          }),
           configuration: {
             formType: 'custom_tour'
           }
@@ -2188,8 +2644,12 @@ export default function AdminAppearance() {
       // Call to Actions
       case 'cta_section':
         return {
-          title: t('common.readytostartyouradve'),
-          description: t('common.jointhousandsofsatis'),
+          title: t("Readytostartyouradve", {
+            defaultValue: "Readytostartyouradve"
+          }),
+          description: t("Jointhousandsofsatis", {
+            defaultValue: "Jointhousandsofsatis"
+          }),
           ctaText: 'Book Your Tour Now',
           ctaUrl: '/experiences',
           configuration: {
@@ -2198,8 +2658,12 @@ export default function AdminAppearance() {
         };
       case 'cta_banner':
         return {
-          title: t('common.createyourperfectcus'),
-          description: t('common.readyforapersonalize'),
+          title: t("Createyourperfectcus", {
+            defaultValue: "Createyourperfectcus"
+          }),
+          description: t("Readyforapersonalize", {
+            defaultValue: "Readyforapersonalize"
+          }),
           ctaText: 'Start Planning',
           ctaUrl: '/custom-tour',
           configuration: {
@@ -2211,8 +2675,12 @@ export default function AdminAppearance() {
       // Media & Maps
       case 'map_section':
         return {
-          title: t('common.findusinkrabi'),
-          description: t('common.visitourofficeinaona'),
+          title: t("Findusinkrabi", {
+            defaultValue: "Findusinkrabi"
+          }),
+          description: t("Visitourofficeinaona", {
+            defaultValue: "Visitourofficeinaona"
+          }),
           configuration: {
             location: {
               lat: 8.0373,
@@ -2224,8 +2692,12 @@ export default function AdminAppearance() {
         };
       case 'gallery':
         return {
-          title: t('common.experiencegallery'),
-          description: t('common.seethebeautyofthaila'),
+          title: t("Experiencegallery", {
+            defaultValue: "Experiencegallery"
+          }),
+          description: t("Seethebeautyofthaila", {
+            defaultValue: "Seethebeautyofthaila"
+          }),
           configuration: {
             columns: 4,
             showLightbox: true
@@ -2233,8 +2705,12 @@ export default function AdminAppearance() {
         };
       case 'video_section':
         return {
-          title: t('common.experiencethailandli'),
-          description: t('common.watchourlatestadvent'),
+          title: t("Experiencethailandli", {
+            defaultValue: "Experiencethailandli"
+          }),
+          description: t("Watchourlatestadvent", {
+            defaultValue: "Watchourlatestadvent"
+          }),
           configuration: {
             autoplay: false,
             showControls: true
@@ -2244,8 +2720,12 @@ export default function AdminAppearance() {
       // Social & Newsletter
       case 'newsletter':
         return {
-          title: t('common.stayupdated'),
-          description: t('common.getthelatesttravelti'),
+          title: t("Stayupdated", {
+            defaultValue: "Stayupdated"
+          }),
+          description: t("Getthelatesttravelti", {
+            defaultValue: "Getthelatesttravelti"
+          }),
           configuration: {
             placeholder: t("Enter your email", {
               defaultValue: "Enter your email"
@@ -2256,7 +2736,9 @@ export default function AdminAppearance() {
         };
       case 'social_media':
         return {
-          title: t('common.followouradventures'),
+          title: t("Followouradventures", {
+            defaultValue: "Followouradventures"
+          }),
           configuration: {
             platforms: [{
               name: 'facebook',
@@ -2272,7 +2754,9 @@ export default function AdminAppearance() {
         };
       default:
         return {
-          title: t('common.newblock'),
+          title: t("Newblock", {
+            defaultValue: "Newblock"
+          }),
           iconName: '',
           backgroundColor: 'white',
           configuration: {}
@@ -2369,9 +2853,13 @@ export default function AdminAppearance() {
             <div className="w-full sm:w-auto">
               <h1 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2 sm:gap-3">
                 <Palette className="h-6 w-6 sm:h-7 sm:w-7 text-primary flex-shrink-0" />
-                <span className="truncate">{t('common.apparencedusite')}</span>
+                <span className="truncate">{t("Apparencedusite", {
+                  defaultValue: "Apparencedusite"
+                })}</span>
               </h1>
-              <p className="text-sm sm:text-base text-gray-600">{t('common.personnalisezlethxe8')}</p>
+              <p className="text-sm sm:text-base text-gray-600">{t("Personnalisezlethxe8", {
+                defaultValue: "Personnalisezlethxe8"
+              })}</p>
             </div>
             <Button variant="outline" onClick={() => setLocation('/admin')} className="flex items-center gap-2 w-full sm:w-auto">
               <ArrowLeft className="w-4 h-4" />
@@ -2387,15 +2875,21 @@ export default function AdminAppearance() {
           <TabsList className="grid w-full grid-cols-3 h-auto">
             <TabsTrigger value="theme" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 sm:p-3 text-base sm:text-lg font-semibold">
               <Palette className="w-4 h-4 flex-shrink-0" />
-              <span>{t('common.thxe8me')}</span>
+              <span>{t("Thxe8me", {
+                defaultValue: "Thxe8me"
+              })}</span>
             </TabsTrigger>
             <TabsTrigger value="pages" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 sm:p-3 text-base sm:text-lg font-semibold">
               <Layout className="w-4 h-4 flex-shrink-0" />
-              <span>{t('common.pages')}</span>
+              <span>{t("Pages", {
+                defaultValue: "Pages"
+              })}</span>
             </TabsTrigger>
             <TabsTrigger value="footer" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 sm:p-3 text-base sm:text-lg font-semibold">
               <Settings className="w-4 h-4 flex-shrink-0" />
-              <span>{t('common.pieddepage')}</span>
+              <span>{t("Pieddepage", {
+                defaultValue: "Pieddepage"
+              })}</span>
             </TabsTrigger>
           </TabsList>
 
@@ -2406,7 +2900,9 @@ export default function AdminAppearance() {
               <Card className="lg:col-span-1">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                    <Palette className="w-4 h-4" />{t('common.thxe8me')}</CardTitle>
+                    <Palette className="w-4 h-4" />{t("Thxe8me", {
+                    defaultValue: "Thxe8me"
+                  })}</CardTitle>
                   <CardDescription>Personnalisez le style du site</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -2439,12 +2935,18 @@ export default function AdminAppearance() {
                 {selectedThemeSection === 'colors' && <Card>
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                        <Palette className="w-4 h-4" />{t('common.couleurs')}</CardTitle>
-                      <CardDescription>{t('common.personnalisezlescoul')}</CardDescription>
+                        <Palette className="w-4 h-4" />{t("Couleurs", {
+                      defaultValue: "Couleurs"
+                    })}</CardTitle>
+                      <CardDescription>{t("Personnalisezlescoul", {
+                      defaultValue: "Personnalisezlescoul"
+                    })}</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div>
-                        <Label htmlFor="primary-color">{t('common.couleurprimaire')}</Label>
+                        <Label htmlFor="primary-color">{t("Couleurprimaire", {
+                        defaultValue: "Couleurprimaire"
+                      })}</Label>
                         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 mt-2">
                           <Input id="primary-color" type="color" value={tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#084F6E'} onChange={e => setTempColors((prev: any) => ({
                         ...prev,
@@ -2457,7 +2959,9 @@ export default function AdminAppearance() {
                         </div>
                       </div>
                       <div>
-                        <Label htmlFor="secondary-color">{t('common.couleursecondaire')}</Label>
+                        <Label htmlFor="secondary-color">{t("Couleursecondaire", {
+                        defaultValue: "Couleursecondaire"
+                      })}</Label>
                         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 mt-2">
                           <Input id="secondary-color" type="color" value={tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#3BA8AF'} onChange={e => setTempColors((prev: any) => ({
                         ...prev,
@@ -2473,10 +2977,14 @@ export default function AdminAppearance() {
                       {/* Extended Color Palette */}
                       <div className="mt-6 pt-6 border-t border-gray-200">
                         <CardTitle className="flex items-center gap-2 text-base sm:text-lg mb-4">
-                          <Palette className="w-4 h-4" />{t('common.extendedcolorpalette')}</CardTitle>
+                          <Palette className="w-4 h-4" />{t("Extendedcolorpalette", {
+                        defaultValue: "Extendedcolorpalette"
+                      })}</CardTitle>
                         <div className="grid grid-cols-2 gap-4">
                           <div>
-                            <Label>{t('common.textcolor')}</Label>
+                            <Label>{t("Textcolor", {
+                            defaultValue: "Textcolor"
+                          })}</Label>
                             <Input type="color" value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}')).text} onChange={e => {
                           const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}');
                           setTempColors((prev: any) => ({
@@ -2489,7 +2997,9 @@ export default function AdminAppearance() {
                         }} />
                           </div>
                           <div>
-                            <Label>{t('common.couleurdefond')}</Label>
+                            <Label>{t("Couleurdefond", {
+                            defaultValue: "Couleurdefond"
+                          })}</Label>
                             <Input type="color" value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}')).background} onChange={e => {
                           const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}');
                           setTempColors((prev: any) => ({
@@ -2502,7 +3012,9 @@ export default function AdminAppearance() {
                         }} />
                           </div>
                           <div>
-                            <Label>{t('common.textmenu')}</Label>
+                            <Label>{t("Textmenu", {
+                            defaultValue: "Textmenu"
+                          })}</Label>
                             <Input type="color" value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textMenu": "#374151"}')).textMenu || '#374151'} onChange={e => {
                           const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff", "backgroundFooter": "#000000", "textMenu": "#374151", "backgroundMenu": "#ffffff"}');
                           setTempColors((prev: any) => ({
@@ -2515,7 +3027,9 @@ export default function AdminAppearance() {
                         }} />
                           </div>
                           <div>
-                            <Label>{t('common.backgroundmenu')}</Label>
+                            <Label>{t("Backgroundmenu", {
+                            defaultValue: "Backgroundmenu"
+                          })}</Label>
                             <Input type="color" value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"backgroundMenu": "#ffffff"}')).backgroundMenu || '#ffffff'} onChange={e => {
                           const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff", "backgroundFooter": "#000000", "textMenu": "#374151", "backgroundMenu": "#ffffff"}');
                           setTempColors((prev: any) => ({
@@ -2528,7 +3042,9 @@ export default function AdminAppearance() {
                         }} />
                           </div>
                           <div>
-                            <Label>{t('common.textfooter')}</Label>
+                            <Label>{t("Textfooter", {
+                            defaultValue: "Textfooter"
+                          })}</Label>
                             <Input type="color" value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff"}')).textFooter || '#ffffff'} onChange={e => {
                           const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff", "backgroundFooter": "#000000", "textMenu": "#374151", "backgroundMenu": "#ffffff"}');
                           setTempColors((prev: any) => ({
@@ -2541,7 +3057,9 @@ export default function AdminAppearance() {
                         }} />
                           </div>
                           <div>
-                            <Label>{t('common.backgroundfooter')}</Label>
+                            <Label>{t("Backgroundfooter", {
+                            defaultValue: "Backgroundfooter"
+                          })}</Label>
                             <Input type="color" value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"backgroundFooter": "#000000"}')).backgroundFooter || '#000000'} onChange={e => {
                           const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff", "backgroundFooter": "#000000", "textMenu": "#374151", "backgroundMenu": "#ffffff"}');
                           setTempColors((prev: any) => ({
@@ -2554,7 +3072,9 @@ export default function AdminAppearance() {
                         }} />
                           </div>
                           <div>
-                            <Label>{t('common.errorcolor')}</Label>
+                            <Label>{t("Errorcolor", {
+                            defaultValue: "Errorcolor"
+                          })}</Label>
                             <Input type="color" value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"error": "#ef4444"}')).error} onChange={e => {
                           const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"error": "#ef4444"}');
                           setTempColors((prev: any) => ({
@@ -2567,7 +3087,9 @@ export default function AdminAppearance() {
                         }} />
                           </div>
                           <div>
-                            <Label>{t('common.successcolor')}</Label>
+                            <Label>{t("Successcolor", {
+                            defaultValue: "Successcolor"
+                          })}</Label>
                             <Input type="color" value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"success": "#10b981"}')).success} onChange={e => {
                           const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"success": "#10b981"}');
                           setTempColors((prev: any) => ({
@@ -2584,14 +3106,18 @@ export default function AdminAppearance() {
                       
                       {/* Save Button */}
                       <div className="flex justify-end pt-4">
-                        <Button onClick={saveColors} disabled={!tempColors} className="bg-secondary hover:bg-secondary/90">{t('common.ud83dudcbesauvegarde')}</Button>
+                        <Button onClick={saveColors} disabled={!tempColors} className="bg-secondary hover:bg-secondary/90">{t("Ud83dudcbesauvegarde", {
+                        defaultValue: "Ud83dudcbesauvegarde"
+                      })}</Button>
                       </div>
 
                       {/* Colors Preview */}
                       <div className="mt-6 pt-6 border-t border-gray-200">
                         <div className="flex items-center gap-2 mb-4">
                           <Palette className="w-4 h-4" />
-                          <h3 className="text-base font-semibold">{t('common.colorpreview')}</h3>
+                          <h3 className="text-base font-semibold">{t("Colorpreview", {
+                          defaultValue: "Colorpreview"
+                        })}</h3>
                         </div>
                         <div className="bg-gray-50 p-4 rounded-lg">
                           <div className="grid grid-cols-4 gap-3">
@@ -2599,25 +3125,33 @@ export default function AdminAppearance() {
                               <div className="w-12 h-12 rounded-lg mx-auto mb-2 border-2 border-gray-300" style={{
                             backgroundColor: tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#084F6E'
                           }}></div>
-                              <p className="text-xs font-medium">{t('common.primary')}</p>
+                              <p className="text-xs font-medium">{t("Primary", {
+                              defaultValue: "Primary"
+                            })}</p>
                             </div>
                             <div className="text-center">
                               <div className="w-12 h-12 rounded-lg mx-auto mb-2 border-2 border-gray-300" style={{
                             backgroundColor: tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#3BA8AF'
                           }}></div>
-                              <p className="text-xs font-medium">{t('common.secondary')}</p>
+                              <p className="text-xs font-medium">{t("Secondary", {
+                              defaultValue: "Secondary"
+                            })}</p>
                             </div>
                             <div className="text-center">
                               <div className="w-12 h-12 rounded-lg mx-auto mb-2 border-2 border-gray-300" style={{
                             backgroundColor: (tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff", "backgroundFooter": "#000000"}')).backgroundFooter
                           }}></div>
-                              <p className="text-xs font-medium">{t('common.footerbg')}</p>
+                              <p className="text-xs font-medium">{t("Footerbg", {
+                              defaultValue: "Footerbg"
+                            })}</p>
                             </div>
                             <div className="text-center">
                               <div className="w-12 h-12 rounded-lg mx-auto mb-2 border-2 border-gray-300" style={{
                             backgroundColor: (tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textMenu": "#374151", "backgroundMenu": "#ffffff"}')).backgroundMenu
                           }}></div>
-                              <p className="text-xs font-medium">{t('common.menubg')}</p>
+                              <p className="text-xs font-medium">{t("Menubg", {
+                              defaultValue: "Menubg"
+                            })}</p>
                             </div>
                           </div>
                         </div>
@@ -2632,7 +3166,9 @@ export default function AdminAppearance() {
                           <Bell className="w-4 h-4" />{t('Barre d\'annonces', {
                         defaultValue: 'Barre d\'annonces'
                       })}</CardTitle>
-                        <CardDescription>{t('common.barredenotificatione')}</CardDescription>
+                        <CardDescription>{t("Barredenotificatione", {
+                        defaultValue: "Barredenotificatione"
+                      })}</CardDescription>
                       </CardHeader>
                       <CardContent className="space-y-4">
                         <div className="flex items-center space-x-2">
@@ -2642,10 +3178,14 @@ export default function AdminAppearance() {
                           enabled: checked
                         }));
                       }} />
-                          <Label htmlFor="notification-enabled">{t('common.activerlabarredenoti')}</Label>
+                          <Label htmlFor="notification-enabled">{t("Activerlabarredenoti", {
+                          defaultValue: "Activerlabarredenoti"
+                        })}</Label>
                         </div>
                         <div>
-                          <Label>{t('common.textedenotification')}</Label>
+                          <Label>{t("Textedenotification", {
+                          defaultValue: "Textedenotification"
+                        })}</Label>
                           <Input placeholder={t('\uD83D\uDCE2 L\'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr', {
                         defaultValue: '\uD83D\uDCE2 L\'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr'
                       })} value={tempNotificationBar?.text || JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text": "📢 L\'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr"}').text} onChange={e => {
@@ -2657,7 +3197,9 @@ export default function AdminAppearance() {
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                           <div>
-                            <Label>{t('common.couleurdefond')}</Label>
+                            <Label>{t("Couleurdefond", {
+                            defaultValue: "Couleurdefond"
+                          })}</Label>
                             <div className="flex items-center gap-3">
                               <Input type="color" value={tempNotificationBar?.background_color || JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"background_color": "#f5c400"}').background_color} onChange={e => {
                             setTempNotificationBar((prev: any) => ({
@@ -2674,7 +3216,9 @@ export default function AdminAppearance() {
                             </div>
                           </div>
                           <div>
-                            <Label>{t('common.textcolor')}</Label>
+                            <Label>{t("Textcolor", {
+                            defaultValue: "Textcolor"
+                          })}</Label>
                             <div className="flex items-center gap-3">
                               <Input type="color" value={tempNotificationBar?.text_color || JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text_color": "#000000"}').text_color} onChange={e => {
                             setTempNotificationBar((prev: any) => ({
@@ -2694,14 +3238,18 @@ export default function AdminAppearance() {
                         
                         {/* Save Button */}
                         <div className="flex justify-end pt-4">
-                          <Button onClick={saveNotificationBar} disabled={!tempNotificationBar} className="bg-secondary hover:bg-secondary/90">{t('common.ud83dudcbesauvegarde')}</Button>
+                          <Button onClick={saveNotificationBar} disabled={!tempNotificationBar} className="bg-secondary hover:bg-secondary/90">{t("Ud83dudcbesauvegarde", {
+                          defaultValue: "Ud83dudcbesauvegarde"
+                        })}</Button>
                         </div>
                         
                         {/* Announcement Bar Preview */}
                         <div className="mt-6 pt-6 border-t border-gray-200">
                           <div className="flex items-center gap-2 mb-4">
                             <Bell className="w-4 h-4" />
-                            <h3 className="text-base font-semibold">{t('common.announcementbarprevi')}</h3>
+                            <h3 className="text-base font-semibold">{t("Announcementbarprevi", {
+                            defaultValue: "Announcementbarprevi"
+                          })}</h3>
                           </div>
                           <div className="bg-gray-100 p-4 rounded-lg">
                             {JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"enabled": true}').enabled ? <div className="py-2 px-4 text-center text-sm font-medium rounded" style={{
@@ -2721,12 +3269,16 @@ export default function AdminAppearance() {
                 {selectedThemeSection === 'typography' && <Card>
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                        <Type className="w-4 h-4" />{t('common.typographie')}</CardTitle>
+                        <Type className="w-4 h-4" />{t("Typographie", {
+                      defaultValue: "Typographie"
+                    })}</CardTitle>
                       <CardDescription>Familles de polices et styles de texte</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div>
-                        <Label>{t('common.policedestitres')}</Label>
+                        <Label>{t("Policedestitres", {
+                        defaultValue: "Policedestitres"
+                      })}</Label>
                         <Select value={tempTypography?.heading_font || JSON.parse(getSiteSetting('theme', 'typography') || '{"heading_font": "Poppins"}').heading_font} onValueChange={value => {
                       setTempTypography((prev: any) => ({
                         ...prev,
@@ -2734,19 +3286,33 @@ export default function AdminAppearance() {
                       }));
                     }}>
                           <SelectTrigger>
-                            <SelectValue placeholder={t('common.selectheadingfont')} />
+                            <SelectValue placeholder={t("Selectheadingfont", {
+                          defaultValue: "Selectheadingfont"
+                        })} />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="Poppins">{t('common.poppins')}</SelectItem>
-                            <SelectItem value="Inter">{t('common.inter')}</SelectItem>
-                            <SelectItem value="Roboto">{t('common.roboto')}</SelectItem>
-                            <SelectItem value="Open Sans">{t('common.opensans')}</SelectItem>
-                            <SelectItem value="Montserrat">{t('common.montserrat')}</SelectItem>
+                            <SelectItem value="Poppins">{t("Poppins", {
+                            defaultValue: "Poppins"
+                          })}</SelectItem>
+                            <SelectItem value="Inter">{t("Inter", {
+                            defaultValue: "Inter"
+                          })}</SelectItem>
+                            <SelectItem value="Roboto">{t("Roboto", {
+                            defaultValue: "Roboto"
+                          })}</SelectItem>
+                            <SelectItem value="Open Sans">{t("Opensans", {
+                            defaultValue: "Opensans"
+                          })}</SelectItem>
+                            <SelectItem value="Montserrat">{t("Montserrat", {
+                            defaultValue: "Montserrat"
+                          })}</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
                       <div>
-                        <Label>{t('common.policedutexte')}</Label>
+                        <Label>{t("Policedutexte", {
+                        defaultValue: "Policedutexte"
+                      })}</Label>
                         <Select value={tempTypography?.body_font || JSON.parse(getSiteSetting('theme', 'typography') || '{"body_font": "Inter"}').body_font} onValueChange={value => {
                       setTempTypography((prev: any) => ({
                         ...prev,
@@ -2754,20 +3320,34 @@ export default function AdminAppearance() {
                       }));
                     }}>
                           <SelectTrigger>
-                            <SelectValue placeholder={t('common.selectbodyfont')} />
+                            <SelectValue placeholder={t("Selectbodyfont", {
+                          defaultValue: "Selectbodyfont"
+                        })} />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="Inter">{t('common.inter')}</SelectItem>
-                            <SelectItem value="Poppins">{t('common.poppins')}</SelectItem>
-                            <SelectItem value="Roboto">{t('common.roboto')}</SelectItem>
-                            <SelectItem value="Open Sans">{t('common.opensans')}</SelectItem>
-                            <SelectItem value="Lato">{t('common.lato')}</SelectItem>
+                            <SelectItem value="Inter">{t("Inter", {
+                            defaultValue: "Inter"
+                          })}</SelectItem>
+                            <SelectItem value="Poppins">{t("Poppins", {
+                            defaultValue: "Poppins"
+                          })}</SelectItem>
+                            <SelectItem value="Roboto">{t("Roboto", {
+                            defaultValue: "Roboto"
+                          })}</SelectItem>
+                            <SelectItem value="Open Sans">{t("Opensans", {
+                            defaultValue: "Opensans"
+                          })}</SelectItem>
+                            <SelectItem value="Lato">{t("Lato", {
+                            defaultValue: "Lato"
+                          })}</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
                       <div className="grid grid-cols-3 gap-4">
                         <div>
-                          <Label>{t('common.headingweight')}</Label>
+                          <Label>{t("Headingweight", {
+                          defaultValue: "Headingweight"
+                        })}</Label>
                           <Select value={tempTypography?.heading_weight || JSON.parse(getSiteSetting('theme', 'typography') || '{"heading_weight": "600"}').heading_weight} onValueChange={value => {
                         setTempTypography((prev: any) => ({
                           ...prev,
@@ -2778,15 +3358,25 @@ export default function AdminAppearance() {
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="400">{t('common.normal400')}</SelectItem>
-                              <SelectItem value="500">{t('common.medium500')}</SelectItem>
-                              <SelectItem value="600">{t('common.semibold600')}</SelectItem>
-                              <SelectItem value="700">{t('common.bold700')}</SelectItem>
+                              <SelectItem value="400">{t("Normal400", {
+                              defaultValue: "Normal400"
+                            })}</SelectItem>
+                              <SelectItem value="500">{t("Medium500", {
+                              defaultValue: "Medium500"
+                            })}</SelectItem>
+                              <SelectItem value="600">{t("Semibold600", {
+                              defaultValue: "Semibold600"
+                            })}</SelectItem>
+                              <SelectItem value="700">{t("Bold700", {
+                              defaultValue: "Bold700"
+                            })}</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
                         <div>
-                          <Label>{t('common.bodyweight')}</Label>
+                          <Label>{t("Bodyweight", {
+                          defaultValue: "Bodyweight"
+                        })}</Label>
                           <Select value={tempTypography?.body_weight || JSON.parse(getSiteSetting('theme', 'typography') || '{"body_weight": "400"}').body_weight} onValueChange={value => {
                         setTempTypography((prev: any) => ({
                           ...prev,
@@ -2797,14 +3387,22 @@ export default function AdminAppearance() {
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="300">{t('common.light300')}</SelectItem>
-                              <SelectItem value="400">{t('common.normal400')}</SelectItem>
-                              <SelectItem value="500">{t('common.medium500')}</SelectItem>
+                              <SelectItem value="300">{t("Light300", {
+                              defaultValue: "Light300"
+                            })}</SelectItem>
+                              <SelectItem value="400">{t("Normal400", {
+                              defaultValue: "Normal400"
+                            })}</SelectItem>
+                              <SelectItem value="500">{t("Medium500", {
+                              defaultValue: "Medium500"
+                            })}</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
                         <div>
-                          <Label>{t('common.basesize')}</Label>
+                          <Label>{t("Basesize", {
+                          defaultValue: "Basesize"
+                        })}</Label>
                           <Select value={tempTypography?.base_size || JSON.parse(getSiteSetting('theme', 'typography') || '{"base_size": "16px"}').base_size} onValueChange={value => {
                         setTempTypography((prev: any) => ({
                           ...prev,
@@ -2825,26 +3423,34 @@ export default function AdminAppearance() {
                       
                       {/* Save Button */}
                       <div className="flex justify-end pt-4">
-                        <Button onClick={saveTypography} disabled={!tempTypography} className="bg-secondary hover:bg-secondary/90">{t('common.ud83dudcbesauvegarde')}</Button>
+                        <Button onClick={saveTypography} disabled={!tempTypography} className="bg-secondary hover:bg-secondary/90">{t("Ud83dudcbesauvegarde", {
+                        defaultValue: "Ud83dudcbesauvegarde"
+                      })}</Button>
                       </div>
                       
                       {/* Typography Preview */}
                       <div className="mt-6 pt-6 border-t border-gray-200">
                         <div className="flex items-center gap-2 mb-4">
                           <Type className="w-4 h-4" />
-                          <h3 className="text-base font-semibold">{t('common.preview')}</h3>
+                          <h3 className="text-base font-semibold">{t("Preview", {
+                          defaultValue: "Preview"
+                        })}</h3>
                         </div>
                         <div className="bg-gray-50 p-4 rounded-lg space-y-3">
                           <div style={{
                         fontFamily: tempTypography?.heading_font || JSON.parse(getSiteSetting('theme', 'typography') || '{"heading_font": "Poppins"}').heading_font,
                         fontWeight: tempTypography?.heading_weight || JSON.parse(getSiteSetting('theme', 'typography') || '{"heading_weight": "600"}').heading_weight,
                         fontSize: '24px'
-                      }}>{t('common.bienvenuechezamontou')}</div>
+                      }}>{t("Bienvenuechezamontou", {
+                          defaultValue: "Bienvenuechezamontou"
+                        })}</div>
                           <div style={{
                         fontFamily: tempTypography?.body_font || JSON.parse(getSiteSetting('theme', 'typography') || '{"body_font": "Inter"}').body_font,
                         fontWeight: tempTypography?.body_weight || JSON.parse(getSiteSetting('theme', 'typography') || '{"body_weight": "400"}').body_weight,
                         fontSize: tempTypography?.base_size || JSON.parse(getSiteSetting('theme', 'typography') || '{"base_size": "16px"}').base_size
-                      }}>{t('common.dxe9couvrezlestrxe9s')}</div>
+                      }}>{t("Dxe9couvrezlestrxe9s", {
+                          defaultValue: "Dxe9couvrezlestrxe9s"
+                        })}</div>
                         </div>
                       </div>
                     </CardContent>
@@ -2862,7 +3468,9 @@ export default function AdminAppearance() {
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div>
-                        <Label>{t('common.borderradius')}</Label>
+                        <Label>{t("Borderradius", {
+                        defaultValue: "Borderradius"
+                      })}</Label>
                         <Select value={tempButtonStyles?.border_radius || JSON.parse(getSiteSetting('theme', 'button_styles') || '{"border_radius": "8px"}').border_radius} onValueChange={value => {
                       setTempButtonStyles((prev: any) => ({
                         ...prev,
@@ -2873,11 +3481,21 @@ export default function AdminAppearance() {
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="0px">{t('common.none0px')}</SelectItem>
-                            <SelectItem value="4px">{t('common.small4px')}</SelectItem>
-                            <SelectItem value="8px">{t('common.medium8px')}</SelectItem>
-                            <SelectItem value="12px">{t('common.large12px')}</SelectItem>
-                            <SelectItem value="50px">{t('common.pill50px')}</SelectItem>
+                            <SelectItem value="0px">{t("None0px", {
+                            defaultValue: "None0px"
+                          })}</SelectItem>
+                            <SelectItem value="4px">{t("Small4px", {
+                            defaultValue: "Small4px"
+                          })}</SelectItem>
+                            <SelectItem value="8px">{t("Medium8px", {
+                            defaultValue: "Medium8px"
+                          })}</SelectItem>
+                            <SelectItem value="12px">{t("Large12px", {
+                            defaultValue: "Large12px"
+                          })}</SelectItem>
+                            <SelectItem value="50px">{t("Pill50px", {
+                            defaultValue: "Pill50px"
+                          })}</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
@@ -2893,15 +3511,25 @@ export default function AdminAppearance() {
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="none">{t('common.noshadow')}</SelectItem>
-                            <SelectItem value="small">{t('common.smallshadow')}</SelectItem>
-                            <SelectItem value="medium">{t('common.mediumshadow')}</SelectItem>
-                            <SelectItem value="large">{t('common.largeshadow')}</SelectItem>
+                            <SelectItem value="none">{t("Noshadow", {
+                            defaultValue: "Noshadow"
+                          })}</SelectItem>
+                            <SelectItem value="small">{t("Smallshadow", {
+                            defaultValue: "Smallshadow"
+                          })}</SelectItem>
+                            <SelectItem value="medium">{t("Mediumshadow", {
+                            defaultValue: "Mediumshadow"
+                          })}</SelectItem>
+                            <SelectItem value="large">{t("Largeshadow", {
+                            defaultValue: "Largeshadow"
+                          })}</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
                       <div>
-                        <Label>{t('common.hovereffect')}</Label>
+                        <Label>{t("Hovereffect", {
+                        defaultValue: "Hovereffect"
+                      })}</Label>
                         <Select value={tempButtonStyles?.hover_effect || JSON.parse(getSiteSetting('theme', 'button_styles') || '{"hover_effect": "scale"}').hover_effect} onValueChange={value => {
                       setTempButtonStyles((prev: any) => ({
                         ...prev,
@@ -2912,10 +3540,18 @@ export default function AdminAppearance() {
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="none">{t('common.none')}</SelectItem>
-                            <SelectItem value="scale">{t('common.scaleup')}</SelectItem>
-                            <SelectItem value="fade">{t('common.fade')}</SelectItem>
-                            <SelectItem value="shadow">{t('common.shadowgrow')}</SelectItem>
+                            <SelectItem value="none">{t("None", {
+                            defaultValue: "None"
+                          })}</SelectItem>
+                            <SelectItem value="scale">{t("Scaleup", {
+                            defaultValue: "Scaleup"
+                          })}</SelectItem>
+                            <SelectItem value="fade">{t("Fade", {
+                            defaultValue: "Fade"
+                          })}</SelectItem>
+                            <SelectItem value="shadow">{t("Shadowgrow", {
+                            defaultValue: "Shadowgrow"
+                          })}</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
@@ -2931,7 +3567,9 @@ export default function AdminAppearance() {
                       <div className="mt-6 pt-6 border-t border-gray-200">
                         <div className="flex items-center gap-2 mb-4">
                           <MousePointer className="w-4 h-4" />
-                          <h3 className="text-base font-semibold">{t('common.buttonpreview')}</h3>
+                          <h3 className="text-base font-semibold">{t("Buttonpreview", {
+                          defaultValue: "Buttonpreview"
+                        })}</h3>
                         </div>
                         <div className="bg-gray-50 p-4 rounded-lg space-y-3">
                           <div className="flex flex-wrap gap-3">
@@ -2948,16 +3586,22 @@ export default function AdminAppearance() {
                             };
                             return shadows[shadowStyle as keyof typeof shadows] || '0 4px 6px -1px rgb(0 0 0 / 0.1)';
                           })()
-                        }}>{t('common.primarybutton')}</button>
+                        }}>{t("Primarybutton", {
+                            defaultValue: "Primarybutton"
+                          })}</button>
                             <button className="px-4 py-2 border-2 transition-all" style={{
                           borderColor: getSiteSetting('theme', 'primary_color') || '#084F6E',
                           color: getSiteSetting('theme', 'primary_color') || '#084F6E',
                           borderRadius: JSON.parse(getSiteSetting('theme', 'button_styles') || '{"border_radius": "8px"}').border_radius
-                        }}>{t('common.outlinebutton')}</button>
+                        }}>{t("Outlinebutton", {
+                            defaultValue: "Outlinebutton"
+                          })}</button>
                             <button className="px-4 py-2 text-white transition-all" style={{
                           backgroundColor: getSiteSetting('theme', 'secondary_color') || '#3BA8AF',
                           borderRadius: JSON.parse(getSiteSetting('theme', 'button_styles') || '{"border_radius": "8px"}').border_radius
-                        }}>{t('common.secondarybutton')}</button>
+                        }}>{t("Secondarybutton", {
+                            defaultValue: "Secondarybutton"
+                          })}</button>
                           </div>
                         </div>
                       </div>
@@ -2967,13 +3611,21 @@ export default function AdminAppearance() {
                 {selectedThemeSection === 'seo-metadata' && <Card>
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                        <Globe className="w-4 h-4" />{t('common.seomxe9tadonnxe9es')}</CardTitle>
-                      <CardDescription>{t('common.paramxe8tresseogloba')}</CardDescription>
+                        <Globe className="w-4 h-4" />{t("Seomxe9tadonnxe9es", {
+                      defaultValue: "Seomxe9tadonnxe9es"
+                    })}</CardTitle>
+                      <CardDescription>{t("Paramxe8tresseogloba", {
+                      defaultValue: "Paramxe8tresseogloba"
+                    })}</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div>
-                        <Label>{t('common.sitetitle')}</Label>
-                        <Input placeholder={t('common.amontourauthentictha')} value={JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"site_title": ""}').site_title} onChange={e => {
+                        <Label>{t("Sitetitle", {
+                        defaultValue: "Sitetitle"
+                      })}</Label>
+                        <Input placeholder={t("Amontourauthentictha", {
+                      defaultValue: "Amontourauthentictha"
+                    })} value={JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"site_title": ""}').site_title} onChange={e => {
                       const current = JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"site_title": ""}');
                       updateSiteSetting('theme', 'seo_meta', JSON.stringify({
                         ...current,
@@ -2982,8 +3634,12 @@ export default function AdminAppearance() {
                     }} />
                       </div>
                       <div>
-                        <Label>{t('common.tagline')}</Label>
-                        <Input placeholder={t('common.discoverthehiddengem')} value={JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"tagline": ""}').tagline} onChange={e => {
+                        <Label>{t("Tagline", {
+                        defaultValue: "Tagline"
+                      })}</Label>
+                        <Input placeholder={t("Discoverthehiddengem", {
+                      defaultValue: "Discoverthehiddengem"
+                    })} value={JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"tagline": ""}').tagline} onChange={e => {
                       const current = JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"tagline": ""}');
                       updateSiteSetting('theme', 'seo_meta', JSON.stringify({
                         ...current,
@@ -2992,7 +3648,9 @@ export default function AdminAppearance() {
                     }} />
                       </div>
                       <div>
-                        <Label>{t('common.metadescription')}</Label>
+                        <Label>{t("Metadescription", {
+                        defaultValue: "Metadescription"
+                      })}</Label>
                         <Textarea placeholder={t('Experience authentic Thailand with Amon Tour. Discover Krabi\'s hidden islands, local culture, and unforgettable adventures.', {
                       defaultValue: 'Experience authentic Thailand with Amon Tour. Discover Krabi\'s hidden islands, local culture, and unforgettable adventures.'
                     })} value={JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"meta_description": ""}').meta_description} onChange={e => {
@@ -3004,8 +3662,12 @@ export default function AdminAppearance() {
                     }} />
                       </div>
                       <div>
-                        <Label>{t('common.keywordscommaseparat')}</Label>
-                        <Input placeholder={t('common.thailandtravelkrabit')} value={JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"meta_keywords": ""}').meta_keywords} onChange={e => {
+                        <Label>{t("Keywordscommaseparat", {
+                        defaultValue: "Keywordscommaseparat"
+                      })}</Label>
+                        <Input placeholder={t("Thailandtravelkrabit", {
+                      defaultValue: "Thailandtravelkrabit"
+                    })} value={JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"meta_keywords": ""}').meta_keywords} onChange={e => {
                       const current = JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"meta_keywords": ""}');
                       updateSiteSetting('theme', 'seo_meta', JSON.stringify({
                         ...current,
@@ -3014,7 +3676,9 @@ export default function AdminAppearance() {
                     }} />
                       </div>
                       <div>
-                        <Label>{t('common.opengraphimageurl')}</Label>
+                        <Label>{t("Opengraphimageurl", {
+                        defaultValue: "Opengraphimageurl"
+                      })}</Label>
                         <Input placeholder="/src/assets/hero-image.jpg" value={JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"og_image": ""}').og_image} onChange={e => {
                       const current = JSON.parse(getSiteSetting('theme', 'seo_meta') || '{"og_image": ""}');
                       updateSiteSetting('theme', 'seo_meta', JSON.stringify({
@@ -3029,16 +3693,24 @@ export default function AdminAppearance() {
                 {selectedThemeSection === 'logo-favicon' && <Card>
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                        <Image className="w-4 h-4" />{t('common.logofavicon')}</CardTitle>
-                      <CardDescription>{t('common.gxe9rezleslogosindiv')}</CardDescription>
+                        <Image className="w-4 h-4" />{t("Logofavicon", {
+                      defaultValue: "Logofavicon"
+                    })}</CardTitle>
+                      <CardDescription>{t("Gxe9rezleslogosindiv", {
+                      defaultValue: "Gxe9rezleslogosindiv"
+                    })}</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
                       {/* Header Logo */}
                       <div className="border rounded-lg p-4">
-                        <Label className="text-base font-semibold mb-3 block">{t('common.headerlogo')}</Label>
+                        <Label className="text-base font-semibold mb-3 block">{t("Headerlogo", {
+                        defaultValue: "Headerlogo"
+                      })}</Label>
                         <div className="grid grid-cols-2 gap-4">
                           <div>
-                            <Label>{t('common.imageurlpath')}</Label>
+                            <Label>{t("Imageurlpath", {
+                            defaultValue: "Imageurlpath"
+                          })}</Label>
                             <Input placeholder="/src/assets/logo-amon.png" value={tempLogoSettings?.header_logo || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": "/src/assets/logo-amon.png"}').header_logo} onChange={e => {
                           setTempLogoSettings((prev: any) => ({
                             ...prev,
@@ -3047,7 +3719,9 @@ export default function AdminAppearance() {
                         }} />
                           </div>
                           <div>
-                            <Label>{t('common.size')}</Label>
+                            <Label>{t("Size", {
+                            defaultValue: "Size"
+                          })}</Label>
                             <Select value={tempLogoSettings?.header_logo_height || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo_height": "96px"}').header_logo_height} onValueChange={value => {
                           setTempLogoSettings((prev: any) => ({
                             ...prev,
@@ -3058,11 +3732,21 @@ export default function AdminAppearance() {
                                 <SelectValue />
                               </SelectTrigger>
                               <SelectContent>
-                                <SelectItem value="32px">{t('common.small32px')}</SelectItem>
-                                <SelectItem value="48px">{t('common.medium48px')}</SelectItem>
-                                <SelectItem value="64px">{t('common.large64px')}</SelectItem>
-                                <SelectItem value="96px">{t('common.xlarge96px')}</SelectItem>
-                                <SelectItem value="128px">{t('common.xxlarge128px')}</SelectItem>
+                                <SelectItem value="32px">{t("Small32px", {
+                                defaultValue: "Small32px"
+                              })}</SelectItem>
+                                <SelectItem value="48px">{t("Medium48px", {
+                                defaultValue: "Medium48px"
+                              })}</SelectItem>
+                                <SelectItem value="64px">{t("Large64px", {
+                                defaultValue: "Large64px"
+                              })}</SelectItem>
+                                <SelectItem value="96px">{t("Xlarge96px", {
+                                defaultValue: "Xlarge96px"
+                              })}</SelectItem>
+                                <SelectItem value="128px">{t("Xxlarge128px", {
+                                defaultValue: "Xxlarge128px"
+                              })}</SelectItem>
                               </SelectContent>
                             </Select>
                           </div>
@@ -3071,10 +3755,14 @@ export default function AdminAppearance() {
 
                       {/* Footer Logo */}
                       <div className="border rounded-lg p-4">
-                        <Label className="text-base font-semibold mb-3 block">{t('common.footerlogo')}</Label>
+                        <Label className="text-base font-semibold mb-3 block">{t("Footerlogo", {
+                        defaultValue: "Footerlogo"
+                      })}</Label>
                         <div className="grid grid-cols-2 gap-4">
                           <div>
-                            <Label>{t('common.imageurlpath')}</Label>
+                            <Label>{t("Imageurlpath", {
+                            defaultValue: "Imageurlpath"
+                          })}</Label>
                             <Input placeholder="/src/assets/logo-amon.png" value={tempLogoSettings?.footer_logo || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": "/src/assets/logo-amon.png"}').footer_logo} onChange={e => {
                           setTempLogoSettings((prev: any) => ({
                             ...prev,
@@ -3083,7 +3771,9 @@ export default function AdminAppearance() {
                         }} />
                           </div>
                           <div>
-                            <Label>{t('common.size')}</Label>
+                            <Label>{t("Size", {
+                            defaultValue: "Size"
+                          })}</Label>
                             <Select value={tempLogoSettings?.footer_logo_height || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo_height": "64px"}').footer_logo_height} onValueChange={value => {
                           setTempLogoSettings((prev: any) => ({
                             ...prev,
@@ -3094,11 +3784,21 @@ export default function AdminAppearance() {
                                 <SelectValue />
                               </SelectTrigger>
                               <SelectContent>
-                                <SelectItem value="24px">{t('common.small24px')}</SelectItem>
-                                <SelectItem value="32px">{t('common.medium32px')}</SelectItem>
-                                <SelectItem value="48px">{t('common.large48px')}</SelectItem>
-                                <SelectItem value="64px">{t('common.xlarge64px')}</SelectItem>
-                                <SelectItem value="96px">{t('common.xxlarge96px')}</SelectItem>
+                                <SelectItem value="24px">{t("Small24px", {
+                                defaultValue: "Small24px"
+                              })}</SelectItem>
+                                <SelectItem value="32px">{t("Medium32px", {
+                                defaultValue: "Medium32px"
+                              })}</SelectItem>
+                                <SelectItem value="48px">{t("Large48px", {
+                                defaultValue: "Large48px"
+                              })}</SelectItem>
+                                <SelectItem value="64px">{t("Xlarge64px", {
+                                defaultValue: "Xlarge64px"
+                              })}</SelectItem>
+                                <SelectItem value="96px">{t("Xxlarge96px", {
+                                defaultValue: "Xxlarge96px"
+                              })}</SelectItem>
                               </SelectContent>
                             </Select>
                           </div>
@@ -3107,10 +3807,14 @@ export default function AdminAppearance() {
 
                       {/* Favicon Logo */}
                       <div className="border rounded-lg p-4">
-                        <Label className="text-base font-semibold mb-3 block">{t('common.faviconlogo')}</Label>
+                        <Label className="text-base font-semibold mb-3 block">{t("Faviconlogo", {
+                        defaultValue: "Faviconlogo"
+                      })}</Label>
                         <div className="grid grid-cols-2 gap-4">
                           <div>
-                            <Label>{t('common.imageurlpath')}</Label>
+                            <Label>{t("Imageurlpath", {
+                            defaultValue: "Imageurlpath"
+                          })}</Label>
                             <Input placeholder="/favicon.ico" value={tempLogoSettings?.favicon || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": "/favicon.ico"}').favicon} onChange={e => {
                           setTempLogoSettings((prev: any) => ({
                             ...prev,
@@ -3119,7 +3823,9 @@ export default function AdminAppearance() {
                         }} />
                           </div>
                           <div>
-                            <Label>{t('common.size')}</Label>
+                            <Label>{t("Size", {
+                            defaultValue: "Size"
+                          })}</Label>
                             <Select value={tempLogoSettings?.favicon_size || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon_size": "32px"}').favicon_size} onValueChange={value => {
                           setTempLogoSettings((prev: any) => ({
                             ...prev,
@@ -3142,46 +3848,68 @@ export default function AdminAppearance() {
                       
                       {/* Save Button */}
                       <div className="flex justify-end pt-4">
-                        <Button onClick={saveLogoSettings} disabled={!tempLogoSettings} className="bg-secondary hover:bg-secondary/90">{t('common.ud83dudcbesauvegarde')}</Button>
+                        <Button onClick={saveLogoSettings} disabled={!tempLogoSettings} className="bg-secondary hover:bg-secondary/90">{t("Ud83dudcbesauvegarde", {
+                        defaultValue: "Ud83dudcbesauvegarde"
+                      })}</Button>
                       </div>
                       
                       {/* Enhanced Logo Preview */}
                       <div className="mt-6 pt-6 border-t border-gray-200">
                         <div className="flex items-center gap-2 mb-4">
                           <Image className="w-4 h-4" />
-                          <h3 className="text-base font-semibold">{t('common.logopreview')}</h3>
+                          <h3 className="text-base font-semibold">{t("Logopreview", {
+                          defaultValue: "Logopreview"
+                        })}</h3>
                         </div>
                         <div className="bg-gray-50 p-4 rounded-lg space-y-6">
                           {/* Header Logo Preview */}
                           <div className="bg-white p-4 rounded border">
-                            <p className="text-sm font-medium mb-2">{t('common.headerlogo')}</p>
+                            <p className="text-sm font-medium mb-2">{t("Headerlogo", {
+                            defaultValue: "Headerlogo"
+                          })}</p>
                             <div className="flex items-center justify-center min-h-[100px] bg-gray-50 rounded">
-                              {JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": "/src/assets/logo-amon.png"}').header_logo ? <img src={JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": "/src/assets/logo-amon.png"}').header_logo.startsWith('/src/') ? logoAmon : JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": "/src/assets/logo-amon.png"}').header_logo} alt={t('common.headerlogo')} style={{
+                              {JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": "/src/assets/logo-amon.png"}').header_logo ? <img src={JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": "/src/assets/logo-amon.png"}').header_logo.startsWith('/src/') ? logoAmon : JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": "/src/assets/logo-amon.png"}').header_logo} alt={t("Headerlogo", {
+                            defaultValue: "Headerlogo"
+                          })} style={{
                             height: JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo_height": "96px"}').header_logo_height,
                             width: 'auto'
-                          }} /> : <div className="text-gray-400 text-sm">{t('common.aucunlogoheaderdxe9f')}</div>}
+                          }} /> : <div className="text-gray-400 text-sm">{t("Aucunlogoheaderdxe9f", {
+                              defaultValue: "Aucunlogoheaderdxe9f"
+                            })}</div>}
                             </div>
                           </div>
 
                           {/* Footer Logo Preview */}
                           <div className="bg-black p-4 rounded border">
-                            <p className="text-sm font-medium mb-2 text-white">{t('common.footerlogo')}</p>
+                            <p className="text-sm font-medium mb-2 text-white">{t("Footerlogo", {
+                            defaultValue: "Footerlogo"
+                          })}</p>
                             <div className="flex items-center justify-center min-h-[80px] bg-gray-800 rounded">
-                              {JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": "/src/assets/logo-amon.png"}').footer_logo ? <img src={JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": "/src/assets/logo-amon.png"}').footer_logo.startsWith('/src/') ? logoAmon : JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": "/src/assets/logo-amon.png"}').footer_logo} alt={t('common.footerlogo')} style={{
+                              {JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": "/src/assets/logo-amon.png"}').footer_logo ? <img src={JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": "/src/assets/logo-amon.png"}').footer_logo.startsWith('/src/') ? logoAmon : JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": "/src/assets/logo-amon.png"}').footer_logo} alt={t("Footerlogo", {
+                            defaultValue: "Footerlogo"
+                          })} style={{
                             height: JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo_height": "64px"}').footer_logo_height,
                             width: 'auto'
-                          }} /> : <div className="text-gray-400 text-sm">{t('common.aucunlogofooterdxe9f')}</div>}
+                          }} /> : <div className="text-gray-400 text-sm">{t("Aucunlogofooterdxe9f", {
+                              defaultValue: "Aucunlogofooterdxe9f"
+                            })}</div>}
                             </div>
                           </div>
 
                           {/* Favicon Logo Preview */}
                           <div className="bg-white p-4 rounded border">
-                            <p className="text-sm font-medium mb-2">{t('common.faviconlogo')}</p>
+                            <p className="text-sm font-medium mb-2">{t("Faviconlogo", {
+                            defaultValue: "Faviconlogo"
+                          })}</p>
                             <div className="flex items-center justify-center min-h-[60px] bg-gray-100 rounded">
-                              {tempLogoSettings?.favicon || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": "/favicon.ico"}').favicon ? <img src={(tempLogoSettings?.favicon || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": "/favicon.ico"}').favicon).startsWith('/src/') ? logoAmon : tempLogoSettings?.favicon || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": "/favicon.ico"}').favicon} alt={t('common.favicon')} style={{
+                              {tempLogoSettings?.favicon || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": "/favicon.ico"}').favicon ? <img src={(tempLogoSettings?.favicon || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": "/favicon.ico"}').favicon).startsWith('/src/') ? logoAmon : tempLogoSettings?.favicon || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": "/favicon.ico"}').favicon} alt={t("Favicon", {
+                            defaultValue: "Favicon"
+                          })} style={{
                             height: tempLogoSettings?.favicon_size || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon_size": "32px"}').favicon_size,
                             width: tempLogoSettings?.favicon_size || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon_size": "32px"}').favicon_size
-                          }} /> : <div className="text-gray-400 text-sm">{t('common.aucunfavicondxe9fini')}</div>}
+                          }} /> : <div className="text-gray-400 text-sm">{t("Aucunfavicondxe9fini", {
+                              defaultValue: "Aucunfavicondxe9fini"
+                            })}</div>}
                             </div>
                           </div>
                         </div>
@@ -3192,8 +3920,12 @@ export default function AdminAppearance() {
                 {selectedThemeSection === 'backgrounds' && <Card>
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                        <Bell className="w-4 h-4" />{t('common.popupannouncements')}</CardTitle>
-                      <CardDescription>{t('common.promotionalpopupsand')}</CardDescription>
+                        <Bell className="w-4 h-4" />{t("Popupannouncements", {
+                      defaultValue: "Popupannouncements"
+                    })}</CardTitle>
+                      <CardDescription>{t("Promotionalpopupsand", {
+                      defaultValue: "Promotionalpopupsand"
+                    })}</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div className="flex items-center space-x-2">
@@ -3204,10 +3936,14 @@ export default function AdminAppearance() {
                         enabled: checked
                       }));
                     }} />
-                        <Label htmlFor="popup-enabled">{t('common.enablepopups')}</Label>
+                        <Label htmlFor="popup-enabled">{t("Enablepopups", {
+                        defaultValue: "Enablepopups"
+                      })}</Label>
                       </div>
                       <div>
-                        <Label>{t('common.popuptype')}</Label>
+                        <Label>{t("Popuptype", {
+                        defaultValue: "Popuptype"
+                      })}</Label>
                         <Select value={tempPopupSettings?.type || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"type": "newsletter"}').type} onValueChange={value => {
                       setTempPopupSettings((prev: any) => ({
                         ...prev,
@@ -3218,15 +3954,25 @@ export default function AdminAppearance() {
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="newsletter">{t('common.newslettersignup')}</SelectItem>
-                            <SelectItem value="promotion">{t('common.specialpromotion')}</SelectItem>
-                            <SelectItem value="announcement">{t('common.generalannouncement')}</SelectItem>
+                            <SelectItem value="newsletter">{t("Newslettersignup", {
+                            defaultValue: "Newslettersignup"
+                          })}</SelectItem>
+                            <SelectItem value="promotion">{t("Specialpromotion", {
+                            defaultValue: "Specialpromotion"
+                          })}</SelectItem>
+                            <SelectItem value="announcement">{t("Generalannouncement", {
+                            defaultValue: "Generalannouncement"
+                          })}</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
                       <div>
-                        <Label>{t('common.title')}</Label>
-                        <Input placeholder={t('common.specialoffer')} value={tempPopupSettings?.title || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"title": ""}').title} onChange={e => {
+                        <Label>{t("Title", {
+                        defaultValue: "Title"
+                      })}</Label>
+                        <Input placeholder={t("Specialoffer", {
+                      defaultValue: "Specialoffer"
+                    })} value={tempPopupSettings?.title || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"title": ""}').title} onChange={e => {
                       setTempPopupSettings((prev: any) => ({
                         ...prev,
                         title: e.target.value
@@ -3234,8 +3980,12 @@ export default function AdminAppearance() {
                     }} />
                       </div>
                       <div>
-                        <Label>{t('common.description')}</Label>
-                        <Textarea placeholder={t('common.subscribetoournewsle')} value={tempPopupSettings?.description || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"description": ""}').description} onChange={e => {
+                        <Label>{t("Description", {
+                        defaultValue: "Description"
+                      })}</Label>
+                        <Textarea placeholder={t("Subscribetoournewsle", {
+                      defaultValue: "Subscribetoournewsle"
+                    })} value={tempPopupSettings?.description || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"description": ""}').description} onChange={e => {
                       setTempPopupSettings((prev: any) => ({
                         ...prev,
                         description: e.target.value
@@ -3244,8 +3994,12 @@ export default function AdminAppearance() {
                       </div>
                       <div className="grid grid-cols-2 gap-4">
                         <div>
-                          <Label>{t('common.buttontext')}</Label>
-                          <Input placeholder={t('common.subscribe')} value={tempPopupSettings?.button_text || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"button_text": "Subscribe"}').button_text} onChange={e => {
+                          <Label>{t("Buttontext", {
+                          defaultValue: "Buttontext"
+                        })}</Label>
+                          <Input placeholder={t("Subscribe", {
+                        defaultValue: "Subscribe"
+                      })} value={tempPopupSettings?.button_text || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"button_text": "Subscribe"}').button_text} onChange={e => {
                         setTempPopupSettings((prev: any) => ({
                           ...prev,
                           button_text: e.target.value
@@ -3253,7 +4007,9 @@ export default function AdminAppearance() {
                       }} />
                         </div>
                         <div>
-                          <Label>{t('common.delayseconds')}</Label>
+                          <Label>{t("Delayseconds", {
+                          defaultValue: "Delayseconds"
+                        })}</Label>
                           <Input type="number" placeholder="5" value={JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"delay": 5000}').delay / 1000} onChange={e => {
                         const current = JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"delay": 5000}');
                         updateSiteSetting('theme', 'popup_settings', JSON.stringify({
@@ -3266,14 +4022,18 @@ export default function AdminAppearance() {
                       
                       {/* Save Button */}
                       <div className="flex justify-end pt-4">
-                        <Button onClick={savePopupSettings} disabled={!tempPopupSettings} className="bg-secondary hover:bg-secondary/90">{t('common.ud83dudcbesauvegarde')}</Button>
+                        <Button onClick={savePopupSettings} disabled={!tempPopupSettings} className="bg-secondary hover:bg-secondary/90">{t("Ud83dudcbesauvegarde", {
+                        defaultValue: "Ud83dudcbesauvegarde"
+                      })}</Button>
                       </div>
                       
                       {/* Pop-up Preview */}
                       <div className="mt-6 pt-6 border-t border-gray-200">
                         <div className="flex items-center gap-2 mb-4">
                           <Bell className="w-4 h-4" />
-                          <h3 className="text-base font-semibold">{t('common.popuppreview')}</h3>
+                          <h3 className="text-base font-semibold">{t("Popuppreview", {
+                          defaultValue: "Popuppreview"
+                        })}</h3>
                         </div>
                         <div className="bg-gray-100 p-4 rounded-lg">
                           {JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"enabled": false}').enabled ? <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg p-6 border">
@@ -3289,10 +4049,14 @@ export default function AdminAppearance() {
                           }}>
                                   {JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"button_text": "Subscribe"}').button_text || "Subscribe"}
                                 </button>
-                                <p className="text-xs text-gray-400">{t('common.apparaxeetaprxe8s')}{JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"delay": 5000}').delay / 1000 || 5} secondes
+                                <p className="text-xs text-gray-400">{t("Apparaxeetaprxe8s", {
+                              defaultValue: "Apparaxeetaprxe8s"
+                            })}{JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"delay": 5000}').delay / 1000 || 5} secondes
                                 </p>
                               </div>
-                            </div> : <div className="text-center text-gray-500 py-8">{t('common.popupdxe9sactivxe9e')}</div>}
+                            </div> : <div className="text-center text-gray-500 py-8">{t("Popupdxe9sactivxe9e", {
+                          defaultValue: "Popupdxe9sactivxe9e"
+                        })}</div>}
                         </div>
                       </div>
                     </CardContent>
@@ -3308,15 +4072,21 @@ export default function AdminAppearance() {
               <Card className="lg:col-span-1">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                    <Layout className="w-4 h-4" />{t('common.pages')}</CardTitle>
-                  <CardDescription>{t('common.choisissezlapagexe0m')}</CardDescription>
+                    <Layout className="w-4 h-4" />{t("Pages", {
+                    defaultValue: "Pages"
+                  })}</CardTitle>
+                  <CardDescription>{t("Choisissezlapagexe0m", {
+                    defaultValue: "Choisissezlapagexe0m"
+                  })}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
                     {/* Menu Principal - Direct Access */}
                     <div className="space-y-2">
                       <Button variant={selectedPage === 'navigation-menu' ? 'default' : 'outline'} className="w-full justify-start text-sm h-8" onClick={() => setSelectedPage('navigation-menu')}>
-                        <Layout className="w-4 h-4 mr-2" />{t('common.menuprincipal')}</Button>
+                        <Layout className="w-4 h-4 mr-2" />{t("Menuprincipal", {
+                        defaultValue: "Menuprincipal"
+                      })}</Button>
                     </div>
                     
                     {/* Other Categories with Dropdowns */}
@@ -3345,7 +4115,9 @@ export default function AdminAppearance() {
                       
                       {/* Add New Page Button */}
                       <Button variant="outline" className="w-full justify-start text-sm h-8 border-dashed border-secondary/30 text-primary hover:bg-primary/10" onClick={() => setIsAddPageModalOpen(true)}>
-                        <Plus className="w-4 h-4 mr-2" />{t('common.ajouterunepage')}</Button>
+                        <Plus className="w-4 h-4 mr-2" />{t("Ajouterunepage", {
+                        defaultValue: "Ajouterunepage"
+                      })}</Button>
                     </div>
                     
                   </div>
@@ -3377,7 +4149,9 @@ export default function AdminAppearance() {
                         const pageUrl = selectedPage === 'home' ? '/' : `/${selectedPage}`;
                         window.open(pageUrl, '_blank');
                       }}>
-                            <Eye className="w-4 h-4 mr-2" />{t('common.voirlapage')}</Button>
+                            <Eye className="w-4 h-4 mr-2" />{t("Voirlapage", {
+                          defaultValue: "Voirlapage"
+                        })}</Button>
                           <Button onClick={() => {
                         // Rediriger directement vers l'édition de la page sélectionnée
                         if (selectedPage === 'home') {
@@ -3391,20 +4165,26 @@ export default function AdminAppearance() {
                           </Button>
                           {selectedPage !== 'home' && <AlertDialog>
                               <AlertDialogTrigger asChild>
-                                <Button className="bg-red-600 hover:bg-red-700 text-white px-3" title={t('common.supprimerlapage')}>
+                                <Button className="bg-red-600 hover:bg-red-700 text-white px-3" title={t("Supprimerlapage", {
+                            defaultValue: "Supprimerlapage"
+                          })}>
                                   <Trash className="w-4 h-4" />
                                 </Button>
                               </AlertDialogTrigger>
                               <AlertDialogContent>
                                 <AlertDialogHeader>
-                                  <AlertDialogTitle>{t('common.confirmerlasuppressi')}</AlertDialogTitle>
+                                  <AlertDialogTitle>{t("Confirmerlasuppressi", {
+                                defaultValue: "Confirmerlasuppressi"
+                              })}</AlertDialogTitle>
                                   <AlertDialogDescription>
                                     Êtes-vous sûr de vouloir supprimer la page "{pageConfigs.find(p => p.pageSlug === selectedPage)?.pageName || selectedPage}{t('" ? Cette action est irr\xE9versible et supprimera \xE9galement tous les contenus associ\xE9s.', {
                                 defaultValue: '" ? Cette action est irr\xE9versible et supprimera \xE9galement tous les contenus associ\xE9s.'
                               })}</AlertDialogDescription>
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
-                                  <AlertDialogCancel>{t('common.annuler')}</AlertDialogCancel>
+                                  <AlertDialogCancel>{t("Annuler", {
+                                defaultValue: "Annuler"
+                              })}</AlertDialogCancel>
                                   <AlertDialogAction onClick={async () => {
                               const page = pageConfigs.find(p => p.pageSlug === selectedPage);
                               if (!page) return;
@@ -3418,8 +4198,12 @@ export default function AdminAppearance() {
                                   throw new Error(error.message || 'Erreur lors de la suppression');
                                 }
                                 toast({
-                                  title: t('common.pagesupprimxe9e'),
-                                  description: t('common.lapageaxe9txe9suppri')
+                                  title: t("Pagesupprimxe9e", {
+                                    defaultValue: "Pagesupprimxe9e"
+                                  }),
+                                  description: t("Lapageaxe9txe9suppri", {
+                                    defaultValue: "Lapageaxe9txe9suppri"
+                                  })
                                 });
 
                                 // Rafraîchir la page
@@ -3427,12 +4211,18 @@ export default function AdminAppearance() {
                               } catch (error) {
                                 console.error('Error deleting page:', error);
                                 toast({
-                                  title: t('common.erreur'),
-                                  description: t('common.impossibledesupprime'),
+                                  title: t("Erreur", {
+                                    defaultValue: "Erreur"
+                                  }),
+                                  description: t("Impossibledesupprime", {
+                                    defaultValue: "Impossibledesupprime"
+                                  }),
                                   variant: "destructive"
                                 });
                               }
-                            }} className="bg-red-600 hover:bg-red-700">{t('common.supprimer')}</AlertDialogAction>
+                            }} className="bg-red-600 hover:bg-red-700">{t("Supprimer", {
+                                defaultValue: "Supprimer"
+                              })}</AlertDialogAction>
                                 </AlertDialogFooter>
                               </AlertDialogContent>
                             </AlertDialog>}
@@ -3444,53 +4234,77 @@ export default function AdminAppearance() {
                   <Dialog open={isEditingBlock} onOpenChange={setIsEditingBlock}>
                     <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
                       <DialogHeader>
-                        <DialogTitle>{t('common.editblock')}{selectedBlock?.blockType}</DialogTitle>
-                        <DialogDescription>{t('common.modifythecontentands')}</DialogDescription>
+                        <DialogTitle>{t("Editblock", {
+                          defaultValue: "Editblock"
+                        })}{selectedBlock?.blockType}</DialogTitle>
+                        <DialogDescription>{t("Modifythecontentands", {
+                          defaultValue: "Modifythecontentands"
+                        })}</DialogDescription>
                       </DialogHeader>
                       {selectedBlock && <div className="space-y-4">
                           <div className="grid grid-cols-2 gap-4">
                             <div>
-                              <Label htmlFor="block-title">{t('common.title')}</Label>
+                              <Label htmlFor="block-title">{t("Title", {
+                              defaultValue: "Title"
+                            })}</Label>
                               <Input id="block-title" value={selectedBlock.title || ''} onChange={e => setSelectedBlock({
                             ...selectedBlock,
                             title: e.target.value
-                          })} placeholder={t('common.blocktitle')} />
+                          })} placeholder={t("Blocktitle", {
+                            defaultValue: "Blocktitle"
+                          })} />
                             </div>
                             <div>
-                              <Label htmlFor="block-subtitle">{t('common.subtitle')}</Label>
+                              <Label htmlFor="block-subtitle">{t("Subtitle", {
+                              defaultValue: "Subtitle"
+                            })}</Label>
                               <Input id="block-subtitle" value={selectedBlock.subtitle || ''} onChange={e => setSelectedBlock({
                             ...selectedBlock,
                             subtitle: e.target.value
-                          })} placeholder={t('common.blocksubtitle')} />
+                          })} placeholder={t("Blocksubtitle", {
+                            defaultValue: "Blocksubtitle"
+                          })} />
                             </div>
                           </div>
                           
                           <div>
-                            <Label htmlFor="block-description">{t('common.description')}</Label>
+                            <Label htmlFor="block-description">{t("Description", {
+                            defaultValue: "Description"
+                          })}</Label>
                             <Textarea id="block-description" value={selectedBlock.description || ''} onChange={e => setSelectedBlock({
                           ...selectedBlock,
                           description: e.target.value
-                        })} placeholder={t('common.blockdescription')} rows={3} />
+                        })} placeholder={t("Blockdescription", {
+                          defaultValue: "Blockdescription"
+                        })} rows={3} />
                           </div>
                           
                           <div>
-                            <Label htmlFor="block-content">{t('common.content')}</Label>
+                            <Label htmlFor="block-content">{t("Content", {
+                            defaultValue: "Content"
+                          })}</Label>
                             <Textarea id="block-content" value={selectedBlock.content || ''} onChange={e => setSelectedBlock({
                           ...selectedBlock,
                           content: e.target.value
-                        })} placeholder={t('common.blockcontent')} rows={4} />
+                        })} placeholder={t("Blockcontent", {
+                          defaultValue: "Blockcontent"
+                        })} rows={4} />
                           </div>
                           
                           <div className="grid grid-cols-2 gap-4">
                             <div>
-                              <Label htmlFor="block-image">{t('common.imageurl')}</Label>
+                              <Label htmlFor="block-image">{t("Imageurl", {
+                              defaultValue: "Imageurl"
+                            })}</Label>
                               <Input id="block-image" value={selectedBlock.imageUrl || ''} onChange={e => setSelectedBlock({
                             ...selectedBlock,
                             imageUrl: e.target.value
                           })} placeholder="https://example.com/image.jpg" />
                             </div>
                             <div>
-                              <Label htmlFor="block-bg">{t('common.couleurdefond')}</Label>
+                              <Label htmlFor="block-bg">{t("Couleurdefond", {
+                              defaultValue: "Couleurdefond"
+                            })}</Label>
                               <Input id="block-bg" type="color" value={selectedBlock.backgroundColor || '#ffffff'} onChange={e => setSelectedBlock({
                             ...selectedBlock,
                             backgroundColor: e.target.value
@@ -3500,14 +4314,20 @@ export default function AdminAppearance() {
                           
                           {(selectedBlock.blockType.includes('cta') || selectedBlock.blockType.includes('hero')) && <div className="grid grid-cols-2 gap-4">
                               <div>
-                                <Label htmlFor="block-cta-text">{t('common.buttontext')}</Label>
+                                <Label htmlFor="block-cta-text">{t("Buttontext", {
+                              defaultValue: "Buttontext"
+                            })}</Label>
                                 <Input id="block-cta-text" value={selectedBlock.ctaText || ''} onChange={e => setSelectedBlock({
                             ...selectedBlock,
                             ctaText: e.target.value
-                          })} placeholder={t('common.calltoactiontext')} />
+                          })} placeholder={t("Calltoactiontext", {
+                            defaultValue: "Calltoactiontext"
+                          })} />
                               </div>
                               <div>
-                                <Label htmlFor="block-cta-url">{t('common.buttonurl')}</Label>
+                                <Label htmlFor="block-cta-url">{t("Buttonurl", {
+                              defaultValue: "Buttonurl"
+                            })}</Label>
                                 <Input id="block-cta-url" value={selectedBlock.ctaUrl || ''} onChange={e => setSelectedBlock({
                             ...selectedBlock,
                             ctaUrl: e.target.value
@@ -3520,17 +4340,23 @@ export default function AdminAppearance() {
                           ...selectedBlock,
                           isActive: checked
                         })} />
-                            <Label htmlFor="block-active">{t('common.blockisactive')}</Label>
+                            <Label htmlFor="block-active">{t("Blockisactive", {
+                            defaultValue: "Blockisactive"
+                          })}</Label>
                           </div>
                           
                           <div className="flex justify-between pt-4">
-                            <Button variant="outline" onClick={() => setIsEditingBlock(false)}>{t('common.cancel')}</Button>
+                            <Button variant="outline" onClick={() => setIsEditingBlock(false)}>{t("Cancel", {
+                            defaultValue: "Cancel"
+                          })}</Button>
                             <div className="flex space-x-2">
                               <Button variant="secondary" onClick={() => {
                             const pageUrl = selectedPage === 'home' ? '/' : `/${selectedPage}`;
                             window.open(`${pageUrl}?preview=true`, '_blank');
                           }}>
-                                <Eye className="w-4 h-4 mr-2" />{t('common.previewpage')}</Button>
+                                <Eye className="w-4 h-4 mr-2" />{t("Previewpage", {
+                              defaultValue: "Previewpage"
+                            })}</Button>
                               <Button onClick={() => {
                             if (selectedBlock) {
                               updateBlockMutation.mutate({
@@ -3559,7 +4385,9 @@ export default function AdminAppearance() {
                   <CardContent>
                     {selectedPage === 'navigation-menu' ? <NavigationMenuManager pageConfigs={pageConfigs} navigationMenuItems={[]} /> : loadingBlocks ? <div className="text-center py-12">
                         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-secondary mx-auto mb-4"></div>
-                        <p className="text-gray-500">{t('common.loadingblocks')}</p>
+                        <p className="text-gray-500">{t("Loadingblocks", {
+                        defaultValue: "Loadingblocks"
+                      })}</p>
                       </div> : <PageManagementInterface selectedPage={selectedPage} pageBlocks={pageBlocks} pageConfigs={pageConfigs} updatePageConfigMutation={updatePageConfigMutation} />}
                   </CardContent>
                 </Card>
@@ -3575,30 +4403,44 @@ export default function AdminAppearance() {
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                      <Settings className="w-4 h-4" />{t('common.pieddepage')}</CardTitle>
-                    <CardDescription>{t('common.gxe9rerlecontenudupi')}</CardDescription>
+                      <Settings className="w-4 h-4" />{t("Pieddepage", {
+                      defaultValue: "Pieddepage"
+                    })}</CardTitle>
+                    <CardDescription>{t("Gxe9rerlecontenudupi", {
+                      defaultValue: "Gxe9rerlecontenudupi"
+                    })}</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-2">
                       {[{
                       id: 'contact-info',
-                      label: t('common.informationsdecontac'),
+                      label: t("Informationsdecontac", {
+                        defaultValue: "Informationsdecontac"
+                      }),
                       icon: MapPin
                     }, {
                       id: 'useful-links',
-                      label: t('common.liensutiles'),
+                      label: t("Liensutiles", {
+                        defaultValue: "Liensutiles"
+                      }),
                       icon: Menu
                     }, {
                       id: 'social-media',
-                      label: t('common.rxe9seauxsociaux'),
+                      label: t("Rxe9seauxsociaux", {
+                        defaultValue: "Rxe9seauxsociaux"
+                      }),
                       icon: Users
                     }, {
                       id: 'newsletter',
-                      label: t('common.newsletter'),
+                      label: t("Newsletter", {
+                        defaultValue: "Newsletter"
+                      }),
                       icon: Mail
                     }, {
                       id: 'copyright',
-                      label: t('common.copyright'),
+                      label: t("Copyright", {
+                        defaultValue: "Copyright"
+                      }),
                       icon: FileText
                     }].map(({
                       id,
@@ -3700,7 +4542,9 @@ function NavigationMenuManager({
     // Static pages that should always be available
     const staticPages = [{
       slug: 'brochure',
-      name: t('common.ourbrochure'),
+      name: t("Ourbrochure", {
+        defaultValue: "Ourbrochure"
+      }),
       id: 999
     }, {
       slug: 'krabi-celebration',
@@ -3708,7 +4552,9 @@ function NavigationMenuManager({
       id: 998
     }, {
       slug: 'fun-garden',
-      name: t('common.fungarden'),
+      name: t("Fungarden", {
+        defaultValue: "Fungarden"
+      }),
       id: 997
     }, {
       slug: 'villas-krabi',
@@ -3835,14 +4681,22 @@ function NavigationMenuManager({
       setIsDialogOpen(false);
       setEditingItem(null);
       toast({
-        title: t('common.success'),
-        description: t('common.menuitemcreatedsucce')
+        title: t("Success", {
+          defaultValue: "Success"
+        }),
+        description: t("Menuitemcreatedsucce", {
+          defaultValue: "Menuitemcreatedsucce"
+        })
       });
     },
     onError: () => {
       toast({
-        title: t('common.error'),
-        description: t('common.failedtocreatemenuit'),
+        title: t("Error", {
+          defaultValue: "Error"
+        }),
+        description: t("Failedtocreatemenuit", {
+          defaultValue: "Failedtocreatemenuit"
+        }),
         variant: "destructive"
       });
     }
@@ -3875,14 +4729,22 @@ function NavigationMenuManager({
       setIsDialogOpen(false);
       setEditingItem(null);
       toast({
-        title: t('common.success'),
-        description: t('common.menuitemupdatedsucce')
+        title: t("Success", {
+          defaultValue: "Success"
+        }),
+        description: t("Menuitemupdatedsucce", {
+          defaultValue: "Menuitemupdatedsucce"
+        })
       });
     },
     onError: () => {
       toast({
-        title: t('common.error'),
-        description: t('common.failedtoupdatemenuit'),
+        title: t("Error", {
+          defaultValue: "Error"
+        }),
+        description: t("Failedtoupdatemenuit", {
+          defaultValue: "Failedtoupdatemenuit"
+        }),
         variant: "destructive"
       });
     }
@@ -3903,14 +4765,22 @@ function NavigationMenuManager({
         queryKey: ['/api/admin/navigation-menu']
       });
       toast({
-        title: t('common.success'),
-        description: t('common.menuitemdeletedsucce')
+        title: t("Success", {
+          defaultValue: "Success"
+        }),
+        description: t("Menuitemdeletedsucce", {
+          defaultValue: "Menuitemdeletedsucce"
+        })
       });
     },
     onError: () => {
       toast({
-        title: t('common.error'),
-        description: t('common.failedtodeletemenuit'),
+        title: t("Error", {
+          defaultValue: "Error"
+        }),
+        description: t("Failedtodeletemenuit", {
+          defaultValue: "Failedtodeletemenuit"
+        }),
         variant: "destructive"
       });
     }
@@ -3945,8 +4815,12 @@ function NavigationMenuManager({
     },
     onError: () => {
       toast({
-        title: t('common.error'),
-        description: t('common.failedtoreordermenui'),
+        title: t("Error", {
+          defaultValue: "Error"
+        }),
+        description: t("Failedtoreordermenui", {
+          defaultValue: "Failedtoreordermenui"
+        }),
         variant: "destructive"
       });
     }
@@ -4010,7 +4884,9 @@ function NavigationMenuManager({
       queryKey: ['/api/admin/navigation-menu']
     });
     toast({
-      title: t('common.succxe8s'),
+      title: t("Succxe8s", {
+        defaultValue: "Succxe8s"
+      }),
       description: "Éléments de menu corrigés en anglais"
     });
   };
@@ -4044,18 +4920,26 @@ function NavigationMenuManager({
           // Save functionality would go here
           setHasUnsavedChanges(false);
           toast({
-            title: t('common.succxe8s'),
-            description: t('common.modificationssauvega')
+            title: t("Succxe8s", {
+              defaultValue: "Succxe8s"
+            }),
+            description: t("Modificationssauvega", {
+              defaultValue: "Modificationssauvega"
+            })
           });
         }} className="flex items-center gap-2">
-              <Download className="w-4 h-4" />{t('common.sauvegarderlesmodifi')}</Button>}
+              <Download className="w-4 h-4" />{t("Sauvegarderlesmodifi", {
+            defaultValue: "Sauvegarderlesmodifi"
+          })}</Button>}
         </div>
         
         <Button type="button" onClick={() => {
         setEditingItem(null);
         setIsDialogOpen(true);
       }} className="flex items-center gap-2">
-          <Plus className="w-4 h-4" />{t('common.ajouterxe9lxe9ment')}</Button>
+          <Plus className="w-4 h-4" />{t("Ajouterxe9lxe9ment", {
+          defaultValue: "Ajouterxe9lxe9ment"
+        })}</Button>
       </div>
 
       {/* Menu Items List */}
@@ -4066,7 +4950,9 @@ function NavigationMenuManager({
         </h3>
         {isLoading ? <div className="text-center py-8">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-secondary mx-auto mb-4"></div>
-            <p className="text-gray-500">{t('common.chargement')}</p>
+            <p className="text-gray-500">{t("Chargement", {
+            defaultValue: "Chargement"
+          })}</p>
           </div> : organizedItems.length === 0 ? <div className="text-center py-8 text-gray-500">{t('Aucun \xE9l\xE9ment de menu. Cliquez sur "Ajouter \xE9l\xE9ment" pour commencer.', {
           defaultValue: 'Aucun \xE9l\xE9ment de menu. Cliquez sur "Ajouter \xE9l\xE9ment" pour commencer.'
         })}</div> : <div className="space-y-2">
@@ -4131,7 +5017,9 @@ function MenuItemRow({
           <div className="flex items-center gap-2">
             {item.iconName && <Globe className="w-4 h-4 text-gray-500" />}
             <span className="font-medium">{item.name}</span>
-            {item.target === '_blank' && <Badge variant="outline">{t('common.nouvelonglet')}</Badge>}
+            {item.target === '_blank' && <Badge variant="outline">{t("Nouvelonglet", {
+              defaultValue: "Nouvelonglet"
+            })}</Badge>}
           </div>
           {item.description && <div className="text-xs text-gray-400">{item.description}</div>}
         </div>
@@ -4158,8 +5046,12 @@ function MenuItemRow({
                 })}</AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel>{t('common.annuler')}</AlertDialogCancel>
-                <AlertDialogAction onClick={() => onDelete(item.id)}>{t('common.supprimer')}</AlertDialogAction>
+                <AlertDialogCancel>{t("Annuler", {
+                  defaultValue: "Annuler"
+                })}</AlertDialogCancel>
+                <AlertDialogAction onClick={() => onDelete(item.id)}>{t("Supprimer", {
+                  defaultValue: "Supprimer"
+                })}</AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
@@ -4201,14 +5093,20 @@ function MenuItemRow({
                   </AlertDialogTrigger>
                   <AlertDialogContent>
                     <AlertDialogHeader>
-                      <AlertDialogTitle>{t('common.supprimerlesousxe9lx')}</AlertDialogTitle>
+                      <AlertDialogTitle>{t("Supprimerlesousxe9lx", {
+                    defaultValue: "Supprimerlesousxe9lx"
+                  })}</AlertDialogTitle>
                       <AlertDialogDescription>
                         Êtes-vous sûr de vouloir supprimer "{child.name}" ?
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                      <AlertDialogCancel>{t('common.annuler')}</AlertDialogCancel>
-                      <AlertDialogAction onClick={() => onDelete(child.id)}>{t('common.supprimer')}</AlertDialogAction>
+                      <AlertDialogCancel>{t("Annuler", {
+                    defaultValue: "Annuler"
+                  })}</AlertDialogCancel>
+                      <AlertDialogAction onClick={() => onDelete(child.id)}>{t("Supprimer", {
+                    defaultValue: "Supprimer"
+                  })}</AlertDialogAction>
                     </AlertDialogFooter>
                   </AlertDialogContent>
                 </AlertDialog>
@@ -4283,23 +5181,31 @@ function MenuItemDialog({
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Name */}
           <div className="space-y-2">
-            <Label htmlFor="name">{t('common.nomdumenu')}</Label>
+            <Label htmlFor="name">{t("Nomdumenu", {
+              defaultValue: "Nomdumenu"
+            })}</Label>
             <Input id="name" name="name" value={formData.name} onChange={e => setFormData(prev => ({
             ...prev,
             name: e.target.value
-          }))} placeholder={t('common.exaccueilexpxe9rienc')} required />
+          }))} placeholder={t("Exaccueilexpxe9rienc", {
+            defaultValue: "Exaccueilexpxe9rienc"
+          })} required />
           </div>
 
           {/* URL with Page Selector */}
           <div className="space-y-2">
-            <Label htmlFor="url">{t('common.lienurl')}</Label>
+            <Label htmlFor="url">{t("Lienurl", {
+              defaultValue: "Lienurl"
+            })}</Label>
             <div className="flex gap-2">
               <Select value={formData.url} onValueChange={value => setFormData(prev => ({
               ...prev,
               url: value
             }))}>
                 <SelectTrigger className="w-40">
-                  <SelectValue placeholder={t('common.choisirpage')} />
+                  <SelectValue placeholder={t("Choisirpage", {
+                  defaultValue: "Choisirpage"
+                })} />
                 </SelectTrigger>
                 <SelectContent>
                   {pageConfigs && Array.isArray(pageConfigs) ? pageConfigs.map(page => <SelectItem key={page.id} value={`/${page.pageSlug}`}>
@@ -4310,23 +5216,31 @@ function MenuItemDialog({
               <Input id="url" name="url" value={formData.url} onChange={e => setFormData(prev => ({
               ...prev,
               url: e.target.value
-            }))} placeholder={t('common.ousaisirurlpersonnal')} className="flex-1" required />
+            }))} placeholder={t("Ousaisirurlpersonnal", {
+              defaultValue: "Ousaisirurlpersonnal"
+            })} className="flex-1" required />
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Parent Menu */}
             <div className="space-y-2">
-              <Label htmlFor="parentId">{t('common.menuparentoptionnel')}</Label>
+              <Label htmlFor="parentId">{t("Menuparentoptionnel", {
+                defaultValue: "Menuparentoptionnel"
+              })}</Label>
               <Select name="parentId" value={formData.parentId} onValueChange={value => setFormData(prev => ({
               ...prev,
               parentId: value
             }))}>
                 <SelectTrigger>
-                  <SelectValue placeholder={t('common.sxe9lectionnerunmenu')} />
+                  <SelectValue placeholder={t("Sxe9lectionnerunmenu", {
+                  defaultValue: "Sxe9lectionnerunmenu"
+                })} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="none">{t('common.aucunmenuprincipal')}</SelectItem>
+                  <SelectItem value="none">{t("Aucunmenuprincipal", {
+                    defaultValue: "Aucunmenuprincipal"
+                  })}</SelectItem>
                   {parentItems.map(parent => <SelectItem key={parent.id} value={parent.id.toString()}>
                       {parent.name}
                     </SelectItem>)}
@@ -4336,7 +5250,9 @@ function MenuItemDialog({
 
             {/* Target */}
             <div className="space-y-2">
-              <Label htmlFor="target">{t('common.ouvrirdans')}</Label>
+              <Label htmlFor="target">{t("Ouvrirdans", {
+                defaultValue: "Ouvrirdans"
+              })}</Label>
               <Select name="target" value={formData.target} onValueChange={value => setFormData(prev => ({
               ...prev,
               target: value
@@ -4345,8 +5261,12 @@ function MenuItemDialog({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="_self">{t('common.mxeameonglet')}</SelectItem>
-                  <SelectItem value="_blank">{t('common.nouvelonglet')}</SelectItem>
+                  <SelectItem value="_self">{t("Mxeameonglet", {
+                    defaultValue: "Mxeameonglet"
+                  })}</SelectItem>
+                  <SelectItem value="_blank">{t("Nouvelonglet", {
+                    defaultValue: "Nouvelonglet"
+                  })}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -4362,7 +5282,9 @@ function MenuItemDialog({
           </div>
 
           <div className="flex justify-end gap-2">
-            <Button type="button" variant="outline" onClick={onClose}>{t('common.annuler')}</Button>
+            <Button type="button" variant="outline" onClick={onClose}>{t("Annuler", {
+              defaultValue: "Annuler"
+            })}</Button>
             <Button type="submit" disabled={isLoading}>
               {isLoading ? 'Enregistrement...' : 'Enregistrer'}
             </Button>
@@ -4418,14 +5340,22 @@ function RealBlocksEditor({
         queryKey: ['/api/admin/page-blocks', pageSlug]
       });
       toast({
-        title: t('common.blocsauvegardxe9'),
-        description: t('common.lesmodificationsontx')
+        title: t("Blocsauvegardxe9", {
+          defaultValue: "Blocsauvegardxe9"
+        }),
+        description: t("Lesmodificationsontx", {
+          defaultValue: "Lesmodificationsontx"
+        })
       });
     },
     onError: () => {
       toast({
-        title: t('common.erreur'),
-        description: t('common.impossibledesauvegar'),
+        title: t("Erreur", {
+          defaultValue: "Erreur"
+        }),
+        description: t("Impossibledesauvegar", {
+          defaultValue: "Impossibledesauvegar"
+        }),
         variant: "destructive"
       });
     }
@@ -4443,8 +5373,12 @@ function RealBlocksEditor({
         queryKey: ['/api/admin/page-blocks', pageSlug]
       });
       toast({
-        title: t('common.blocsupprimxe9'),
-        description: t('common.leblocaxe9txe9suppri')
+        title: t("Blocsupprimxe9", {
+          defaultValue: "Blocsupprimxe9"
+        }),
+        description: t("Leblocaxe9txe9suppri", {
+          defaultValue: "Leblocaxe9txe9suppri"
+        })
       });
     }
   });
@@ -4519,12 +5453,16 @@ function RealBlocksEditor({
   if (!pageBlocks.length) {
     return <div className="text-center py-12">
         <Layout className="w-12 h-12 mx-auto mb-4 text-gray-400" />
-        <h3 className="text-lg font-medium text-gray-900 mb-2">{t('common.aucunbloctrouvxe9')}</h3>
+        <h3 className="text-lg font-medium text-gray-900 mb-2">{t("Aucunbloctrouvxe9", {
+          defaultValue: "Aucunbloctrouvxe9"
+        })}</h3>
         <p className="text-gray-500 mb-4">{t('Cette page n\'a pas encore de blocs de contenu.', {
           defaultValue: 'Cette page n\'a pas encore de blocs de contenu.'
         })}</p>
         <Button>
-          <Plus className="w-4 h-4 mr-2" />{t('common.ajouterunbloc')}</Button>
+          <Plus className="w-4 h-4 mr-2" />{t("Ajouterunbloc", {
+          defaultValue: "Ajouterunbloc"
+        })}</Button>
       </div>;
   }
   return <div className="space-y-4">
@@ -4536,35 +5474,51 @@ function RealBlocksEditor({
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Palette className="w-5 h-5" />{t('common.xc9ditionherosection')}</CardTitle>
-                  <CardDescription>{t('common.modifierlecontenudel')}</CardDescription>
+                    <Palette className="w-5 h-5" />{t("Xc9ditionherosection", {
+                defaultValue: "Xc9ditionherosection"
+              })}</CardTitle>
+                  <CardDescription>{t("Modifierlecontenudel", {
+                defaultValue: "Modifierlecontenudel"
+              })}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-2 gap-6">
                     {/* Formulaire d'édition */}
                     <div className="space-y-4">
                       <div>
-                        <Label htmlFor="hero-title">{t('common.titreprincipal')}</Label>
+                        <Label htmlFor="hero-title">{t("Titreprincipal", {
+                      defaultValue: "Titreprincipal"
+                    })}</Label>
                         <Textarea id="hero-title" value={heroEditData.title} onChange={e => setHeroEditData(prev => ({
                     ...prev,
                     title: e.target.value
-                  }))} placeholder={t('common.titredelasectionhero')} rows={2} />
+                  }))} placeholder={t("Titredelasectionhero", {
+                    defaultValue: "Titredelasectionhero"
+                  })} rows={2} />
                       </div>
 
                       <div>
-                        <Label htmlFor="hero-colored-part">{t('common.partiedutitrexe0colo')}</Label>
+                        <Label htmlFor="hero-colored-part">{t("Partiedutitrexe0colo", {
+                      defaultValue: "Partiedutitrexe0colo"
+                    })}</Label>
                         <Input id="hero-colored-part" value={heroEditData.titleColorPart} onChange={e => setHeroEditData(prev => ({
                     ...prev,
                     titleColorPart: e.target.value
-                  }))} placeholder={t('common.partiedutitreencoule')} />
+                  }))} placeholder={t("Partiedutitreencoule", {
+                    defaultValue: "Partiedutitreencoule"
+                  })} />
                       </div>
 
                       <div>
-                        <Label htmlFor="hero-description">{t('common.description')}</Label>
+                        <Label htmlFor="hero-description">{t("Description", {
+                      defaultValue: "Description"
+                    })}</Label>
                         <Textarea id="hero-description" value={heroEditData.description} onChange={e => setHeroEditData(prev => ({
                     ...prev,
                     description: e.target.value
-                  }))} placeholder={t('common.descriptiondelasecti')} rows={3} />
+                  }))} placeholder={t("Descriptiondelasecti", {
+                    defaultValue: "Descriptiondelasecti"
+                  })} rows={3} />
                       </div>
 
                       <div>
@@ -4578,7 +5532,9 @@ function RealBlocksEditor({
                       </div>
 
                       <div>
-                        <Label htmlFor="hero-video">{t('common.urldelavidxe9odefond')}</Label>
+                        <Label htmlFor="hero-video">{t("Urldelavidxe9odefond", {
+                      defaultValue: "Urldelavidxe9odefond"
+                    })}</Label>
                         <Input id="hero-video" type="url" value={heroEditData.videoUrl} onChange={e => setHeroEditData(prev => ({
                     ...prev,
                     videoUrl: e.target.value
@@ -4587,14 +5543,20 @@ function RealBlocksEditor({
 
                       <div className="grid grid-cols-2 gap-4">
                         <div>
-                          <Label htmlFor="hero-button1-text">{t('common.bouton1texte')}</Label>
+                          <Label htmlFor="hero-button1-text">{t("Bouton1texte", {
+                        defaultValue: "Bouton1texte"
+                      })}</Label>
                           <Input id="hero-button1-text" value={heroEditData.button1Text} onChange={e => setHeroEditData(prev => ({
                       ...prev,
                       button1Text: e.target.value
-                    }))} placeholder={t('common.textedupremierbouton')} />
+                    }))} placeholder={t("Textedupremierbouton", {
+                      defaultValue: "Textedupremierbouton"
+                    })} />
                         </div>
                         <div>
-                          <Label htmlFor="hero-button1-url">{t('common.bouton1lien')}</Label>
+                          <Label htmlFor="hero-button1-url">{t("Bouton1lien", {
+                        defaultValue: "Bouton1lien"
+                      })}</Label>
                           <Input id="hero-button1-url" value={heroEditData.button1Url} onChange={e => setHeroEditData(prev => ({
                       ...prev,
                       button1Url: e.target.value
@@ -4604,14 +5566,20 @@ function RealBlocksEditor({
 
                       <div className="grid grid-cols-2 gap-4">
                         <div>
-                          <Label htmlFor="hero-button2-text">{t('common.bouton2texte')}</Label>
+                          <Label htmlFor="hero-button2-text">{t("Bouton2texte", {
+                        defaultValue: "Bouton2texte"
+                      })}</Label>
                           <Input id="hero-button2-text" value={heroEditData.button2Text} onChange={e => setHeroEditData(prev => ({
                       ...prev,
                       button2Text: e.target.value
-                    }))} placeholder={t('common.textedudeuxixe8mebou')} />
+                    }))} placeholder={t("Textedudeuxixe8mebou", {
+                      defaultValue: "Textedudeuxixe8mebou"
+                    })} />
                         </div>
                         <div>
-                          <Label htmlFor="hero-button2-url">{t('common.bouton2lien')}</Label>
+                          <Label htmlFor="hero-button2-url">{t("Bouton2lien", {
+                        defaultValue: "Bouton2lien"
+                      })}</Label>
                           <Input id="hero-button2-url" value={heroEditData.button2Url} onChange={e => setHeroEditData(prev => ({
                       ...prev,
                       button2Url: e.target.value
@@ -4622,7 +5590,9 @@ function RealBlocksEditor({
 
                     {/* Prévisualisation en temps réel */}
                     <div>
-                      <Label>{t('common.prxe9visualisationen')}</Label>
+                      <Label>{t("Prxe9visualisationen", {
+                    defaultValue: "Prxe9visualisationen"
+                  })}</Label>
                       <div className="border rounded-lg p-4 bg-gray-50 overflow-hidden">
                         <div className="relative min-h-[300px] flex items-center justify-center text-white" style={{
                     backgroundImage: heroEditData.imageUrl ? `url(${heroEditData.imageUrl})` : 'linear-gradient(135deg, #084F6E 0%, #0066cc 100%)',
@@ -4664,8 +5634,12 @@ function RealBlocksEditor({
 
                   {/* Actions du formulaire */}
                   <div className="flex justify-end gap-4 mt-6 pt-4 border-t">
-                    <Button variant="outline" onClick={() => setEditingHeroBlockId(null)}>{t('common.annuler')}</Button>
-                    <Button onClick={saveHeroChanges} className="bg-primary hover:bg-primary/90">{t('common.sauvegarderlesmodifi')}</Button>
+                    <Button variant="outline" onClick={() => setEditingHeroBlockId(null)}>{t("Annuler", {
+                  defaultValue: "Annuler"
+                })}</Button>
+                    <Button onClick={saveHeroChanges} className="bg-primary hover:bg-primary/90">{t("Sauvegarderlesmodifi", {
+                  defaultValue: "Sauvegarderlesmodifi"
+                })}</Button>
                   </div>
                 </CardContent>
               </Card>
@@ -4675,8 +5649,12 @@ function RealBlocksEditor({
       {/* Bouton pour ajouter un nouveau bloc */}
       <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-secondary/40 hover:bg-primary/10 transition-colors">
         <Plus className="w-8 h-8 mx-auto mb-2 text-gray-400" />
-        <p className="text-gray-600 font-medium">{t('common.ajouterunnouveaubloc')}</p>
-        <p className="text-sm text-gray-500">{t('common.lesboutonsdecrxe9ati')}</p>
+        <p className="text-gray-600 font-medium">{t("Ajouterunnouveaubloc", {
+          defaultValue: "Ajouterunnouveaubloc"
+        })}</p>
+        <p className="text-sm text-gray-500">{t("Lesboutonsdecrxe9ati", {
+          defaultValue: "Lesboutonsdecrxe9ati"
+        })}</p>
       </div>
     </div>;
 }

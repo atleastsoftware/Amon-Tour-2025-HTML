@@ -18,16 +18,21 @@ const languages: Language[] = [{
   flagUrl: "https://flagcdn.com/w40/gb.png"
 }, {
   code: "fr",
-  name: t('common.franxe7ais'),
+  name: t("Franxe7ais", {
+    defaultValue: "Franxe7ais"
+  }),
   flagUrl: "https://flagcdn.com/w40/fr.png"
 }, {
   code: "es",
-  name: t('common.espaxf1ol'),
+  name: t("Espaxf1ol", {
+    defaultValue: "Espaxf1ol"
+  }),
   flagUrl: "https://flagcdn.com/w40/es.png"
 }];
 export default function GoogleTranslateWidget() {
-  const { t } = useTranslation();
-
+  const {
+    t
+  } = useTranslation();
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState<string>("en");
   const widgetRef = useRef<HTMLDivElement>(null);

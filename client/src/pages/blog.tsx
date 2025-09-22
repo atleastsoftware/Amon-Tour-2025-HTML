@@ -43,8 +43,9 @@ interface BlogTag {
   slug: string;
 }
 export default function BlogPage() {
-  const { t } = useTranslation();
-
+  const {
+    t
+  } = useTranslation();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedTag, setSelectedTag] = useState("");
@@ -85,7 +86,9 @@ export default function BlogPage() {
       <Header />
       <div>
         {/* Hero Section */}
-        <HeroHeader title={t('blog.title')} subtitle={t('blog.subtitle')} alt={t('common.travelblogaboutkrabi')} />
+        <HeroHeader title={t('blog.title')} subtitle={t('blog.subtitle')} alt={t("Travelblogaboutkrabi", {
+        defaultValue: "Travelblogaboutkrabi"
+      })} />
 
         {/* Filters Section */}
         <section className="py-8 bg-white border-b">
@@ -182,13 +185,19 @@ export default function BlogPage() {
                         </div>}
 
                       <Link href={`/blog/${post.slug}`}>
-                        <Button className="w-full">{t('common.readmore')}</Button>
+                        <Button className="w-full">{t("Readmore", {
+                      defaultValue: "Readmore"
+                    })}</Button>
                       </Link>
                     </CardContent>
                   </Card>)}
               </div> : <div className="text-center py-12">
-                <h3 className="text-2xl font-bold text-gray-800 mb-4">{t('common.noarticlesfound')}</h3>
-                <p className="text-gray-600 mb-6">{t('common.tryadjustingyoursear')}</p>
+                <h3 className="text-2xl font-bold text-gray-800 mb-4">{t("Noarticlesfound", {
+                defaultValue: "Noarticlesfound"
+              })}</h3>
+                <p className="text-gray-600 mb-6">{t("Tryadjustingyoursear", {
+                defaultValue: "Tryadjustingyoursear"
+              })}</p>
                 <Button onClick={() => {
               setSearchTerm("");
               setSelectedCategory("");

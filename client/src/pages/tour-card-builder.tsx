@@ -25,8 +25,9 @@ interface TourCardData {
   tags?: string[];
 }
 export default function TourCardBuilder() {
-  const { t } = useTranslation();
-
+  const {
+    t
+  } = useTranslation();
   const {
     isAuthenticated,
     isLoading: authLoading
@@ -58,14 +59,22 @@ export default function TourCardBuilder() {
         queryKey: ['/api/tour-cards']
       });
       toast({
-        title: t('common.succxe8s'),
-        description: t('common.laficheaxe9txe9suppr')
+        title: t("Succxe8s", {
+          defaultValue: "Succxe8s"
+        }),
+        description: t("Laficheaxe9txe9suppr", {
+          defaultValue: "Laficheaxe9txe9suppr"
+        })
       });
     },
     onError: () => {
       toast({
-        title: t('common.erreur'),
-        description: t('common.uneerreurestsurvenue'),
+        title: t("Erreur", {
+          defaultValue: "Erreur"
+        }),
+        description: t("Uneerreurestsurvenue", {
+          defaultValue: "Uneerreurestsurvenue"
+        }),
         variant: "destructive"
       });
     }
@@ -87,14 +96,22 @@ export default function TourCardBuilder() {
         queryKey: ['/api/tour-cards']
       });
       toast({
-        title: t('common.succxe8s'),
-        description: t('common.laficheaxe9txe9misex')
+        title: t("Succxe8s", {
+          defaultValue: "Succxe8s"
+        }),
+        description: t("Laficheaxe9txe9misex", {
+          defaultValue: "Laficheaxe9txe9misex"
+        })
       });
     },
     onError: () => {
       toast({
-        title: t('common.erreur'),
-        description: t('common.uneerreurestsurvenue'),
+        title: t("Erreur", {
+          defaultValue: "Erreur"
+        }),
+        description: t("Uneerreurestsurvenue", {
+          defaultValue: "Uneerreurestsurvenue"
+        }),
         variant: "destructive"
       });
     }
@@ -119,7 +136,9 @@ export default function TourCardBuilder() {
   const handleUpdateTourCard = (updatedCard: TourCardData) => {
     updateMutation.mutate(updatedCard);
   };
-  if (authLoading) return <div className="container mx-auto p-8 text-center">{t('common.chargement')}</div>;
+  if (authLoading) return <div className="container mx-auto p-8 text-center">{t("Chargement", {
+      defaultValue: "Chargement"
+    })}</div>;
 
   // Force TypeScript to treat tourCards as TourCardData[]
   const safeCards = Array.isArray(tourCards) ? tourCards as TourCardData[] : [];
@@ -130,14 +149,22 @@ export default function TourCardBuilder() {
           <div className="flex items-center gap-4">
             <Link href="/admin">
               <Button variant="outline" size="sm">
-                <ArrowLeft className="h-4 w-4 mr-2" />{t('common.backtoadmin')}</Button>
+                <ArrowLeft className="h-4 w-4 mr-2" />{t("Backtoadmin", {
+                defaultValue: "Backtoadmin"
+              })}</Button>
             </Link>
             <div>
-              <h1 className="text-3xl font-heading font-bold">{t('common.tourcardbuilder')}</h1>
-              <p className="text-gray-600">{t('common.crxe9ezfacilementdes')}</p>
+              <h1 className="text-3xl font-heading font-bold">{t("Tourcardbuilder", {
+                defaultValue: "Tourcardbuilder"
+              })}</h1>
+              <p className="text-gray-600">{t("Crxe9ezfacilementdes", {
+                defaultValue: "Crxe9ezfacilementdes"
+              })}</p>
             </div>
           </div>
-          <Button variant="outline" onClick={handleLogout}>{t('common.dxe9connexion')}</Button>
+          <Button variant="outline" onClick={handleLogout}>{t("Dxe9connexion", {
+            defaultValue: "Dxe9connexion"
+          })}</Button>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -147,10 +174,16 @@ export default function TourCardBuilder() {
           </div>
           
           <div className="lg:col-span-2">
-            <h2 className="text-xl font-heading font-semibold mb-4">{t('common.vosfiches')}{safeCards.length})</h2>
+            <h2 className="text-xl font-heading font-semibold mb-4">{t("Vosfiches", {
+              defaultValue: "Vosfiches"
+            })}{safeCards.length})</h2>
             
-            {cardsLoading ? <div className="text-center py-8">{t('common.chargementdesfiches')}</div> : safeCards.length === 0 ? <div className="bg-gray-50 border border-dashed rounded-lg p-8 text-center">
-                <p className="text-gray-500">{t('common.aucunefichepourlemom')}</p>
+            {cardsLoading ? <div className="text-center py-8">{t("Chargementdesfiches", {
+              defaultValue: "Chargementdesfiches"
+            })}</div> : safeCards.length === 0 ? <div className="bg-gray-50 border border-dashed rounded-lg p-8 text-center">
+                <p className="text-gray-500">{t("Aucunefichepourlemom", {
+                defaultValue: "Aucunefichepourlemom"
+              })}</p>
               </div> : <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
                 {safeCards.map((card: TourCardData) => <TourCardDisplay key={card.id} tourCard={card} onDelete={handleDeleteTourCard} onUpdate={handleUpdateTourCard} />)}
               </div>}

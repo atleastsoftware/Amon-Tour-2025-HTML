@@ -2,8 +2,9 @@ import { Link } from "wouter";
 import amonTourTeam from "@/assets/amon-tour-team.jpg";
 import { useTranslation } from 'react-i18next';
 export default function About() {
-  const { t } = useTranslation();
-
+  const {
+    t
+  } = useTranslation();
   return <section id="who-we-are" className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -52,12 +53,16 @@ export default function About() {
             <div className="space-y-6">
               {/* Family Photo */}
               <div className="relative">
-                <img src="/family-photo.png" alt={t('common.amontourfamilyxc9ric')} className="w-full h-auto rounded-lg shadow-lg" />
+                <img src="/family-photo.png" alt={t("Amontourfamilyxc9ric", {
+                defaultValue: "Amontourfamilyxc9ric"
+              })} className="w-full h-auto rounded-lg shadow-lg" />
               </div>
               
               {/* Team Photo */}
               <div className="relative">
-                <img src={amonTourTeam} alt={t('common.amontourteamwithclie')} className="w-full h-auto rounded-lg shadow-lg" />
+                <img src={amonTourTeam} alt={t("Amontourteamwithclie", {
+                defaultValue: "Amontourteamwithclie"
+              })} className="w-full h-auto rounded-lg shadow-lg" />
                 <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-lg hidden md:block">
                   <div className="flex items-center space-x-2">
                     <div className="flex">
@@ -70,7 +75,9 @@ export default function About() {
                     <span className="font-semibold">5.0/5</span>
                   </div>
                   <p className="text-sm text-muted-foreground/80">{t('home.basedOnReviews')}</p>
-                  <a href="https://maps.app.goo.gl/fe17kgt89d64kAHs7" target="_blank" rel="noopener noreferrer" className="text-xs text-primary hover:underline mt-1 inline-block">{t('common.seeallreviews')}</a>
+                  <a href="https://maps.app.goo.gl/fe17kgt89d64kAHs7" target="_blank" rel="noopener noreferrer" className="text-xs text-primary hover:underline mt-1 inline-block">{t("Seeallreviews", {
+                    defaultValue: "Seeallreviews"
+                  })}</a>
                 </div>
               </div>
             </div>

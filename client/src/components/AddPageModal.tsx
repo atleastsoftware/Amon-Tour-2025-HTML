@@ -59,8 +59,12 @@ export function AddPageModal({
     },
     onSuccess: async (data: any) => {
       toast({
-        title: t('common.succxe8s'),
-        description: t('common.lapageaxe9txe9crxe9x')
+        title: t("Succxe8s", {
+          defaultValue: "Succxe8s"
+        }),
+        description: t("Lapageaxe9txe9crxe9x", {
+          defaultValue: "Lapageaxe9txe9crxe9x"
+        })
       });
       // Invalider et attendre le rechargement des données
       await queryClient.invalidateQueries({
@@ -76,7 +80,9 @@ export function AddPageModal({
     },
     onError: (error: any) => {
       toast({
-        title: t('common.erreur'),
+        title: t("Erreur", {
+          defaultValue: "Erreur"
+        }),
         description: error.message || "Impossible de créer la page",
         variant: "destructive"
       });
@@ -85,16 +91,24 @@ export function AddPageModal({
   const handleSubmit = () => {
     if (!pageName.trim()) {
       toast({
-        title: t('common.erreur'),
-        description: t('common.lenomdelapageestrequ'),
+        title: t("Erreur", {
+          defaultValue: "Erreur"
+        }),
+        description: t("Lenomdelapageestrequ", {
+          defaultValue: "Lenomdelapageestrequ"
+        }),
         variant: "destructive"
       });
       return;
     }
     if (createMode === 'duplicate' && !sourcePageId) {
       toast({
-        title: t('common.erreur'),
-        description: t('common.veuillezsxe9lectionn'),
+        title: t("Erreur", {
+          defaultValue: "Erreur"
+        }),
+        description: t("Veuillezsxe9lectionn", {
+          defaultValue: "Veuillezsxe9lectionn"
+        }),
         variant: "destructive"
       });
       return;
@@ -139,18 +153,26 @@ export function AddPageModal({
   return <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle>{t('common.ajouterunenouvellepa')}</DialogTitle>
-          <DialogDescription>{t('common.crxe9ezunenouvellepa')}</DialogDescription>
+          <DialogTitle>{t("Ajouterunenouvellepa", {
+            defaultValue: "Ajouterunenouvellepa"
+          })}</DialogTitle>
+          <DialogDescription>{t("Crxe9ezunenouvellepa", {
+            defaultValue: "Crxe9ezunenouvellepa"
+          })}</DialogDescription>
         </DialogHeader>
         
         <div className="grid gap-4 py-4">
           {/* Mode de création */}
           <div className="space-y-3">
-            <Label>{t('common.modedecrxe9ation')}</Label>
+            <Label>{t("Modedecrxe9ation", {
+              defaultValue: "Modedecrxe9ation"
+            })}</Label>
             <RadioGroup value={createMode} onValueChange={value => setCreateMode(value as 'new' | 'duplicate')}>
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="new" id="new" />
-                <Label htmlFor="new" className="font-normal cursor-pointer">{t('common.crxe9erunenouvellepa')}</Label>
+                <Label htmlFor="new" className="font-normal cursor-pointer">{t("Crxe9erunenouvellepa", {
+                  defaultValue: "Crxe9erunenouvellepa"
+                })}</Label>
               </div>
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="duplicate" id="duplicate" />
@@ -163,10 +185,14 @@ export function AddPageModal({
 
           {/* Sélection de la page source (si duplication) */}
           {createMode === 'duplicate' && <div className="space-y-2">
-              <Label htmlFor="source-page">{t('common.pagexe0dupliquer')}</Label>
+              <Label htmlFor="source-page">{t("Pagexe0dupliquer", {
+              defaultValue: "Pagexe0dupliquer"
+            })}</Label>
               <Select value={sourcePageId} onValueChange={setSourcePageId}>
                 <SelectTrigger id="source-page">
-                  <SelectValue placeholder={t('common.sxe9lectionnezunepag')} />
+                  <SelectValue placeholder={t("Sxe9lectionnezunepag", {
+                defaultValue: "Sxe9lectionnezunepag"
+              })} />
                 </SelectTrigger>
                 <SelectContent>
                   {existingPages.map(page => <SelectItem key={page.id} value={page.id.toString()}>
@@ -178,8 +204,12 @@ export function AddPageModal({
 
           {/* Nom de la page */}
           <div className="space-y-2">
-            <Label htmlFor="page-name">{t('common.nomdelapage')}</Label>
-            <Input id="page-name" value={pageName} onChange={e => setPageName(e.target.value)} placeholder={t('common.exxc0propos')} disabled={createPageMutation.isPending} />
+            <Label htmlFor="page-name">{t("Nomdelapage", {
+              defaultValue: "Nomdelapage"
+            })}</Label>
+            <Input id="page-name" value={pageName} onChange={e => setPageName(e.target.value)} placeholder={t("Exxc0propos", {
+            defaultValue: "Exxc0propos"
+          })} disabled={createPageMutation.isPending} />
             <p className="text-sm text-gray-500">{t('L\'URL sera g\xE9n\xE9r\xE9e automatiquement \xE0 partir du nom', {
               defaultValue: 'L\'URL sera g\xE9n\xE9r\xE9e automatiquement \xE0 partir du nom'
             })}</p>
@@ -187,10 +217,14 @@ export function AddPageModal({
         </div>
 
         <DialogFooter>
-          <Button variant="outline" onClick={handleClose} disabled={createPageMutation.isPending}>{t('common.annuler')}</Button>
+          <Button variant="outline" onClick={handleClose} disabled={createPageMutation.isPending}>{t("Annuler", {
+            defaultValue: "Annuler"
+          })}</Button>
           <Button onClick={handleSubmit} disabled={createPageMutation.isPending}>
             {createPageMutation.isPending ? <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />{t('common.crxe9ation')}</> : 'Ajouter'}
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />{t("Crxe9ation", {
+              defaultValue: "Crxe9ation"
+            })}</> : 'Ajouter'}
           </Button>
         </DialogFooter>
       </DialogContent>

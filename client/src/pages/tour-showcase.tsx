@@ -54,7 +54,9 @@ interface TourShowcaseParams {
   token: string;
 }
 export default function TourShowcase() {
-  const { t } = useTranslation();
+  const {
+    t
+  } = useTranslation();
   const [, navigate] = useLocation();
   const pathname = window.location.pathname;
   const token = pathname.split('/').pop() || '';
@@ -90,7 +92,9 @@ export default function TourShowcase() {
     }
   };
   const formatPrice = (price: number, currency: string) => {
-    if (price === 0) return t('common.priceonrequest');
+    if (price === 0) return t("Price on request", {
+      defaultValue: "Price on request"
+    });
     return `${price.toLocaleString()} ${currency}`;
   };
   if (isLoading) {
@@ -101,7 +105,9 @@ export default function TourShowcase() {
             <div className="flex items-center justify-center h-96">
               <div className="text-center">
                 <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-secondary mx-auto"></div>
-                <p className="mt-4 text-gray-600">{t('common.loadingtour')}</p>
+                <p className="mt-4 text-gray-600">{t("Loadingtour", {
+                  defaultValue: "Loadingtour"
+                })}</p>
               </div>
             </div>
           </div>
@@ -115,12 +121,16 @@ export default function TourShowcase() {
         <div className="min-h-screen bg-gray-50 pt-24 pb-16">
           <div className="container mx-auto px-4">
             <div className="text-center py-16">
-              <h1 className="text-3xl font-bold text-gray-900 mb-4">{t('common.tournotfound')}</h1>
+              <h1 className="text-3xl font-bold text-gray-900 mb-4">{t("Tournotfound", {
+                defaultValue: "Tournotfound"
+              })}</h1>
               <p className="text-gray-600 mb-8">{t('The tour you\'re looking for doesn\'t exist or has been removed.', {
                 defaultValue: 'The tour you\'re looking for doesn\'t exist or has been removed.'
               })}</p>
               <Button onClick={() => setLocation("/tours")} variant="outline">
-                <ArrowLeft className="h-4 w-4 mr-2" />{t('common.backtotours')}</Button>
+                <ArrowLeft className="h-4 w-4 mr-2" />{t("Backtotours", {
+                defaultValue: "Backtotours"
+              })}</Button>
             </div>
           </div>
         </div>
@@ -152,7 +162,9 @@ export default function TourShowcase() {
                 duration: 0.8
               }}>
                   <Button variant="ghost" onClick={() => setLocation("/tours")} className="text-white hover:text-gray-200 mb-4 p-0">
-                    <ArrowLeft className="h-4 w-4 mr-2" />{t('common.backtotours')}</Button>
+                    <ArrowLeft className="h-4 w-4 mr-2" />{t("Backtotours", {
+                    defaultValue: "Backtotours"
+                  })}</Button>
                   <h1 className="text-4xl md:text-5xl font-bold mb-4">{tour.name}</h1>
                   <div className="flex flex-wrap items-center gap-4 text-sm">
                     <Badge className="bg-primary text-white">
@@ -163,7 +175,9 @@ export default function TourShowcase() {
                       {tour.duration} day{tour.duration > 1 ? 's' : ''}
                     </div>
                     <div className="flex items-center">
-                      <Users className="h-4 w-4 mr-1" />{t('common.upto')}{tour.maxParticipants} people
+                      <Users className="h-4 w-4 mr-1" />{t("Upto", {
+                      defaultValue: "Upto"
+                    })}{tour.maxParticipants} people
                     </div>
                     <div className="flex items-center">
                       <MapPin className="h-4 w-4 mr-1" />
@@ -198,7 +212,9 @@ export default function TourShowcase() {
               }} transition={{
                 duration: 0.6
               }}>
-                  <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('common.aboutthisexperience')}</h2>
+                  <h2 className="text-2xl font-bold text-gray-900 mb-4">{t("Aboutthisexperience", {
+                    defaultValue: "Aboutthisexperience"
+                  })}</h2>
                   <div className="prose prose-lg max-w-none text-gray-700">
                     <p>{tour.description}</p>
                   </div>
@@ -217,7 +233,9 @@ export default function TourShowcase() {
                 duration: 0.6,
                 delay: 0.1
               }}>
-                    <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('common.highlights')}</h2>
+                    <h2 className="text-2xl font-bold text-gray-900 mb-4">{t("Highlights", {
+                    defaultValue: "Highlights"
+                  })}</h2>
                     <ul className="list-disc list-inside space-y-2 text-gray-700">
                       {tour.highlights.map((highlight, index) => <li key={index}>{highlight}</li>)}
                     </ul>
@@ -236,7 +254,9 @@ export default function TourShowcase() {
                 duration: 0.6,
                 delay: 0.2
               }}>
-                    <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('common.itinerary')}</h2>
+                    <h2 className="text-2xl font-bold text-gray-900 mb-6">{t("Itinerary", {
+                    defaultValue: "Itinerary"
+                  })}</h2>
                     <div className="space-y-6">
                       {tour.itinerary.map((day, index) => <div key={index} className="border-l-4 border-secondary pl-6 pb-6">
                           <h3 className="text-lg font-semibold text-gray-900 mb-2">{t('common.day')}{day.day}: {day.title}
@@ -313,30 +333,42 @@ export default function TourShowcase() {
                       </div>
 
                       <div className="space-y-4">
-                        <Button onClick={handleBookNow} className="w-full bg-primary hover:bg-blue-700 text-white py-3 text-lg font-semibold" size="lg">{t('common.booknow')}<ExternalLink className="h-5 w-5 ml-2" />
+                        <Button onClick={handleBookNow} className="w-full bg-primary hover:bg-blue-700 text-white py-3 text-lg font-semibold" size="lg">{t("Booknow", {
+                          defaultValue: "Booknow"
+                        })}<ExternalLink className="h-5 w-5 ml-2" />
                         </Button>
 
-                        {tour.detailsUrl && <Button onClick={handleViewDetails} variant="outline" className="w-full border-secondary text-blue-600 hover:bg-blue-50" size="lg">{t('common.viewdetails')}<ExternalLink className="h-5 w-5 ml-2" />
+                        {tour.detailsUrl && <Button onClick={handleViewDetails} variant="outline" className="w-full border-secondary text-blue-600 hover:bg-blue-50" size="lg">{t("Viewdetails", {
+                          defaultValue: "Viewdetails"
+                        })}<ExternalLink className="h-5 w-5 ml-2" />
                           </Button>}
                       </div>
 
                       <div className="pt-6 border-t space-y-3">
                         <div className="flex items-center text-gray-600">
                           <Calendar className="h-5 w-5 mr-3 text-blue-600" />
-                          <span>{t('common.flexiblecancellation')}</span>
+                          <span>{t("Flexiblecancellation", {
+                            defaultValue: "Flexiblecancellation"
+                          })}</span>
                         </div>
                         <div className="flex items-center text-gray-600">
                           <Users className="h-5 w-5 mr-3 text-blue-600" />
-                          <span>{t('common.smallgroupexperience')}</span>
+                          <span>{t("Smallgroupexperience", {
+                            defaultValue: "Smallgroupexperience"
+                          })}</span>
                         </div>
                         <div className="flex items-center text-gray-600">
                           <MapPin className="h-5 w-5 mr-3 text-blue-600" />
-                          <span>{t('common.localexpertguide')}</span>
+                          <span>{t("Localexpertguide", {
+                            defaultValue: "Localexpertguide"
+                          })}</span>
                         </div>
                       </div>
 
                       {company && <div className="pt-6 border-t text-center">
-                          <p className="text-sm text-gray-500">{t('common.organizedby')}</p>
+                          <p className="text-sm text-gray-500">{t("Organizedby", {
+                          defaultValue: "Organizedby"
+                        })}</p>
                           <p className="font-semibold text-gray-900">{company.name}</p>
                         </div>}
                     </CardContent>
@@ -361,7 +393,9 @@ export default function TourShowcase() {
           }} transition={{
             duration: 0.6
           }}>
-                <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">{t('common.photogallery')}</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">{t("Photogallery", {
+                defaultValue: "Photogallery"
+              })}</h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                   {tour.images.map((image, index) => <div key={index} className="aspect-square rounded-lg overflow-hidden cursor-pointer hover:opacity-80 transition-opacity" onClick={() => setCurrentImageIndex(index)}>
                       <img src={image} alt={`${tour.name} - Image ${index + 1}`} className="w-full h-full object-cover" onError={e => {

@@ -28,8 +28,9 @@ interface KrabiCelebrationRequest {
   createdAt: string;
 }
 export default function AdminKrabiCelebration() {
-  const { t } = useTranslation();
-
+  const {
+    t
+  } = useTranslation();
   const {
     isAuthenticated,
     isLoading
@@ -61,14 +62,22 @@ export default function AdminKrabiCelebration() {
         queryKey: ["/api/krabi-celebration"]
       });
       toast({
-        title: t('common.succxe8s'),
-        description: t('common.demandemarquxe9ecomm')
+        title: t("Succxe8s", {
+          defaultValue: "Succxe8s"
+        }),
+        description: t("Demandemarquxe9ecomm", {
+          defaultValue: "Demandemarquxe9ecomm"
+        })
       });
     },
     onError: () => {
       toast({
-        title: t('common.erreur'),
-        description: t('common.impossibledemarquerl'),
+        title: t("Erreur", {
+          defaultValue: "Erreur"
+        }),
+        description: t("Impossibledemarquerl", {
+          defaultValue: "Impossibledemarquerl"
+        }),
         variant: "destructive"
       });
     }
@@ -83,14 +92,22 @@ export default function AdminKrabiCelebration() {
       });
       setSelectedRequest(null);
       toast({
-        title: t('common.succxe8s'),
-        description: t('common.demandesupprimxe9eav')
+        title: t("Succxe8s", {
+          defaultValue: "Succxe8s"
+        }),
+        description: t("Demandesupprimxe9eav", {
+          defaultValue: "Demandesupprimxe9eav"
+        })
       });
     },
     onError: () => {
       toast({
-        title: t('common.erreur'),
-        description: t('common.impossibledesupprime'),
+        title: t("Erreur", {
+          defaultValue: "Erreur"
+        }),
+        description: t("Impossibledesupprime", {
+          defaultValue: "Impossibledesupprime"
+        }),
         variant: "destructive"
       });
     }
@@ -109,7 +126,9 @@ export default function AdminKrabiCelebration() {
             <div className="flex items-center justify-center h-96">
               <div className="text-center">
                 <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto"></div>
-                <p className="mt-4 text-gray-600">{t('common.chargement')}</p>
+                <p className="mt-4 text-gray-600">{t("Chargement", {
+                  defaultValue: "Chargement"
+                })}</p>
               </div>
             </div>
           </div>
@@ -138,7 +157,9 @@ export default function AdminKrabiCelebration() {
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-4">
                 <Button variant="outline" onClick={() => setLocation("/admin")} className="flex items-center gap-2">
-                  <ArrowLeft className="h-4 w-4" />{t('common.back')}</Button>
+                  <ArrowLeft className="h-4 w-4" />{t("Back", {
+                  defaultValue: "Back"
+                })}</Button>
                 <div className="flex items-center gap-3">
                   <PartyPopper className="h-8 w-8 text-pink-600" />
                   <div>
@@ -162,7 +183,9 @@ export default function AdminKrabiCelebration() {
 
             <Card>
               <CardHeader>
-                <CardTitle>{t('common.demandesrexe7ues')}{requests.length})</CardTitle>
+                <CardTitle>{t("Demandesrexe7ues", {
+                  defaultValue: "Demandesrexe7ues"
+                })}{requests.length})</CardTitle>
               </CardHeader>
               <CardContent>
                 {requests.length === 0 ? <div className="text-center py-8">
@@ -173,19 +196,33 @@ export default function AdminKrabiCelebration() {
                   </div> : <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead>{t('common.statut')}</TableHead>
+                        <TableHead>{t("Statut", {
+                        defaultValue: "Statut"
+                      })}</TableHead>
                         <TableHead>{t('common.nom')}</TableHead>
-                        <TableHead>{t('common.typedecxe9lxe9bratio')}</TableHead>
-                        <TableHead>{t('common.invitxe9s')}</TableHead>
-                        <TableHead>{t('common.date')}</TableHead>
-                        <TableHead>{t('common.rexe7ule')}</TableHead>
-                        <TableHead>{t('common.actions')}</TableHead>
+                        <TableHead>{t("Typedecxe9lxe9bratio", {
+                        defaultValue: "Typedecxe9lxe9bratio"
+                      })}</TableHead>
+                        <TableHead>{t("Invitxe9s", {
+                        defaultValue: "Invitxe9s"
+                      })}</TableHead>
+                        <TableHead>{t("Date", {
+                        defaultValue: "Date"
+                      })}</TableHead>
+                        <TableHead>{t("Rexe7ule", {
+                        defaultValue: "Rexe7ule"
+                      })}</TableHead>
+                        <TableHead>{t("Actions", {
+                        defaultValue: "Actions"
+                      })}</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
                       {requests.map(request => <TableRow key={request.id}>
                           <TableCell>
-                            {!request.read ? <Badge variant="destructive">{t('common.nouveau')}</Badge> : <Badge variant="secondary">Lu</Badge>}
+                            {!request.read ? <Badge variant="destructive">{t("Nouveau", {
+                          defaultValue: "Nouveau"
+                        })}</Badge> : <Badge variant="secondary">Lu</Badge>}
                           </TableCell>
                           <TableCell className="font-medium">{request.name}</TableCell>
                           <TableCell>{request.celebrationType}</TableCell>
@@ -221,7 +258,9 @@ export default function AdminKrabiCelebration() {
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <PartyPopper className="h-5 w-5 text-pink-600" />{t('common.demandekrabicelebrat')}</DialogTitle>
+              <PartyPopper className="h-5 w-5 text-pink-600" />{t("Demandekrabicelebrat", {
+              defaultValue: "Demandekrabicelebrat"
+            })}</DialogTitle>
             <DialogDescription>{t('D\xE9tails de la demande d\'\xE9v\xE9nement sp\xE9cial', {
               defaultValue: 'D\xE9tails de la demande d\'\xE9v\xE9nement sp\xE9cial'
             })}</DialogDescription>
@@ -230,19 +269,27 @@ export default function AdminKrabiCelebration() {
           {selectedRequest && <div className="space-y-6">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-gray-700">{t('common.nomducontact')}</label>
+                  <label className="text-sm font-medium text-gray-700">{t("Nomducontact", {
+                  defaultValue: "Nomducontact"
+                })}</label>
                   <p className="text-gray-900">{selectedRequest.name}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">{t('common.email')}</label>
+                  <label className="text-sm font-medium text-gray-700">{t("Email", {
+                  defaultValue: "Email"
+                })}</label>
                   <p className="text-gray-900">{selectedRequest.email}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">{t('common.whatsapp')}</label>
+                  <label className="text-sm font-medium text-gray-700">{t("Whatsapp", {
+                  defaultValue: "Whatsapp"
+                })}</label>
                   <p className="text-gray-900">{selectedRequest.whatsapp || 'Non renseigné'}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">{t('common.typedecxe9lxe9bratio')}</label>
+                  <label className="text-sm font-medium text-gray-700">{t("Typedecxe9lxe9bratio", {
+                  defaultValue: "Typedecxe9lxe9bratio"
+                })}</label>
                   <p className="text-gray-900">{selectedRequest.celebrationType}</p>
                 </div>
                 <div>
@@ -255,14 +302,18 @@ export default function AdminKrabiCelebration() {
                   </p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">{t('common.datesouhaitxe9e')}</label>
+                  <label className="text-sm font-medium text-gray-700">{t("Datesouhaitxe9e", {
+                  defaultValue: "Datesouhaitxe9e"
+                })}</label>
                   <p className="text-gray-900 flex items-center gap-1">
                     <Calendar className="h-4 w-4" />
                     {selectedRequest.date}
                   </p>
                 </div>
                 {selectedRequest.budget && <div>
-                    <label className="text-sm font-medium text-gray-700">{t('common.budget')}</label>
+                    <label className="text-sm font-medium text-gray-700">{t("Budget", {
+                  defaultValue: "Budget"
+                })}</label>
                     <p className="text-gray-900 flex items-center gap-1">
                       <DollarSign className="h-4 w-4" />
                       {selectedRequest.budget}
@@ -271,20 +322,28 @@ export default function AdminKrabiCelebration() {
               </div>
               
               {selectedRequest.description && <div>
-                  <label className="text-sm font-medium text-gray-700">{t('common.description')}</label>
+                  <label className="text-sm font-medium text-gray-700">{t("Description", {
+                defaultValue: "Description"
+              })}</label>
                   <p className="text-gray-900 bg-gray-50 p-3 rounded-lg mt-1">
                     {selectedRequest.description}
                   </p>
                 </div>}
               
               <div className="flex items-center justify-between pt-4 border-t">
-                <p className="text-sm text-gray-500">{t('common.rexe7ule')}{new Date(selectedRequest.createdAt).toLocaleString('fr-FR')}
+                <p className="text-sm text-gray-500">{t("Rexe7ule", {
+                defaultValue: "Rexe7ule"
+              })}{new Date(selectedRequest.createdAt).toLocaleString('fr-FR')}
                 </p>
                 <div className="flex gap-2">
                   <Button variant="outline" onClick={() => window.open(`mailto:${selectedRequest.email}?subject=Votre demande Krabi Celebration&body=Bonjour ${selectedRequest.name},%0D%0A%0D%0ANous avons bien reçu votre demande pour ${selectedRequest.celebrationType}.%0D%0A%0D%0ACordialement,%0D%0AÉquipe Amon Tour`)}>
-                    <Mail className="h-4 w-4 mr-2" />{t('common.rxe9pondreparemail')}</Button>
+                    <Mail className="h-4 w-4 mr-2" />{t("Rxe9pondreparemail", {
+                  defaultValue: "Rxe9pondreparemail"
+                })}</Button>
                   {!selectedRequest.read && <Button onClick={() => markAsReadMutation.mutate(selectedRequest.id)}>
-                      <CheckCircle2 className="h-4 w-4 mr-2" />{t('common.marquercommelu')}</Button>}
+                      <CheckCircle2 className="h-4 w-4 mr-2" />{t("Marquercommelu", {
+                  defaultValue: "Marquercommelu"
+                })}</Button>}
                 </div>
               </div>
             </div>}

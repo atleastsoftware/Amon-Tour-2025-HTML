@@ -21,8 +21,9 @@ const loginSchema = z.object({
 });
 type LoginFormData = z.infer<typeof loginSchema>;
 export default function Login() {
-  const { t } = useTranslation();
-
+  const {
+    t
+  } = useTranslation();
   const [, setLocation] = useLocation();
   const {
     isAuthenticated
@@ -49,15 +50,23 @@ export default function Login() {
     try {
       await login.mutateAsync(data);
       toast({
-        title: t('common.loginsuccessful'),
-        description: t('common.youarenowloggedintot'),
+        title: t("Loginsuccessful", {
+          defaultValue: "Loginsuccessful"
+        }),
+        description: t("Youarenowloggedintot", {
+          defaultValue: "Youarenowloggedintot"
+        }),
         variant: "default"
       });
       setLocation("/admin/dashboard");
     } catch (error) {
       toast({
-        title: t('common.loginerror'),
-        description: t('common.incorrectusernameorp'),
+        title: t("Loginerror", {
+          defaultValue: "Loginerror"
+        }),
+        description: t("Incorrectusernameorp", {
+          defaultValue: "Incorrectusernameorp"
+        }),
         variant: "destructive"
       });
     }
@@ -65,16 +74,26 @@ export default function Login() {
   return <div className="min-h-screen bg-neutral-light flex flex-col items-center justify-center p-4">
       <Link href="/">
         <span className="mb-8 flex items-center cursor-pointer">
-          <span className="text-primary font-heading font-bold text-2xl">{t('common.senthang')}</span>
-          <span className="text-secondary font-accent text-2xl ml-1">{t('common.siam')}</span>
-          <span className="text-primary font-heading font-bold text-2xl ml-1">{t('common.tour')}</span>
+          <span className="text-primary font-heading font-bold text-2xl">{t("Senthang", {
+            defaultValue: "Senthang"
+          })}</span>
+          <span className="text-secondary font-accent text-2xl ml-1">{t("Siam", {
+            defaultValue: "Siam"
+          })}</span>
+          <span className="text-primary font-heading font-bold text-2xl ml-1">{t("Tour", {
+            defaultValue: "Tour"
+          })}</span>
         </span>
       </Link>
       
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-heading text-center">{t('common.admindashboard')}</CardTitle>
-          <CardDescription className="text-center">{t('common.logintomanageyourweb')}</CardDescription>
+          <CardTitle className="text-2xl font-heading text-center">{t("Admindashboard", {
+            defaultValue: "Admindashboard"
+          })}</CardTitle>
+          <CardDescription className="text-center">{t("Logintomanageyourweb", {
+            defaultValue: "Logintomanageyourweb"
+          })}</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -82,9 +101,13 @@ export default function Login() {
               <FormField control={form.control} name="username" render={({
               field
             }) => <FormItem>
-                    <FormLabel>{t('common.username')}</FormLabel>
+                    <FormLabel>{t("Username", {
+                  defaultValue: "Username"
+                })}</FormLabel>
                     <FormControl>
-                      <Input placeholder={t('common.username')} {...field} />
+                      <Input placeholder={t("Username", {
+                  defaultValue: "Username"
+                })} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>} />
@@ -92,9 +115,13 @@ export default function Login() {
               <FormField control={form.control} name="password" render={({
               field
             }) => <FormItem>
-                    <FormLabel>{t('common.password')}</FormLabel>
+                    <FormLabel>{t("Password", {
+                  defaultValue: "Password"
+                })}</FormLabel>
                     <FormControl>
-                      <Input type="password" placeholder={t('common.password')} {...field} />
+                      <Input type="password" placeholder={t("Password", {
+                  defaultValue: "Password"
+                })} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>} />
@@ -108,7 +135,9 @@ export default function Login() {
         <CardFooter className="flex justify-center">
           <Button variant="link" asChild>
             <Link href="/">
-              <span>{t('common.backtowebsite')}</span>
+              <span>{t("Backtowebsite", {
+                defaultValue: "Backtowebsite"
+              })}</span>
             </Link>
           </Button>
         </CardFooter>

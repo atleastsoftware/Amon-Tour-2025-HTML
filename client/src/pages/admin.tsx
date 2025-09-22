@@ -11,8 +11,9 @@ import Footer from "@/components/layout/Footer";
 import { motion } from "framer-motion";
 import { ImagePlus, FileText, BookOpen, Mail, Users, Calendar, PartyPopper, Handshake, UsersIcon, Newspaper, Settings, LogOut, Image, Globe, Palette } from "lucide-react";
 export default function Admin() {
-  const { t } = useTranslation();
-
+  const {
+    t
+  } = useTranslation();
   const {
     isAuthenticated,
     isLoading: authLoading
@@ -70,7 +71,9 @@ export default function Admin() {
     logout.mutate();
     setLocation('/');
   };
-  if (authLoading) return <div className="container mx-auto p-8 text-center">{t('common.loading')}</div>;
+  if (authLoading) return <div className="container mx-auto p-8 text-center">{t("Loading", {
+      defaultValue: "Loading"
+    })}</div>;
   return <>
       <Header />
       <div className="min-h-screen bg-gray-50 pt-24 pb-16">
@@ -86,14 +89,22 @@ export default function Admin() {
         }}>
             <div className="flex justify-between items-center mb-8">
               <div>
-                <h1 className="text-3xl font-heading font-bold text-gray-900">{t('common.administration')}</h1>
-                <p className="text-gray-600 mt-2">{t('common.panneaudegestioncent')}</p>
+                <h1 className="text-3xl font-heading font-bold text-gray-900">{t("Administration", {
+                  defaultValue: "Administration"
+                })}</h1>
+                <p className="text-gray-600 mt-2">{t("Panneaudegestioncent", {
+                  defaultValue: "Panneaudegestioncent"
+                })}</p>
               </div>
               <div className="flex items-center gap-3">
                 <Button variant="outline" onClick={() => setLocation('/admin-appearance')} className="flex items-center gap-2">
-                  <Palette className="h-4 w-4" />{t('common.apparencedusite')}</Button>
+                  <Palette className="h-4 w-4" />{t("Apparencedusite", {
+                  defaultValue: "Apparencedusite"
+                })}</Button>
                 <Button variant="outline" onClick={handleLogout} className="flex items-center gap-2">
-                  <LogOut className="h-4 w-4" />{t('common.dxe9connexion')}</Button>
+                  <LogOut className="h-4 w-4" />{t("Dxe9connexion", {
+                  defaultValue: "Dxe9connexion"
+                })}</Button>
               </div>
             </div>
 
@@ -119,12 +130,16 @@ export default function Admin() {
                         <Calendar className="h-6 w-6" />
                       </div>
                       <div>
-                        <CardTitle className="text-lg font-heading">{t('common.demandespersonnalisx')}</CardTitle>
+                        <CardTitle className="text-lg font-heading">{t("Demandespersonnalisx", {
+                          defaultValue: "Demandespersonnalisx"
+                        })}</CardTitle>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="text-white/90">
-                    <CardDescription className="text-white/80">{t('common.gxe9rerlesdemandesde')}</CardDescription>
+                    <CardDescription className="text-white/80">{t("Gxe9rerlesdemandesde", {
+                      defaultValue: "Gxe9rerlesdemandesde"
+                    })}</CardDescription>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -183,12 +198,16 @@ export default function Admin() {
                         <Handshake className="h-6 w-6" />
                       </div>
                       <div>
-                        <CardTitle className="text-lg font-heading">{t('common.partenariats')}</CardTitle>
+                        <CardTitle className="text-lg font-heading">{t("Partenariats", {
+                          defaultValue: "Partenariats"
+                        })}</CardTitle>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="text-white/90">
-                    <CardDescription className="text-white/80">{t('common.propositionsdecollab')}</CardDescription>
+                    <CardDescription className="text-white/80">{t("Propositionsdecollab", {
+                      defaultValue: "Propositionsdecollab"
+                    })}</CardDescription>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -214,12 +233,16 @@ export default function Admin() {
                         <UsersIcon className="h-6 w-6" />
                       </div>
                       <div>
-                        <CardTitle className="text-lg font-heading">{t('common.groupesentreprises')}</CardTitle>
+                        <CardTitle className="text-lg font-heading">{t("Groupesentreprises", {
+                          defaultValue: "Groupesentreprises"
+                        })}</CardTitle>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="text-white/90">
-                    <CardDescription className="text-white/80">{t('common.demandesdegroupesetc')}</CardDescription>
+                    <CardDescription className="text-white/80">{t("Demandesdegroupesetc", {
+                      defaultValue: "Demandesdegroupesetc"
+                    })}</CardDescription>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -242,12 +265,16 @@ export default function Admin() {
                         <BookOpen className="h-6 w-6" />
                       </div>
                       <div>
-                        <CardTitle className="text-lg font-heading">{t('common.gestiondublog')}</CardTitle>
+                        <CardTitle className="text-lg font-heading">{t("Gestiondublog", {
+                          defaultValue: "Gestiondublog"
+                        })}</CardTitle>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="text-white/90">
-                    <CardDescription className="text-white/80">{t('common.crxe9eretmodifierles')}</CardDescription>
+                    <CardDescription className="text-white/80">{t("Crxe9eretmodifierles", {
+                      defaultValue: "Crxe9eretmodifierles"
+                    })}</CardDescription>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -273,12 +300,16 @@ export default function Admin() {
                         <Newspaper className="h-6 w-6" />
                       </div>
                       <div>
-                        <CardTitle className="text-lg font-heading">{t('common.newsletter')}</CardTitle>
+                        <CardTitle className="text-lg font-heading">{t("Newsletter", {
+                          defaultValue: "Newsletter"
+                        })}</CardTitle>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="text-white/90">
-                    <CardDescription className="text-white/80">{t('common.gxe9rerlesabonnement')}</CardDescription>
+                    <CardDescription className="text-white/80">{t("Gxe9rerlesabonnement", {
+                      defaultValue: "Gxe9rerlesabonnement"
+                    })}</CardDescription>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -301,12 +332,16 @@ export default function Admin() {
                         <Image className="h-6 w-6" />
                       </div>
                       <div>
-                        <CardTitle className="text-lg font-heading">{t('common.imagestourninja')}</CardTitle>
+                        <CardTitle className="text-lg font-heading">{t("Imagestourninja", {
+                          defaultValue: "Imagestourninja"
+                        })}</CardTitle>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="text-white/90">
-                    <CardDescription className="text-white/80">{t('common.remplacerlesimagesto')}</CardDescription>
+                    <CardDescription className="text-white/80">{t("Remplacerlesimagesto", {
+                      defaultValue: "Remplacerlesimagesto"
+                    })}</CardDescription>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -329,12 +364,16 @@ export default function Admin() {
                         <Globe className="h-6 w-6" />
                       </div>
                       <div>
-                        <CardTitle className="text-lg font-heading">{t('common.traductionauto')}</CardTitle>
+                        <CardTitle className="text-lg font-heading">{t("Traductionauto", {
+                          defaultValue: "Traductionauto"
+                        })}</CardTitle>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="text-white/90">
-                    <CardDescription className="text-white/80">{t('common.gxe9rerlatraductiona')}</CardDescription>
+                    <CardDescription className="text-white/80">{t("Gxe9rerlatraductiona", {
+                      defaultValue: "Gxe9rerlatraductiona"
+                    })}</CardDescription>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -357,12 +396,16 @@ export default function Admin() {
                         <ImagePlus className="h-6 w-6" />
                       </div>
                       <div>
-                        <CardTitle className="text-lg font-heading">{t('common.cartesdetours')}</CardTitle>
+                        <CardTitle className="text-lg font-heading">{t("Cartesdetours", {
+                          defaultValue: "Cartesdetours"
+                        })}</CardTitle>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="text-white/90">
-                    <CardDescription className="text-white/80">{t('common.crxe9eretgxe9rerlesc')}</CardDescription>
+                    <CardDescription className="text-white/80">{t("Crxe9eretgxe9rerlesc", {
+                      defaultValue: "Crxe9eretgxe9rerlesc"
+                    })}</CardDescription>
                   </CardContent>
                 </Card>
               </motion.div>

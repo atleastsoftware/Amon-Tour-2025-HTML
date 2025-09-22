@@ -8,7 +8,9 @@ import { motion } from "framer-motion";
 import { FadeInWhenVisible, SlideUpWhenVisible, StaggerChildren, StaggerItem } from "@/components/ui/animations";
 import TourCardItem, { TourCardItemProps } from "@/components/tour/TourCardItem";
 export default function TourCards() {
-  const { t } = useTranslation();
+  const {
+    t
+  } = useTranslation();
   const {
     data: tourCards = [],
     isLoading
@@ -36,7 +38,9 @@ export default function TourCards() {
           duration: 1
         }}></motion.div>
           <div className="absolute inset-0 z-0">
-            <motion.img src="https://images.unsplash.com/photo-1528181304800-259b08848526?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt={t('common.thailandtours')} className="w-full h-full object-cover" initial={{
+            <motion.img src="https://images.unsplash.com/photo-1528181304800-259b08848526?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt={t("Thailandtours", {
+            defaultValue: "Thailandtours"
+          })} className="w-full h-full object-cover" initial={{
             scale: 1.1,
             opacity: 0.8
           }} animate={{
@@ -49,10 +53,14 @@ export default function TourCards() {
           <div className="container mx-auto px-4 relative z-20 h-full flex flex-col justify-center items-center text-center text-white">
             <StaggerChildren className="flex flex-col items-center">
               <StaggerItem>
-                <h1 className="font-heading font-bold text-4xl md:text-5xl mb-4">{t('common.thailandexperiences')}</h1>
+                <h1 className="font-heading font-bold text-4xl md:text-5xl mb-4">{t("Thailandexperiences", {
+                  defaultValue: "Thailandexperiences"
+                })}</h1>
               </StaggerItem>
               <StaggerItem>
-                <p className="text-lg md:text-xl max-w-2xl">{t('common.discoverourexception')}</p>
+                <p className="text-lg md:text-xl max-w-2xl">{t("Discoverourexception", {
+                  defaultValue: "Discoverourexception"
+                })}</p>
               </StaggerItem>
             </StaggerChildren>
           </div>
@@ -71,7 +79,9 @@ export default function TourCards() {
             }} transition={{
               duration: 0.6
             }}>
-                <h2 className="font-heading font-semibold text-xl mb-4">{t('common.findyourexperience')}</h2>
+                <h2 className="font-heading font-semibold text-xl mb-4">{t("Findyourexperience", {
+                  defaultValue: "Findyourexperience"
+                })}</h2>
                 <div className="grid grid-cols-1 gap-4">
                   <motion.div whileHover={{
                   scale: 1.02
@@ -79,8 +89,12 @@ export default function TourCards() {
                   type: "spring",
                   stiffness: 400
                 }}>
-                    <label htmlFor="search" className="block text-sm font-medium text-foreground mb-1">{t('common.search')}</label>
-                    <Input id="search" type="text" placeholder={t('common.searchbytitleordescr')} value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
+                    <label htmlFor="search" className="block text-sm font-medium text-foreground mb-1">{t("Search", {
+                      defaultValue: "Search"
+                    })}</label>
+                    <Input id="search" type="text" placeholder={t("Searchbytitleordescr", {
+                    defaultValue: "Searchbytitleordescr"
+                  })} value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
                   </motion.div>
                 </div>
               </motion.div>
@@ -116,7 +130,9 @@ export default function TourCards() {
           }} transition={{
             duration: 0.5
           }}>
-                <h3 className="text-xl font-semibold mb-2">{t('common.noexperiencesfound')}</h3>
+                <h3 className="text-xl font-semibold mb-2">{t("Noexperiencesfound", {
+                defaultValue: "Noexperiencesfound"
+              })}</h3>
                 <p className="text-gray-500">{t('We\'re working on adding new experiences. Check back soon!', {
                 defaultValue: 'We\'re working on adding new experiences. Check back soon!'
               })}</p>

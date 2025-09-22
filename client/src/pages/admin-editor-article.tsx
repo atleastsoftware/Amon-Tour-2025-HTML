@@ -6,8 +6,9 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft, Plus, Edit, Trash2, Eye, Users } from 'lucide-react';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 export default function AdminEditorArticle() {
-  const { t } = useTranslation();
-
+  const {
+    t
+  } = useTranslation();
   const [, setLocation] = useLocation();
 
   // Articles existants (placeholder - sera remplacé par de vraies données plus tard)
@@ -38,11 +39,15 @@ export default function AdminEditorArticle() {
                   defaultValue: '\xC9diteur d\'Articles'
                 })}</span>
               </h1>
-              <p className="text-sm sm:text-base text-muted-foreground">{t('common.crxe9ezetgxe9rezdesa')}</p>
+              <p className="text-sm sm:text-base text-muted-foreground">{t("Crxe9ezetgxe9rezdesa", {
+                defaultValue: "Crxe9ezetgxe9rezdesa"
+              })}</p>
             </div>
             <Button variant="outline" onClick={() => setLocation('/admin-editor')} className="flex items-center gap-2 w-full sm:w-auto">
               <ArrowLeft className="w-4 h-4" />
-              <span>{t('common.retourxe0gestiondeco')}</span>
+              <span>{t("Retourxe0gestiondeco", {
+                defaultValue: "Retourxe0gestiondeco"
+              })}</span>
             </Button>
           </div>
         </div>
@@ -50,7 +55,9 @@ export default function AdminEditorArticle() {
         {/* Add Article Button */}
         <div className="mb-6">
           <Button onClick={handleAddArticle} className="bg-primary hover:bg-primary/90 text-primary-foreground flex items-center gap-2">
-            <Plus className="h-4 w-4" />{t('common.ajouterunarticle')}</Button>
+            <Plus className="h-4 w-4" />{t("Ajouterunarticle", {
+            defaultValue: "Ajouterunarticle"
+          })}</Button>
         </div>
 
         {/* Articles List */}
@@ -68,23 +75,35 @@ export default function AdminEditorArticle() {
                       </span>
                     </div>
                     <div className="flex items-center gap-6 text-sm text-muted-foreground">
-                      <span>{t('common.catxe9gorie')}{article.category}</span>
-                      <span>{t('common.crxe9xe9le')}{article.createdAt}</span>
-                      <span>{t('common.modifixe9le')}{article.lastModified}</span>
+                      <span>{t("Catxe9gorie", {
+                      defaultValue: "Catxe9gorie"
+                    })}{article.category}</span>
+                      <span>{t("Crxe9xe9le", {
+                      defaultValue: "Crxe9xe9le"
+                    })}{article.createdAt}</span>
+                      <span>{t("Modifixe9le", {
+                      defaultValue: "Modifixe9le"
+                    })}{article.lastModified}</span>
                     </div>
                   </div>
                   
                   <div className="flex items-center gap-2">
                     <Button variant="outline" size="sm" onClick={() => window.open(`/blog/${article.slug}`, '_blank')} className="flex items-center gap-1">
-                      <Eye className="h-4 w-4" />{t('common.voir')}</Button>
+                      <Eye className="h-4 w-4" />{t("Voir", {
+                    defaultValue: "Voir"
+                  })}</Button>
                     
                     <Button variant="outline" size="sm" onClick={() => handleEditArticle(article.id)} className="flex items-center gap-1 bg-primary/5 border-primary/20 hover:bg-primary/10">
-                      <Edit className="h-4 w-4" />{t('common.modifier')}</Button>
+                      <Edit className="h-4 w-4" />{t("Modifier", {
+                    defaultValue: "Modifier"
+                  })}</Button>
                     
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
                         <Button variant="outline" size="sm" className="flex items-center gap-1 text-red-600 border-red-200 hover:bg-red-50">
-                          <Trash2 className="h-4 w-4" />{t('common.supprimer')}</Button>
+                          <Trash2 className="h-4 w-4" />{t("Supprimer", {
+                        defaultValue: "Supprimer"
+                      })}</Button>
                       </AlertDialogTrigger>
                       <AlertDialogContent>
                         <AlertDialogHeader>
@@ -95,8 +114,12 @@ export default function AdminEditorArticle() {
                           </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
-                          <AlertDialogCancel>{t('common.annuler')}</AlertDialogCancel>
-                          <AlertDialogAction onClick={() => handleDeleteArticle(article.id)} className="bg-red-600 hover:bg-red-700">{t('common.supprimer')}</AlertDialogAction>
+                          <AlertDialogCancel>{t("Annuler", {
+                          defaultValue: "Annuler"
+                        })}</AlertDialogCancel>
+                          <AlertDialogAction onClick={() => handleDeleteArticle(article.id)} className="bg-red-600 hover:bg-red-700">{t("Supprimer", {
+                          defaultValue: "Supprimer"
+                        })}</AlertDialogAction>
                         </AlertDialogFooter>
                       </AlertDialogContent>
                     </AlertDialog>
@@ -112,9 +135,15 @@ export default function AdminEditorArticle() {
               <div className="text-gray-400 mb-4">
                 <Plus className="h-12 w-12 mx-auto" />
               </div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">{t('common.aucunarticlecrxe9xe9')}</h3>
-              <p className="text-gray-500 mb-6">{t('common.commencezparcrxe9erv')}</p>
-              <Button onClick={handleAddArticle} className="bg-green-600 hover:bg-green-700">{t('common.crxe9ermonpremierart')}</Button>
+              <h3 className="text-lg font-medium text-gray-900 mb-2">{t("Aucunarticlecrxe9xe9", {
+              defaultValue: "Aucunarticlecrxe9xe9"
+            })}</h3>
+              <p className="text-gray-500 mb-6">{t("Commencezparcrxe9erv", {
+              defaultValue: "Commencezparcrxe9erv"
+            })}</p>
+              <Button onClick={handleAddArticle} className="bg-green-600 hover:bg-green-700">{t("Crxe9ermonpremierart", {
+              defaultValue: "Crxe9ermonpremierart"
+            })}</Button>
             </CardContent>
           </Card>}
       </div>

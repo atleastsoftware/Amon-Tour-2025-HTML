@@ -29,8 +29,9 @@ const tourFormSchema = insertTourSchema.extend({
 });
 type TourFormData = z.infer<typeof tourFormSchema>;
 export default function TourForm() {
-  const { t } = useTranslation();
-
+  const {
+    t
+  } = useTranslation();
   const [, setLocation] = useLocation();
   const search = useSearch();
   const params = new URLSearchParams(search);
@@ -97,16 +98,24 @@ export default function TourForm() {
         // Update existing tour
         await apiRequest("PUT", `/api/tours/${tourId}`, data);
         toast({
-          title: t('common.tourupdated'),
-          description: t('common.thetourhasbeensucces'),
+          title: t("Tourupdated", {
+            defaultValue: "Tourupdated"
+          }),
+          description: t("Thetourhasbeensucces", {
+            defaultValue: "Thetourhasbeensucces"
+          }),
           variant: "default"
         });
       } else {
         // Create new tour
         await apiRequest("POST", "/api/tours", data);
         toast({
-          title: t('common.tourcreated'),
-          description: t('common.thenewtourhasbeensuc'),
+          title: t("Tourcreated", {
+            defaultValue: "Tourcreated"
+          }),
+          description: t("Thenewtourhasbeensuc", {
+            defaultValue: "Thenewtourhasbeensuc"
+          }),
           variant: "default"
         });
       }
@@ -123,8 +132,12 @@ export default function TourForm() {
       setLocation("/admin/dashboard");
     } catch (error) {
       toast({
-        title: t('common.error'),
-        description: t('common.therewasaproblemsavi'),
+        title: t("Error", {
+          defaultValue: "Error"
+        }),
+        description: t("Therewasaproblemsavi", {
+          defaultValue: "Therewasaproblemsavi"
+        }),
         variant: "destructive"
       });
     } finally {
@@ -143,7 +156,9 @@ export default function TourForm() {
       <div className="container mx-auto px-4">
         <Link href="/admin/dashboard">
           <span className="inline-flex items-center text-primary hover:text-primary-dark mb-6 cursor-pointer">
-            <ArrowLeft className="mr-2 h-5 w-5" />{t('common.backtodashboard')}</span>
+            <ArrowLeft className="mr-2 h-5 w-5" />{t("Backtodashboard", {
+            defaultValue: "Backtodashboard"
+          })}</span>
         </Link>
         
         <Card className="max-w-4xl mx-auto">
@@ -159,11 +174,17 @@ export default function TourForm() {
                 <FormField control={form.control} name="title" render={({
                 field
               }) => <FormItem>
-                      <FormLabel>{t('common.title')}</FormLabel>
+                      <FormLabel>{t("Title", {
+                    defaultValue: "Title"
+                  })}</FormLabel>
                       <FormControl>
-                        <Input placeholder={t('common.exbangkokessential')} {...field} />
+                        <Input placeholder={t("Exbangkokessential", {
+                    defaultValue: "Exbangkokessential"
+                  })} {...field} />
                       </FormControl>
-                      <FormDescription>{t('common.themaintitleofthetou')}</FormDescription>
+                      <FormDescription>{t("Themaintitleofthetou", {
+                    defaultValue: "Themaintitleofthetou"
+                  })}</FormDescription>
                       <FormMessage />
                     </FormItem>} />
                 
@@ -171,22 +192,34 @@ export default function TourForm() {
                   <FormField control={form.control} name="duration" render={({
                   field
                 }) => <FormItem>
-                        <FormLabel>{t('common.duration')}</FormLabel>
+                        <FormLabel>{t("Duration", {
+                      defaultValue: "Duration"
+                    })}</FormLabel>
                         <FormControl>
-                          <Input placeholder={t('common.ex3days')} {...field} />
+                          <Input placeholder={t("Ex3days", {
+                      defaultValue: "Ex3days"
+                    })} {...field} />
                         </FormControl>
-                        <FormDescription>{t('common.durationofthetourex3')}</FormDescription>
+                        <FormDescription>{t("Durationofthetourex3", {
+                      defaultValue: "Durationofthetourex3"
+                    })}</FormDescription>
                         <FormMessage />
                       </FormItem>} />
                   
                   <FormField control={form.control} name="price" render={({
                   field
                 }) => <FormItem>
-                        <FormLabel>{t('common.adultpricethb')}</FormLabel>
+                        <FormLabel>{t("Adultpricethb", {
+                      defaultValue: "Adultpricethb"
+                    })}</FormLabel>
                         <FormControl>
-                          <Input type="number" min="0" placeholder={t('common.ex10000')} {...field} />
+                          <Input type="number" min="0" placeholder={t("Ex10000", {
+                      defaultValue: "Ex10000"
+                    })} {...field} />
                         </FormControl>
-                        <FormDescription>{t('common.adultpriceinthaibaht')}</FormDescription>
+                        <FormDescription>{t("Adultpriceinthaibaht", {
+                      defaultValue: "Adultpriceinthaibaht"
+                    })}</FormDescription>
                         <FormMessage />
                       </FormItem>} />
                 </div>
@@ -194,54 +227,80 @@ export default function TourForm() {
                 <FormField control={form.control} name="childPrice" render={({
                 field
               }) => <FormItem>
-                      <FormLabel>{t('common.childpricethboptiona')}</FormLabel>
+                      <FormLabel>{t("Childpricethboptiona", {
+                    defaultValue: "Childpricethboptiona"
+                  })}</FormLabel>
                       <FormControl>
-                        <Input type="number" min="0" placeholder={t('common.ex5000')} value={field.value || ''} onChange={e => {
+                        <Input type="number" min="0" placeholder={t("Ex5000", {
+                    defaultValue: "Ex5000"
+                  })} value={field.value || ''} onChange={e => {
                     const value = e.target.value ? parseInt(e.target.value) : undefined;
                     field.onChange(value);
                   }} />
                       </FormControl>
-                      <FormDescription>{t('common.specialpriceforchild')}</FormDescription>
+                      <FormDescription>{t("Specialpriceforchild", {
+                    defaultValue: "Specialpriceforchild"
+                  })}</FormDescription>
                       <FormMessage />
                     </FormItem>} />
                 
                 <FormField control={form.control} name="shortDescription" render={({
                 field
               }) => <FormItem>
-                      <FormLabel>{t('common.shortdescription')}</FormLabel>
+                      <FormLabel>{t("Shortdescription", {
+                    defaultValue: "Shortdescription"
+                  })}</FormLabel>
                       <FormControl>
-                        <Textarea placeholder={t('common.briefdescriptionofth')} rows={2} {...field} />
+                        <Textarea placeholder={t("Briefdescriptionofth", {
+                    defaultValue: "Briefdescriptionofth"
+                  })} rows={2} {...field} />
                       </FormControl>
-                      <FormDescription>{t('common.ashortdescriptiontha')}</FormDescription>
+                      <FormDescription>{t("Ashortdescriptiontha", {
+                    defaultValue: "Ashortdescriptiontha"
+                  })}</FormDescription>
                       <FormMessage />
                     </FormItem>} />
                 
                 <FormField control={form.control} name="description" render={({
                 field
               }) => <FormItem>
-                      <FormLabel>{t('common.fulldescription')}</FormLabel>
+                      <FormLabel>{t("Fulldescription", {
+                    defaultValue: "Fulldescription"
+                  })}</FormLabel>
                       <FormControl>
-                        <Textarea placeholder={t('common.detaileddescriptiono')} rows={6} {...field} />
+                        <Textarea placeholder={t("Detaileddescriptiono", {
+                    defaultValue: "Detaileddescriptiono"
+                  })} rows={6} {...field} />
                       </FormControl>
-                      <FormDescription>{t('common.detaileddescriptiono')}</FormDescription>
+                      <FormDescription>{t("Detaileddescriptiono", {
+                    defaultValue: "Detaileddescriptiono"
+                  })}</FormDescription>
                       <FormMessage />
                     </FormItem>} />
                 
                 <FormField control={form.control} name="imageUrl" render={({
                 field
               }) => <FormItem>
-                      <FormLabel>{t('common.tourimage')}</FormLabel>
+                      <FormLabel>{t("Tourimage", {
+                    defaultValue: "Tourimage"
+                  })}</FormLabel>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                           <FormControl>
                             <Input placeholder="https://example.com/image.jpg" {...field} className="mb-2" />
                           </FormControl>
-                          <FormDescription>{t('common.enteraurlforthemaint')}</FormDescription>
+                          <FormDescription>{t("Enteraurlforthemaint", {
+                        defaultValue: "Enteraurlforthemaint"
+                      })}</FormDescription>
                         </div>
                         <div>
                           <div className="border rounded-md p-4 bg-gray-50">
-                            <p className="text-sm font-medium mb-2">{t('common.uploadanimage')}</p>
-                            {isAuthenticated ? <ImageUpload currentImage={field.value} onUploadComplete={url => field.onChange(url)} /> : <div className="text-amber-600 p-4 text-sm">{t('common.authenticationrequir')}</div>}
+                            <p className="text-sm font-medium mb-2">{t("Uploadanimage", {
+                          defaultValue: "Uploadanimage"
+                        })}</p>
+                            {isAuthenticated ? <ImageUpload currentImage={field.value} onUploadComplete={url => field.onChange(url)} /> : <div className="text-amber-600 p-4 text-sm">{t("Authenticationrequir", {
+                          defaultValue: "Authenticationrequir"
+                        })}</div>}
                           </div>
                         </div>
                       </div>
@@ -251,11 +310,15 @@ export default function TourForm() {
                 <FormField control={form.control} name="tourNinjaUrl" render={({
                 field
               }) => <FormItem>
-                      <FormLabel>{t('common.tourninjaurl')}</FormLabel>
+                      <FormLabel>{t("Tourninjaurl", {
+                    defaultValue: "Tourninjaurl"
+                  })}</FormLabel>
                       <FormControl>
                         <Input placeholder="https://tourninja.com/tour/xyz" {...field} />
                       </FormControl>
-                      <FormDescription>{t('common.theexternallinktothe')}</FormDescription>
+                      <FormDescription>{t("Theexternallinktothe", {
+                    defaultValue: "Theexternallinktothe"
+                  })}</FormDescription>
                       <FormMessage />
                     </FormItem>} />
                 
@@ -266,13 +329,19 @@ export default function TourForm() {
                         <Checkbox checked={field.value || false} onCheckedChange={field.onChange} />
                       </FormControl>
                       <div className="space-y-1 leading-none">
-                        <FormLabel>{t('common.featuredtour')}</FormLabel>
-                        <FormDescription>{t('common.checkthisboxtohighli')}</FormDescription>
+                        <FormLabel>{t("Featuredtour", {
+                      defaultValue: "Featuredtour"
+                    })}</FormLabel>
+                        <FormDescription>{t("Checkthisboxtohighli", {
+                      defaultValue: "Checkthisboxtohighli"
+                    })}</FormDescription>
                       </div>
                     </FormItem>} />
                 
                 <div className="flex justify-end space-x-2">
-                  <Button type="button" variant="outline" onClick={() => setLocation("/admin/dashboard")}>{t('common.cancel')}</Button>
+                  <Button type="button" variant="outline" onClick={() => setLocation("/admin/dashboard")}>{t("Cancel", {
+                    defaultValue: "Cancel"
+                  })}</Button>
                   <Button type="submit" disabled={isSubmitting}>
                     {isSubmitting ? "Saving..." : tourId ? "Update" : "Create tour"}
                   </Button>

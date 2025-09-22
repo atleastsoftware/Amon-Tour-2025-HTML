@@ -47,7 +47,9 @@ export default function TourCard({
         <div className="flex justify-between items-center mb-4">
           <motion.span className="font-heading font-bold text-lg text-primary" whileHover={{
           scale: 1.05
-        }}>{t('common.from')}{formatTHB(tour.price)}
+        }}>{t("From", {
+            defaultValue: "From"
+          })}{formatTHB(tour.price)}
           </motion.span>
           <Link href={`/tours/${tour.id}`}>
             <motion.span className="text-secondary font-semibold cursor-pointer flex items-center" whileHover={{

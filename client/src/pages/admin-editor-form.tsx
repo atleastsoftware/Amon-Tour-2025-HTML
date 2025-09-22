@@ -50,9 +50,15 @@ export default function AdminEditorForm() {
   // Fallback data for initial forms (only used if no API data)
   const fallbackForms: FormData[] = [{
     id: 1,
-    name: t('common.contactform'),
-    title: t('common.nouscontacter'),
-    subtitle: t('common.unequestionunprojetn'),
+    name: t("Contactform", {
+      defaultValue: "Contactform"
+    }),
+    title: t("Nouscontacter", {
+      defaultValue: "Nouscontacter"
+    }),
+    subtitle: t("Unequestionunprojetn", {
+      defaultValue: "Unequestionunprojetn"
+    }),
     description: t('Contactez notre \xE9quipe pour toute demande d\'information ou devis personnalis\xE9.', {
       defaultValue: 'Contactez notre \xE9quipe pour toute demande d\'information ou devis personnalis\xE9.'
     }),
@@ -67,7 +73,9 @@ export default function AdminEditorForm() {
     fields: [{
       id: 'name',
       type: 'text',
-      label: t('common.nomcomplet'),
+      label: t("Nomcomplet", {
+        defaultValue: "Nomcomplet"
+      }),
       placeholder: t("Votre nom", {
         defaultValue: "Votre nom"
       }),
@@ -79,7 +87,9 @@ export default function AdminEditorForm() {
     }, {
       id: 'email',
       type: 'email',
-      label: t('common.adresseemail'),
+      label: t("Adresseemail", {
+        defaultValue: "Adresseemail"
+      }),
       placeholder: 'votre@email.com',
       required: true,
       style: {
@@ -89,7 +99,9 @@ export default function AdminEditorForm() {
     }, {
       id: 'subject',
       type: 'text',
-      label: t('common.sujet'),
+      label: t("Sujet", {
+        defaultValue: "Sujet"
+      }),
       placeholder: t("Sujet de votre message", {
         defaultValue: "Sujet de votre message"
       }),
@@ -101,7 +113,9 @@ export default function AdminEditorForm() {
     }, {
       id: 'message',
       type: 'textarea',
-      label: t('common.message'),
+      label: t("Message", {
+        defaultValue: "Message"
+      }),
       placeholder: t("Votre message...", {
         defaultValue: "Votre message..."
       }),
@@ -123,9 +137,15 @@ export default function AdminEditorForm() {
     updatedAt: '2025-01-08'
   }, {
     id: 2,
-    name: t('common.customtourrequest'),
-    title: t('common.createyourcustomtrip'),
-    subtitle: t('common.yourtravelstorystart'),
+    name: t("Customtourrequest", {
+      defaultValue: "Customtourrequest"
+    }),
+    title: t("Createyourcustomtrip", {
+      defaultValue: "Createyourcustomtrip"
+    }),
+    subtitle: t("Yourtravelstorystart", {
+      defaultValue: "Yourtravelstorystart"
+    }),
     description: t('Tell us what you\'d like to discover, and we\'ll create your personalized itinerary.', {
       defaultValue: 'Tell us what you\'d like to discover, and we\'ll create your personalized itinerary.'
     }),
@@ -141,7 +161,9 @@ export default function AdminEditorForm() {
     fields: [{
       id: 'fullName',
       type: 'text',
-      label: t('common.fullname'),
+      label: t("Full Name", {
+        defaultValue: "Full Name"
+      }),
       placeholder: t("Your name", {
         defaultValue: "Your name"
       }),
@@ -153,7 +175,9 @@ export default function AdminEditorForm() {
     }, {
       id: 'email',
       type: 'email',
-      label: t('common.email'),
+      label: t("Email", {
+        defaultValue: "Email"
+      }),
       placeholder: t("Your email", {
         defaultValue: "Your email"
       }),
@@ -165,7 +189,9 @@ export default function AdminEditorForm() {
     }, {
       id: 'countrycode',
       type: 'select',
-      label: t('common.countrycode'),
+      label: t("Countrycode", {
+        defaultValue: "Countrycode"
+      }),
       placeholder: t("Code", {
         defaultValue: "Code"
       }),
@@ -178,7 +204,9 @@ export default function AdminEditorForm() {
     }, {
       id: 'whatsappNumber',
       type: 'phone',
-      label: t('common.whatsappnumber'),
+      label: t("Whatsappnumber", {
+        defaultValue: "Whatsappnumber"
+      }),
       placeholder: t("Your WhatsApp number", {
         defaultValue: "Your WhatsApp number"
       }),
@@ -190,7 +218,9 @@ export default function AdminEditorForm() {
     }, {
       id: 'numberOfAdults',
       type: 'select',
-      label: t('common.numberofadults'),
+      label: t("Numberofadults", {
+        defaultValue: "Numberofadults"
+      }),
       placeholder: t("Select number of adults", {
         defaultValue: "Select number of adults"
       }),
@@ -203,7 +233,9 @@ export default function AdminEditorForm() {
     }, {
       id: 'numberOfKids',
       type: 'select',
-      label: t('common.numberofkidsunder12y'),
+      label: t("Numberofkidsunder12y", {
+        defaultValue: "Numberofkidsunder12y"
+      }),
       placeholder: t("Select number of kids", {
         defaultValue: "Select number of kids"
       }),
@@ -216,7 +248,9 @@ export default function AdminEditorForm() {
     }, {
       id: 'tripDates',
       type: 'date',
-      label: t('common.datesoftrip'),
+      label: t("Datesoftrip", {
+        defaultValue: "Datesoftrip"
+      }),
       placeholder: t("Select trip dates", {
         defaultValue: "Select trip dates"
       }),
@@ -228,7 +262,9 @@ export default function AdminEditorForm() {
     }, {
       id: 'duration',
       type: 'select',
-      label: t('common.orapproximateduratio'),
+      label: t("Orapproximateduratio", {
+        defaultValue: "Orapproximateduratio"
+      }),
       placeholder: t("Select duration", {
         defaultValue: "Select duration"
       }),
@@ -241,7 +277,9 @@ export default function AdminEditorForm() {
     }, {
       id: 'tripTypes',
       type: 'checkbox',
-      label: t('common.triptypes'),
+      label: t("Triptypes", {
+        defaultValue: "Triptypes"
+      }),
       required: false,
       options: ['Culture & History', 'Nature & Adventure', 'Beaches & Islands', 'Family trip', 'Group trip', 'Wedding & Honeymoon'],
       style: {
@@ -251,7 +289,9 @@ export default function AdminEditorForm() {
     }, {
       id: 'destinations',
       type: 'checkbox',
-      label: t('common.destinations'),
+      label: t("Destinations", {
+        defaultValue: "Destinations"
+      }),
       required: false,
       options: ['Khao Sok', 'Krabi', 'Koh Mook', 'Bangkok', 'Chiang Mai', 'Others destinations'],
       style: {
@@ -261,7 +301,9 @@ export default function AdminEditorForm() {
     }, {
       id: 'message',
       type: 'textarea',
-      label: t('common.describeyouridealtri'),
+      label: t("Describeyouridealtri", {
+        defaultValue: "Describeyouridealtri"
+      }),
       placeholder: t("Tell us what you would like to see and do during your journey...", {
         defaultValue: "Tell us what you would like to see and do during your journey..."
       }),
@@ -283,10 +325,18 @@ export default function AdminEditorForm() {
     updatedAt: '2025-01-08'
   }, {
     id: 3,
-    name: t('common.partnershiprequest'),
-    title: t('common.demandedepartenariat'),
-    subtitle: t('common.rejoigneznotrerxe9se'),
-    description: t('common.dxe9velopponsensembl'),
+    name: t("Partnershiprequest", {
+      defaultValue: "Partnershiprequest"
+    }),
+    title: t("Demandedepartenariat", {
+      defaultValue: "Demandedepartenariat"
+    }),
+    subtitle: t("Rejoigneznotrerxe9se", {
+      defaultValue: "Rejoigneznotrerxe9se"
+    }),
+    description: t("Dxe9velopponsensembl", {
+      defaultValue: "Dxe9velopponsensembl"
+    }),
     layout: 'single-column',
     formLayout: 'columns',
     backgroundColor: 'hsl(var(--background))',
@@ -298,7 +348,9 @@ export default function AdminEditorForm() {
     fields: [{
       id: 'contactName',
       type: 'text',
-      label: t('common.nomducontact'),
+      label: t("Nomducontact", {
+        defaultValue: "Nomducontact"
+      }),
       placeholder: t("Votre nom", {
         defaultValue: "Votre nom"
       }),
@@ -324,7 +376,9 @@ export default function AdminEditorForm() {
     }, {
       id: 'email',
       type: 'email',
-      label: t('common.emailprofessionnel'),
+      label: t("Emailprofessionnel", {
+        defaultValue: "Emailprofessionnel"
+      }),
       placeholder: 'contact@entreprise.com',
       required: true,
       style: {
@@ -334,7 +388,9 @@ export default function AdminEditorForm() {
     }, {
       id: 'phone',
       type: 'phone',
-      label: t('common.txe9lxe9phone'),
+      label: t("Txe9lxe9phone", {
+        defaultValue: "Txe9lxe9phone"
+      }),
       placeholder: t("+33 1 XX XX XX XX", {
         defaultValue: "+33 1 XX XX XX XX"
       }),
@@ -346,7 +402,9 @@ export default function AdminEditorForm() {
     }, {
       id: 'website',
       type: 'text',
-      label: t('common.siteweb'),
+      label: t("Siteweb", {
+        defaultValue: "Siteweb"
+      }),
       placeholder: 'https://votre-site.com',
       required: false,
       style: {
@@ -356,7 +414,9 @@ export default function AdminEditorForm() {
     }, {
       id: 'partnershipType',
       type: 'select',
-      label: t('common.typedepartenariat'),
+      label: t("Typedepartenariat", {
+        defaultValue: "Typedepartenariat"
+      }),
       required: true,
       options: ['Agence de voyage', 'Hôtelier', 'Blogueur/Influenceur', 'Guide local', 'Transport', 'Autre'],
       style: {
@@ -366,7 +426,9 @@ export default function AdminEditorForm() {
     }, {
       id: 'description',
       type: 'textarea',
-      label: t('common.prxe9sentationdevotr'),
+      label: t("Prxe9sentationdevotr", {
+        defaultValue: "Prxe9sentationdevotr"
+      }),
       placeholder: t("Pr\xE9sentez votre entreprise et votre proposition de partenariat...", {
         defaultValue: "Pr\xE9sentez votre entreprise et votre proposition de partenariat..."
       }),
@@ -388,9 +450,15 @@ export default function AdminEditorForm() {
     updatedAt: '2025-01-03'
   }, {
     id: 4,
-    name: t('common.groupcorporatereques'),
-    title: t('common.demandegroupeentrepr'),
-    subtitle: t('common.voyagessurmesurepour'),
+    name: t("Groupcorporatereques", {
+      defaultValue: "Groupcorporatereques"
+    }),
+    title: t("Demandegroupeentrepr", {
+      defaultValue: "Demandegroupeentrepr"
+    }),
+    subtitle: t("Voyagessurmesurepour", {
+      defaultValue: "Voyagessurmesurepour"
+    }),
     description: t('Organisez votre \xE9v\xE9nement d\'entreprise ou voyage de groupe en Tha\xEFlande.', {
       defaultValue: 'Organisez votre \xE9v\xE9nement d\'entreprise ou voyage de groupe en Tha\xEFlande.'
     }),
@@ -405,7 +473,9 @@ export default function AdminEditorForm() {
     fields: [{
       id: 'contactName',
       type: 'text',
-      label: t('common.nomduresponsable'),
+      label: t("Nomduresponsable", {
+        defaultValue: "Nomduresponsable"
+      }),
       placeholder: t("Votre nom", {
         defaultValue: "Votre nom"
       }),
@@ -417,7 +487,9 @@ export default function AdminEditorForm() {
     }, {
       id: 'companyName',
       type: 'text',
-      label: t('common.entrepriseorganisati'),
+      label: t("Entrepriseorganisati", {
+        defaultValue: "Entrepriseorganisati"
+      }),
       placeholder: t("Nom de l'entreprise", {
         defaultValue: "Nom de l'entreprise"
       }),
@@ -429,7 +501,9 @@ export default function AdminEditorForm() {
     }, {
       id: 'email',
       type: 'email',
-      label: t('common.emaildecontact'),
+      label: t("Emaildecontact", {
+        defaultValue: "Emaildecontact"
+      }),
       placeholder: 'contact@entreprise.com',
       required: true,
       style: {
@@ -439,7 +513,9 @@ export default function AdminEditorForm() {
     }, {
       id: 'phone',
       type: 'phone',
-      label: t('common.txe9lxe9phone'),
+      label: t("Txe9lxe9phone", {
+        defaultValue: "Txe9lxe9phone"
+      }),
       placeholder: t("+33 1 XX XX XX XX", {
         defaultValue: "+33 1 XX XX XX XX"
       }),
@@ -451,7 +527,9 @@ export default function AdminEditorForm() {
     }, {
       id: 'groupSize',
       type: 'number',
-      label: t('common.tailledugroupe'),
+      label: t("Tailledugroupe", {
+        defaultValue: "Tailledugroupe"
+      }),
       placeholder: '25',
       required: true,
       style: {
@@ -461,7 +539,9 @@ export default function AdminEditorForm() {
     }, {
       id: 'travelDates',
       type: 'text',
-      label: t('common.datessouhaitxe9es'),
+      label: t("Datessouhaitxe9es", {
+        defaultValue: "Datessouhaitxe9es"
+      }),
       placeholder: t("Ex: septembre 2025", {
         defaultValue: "Ex: septembre 2025"
       }),
@@ -473,7 +553,9 @@ export default function AdminEditorForm() {
     }, {
       id: 'budget',
       type: 'select',
-      label: t('common.budgetparpersonne'),
+      label: t("Budgetparpersonne", {
+        defaultValue: "Budgetparpersonne"
+      }),
       required: false,
       options: ['500-1000€', '1000-2000€', '2000-3000€', '3000-5000€', '5000€+', 'À déterminer'],
       style: {
@@ -483,7 +565,9 @@ export default function AdminEditorForm() {
     }, {
       id: 'description',
       type: 'textarea',
-      label: t('common.dxe9tailsduprojet'),
+      label: t("Dxe9tailsduprojet", {
+        defaultValue: "Dxe9tailsduprojet"
+      }),
       placeholder: t("D\xE9crivez votre projet de voyage (objectifs, activit\xE9s souhait\xE9es, contraintes...)...", {
         defaultValue: "D\xE9crivez votre projet de voyage (objectifs, activit\xE9s souhait\xE9es, contraintes...)..."
       }),
@@ -505,10 +589,18 @@ export default function AdminEditorForm() {
     updatedAt: '2025-01-02'
   }, {
     id: 5,
-    name: t('common.newslettersubscripti'),
-    title: t('common.abonnementnewsletter'),
-    subtitle: t('common.restezinformxe9denos'),
-    description: t('common.receveznosmeilleures'),
+    name: t("Newslettersubscripti", {
+      defaultValue: "Newslettersubscripti"
+    }),
+    title: t("Abonnementnewsletter", {
+      defaultValue: "Abonnementnewsletter"
+    }),
+    subtitle: t("Restezinformxe9denos", {
+      defaultValue: "Restezinformxe9denos"
+    }),
+    description: t("Receveznosmeilleures", {
+      defaultValue: "Receveznosmeilleures"
+    }),
     layout: 'single-column',
     formLayout: 'columns',
     backgroundColor: '#dbeafe',
@@ -520,7 +612,9 @@ export default function AdminEditorForm() {
     fields: [{
       id: 'email',
       type: 'email',
-      label: t('common.adresseemail'),
+      label: t("Adresseemail", {
+        defaultValue: "Adresseemail"
+      }),
       placeholder: 'votre@email.com',
       required: true,
       style: {
@@ -540,10 +634,18 @@ export default function AdminEditorForm() {
     updatedAt: '2025-01-01'
   }, {
     id: 6,
-    name: t('common.krabicelebrationrequ'),
-    title: t('common.cxe9lxe9brationxe0kr'),
-    subtitle: t('common.organisezvotrexe9vxe'),
-    description: t('common.mariageanniversairel'),
+    name: t("Krabicelebrationrequ", {
+      defaultValue: "Krabicelebrationrequ"
+    }),
+    title: t("Cxe9lxe9brationxe0kr", {
+      defaultValue: "Cxe9lxe9brationxe0kr"
+    }),
+    subtitle: t("Organisezvotrexe9vxe", {
+      defaultValue: "Organisezvotrexe9vxe"
+    }),
+    description: t("Mariageanniversairel", {
+      defaultValue: "Mariageanniversairel"
+    }),
     layout: 'single-column',
     formLayout: 'columns',
     backgroundColor: '#fdf2f8',
@@ -555,7 +657,9 @@ export default function AdminEditorForm() {
     fields: [{
       id: 'name',
       type: 'text',
-      label: t('common.nomcomplet'),
+      label: t("Nomcomplet", {
+        defaultValue: "Nomcomplet"
+      }),
       placeholder: t("Votre nom", {
         defaultValue: "Votre nom"
       }),
@@ -567,7 +671,9 @@ export default function AdminEditorForm() {
     }, {
       id: 'email',
       type: 'email',
-      label: t('common.email'),
+      label: t("Email", {
+        defaultValue: "Email"
+      }),
       placeholder: 'votre@email.com',
       required: true,
       style: {
@@ -577,7 +683,9 @@ export default function AdminEditorForm() {
     }, {
       id: 'whatsapp',
       type: 'phone',
-      label: t('common.whatsapp'),
+      label: t("Whatsapp", {
+        defaultValue: "Whatsapp"
+      }),
       placeholder: t("+33 6 XX XX XX XX", {
         defaultValue: "+33 6 XX XX XX XX"
       }),
@@ -589,7 +697,9 @@ export default function AdminEditorForm() {
     }, {
       id: 'celebrationType',
       type: 'select',
-      label: t('common.typedecxe9lxe9bratio'),
+      label: t("Typedecxe9lxe9bratio", {
+        defaultValue: "Typedecxe9lxe9bratio"
+      }),
       required: true,
       options: ['Mariage', 'Lune de miel', 'Anniversaire', 'Demande en mariage', 'Anniversaire de mariage', 'Autre'],
       style: {
@@ -611,7 +721,9 @@ export default function AdminEditorForm() {
     }, {
       id: 'date',
       type: 'text',
-      label: t('common.datesouhaitxe9e'),
+      label: t("Datesouhaitxe9e", {
+        defaultValue: "Datesouhaitxe9e"
+      }),
       placeholder: t("Ex: juin 2025", {
         defaultValue: "Ex: juin 2025"
       }),
@@ -623,7 +735,9 @@ export default function AdminEditorForm() {
     }, {
       id: 'budget',
       type: 'select',
-      label: t('common.budgetapproximatif'),
+      label: t("Budgetapproximatif", {
+        defaultValue: "Budgetapproximatif"
+      }),
       required: false,
       options: ['1000-3000€', '3000-5000€', '5000-10000€', '10000€+', 'À discuter'],
       style: {
@@ -633,7 +747,9 @@ export default function AdminEditorForm() {
     }, {
       id: 'description',
       type: 'textarea',
-      label: t('common.dxe9tailsdevotrecxe9'),
+      label: t("Dxe9tailsdevotrecxe9", {
+        defaultValue: "Dxe9tailsdevotrecxe9"
+      }),
       placeholder: t("D\xE9crivez-nous votre vision de cette c\xE9l\xE9bration sp\xE9ciale...", {
         defaultValue: "D\xE9crivez-nous votre vision de cette c\xE9l\xE9bration sp\xE9ciale..."
       }),
@@ -672,7 +788,9 @@ export default function AdminEditorForm() {
     if (form && window.confirm(`Êtes-vous sûr de vouloir supprimer le formulaire "${form.name}" ?`)) {
       deleteFormMutation.mutate(formId);
       toast({
-        title: t('common.formulairesupprimxe9'),
+        title: t("Formulairesupprimxe9", {
+          defaultValue: "Formulairesupprimxe9"
+        }),
         description: `Le formulaire "${form.name}" a été supprimé avec succès.`
       });
     }
@@ -690,9 +808,15 @@ export default function AdminEditorForm() {
     // Créer un formulaire de base simple
     const newForm: FormData = {
       name: newFormName,
-      title: t('common.titreduformulaire'),
-      subtitle: t('common.soustitreduformulair'),
-      description: t('common.descriptiondevotrefo'),
+      title: t("Titreduformulaire", {
+        defaultValue: "Titreduformulaire"
+      }),
+      subtitle: t("Soustitreduformulair", {
+        defaultValue: "Soustitreduformulair"
+      }),
+      description: t("Descriptiondevotrefo", {
+        defaultValue: "Descriptiondevotrefo"
+      }),
       layout: 'grid',
       formLayout: 'header',
       primaryColor: 'hsl(var(--primary))',
@@ -705,7 +829,9 @@ export default function AdminEditorForm() {
       fields: [{
         id: 'name',
         type: 'text',
-        label: t('common.nomcomplet'),
+        label: t("Nomcomplet", {
+          defaultValue: "Nomcomplet"
+        }),
         placeholder: t("Votre nom", {
           defaultValue: "Votre nom"
         }),
@@ -717,7 +843,9 @@ export default function AdminEditorForm() {
       }, {
         id: 'email',
         type: 'email',
-        label: t('common.email'),
+        label: t("Email", {
+          defaultValue: "Email"
+        }),
         placeholder: 'votre@email.com',
         required: true,
         style: {
@@ -761,8 +889,12 @@ export default function AdminEditorForm() {
     },
     onError: (error: any) => {
       toast({
-        title: t('common.erreur'),
-        description: t('common.erreurlorsdelapublic'),
+        title: t("Erreur", {
+          defaultValue: "Erreur"
+        }),
+        description: t("Erreurlorsdelapublic", {
+          defaultValue: "Erreurlorsdelapublic"
+        }),
         variant: "destructive"
       });
     }
@@ -794,8 +926,12 @@ export default function AdminEditorForm() {
     },
     onError: (error: any) => {
       toast({
-        title: t('common.erreur'),
-        description: t('common.erreurlorsdelapublic'),
+        title: t("Erreur", {
+          defaultValue: "Erreur"
+        }),
+        description: t("Erreurlorsdelapublic", {
+          defaultValue: "Erreurlorsdelapublic"
+        }),
         variant: "destructive"
       });
     }
@@ -830,14 +966,22 @@ export default function AdminEditorForm() {
         queryKey: ['/api/admin/custom-forms']
       });
       toast({
-        title: t('common.formulairedupliquxe9'),
-        description: t('common.leformulaireaxe9txe9')
+        title: t("Formulairedupliquxe9", {
+          defaultValue: "Formulairedupliquxe9"
+        }),
+        description: t("Leformulaireaxe9txe9", {
+          defaultValue: "Leformulaireaxe9txe9"
+        })
       });
     },
     onError: () => {
       toast({
-        title: t('common.erreur'),
-        description: t('common.erreurlorsdeladuplic'),
+        title: t("Erreur", {
+          defaultValue: "Erreur"
+        }),
+        description: t("Erreurlorsdeladuplic", {
+          defaultValue: "Erreurlorsdeladuplic"
+        }),
         variant: 'destructive'
       });
     }
@@ -910,13 +1054,19 @@ export default function AdminEditorForm() {
             <div className="w-full sm:w-auto">
               <h1 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2 sm:gap-3">
                 <FormInput className="h-6 w-6 sm:h-7 sm:w-7 text-[hsl(var(--warning))] flex-shrink-0" />
-                <span className="truncate">{t('common.xc9diteurdeformulair')}</span>
+                <span className="truncate">{t("Xc9diteurdeformulair", {
+                  defaultValue: "Xc9diteurdeformulair"
+                })}</span>
               </h1>
-              <p className="text-sm sm:text-base text-gray-600">{t('common.crxe9ezetgxe9rezdesf')}</p>
+              <p className="text-sm sm:text-base text-gray-600">{t("Crxe9ezetgxe9rezdesf", {
+                defaultValue: "Crxe9ezetgxe9rezdesf"
+              })}</p>
             </div>
             <Button variant="outline" onClick={() => setLocation('/admin-editor')} className="flex items-center gap-2 w-full sm:w-auto">
               <ArrowLeft className="w-4 h-4" />
-              <span>{t('common.retourxe0gestiondeco')}</span>
+              <span>{t("Retourxe0gestiondeco", {
+                defaultValue: "Retourxe0gestiondeco"
+              })}</span>
             </Button>
           </div>
         </div>
@@ -924,14 +1074,18 @@ export default function AdminEditorForm() {
         {/* Add Form Button */}
         <div className="mb-6">
           <Button onClick={handleAddForm} className="bg-[hsl(var(--warning))] hover:bg-[hsl(var(--warning)/0.9)] text-white flex items-center gap-2">
-            <Plus className="h-4 w-4" />{t('common.ajouterunformulaire')}</Button>
+            <Plus className="h-4 w-4" />{t("Ajouterunformulaire", {
+            defaultValue: "Ajouterunformulaire"
+          })}</Button>
         </div>
 
         {/* Forms List */}
         <div className="space-y-4">
           {loading ? <div className="text-center py-8">
               <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[hsl(var(--warning))]"></div>
-              <p className="mt-2 text-gray-500">{t('common.chargementdesformula')}</p>
+              <p className="mt-2 text-gray-500">{t("Chargementdesformula", {
+              defaultValue: "Chargementdesformula"
+            })}</p>
             </div> : <>
               {forms.map(form => {
             const IconComponent = getFormIcon(form.name);
@@ -957,13 +1111,19 @@ export default function AdminEditorForm() {
                         
                         <div className="flex items-center gap-2">
                           <Button variant="outline" size="sm" onClick={() => handleEditForm(form)} className="flex items-center gap-1">
-                            <Edit className="h-4 w-4" />{t('common.modifier')}</Button>
+                            <Edit className="h-4 w-4" />{t("Modifier", {
+                        defaultValue: "Modifier"
+                      })}</Button>
                           
                           <Button variant="outline" size="sm" onClick={() => handleDuplicateForm(form)} className="flex items-center gap-1 text-primary hover:text-primary/80">
-                            <Copy className="h-4 w-4" />{t('common.dupliquer')}</Button>
+                            <Copy className="h-4 w-4" />{t("Dupliquer", {
+                        defaultValue: "Dupliquer"
+                      })}</Button>
                           
                           {form.id && <Button variant="outline" size="sm" onClick={() => handleDeleteForm(form.id!)} className="flex items-center gap-1 text-[hsl(var(--destructive))] hover:text-[hsl(var(--destructive)/0.8)]">
-                              <Trash2 className="h-4 w-4" />{t('common.supprimer')}</Button>}
+                              <Trash2 className="h-4 w-4" />{t("Supprimer", {
+                        defaultValue: "Supprimer"
+                      })}</Button>}
                         </div>
                       </div>
                     </CardContent>
@@ -976,10 +1136,16 @@ export default function AdminEditorForm() {
                     <div className="rounded-full bg-gray-100 p-3 mb-4">
                       <Plus className="h-6 w-6 text-gray-400" />
                     </div>
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">{t('common.aucunformulairecrxe9')}</h3>
-                    <p className="text-gray-500 text-center mb-4">{t('common.commencezparcrxe9erv')}</p>
+                    <h3 className="text-lg font-medium text-gray-900 mb-2">{t("Aucunformulairecrxe9", {
+                  defaultValue: "Aucunformulairecrxe9"
+                })}</h3>
+                    <p className="text-gray-500 text-center mb-4">{t("Commencezparcrxe9erv", {
+                  defaultValue: "Commencezparcrxe9erv"
+                })}</p>
                     <Button onClick={handleAddForm} className="bg-[hsl(var(--warning))] hover:bg-[hsl(var(--warning)/0.9)] text-white">
-                      <Plus className="h-4 w-4 mr-2" />{t('common.crxe9ermonpremierfor')}</Button>
+                      <Plus className="h-4 w-4 mr-2" />{t("Crxe9ermonpremierfor", {
+                  defaultValue: "Crxe9ermonpremierfor"
+                })}</Button>
                   </CardContent>
                 </Card>}
             </>}
@@ -989,13 +1155,19 @@ export default function AdminEditorForm() {
         <Dialog open={showTitleDialog} onOpenChange={setShowTitleDialog}>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>{t('common.crxe9erunnouveauform')}</DialogTitle>
-              <DialogDescription>{t('common.entrezlenomdevotreno')}</DialogDescription>
+              <DialogTitle>{t("Crxe9erunnouveauform", {
+                defaultValue: "Crxe9erunnouveauform"
+              })}</DialogTitle>
+              <DialogDescription>{t("Entrezlenomdevotreno", {
+                defaultValue: "Entrezlenomdevotreno"
+              })}</DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
               <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="name" className="text-right">{t('common.nom')}</Label>
-                <Input id="name" value={newFormName} onChange={e => setNewFormName(e.target.value)} placeholder={t('common.excontactform')} className="col-span-3" onKeyDown={e => {
+                <Input id="name" value={newFormName} onChange={e => setNewFormName(e.target.value)} placeholder={t("Excontactform", {
+                defaultValue: "Excontactform"
+              })} className="col-span-3" onKeyDown={e => {
                 if (e.key === 'Enter') {
                   handleCreateFormWithTitle();
                 }
@@ -1003,8 +1175,12 @@ export default function AdminEditorForm() {
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setShowTitleDialog(false)}>{t('common.annuler')}</Button>
-              <Button onClick={handleCreateFormWithTitle} disabled={!newFormName.trim()}>{t('common.crxe9erleformulaire')}</Button>
+              <Button variant="outline" onClick={() => setShowTitleDialog(false)}>{t("Annuler", {
+                defaultValue: "Annuler"
+              })}</Button>
+              <Button onClick={handleCreateFormWithTitle} disabled={!newFormName.trim()}>{t("Crxe9erleformulaire", {
+                defaultValue: "Crxe9erleformulaire"
+              })}</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>

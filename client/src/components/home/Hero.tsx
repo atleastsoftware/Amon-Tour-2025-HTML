@@ -37,8 +37,9 @@ const isMobileDevice = () => {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
 };
 export default function Hero() {
-  const { t } = useTranslation();
-
+  const {
+    t
+  } = useTranslation();
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
@@ -142,7 +143,9 @@ export default function Hero() {
       {/* Video Background Section with Fallback Image */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
         {/* Fallback Image */}
-        <img src={heroImage} alt={t('common.beautifulkrabilandsc')} className="absolute top-0 left-0 w-full h-full object-cover" />
+        <img src={heroImage} alt={t("Beautifulkrabilandsc", {
+        defaultValue: "Beautifulkrabilandsc"
+      })} className="absolute top-0 left-0 w-full h-full object-cover" />
         
         {/* Video Overlay with intelligent loading and comprehensive fallback */}
         {shouldLoadVideo && !videoError && <video ref={videoRef} autoPlay muted loop playsInline preload="auto" // Charge complètement la vidéo pour éviter les interruptions
@@ -161,7 +164,9 @@ export default function Hero() {
         console.log('Video can play through without interruption');
         setVideoLoaded(true);
       }}>
-            <source src={currentVideoSrc} type="video/mp4" />{t('common.yourbrowserdoesnotsu')}</video>}
+            <source src={currentVideoSrc} type="video/mp4" />{t("Yourbrowserdoesnotsu", {
+          defaultValue: "Yourbrowserdoesnotsu"
+        })}</video>}
 
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>

@@ -35,8 +35,9 @@ type CruiseFormData = {
   specialRequests?: string;
 };
 export default function CruiseForm() {
-  const { t } = useTranslation();
-
+  const {
+    t
+  } = useTranslation();
   const {
     toast
   } = useToast();
@@ -83,8 +84,12 @@ export default function CruiseForm() {
     // Validate required fields
     if (!formData.fullName || !formData.email || !formData.duration) {
       toast({
-        title: t('common.missinginformation'),
-        description: t('common.pleasefillinyourname'),
+        title: t("Missinginformation", {
+          defaultValue: "Missinginformation"
+        }),
+        description: t("Pleasefillinyourname", {
+          defaultValue: "Pleasefillinyourname"
+        }),
         variant: "destructive"
       });
       return;
@@ -93,7 +98,9 @@ export default function CruiseForm() {
     const whatsappUrl = `https://wa.me/66653496445?text=${message}`;
     window.open(whatsappUrl, '_blank');
     toast({
-      title: t('common.redirectingtowhatsap'),
+      title: t("Redirectingtowhatsap", {
+        defaultValue: "Redirectingtowhatsap"
+      }),
       description: t('We\'ve prepared your cruise request message for you!', {
         defaultValue: 'We\'ve prepared your cruise request message for you!'
       })

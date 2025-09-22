@@ -457,10 +457,16 @@ const translations: Record<string, Translations> = {
       contact: "Contact"
     },
     hero: {
-      title: t('common.yourexclusiveexperie'),
-      subtitle: t('common.inkrabi'),
+      title: t("Yourexclusiveexperie", {
+        defaultValue: "Yourexclusiveexperie"
+      }),
+      subtitle: t("Inkrabi", {
+        defaultValue: "Inkrabi"
+      }),
       thailand: "THAILAND",
-      description: t('common.discoveramazingplace'),
+      description: t("Discoveramazingplace", {
+        defaultValue: "Discoveramazingplace"
+      }),
       seeOffers: "See our offers",
       customTrip: "Custom your trip"
     },
@@ -473,8 +479,12 @@ const translations: Record<string, Translations> = {
       bookNow: "Book now"
     },
     tours: {
-      title: t('common.toursexperiences'),
-      description: t('common.exploreourfinestexpe'),
+      title: t("Toursexperiences", {
+        defaultValue: "Toursexperiences"
+      }),
+      description: t("Exploreourfinestexpe", {
+        defaultValue: "Exploreourfinestexpe"
+      }),
       duration: "Duration",
       participants: "Max participants",
       price: "From",
@@ -549,8 +559,12 @@ const translations: Record<string, Translations> = {
       createYourJourney: "Create Your Journey"
     },
     cruise: {
-      title: t('common.customquoterequest'),
-      subtitle: t('common.fillouttheformbelowa'),
+      title: t("Customquoterequest", {
+        defaultValue: "Customquoterequest"
+      }),
+      subtitle: t("Fillouttheformbelowa", {
+        defaultValue: "Fillouttheformbelowa"
+      }),
       fullName: "Full Name",
       email: "Email",
       phoneNumber: "Phone Number (Optional)",
@@ -633,7 +647,9 @@ const translations: Record<string, Translations> = {
       notIncludedDescription: "Transfers (on request), national park fees (depending on the itinerary), beer, wine, spirits. Lunch and dinner (Thai cuisine): 500 Baht per person per meal. Please let us know your preferences and we will provision the boat accordingly."
     },
     customTour: {
-      title: t('common.createyourcustomtour'),
+      title: t("Createyourcustomtour", {
+        defaultValue: "Createyourcustomtour"
+      }),
       subtitle: t('Tell us what you\'d like to discover, and we\'ll create your personalized itinerary.', {
         defaultValue: 'Tell us what you\'d like to discover, and we\'ll create your personalized itinerary.'
       }),
@@ -651,7 +667,9 @@ const translations: Record<string, Translations> = {
     },
     pageHeaders: {
       contact: {
-        title: t('common.contactus'),
+        title: t("Contact us", {
+          defaultValue: "Contact us"
+        }),
         subtitle: t('We\'re here to help you plan the perfect experience in Krabi.', {
           defaultValue: 'We\'re here to help you plan the perfect experience in Krabi.'
         }),
@@ -664,38 +682,66 @@ const translations: Record<string, Translations> = {
         line: "Line"
       },
       experiences: {
-        title: t('common.discoverthailandexpe'),
-        subtitle: t('common.immerseyourselfinaut'),
+        title: t("Discoverthailandexpe", {
+          defaultValue: "Discoverthailandexpe"
+        }),
+        subtitle: t("Immerseyourselfinaut", {
+          defaultValue: "Immerseyourselfinaut"
+        }),
         searchPlaceholder: "Search experiences...",
         organizeDreamTrip: "Contact us to organize your dream trip to Thailand."
       },
       blog: {
-        title: t('common.travelblog'),
-        subtitle: t('common.discoverthebestofkra')
+        title: t("Travelblog", {
+          defaultValue: "Travelblog"
+        }),
+        subtitle: t("Discoverthebestofkra", {
+          defaultValue: "Discoverthebestofkra"
+        })
       },
       tours: {
-        title: t('common.ourexperiences'),
-        subtitle: t('common.discovertheexception')
+        title: t("Ourexperiences", {
+          defaultValue: "Ourexperiences"
+        }),
+        subtitle: t("Discovertheexception", {
+          defaultValue: "Discovertheexception"
+        })
       },
       krabiCelebration: {
         title: t('pages.krabiCelebration.title'),
-        subtitle: t('common.uniquemomentsinexcep')
+        subtitle: t("Uniquemomentsinexcep", {
+          defaultValue: "Uniquemomentsinexcep"
+        })
       },
       becomePartner: {
-        title: t('common.becomeourpartner'),
-        subtitle: t('common.joinournetworkoftrus')
+        title: t("Becomeourpartner", {
+          defaultValue: "Becomeourpartner"
+        }),
+        subtitle: t("Joinournetworkoftrus", {
+          defaultValue: "Joinournetworkoftrus"
+        })
       },
       groupCorporate: {
-        title: t('common.groupcorporatetravel'),
-        subtitle: t('common.tailoredexperiencesi')
+        title: t("Groupcorporatetravel", {
+          defaultValue: "Groupcorporatetravel"
+        }),
+        subtitle: t("Tailoredexperiencesi", {
+          defaultValue: "Tailoredexperiencesi"
+        })
       },
       villasKrabi: {
         title: t('pages.villasKrabi.title'),
-        subtitle: t('common.curatedvillaselectio')
+        subtitle: t("Curatedvillaselectio", {
+          defaultValue: "Curatedvillaselectio"
+        })
       },
       brochure: {
-        title: t('common.ourbrochure'),
-        subtitle: t('common.amontourtravelguide')
+        title: t("Ourbrochure", {
+          defaultValue: "Ourbrochure"
+        }),
+        subtitle: t("Amontourtravelguide", {
+          defaultValue: "Amontourtravelguide"
+        })
       }
     },
     messages: {
@@ -766,16 +812,24 @@ const translations: Record<string, Translations> = {
       welcomeBar: "Welcome to Amon Tour! Discover authentic Thailand experiences 🇹🇭"
     },
     cookies: {
-      title: t('common.weusecookies'),
-      description: t('common.weusecookiestoenhanc'),
+      title: t("Weusecookies", {
+        defaultValue: "Weusecookies"
+      }),
+      description: t("Weusecookiestoenhanc", {
+        defaultValue: "Weusecookiestoenhanc"
+      }),
       acceptAll: "Accept All",
       rejectAll: "Reject All",
       customize: "Customize",
       privacyNotice: "Privacy Notice"
     },
     blog: {
-      title: t('common.travelblog'),
-      subtitle: t('common.discoverthailandthro'),
+      title: t("Travelblog", {
+        defaultValue: "Travelblog"
+      }),
+      subtitle: t("Discoverthailandthro", {
+        defaultValue: "Discoverthailandthro"
+      }),
       tags: "Tags",
       categories: "Categories",
       allTags: "All Tags",
@@ -852,8 +906,12 @@ const translations: Record<string, Translations> = {
       contact: "Contact"
     },
     hero: {
-      title: t('common.vosexpxe9riencesexcl'),
-      subtitle: t('common.xe0krabi'),
+      title: t("Vosexpxe9riencesexcl", {
+        defaultValue: "Vosexpxe9riencesexcl"
+      }),
+      subtitle: t("Xe0krabi", {
+        defaultValue: "Xe0krabi"
+      }),
       thailand: "THAÏLANDE",
       description: t('D\xE9couvrez des lieux extraordinaires loin du tourisme de masse \xE0 Krabi. Ainsi que Khao Sok, Koh Mook et bien d\'autres destinations.', {
         defaultValue: 'D\xE9couvrez des lieux extraordinaires loin du tourisme de masse \xE0 Krabi. Ainsi que Khao Sok, Koh Mook et bien d\'autres destinations.'
@@ -870,8 +928,12 @@ const translations: Record<string, Translations> = {
       bookNow: "Réserver"
     },
     tours: {
-      title: t('common.toursexpxe9riences'),
-      description: t('common.naviguezparminosplus'),
+      title: t("Toursexpxe9riences", {
+        defaultValue: "Toursexpxe9riences"
+      }),
+      description: t("Naviguezparminosplus", {
+        defaultValue: "Naviguezparminosplus"
+      }),
       duration: "Durée",
       participants: "Participants max",
       price: "À partir de",
@@ -946,8 +1008,12 @@ const translations: Record<string, Translations> = {
       createYourJourney: "Créez Votre Voyage"
     },
     cruise: {
-      title: t('common.demandededevisperson'),
-      subtitle: t('common.remplissezleformulai'),
+      title: t("Demandededevisperson", {
+        defaultValue: "Demandededevisperson"
+      }),
+      subtitle: t("Remplissezleformulai", {
+        defaultValue: "Remplissezleformulai"
+      }),
       fullName: "Nom complet",
       email: "Email",
       phoneNumber: "Numéro de téléphone (Optionnel)",
@@ -1030,8 +1096,12 @@ const translations: Record<string, Translations> = {
       notIncludedDescription: "Transferts (sur demande), frais de parcs nationaux (selon l'itinéraire), bière, vin, spiritueux. Déjeuner et dîner (cuisine thaï) : 500 Baht par personne par repas. Merci de nous faire connaître vos préférences et nous approvisionnerons le bateau en conséquence."
     },
     customTour: {
-      title: t('common.crxe9ezvotrevoyagesu'),
-      subtitle: t('common.ditesnouscequevousai'),
+      title: t("Crxe9ezvotrevoyagesu", {
+        defaultValue: "Crxe9ezvotrevoyagesu"
+      }),
+      subtitle: t("Ditesnouscequevousai", {
+        defaultValue: "Ditesnouscequevousai"
+      }),
       seoTitle: "Créez Votre Expérience Thaïlandaise Sur Mesure",
       seoDescription: "Concevez votre propre voyage personnalisé en Thaïlande. Dites-nous vos préférences et nos experts locaux créeront un itinéraire sur mesure rien que pour vous.",
       seoKeywords: "voyage sur mesure thailande, voyage personnalisé, itinéraire sur mesure, guide privé thailande, expérience voyage personnalisée",
@@ -1046,8 +1116,12 @@ const translations: Record<string, Translations> = {
     },
     pageHeaders: {
       contact: {
-        title: t('common.nouscontacter'),
-        subtitle: t('common.noussommeslxe0pourvo'),
+        title: t("Nouscontacter", {
+          defaultValue: "Nouscontacter"
+        }),
+        subtitle: t("Noussommeslxe0pourvo", {
+          defaultValue: "Noussommeslxe0pourvo"
+        }),
         getInTouch: "Prenez Contact",
         readyToExplore: "Prêt à explorer Krabi ? Contactez-nous par n'importe laquelle des méthodes ci-dessous. Notre équipe amicale est là pour répondre à vos questions et vous aider à planifier une expérience inoubliable.",
         email: "Email",
@@ -1057,40 +1131,68 @@ const translations: Record<string, Translations> = {
         line: "Line"
       },
       experiences: {
-        title: t('common.dxe9couvrezlesexpxe9'),
-        subtitle: t('common.immergezvousdanslacu'),
+        title: t("Dxe9couvrezlesexpxe9", {
+          defaultValue: "Dxe9couvrezlesexpxe9"
+        }),
+        subtitle: t("Immergezvousdanslacu", {
+          defaultValue: "Immergezvousdanslacu"
+        }),
         searchPlaceholder: "Rechercher des expériences...",
         organizeDreamTrip: "Contactez-nous pour organiser le voyage de vos rêves en Thaïlande."
       },
       blog: {
-        title: t('common.blogdevoyage'),
-        subtitle: t('common.dxe9couvrezlemeilleu')
+        title: t("Blogdevoyage", {
+          defaultValue: "Blogdevoyage"
+        }),
+        subtitle: t("Dxe9couvrezlemeilleu", {
+          defaultValue: "Dxe9couvrezlemeilleu"
+        })
       },
       tours: {
-        title: t('common.nosexpxe9riences'),
-        subtitle: t('common.dxe9couvrezlabeautxe')
+        title: t("Nosexpxe9riences", {
+          defaultValue: "Nosexpxe9riences"
+        }),
+        subtitle: t("Dxe9couvrezlabeautxe", {
+          defaultValue: "Dxe9couvrezlabeautxe"
+        })
       },
       krabiCelebration: {
         title: t('pages.krabiCelebration.title'),
-        subtitle: t('common.momentsuniquesdansde')
+        subtitle: t("Momentsuniquesdansde", {
+          defaultValue: "Momentsuniquesdansde"
+        })
       },
       becomePartner: {
-        title: t('common.deveneznotrepartenai'),
-        subtitle: t('common.rejoigneznotrerxe9se')
+        title: t("Deveneznotrepartenai", {
+          defaultValue: "Deveneznotrepartenai"
+        }),
+        subtitle: t("Rejoigneznotrerxe9se", {
+          defaultValue: "Rejoigneznotrerxe9se"
+        })
       },
       groupCorporate: {
         title: t('Voyages de Groupe et d\'Entreprise', {
           defaultValue: 'Voyages de Groupe et d\'Entreprise'
         }),
-        subtitle: t('common.expxe9riencessurmesu')
+        subtitle: t("Expxe9riencessurmesu", {
+          defaultValue: "Expxe9riencessurmesu"
+        })
       },
       villasKrabi: {
-        title: t('common.villasxe0krabi'),
-        subtitle: t('common.sxe9lectiondevillasc')
+        title: t("Villasxe0krabi", {
+          defaultValue: "Villasxe0krabi"
+        }),
+        subtitle: t("Sxe9lectiondevillasc", {
+          defaultValue: "Sxe9lectiondevillasc"
+        })
       },
       brochure: {
-        title: t('common.notrebrochure'),
-        subtitle: t('common.guidedevoyageamontou')
+        title: t("Notrebrochure", {
+          defaultValue: "Notrebrochure"
+        }),
+        subtitle: t("Guidedevoyageamontou", {
+          defaultValue: "Guidedevoyageamontou"
+        })
       }
     },
     messages: {
@@ -1161,7 +1263,9 @@ const translations: Record<string, Translations> = {
       welcomeBar: "Bienvenue chez Amon Tour ! Découvrez des expériences authentiques en Thaïlande 🇹🇭"
     },
     cookies: {
-      title: t('common.nousutilisonsdescook'),
+      title: t("Nousutilisonsdescook", {
+        defaultValue: "Nousutilisonsdescook"
+      }),
       description: t('Nous utilisons des cookies pour am\xE9liorer votre exp\xE9rience et analyser l\'utilisation du site. En continuant \xE0 utiliser ce site, vous acceptez notre utilisation des cookies.', {
         defaultValue: 'Nous utilisons des cookies pour am\xE9liorer votre exp\xE9rience et analyser l\'utilisation du site. En continuant \xE0 utiliser ce site, vous acceptez notre utilisation des cookies.'
       }),
@@ -1171,7 +1275,9 @@ const translations: Record<string, Translations> = {
       privacyNotice: "Notice de Confidentialité"
     },
     blog: {
-      title: t('common.blogdevoyage'),
+      title: t("Blogdevoyage", {
+        defaultValue: "Blogdevoyage"
+      }),
       subtitle: t('D\xE9couvrez la Tha\xEFlande \xE0 travers nos conseils d\'experts et guides de voyage', {
         defaultValue: 'D\xE9couvrez la Tha\xEFlande \xE0 travers nos conseils d\'experts et guides de voyage'
       }),
@@ -1251,10 +1357,16 @@ const translations: Record<string, Translations> = {
       contact: "Contacto"
     },
     hero: {
-      title: t('common.tusexperienciasexclu'),
-      subtitle: t('common.enkrabi'),
+      title: t("Tusexperienciasexclu", {
+        defaultValue: "Tusexperienciasexclu"
+      }),
+      subtitle: t("Enkrabi", {
+        defaultValue: "Enkrabi"
+      }),
       thailand: "TAILANDIA",
-      description: t('common.descubrelugaresincre'),
+      description: t("Descubrelugaresincre", {
+        defaultValue: "Descubrelugaresincre"
+      }),
       seeOffers: "Ver nuestras ofertas",
       customTrip: "Personaliza tu viaje"
     },
@@ -1267,8 +1379,12 @@ const translations: Record<string, Translations> = {
       bookNow: "Reservar"
     },
     tours: {
-      title: t('common.toursyexperiencias'),
-      description: t('common.exploranuestrasmejor'),
+      title: t("Toursyexperiencias", {
+        defaultValue: "Toursyexperiencias"
+      }),
+      description: t("Exploranuestrasmejor", {
+        defaultValue: "Exploranuestrasmejor"
+      }),
       duration: "Duración",
       participants: "Participantes máx",
       price: "Desde",
@@ -1343,8 +1459,12 @@ const translations: Record<string, Translations> = {
       createYourJourney: "Crea Tu Viaje"
     },
     cruise: {
-      title: t('common.solicituddecotizacix'),
-      subtitle: t('common.completeelformulario'),
+      title: t("Solicituddecotizacix", {
+        defaultValue: "Solicituddecotizacix"
+      }),
+      subtitle: t("Completeelformulario", {
+        defaultValue: "Completeelformulario"
+      }),
       fullName: "Nombre completo",
       email: "Email",
       phoneNumber: "Número de teléfono (Opcional)",
@@ -1427,8 +1547,12 @@ const translations: Record<string, Translations> = {
       notIncludedDescription: "Traslados (bajo pedido), tarifas de parques nacionales (según el itinerario), cerveza, vino, licores. Almuerzo y cena (cocina tailandesa): 500 Baht por persona por comida. Por favor háganos saber sus preferencias y abasteceremos el barco en consecuencia."
     },
     customTour: {
-      title: t('common.creesutourpersonaliz'),
-      subtitle: t('common.dxedganosquxe9legust'),
+      title: t("Creesutourpersonaliz", {
+        defaultValue: "Creesutourpersonaliz"
+      }),
+      subtitle: t("Dxedganosquxe9legust", {
+        defaultValue: "Dxedganosquxe9legust"
+      }),
       seoTitle: "Cree Su Experiencia Tailandesa Personalizada",
       seoDescription: "Diseñe su propio tour personalizado por Tailandia. Díganos sus preferencias y nuestros expertos locales crearán un itinerario personalizado solo para usted.",
       seoKeywords: "tour personalizado tailandia, viaje personalizado, itinerario a medida, guía privado tailandia, experiencia de viaje personalizada",
@@ -1443,8 +1567,12 @@ const translations: Record<string, Translations> = {
     },
     pageHeaders: {
       contact: {
-        title: t('common.contxe1ctanos'),
-        subtitle: t('common.estamosaquxedparaayu'),
+        title: t("Contxe1ctanos", {
+          defaultValue: "Contxe1ctanos"
+        }),
+        subtitle: t("Estamosaquxedparaayu", {
+          defaultValue: "Estamosaquxedparaayu"
+        }),
         getInTouch: "Ponte en Contacto",
         readyToExplore: "¿Listo para explorar Krabi? Contáctanos por cualquiera de los métodos a continuación. Nuestro equipo amigable está aquí para responder tus preguntas y ayudarte a planificar una experiencia inolvidable.",
         email: "Email",
@@ -1454,38 +1582,66 @@ const translations: Record<string, Translations> = {
         line: "Line"
       },
       experiences: {
-        title: t('common.descubrelasexperienc'),
-        subtitle: t('common.sumxe9rgeteenlacultu'),
+        title: t("Descubrelasexperienc", {
+          defaultValue: "Descubrelasexperienc"
+        }),
+        subtitle: t("Sumxe9rgeteenlacultu", {
+          defaultValue: "Sumxe9rgeteenlacultu"
+        }),
         searchPlaceholder: "Buscar experiencias...",
         organizeDreamTrip: "Contáctanos para organizar el viaje de tus sueños a Tailandia."
       },
       blog: {
-        title: t('common.blogdeviajes'),
-        subtitle: t('common.descubrelomejordekra')
+        title: t("Blogdeviajes", {
+          defaultValue: "Blogdeviajes"
+        }),
+        subtitle: t("Descubrelomejordekra", {
+          defaultValue: "Descubrelomejordekra"
+        })
       },
       tours: {
-        title: t('common.nuestrasexperiencias'),
-        subtitle: t('common.descubrelabellezaexc')
+        title: t("Nuestrasexperiencias", {
+          defaultValue: "Nuestrasexperiencias"
+        }),
+        subtitle: t("Descubrelabellezaexc", {
+          defaultValue: "Descubrelabellezaexc"
+        })
       },
       krabiCelebration: {
         title: t('pages.krabiCelebration.title'),
-        subtitle: t('common.momentosxdanicosenen')
+        subtitle: t("Momentosxdanicosenen", {
+          defaultValue: "Momentosxdanicosenen"
+        })
       },
       becomePartner: {
-        title: t('common.convixe9rteteennuest'),
+        title: t("Convixe9rteteennuest", {
+          defaultValue: "Convixe9rteteennuest"
+        }),
         subtitle: "Únete a nuestra red de socios locales de confianza"
       },
       groupCorporate: {
-        title: t('common.viajesdegrupoycorpor'),
-        subtitle: t('common.experienciaspersonal')
+        title: t("Viajesdegrupoycorpor", {
+          defaultValue: "Viajesdegrupoycorpor"
+        }),
+        subtitle: t("Experienciaspersonal", {
+          defaultValue: "Experienciaspersonal"
+        })
       },
       villasKrabi: {
-        title: t('common.villasenkrabi'),
-        subtitle: t('common.seleccixf3ncuradadev')
+        title: t("Villasenkrabi", {
+          defaultValue: "Villasenkrabi"
+        }),
+        subtitle: t("Seleccixf3ncuradadev", {
+          defaultValue: "Seleccixf3ncuradadev"
+        })
       },
       brochure: {
-        title: t('common.nuestrofolleto'),
-        subtitle: t('common.guxedadeviajeamontou')
+        title: t("Nuestrofolleto", {
+          defaultValue: "Nuestrofolleto"
+        }),
+        subtitle: t("Guxedadeviajeamontou", {
+          defaultValue: "Guxedadeviajeamontou"
+        })
       }
     },
     messages: {
@@ -1556,16 +1712,24 @@ const translations: Record<string, Translations> = {
       welcomeBar: "¡Bienvenido a Amon Tour! Descubre experiencias auténticas en Tailandia 🇹🇭"
     },
     cookies: {
-      title: t('common.usamoscookies'),
-      description: t('common.utilizamoscookiespar'),
+      title: t("Usamoscookies", {
+        defaultValue: "Usamoscookies"
+      }),
+      description: t("Utilizamoscookiespar", {
+        defaultValue: "Utilizamoscookiespar"
+      }),
       acceptAll: "Aceptar Todo",
       rejectAll: "Rechazar Todo",
       customize: "Personalizar",
       privacyNotice: "Aviso de Privacidad"
     },
     blog: {
-      title: t('common.blogdeviajes'),
-      subtitle: t('common.descubretailandiaatr'),
+      title: t("Blogdeviajes", {
+        defaultValue: "Blogdeviajes"
+      }),
+      subtitle: t("Descubretailandiaatr", {
+        defaultValue: "Descubretailandiaatr"
+      }),
       tags: "Tags",
       categories: "Categorías",
       allTags: "Todos los Tags",

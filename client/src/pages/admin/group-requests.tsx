@@ -28,8 +28,9 @@ interface GroupRequest {
   createdAt: string;
 }
 export default function AdminGroupRequests() {
-  const { t } = useTranslation();
-
+  const {
+    t
+  } = useTranslation();
   const {
     isAuthenticated,
     isLoading
@@ -61,14 +62,22 @@ export default function AdminGroupRequests() {
         queryKey: ["/api/group-requests"]
       });
       toast({
-        title: t('common.succxe8s'),
-        description: t('common.demandemarquxe9ecomm')
+        title: t("Succxe8s", {
+          defaultValue: "Succxe8s"
+        }),
+        description: t("Demandemarquxe9ecomm", {
+          defaultValue: "Demandemarquxe9ecomm"
+        })
       });
     },
     onError: () => {
       toast({
-        title: t('common.erreur'),
-        description: t('common.impossibledemarquerl'),
+        title: t("Erreur", {
+          defaultValue: "Erreur"
+        }),
+        description: t("Impossibledemarquerl", {
+          defaultValue: "Impossibledemarquerl"
+        }),
         variant: "destructive"
       });
     }
@@ -83,14 +92,22 @@ export default function AdminGroupRequests() {
       });
       setSelectedRequest(null);
       toast({
-        title: t('common.succxe8s'),
-        description: t('common.demandesupprimxe9eav')
+        title: t("Succxe8s", {
+          defaultValue: "Succxe8s"
+        }),
+        description: t("Demandesupprimxe9eav", {
+          defaultValue: "Demandesupprimxe9eav"
+        })
       });
     },
     onError: () => {
       toast({
-        title: t('common.erreur'),
-        description: t('common.impossibledesupprime'),
+        title: t("Erreur", {
+          defaultValue: "Erreur"
+        }),
+        description: t("Impossibledesupprime", {
+          defaultValue: "Impossibledesupprime"
+        }),
         variant: "destructive"
       });
     }
@@ -109,7 +126,9 @@ export default function AdminGroupRequests() {
             <div className="flex items-center justify-center h-96">
               <div className="text-center">
                 <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto"></div>
-                <p className="mt-4 text-gray-600">{t('common.chargement')}</p>
+                <p className="mt-4 text-gray-600">{t("Chargement", {
+                  defaultValue: "Chargement"
+                })}</p>
               </div>
             </div>
           </div>
@@ -138,12 +157,18 @@ export default function AdminGroupRequests() {
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-4">
                 <Button variant="outline" onClick={() => setLocation("/admin")} className="flex items-center gap-2">
-                  <ArrowLeft className="h-4 w-4" />{t('common.back')}</Button>
+                  <ArrowLeft className="h-4 w-4" />{t("Back", {
+                  defaultValue: "Back"
+                })}</Button>
                 <div className="flex items-center gap-3">
                   <UsersIcon className="h-8 w-8 text-amber-600" />
                   <div>
-                    <h1 className="text-3xl font-heading text-gray-900">{t('common.groupesentreprises')}</h1>
-                    <p className="text-gray-600">{t('common.demandesdegroupesetc')}</p>
+                    <h1 className="text-3xl font-heading text-gray-900">{t("Groupesentreprises", {
+                      defaultValue: "Groupesentreprises"
+                    })}</h1>
+                    <p className="text-gray-600">{t("Demandesdegroupesetc", {
+                      defaultValue: "Demandesdegroupesetc"
+                    })}</p>
                   </div>
                 </div>
               </div>
@@ -160,7 +185,9 @@ export default function AdminGroupRequests() {
 
             <Card>
               <CardHeader>
-                <CardTitle>{t('common.demandesrexe7ues')}{requests.length})</CardTitle>
+                <CardTitle>{t("Demandesrexe7ues", {
+                  defaultValue: "Demandesrexe7ues"
+                })}{requests.length})</CardTitle>
               </CardHeader>
               <CardContent>
                 {requests.length === 0 ? <div className="text-center py-8">
@@ -171,19 +198,35 @@ export default function AdminGroupRequests() {
                   </div> : <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead>{t('common.statut')}</TableHead>
-                        <TableHead>{t('common.contact')}</TableHead>
-                        <TableHead>{t('common.entreprise')}</TableHead>
-                        <TableHead>{t('common.participants')}</TableHead>
-                        <TableHead>{t('common.datesdevoyage')}</TableHead>
-                        <TableHead>{t('common.rexe7ule')}</TableHead>
-                        <TableHead>{t('common.actions')}</TableHead>
+                        <TableHead>{t("Statut", {
+                        defaultValue: "Statut"
+                      })}</TableHead>
+                        <TableHead>{t("Contact", {
+                        defaultValue: "Contact"
+                      })}</TableHead>
+                        <TableHead>{t("Entreprise", {
+                        defaultValue: "Entreprise"
+                      })}</TableHead>
+                        <TableHead>{t("Participants", {
+                        defaultValue: "Participants"
+                      })}</TableHead>
+                        <TableHead>{t("Datesdevoyage", {
+                        defaultValue: "Datesdevoyage"
+                      })}</TableHead>
+                        <TableHead>{t("Rexe7ule", {
+                        defaultValue: "Rexe7ule"
+                      })}</TableHead>
+                        <TableHead>{t("Actions", {
+                        defaultValue: "Actions"
+                      })}</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
                       {requests.map(request => <TableRow key={request.id}>
                           <TableCell>
-                            {!request.read ? <Badge variant="destructive">{t('common.nouveau')}</Badge> : <Badge variant="secondary">Lu</Badge>}
+                            {!request.read ? <Badge variant="destructive">{t("Nouveau", {
+                          defaultValue: "Nouveau"
+                        })}</Badge> : <Badge variant="secondary">Lu</Badge>}
                           </TableCell>
                           <TableCell className="font-medium">{request.contactName}</TableCell>
                           <TableCell>{request.companyName}</TableCell>
@@ -219,41 +262,59 @@ export default function AdminGroupRequests() {
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <UsersIcon className="h-5 w-5 text-amber-600" />{t('common.demandedegroupe')}</DialogTitle>
-            <DialogDescription>{t('common.dxe9tailsdelademande')}</DialogDescription>
+              <UsersIcon className="h-5 w-5 text-amber-600" />{t("Demandedegroupe", {
+              defaultValue: "Demandedegroupe"
+            })}</DialogTitle>
+            <DialogDescription>{t("Dxe9tailsdelademande", {
+              defaultValue: "Dxe9tailsdelademande"
+            })}</DialogDescription>
           </DialogHeader>
           
           {selectedRequest && <div className="space-y-6">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-gray-700">{t('common.nomducontact')}</label>
+                  <label className="text-sm font-medium text-gray-700">{t("Nomducontact", {
+                  defaultValue: "Nomducontact"
+                })}</label>
                   <p className="text-gray-900">{selectedRequest.contactName}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">{t('common.email')}</label>
+                  <label className="text-sm font-medium text-gray-700">{t("Email", {
+                  defaultValue: "Email"
+                })}</label>
                   <p className="text-gray-900">{selectedRequest.email}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">{t('common.entrepriseorganisati')}</label>
+                  <label className="text-sm font-medium text-gray-700">{t("Entrepriseorganisati", {
+                  defaultValue: "Entrepriseorganisati"
+                })}</label>
                   <p className="text-gray-900">{selectedRequest.companyName}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">{t('common.txe9lxe9phone')}</label>
+                  <label className="text-sm font-medium text-gray-700">{t("Txe9lxe9phone", {
+                  defaultValue: "Txe9lxe9phone"
+                })}</label>
                   <p className="text-gray-900">{selectedRequest.phone || 'Non renseigné'}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">{t('common.nombredeparticipants')}</label>
+                  <label className="text-sm font-medium text-gray-700">{t("Nombredeparticipants", {
+                  defaultValue: "Nombredeparticipants"
+                })}</label>
                   <p className="text-gray-900 flex items-center gap-1">
                     <Users className="h-4 w-4" />
                     {selectedRequest.groupSize} personnes
                   </p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">{t('common.budget')}</label>
+                  <label className="text-sm font-medium text-gray-700">{t("Budget", {
+                  defaultValue: "Budget"
+                })}</label>
                   <p className="text-gray-900">{selectedRequest.budget || 'Non précisé'}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">{t('common.datesdevoyagesouhait')}</label>
+                  <label className="text-sm font-medium text-gray-700">{t("Datesdevoyagesouhait", {
+                  defaultValue: "Datesdevoyagesouhait"
+                })}</label>
                   <p className="text-gray-900 flex items-center gap-1">
                     <Calendar className="h-4 w-4" />
                     {selectedRequest.travelDates || 'Non précisées'}
@@ -262,20 +323,28 @@ export default function AdminGroupRequests() {
               </div>
               
               {selectedRequest.description && <div>
-                  <label className="text-sm font-medium text-gray-700">{t('common.description')}</label>
+                  <label className="text-sm font-medium text-gray-700">{t("Description", {
+                defaultValue: "Description"
+              })}</label>
                   <p className="text-gray-900 bg-gray-50 p-3 rounded-lg mt-1">
                     {selectedRequest.description}
                   </p>
                 </div>}
               
               <div className="flex items-center justify-between pt-4 border-t">
-                <p className="text-sm text-gray-500">{t('common.rexe7ule')}{new Date(selectedRequest.createdAt).toLocaleString('fr-FR')}
+                <p className="text-sm text-gray-500">{t("Rexe7ule", {
+                defaultValue: "Rexe7ule"
+              })}{new Date(selectedRequest.createdAt).toLocaleString('fr-FR')}
                 </p>
                 <div className="flex gap-2">
                   <Button variant="outline" onClick={() => window.open(`mailto:${selectedRequest.email}?subject=Votre demande de voyage de groupe&body=Bonjour ${selectedRequest.contactName},%0D%0A%0D%0ANous avons bien reçu votre demande pour un voyage de groupe.%0D%0A%0D%0ACordialement,%0D%0AÉquipe Amon Tour`)}>
-                    <Mail className="h-4 w-4 mr-2" />{t('common.rxe9pondreparemail')}</Button>
+                    <Mail className="h-4 w-4 mr-2" />{t("Rxe9pondreparemail", {
+                  defaultValue: "Rxe9pondreparemail"
+                })}</Button>
                   {!selectedRequest.read && <Button onClick={() => markAsReadMutation.mutate(selectedRequest.id)}>
-                      <CheckCircle2 className="h-4 w-4 mr-2" />{t('common.marquercommelu')}</Button>}
+                      <CheckCircle2 className="h-4 w-4 mr-2" />{t("Marquercommelu", {
+                  defaultValue: "Marquercommelu"
+                })}</Button>}
                 </div>
               </div>
             </div>}

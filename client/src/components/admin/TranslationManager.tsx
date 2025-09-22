@@ -8,8 +8,9 @@ import { Switch } from "@/components/ui/switch";
 // import { autoTranslate } from "@/lib/autoTranslate"; // DISABLED - autoTranslate removed to fix flag conflicts
 import { Globe, Settings, TestTube, Info } from "lucide-react";
 export default function TranslationManager() {
-  const { t } = useTranslation();
-
+  const {
+    t
+  } = useTranslation();
   const [isAutoEnabled, setIsAutoEnabled] = useState(localStorage.getItem('amon-tour-auto-translate') !== 'disabled');
   const [testResult, setTestResult] = useState<string | null>(null);
   const handleToggleAuto = (enabled: boolean) => {
@@ -39,8 +40,12 @@ export default function TranslationManager() {
             <Globe className="h-6 w-6 text-blue-600" />
           </div>
           <div>
-            <CardTitle className="text-lg font-heading">{t('common.gestiondelatraductio')}</CardTitle>
-            <CardDescription>{t('common.configurationdelatra')}</CardDescription>
+            <CardTitle className="text-lg font-heading">{t("Gestiondelatraductio", {
+              defaultValue: "Gestiondelatraductio"
+            })}</CardTitle>
+            <CardDescription>{t("Configurationdelatra", {
+              defaultValue: "Configurationdelatra"
+            })}</CardDescription>
           </div>
         </div>
       </CardHeader>
@@ -50,20 +55,30 @@ export default function TranslationManager() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="text-center p-4 bg-green-50 rounded-lg">
             <div className="text-2xl font-bold text-green-600">🇫🇷</div>
-            <div className="text-sm font-medium text-green-800">{t('common.cibleprincipale')}</div>
-            <div className="text-xs text-green-600">{t('common.utilisateursfranxe7a')}</div>
+            <div className="text-sm font-medium text-green-800">{t("Cibleprincipale", {
+              defaultValue: "Cibleprincipale"
+            })}</div>
+            <div className="text-xs text-green-600">{t("Utilisateursfranxe7a", {
+              defaultValue: "Utilisateursfranxe7a"
+            })}</div>
           </div>
           
           <div className="text-center p-4 bg-blue-50 rounded-lg">
             <div className="text-2xl font-bold text-blue-600">🌐</div>
-            <div className="text-sm font-medium text-blue-800">{t('common.serviceip')}</div>
+            <div className="text-sm font-medium text-blue-800">{t("Serviceip", {
+              defaultValue: "Serviceip"
+            })}</div>
             <div className="text-xs text-blue-600">ip-api.com (gratuit)</div>
           </div>
           
           <div className="text-center p-4 bg-purple-50 rounded-lg">
             <div className="text-2xl font-bold text-purple-600">⚡</div>
-            <div className="text-sm font-medium text-purple-800">{t('common.traducteurs')}</div>
-            <div className="text-xs text-purple-600">{t('common.chromeedgefirefox')}</div>
+            <div className="text-sm font-medium text-purple-800">{t("Traducteurs", {
+              defaultValue: "Traducteurs"
+            })}</div>
+            <div className="text-xs text-purple-600">{t("Chromeedgefirefox", {
+              defaultValue: "Chromeedgefirefox"
+            })}</div>
           </div>
         </div>
 
@@ -72,8 +87,12 @@ export default function TranslationManager() {
           <div className="flex items-center space-x-3">
             <Settings className="h-5 w-5 text-gray-500" />
             <div>
-              <div className="font-medium">{t('common.traductionautomatiqu')}</div>
-              <div className="text-sm text-gray-500">{t('common.activerladxe9tection')}</div>
+              <div className="font-medium">{t("Traductionautomatiqu", {
+                defaultValue: "Traductionautomatiqu"
+              })}</div>
+              <div className="text-sm text-gray-500">{t("Activerladxe9tection", {
+                defaultValue: "Activerladxe9tection"
+              })}</div>
             </div>
           </div>
           <div className="flex items-center space-x-2">
@@ -88,22 +107,32 @@ export default function TranslationManager() {
         <Alert>
           <Info className="h-4 w-4" />
           <AlertDescription>
-            <strong>{t('common.commentxe7afonctionn')}</strong>{t('common.lesystxe8medxe9tecte')}</AlertDescription>
+            <strong>{t("Commentxe7afonctionn", {
+              defaultValue: "Commentxe7afonctionn"
+            })}</strong>{t("Lesystxe8medxe9tecte", {
+            defaultValue: "Lesystxe8medxe9tecte"
+          })}</AlertDescription>
         </Alert>
 
         {/* Test Controls */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <h4 className="font-medium flex items-center gap-2">
-              <TestTube className="h-4 w-4" />{t('common.testsetcontrxf4les')}</h4>
+              <TestTube className="h-4 w-4" />{t("Testsetcontrxf4les", {
+              defaultValue: "Testsetcontrxf4les"
+            })}</h4>
           </div>
           
           <div className="flex gap-3 flex-wrap">
             <Button variant="outline" onClick={handleTestTranslation} className="flex items-center gap-2">
-              <Globe className="h-4 w-4" />{t('common.testerlatraduction')}</Button>
+              <Globe className="h-4 w-4" />{t("Testerlatraduction", {
+              defaultValue: "Testerlatraduction"
+            })}</Button>
             
             <Button variant="outline" onClick={handleResetChoices} className="flex items-center gap-2">
-              <Settings className="h-4 w-4" />{t('common.rxe9initialiserchoix')}</Button>
+              <Settings className="h-4 w-4" />{t("Rxe9initialiserchoix", {
+              defaultValue: "Rxe9initialiserchoix"
+            })}</Button>
           </div>
 
           {testResult && <Alert className="mt-3">
@@ -113,20 +142,42 @@ export default function TranslationManager() {
 
         {/* Technical Details */}
         <details className="border rounded-lg p-4">
-          <summary className="cursor-pointer font-medium text-sm">{t('common.dxe9tailstechniques')}</summary>
+          <summary className="cursor-pointer font-medium text-sm">{t("Dxe9tailstechniques", {
+            defaultValue: "Dxe9tailstechniques"
+          })}</summary>
           <div className="mt-3 text-xs text-gray-600 space-y-2">
-            <p><strong>{t('common.paysdxe9tectxe9s')}</strong>{t('common.francefrbelgiquebesu')}</p>
-            <p><strong>{t('common.mxe9thodesdedxe9clen')}</strong></p>
+            <p><strong>{t("Paysdxe9tectxe9s", {
+                defaultValue: "Paysdxe9tectxe9s"
+              })}</strong>{t("Francefrbelgiquebesu", {
+              defaultValue: "Francefrbelgiquebesu"
+            })}</p>
+            <p><strong>{t("Mxe9thodesdedxe9clen", {
+                defaultValue: "Mxe9thodesdedxe9clen"
+              })}</strong></p>
             <ul className="list-disc list-inside ml-4 space-y-1">
               <li>{t('Attribut HTML translate="yes"', {
                 defaultValue: 'Attribut HTML translate="yes"'
               })}</li>
-              <li>{t('common.metatagspoursuggesti')}</li>
-              <li>{t('common.apismoderneschrometr')}</li>
-              <li>{t('common.fallbackgoogletransl')}</li>
+              <li>{t("Metatagspoursuggesti", {
+                defaultValue: "Metatagspoursuggesti"
+              })}</li>
+              <li>{t("Apismoderneschrometr", {
+                defaultValue: "Apismoderneschrometr"
+              })}</li>
+              <li>{t("Fallbackgoogletransl", {
+                defaultValue: "Fallbackgoogletransl"
+              })}</li>
             </ul>
-            <p><strong>{t('common.stockage')}</strong>{t('common.prxe9fxe9rencesutili')}</p>
-            <p><strong>{t('common.performance')}</strong>{t('common.40100mslatencepourgx')}</p>
+            <p><strong>{t("Stockage", {
+                defaultValue: "Stockage"
+              })}</strong>{t("Prxe9fxe9rencesutili", {
+              defaultValue: "Prxe9fxe9rencesutili"
+            })}</p>
+            <p><strong>{t("Performance", {
+                defaultValue: "Performance"
+              })}</strong>{t("40100mslatencepourgx", {
+              defaultValue: "40100mslatencepourgx"
+            })}</p>
           </div>
         </details>
       </CardContent>

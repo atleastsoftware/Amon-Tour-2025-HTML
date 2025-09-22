@@ -82,7 +82,9 @@ export default function TourModal({
               {isLoading && <div className="absolute inset-0 flex items-center justify-center bg-white z-10">
                   <div className="text-center">
                     <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4 text-primary" />
-                    <p className="text-gray-600">{t('common.chargementdesdxe9tai')}</p>
+                    <p className="text-gray-600">{t("Chargementdesdxe9tai", {
+                  defaultValue: "Chargementdesdxe9tai"
+                })}</p>
                   </div>
                 </div>}
 
@@ -91,13 +93,19 @@ export default function TourModal({
                     <div className="w-16 h-16 bg-[hsl(var(--destructive)/0.1)] rounded-full flex items-center justify-center mx-auto mb-4">
                       <X className="h-8 w-8 text-[hsl(var(--destructive))]" />
                     </div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">{t('common.erreurdechargement')}</h3>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">{t("Erreurdechargement", {
+                  defaultValue: "Erreurdechargement"
+                })}</h3>
                     <p className="text-gray-600 mb-4">{error}</p>
-                    <Button onClick={onClose} variant="outline">{t('common.fermer')}</Button>
+                    <Button onClick={onClose} variant="outline">{t("Fermer", {
+                  defaultValue: "Fermer"
+                })}</Button>
                   </div>
                 </div>}
 
-              <iframe src={`https://www.tourninja.io/details/${tourId}`} className="w-full h-full border-0" title={t('common.dxe9tailsdutour')} onLoad={() => setIsLoading(false)} onError={() => {
+              <iframe src={`https://www.tourninja.io/details/${tourId}`} className="w-full h-full border-0" title={t("Dxe9tailsdutour", {
+            defaultValue: "Dxe9tailsdutour"
+          })} onLoad={() => setIsLoading(false)} onError={() => {
             setError("Impossible de charger les détails du tour");
             setIsLoading(false);
           }} allow="fullscreen" sandbox="allow-same-origin allow-scripts allow-popups allow-forms" />

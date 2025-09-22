@@ -18,8 +18,14 @@ export default function FormBuilder({
     t
   } = useTranslation();
   return <div className="p-8 text-center">
-      <h2 className="text-xl font-semibold mb-4">{t('common.formbuildertemporair')}</h2>
-      <p className="text-gray-600 mb-4">{t('common.leformbuilderesttemp')}</p>
-      <p className="text-sm text-gray-500">{t('common.fichieroriginalsauvx')}</p>
+      <h2 className="text-xl font-semibold mb-4">{t("Formbuildertemporair", {
+        defaultValue: "Formbuildertemporair"
+      })}</h2>
+      <p className="text-gray-600 mb-4">{t("Leformbuilderesttemp", {
+        defaultValue: "Leformbuilderesttemp"
+      })}</p>
+      <p className="text-sm text-gray-500">{t("Fichieroriginalsauvx", {
+        defaultValue: "Fichieroriginalsauvx"
+      })}</p>
     </div>;
 }

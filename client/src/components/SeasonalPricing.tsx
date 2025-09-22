@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
 import { useTranslation } from 'react-i18next';
 export default function SeasonalPricing() {
-  const { t } = useTranslation();
-
+  const {
+    t
+  } = useTranslation();
   return <div className="w-full">
       <div className="bg-gradient-to-br from-muted/30 to-primary/5 py-12">
         <div className="container mx-auto px-4">
@@ -47,7 +48,9 @@ export default function SeasonalPricing() {
                 <p className="text-sm text-muted-foreground/80 mb-4">{t('cruise.perDay')}</p>
                 <div className="border-t pt-4">
                   <p className="text-sm font-semibold text-muted-foreground">{t('cruise.period')}</p>
-                  <p className="text-sm text-muted-foreground">{t('common.dec152025jan152026')}</p>
+                  <p className="text-sm text-muted-foreground">{t("Dec152025jan152026", {
+                    defaultValue: "Dec152025jan152026"
+                  })}</p>
                 </div>
               </div>
             </motion.div>
@@ -74,8 +77,12 @@ export default function SeasonalPricing() {
                 <p className="text-sm text-muted-foreground/80 mb-4">{t('cruise.perDay')}</p>
                 <div className="border-t pt-4">
                   <p className="text-sm font-semibold text-muted-foreground">{t('cruise.period')}</p>
-                  <p className="text-sm text-muted-foreground">{t('common.oct15dec142025')}</p>
-                  <p className="text-sm text-muted-foreground">{t('common.jan15mar312026')}</p>
+                  <p className="text-sm text-muted-foreground">{t("Oct15dec142025", {
+                    defaultValue: "Oct15dec142025"
+                  })}</p>
+                  <p className="text-sm text-muted-foreground">{t("Jan15mar312026", {
+                    defaultValue: "Jan15mar312026"
+                  })}</p>
                 </div>
               </div>
             </motion.div>
@@ -102,7 +109,9 @@ export default function SeasonalPricing() {
                 <p className="text-sm text-muted-foreground/80 mb-4">{t('cruise.perDay')}</p>
                 <div className="border-t pt-4">
                   <p className="text-sm font-semibold text-muted-foreground">{t('cruise.period')}</p>
-                  <p className="text-sm text-muted-foreground">{t('common.apr1oct142026')}</p>
+                  <p className="text-sm text-muted-foreground">{t("Apr1oct142026", {
+                    defaultValue: "Apr1oct142026"
+                  })}</p>
                 </div>
               </div>
             </motion.div>
@@ -139,7 +148,9 @@ export default function SeasonalPricing() {
             }}>
                 <p className="text-lg font-bold text-foreground">8:30</p>
                 <p className="text-sm text-muted-foreground mt-1">{t('cruise.fromTubkeak')}</p>
-                <p className="text-sm font-bold text-secondary mt-2">{t('common.1300baht')}</p>
+                <p className="text-sm font-bold text-secondary mt-2">{t("1300baht", {
+                  defaultValue: "1300baht"
+                })}</p>
               </motion.div>
               
               {/* Thalane */}
@@ -157,7 +168,9 @@ export default function SeasonalPricing() {
             }}>
                 <p className="text-lg font-bold text-foreground">8:30</p>
                 <p className="text-sm text-muted-foreground mt-1">{t('cruise.fromThalane')}</p>
-                <p className="text-sm font-bold text-secondary mt-2">{t('common.1800baht')}</p>
+                <p className="text-sm font-bold text-secondary mt-2">{t("1800baht", {
+                  defaultValue: "1800baht"
+                })}</p>
               </motion.div>
               
               {/* Ao Nang */}
@@ -193,7 +206,9 @@ export default function SeasonalPricing() {
             }}>
                 <p className="text-lg font-bold text-foreground">8:40</p>
                 <p className="text-sm text-muted-foreground mt-1">{t('cruise.fromKlongMueang')}</p>
-                <p className="text-sm font-bold text-secondary mt-2">{t('common.1000baht')}</p>
+                <p className="text-sm font-bold text-secondary mt-2">{t("1000baht", {
+                  defaultValue: "1000baht"
+                })}</p>
               </motion.div>
               
               {/* Railay */}

@@ -16,7 +16,9 @@ import { FadeInWhenVisible, SlideUpWhenVisible, StaggerChildren, StaggerItem } f
 // Image is loaded from URL directly
 
 export default function Experiences() {
-  const { t } = useTranslation();
+  const {
+    t
+  } = useTranslation();
   const {
     data: tourCards = [],
     isLoading
@@ -35,7 +37,9 @@ export default function Experiences() {
       name: t('navigation.home'),
       url: "/"
     }, {
-      name: t('common.experiences'),
+      name: t("Experiences", {
+        defaultValue: "Experiences"
+      }),
       url: "/experiences"
     }]} faqSchema={[{
       question: "What makes a cultural experience authentic with Amon Tour?",
@@ -80,16 +84,22 @@ export default function Experiences() {
       
       <main>
         {/* Hero Banner */}
-        <HeroHeader title={t('pageHeaders.experiences.title')} subtitle={t('pageHeaders.experiences.subtitle')} alt={t('common.thailandexperiencesa')} />
+        <HeroHeader title={t('pageHeaders.experiences.title')} subtitle={t('pageHeaders.experiences.subtitle')} alt={t("Thailandexperiencesa", {
+        defaultValue: "Thailandexperiencesa"
+      })} />
         
         {/* Featured Tours Section - Tour Ninja Integration */}
         <section className="py-20 bg-gradient-to-b from-primary/5 to-white">
           <div className="container mx-auto px-4 max-w-4xl text-center">
             <FadeInWhenVisible>
               <div className="mb-8">
-                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{t('common.recommendedguidedtou')}</h2>
+                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{t("Recommendedguidedtou", {
+                  defaultValue: "Recommendedguidedtou"
+                })}</h2>
                 <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
-                <p className="text-lg text-gray-700 leading-relaxed">{t('common.discoverourorganized')}</p>
+                <p className="text-lg text-gray-700 leading-relaxed">{t("Discoverourorganized", {
+                  defaultValue: "Discoverourorganized"
+                })}</p>
               </div>
             </FadeInWhenVisible>
             
@@ -99,23 +109,37 @@ export default function Experiences() {
                 <Card className="h-full hover:shadow-xl transition-shadow duration-300 overflow-hidden">
                   <CardHeader className="p-0">
                     <div className="relative h-48 bg-gradient-to-r from-primary to-secondary">
-                      <img src="https://images.unsplash.com/photo-1528181304800-259b08848526?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt={t('common.bangkoktemplesetpala')} className="w-full h-full object-cover" loading="lazy" />
+                      <img src="https://images.unsplash.com/photo-1528181304800-259b08848526?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt={t("Bangkoktemplesetpala", {
+                      defaultValue: "Bangkoktemplesetpala"
+                    })} className="w-full h-full object-cover" loading="lazy" />
                       <div className="absolute inset-0 bg-black bg-opacity-20"></div>
                       <div className="absolute top-4 left-4">
-                        <span className="bg-secondary text-white px-3 py-1 rounded-full text-sm font-semibold">{t('common.culturehistory')}</span>
+                        <span className="bg-secondary text-white px-3 py-1 rounded-full text-sm font-semibold">{t("Culturehistory", {
+                          defaultValue: "Culturehistory"
+                        })}</span>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="p-6">
-                    <h3 className="text-xl font-bold text-gray-800 mb-3">{t('common.bangkokessential')}</h3>
-                    <p className="text-gray-600 text-sm mb-4 leading-relaxed">{t('common.3dayculturaltourgran')}</p>
+                    <h3 className="text-xl font-bold text-gray-800 mb-3">{t("Bangkokessential", {
+                      defaultValue: "Bangkokessential"
+                    })}</h3>
+                    <p className="text-gray-600 text-sm mb-4 leading-relaxed">{t("3dayculturaltourgran", {
+                      defaultValue: "3dayculturaltourgran"
+                    })}</p>
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-primary font-semibold">3 days</span>
-                      <span className="text-secondary font-bold text-lg">{t('common.from450')}</span>
+                      <span className="text-secondary font-bold text-lg">{t("From450", {
+                        defaultValue: "From450"
+                      })}</span>
                     </div>
                     <div className="flex gap-2">
-                      <Button className="flex-1 bg-primary hover:bg-primary/90" onClick={() => window.open('https://tourninja.com/tours/bangkok-essential', '_blank')}>{t('common.viewdetails')}</Button>
-                      <Button variant="outline" className="flex-1" onClick={() => window.location.href = '/contact?tour=Bangkok Essentiel'}>{t('common.booknow')}</Button>
+                      <Button className="flex-1 bg-primary hover:bg-primary/90" onClick={() => window.open('https://tourninja.com/tours/bangkok-essential', '_blank')}>{t("Viewdetails", {
+                        defaultValue: "Viewdetails"
+                      })}</Button>
+                      <Button variant="outline" className="flex-1" onClick={() => window.location.href = '/contact?tour=Bangkok Essentiel'}>{t("Booknow", {
+                        defaultValue: "Booknow"
+                      })}</Button>
                     </div>
                   </CardContent>
                 </Card>
@@ -131,20 +155,32 @@ export default function Experiences() {
                     })} className="w-full h-full object-cover" loading="lazy" />
                       <div className="absolute inset-0 bg-black bg-opacity-20"></div>
                       <div className="absolute top-4 left-4">
-                        <span className="bg-primary text-white px-3 py-1 rounded-full text-sm font-semibold">{t('common.northadventure')}</span>
+                        <span className="bg-primary text-white px-3 py-1 rounded-full text-sm font-semibold">{t("Northadventure", {
+                          defaultValue: "Northadventure"
+                        })}</span>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="p-6">
-                    <h3 className="text-xl font-bold text-gray-800 mb-3">{t('common.goldentriangle')}</h3>
-                    <p className="text-gray-600 text-sm mb-4 leading-relaxed">{t('common.5dayjourneychiangmai')}</p>
+                    <h3 className="text-xl font-bold text-gray-800 mb-3">{t("Goldentriangle", {
+                      defaultValue: "Goldentriangle"
+                    })}</h3>
+                    <p className="text-gray-600 text-sm mb-4 leading-relaxed">{t("5dayjourneychiangmai", {
+                      defaultValue: "5dayjourneychiangmai"
+                    })}</p>
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-primary font-semibold">5 days</span>
-                      <span className="text-secondary font-bold text-lg">{t('common.from750')}</span>
+                      <span className="text-secondary font-bold text-lg">{t("From750", {
+                        defaultValue: "From750"
+                      })}</span>
                     </div>
                     <div className="flex gap-2">
-                      <Button className="flex-1 bg-primary hover:bg-primary/90" onClick={() => window.open('https://tourninja.com/tours/golden-triangle', '_blank')}>{t('common.viewdetails')}</Button>
-                      <Button variant="outline" className="flex-1" onClick={() => window.location.href = '/contact?tour=Triangle d\'Or'}>{t('common.booknow')}</Button>
+                      <Button className="flex-1 bg-primary hover:bg-primary/90" onClick={() => window.open('https://tourninja.com/tours/golden-triangle', '_blank')}>{t("Viewdetails", {
+                        defaultValue: "Viewdetails"
+                      })}</Button>
+                      <Button variant="outline" className="flex-1" onClick={() => window.location.href = '/contact?tour=Triangle d\'Or'}>{t("Booknow", {
+                        defaultValue: "Booknow"
+                      })}</Button>
                     </div>
                   </CardContent>
                 </Card>
@@ -155,23 +191,37 @@ export default function Experiences() {
                 <Card className="h-full hover:shadow-xl transition-shadow duration-300 overflow-hidden">
                   <CardHeader className="p-0">
                     <div className="relative h-48 bg-gradient-to-r from-secondary to-primary">
-                      <img src="https://images.unsplash.com/photo-1552465011-1c479c548c28?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt={t('common.xcelesdusudthaxeflan')} className="w-full h-full object-cover" loading="lazy" />
+                      <img src="https://images.unsplash.com/photo-1552465011-1c479c548c28?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt={t("Xcelesdusudthaxeflan", {
+                      defaultValue: "Xcelesdusudthaxeflan"
+                    })} className="w-full h-full object-cover" loading="lazy" />
                       <div className="absolute inset-0 bg-black bg-opacity-20"></div>
                       <div className="absolute top-4 left-4">
-                        <span className="bg-secondary text-white px-3 py-1 rounded-full text-sm font-semibold">{t('common.beachesislands')}</span>
+                        <span className="bg-secondary text-white px-3 py-1 rounded-full text-sm font-semibold">{t("Beachesislands", {
+                          defaultValue: "Beachesislands"
+                        })}</span>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="p-6">
-                    <h3 className="text-xl font-bold text-gray-800 mb-3">{t('common.southernislands')}</h3>
-                    <p className="text-gray-600 text-sm mb-4 leading-relaxed">{t('common.7daytourphuketphiphi')}</p>
+                    <h3 className="text-xl font-bold text-gray-800 mb-3">{t("Southernislands", {
+                      defaultValue: "Southernislands"
+                    })}</h3>
+                    <p className="text-gray-600 text-sm mb-4 leading-relaxed">{t("7daytourphuketphiphi", {
+                      defaultValue: "7daytourphuketphiphi"
+                    })}</p>
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-primary font-semibold">7 days</span>
-                      <span className="text-secondary font-bold text-lg">{t('common.from990')}</span>
+                      <span className="text-secondary font-bold text-lg">{t("From990", {
+                        defaultValue: "From990"
+                      })}</span>
                     </div>
                     <div className="flex gap-2">
-                      <Button className="flex-1 bg-primary hover:bg-primary/90" onClick={() => window.open('https://tourninja.com/tours/southern-islands', '_blank')}>{t('common.viewdetails')}</Button>
-                      <Button variant="outline" className="flex-1" onClick={() => window.location.href = '/contact?tour=Îles du Sud'}>{t('common.booknow')}</Button>
+                      <Button className="flex-1 bg-primary hover:bg-primary/90" onClick={() => window.open('https://tourninja.com/tours/southern-islands', '_blank')}>{t("Viewdetails", {
+                        defaultValue: "Viewdetails"
+                      })}</Button>
+                      <Button variant="outline" className="flex-1" onClick={() => window.location.href = '/contact?tour=Îles du Sud'}>{t("Booknow", {
+                        defaultValue: "Booknow"
+                      })}</Button>
                     </div>
                   </CardContent>
                 </Card>
@@ -181,10 +231,16 @@ export default function Experiences() {
             {/* Call to Action */}
             <FadeInWhenVisible>
               <div className="bg-blue-600 text-white rounded-xl p-8 text-center">
-                <h3 className="text-2xl font-bold mb-4">{t('common.needacustomizedtour')}</h3>
-                <p className="text-blue-100 mb-6 max-w-2xl mx-auto">{t('common.ourlocalexpertscreat')}{t('pageHeaders.experiences.organizeDreamTrip')}
+                <h3 className="text-2xl font-bold mb-4">{t("Needacustomizedtour", {
+                  defaultValue: "Needacustomizedtour"
+                })}</h3>
+                <p className="text-blue-100 mb-6 max-w-2xl mx-auto">{t("Ourlocalexpertscreat", {
+                  defaultValue: "Ourlocalexpertscreat"
+                })}{t('pageHeaders.experiences.organizeDreamTrip')}
                 </p>
-                <Button size="lg" variant="secondary" className="bg-white text-primary hover:bg-gray-100" onClick={() => window.location.href = '/contact?subject=Custom Tour'}>{t('common.requestafreequote')}</Button>
+                <Button size="lg" variant="secondary" className="bg-white text-primary hover:bg-gray-100" onClick={() => window.location.href = '/contact?subject=Custom Tour'}>{t("Requestafreequote", {
+                  defaultValue: "Requestafreequote"
+                })}</Button>
               </div>
             </FadeInWhenVisible>
           </div>
@@ -203,7 +259,9 @@ export default function Experiences() {
             }} transition={{
               duration: 0.6
             }}>
-                <h2 className="font-heading font-semibold text-xl mb-4">{t('common.filterexperiences')}</h2>
+                <h2 className="font-heading font-semibold text-xl mb-4">{t("Filterexperiences", {
+                  defaultValue: "Filterexperiences"
+                })}</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
                   <motion.div whileHover={{
                   scale: 1.02
@@ -211,11 +269,15 @@ export default function Experiences() {
                   type: "spring",
                   stiffness: 400
                 }} className="lg:col-span-1">
-                    <label htmlFor="search" className="block text-sm font-medium text-gray-700 mb-1">{t('common.search')}</label>
+                    <label htmlFor="search" className="block text-sm font-medium text-gray-700 mb-1">{t("Search", {
+                      defaultValue: "Search"
+                    })}</label>
                     <Input id="search" type="text" placeholder={t('pageHeaders.experiences.searchPlaceholder')} value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
                   </motion.div>
                   <div className="lg:col-span-3 flex items-end">
-                    <div className="text-sm text-gray-500">{t('common.usethesearchabovetof')}</div>
+                    <div className="text-sm text-gray-500">{t("Usethesearchabovetof", {
+                      defaultValue: "Usethesearchabovetof"
+                    })}</div>
                   </div>
                 </div>
               </motion.div>
@@ -252,7 +314,9 @@ export default function Experiences() {
           }} transition={{
             duration: 0.5
           }}>
-                <p className="text-gray-500">{t('common.noexperiencesavailab')}</p>
+                <p className="text-gray-500">{t("Noexperiencesavailab", {
+                defaultValue: "Noexperiencesavailab"
+              })}</p>
               </motion.div>}
           </div>
         </section>

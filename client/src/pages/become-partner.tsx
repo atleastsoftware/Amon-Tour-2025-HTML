@@ -20,8 +20,9 @@ interface FormData {
   description: string;
 }
 export default function BecomePartner() {
-  const { t } = useTranslation();
-
+  const {
+    t
+  } = useTranslation();
   const {
     toast
   } = useToast();
@@ -67,8 +68,12 @@ export default function BecomePartner() {
       const result = await response.json();
       console.log('Partnership - Success result:', result);
       toast({
-        title: t('common.partnershiprequestse'),
-        description: t('common.thankyouforyourinter'),
+        title: t("Partnershiprequestse", {
+          defaultValue: "Partnershiprequestse"
+        }),
+        description: t("Thankyouforyourinter", {
+          defaultValue: "Thankyouforyourinter"
+        }),
         duration: 5000
       });
 
@@ -95,7 +100,9 @@ export default function BecomePartner() {
     }
   };
   return <>
-      <SEO title={t('common.becomepartnerjoinamo')} description="Partner with Amon Tour and grow your business. Attractive commissions, transparent processes, and local expertise for travel agents, hotels, and influencers." keywords="travel partner thailand, tour operator partnership, travel agent commission, affiliate program krabi, b2b travel thailand" />
+      <SEO title={t("Becomepartnerjoinamo", {
+      defaultValue: "Becomepartnerjoinamo"
+    })} description="Partner with Amon Tour and grow your business. Attractive commissions, transparent processes, and local expertise for travel agents, hotels, and influencers." keywords="travel partner thailand, tour operator partnership, travel agent commission, affiliate program krabi, b2b travel thailand" />
       <Header />
       
       <main>
@@ -103,7 +110,9 @@ export default function BecomePartner() {
         <section className="relative h-[60vh] overflow-hidden">
           <div className="absolute inset-0 bg-black/40 z-10"></div>
           <div className="absolute inset-0 z-0">
-            <img src="/uploads/tours/tour-1745996624172-231261635.jpeg" alt={t('common.professionalpartners')} className="w-full h-full object-cover" />
+            <img src="/uploads/tours/tour-1745996624172-231261635.jpeg" alt={t("Professionalpartners", {
+            defaultValue: "Professionalpartners"
+          })} className="w-full h-full object-cover" />
           </div>
           <div className="container mx-auto px-4 relative z-20 h-full flex flex-col justify-center items-center text-center text-white">
             <motion.div initial={{
@@ -116,7 +125,9 @@ export default function BecomePartner() {
             duration: 0.8
           }}>
               <Handshake className="w-16 h-16 text-secondary mx-auto mb-6" />
-              <h1 className="font-heading font-bold text-4xl md:text-5xl mb-6">{t('common.becomeourpartner')}</h1>
+              <h1 className="font-heading font-bold text-4xl md:text-5xl mb-6">{t("Becomeourpartner", {
+                defaultValue: "Becomeourpartner"
+              })}</h1>
               <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-8">{t('Join our professional network and grow your business with Thailand\'s premier local tour operator.', {
                 defaultValue: 'Join our professional network and grow your business with Thailand\'s premier local tour operator.'
               })}</p>
@@ -127,7 +138,9 @@ export default function BecomePartner() {
                   behavior: 'smooth'
                 });
               }
-            }}>{t('common.startpartnership')}</Button>
+            }}>{t("Startpartnership", {
+                defaultValue: "Startpartnership"
+              })}</Button>
             </motion.div>
           </div>
         </section>
@@ -146,28 +159,48 @@ export default function BecomePartner() {
           }} transition={{
             duration: 0.6
           }}>
-              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">{t('common.whypartnerwithamonto')}</h2>
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">{t("Whypartnerwithamonto", {
+                defaultValue: "Whypartnerwithamonto"
+              })}</h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-6"></div>
-              <p className="text-gray-600 max-w-3xl mx-auto text-lg">{t('common.weprovidethetoolssup')}</p>
+              <p className="text-gray-600 max-w-3xl mx-auto text-lg">{t("Weprovidethetoolssup", {
+                defaultValue: "Weprovidethetoolssup"
+              })}</p>
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {[{
               icon: <TrendingUp className="w-8 h-8" />,
-              title: t('common.attractivecommission'),
-              description: t('common.competitivecommissio')
+              title: t("Attractivecommission", {
+                defaultValue: "Attractivecommission"
+              }),
+              description: t("Competitivecommissio", {
+                defaultValue: "Competitivecommissio"
+              })
             }, {
               icon: <Shield className="w-8 h-8" />,
-              title: t('common.completetransparency'),
-              description: t('common.realtimebookingtrack')
+              title: t("Completetransparency", {
+                defaultValue: "Completetransparency"
+              }),
+              description: t("Realtimebookingtrack", {
+                defaultValue: "Realtimebookingtrack"
+              })
             }, {
               icon: <Users className="w-8 h-8" />,
-              title: t('common.localexpertise'),
-              description: t('common.ourexperiencedlocalt')
+              title: t("Local expertise", {
+                defaultValue: "Local expertise"
+              }),
+              description: t("Ourexperiencedlocalt", {
+                defaultValue: "Ourexperiencedlocalt"
+              })
             }, {
               icon: <Globe className="w-8 h-8" />,
-              title: t('common.easyintegration'),
-              description: t('common.quickonboardingproce')
+              title: t("Easyintegration", {
+                defaultValue: "Easyintegration"
+              }),
+              description: t("Quickonboardingproce", {
+                defaultValue: "Quickonboardingproce"
+              })
             }].map((benefit, index) => <motion.div key={index} className="text-center" initial={{
               opacity: 0,
               y: 20
@@ -204,31 +237,51 @@ export default function BecomePartner() {
           }} transition={{
             duration: 0.6
           }}>
-              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">{t('common.idealpartners')}</h2>
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">{t("Idealpartners", {
+                defaultValue: "Idealpartners"
+              })}</h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-6"></div>
-              <p className="text-gray-600 max-w-2xl mx-auto">{t('common.wewelcomepartnership')}</p>
+              <p className="text-gray-600 max-w-2xl mx-auto">{t("Wewelcomepartnership", {
+                defaultValue: "Wewelcomepartnership"
+              })}</p>
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[{
               icon: <Globe className="w-12 h-12" />,
-              title: t('common.travelagenciestravel'),
-              description: t('common.travelagenciesandtra'),
+              title: t("Travelagenciestravel", {
+                defaultValue: "Travelagenciestravel"
+              }),
+              description: t("Travelagenciesandtra", {
+                defaultValue: "Travelagenciesandtra"
+              }),
               badge: "High Volume"
             }, {
               icon: <Star className="w-12 h-12" />,
-              title: t('common.travelbloggersinflue'),
-              description: t('common.contentcreatorswithe'),
+              title: t("Travelbloggersinflue", {
+                defaultValue: "Travelbloggersinflue"
+              }),
+              description: t("Contentcreatorswithe", {
+                defaultValue: "Contentcreatorswithe"
+              }),
               badge: "Content Partners"
             }, {
               icon: <Users className="w-12 h-12" />,
-              title: t('common.hotelsresorts'),
-              description: t('common.accommodationswantin'),
+              title: t("Hotelsresorts", {
+                defaultValue: "Hotelsresorts"
+              }),
+              description: t("Accommodationswantin", {
+                defaultValue: "Accommodationswantin"
+              }),
               badge: "Guest Services"
             }, {
               icon: <Shield className="w-12 h-12" />,
-              title: t('common.conciergeservices'),
-              description: t('common.luxuryconciergeandpe'),
+              title: t("Conciergeservices", {
+                defaultValue: "Conciergeservices"
+              }),
+              description: t("Luxuryconciergeandpe", {
+                defaultValue: "Luxuryconciergeandpe"
+              }),
               badge: "Premium"
             }].map((partner, index) => <motion.div key={index} className="bg-white p-6 rounded-lg shadow-md relative" initial={{
               opacity: 0,
@@ -272,7 +325,9 @@ export default function BecomePartner() {
             duration: 0.6
           }}>
               <div className="text-center mb-12">
-                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">{t('common.whatyougetasourpartn')}</h2>
+                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">{t("Whatyougetasourpartn", {
+                  defaultValue: "Whatyougetasourpartn"
+                })}</h2>
                 <div className="w-20 h-1 bg-secondary mx-auto mb-6"></div>
               </div>
 
@@ -283,8 +338,12 @@ export default function BecomePartner() {
                       <TrendingUp className="w-5 h-5 text-primary" />
                     </div>
                     <div>
-                      <h3 className="font-heading font-bold text-lg mb-2">{t('common.competitivecommissio')}</h3>
-                      <p className="text-gray-600">{t('common.earnupto15commission')}</p>
+                      <h3 className="font-heading font-bold text-lg mb-2">{t("Competitivecommissio", {
+                        defaultValue: "Competitivecommissio"
+                      })}</h3>
+                      <p className="text-gray-600">{t("Earnupto15commission", {
+                        defaultValue: "Earnupto15commission"
+                      })}</p>
                     </div>
                   </div>
 
@@ -293,8 +352,12 @@ export default function BecomePartner() {
                       <Globe className="w-5 h-5 text-primary" />
                     </div>
                     <div>
-                      <h3 className="font-heading font-bold text-lg mb-2">{t('common.marketingsupport')}</h3>
-                      <p className="text-gray-600">{t('common.highqualityphotosvid')}</p>
+                      <h3 className="font-heading font-bold text-lg mb-2">{t("Marketingsupport", {
+                        defaultValue: "Marketingsupport"
+                      })}</h3>
+                      <p className="text-gray-600">{t("Highqualityphotosvid", {
+                        defaultValue: "Highqualityphotosvid"
+                      })}</p>
                     </div>
                   </div>
 
@@ -303,8 +366,12 @@ export default function BecomePartner() {
                       <Users className="w-5 h-5 text-primary" />
                     </div>
                     <div>
-                      <h3 className="font-heading font-bold text-lg mb-2">{t('common.dedicatedsupport')}</h3>
-                      <p className="text-gray-600">{t('common.personalaccountmanag')}</p>
+                      <h3 className="font-heading font-bold text-lg mb-2">{t("Dedicatedsupport", {
+                        defaultValue: "Dedicatedsupport"
+                      })}</h3>
+                      <p className="text-gray-600">{t("Personalaccountmanag", {
+                        defaultValue: "Personalaccountmanag"
+                      })}</p>
                     </div>
                   </div>
                 </div>
@@ -315,8 +382,12 @@ export default function BecomePartner() {
                       <Shield className="w-5 h-5 text-secondary" />
                     </div>
                     <div>
-                      <h3 className="font-heading font-bold text-lg mb-2">{t('common.bookingplatformacces')}</h3>
-                      <p className="text-gray-600">{t('common.easytouseonlineporta')}</p>
+                      <h3 className="font-heading font-bold text-lg mb-2">{t("Bookingplatformacces", {
+                        defaultValue: "Bookingplatformacces"
+                      })}</h3>
+                      <p className="text-gray-600">{t("Easytouseonlineporta", {
+                        defaultValue: "Easytouseonlineporta"
+                      })}</p>
                     </div>
                   </div>
 
@@ -325,8 +396,12 @@ export default function BecomePartner() {
                       <Star className="w-5 h-5 text-secondary" />
                     </div>
                     <div>
-                      <h3 className="font-heading font-bold text-lg mb-2">{t('common.trainingeducation')}</h3>
-                      <p className="text-gray-600">{t('common.regularwebinarsdesti')}</p>
+                      <h3 className="font-heading font-bold text-lg mb-2">{t("Trainingeducation", {
+                        defaultValue: "Trainingeducation"
+                      })}</h3>
+                      <p className="text-gray-600">{t("Regularwebinarsdesti", {
+                        defaultValue: "Regularwebinarsdesti"
+                      })}</p>
                     </div>
                   </div>
 
@@ -335,8 +410,12 @@ export default function BecomePartner() {
                       <Handshake className="w-5 h-5 text-secondary" />
                     </div>
                     <div>
-                      <h3 className="font-heading font-bold text-lg mb-2">{t('common.flexibleterms')}</h3>
-                      <p className="text-gray-600">{t('common.noexclusiverequireme')}</p>
+                      <h3 className="font-heading font-bold text-lg mb-2">{t("Flexibleterms", {
+                        defaultValue: "Flexibleterms"
+                      })}</h3>
+                      <p className="text-gray-600">{t("Noexclusiverequireme", {
+                        defaultValue: "Noexclusiverequireme"
+                      })}</p>
                     </div>
                   </div>
                 </div>
@@ -360,47 +439,75 @@ export default function BecomePartner() {
             duration: 0.6
           }}>
               <div className="text-center mb-8">
-                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">{t('common.startyourpartnership')}</h2>
+                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">{t("Startyourpartnership", {
+                  defaultValue: "Startyourpartnership"
+                })}</h2>
                 <div className="w-20 h-1 bg-secondary mx-auto mb-6"></div>
-                <p className="text-gray-600">{t('common.readytogrowyourbusin')}</p>
+                <p className="text-gray-600">{t("Readytogrowyourbusin", {
+                  defaultValue: "Readytogrowyourbusin"
+                })}</p>
               </div>
 
               <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="contactName">{t('common.fullname')}</Label>
-                    <Input id="contactName" name="contactName" value={formData.contactName} onChange={handleInputChange} placeholder={t('common.yourfullname')} required />
+                    <Label htmlFor="contactName">{t("Full Name", {
+                      defaultValue: "Full Name"
+                    })}</Label>
+                    <Input id="contactName" name="contactName" value={formData.contactName} onChange={handleInputChange} placeholder={t("Your full name", {
+                    defaultValue: "Your full name"
+                  })} required />
                   </div>
                   <div>
-                    <Label htmlFor="companyName">{t('common.companyname')}</Label>
-                    <Input id="companyName" name="companyName" value={formData.companyName} onChange={handleInputChange} placeholder={t('common.yourcompanyname')} required />
+                    <Label htmlFor="companyName">{t("Companyname", {
+                      defaultValue: "Companyname"
+                    })}</Label>
+                    <Input id="companyName" name="companyName" value={formData.companyName} onChange={handleInputChange} placeholder={t("Yourcompanyname", {
+                    defaultValue: "Yourcompanyname"
+                  })} required />
                   </div>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="email">{t('common.emailaddress')}</Label>
+                    <Label htmlFor="email">{t("Emailaddress", {
+                      defaultValue: "Emailaddress"
+                    })}</Label>
                     <Input id="email" name="email" type="email" value={formData.email} onChange={handleInputChange} placeholder="your@email.com" required />
                   </div>
                   <div>
-                    <Label htmlFor="website">{t('common.websiteoptional')}</Label>
+                    <Label htmlFor="website">{t("Websiteoptional", {
+                      defaultValue: "Websiteoptional"
+                    })}</Label>
                     <Input id="website" name="website" type="url" value={formData.website} onChange={handleInputChange} placeholder="https://yourwebsite.com" />
                   </div>
                 </div>
 
                 <div>
-                  <Label htmlFor="phone">{t('common.phonenumber')}</Label>
-                  <Input id="phone" name="phone" type="tel" value={formData.phone} onChange={handleInputChange} placeholder={t('common.66xxxxxxxxx')} />
+                  <Label htmlFor="phone">{t("Phonenumber", {
+                    defaultValue: "Phonenumber"
+                  })}</Label>
+                  <Input id="phone" name="phone" type="tel" value={formData.phone} onChange={handleInputChange} placeholder={t("+66 XXXXXXXXX", {
+                  defaultValue: "+66 XXXXXXXXX"
+                })} />
                 </div>
 
                 <div>
-                  <Label htmlFor="partnershipType">{t('common.typeofbusiness')}</Label>
-                  <Input id="partnershipType" name="partnershipType" value={formData.partnershipType} onChange={handleInputChange} placeholder={t('common.egtravelagencyhotelb')} required />
+                  <Label htmlFor="partnershipType">{t("Typeofbusiness", {
+                    defaultValue: "Typeofbusiness"
+                  })}</Label>
+                  <Input id="partnershipType" name="partnershipType" value={formData.partnershipType} onChange={handleInputChange} placeholder={t("Egtravelagencyhotelb", {
+                  defaultValue: "Egtravelagencyhotelb"
+                })} required />
                 </div>
 
                 <div>
-                  <Label htmlFor="description">{t('common.tellusaboutyourbusin')}</Label>
-                  <Textarea id="description" name="description" value={formData.description} onChange={handleInputChange} placeholder={t('common.describeyourbusiness')} rows={5} required />
+                  <Label htmlFor="description">{t("Tellusaboutyourbusin", {
+                    defaultValue: "Tellusaboutyourbusin"
+                  })}</Label>
+                  <Textarea id="description" name="description" value={formData.description} onChange={handleInputChange} placeholder={t("Describeyourbusiness", {
+                  defaultValue: "Describeyourbusiness"
+                })} rows={5} required />
                 </div>
 
                 <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={isSubmitting}>

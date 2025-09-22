@@ -32,7 +32,6 @@ interface BlogPost {
   }[];
 }
 
-
 // Popular Tour Ninja tours mapping - real tokens from API
 const popularToursData = {
   'phi-phi': {
@@ -57,7 +56,7 @@ const popularToursData = {
     id: 't1k3AxM19a',
     title: "Phang Nga Bay: Koh Kudu and Koh Hong",
     description: "Discover the breathtaking beauty of Phang Nga Bay with its limestone karsts, crystal-clear waters and hidden lagoons.",
-    duration: "1 day", 
+    duration: "1 day",
     price: 2500,
     currency: "THB",
     tourNinjaUrl: "https://www.tourninja.io/book/t1k3AxM19a"
@@ -67,7 +66,7 @@ const popularToursData = {
     title: "Krabi: Primary Forest and Waterfall",
     description: "Explore Krabi's primary forest and discover magnificent waterfalls in an authentic natural setting.",
     duration: "1 day",
-    price: 2500, 
+    price: 2500,
     currency: "THB",
     tourNinjaUrl: "https://www.tourninja.io/book/-Yzd7eCHa0"
   },
@@ -77,7 +76,7 @@ const popularToursData = {
     description: "Kayak through mangroves and discover natural pools in Thalane, one of Krabi's best-kept secrets.",
     duration: "1 day",
     price: 2500,
-    currency: "THB", 
+    currency: "THB",
     tourNinjaUrl: "https://www.tourninja.io/book/CeNxYxqbXq"
   },
   'ao-luk': {
@@ -243,11 +242,15 @@ export default function BlogPostPage() {
         <Header />
         <div className="bg-gray-50 flex items-center justify-center">
           <div className="text-center">
-            <h1 className="text-4xl font-bold text-gray-800 mb-4">{t('common.articlenotfound')}</h1>
+            <h1 className="text-4xl font-bold text-gray-800 mb-4">{t("Articlenotfound", {
+              defaultValue: "Articlenotfound"
+            })}</h1>
             <p className="text-gray-600 mb-8">{""}</p>
             <Link href="/blog">
               <Button>
-                <ArrowLeft className="h-4 w-4 mr-2" />{t('common.backtoblog')}</Button>
+                <ArrowLeft className="h-4 w-4 mr-2" />{t("Backtoblog", {
+                defaultValue: "Backtoblog"
+              })}</Button>
             </Link>
           </div>
         </div>
@@ -256,7 +259,9 @@ export default function BlogPostPage() {
   }
   return <div className="min-h-screen">
       <Helmet>
-        <title>{post.title}{t('common.amontourkrabithailan')}</title>
+        <title>{post.title}{t("Amontourkrabithailan", {
+          defaultValue: "Amontourkrabithailan"
+        })}</title>
         <meta name="description" content={post.metaDescription || post.excerpt} />
         <meta name="keywords" content={post.metaKeywords || `Krabi, Thailand, ${post.title}`} />
         
@@ -311,7 +316,9 @@ export default function BlogPostPage() {
           <div className="max-w-4xl mx-auto">
             {/* Back Button */}
             <Link href="/blog" className="inline-flex items-center text-primary hover:text-primary/80 mb-8">
-              <ArrowLeft className="h-4 w-4 mr-2" />{t('common.backtoblog')}</Link>
+              <ArrowLeft className="h-4 w-4 mr-2" />{t("Backtoblog", {
+              defaultValue: "Backtoblog"
+            })}</Link>
 
             {/* Article Header */}
             <article className="bg-white rounded-lg shadow-lg overflow-hidden">
@@ -380,8 +387,12 @@ export default function BlogPostPage() {
                 {/* Related Tours Section - SEO optimized call-to-action */}
                 {getRelatedTours(post.slug).length > 0 && <div className="mt-12 p-6 bg-gradient-to-r from-primary/10 to-primary/20 rounded-xl border border-primary/30 shadow-sm">
                     <h3 className="text-xl font-bold text-primary mb-4 flex items-center gap-2">
-                      <span>🌴</span>{t('common.toursrecommendedbyam')}</h3>
-                    <p className="text-gray-700 mb-6 text-sm">{t('common.discoverourguidedtou')}</p>
+                      <span>🌴</span>{t("Toursrecommendedbyam", {
+                    defaultValue: "Toursrecommendedbyam"
+                  })}</h3>
+                    <p className="text-gray-700 mb-6 text-sm">{t("Discoverourguidedtou", {
+                    defaultValue: "Discoverourguidedtou"
+                  })}</p>
                     <div className="space-y-4">
                       {getRelatedTours(post.slug).map(tour => <div key={tour.id} className="bg-white p-5 rounded-lg shadow-sm border hover:shadow-md transition-shadow">
                           <div className="flex justify-between items-start gap-4">
@@ -402,8 +413,12 @@ export default function BlogPostPage() {
                               </div>
                             </div>
                             <div className="flex flex-col gap-2">
-                              <a href={tour.tourNinjaUrl} target="_blank" rel="noopener noreferrer" className="bg-primary hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-colors text-center shadow-sm" aria-label={`View details and book ${tour.title}`}>{t('common.viewdetails')}</a>
-                              <a href={`/contact?tour=${encodeURIComponent(tour.title)}`} className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg text-sm font-medium transition-colors text-center" aria-label={`Contact us for ${tour.title}`}>{t('common.booknow')}</a>
+                              <a href={tour.tourNinjaUrl} target="_blank" rel="noopener noreferrer" className="bg-primary hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-colors text-center shadow-sm" aria-label={`View details and book ${tour.title}`}>{t("Viewdetails", {
+                            defaultValue: "Viewdetails"
+                          })}</a>
+                              <a href={`/contact?tour=${encodeURIComponent(tour.title)}`} className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg text-sm font-medium transition-colors text-center" aria-label={`Contact us for ${tour.title}`}>{t("Booknow", {
+                            defaultValue: "Booknow"
+                          })}</a>
                             </div>
                           </div>
                         </div>)}
@@ -412,11 +427,25 @@ export default function BlogPostPage() {
                       <div className="flex items-start gap-3">
                         <span className="text-blue-600 text-lg">💡</span>
                         <div>
-                          <p className="font-semibold text-primary mb-1">{t('common.whychooseamontour')}</p>
+                          <p className="font-semibold text-primary mb-1">{t("Whychooseamontour", {
+                          defaultValue: "Whychooseamontour"
+                        })}</p>
                           <ul className="text-sm text-blue-800 space-y-1">
-                            <li>• <strong>{t('common.expertlocalguides')}</strong>{t('common.authenticdiscoverywi')}</li>
-                            <li>• <strong>{t('common.smallgroups')}</strong>{t('common.personalizedandquali')}</li>
-                            <li>• <strong>{t('common.securebooking')}</strong>{t('common.protectedpaymentandf')}</li>
+                            <li>• <strong>{t("Expertlocalguides", {
+                              defaultValue: "Expertlocalguides"
+                            })}</strong>{t("Authenticdiscoverywi", {
+                            defaultValue: "Authenticdiscoverywi"
+                          })}</li>
+                            <li>• <strong>{t("Smallgroups", {
+                              defaultValue: "Smallgroups"
+                            })}</strong>{t("Personalizedandquali", {
+                            defaultValue: "Personalizedandquali"
+                          })}</li>
+                            <li>• <strong>{t("Securebooking", {
+                              defaultValue: "Securebooking"
+                            })}</strong>{t("Protectedpaymentandf", {
+                            defaultValue: "Protectedpaymentandf"
+                          })}</li>
                           </ul>
                         </div>
                       </div>
@@ -427,7 +456,9 @@ export default function BlogPostPage() {
 
             {/* Related Posts */}
             {(relatedPosts as any[]).length > 0 && <div className="mt-12">
-                <h2 className="text-2xl font-bold text-gray-800 mb-6">{t('common.relatedarticles')}</h2>
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">{t("Relatedarticles", {
+                defaultValue: "Relatedarticles"
+              })}</h2>
                 <div className="grid md:grid-cols-2 gap-6">
                   {(relatedPosts as any[]).slice(0, 2).map((relatedPost: any) => <Card key={relatedPost.id} className="overflow-hidden hover:shadow-lg transition-shadow">
                       {relatedPost.coverImage && <div className="relative h-48">
@@ -445,7 +476,9 @@ export default function BlogPostPage() {
                       </CardHeader>
                       <CardContent>
                         <Link href={`/blog/${relatedPost.slug}`}>
-                          <Button className="w-full">{t('common.readmore')}<ChevronRight className="h-4 w-4 ml-2" />
+                          <Button className="w-full">{t("Readmore", {
+                        defaultValue: "Readmore"
+                      })}<ChevronRight className="h-4 w-4 ml-2" />
                           </Button>
                         </Link>
                       </CardContent>

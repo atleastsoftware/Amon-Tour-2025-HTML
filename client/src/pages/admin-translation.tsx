@@ -9,8 +9,9 @@ import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 export default function AdminTranslation() {
-  const { t } = useTranslation();
-
+  const {
+    t
+  } = useTranslation();
   const {
     isAuthenticated,
     isLoading
@@ -25,7 +26,9 @@ export default function AdminTranslation() {
     return <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-secondary mx-auto"></div>
-          <p className="mt-4 text-muted-foreground">{t('common.chargement')}</p>
+          <p className="mt-4 text-muted-foreground">{t("Chargement", {
+            defaultValue: "Chargement"
+          })}</p>
         </div>
       </div>;
   }
@@ -48,10 +51,16 @@ export default function AdminTranslation() {
             {/* Header with back button */}
             <div className="flex items-center gap-4 mb-8">
               <Button variant="outline" onClick={() => setLocation('/admin')} className="flex items-center gap-2">
-                <ArrowLeft className="h-4 w-4" />{t('common.retour')}</Button>
+                <ArrowLeft className="h-4 w-4" />{t("Retour", {
+                defaultValue: "Retour"
+              })}</Button>
               <div>
-                <h1 className="text-3xl font-heading font-bold text-foreground">{t('common.gestiondelatraductio')}</h1>
-                <p className="text-muted-foreground mt-2">{t('common.configurationetcontr')}</p>
+                <h1 className="text-3xl font-heading font-bold text-foreground">{t("Gestiondelatraductio", {
+                  defaultValue: "Gestiondelatraductio"
+                })}</h1>
+                <p className="text-muted-foreground mt-2">{t("Configurationetcontr", {
+                  defaultValue: "Configurationetcontr"
+                })}</p>
               </div>
             </div>
 

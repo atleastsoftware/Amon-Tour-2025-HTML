@@ -19,48 +19,62 @@ interface Stay {
   features: string[];
   capacity: number;
 }
-
 export default function Stays() {
-  const { t } = useTranslation();
-  
+  const {
+    t
+  } = useTranslation();
+
   // Exemple de données de séjours
   const stays: Stay[] = [{
     id: 1,
-    title: t('common.luxuriousvillawithpo'),
+    title: t("Luxuriousvillawithpo", {
+      defaultValue: "Luxuriousvillawithpo"
+    }),
     location: "Phuket, Thailand",
     price: 150,
     image: "https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlsbGF8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60",
-    description: t('common.beautifulvillawithse'),
+    description: t("Beautifulvillawithse", {
+      defaultValue: "Beautifulvillawithse"
+    }),
     externalBookingUrl: "https://booking.com/hotel/sample",
     features: ["Private pool", "Sea view", "Air conditioning", "Free Wi-Fi", "Housekeeping"],
     capacity: 6
   }, {
     id: 2,
-    title: t('common.traditionalthaibunga'),
+    title: t("Traditionalthaibunga", {
+      defaultValue: "Traditionalthaibunga"
+    }),
     location: "Koh Samui, Thailand",
     price: 85,
     image: "https://images.unsplash.com/photo-1590001155093-a3c66ab0c3ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGJ1bmdhbG93fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60",
-    description: t('common.experienceanauthenti'),
+    description: t("Experienceanauthenti", {
+      defaultValue: "Experienceanauthenti"
+    }),
     externalBookingUrl: "https://booking.com/hotel/sample2",
     features: ["Beachfront", "Breakfast included", "Tropical garden", "Free Wi-Fi"],
     capacity: 2
   }, {
     id: 3,
-    title: t('common.modernapartmentinban'),
+    title: t("Modernapartmentinban", {
+      defaultValue: "Modernapartmentinban"
+    }),
     location: "Bangkok, Thailand",
     price: 65,
     image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YXBhcnRtZW50fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60",
-    description: t('common.contemporaryapartmen'),
+    description: t("Contemporaryapartmen", {
+      defaultValue: "Contemporaryapartmen"
+    }),
     externalBookingUrl: "https://booking.com/hotel/sample3",
     features: ["City view", "Shared pool", "Fitness center", "24/7 Security"],
     capacity: 4
   }];
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
   return <>
-      <SEO title={t('common.thailandaccommodatio')} description="Discover exceptional accommodations in Thailand with Amon Tour. From luxury villas to traditional bungalows and modern apartments. Carefully selected stays for authentic experiences in Bangkok, Phuket, and beyond." keywords="thailand hotels, thailand accommodations, thailand villas, bangkok hotels, phuket resorts, thai bungalows, luxury stays thailand, boutique hotels thailand, beachfront villas, authentic accommodations" canonicalUrl="https://amon-tour.com/stays" structuredData={{
+      <SEO title={t("Thailandaccommodatio", {
+      defaultValue: "Thailandaccommodatio"
+    })} description="Discover exceptional accommodations in Thailand with Amon Tour. From luxury villas to traditional bungalows and modern apartments. Carefully selected stays for authentic experiences in Bangkok, Phuket, and beyond." keywords="thailand hotels, thailand accommodations, thailand villas, bangkok hotels, phuket resorts, thai bungalows, luxury stays thailand, boutique hotels thailand, beachfront villas, authentic accommodations" canonicalUrl="https://amon-tour.com/stays" structuredData={{
       "@context": "https://schema.org",
       "@type": "ItemList",
       "name": "Thailand Accommodations by Amon Tour",
@@ -98,10 +112,14 @@ export default function Stays() {
         <section className="bg-white text-gray-900 py-16 md:py-24">
           <div className="container mx-auto px-4">
             <SlideUpWhenVisible>
-              <h1 className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl text-center mb-6">{t('common.findyouridealaccommo')}</h1>
+              <h1 className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl text-center mb-6">{t("Findyouridealaccommo", {
+                defaultValue: "Findyouridealaccommo"
+              })}</h1>
             </SlideUpWhenVisible>
             <FadeInWhenVisible delay={0.2}>
-              <p className="text-lg md:text-xl text-center max-w-3xl mx-auto mb-10 text-gray-700">{t('common.carefullyselectedacc')}</p>
+              <p className="text-lg md:text-xl text-center max-w-3xl mx-auto mb-10 text-gray-700">{t("Carefullyselectedacc", {
+                defaultValue: "Carefullyselectedacc"
+              })}</p>
             </FadeInWhenVisible>
           </div>
         </section>
@@ -110,7 +128,9 @@ export default function Stays() {
         <section className="py-16">
           <div className="container mx-auto px-4">
             <SlideUpWhenVisible>
-              <h2 className="font-heading font-bold text-3xl md:text-4xl text-center mb-12">{t('common.ourrecommendedaccomm')}</h2>
+              <h2 className="font-heading font-bold text-3xl md:text-4xl text-center mb-12">{t("Ourrecommendedaccomm", {
+                defaultValue: "Ourrecommendedaccomm"
+              })}</h2>
             </SlideUpWhenVisible>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -146,7 +166,9 @@ export default function Stays() {
                     <div className="mb-5">
                       <div className="flex items-center mb-2">
                         <Users className="w-4 h-4 mr-2 text-gray-500" />
-                        <span className="text-sm text-gray-600">{t('common.capacity')}{stay.capacity} people</span>
+                        <span className="text-sm text-gray-600">{t("Capacity", {
+                        defaultValue: "Capacity"
+                      })}{stay.capacity} people</span>
                       </div>
                       
                       <div className="flex flex-wrap gap-2 mt-3">
@@ -160,7 +182,9 @@ export default function Stays() {
                     </div>
                     
                     <a href={stay.externalBookingUrl} target="_blank" rel="noopener noreferrer" className="w-full">
-                      <Button className="w-full flex items-center justify-center gap-2" size="lg">{t('common.booknow')}<ExternalLink className="w-4 h-4" />
+                      <Button className="w-full flex items-center justify-center gap-2" size="lg">{t("Booknow", {
+                      defaultValue: "Booknow"
+                    })}<ExternalLink className="w-4 h-4" />
                       </Button>
                     </a>
                   </div>
@@ -175,8 +199,12 @@ export default function Stays() {
             <div className="bg-white rounded-xl p-8 md:p-12 shadow-lg">
               <div className="flex flex-col md:flex-row items-center justify-between">
                 <div className="mb-6 md:mb-0 md:mr-10">
-                  <h3 className="font-heading font-bold text-2xl md:text-3xl mb-4">{t('common.needacustomaccommoda')}</h3>
-                  <p className="text-gray-600">{t('common.wecanhelpyoufindthep')}</p>
+                  <h3 className="font-heading font-bold text-2xl md:text-3xl mb-4">{t("Needacustomaccommoda", {
+                    defaultValue: "Needacustomaccommoda"
+                  })}</h3>
+                  <p className="text-gray-600">{t("Wecanhelpyoufindthep", {
+                    defaultValue: "Wecanhelpyoufindthep"
+                  })}</p>
                 </div>
                 <Link href="/custom-tour">
                   <motion.div whileHover={{
@@ -184,7 +212,9 @@ export default function Stays() {
                 }} whileTap={{
                   scale: 0.95
                 }}>
-                    <Button size="lg" className="whitespace-nowrap">{t('common.contactus')}</Button>
+                    <Button size="lg" className="whitespace-nowrap">{t("Contact us", {
+                      defaultValue: "Contact us"
+                    })}</Button>
                   </motion.div>
                 </Link>
               </div>

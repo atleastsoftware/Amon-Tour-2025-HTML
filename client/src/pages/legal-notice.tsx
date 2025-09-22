@@ -4,7 +4,9 @@ import { Helmet } from "react-helmet";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 export default function LegalNotice() {
-  const { t } = useTranslation();
+  const {
+    t
+  } = useTranslation();
 
   // Scroll to top on page load
   useEffect(() => {
@@ -12,7 +14,9 @@ export default function LegalNotice() {
   }, []);
   return <>
       <Helmet>
-        <title>{t('common.legalnoticeamontour')}</title>
+        <title>{t("Legalnoticeamontour", {
+          defaultValue: "Legalnoticeamontour"
+        })}</title>
         <meta name="description" content="Mentions légales et conditions d'utilisation du site Amon Tour." />
       </Helmet>
       
@@ -24,16 +28,30 @@ export default function LegalNotice() {
           
           <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-md p-6 md:p-8">
             <section className="mb-8">
-              <h2 className="font-heading text-2xl font-semibold mb-4">{t('common.publisher')}</h2>
-              <p className="mb-4">{t('common.thewebsiteamontourco')}</p>
+              <h2 className="font-heading text-2xl font-semibold mb-4">{t("Publisher", {
+                defaultValue: "Publisher"
+              })}</h2>
+              <p className="mb-4">{t("Thewebsiteamontourco", {
+                defaultValue: "Thewebsiteamontourco"
+              })}</p>
               <p className="mb-4">
-                <strong>{t('common.publicationdirector')}</strong>{t('common.ericmosnierthoumasin')}</p>
+                <strong>{t("Publicationdirector", {
+                  defaultValue: "Publicationdirector"
+                })}</strong>{t("Ericmosnierthoumasin", {
+                defaultValue: "Ericmosnierthoumasin"
+              })}</p>
             </section>
             
             <section className="mb-8">
-              <h2 className="font-heading text-2xl font-semibold mb-4">{t('common.disclaimer')}</h2>
-              <p className="mb-4">{t('common.flamebbstrivestoensu')}</p>
-              <p className="mb-4">{t('common.consequentlyflamebbd')}</p>
+              <h2 className="font-heading text-2xl font-semibold mb-4">{t("Disclaimer", {
+                defaultValue: "Disclaimer"
+              })}</h2>
+              <p className="mb-4">{t("Flamebbstrivestoensu", {
+                defaultValue: "Flamebbstrivestoensu"
+              })}</p>
+              <p className="mb-4">{t("Consequentlyflamebbd", {
+                defaultValue: "Consequentlyflamebbd"
+              })}</p>
               <ul className="list-disc pl-6 mb-4 space-y-1">
                 <li>for any interruption of the site</li>
                 <li>for the occurrence of bugs</li>
@@ -44,25 +62,53 @@ export default function LegalNotice() {
             </section>
             
             <section className="mb-8">
-              <h2 className="font-heading text-2xl font-semibold mb-4">{t('common.protectionofpersonal')}</h2>
-              <p className="mb-4">{t('common.flamebbiscommittedto')}</p>
-              <p className="mb-4">{t('common.anypersonalinformati')}</p>
-              <address className="not-italic mb-4">{t('common.flamebb')}<br />{t('common.2421moo1u2013nathaiu')}<br />{t('common.81000krabiu2013thail')}</address>
+              <h2 className="font-heading text-2xl font-semibold mb-4">{t("Protectionofpersonal", {
+                defaultValue: "Protectionofpersonal"
+              })}</h2>
+              <p className="mb-4">{t("Flamebbiscommittedto", {
+                defaultValue: "Flamebbiscommittedto"
+              })}</p>
+              <p className="mb-4">{t("Anypersonalinformati", {
+                defaultValue: "Anypersonalinformati"
+              })}</p>
+              <address className="not-italic mb-4">{t("Flamebb", {
+                defaultValue: "Flamebb"
+              })}<br />{t("2421moo1u2013nathaiu", {
+                defaultValue: "2421moo1u2013nathaiu"
+              })}<br />{t("81000krabiu2013thail", {
+                defaultValue: "81000krabiu2013thail"
+              })}</address>
             </section>
             
             <section className="mb-8">
-              <h2 className="font-heading text-2xl font-semibold mb-4">{t('common.links')}</h2>
-              <p className="mb-4">{t('common.thesitemayincludelin')}</p>
+              <h2 className="font-heading text-2xl font-semibold mb-4">{t("Links", {
+                defaultValue: "Links"
+              })}</h2>
+              <p className="mb-4">{t("Thesitemayincludelin", {
+                defaultValue: "Thesitemayincludelin"
+              })}</p>
             </section>
             
             <section>
-              <h2 className="font-heading text-2xl font-semibold mb-4">{t('common.intellectualproperty')}</h2>
-              <p className="mb-4">{t('common.thesiteaswellasanyso')}</p>
+              <h2 className="font-heading text-2xl font-semibold mb-4">{t("Intellectualproperty", {
+                defaultValue: "Intellectualproperty"
+              })}</h2>
+              <p className="mb-4">{t("Thesiteaswellasanyso", {
+                defaultValue: "Thesiteaswellasanyso"
+              })}</p>
             </section>
             
             <section className="mt-8">
-              <h2 className="font-heading text-2xl font-semibold mb-4">{t('common.rightsandproperties')}</h2>
-              <p className="mb-4">{t('common.unlessotherwisestate')}<br />{t('common.strictprohibitionofc')}<br />{t('common.anyuseoutsideofthism')}</p>
+              <h2 className="font-heading text-2xl font-semibold mb-4">{t("Rightsandproperties", {
+                defaultValue: "Rightsandproperties"
+              })}</h2>
+              <p className="mb-4">{t("Unlessotherwisestate", {
+                defaultValue: "Unlessotherwisestate"
+              })}<br />{t("Strictprohibitionofc", {
+                defaultValue: "Strictprohibitionofc"
+              })}<br />{t("Anyuseoutsideofthism", {
+                defaultValue: "Anyuseoutsideofthism"
+              })}</p>
             </section>
           </div>
         </div>

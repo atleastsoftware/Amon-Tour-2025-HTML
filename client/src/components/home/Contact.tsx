@@ -25,8 +25,9 @@ const contactSchema = z.object({
 });
 type ContactFormData = z.infer<typeof contactSchema>;
 export default function Contact() {
-  const { t } = useTranslation();
-
+  const {
+    t
+  } = useTranslation();
   const {
     toast
   } = useToast();
@@ -45,15 +46,23 @@ export default function Contact() {
     try {
       await apiRequest("POST", "/api/contact-messages", data);
       toast({
-        title: t('common.messagesent'),
-        description: t('common.wewillrespondtoyouri'),
+        title: t("Messagesent", {
+          defaultValue: "Messagesent"
+        }),
+        description: t("Wewillrespondtoyouri", {
+          defaultValue: "Wewillrespondtoyouri"
+        }),
         variant: "default"
       });
       form.reset();
     } catch (error) {
       toast({
-        title: t('common.error'),
-        description: t('common.therewasaproblemsend'),
+        title: t("Error", {
+          defaultValue: "Error"
+        }),
+        description: t("Therewasaproblemsend", {
+          defaultValue: "Therewasaproblemsend"
+        }),
         variant: "destructive"
       });
     } finally {

@@ -6,10 +6,13 @@ import { Download, Home, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 export default function VillasKrabi() {
-  const { t } = useTranslation();
-
+  const {
+    t
+  } = useTranslation();
   return <>
-      <SEO title={t('common.villasinkrabicurated')} description="Download our curated selection of premium villas in Krabi. Luxury accommodations with stunning views, private pools, and exceptional service for your perfect getaway." keywords="krabi villas, luxury accommodation krabi, private villas thailand, villa rentals krabi, premium stays" />
+      <SEO title={t("Villasinkrabicurated", {
+      defaultValue: "Villasinkrabicurated"
+    })} description="Download our curated selection of premium villas in Krabi. Luxury accommodations with stunning views, private pools, and exceptional service for your perfect getaway." keywords="krabi villas, luxury accommodation krabi, private villas thailand, villa rentals krabi, premium stays" />
       <Header />
       
       <main>
@@ -17,7 +20,9 @@ export default function VillasKrabi() {
         <section className="relative h-[50vh] overflow-hidden">
           <div className="absolute inset-0 bg-black/40 z-10"></div>
           <div className="absolute inset-0 z-0">
-            <img src="/uploads/tours/tour-1745996624172-231261635.jpeg" alt={t('common.luxuryvillasinkrabi')} className="w-full h-full object-cover" />
+            <img src="/uploads/tours/tour-1745996624172-231261635.jpeg" alt={t("Luxuryvillasinkrabi", {
+            defaultValue: "Luxuryvillasinkrabi"
+          })} className="w-full h-full object-cover" />
           </div>
           <div className="container mx-auto px-4 relative z-20 h-full flex flex-col justify-center items-center text-center text-white">
             <motion.div initial={{
@@ -31,7 +36,9 @@ export default function VillasKrabi() {
           }}>
               <Home className="w-16 h-16 text-secondary mx-auto mb-6" />
               <h1 className="font-heading font-bold text-4xl md:text-5xl mb-6">{t('pages.villasKrabi.title')}</h1>
-              <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-8">{t('common.discoverourcuratedse')}</p>
+              <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-8">{t("Discoverourcuratedse", {
+                defaultValue: "Discoverourcuratedse"
+              })}</p>
             </motion.div>
           </div>
         </section>
@@ -51,7 +58,9 @@ export default function VillasKrabi() {
             duration: 0.6
           }}>
               <div className="text-center mb-12">
-                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">{t('common.curatedvillaselectio')}</h2>
+                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">{t("Curatedvillaselectio", {
+                  defaultValue: "Curatedvillaselectio"
+                })}</h2>
                 <div className="w-20 h-1 bg-secondary mx-auto mb-6"></div>
                 <p className="text-gray-600 max-w-2xl mx-auto">{t('We\'ve handpicked the finest villas in Krabi, each offering luxury, privacy, and breathtaking views for your perfect escape.', {
                   defaultValue: 'We\'ve handpicked the finest villas in Krabi, each offering luxury, privacy, and breathtaking views for your perfect escape.'
@@ -60,24 +69,42 @@ export default function VillasKrabi() {
 
               <div className="bg-neutral-50 p-8 rounded-lg shadow-md text-center mb-8">
                 <Download className="w-16 h-16 text-primary mx-auto mb-4" />
-                <h3 className="font-heading font-bold text-2xl mb-4">{t('common.villaselectionpdf')}</h3>
-                <p className="text-gray-600 mb-6">{t('common.downloadourcomprehen')}</p>
+                <h3 className="font-heading font-bold text-2xl mb-4">{t("Villaselectionpdf", {
+                  defaultValue: "Villaselectionpdf"
+                })}</h3>
+                <p className="text-gray-600 mb-6">{t("Downloadourcomprehen", {
+                  defaultValue: "Downloadourcomprehen"
+                })}</p>
                 <Button className="bg-primary hover:bg-primary/90">
-                  <Download className="w-4 h-4 mr-2" />{t('common.downloadvillaguide')}</Button>
+                  <Download className="w-4 h-4 mr-2" />{t("Downloadvillaguide", {
+                  defaultValue: "Downloadvillaguide"
+                })}</Button>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {[{
-                title: t('common.beachfrontvillas'),
-                description: t('common.directbeachaccesswit'),
+                title: t("Beachfrontvillas", {
+                  defaultValue: "Beachfrontvillas"
+                }),
+                description: t("Directbeachaccesswit", {
+                  defaultValue: "Directbeachaccesswit"
+                }),
                 features: ["Private beach", "Infinity pools", "Sea view terraces"]
               }, {
-                title: t('common.hilltopretreats'),
-                description: t('common.elevatedpositionswit'),
+                title: t("Hilltopretreats", {
+                  defaultValue: "Hilltopretreats"
+                }),
+                description: t("Elevatedpositionswit", {
+                  defaultValue: "Elevatedpositionswit"
+                }),
                 features: ["Mountain views", "Private gardens", "Sunset terraces"]
               }, {
-                title: t('common.junglehideaways'),
-                description: t('common.secludedvillassurrou'),
+                title: t("Junglehideaways", {
+                  defaultValue: "Junglehideaways"
+                }),
+                description: t("Secludedvillassurrou", {
+                  defaultValue: "Secludedvillassurrou"
+                }),
                 features: ["Tropical gardens", "Nature sounds", "Privacy & tranquility"]
               }].map((category, index) => <motion.div key={index} className="bg-white border border-gray-200 rounded-lg p-6" initial={{
                 opacity: 0,
@@ -120,12 +147,24 @@ export default function VillasKrabi() {
                     defaultValue: 'What\'s Included in Our Villa Guide?'
                   })}</h4>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600">
-                    <div>{t('common.u2022detailedvillade')}</div>
-                    <div>{t('common.u2022highqualityphot')}</div>
-                    <div>{t('common.u2022amenitylistings')}</div>
-                    <div>{t('common.u2022locationmaps')}</div>
-                    <div>{t('common.u2022pricinginformat')}</div>
-                    <div>{t('common.u2022bookinginstruct')}</div>
+                    <div>{t("U2022detailedvillade", {
+                      defaultValue: "U2022detailedvillade"
+                    })}</div>
+                    <div>{t("U2022highqualityphot", {
+                      defaultValue: "U2022highqualityphot"
+                    })}</div>
+                    <div>{t("U2022amenitylistings", {
+                      defaultValue: "U2022amenitylistings"
+                    })}</div>
+                    <div>{t("U2022locationmaps", {
+                      defaultValue: "U2022locationmaps"
+                    })}</div>
+                    <div>{t("U2022pricinginformat", {
+                      defaultValue: "U2022pricinginformat"
+                    })}</div>
+                    <div>{t("U2022bookinginstruct", {
+                      defaultValue: "U2022bookinginstruct"
+                    })}</div>
                   </div>
                 </div>
               </motion.div>

@@ -21,8 +21,9 @@ interface FormData {
   description: string;
 }
 export default function GroupCorporate() {
-  const { t } = useTranslation();
-
+  const {
+    t
+  } = useTranslation();
   const {
     toast
   } = useToast();
@@ -109,7 +110,9 @@ export default function GroupCorporate() {
         <section className="relative h-[60vh] overflow-hidden">
           <div className="absolute inset-0 bg-black/40 z-10"></div>
           <div className="absolute inset-0 z-0">
-            <img src="/uploads/tours/tour-1745996624172-231261635.jpeg" alt={t('common.groupactivitiesinkra')} className="w-full h-full object-cover" />
+            <img src="/uploads/tours/tour-1745996624172-231261635.jpeg" alt={t("Groupactivitiesinkra", {
+            defaultValue: "Groupactivitiesinkra"
+          })} className="w-full h-full object-cover" />
           </div>
           <div className="container mx-auto px-4 relative z-20 h-full flex flex-col justify-center items-center text-center text-white">
             <motion.div initial={{
@@ -122,8 +125,12 @@ export default function GroupCorporate() {
             duration: 0.8
           }}>
               <Users className="w-16 h-16 text-secondary mx-auto mb-6" />
-              <h1 className="font-heading font-bold text-4xl md:text-5xl mb-6">{t('common.groupcorporatetravel')}</h1>
-              <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-8">{t('common.tailoredgroupexperie')}</p>
+              <h1 className="font-heading font-bold text-4xl md:text-5xl mb-6">{t("Groupcorporatetravel", {
+                defaultValue: "Groupcorporatetravel"
+              })}</h1>
+              <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-8">{t("Tailoredgroupexperie", {
+                defaultValue: "Tailoredgroupexperie"
+              })}</p>
               <Button size="lg" className="bg-primary hover:bg-primary/90 text-white" onClick={() => {
               const formSection = document.getElementById('group-form');
               if (formSection) {
@@ -131,7 +138,9 @@ export default function GroupCorporate() {
                   behavior: 'smooth'
                 });
               }
-            }}>{t('common.planyourgroupevent')}</Button>
+            }}>{t("Planyourgroupevent", {
+                defaultValue: "Planyourgroupevent"
+              })}</Button>
             </motion.div>
           </div>
         </section>
@@ -150,7 +159,9 @@ export default function GroupCorporate() {
           }} transition={{
             duration: 0.6
           }}>
-              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-6">{t('common.tailoredgroupexperie')}</h2>
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-6">{t("Tailoredgroupexperie", {
+                defaultValue: "Tailoredgroupexperie"
+              })}</h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
               <p className="text-gray-600 text-lg leading-relaxed">{t('Whether you\'re planning a corporate retreat, educational trip, team-building event, or special celebration, \n                our experienced team creates memorable experiences that bring groups together in Thailand\'s most stunning destination. \n                From logistics coordination to on-site support, we handle every detail so you can focus on your objectives.', {
                 defaultValue: 'Whether you\'re planning a corporate retreat, educational trip, team-building event, or special celebration, \n                our experienced team creates memorable experiences that bring groups together in Thailand\'s most stunning destination. \n                From logistics coordination to on-site support, we handle every detail so you can focus on your objectives.'
@@ -173,23 +184,37 @@ export default function GroupCorporate() {
           }} transition={{
             duration: 0.6
           }}>
-              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">{t('common.whatweoffer')}</h2>
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">{t("Whatweoffer", {
+                defaultValue: "Whatweoffer"
+              })}</h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-6"></div>
-              <p className="text-gray-600 max-w-2xl mx-auto">{t('common.comprehensivegrouptr')}</p>
+              <p className="text-gray-600 max-w-2xl mx-auto">{t("Comprehensivegrouptr", {
+                defaultValue: "Comprehensivegrouptr"
+              })}</p>
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[{
               icon: <Calendar className="w-8 h-8" />,
-              title: t('common.completelogistics'),
-              description: t('common.transportationaccomm')
+              title: t("Complete logistics", {
+                defaultValue: "Complete logistics"
+              }),
+              description: t("Transportationaccomm", {
+                defaultValue: "Transportationaccomm"
+              })
             }, {
               icon: <Users className="w-8 h-8" />,
-              title: t('common.onsitesupport'),
-              description: t('common.dedicatedlocalteamme')
+              title: t("Onsitesupport", {
+                defaultValue: "Onsitesupport"
+              }),
+              description: t("Dedicatedlocalteamme", {
+                defaultValue: "Dedicatedlocalteamme"
+              })
             }, {
               icon: <Target className="w-8 h-8" />,
-              title: t('common.customplanning'),
+              title: t("Customplanning", {
+                defaultValue: "Customplanning"
+              }),
               description: t('Tailored itineraries designed around your group\'s objectives, interests, and budget.', {
                 defaultValue: 'Tailored itineraries designed around your group\'s objectives, interests, and budget.'
               })
@@ -229,26 +254,44 @@ export default function GroupCorporate() {
           }} transition={{
             duration: 0.6
           }}>
-              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">{t('common.samplegroupactivitie')}</h2>
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">{t("Samplegroupactivitie", {
+                defaultValue: "Samplegroupactivitie"
+              })}</h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-6"></div>
-              <p className="text-gray-600 max-w-2xl mx-auto">{t('common.choosefromourcurated')}</p>
+              <p className="text-gray-600 max-w-2xl mx-auto">{t("Choosefromourcurated", {
+                defaultValue: "Choosefromourcurated"
+              })}</p>
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[{
-              title: t('common.privateboattour'),
-              description: t('common.exclusiveislandhoppi'),
+              title: t("Privateboattour", {
+                defaultValue: "Privateboattour"
+              }),
+              description: t("Exclusiveislandhoppi", {
+                defaultValue: "Exclusiveislandhoppi"
+              }),
               highlights: ["4 Islands Tour", "Private longtail boat", "Snorkeling equipment", "Traditional lunch"]
             }, {
-              title: t('common.teambuildingadventur'),
-              description: t('common.challengingoutdoorac'),
+              title: t("Teambuildingadventur", {
+                defaultValue: "Teambuildingadventur"
+              }),
+              description: t("Challengingoutdoorac", {
+                defaultValue: "Challengingoutdoorac"
+              }),
               highlights: ["Rock climbing", "Kayak challenges", "Problem-solving games", "Group reflection"]
             }, {
-              title: t('common.thaicookingclass'),
-              description: t('common.interactiveculinarye'),
+              title: t("Thaicookingclass", {
+                defaultValue: "Thaicookingclass"
+              }),
+              description: t("Interactiveculinarye", {
+                defaultValue: "Interactiveculinarye"
+              }),
               highlights: ["Market visit", "Hands-on cooking", "Recipe booklet", "Group dining"]
             }, {
-              title: t('common.wellnessretreat'),
+              title: t("Wellnessretreat", {
+                defaultValue: "Wellnessretreat"
+              }),
               description: t('Relaxation and mindfulness activities in Krabi\'s natural setting', {
                 defaultValue: 'Relaxation and mindfulness activities in Krabi\'s natural setting'
               }),
@@ -292,41 +335,69 @@ export default function GroupCorporate() {
           }} transition={{
             duration: 0.6
           }}>
-              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">{t('common.whoweserve')}</h2>
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">{t("Whoweserve", {
+                defaultValue: "Whoweserve"
+              })}</h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-6"></div>
-              <p className="text-gray-600 max-w-2xl mx-auto">{t('common.wespecializeincreati')}</p>
+              <p className="text-gray-600 max-w-2xl mx-auto">{t("Wespecializeincreati", {
+                defaultValue: "Wespecializeincreati"
+              })}</p>
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[{
               icon: <Building className="w-12 h-12" />,
-              title: t('common.corporategroups'),
-              description: t('common.executiveretreatstea'),
+              title: t("Corporategroups", {
+                defaultValue: "Corporategroups"
+              }),
+              description: t("Executiveretreatstea", {
+                defaultValue: "Executiveretreatstea"
+              }),
               size: "10-100+ participants"
             }, {
               icon: <GraduationCap className="w-12 h-12" />,
-              title: t('common.educationaltrips'),
-              description: t('common.studentgroupsunivers'),
+              title: t("Educationaltrips", {
+                defaultValue: "Educationaltrips"
+              }),
+              description: t("Studentgroupsunivers", {
+                defaultValue: "Studentgroupsunivers"
+              }),
               size: "15-50 students"
             }, {
               icon: <Users className="w-12 h-12" />,
-              title: t('common.specialinterestgroup'),
-              description: t('common.weddingpartiesyogare'),
+              title: t("Specialinterestgroup", {
+                defaultValue: "Specialinterestgroup"
+              }),
+              description: t("Weddingpartiesyogare", {
+                defaultValue: "Weddingpartiesyogare"
+              }),
               size: "8-30 participants"
             }, {
               icon: <Award className="w-12 h-12" />,
-              title: t('common.conferencesseminars'),
-              description: t('common.businessconferencesw'),
+              title: t("Conferencesseminars", {
+                defaultValue: "Conferencesseminars"
+              }),
+              description: t("Businessconferencesw", {
+                defaultValue: "Businessconferencesw"
+              }),
               size: "20-200+ attendees"
             }, {
               icon: <Target className="w-12 h-12" />,
-              title: t('common.wellnessgroups'),
-              description: t('common.healthandwellnessret'),
+              title: t("Wellnessgroups", {
+                defaultValue: "Wellnessgroups"
+              }),
+              description: t("Healthandwellnessret", {
+                defaultValue: "Healthandwellnessret"
+              }),
               size: "6-25 participants"
             }, {
               icon: <Calendar className="w-12 h-12" />,
-              title: t('common.socialclubs'),
-              description: t('common.travelclubshobbygrou'),
+              title: t("Socialclubs", {
+                defaultValue: "Socialclubs"
+              }),
+              description: t("Travelclubshobbygrou", {
+                defaultValue: "Travelclubshobbygrou"
+              }),
               size: "8-40 people"
             }].map((audience, index) => <motion.div key={index} className="bg-white p-6 rounded-lg shadow-md" initial={{
               opacity: 0,
@@ -368,7 +439,9 @@ export default function GroupCorporate() {
             duration: 0.6
           }}>
               <div className="text-center mb-8">
-                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">{t('common.planyourgroupexperie')}</h2>
+                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">{t("Planyourgroupexperie", {
+                  defaultValue: "Planyourgroupexperie"
+                })}</h2>
                 <div className="w-20 h-1 bg-secondary mx-auto mb-6"></div>
                 <p className="text-gray-600">{t('Tell us about your group and objectives, and we\'ll create a customized proposal for your Krabi experience.', {
                   defaultValue: 'Tell us about your group and objectives, and we\'ll create a customized proposal for your Krabi experience.'
@@ -378,47 +451,75 @@ export default function GroupCorporate() {
               <form onSubmit={handleSubmit} className="bg-neutral-50 p-8 rounded-lg shadow-md space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="contactName">{t('common.contactname')}</Label>
-                    <Input id="contactName" name="contactName" value={formData.contactName} onChange={handleInputChange} placeholder={t('common.yourfullname')} required />
+                    <Label htmlFor="contactName">{t("Contactname", {
+                      defaultValue: "Contactname"
+                    })}</Label>
+                    <Input id="contactName" name="contactName" value={formData.contactName} onChange={handleInputChange} placeholder={t("Your full name", {
+                    defaultValue: "Your full name"
+                  })} required />
                   </div>
                   <div>
-                    <Label htmlFor="email">{t('common.emailaddress')}</Label>
+                    <Label htmlFor="email">{t("Emailaddress", {
+                      defaultValue: "Emailaddress"
+                    })}</Label>
                     <Input id="email" name="email" type="email" value={formData.email} onChange={handleInputChange} placeholder="your@email.com" required />
                   </div>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="companyName">{t('common.companyorganization')}</Label>
-                    <Input id="companyName" name="companyName" value={formData.companyName} onChange={handleInputChange} placeholder={t('common.yourcompanyororganiz')} required />
+                    <Label htmlFor="companyName">{t("Companyorganization", {
+                      defaultValue: "Companyorganization"
+                    })}</Label>
+                    <Input id="companyName" name="companyName" value={formData.companyName} onChange={handleInputChange} placeholder={t("Yourcompanyororganiz", {
+                    defaultValue: "Yourcompanyororganiz"
+                  })} required />
                   </div>
                   <div>
-                    <Label htmlFor="phone">{t('common.phonenumber')}</Label>
-                    <Input id="phone" name="phone" type="tel" value={formData.phone} onChange={handleInputChange} placeholder={t('common.66xxxxxxxxx')} />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="groupSize">{t('common.numberofpeople')}</Label>
-                    <Input id="groupSize" name="groupSize" type="number" value={formData.groupSize} onChange={handleInputChange} placeholder={t('common.approximategroupsize')} required />
-                  </div>
-                  <div>
-                    <Label htmlFor="travelDates">{t('common.preferredtraveldates')}</Label>
-                    <Input id="travelDates" name="travelDates" value={formData.travelDates} onChange={handleInputChange} placeholder={t('common.egmarch2024orflexibl')} />
+                    <Label htmlFor="phone">{t("Phonenumber", {
+                      defaultValue: "Phonenumber"
+                    })}</Label>
+                    <Input id="phone" name="phone" type="tel" value={formData.phone} onChange={handleInputChange} placeholder={t("+66 XXXXXXXXX", {
+                    defaultValue: "+66 XXXXXXXXX"
+                  })} />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="budget">{t('common.budgetrange')}</Label>
-                    <Input id="budget" name="budget" value={formData.budget} onChange={handleInputChange} placeholder={t('common.eg50000100000thb')} />
+                    <Label htmlFor="groupSize">{t("Numberofpeople", {
+                      defaultValue: "Numberofpeople"
+                    })}</Label>
+                    <Input id="groupSize" name="groupSize" type="number" value={formData.groupSize} onChange={handleInputChange} placeholder={t("Approximategroupsize", {
+                    defaultValue: "Approximategroupsize"
+                  })} required />
+                  </div>
+                  <div>
+                    <Label htmlFor="travelDates">{t("Preferredtraveldates", {
+                      defaultValue: "Preferredtraveldates"
+                    })}</Label>
+                    <Input id="travelDates" name="travelDates" value={formData.travelDates} onChange={handleInputChange} placeholder={t("Egmarch2024orflexibl", {
+                    defaultValue: "Egmarch2024orflexibl"
+                  })} />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="budget">{t("Budgetrange", {
+                      defaultValue: "Budgetrange"
+                    })}</Label>
+                    <Input id="budget" name="budget" value={formData.budget} onChange={handleInputChange} placeholder={t("Eg50000100000thb", {
+                    defaultValue: "Eg50000100000thb"
+                  })} />
                   </div>
                   <div></div>
                 </div>
 
                 <div>
-                  <Label htmlFor="description">{t('common.groupobjectivesrequi')}</Label>
+                  <Label htmlFor="description">{t("Groupobjectivesrequi", {
+                    defaultValue: "Groupobjectivesrequi"
+                  })}</Label>
                   <Textarea id="description" name="description" value={formData.description} onChange={handleInputChange} placeholder={t('Describe your group\'s goals, interests, special requirements, preferred activities, and any specific needs...', {
                   defaultValue: 'Describe your group\'s goals, interests, special requirements, preferred activities, and any specific needs...'
                 })} rows={5} required />

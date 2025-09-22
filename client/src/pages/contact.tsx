@@ -6,14 +6,18 @@ import { useTranslation } from 'react-i18next';
 import { MapPin, Mail, Phone, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
 export default function Contact() {
-  const { t } = useTranslation();
+  const {
+    t
+  } = useTranslation();
   return <>
       <SEO title={t('seo.contactTitle')} description={t('seo.contactDescription')} keywords={t('seo.contactKeywords')} />
       <Header />
       
       <main>
         {/* Hero Section */}
-        <HeroHeader title={t('pageHeaders.contact.title')} subtitle={t('pageHeaders.contact.subtitle')} alt={t('common.contactamontourinkra')} />
+        <HeroHeader title={t('pageHeaders.contact.title')} subtitle={t('pageHeaders.contact.subtitle')} alt={t("Contactamontourinkra", {
+        defaultValue: "Contactamontourinkra"
+      })} />
 
         {/* Main Content */}
         <section className="py-20 bg-background">
@@ -124,14 +128,24 @@ export default function Contact() {
               duration: 0.6,
               delay: 0.3
             }}>
-                  <h3 className="font-heading font-bold text-lg mb-3">{t('common.aboutourcompany')}</h3>
+                  <h3 className="font-heading font-bold text-lg mb-3">{t("Aboutourcompany", {
+                  defaultValue: "Aboutourcompany"
+                })}</h3>
                   <div className="space-y-2 text-sm text-muted-foreground">
                     <p>
-                      <strong>{t('common.amontourisabrandof')}</strong><br />{t('common.flamebbcoltd')}</p>
+                      <strong>{t("Amontourisabrandof", {
+                      defaultValue: "Amontourisabrandof"
+                    })}</strong><br />{t("Flamebbcoltd", {
+                    defaultValue: "Flamebbcoltd"
+                  })}</p>
                     <p>
-                      <span className="bg-secondary/20 text-primary px-2 py-1 rounded-full text-xs font-medium">{t('common.tatlicense3401995')}</span>
+                      <span className="bg-secondary/20 text-primary px-2 py-1 rounded-full text-xs font-medium">{t("Tatlicense3401995", {
+                      defaultValue: "Tatlicense3401995"
+                    })}</span>
                     </p>
-                    <p className="mt-4">{t('common.wearealicensedtourop')}</p>
+                    <p className="mt-4">{t("Wearealicensedtourop", {
+                    defaultValue: "Wearealicensedtourop"
+                  })}</p>
                   </div>
                 </motion.div>
               </motion.div>
@@ -152,13 +166,19 @@ export default function Contact() {
           }} transition={{
             duration: 0.6
           }}>
-              <h3 className="font-heading font-bold text-2xl md:text-3xl mb-4">{t('common.readytostartyouradve')}</h3>
+              <h3 className="font-heading font-bold text-2xl md:text-3xl mb-4">{t("Readytostartyouradve", {
+                defaultValue: "Readytostartyouradve"
+              })}</h3>
               <p className="text-gray-600 text-lg mb-6">{t('Whether you\'re looking for a private tour, custom itinerary, or have questions about Krabi, \n                our local experts are ready to help you create unforgettable memories.', {
                 defaultValue: 'Whether you\'re looking for a private tour, custom itinerary, or have questions about Krabi, \n                our local experts are ready to help you create unforgettable memories.'
               })}</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="https://wa.me/66653496445" target="_blank" rel="noopener noreferrer" className="bg-[hsl(var(--success))] hover:bg-[hsl(var(--success)/0.9)] text-[hsl(var(--success-foreground))] px-6 py-3 rounded-lg font-heading font-semibold transition-colors">{t('common.chatonwhatsapp')}</a>
-                <a href="mailto:info@amon-tour.com" className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 rounded-lg font-heading font-semibold transition-colors">{t('common.sendusanemail')}</a>
+                <a href="https://wa.me/66653496445" target="_blank" rel="noopener noreferrer" className="bg-[hsl(var(--success))] hover:bg-[hsl(var(--success)/0.9)] text-[hsl(var(--success-foreground))] px-6 py-3 rounded-lg font-heading font-semibold transition-colors">{t("Chatonwhatsapp", {
+                  defaultValue: "Chatonwhatsapp"
+                })}</a>
+                <a href="mailto:info@amon-tour.com" className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 rounded-lg font-heading font-semibold transition-colors">{t("Sendusanemail", {
+                  defaultValue: "Sendusanemail"
+                })}</a>
               </div>
             </motion.div>
           </div>
