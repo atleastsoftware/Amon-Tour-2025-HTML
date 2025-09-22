@@ -6,6 +6,7 @@ import { queryClient } from "./lib/queryClient";
 import { Toaster } from "./components/ui/toaster";
 import { ThemeProvider } from "next-themes";
 import "./lib/i18n"; // Initialize i18next system
+// import "./lib/autoTranslate"; // Auto-translation temporarily disabled due to reload loops
 
 // Adding Font Awesome for Thai-inspired icons
 const fontAwesomeLink = document.createElement("link");

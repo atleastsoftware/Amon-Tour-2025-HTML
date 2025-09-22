@@ -1,7 +1,9 @@
 /**
  * Auto Translation Service
- * Automatically triggers browser native translation based on user's IP geolocation
+ * Automatically triggers i18next language change based on user's IP geolocation
  */
+
+import i18n from 'i18next';
 
 interface LocationData {
   country: string;
@@ -9,13 +11,7 @@ interface LocationData {
   timezone: string;
 }
 
-interface TranslationConfig {
-  targetLanguage: string;
-  sourceLanguage: string;
-  fallbackToWidget: boolean;
-}
-
-export class AutoBrowserTranslate {
+export class AutoI18nTranslate {
   private readonly frenchCountries = ['FR', 'BE', 'CH', 'CA', 'MC', 'LU'];
   private readonly spanishCountries = ['ES', 'MX', 'AR', 'CO', 'PE', 'VE', 'CL', 'EC', 'BO', 'PY', 'UY'];
   private readonly ipApiUrl = 'https://ip-api.com/json/';
@@ -23,11 +19,11 @@ export class AutoBrowserTranslate {
 
   constructor() {
     // Check if user has already made a language choice or disabled auto-translation
-    const userChoice = localStorage.getItem('amon-tour-translation-choice');
+    const userChoice = localStorage.getItem('user-chose-language');
     const autoTranslateDisabled = localStorage.getItem('amon-tour-disable-auto-translate');
-    const userChoseManually = localStorage.getItem('user-chose-language');
+    const savedLang = localStorage.getItem('i18nextLng');
     
-    if (userChoice || autoTranslateDisabled || userChoseManually) {
+    if (userChoice || autoTranslateDisabled || (savedLang && savedLang !== 'en')) {
       this.translationTriggered = true;
     }
   }
@@ -54,19 +50,23 @@ export class AutoBrowserTranslate {
       // First check browser language preference
       const browserLang = this.getBrowserLanguage();
       if (browserLang === 'fr') {
-        this.setupTranslation('fr');
+        await this.setupTranslation('fr');
+        this.showTranslationIndicator('fr');
         return;
       } else if (browserLang === 'es') {
-        this.setupTranslation('es');
+        await this.setupTranslation('es');
+        this.showTranslationIndicator('es');
         return;
       }
 
       // Then check IP geolocation
       const location = await this.getLocationFromIP();
       if (this.shouldTriggerFrenchTranslation(location)) {
-        this.setupTranslation('fr');
+        await this.setupTranslation('fr');
+        this.showTranslationIndicator('fr');
       } else if (this.shouldTriggerSpanishTranslation(location)) {
-        this.setupTranslation('es');
+        await this.setupTranslation('es');
+        this.showTranslationIndicator('es');
       }
     } catch (error) {
       console.log('Auto-translation detection failed:', error);
@@ -113,118 +113,34 @@ export class AutoBrowserTranslate {
   }
 
   /**
-   * Setup translation using browser native capabilities
+   * Setup translation using i18next
    */
-  private setupTranslation(targetLang: 'fr' | 'es'): void {
+  private async setupTranslation(targetLang: 'fr' | 'es'): Promise<void> {
     this.translationTriggered = true;
     
-    // Method 1: Set document language to trigger browser translation prompt
-    document.documentElement.lang = 'en';
-    document.documentElement.setAttribute('translate', 'yes');
-    
-    // Method 2: Add meta tags for translation hints
-    this.addTranslationMetaTags(targetLang);
-    
-    // Method 3: Try modern browser APIs
-    this.tryModernTranslationAPIs(targetLang);
-    
-    // Method 4: Fallback to Google Translate Widget if available
-    setTimeout(() => {
-      this.setupGoogleTranslateWidget(targetLang);
-    }, 1000);
-
-    // Store user's implied preference
-    localStorage.setItem('amon-tour-translation-choice', `auto-detected-${targetLang}`);
-  }
-
-  /**
-   * Setup French translation (backward compatibility)
-   */
-  private setupFrenchTranslation(): void {
-    this.setupTranslation('fr');
-  }
-
-  /**
-   * Add meta tags to encourage browser translation
-   */
-  private addTranslationMetaTags(targetLang: 'fr' | 'es'): void {
-    const metaTags = [
-      { name: 'google-translate-customization', content: `auto-${targetLang}` },
-      { name: 'translate', content: 'yes' },
-      { httpEquiv: 'content-language', content: 'en' }
-    ];
-
-    metaTags.forEach(({ name, content, httpEquiv }) => {
-      const meta = document.createElement('meta');
-      if (name) meta.name = name;
-      if (httpEquiv) meta.httpEquiv = httpEquiv;
-      meta.content = content;
-      document.head.appendChild(meta);
-    });
-  }
-
-  /**
-   * Try modern browser translation APIs (Chrome 138+, Firefox 118+)
-   */
-  private async tryModernTranslationAPIs(targetLang: 'fr' | 'es'): Promise<void> {
-    // Chrome Translator API (if available)
-    if ('Translator' in self) {
-      try {
-        const translator = await (self as any).Translator.create({
-          sourceLanguage: 'en',
-          targetLanguage: targetLang
-        });
-        
-        // Add subtle indicator that translation is available
-        this.showTranslationIndicator('chrome', targetLang);
-      } catch (error) {
-        console.log('Chrome Translator API not ready:', error);
-      }
-    }
-    
-    // Firefox/Edge - rely on native detection
-    if (navigator.userAgent.includes('Firefox') || navigator.userAgent.includes('Edg')) {
-      this.showTranslationIndicator('native', targetLang);
-    }
-  }
-
-  /**
-   * Setup Google Translate Widget as fallback
-   */
-  private setupGoogleTranslateWidget(targetLang: 'fr' | 'es'): void {
-    // Only if no native translation has been triggered
-    if (!document.querySelector('.goog-te-banner-frame')) {
-      const script = document.createElement('script');
-      script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-      script.async = true;
+    try {
+      // Change language using i18next
+      await i18n.changeLanguage(targetLang);
       
-      // Create global callback
-      (window as any).googleTranslateElementInit = () => {
-        new (window as any).google.translate.TranslateElement({
-          pageLanguage: 'en',
-          includedLanguages: targetLang === 'fr' ? 'fr' : 'es',
-          autoDisplay: false,
-          layout: (window as any).google.translate.TranslateElement.InlineLayout.SIMPLE
-        }, 'google_translate_element');
-      };
+      // Store user's implied preference
+      localStorage.setItem('amon-tour-translation-choice', `auto-detected-${targetLang}`);
       
-      document.head.appendChild(script);
+      console.log(`🌐 Auto-detected language switched to: ${targetLang}`);
       
-      // Create container
-      const container = document.createElement('div');
-      container.id = 'google_translate_element';
-      container.style.display = 'none';
-      document.body.appendChild(container);
+    } catch (error) {
+      console.error('Failed to auto-switch language:', error);
+      // Fallback to English if translation fails
+      await i18n.changeLanguage('en');
     }
   }
 
   /**
    * Show subtle translation indicator
    */
-  private showTranslationIndicator(type: 'chrome' | 'native' | 'widget', targetLang: 'fr' | 'es'): void {
+  private showTranslationIndicator(targetLang: 'fr' | 'es'): void {
     const messages = {
-      fr: '🌐 Traduction française disponible',
-      es: '🌐 Traducción española disponible'
+      fr: '🌐 Traduction française détectée automatiquement',
+      es: '🌐 Traducción española detectada automáticamente'
     };
     
     const indicator = document.createElement('div');
@@ -234,15 +150,16 @@ export class AutoBrowserTranslate {
         position: fixed;
         top: 10px;
         right: 10px;
-        background: rgba(0, 123, 255, 0.9);
+        background: rgba(30, 115, 190, 0.95);
         color: white;
         padding: 8px 12px;
-        border-radius: 4px;
+        border-radius: 6px;
         font-size: 12px;
         z-index: 10000;
         font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         cursor: pointer;
+        transition: opacity 0.3s ease;
       ">
         ${messages[targetLang]}
         <span style="margin-left: 8px; opacity: 0.7;">×</span>
@@ -268,38 +185,35 @@ export class AutoBrowserTranslate {
   /**
    * Manual trigger for specific language
    */
-  public manualTrigger(targetLang: 'fr' | 'es' = 'fr'): void {
+  public async manualTrigger(targetLang: 'fr' | 'es' = 'fr'): Promise<void> {
     this.translationTriggered = false;
     localStorage.removeItem('amon-tour-translation-choice');
-    this.setupTranslation(targetLang);
+    await this.setupTranslation(targetLang);
   }
 
   /**
    * Clear all translations and restore English
    */
-  public restoreEnglish(): void {
-    // Remove translation attributes
-    document.documentElement.removeAttribute('translate');
-    document.documentElement.lang = 'en';
-    
-    // Remove translation meta tags
-    const translationMetas = document.querySelectorAll('meta[name="google-translate-customization"], meta[name="translate"]');
-    translationMetas.forEach(meta => meta.remove());
-    
-    // Remove Google Translate widgets
-    const googleTranslateElements = document.querySelectorAll('[id*="google_translate"], .goog-te-banner-frame, .goog-te-menu-frame');
-    googleTranslateElements.forEach(el => el.remove());
-    
-    // Clear localStorage
-    localStorage.removeItem('amon-tour-translation-choice');
-    
-    // Reload page to restore original English
-    window.location.reload();
+  public async restoreEnglish(): Promise<void> {
+    try {
+      // Switch back to English using i18next
+      await i18n.changeLanguage('en');
+      
+      // Clear localStorage
+      localStorage.removeItem('amon-tour-translation-choice');
+      
+      console.log('🌐 Language restored to English');
+      
+    } catch (error) {
+      console.error('Failed to restore English:', error);
+      // Fallback: reload page
+      window.location.reload();
+    }
   }
 }
 
 // Global instance
-export const autoTranslate = new AutoBrowserTranslate();
+export const autoTranslate = new AutoI18nTranslate();
 
 // Auto-initialize when DOM is ready
 if (document.readyState === 'loading') {
