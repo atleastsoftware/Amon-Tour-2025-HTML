@@ -1,6 +1,5 @@
 import { Link } from "wouter";
 import amonTourTeam from "@/assets/amon-tour-team.jpg";
-import { t } from '@/lib/translation';
 export default function About() {
   return <section id="who-we-are" className="py-16 bg-white">
       <div className="container mx-auto px-4">

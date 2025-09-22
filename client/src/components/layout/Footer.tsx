@@ -4,7 +4,6 @@ import { FadeInWhenVisible, SlideUpWhenVisible, StaggerChildren, StaggerItem } f
 import NewsletterSubscription from "@/components/newsletter/NewsletterSubscription";
 import logoA from "@/assets/logo-a.png";
 import { useQuery } from '@tanstack/react-query';
-import { t } from '@/lib/translation';
 import { Facebook, Instagram, Mail, MapPin, Phone, Clock } from "lucide-react";
 
 // Helper function to render contact info based on style

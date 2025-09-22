@@ -6,7 +6,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useQuery } from '@tanstack/react-query';
 import logoAmon from "@/assets/logo-amon.png";
 import LanguageSelector from "@/components/LanguageSelector";
-import { t } from '@/lib/translation';
 type NavLinkProps = {
   href: string;
   isActive: boolean;

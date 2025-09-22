@@ -22,7 +22,6 @@ import { Link } from "wouter";
 import { useIframe } from "@/contexts/IframeContext";
 import { Badge } from "@/components/ui/badge";
 import { I18nextTest } from "@/components/test/I18nextTest";
-import { t } from '@/lib/translation';
 
 export default function Home() {
   const [, setLocation] = useLocation();

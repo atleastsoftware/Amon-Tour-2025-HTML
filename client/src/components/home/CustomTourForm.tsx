@@ -6,7 +6,6 @@ import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
-import { t } from '@/lib/translation';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";

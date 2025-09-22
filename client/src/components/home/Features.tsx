@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { StaggerChildren, StaggerItem } from "@/components/ui/animations";
 import { Users, Compass, Sparkles } from "lucide-react";
-import { t } from '@/lib/translation';
 
 export default function Features() {
   
