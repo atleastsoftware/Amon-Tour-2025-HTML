@@ -144,18 +144,10 @@ export default function CookieConsent() {
           </div>
           
           <div className="flex items-center gap-2 shrink-0">
-            <Button variant="ghost" onClick={handleCustomize} className="text-xs px-3 py-1 h-auto" data-testid="button-cookie-customize">{t('Customize', {
-              defaultValue: 'Customize'
-            })}</Button>
-            <Button variant="outline" onClick={handleReject} className="text-xs px-3 py-1 h-auto" data-testid="button-cookie-reject">{t('Reject All', {
-              defaultValue: 'Reject All'
-            })}</Button>
-            <Button onClick={handleAccept} className="text-xs px-3 py-1 h-auto bg-primary hover:bg-primary/90" data-testid="button-cookie-accept">{t('Accept All', {
-              defaultValue: 'Accept All'
-            })}</Button>
-            <button onClick={closeDialog} className="text-gray-400 hover:text-gray-600 ml-2" aria-label={t('Close', {
-            defaultValue: 'Close'
-          })}>
+            <Button variant="ghost" onClick={handleCustomize} className="text-xs px-3 py-1 h-auto" data-testid="button-cookie-customize">{t('common.customize')}</Button>
+            <Button variant="outline" onClick={handleReject} className="text-xs px-3 py-1 h-auto" data-testid="button-cookie-reject">{t('common.rejectall')}</Button>
+            <Button onClick={handleAccept} className="text-xs px-3 py-1 h-auto bg-primary hover:bg-primary/90" data-testid="button-cookie-accept">{t('common.acceptall')}</Button>
+            <button onClick={closeDialog} className="text-gray-400 hover:text-gray-600 ml-2" aria-label={t('common.close')}>
               <X size={14} />
             </button>
           </div>

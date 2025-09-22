@@ -112,20 +112,14 @@ export default function AdminCustomTours() {
         queryKey: ["/api/custom-tour"]
       });
       toast({
-        title: t('Success', {
-          defaultValue: 'Success'
-        }),
-        description: t('Status updated successfully', {
-          defaultValue: 'Status updated successfully'
-        })
+        title: t('common.success'),
+        description: t('common.statusupdatedsuccess')
       });
       setSelectedRequest(null);
     },
     onError: (error: Error) => {
       toast({
-        title: t('Error', {
-          defaultValue: 'Error'
-        }),
+        title: t('common.error'),
         description: error.message,
         variant: "destructive"
       });
@@ -150,19 +144,13 @@ export default function AdminCustomTours() {
         queryKey: ["/api/custom-tour"]
       });
       toast({
-        title: t('Success', {
-          defaultValue: 'Success'
-        }),
-        description: t('Request deleted successfully', {
-          defaultValue: 'Request deleted successfully'
-        })
+        title: t('common.success'),
+        description: t('common.requestdeletedsucces')
       });
     },
     onError: (error: Error) => {
       toast({
-        title: t('Error', {
-          defaultValue: 'Error'
-        }),
+        title: t('common.error'),
         description: error.message,
         variant: "destructive"
       });
@@ -190,18 +178,12 @@ export default function AdminCustomTours() {
       a.click();
       window.URL.revokeObjectURL(url);
       toast({
-        title: t('Success', {
-          defaultValue: 'Success'
-        }),
-        description: t('Data exported successfully', {
-          defaultValue: 'Data exported successfully'
-        })
+        title: t('common.success'),
+        description: t('common.dataexportedsuccessf')
       });
     } catch (error: any) {
       toast({
-        title: t('Error', {
-          defaultValue: 'Error'
-        }),
+        title: t('common.error'),
         description: error.message,
         variant: "destructive"
       });
@@ -215,17 +197,11 @@ export default function AdminCustomTours() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'new':
-        return <Badge className="bg-green-100 text-green-800">{t('New', {
-            defaultValue: 'New'
-          })}</Badge>;
+        return <Badge className="bg-green-100 text-green-800">{t('common.new')}</Badge>;
       case 'in_progress':
-        return <Badge className="bg-blue-100 text-blue-800">{t('In Progress', {
-            defaultValue: 'In Progress'
-          })}</Badge>;
+        return <Badge className="bg-blue-100 text-blue-800">{t('common.inprogress')}</Badge>;
       case 'archived':
-        return <Badge className="bg-gray-100 text-gray-800">{t('Archived', {
-            defaultValue: 'Archived'
-          })}</Badge>;
+        return <Badge className="bg-gray-100 text-gray-800">{t('common.archived')}</Badge>;
       default:
         return <Badge>{status}</Badge>;
     }
@@ -234,9 +210,7 @@ export default function AdminCustomTours() {
     return new Date(dateString).toLocaleDateString();
   };
   return <>
-      <SEO title={t('Custom Tour Requests - Admin', {
-      defaultValue: 'Custom Tour Requests - Admin'
-    })} description="Manage custom tour requests and inquiries" />
+      <SEO title={t('common.customtourrequestsad')} description="Manage custom tour requests and inquiries" />
       <Header />
       
       <div className="min-h-screen bg-gray-50 py-8">
@@ -246,18 +220,12 @@ export default function AdminCustomTours() {
             <div className="flex items-center gap-4">
               <Link href="/admin">
                 <Button variant="outline" size="sm">
-                  <ArrowLeft className="h-4 w-4 mr-2" />{t('Back to Admin', {
-                  defaultValue: 'Back to Admin'
-                })}</Button>
+                  <ArrowLeft className="h-4 w-4 mr-2" />{t('common.backtoadmin')}</Button>
               </Link>
-              <h1 className="text-3xl font-bold text-gray-900">{t('Custom Tour Requests', {
-                defaultValue: 'Custom Tour Requests'
-              })}</h1>
+              <h1 className="text-3xl font-bold text-gray-900">{t('common.customtourrequests')}</h1>
             </div>
             <Button onClick={handleExport}>
-              <Download className="h-4 w-4 mr-2" />{t('Export CSV', {
-              defaultValue: 'Export CSV'
-            })}</Button>
+              <Download className="h-4 w-4 mr-2" />{t('common.exportcsv')}</Button>
           </div>
 
           {/* Filters */}
@@ -267,31 +235,19 @@ export default function AdminCustomTours() {
                 <div className="flex-1">
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                    <Input placeholder={t('Search by name or email...', {
-                    defaultValue: 'Search by name or email...'
-                  })} value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="pl-10" />
+                    <Input placeholder={t('common.searchbynameoremail')} value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="pl-10" />
                   </div>
                 </div>
                 <div className="w-full md:w-48">
                   <Select value={statusFilter} onValueChange={setStatusFilter}>
                     <SelectTrigger>
-                      <SelectValue placeholder={t('Filter by status', {
-                      defaultValue: 'Filter by status'
-                    })} />
+                      <SelectValue placeholder={t('common.filterbystatus')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">{t('All Status', {
-                        defaultValue: 'All Status'
-                      })}</SelectItem>
-                      <SelectItem value="new">{t('New', {
-                        defaultValue: 'New'
-                      })}</SelectItem>
-                      <SelectItem value="in_progress">{t('In Progress', {
-                        defaultValue: 'In Progress'
-                      })}</SelectItem>
-                      <SelectItem value="archived">{t('Archived', {
-                        defaultValue: 'Archived'
-                      })}</SelectItem>
+                      <SelectItem value="all">{t('common.allstatus')}</SelectItem>
+                      <SelectItem value="new">{t('common.new')}</SelectItem>
+                      <SelectItem value="in_progress">{t('common.inprogress')}</SelectItem>
+                      <SelectItem value="archived">{t('common.archived')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -302,40 +258,20 @@ export default function AdminCustomTours() {
           {/* Requests Table */}
           <Card>
             <CardHeader>
-              <CardTitle>{t('Tour Requests (', {
-                defaultValue: 'Tour Requests ('
-              })}{requests.length})</CardTitle>
+              <CardTitle>{t('common.tourrequests')}{requests.length})</CardTitle>
             </CardHeader>
             <CardContent>
-              {isLoading ? <div className="text-center py-8">{t('Loading requests...', {
-                defaultValue: 'Loading requests...'
-              })}</div> : requests.length === 0 ? <div className="text-center py-8 text-gray-500">{t('No requests found.', {
-                defaultValue: 'No requests found.'
-              })}</div> : <div className="overflow-x-auto">
+              {isLoading ? <div className="text-center py-8">{t('common.loadingrequests')}</div> : requests.length === 0 ? <div className="text-center py-8 text-gray-500">{t('common.norequestsfound')}</div> : <div className="overflow-x-auto">
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead>{t('Name', {
-                        defaultValue: 'Name'
-                      })}</TableHead>
-                        <TableHead>{t('Contact', {
-                        defaultValue: 'Contact'
-                      })}</TableHead>
-                        <TableHead>{t('Travelers', {
-                        defaultValue: 'Travelers'
-                      })}</TableHead>
-                        <TableHead>{t('Dates/Duration', {
-                        defaultValue: 'Dates/Duration'
-                      })}</TableHead>
-                        <TableHead>{t('Status', {
-                        defaultValue: 'Status'
-                      })}</TableHead>
-                        <TableHead>{t('Date', {
-                        defaultValue: 'Date'
-                      })}</TableHead>
-                        <TableHead>{t('Actions', {
-                        defaultValue: 'Actions'
-                      })}</TableHead>
+                        <TableHead>{t('common.name')}</TableHead>
+                        <TableHead>{t('common.contact')}</TableHead>
+                        <TableHead>{t('common.travelers')}</TableHead>
+                        <TableHead>{t('common.datesduration')}</TableHead>
+                        <TableHead>{t('common.status')}</TableHead>
+                        <TableHead>{t('common.date')}</TableHead>
+                        <TableHead>{t('common.actions')}</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -362,16 +298,10 @@ export default function AdminCustomTours() {
                           </TableCell>
                           <TableCell>
                             {request.tripDates ? <div className="text-sm">
-                                <span className="text-gray-600">{t('Dates:', {
-                            defaultValue: 'Dates:'
-                          })}</span> {request.tripDates}
+                                <span className="text-gray-600">{t('common.dates')}</span> {request.tripDates}
                               </div> : request.duration ? <div className="text-sm">
-                                <span className="text-gray-600">{t('Duration:', {
-                            defaultValue: 'Duration:'
-                          })}</span> {request.duration} days
-                              </div> : <span className="text-gray-400">{t('Not specified', {
-                          defaultValue: 'Not specified'
-                        })}</span>}
+                                <span className="text-gray-600">{t('common.duration')}</span> {request.duration} days
+                              </div> : <span className="text-gray-400">{t('common.notspecified')}</span>}
                           </TableCell>
                           <TableCell>{getStatusBadge(request.status)}</TableCell>
                           <TableCell>{formatDate(request.createdAt)}</TableCell>
@@ -398,33 +328,25 @@ export default function AdminCustomTours() {
       <Dialog open={!!selectedRequest} onOpenChange={() => setSelectedRequest(null)}>
         <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>{t('Request Details', {
-              defaultValue: 'Request Details'
-            })}</DialogTitle>
+            <DialogTitle>{t('common.requestdetails')}</DialogTitle>
           </DialogHeader>
           
           {selectedRequest && <div className="space-y-6">
               {/* Contact Info */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-gray-700">{t('Full Name', {
-                  defaultValue: 'Full Name'
-                })}</label>
+                  <label className="text-sm font-medium text-gray-700">{t('common.fullname')}</label>
                   <p className="text-lg">{selectedRequest.fullName}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">{t('Status', {
-                  defaultValue: 'Status'
-                })}</label>
+                  <label className="text-sm font-medium text-gray-700">{t('common.status')}</label>
                   <div className="mt-1">{getStatusBadge(selectedRequest.status)}</div>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-gray-700">{t('Email', {
-                  defaultValue: 'Email'
-                })}</label>
+                  <label className="text-sm font-medium text-gray-700">{t('common.email')}</label>
                   <div className="flex items-center gap-2 mt-1">
                     <p>{selectedRequest.email}</p>
                     <a href={`mailto:${selectedRequest.email}`}>
@@ -435,9 +357,7 @@ export default function AdminCustomTours() {
                   </div>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">{t('Phone', {
-                  defaultValue: 'Phone'
-                })}</label>
+                  <label className="text-sm font-medium text-gray-700">{t('common.phone')}</label>
                   <div className="flex items-center gap-2 mt-1">
                     <p>{selectedRequest.phoneNumber}</p>
                     <a href={`tel:${selectedRequest.phoneNumber}`}>
@@ -452,15 +372,11 @@ export default function AdminCustomTours() {
               {/* Trip Details */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-gray-700">{t('Adults', {
-                  defaultValue: 'Adults'
-                })}</label>
+                  <label className="text-sm font-medium text-gray-700">{t('common.adults')}</label>
                   <p className="text-lg">{selectedRequest.numberOfAdults}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">{t('Kids', {
-                  defaultValue: 'Kids'
-                })}</label>
+                  <label className="text-sm font-medium text-gray-700">{t('common.kids')}</label>
                   <p className="text-lg">{selectedRequest.numberOfKids}</p>
                 </div>
               </div>
@@ -468,60 +384,42 @@ export default function AdminCustomTours() {
               {/* Trip Timing */}
               <div className="space-y-3">
                 {selectedRequest.tripDates && <div>
-                    <label className="text-sm font-medium text-gray-700">{t('Trip Dates', {
-                  defaultValue: 'Trip Dates'
-                })}</label>
+                    <label className="text-sm font-medium text-gray-700">{t('common.tripdates')}</label>
                     <p className="text-lg">{selectedRequest.tripDates}</p>
                   </div>}
                 {selectedRequest.duration && <div>
-                    <label className="text-sm font-medium text-gray-700">{t('Duration', {
-                  defaultValue: 'Duration'
-                })}</label>
+                    <label className="text-sm font-medium text-gray-700">{t('common.duration')}</label>
                     <p className="text-lg">{selectedRequest.duration} days</p>
                   </div>}
                 {!selectedRequest.tripDates && !selectedRequest.duration && <div>
-                    <label className="text-sm font-medium text-gray-700">{t('Trip Timing', {
-                  defaultValue: 'Trip Timing'
-                })}</label>
-                    <p className="text-gray-500">{t('Not specified', {
-                  defaultValue: 'Not specified'
-                })}</p>
+                    <label className="text-sm font-medium text-gray-700">{t('common.triptiming')}</label>
+                    <p className="text-gray-500">{t('common.notspecified')}</p>
                   </div>}
               </div>
 
               {/* Trip Types */}
               <div>
-                <label className="text-sm font-medium text-gray-700">{t('Trip Types', {
-                defaultValue: 'Trip Types'
-              })}</label>
+                <label className="text-sm font-medium text-gray-700">{t('common.triptypes')}</label>
                 <div className="flex flex-wrap gap-2 mt-1">
                   {selectedRequest.tripTypes && selectedRequest.tripTypes.length > 0 ? selectedRequest.tripTypes.map((tripType, index) => <Badge key={index} variant="secondary">
                         {tripTypeLabels[tripType] || tripType}
-                      </Badge>) : <span className="text-gray-500 text-sm">{t('No trip types selected', {
-                  defaultValue: 'No trip types selected'
-                })}</span>}
+                      </Badge>) : <span className="text-gray-500 text-sm">{t('common.notriptypesselected')}</span>}
                 </div>
               </div>
 
               {/* Destinations */}
               <div>
-                <label className="text-sm font-medium text-gray-700">{t('Destinations', {
-                defaultValue: 'Destinations'
-              })}</label>
+                <label className="text-sm font-medium text-gray-700">{t('common.destinations')}</label>
                 <div className="flex flex-wrap gap-2 mt-1">
                   {selectedRequest.destinations && selectedRequest.destinations.length > 0 ? selectedRequest.destinations.map((destination, index) => <Badge key={index} variant="outline">
                         {destinationLabels[destination] || destination}
-                      </Badge>) : <span className="text-gray-500 text-sm">{t('No destinations selected', {
-                  defaultValue: 'No destinations selected'
-                })}</span>}
+                      </Badge>) : <span className="text-gray-500 text-sm">{t('common.nodestinationsselect')}</span>}
                 </div>
               </div>
 
               {/* Message */}
               <div>
-                <label className="text-sm font-medium text-gray-700">{t('Message', {
-                defaultValue: 'Message'
-              })}</label>
+                <label className="text-sm font-medium text-gray-700">{t('common.message')}</label>
                 <div className="mt-1 p-3 bg-gray-50 rounded-md">
                   <p className="whitespace-pre-wrap">{selectedRequest.message}</p>
                 </div>
@@ -529,9 +427,7 @@ export default function AdminCustomTours() {
 
               {/* Created Date */}
               <div>
-                <label className="text-sm font-medium text-gray-700">{t('Submitted', {
-                defaultValue: 'Submitted'
-              })}</label>
+                <label className="text-sm font-medium text-gray-700">{t('common.submitted')}</label>
                 <p>{formatDate(selectedRequest.createdAt)}</p>
               </div>
 
@@ -547,21 +443,15 @@ export default function AdminCustomTours() {
                   <SelectContent>
                     <SelectItem value="new">
                       <div className="flex items-center">
-                        <CheckCircle className="h-4 w-4 mr-2 text-green-600" />{t('New', {
-                      defaultValue: 'New'
-                    })}</div>
+                        <CheckCircle className="h-4 w-4 mr-2 text-green-600" />{t('common.new')}</div>
                     </SelectItem>
                     <SelectItem value="in_progress">
                       <div className="flex items-center">
-                        <Clock className="h-4 w-4 mr-2 text-blue-600" />{t('In Progress', {
-                      defaultValue: 'In Progress'
-                    })}</div>
+                        <Clock className="h-4 w-4 mr-2 text-blue-600" />{t('common.inprogress')}</div>
                     </SelectItem>
                     <SelectItem value="archived">
                       <div className="flex items-center">
-                        <Archive className="h-4 w-4 mr-2 text-gray-600" />{t('Archived', {
-                      defaultValue: 'Archived'
-                    })}</div>
+                        <Archive className="h-4 w-4 mr-2 text-gray-600" />{t('common.archived')}</div>
                     </SelectItem>
                   </SelectContent>
                 </Select>

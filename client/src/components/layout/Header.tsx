@@ -169,21 +169,15 @@ export default function Header() {
           }} whileHover={{
             scale: 1.05
           }}>
-            <img src={logoAmon} alt={t('Amon Logo', {
-              defaultValue: 'Amon Logo'
-            })} className="h-20 w-auto mt-1 ml-[-4px]" />
+            <img src={logoAmon} alt={t('common.amonLogo')} className="h-20 w-auto mt-1 ml-[-4px]" />
             <span className={`ml-3 text-3xl font-bold ${isHomePage && !scrolled ? 'text-primary-foreground drop-shadow-lg' : 'text-primary'}`} style={{
               fontFamily: 'Lobster, cursive'
-            }}>{t('Amon Tour', {
-                defaultValue: 'Amon Tour'
-              })}</span>
+            }}>{t('site.name')}</span>
           </motion.div>
         </Link>
         
         {/* Mobile Menu Button */}
-        <motion.button onClick={toggleMobileMenu} className={`md:hidden focus:outline-none ${isHomePage && !scrolled ? 'text-primary-foreground' : 'text-neutral-700'}`} aria-label={t('Toggle menu', {
-          defaultValue: 'Toggle menu'
-        })} whileTap={{
+        <motion.button onClick={toggleMobileMenu} className={`md:hidden focus:outline-none ${isHomePage && !scrolled ? 'text-primary-foreground' : 'text-neutral-700'}`} aria-label={t('navigation.toggleMenu')} whileTap={{
           scale: 0.9
         }} whileHover={{
           scale: 1.1
@@ -230,9 +224,7 @@ export default function Header() {
           duration: 0.5,
           delay: 0.2
         }}>
-          {!isHomePage && <NavLink href="/" isActive={false} isHomePage={isHomePage} scrolled={scrolled}>{t('Home', {
-              defaultValue: 'Home'
-            })}</NavLink>}
+          {!isHomePage && <NavLink href="/" isActive={false} isHomePage={isHomePage} scrolled={scrolled}>{t('navigation.home')}</NavLink>}
           <NavLink href="/tours" isActive={location === '/tours'} isHomePage={isHomePage} scrolled={scrolled}>
             {t('navigation.experiences')}
           </NavLink>
@@ -279,9 +271,7 @@ export default function Header() {
             duration: 0.3,
             delay: 0.1
           }}>
-              {!isHomePage && <NavLink href="/" isActive={false} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>{t('Home', {
-                defaultValue: 'Home'
-              })}</NavLink>}
+              {!isHomePage && <NavLink href="/" isActive={false} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>{t('navigation.home')}</NavLink>}
               <NavLink href="/tours" isActive={location === '/tours'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
                 {t('navigation.experiences')}
               </NavLink>

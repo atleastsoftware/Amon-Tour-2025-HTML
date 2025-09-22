@@ -14,25 +14,17 @@ export default function HeaderSimple() {
           }} whileTap={{
             scale: 0.97
           }}>
-              <img src={logo} alt={t('Senthang Siam', {
-              defaultValue: 'Senthang Siam'
-            })} className="h-12 mr-3" />
-              <div className="text-primary font-heading font-semibold hidden sm:block">{t('Senthang Siam', {
-                defaultValue: 'Senthang Siam'
-              })}</div>
+              <img src={logo} alt={t('common.senthangsiam')} className="h-12 mr-3" />
+              <div className="text-primary font-heading font-semibold hidden sm:block">{t('common.senthangsiam')}</div>
             </motion.div>
           </Link>
           
           <nav className="flex items-center space-x-2 sm:space-x-6">
             <Link href="/tours">
-              <a className="text-gray-700 hover:text-primary text-sm sm:text-base font-medium">{t('Tours', {
-                defaultValue: 'Tours'
-              })}</a>
+              <a className="text-gray-700 hover:text-primary text-sm sm:text-base font-medium">{t('common.tours')}</a>
             </Link>
             <Link href="/experiences">
-              <a className="text-gray-700 hover:text-primary text-sm sm:text-base font-medium">{t('Experiences', {
-                defaultValue: 'Experiences'
-              })}</a>
+              <a className="text-gray-700 hover:text-primary text-sm sm:text-base font-medium">{t('common.experiences')}</a>
             </Link>
           </nav>
         </div>

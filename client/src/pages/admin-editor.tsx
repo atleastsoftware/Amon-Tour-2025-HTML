@@ -29,9 +29,7 @@ export default function AdminEditor() {
   const editorItems = [{
     id: 'pages',
     title: 'Éditeur de page',
-    description: t('Cr\xE9er, modifier, supprimer le contenu des blocs de chaque page', {
-      defaultValue: 'Cr\xE9er, modifier, supprimer le contenu des blocs de chaque page'
-    }),
+    description: t('common.crxe9ermodifiersuppr'),
     icon: FileText,
     route: '/admin-editor-page',
     color: 'bg-primary/5 border-primary/20 hover:bg-primary/10',
@@ -39,9 +37,7 @@ export default function AdminEditor() {
   }, {
     id: 'articles',
     title: 'Éditeur d\'articles',
-    description: t('Cr\xE9er et g\xE9rer des articles avec des titres, texte, images personnalis\xE9s', {
-      defaultValue: 'Cr\xE9er et g\xE9rer des articles avec des titres, texte, images personnalis\xE9s'
-    }),
+    description: t('common.crxe9eretgxe9rerdesa'),
     icon: Users,
     route: '/admin-editor-article',
     color: 'bg-[hsl(var(--success)/0.05)] border-[hsl(var(--success)/0.2)] hover:bg-[hsl(var(--success)/0.1)]',
@@ -49,9 +45,7 @@ export default function AdminEditor() {
   }, {
     id: 'forms',
     title: 'Éditeur de formulaires',
-    description: t('Cr\xE9er et g\xE9rer des formulaires personnalis\xE9s avec champs dynamiques', {
-      defaultValue: 'Cr\xE9er et g\xE9rer des formulaires personnalis\xE9s avec champs dynamiques'
-    }),
+    description: t('common.crxe9eretgxe9rerdesf'),
     icon: FormInput,
     route: '/admin-editor-form',
     color: 'bg-[hsl(var(--warning)/0.05)] border-[hsl(var(--warning)/0.2)] hover:bg-[hsl(var(--warning)/0.1)]',
@@ -65,9 +59,7 @@ export default function AdminEditor() {
             <div className="w-full sm:w-auto">
               <h1 className="text-xl sm:text-2xl font-bold text-foreground mb-2 flex items-center gap-2 sm:gap-3">
                 <Edit className="h-6 w-6 sm:h-7 sm:w-7 text-primary flex-shrink-0" />
-                <span className="truncate">{t('Gestion de Contenu', {
-                  defaultValue: 'Gestion de Contenu'
-                })}</span>
+                <span className="truncate">{t('common.gestiondecontenu')}</span>
               </h1>
               <p className="text-sm sm:text-base text-muted-foreground">{t('G\xE9rez facilement le contenu de votre site web avec nos outils d\'\xE9dition professionnels', {
                 defaultValue: 'G\xE9rez facilement le contenu de votre site web avec nos outils d\'\xE9dition professionnels'
@@ -75,9 +67,7 @@ export default function AdminEditor() {
             </div>
             <Button variant="outline" onClick={() => setLocation('/admin-appearance')} className="flex items-center gap-2 w-full sm:w-auto">
               <ArrowLeft className="w-4 h-4" />
-              <span>{t('Retour \xE0 Site Appearance', {
-                defaultValue: 'Retour \xE0 Site Appearance'
-              })}</span>
+              <span>{t('common.retourxe0siteappeara')}</span>
             </Button>
           </div>
         </div>
@@ -115,25 +105,19 @@ export default function AdminEditor() {
           <Card className="bg-white shadow-sm border border-border">
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-primary mb-1">{pagesCount}</div>
-              <div className="text-muted-foreground text-sm">{t('Pages', {
-                defaultValue: 'Pages'
-              })}</div>
+              <div className="text-muted-foreground text-sm">{t('common.pages')}</div>
             </CardContent>
           </Card>
           <Card className="bg-white shadow-sm border border-border">
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-[hsl(var(--success))] mb-1">0</div>
-              <div className="text-muted-foreground text-sm">{t('Articles', {
-                defaultValue: 'Articles'
-              })}</div>
+              <div className="text-muted-foreground text-sm">{t('common.articles')}</div>
             </CardContent>
           </Card>
           <Card className="bg-white shadow-sm border border-border">
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-[hsl(var(--warning))] mb-1">{activeFormsCount}</div>
-              <div className="text-muted-foreground text-sm">{t('Formulaires', {
-                defaultValue: 'Formulaires'
-              })}</div>
+              <div className="text-muted-foreground text-sm">{t('common.formulaires')}</div>
             </CardContent>
           </Card>
         </div>

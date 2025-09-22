@@ -75,9 +75,7 @@ export function WhatsAppButton() {
         <i className={`fab fa-whatsapp ${isMobile ? 'text-3xl' : 'text-2xl'}`} style={{
         pointerEvents: 'none'
       }} aria-hidden="true"></i>
-        <span className="sr-only">{t('Contact via WhatsApp', {
-          defaultValue: 'Contact via WhatsApp'
-        })}</span>
+        <span className="sr-only">{t('footer.contactWhatsApp')}</span>
       </motion.a>
     </motion.div>;
 }

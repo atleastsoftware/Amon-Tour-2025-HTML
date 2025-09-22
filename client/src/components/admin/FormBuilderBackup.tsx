@@ -82,63 +82,43 @@ interface FormBuilderProps {
 }
 const FIELD_TYPES = [{
   type: 'text',
-  label: t('Texte', {
-    defaultValue: 'Texte'
-  }),
+  label: t('common.texte'),
   icon: Type
 }, {
   type: 'email',
-  label: t('Email', {
-    defaultValue: 'Email'
-  }),
+  label: t('common.email'),
   icon: Mail
 }, {
   type: 'phone',
-  label: t('T\xE9l\xE9phone', {
-    defaultValue: 'T\xE9l\xE9phone'
-  }),
+  label: t('common.txe9lxe9phone'),
   icon: Phone
 }, {
   type: 'textarea',
-  label: t('Zone de texte', {
-    defaultValue: 'Zone de texte'
-  }),
+  label: t('common.zonedetexte'),
   icon: Type
 }, {
   type: 'select',
-  label: t('S\xE9lection', {
-    defaultValue: 'S\xE9lection'
-  }),
+  label: t('common.sxe9lection'),
   icon: ChevronDown
 }, {
   type: 'checkbox',
-  label: t('Cases \xE0 cocher', {
-    defaultValue: 'Cases \xE0 cocher'
-  }),
+  label: t('common.casesxe0cocher'),
   icon: CheckSquare
 }, {
   type: 'radio',
-  label: t('Boutons radio', {
-    defaultValue: 'Boutons radio'
-  }),
+  label: t('common.boutonsradio'),
   icon: Circle
 }, {
   type: 'file',
-  label: t('Fichier', {
-    defaultValue: 'Fichier'
-  }),
+  label: t('common.fichier'),
   icon: File
 }, {
   type: 'date',
-  label: t('Date', {
-    defaultValue: 'Date'
-  }),
+  label: t('common.date'),
   icon: Calendar
 }, {
   type: 'number',
-  label: t('Nombre', {
-    defaultValue: 'Nombre'
-  }),
+  label: t('common.nombre'),
   icon: Hash
 }] as const;
 
@@ -239,9 +219,7 @@ function ColorPicker({
         <div className="relative">
           <div className="w-8 h-8 rounded border border-border cursor-pointer relative overflow-hidden hover:border-border/80 transition-colors" style={{
           backgroundColor: currentColorValue
-        }} title={t('Cliquez pour personnaliser la couleur', {
-          defaultValue: 'Cliquez pour personnaliser la couleur'
-        })}>
+        }} title={t('common.cliquezpourpersonnal')}>
             <input type="color" value={currentColorValue} onChange={e => handleColorChange(e.target.value)} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
           </div>
         </div>
@@ -264,21 +242,13 @@ function ColorPicker({
               </SelectValue>
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="custom">{t('R\xE9f\xE9rence couleur', {
-              defaultValue: 'R\xE9f\xE9rence couleur'
-            })}</SelectItem>
-              <SelectItem value="primary">{t('Couleur principale', {
-              defaultValue: 'Couleur principale'
-            })}</SelectItem>
-              <SelectItem value="secondary">{t('Couleur secondaire', {
-              defaultValue: 'Couleur secondaire'
-            })}</SelectItem>
+              <SelectItem value="custom">{t('common.rxe9fxe9rencecouleur')}</SelectItem>
+              <SelectItem value="primary">{t('common.couleurprincipale')}</SelectItem>
+              <SelectItem value="secondary">{t('common.couleursecondaire')}</SelectItem>
             </SelectContent>
           </Select>}
       </div>
-      <p className="text-xs text-muted-foreground">{t('Cliquez sur le carr\xE9 de couleur pour choisir visuellement ou sur le code couleur pour saisir directement', {
-        defaultValue: 'Cliquez sur le carr\xE9 de couleur pour choisir visuellement ou sur le code couleur pour saisir directement'
-      })}</p>
+      <p className="text-xs text-muted-foreground">{t('common.cliquezsurlecarrxe9d')}</p>
     </div>;
 }
 export default function FormBuilder({
@@ -334,18 +304,10 @@ export default function FormBuilder({
 
     // Default to Custom Tour Request form structure
     return {
-      name: t('Custom Tour Request', {
-        defaultValue: 'Custom Tour Request'
-      }),
-      title: t('Create Your Custom Trip', {
-        defaultValue: 'Create Your Custom Trip'
-      }),
-      subtitle: t('Your travel story starts with your dreams \u2013 let us write the rest.', {
-        defaultValue: 'Your travel story starts with your dreams \u2013 let us write the rest.'
-      }),
-      description: t('Cr\xE9ez votre exp\xE9rience unique en Tha\xEFlande', {
-        defaultValue: 'Cr\xE9ez votre exp\xE9rience unique en Tha\xEFlande'
-      }),
+      name: t('common.customtourrequest'),
+      title: t('common.createyourcustomtrip'),
+      subtitle: t('common.yourtravelstorystart'),
+      description: t('common.crxe9ezvotreexpxe9ri'),
       headerImage: '/catamaran-cruise.png',
       layout: 'single-column' as const,
       formLayout: 'columns' as const,
@@ -358,9 +320,7 @@ export default function FormBuilder({
       fields: [{
         id: 'fullname',
         type: 'text' as const,
-        label: t('Full Name *', {
-          defaultValue: 'Full Name *'
-        }),
+        label: t('common.fullname'),
         placeholder: 'Your name',
         required: true,
         style: {
@@ -369,9 +329,7 @@ export default function FormBuilder({
       }, {
         id: 'email',
         type: 'email' as const,
-        label: t('Email *', {
-          defaultValue: 'Email *'
-        }),
+        label: t('common.email'),
         placeholder: 'Your email',
         required: true,
         style: {
@@ -380,9 +338,7 @@ export default function FormBuilder({
       }, {
         id: 'countrycode',
         type: 'select' as const,
-        label: t('Country Code *', {
-          defaultValue: 'Country Code *'
-        }),
+        label: t('common.countrycode'),
         placeholder: 'Code',
         required: true,
         options: ['🇫🇷 +33', '🇹🇭 +66', '🇺🇸 +1', '🇬🇧 +44', '🇩🇪 +49', '🇪🇸 +34'],
@@ -392,9 +348,7 @@ export default function FormBuilder({
       }, {
         id: 'whatsapp',
         type: 'phone' as const,
-        label: t('WhatsApp Number *', {
-          defaultValue: 'WhatsApp Number *'
-        }),
+        label: t('common.whatsappnumber'),
         placeholder: 'Your WhatsApp number',
         required: true,
         style: {
@@ -403,9 +357,7 @@ export default function FormBuilder({
       }, {
         id: 'adults',
         type: 'select' as const,
-        label: t('Number of adults', {
-          defaultValue: 'Number of adults'
-        }),
+        label: t('common.numberofadults'),
         placeholder: 'Select number of adults',
         required: false,
         options: ['1 adult', '2 adults', '3 adults', '4 adults', '5 adults', '6+ adults'],
@@ -415,9 +367,7 @@ export default function FormBuilder({
       }, {
         id: 'kids',
         type: 'select' as const,
-        label: t('Number of kids (under 12 years old)', {
-          defaultValue: 'Number of kids (under 12 years old)'
-        }),
+        label: t('common.numberofkidsunder12y'),
         placeholder: 'Select number of kids',
         required: false,
         options: ['No kids', '1 kid', '2 kids', '3 kids', '4 kids', '5+ kids'],
@@ -427,9 +377,7 @@ export default function FormBuilder({
       }, {
         id: 'dates',
         type: 'date' as const,
-        label: t('Dates of trip', {
-          defaultValue: 'Dates of trip'
-        }),
+        label: t('common.datesoftrip'),
         placeholder: 'Select trip dates',
         required: false,
         style: {
@@ -438,9 +386,7 @@ export default function FormBuilder({
       }, {
         id: 'duration',
         type: 'select' as const,
-        label: t('Or approximate duration', {
-          defaultValue: 'Or approximate duration'
-        }),
+        label: t('common.orapproximateduratio'),
         placeholder: 'Select duration',
         required: false,
         options: ['1-3 days', '4-7 days', '8-14 days', '15+ days'],
@@ -450,9 +396,7 @@ export default function FormBuilder({
       }, {
         id: 'triptypes',
         type: 'checkbox' as const,
-        label: t('Trip Types', {
-          defaultValue: 'Trip Types'
-        }),
+        label: t('common.triptypes'),
         required: false,
         options: ['Culture & History', 'Nature & Adventure', 'Beaches & Islands', 'Family trip', 'Group trip', 'Wedding & Honeymoon'],
         style: {
@@ -461,9 +405,7 @@ export default function FormBuilder({
       }, {
         id: 'destinations',
         type: 'checkbox' as const,
-        label: t('Destinations', {
-          defaultValue: 'Destinations'
-        }),
+        label: t('common.destinations'),
         required: false,
         options: ['Khao Sok', 'Krabi', 'Koh Mook', 'Bangkok', 'Chiang Mai', 'Others destinations'],
         style: {
@@ -472,9 +414,7 @@ export default function FormBuilder({
       }, {
         id: 'message',
         type: 'textarea' as const,
-        label: t('Describe your ideal trip', {
-          defaultValue: 'Describe your ideal trip'
-        }),
+        label: t('common.describeyouridealtri'),
         placeholder: 'Tell us what you would like to see and do during your journey...',
         required: true,
         style: {
@@ -567,24 +507,16 @@ export default function FormBuilder({
   const handleSave = async () => {
     if (!formData.name.trim() || !formData.title.trim()) {
       toast({
-        title: t('Erreur', {
-          defaultValue: 'Erreur'
-        }),
-        description: t('Le nom et le titre du formulaire sont obligatoires.', {
-          defaultValue: 'Le nom et le titre du formulaire sont obligatoires.'
-        }),
+        title: t('common.erreur'),
+        description: t('common.lenometletitreduform'),
         variant: "destructive"
       });
       return;
     }
     if (formData.fields.length === 0) {
       toast({
-        title: t('Erreur', {
-          defaultValue: 'Erreur'
-        }),
-        description: t('Le formulaire doit contenir au moins un champ.', {
-          defaultValue: 'Le formulaire doit contenir au moins un champ.'
-        }),
+        title: t('common.erreur'),
+        description: t('common.leformulairedoitcont'),
         variant: "destructive"
       });
       return;
@@ -593,21 +525,13 @@ export default function FormBuilder({
     try {
       await onSave(formData);
       toast({
-        title: t('Formulaire sauvegard\xE9', {
-          defaultValue: 'Formulaire sauvegard\xE9'
-        }),
-        description: t('Le formulaire a \xE9t\xE9 sauvegard\xE9 avec succ\xE8s.', {
-          defaultValue: 'Le formulaire a \xE9t\xE9 sauvegard\xE9 avec succ\xE8s.'
-        })
+        title: t('common.formulairesauvegardx'),
+        description: t('common.leformulaireaxe9txe9')
       });
     } catch (error) {
       toast({
-        title: t('Erreur', {
-          defaultValue: 'Erreur'
-        }),
-        description: t('Erreur lors de la sauvegarde du formulaire.', {
-          defaultValue: 'Erreur lors de la sauvegarde du formulaire.'
-        }),
+        title: t('common.erreur'),
+        description: t('common.erreurlorsdelasauveg'),
         variant: "destructive"
       });
     } finally {
@@ -736,25 +660,17 @@ export default function FormBuilder({
       <div className="bg-card border-b p-4 sticky top-0 z-10">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-6">
-            <h2 className="text-lg font-semibold">{t('Constructeur de formulaire', {
-              defaultValue: 'Constructeur de formulaire'
-            })}</h2>
+            <h2 className="text-lg font-semibold">{t('common.constructeurdeformul')}</h2>
             <div className="flex items-center gap-2">
-              <Label className="text-sm font-medium whitespace-nowrap">{t('Nom du formulaire :', {
-                defaultValue: 'Nom du formulaire :'
-              })}</Label>
+              <Label className="text-sm font-medium whitespace-nowrap">{t('common.nomduformulaire')}</Label>
               <Input value={formData.name} onChange={e => setFormData(prev => ({
               ...prev,
               name: e.target.value
-            }))} placeholder={t('Ex: Formulaire de contact', {
-              defaultValue: 'Ex: Formulaire de contact'
-            })} className="w-64" />
+            }))} placeholder={t('common.exformulairedecontac')} className="w-64" />
             </div>
           </div>
           <div className="flex gap-2">
-            <Button onClick={onCancel} variant="outline" size="sm">{t('Annuler', {
-              defaultValue: 'Annuler'
-            })}</Button>
+            <Button onClick={onCancel} variant="outline" size="sm">{t('common.annuler')}</Button>
             <Button onClick={handleSave} disabled={saving} size="sm">
               <Save className="h-4 w-4 mr-2" />
               {saving ? 'Sauvegarde...' : 'Sauvegarder'}
@@ -773,9 +689,7 @@ export default function FormBuilder({
           <div className="flex flex-col">
                   {/* Image Header */}
                   <div className="h-48 relative">
-                    {formData.headerImage ? <img src={formData.headerImage} alt={t('Header image', {
-                defaultValue: 'Header image'
-              })} className="w-full h-full object-cover" onError={e => {
+                    {formData.headerImage ? <img src={formData.headerImage} alt={t('common.headerimage')} className="w-full h-full object-cover" onError={e => {
                 e.currentTarget.src = '/catamaran-cruise.png';
               }} /> : <div className="w-full h-full bg-muted"></div>}
                     <div className="absolute inset-0 flex flex-col justify-center items-center text-center p-8" style={{
@@ -800,9 +714,7 @@ export default function FormBuilder({
                     {/* Form Content pour Header Layout */}
                     {formData.fields.length === 0 ? <div className="text-center py-16 text-muted-foreground">
                         <FormInput className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-                        <p>{t('Ajoutez des champs pour voir la pr\xE9visualisation', {
-                    defaultValue: 'Ajoutez des champs pour voir la pr\xE9visualisation'
-                  })}</p>
+                        <p>{t('common.ajoutezdeschampspour')}</p>
                       </div> : <div className="space-y-4">
                         {/* Rendu des champs du formulaire */}
                         {(() => {
@@ -913,9 +825,7 @@ export default function FormBuilder({
           <div className={`grid grid-cols-1 md:grid-cols-2 min-h-[500px] ${formData.formLayout === 'columns-reversed' ? 'md:[&>:first-child]:order-2 md:[&>:last-child]:order-1' : ''}`}>
                   {/* Image Side */}
                   <div className="h-64 md:h-auto relative">
-                    {formData.headerImage ? <img src={formData.headerImage} alt={t('Header image', {
-                defaultValue: 'Header image'
-              })} className="w-full h-full object-cover" onError={e => {
+                    {formData.headerImage ? <img src={formData.headerImage} alt={t('common.headerimage')} className="w-full h-full object-cover" onError={e => {
                 e.currentTarget.src = '/catamaran-cruise.png';
               }} /> : <div className="w-full h-full bg-muted"></div>}
                     <div className="absolute inset-0 flex flex-col justify-center p-8" style={{
@@ -940,9 +850,7 @@ export default function FormBuilder({
             }}>
                     {formData.fields.length === 0 ? <div className="text-center py-16 text-muted-foreground h-full flex flex-col items-center justify-center">
                         <FormInput className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-                        <p>{t('Ajoutez des champs pour voir la pr\xE9visualisation', {
-                    defaultValue: 'Ajoutez des champs pour voir la pr\xE9visualisation'
-                  })}</p>
+                        <p>{t('common.ajoutezdeschampspour')}</p>
                       </div> : <div className="space-y-4">
                         {/* Rendu des champs du formulaire */}
                         {(() => {
@@ -1060,15 +968,11 @@ export default function FormBuilder({
           <div className="flex">
             {[{
             id: 'informations',
-            label: t('Informations', {
-              defaultValue: 'Informations'
-            }),
+            label: t('common.informations'),
             icon: FormInput
           }, {
             id: 'builder',
-            label: t('Constructeur', {
-              defaultValue: 'Constructeur'
-            }),
+            label: t('common.constructeur'),
             icon: Layout
           }, {
             id: 'style',
@@ -1076,9 +980,7 @@ export default function FormBuilder({
             icon: Palette
           }, {
             id: 'settings',
-            label: t('Param\xE8tres', {
-              defaultValue: 'Param\xE8tres'
-            }),
+            label: t('common.paramxe8tres'),
             icon: Settings
           }].map(tab => {
             const Icon = tab.icon;
@@ -1095,32 +997,22 @@ export default function FormBuilder({
               {/* Form Basic Info */}
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-sm">{t('Informations g\xE9n\xE9rales', {
-                  defaultValue: 'Informations g\xE9n\xE9rales'
-                })}</CardTitle>
+                  <CardTitle className="text-sm">{t('common.informationsgxe9nxe9')}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div>
-                    <Label>{t('Titre *', {
-                    defaultValue: 'Titre *'
-                  })}</Label>
+                    <Label>{t('common.titre')}</Label>
                     <Input value={formData.title} onChange={e => setFormData(prev => ({
                   ...prev,
                   title: e.target.value
-                }))} placeholder={t('Ex: Contactez-nous', {
-                  defaultValue: 'Ex: Contactez-nous'
-                })} />
+                }))} placeholder={t('common.excontacteznous')} />
                   </div>
                   <div>
-                    <Label>{t('Sous-titre', {
-                    defaultValue: 'Sous-titre'
-                  })}</Label>
+                    <Label>{t('common.soustitre')}</Label>
                     <Textarea value={formData.subtitle || ''} onChange={e => setFormData(prev => ({
                   ...prev,
                   subtitle: e.target.value
-                }))} placeholder={t('Ex: Nous vous r\xE9pondrons rapidement', {
-                  defaultValue: 'Ex: Nous vous r\xE9pondrons rapidement'
-                })} rows={2} />
+                }))} placeholder={t('common.exnousvousrxe9pondro')} rows={2} />
                   </div>
                   <div>
                     <Label>{t('Image d\'en-t\xEAte', {
@@ -1132,9 +1024,7 @@ export default function FormBuilder({
                 }))} placeholder={t('URL de l\'image (ex: /catamaran-cruise.png)', {
                   defaultValue: 'URL de l\'image (ex: /catamaran-cruise.png)'
                 })} />
-                    <p className="text-xs text-muted-foreground mt-1">{t('Cette image appara\xEEtra \xE0 gauche du formulaire comme sur le site', {
-                    defaultValue: 'Cette image appara\xEEtra \xE0 gauche du formulaire comme sur le site'
-                  })}</p>
+                    <p className="text-xs text-muted-foreground mt-1">{t('common.cetteimageapparaxeet')}</p>
                   </div>
                 </CardContent>
               </Card>
@@ -1142,15 +1032,11 @@ export default function FormBuilder({
               {/* Submit Button Settings */}
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-sm">{t('Bouton de soumission', {
-                  defaultValue: 'Bouton de soumission'
-                })}</CardTitle>
+                  <CardTitle className="text-sm">{t('common.boutondesoumission')}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div>
-                    <Label>{t('Texte du bouton', {
-                    defaultValue: 'Texte du bouton'
-                  })}</Label>
+                    <Label>{t('common.textedubouton')}</Label>
                     <Input value={formData.settings.submitButtonText || 'Envoyer'} onChange={e => setFormData(prev => ({
                   ...prev,
                   settings: {
@@ -1168,9 +1054,7 @@ export default function FormBuilder({
                 {/* Field Types */}
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-sm">{t('Types de champs', {
-                  defaultValue: 'Types de champs'
-                })}</CardTitle>
+                    <CardTitle className="text-sm">{t('common.typesdechamps')}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="grid grid-cols-2 gap-2">
@@ -1188,14 +1072,10 @@ export default function FormBuilder({
                 {/* Form Fields */}
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-sm">{t('Champs du formulaire (', {
-                  defaultValue: 'Champs du formulaire ('
-                })}{formData.fields.length})</CardTitle>
+                    <CardTitle className="text-sm">{t('common.champsduformulaire')}{formData.fields.length})</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    {formData.fields.length === 0 ? <p className="text-muted-foreground text-sm py-4 text-center">{t('Aucun champ ajout\xE9. Utilisez les boutons ci-dessus pour ajouter des champs.', {
-                  defaultValue: 'Aucun champ ajout\xE9. Utilisez les boutons ci-dessus pour ajouter des champs.'
-                })}</p> : <Reorder.Group values={formData.fields} onReorder={reorderFields}>
+                    {formData.fields.length === 0 ? <p className="text-muted-foreground text-sm py-4 text-center">{t('common.aucunchampajoutxe9ut')}</p> : <Reorder.Group values={formData.fields} onReorder={reorderFields}>
                         {formData.fields.map(field => <Reorder.Item key={field.id} value={field}>
                             <Card className={`mb-2 cursor-pointer transition-colors ${selectedField === field.id ? 'ring-2 ring-primary' : ''}`} onClick={() => setSelectedField(field.id)}>
                               <CardContent className="p-3">
@@ -1206,9 +1086,7 @@ export default function FormBuilder({
                                       {FIELD_TYPES.find(t => t.type === field.type)?.label}
                                     </Badge>
                                     <span className="font-medium text-sm">{field.label}</span>
-                                    {field.required && <Badge variant="destructive" className="text-xs">{t('Requis', {
-                              defaultValue: 'Requis'
-                            })}</Badge>}
+                                    {field.required && <Badge variant="destructive" className="text-xs">{t('common.requis')}</Badge>}
                                   </div>
                                   <div className="flex gap-1">
                                     <Button size="sm" variant="ghost" onClick={e => {
@@ -1235,9 +1113,7 @@ export default function FormBuilder({
                 {/* Field Configuration */}
                 {selectedField && <Card>
                     <CardHeader>
-                      <CardTitle className="text-sm">{t('Configuration du champ', {
-                  defaultValue: 'Configuration du champ'
-                })}</CardTitle>
+                      <CardTitle className="text-sm">{t('common.configurationduchamp')}</CardTitle>
                     </CardHeader>
                     <CardContent>
                       {(() => {
@@ -1245,18 +1121,14 @@ export default function FormBuilder({
                 if (!field) return null;
                 return <div className="space-y-4">
                             <div>
-                              <Label>{t('Label du champ', {
-                        defaultValue: 'Label du champ'
-                      })}</Label>
+                              <Label>{t('common.labelduchamp')}</Label>
                               <Input value={field.label} onChange={e => updateField(field.id, {
                       label: e.target.value
                     })} />
                             </div>
                             
                             <div>
-                              <Label>{t('Placeholder', {
-                        defaultValue: 'Placeholder'
-                      })}</Label>
+                              <Label>{t('common.placeholder')}</Label>
                               <Input value={field.placeholder || ''} onChange={e => updateField(field.id, {
                       placeholder: e.target.value
                     })} />
@@ -1266,15 +1138,11 @@ export default function FormBuilder({
                               <Switch checked={field.required} onCheckedChange={checked => updateField(field.id, {
                       required: checked
                     })} />
-                              <Label>{t('Champ requis', {
-                        defaultValue: 'Champ requis'
-                      })}</Label>
+                              <Label>{t('common.champrequis')}</Label>
                             </div>
                             
                             <div>
-                              <Label>{t('Largeur', {
-                        defaultValue: 'Largeur'
-                      })}</Label>
+                              <Label>{t('common.largeur')}</Label>
                               <Select value={field.style?.width || 'full'} onValueChange={value => updateField(field.id, {
                       style: {
                         ...field.style,
@@ -1285,23 +1153,15 @@ export default function FormBuilder({
                                   <SelectValue />
                                 </SelectTrigger>
                                 <SelectContent>
-                                  <SelectItem value="full">{t('Pleine largeur', {
-                            defaultValue: 'Pleine largeur'
-                          })}</SelectItem>
-                                  <SelectItem value="half">{t('Demi-largeur', {
-                            defaultValue: 'Demi-largeur'
-                          })}</SelectItem>
-                                  <SelectItem value="third">{t('Tiers de largeur', {
-                            defaultValue: 'Tiers de largeur'
-                          })}</SelectItem>
+                                  <SelectItem value="full">{t('common.pleinelargeur')}</SelectItem>
+                                  <SelectItem value="half">{t('common.demilargeur')}</SelectItem>
+                                  <SelectItem value="third">{t('common.tiersdelargeur')}</SelectItem>
                                 </SelectContent>
                               </Select>
                             </div>
                             
                             {(field.type === 'select' || field.type === 'checkbox' || field.type === 'radio') && <div>
-                                <Label>{t('Options', {
-                        defaultValue: 'Options'
-                      })}</Label>
+                                <Label>{t('common.options')}</Label>
                                 <div className="space-y-2">
                                   {field.options?.map((option, index) => <div key={index} className="flex gap-2">
                                       <Input value={option} onChange={e => {
@@ -1326,9 +1186,7 @@ export default function FormBuilder({
                           options: newOptions
                         });
                       }}>
-                                    <Plus className="h-4 w-4 mr-2" />{t('Ajouter une option', {
-                          defaultValue: 'Ajouter une option'
-                        })}</Button>
+                                    <Plus className="h-4 w-4 mr-2" />{t('common.ajouteruneoption')}</Button>
                                 </div>
                               </div>}
                           </div>;
@@ -1341,9 +1199,7 @@ export default function FormBuilder({
                 {/* Nouveau bloc Disposition */}
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-sm">{t('Disposition', {
-                  defaultValue: 'Disposition'
-                })}</CardTitle>
+                    <CardTitle className="text-sm">{t('common.disposition')}</CardTitle>
                     <p className="text-xs text-muted-foreground">{t('Choisissez comment organiser l\'image et le formulaire', {
                   defaultValue: 'Choisissez comment organiser l\'image et le formulaire'
                 })}</p>
@@ -1359,13 +1215,9 @@ export default function FormBuilder({
                             <div className="w-4 h-3 bg-primary/20 rounded-sm"></div>
                             <div className="w-4 h-3 bg-muted rounded-sm"></div>
                           </div>
-                          <Label className="font-medium text-sm">{t('Colonnes', {
-                        defaultValue: 'Colonnes'
-                      })}</Label>
+                          <Label className="font-medium text-sm">{t('common.colonnes')}</Label>
                         </div>
-                        <p className="text-xs text-muted-foreground">{t('Image et titre \xE0 gauche, formulaire \xE0 droite', {
-                      defaultValue: 'Image et titre \xE0 gauche, formulaire \xE0 droite'
-                    })}</p>
+                        <p className="text-xs text-muted-foreground">{t('common.imageettitrexe0gauch')}</p>
                       </div>
                       
                       <div className={`border-2 rounded-lg p-4 cursor-pointer transition-all hover:border-primary/50 ${formData.formLayout === 'columns-reversed' ? 'border-primary bg-primary/5' : 'border-border'}`} onClick={() => setFormData(prev => ({
@@ -1377,13 +1229,9 @@ export default function FormBuilder({
                             <div className="w-4 h-3 bg-muted rounded-sm"></div>
                             <div className="w-4 h-3 bg-primary/20 rounded-sm"></div>
                           </div>
-                          <Label className="font-medium text-sm">{t('Colonnes invers\xE9es', {
-                        defaultValue: 'Colonnes invers\xE9es'
-                      })}</Label>
+                          <Label className="font-medium text-sm">{t('common.colonnesinversxe9es')}</Label>
                         </div>
-                        <p className="text-xs text-muted-foreground">{t('Formulaire \xE0 gauche, image et titre \xE0 droite', {
-                      defaultValue: 'Formulaire \xE0 gauche, image et titre \xE0 droite'
-                    })}</p>
+                        <p className="text-xs text-muted-foreground">{t('common.formulairexe0gauchei')}</p>
                       </div>
                       
                       <div className={`border-2 rounded-lg p-4 cursor-pointer transition-all hover:border-primary/50 ${formData.formLayout === 'header' ? 'border-primary bg-primary/5' : 'border-border'}`} onClick={() => setFormData(prev => ({
@@ -1395,13 +1243,9 @@ export default function FormBuilder({
                             <div className="w-8 h-2 bg-primary/20 rounded-sm"></div>
                             <div className="w-8 h-3 bg-muted rounded-sm"></div>
                           </div>
-                          <Label className="font-medium text-sm">{t('Header', {
-                        defaultValue: 'Header'
-                      })}</Label>
+                          <Label className="font-medium text-sm">{t('common.header')}</Label>
                         </div>
-                        <p className="text-xs text-muted-foreground">{t('Image et titre en haut, formulaire en dessous sur toute la largeur', {
-                      defaultValue: 'Image et titre en haut, formulaire en dessous sur toute la largeur'
-                    })}</p>
+                        <p className="text-xs text-muted-foreground">{t('common.imageettitreenhautfo')}</p>
                       </div>
                     </div>
                   </CardContent>
@@ -1409,51 +1253,39 @@ export default function FormBuilder({
                 
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-sm">{t('Couleurs', {
-                  defaultValue: 'Couleurs'
-                })}</CardTitle>
+                    <CardTitle className="text-sm">{t('common.couleurs')}</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div>
-                      <ColorPicker label={t('Couleur principale', {
-                  defaultValue: 'Couleur principale'
-                })} value={formData.primaryColor} onChange={value => setFormData(prev => ({
+                      <ColorPicker label={t('common.couleurprincipale')} value={formData.primaryColor} onChange={value => setFormData(prev => ({
                   ...prev,
                   primaryColor: value
                 }))} />
                     </div>
                     
                     <div>
-                      <ColorPicker label={t('Couleur du cadre', {
-                  defaultValue: 'Couleur du cadre'
-                })} value={formData.frameColor} onChange={value => setFormData(prev => ({
+                      <ColorPicker label={t('common.couleurducadre')} value={formData.frameColor} onChange={value => setFormData(prev => ({
                   ...prev,
                   frameColor: value
                 }))} />
                     </div>
                     
                     <div>
-                      <ColorPicker label={t('Couleur du titre', {
-                  defaultValue: 'Couleur du titre'
-                })} value={formData.titleColor} onChange={value => setFormData(prev => ({
+                      <ColorPicker label={t('common.couleurdutitre')} value={formData.titleColor} onChange={value => setFormData(prev => ({
                   ...prev,
                   titleColor: value
                 }))} />
                     </div>
                     
                     <div>
-                      <ColorPicker label={t('Couleur du sous-titre', {
-                  defaultValue: 'Couleur du sous-titre'
-                })} value={formData.subtitleColor} onChange={value => setFormData(prev => ({
+                      <ColorPicker label={t('common.couleurdusoustitre')} value={formData.subtitleColor} onChange={value => setFormData(prev => ({
                   ...prev,
                   subtitleColor: value
                 }))} />
                     </div>
                     
                     <div>
-                      <ColorPicker label={t('Couleur du texte', {
-                  defaultValue: 'Couleur du texte'
-                })} value={formData.textColor} onChange={value => setFormData(prev => ({
+                      <ColorPicker label={t('common.couleurdutexte')} value={formData.textColor} onChange={value => setFormData(prev => ({
                   ...prev,
                   textColor: value
                 }))} />
@@ -1466,15 +1298,11 @@ export default function FormBuilder({
 
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-sm">{t('Messages', {
-                  defaultValue: 'Messages'
-                })}</CardTitle>
+                    <CardTitle className="text-sm">{t('common.messages')}</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div>
-                      <Label>{t('Message de succ\xE8s', {
-                    defaultValue: 'Message de succ\xE8s'
-                  })}</Label>
+                      <Label>{t('common.messagedesuccxe8s')}</Label>
                       <Textarea value={formData.settings.successMessage || ''} onChange={e => setFormData(prev => ({
                   ...prev,
                   settings: {

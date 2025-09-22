@@ -91,12 +91,8 @@ export default function DynamicPage({
         <Header />
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">{t('404 - Page Not Found', {
-              defaultValue: '404 - Page Not Found'
-            })}</h1>
-            <p className="text-gray-600">{t('The page you are looking for does not exist or is not available.', {
-              defaultValue: 'The page you are looking for does not exist or is not available.'
-            })}</p>
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">{t('common.404pagenotfound')}</h1>
+            <p className="text-gray-600">{t('common.thepageyouarelooking')}</p>
           </div>
         </div>
         <Footer />
@@ -105,9 +101,7 @@ export default function DynamicPage({
   const activeBlocks = blocks.filter(block => block.isActive);
   return <>
       <Helmet>
-        <title>{pageConfig.pageName}{t('- Amon Tour', {
-          defaultValue: '- Amon Tour'
-        })}</title>
+        <title>{pageConfig.pageName}{t('common.amontour')}</title>
         <meta name="description" content={`${pageConfig.pageName} - Amon Tour, votre agence de voyage à Krabi`} />
       </Helmet>
 
@@ -123,9 +117,7 @@ export default function DynamicPage({
         {activeBlocks.length > 0 ? <DynamicBlocksRenderer blocks={activeBlocks} pageSlug={slug} /> : <div className="container mx-auto px-4 py-24">
             <div className="text-center">
               <h1 className="text-3xl font-bold text-gray-900 mb-4">{pageConfig.pageName}</h1>
-              <p className="text-gray-600">{t('Cette page est en cours de construction.', {
-              defaultValue: 'Cette page est en cours de construction.'
-            })}</p>
+              <p className="text-gray-600">{t('common.cettepageestencoursd')}</p>
             </div>
           </div>}
       </motion.div>

@@ -52,16 +52,12 @@ export default function About() {
             <div className="space-y-6">
               {/* Family Photo */}
               <div className="relative">
-                <img src="/family-photo.png" alt={t('Amon Tour family - \xC9ric, Margaux, Gabriel, and Rapha\xEBl on a Thai beach', {
-                defaultValue: 'Amon Tour family - \xC9ric, Margaux, Gabriel, and Rapha\xEBl on a Thai beach'
-              })} className="w-full h-auto rounded-lg shadow-lg" />
+                <img src="/family-photo.png" alt={t('common.amontourfamilyxc9ric')} className="w-full h-auto rounded-lg shadow-lg" />
               </div>
               
               {/* Team Photo */}
               <div className="relative">
-                <img src={amonTourTeam} alt={t('Amon Tour team with clients on a beautiful Thai beach', {
-                defaultValue: 'Amon Tour team with clients on a beautiful Thai beach'
-              })} className="w-full h-auto rounded-lg shadow-lg" />
+                <img src={amonTourTeam} alt={t('common.amontourteamwithclie')} className="w-full h-auto rounded-lg shadow-lg" />
                 <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-lg hidden md:block">
                   <div className="flex items-center space-x-2">
                     <div className="flex">
@@ -74,9 +70,7 @@ export default function About() {
                     <span className="font-semibold">5.0/5</span>
                   </div>
                   <p className="text-sm text-muted-foreground/80">{t('home.basedOnReviews')}</p>
-                  <a href="https://maps.app.goo.gl/fe17kgt89d64kAHs7" target="_blank" rel="noopener noreferrer" className="text-xs text-primary hover:underline mt-1 inline-block">{t('See all reviews', {
-                    defaultValue: 'See all reviews'
-                  })}</a>
+                  <a href="https://maps.app.goo.gl/fe17kgt89d64kAHs7" target="_blank" rel="noopener noreferrer" className="text-xs text-primary hover:underline mt-1 inline-block">{t('common.seeallreviews')}</a>
                 </div>
               </div>
             </div>

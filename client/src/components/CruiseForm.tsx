@@ -83,12 +83,8 @@ export default function CruiseForm() {
     // Validate required fields
     if (!formData.fullName || !formData.email || !formData.duration) {
       toast({
-        title: t('Missing Information', {
-          defaultValue: 'Missing Information'
-        }),
-        description: t('Please fill in your name, email and preferred duration before contacting us.', {
-          defaultValue: 'Please fill in your name, email and preferred duration before contacting us.'
-        }),
+        title: t('common.missinginformation'),
+        description: t('common.pleasefillinyourname'),
         variant: "destructive"
       });
       return;
@@ -97,9 +93,7 @@ export default function CruiseForm() {
     const whatsappUrl = `https://wa.me/66653496445?text=${message}`;
     window.open(whatsappUrl, '_blank');
     toast({
-      title: t('Redirecting to WhatsApp', {
-        defaultValue: 'Redirecting to WhatsApp'
-      }),
+      title: t('common.redirectingtowhatsap'),
       description: t('We\'ve prepared your cruise request message for you!', {
         defaultValue: 'We\'ve prepared your cruise request message for you!'
       })

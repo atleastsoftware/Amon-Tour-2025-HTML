@@ -127,15 +127,11 @@ export default function TourCardItem({
           }
         }}>
             {images && images.length > 0 ? <img src={images[0]} alt={title} className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" /> : <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                <span className="text-gray-400">{t('No image', {
-                defaultValue: 'No image'
-              })}</span>
+                <span className="text-gray-400">{t('common.noimage')}</span>
               </div>}
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
               <div className="flex items-center gap-2">
-                <div className="inline-block px-3 py-1 rounded-full bg-primary text-white font-medium text-sm">{t('From', {
-                  defaultValue: 'From'
-                })}{formatPrice(price, currency)}
+                <div className="inline-block px-3 py-1 rounded-full bg-primary text-white font-medium text-sm">{t('common.from')}{formatPrice(price, currency)}
                 </div>
                 <div className={`inline-block px-3 py-1 rounded-full font-medium text-xs ${type === "tour" ? "bg-primary text-white" : "bg-[hsl(var(--warning))] text-white"}`}>
                   {type === "tour" ? t('tours.tour') : t('tours.experience')}
@@ -204,9 +200,7 @@ export default function TourCardItem({
               </div>
               <Button variant="outline" size="sm" onClick={() => setIsBookingOpen(false)} className="h-8 px-2 md:px-3 border-primary/30 hover:bg-primary/10 whitespace-nowrap flex-shrink-0">
                 <X className="h-4 w-4 md:mr-1" />
-                <span className="hidden md:inline">{t('Close', {
-                defaultValue: 'Close'
-              })}</span>
+                <span className="hidden md:inline">{t('common.close')}</span>
               </Button>
             </div>
             <div className="w-full bg-white h-[calc(100vh-48px)] md:h-[calc(100vh-150px)]" style={{

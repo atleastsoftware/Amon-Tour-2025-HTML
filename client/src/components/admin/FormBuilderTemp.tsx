@@ -8,9 +8,7 @@ import { useTranslation } from 'react-i18next';
               <div className="grid grid-cols-1 md:grid-cols-2 min-h-[500px]">
                 {/* Image Side - Reproduction exacte du site */}
                 <div className="h-64 md:h-auto relative">
-                  {formData.headerImage ? <img src={formData.headerImage} alt={t('Header image', {
-              defaultValue: 'Header image'
-            })} className="w-full h-full object-cover" onError={e => {
+                  {formData.headerImage ? <img src={formData.headerImage} alt={t('common.headerimage')} className="w-full h-full object-cover" onError={e => {
               e.currentTarget.src = '/catamaran-cruise.png';
             }} /> : <div className="w-full h-full bg-gray-200"></div>}
                   <div className="absolute inset-0 flex flex-col justify-center p-8" style={{
@@ -32,9 +30,7 @@ import { useTranslation } from 'react-i18next';
                 {/* Form Side - Reproduction exacte du site */}
                 <div className="p-8" style={{
             backgroundColor: resolveColor(formData.frameColor)
-          }}>{t('FORM CONTENT HERE', {
-              defaultValue: 'FORM CONTENT HERE'
-            })}</div>
+          }}>{t('common.formcontenthere')}</div>
               </div>
             </div>
           </div>

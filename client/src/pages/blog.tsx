@@ -85,9 +85,7 @@ export default function BlogPage() {
       <Header />
       <div>
         {/* Hero Section */}
-        <HeroHeader title={t('blog.title')} subtitle={t('blog.subtitle')} alt={t('Travel blog about Krabi and Thailand', {
-        defaultValue: 'Travel blog about Krabi and Thailand'
-      })} />
+        <HeroHeader title={t('blog.title')} subtitle={t('blog.subtitle')} alt={t('common.travelblogaboutkrabi')} />
 
         {/* Filters Section */}
         <section className="py-8 bg-white border-b">
@@ -184,19 +182,13 @@ export default function BlogPage() {
                         </div>}
 
                       <Link href={`/blog/${post.slug}`}>
-                        <Button className="w-full">{t('Read More', {
-                      defaultValue: 'Read More'
-                    })}</Button>
+                        <Button className="w-full">{t('common.readmore')}</Button>
                       </Link>
                     </CardContent>
                   </Card>)}
               </div> : <div className="text-center py-12">
-                <h3 className="text-2xl font-bold text-gray-800 mb-4">{t('No Articles Found', {
-                defaultValue: 'No Articles Found'
-              })}</h3>
-                <p className="text-gray-600 mb-6">{t('Try adjusting your search criteria or browse all articles.', {
-                defaultValue: 'Try adjusting your search criteria or browse all articles.'
-              })}</p>
+                <h3 className="text-2xl font-bold text-gray-800 mb-4">{t('common.noarticlesfound')}</h3>
+                <p className="text-gray-600 mb-6">{t('common.tryadjustingyoursear')}</p>
                 <Button onClick={() => {
               setSearchTerm("");
               setSelectedCategory("");

@@ -24,12 +24,8 @@ export default function AdminLogin() {
     e.preventDefault();
     if (!username || !password) {
       toast({
-        title: t('Erreur', {
-          defaultValue: 'Erreur'
-        }),
-        description: t('Veuillez remplir tous les champs', {
-          defaultValue: 'Veuillez remplir tous les champs'
-        }),
+        title: t('common.erreur'),
+        description: t('common.veuillezremplirtousl'),
         variant: "destructive"
       });
       return;
@@ -40,12 +36,8 @@ export default function AdminLogin() {
         password
       });
       toast({
-        title: t('Succ\xE8s', {
-          defaultValue: 'Succ\xE8s'
-        }),
-        description: t('Connexion r\xE9ussie', {
-          defaultValue: 'Connexion r\xE9ussie'
-        })
+        title: t('common.succxe8s'),
+        description: t('common.connexionrxe9ussie')
       });
       // Rediriger après un court délai pour permettre au toast de s'afficher
       setTimeout(() => {
@@ -53,12 +45,8 @@ export default function AdminLogin() {
       }, 1000);
     } catch (error) {
       toast({
-        title: t('Erreur', {
-          defaultValue: 'Erreur'
-        }),
-        description: t('Identifiants incorrects', {
-          defaultValue: 'Identifiants incorrects'
-        }),
+        title: t('common.erreur'),
+        description: t('common.identifiantsincorrec'),
         variant: "destructive"
       });
     }
@@ -78,9 +66,7 @@ export default function AdminLogin() {
         }} className="max-w-md mx-auto">
             <Card>
               <CardHeader>
-                <CardTitle className="text-2xl font-heading">{t('Administration', {
-                  defaultValue: 'Administration'
-                })}</CardTitle>
+                <CardTitle className="text-2xl font-heading">{t('common.administration')}</CardTitle>
                 <CardDescription>{t('Connectez-vous pour acc\xE9der \xE0 l\'espace administrateur', {
                   defaultValue: 'Connectez-vous pour acc\xE9der \xE0 l\'espace administrateur'
                 })}</CardDescription>
@@ -94,9 +80,7 @@ export default function AdminLogin() {
                     <Input id="username" type="text" value={username} onChange={e => setUsername(e.target.value)} placeholder="admin" />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="password">{t('Mot de passe', {
-                      defaultValue: 'Mot de passe'
-                    })}</Label>
+                    <Label htmlFor="password">{t('common.motdepasse')}</Label>
                     <Input id="password" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••" />
                   </div>
                   <Button type="submit" className="w-full" disabled={login.isPending}>
@@ -104,9 +88,7 @@ export default function AdminLogin() {
                   </Button>
                 </form>
               </CardContent>
-              <CardFooter className="flex justify-center text-sm text-muted-foreground">{t('Acc\xE8s r\xE9serv\xE9 aux administrateurs', {
-                defaultValue: 'Acc\xE8s r\xE9serv\xE9 aux administrateurs'
-              })}</CardFooter>
+              <CardFooter className="flex justify-center text-sm text-muted-foreground">{t('common.accxe8srxe9servxe9au')}</CardFooter>
             </Card>
           </motion.div>
         </div>

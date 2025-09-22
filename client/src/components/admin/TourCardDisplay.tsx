@@ -45,23 +45,15 @@ export default function TourCardDisplay({
       await navigator.clipboard.writeText(tourCard.customLink);
       setCopied(true);
       toast({
-        title: t('Lien copi\xE9', {
-          defaultValue: 'Lien copi\xE9'
-        }),
-        description: t('Le lien a \xE9t\xE9 copi\xE9 dans le presse-papiers', {
-          defaultValue: 'Le lien a \xE9t\xE9 copi\xE9 dans le presse-papiers'
-        })
+        title: t('common.liencopixe9'),
+        description: t('common.lelienaxe9txe9copixe')
       });
       setTimeout(() => setCopied(false), 2000);
     } catch (error) {
       console.error('Failed to copy link:', error);
       toast({
-        title: t('Erreur', {
-          defaultValue: 'Erreur'
-        }),
-        description: t('Impossible de copier le lien', {
-          defaultValue: 'Impossible de copier le lien'
-        }),
+        title: t('common.erreur'),
+        description: t('common.impossibledecopierle'),
         variant: "destructive"
       });
     }
@@ -97,9 +89,7 @@ export default function TourCardDisplay({
       <Card className="overflow-hidden flex flex-col h-full">
         <div className="relative aspect-video">
         {tourCard.images.length > 0 ? <img src={tourCard.images[0]} alt={tourCard.title} className="w-full h-full object-cover" /> : <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-            <span className="text-gray-400">{t('Aucune image', {
-              defaultValue: 'Aucune image'
-            })}</span>
+            <span className="text-gray-400">{t('common.aucuneimage')}</span>
           </div>}
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
           <h3 className="text-white font-semibold text-lg line-clamp-1">{tourCard.title}</h3>
@@ -113,9 +103,7 @@ export default function TourCardDisplay({
         {tourCard.description && <p className="text-gray-600 line-clamp-2 text-sm mb-4">{tourCard.description}</p>}
         
         <div className="mt-auto space-y-2">
-          <Button className="w-full" onClick={() => window.open(tourCard.customLink, '_blank')}>{t('Book now', {
-              defaultValue: 'Book now'
-            })}<ExternalLink className="ml-2 h-4 w-4" />
+          <Button className="w-full" onClick={() => window.open(tourCard.customLink, '_blank')}>{t('common.booknow')}<ExternalLink className="ml-2 h-4 w-4" />
           </Button>
           
           <div className="flex gap-2">
@@ -126,24 +114,18 @@ export default function TourCardDisplay({
             
             <Button variant="outline" onClick={shareCard}>
               <Share2 className="h-4 w-4" />
-              <span className="sr-only">{t('Partager', {
-                  defaultValue: 'Partager'
-                })}</span>
+              <span className="sr-only">{t('common.partager')}</span>
             </Button>
             
             {/* Bouton d'édition */}
             {onUpdate && <Button variant="outline" onClick={() => setIsEditModalOpen(true)}>
                 <Edit className="h-4 w-4 text-primary" />
-                <span className="sr-only">{t('Modifier', {
-                  defaultValue: 'Modifier'
-                })}</span>
+                <span className="sr-only">{t('common.modifier')}</span>
               </Button>}
             
             {onDelete && <Button variant="outline" onClick={handleDelete}>
                 <Trash className="h-4 w-4 text-[hsl(var(--destructive))]" />
-                <span className="sr-only">{t('Supprimer', {
-                  defaultValue: 'Supprimer'
-                })}</span>
+                <span className="sr-only">{t('common.supprimer')}</span>
               </Button>}
           </div>
         </div>

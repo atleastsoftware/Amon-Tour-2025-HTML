@@ -5,65 +5,41 @@ import { Card, CardContent } from "@/components/ui/card";
 import { MapPin } from "lucide-react";
 import { Link } from "wouter";
 const interestCategories = [{
-  name: t('Culture & History', {
-    defaultValue: 'Culture & History'
-  }),
+  name: t('common.culturehistory'),
   icon: "fas fa-landmark"
 }, {
-  name: t('Nature & Adventure', {
-    defaultValue: 'Nature & Adventure'
-  }),
+  name: t('common.natureadventure'),
   icon: "fas fa-mountain"
 }, {
-  name: t('Beaches & Islands', {
-    defaultValue: 'Beaches & Islands'
-  }),
+  name: t('common.beachesislands'),
   icon: "fas fa-umbrella-beach"
 }, {
-  name: t('Family trip', {
-    defaultValue: 'Family trip'
-  }),
+  name: t('common.familytrip'),
   icon: "fas fa-child"
 }, {
-  name: t('Group trip', {
-    defaultValue: 'Group trip'
-  }),
+  name: t('common.grouptrip'),
   icon: "fas fa-users"
 }, {
-  name: t('Wedding & Honeymoon', {
-    defaultValue: 'Wedding & Honeymoon'
-  }),
+  name: t('common.weddinghoneymoon'),
   icon: "fas fa-heart"
 }];
 const destinations = [{
-  name: t('Khao Sok', {
-    defaultValue: 'Khao Sok'
-  }),
+  name: t('common.khaosok'),
   icon: "fas fa-tree"
 }, {
-  name: t('Krabi', {
-    defaultValue: 'Krabi'
-  }),
+  name: t('common.krabi'),
   icon: "fas fa-water"
 }, {
-  name: t('Koh Mook', {
-    defaultValue: 'Koh Mook'
-  }),
+  name: t('common.kohmook'),
   icon: "fas fa-island-tropical"
 }, {
-  name: t('Bangkok', {
-    defaultValue: 'Bangkok'
-  }),
+  name: t('common.bangkok'),
   icon: "fas fa-city"
 }, {
-  name: t('Chiang Mai', {
-    defaultValue: 'Chiang Mai'
-  }),
+  name: t('common.chiangmai'),
   icon: "fas fa-mountain"
 }, {
-  name: t('Others destinations', {
-    defaultValue: 'Others destinations'
-  }),
+  name: t('common.othersdestinations'),
   icon: "fas fa-map-location-dot"
 }];
 export default function Interests() {
@@ -73,13 +49,9 @@ export default function Interests() {
       <div className="container mx-auto px-4">
         <FadeInWhenVisible>
           <div className="text-center mb-12">
-            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{t('Interests', {
-              defaultValue: 'Interests'
-            })}</h2>
+            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{t('common.interests')}</h2>
             <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
-            <p className="text-gray-600 max-w-2xl mx-auto">{t('Discover Thailand through your passions and interests. Choose from our curated categories or explore by destination.', {
-              defaultValue: 'Discover Thailand through your passions and interests. Choose from our curated categories or explore by destination.'
-            })}</p>
+            <p className="text-gray-600 max-w-2xl mx-auto">{t('common.discoverthailandthro')}</p>
           </div>
         </FadeInWhenVisible>
         

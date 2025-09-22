@@ -100,19 +100,13 @@ export default function AdminBlogNew() {
       });
       setIsCreateDialogOpen(false);
       toast({
-        title: t('Success', {
-          defaultValue: 'Success'
-        }),
-        description: t('Post created successfully', {
-          defaultValue: 'Post created successfully'
-        })
+        title: t('common.success'),
+        description: t('common.postcreatedsuccessfu')
       });
     },
     onError: (error: Error) => {
       toast({
-        title: t('Error', {
-          defaultValue: 'Error'
-        }),
+        title: t('common.error'),
         description: error.message,
         variant: "destructive"
       });
@@ -148,19 +142,13 @@ export default function AdminBlogNew() {
       });
       setEditingPost(null);
       toast({
-        title: t('Success', {
-          defaultValue: 'Success'
-        }),
-        description: t('Post updated successfully', {
-          defaultValue: 'Post updated successfully'
-        })
+        title: t('common.success'),
+        description: t('common.postupdatedsuccessfu')
       });
     },
     onError: (error: Error) => {
       toast({
-        title: t('Error', {
-          defaultValue: 'Error'
-        }),
+        title: t('common.error'),
         description: error.message,
         variant: "destructive"
       });
@@ -185,19 +173,13 @@ export default function AdminBlogNew() {
         queryKey: ["/api/blog/posts"]
       });
       toast({
-        title: t('Success', {
-          defaultValue: 'Success'
-        }),
-        description: t('Post deleted successfully', {
-          defaultValue: 'Post deleted successfully'
-        })
+        title: t('common.success'),
+        description: t('common.postdeletedsuccessfu')
       });
     },
     onError: (error: Error) => {
       toast({
-        title: t('Error', {
-          defaultValue: 'Error'
-        }),
+        title: t('common.error'),
         description: error.message,
         variant: "destructive"
       });
@@ -264,9 +246,7 @@ export default function AdminBlogNew() {
     }
   };
   return <>
-      <SEO title={t('Blog Management - Admin', {
-      defaultValue: 'Blog Management - Admin'
-    })} description="Manage blog posts and content" />
+      <SEO title={t('common.blogmanagementadmin')} description="Manage blog posts and content" />
       <Header />
       
       <div className="min-h-screen bg-gray-50 py-8">
@@ -276,53 +256,29 @@ export default function AdminBlogNew() {
             <div className="flex items-center gap-4">
               <Link href="/admin">
                 <Button variant="outline" size="sm">
-                  <ArrowLeft className="h-4 w-4 mr-2" />{t('Back to Admin', {
-                  defaultValue: 'Back to Admin'
-                })}</Button>
+                  <ArrowLeft className="h-4 w-4 mr-2" />{t('common.backtoadmin')}</Button>
               </Link>
-              <h1 className="text-3xl font-bold text-gray-900">{t('Blog Management', {
-                defaultValue: 'Blog Management'
-              })}</h1>
+              <h1 className="text-3xl font-bold text-gray-900">{t('common.blogmanagement')}</h1>
             </div>
             <Button onClick={() => setIsCreateDialogOpen(true)}>
-              <Plus className="h-4 w-4 mr-2" />{t('Create Post', {
-              defaultValue: 'Create Post'
-            })}</Button>
+              <Plus className="h-4 w-4 mr-2" />{t('common.createpost')}</Button>
           </div>
 
           {/* Posts Table */}
           <Card>
             <CardHeader>
-              <CardTitle>{t('Blog Posts', {
-                defaultValue: 'Blog Posts'
-              })}</CardTitle>
+              <CardTitle>{t('common.blogposts')}</CardTitle>
             </CardHeader>
             <CardContent>
-              {postsLoading ? <div className="text-center py-8">{t('Loading posts...', {
-                defaultValue: 'Loading posts...'
-              })}</div> : posts.length === 0 ? <div className="text-center py-8 text-gray-500">{t('No posts found. Create your first post!', {
-                defaultValue: 'No posts found. Create your first post!'
-              })}</div> : <Table>
+              {postsLoading ? <div className="text-center py-8">{t('common.loadingposts')}</div> : posts.length === 0 ? <div className="text-center py-8 text-gray-500">{t('common.nopostsfoundcreateyo')}</div> : <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>{t('Title', {
-                      defaultValue: 'Title'
-                    })}</TableHead>
-                      <TableHead>{t('Status', {
-                      defaultValue: 'Status'
-                    })}</TableHead>
-                      <TableHead>{t('Author', {
-                      defaultValue: 'Author'
-                    })}</TableHead>
-                      <TableHead>{t('Category', {
-                      defaultValue: 'Category'
-                    })}</TableHead>
-                      <TableHead>{t('Created', {
-                      defaultValue: 'Created'
-                    })}</TableHead>
-                      <TableHead>{t('Actions', {
-                      defaultValue: 'Actions'
-                    })}</TableHead>
+                      <TableHead>{t('common.title')}</TableHead>
+                      <TableHead>{t('common.status')}</TableHead>
+                      <TableHead>{t('common.author')}</TableHead>
+                      <TableHead>{t('common.category')}</TableHead>
+                      <TableHead>{t('common.created')}</TableHead>
+                      <TableHead>{t('common.actions')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -358,9 +314,7 @@ export default function AdminBlogNew() {
       <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
-            <DialogTitle>{t('Create New Post', {
-              defaultValue: 'Create New Post'
-            })}</DialogTitle>
+            <DialogTitle>{t('common.createnewpost')}</DialogTitle>
           </DialogHeader>
           
           <Form {...createForm}>
@@ -368,13 +322,9 @@ export default function AdminBlogNew() {
               <FormField control={createForm.control} name="title" render={({
               field
             }) => <FormItem>
-                    <FormLabel>{t('Title', {
-                  defaultValue: 'Title'
-                })}</FormLabel>
+                    <FormLabel>{t('common.title')}</FormLabel>
                     <FormControl>
-                      <Input {...field} placeholder={t('Enter post title', {
-                  defaultValue: 'Enter post title'
-                })} />
+                      <Input {...field} placeholder={t('common.enterposttitle')} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>} />
@@ -382,13 +332,9 @@ export default function AdminBlogNew() {
               <FormField control={createForm.control} name="excerpt" render={({
               field
             }) => <FormItem>
-                    <FormLabel>{t('Excerpt', {
-                  defaultValue: 'Excerpt'
-                })}</FormLabel>
+                    <FormLabel>{t('common.excerpt')}</FormLabel>
                     <FormControl>
-                      <Textarea {...field} placeholder={t('Brief description', {
-                  defaultValue: 'Brief description'
-                })} rows={2} />
+                      <Textarea {...field} placeholder={t('common.briefdescription')} rows={2} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>} />
@@ -396,9 +342,7 @@ export default function AdminBlogNew() {
               <FormField control={createForm.control} name="coverImage" render={({
               field
             }) => <FormItem>
-                    <FormLabel>{t('Cover Image URL', {
-                  defaultValue: 'Cover Image URL'
-                })}</FormLabel>
+                    <FormLabel>{t('common.coverimageurl')}</FormLabel>
                     <FormControl>
                       <Input {...field} placeholder="https://example.com/image.jpg" />
                     </FormControl>
@@ -408,13 +352,9 @@ export default function AdminBlogNew() {
               <FormField control={createForm.control} name="content" render={({
               field
             }) => <FormItem>
-                    <FormLabel>{t('Content', {
-                  defaultValue: 'Content'
-                })}</FormLabel>
+                    <FormLabel>{t('common.content')}</FormLabel>
                     <FormControl>
-                      <Textarea {...field} placeholder={t('Write your content here', {
-                  defaultValue: 'Write your content here'
-                })} rows={10} />
+                      <Textarea {...field} placeholder={t('common.writeyourcontenthere')} rows={10} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>} />
@@ -423,24 +363,16 @@ export default function AdminBlogNew() {
                 <FormField control={createForm.control} name="status" render={({
                 field
               }) => <FormItem>
-                      <FormLabel>{t('Status', {
-                    defaultValue: 'Status'
-                  })}</FormLabel>
+                      <FormLabel>{t('common.status')}</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder={t('Select status', {
-                        defaultValue: 'Select status'
-                      })} />
+                            <SelectValue placeholder={t('common.selectstatus')} />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="draft">{t('Draft', {
-                        defaultValue: 'Draft'
-                      })}</SelectItem>
-                          <SelectItem value="published">{t('Published', {
-                        defaultValue: 'Published'
-                      })}</SelectItem>
+                          <SelectItem value="draft">{t('common.draft')}</SelectItem>
+                          <SelectItem value="published">{t('common.published')}</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -449,15 +381,11 @@ export default function AdminBlogNew() {
                 <FormField control={createForm.control} name="categoryId" render={({
                 field
               }) => <FormItem>
-                      <FormLabel>{t('Category', {
-                    defaultValue: 'Category'
-                  })}</FormLabel>
+                      <FormLabel>{t('common.category')}</FormLabel>
                       <Select onValueChange={value => field.onChange(value ? parseInt(value) : undefined)} value={field.value?.toString()}>
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder={t('Select category', {
-                        defaultValue: 'Select category'
-                      })} />
+                            <SelectValue placeholder={t('common.selectcategory')} />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
@@ -471,9 +399,7 @@ export default function AdminBlogNew() {
               </div>
 
               <div className="flex justify-end gap-2">
-                <Button type="button" variant="outline" onClick={() => setIsCreateDialogOpen(false)}>{t('Cancel', {
-                  defaultValue: 'Cancel'
-                })}</Button>
+                <Button type="button" variant="outline" onClick={() => setIsCreateDialogOpen(false)}>{t('common.cancel')}</Button>
                 <Button type="submit" disabled={createPostMutation.isPending}>
                   {createPostMutation.isPending ? "Creating..." : "Create Post"}
                 </Button>
@@ -487,9 +413,7 @@ export default function AdminBlogNew() {
       <Dialog open={!!editingPost} onOpenChange={() => setEditingPost(null)}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
-            <DialogTitle>{t('Edit Post', {
-              defaultValue: 'Edit Post'
-            })}</DialogTitle>
+            <DialogTitle>{t('common.editpost')}</DialogTitle>
           </DialogHeader>
           
           <Form {...editForm}>
@@ -497,13 +421,9 @@ export default function AdminBlogNew() {
               <FormField control={editForm.control} name="title" render={({
               field
             }) => <FormItem>
-                    <FormLabel>{t('Title', {
-                  defaultValue: 'Title'
-                })}</FormLabel>
+                    <FormLabel>{t('common.title')}</FormLabel>
                     <FormControl>
-                      <Input {...field} placeholder={t('Enter post title', {
-                  defaultValue: 'Enter post title'
-                })} />
+                      <Input {...field} placeholder={t('common.enterposttitle')} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>} />
@@ -511,13 +431,9 @@ export default function AdminBlogNew() {
               <FormField control={editForm.control} name="excerpt" render={({
               field
             }) => <FormItem>
-                    <FormLabel>{t('Excerpt', {
-                  defaultValue: 'Excerpt'
-                })}</FormLabel>
+                    <FormLabel>{t('common.excerpt')}</FormLabel>
                     <FormControl>
-                      <Textarea {...field} placeholder={t('Brief description', {
-                  defaultValue: 'Brief description'
-                })} rows={2} />
+                      <Textarea {...field} placeholder={t('common.briefdescription')} rows={2} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>} />
@@ -525,9 +441,7 @@ export default function AdminBlogNew() {
               <FormField control={editForm.control} name="coverImage" render={({
               field
             }) => <FormItem>
-                    <FormLabel>{t('Cover Image URL', {
-                  defaultValue: 'Cover Image URL'
-                })}</FormLabel>
+                    <FormLabel>{t('common.coverimageurl')}</FormLabel>
                     <FormControl>
                       <Input {...field} placeholder="https://example.com/image.jpg" />
                     </FormControl>
@@ -537,13 +451,9 @@ export default function AdminBlogNew() {
               <FormField control={editForm.control} name="content" render={({
               field
             }) => <FormItem>
-                    <FormLabel>{t('Content', {
-                  defaultValue: 'Content'
-                })}</FormLabel>
+                    <FormLabel>{t('common.content')}</FormLabel>
                     <FormControl>
-                      <Textarea {...field} placeholder={t('Write your content here', {
-                  defaultValue: 'Write your content here'
-                })} rows={10} />
+                      <Textarea {...field} placeholder={t('common.writeyourcontenthere')} rows={10} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>} />
@@ -552,24 +462,16 @@ export default function AdminBlogNew() {
                 <FormField control={editForm.control} name="status" render={({
                 field
               }) => <FormItem>
-                      <FormLabel>{t('Status', {
-                    defaultValue: 'Status'
-                  })}</FormLabel>
+                      <FormLabel>{t('common.status')}</FormLabel>
                       <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder={t('Select status', {
-                        defaultValue: 'Select status'
-                      })} />
+                            <SelectValue placeholder={t('common.selectstatus')} />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="draft">{t('Draft', {
-                        defaultValue: 'Draft'
-                      })}</SelectItem>
-                          <SelectItem value="published">{t('Published', {
-                        defaultValue: 'Published'
-                      })}</SelectItem>
+                          <SelectItem value="draft">{t('common.draft')}</SelectItem>
+                          <SelectItem value="published">{t('common.published')}</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -578,15 +480,11 @@ export default function AdminBlogNew() {
                 <FormField control={editForm.control} name="categoryId" render={({
                 field
               }) => <FormItem>
-                      <FormLabel>{t('Category', {
-                    defaultValue: 'Category'
-                  })}</FormLabel>
+                      <FormLabel>{t('common.category')}</FormLabel>
                       <Select onValueChange={value => field.onChange(value ? parseInt(value) : undefined)} value={field.value?.toString()}>
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder={t('Select category', {
-                        defaultValue: 'Select category'
-                      })} />
+                            <SelectValue placeholder={t('common.selectcategory')} />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
@@ -600,9 +498,7 @@ export default function AdminBlogNew() {
               </div>
 
               <div className="flex justify-end gap-2">
-                <Button type="button" variant="outline" onClick={() => setEditingPost(null)}>{t('Cancel', {
-                  defaultValue: 'Cancel'
-                })}</Button>
+                <Button type="button" variant="outline" onClick={() => setEditingPost(null)}>{t('common.cancel')}</Button>
                 <Button type="submit" disabled={updatePostMutation.isPending}>
                   {updatePostMutation.isPending ? "Updating..." : "Update Post"}
                 </Button>

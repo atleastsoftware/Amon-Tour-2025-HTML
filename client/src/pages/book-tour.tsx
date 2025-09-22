@@ -124,22 +124,16 @@ const DateSelector = ({
     return "bg-primary-light text-primary hover:bg-primary-200 rounded-full";
   };
   return <div className="flex flex-col gap-4">
-      <h3 className="font-heading font-semibold text-xl">{t('S\xE9lectionnez une date', {
-        defaultValue: 'S\xE9lectionnez une date'
-      })}</h3>
+      <h3 className="font-heading font-semibold text-xl">{t('common.sxe9lectionnezunedat')}</h3>
       <div className="bg-white p-6 rounded-lg shadow-md">
         {isLoading ? <div className="flex justify-center items-center py-20">
             <div className="animate-spin h-12 w-12 border-4 border-primary border-t-transparent rounded-full"></div>
-            <span className="ml-3 text-primary">{t('Chargement du calendrier...', {
-            defaultValue: 'Chargement du calendrier...'
-          })}</span>
+            <span className="ml-3 text-primary">{t('common.chargementducalendri')}</span>
           </div> : <>
             <div className="flex items-center justify-between mb-8">
               <Button variant="outline" size="default" onClick={goToPreviousMonth} disabled={isBefore(selectedMonth, startOfMonth(new Date()))} className="flex items-center gap-2 h-10">
                 <ChevronLeft className="h-4 w-4" />
-                <span className="hidden sm:inline">{t('Mois pr\xE9c\xE9dent', {
-                defaultValue: 'Mois pr\xE9c\xE9dent'
-              })}</span>
+                <span className="hidden sm:inline">{t('common.moisprxe9cxe9dent')}</span>
               </Button>
               
               <h3 className="font-medium text-xl capitalize">
@@ -149,9 +143,7 @@ const DateSelector = ({
               </h3>
               
               <Button variant="outline" size="default" onClick={goToNextMonth} disabled={isAfter(selectedMonth, addMonths(new Date(), 11))} className="flex items-center gap-2 h-10">
-                <span className="hidden sm:inline">{t('Mois suivant', {
-                defaultValue: 'Mois suivant'
-              })}</span>
+                <span className="hidden sm:inline">{t('common.moissuivant')}</span>
                 <ChevronRight className="h-4 w-4" />
               </Button>
             </div>
@@ -193,9 +185,7 @@ const DateSelector = ({
                             {getAvailabilityInfo(selectedDate)?.spotsAvailable} places disponibles
                           </Badge>
                         </div>
-                        {getAvailabilityInfo(selectedDate)?.price && <div className="text-primary font-medium">{t('Prix:', {
-                    defaultValue: 'Prix:'
-                  })}{formatTHB(getAvailabilityInfo(selectedDate)?.price || 0)}/personne
+                        {getAvailabilityInfo(selectedDate)?.price && <div className="text-primary font-medium">{t('common.prix')}{formatTHB(getAvailabilityInfo(selectedDate)?.price || 0)}/personne
                           </div>}
                       </div>}
                   </div>}
@@ -203,24 +193,18 @@ const DateSelector = ({
                 <div className="flex items-center justify-start gap-6 text-sm text-gray-600 pt-2">
                   <div className="flex items-center">
                     <div className="w-3 h-3 rounded-full bg-primary-light mr-2"></div>
-                    <span>{t('Disponible', {
-                    defaultValue: 'Disponible'
-                  })}</span>
+                    <span>{t('common.disponible')}</span>
                   </div>
                   <div className="flex items-center">
                     <div className="w-3 h-3 rounded-full bg-primary mr-2"></div>
-                    <span>{t('S\xE9lectionn\xE9', {
-                    defaultValue: 'S\xE9lectionn\xE9'
-                  })}</span>
+                    <span>{t('common.sxe9lectionnxe9')}</span>
                   </div>
                 </div>
               </div>
             </div>
           </>}
       </div>
-      {availableDates.length === 0 && !isLoading && <div className="bg-[hsl(var(--destructive)/0.1)] p-4 rounded-lg border border-[hsl(var(--destructive)/0.2)] text-[hsl(var(--destructive))] text-center">{t('Aucune date disponible pour ce tour. Veuillez nous contacter pour des arrangements personnalis\xE9s.', {
-        defaultValue: 'Aucune date disponible pour ce tour. Veuillez nous contacter pour des arrangements personnalis\xE9s.'
-      })}</div>}
+      {availableDates.length === 0 && !isLoading && <div className="bg-[hsl(var(--destructive)/0.1)] p-4 rounded-lg border border-[hsl(var(--destructive)/0.2)] text-[hsl(var(--destructive))] text-center">{t('common.aucunedatedisponible')}</div>}
     </div>;
 };
 
@@ -246,22 +230,16 @@ const BookingSummary = ({
   const totalPrice = adultTotal + childrenTotal;
   return <Card>
       <CardContent className="p-6">
-        <h3 className="font-heading font-semibold text-xl mb-4">{t('R\xE9sum\xE9 de la r\xE9servation', {
-          defaultValue: 'R\xE9sum\xE9 de la r\xE9servation'
-        })}</h3>
+        <h3 className="font-heading font-semibold text-xl mb-4">{t('common.rxe9sumxe9delarxe9se')}</h3>
         
         <div className="space-y-4">
           <div className="flex justify-between">
-            <span>{t('Tour:', {
-              defaultValue: 'Tour:'
-            })}</span>
+            <span>{t('common.tour')}</span>
             <span className="font-semibold">{tour?.title || "Chargement..."}</span>
           </div>
           
           <div className="flex justify-between">
-            <span>{t('Date:', {
-              defaultValue: 'Date:'
-            })}</span>
+            <span>{t('common.date')}</span>
             <span className="font-semibold">
               {selectedDate ? format(selectedDate, 'dd MMMM yyyy', {
               locale: fr
@@ -284,24 +262,18 @@ const BookingSummary = ({
             </div>}
           
           <div className="flex justify-between">
-            <span>{t('Prix par adulte:', {
-              defaultValue: 'Prix par adulte:'
-            })}</span>
+            <span>{t('common.prixparadulte')}</span>
             <span className="font-semibold">{formatTHB(adultPrice)}</span>
           </div>
           
           <div className="flex justify-between">
-            <span>{t('Sous-total adultes:', {
-              defaultValue: 'Sous-total adultes:'
-            })}</span>
+            <span>{t('common.soustotaladultes')}</span>
             <span className="font-semibold">{formatTHB(adultTotal)}</span>
           </div>
           
           {numberOfChildren > 0 && <>
               <div className="flex justify-between">
-                <span>{t('Prix par enfant:', {
-                defaultValue: 'Prix par enfant:'
-              })}</span>
+                <span>{t('common.prixparenfant')}</span>
                 <span className="font-semibold">
                   {formatTHB(childPrice)} 
                   {childPrice < adultPrice && <span className="text-[hsl(var(--success))] text-xs ml-1">
@@ -310,17 +282,13 @@ const BookingSummary = ({
                 </span>
               </div>
               <div className="flex justify-between">
-                <span>{t('Sous-total enfants:', {
-                defaultValue: 'Sous-total enfants:'
-              })}</span>
+                <span>{t('common.soustotalenfants')}</span>
                 <span className="font-semibold">{formatTHB(childrenTotal)}</span>
               </div>
             </>}
           
           <div className="border-t pt-4 flex justify-between">
-            <span className="font-bold">{t('Total:', {
-              defaultValue: 'Total:'
-            })}</span>
+            <span className="font-bold">{t('common.total')}</span>
             <span className="font-bold text-primary">{formatTHB(totalPrice)}</span>
           </div>
         </div>
@@ -361,20 +329,14 @@ const PaymentForm = ({
       setPaymentError(error.message || "Une erreur est survenue lors du paiement.");
       toast({
         variant: "destructive",
-        title: t('Erreur de paiement', {
-          defaultValue: 'Erreur de paiement'
-        }),
+        title: t('common.erreurdepaiement'),
         description: error.message || "Une erreur est survenue lors du paiement."
       });
       setIsProcessing(false);
     } else {
       toast({
-        title: t('Paiement r\xE9ussi', {
-          defaultValue: 'Paiement r\xE9ussi'
-        }),
-        description: t('Votre r\xE9servation a \xE9t\xE9 confirm\xE9e. Vous allez recevoir un email de confirmation.', {
-          defaultValue: 'Votre r\xE9servation a \xE9t\xE9 confirm\xE9e. Vous allez recevoir un email de confirmation.'
-        })
+        title: t('common.paiementrxe9ussi'),
+        description: t('common.votrerxe9servationax')
       });
 
       // Rediriger vers la page de confirmation
@@ -382,9 +344,7 @@ const PaymentForm = ({
     }
   };
   return <form onSubmit={handleSubmit} className="space-y-6">
-      <h3 className="font-heading font-semibold text-xl">{t('D\xE9tails du paiement', {
-        defaultValue: 'D\xE9tails du paiement'
-      })}</h3>
+      <h3 className="font-heading font-semibold text-xl">{t('common.dxe9tailsdupaiement')}</h3>
       
       <div className="bg-white p-6 rounded-lg shadow-md">
         <PaymentElement />
@@ -447,12 +407,8 @@ export default function BookTour() {
     },
     onSuccess: data => {
       toast({
-        title: t('R\xE9servation cr\xE9\xE9e', {
-          defaultValue: 'R\xE9servation cr\xE9\xE9e'
-        }),
-        description: t('Finalisons votre r\xE9servation avec le paiement.', {
-          defaultValue: 'Finalisons votre r\xE9servation avec le paiement.'
-        })
+        title: t('common.rxe9servationcrxe9xe'),
+        description: t('common.finalisonsvotrerxe9s')
       });
 
       // Stocke le client secret pour Stripe
@@ -464,9 +420,7 @@ export default function BookTour() {
     onError: (error: any) => {
       toast({
         variant: "destructive",
-        title: t('Erreur', {
-          defaultValue: 'Erreur'
-        }),
+        title: t('common.erreur'),
         description: error.message || "Une erreur est survenue lors de la création de la réservation."
       });
     }
@@ -483,12 +437,8 @@ export default function BookTour() {
     if (!selectedAvailability) {
       toast({
         variant: "destructive",
-        title: t('Erreur', {
-          defaultValue: 'Erreur'
-        }),
-        description: t('Veuillez s\xE9lectionner une date pour votre r\xE9servation.', {
-          defaultValue: 'Veuillez s\xE9lectionner une date pour votre r\xE9servation.'
-        })
+        title: t('common.erreur'),
+        description: t('common.veuillezsxe9lectionn')
       });
       return;
     }
@@ -512,16 +462,10 @@ export default function BookTour() {
     return <>
         <Header />
         <div className="container mx-auto px-4 py-16 text-center">
-          <h1 className="font-heading font-bold text-2xl mb-4">{t('Erreur', {
-            defaultValue: 'Erreur'
-          })}</h1>
-          <p className="mb-6">{t('ID de tour invalide.', {
-            defaultValue: 'ID de tour invalide.'
-          })}</p>
+          <h1 className="font-heading font-bold text-2xl mb-4">{t('common.erreur')}</h1>
+          <p className="mb-6">{t('common.iddetourinvalide')}</p>
           <Button asChild>
-            <a href="/tours">{t('Back to tours', {
-              defaultValue: 'Back to tours'
-            })}</a>
+            <a href="/tours">{t('common.backtotours')}</a>
           </Button>
         </div>
         <Footer />
@@ -532,13 +476,9 @@ export default function BookTour() {
       
       <main className="container mx-auto px-4 py-12">
         <Button variant="outline" className="mb-8 flex items-center" onClick={() => navigate(`/tours/${tourId}`)}>
-          <ArrowLeft className="mr-2 h-4 w-4" />{t('Back to tour details', {
-          defaultValue: 'Back to tour details'
-        })}</Button>
+          <ArrowLeft className="mr-2 h-4 w-4" />{t('common.backtotourdetails')}</Button>
         
-        <h1 className="font-heading font-bold text-3xl mb-8">{t('Book your tour', {
-          defaultValue: 'Book your tour'
-        })}{tourLoading ? "" : `: ${tour?.title}`}
+        <h1 className="font-heading font-bold text-3xl mb-8">{t('common.bookyourtour')}{tourLoading ? "" : `: ${tour?.title}`}
         </h1>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -551,22 +491,16 @@ export default function BookTour() {
                 <DateSelector tourId={tourId} onSelectDate={handleDateSelect} selectedDate={selectedDate} />
                 
                 <div className="mt-8">
-                  <h3 className="font-heading font-semibold text-xl mb-4">{t('Vos informations', {
-                  defaultValue: 'Vos informations'
-                })}</h3>
+                  <h3 className="font-heading font-semibold text-xl mb-4">{t('common.vosinformations')}</h3>
                   
                   <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 bg-white p-6 rounded-lg shadow-md">
                       <FormField control={form.control} name="customerName" render={({
                     field
                   }) => <FormItem>
-                            <FormLabel>{t('Nom complet', {
-                        defaultValue: 'Nom complet'
-                      })}</FormLabel>
+                            <FormLabel>{t('common.nomcomplet')}</FormLabel>
                             <FormControl>
-                              <Input placeholder={t('John Doe', {
-                        defaultValue: 'John Doe'
-                      })} {...field} />
+                              <Input placeholder={t('common.johndoe')} {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>} />
@@ -574,9 +508,7 @@ export default function BookTour() {
                       <FormField control={form.control} name="customerEmail" render={({
                     field
                   }) => <FormItem>
-                            <FormLabel>{t('Email', {
-                        defaultValue: 'Email'
-                      })}</FormLabel>
+                            <FormLabel>{t('common.email')}</FormLabel>
                             <FormControl>
                               <Input type="email" placeholder="exemple@email.com" {...field} />
                             </FormControl>
@@ -586,9 +518,7 @@ export default function BookTour() {
                       <FormField control={form.control} name="customerPhone" render={({
                     field
                   }) => <FormItem>
-                            <FormLabel>{t('T\xE9l\xE9phone', {
-                        defaultValue: 'T\xE9l\xE9phone'
-                      })}</FormLabel>
+                            <FormLabel>{t('common.txe9lxe9phone')}</FormLabel>
                             <FormControl>
                               <Input placeholder="+66 12 345 6789" {...field} />
                             </FormControl>
@@ -605,9 +535,7 @@ export default function BookTour() {
                               <FormControl>
                                 <Input type="number" min={1} max={20} {...field} onChange={e => field.onChange(parseInt(e.target.value))} />
                               </FormControl>
-                              <FormDescription>{t('Personnes de 12 ans et plus', {
-                          defaultValue: 'Personnes de 12 ans et plus'
-                        })}</FormDescription>
+                              <FormDescription>{t('common.personnesde12ansetpl')}</FormDescription>
                               <FormMessage />
                             </FormItem>} />
                         
@@ -620,9 +548,7 @@ export default function BookTour() {
                               <FormControl>
                                 <Input type="number" min={0} max={15} {...field} onChange={e => field.onChange(parseInt(e.target.value || "0"))} />
                               </FormControl>
-                              <FormDescription>{t('Enfants de moins de 12 ans', {
-                          defaultValue: 'Enfants de moins de 12 ans'
-                        })}</FormDescription>
+                              <FormDescription>{t('common.enfantsdemoinsde12an')}</FormDescription>
                               <FormMessage />
                             </FormItem>} />
                       </div>
@@ -630,13 +556,9 @@ export default function BookTour() {
                       <FormField control={form.control} name="specialRequests" render={({
                     field
                   }) => <FormItem>
-                            <FormLabel>{t('Demandes sp\xE9ciales (optionnel)', {
-                        defaultValue: 'Demandes sp\xE9ciales (optionnel)'
-                      })}</FormLabel>
+                            <FormLabel>{t('common.demandesspxe9cialeso')}</FormLabel>
                             <FormControl>
-                              <Textarea placeholder={t('Si vous avez des besoins particuliers, veuillez les indiquer ici...', {
-                        defaultValue: 'Si vous avez des besoins particuliers, veuillez les indiquer ici...'
-                      })} {...field} />
+                              <Textarea placeholder={t('common.sivousavezdesbesoins')} {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>} />
@@ -654,21 +576,15 @@ export default function BookTour() {
             <BookingSummary tour={tour} selectedDate={selectedDate} numberOfPeople={form.watch("numberOfPeople") || 1} numberOfChildren={form.watch("numberOfChildren") || 0} availability={selectedAvailability} />
             
             {!displayStripe && <div className="mt-6 bg-primary/10 p-6 rounded-lg shadow-md">
-                <h3 className="font-heading font-semibold text-lg mb-2 text-primary">{t('Informations importantes', {
-                defaultValue: 'Informations importantes'
-              })}</h3>
+                <h3 className="font-heading font-semibold text-lg mb-2 text-primary">{t('common.informationsimportan')}</h3>
                 <ul className="space-y-2 text-primary/90">
                   <li className="flex items-start">
                     <CalendarIcon className="h-5 w-5 mr-2 text-primary flex-shrink-0 mt-0.5" />
-                    <span>{t('Seules les dates disponibles peuvent \xEAtre s\xE9lectionn\xE9es dans le calendrier.', {
-                    defaultValue: 'Seules les dates disponibles peuvent \xEAtre s\xE9lectionn\xE9es dans le calendrier.'
-                  })}</span>
+                    <span>{t('common.seuleslesdatesdispon')}</span>
                   </li>
                   <li className="flex items-start">
                     <User className="h-5 w-5 mr-2 text-primary flex-shrink-0 mt-0.5" />
-                    <span>{t('Le prix est calcul\xE9 par personne. Veuillez indiquer le nombre exact de participants.', {
-                    defaultValue: 'Le prix est calcul\xE9 par personne. Veuillez indiquer le nombre exact de participants.'
-                  })}</span>
+                    <span>{t('common.leprixestcalculxe9pa')}</span>
                   </li>
                   <li className="flex items-start">
                     <Clock className="h-5 w-5 mr-2 text-primary flex-shrink-0 mt-0.5" />

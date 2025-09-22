@@ -9,9 +9,7 @@ export default function VillasKrabi() {
   const { t } = useTranslation();
 
   return <>
-      <SEO title={t('Villas in Krabi - Curated Villa Selection', {
-      defaultValue: 'Villas in Krabi - Curated Villa Selection'
-    })} description="Download our curated selection of premium villas in Krabi. Luxury accommodations with stunning views, private pools, and exceptional service for your perfect getaway." keywords="krabi villas, luxury accommodation krabi, private villas thailand, villa rentals krabi, premium stays" />
+      <SEO title={t('common.villasinkrabicurated')} description="Download our curated selection of premium villas in Krabi. Luxury accommodations with stunning views, private pools, and exceptional service for your perfect getaway." keywords="krabi villas, luxury accommodation krabi, private villas thailand, villa rentals krabi, premium stays" />
       <Header />
       
       <main>
@@ -19,9 +17,7 @@ export default function VillasKrabi() {
         <section className="relative h-[50vh] overflow-hidden">
           <div className="absolute inset-0 bg-black/40 z-10"></div>
           <div className="absolute inset-0 z-0">
-            <img src="/uploads/tours/tour-1745996624172-231261635.jpeg" alt={t('Luxury villas in Krabi', {
-            defaultValue: 'Luxury villas in Krabi'
-          })} className="w-full h-full object-cover" />
+            <img src="/uploads/tours/tour-1745996624172-231261635.jpeg" alt={t('common.luxuryvillasinkrabi')} className="w-full h-full object-cover" />
           </div>
           <div className="container mx-auto px-4 relative z-20 h-full flex flex-col justify-center items-center text-center text-white">
             <motion.div initial={{
@@ -34,12 +30,8 @@ export default function VillasKrabi() {
             duration: 0.8
           }}>
               <Home className="w-16 h-16 text-secondary mx-auto mb-6" />
-              <h1 className="font-heading font-bold text-4xl md:text-5xl mb-6">{t('Villas in Krabi', {
-                defaultValue: 'Villas in Krabi'
-              })}</h1>
-              <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-8">{t('Discover our curated selection of premium villas for an unforgettable stay in paradise', {
-                defaultValue: 'Discover our curated selection of premium villas for an unforgettable stay in paradise'
-              })}</p>
+              <h1 className="font-heading font-bold text-4xl md:text-5xl mb-6">{t('pages.villasKrabi.title')}</h1>
+              <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-8">{t('common.discoverourcuratedse')}</p>
             </motion.div>
           </div>
         </section>
@@ -59,9 +51,7 @@ export default function VillasKrabi() {
             duration: 0.6
           }}>
               <div className="text-center mb-12">
-                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">{t('Curated Villa Selection', {
-                  defaultValue: 'Curated Villa Selection'
-                })}</h2>
+                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4">{t('common.curatedvillaselectio')}</h2>
                 <div className="w-20 h-1 bg-secondary mx-auto mb-6"></div>
                 <p className="text-gray-600 max-w-2xl mx-auto">{t('We\'ve handpicked the finest villas in Krabi, each offering luxury, privacy, and breathtaking views for your perfect escape.', {
                   defaultValue: 'We\'ve handpicked the finest villas in Krabi, each offering luxury, privacy, and breathtaking views for your perfect escape.'
@@ -70,42 +60,24 @@ export default function VillasKrabi() {
 
               <div className="bg-neutral-50 p-8 rounded-lg shadow-md text-center mb-8">
                 <Download className="w-16 h-16 text-primary mx-auto mb-4" />
-                <h3 className="font-heading font-bold text-2xl mb-4">{t('Villa Selection PDF', {
-                  defaultValue: 'Villa Selection PDF'
-                })}</h3>
-                <p className="text-gray-600 mb-6">{t('Download our comprehensive guide featuring luxury villas with detailed descriptions, amenities, pricing, and stunning photography.', {
-                  defaultValue: 'Download our comprehensive guide featuring luxury villas with detailed descriptions, amenities, pricing, and stunning photography.'
-                })}</p>
+                <h3 className="font-heading font-bold text-2xl mb-4">{t('common.villaselectionpdf')}</h3>
+                <p className="text-gray-600 mb-6">{t('common.downloadourcomprehen')}</p>
                 <Button className="bg-primary hover:bg-primary/90">
-                  <Download className="w-4 h-4 mr-2" />{t('Download Villa Guide', {
-                  defaultValue: 'Download Villa Guide'
-                })}</Button>
+                  <Download className="w-4 h-4 mr-2" />{t('common.downloadvillaguide')}</Button>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {[{
-                title: t('Beachfront Villas', {
-                  defaultValue: 'Beachfront Villas'
-                }),
-                description: t('Direct beach access with panoramic ocean views', {
-                  defaultValue: 'Direct beach access with panoramic ocean views'
-                }),
+                title: t('common.beachfrontvillas'),
+                description: t('common.directbeachaccesswit'),
                 features: ["Private beach", "Infinity pools", "Sea view terraces"]
               }, {
-                title: t('Hilltop Retreats', {
-                  defaultValue: 'Hilltop Retreats'
-                }),
-                description: t('Elevated positions with stunning limestone cliff views', {
-                  defaultValue: 'Elevated positions with stunning limestone cliff views'
-                }),
+                title: t('common.hilltopretreats'),
+                description: t('common.elevatedpositionswit'),
                 features: ["Mountain views", "Private gardens", "Sunset terraces"]
               }, {
-                title: t('Jungle Hideaways', {
-                  defaultValue: 'Jungle Hideaways'
-                }),
-                description: t('Secluded villas surrounded by tropical nature', {
-                  defaultValue: 'Secluded villas surrounded by tropical nature'
-                }),
+                title: t('common.junglehideaways'),
+                description: t('common.secludedvillassurrou'),
                 features: ["Tropical gardens", "Nature sounds", "Privacy & tranquility"]
               }].map((category, index) => <motion.div key={index} className="bg-white border border-gray-200 rounded-lg p-6" initial={{
                 opacity: 0,
@@ -148,24 +120,12 @@ export default function VillasKrabi() {
                     defaultValue: 'What\'s Included in Our Villa Guide?'
                   })}</h4>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600">
-                    <div>{t('\u2022 Detailed villa descriptions', {
-                      defaultValue: '\u2022 Detailed villa descriptions'
-                    })}</div>
-                    <div>{t('\u2022 High-quality photography', {
-                      defaultValue: '\u2022 High-quality photography'
-                    })}</div>
-                    <div>{t('\u2022 Amenity listings', {
-                      defaultValue: '\u2022 Amenity listings'
-                    })}</div>
-                    <div>{t('\u2022 Location maps', {
-                      defaultValue: '\u2022 Location maps'
-                    })}</div>
-                    <div>{t('\u2022 Pricing information', {
-                      defaultValue: '\u2022 Pricing information'
-                    })}</div>
-                    <div>{t('\u2022 Booking instructions', {
-                      defaultValue: '\u2022 Booking instructions'
-                    })}</div>
+                    <div>{t('common.u2022detailedvillade')}</div>
+                    <div>{t('common.u2022highqualityphot')}</div>
+                    <div>{t('common.u2022amenitylistings')}</div>
+                    <div>{t('common.u2022locationmaps')}</div>
+                    <div>{t('common.u2022pricinginformat')}</div>
+                    <div>{t('common.u2022bookinginstruct')}</div>
                   </div>
                 </div>
               </motion.div>

@@ -109,12 +109,8 @@ export default function TourNinjaCard({
               <div className="absolute inset-0 bg-black/20"></div>
               <div className="text-white text-center p-4 relative z-10">
                 <MapPin className="w-8 h-8 mx-auto mb-2" />
-                <span className="text-sm font-medium">{t('Krabi, Thailand', {
-                defaultValue: 'Krabi, Thailand'
-              })}</span>
-                <div className="text-xs opacity-80 mt-1">{t('Image de pr\xE9sentation', {
-                defaultValue: 'Image de pr\xE9sentation'
-              })}</div>
+                <span className="text-sm font-medium">{t('common.krabithailand')}</span>
+                <div className="text-xs opacity-80 mt-1">{t('common.imagedeprxe9sentatio')}</div>
               </div>
               <div className="absolute inset-0 bg-gradient-to-br from-transparent to-primary/30"></div>
             </div>}

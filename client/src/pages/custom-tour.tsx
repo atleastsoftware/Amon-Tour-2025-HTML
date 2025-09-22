@@ -13,9 +13,7 @@ export default function CustomTour() {
       
       <main>
         {/* Hero */}
-        <HeroHeader title={t('customTour.title')} subtitle={t('customTour.subtitle')} alt={t('Customized tour in Thailand', {
-        defaultValue: 'Customized tour in Thailand'
-      })} />
+        <HeroHeader title={t('customTour.title')} subtitle={t('customTour.subtitle')} alt={t('common.customizedtourinthai')} />
         
         {/* Why Choose Custom Tour */}
         <section className="py-20 bg-neutral-light">

@@ -18,14 +18,8 @@ export default function FormBuilder({
     t
   } = useTranslation();
   return <div className="p-8 text-center">
-      <h2 className="text-xl font-semibold mb-4">{t('FormBuilder temporairement indisponible', {
-        defaultValue: 'FormBuilder temporairement indisponible'
-      })}</h2>
-      <p className="text-gray-600 mb-4">{t('Le FormBuilder est temporairement d\xE9sactiv\xE9 pendant la migration i18n.', {
-        defaultValue: 'Le FormBuilder est temporairement d\xE9sactiv\xE9 pendant la migration i18n.'
-      })}</p>
-      <p className="text-sm text-gray-500">{t('Fichier original sauv\xE9 dans FormBuilder.tsx.BROKEN.bak', {
-        defaultValue: 'Fichier original sauv\xE9 dans FormBuilder.tsx.BROKEN.bak'
-      })}</p>
+      <h2 className="text-xl font-semibold mb-4">{t('common.formbuildertemporair')}</h2>
+      <p className="text-gray-600 mb-4">{t('common.leformbuilderesttemp')}</p>
+      <p className="text-sm text-gray-500">{t('common.fichieroriginalsauvx')}</p>
     </div>;
 }

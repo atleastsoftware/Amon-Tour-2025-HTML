@@ -87,9 +87,7 @@ function SimplifiedPreview({
           {block.blockType === 'video_hero' && <div className="mt-6 flex justify-center">
               <div className="bg-black/20 rounded-lg p-4 flex items-center gap-2">
                 <Play className="h-5 w-5" />
-                <span>{t('Video Background', {
-                defaultValue: 'Video Background'
-              })}</span>
+                <span>{t('common.videobackground')}</span>
               </div>
             </div>}
         </div>;
@@ -103,9 +101,7 @@ function SimplifiedPreview({
           </div>
           <div className={config.layout === 'image-right' ? 'order-2' : 'order-1'}>
             <div className="bg-gray-200 rounded-lg aspect-video flex items-center justify-center">
-              <span className="text-gray-500">{t('Image:', {
-                defaultValue: 'Image:'
-              })}{config.imageUrl || 'No image'}</span>
+              <span className="text-gray-500">{t('common.image')}{config.imageUrl || 'No image'}</span>
             </div>
           </div>
         </div>;
@@ -118,28 +114,16 @@ function SimplifiedPreview({
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {(config.features || [{
             icon: 'Users',
-            title: t('Private Tours', {
-              defaultValue: 'Private Tours'
-            }),
-            description: t('Exclusive experiences', {
-              defaultValue: 'Exclusive experiences'
-            })
+            title: t('common.privatetours'),
+            description: t('common.exclusiveexperiences')
           }, {
             icon: 'Shield',
-            title: t('Local Experts', {
-              defaultValue: 'Local Experts'
-            }),
-            description: t('Expert guidance', {
-              defaultValue: 'Expert guidance'
-            })
+            title: t('common.localexperts'),
+            description: t('common.expertguidance')
           }, {
             icon: 'Heart',
-            title: t('Personalized', {
-              defaultValue: 'Personalized'
-            }),
-            description: t('Tailored to you', {
-              defaultValue: 'Tailored to you'
-            })
+            title: t('common.personalized'),
+            description: t('common.tailoredtoyou')
           }]).slice(0, 3).map((feature: any, i: number) => {
             const IconComponent = getIconComponent(feature.icon);
             return <Card key={i} className="text-center p-6">
@@ -160,19 +144,13 @@ function SimplifiedPreview({
             
             <div className="space-y-4 text-left">
               {(config.fields || [{
-              label: t('Name *', {
-                defaultValue: 'Name *'
-              }),
+              label: t('common.name'),
               type: 'text'
             }, {
-              label: t('Email *', {
-                defaultValue: 'Email *'
-              }),
+              label: t('common.email'),
               type: 'email'
             }, {
-              label: t('Message *', {
-                defaultValue: 'Message *'
-              }),
+              label: t('common.message'),
               type: 'textarea'
             }]).map((field: any, i: number) => <div key={i}>
                   <label className="block text-sm font-medium mb-1">{field.label}</label>
@@ -185,9 +163,7 @@ function SimplifiedPreview({
           </div>
           
           {config.formType === 'custom_tour' && config.imageUrl && <div className="mt-6 text-center">
-              <Badge variant="secondary">{t('With Image:', {
-              defaultValue: 'With Image:'
-            })}{config.imageUrl}</Badge>
+              <Badge variant="secondary">{t('common.withimage')}{config.imageUrl}</Badge>
             </div>}
         </div>;
     case 'card_grid':
@@ -201,30 +177,20 @@ function SimplifiedPreview({
             length: config.displayCount || 3
           }).map((_, i) => <Card key={i}>
                 <div className="bg-gray-200 h-48 rounded-t-lg flex items-center justify-center">
-                  <span className="text-gray-500">{t('Tour Image', {
-                  defaultValue: 'Tour Image'
-                })}</span>
+                  <span className="text-gray-500">{t('common.tourimage')}</span>
                 </div>
                 <CardContent className="p-4">
-                  <h3 className="font-bold mb-2">{t('Tour Title', {
-                  defaultValue: 'Tour Title'
-                })}{i + 1}</h3>
-                  <p className="text-gray-600 text-sm">{t('Tour description...', {
-                  defaultValue: 'Tour description...'
-                })}</p>
+                  <h3 className="font-bold mb-2">{t('common.tourtitle')}{i + 1}</h3>
+                  <p className="text-gray-600 text-sm">{t('common.tourdescription')}</p>
                   <div className="flex justify-between items-center mt-3">
                     <span className="font-bold text-primary">€99</span>
-                    <Button size="sm">{t('Book Now', {
-                    defaultValue: 'Book Now'
-                  })}</Button>
+                    <Button size="sm">{t('common.booknow')}</Button>
                   </div>
                 </CardContent>
               </Card>)}
           </div>
           {config.showTourNinja && <div className="mt-4 text-center">
-              <Badge variant="outline">{t('Tour Ninja Integration', {
-              defaultValue: 'Tour Ninja Integration'
-            })}</Badge>
+              <Badge variant="outline">{t('common.tourninjaintegration')}</Badge>
             </div>}
         </div>;
     case 'gallery':
@@ -237,9 +203,7 @@ function SimplifiedPreview({
             {Array.from({
             length: 8
           }).map((_, i) => <div key={i} className="bg-gray-200 aspect-square rounded-lg flex items-center justify-center">
-                <span className="text-gray-500 text-sm">{t('Photo', {
-                defaultValue: 'Photo'
-              })}{i + 1}</span>
+                <span className="text-gray-500 text-sm">{t('common.photo')}{i + 1}</span>
               </div>)}
           </div>
         </div>;
@@ -251,24 +215,16 @@ function SimplifiedPreview({
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {(config.cards || [{
             icon: 'Mail',
-            title: t('Email', {
-              defaultValue: 'Email'
-            }),
+            title: t('common.email'),
             description: 'info@amon-tour.com'
           }, {
             icon: 'Phone',
-            title: t('Phone', {
-              defaultValue: 'Phone'
-            }),
+            title: t('common.phone'),
             description: '+66 96 216 6559'
           }, {
             icon: 'MapPin',
-            title: t('Location', {
-              defaultValue: 'Location'
-            }),
-            description: t('Krabi, Thailand', {
-              defaultValue: 'Krabi, Thailand'
-            })
+            title: t('common.location'),
+            description: t('common.krabithailand')
           }]).map((card: any, i: number) => {
             const IconComponent = getIconComponent(card.icon);
             return <Card key={i} className="text-center p-6">
@@ -291,9 +247,7 @@ function SimplifiedPreview({
             <p className="opacity-90">{config.rating || '5.0'} stars • {config.reviewCount || '80'} reviews</p>
           </div>
           {config.googleReviewsWidget && <div className="bg-white text-black p-4 rounded-lg text-center">
-              <Badge variant="secondary">{t('Google Reviews Widget', {
-              defaultValue: 'Google Reviews Widget'
-            })}</Badge>
+              <Badge variant="secondary">{t('common.googlereviewswidget')}</Badge>
             </div>}
         </div>;
     case 'interests':
@@ -309,9 +263,7 @@ function SimplifiedPreview({
                 <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-2">
                   <Calendar className="h-6 w-6 text-primary" />
                 </div>
-                <span className="text-sm font-medium">{t('Interest', {
-                defaultValue: 'Interest'
-              })}{i + 1}</span>
+                <span className="text-sm font-medium">{t('common.interest')}{i + 1}</span>
               </Card>)}
           </div>
         </div>;

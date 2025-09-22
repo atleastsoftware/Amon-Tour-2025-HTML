@@ -46,19 +46,13 @@ export default function BookingIframe() {
       <header className="bg-white py-3 shadow-sm">
         <div className="container mx-auto px-4 flex justify-between items-center">
           <Link href="/">
-            <img src={logoAmon} alt={t('Amon Logo', {
-            defaultValue: 'Amon Logo'
-          })} className="h-16 w-auto" />
+            <img src={logoAmon} alt={t('common.amonLogo')} className="h-16 w-auto" />
           </Link>
           <div className="flex gap-2">
             <Button variant="ghost" size="sm" onClick={goBack} className="flex items-center gap-1">
-              <ArrowLeft size={16} />{t('Back', {
-              defaultValue: 'Back'
-            })}</Button>
+              <ArrowLeft size={16} />{t('common.back')}</Button>
             <Button variant="ghost" size="sm" onClick={() => setLocation('/')} className="flex items-center gap-1">
-              <Home size={16} />{t('Home', {
-              defaultValue: 'Home'
-            })}</Button>
+              <Home size={16} />{t('navigation.home')}</Button>
           </div>
         </div>
       </header>

@@ -56,9 +56,7 @@ export default function Tours() {
     if (tour.price > 0) {
       return formatTHB(tour.price);
     }
-    return t('Price on request', {
-      defaultValue: 'Price on request'
-    });
+    return t('common.priceonrequest');
   };
 
   // Extraire les options de filtre dynamiquement des données de l'API
@@ -66,71 +64,37 @@ export default function Tours() {
     // Extraire les destinations depuis les noms des tours
     const destinationKeywords = tours.map(tour => {
       const name = tour.name.toLowerCase();
-      if (name.includes('phi phi')) return t('Koh Phi Phi', {
-        defaultValue: 'Koh Phi Phi'
-      });
-      if (name.includes('phang nga')) return t('Phang Nga Bay', {
-        defaultValue: 'Phang Nga Bay'
-      });
-      if (name.includes('koh hong')) return t('Koh Hong', {
-        defaultValue: 'Koh Hong'
-      });
-      if (name.includes('koh mook')) return t('Koh Mook', {
-        defaultValue: 'Koh Mook'
-      });
-      if (name.includes('railay')) return t('Railay', {
-        defaultValue: 'Railay'
-      });
-      if (name.includes('ao nang')) return t('Ao Nang', {
-        defaultValue: 'Ao Nang'
-      });
-      if (name.includes('thalane')) return t('Thalane', {
-        defaultValue: 'Thalane'
-      });
-      if (name.includes('ao luk')) return t('Ao Luk', {
-        defaultValue: 'Ao Luk'
-      });
-      if (name.includes('krabi')) return t('Krabi', {
-        defaultValue: 'Krabi'
-      });
-      if (name.includes('laem sak')) return t('Laem Sak', {
-        defaultValue: 'Laem Sak'
-      });
-      if (name.includes('koh kradan')) return t('Koh Kradan', {
-        defaultValue: 'Koh Kradan'
-      });
-      if (name.includes('koh ngaï')) return t('Koh Nga\xEF', {
-        defaultValue: 'Koh Nga\xEF'
-      });
+      if (name.includes('phi phi')) return t('common.kohphiphi');
+      if (name.includes('phang nga')) return t('common.phangngabay');
+      if (name.includes('koh hong')) return t('common.kohhong');
+      if (name.includes('koh mook')) return t('common.kohmook');
+      if (name.includes('railay')) return t('common.railay');
+      if (name.includes('ao nang')) return t('common.aonang');
+      if (name.includes('thalane')) return t('common.thalane');
+      if (name.includes('ao luk')) return t('common.aoluk');
+      if (name.includes('krabi')) return t('common.krabi');
+      if (name.includes('laem sak')) return t('common.laemsak');
+      if (name.includes('koh kradan')) return t('common.kohkradan');
+      if (name.includes('koh ngaï')) return t('common.kohngaxef');
       return null;
     }).filter(Boolean);
     const destinations = Array.from(new Set(destinationKeywords)) as string[];
     const durations = Array.from(new Set(tours.map(tour => tour.duration).filter(Boolean)));
     const priceRanges = [{
       value: "0-2000",
-      label: t('0 - 2,000 THB', {
-        defaultValue: '0 - 2,000 THB'
-      })
+      label: t('common.02000thb')
     }, {
       value: "2000-4000",
-      label: t('2,000 - 4,000 THB', {
-        defaultValue: '2,000 - 4,000 THB'
-      })
+      label: t('common.20004000thb')
     }, {
       value: "4000-6000",
-      label: t('4,000 - 6,000 THB', {
-        defaultValue: '4,000 - 6,000 THB'
-      })
+      label: t('common.40006000thb')
     }, {
       value: "6000+",
-      label: t('6,000+ THB', {
-        defaultValue: '6,000+ THB'
-      })
+      label: t('common.6000thb')
     }, {
       value: "free",
-      label: t('Price on request', {
-        defaultValue: 'Price on request'
-      })
+      label: t('common.priceonrequest')
     }];
     return {
       destinations,
@@ -162,45 +126,19 @@ export default function Tours() {
       // Filtre de destination (basé sur l'extraction depuis le nom)
       const getDestinationFromName = (tourName: string) => {
         const name = tourName.toLowerCase();
-        if (name.includes('phi phi')) return t('Koh Phi Phi', {
-          defaultValue: 'Koh Phi Phi'
-        });
-        if (name.includes('phang nga')) return t('Phang Nga Bay', {
-          defaultValue: 'Phang Nga Bay'
-        });
-        if (name.includes('koh hong')) return t('Koh Hong', {
-          defaultValue: 'Koh Hong'
-        });
-        if (name.includes('koh mook')) return t('Koh Mook', {
-          defaultValue: 'Koh Mook'
-        });
-        if (name.includes('railay')) return t('Railay', {
-          defaultValue: 'Railay'
-        });
-        if (name.includes('ao nang')) return t('Ao Nang', {
-          defaultValue: 'Ao Nang'
-        });
-        if (name.includes('thalane')) return t('Thalane', {
-          defaultValue: 'Thalane'
-        });
-        if (name.includes('ao luk')) return t('Ao Luk', {
-          defaultValue: 'Ao Luk'
-        });
-        if (name.includes('krabi')) return t('Krabi', {
-          defaultValue: 'Krabi'
-        });
-        if (name.includes('laem sak')) return t('Laem Sak', {
-          defaultValue: 'Laem Sak'
-        });
-        if (name.includes('koh kradan')) return t('Koh Kradan', {
-          defaultValue: 'Koh Kradan'
-        });
-        if (name.includes('koh ngaï')) return t('Koh Nga\xEF', {
-          defaultValue: 'Koh Nga\xEF'
-        });
-        return t('Autre', {
-          defaultValue: 'Autre'
-        });
+        if (name.includes('phi phi')) return t('common.kohphiphi');
+        if (name.includes('phang nga')) return t('common.phangngabay');
+        if (name.includes('koh hong')) return t('common.kohhong');
+        if (name.includes('koh mook')) return t('common.kohmook');
+        if (name.includes('railay')) return t('common.railay');
+        if (name.includes('ao nang')) return t('common.aonang');
+        if (name.includes('thalane')) return t('common.thalane');
+        if (name.includes('ao luk')) return t('common.aoluk');
+        if (name.includes('krabi')) return t('common.krabi');
+        if (name.includes('laem sak')) return t('common.laemsak');
+        if (name.includes('koh kradan')) return t('common.kohkradan');
+        if (name.includes('koh ngaï')) return t('common.kohngaxef');
+        return t('common.autre');
       };
       const matchesDestination = destinationFilter === "all" || getDestinationFromName(tour.name) === destinationFilter;
       return matchesSearch && matchesPrice && matchesDuration && matchesDestination;
@@ -214,17 +152,11 @@ export default function Tours() {
   };
   const hasActiveFilters = searchTerm !== "" || priceRange !== "all" || durationFilter !== "all" || destinationFilter !== "all";
   return <>
-      <SEO title={t('Thailand Tours & Experiences | Authentic Island Tours Krabi | Amon Tour', {
-      defaultValue: 'Thailand Tours & Experiences | Authentic Island Tours Krabi | Amon Tour'
-    })} description="Explore authentic Thailand tours in Krabi and southern Thailand. Private island tours, cultural experiences, temple visits, and local adventures. Book your authentic Thai experience today." keywords="krabi tours, thailand island tours, phuket experiences, phang nga bay tours, private boat tours thailand, authentic thai experiences, koh phi phi tours, cultural tours thailand" canonicalUrl="https://amon-tour.com/tours" breadcrumbs={[{
-      name: t('Home', {
-        defaultValue: 'Home'
-      }),
+      <SEO title={t('common.thailandtoursexperie')} description="Explore authentic Thailand tours in Krabi and southern Thailand. Private island tours, cultural experiences, temple visits, and local adventures. Book your authentic Thai experience today." keywords="krabi tours, thailand island tours, phuket experiences, phang nga bay tours, private boat tours thailand, authentic thai experiences, koh phi phi tours, cultural tours thailand" canonicalUrl="https://amon-tour.com/tours" breadcrumbs={[{
+      name: t('navigation.home'),
       url: "/"
     }, {
-      name: t('Tours & Experiences', {
-        defaultValue: 'Tours & Experiences'
-      }),
+      name: t('common.toursexperiences'),
       url: "/tours"
     }]} faqSchema={[{
       question: "How long are typical tours with Amon Tour?",
@@ -246,30 +178,16 @@ export default function Tours() {
       
       <main className="min-h-screen bg-gradient-to-br from-primary/10 to-primary/20">
         {/* Hero */}
-        <HeroHeader title={t('Our Experiences', {
-        defaultValue: 'Our Experiences'
-      })} subtitle={t('Discover the exceptional beauty of Krabi and southern Thailand.', {
-        defaultValue: 'Discover the exceptional beauty of Krabi and southern Thailand.'
-      })} alt={t('Tours and experiences in Thailand', {
-        defaultValue: 'Tours and experiences in Thailand'
-      })} />
+        <HeroHeader title={t('common.ourexperiences')} subtitle={t('common.discovertheexception')} alt={t('common.toursandexperiencesi')} />
 
         {/* Filtres */}
         <section className="container mx-auto px-4 py-8">
           <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
             <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold text-gray-800">{t('Filters', {
-                defaultValue: 'Filters'
-              })}</h2>
+              <h2 className="text-xl font-semibold text-gray-800">{t('common.filters')}</h2>
               <Button variant="ghost" size="sm" onClick={() => setShowFilters(!showFilters)} className="md:hidden">
                 <Filter className="h-4 w-4 mr-2" />
-                {showFilters ? t('Hide', {
-                defaultValue: 'Hide'
-              }) : t('Show', {
-                defaultValue: 'Show'
-              })} {t('filters', {
-                defaultValue: 'filters'
-              })}
+                {showFilters ? t('common.hide') : t('common.show')} {t('common.filters')}
               </Button>
             </div>
 
@@ -277,22 +195,16 @@ export default function Tours() {
               {/* Recherche - Plus large sur mobile et desktop */}
               <div className="relative md:col-span-2 lg:col-span-2">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                <Input placeholder={t('Search for a tour...', {
-                defaultValue: 'Search for a tour...'
-              })} value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="pl-10" />
+                <Input placeholder={t('common.searchforatour')} value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="pl-10" />
               </div>
 
               {/* Prix */}
               <Select value={priceRange} onValueChange={setPriceRange}>
                 <SelectTrigger>
-                  <SelectValue placeholder={t('All prices', {
-                  defaultValue: 'All prices'
-                })} />
+                  <SelectValue placeholder={t('common.allprices')} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">{t('All prices', {
-                    defaultValue: 'All prices'
-                  })}</SelectItem>
+                  <SelectItem value="all">{t('common.allprices')}</SelectItem>
                   {filterOptions.priceRanges.map(range => <SelectItem key={range.value} value={range.value}>
                       {range.label}
                     </SelectItem>)}
@@ -302,14 +214,10 @@ export default function Tours() {
               {/* Durée */}
               <Select value={durationFilter} onValueChange={setDurationFilter}>
                 <SelectTrigger>
-                  <SelectValue placeholder={t('All durations', {
-                  defaultValue: 'All durations'
-                })} />
+                  <SelectValue placeholder={t('common.alldurations')} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">{t('All durations', {
-                    defaultValue: 'All durations'
-                  })}</SelectItem>
+                  <SelectItem value="all">{t('common.alldurations')}</SelectItem>
                   {filterOptions.durations.map(duration => <SelectItem key={duration} value={duration.toString()}>
                       {duration} day{Number(duration) > 1 ? 's' : ''}
                     </SelectItem>)}
@@ -319,14 +227,10 @@ export default function Tours() {
               {/* Destination */}
               <Select value={destinationFilter} onValueChange={setDestinationFilter}>
                 <SelectTrigger>
-                  <SelectValue placeholder={t('All destinations', {
-                  defaultValue: 'All destinations'
-                })} />
+                  <SelectValue placeholder={t('common.alldestinations')} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">{t('All destinations', {
-                    defaultValue: 'All destinations'
-                  })}</SelectItem>
+                  <SelectItem value="all">{t('common.alldestinations')}</SelectItem>
                   {filterOptions.destinations.map(destination => <SelectItem key={destination} value={destination}>
                       {destination}
                     </SelectItem>)}
@@ -336,9 +240,7 @@ export default function Tours() {
               {/* Reset - Prend toute la largeur sur mobile, une colonne sur desktop */}
               {hasActiveFilters && <Button variant="outline" onClick={clearFilters} className="w-full md:col-span-4 lg:col-span-5">
                   <X className="h-4 w-4 mr-2" />
-                  {t('Clear filters', {
-                defaultValue: 'Clear filters'
-              })}
+                  {t('common.clearfilters')}
                 </Button>}
             </div>
           </div>
@@ -397,15 +299,11 @@ export default function Tours() {
                       
                       <div className="flex gap-2">
                         <Button onClick={() => handleTourDetails(tour)} variant="outline" className="flex-1 border-primary text-primary hover:bg-primary/10">
-                          {t('View details', {
-                      defaultValue: 'View details'
-                    })}
+                          {t('common.viewdetails')}
                           <ExternalLink className="h-4 w-4 ml-2" />
                         </Button>
                         <Button onClick={() => handleTourBooking(tour)} className="flex-1 bg-primary hover:bg-primary/90 text-white">
-                          {t('Book', {
-                      defaultValue: 'Book'
-                    })}
+                          {t('common.book')}
                           <ExternalLink className="h-4 w-4 ml-2" />
                         </Button>
                       </div>
@@ -416,9 +314,7 @@ export default function Tours() {
               {tours.length === 0 && !hasActiveFilters ? <div className="space-y-4">
                   {/* Pas de tours disponibles - garde l'espace propre */}
                 </div> : hasActiveFilters ? <Button onClick={clearFilters} variant="outline">
-                  {t('Clear filters', {
-              defaultValue: 'Clear filters'
-            })}
+                  {t('common.clearfilters')}
                 </Button> : null}
             </div>}
         </section>

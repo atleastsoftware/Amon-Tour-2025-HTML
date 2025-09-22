@@ -14,21 +14,15 @@ interface Language {
 }
 const languages: Language[] = [{
   code: "en",
-  name: t('English', {
-    defaultValue: 'English'
-  }),
+  name: t('languages.english'),
   flagUrl: "https://flagcdn.com/w40/gb.png"
 }, {
   code: "fr",
-  name: t('Fran\xE7ais', {
-    defaultValue: 'Fran\xE7ais'
-  }),
+  name: t('common.franxe7ais'),
   flagUrl: "https://flagcdn.com/w40/fr.png"
 }, {
   code: "es",
-  name: t('Espa\xF1ol', {
-    defaultValue: 'Espa\xF1ol'
-  }),
+  name: t('common.espaxf1ol'),
   flagUrl: "https://flagcdn.com/w40/es.png"
 }];
 export default function GoogleTranslateWidget() {

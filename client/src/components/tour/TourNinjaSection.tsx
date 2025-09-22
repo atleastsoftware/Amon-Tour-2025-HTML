@@ -22,17 +22,11 @@ export default function TourNinjaSection() {
           <div className="text-center">
             <div className="flex items-center justify-center mb-4">
               <AlertCircle className="text-[hsl(var(--destructive))] mr-2" size={24} />
-              <h2 className="font-heading font-bold text-2xl">{t('External Tours', {
-                defaultValue: 'External Tours'
-              })}</h2>
+              <h2 className="font-heading font-bold text-2xl">{t('common.externaltours')}</h2>
             </div>
-            <p className="text-gray-600 mb-4">{t('Unable to load external tour data. Please check your connection.', {
-              defaultValue: 'Unable to load external tour data. Please check your connection.'
-            })}</p>
+            <p className="text-gray-600 mb-4">{t('common.unabletoloadexternal')}</p>
             <Button onClick={() => refetch()} variant="outline" className="flex items-center">
-              <RefreshCw size={16} className="mr-2" />{t('Try Again', {
-              defaultValue: 'Try Again'
-            })}</Button>
+              <RefreshCw size={16} className="mr-2" />{t('common.tryagain')}</Button>
           </div>
         </div>
       </section>;
@@ -75,13 +69,9 @@ export default function TourNinjaSection() {
       }}>
             {tours.map((tour, index) => <TourNinjaCard key={tour.id || index} tour={tour} index={index} />)}
           </motion.div> : <div className="text-center py-8">
-            <p className="text-gray-500">{t('No partner tours available at the moment.', {
-            defaultValue: 'No partner tours available at the moment.'
-          })}</p>
+            <p className="text-gray-500">{t('common.nopartnertoursavaila')}</p>
             <Button onClick={() => refetch()} variant="outline" className="mt-4 flex items-center mx-auto">
-              <RefreshCw size={16} className="mr-2" />{t('Refresh', {
-            defaultValue: 'Refresh'
-          })}</Button>
+              <RefreshCw size={16} className="mr-2" />{t('common.refresh')}</Button>
           </div>}
       </div>
     </section>;

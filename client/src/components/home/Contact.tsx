@@ -45,23 +45,15 @@ export default function Contact() {
     try {
       await apiRequest("POST", "/api/contact-messages", data);
       toast({
-        title: t('Message sent', {
-          defaultValue: 'Message sent'
-        }),
-        description: t('We will respond to your inquiry as soon as possible.', {
-          defaultValue: 'We will respond to your inquiry as soon as possible.'
-        }),
+        title: t('common.messagesent'),
+        description: t('common.wewillrespondtoyouri'),
         variant: "default"
       });
       form.reset();
     } catch (error) {
       toast({
-        title: t('Error', {
-          defaultValue: 'Error'
-        }),
-        description: t('There was a problem sending your message. Please try again.', {
-          defaultValue: 'There was a problem sending your message. Please try again.'
-        }),
+        title: t('common.error'),
+        description: t('common.therewasaproblemsend'),
         variant: "destructive"
       });
     } finally {

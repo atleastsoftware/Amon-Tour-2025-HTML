@@ -95,9 +95,7 @@ function ColorPicker({
         <div className="relative">
           <div className="w-8 h-8 rounded border border-gray-300 cursor-pointer relative overflow-hidden hover:border-gray-400 transition-colors" style={{
           backgroundColor: currentColorValue
-        }} title={t('Cliquez pour personnaliser la couleur', {
-          defaultValue: 'Cliquez pour personnaliser la couleur'
-        })}>
+        }} title={t('common.cliquezpourpersonnal')}>
             <input type="color" value={currentColorValue} onChange={e => handleColorChange(e.target.value)} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
           </div>
         </div>
@@ -120,23 +118,15 @@ function ColorPicker({
               </SelectValue>
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="custom">{t('R\xE9f\xE9rence couleur', {
-              defaultValue: 'R\xE9f\xE9rence couleur'
-            })}</SelectItem>
-              <SelectItem value="primary">{t('Couleur principale', {
-              defaultValue: 'Couleur principale'
-            })}</SelectItem>
-              <SelectItem value="secondary">{t('Couleur secondaire', {
-              defaultValue: 'Couleur secondaire'
-            })}</SelectItem>
+              <SelectItem value="custom">{t('common.rxe9fxe9rencecouleur')}</SelectItem>
+              <SelectItem value="primary">{t('common.couleurprincipale')}</SelectItem>
+              <SelectItem value="secondary">{t('common.couleursecondaire')}</SelectItem>
             </SelectContent>
           </Select>}
       </div>
       
       {/* Phrase explicative */}
-      <p className="text-xs text-gray-500 mt-1">{t('Cliquez sur le carr\xE9 de couleur pour choisir visuellement ou sur le code couleur pour saisir directement', {
-        defaultValue: 'Cliquez sur le carr\xE9 de couleur pour choisir visuellement ou sur le code couleur pour saisir directement'
-      })}</p>
+      <p className="text-xs text-gray-500 mt-1">{t('common.cliquezsurlecarrxe9d')}</p>
     </div>;
 }
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -292,12 +282,8 @@ const RealBlockPreview = ({
               const images = [heroConfig.backgroundImage1, heroConfig.backgroundImage2, heroConfig.backgroundImage3].filter(Boolean);
               return <div className="absolute inset-0 w-full h-full z-0">
                   {images.length > 0 ? <img src={images[0]} // For preview, show first image
-                alt={t('Hero background', {
-                  defaultValue: 'Hero background'
-                })} className="w-full h-full object-cover" /> : <div className="w-full h-full bg-gray-300 flex items-center justify-center">
-                      <span className="text-gray-600">{t('Aucune image s\xE9lectionn\xE9e', {
-                      defaultValue: 'Aucune image s\xE9lectionn\xE9e'
-                    })}</span>
+                alt={t('common.herobackground')} className="w-full h-full object-cover" /> : <div className="w-full h-full bg-gray-300 flex items-center justify-center">
+                      <span className="text-gray-600">{t('common.aucuneimagesxe9lecti')}</span>
                     </div>}
                   <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
                 </div>;
@@ -308,9 +294,7 @@ const RealBlockPreview = ({
                   <video autoPlay muted loop playsInline preload="auto" className="w-full h-full object-cover" style={{
                   objectFit: 'cover'
                 }}>
-                    <source src={videoUrl} type="video/mp4" />{t('Your browser does not support the video tag.', {
-                    defaultValue: 'Your browser does not support the video tag.'
-                  })}</video>
+                    <source src={videoUrl} type="video/mp4" />{t('common.yourbrowserdoesnotsu')}</video>
                   <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
                 </div>;
           }
@@ -334,16 +318,12 @@ const RealBlockPreview = ({
                 </p>
                 <div className={`flex flex-col sm:flex-row gap-4 ${heroConfig.contentAlignment === 'center' ? 'justify-center' : heroConfig.contentAlignment === 'right' ? 'justify-end' : 'justify-start'}`}>
                   {(heroConfig.buttons || [{
-                  text: t('See our offers', {
-                    defaultValue: 'See our offers'
-                  }),
+                  text: t('common.seeouroffers'),
                   url: '/tours',
                   color: '#084F6E',
                   style: 'filled'
                 }, {
-                  text: t('Custom your trip', {
-                    defaultValue: 'Custom your trip'
-                  }),
+                  text: t('common.customyourtrip'),
                   url: '/custom-tour',
                   color: '#084F6E',
                   style: 'filled'
@@ -544,13 +524,9 @@ const RealBlockPreview = ({
                         </p>
                         
                         <div className="flex gap-2">
-                          <button className="flex-1 border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1">{t('Details', {
-                        defaultValue: 'Details'
-                      })}<ChevronRight className="h-3 w-3" />
+                          <button className="flex-1 border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1">{t('common.details')}<ChevronRight className="h-3 w-3" />
                           </button>
-                          <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1">{t('Book', {
-                        defaultValue: 'Book'
-                      })}<ChevronRight className="h-3 w-3" />
+                          <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1">{t('common.book')}<ChevronRight className="h-3 w-3" />
                           </button>
                         </div>
                       </div>
@@ -582,23 +558,15 @@ const RealBlockPreview = ({
                       </div>
                       
                       <div className="p-6">
-                        <h3 className="text-lg font-bold text-gray-800 mb-3 line-clamp-2">{t('Tour Experience', {
-                      defaultValue: 'Tour Experience'
-                    })}{index + 1}
+                        <h3 className="text-lg font-bold text-gray-800 mb-3 line-clamp-2">{t('common.tourexperience')}{index + 1}
                         </h3>
                         
-                        <p className="text-gray-600 text-sm mb-4 line-clamp-3">{t('D\xE9couvrez les plus beaux endroits de Krabi avec nos guides exp\xE9riment\xE9s.', {
-                      defaultValue: 'D\xE9couvrez les plus beaux endroits de Krabi avec nos guides exp\xE9riment\xE9s.'
-                    })}</p>
+                        <p className="text-gray-600 text-sm mb-4 line-clamp-3">{t('common.dxe9couvrezlesplusbe')}</p>
                         
                         <div className="flex gap-2">
-                          <button className="flex-1 border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1">{t('Details', {
-                        defaultValue: 'Details'
-                      })}<ChevronRight className="h-3 w-3" />
+                          <button className="flex-1 border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1">{t('common.details')}<ChevronRight className="h-3 w-3" />
                           </button>
-                          <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1">{t('Book', {
-                        defaultValue: 'Book'
-                      })}<ChevronRight className="h-3 w-3" />
+                          <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1">{t('common.book')}<ChevronRight className="h-3 w-3" />
                           </button>
                         </div>
                       </div>
@@ -608,9 +576,7 @@ const RealBlockPreview = ({
               <div className="flex justify-center gap-4">
                 {/* Utilise les boutons configurés ou le bouton par défaut */}
                 {(liveConfiguration?.buttons?.length ? liveConfiguration.buttons : [{
-                text: t('View All Our Tours', {
-                  defaultValue: 'View All Our Tours'
-                }),
+                text: t('common.viewallourtours'),
                 url: '/tours',
                 color: '#084F6E',
                 style: 'filled'
@@ -717,9 +683,7 @@ const RealBlockPreview = ({
             }}>
                   {displayToursPrice.map((tour, index) => <TourNinjaCard key={tour.id || index} tour={tour} index={index} />)}
                 </motion.div> : <div className="text-center py-8">
-                  <p className="text-gray-500">{t('No tours available at the moment.', {
-                  defaultValue: 'No tours available at the moment.'
-                })}</p>
+                  <p className="text-gray-500">{t('common.notoursavailableatth')}</p>
                 </div>}
             </div>
           </section>;
@@ -760,77 +724,47 @@ const RealBlockPreview = ({
                 {(featuresConfig.iconBlocks || [{
                 id: 1,
                 mainIcon: 'fas fa-user-friends',
-                title: t('Private Tours', {
-                  defaultValue: 'Private Tours'
-                }),
-                description: t('Experience an exclusive day trip with our professional guides and private vehicles.', {
-                  defaultValue: 'Experience an exclusive day trip with our professional guides and private vehicles.'
-                }),
+                title: t('common.privatetours'),
+                description: t('common.experienceanexclusiv'),
                 miniIcons: [{
                   icon: 'fas fa-car',
-                  text: t('Private Car', {
-                    defaultValue: 'Private Car'
-                  })
+                  text: t('common.privatecar')
                 }, {
                   icon: 'fas fa-language',
-                  text: t('Guide', {
-                    defaultValue: 'Guide'
-                  })
+                  text: t('common.guide')
                 }, {
                   icon: 'fas fa-shield-alt',
-                  text: t('Safety', {
-                    defaultValue: 'Safety'
-                  })
+                  text: t('common.safety')
                 }]
               }, {
                 id: 2,
                 mainIcon: 'fas fa-compass',
-                title: t('Customized Itineraries', {
-                  defaultValue: 'Customized Itineraries'
-                }),
-                description: t('Create your own journey based on your desires, your pace, and your interests.', {
-                  defaultValue: 'Create your own journey based on your desires, your pace, and your interests.'
-                }),
+                title: t('common.customizeditinerarie'),
+                description: t('common.createyourownjourney'),
                 miniIcons: [{
                   icon: 'fas fa-map-marked-alt',
-                  text: t('Custom Route', {
-                    defaultValue: 'Custom Route'
-                  })
+                  text: t('common.customroute')
                 }, {
                   icon: 'fas fa-clock',
-                  text: t('Flexible Time', {
-                    defaultValue: 'Flexible Time'
-                  })
+                  text: t('common.flexibletime')
                 }, {
                   icon: 'fas fa-list-check',
-                  text: t('Your Pace', {
-                    defaultValue: 'Your Pace'
-                  })
+                  text: t('common.yourpace')
                 }]
               }, {
                 id: 3,
                 mainIcon: 'fas fa-sparkles',
-                title: t('Authentic Experiences', {
-                  defaultValue: 'Authentic Experiences'
-                }),
-                description: t('Discover destinations off the beaten path and immerse yourself in the local culture.', {
-                  defaultValue: 'Discover destinations off the beaten path and immerse yourself in the local culture.'
-                }),
+                title: t('common.authenticexperiences'),
+                description: t('common.discoverdestinations'),
                 miniIcons: [{
                   icon: 'fas fa-utensils',
-                  text: t('Local Food', {
-                    defaultValue: 'Local Food'
-                  })
+                  text: t('common.localfood')
                 }, {
                   icon: 'fas fa-hands-helping',
-                  text: t('Local People', {
-                    defaultValue: 'Local People'
-                  })
+                  text: t('common.localpeople')
                 }, {
                   icon: 'fas fa-landmark',
-                  text: t('Culture', {
-                    defaultValue: 'Culture'
-                  })
+                  text: t('common.culture')
                 }]
               }]).slice(0, 3).map((feature: any, index: number) => <motion.div key={feature.id} className="bg-white p-6 rounded-lg shadow-md text-center flex flex-col items-center relative" initial={{
                 opacity: 0,
@@ -916,9 +850,7 @@ const RealBlockPreview = ({
         return <div className={`${isFullscreen ? 'h-40' : 'h-24'} bg-gray-100 flex items-center justify-center rounded-lg`}>
             <div className="text-gray-500 text-center">
               <div className="font-medium">{block.title}</div>
-              <div className="text-sm">{t('Type:', {
-                defaultValue: 'Type:'
-              })}{block.blockType}</div>
+              <div className="text-sm">{t('common.type')}{block.blockType}</div>
             </div>
           </div>;
     }
@@ -979,12 +911,8 @@ const BlockEditDropdown = ({
         return <div className="space-y-6">
             {/* Titre principal */}
             <div>
-              <Label htmlFor="title">{t('Titre principal', {
-                defaultValue: 'Titre principal'
-              })}</Label>
-              <Textarea id="title" value={formData.title || block.configuration?.title || 'Your exclusive experiences\nin Krabi –\nTHAILAND'} onChange={e => updateField('title', e.target.value)} placeholder={t('Your exclusive experiences\\nin Krabi \u2013\\nTHAILAND', {
-              defaultValue: 'Your exclusive experiences\\nin Krabi \u2013\\nTHAILAND'
-            })} rows={3} className="mt-2" />
+              <Label htmlFor="title">{t('common.titreprincipal')}</Label>
+              <Textarea id="title" value={formData.title || block.configuration?.title || 'Your exclusive experiences\nin Krabi –\nTHAILAND'} onChange={e => updateField('title', e.target.value)} placeholder={t('common.yourexclusiveexperie')} rows={3} className="mt-2" />
               <div className="mt-3">
                 <ColorPicker value={formData.titleColor || '#ffffff'} onChange={value => updateField('titleColor', value)} />
               </div>
@@ -992,15 +920,9 @@ const BlockEditDropdown = ({
             
             {/* Mot du titre en seconde couleur */}
             <div>
-              <Label htmlFor="titleAccentText">{t('Mot du titre en seconde couleur', {
-                defaultValue: 'Mot du titre en seconde couleur'
-              })}</Label>
-              <Input id="titleAccentText" value={formData.titleAccentText || 'in Krabi –'} onChange={e => updateField('titleAccentText', e.target.value)} placeholder={t('in Krabi \u2013', {
-              defaultValue: 'in Krabi \u2013'
-            })} className="mt-2" />
-              <p className="text-xs text-gray-500 mt-1">{t('Tapez exactement les mots du titre que vous voulez colorer', {
-                defaultValue: 'Tapez exactement les mots du titre que vous voulez colorer'
-              })}</p>
+              <Label htmlFor="titleAccentText">{t('common.motdutitreensecondec')}</Label>
+              <Input id="titleAccentText" value={formData.titleAccentText || 'in Krabi –'} onChange={e => updateField('titleAccentText', e.target.value)} placeholder={t('common.inkrabiu2013')} className="mt-2" />
+              <p className="text-xs text-gray-500 mt-1">{t('common.tapezexactementlesmo')}</p>
               <div className="mt-3">
                 <ColorPicker value={formData.titleAccentColor || '#084F6E'} onChange={value => updateField('titleAccentColor', value)} />
               </div>
@@ -1008,12 +930,8 @@ const BlockEditDropdown = ({
 
             {/* Sous-titre */}
             <div>
-              <Label htmlFor="subtitle">{t('Sous-titre', {
-                defaultValue: 'Sous-titre'
-              })}</Label>
-              <Textarea id="subtitle" value={formData.subtitle || block.configuration?.subtitle || 'Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations.'} onChange={e => updateField('subtitle', e.target.value)} placeholder={t('Discover amazing places away from mass tourism in Krabi.\\nAnd also Khao Sok, Koh Mook and many more destinations.', {
-              defaultValue: 'Discover amazing places away from mass tourism in Krabi.\\nAnd also Khao Sok, Koh Mook and many more destinations.'
-            })} rows={3} className="mt-2" />
+              <Label htmlFor="subtitle">{t('common.soustitre')}</Label>
+              <Textarea id="subtitle" value={formData.subtitle || block.configuration?.subtitle || 'Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations.'} onChange={e => updateField('subtitle', e.target.value)} placeholder={t('common.discoveramazingplace')} rows={3} className="mt-2" />
               <div className="mt-3">
                 <ColorPicker value={formData.subtitleColor || '#ffffff'} onChange={value => updateField('subtitleColor', value)} />
               </div>
@@ -1027,66 +945,48 @@ const BlockEditDropdown = ({
                 })}</Label>
                 <Button type="button" variant="outline" size="sm" onClick={() => {
                 const buttons = formData.buttons || [{
-                  text: t('See our offers', {
-                    defaultValue: 'See our offers'
-                  }),
+                  text: t('common.seeouroffers'),
                   url: '/tours',
                   color: '#084F6E',
                   style: 'filled'
                 }, {
-                  text: t('Custom your trip', {
-                    defaultValue: 'Custom your trip'
-                  }),
+                  text: t('common.customyourtrip'),
                   url: '/custom-tour',
                   color: '#084F6E',
                   style: 'filled'
                 }];
                 updateField('buttons', [...buttons, {
-                  text: t('Nouveau bouton', {
-                    defaultValue: 'Nouveau bouton'
-                  }),
+                  text: t('common.nouveaubouton'),
                   url: '#',
                   color: '#084F6E',
                   style: 'filled'
                 }]);
               }}>
-                  <Plus className="h-4 w-4 mr-1" />{t('Ajouter un bouton', {
-                  defaultValue: 'Ajouter un bouton'
-                })}</Button>
+                  <Plus className="h-4 w-4 mr-1" />{t('common.ajouterunbouton')}</Button>
               </div>
               
               <div className="space-y-3">
                 {(formData.buttons || [{
-                text: t('See our offers', {
-                  defaultValue: 'See our offers'
-                }),
+                text: t('common.seeouroffers'),
                 url: '/tours',
                 color: '#084F6E',
                 style: 'filled'
               }, {
-                text: t('Custom your trip', {
-                  defaultValue: 'Custom your trip'
-                }),
+                text: t('common.customyourtrip'),
                 url: '/custom-tour',
                 color: '#084F6E',
                 style: 'filled'
               }]).map((button: any, index: number) => <div key={index} className="border rounded-lg p-4 space-y-3">
                     <div className="flex items-center justify-between">
-                      <Label className="text-sm font-medium">{t('Bouton', {
-                      defaultValue: 'Bouton'
-                    })}{index + 1}</Label>
+                      <Label className="text-sm font-medium">{t('common.bouton')}{index + 1}</Label>
                       <Button type="button" variant="ghost" size="sm" onClick={() => {
                     const buttons = formData.buttons || [{
-                      text: t('See our offers', {
-                        defaultValue: 'See our offers'
-                      }),
+                      text: t('common.seeouroffers'),
                       url: '/tours',
                       color: '#084F6E',
                       style: 'filled'
                     }, {
-                      text: t('Custom your trip', {
-                        defaultValue: 'Custom your trip'
-                      }),
+                      text: t('common.customyourtrip'),
                       url: '/custom-tour',
                       color: '#084F6E',
                       style: 'filled'
@@ -1100,21 +1000,15 @@ const BlockEditDropdown = ({
                   
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <Label className="text-xs">{t('Texte', {
-                        defaultValue: 'Texte'
-                      })}</Label>
+                      <Label className="text-xs">{t('common.texte')}</Label>
                       <Input value={button.text || ''} onChange={e => {
                       const buttons = formData.buttons || [{
-                        text: t('See our offers', {
-                          defaultValue: 'See our offers'
-                        }),
+                        text: t('common.seeouroffers'),
                         url: '/tours',
                         color: '#084F6E',
                         style: 'filled'
                       }, {
-                        text: t('Custom your trip', {
-                          defaultValue: 'Custom your trip'
-                        }),
+                        text: t('common.customyourtrip'),
                         url: '/custom-tour',
                         color: '#084F6E',
                         style: 'filled'
@@ -1127,21 +1021,15 @@ const BlockEditDropdown = ({
                     }} />
                     </div>
                     <div>
-                      <Label className="text-xs">{t('URL', {
-                        defaultValue: 'URL'
-                      })}</Label>
+                      <Label className="text-xs">{t('common.url')}</Label>
                       <Input value={button.url || ''} onChange={e => {
                       const buttons = formData.buttons || [{
-                        text: t('See our offers', {
-                          defaultValue: 'See our offers'
-                        }),
+                        text: t('common.seeouroffers'),
                         url: '/tours',
                         color: '#084F6E',
                         style: 'filled'
                       }, {
-                        text: t('Custom your trip', {
-                          defaultValue: 'Custom your trip'
-                        }),
+                        text: t('common.customyourtrip'),
                         url: '/custom-tour',
                         color: '#084F6E',
                         style: 'filled'
@@ -1157,21 +1045,15 @@ const BlockEditDropdown = ({
                   
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <Label className="text-xs">{t('Couleur', {
-                        defaultValue: 'Couleur'
-                      })}</Label>
+                      <Label className="text-xs">{t('common.couleur')}</Label>
                       <ColorPicker value={button.color || '#084F6E'} onChange={value => {
                       const buttons = formData.buttons || [{
-                        text: t('See our offers', {
-                          defaultValue: 'See our offers'
-                        }),
+                        text: t('common.seeouroffers'),
                         url: '/tours',
                         color: '#084F6E',
                         style: 'filled'
                       }, {
-                        text: t('Custom your trip', {
-                          defaultValue: 'Custom your trip'
-                        }),
+                        text: t('common.customyourtrip'),
                         url: '/custom-tour',
                         color: '#084F6E',
                         style: 'filled'
@@ -1188,16 +1070,12 @@ const BlockEditDropdown = ({
                       <Label className="text-xs">Style</Label>
                       <Select value={button.style || 'filled'} onValueChange={value => {
                       const buttons = formData.buttons || [{
-                        text: t('See our offers', {
-                          defaultValue: 'See our offers'
-                        }),
+                        text: t('common.seeouroffers'),
                         url: '/tours',
                         color: '#084F6E',
                         style: 'filled'
                       }, {
-                        text: t('Custom your trip', {
-                          defaultValue: 'Custom your trip'
-                        }),
+                        text: t('common.customyourtrip'),
                         url: '/custom-tour',
                         color: '#084F6E',
                         style: 'filled'
@@ -1212,12 +1090,8 @@ const BlockEditDropdown = ({
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="filled">{t('Plein', {
-                            defaultValue: 'Plein'
-                          })}</SelectItem>
-                          <SelectItem value="outline">{t('Contour', {
-                            defaultValue: 'Contour'
-                          })}</SelectItem>
+                          <SelectItem value="filled">{t('common.plein')}</SelectItem>
+                          <SelectItem value="outline">{t('common.contour')}</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -1228,21 +1102,15 @@ const BlockEditDropdown = ({
 
             {/* Alignement du contenu */}
             <div>
-              <Label>{t('Alignement du contenu', {
-                defaultValue: 'Alignement du contenu'
-              })}</Label>
+              <Label>{t('common.alignementducontenu')}</Label>
               <div className="mt-3">
                 <Select value={formData.contentAlignment || 'left'} onValueChange={value => updateField('contentAlignment', value)}>
                   <SelectTrigger>
-                    <SelectValue placeholder={t('Alignement', {
-                    defaultValue: 'Alignement'
-                  })} />
+                    <SelectValue placeholder={t('common.alignement')} />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="left">À gauche</SelectItem>
-                    <SelectItem value="center">{t('Au centre', {
-                      defaultValue: 'Au centre'
-                    })}</SelectItem>
+                    <SelectItem value="center">{t('common.aucentre')}</SelectItem>
                     <SelectItem value="right">À droite</SelectItem>
                   </SelectContent>
                 </Select>
@@ -1251,9 +1119,7 @@ const BlockEditDropdown = ({
 
             {/* Arrière-plan */}
             <div>
-              <Label>{t('Arri\xE8re-plan', {
-                defaultValue: 'Arri\xE8re-plan'
-              })}</Label>
+              <Label>{t('common.arrixe8replan')}</Label>
               <div className="mt-3">
                 <Select value={formData.backgroundType || 'video'} onValueChange={value => updateField('backgroundType', value)}>
                   <SelectTrigger>
@@ -1262,23 +1128,15 @@ const BlockEditDropdown = ({
                   })} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="video">{t('Vid\xE9o', {
-                      defaultValue: 'Vid\xE9o'
-                    })}</SelectItem>
-                    <SelectItem value="images">{t('Images en rotation', {
-                      defaultValue: 'Images en rotation'
-                    })}</SelectItem>
-                    <SelectItem value="color">{t('Couleur unie', {
-                      defaultValue: 'Couleur unie'
-                    })}</SelectItem>
+                    <SelectItem value="video">{t('common.vidxe9o')}</SelectItem>
+                    <SelectItem value="images">{t('common.imagesenrotation')}</SelectItem>
+                    <SelectItem value="color">{t('common.couleurunie')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               
               {formData.backgroundType === 'color' && <div>
-                  <Label htmlFor="backgroundColor">{t('Couleur de fond', {
-                  defaultValue: 'Couleur de fond'
-                })}</Label>
+                  <Label htmlFor="backgroundColor">{t('common.couleurdefond')}</Label>
                   <div className="flex gap-2">
                     <input type="color" id="backgroundColor" value={formData.backgroundColor || '#084F6E'} onChange={e => updateField('backgroundColor', e.target.value)} className="w-10 h-10 rounded cursor-pointer" style={{
                   border: 'none',
@@ -1289,9 +1147,7 @@ const BlockEditDropdown = ({
                 </div>}
               
               {formData.backgroundType === 'video' && <div>
-                  <Label htmlFor="videoUrl">{t('URL de la vid\xE9o', {
-                  defaultValue: 'URL de la vid\xE9o'
-                })}</Label>
+                  <Label htmlFor="videoUrl">{t('common.urldelavidxe9o')}</Label>
                   <div className="flex gap-2">
                     <Input id="videoUrl" value={formData.videoUrl || '/attached_assets/hero-video-optimized.mp4'} onChange={e => updateField('videoUrl', e.target.value)} placeholder="/attached_assets/hero-video-optimized.mp4" className="flex-1" />
                     <Button type="button" variant="outline" size="icon" className="shrink-0" onClick={() => {
@@ -1313,9 +1169,7 @@ const BlockEditDropdown = ({
                 </div>}
               
               {formData.backgroundType === 'images' && <div className="space-y-3">
-                  <Label>{t('URLs des images (3 maximum)', {
-                  defaultValue: 'URLs des images (3 maximum)'
-                })}</Label>
+                  <Label>{t('common.urlsdesimages3maximu')}</Label>
                   
                   <div className="flex gap-2">
                     <Input value={formData.backgroundImage1 || ''} onChange={e => updateField('backgroundImage1', e.target.value)} placeholder={t('URL de l\'image 1', {
@@ -1386,12 +1240,8 @@ const BlockEditDropdown = ({
         return <div className="space-y-6">
             {/* Titre */}
             <div>
-              <Label htmlFor="title">{t('Titre', {
-                defaultValue: 'Titre'
-              })}</Label>
-              <Input id="title" value={formData.title || block.configuration?.title || 'Titre de la section'} onChange={e => updateField('title', e.target.value)} placeholder={t('Titre de la section', {
-              defaultValue: 'Titre de la section'
-            })} className="mt-2" />
+              <Label htmlFor="title">{t('common.titre')}</Label>
+              <Input id="title" value={formData.title || block.configuration?.title || 'Titre de la section'} onChange={e => updateField('title', e.target.value)} placeholder={t('common.titredelasection')} className="mt-2" />
               <div className="mt-3">
                 <ColorPicker value={formData.titleColor || '#333333'} onChange={value => updateField('titleColor', value)} />
               </div>
@@ -1399,12 +1249,8 @@ const BlockEditDropdown = ({
             
             {/* Contenu */}
             <div>
-              <Label htmlFor="content">{t('Contenu', {
-                defaultValue: 'Contenu'
-              })}</Label>
-              <Textarea id="content" value={formData.content || block.configuration?.content || 'Contenu du texte de cette section. Vous pouvez modifier ce texte dans l\'éditeur.'} onChange={e => updateField('content', e.target.value)} placeholder={t('Contenu du texte de cette section...', {
-              defaultValue: 'Contenu du texte de cette section...'
-            })} rows={4} className="mt-2" />
+              <Label htmlFor="content">{t('common.contenu')}</Label>
+              <Textarea id="content" value={formData.content || block.configuration?.content || 'Contenu du texte de cette section. Vous pouvez modifier ce texte dans l\'éditeur.'} onChange={e => updateField('content', e.target.value)} placeholder={t('common.contenudutextedecett')} rows={4} className="mt-2" />
               <div className="mt-3">
                 <ColorPicker value={formData.contentColor || '#666666'} onChange={value => updateField('contentColor', value)} />
               </div>
@@ -1412,9 +1258,7 @@ const BlockEditDropdown = ({
 
             {/* Tiret */}
             <div>
-              <Label htmlFor="divider">{t('Tiret', {
-                defaultValue: 'Tiret'
-              })}</Label>
+              <Label htmlFor="divider">{t('common.tiret')}</Label>
               <div className="mt-3">
                 <ColorPicker value={formData.dividerColor || '#3BA8AF'} onChange={value => updateField('dividerColor', value)} />
               </div>
@@ -1424,12 +1268,8 @@ const BlockEditDropdown = ({
         return <div className="space-y-6">
             {/* Titre */}
             <div>
-              <Label htmlFor="title">{t('Titre', {
-                defaultValue: 'Titre'
-              })}</Label>
-              <Input id="title" value={formData.title || block.configuration?.title || ''} onChange={e => updateField('title', e.target.value)} placeholder={t('When expats welcome you...', {
-              defaultValue: 'When expats welcome you...'
-            })} className="mt-2" />
+              <Label htmlFor="title">{t('common.titre')}</Label>
+              <Input id="title" value={formData.title || block.configuration?.title || ''} onChange={e => updateField('title', e.target.value)} placeholder={t('common.whenexpatswelcomeyou')} className="mt-2" />
               <div className="mt-3">
                 <ColorPicker value={formData.titleColor || '#333333'} onChange={value => updateField('titleColor', value)} />
               </div>
@@ -1437,12 +1277,8 @@ const BlockEditDropdown = ({
             
             {/* Contenu */}
             <div>
-              <Label htmlFor="content">{t('Contenu', {
-                defaultValue: 'Contenu'
-              })}</Label>
-              <Textarea id="content" value={formData.content || block.configuration?.content || ''} onChange={e => updateField('content', e.target.value)} placeholder={t('Contenu de la section...', {
-              defaultValue: 'Contenu de la section...'
-            })} rows={4} className="mt-2" />
+              <Label htmlFor="content">{t('common.contenu')}</Label>
+              <Textarea id="content" value={formData.content || block.configuration?.content || ''} onChange={e => updateField('content', e.target.value)} placeholder={t('common.contenudelasection')} rows={4} className="mt-2" />
               <div className="mt-3">
                 <ColorPicker value={formData.contentColor || '#666666'} onChange={value => updateField('contentColor', value)} />
               </div>
@@ -1450,9 +1286,7 @@ const BlockEditDropdown = ({
 
             {/* Tiret */}
             <div>
-              <Label htmlFor="divider">{t('Tiret', {
-                defaultValue: 'Tiret'
-              })}</Label>
+              <Label htmlFor="divider">{t('common.tiret')}</Label>
               <div className="mt-3">
                 <ColorPicker value={formData.dividerColor || '#3BA8AF'} onChange={value => updateField('dividerColor', value)} />
               </div>
@@ -1462,12 +1296,8 @@ const BlockEditDropdown = ({
         return <div className="space-y-6">
             {/* Titre */}
             <div>
-              <Label htmlFor="title">{t('Titre', {
-                defaultValue: 'Titre'
-              })}</Label>
-              <Input id="title" value={formData.title || block.configuration?.title || 'Our Popular Experiences'} onChange={e => updateField('title', e.target.value)} placeholder={t('Our Popular Experiences', {
-              defaultValue: 'Our Popular Experiences'
-            })} className="mt-2" />
+              <Label htmlFor="title">{t('common.titre')}</Label>
+              <Input id="title" value={formData.title || block.configuration?.title || 'Our Popular Experiences'} onChange={e => updateField('title', e.target.value)} placeholder={t('common.ourpopularexperience')} className="mt-2" />
               <div className="mt-3">
                 <ColorPicker value={formData.titleColor || '#333333'} onChange={value => updateField('titleColor', value)} />
               </div>
@@ -1475,12 +1305,8 @@ const BlockEditDropdown = ({
             
             {/* Sous-titre */}
             <div>
-              <Label htmlFor="subtitle">{t('Sous-titre', {
-                defaultValue: 'Sous-titre'
-              })}</Label>
-              <Input id="subtitle" value={formData.subtitle || block.configuration?.subtitle || 'Step off the beaten path into carefully curated experiences beyond the tourist trail.'} onChange={e => updateField('subtitle', e.target.value)} placeholder={t('Step off the beaten path...', {
-              defaultValue: 'Step off the beaten path...'
-            })} className="mt-2" />
+              <Label htmlFor="subtitle">{t('common.soustitre')}</Label>
+              <Input id="subtitle" value={formData.subtitle || block.configuration?.subtitle || 'Step off the beaten path into carefully curated experiences beyond the tourist trail.'} onChange={e => updateField('subtitle', e.target.value)} placeholder={t('common.stepoffthebeatenpath')} className="mt-2" />
               <div className="mt-3">
                 <ColorPicker value={formData.subtitleColor || '#666666'} onChange={value => updateField('subtitleColor', value)} />
               </div>
@@ -1488,9 +1314,7 @@ const BlockEditDropdown = ({
 
             {/* Tiret */}
             <div>
-              <Label htmlFor="divider">{t('Tiret', {
-                defaultValue: 'Tiret'
-              })}</Label>
+              <Label htmlFor="divider">{t('common.tiret')}</Label>
               <div className="mt-3">
                 <ColorPicker value={formData.dividerColor || '#3BA8AF'} onChange={value => updateField('dividerColor', value)} />
               </div>
@@ -1498,20 +1322,14 @@ const BlockEditDropdown = ({
 
             {/* Configuration de la grille */}
             <div className="space-y-4 border-t pt-4">
-              <h4 className="text-sm font-medium text-gray-900">{t('Configuration de la grille', {
-                defaultValue: 'Configuration de la grille'
-              })}</h4>
+              <h4 className="text-sm font-medium text-gray-900">{t('common.configurationdelagri')}</h4>
               
               {/* Colonnes */}
               <div>
-                <Label className="text-sm font-medium">{t('Colonnes par appareil', {
-                  defaultValue: 'Colonnes par appareil'
-                })}</Label>
+                <Label className="text-sm font-medium">{t('common.colonnesparappareil')}</Label>
                 <div className="grid grid-cols-3 gap-4 mt-2">
                   <div>
-                    <Label className="text-xs text-gray-500">{t('Mobile', {
-                      defaultValue: 'Mobile'
-                    })}</Label>
+                    <Label className="text-xs text-gray-500">{t('common.mobile')}</Label>
                     <Select value={String(formData.mobileColumns || 1)} onValueChange={value => updateField('mobileColumns', parseInt(value))}>
                       <SelectTrigger>
                         <SelectValue />
@@ -1523,9 +1341,7 @@ const BlockEditDropdown = ({
                     </Select>
                   </div>
                   <div>
-                    <Label className="text-xs text-gray-500">{t('Tablette', {
-                      defaultValue: 'Tablette'
-                    })}</Label>
+                    <Label className="text-xs text-gray-500">{t('common.tablette')}</Label>
                     <Select value={String(formData.tabletColumns || 2)} onValueChange={value => updateField('tabletColumns', parseInt(value))}>
                       <SelectTrigger>
                         <SelectValue />
@@ -1538,9 +1354,7 @@ const BlockEditDropdown = ({
                     </Select>
                   </div>
                   <div>
-                    <Label className="text-xs text-gray-500">{t('Ordinateur', {
-                      defaultValue: 'Ordinateur'
-                    })}</Label>
+                    <Label className="text-xs text-gray-500">{t('common.ordinateur')}</Label>
                     <Select value={String(formData.desktopColumns || 3)} onValueChange={value => updateField('desktopColumns', parseInt(value))}>
                       <SelectTrigger>
                         <SelectValue />
@@ -1563,21 +1377,15 @@ const BlockEditDropdown = ({
                 })}</Label>
                 <div className="grid grid-cols-3 gap-4 mt-2">
                   <div>
-                    <Label className="text-xs text-gray-500">{t('Mobile', {
-                      defaultValue: 'Mobile'
-                    })}</Label>
+                    <Label className="text-xs text-gray-500">{t('common.mobile')}</Label>
                     <Input type="number" min="1" max="50" value={formData.showAllAds ? 19 : formData.displayCountMobile || 4} onChange={e => updateField('displayCountMobile', parseInt(e.target.value) || 4)} disabled={formData.showAllAds} className={formData.showAllAds ? 'bg-gray-100' : ''} />
                   </div>
                   <div>
-                    <Label className="text-xs text-gray-500">{t('Tablette', {
-                      defaultValue: 'Tablette'
-                    })}</Label>
+                    <Label className="text-xs text-gray-500">{t('common.tablette')}</Label>
                     <Input type="number" min="1" max="50" value={formData.showAllAds ? 19 : formData.displayCountTablet || 6} onChange={e => updateField('displayCountTablet', parseInt(e.target.value) || 6)} disabled={formData.showAllAds} className={formData.showAllAds ? 'bg-gray-100' : ''} />
                   </div>
                   <div>
-                    <Label className="text-xs text-gray-500">{t('Ordinateur', {
-                      defaultValue: 'Ordinateur'
-                    })}</Label>
+                    <Label className="text-xs text-gray-500">{t('common.ordinateur')}</Label>
                     <Input type="number" min="1" max="50" value={formData.showAllAds ? 19 : formData.displayCountDesktop || 6} onChange={e => updateField('displayCountDesktop', parseInt(e.target.value) || 6)} disabled={formData.showAllAds} className={formData.showAllAds ? 'bg-gray-100' : ''} />
                   </div>
                 </div>
@@ -1601,9 +1409,7 @@ const BlockEditDropdown = ({
                     onPreviewUpdate(newFormData);
                   }
                 }} />
-                  <Label htmlFor="show_all_ads" className="text-sm">{t('Toutes les annonces disponibles', {
-                    defaultValue: 'Toutes les annonces disponibles'
-                  })}</Label>
+                  <Label htmlFor="show_all_ads" className="text-sm">{t('common.touteslesannoncesdis')}</Label>
                 </div>
               </div>
 
@@ -1616,21 +1422,13 @@ const BlockEditDropdown = ({
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">{t('Toutes les annonces', {
-                      defaultValue: 'Toutes les annonces'
-                    })}</SelectItem>
-                    <SelectItem value="featured">{t('Annonces vedettes', {
-                      defaultValue: 'Annonces vedettes'
-                    })}</SelectItem>
+                    <SelectItem value="all">{t('common.touteslesannonces')}</SelectItem>
+                    <SelectItem value="featured">{t('common.annoncesvedettes')}</SelectItem>
                     <SelectItem value="day_trips">{t('Excursions d\'une journ\xE9e', {
                       defaultValue: 'Excursions d\'une journ\xE9e'
                     })}</SelectItem>
-                    <SelectItem value="multi_day">{t('S\xE9jours multi-jours', {
-                      defaultValue: 'S\xE9jours multi-jours'
-                    })}</SelectItem>
-                    <SelectItem value="custom">{t('Personnalis\xE9 (manuelle)', {
-                      defaultValue: 'Personnalis\xE9 (manuelle)'
-                    })}</SelectItem>
+                    <SelectItem value="multi_day">{t('common.sxe9joursmultijours')}</SelectItem>
+                    <SelectItem value="custom">{t('common.personnalisxe9manuel')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -1644,45 +1442,33 @@ const BlockEditDropdown = ({
                 })}</Label>
                 <Button type="button" variant="outline" size="sm" onClick={() => {
                 const buttons = formData.buttons || [{
-                  text: t('View All Our Tours', {
-                    defaultValue: 'View All Our Tours'
-                  }),
+                  text: t('common.viewallourtours'),
                   url: '/tours',
                   color: '#084F6E',
                   style: 'filled'
                 }];
                 updateField('buttons', [...buttons, {
-                  text: t('Nouveau bouton', {
-                    defaultValue: 'Nouveau bouton'
-                  }),
+                  text: t('common.nouveaubouton'),
                   url: '#',
                   color: '#084F6E',
                   style: 'filled'
                 }]);
               }}>
-                  <Plus className="h-4 w-4 mr-1" />{t('Ajouter un bouton', {
-                  defaultValue: 'Ajouter un bouton'
-                })}</Button>
+                  <Plus className="h-4 w-4 mr-1" />{t('common.ajouterunbouton')}</Button>
               </div>
               
               <div className="space-y-3">
                 {(formData.buttons || [{
-                text: t('View All Our Tours', {
-                  defaultValue: 'View All Our Tours'
-                }),
+                text: t('common.viewallourtours'),
                 url: '/tours',
                 color: '#084F6E',
                 style: 'filled'
               }]).map((button: any, index: number) => <div key={index} className="border rounded-lg p-4 space-y-3">
                     <div className="flex items-center justify-between">
-                      <Label className="text-sm font-medium">{t('Bouton', {
-                      defaultValue: 'Bouton'
-                    })}{index + 1}</Label>
+                      <Label className="text-sm font-medium">{t('common.bouton')}{index + 1}</Label>
                       <Button type="button" variant="ghost" size="sm" onClick={() => {
                     const buttons = formData.buttons || [{
-                      text: t('View All Our Tours', {
-                        defaultValue: 'View All Our Tours'
-                      }),
+                      text: t('common.viewallourtours'),
                       url: '/tours',
                       color: '#084F6E',
                       style: 'filled'
@@ -1696,14 +1482,10 @@ const BlockEditDropdown = ({
                   
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <Label className="text-xs">{t('Texte', {
-                        defaultValue: 'Texte'
-                      })}</Label>
+                      <Label className="text-xs">{t('common.texte')}</Label>
                       <Input value={button.text || ''} onChange={e => {
                       const buttons = formData.buttons || [{
-                        text: t('View All Our Tours', {
-                          defaultValue: 'View All Our Tours'
-                        }),
+                        text: t('common.viewallourtours'),
                         url: '/tours',
                         color: '#084F6E',
                         style: 'filled'
@@ -1717,14 +1499,10 @@ const BlockEditDropdown = ({
                     }} className="h-10" />
                     </div>
                     <div>
-                      <Label className="text-xs">{t('URL', {
-                        defaultValue: 'URL'
-                      })}</Label>
+                      <Label className="text-xs">{t('common.url')}</Label>
                       <Input value={button.url || ''} onChange={e => {
                       const buttons = formData.buttons || [{
-                        text: t('View All Our Tours', {
-                          defaultValue: 'View All Our Tours'
-                        }),
+                        text: t('common.viewallourtours'),
                         url: '/tours',
                         color: '#084F6E',
                         style: 'filled'
@@ -1741,14 +1519,10 @@ const BlockEditDropdown = ({
                   
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <Label className="text-xs">{t('Couleur', {
-                        defaultValue: 'Couleur'
-                      })}</Label>
+                      <Label className="text-xs">{t('common.couleur')}</Label>
                       <ColorPicker value={button.color || '#084F6E'} onChange={value => {
                       const buttons = formData.buttons || [{
-                        text: t('View All Our Tours', {
-                          defaultValue: 'View All Our Tours'
-                        }),
+                        text: t('common.viewallourtours'),
                         url: '/tours',
                         color: '#084F6E',
                         style: 'filled'
@@ -1765,9 +1539,7 @@ const BlockEditDropdown = ({
                       <Label className="text-xs">Style</Label>
                       <Select value={button.style || 'filled'} onValueChange={value => {
                       const buttons = formData.buttons || [{
-                        text: t('View All Our Tours', {
-                          defaultValue: 'View All Our Tours'
-                        }),
+                        text: t('common.viewallourtours'),
                         url: '/tours',
                         color: '#084F6E',
                         style: 'filled'
@@ -1783,12 +1555,8 @@ const BlockEditDropdown = ({
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="filled">{t('Plein', {
-                            defaultValue: 'Plein'
-                          })}</SelectItem>
-                          <SelectItem value="outline">{t('Contour', {
-                            defaultValue: 'Contour'
-                          })}</SelectItem>
+                          <SelectItem value="filled">{t('common.plein')}</SelectItem>
+                          <SelectItem value="outline">{t('common.contour')}</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -1801,12 +1569,8 @@ const BlockEditDropdown = ({
         return <div className="space-y-6">
             {/* Titre */}
             <div>
-              <Label htmlFor="title">{t('Titre', {
-                defaultValue: 'Titre'
-              })}</Label>
-              <Input id="title" value={formData.title || 'Some Ideas For Your Next Trip'} onChange={e => updateField('title', e.target.value)} placeholder={t('Some Ideas For Your Next Trip', {
-              defaultValue: 'Some Ideas For Your Next Trip'
-            })} className="mt-2" />
+              <Label htmlFor="title">{t('common.titre')}</Label>
+              <Input id="title" value={formData.title || 'Some Ideas For Your Next Trip'} onChange={e => updateField('title', e.target.value)} placeholder={t('common.someideasforyournext')} className="mt-2" />
               <div className="mt-3">
                 <ColorPicker value={formData.titleColor || '#333333'} onChange={value => updateField('titleColor', value)} />
               </div>
@@ -1814,12 +1578,8 @@ const BlockEditDropdown = ({
             
             {/* Sous-titre */}
             <div>
-              <Label htmlFor="subtitle">{t('Sous-titre', {
-                defaultValue: 'Sous-titre'
-              })}</Label>
-              <Input id="subtitle" value={formData.subtitle || 'Get inspired by our custom-designed travel experiences.'} onChange={e => updateField('subtitle', e.target.value)} placeholder={t('Get inspired by our custom-designed travel experiences.', {
-              defaultValue: 'Get inspired by our custom-designed travel experiences.'
-            })} className="mt-2" />
+              <Label htmlFor="subtitle">{t('common.soustitre')}</Label>
+              <Input id="subtitle" value={formData.subtitle || 'Get inspired by our custom-designed travel experiences.'} onChange={e => updateField('subtitle', e.target.value)} placeholder={t('common.getinspiredbyourcust')} className="mt-2" />
               <div className="mt-3">
                 <ColorPicker value={formData.subtitleColor || '#666666'} onChange={value => updateField('subtitleColor', value)} />
               </div>
@@ -1827,9 +1587,7 @@ const BlockEditDropdown = ({
 
             {/* Tiret */}
             <div>
-              <Label htmlFor="divider">{t('Tiret', {
-                defaultValue: 'Tiret'
-              })}</Label>
+              <Label htmlFor="divider">{t('common.tiret')}</Label>
               <div className="mt-3">
                 <ColorPicker value={formData.dividerColor || '#3BA8AF'} onChange={value => updateField('dividerColor', value)} />
               </div>
@@ -1837,20 +1595,14 @@ const BlockEditDropdown = ({
 
             {/* Configuration de la grille */}
             <div className="space-y-4 border-t pt-4">
-              <h4 className="text-sm font-medium text-gray-900">{t('Configuration de la grille', {
-                defaultValue: 'Configuration de la grille'
-              })}</h4>
+              <h4 className="text-sm font-medium text-gray-900">{t('common.configurationdelagri')}</h4>
               
               {/* Colonnes */}
               <div>
-                <Label className="text-sm font-medium">{t('Colonnes par appareil', {
-                  defaultValue: 'Colonnes par appareil'
-                })}</Label>
+                <Label className="text-sm font-medium">{t('common.colonnesparappareil')}</Label>
                 <div className="grid grid-cols-3 gap-4 mt-2">
                   <div>
-                    <Label className="text-xs text-gray-500">{t('Mobile', {
-                      defaultValue: 'Mobile'
-                    })}</Label>
+                    <Label className="text-xs text-gray-500">{t('common.mobile')}</Label>
                     <Select value={String(formData.mobileColumns || 1)} onValueChange={value => updateField('mobileColumns', parseInt(value))}>
                       <SelectTrigger>
                         <SelectValue />
@@ -1862,9 +1614,7 @@ const BlockEditDropdown = ({
                     </Select>
                   </div>
                   <div>
-                    <Label className="text-xs text-gray-500">{t('Tablette', {
-                      defaultValue: 'Tablette'
-                    })}</Label>
+                    <Label className="text-xs text-gray-500">{t('common.tablette')}</Label>
                     <Select value={String(formData.tabletColumns || 2)} onValueChange={value => updateField('tabletColumns', parseInt(value))}>
                       <SelectTrigger>
                         <SelectValue />
@@ -1877,9 +1627,7 @@ const BlockEditDropdown = ({
                     </Select>
                   </div>
                   <div>
-                    <Label className="text-xs text-gray-500">{t('Ordinateur', {
-                      defaultValue: 'Ordinateur'
-                    })}</Label>
+                    <Label className="text-xs text-gray-500">{t('common.ordinateur')}</Label>
                     <Select value={String(formData.desktopColumns || 3)} onValueChange={value => updateField('desktopColumns', parseInt(value))}>
                       <SelectTrigger>
                         <SelectValue />
@@ -1902,21 +1650,15 @@ const BlockEditDropdown = ({
                 })}</Label>
                 <div className="grid grid-cols-3 gap-4 mt-2">
                   <div>
-                    <Label className="text-xs text-gray-500">{t('Mobile', {
-                      defaultValue: 'Mobile'
-                    })}</Label>
+                    <Label className="text-xs text-gray-500">{t('common.mobile')}</Label>
                     <Input type="number" min="1" max="50" value={formData.showAllAds ? 19 : formData.displayCountMobile || 4} onChange={e => updateField('displayCountMobile', parseInt(e.target.value) || 4)} disabled={formData.showAllAds} className={formData.showAllAds ? 'bg-gray-100' : ''} />
                   </div>
                   <div>
-                    <Label className="text-xs text-gray-500">{t('Tablette', {
-                      defaultValue: 'Tablette'
-                    })}</Label>
+                    <Label className="text-xs text-gray-500">{t('common.tablette')}</Label>
                     <Input type="number" min="1" max="50" value={formData.showAllAds ? 19 : formData.displayCountTablet || 6} onChange={e => updateField('displayCountTablet', parseInt(e.target.value) || 6)} disabled={formData.showAllAds} className={formData.showAllAds ? 'bg-gray-100' : ''} />
                   </div>
                   <div>
-                    <Label className="text-xs text-gray-500">{t('Ordinateur', {
-                      defaultValue: 'Ordinateur'
-                    })}</Label>
+                    <Label className="text-xs text-gray-500">{t('common.ordinateur')}</Label>
                     <Input type="number" min="1" max="50" value={formData.showAllAds ? 19 : formData.displayCountDesktop || 6} onChange={e => updateField('displayCountDesktop', parseInt(e.target.value) || 6)} disabled={formData.showAllAds} className={formData.showAllAds ? 'bg-gray-100' : ''} />
                   </div>
                 </div>
@@ -1940,9 +1682,7 @@ const BlockEditDropdown = ({
                     onPreviewUpdate(newFormData);
                   }
                 }} />
-                  <Label htmlFor="show_all_ads_price" className="text-sm">{t('Toutes les annonces disponibles', {
-                    defaultValue: 'Toutes les annonces disponibles'
-                  })}</Label>
+                  <Label htmlFor="show_all_ads_price" className="text-sm">{t('common.touteslesannoncesdis')}</Label>
                 </div>
               </div>
 
@@ -1955,21 +1695,13 @@ const BlockEditDropdown = ({
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">{t('Toutes les annonces', {
-                      defaultValue: 'Toutes les annonces'
-                    })}</SelectItem>
-                    <SelectItem value="featured">{t('Annonces vedettes', {
-                      defaultValue: 'Annonces vedettes'
-                    })}</SelectItem>
+                    <SelectItem value="all">{t('common.touteslesannonces')}</SelectItem>
+                    <SelectItem value="featured">{t('common.annoncesvedettes')}</SelectItem>
                     <SelectItem value="day_trips">{t('Excursions d\'une journ\xE9e', {
                       defaultValue: 'Excursions d\'une journ\xE9e'
                     })}</SelectItem>
-                    <SelectItem value="multi_day">{t('S\xE9jours multi-jours', {
-                      defaultValue: 'S\xE9jours multi-jours'
-                    })}</SelectItem>
-                    <SelectItem value="custom">{t('Personnalis\xE9 (manuelle)', {
-                      defaultValue: 'Personnalis\xE9 (manuelle)'
-                    })}</SelectItem>
+                    <SelectItem value="multi_day">{t('common.sxe9joursmultijours')}</SelectItem>
+                    <SelectItem value="custom">{t('common.personnalisxe9manuel')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -1981,9 +1713,7 @@ const BlockEditDropdown = ({
             {/* Configuration des couleurs */}
             <div className="space-y-4">
               <div>
-                <Label htmlFor="title">{t('Titre', {
-                  defaultValue: 'Titre'
-                })}</Label>
+                <Label htmlFor="title">{t('common.titre')}</Label>
                 <Input id="title" value={formData.title || 'Why Choose Us'} onChange={e => updateField('title', e.target.value)} className="mt-2" />
                 <div className="mt-3">
                   <ColorPicker value={formData.titleColor || '#333333'} onChange={value => updateField('titleColor', value)} />
@@ -1991,21 +1721,15 @@ const BlockEditDropdown = ({
               </div>
               
               <div>
-                <Label htmlFor="subtitle">{t('Sous-titre', {
-                  defaultValue: 'Sous-titre'
-                })}</Label>
-                <Input id="subtitle" placeholder={t('Experience an exclusive private day trip with our English or French-speaking and certified guides.', {
-                defaultValue: 'Experience an exclusive private day trip with our English or French-speaking and certified guides.'
-              })} value={formData.subtitle || ''} onChange={e => updateField('subtitle', e.target.value)} className="mt-2" />
+                <Label htmlFor="subtitle">{t('common.soustitre')}</Label>
+                <Input id="subtitle" placeholder={t('common.experienceanexclusiv')} value={formData.subtitle || ''} onChange={e => updateField('subtitle', e.target.value)} className="mt-2" />
                 <div className="mt-3">
                   <ColorPicker value={formData.subtitleColor || '#666666'} onChange={value => updateField('subtitleColor', value)} />
                 </div>
               </div>
               
               <div>
-                <Label htmlFor="divider">{t('Tiret', {
-                  defaultValue: 'Tiret'
-                })}</Label>
+                <Label htmlFor="divider">{t('common.tiret')}</Label>
                 <div className="mt-3">
                   <ColorPicker value={formData.dividerColor || '#3BA8AF'} onChange={value => updateField('dividerColor', value)} />
                 </div>
@@ -2025,34 +1749,24 @@ const BlockEditDropdown = ({
                     const newBlock = {
                       id: Date.now(),
                       mainIcon: 'fas fa-sparkles',
-                      title: t('Nouveau Bloc', {
-                        defaultValue: 'Nouveau Bloc'
-                      }),
+                      title: t('common.nouveaubloc'),
                       description: t('Description de ce bloc d\'avantages.', {
                         defaultValue: 'Description de ce bloc d\'avantages.'
                       }),
                       miniIcons: [{
                         icon: 'fas fa-check',
-                        text: t('Avantage 1', {
-                          defaultValue: 'Avantage 1'
-                        })
+                        text: t('common.avantage1')
                       }, {
                         icon: 'fas fa-check',
-                        text: t('Avantage 2', {
-                          defaultValue: 'Avantage 2'
-                        })
+                        text: t('common.avantage2')
                       }, {
                         icon: 'fas fa-check',
-                        text: t('Avantage 3', {
-                          defaultValue: 'Avantage 3'
-                        })
+                        text: t('common.avantage3')
                       }]
                     };
                     updateField('iconBlocks', [...blocks, newBlock]);
                   }
-                }} className={`px-3 py-1 rounded text-sm ${formData.iconBlocks?.length >= 3 ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-blue-500 text-white hover:bg-blue-600'}`} disabled={formData.iconBlocks?.length >= 3}>{t('+ Ajouter', {
-                    defaultValue: '+ Ajouter'
-                  })}</button>
+                }} className={`px-3 py-1 rounded text-sm ${formData.iconBlocks?.length >= 3 ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-blue-500 text-white hover:bg-blue-600'}`} disabled={formData.iconBlocks?.length >= 3}>{t('common.ajouter')}</button>
                 </div>
               </div>
               
@@ -2061,77 +1775,47 @@ const BlockEditDropdown = ({
                 const getDefaultBlocks = () => [{
                   id: 1,
                   mainIcon: 'fas fa-user-friends',
-                  title: t('Private Tours', {
-                    defaultValue: 'Private Tours'
-                  }),
-                  description: t('Experience an exclusive day trip with our professional guides and private vehicles.', {
-                    defaultValue: 'Experience an exclusive day trip with our professional guides and private vehicles.'
-                  }),
+                  title: t('common.privatetours'),
+                  description: t('common.experienceanexclusiv'),
                   miniIcons: [{
                     icon: 'fas fa-car',
-                    text: t('Private Car', {
-                      defaultValue: 'Private Car'
-                    })
+                    text: t('common.privatecar')
                   }, {
                     icon: 'fas fa-language',
-                    text: t('Guide', {
-                      defaultValue: 'Guide'
-                    })
+                    text: t('common.guide')
                   }, {
                     icon: 'fas fa-shield-alt',
-                    text: t('Safety', {
-                      defaultValue: 'Safety'
-                    })
+                    text: t('common.safety')
                   }]
                 }, {
                   id: 2,
                   mainIcon: 'fas fa-compass',
-                  title: t('Customized Itineraries', {
-                    defaultValue: 'Customized Itineraries'
-                  }),
-                  description: t('Create your own journey based on your desires, your pace, and your interests.', {
-                    defaultValue: 'Create your own journey based on your desires, your pace, and your interests.'
-                  }),
+                  title: t('common.customizeditinerarie'),
+                  description: t('common.createyourownjourney'),
                   miniIcons: [{
                     icon: 'fas fa-map-marked-alt',
-                    text: t('Custom Route', {
-                      defaultValue: 'Custom Route'
-                    })
+                    text: t('common.customroute')
                   }, {
                     icon: 'fas fa-clock',
-                    text: t('Flexible Time', {
-                      defaultValue: 'Flexible Time'
-                    })
+                    text: t('common.flexibletime')
                   }, {
                     icon: 'fas fa-list-check',
-                    text: t('Your Pace', {
-                      defaultValue: 'Your Pace'
-                    })
+                    text: t('common.yourpace')
                   }]
                 }, {
                   id: 3,
                   mainIcon: 'fas fa-sparkles',
-                  title: t('Authentic Experiences', {
-                    defaultValue: 'Authentic Experiences'
-                  }),
-                  description: t('Discover destinations off the beaten path and immerse yourself in the local culture.', {
-                    defaultValue: 'Discover destinations off the beaten path and immerse yourself in the local culture.'
-                  }),
+                  title: t('common.authenticexperiences'),
+                  description: t('common.discoverdestinations'),
                   miniIcons: [{
                     icon: 'fas fa-utensils',
-                    text: t('Local Food', {
-                      defaultValue: 'Local Food'
-                    })
+                    text: t('common.localfood')
                   }, {
                     icon: 'fas fa-hands-helping',
-                    text: t('Local People', {
-                      defaultValue: 'Local People'
-                    })
+                    text: t('common.localpeople')
                   }, {
                     icon: 'fas fa-landmark',
-                    text: t('Culture', {
-                      defaultValue: 'Culture'
-                    })
+                    text: t('common.culture')
                   }]
                 }];
                 const blocks = formData.iconBlocks && formData.iconBlocks.length > 0 ? formData.iconBlocks : getDefaultBlocks();
@@ -2143,9 +1827,7 @@ const BlockEditDropdown = ({
                 return blocks;
               })().map((block: any, index: number) => <div key={block.id} className="border border-gray-200 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-3">
-                      <Label className="font-medium">{t('Bloc', {
-                      defaultValue: 'Bloc'
-                    })}{index + 1}</Label>
+                      <Label className="font-medium">{t('common.bloc')}{index + 1}</Label>
                       <button type="button" onClick={() => {
                     const blocks = formData.iconBlocks || [];
                     const updatedBlocks = blocks.filter((b: any) => b.id !== block.id);
@@ -2158,9 +1840,7 @@ const BlockEditDropdown = ({
                     <div className="space-y-3">
                       {/* Icône principale */}
                       <div>
-                        <Label className="text-sm font-medium text-gray-700">{t('Ic\xF4ne principale', {
-                        defaultValue: 'Ic\xF4ne principale'
-                      })}</Label>
+                        <Label className="text-sm font-medium text-gray-700">{t('common.icxf4neprincipale')}</Label>
                         <div className="mt-2">
                           <div className="grid grid-cols-6 gap-2">
                             {[{
@@ -2200,9 +1880,7 @@ const BlockEditDropdown = ({
                             mainIcon: 'fas fa-medal'
                           } : b);
                           updateField('iconBlocks', updatedBlocks);
-                        }} className={`p-3 border rounded-lg hover:bg-gray-50 flex items-center justify-center transition-colors ${block.mainIcon === 'fas fa-medal' ? 'border-blue-500 bg-blue-50' : 'border-gray-300'}`} title={t('M\xE9daille', {
-                          defaultValue: 'M\xE9daille'
-                        })}>
+                        }} className={`p-3 border rounded-lg hover:bg-gray-50 flex items-center justify-center transition-colors ${block.mainIcon === 'fas fa-medal' ? 'border-blue-500 bg-blue-50' : 'border-gray-300'}`} title={t('common.mxe9daille')}>
                               <i className="fas fa-medal text-lg text-gray-700"></i>
                             </button>
                           </div>
@@ -2255,9 +1933,7 @@ const BlockEditDropdown = ({
                               }
                             };
                             input.click();
-                          }} className="w-9 h-9 border-2 border-dashed border-blue-400 rounded hover:bg-blue-50 transition-colors flex items-center justify-center bg-blue-25" title={t('Upload ic\xF4ne principale personnalis\xE9e', {
-                            defaultValue: 'Upload ic\xF4ne principale personnalis\xE9e'
-                          })}>
+                          }} className="w-9 h-9 border-2 border-dashed border-blue-400 rounded hover:bg-blue-50 transition-colors flex items-center justify-center bg-blue-25" title={t('common.uploadicxf4neprincip')}>
                                 <Plus size={14} className="text-blue-600" />
                               </button>
                             </div>
@@ -2267,9 +1943,7 @@ const BlockEditDropdown = ({
                       
                       {/* Titre et description */}
                       <div>
-                        <Label>{t('Titre', {
-                        defaultValue: 'Titre'
-                      })}</Label>
+                        <Label>{t('common.titre')}</Label>
                         <Input value={block.title} onChange={e => {
                       const blocks = formData.iconBlocks || [];
                       const updatedBlocks = blocks.map((b: any) => b.id === block.id ? {
@@ -2281,9 +1955,7 @@ const BlockEditDropdown = ({
                       </div>
                       
                       <div>
-                        <Label>{t('Description', {
-                        defaultValue: 'Description'
-                      })}</Label>
+                        <Label>{t('common.description')}</Label>
                         <Textarea value={block.description} onChange={e => {
                       const blocks = formData.iconBlocks || [];
                       const updatedBlocks = blocks.map((b: any) => b.id === block.id ? {
@@ -2297,9 +1969,7 @@ const BlockEditDropdown = ({
                       {/* Mini-icônes */}
                       <div>
                         <div className="flex items-center justify-between mb-2">
-                          <Label className="text-sm font-medium text-gray-700">{t('Mini-ic\xF4nes', {
-                          defaultValue: 'Mini-ic\xF4nes'
-                        })}</Label>
+                          <Label className="text-sm font-medium text-gray-700">{t('common.miniicxf4nes')}</Label>
                           <button type="button" onClick={() => {
                         const blocks = formData.iconBlocks || [];
                         const currentBlock = blocks.find((b: any) => b.id === block.id);
@@ -2311,9 +1981,7 @@ const BlockEditDropdown = ({
                           if (b.id === block.id) {
                             const newMiniIcons = [...(b.miniIcons || []), {
                               icon: 'fas fa-check',
-                              text: t('Nouveau', {
-                                defaultValue: 'Nouveau'
-                              })
+                              text: t('common.nouveau')
                             }];
                             return {
                               ...b,
@@ -2324,9 +1992,7 @@ const BlockEditDropdown = ({
                         });
                         updateField('iconBlocks', updatedBlocks);
                       }} className={`text-xs px-2 py-1 rounded flex items-center gap-1 ${(block.miniIcons || []).length >= 3 ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-blue-500 text-white hover:bg-blue-600'}`} disabled={(block.miniIcons || []).length >= 3}>
-                            <Plus size={12} />{t('Ajouter', {
-                          defaultValue: 'Ajouter'
-                        })}</button>
+                            <Plus size={12} />{t('common.ajouter')}</button>
                         </div>
                         <div className="space-y-2">
                           {(block.miniIcons || []).map((miniIcon: any, miniIndex: number) => <div key={miniIndex} className="bg-gray-50 p-3 rounded-lg border">
@@ -2334,12 +2000,8 @@ const BlockEditDropdown = ({
                               <div className="mb-3">
                                 <div className="flex gap-2 items-end">
                                   <div className="flex-1">
-                                    <Label className="text-xs font-medium text-gray-600">{t('Texte', {
-                                  defaultValue: 'Texte'
-                                })}</Label>
-                                    <Input placeholder={t('Texte de la mini-ic\xF4ne (ex: Private Car)', {
-                                defaultValue: 'Texte de la mini-ic\xF4ne (ex: Private Car)'
-                              })} value={miniIcon.text} onChange={e => {
+                                    <Label className="text-xs font-medium text-gray-600">{t('common.texte')}</Label>
+                                    <Input placeholder={t('common.textedelaminiicxf4ne')} value={miniIcon.text} onChange={e => {
                                 const blocks = formData.iconBlocks || [];
                                 const updatedBlocks = blocks.map((b: any) => {
                                   if (b.id === block.id) {
@@ -2374,9 +2036,7 @@ const BlockEditDropdown = ({
                                 return b;
                               });
                               updateField('iconBlocks', updatedBlocks);
-                            }} className="bg-blue-500 text-white w-9 h-9 rounded hover:bg-blue-600 transition-colors flex items-center justify-center" title={t('Supprimer cette mini-ic\xF4ne', {
-                              defaultValue: 'Supprimer cette mini-ic\xF4ne'
-                            })}>
+                            }} className="bg-blue-500 text-white w-9 h-9 rounded hover:bg-blue-600 transition-colors flex items-center justify-center" title={t('common.supprimercetteminiic')}>
                                     <Trash2 size={14} />
                                   </button>
                                 </div>
@@ -2384,64 +2044,44 @@ const BlockEditDropdown = ({
                               
                               {/* Sélecteur d'icône */}
                               <div>
-                                <Label className="text-xs font-medium text-gray-600 mb-2 block">{t('Ic\xF4ne', {
-                              defaultValue: 'Ic\xF4ne'
-                            })}</Label>
+                                <Label className="text-xs font-medium text-gray-600 mb-2 block">{t('common.icxf4ne')}</Label>
                                 <div className="grid grid-cols-9 gap-1 mb-2">
                                   {[{
                               icon: 'fas fa-car',
                               component: <i className="fas fa-car text-xs"></i>,
-                              label: t('Private Car', {
-                                defaultValue: 'Private Car'
-                              })
+                              label: t('common.privatecar')
                             }, {
                               icon: 'fas fa-language',
                               component: <i className="fas fa-language text-xs"></i>,
-                              label: t('Guide', {
-                                defaultValue: 'Guide'
-                              })
+                              label: t('common.guide')
                             }, {
                               icon: 'fas fa-shield-alt',
                               component: <i className="fas fa-shield-alt text-xs"></i>,
-                              label: t('Safety', {
-                                defaultValue: 'Safety'
-                              })
+                              label: t('common.safety')
                             }, {
                               icon: 'fas fa-map-marked-alt',
                               component: <i className="fas fa-map-marked-alt text-xs"></i>,
-                              label: t('Custom Route', {
-                                defaultValue: 'Custom Route'
-                              })
+                              label: t('common.customroute')
                             }, {
                               icon: 'fas fa-clock',
                               component: <i className="fas fa-clock text-xs"></i>,
-                              label: t('Flexible Time', {
-                                defaultValue: 'Flexible Time'
-                              })
+                              label: t('common.flexibletime')
                             }, {
                               icon: 'fas fa-list-check',
                               component: <i className="fas fa-list-check text-xs"></i>,
-                              label: t('Your Pace', {
-                                defaultValue: 'Your Pace'
-                              })
+                              label: t('common.yourpace')
                             }, {
                               icon: 'fas fa-utensils',
                               component: <i className="fas fa-utensils text-xs"></i>,
-                              label: t('Local Food', {
-                                defaultValue: 'Local Food'
-                              })
+                              label: t('common.localfood')
                             }, {
                               icon: 'fas fa-hands-helping',
                               component: <i className="fas fa-hands-helping text-xs"></i>,
-                              label: t('Local People', {
-                                defaultValue: 'Local People'
-                              })
+                              label: t('common.localpeople')
                             }, {
                               icon: 'fas fa-landmark',
                               component: <i className="fas fa-landmark text-xs"></i>,
-                              label: t('Culture', {
-                                defaultValue: 'Culture'
-                              })
+                              label: t('common.culture')
                             }].map(({
                               icon,
                               component,
@@ -2548,9 +2188,7 @@ const BlockEditDropdown = ({
                                 }
                               };
                               input.click();
-                            }} className="w-9 h-9 border-2 border-dashed border-blue-400 rounded hover:bg-blue-50 transition-colors flex items-center justify-center bg-blue-25" title={t('Upload ic\xF4ne personnalis\xE9e', {
-                              defaultValue: 'Upload ic\xF4ne personnalis\xE9e'
-                            })}>
+                            }} className="w-9 h-9 border-2 border-dashed border-blue-400 rounded hover:bg-blue-50 transition-colors flex items-center justify-center bg-blue-25" title={t('common.uploadicxf4nepersonn')}>
                                     <Plus size={14} className="text-blue-600" />
                                   </button>
                                 </div>
@@ -2569,15 +2207,11 @@ const BlockEditDropdown = ({
       case 'who_we_are':
         return <div className="space-y-4">
             <div>
-              <Label htmlFor="title">{t('Titre', {
-                defaultValue: 'Titre'
-              })}</Label>
+              <Label htmlFor="title">{t('common.titre')}</Label>
               <Input id="title" value={formData.title || 'Who We Are'} onChange={e => updateField('title', e.target.value)} />
             </div>
             <div>
-              <Label htmlFor="mainText">{t('Texte principal', {
-                defaultValue: 'Texte principal'
-              })}</Label>
+              <Label htmlFor="mainText">{t('common.texteprincipal')}</Label>
               <Textarea id="mainText" value={formData.mainText || 'We are Éric, Margaux, Gabriel, and Raphaël...'} onChange={e => updateField('mainText', e.target.value)} rows={3} />
             </div>
             <div>
@@ -2587,30 +2221,22 @@ const BlockEditDropdown = ({
               <Input id="conceptTitle" value={formData.conceptTitle || 'Our Concept'} onChange={e => updateField('conceptTitle', e.target.value)} />
             </div>
             <div>
-              <Label htmlFor="conceptText">{t('Texte concept', {
-                defaultValue: 'Texte concept'
-              })}</Label>
+              <Label htmlFor="conceptText">{t('common.texteconcept')}</Label>
               <Textarea id="conceptText" value={formData.conceptText || 'Combine the warmth and proximity...'} onChange={e => updateField('conceptText', e.target.value)} rows={3} />
             </div>
           </div>;
       case 'travelers_reviews':
         return <div className="space-y-4">
             <div>
-              <Label htmlFor="title">{t('Titre', {
-                defaultValue: 'Titre'
-              })}</Label>
+              <Label htmlFor="title">{t('common.titre')}</Label>
               <Input id="title" value={formData.title || 'Our Travelers Reviews'} onChange={e => updateField('title', e.target.value)} />
             </div>
             <div>
-              <Label htmlFor="subtitle">{t('Sous-titre', {
-                defaultValue: 'Sous-titre'
-              })}</Label>
+              <Label htmlFor="subtitle">{t('common.soustitre')}</Label>
               <Input id="subtitle" value={formData.subtitle || 'Discover the authentic experiences...'} onChange={e => updateField('subtitle', e.target.value)} />
             </div>
             <div>
-              <Label htmlFor="googleRating">{t('Note Google', {
-                defaultValue: 'Note Google'
-              })}</Label>
+              <Label htmlFor="googleRating">{t('common.notegoogle')}</Label>
               <Input id="googleRating" value={formData.googleRating || '5.0'} onChange={e => updateField('googleRating', e.target.value)} />
             </div>
             <div>
@@ -2623,21 +2249,15 @@ const BlockEditDropdown = ({
       case 'custom_tour_form':
         return <div className="space-y-4">
             <div>
-              <Label htmlFor="title">{t('Titre', {
-                defaultValue: 'Titre'
-              })}</Label>
+              <Label htmlFor="title">{t('common.titre')}</Label>
               <Input id="title" value={formData.title || 'Create Your Custom Trip'} onChange={e => updateField('title', e.target.value)} />
             </div>
             <div>
-              <Label htmlFor="subtitle">{t('Sous-titre', {
-                defaultValue: 'Sous-titre'
-              })}</Label>
+              <Label htmlFor="subtitle">{t('common.soustitre')}</Label>
               <Input id="subtitle" value={formData.subtitle || 'Your travel story starts with your dreams...'} onChange={e => updateField('subtitle', e.target.value)} />
             </div>
             <div>
-              <Label htmlFor="formImage">{t('Image du formulaire', {
-                defaultValue: 'Image du formulaire'
-              })}</Label>
+              <Label htmlFor="formImage">{t('common.imageduformulaire')}</Label>
               <Input id="formImage" value={formData.formImage || '/catamaran-cruise.png'} onChange={e => updateField('formImage', e.target.value)} />
             </div>
           </div>;
@@ -2662,21 +2282,15 @@ const BlockEditDropdown = ({
   }} className="border-t bg-gray-50 overflow-hidden">
       <div className="p-6">
         <div className="mb-4">
-          <h4 className="font-semibold text-lg mb-1">{t('Modifier:', {
-            defaultValue: 'Modifier:'
-          })}{getBlockDisplayName(block)}</h4>
+          <h4 className="font-semibold text-lg mb-1">{t('common.modifier')}{getBlockDisplayName(block)}</h4>
         </div>
         
         {renderEditFields()}
         
         <div className="flex gap-3 mt-6 pt-4 border-t">
           <Button onClick={handleSave} className="flex-1">
-            <Save className="w-4 h-4 mr-2" />{t('Sauvegarder', {
-            defaultValue: 'Sauvegarder'
-          })}</Button>
-          <Button variant="outline" onClick={onCancel}>{t('Annuler', {
-            defaultValue: 'Annuler'
-          })}</Button>
+            <Save className="w-4 h-4 mr-2" />{t('common.sauvegarder')}</Button>
+          <Button variant="outline" onClick={onCancel}>{t('common.annuler')}</Button>
         </div>
       </div>
     </motion.div>;
@@ -2735,23 +2349,15 @@ export default function AdminPageEditor() {
         queryKey: ['/api/admin/page-blocks', pageSlug]
       });
       toast({
-        title: t('Succ\xE8s', {
-          defaultValue: 'Succ\xE8s'
-        }),
-        description: t('Bloc mis \xE0 jour avec succ\xE8s', {
-          defaultValue: 'Bloc mis \xE0 jour avec succ\xE8s'
-        })
+        title: t('common.succxe8s'),
+        description: t('common.blocmisxe0jouravecsu')
       });
       setEditingBlockId(null);
     },
     onError: () => {
       toast({
-        title: t('Erreur', {
-          defaultValue: 'Erreur'
-        }),
-        description: t('Impossible de mettre \xE0 jour le bloc', {
-          defaultValue: 'Impossible de mettre \xE0 jour le bloc'
-        }),
+        title: t('common.erreur'),
+        description: t('common.impossibledemettrexe'),
         variant: "destructive"
       });
     }
@@ -2771,22 +2377,14 @@ export default function AdminPageEditor() {
         queryKey: ['/api/admin/page-blocks', pageSlug]
       });
       toast({
-        title: t('Succ\xE8s', {
-          defaultValue: 'Succ\xE8s'
-        }),
-        description: t('Bloc supprim\xE9 avec succ\xE8s', {
-          defaultValue: 'Bloc supprim\xE9 avec succ\xE8s'
-        })
+        title: t('common.succxe8s'),
+        description: t('common.blocsupprimxe9avecsu')
       });
     },
     onError: () => {
       toast({
-        title: t('Erreur', {
-          defaultValue: 'Erreur'
-        }),
-        description: t('Impossible de supprimer le bloc', {
-          defaultValue: 'Impossible de supprimer le bloc'
-        }),
+        title: t('common.erreur'),
+        description: t('common.impossibledesupprime'),
         variant: "destructive"
       });
     }
@@ -2842,13 +2440,9 @@ export default function AdminPageEditor() {
     return <div className="min-h-screen bg-gray-50 p-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center py-12">
-            <div className="text-gray-500">{t('Page configuration not found', {
-              defaultValue: 'Page configuration not found'
-            })}</div>
+            <div className="text-gray-500">{t('common.pageconfigurationnot')}</div>
             <Button onClick={goBack} className="mt-4">
-              <ArrowLeft className="w-4 h-4 mr-2" />{t('Retour', {
-              defaultValue: 'Retour'
-            })}</Button>
+              <ArrowLeft className="w-4 h-4 mr-2" />{t('common.retour')}</Button>
           </div>
         </div>
       </div>;
@@ -2868,18 +2462,14 @@ export default function AdminPageEditor() {
                 </div>
                 <div>
                   <h1 className="text-2xl font-bold text-gray-900">Éditeur de page</h1>
-                  <p className="text-sm text-gray-600">{t('Chaque bloc reproduit exactement la section correspondante de votre site web.', {
-                    defaultValue: 'Chaque bloc reproduit exactement la section correspondante de votre site web.'
-                  })}</p>
+                  <p className="text-sm text-gray-600">{t('common.chaqueblocreproduite')}</p>
                 </div>
               </div>
             </div>
             <div className="flex items-center gap-3">
               <Select value={pageSlug} onValueChange={handlePageChange}>
                 <SelectTrigger className="w-48">
-                  <SelectValue placeholder={t('S\xE9lectionner une page', {
-                  defaultValue: 'S\xE9lectionner une page'
-                })} />
+                  <SelectValue placeholder={t('common.sxe9lectionnerunepag')} />
                 </SelectTrigger>
                 <SelectContent>
                   {pageConfigs.map((page: PageConfiguration) => <SelectItem key={page.pageSlug} value={page.pageSlug}>
@@ -2888,9 +2478,7 @@ export default function AdminPageEditor() {
                 </SelectContent>
               </Select>
               <Button variant="outline" onClick={viewLivePage} className="flex items-center gap-2">
-                <ExternalLink className="w-4 h-4" />{t('Voir la page', {
-                defaultValue: 'Voir la page'
-              })}</Button>
+                <ExternalLink className="w-4 h-4" />{t('common.voirlapage')}</Button>
             </div>
           </div>
         </div>
@@ -2909,9 +2497,7 @@ export default function AdminPageEditor() {
                 </div>)}
             </div> : pageBlocks.length === 0 ? <div className="text-center py-12 bg-white rounded-xl shadow-sm">
               <Edit className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <div className="text-gray-500 mb-4">{t('Aucune section sur cette page', {
-              defaultValue: 'Aucune section sur cette page'
-            })}</div>
+              <div className="text-gray-500 mb-4">{t('common.aucunesectionsurcett')}</div>
               <p className="text-gray-400 text-sm mb-6">{t('Les sections de votre site web s\'afficheront ici', {
               defaultValue: 'Les sections de votre site web s\'afficheront ici'
             })}</p>
@@ -2934,14 +2520,10 @@ export default function AdminPageEditor() {
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-3">
                             <div className="flex flex-col gap-1">
-                              <Button variant="ghost" size="sm" onClick={() => moveBlock(block, 'up')} disabled={index === 0} className="h-6 w-6 p-0" title={t('D\xE9placer vers le haut', {
-                          defaultValue: 'D\xE9placer vers le haut'
-                        })}>
+                              <Button variant="ghost" size="sm" onClick={() => moveBlock(block, 'up')} disabled={index === 0} className="h-6 w-6 p-0" title={t('common.dxe9placerverslehaut')}>
                                 <ChevronUp className="w-3 h-3" />
                               </Button>
-                              <Button variant="ghost" size="sm" onClick={() => moveBlock(block, 'down')} disabled={index === sortedBlocks.length - 1} className="h-6 w-6 p-0" title={t('D\xE9placer vers le bas', {
-                          defaultValue: 'D\xE9placer vers le bas'
-                        })}>
+                              <Button variant="ghost" size="sm" onClick={() => moveBlock(block, 'down')} disabled={index === sortedBlocks.length - 1} className="h-6 w-6 p-0" title={t('common.dxe9placerverslebas')}>
                                 <ChevronDown className="w-3 h-3" />
                               </Button>
                             </div>
@@ -2958,11 +2540,7 @@ export default function AdminPageEditor() {
                             <div className="flex items-center gap-2">
                               <Button variant="outline" size="sm" className="flex items-center justify-between gap-3 min-w-[120px]">
                                 <div className="flex items-center gap-2">
-                                  {block.isActive ? <><Eye className="w-4 h-4" />{t('Visible', {
-                                defaultValue: 'Visible'
-                              })}</> : <><EyeOff className="w-4 h-4" />{t('Masqu\xE9', {
-                                defaultValue: 'Masqu\xE9'
-                              })}</>}
+                                  {block.isActive ? <><Eye className="w-4 h-4" />{t('common.visible')}</> : <><EyeOff className="w-4 h-4" />{t('common.masquxe9')}</>}
                                 </div>
                                 <Switch checked={block.isActive} onCheckedChange={() => toggleBlockVisibility(block)} />
                               </Button>
@@ -2991,21 +2569,15 @@ export default function AdminPageEditor() {
                               <AlertDialogContent>
                                 <AlertDialogHeader>
                                   <AlertDialogTitle className="flex items-center gap-2">
-                                    <AlertTriangle className="w-5 h-5 text-red-600" />{t('Supprimer cette section', {
-                                defaultValue: 'Supprimer cette section'
-                              })}</AlertDialogTitle>
+                                    <AlertTriangle className="w-5 h-5 text-red-600" />{t('common.supprimercettesectio')}</AlertDialogTitle>
                                   <AlertDialogDescription>
                                     Êtes-vous sûr de vouloir supprimer la section "{block.title}{t('" ? \n                                    Cette action est irr\xE9versible et la section dispara\xEEtra d\xE9finitivement de votre site web.', {
                                 defaultValue: '" ? \n                                    Cette action est irr\xE9versible et la section dispara\xEEtra d\xE9finitivement de votre site web.'
                               })}</AlertDialogDescription>
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
-                                  <AlertDialogCancel>{t('Annuler', {
-                                defaultValue: 'Annuler'
-                              })}</AlertDialogCancel>
-                                  <AlertDialogAction onClick={() => deleteBlockMutation.mutate(block.id)} className="bg-red-600 hover:bg-red-700">{t('Supprimer d\xE9finitivement', {
-                                defaultValue: 'Supprimer d\xE9finitivement'
-                              })}</AlertDialogAction>
+                                  <AlertDialogCancel>{t('common.annuler')}</AlertDialogCancel>
+                                  <AlertDialogAction onClick={() => deleteBlockMutation.mutate(block.id)} className="bg-red-600 hover:bg-red-700">{t('common.supprimerdxe9finitiv')}</AlertDialogAction>
                                 </AlertDialogFooter>
                               </AlertDialogContent>
                             </AlertDialog>
@@ -3061,9 +2633,7 @@ export default function AdminPageEditor() {
       <Dialog open={previewBlock !== null} onOpenChange={() => setPreviewBlock(null)}>
         <DialogContent className="max-w-7xl w-full h-[90vh] p-0">
           <DialogHeader className="p-6 pb-4">
-            <DialogTitle>{t('Aper\xE7u plein \xE9cran:', {
-              defaultValue: 'Aper\xE7u plein \xE9cran:'
-            })}{previewBlock?.title}</DialogTitle>
+            <DialogTitle>{t('common.aperxe7upleinxe9cran')}{previewBlock?.title}</DialogTitle>
             <DialogDescription>{t('Reproduction exacte de la section telle qu\'elle appara\xEEt sur votre site web', {
               defaultValue: 'Reproduction exacte de la section telle qu\'elle appara\xEEt sur votre site web'
             })}</DialogDescription>

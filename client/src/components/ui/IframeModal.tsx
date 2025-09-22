@@ -36,9 +36,7 @@ export default function IframeModal() {
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b bg-gray-50 rounded-t-lg">
               <div className="flex items-center gap-3 flex-1 mr-4">
-                <img src={logoAmon} alt={t('Amon Logo', {
-              defaultValue: 'Amon Logo'
-            })} className="h-8 w-auto" />
+                <img src={logoAmon} alt={t('common.amonLogo')} className="h-8 w-auto" />
                 <h2 className="text-lg font-semibold text-gray-800 truncate">
                   {title}
                 </h2>

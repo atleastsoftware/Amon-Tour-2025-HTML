@@ -5,21 +5,15 @@ export default function LanguageSelector() {
   const { t, i18n } = useTranslation();
   const languageData = {
     en: {
-      name: t('English', {
-        defaultValue: 'English'
-      }),
+      name: t('languages.english'),
       flagUrl: "https://flagcdn.com/w40/gb.png"
     },
     fr: {
-      name: t('Français', {
-        defaultValue: 'Français'
-      }),
+      name: t('languages.french'),
       flagUrl: "https://flagcdn.com/w40/fr.png"
     },
     es: {
-      name: t('Español', {
-        defaultValue: 'Español'
-      }),
+      name: t('languages.spanish'),
       flagUrl: "https://flagcdn.com/w40/es.png"
     }
   } as const;

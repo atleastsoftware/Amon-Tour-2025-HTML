@@ -137,12 +137,8 @@ const Sidebar = React.forwardRef<HTMLDivElement, React.ComponentProps<"div"> & {
         "--sidebar-width": SIDEBAR_WIDTH_MOBILE
       } as React.CSSProperties} side={side}>
             <SheetHeader className="sr-only">
-              <SheetTitle>{t('Sidebar', {
-              defaultValue: 'Sidebar'
-            })}</SheetTitle>
-              <SheetDescription>{t('Displays the mobile sidebar.', {
-              defaultValue: 'Displays the mobile sidebar.'
-            })}</SheetDescription>
+              <SheetTitle>{t('common.sidebar')}</SheetTitle>
+              <SheetDescription>{t('common.displaysthemobilesid')}</SheetDescription>
             </SheetHeader>
             <div className="flex h-full w-full flex-col">{children}</div>
           </SheetContent>
@@ -174,9 +170,7 @@ const SidebarTrigger = React.forwardRef<React.ElementRef<typeof Button>, React.C
     toggleSidebar();
   }} {...props}>
       <PanelLeft />
-      <span className="sr-only">{t('Toggle Sidebar', {
-        defaultValue: 'Toggle Sidebar'
-      })}</span>
+      <span className="sr-only">{t('common.togglesidebar')}</span>
     </Button>;
 });
 SidebarTrigger.displayName = "SidebarTrigger";
@@ -187,11 +181,7 @@ const SidebarRail = React.forwardRef<HTMLButtonElement, React.ComponentProps<"bu
   const {
     toggleSidebar
   } = useSidebar();
-  return <button ref={ref} data-sidebar="rail" aria-label={t('Toggle Sidebar', {
-    defaultValue: 'Toggle Sidebar'
-  })} tabIndex={-1} onClick={toggleSidebar} title={t('Toggle Sidebar', {
-    defaultValue: 'Toggle Sidebar'
-  })} className={cn("absolute inset-y-0 z-20 hidden w-4 -translate-x-1/2 transition-all ease-linear after:absolute after:inset-y-0 after:left-1/2 after:w-[2px] hover:after:bg-sidebar-border group-data-[side=left]:-right-4 group-data-[side=right]:left-0 sm:flex", "[[data-side=left]_&]:cursor-w-resize [[data-side=right]_&]:cursor-e-resize", "[[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize", "group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full group-data-[collapsible=offcanvas]:hover:bg-sidebar", "[[data-side=left][data-collapsible=offcanvas]_&]:-right-2", "[[data-side=right][data-collapsible=offcanvas]_&]:-left-2", className)} {...props} />;
+  return <button ref={ref} data-sidebar="rail" aria-label={t('common.togglesidebar')} tabIndex={-1} onClick={toggleSidebar} title={t('common.togglesidebar')} className={cn("absolute inset-y-0 z-20 hidden w-4 -translate-x-1/2 transition-all ease-linear after:absolute after:inset-y-0 after:left-1/2 after:w-[2px] hover:after:bg-sidebar-border group-data-[side=left]:-right-4 group-data-[side=right]:left-0 sm:flex", "[[data-side=left]_&]:cursor-w-resize [[data-side=right]_&]:cursor-e-resize", "[[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize", "group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full group-data-[collapsible=offcanvas]:hover:bg-sidebar", "[[data-side=left][data-collapsible=offcanvas]_&]:-right-2", "[[data-side=right][data-collapsible=offcanvas]_&]:-left-2", className)} {...props} />;
 });
 SidebarRail.displayName = "SidebarRail";
 const SidebarInset = React.forwardRef<HTMLDivElement, React.ComponentProps<"main">>(({

@@ -93,23 +93,15 @@ export default function CustomTourForm() {
       };
       await apiRequest("POST", "/api/custom-tour", requestData);
       toast({
-        title: t('Request sent', {
-          defaultValue: 'Request sent'
-        }),
-        description: t('We will contact you very soon to discuss your travel project.', {
-          defaultValue: 'We will contact you very soon to discuss your travel project.'
-        }),
+        title: t('common.requestsent'),
+        description: t('common.wewillcontactyouvery'),
         variant: "default"
       });
       form.reset();
     } catch (error) {
       toast({
-        title: t('Error', {
-          defaultValue: 'Error'
-        }),
-        description: t('There was a problem sending your request. Please try again.', {
-          defaultValue: 'There was a problem sending your request. Please try again.'
-        }),
+        title: t('common.error'),
+        description: t('common.therewasaproblemsend'),
         variant: "destructive"
       });
     } finally {
@@ -277,9 +269,7 @@ export default function CustomTourForm() {
           <div className="grid grid-cols-1 md:grid-cols-2">
             {/* Image Side */}
             <div className="h-64 md:h-auto relative">
-              <img src="/catamaran-cruise.png" alt={t('Catamaran cruise in Thailand', {
-              defaultValue: 'Catamaran cruise in Thailand'
-            })} className="w-full h-full object-cover" />
+              <img src="/catamaran-cruise.png" alt={t('common.catamarancruiseintha')} className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-r from-primary/70 to-transparent flex flex-col justify-center p-8 text-white">
                 <h3 className="font-heading font-bold text-3xl mb-3">{t('home.customTripTitle')}</h3>
                 <p className="max-w-xs">{t('home.customTripSubtitle')} {t('home.customTripDescription')}</p>
@@ -381,9 +371,7 @@ export default function CustomTourForm() {
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                              <SelectItem value="0">{t('No kids', {
-                            defaultValue: 'No kids'
-                          })}</SelectItem>
+                              <SelectItem value="0">{t('common.nokids')}</SelectItem>
                               <SelectItem value="1">1 kid</SelectItem>
                               <SelectItem value="2">2 kids</SelectItem>
                               <SelectItem value="3">3 kids</SelectItem>
@@ -493,15 +481,11 @@ export default function CustomTourForm() {
                   {/* WhatsApp Contact Button */}
                   <div className="mt-4 pt-4 border-t border-gray-200">
                     <p className="text-center text-sm text-gray-600 mb-3">
-                      {t('home.orContactDirectly', {
-                      defaultValue: 'Or contact us directly via WhatsApp'
-                    })}
+                      {t('common.homeorcontactdirectl')}
                     </p>
                     <a href="https://wa.me/66653496445?text=Hello%20Amon%20Tour,%20I%20would%20like%20to%20inquire%20about%20a%20custom%20tour." target="_blank" rel="noopener noreferrer" className="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-md font-heading font-semibold transition-colors duration-200 flex items-center justify-center gap-2 shadow-md hover:shadow-lg">
                       <i className="fab fa-whatsapp text-xl" aria-hidden="true"></i>
-                      {t('home.contactWhatsApp', {
-                      defaultValue: 'Contact via WhatsApp'
-                    })}
+                      {t('common.homecontactwhatsapp')}
                     </a>
                   </div>
                 </form>

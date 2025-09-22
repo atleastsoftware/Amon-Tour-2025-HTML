@@ -12,7 +12,8 @@
     "about": "Acerca de",
     "stays": "Alojamientos",
     "cruise": "Crucero",
-    "customTrip": "Viaje Personalizado"
+    "customTrip": "Viaje Personalizado",
+    "toggleMenu": "Alternar menú"
   },
   "buttons": {
     "bookNow": "Reservar ahora",
@@ -143,7 +144,10 @@
     },
     "countries": {
       "thailand": "Tailandia"
-    }
+    },
+    "subscribeNewsletter": "Suscribirse al boletín",
+    "contactWhatsApp": "Contactar vía WhatsApp",
+    "viewAllReviews": "Ver todas las reseñas en Google"
   },
   "tours": {
     "featured": "Nuestras experiencias exclusivas",
@@ -2450,5 +2454,57 @@
       "contact": "• Detalles de contacto",
       "insights": "• Perspectivas locales"
     }
+  },
+  "languages": {
+    "english": "Inglés",
+    "french": "Francés",
+    "spanish": "Español"
+  },
+  "pages": {
+    "krabiCelebration": {
+      "seoTitle": "Krabi Celebration - Amon Tour",
+      "title": "Krabi Celebration"
+    },
+    "villasKrabi": {
+      "seoTitle": "Villas en Krabi - Alojamiento de Lujo - Amon Tour",
+      "title": "Villas en Krabi"
+    },
+    "becomePartner": {
+      "seoTitle": "Convertirse en Socio - Amon Tour",
+      "title": "Convertirse en Socio"
+    },
+    "groupCorporate": {
+      "seoTitle": "Grupo y Corporativo - Amon Tour",
+      "title": "Grupo y Corporativo"
+    },
+    "legalNotice": {
+      "seoTitle": "Aviso Legal - Amon Tour"
+    },
+    "privacyPolicy": {
+      "seoTitle": "Política de Privacidad - Amon Tour"
+    },
+    "termsConditions": {
+      "seoTitle": "Términos y Condiciones - Amon Tour"
+    }
+  },
+  "legal": {
+    "title": "Aviso Legal"
+  },
+  "privacy": {
+    "title": "Política de Privacidad"
+  },
+  "terms": {
+    "title": "Términos y Condiciones"
+  },
+  "company": {
+    "fullName": "Flame BB Co., Ltd. (Amon Tour)."
+  },
+  "common": {
+    "amonLogo": "Logo Amon",
+    "amonTourLogo": "Logo Amon Tour",
+    "didyouforgettoaddth": "¿Olvidaste agregar la página al enrutador?",
+    "amontourexperiencean": "Experiencia Amon Tour y Estancias Krabi",
+    "authenticthailandexp": "Experiencias auténticas de Tailandia con familia local",
+    "discoverkrabiandsou": "Descubre Krabi y el sur de Tailandia como nunca antes"
   }
 }

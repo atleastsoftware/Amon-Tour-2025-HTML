@@ -101,24 +101,16 @@ export default function TourCardEditModal({
   const handleSave = async () => {
     if (!formData.title) {
       toast({
-        title: t('Erreur', {
-          defaultValue: 'Erreur'
-        }),
-        description: t('Le titre est obligatoire', {
-          defaultValue: 'Le titre est obligatoire'
-        }),
+        title: t('common.erreur'),
+        description: t('common.letitreestobligatoir'),
         variant: "destructive"
       });
       return;
     }
     if (!formData.customLink) {
       toast({
-        title: t('Erreur', {
-          defaultValue: 'Erreur'
-        }),
-        description: t('Le lien personnalis\xE9 est obligatoire', {
-          defaultValue: 'Le lien personnalis\xE9 est obligatoire'
-        }),
+        title: t('common.erreur'),
+        description: t('common.lelienpersonnalisxe9'),
         variant: "destructive"
       });
       return;
@@ -137,24 +129,16 @@ export default function TourCardEditModal({
       }
       const updatedCard = await updateResponse.json();
       toast({
-        title: t('Succ\xE8s', {
-          defaultValue: 'Succ\xE8s'
-        }),
-        description: t('Fiche de tour mise \xE0 jour avec succ\xE8s', {
-          defaultValue: 'Fiche de tour mise \xE0 jour avec succ\xE8s'
-        })
+        title: t('common.succxe8s'),
+        description: t('common.fichedetourmisexe0jo')
       });
       onSave(updatedCard);
       onClose();
     } catch (error) {
       console.error("Erreur lors de la mise à jour de la fiche:", error);
       toast({
-        title: t('Erreur', {
-          defaultValue: 'Erreur'
-        }),
-        description: t('Une erreur est survenue lors de la mise \xE0 jour', {
-          defaultValue: 'Une erreur est survenue lors de la mise \xE0 jour'
-        }),
+        title: t('common.erreur'),
+        description: t('common.uneerreurestsurvenue'),
         variant: "destructive"
       });
     } finally {
@@ -164,101 +148,65 @@ export default function TourCardEditModal({
   return <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>{t('Modifier la fiche de tour', {
-            defaultValue: 'Modifier la fiche de tour'
-          })}</DialogTitle>
+          <DialogTitle>{t('common.modifierlafichedetou')}</DialogTitle>
         </DialogHeader>
         
         <div className="py-4 space-y-4">
           <div>
-            <Label htmlFor="title">{t('Nom du s\xE9jour / tour *', {
-              defaultValue: 'Nom du s\xE9jour / tour *'
-            })}</Label>
-            <Input id="title" name="title" value={formData.title} onChange={handleInputChange} placeholder={t('Ex: Bangkok Food Tour', {
-            defaultValue: 'Ex: Bangkok Food Tour'
-          })} required />
+            <Label htmlFor="title">{t('common.nomdusxe9jourtour')}</Label>
+            <Input id="title" name="title" value={formData.title} onChange={handleInputChange} placeholder={t('common.exbangkokfoodtour')} required />
           </div>
           
           <div>
-            <Label htmlFor="description">{t('Description', {
-              defaultValue: 'Description'
-            })}</Label>
-            <Textarea id="description" name="description" value={formData.description || ""} onChange={handleInputChange} placeholder={t('D\xE9crivez bri\xE8vement ce tour...', {
-            defaultValue: 'D\xE9crivez bri\xE8vement ce tour...'
-          })} rows={3} />
+            <Label htmlFor="description">{t('common.description')}</Label>
+            <Textarea id="description" name="description" value={formData.description || ""} onChange={handleInputChange} placeholder={t('common.dxe9crivezbrixe8veme')} rows={3} />
           </div>
           
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="price">{t('Prix \xE0 partir de *', {
-                defaultValue: 'Prix \xE0 partir de *'
-              })}</Label>
-              <Input id="price" name="price" type="number" min={0} value={formData.price || ""} onChange={handleInputChange} placeholder={t('Ex: 1500', {
-              defaultValue: 'Ex: 1500'
-            })} required />
+              <Label htmlFor="price">{t('common.prixxe0partirde')}</Label>
+              <Input id="price" name="price" type="number" min={0} value={formData.price || ""} onChange={handleInputChange} placeholder={t('common.ex1500')} required />
             </div>
             
             <div>
-              <Label htmlFor="currency">{t('Devise', {
-                defaultValue: 'Devise'
-              })}</Label>
+              <Label htmlFor="currency">{t('common.devise')}</Label>
               <select id="currency" name="currency" value={formData.currency} onChange={handleInputChange} className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
-                <option value="THB">{t('THB', {
-                  defaultValue: 'THB'
-                })}</option>
-                <option value="EUR">{t('EUR', {
-                  defaultValue: 'EUR'
-                })}</option>
-                <option value="USD">{t('USD', {
-                  defaultValue: 'USD'
-                })}</option>
+                <option value="THB">{t('common.thb')}</option>
+                <option value="EUR">{t('common.eur')}</option>
+                <option value="USD">{t('common.usd')}</option>
               </select>
             </div>
           </div>
           
           <div>
-            <Label htmlFor="type">{t('Type de fiche *', {
-              defaultValue: 'Type de fiche *'
-            })}</Label>
+            <Label htmlFor="type">{t('common.typedefiche')}</Label>
             <div className="grid grid-cols-2 gap-4 mt-2">
               <button type="button" onClick={() => setFormData({
               ...formData,
               type: "tour"
             })} className={`p-2 border rounded-md flex flex-col items-center justify-center gap-1 ${formData.type === "tour" ? "border-primary bg-primary/10" : "border-gray-200 hover:border-gray-300"}`}>
-                <span className={`font-medium ${formData.type === "tour" ? "text-primary" : "text-gray-700"}`}>{t('Tour', {
-                  defaultValue: 'Tour'
-                })}</span>
+                <span className={`font-medium ${formData.type === "tour" ? "text-primary" : "text-gray-700"}`}>{t('common.tour')}</span>
               </button>
               
               <button type="button" onClick={() => setFormData({
               ...formData,
               type: "experience"
             })} className={`p-2 border rounded-md flex flex-col items-center justify-center gap-1 ${formData.type === "experience" ? "border-primary bg-primary/10" : "border-gray-200 hover:border-gray-300"}`}>
-                <span className={`font-medium ${formData.type === "experience" ? "text-primary" : "text-gray-700"}`}>{t('Exp\xE9rience', {
-                  defaultValue: 'Exp\xE9rience'
-                })}</span>
+                <span className={`font-medium ${formData.type === "experience" ? "text-primary" : "text-gray-700"}`}>{t('common.expxe9rience')}</span>
               </button>
             </div>
           </div>
           
           <div>
-            <Label htmlFor="customLink">{t('Lien personnalis\xE9 (Tour Ninja) *', {
-              defaultValue: 'Lien personnalis\xE9 (Tour Ninja) *'
-            })}</Label>
-            <Input id="customLink" name="customLink" value={formData.customLink} onChange={handleInputChange} placeholder={t('Ex: https://tourninja.com/tour/xxx', {
-            defaultValue: 'Ex: https://tourninja.com/tour/xxx'
-          })} required />
+            <Label htmlFor="customLink">{t('common.lienpersonnalisxe9to')}</Label>
+            <Input id="customLink" name="customLink" value={formData.customLink} onChange={handleInputChange} placeholder={t('common.exhttpstourninjacomt')} required />
           </div>
           
           <div>
-            <Label htmlFor="tags">{t('Tags de localisation', {
-              defaultValue: 'Tags de localisation'
-            })}</Label>
+            <Label htmlFor="tags">{t('common.tagsdelocalisation')}</Label>
             <div className="flex items-start gap-2">
               <div className="flex-grow">
-                <Input id="tagInput" value={tagInput} onChange={handleTagInputChange} onKeyDown={handleTagKeyDown} placeholder={t('Ex: Bangkok, Phuket, Koh Samui', {
-                defaultValue: 'Ex: Bangkok, Phuket, Koh Samui'
-              })} />
+                <Input id="tagInput" value={tagInput} onChange={handleTagInputChange} onKeyDown={handleTagKeyDown} placeholder={t('common.exbangkokphuketkohsa')} />
               </div>
               <Button type="button" onClick={addTag} variant="outline" size="icon">
                 <Plus className="h-4 w-4" />
@@ -277,9 +225,7 @@ export default function TourCardEditModal({
         </div>
         
         <DialogFooter>
-          <Button variant="outline" onClick={onClose}>{t('Cancel', {
-            defaultValue: 'Cancel'
-          })}</Button>
+          <Button variant="outline" onClick={onClose}>{t('common.cancel')}</Button>
           <Button onClick={handleSave} disabled={isLoading}>
             {isLoading ? "Saving..." : "Save"}
           </Button>

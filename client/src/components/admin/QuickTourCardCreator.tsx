@@ -38,12 +38,8 @@ export default function QuickTourCardCreator({
   const extractTourInfo = async () => {
     if (!url.trim()) {
       toast({
-        title: t('Erreur', {
-          defaultValue: 'Erreur'
-        }),
-        description: t('Veuillez entrer une URL valide', {
-          defaultValue: 'Veuillez entrer une URL valide'
-        }),
+        title: t('common.erreur'),
+        description: t('common.veuillezentreruneurl'),
         variant: "destructive"
       });
       return;
@@ -103,12 +99,8 @@ export default function QuickTourCardCreator({
         setExtractedData(extractedData);
         setIsExtracting(false);
         toast({
-          title: t('Extraction r\xE9ussie', {
-            defaultValue: 'Extraction r\xE9ussie'
-          }),
-          description: t('Les informations ont \xE9t\xE9 extraites avec succ\xE8s.', {
-            defaultValue: 'Les informations ont \xE9t\xE9 extraites avec succ\xE8s.'
-          })
+          title: t('common.extractionrxe9ussie'),
+          description: t('common.lesinformationsontxe')
         });
       }, 1500); // Simuler un délai d'extraction
     } catch (error) {
@@ -145,12 +137,8 @@ export default function QuickTourCardCreator({
         throw new Error("Invalid response from server when creating tour card");
       }
       toast({
-        title: t('Succ\xE8s', {
-          defaultValue: 'Succ\xE8s'
-        }),
-        description: t('Fiche de tour cr\xE9\xE9e avec succ\xE8s', {
-          defaultValue: 'Fiche de tour cr\xE9\xE9e avec succ\xE8s'
-        })
+        title: t('common.succxe8s'),
+        description: t('common.fichedetourcrxe9xe9e')
       });
 
       // Réinitialiser le formulaire
@@ -162,96 +150,66 @@ export default function QuickTourCardCreator({
     } catch (error) {
       console.error("Erreur lors de la création de la fiche de tour:", error);
       toast({
-        title: t('Erreur', {
-          defaultValue: 'Erreur'
-        }),
-        description: t('Une erreur est survenue lors de la cr\xE9ation de la fiche', {
-          defaultValue: 'Une erreur est survenue lors de la cr\xE9ation de la fiche'
-        }),
+        title: t('common.erreur'),
+        description: t('common.uneerreurestsurvenue'),
         variant: "destructive"
       });
     }
   };
   return <Card className="mb-8">
       <CardHeader>
-        <CardTitle>{t('Cr\xE9ation rapide de fiche de tour', {
-          defaultValue: 'Cr\xE9ation rapide de fiche de tour'
-        })}</CardTitle>
+        <CardTitle>{t('common.crxe9ationrapidedefi')}</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
           <div>
-            <Label htmlFor="url">{t('Lien de r\xE9servation (URL)', {
-              defaultValue: 'Lien de r\xE9servation (URL)'
-            })}</Label>
+            <Label htmlFor="url">{t('common.lienderxe9servationu')}</Label>
             <div className="flex mt-1.5">
-              <Input id="url" value={url} onChange={e => setUrl(e.target.value)} placeholder={t('Ex: https://www.tourninja.io/tours/bangkok-food-tour', {
-              defaultValue: 'Ex: https://www.tourninja.io/tours/bangkok-food-tour'
-            })} className="flex-grow" />
+              <Input id="url" value={url} onChange={e => setUrl(e.target.value)} placeholder={t('common.exhttpswwwtourninjai')} className="flex-grow" />
               <Button onClick={extractTourInfo} disabled={isExtracting || !url.trim()} className="ml-2 whitespace-nowrap">
                 {isExtracting ? <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />{t('Extraction...', {
-                  defaultValue: 'Extraction...'
-                })}</> : "Extraire les infos"}
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />{t('common.extraction')}</> : "Extraire les infos"}
               </Button>
             </div>
           </div>
           
           {extractedData && <div className="mt-6 space-y-4 border p-4 rounded-lg bg-gray-50">
-              <h3 className="font-semibold">{t('Informations extraites', {
-              defaultValue: 'Informations extraites'
-            })}</h3>
+              <h3 className="font-semibold">{t('common.informationsextraite')}</h3>
               
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label className="text-sm text-gray-600">{t('Titre', {
-                  defaultValue: 'Titre'
-                })}</Label>
+                  <Label className="text-sm text-gray-600">{t('common.titre')}</Label>
                   <div className="font-medium">{extractedData.title}</div>
                 </div>
                 <div>
-                  <Label className="text-sm text-gray-600">{t('Type', {
-                  defaultValue: 'Type'
-                })}</Label>
+                  <Label className="text-sm text-gray-600">{t('common.type')}</Label>
                   <div className="font-medium capitalize">{extractedData.type}</div>
                 </div>
               </div>
               
               <div>
-                <Label className="text-sm text-gray-600">{t('Description', {
-                defaultValue: 'Description'
-              })}</Label>
+                <Label className="text-sm text-gray-600">{t('common.description')}</Label>
                 <div className="text-sm text-gray-700">{extractedData.description}</div>
               </div>
               
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label className="text-sm text-gray-600">{t('Prix', {
-                  defaultValue: 'Prix'
-                })}</Label>
+                  <Label className="text-sm text-gray-600">{t('common.prix')}</Label>
                   <div className="font-medium">{extractedData.price} {extractedData.currency}</div>
                 </div>
                 <div>
-                  <Label className="text-sm text-gray-600">{t('Tags', {
-                  defaultValue: 'Tags'
-                })}</Label>
+                  <Label className="text-sm text-gray-600">{t('common.tags')}</Label>
                   <div>
                     {extractedData.tags.length > 0 ? extractedData.tags.map((tag, i) => <span key={i} className="inline-block bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs mr-1 mb-1">
                             {tag}
-                          </span>) : <span className="text-sm text-gray-500">{t('Aucun tag extrait', {
-                    defaultValue: 'Aucun tag extrait'
-                  })}</span>}
+                          </span>) : <span className="text-sm text-gray-500">{t('common.aucuntagextrait')}</span>}
                   </div>
                 </div>
               </div>
               
               <div className="pt-2">
-                <Button onClick={createTourCard} className="w-full">{t('Create tour card', {
-                defaultValue: 'Create tour card'
-              })}</Button>
-                <div className="text-xs text-center mt-2 text-gray-500">{t('Note: Vous pourrez modifier tous les d\xE9tails apr\xE8s la cr\xE9ation', {
-                defaultValue: 'Note: Vous pourrez modifier tous les d\xE9tails apr\xE8s la cr\xE9ation'
-              })}</div>
+                <Button onClick={createTourCard} className="w-full">{t('common.createtourcard')}</Button>
+                <div className="text-xs text-center mt-2 text-gray-500">{t('common.notevouspourrezmodif')}</div>
               </div>
             </div>}
         </div>

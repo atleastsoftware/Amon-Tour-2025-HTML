@@ -152,9 +152,7 @@ export default function Footer() {
         }} whileHover={{
           scale: 1.05
         }}>
-            <img src={logoA} alt={t('Amon Tour Logo', {
-            defaultValue: 'Amon Tour Logo'
-          })} className="h-12 w-auto" />
+            <img src={logoA} alt={t('common.amonTourLogo')} className="h-12 w-auto" />
           </motion.div>
         </div>
         
@@ -223,9 +221,7 @@ export default function Footer() {
         duration: 0.8,
         delay: 0.5
       }}>
-          <p className="font-heading">&copy; {new Date().getFullYear()}{t('Flame BB Co., Ltd. (Amon Tour).', {
-            defaultValue: 'Flame BB Co., Ltd. (Amon Tour).'
-          })}{t('footer.copyright')}</p>
+          <p className="font-heading">&copy; {new Date().getFullYear()}{t('company.fullName')}{t('footer.copyright')}</p>
           <div className="flex space-x-4 mt-4 md:mt-0">
             <motion.a href="/legal-notice" className="font-heading text-sm hover:text-secondary transition-colors" whileHover={{
             y: -2

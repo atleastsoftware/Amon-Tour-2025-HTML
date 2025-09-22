@@ -43,15 +43,11 @@ export default function SeasonalPricing() {
                 <p className="text-sm opacity-90">{t('cruise.peakPeriodRates')}</p>
               </div>
               <div className="p-6">
-                <p className="text-4xl font-bold text-foreground mb-2">39,000<span className="text-lg ml-2">{t('THB', {
-                    defaultValue: 'THB'
-                  })}</span></p>
+                <p className="text-4xl font-bold text-foreground mb-2">39,000<span className="text-lg ml-2">{t('common.thb')}</span></p>
                 <p className="text-sm text-muted-foreground/80 mb-4">{t('cruise.perDay')}</p>
                 <div className="border-t pt-4">
                   <p className="text-sm font-semibold text-muted-foreground">{t('cruise.period')}</p>
-                  <p className="text-sm text-muted-foreground">{t('Dec 15, 2025 - Jan 15, 2026', {
-                    defaultValue: 'Dec 15, 2025 - Jan 15, 2026'
-                  })}</p>
+                  <p className="text-sm text-muted-foreground">{t('common.dec152025jan152026')}</p>
                 </div>
               </div>
             </motion.div>
@@ -74,18 +70,12 @@ export default function SeasonalPricing() {
                 <p className="text-sm opacity-90">{t('cruise.premiumPeriodRates')}</p>
               </div>
               <div className="p-6">
-                <p className="text-4xl font-bold text-foreground mb-2">31,000<span className="text-lg ml-2">{t('THB', {
-                    defaultValue: 'THB'
-                  })}</span></p>
+                <p className="text-4xl font-bold text-foreground mb-2">31,000<span className="text-lg ml-2">{t('common.thb')}</span></p>
                 <p className="text-sm text-muted-foreground/80 mb-4">{t('cruise.perDay')}</p>
                 <div className="border-t pt-4">
                   <p className="text-sm font-semibold text-muted-foreground">{t('cruise.period')}</p>
-                  <p className="text-sm text-muted-foreground">{t('Oct 15 - Dec 14, 2025', {
-                    defaultValue: 'Oct 15 - Dec 14, 2025'
-                  })}</p>
-                  <p className="text-sm text-muted-foreground">{t('Jan 15 - Mar 31, 2026', {
-                    defaultValue: 'Jan 15 - Mar 31, 2026'
-                  })}</p>
+                  <p className="text-sm text-muted-foreground">{t('common.oct15dec142025')}</p>
+                  <p className="text-sm text-muted-foreground">{t('common.jan15mar312026')}</p>
                 </div>
               </div>
             </motion.div>
@@ -108,15 +98,11 @@ export default function SeasonalPricing() {
                 <p className="text-sm opacity-90">{t('cruise.bestValueRates')}</p>
               </div>
               <div className="p-6">
-                <p className="text-4xl font-bold text-foreground mb-2">28,000<span className="text-lg ml-2">{t('THB', {
-                    defaultValue: 'THB'
-                  })}</span></p>
+                <p className="text-4xl font-bold text-foreground mb-2">28,000<span className="text-lg ml-2">{t('common.thb')}</span></p>
                 <p className="text-sm text-muted-foreground/80 mb-4">{t('cruise.perDay')}</p>
                 <div className="border-t pt-4">
                   <p className="text-sm font-semibold text-muted-foreground">{t('cruise.period')}</p>
-                  <p className="text-sm text-muted-foreground">{t('Apr 1 - Oct 14, 2026', {
-                    defaultValue: 'Apr 1 - Oct 14, 2026'
-                  })}</p>
+                  <p className="text-sm text-muted-foreground">{t('common.apr1oct142026')}</p>
                 </div>
               </div>
             </motion.div>
@@ -153,9 +139,7 @@ export default function SeasonalPricing() {
             }}>
                 <p className="text-lg font-bold text-foreground">8:30</p>
                 <p className="text-sm text-muted-foreground mt-1">{t('cruise.fromTubkeak')}</p>
-                <p className="text-sm font-bold text-secondary mt-2">{t('+1,300 Baht', {
-                  defaultValue: '+1,300 Baht'
-                })}</p>
+                <p className="text-sm font-bold text-secondary mt-2">{t('common.1300baht')}</p>
               </motion.div>
               
               {/* Thalane */}
@@ -173,9 +157,7 @@ export default function SeasonalPricing() {
             }}>
                 <p className="text-lg font-bold text-foreground">8:30</p>
                 <p className="text-sm text-muted-foreground mt-1">{t('cruise.fromThalane')}</p>
-                <p className="text-sm font-bold text-secondary mt-2">{t('+1,800 Baht', {
-                  defaultValue: '+1,800 Baht'
-                })}</p>
+                <p className="text-sm font-bold text-secondary mt-2">{t('common.1800baht')}</p>
               </motion.div>
               
               {/* Ao Nang */}
@@ -211,9 +193,7 @@ export default function SeasonalPricing() {
             }}>
                 <p className="text-lg font-bold text-foreground">8:40</p>
                 <p className="text-sm text-muted-foreground mt-1">{t('cruise.fromKlongMueang')}</p>
-                <p className="text-sm font-bold text-secondary mt-2">{t('+1,000 Baht', {
-                  defaultValue: '+1,000 Baht'
-                })}</p>
+                <p className="text-sm font-bold text-secondary mt-2">{t('common.1000baht')}</p>
               </motion.div>
               
               {/* Railay */}

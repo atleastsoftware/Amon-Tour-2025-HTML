@@ -59,56 +59,36 @@ function ColorPicker({
   return <div className="space-y-4">
       {/* Champ de référence couleur */}
       <div className="space-y-2">
-        <Label className="text-sm font-medium">{t('R\xE9f\xE9rence couleur', {
-          defaultValue: 'R\xE9f\xE9rence couleur'
-        })}</Label>
-        <Input type="text" value={currentColorValue} onChange={handleHexInputChange} placeholder="#ffffff" className="font-mono text-sm" title={t('Tapez le code couleur ou s\xE9lectionnez une couleur pr\xE9d\xE9finie', {
-        defaultValue: 'Tapez le code couleur ou s\xE9lectionnez une couleur pr\xE9d\xE9finie'
-      })} />
+        <Label className="text-sm font-medium">{t('common.rxe9fxe9rencecouleur')}</Label>
+        <Input type="text" value={currentColorValue} onChange={handleHexInputChange} placeholder="#ffffff" className="font-mono text-sm" title={t('common.tapezlecodecouleurou')} />
       </div>
       
       {/* Couleurs prédéfinies du thème */}
       <div className="space-y-2">
-        <Label className="text-sm font-medium">{t('Couleurs du th\xE8me', {
-          defaultValue: 'Couleurs du th\xE8me'
-        })}</Label>
+        <Label className="text-sm font-medium">{t('common.couleursduthxe8me')}</Label>
         <div className="flex gap-3">
-          <button type="button" onClick={() => handleQuickColorClick('primary')} className={`flex items-center gap-2 px-3 py-2 rounded border-2 transition-all hover:scale-105 ${value === 'primary' ? 'border-primary ring-2 ring-primary/30 bg-primary/10' : 'border-gray-200 hover:border-gray-300'}`} title={t('Couleur principale du th\xE8me', {
-          defaultValue: 'Couleur principale du th\xE8me'
-        })}>
+          <button type="button" onClick={() => handleQuickColorClick('primary')} className={`flex items-center gap-2 px-3 py-2 rounded border-2 transition-all hover:scale-105 ${value === 'primary' ? 'border-primary ring-2 ring-primary/30 bg-primary/10' : 'border-gray-200 hover:border-gray-300'}`} title={t('common.couleurprincipaledut')}>
             <div className="w-6 h-6 rounded" style={{
             backgroundColor: SYSTEM_COLORS.primary
           }} />
-            <span className="text-sm font-medium">{t('Couleur principale', {
-              defaultValue: 'Couleur principale'
-            })}</span>
+            <span className="text-sm font-medium">{t('common.couleurprincipale')}</span>
           </button>
           
-          <button type="button" onClick={() => handleQuickColorClick('secondary')} className={`flex items-center gap-2 px-3 py-2 rounded border-2 transition-all hover:scale-105 ${value === 'secondary' ? 'border-secondary ring-2 ring-secondary/30 bg-secondary/10' : 'border-gray-200 hover:border-gray-300'}`} title={t('Couleur secondaire du th\xE8me', {
-          defaultValue: 'Couleur secondaire du th\xE8me'
-        })}>
+          <button type="button" onClick={() => handleQuickColorClick('secondary')} className={`flex items-center gap-2 px-3 py-2 rounded border-2 transition-all hover:scale-105 ${value === 'secondary' ? 'border-secondary ring-2 ring-secondary/30 bg-secondary/10' : 'border-gray-200 hover:border-gray-300'}`} title={t('common.couleursecondairedut')}>
             <div className="w-6 h-6 rounded" style={{
             backgroundColor: SYSTEM_COLORS.secondary
           }} />
-            <span className="text-sm font-medium">{t('Couleur secondaire', {
-              defaultValue: 'Couleur secondaire'
-            })}</span>
+            <span className="text-sm font-medium">{t('common.couleursecondaire')}</span>
           </button>
         </div>
       </div>
 
       {/* Aperçu visuel avec color picker natif */}
       <div className="space-y-2">
-        <Label className="text-sm font-medium">{t('Aper\xE7u', {
-          defaultValue: 'Aper\xE7u'
-        })}</Label>
+        <Label className="text-sm font-medium">{t('common.aperxe7u')}</Label>
         <div className="flex items-center gap-2">
-          <Input type="color" value={currentColorValue} onChange={handleCustomColorChange} className="w-12 h-8 p-0 border cursor-pointer" title={t('S\xE9lectionneur de couleur', {
-          defaultValue: 'S\xE9lectionneur de couleur'
-        })} />
-          <span className="text-sm text-gray-600">{t('Cliquez pour ouvrir le s\xE9lectionneur de couleur', {
-            defaultValue: 'Cliquez pour ouvrir le s\xE9lectionneur de couleur'
-          })}</span>
+          <Input type="color" value={currentColorValue} onChange={handleCustomColorChange} className="w-12 h-8 p-0 border cursor-pointer" title={t('common.sxe9lectionneurdecou')} />
+          <span className="text-sm text-gray-600">{t('common.cliquezpourouvrirles')}</span>
         </div>
       </div>
     </div>;
@@ -175,9 +155,7 @@ export function BlockConfigModal({
   return <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>{t('Configure Block:', {
-            defaultValue: 'Configure Block:'
-          })}{block.blockType}</DialogTitle>
+          <DialogTitle>{t('common.configureblock')}{block.blockType}</DialogTitle>
           <div className="flex gap-2">
             <Badge variant="outline">{block.identifier}</Badge>
             <Badge>{block.blockType}</Badge>
@@ -186,54 +164,32 @@ export function BlockConfigModal({
 
         <Tabs value={activeTab} onValueChange={setActiveTab}>
           <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="content">{t('Content', {
-              defaultValue: 'Content'
-            })}</TabsTrigger>
+            <TabsTrigger value="content">{t('common.content')}</TabsTrigger>
             <TabsTrigger value="style">Style</TabsTrigger>
-            <TabsTrigger value="actions">{t('Actions', {
-              defaultValue: 'Actions'
-            })}</TabsTrigger>
-            <TabsTrigger value="advanced">{t('Advanced', {
-              defaultValue: 'Advanced'
-            })}</TabsTrigger>
+            <TabsTrigger value="actions">{t('common.actions')}</TabsTrigger>
+            <TabsTrigger value="advanced">{t('common.advanced')}</TabsTrigger>
           </TabsList>
 
           <TabsContent value="content" className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="title">{t('Title', {
-                  defaultValue: 'Title'
-                })}</Label>
-                <Input id="title" value={config.title || ''} onChange={e => handleConfigChange('title', e.target.value)} placeholder={t('Block title', {
-                defaultValue: 'Block title'
-              })} />
+                <Label htmlFor="title">{t('common.title')}</Label>
+                <Input id="title" value={config.title || ''} onChange={e => handleConfigChange('title', e.target.value)} placeholder={t('common.blocktitle')} />
               </div>
               <div>
-                <Label htmlFor="subtitle">{t('Subtitle', {
-                  defaultValue: 'Subtitle'
-                })}</Label>
-                <Input id="subtitle" value={config.subtitle || ''} onChange={e => handleConfigChange('subtitle', e.target.value)} placeholder={t('Block subtitle', {
-                defaultValue: 'Block subtitle'
-              })} />
+                <Label htmlFor="subtitle">{t('common.subtitle')}</Label>
+                <Input id="subtitle" value={config.subtitle || ''} onChange={e => handleConfigChange('subtitle', e.target.value)} placeholder={t('common.blocksubtitle')} />
               </div>
             </div>
 
             <div>
-              <Label htmlFor="description">{t('Description', {
-                defaultValue: 'Description'
-              })}</Label>
-              <Textarea id="description" value={config.description || ''} onChange={e => handleConfigChange('description', e.target.value)} placeholder={t('Block description', {
-              defaultValue: 'Block description'
-            })} rows={3} />
+              <Label htmlFor="description">{t('common.description')}</Label>
+              <Textarea id="description" value={config.description || ''} onChange={e => handleConfigChange('description', e.target.value)} placeholder={t('common.blockdescription')} rows={3} />
             </div>
 
             <div>
-              <Label htmlFor="content">{t('Content', {
-                defaultValue: 'Content'
-              })}</Label>
-              <Textarea id="content" value={config.content || ''} onChange={e => handleConfigChange('content', e.target.value)} placeholder={t('Main content (supports HTML)', {
-              defaultValue: 'Main content (supports HTML)'
-            })} rows={4} />
+              <Label htmlFor="content">{t('common.content')}</Label>
+              <Textarea id="content" value={config.content || ''} onChange={e => handleConfigChange('content', e.target.value)} placeholder={t('common.maincontentsupportsh')} rows={4} />
             </div>
 
             {/* Block-specific content fields */}
@@ -243,9 +199,7 @@ export function BlockConfigModal({
           <TabsContent value="style" className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="imageUrl">{t('Image URL', {
-                  defaultValue: 'Image URL'
-                })}</Label>
+                <Label htmlFor="imageUrl">{t('common.imageurl')}</Label>
                 <div className="flex gap-2">
                   <Input id="imageUrl" value={config.imageUrl || ''} onChange={e => handleConfigChange('imageUrl', e.target.value)} placeholder="/path/to/image.jpg" />
                   <Button variant="outline" size="icon">
@@ -254,29 +208,17 @@ export function BlockConfigModal({
                 </div>
               </div>
               <div>
-                <Label htmlFor="backgroundColor">{t('Background Color', {
-                  defaultValue: 'Background Color'
-                })}</Label>
+                <Label htmlFor="backgroundColor">{t('common.backgroundcolor')}</Label>
                 <Select value={config.backgroundColor || 'white'} onValueChange={value => handleConfigChange('backgroundColor', value)}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="white">{t('White', {
-                      defaultValue: 'White'
-                    })}</SelectItem>
-                    <SelectItem value="gray">{t('Gray', {
-                      defaultValue: 'Gray'
-                    })}</SelectItem>
-                    <SelectItem value="primary">{t('Primary Blue', {
-                      defaultValue: 'Primary Blue'
-                    })}</SelectItem>
-                    <SelectItem value="secondary">{t('Secondary Gold', {
-                      defaultValue: 'Secondary Gold'
-                    })}</SelectItem>
-                    <SelectItem value="dark">{t('Dark', {
-                      defaultValue: 'Dark'
-                    })}</SelectItem>
+                    <SelectItem value="white">{t('common.white')}</SelectItem>
+                    <SelectItem value="gray">{t('common.gray')}</SelectItem>
+                    <SelectItem value="primary">{t('common.primaryblue')}</SelectItem>
+                    <SelectItem value="secondary">{t('common.secondarygold')}</SelectItem>
+                    <SelectItem value="dark">{t('common.dark')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -284,27 +226,19 @@ export function BlockConfigModal({
 
             {block.blockType === 'text_image' && <div className="space-y-4">
                 <div>
-                  <Label>{t('Layout', {
-                  defaultValue: 'Layout'
-                })}</Label>
+                  <Label>{t('common.layout')}</Label>
                   <Select value={config.layout || 'text-left'} onValueChange={value => handleConfigChange('layout', value)}>
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="text-left">{t('Text Left, Image Right', {
-                      defaultValue: 'Text Left, Image Right'
-                    })}</SelectItem>
-                      <SelectItem value="image-left">{t('Image Left, Text Right', {
-                      defaultValue: 'Image Left, Text Right'
-                    })}</SelectItem>
+                      <SelectItem value="text-left">{t('common.textleftimageright')}</SelectItem>
+                      <SelectItem value="image-left">{t('common.imagelefttextright')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div>
-                  <Label>{t('Couleur du texte', {
-                  defaultValue: 'Couleur du texte'
-                })}</Label>
+                  <Label>{t('common.couleurdutexte')}</Label>
                   <ColorPicker value={config.textColor || 'dark'} onChange={value => handleConfigChange('textColor', value)} />
                 </div>
               </div>}
@@ -313,26 +247,18 @@ export function BlockConfigModal({
           <TabsContent value="actions" className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="ctaText">{t('Call-to-Action Text', {
-                  defaultValue: 'Call-to-Action Text'
-                })}</Label>
-                <Input id="ctaText" value={config.ctaText || ''} onChange={e => handleConfigChange('ctaText', e.target.value)} placeholder={t('Learn More', {
-                defaultValue: 'Learn More'
-              })} />
+                <Label htmlFor="ctaText">{t('common.calltoactiontext')}</Label>
+                <Input id="ctaText" value={config.ctaText || ''} onChange={e => handleConfigChange('ctaText', e.target.value)} placeholder={t('common.learnmore')} />
               </div>
               <div>
-                <Label htmlFor="ctaUrl">{t('Call-to-Action URL', {
-                  defaultValue: 'Call-to-Action URL'
-                })}</Label>
+                <Label htmlFor="ctaUrl">{t('common.calltoactionurl')}</Label>
                 <Input id="ctaUrl" value={config.ctaUrl || ''} onChange={e => handleConfigChange('ctaUrl', e.target.value)} placeholder="/contact" />
               </div>
             </div>
 
             {/* CTA Buttons for Hero blocks */}
             {(block.blockType === 'hero' || block.blockType === 'video_hero') && <div>
-                <Label>{t('CTA Buttons', {
-                defaultValue: 'CTA Buttons'
-              })}</Label>
+                <Label>{t('common.ctabuttons')}</Label>
                 <div className="space-y-2">
                   {(config.ctaButtons || []).map((button: any, index: number) => <Card key={index}>
                       <CardContent className="p-3">
@@ -340,9 +266,7 @@ export function BlockConfigModal({
                           <Input value={button.text || ''} onChange={e => handleArrayUpdate('ctaButtons', index, {
                       ...button,
                       text: e.target.value
-                    })} placeholder={t('Button text', {
-                      defaultValue: 'Button text'
-                    })} />
+                    })} placeholder={t('common.buttontext')} />
                           <Select value={button.style || 'primary'} onValueChange={value => handleArrayUpdate('ctaButtons', index, {
                       ...button,
                       style: value
@@ -351,15 +275,9 @@ export function BlockConfigModal({
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="primary">{t('Primary', {
-                            defaultValue: 'Primary'
-                          })}</SelectItem>
-                              <SelectItem value="secondary">{t('Secondary', {
-                            defaultValue: 'Secondary'
-                          })}</SelectItem>
-                              <SelectItem value="outline">{t('Outline', {
-                            defaultValue: 'Outline'
-                          })}</SelectItem>
+                              <SelectItem value="primary">{t('common.primary')}</SelectItem>
+                              <SelectItem value="secondary">{t('common.secondary')}</SelectItem>
+                              <SelectItem value="outline">{t('common.outline')}</SelectItem>
                             </SelectContent>
                           </Select>
                           <Button variant="ghost" size="icon" onClick={() => handleArrayRemove('ctaButtons', index)}>
@@ -369,15 +287,11 @@ export function BlockConfigModal({
                       </CardContent>
                     </Card>)}
                   <Button variant="outline" onClick={() => handleArrayAdd('ctaButtons', {
-                text: t('New Button', {
-                  defaultValue: 'New Button'
-                }),
+                text: t('common.newbutton'),
                 style: 'primary',
                 url: ''
               })}>
-                    <Plus className="h-4 w-4 mr-2" />{t('Add Button', {
-                  defaultValue: 'Add Button'
-                })}</Button>
+                    <Plus className="h-4 w-4 mr-2" />{t('common.addbutton')}</Button>
                 </div>
               </div>}
           </TabsContent>
@@ -385,31 +299,23 @@ export function BlockConfigModal({
           <TabsContent value="advanced" className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="identifier">{t('Block Identifier', {
-                  defaultValue: 'Block Identifier'
-                })}</Label>
+                <Label htmlFor="identifier">{t('common.blockidentifier')}</Label>
                 <Input id="identifier" value={block.identifier} disabled className="bg-muted" />
               </div>
               <div>
-                <Label htmlFor="blockOrder">{t('Block Order', {
-                  defaultValue: 'Block Order'
-                })}</Label>
+                <Label htmlFor="blockOrder">{t('common.blockorder')}</Label>
                 <Input id="blockOrder" type="number" value={block.blockOrder} disabled className="bg-muted" />
               </div>
             </div>
 
             <div className="flex items-center space-x-2">
               <Switch id="isActive" checked={block.isActive !== false} disabled />
-              <Label htmlFor="isActive">{t('Block is active', {
-                defaultValue: 'Block is active'
-              })}</Label>
+              <Label htmlFor="isActive">{t('common.blockisactive')}</Label>
             </div>
 
             <Card>
               <CardHeader>
-                <CardTitle className="text-sm">{t('Raw Configuration (JSON)', {
-                  defaultValue: 'Raw Configuration (JSON)'
-                })}</CardTitle>
+                <CardTitle className="text-sm">{t('common.rawconfigurationjson')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <Textarea value={JSON.stringify(config.configuration || {}, null, 2)} onChange={e => {
@@ -426,12 +332,8 @@ export function BlockConfigModal({
         </Tabs>
 
         <DialogFooter>
-          <Button variant="outline" onClick={() => onOpenChange(false)}>{t('Annuler', {
-            defaultValue: 'Annuler'
-          })}</Button>
-          <Button onClick={handleSave}>{t('Enregistrer', {
-            defaultValue: 'Enregistrer'
-          })}</Button>
+          <Button variant="outline" onClick={() => onOpenChange(false)}>{t('common.annuler')}</Button>
+          <Button onClick={handleSave}>{t('common.enregistrer')}</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>;
@@ -443,67 +345,45 @@ function renderBlockSpecificContent(blockType: string, config: any, handleConfig
     case 'video_hero':
       return <div className="space-y-4">
           <div>
-            <Label htmlFor="videoUrl">{t('Video URL', {
-              defaultValue: 'Video URL'
-            })}</Label>
+            <Label htmlFor="videoUrl">{t('common.videourl')}</Label>
             <Input id="videoUrl" value={config.videoUrl || ''} onChange={e => handleConfigChange('videoUrl', e.target.value)} placeholder="/path/to/video.mp4" />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="titleMainColor">{t('Titre principal', {
-                defaultValue: 'Titre principal'
-              })}</Label>
-              <Textarea id="titleMainColor" value={config.titleMainColor || ''} onChange={e => handleConfigChange('titleMainColor', e.target.value)} placeholder={t('Titre principal du h\xE9ros', {
-              defaultValue: 'Titre principal du h\xE9ros'
-            })} rows={2} />
+              <Label htmlFor="titleMainColor">{t('common.titreprincipal')}</Label>
+              <Textarea id="titleMainColor" value={config.titleMainColor || ''} onChange={e => handleConfigChange('titleMainColor', e.target.value)} placeholder={t('common.titreprincipalduhxe9')} rows={2} />
             </div>
             <div>
-              <Label htmlFor="titlePrimaryColor">{t('Couleur principale du titre', {
-                defaultValue: 'Couleur principale du titre'
-              })}</Label>
+              <Label htmlFor="titlePrimaryColor">{t('common.couleurprincipaledut')}</Label>
               <ColorPicker value={config.titlePrimaryColor || 'primary'} onChange={value => handleConfigChange('titlePrimaryColor', value)} />
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="titleColorPart">{t('Mot du titre en seconde couleur', {
-                defaultValue: 'Mot du titre en seconde couleur'
-              })}</Label>
-              <Input id="titleColorPart" value={config.titleColorPart || ''} onChange={e => handleConfigChange('titleColorPart', e.target.value)} placeholder={t('Mot \xE0 colorier diff\xE9remment', {
-              defaultValue: 'Mot \xE0 colorier diff\xE9remment'
-            })} />
+              <Label htmlFor="titleColorPart">{t('common.motdutitreensecondec')}</Label>
+              <Input id="titleColorPart" value={config.titleColorPart || ''} onChange={e => handleConfigChange('titleColorPart', e.target.value)} placeholder={t('common.motxe0colorierdiffxe')} />
             </div>
             <div>
-              <Label htmlFor="titleAccentColor">{t('Couleur accent', {
-                defaultValue: 'Couleur accent'
-              })}</Label>
+              <Label htmlFor="titleAccentColor">{t('common.couleuraccent')}</Label>
               <ColorPicker value={config.titleAccentColor || 'secondary'} onChange={value => handleConfigChange('titleAccentColor', value)} />
             </div>
           </div>
 
           <div>
-            <Label htmlFor="subtitleColor">{t('Couleur du sous-titre', {
-              defaultValue: 'Couleur du sous-titre'
-            })}</Label>
+            <Label htmlFor="subtitleColor">{t('common.couleurdusoustitre')}</Label>
             <ColorPicker value={config.subtitleColor || 'white'} onChange={value => handleConfigChange('subtitleColor', value)} />
           </div>
 
           <div>
-            <Label htmlFor="heroCountry">{t('Pays/R\xE9gion', {
-              defaultValue: 'Pays/R\xE9gion'
-            })}</Label>
-            <Input id="heroCountry" value={config.heroCountry || ''} onChange={e => handleConfigChange('heroCountry', e.target.value)} placeholder={t('ex: in Krabi', {
-            defaultValue: 'ex: in Krabi'
-          })} />
+            <Label htmlFor="heroCountry">{t('common.paysrxe9gion')}</Label>
+            <Input id="heroCountry" value={config.heroCountry || ''} onChange={e => handleConfigChange('heroCountry', e.target.value)} placeholder={t('common.exinkrabi')} />
           </div>
         </div>;
     case 'advantages':
       return <div>
-          <Label>{t('Features', {
-            defaultValue: 'Features'
-          })}</Label>
+          <Label>{t('common.features')}</Label>
           <div className="space-y-2">
             {(config.features || []).map((feature: any, index: number) => <Card key={index}>
                 <CardContent className="p-3">
@@ -511,21 +391,15 @@ function renderBlockSpecificContent(blockType: string, config: any, handleConfig
                     <Input value={feature.icon || ''} onChange={e => handleArrayUpdate('features', index, {
                   ...feature,
                   icon: e.target.value
-                })} placeholder={t('Icon name', {
-                  defaultValue: 'Icon name'
-                })} />
+                })} placeholder={t('common.iconname')} />
                     <Input value={feature.title || ''} onChange={e => handleArrayUpdate('features', index, {
                   ...feature,
                   title: e.target.value
-                })} placeholder={t('Feature title', {
-                  defaultValue: 'Feature title'
-                })} />
+                })} placeholder={t('common.featuretitle')} />
                     <Input value={feature.description || ''} onChange={e => handleArrayUpdate('features', index, {
                   ...feature,
                   description: e.target.value
-                })} placeholder={t('Feature description', {
-                  defaultValue: 'Feature description'
-                })} />
+                })} placeholder={t('common.featuredescription')} />
                     <Button variant="ghost" size="icon" onClick={() => handleArrayRemove('features', index)}>
                       <X className="h-4 w-4" />
                     </Button>
@@ -534,89 +408,61 @@ function renderBlockSpecificContent(blockType: string, config: any, handleConfig
               </Card>)}
             <Button variant="outline" onClick={() => handleArrayAdd('features', {
             icon: 'Users',
-            title: t('New Feature', {
-              defaultValue: 'New Feature'
-            }),
-            description: t('Feature description', {
-              defaultValue: 'Feature description'
-            })
+            title: t('common.newfeature'),
+            description: t('common.featuredescription')
           })}>
-              <Plus className="h-4 w-4 mr-2" />{t('Add Feature', {
-              defaultValue: 'Add Feature'
-            })}</Button>
+              <Plus className="h-4 w-4 mr-2" />{t('common.addfeature')}</Button>
           </div>
         </div>;
     case 'form':
       return <div className="space-y-4">
           <div>
-            <Label htmlFor="formType">{t('Form Type', {
-              defaultValue: 'Form Type'
-            })}</Label>
+            <Label htmlFor="formType">{t('common.formtype')}</Label>
             <Select value={config.formType || 'contact'} onValueChange={value => handleConfigChange('formType', value)}>
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="contact">{t('Contact Form', {
-                  defaultValue: 'Contact Form'
-                })}</SelectItem>
-                <SelectItem value="custom_tour">{t('Custom Tour Form', {
-                  defaultValue: 'Custom Tour Form'
-                })}</SelectItem>
-                <SelectItem value="newsletter">{t('Newsletter Signup', {
-                  defaultValue: 'Newsletter Signup'
-                })}</SelectItem>
+                <SelectItem value="contact">{t('common.contactform')}</SelectItem>
+                <SelectItem value="custom_tour">{t('common.customtourform')}</SelectItem>
+                <SelectItem value="newsletter">{t('common.newslettersignup')}</SelectItem>
               </SelectContent>
             </Select>
           </div>
           
           <div>
-            <Label htmlFor="submitText">{t('Submit Button Text', {
-              defaultValue: 'Submit Button Text'
-            })}</Label>
-            <Input id="submitText" value={config.submitText || ''} onChange={e => handleConfigChange('submitText', e.target.value)} placeholder={t('Send Message', {
-            defaultValue: 'Send Message'
-          })} />
+            <Label htmlFor="submitText">{t('common.submitbuttontext')}</Label>
+            <Input id="submitText" value={config.submitText || ''} onChange={e => handleConfigChange('submitText', e.target.value)} placeholder={t('common.sendmessage')} />
           </div>
         </div>;
     case 'card_grid':
       return <div className="space-y-4">
           <div>
-            <Label htmlFor="displayCount">{t('Number of Cards', {
-              defaultValue: 'Number of Cards'
-            })}</Label>
+            <Label htmlFor="displayCount">{t('common.numberofcards')}</Label>
             <Input id="displayCount" type="number" value={config.displayCount || 6} onChange={e => handleConfigChange('displayCount', parseInt(e.target.value))} min="1" max="12" />
           </div>
           
           <div className="flex items-center space-x-2">
             <Switch id="showTourNinja" checked={config.showTourNinja || false} onCheckedChange={checked => handleConfigChange('showTourNinja', checked)} />
-            <Label htmlFor="showTourNinja">{t('Show Tour Ninja integration', {
-              defaultValue: 'Show Tour Ninja integration'
-            })}</Label>
+            <Label htmlFor="showTourNinja">{t('common.showtourninjaintegra')}</Label>
           </div>
         </div>;
     case 'testimonials':
       return <div className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="rating">{t('Rating', {
-                defaultValue: 'Rating'
-              })}</Label>
+              <Label htmlFor="rating">{t('common.rating')}</Label>
               <Input id="rating" type="number" step="0.1" min="0" max="5" value={config.rating || 5.0} onChange={e => handleConfigChange('rating', parseFloat(e.target.value))} />
             </div>
             <div>
-              <Label htmlFor="reviewCount">{t('Review Count', {
-                defaultValue: 'Review Count'
-              })}</Label>
+              <Label htmlFor="reviewCount">{t('common.reviewcount')}</Label>
               <Input id="reviewCount" type="number" value={config.reviewCount || 80} onChange={e => handleConfigChange('reviewCount', parseInt(e.target.value))} />
             </div>
           </div>
           
           <div className="flex items-center space-x-2">
             <Switch id="googleReviewsWidget" checked={config.googleReviewsWidget || false} onCheckedChange={checked => handleConfigChange('googleReviewsWidget', checked)} />
-            <Label htmlFor="googleReviewsWidget">{t('Show Google Reviews widget', {
-              defaultValue: 'Show Google Reviews widget'
-            })}</Label>
+            <Label htmlFor="googleReviewsWidget">{t('common.showgooglereviewswid')}</Label>
           </div>
         </div>;
     default:

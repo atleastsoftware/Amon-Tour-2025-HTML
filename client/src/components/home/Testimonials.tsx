@@ -33,9 +33,7 @@ export default function Testimonials() {
               <i className="fas fa-star text-[hsl(var(--star))] text-2xl mx-1"></i>
               <i className="fas fa-star text-[hsl(var(--star))] text-2xl mx-1"></i>
             </div>
-            <h3 className="text-primary font-heading font-bold text-2xl">{t('5.0 on Google', {
-              defaultValue: '5.0 on Google'
-            })}</h3>
+            <h3 className="text-primary font-heading font-bold text-2xl">{t('common.50ongoogle')}</h3>
             <p className="text-muted-foreground">{t('home.basedOnReviews')}</p>
           </div>
           
@@ -59,9 +57,7 @@ export default function Testimonials() {
                   <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white text-xs mr-2">
                     <span>S</span>
                   </div>
-                  <span className="text-foreground font-medium text-sm">{t('Sophie L.', {
-                    defaultValue: 'Sophie L.'
-                  })}</span>
+                  <span className="text-foreground font-medium text-sm">{t('common.sophiel')}</span>
                 </div>
               </div>
 
@@ -80,9 +76,7 @@ export default function Testimonials() {
                   <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white text-xs mr-2">
                     <span>P</span>
                   </div>
-                  <span className="text-foreground font-medium text-sm">{t('Pierre M.', {
-                    defaultValue: 'Pierre M.'
-                  })}</span>
+                  <span className="text-foreground font-medium text-sm">{t('common.pierrem')}</span>
                 </div>
               </div>
 
@@ -101,9 +95,7 @@ export default function Testimonials() {
                   <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white text-xs mr-2">
                     <span>F</span>
                   </div>
-                  <span className="text-foreground font-medium text-sm">{t('Martin Family', {
-                    defaultValue: 'Martin Family'
-                  })}</span>
+                  <span className="text-foreground font-medium text-sm">{t('common.martinfamily')}</span>
                 </div>
               </div>
             </div>
@@ -111,9 +103,7 @@ export default function Testimonials() {
           
           <div className="text-center mt-6">
             <a href="https://maps.app.goo.gl/fe17kgt89d64kAHs7" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-medium inline-flex items-center">
-              <span>{t('View all reviews on Google', {
-                defaultValue: 'View all reviews on Google'
-              })}</span>
+              <span>{t('footer.viewAllReviews')}</span>
               <i className="fas fa-external-link-alt ml-2 text-sm"></i>
             </a>
           </div>

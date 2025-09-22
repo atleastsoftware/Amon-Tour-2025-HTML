@@ -12,7 +12,8 @@
     "about": "About",
     "stays": "Stays",
     "cruise": "Cruise",
-    "customTrip": "Custom Trip"
+    "customTrip": "Custom Trip",
+    "toggleMenu": "Toggle menu"
   },
   "buttons": {
     "bookNow": "Book Now",
@@ -143,7 +144,10 @@
     },
     "countries": {
       "thailand": "Thailand"
-    }
+    },
+    "subscribeNewsletter": "Subscribe to newsletter",
+    "contactWhatsApp": "Contact via WhatsApp",
+    "viewAllReviews": "View all reviews on Google"
   },
   "tours": {
     "featured": "Our exclusive experiences",
@@ -2453,5 +2457,57 @@
       "contact": "• Contact details",
       "insights": "• Local insights"
     }
+  },
+  "languages": {
+    "english": "English",
+    "french": "French",
+    "spanish": "Spanish"
+  },
+  "pages": {
+    "krabiCelebration": {
+      "seoTitle": "Krabi Celebration - Amon Tour",
+      "title": "Krabi Celebration"
+    },
+    "villasKrabi": {
+      "seoTitle": "Villas in Krabi - Luxury Accommodation - Amon Tour",
+      "title": "Villas in Krabi"
+    },
+    "becomePartner": {
+      "seoTitle": "Become Partner - Amon Tour",
+      "title": "Become Partner"
+    },
+    "groupCorporate": {
+      "seoTitle": "Group & Corporate - Amon Tour",
+      "title": "Group & Corporate"
+    },
+    "legalNotice": {
+      "seoTitle": "Legal Notice - Amon Tour"
+    },
+    "privacyPolicy": {
+      "seoTitle": "Privacy Policy - Amon Tour"
+    },
+    "termsConditions": {
+      "seoTitle": "Terms & Conditions - Amon Tour"
+    }
+  },
+  "legal": {
+    "title": "Legal Notice"
+  },
+  "privacy": {
+    "title": "Privacy Policy"
+  },
+  "terms": {
+    "title": "Terms & Conditions"
+  },
+  "company": {
+    "fullName": "Flame BB Co., Ltd. (Amon Tour)."
+  },
+  "common": {
+    "amonLogo": "Amon Logo",
+    "amonTourLogo": "Amon Tour Logo",
+    "didyouforgettoaddth": "Did you forget to add the page to the router?",
+    "amontourexperiencean": "Amon Tour Experience and Krabi Stays",
+    "authenticthailandexp": "Authentic Thailand experiences with local family",
+    "discoverkrabiandsou": "Discover Krabi and southern Thailand like never before"
   }
 }
