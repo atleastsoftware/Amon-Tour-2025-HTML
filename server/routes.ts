@@ -1164,8 +1164,8 @@ Crawl-delay: 1`;
 
   // ===== TOUR NINJA SYNCHRONIZATION API =====
 
-  // Function to transform Amontour request to Tour Ninja format
-  function transformToTourNinja(amontourRequest: any) {
+  // Function to transform Amontour custom tour request to Tour Ninja format
+  function transformCustomTourToTourNinja(amontourRequest: any) {
     // Map status values
     const statusMap: Record<string, string> = {
       "new": "received",
@@ -1204,7 +1204,57 @@ Crawl-delay: 1`;
       tripTypes: amontourRequest.tripTypes || [],
       amontourId: amontourRequest.id,
       originalCreatedAt: amontourRequest.createdAt,
-      source: "amontour_sync"
+      source: "amontour_custom_tour"
+    };
+  }
+
+  // Function to transform Amontour cruise request to Tour Ninja format
+  function transformCruiseToTourNinja(cruiseRequest: any) {
+    // Map cruise status values
+    const statusMap: Record<string, string> = {
+      "pending": "received",
+      "contacted": "processing", 
+      "confirmed": "completed",
+      "cancelled": "cancelled"
+    };
+
+    // Infer cruise tour name from duration and itinerary
+    const inferCruiseTourName = (duration: string, itinerary?: string) => {
+      if (duration === "1 day") return "Day Cruise Experience";
+      if (duration === "2 days") return "2-Day Island Cruise";
+      if (duration === "3-4 days") return "Multi-Day Island Explorer";
+      if (duration === "5-6 days") return "Extended Island Adventure";
+      if (duration === "7+ days") return "Ultimate Island Journey";
+      if (itinerary?.toLowerCase().includes("phi phi")) return "Phi Phi Islands Cruise";
+      if (itinerary?.toLowerCase().includes("krabi")) return "Krabi Coast Cruise";
+      if (itinerary?.toLowerCase().includes("phang nga")) return "Phang Nga Bay Cruise";
+      return "Custom Island Cruise";
+    };
+
+    return {
+      customerName: cruiseRequest.fullName,
+      customerEmail: cruiseRequest.email,
+      phone: cruiseRequest.phone || "Non fourni",
+      tourDate: cruiseRequest.preferredDates || "Date flexible",
+      numberOfAdults: cruiseRequest.numberOfGuests || 2,
+      numberOfKids: 0, // Cruise requests don't differentiate adults/kids
+      duration: cruiseRequest.duration,
+      message: [
+        cruiseRequest.specialRequests ? `Demandes spéciales: ${cruiseRequest.specialRequests}` : "",
+        cruiseRequest.itinerary ? `Itinéraire préféré: ${cruiseRequest.itinerary}` : "",
+        cruiseRequest.budget ? `Budget: ${cruiseRequest.budget}` : ""
+      ].filter(Boolean).join("\n"),
+      destinations: cruiseRequest.itinerary ? [cruiseRequest.itinerary] : [],
+      budget: cruiseRequest.budget || "À discuter",
+      status: statusMap[cruiseRequest.status] || "received",
+      associatedTourName: inferCruiseTourName(cruiseRequest.duration, cruiseRequest.itinerary),
+      // Additional cruise-specific fields
+      numberOfGuests: cruiseRequest.numberOfGuests,
+      itinerary: cruiseRequest.itinerary,
+      specialRequests: cruiseRequest.specialRequests,
+      amontourId: cruiseRequest.id,
+      originalCreatedAt: cruiseRequest.createdAt,
+      source: "amontour_cruise"
     };
   }
 
@@ -1264,7 +1314,7 @@ Crawl-delay: 1`;
       const amontourRequests = await storage.getCustomTourRequests(filters);
       
       // Transform to Tour Ninja format
-      const tourNinjaFormat = amontourRequests.map(transformToTourNinja);
+      const tourNinjaFormat = amontourRequests.map(transformCustomTourToTourNinja);
       
       res.json({
         success: true,
@@ -1279,6 +1329,84 @@ Crawl-delay: 1`;
       res.status(500).json({ 
         success: false, 
         message: "Failed to sync data",
+        error: String(error) 
+      });
+    }
+  });
+
+  // Cruise requests synchronization endpoint with API key authentication
+  app.get("/api/sync/cruise-requests", async (req, res) => {
+    try {
+      // API key authentication for Tour Ninja
+      const authHeader = req.headers.authorization;
+      
+      // Accept both the hardcoded key for Tour Ninja sync and the environment key for internal use
+      const validApiKeys = [
+        "TOUR_NINJA_API_KEY_2025", // Tour Ninja's dedicated sync key
+        process.env.TOUR_NINJA_API_KEY // Environment key if set
+      ].filter(Boolean);
+      
+      if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return res.status(401).json({ 
+          success: false, 
+          message: "Authorization header required" 
+        });
+      }
+
+      const apiKey = authHeader.substring(7); // Remove 'Bearer '
+      
+      if (!validApiKeys.includes(apiKey)) {
+        return res.status(403).json({ 
+          success: false, 
+          message: "Invalid API key" 
+        });
+      }
+
+      // Get query parameters for filtering
+      const { status, since } = req.query;
+      const filters: any = {};
+      
+      // Map Tour Ninja status values to internal cruise request statuses
+      if (status && status !== 'all') {
+        const tourNinjaToCruise: Record<string, string> = {
+          "received": "pending",
+          "processing": "contacted", 
+          "completed": "confirmed",
+          "cancelled": "cancelled"
+        };
+        
+        const mappedStatus = tourNinjaToCruise[status as string] || status as string;
+        filters.status = mappedStatus;
+      }
+      
+      // Handle incremental sync with 'since' parameter
+      if (since) {
+        const sinceDate = new Date(since as string);
+        if (!isNaN(sinceDate.getTime())) {
+          filters.since = sinceDate;
+        }
+      }
+      
+      // Fetch cruise requests from storage
+      const cruiseRequests = await storage.getCruiseRequests(filters);
+      
+      // Transform to Tour Ninja format
+      const tourNinjaFormat = cruiseRequests.map(transformCruiseToTourNinja);
+      
+      res.json({
+        success: true,
+        count: tourNinjaFormat.length,
+        data: tourNinjaFormat,
+        lastSync: new Date().toISOString(),
+        filters: filters,
+        type: "cruise_requests"
+      });
+
+    } catch (error: any) {
+      console.error("Error in Cruise requests Tour Ninja sync:", error);
+      res.status(500).json({ 
+        success: false, 
+        message: "Failed to sync cruise requests data",
         error: String(error) 
       });
     }

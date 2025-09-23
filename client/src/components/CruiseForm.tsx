@@ -26,6 +26,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { translationService } from "@/services/translationService";
+import { apiRequest } from "@/lib/queryClient";
 
 const cruiseFormSchema = z.object({
   fullName: z.string().min(2, "Full name required"),
@@ -54,6 +55,7 @@ type CruiseFormData = {
 export default function CruiseForm() {
   const { toast } = useToast();
   const cruise = translationService.getCruise();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const form = useForm<CruiseFormData>({
     resolver: zodResolver(cruiseFormSchema),
@@ -69,6 +71,32 @@ export default function CruiseForm() {
       specialRequests: "",
     },
   });
+
+  // Submit form to API and Tour Ninja
+  const onSubmit = async (data: CruiseFormData) => {
+    setIsSubmitting(true);
+    try {
+      // Send to local API first
+      await apiRequest("POST", "/api/cruise-requests", data);
+      
+      toast({
+        title: cruise.requestSent || "Request sent",
+        description: cruise.contactShortly || "We will contact you very soon to discuss your cruise project.",
+        variant: "default",
+      });
+      
+      form.reset();
+    } catch (error) {
+      console.error("Cruise request submission error:", error);
+      toast({
+        title: cruise.error || "Error",
+        description: cruise.errorMessage || "There was a problem sending your request. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   // Generate WhatsApp message from form data
   const generateWhatsAppMessage = (data: CruiseFormData) => {
@@ -305,6 +333,25 @@ export default function CruiseForm() {
               )}
             />
 
+            {/* Submit Request Button */}
+            <div className="mt-6">
+              <Button 
+                onClick={form.handleSubmit(onSubmit)}
+                disabled={isSubmitting}
+                className="w-full bg-primary hover:bg-primary/90 text-white py-3 px-4 rounded-md font-heading font-semibold transition-colors duration-200 shadow-md hover:shadow-lg"
+                data-testid="button-submit"
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    {cruise.sending || "Sending..."}
+                  </>
+                ) : (
+                  cruise.sendRequest || "Send my request"
+                )}
+              </Button>
+            </div>
+
             {/* WhatsApp Contact Button */}
             <div className="mt-4 pt-4 border-t border-gray-200">
               <p className="text-center text-sm text-gray-600 mb-3">
@@ -313,6 +360,7 @@ export default function CruiseForm() {
               <button
                 onClick={handleWhatsAppContact}
                 className="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-md font-heading font-semibold transition-colors duration-200 flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+                data-testid="button-whatsapp"
               >
                 <i className="fab fa-whatsapp text-xl" aria-hidden="true"></i>
                 {cruise.contactWhatsApp || "Contact via WhatsApp"}
