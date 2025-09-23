@@ -6,7 +6,7 @@ import { MapPin, Clock, ExternalLink } from "lucide-react";
 import { TourNinjaTour } from "@/hooks/useTourNinja";
 import { formatTHB } from "@/lib/utils";
 import { useIframe } from "@/contexts/IframeContext";
-import { useTranslation } from 'react-i18next';
+
 interface TourNinjaCardProps {
   tour: TourNinjaTour;
   index?: number;
@@ -14,41 +14,34 @@ interface TourNinjaCardProps {
 
 // Logique robuste pour obtenir les candidats d'images dans l'ordre de priorité
 function getImageCandidates(tour: TourNinjaTour): string[] {
-  const candidates: (string | undefined)[] = [tour.customImage,
-  // 1. Image personnalisée (priorité max)
-  tour.images?.[0],
-  // 2. Première image Tour Ninja
-  tour.primaryImage,
-  // 3. Image primaire (après override)
-  tour.originalImage // 4. Image d'origine (avant override)
+  const candidates: (string | undefined)[] = [
+    tour.customImage,           // 1. Image personnalisée (priorité max)
+    tour.images?.[0],          // 2. Première image Tour Ninja
+    tour.primaryImage,         // 3. Image primaire (après override)
+    tour.originalImage,        // 4. Image d'origine (avant override)
   ];
-
+  
   // Filtrer les doublons et valeurs vides
   const seen = new Set<string>();
-  return candidates.filter((url): url is string => !!url && !seen.has(url) && !!seen.add(url));
+  return candidates.filter((url): url is string => 
+    !!url && !seen.has(url) && !!seen.add(url)
+  );
 }
-export default function TourNinjaCard({
-  tour,
-  index = 0
-}: TourNinjaCardProps) {
-  const {
-    t
-  } = useTranslation();
-  const {
-    openIframe
-  } = useIframe();
 
+export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
+  const { openIframe } = useIframe();
+  
   // Calculer les candidats d'images de manière optimisée
   const imageCandidates = useMemo(() => getImageCandidates(tour), [tour]);
-
+  
   // État pour la gestion du fallback automatique
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showPlaceholder, setShowPlaceholder] = useState(false);
   const triedUrls = useRef(new Set<string>());
-
+  
   // Source d'image actuelle
   const currentImageSrc = imageCandidates[currentImageIndex] || null;
-
+  
   // Gestionnaire de clic sur la carte
   const handleCardClick = () => {
     if (tour.presentationUrl) {
@@ -87,101 +80,130 @@ export default function TourNinjaCard({
   // Gestionnaire de succès de chargement d'image
   const handleImageLoad = useCallback(() => {
     setShowPlaceholder(false);
-    const imageType = tour.customImage && currentImageSrc === tour.customImage ? 'image personnalisée' : 'image TourNinja originale';
+    const imageType = tour.customImage && currentImageSrc === tour.customImage 
+      ? 'image personnalisée' 
+      : 'image TourNinja originale';
     console.log(`✅ Successfully loaded ${imageType} for tour ${tour.name}`);
   }, [currentImageSrc, tour.customImage, tour.name]);
-  return <motion.div initial={{
-    opacity: 0,
-    y: 20
-  }} animate={{
-    opacity: 1,
-    y: 0
-  }} transition={{
-    delay: index * 0.1
-  }} whileHover={{
-    y: -5
-  }} className="h-full" onClick={handleCardClick}>
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.1 }}
+      whileHover={{ y: -5 }}
+      className="h-full"
+      onClick={handleCardClick}
+    >
       <Card className="h-full cursor-pointer hover:shadow-lg transition-shadow overflow-hidden group">
         <div className="relative">
-          {!showPlaceholder && currentImageSrc ? <div className="h-48 overflow-hidden">
-              <img src={currentImageSrc} alt={tour.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onLoad={handleImageLoad} onError={handleImageError} loading="lazy" />
-            </div> : <div className="h-48 bg-gradient-to-br from-primary/70 to-primary flex items-center justify-center relative overflow-hidden">
+          {!showPlaceholder && currentImageSrc ? (
+            <div className="h-48 overflow-hidden">
+              <img
+                src={currentImageSrc}
+                alt={tour.name}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                onLoad={handleImageLoad}
+                onError={handleImageError}
+                loading="lazy"
+              />
+            </div>
+          ) : (
+            <div className="h-48 bg-gradient-to-br from-primary/70 to-primary flex items-center justify-center relative overflow-hidden">
               <div className="absolute inset-0 bg-black/20"></div>
               <div className="text-white text-center p-4 relative z-10">
                 <MapPin className="w-8 h-8 mx-auto mb-2" />
-                <span className="text-sm font-medium">{t('Krabi, Thailand', {
-                defaultValue: 'Krabi, Thailand'
-              })}</span>
-                <div className="text-xs opacity-80 mt-1">{t('Image de pr\xE9sentation', {
-                defaultValue: 'Image de pr\xE9sentation'
-              })}</div>
+                <span className="text-sm font-medium">Krabi, Thailand</span>
+                <div className="text-xs opacity-80 mt-1">Image de présentation</div>
               </div>
               <div className="absolute inset-0 bg-gradient-to-br from-transparent to-primary/30"></div>
-            </div>}
+            </div>
+          )}
           
           <div className="absolute top-3 right-3 flex flex-col gap-2">
             <Badge variant="secondary" className="bg-white/90 text-primary font-semibold px-2 py-1">
-              {tour.price > 0 ? tour.currency === 'THB' ? formatTHB(tour.price) : `${tour.price} ${tour.currency || 'THB'}` : 'Prix sur demande'}
+              {tour.price > 0 
+                ? (tour.currency === 'THB' ? formatTHB(tour.price) : `${tour.price} ${tour.currency || 'THB'}`)
+                : 'Prix sur demande'
+              }
             </Badge>
           </div>
         </div>
 
         <CardContent className="p-4 flex flex-col justify-between h-full">
           <div>
-            <h3 className="font-heading font-semibold text-lg mb-2 line-clamp-2 cursor-pointer " onClick={e => {
-            e.stopPropagation();
-            if (tour.presentationUrl) {
-              openIframe(tour.presentationUrl, `Presentation - ${tour.name}`);
-            }
-          }}>
+            <h3 
+              className="font-heading font-semibold text-lg mb-2 line-clamp-2 cursor-pointer "
+              onClick={(e) => {
+                e.stopPropagation();
+                if (tour.presentationUrl) {
+                  openIframe(tour.presentationUrl, `Presentation - ${tour.name}`);
+                }
+              }}
+            >
               {tour.name}
             </h3>
             
-            {tour.description && <p className="text-gray-600 text-sm mb-3 line-clamp-3">
+            {tour.description && (
+              <p className="text-gray-600 text-sm mb-3 line-clamp-3">
                 {tour.description}
-              </p>}
+              </p>
+            )}
             
             <div className="flex flex-wrap gap-2 mb-3">
-              {tour.location && <div className="flex items-center text-xs text-gray-500">
+              {tour.location && (
+                <div className="flex items-center text-xs text-gray-500">
                   <MapPin size={12} className="mr-1" />
                   {tour.location}
-                </div>}
+                </div>
+              )}
               
-              {tour.duration && <div className="flex items-center text-xs text-gray-500">
+              {tour.duration && (
+                <div className="flex items-center text-xs text-gray-500">
                   <Clock size={12} className="mr-1" />
                   {tour.duration}
-                </div>}
+                </div>
+              )}
             </div>
           </div>
 
-          {(tour.bookingUrl || tour.detailsUrl) && <div className="flex gap-2">
-              {tour.detailsUrl && <motion.button onClick={e => {
-            e.stopPropagation();
-            if (tour.detailsUrl) {
-              openIframe(tour.detailsUrl, `Details - ${tour.name}`);
-            }
-          }} className="flex-1 bg-primary text-white py-2 px-4 rounded-md font-medium text-sm hover:bg-primary-dark transition-colors flex items-center justify-center" whileHover={{
-            scale: 1.02
-          }} whileTap={{
-            scale: 0.98
-          }}>
-                  {t('buttons.viewDetails')}
+          {(tour.bookingUrl || tour.detailsUrl) && (
+            <div className="flex gap-2">
+              {tour.detailsUrl && (
+                <motion.button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (tour.detailsUrl) {
+                      openIframe(tour.detailsUrl, `Details - ${tour.name}`);
+                    }
+                  }}
+                  className="flex-1 bg-primary text-white py-2 px-4 rounded-md font-medium text-sm hover:bg-primary-dark transition-colors flex items-center justify-center"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  View details
                   <ExternalLink size={12} className="ml-1" />
-                </motion.button>}
-              {tour.bookingUrl && <motion.button onClick={e => {
-            e.stopPropagation();
-            if (tour.bookingUrl) {
-              openIframe(tour.bookingUrl, `Booking - ${tour.name}`);
-            }
-          }} className="flex-1 bg-secondary text-white py-2 px-4 rounded-md font-medium text-sm hover:bg-secondary-dark transition-colors flex items-center justify-center" whileHover={{
-            scale: 1.02
-          }} whileTap={{
-            scale: 0.98
-          }}>
-                  {t('buttons.bookNow')}
-                </motion.button>}
-            </div>}
+                </motion.button>
+              )}
+              {tour.bookingUrl && (
+                <motion.button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (tour.bookingUrl) {
+                      openIframe(tour.bookingUrl, `Booking - ${tour.name}`);
+                    }
+                  }}
+                  className="flex-1 bg-secondary text-white py-2 px-4 rounded-md font-medium text-sm hover:bg-secondary-dark transition-colors flex items-center justify-center"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Book
+                </motion.button>
+              )}
+            </div>
+          )}
         </CardContent>
       </Card>
-    </motion.div>;
+    </motion.div>
+  );
 }

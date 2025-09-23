@@ -6,39 +6,45 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useQuery } from '@tanstack/react-query';
 import logoAmon from "@/assets/logo-amon.png";
 import LanguageSelector from "@/components/LanguageSelector";
-import { useTranslation } from 'react-i18next';
+import { translationService } from "@/services/translationService";
+
 type NavLinkProps = {
   href: string;
   isActive: boolean;
   children: React.ReactNode;
   onClick?: () => void;
 };
-const NavLink = ({
-  href,
-  isActive,
-  children,
-  onClick,
-  isHomePage,
-  scrolled
-}: NavLinkProps & {
-  isHomePage?: boolean;
-  scrolled?: boolean;
-}) => {
-  const textColor = isHomePage && !scrolled ? isActive ? "text-primary drop-shadow-lg" : "text-primary-foreground hover:text-primary drop-shadow-lg" : isActive ? "text-primary" : "text-neutral-700 hover:text-primary";
-  return <Link href={href}>
-      <motion.span onClick={onClick} className={`font-heading font-semibold transition-colors cursor-pointer relative ${textColor}`} whileHover={{
-      scale: 1.05
-    }} whileTap={{
-      scale: 0.98
-    }}>
-        {children}
-        {isActive && <motion.div className="absolute bottom-0 left-0 w-full h-[2px] bg-primary" layoutId="activeNav" />}
-      </motion.span>
-    </Link>;
-};
-export default function Header() {
-  const { t } = useTranslation();
 
+const NavLink = ({ href, isActive, children, onClick, isHomePage, scrolled }: NavLinkProps & { isHomePage?: boolean; scrolled?: boolean }) => {
+  const textColor = isHomePage && !scrolled 
+    ? isActive 
+      ? "text-primary drop-shadow-lg" 
+      : "text-primary-foreground hover:text-primary drop-shadow-lg"
+    : isActive 
+      ? "text-primary" 
+      : "text-neutral-700 hover:text-primary";
+
+  return (
+    <Link href={href}>
+      <motion.span
+        onClick={onClick}
+        className={`font-heading font-semibold transition-colors cursor-pointer relative ${textColor}`}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.98 }}
+      >
+        {children}
+        {isActive && (
+          <motion.div 
+            className="absolute bottom-0 left-0 w-full h-[2px] bg-primary"
+            layoutId="activeNav"
+          />
+        )}
+      </motion.span>
+    </Link>
+  );
+};
+
+export default function Header() {
   const [location] = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -46,41 +52,44 @@ export default function Header() {
   const headerRef = useRef<HTMLElement>(null);
   const isBookingPage = location.startsWith('/booking');
   const isHomePage = location === '/';
-
+  
   // Get translations
+  const nav = translationService.getNav();
+
   // Fetch notification bar settings
-  const {
-    data: siteSettings
-  } = useQuery({
+  const { data: siteSettings } = useQuery({
     queryKey: ['/api/public/header-settings'],
     staleTime: 5 * 60 * 1000 // 5 minutes
   });
-  const notificationSettings = Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.key === 'notification_bar')?.value : null;
-  const notificationConfig = notificationSettings ? typeof notificationSettings === 'string' ? JSON.parse(notificationSettings) : notificationSettings : {
-    enabled: true,
-    text: t('notifications.announcementText'),
-    background_color: "#3BA8AF",
-    text_color: "#ffffff"
-  };
+  
+  const notificationSettings = Array.isArray(siteSettings) 
+    ? siteSettings.find((s: any) => s.key === 'notification_bar')?.value 
+    : null;
+  const notificationConfig = notificationSettings 
+    ? (typeof notificationSettings === 'string' ? JSON.parse(notificationSettings) : notificationSettings) 
+    : { enabled: true, text: "Welcome to the new Amon Tour website! This site is currently in a testing phase, so a few issues may still occur. For any reference, the previous site remains accessible at www.amon-tour.fr. Thank you for your understanding", background_color: "#3BA8AF", text_color: "#ffffff" };
 
   // Track scroll position for header transparency and measure header height
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
+
     const measureHeader = () => {
       if (headerRef.current) {
         const rect = headerRef.current.getBoundingClientRect();
         setHeaderHeight(rect.height);
       }
     };
+
     if (isHomePage) {
       window.addEventListener('scroll', handleScroll);
     }
-
+    
     // Measure header height on mount and when state changes
     measureHeader();
     window.addEventListener('resize', measureHeader);
+    
     return () => {
       if (isHomePage) {
         window.removeEventListener('scroll', handleScroll);
@@ -88,165 +97,189 @@ export default function Header() {
       window.removeEventListener('resize', measureHeader);
     };
   }, [isHomePage, scrolled, isMobileMenuOpen]);
+
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
   };
 
+
+
   // Calculate the notification bar height (dynamic for mobile/desktop)
   const notificationBarHeight = notificationConfig.enabled ? 48 : 0;
-  const headerClasses = isHomePage ? `fixed left-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-card/95 backdrop-blur-md shadow-lg py-1' : 'bg-transparent py-2'}` : 'fixed left-0 w-full z-50 bg-card py-2';
-  const headerStyle = {
-    top: `${notificationBarHeight}px`
-  };
-  return <>
+  
+  const headerClasses = isHomePage
+    ? `fixed left-0 w-full z-50 transition-all duration-300 ${
+        scrolled 
+          ? 'bg-card/95 backdrop-blur-md shadow-lg py-1' 
+          : 'bg-transparent py-2'
+      }`
+    : 'fixed left-0 w-full z-50 bg-card py-2';
+
+  const headerStyle = { top: `${notificationBarHeight}px` };
+
+  return (
+    <>
       {/* Dynamic Notification Header */}
-      {notificationConfig.enabled && <a href="https://amon-tour.fr/" target="_blank" rel="noopener noreferrer" style={{
-      background: `linear-gradient(135deg, ${notificationConfig.background_color}, ${notificationConfig.background_color}e6)`,
-      color: notificationConfig.text_color,
-      textAlign: 'center',
-      padding: '12px 20px',
-      fontWeight: '500',
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
-      zIndex: 60,
-      height: '48px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      boxSizing: 'border-box',
-      fontSize: '14px',
-      fontFamily: 'inherit',
-      letterSpacing: '0.025em',
-      boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
-      backdropFilter: 'blur(8px)',
-      lineHeight: '1.4',
-      textDecoration: 'none',
-      cursor: 'pointer',
-      transition: 'all 0.2s ease'
-    }} onMouseOver={e => {
-      e.currentTarget.style.opacity = '0.9';
-      e.currentTarget.style.transform = 'translateY(1px)';
-    }} onMouseOut={e => {
-      e.currentTarget.style.opacity = '1';
-      e.currentTarget.style.transform = 'translateY(0px)';
-    }}>
-          <span style={{
-        display: 'inline-block',
-        maxWidth: '100%',
-        wordWrap: 'break-word',
-        hyphens: 'none'
-      }} dangerouslySetInnerHTML={{
-        __html: notificationConfig.text.replace('www.amon-tour.fr', '<span style="white-space: nowrap;">www.amon-tour.fr</span>')
-      }} />
-        </a>}
+      {notificationConfig.enabled && (
+        <a
+          href="https://amon-tour.fr/"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            background: `linear-gradient(135deg, ${notificationConfig.background_color}, ${notificationConfig.background_color}e6)`,
+            color: notificationConfig.text_color,
+            textAlign: 'center',
+            padding: '12px 20px',
+            fontWeight: '500',
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            zIndex: 60,
+            height: '48px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            boxSizing: 'border-box',
+            fontSize: '14px',
+            fontFamily: 'inherit',
+            letterSpacing: '0.025em',
+            boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+            backdropFilter: 'blur(8px)',
+            lineHeight: '1.4',
+            textDecoration: 'none',
+            cursor: 'pointer',
+            transition: 'all 0.2s ease'
+          }}
+          onMouseOver={(e) => {
+            e.currentTarget.style.opacity = '0.9';
+            e.currentTarget.style.transform = 'translateY(1px)';
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.opacity = '1';
+            e.currentTarget.style.transform = 'translateY(0px)';
+          }}
+        >
+          <span 
+            style={{
+              display: 'inline-block',
+              maxWidth: '100%',
+              wordWrap: 'break-word',
+              hyphens: 'none'
+            }}
+            dangerouslySetInnerHTML={{
+              __html: notificationConfig.text.replace('www.amon-tour.fr', '<span style="white-space: nowrap;">www.amon-tour.fr</span>')
+            }}
+          />
+        </a>
+      )}
       
       <header ref={headerRef} className={headerClasses} style={headerStyle}>
         {/* Main Navigation */}
         <nav className="container mx-auto pl-2 pr-12 flex justify-between items-center">
         {/* Logo */}
         <Link href="/">
-          <motion.div className="flex items-center cursor-pointer" initial={{
-            opacity: 0,
-            x: -10
-          }} animate={{
-            opacity: 1,
-            x: 0,
-            y: [0, -10, 0],
-            transition: {
-              y: {
-                repeat: Infinity,
-                duration: 3,
-                ease: "easeInOut"
+          <motion.div
+            className="flex items-center cursor-pointer"
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ 
+              opacity: 1, 
+              x: 0,
+              y: [0, -10, 0],
+              transition: {
+                y: {
+                  repeat: Infinity,
+                  duration: 3,
+                  ease: "easeInOut"
+                }
               }
-            }
-          }} transition={{
-            duration: 0.5
-          }} whileHover={{
-            scale: 1.05
-          }}>
-            <img src={logoAmon} alt={t('Amon Logo', {
-              defaultValue: 'Amon Logo'
-            })} className="h-20 w-auto mt-1 ml-[-4px]" />
-            <span className={`ml-3 text-3xl font-bold ${isHomePage && !scrolled ? 'text-primary-foreground drop-shadow-lg' : 'text-primary'}`} style={{
-              fontFamily: 'Lobster, cursive'
-            }}>{t('Amon Tour', {
-                defaultValue: 'Amon Tour'
-              })}</span>
+            }}
+            transition={{ duration: 0.5 }}
+            whileHover={{ scale: 1.05 }}
+          >
+            <img 
+              src={logoAmon} 
+              alt="Amon Logo" 
+              className="h-20 w-auto mt-1 ml-[-4px]"
+            />
+            <span 
+              className={`ml-3 text-3xl font-bold ${
+                isHomePage && !scrolled 
+                  ? 'text-primary-foreground drop-shadow-lg' 
+                  : 'text-primary'
+              }`}
+              style={{ fontFamily: 'Lobster, cursive' }}
+            >
+              Amon Tour
+            </span>
           </motion.div>
         </Link>
         
         {/* Mobile Menu Button */}
-        <motion.button onClick={toggleMobileMenu} className={`md:hidden focus:outline-none ${isHomePage && !scrolled ? 'text-primary-foreground' : 'text-neutral-700'}`} aria-label={t('Toggle menu', {
-          defaultValue: 'Toggle menu'
-        })} whileTap={{
-          scale: 0.9
-        }} whileHover={{
-          scale: 1.1
-        }}>
+        <motion.button 
+          onClick={toggleMobileMenu}
+          className={`md:hidden focus:outline-none ${
+            isHomePage && !scrolled ? 'text-primary-foreground' : 'text-neutral-700'
+          }`}
+          aria-label="Toggle menu"
+          whileTap={{ scale: 0.9 }}
+          whileHover={{ scale: 1.1 }}
+        >
           <AnimatePresence mode="wait">
-            {isMobileMenuOpen ? <motion.div key="close" initial={{
-              rotate: -90,
-              opacity: 0
-            }} animate={{
-              rotate: 0,
-              opacity: 1
-            }} exit={{
-              rotate: 90,
-              opacity: 0
-            }} transition={{
-              duration: 0.2
-            }}>
+            {isMobileMenuOpen ? (
+              <motion.div
+                key="close"
+                initial={{ rotate: -90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 90, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
                 <X className="h-6 w-6" />
-              </motion.div> : <motion.div key="menu" initial={{
-              rotate: 90,
-              opacity: 0
-            }} animate={{
-              rotate: 0,
-              opacity: 1
-            }} exit={{
-              rotate: -90,
-              opacity: 0
-            }} transition={{
-              duration: 0.2
-            }}>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="menu"
+                initial={{ rotate: 90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: -90, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
                 <Menu className="h-6 w-6" />
-              </motion.div>}
+              </motion.div>
+            )}
           </AnimatePresence>
         </motion.button>
         
         {/* Desktop Navigation */}
-        <motion.div className="hidden md:flex space-x-10 items-center ml-[2px]" initial={{
-          opacity: 0,
-          y: -10
-        }} animate={{
-          opacity: 1,
-          y: 0
-        }} transition={{
-          duration: 0.5,
-          delay: 0.2
-        }}>
-          {!isHomePage && <NavLink href="/" isActive={false} isHomePage={isHomePage} scrolled={scrolled}>{t('Home', {
-              defaultValue: 'Home'
-            })}</NavLink>}
+        <motion.div 
+          className="hidden md:flex space-x-10 items-center ml-[2px]"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          {!isHomePage && (
+            <NavLink href="/" isActive={false} isHomePage={isHomePage} scrolled={scrolled}>
+              Home
+            </NavLink>
+          )}
           <NavLink href="/tours" isActive={location === '/tours'} isHomePage={isHomePage} scrolled={scrolled}>
-            {t('navigation.experiences')}
+            {nav.experiences}
           </NavLink>
           <NavLink href="/cruise" isActive={location === '/cruise'} isHomePage={isHomePage} scrolled={scrolled}>
-            {t('navigation.cruise')}
+            {nav.cruise}
           </NavLink>
           <NavLink href="/custom-tour" isActive={location === '/custom-tour'} isHomePage={isHomePage} scrolled={scrolled}>
-            {t('navigation.customTrip')}
+            {nav.customTrip}
           </NavLink>
           <NavLink href="/blog" isActive={location === '/blog'} isHomePage={isHomePage} scrolled={scrolled}>
-            {t('navigation.blog')}
+            {nav.blog}
           </NavLink>
           <NavLink href="/contact" isActive={location === '/contact'} isHomePage={isHomePage} scrolled={scrolled}>
-            {t('navigation.contact')}
+            {nav.contact}
           </NavLink>
           
           {/* Language Selector */}
@@ -258,44 +291,43 @@ export default function Header() {
       
       {/* Mobile Navigation */}
       <AnimatePresence>
-        {isMobileMenuOpen && <motion.div className={`md:hidden border-t px-4 py-3 overflow-hidden ${isHomePage && !scrolled ? 'bg-black/80 backdrop-blur-md border-white/20' : 'bg-card border-gray-200'}`} initial={{
-          height: 0,
-          opacity: 0
-        }} animate={{
-          height: "auto",
-          opacity: 1
-        }} exit={{
-          height: 0,
-          opacity: 0
-        }} transition={{
-          duration: 0.3,
-          ease: "easeInOut"
-        }}>
-            <motion.div className="flex flex-col space-y-5 py-3 ml-[-4px]" initial={{
-            y: -20
-          }} animate={{
-            y: 0
-          }} transition={{
-            duration: 0.3,
-            delay: 0.1
-          }}>
-              {!isHomePage && <NavLink href="/" isActive={false} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>{t('Home', {
-                defaultValue: 'Home'
-              })}</NavLink>}
+        {isMobileMenuOpen && (
+          <motion.div 
+            className={`md:hidden border-t px-4 py-3 overflow-hidden ${
+              isHomePage && !scrolled 
+                ? 'bg-black/80 backdrop-blur-md border-white/20' 
+                : 'bg-card border-gray-200'
+            }`}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+          >
+            <motion.div 
+              className="flex flex-col space-y-5 py-3 ml-[-4px]"
+              initial={{ y: -20 }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
+            >
+              {!isHomePage && (
+                <NavLink href="/" isActive={false} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
+                  Home
+                </NavLink>
+              )}
               <NavLink href="/tours" isActive={location === '/tours'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
-                {t('navigation.experiences')}
+                {nav.experiences}
               </NavLink>
               <NavLink href="/cruise" isActive={location === '/cruise'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
-                {t('navigation.cruise')}
+                {nav.cruise}
               </NavLink>
               <NavLink href="/custom-tour" isActive={location === '/custom-tour'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
-                {t('navigation.customTrip')}
+                {nav.customTrip}
               </NavLink>
               <NavLink href="/blog" isActive={location === '/blog'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
-                {t('navigation.blog')}
+                {nav.blog}
               </NavLink>
               <NavLink href="/contact" isActive={location === '/contact'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
-                {t('navigation.contact')}
+                {nav.contact}
               </NavLink>
               
               {/* Language Selector for Mobile */}
@@ -303,13 +335,19 @@ export default function Header() {
                 <LanguageSelector />
               </div>
             </motion.div>
-          </motion.div>}
+          </motion.div>
+        )}
       </AnimatePresence>
     </header>
     
     {/* Dynamic spacer to offset fixed headers - but not on home page when header is transparent */}
-    {!(isHomePage && !scrolled) && <div aria-hidden="true" style={{
-      height: notificationBarHeight + headerHeight
-    }} className="flex-shrink-0" />}
-    </>;
+    {!(isHomePage && !scrolled) && (
+      <div 
+        aria-hidden="true" 
+        style={{ height: notificationBarHeight + headerHeight }}
+        className="flex-shrink-0"
+      />
+    )}
+    </>
+  );
 }

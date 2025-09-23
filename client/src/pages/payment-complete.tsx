@@ -1,4 +1,3 @@
-import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from "react";
 import { useLocation } from "wouter";
 import { useStripe } from "@stripe/react-stripe-js";
@@ -7,24 +6,27 @@ import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, XCircle, Clock } from "lucide-react";
 import { loadStripe } from "@stripe/stripe-js";
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
-export default function PaymentComplete() {
-  const { t } = useTranslation();
 
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
+
+export default function PaymentComplete() {
   const [paymentStatus, setPaymentStatus] = useState<'success' | 'processing' | 'error' | 'loading'>('loading');
   const [paymentError, setPaymentError] = useState<string | null>(null);
   const [, navigate] = useLocation();
+  
   useEffect(() => {
     const fetchPaymentIntent = async () => {
       // Récupérer les paramètres de l'URL
       const url = new URL(window.location.href);
       const paymentIntentId = url.searchParams.get('payment_intent');
       const redirectStatus = url.searchParams.get('redirect_status');
+      
       if (!paymentIntentId) {
         setPaymentStatus('error');
         setPaymentError("Impossible de trouver les informations de paiement");
         return;
       }
+      
       if (redirectStatus === 'succeeded') {
         setPaymentStatus('success');
       } else if (redirectStatus === 'processing') {
@@ -39,7 +41,7 @@ export default function PaymentComplete() {
           if (!stripe) {
             throw new Error("Impossible de charger Stripe");
           }
-
+          
           // Vérifier l'état du paiement
           // Note: Cette vérification est généralement faite côté serveur, mais nous simulons ici
           if (redirectStatus === 'succeeded') {
@@ -54,77 +56,87 @@ export default function PaymentComplete() {
         }
       }
     };
+    
     fetchPaymentIntent();
   }, []);
+  
   const renderContent = () => {
     switch (paymentStatus) {
       case 'loading':
-        return <div className="flex flex-col items-center">
+        return (
+          <div className="flex flex-col items-center">
             <div className="animate-spin h-12 w-12 border-4 border-primary border-t-transparent rounded-full mb-4"></div>
-            <h2 className="font-heading font-semibold text-2xl mb-2">{t('V\xE9rification du paiement...', {
-              defaultValue: 'V\xE9rification du paiement...'
-            })}</h2>
-            <p className="text-gray-600 text-center">{t('Merci de patienter pendant que nous v\xE9rifions l\'\xE9tat de votre paiement.', {
-              defaultValue: 'Merci de patienter pendant que nous v\xE9rifions l\'\xE9tat de votre paiement.'
-            })}</p>
-          </div>;
+            <h2 className="font-heading font-semibold text-2xl mb-2">Vérification du paiement...</h2>
+            <p className="text-gray-600 text-center">Merci de patienter pendant que nous vérifions l'état de votre paiement.</p>
+          </div>
+        );
+        
       case 'success':
-        return <div className="flex flex-col items-center">
+        return (
+          <div className="flex flex-col items-center">
             <CheckCircle className="h-16 w-16 text-secondary mb-4" />
-            <h2 className="font-heading font-semibold text-2xl mb-2">{t('Paiement r\xE9ussi !', {
-              defaultValue: 'Paiement r\xE9ussi !'
-            })}</h2>
-            <p className="text-gray-600 text-center max-w-lg mb-6">{t('Merci pour votre r\xE9servation ! Vous allez recevoir un email de confirmation avec tous les d\xE9tails de votre tour. \n              N\'h\xE9sitez pas \xE0 nous contacter si vous avez des questions.', {
-              defaultValue: 'Merci pour votre r\xE9servation ! Vous allez recevoir un email de confirmation avec tous les d\xE9tails de votre tour. \n              N\'h\xE9sitez pas \xE0 nous contacter si vous avez des questions.'
-            })}</p>
+            <h2 className="font-heading font-semibold text-2xl mb-2">Paiement réussi !</h2>
+            <p className="text-gray-600 text-center max-w-lg mb-6">
+              Merci pour votre réservation ! Vous allez recevoir un email de confirmation avec tous les détails de votre tour. 
+              N'hésitez pas à nous contacter si vous avez des questions.
+            </p>
             <div className="flex gap-4">
-              <Button onClick={() => navigate("/")}>{t('Back to home', {
-                defaultValue: 'Back to home'
-              })}</Button>
-              <Button variant="outline" onClick={() => navigate("/tours")}>{t('View other tours', {
-                defaultValue: 'View other tours'
-              })}</Button>
+              <Button onClick={() => navigate("/")}>
+                Back to home
+              </Button>
+              <Button variant="outline" onClick={() => navigate("/tours")}>
+                View other tours
+              </Button>
             </div>
-          </div>;
+          </div>
+        );
+        
       case 'processing':
-        return <div className="flex flex-col items-center">
+        return (
+          <div className="flex flex-col items-center">
             <Clock className="h-16 w-16 text-secondary mb-4" />
-            <h2 className="font-heading font-semibold text-2xl mb-2">{t('Paiement en cours de traitement', {
-              defaultValue: 'Paiement en cours de traitement'
-            })}</h2>
-            <p className="text-gray-600 text-center max-w-lg mb-6">{t('Votre paiement est en cours de traitement. Nous vous enverrons un email d\xE8s que le paiement sera confirm\xE9.\n              Ce processus peut prendre quelques minutes.', {
-              defaultValue: 'Votre paiement est en cours de traitement. Nous vous enverrons un email d\xE8s que le paiement sera confirm\xE9.\n              Ce processus peut prendre quelques minutes.'
-            })}</p>
+            <h2 className="font-heading font-semibold text-2xl mb-2">Paiement en cours de traitement</h2>
+            <p className="text-gray-600 text-center max-w-lg mb-6">
+              Votre paiement est en cours de traitement. Nous vous enverrons un email dès que le paiement sera confirmé.
+              Ce processus peut prendre quelques minutes.
+            </p>
             <div className="flex gap-4">
-              <Button onClick={() => navigate("/")}>{t('Back to home', {
-                defaultValue: 'Back to home'
-              })}</Button>
+              <Button onClick={() => navigate("/")}>
+                Back to home
+              </Button>
             </div>
-          </div>;
+          </div>
+        );
+        
       case 'error':
-        return <div className="flex flex-col items-center">
+        return (
+          <div className="flex flex-col items-center">
             <XCircle className="h-16 w-16 text-[hsl(var(--destructive))] mb-4" />
-            <h2 className="font-heading font-semibold text-2xl mb-2">{t('Paiement \xE9chou\xE9', {
-              defaultValue: 'Paiement \xE9chou\xE9'
-            })}</h2>
-            <p className="text-gray-600 text-center max-w-lg mb-3">{t('Une erreur est survenue lors du traitement de votre paiement. \n              Veuillez v\xE9rifier vos informations et r\xE9essayer.', {
-              defaultValue: 'Une erreur est survenue lors du traitement de votre paiement. \n              Veuillez v\xE9rifier vos informations et r\xE9essayer.'
-            })}</p>
-            {paymentError && <p className="text-[hsl(var(--destructive))] bg-[hsl(var(--destructive)/0.1)] p-3 rounded-md mb-6">
+            <h2 className="font-heading font-semibold text-2xl mb-2">Paiement échoué</h2>
+            <p className="text-gray-600 text-center max-w-lg mb-3">
+              Une erreur est survenue lors du traitement de votre paiement. 
+              Veuillez vérifier vos informations et réessayer.
+            </p>
+            {paymentError && (
+              <p className="text-[hsl(var(--destructive))] bg-[hsl(var(--destructive)/0.1)] p-3 rounded-md mb-6">
                 {paymentError}
-              </p>}
+              </p>
+            )}
             <div className="flex gap-4">
-              <Button onClick={() => navigate("/tours")}>{t('Back to tours', {
-                defaultValue: 'Back to tours'
-              })}</Button>
-              <Button variant="outline" onClick={() => window.history.back()}>{t('Try again', {
-                defaultValue: 'Try again'
-              })}</Button>
+              <Button onClick={() => navigate("/tours")}>
+                Back to tours
+              </Button>
+              <Button variant="outline" onClick={() => window.history.back()}>
+                Try again
+              </Button>
             </div>
-          </div>;
+          </div>
+        );
     }
   };
-  return <>
+  
+  return (
+    <>
       <Header />
       
       <main className="container mx-auto px-4 py-16">
@@ -134,5 +146,6 @@ export default function PaymentComplete() {
       </main>
       
       <Footer />
-    </>;
+    </>
+  );
 }

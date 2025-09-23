@@ -6,7 +6,8 @@ import { motion } from "framer-motion";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import { useTranslation } from 'react-i18next';
+import { translationService } from "@/services/translationService";
+
 import SEO from "@/components/layout/SEO";
 import Hero from "@/components/home/Hero";
 import Features from "@/components/home/Features";
@@ -22,35 +23,32 @@ import { useTourNinjaWithCustomImages } from "@/hooks/useTourNinja";
 import { Link } from "wouter";
 import { useIframe } from "@/contexts/IframeContext";
 import { Badge } from "@/components/ui/badge";
-import { I18nextTest } from "@/components/test/I18nextTest";
+
+
 export default function Home() {
-  const { t } = useTranslation();
   const [, setLocation] = useLocation();
   const carouselRef = useRef<HTMLDivElement>(null);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [maxScroll, setMaxScroll] = useState(0);
-  const {
-    openIframe
-  } = useIframe();
-  const {
-    data: featuredTours,
-    isLoading: isLoadingTours
-  } = useQuery<Tour[]>({
-    queryKey: ['/api/tours/featured']
+  const { openIframe } = useIframe();
+  
+  // Get translations
+  const tours = translationService.getTours();
+  const common = translationService.getCommon();
+  const home = translationService.getHome();
+  
+  const { data: featuredTours, isLoading: isLoadingTours } = useQuery<Tour[]>({
+    queryKey: ['/api/tours/featured'],
   });
-  const {
-    data: tourCards = [],
-    isLoading: isLoadingTourCards
-  } = useQuery<TourCardItemProps[]>({
-    queryKey: ['/api/tour-cards']
+  
+  const { data: tourCards = [], isLoading: isLoadingTourCards } = useQuery<TourCardItemProps[]>({
+    queryKey: ['/api/tour-cards'],
   });
-
+  
   // Get Tour Ninja tours with custom images
-  const {
-    tours: tourNinjaTours = [],
-    isLoading: tourNinjaLoading
-  } = useTourNinjaWithCustomImages();
-
+  const { tours: tourNinjaTours = [], isLoading: tourNinjaLoading } = useTourNinjaWithCustomImages();
+  
+  
   // Convert Tour Ninja tours to TourCardItem format
   const tourNinjaCards: TourCardItemProps[] = tourNinjaTours.map((tour: any) => ({
     id: tour.id,
@@ -61,26 +59,27 @@ export default function Home() {
     customLink: tour.url || tour.detailsUrl || `https://www.tourninja.io/details/${tour.id}`,
     type: "tour" as const,
     images: tour.images || [],
-    tags: tour.tags || []
+    tags: tour.tags || [],
   }));
-
+  
   // Combine local tour cards with Tour Ninja tours
   const allTourCards = [...tourCards, ...tourNinjaCards];
   const tourTypeCards = allTourCards;
-
+  
   // Pour l'affichage, on considère qu'on est en chargement si l'une des requêtes est en cours
   const isLoading = isLoadingTours || isLoadingTourCards || tourNinjaLoading;
-
+  
   // Function to handle carousel scrolling
   const handleCarouselScroll = (direction: 'left' | 'right') => {
     if (carouselRef.current) {
       const scrollAmount = direction === 'right' ? 300 : -300;
-      carouselRef.current.scrollBy({
-        left: scrollAmount,
-        behavior: 'smooth'
+      carouselRef.current.scrollBy({ 
+        left: scrollAmount, 
+        behavior: 'smooth' 
       });
     }
   };
+
   useEffect(() => {
     const updateScrollInfo = () => {
       if (carouselRef.current) {
@@ -89,15 +88,17 @@ export default function Home() {
         setMaxScroll(container.scrollWidth - container.clientWidth);
       }
     };
+
     const container = carouselRef.current;
     if (container) {
       container.addEventListener('scroll', updateScrollInfo);
       // Initial update
       updateScrollInfo();
-
+      
       // Update on resize as well
       window.addEventListener('resize', updateScrollInfo);
     }
+
     return () => {
       if (container) {
         container.removeEventListener('scroll', updateScrollInfo);
@@ -105,18 +106,23 @@ export default function Home() {
       window.removeEventListener('resize', updateScrollInfo);
     };
   }, [featuredTours]);
-
+  
   // Handle smooth scrolling for hash links
   useEffect(() => {
     const handleHashLinkClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const anchor = target.closest('a');
+      
       if (!anchor) return;
+      
       const href = anchor.getAttribute('href');
       if (!href || !href.startsWith('#')) return;
+      
       e.preventDefault();
+      
       const targetId = href;
       if (targetId === '#') return;
+      
       const targetElement = document.querySelector(targetId);
       if (targetElement) {
         targetElement.scrollIntoView({
@@ -124,83 +130,99 @@ export default function Home() {
         });
       }
     };
+    
     document.addEventListener('click', handleHashLinkClick);
+    
     return () => {
       document.removeEventListener('click', handleHashLinkClick);
     };
   }, []);
-  return <>
-      <SEO title={t('Amon Tour - Authentic Thailand Travel Experiences | Private Tours & Cultural Journeys', {
-      defaultValue: 'Amon Tour - Authentic Thailand Travel Experiences | Private Tours & Cultural Journeys'
-    })} description="Discover authentic Thailand with Amon Tour. Expert-guided private tours, cultural experiences, and personalized journeys across Bangkok, Phuket, and beyond. Family-run travel agency offering immersive experiences away from mass tourism." keywords="thailand private tours, bangkok cultural experiences, phuket authentic travel, thailand family travel agency, personalized thailand journeys, thai temple tours, island hopping thailand, authentic thai culture, thailand vacation planning" canonicalUrl="https://amon-tour.com/" breadcrumbs={[{
-      name: t('Home', {
-        defaultValue: 'Home'
-      }),
-      url: "/"
-    }]} faqSchema={[{
-      question: "What makes Amon Tour different from other Thailand travel agencies?",
-      answer: "Amon Tour is a family-run travel agency that specializes in authentic, personalized experiences away from mass tourism. We offer expert-guided private tours, cultural immersion, and customized journeys with local insights that only expats living in Thailand can provide."
-    }, {
-      question: "What areas of Thailand does Amon Tour cover?",
-      answer: "We specialize in southern Thailand, particularly Krabi, Phuket, and surrounding areas including Phang Nga Bay, Koh Phi Phi, and local islands. We create experiences that showcase authentic Thai culture, temples, local cuisine, and natural beauty."
-    }, {
-      question: "How do I book a custom tour with Amon Tour?",
-      answer: "You can request a custom tour through our contact form on the website, email us directly at contact@amon-tour.com, or call us at +66-81-956-2849. We'll work with you to create a personalized itinerary based on your interests, budget, and travel dates."
-    }, {
-      question: "What languages do Amon Tour guides speak?",
-      answer: "Our team speaks English, French, and Thai fluently. This multilingual capability allows us to provide comfortable experiences for international travelers while facilitating authentic cultural exchanges with local communities."
-    }, {
-      question: "What types of experiences does Amon Tour offer?",
-      answer: "We offer private island tours, temple visits, cultural experiences, local cuisine tours, kayaking adventures, sunset trips, and customized multi-day journeys. Each experience is designed to showcase authentic Thailand away from crowded tourist spots."
-    }]} reviewSchema={{
-      rating: 4.9,
-      reviewCount: 127,
-      reviews: [{
-        author: "Sarah M.",
-        rating: 5,
-        text: t('Incredible authentic experience! Amon Tour showed us the real Thailand.', {
-          defaultValue: 'Incredible authentic experience! Amon Tour showed us the real Thailand.'
-        }),
-        datePublished: "2024-12-15"
-      }, {
-        author: "Marc L.",
-        rating: 5,
-        text: t('Professional service and amazing local insights. Highly recommended!', {
-          defaultValue: 'Professional service and amazing local insights. Highly recommended!'
-        }),
-        datePublished: "2024-11-20"
-      }]
-    }} structuredData={{
-      "@context": "https://schema.org",
-      "@type": "TravelAgency",
-      "name": "Amon Tour",
-      "description": "Family-run travel agency specializing in authentic Thailand experiences, private tours, and cultural journeys across Bangkok, Phuket, and beyond.",
-      "url": "https://amon-tour.com",
-      "logo": "https://amon-tour.com/Logo Long Blue.png",
-      "image": "https://amon-tour.com/Logo Long Blue.png",
-      "telephone": "+66-XXX-XXX-XXX",
-      "email": "contact@amon-tour.com",
-      "address": {
-        "@type": "PostalAddress",
-        "addressCountry": "TH",
-        "addressRegion": "Thailand"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": "13.7367",
-        "longitude": "100.5232"
-      },
-      "areaServed": {
-        "@type": "Country",
-        "name": "Thailand"
-      },
-      "serviceType": ["Private Tours", "Cultural Experiences", "Travel Planning", "Temple Tours", "Island Tours"],
-      "priceRange": "$$-$$$",
-      "openingHours": "Mo-Su 08:00-20:00",
-      "foundingDate": "2020",
-      "slogan": "Authentic Thailand experiences, far from mass tourism",
-      "sameAs": ["https://www.facebook.com/amontour", "https://www.instagram.com/amontour"]
-    }} />
+  
+  return (
+    <>
+      <SEO 
+        title="Amon Tour - Authentic Thailand Travel Experiences | Private Tours & Cultural Journeys"
+        description="Discover authentic Thailand with Amon Tour. Expert-guided private tours, cultural experiences, and personalized journeys across Bangkok, Phuket, and beyond. Family-run travel agency offering immersive experiences away from mass tourism."
+        keywords="thailand private tours, bangkok cultural experiences, phuket authentic travel, thailand family travel agency, personalized thailand journeys, thai temple tours, island hopping thailand, authentic thai culture, thailand vacation planning"
+        canonicalUrl="https://amon-tour.com/"
+        breadcrumbs={[
+          { name: "Home", url: "/" }
+        ]}
+        faqSchema={[
+          {
+            question: "What makes Amon Tour different from other Thailand travel agencies?",
+            answer: "Amon Tour is a family-run travel agency that specializes in authentic, personalized experiences away from mass tourism. We offer expert-guided private tours, cultural immersion, and customized journeys with local insights that only expats living in Thailand can provide."
+          },
+          {
+            question: "What areas of Thailand does Amon Tour cover?",
+            answer: "We specialize in southern Thailand, particularly Krabi, Phuket, and surrounding areas including Phang Nga Bay, Koh Phi Phi, and local islands. We create experiences that showcase authentic Thai culture, temples, local cuisine, and natural beauty."
+          },
+          {
+            question: "How do I book a custom tour with Amon Tour?",
+            answer: "You can request a custom tour through our contact form on the website, email us directly at contact@amon-tour.com, or call us at +66-81-956-2849. We'll work with you to create a personalized itinerary based on your interests, budget, and travel dates."
+          },
+          {
+            question: "What languages do Amon Tour guides speak?",
+            answer: "Our team speaks English, French, and Thai fluently. This multilingual capability allows us to provide comfortable experiences for international travelers while facilitating authentic cultural exchanges with local communities."
+          },
+          {
+            question: "What types of experiences does Amon Tour offer?",
+            answer: "We offer private island tours, temple visits, cultural experiences, local cuisine tours, kayaking adventures, sunset trips, and customized multi-day journeys. Each experience is designed to showcase authentic Thailand away from crowded tourist spots."
+          }
+        ]}
+        reviewSchema={{
+          rating: 4.9,
+          reviewCount: 127,
+          reviews: [
+            {
+              author: "Sarah M.",
+              rating: 5,
+              text: "Incredible authentic experience! Amon Tour showed us the real Thailand.",
+              datePublished: "2024-12-15"
+            },
+            {
+              author: "Marc L.",
+              rating: 5,
+              text: "Professional service and amazing local insights. Highly recommended!",
+              datePublished: "2024-11-20"
+            }
+          ]
+        }}
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "TravelAgency",
+          "name": "Amon Tour",
+          "description": "Family-run travel agency specializing in authentic Thailand experiences, private tours, and cultural journeys across Bangkok, Phuket, and beyond.",
+          "url": "https://amon-tour.com",
+          "logo": "https://amon-tour.com/Logo Long Blue.png",
+          "image": "https://amon-tour.com/Logo Long Blue.png",
+          "telephone": "+66-XXX-XXX-XXX",
+          "email": "contact@amon-tour.com",
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "TH",
+            "addressRegion": "Thailand"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "13.7367",
+            "longitude": "100.5232"
+          },
+          "areaServed": {
+            "@type": "Country",
+            "name": "Thailand"
+          },
+          "serviceType": ["Private Tours", "Cultural Experiences", "Travel Planning", "Temple Tours", "Island Tours"],
+          "priceRange": "$$-$$$",
+          "openingHours": "Mo-Su 08:00-20:00",
+          "foundingDate": "2020",
+          "slogan": "Authentic Thailand experiences, far from mass tourism",
+          "sameAs": [
+            "https://www.facebook.com/amontour",
+            "https://www.instagram.com/amontour"
+          ]
+        }}
+      />
       <Header />
       <main>
         {/* 1. Hero section */}
@@ -209,23 +231,18 @@ export default function Home() {
         {/* 2. Intro paragraph */}
         <section className="py-20">
           <div className="container mx-auto px-4 max-w-4xl text-center">
-            <motion.div initial={{
-            opacity: 0,
-            y: 20
-          }} whileInView={{
-            opacity: 1,
-            y: 0
-          }} viewport={{
-            once: true
-          }} transition={{
-            duration: 0.6
-          }}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
               <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
-                {t('home.introTitle')}
+                {home.introTitle}
               </h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
               <p className="text-lg text-gray-700 leading-relaxed">
-                {t('home.introDescription')}
+                {home.introDescription}
               </p>
             </motion.div>
           </div>
@@ -234,51 +251,60 @@ export default function Home() {
         {/* 3. Our Popular Experiences */}
         <section id="tours" className="py-20 bg-background">
           <div className="container mx-auto px-4 max-w-4xl text-center">
-            <motion.div initial={{
-            y: -20,
-            opacity: 0
-          }} whileInView={{
-            y: 0,
-            opacity: 1
-          }} viewport={{
-            once: true
-          }} transition={{
-            duration: 0.5
-          }}>
-              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{t('tours.featured')}</h2>
+            <motion.div
+              initial={{ y: -20, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{tours.featured}</h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
-              <p className="text-lg text-gray-700 leading-relaxed mb-12">{t('tours.description')}</p>
+              <p className="text-lg text-gray-700 leading-relaxed mb-12">{tours.description}</p>
             </motion.div>
           </div>
           
           {/* Tour Ninja Tours Display */}
           <div className="container mx-auto px-4">
-            {tourNinjaLoading ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {[...Array(6)].map((_, i) => <div key={i} className="bg-gray-200 rounded-xl h-80 animate-pulse" />)}
-              </div> : tourNinjaTours.length > 0 ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                {tourNinjaTours.slice(0, 6).map((tour: any, index: number) => <motion.div key={tour.id} initial={{
-              opacity: 0,
-              y: 30
-            }} whileInView={{
-              opacity: 1,
-              y: 0
-            }} viewport={{
-              once: true
-            }} transition={{
-              duration: 0.6,
-              delay: index * 0.1
-            }} className="bg-card rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden">
-                    <div className="relative h-48 bg-gradient-to-br from-primary/40 to-primary/60 cursor-pointer" onClick={() => {
-                if (tour.presentationUrl) {
-                  openIframe(tour.presentationUrl, `Présentation - ${tour.name}`);
-                }
-              }}>
-                      {tour.primaryImage ? <img src={tour.primaryImage} alt={tour.name} className="w-full h-full object-cover" onError={e => {
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = 'none';
-                }} /> : <div className="w-full h-full flex items-center justify-center">
+            {tourNinjaLoading ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[...Array(6)].map((_, i) => (
+                  <div key={i} className="bg-gray-200 rounded-xl h-80 animate-pulse" />
+                ))}
+              </div>
+            ) : tourNinjaTours.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                {tourNinjaTours.slice(0, 6).map((tour: any, index: number) => (
+                  <motion.div
+                    key={tour.id}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    className="bg-card rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
+                  >
+                    <div 
+                      className="relative h-48 bg-gradient-to-br from-primary/40 to-primary/60 cursor-pointer"
+                      onClick={() => {
+                        if (tour.presentationUrl) {
+                          openIframe(tour.presentationUrl, `Présentation - ${tour.name}`);
+                        }
+                      }}
+                    >
+                      {tour.primaryImage ? (
+                        <img 
+                          src={tour.primaryImage} 
+                          alt={tour.name}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.style.display = 'none';
+                          }}
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
                           <FiChevronRight className="h-16 w-16 text-primary/70" />
-                        </div>}
+                        </div>
+                      )}
                       <div className="absolute top-4 right-4">
                         <Badge variant="secondary" className="bg-white/90 text-primary font-semibold px-2 py-1">
                           {tour.duration} day{Number(tour.duration) > 1 ? 's' : ''}
@@ -287,49 +313,62 @@ export default function Home() {
                     </div>
                     
                     <div className="p-6">
-                      <h3 className="text-lg font-bold text-gray-800 mb-3 line-clamp-2 cursor-pointer hover:text-primary transition-colors" onClick={() => {
-                  if (tour.presentationUrl) {
-                    openIframe(tour.presentationUrl, `Présentation - ${tour.name}`);
-                  }
-                }}>
+                      <h3 
+                        className="text-lg font-bold text-gray-800 mb-3 line-clamp-2 cursor-pointer hover:text-primary transition-colors"
+                        onClick={() => {
+                          if (tour.presentationUrl) {
+                            openIframe(tour.presentationUrl, `Présentation - ${tour.name}`);
+                          }
+                        }}
+                      >
                         {tour.name}
                       </h3>
                       
-                      {tour.shortDescription && <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                      {tour.shortDescription && (
+                        <p className="text-gray-600 text-sm mb-4 line-clamp-3">
                           {tour.shortDescription}
-                        </p>}
+                        </p>
+                      )}
                       
                       <div className="flex gap-2">
-                        <button onClick={() => {
-                    if (tour.detailsUrl) {
-                      openIframe(tour.detailsUrl, `Détails - ${tour.name}`);
-                    }
-                  }} className="flex-1 border border-primary text-primary hover:bg-primary/10 py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1">
-                          {t('buttons.viewDetails')}
+                        <button 
+                          onClick={() => {
+                            if (tour.detailsUrl) {
+                              openIframe(tour.detailsUrl, `Détails - ${tour.name}`);
+                            }
+                          }}
+                          className="flex-1 border border-primary text-primary hover:bg-primary/10 py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
+                        >
+                          {common.viewDetails}
                           <FiChevronRight className="h-3 w-3" />
                         </button>
-                        <button onClick={() => {
-                    if (tour.bookingUrl) {
-                      openIframe(tour.bookingUrl, `Booking - ${tour.name}`);
-                    }
-                  }} className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1">
-                          {t('buttons.bookNow')}
+                        <button 
+                          onClick={() => {
+                            if (tour.bookingUrl) {
+                              openIframe(tour.bookingUrl, `Booking - ${tour.name}`);
+                            }
+                          }}
+                          className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
+                        >
+                          {common.bookNow}
                           <FiChevronRight className="h-3 w-3" />
                         </button>
                       </div>
                     </div>
-                  </motion.div>)}
-              </div> : null}
+                  </motion.div>
+                ))}
+              </div>
+            ) : null}
           </div>
           
           <div className="container mx-auto px-4 py-8">
             <div className="text-center">
               <Link href="/tours">
-                <motion.span className="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-heading font-semibold hover:bg-primary-dark transition-colors inline-block cursor-pointer" whileHover={{
-                scale: 1.05
-              }} whileTap={{
-                scale: 0.98
-              }}>{t('tours.title')}</motion.span>
+                <motion.span 
+                  className="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-heading font-semibold hover:bg-primary-dark transition-colors inline-block cursor-pointer"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.98 }}
+                >{tours.title}</motion.span>
               </Link>
             </div>
           </div>
@@ -340,11 +379,11 @@ export default function Home() {
           <div className="container mx-auto px-4 max-w-4xl text-center">
             <div className="mb-8">
               <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
-                {t('home.tailorMadeTitle')}
+                {home.tailorMadeTitle}
               </h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
               <p className="text-lg text-gray-700 leading-relaxed">
-                {t('home.tailorMadeDescription')}
+                {home.tailorMadeDescription}
               </p>
             </div>
           </div>
@@ -366,8 +405,6 @@ export default function Home() {
         <CallToAction />
       </main>
       <Footer />
-      
-      {/* 🧪 TEST TEMPORAIRE i18next */}
-      <I18nextTest />
-    </>;
+    </>
+  );
 }

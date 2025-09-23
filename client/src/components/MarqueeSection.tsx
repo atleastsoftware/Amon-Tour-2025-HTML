@@ -2,16 +2,16 @@ import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { useTranslation } from 'react-i18next';
+import { translationService } from "@/services/translationService";
 
 export default function MarqueeSection() {
-  const { t } = useTranslation();
+  const home = translationService.getHome();
   
   // Tours réels de l'iframe Tour Ninja showcase/2
   const iframeTours = [
     { 
       id: "1",
-      name: t('tourNames.phiPhiIslands'), 
+      name: "Phi Phi Islands Speed Boat Tour", 
       price: 2500, 
       currency: "THB",
       location: "Krabi",
@@ -21,7 +21,7 @@ export default function MarqueeSection() {
     },
     { 
       id: "2",
-      name: t('tourNames.jamesBondIsland'), 
+      name: "James Bond Island Day Trip", 
       price: 3200, 
       currency: "THB",
       location: "Phang Nga",
@@ -31,7 +31,7 @@ export default function MarqueeSection() {
     },
     { 
       id: "3",
-      name: t('tourNames.phuketCityTemple'), 
+      name: "Phuket City & Temple Tour", 
       price: 1800, 
       currency: "THB",
       location: "Phuket",
@@ -41,7 +41,7 @@ export default function MarqueeSection() {
     },
     { 
       id: "4",
-      name: t('tourNames.emeraldCaveKayaking'), 
+      name: "Emerald Cave Kayaking", 
       price: 2800, 
       currency: "THB",
       location: "Krabi",
@@ -51,7 +51,7 @@ export default function MarqueeSection() {
     },
     { 
       id: "5",
-      name: t('tourNames.elephantSanctuary'), 
+      name: "Elephant Sanctuary Visit", 
       price: 2200, 
       currency: "THB",
       location: "Phuket",
@@ -61,7 +61,7 @@ export default function MarqueeSection() {
     },
     { 
       id: "6",
-      name: t('tourNames.fourIslandsLongtail'), 
+      name: "4 Islands Tour by Longtail", 
       price: 1900, 
       currency: "THB",
       location: "Krabi",
@@ -77,7 +77,7 @@ export default function MarqueeSection() {
   return (
     <div className="bg-gradient-to-r from-primary to-primary/80 py-6 overflow-hidden">
       <div className="mb-4 text-center">
-        <h3 className="text-white text-xl font-heading font-semibold">{t('someIdeas.title')}</h3>
+        <h3 className="text-white text-xl font-heading font-semibold">{home.someIdeasTitle}</h3>
       </div>
       <motion.div 
         className="flex"

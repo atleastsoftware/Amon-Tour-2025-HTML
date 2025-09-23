@@ -1,4 +1,3 @@
-import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { useLocation } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
@@ -8,7 +7,18 @@ import { Input } from '@/components/ui/input';
 import { ArrowLeft, Plus, Edit, Trash2, Eye, FileText } from 'lucide-react';
 import { AdminGuard } from '@/components/AdminGuard';
 import { AddPageModal } from '@/components/AddPageModal';
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+
 interface PageConfiguration {
   id: number;
   pageName: string;
@@ -18,16 +28,13 @@ interface PageConfiguration {
   createdAt?: string;
   updatedAt?: string;
 }
+
 function AdminEditorPageContent() {
   const [, setLocation] = useLocation();
   const [isAddPageModalOpen, setIsAddPageModalOpen] = useState(false);
 
   // Récupérer toutes les pages depuis la base de données
-  const {
-    data: pageConfigs = [],
-    isLoading,
-    error
-  } = useQuery<PageConfiguration[]>({
+  const { data: pageConfigs = [], isLoading, error } = useQuery<PageConfiguration[]>({
     queryKey: ['/api/admin/page-configurations'],
     queryFn: () => fetch('/api/admin/page-configurations').then(res => {
       if (!res.ok) throw new Error('Failed to fetch pages');
@@ -36,13 +43,17 @@ function AdminEditorPageContent() {
   });
 
   // Transformer les données pour l'affichage et trier par ordre alphabétique
-  const pages = pageConfigs.map(page => ({
-    id: page.pageSlug,
-    title: page.pageName,
-    slug: page.pageSlug === 'home' ? '/' : `/${page.pageSlug}`,
-    status: page.isActive ? 'Active' : 'Inactive',
-    type: page.pageType === 'main' ? 'Page principale' : page.pageType === 'secondary' ? 'Page secondaire' : 'Mentions légales'
-  })).sort((a, b) => a.title.localeCompare(b.title, 'fr'));
+  const pages = pageConfigs
+    .map(page => ({
+      id: page.pageSlug,
+      title: page.pageName,
+      slug: page.pageSlug === 'home' ? '/' : `/${page.pageSlug}`,
+      status: page.isActive ? 'Active' : 'Inactive',
+      type: page.pageType === 'main' ? 'Page principale' : 
+            page.pageType === 'secondary' ? 'Page secondaire' : 'Mentions légales'
+    }))
+    .sort((a, b) => a.title.localeCompare(b.title, 'fr'));
+
   const handleEditPage = (pageId: string) => {
     // Rediriger vers l'éditeur de page pour toutes les pages
     // On peut passer l'ID de la page en paramètre URL si nécessaire
@@ -53,11 +64,13 @@ function AdminEditorPageContent() {
       setLocation(`/admin-page-editor?page=${pageId}`);
     }
   };
+
   const handleDeletePage = async (pageId: string) => {
     if (pageId === 'home') {
       alert('Impossible de supprimer la page d\'accueil');
       return;
     }
+    
     try {
       // Trouver la page pour obtenir son ID numérique
       const page = pageConfigs.find(p => p.pageSlug === pageId);
@@ -65,15 +78,17 @@ function AdminEditorPageContent() {
         alert('Page non trouvée');
         return;
       }
+      
       const response = await fetch(`/api/admin/page-configurations/${page.id}`, {
         method: 'DELETE',
-        credentials: 'include'
+        credentials: 'include',
       });
+      
       if (!response.ok) {
         const error = await response.json();
         throw new Error(error.message || 'Erreur lors de la suppression');
       }
-
+      
       // Rafraîchir la liste des pages
       window.location.reload();
     } catch (error) {
@@ -81,10 +96,13 @@ function AdminEditorPageContent() {
       alert(`Erreur lors de la suppression : ${error instanceof Error ? error.message : 'Erreur inconnue'}`);
     }
   };
+
   const handleAddPage = () => {
     setIsAddPageModalOpen(true);
   };
-  return <div className="min-h-screen bg-gray-50 px-2 pb-4 sm:px-4 sm:pb-4">
+
+  return (
+    <div className="min-h-screen bg-gray-50 px-2 pb-4 sm:px-4 sm:pb-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 mb-6 mt-6">
@@ -92,140 +110,171 @@ function AdminEditorPageContent() {
             <div className="w-full sm:w-auto">
               <h1 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2 sm:gap-3">
                 <FileText className="h-6 w-6 sm:h-7 sm:w-7 text-blue-600 flex-shrink-0" />
-                <span className="truncate">{t('\xC9diteur de Pages', {
-                  defaultValue: '\xC9diteur de Pages'
-                })}</span>
+                <span className="truncate">Éditeur de Pages</span>
               </h1>
-              <p className="text-sm sm:text-base text-gray-600">{t('G\xE9rez le contenu et la structure de vos pages web', {
-                defaultValue: 'G\xE9rez le contenu et la structure de vos pages web'
-              })}</p>
+              <p className="text-sm sm:text-base text-gray-600">Gérez le contenu et la structure de vos pages web</p>
             </div>
-            <Button variant="outline" onClick={() => setLocation('/admin-editor')} className="flex items-center gap-2 w-full sm:w-auto">
+            <Button 
+              variant="outline" 
+              onClick={() => setLocation('/admin-editor')}
+              className="flex items-center gap-2 w-full sm:w-auto"
+            >
               <ArrowLeft className="w-4 h-4" />
-              <span>{t('Retour \xE0 Gestion de Contenu', {
-                defaultValue: 'Retour \xE0 Gestion de Contenu'
-              })}</span>
+              <span>Retour à Gestion de Contenu</span>
             </Button>
           </div>
         </div>
 
         {/* Add Page Button */}
         <div className="mb-6">
-          <Button onClick={handleAddPage} className="bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-2">
-            <Plus className="h-4 w-4" />{t('Ajouter une page', {
-            defaultValue: 'Ajouter une page'
-          })}</Button>
+          <Button 
+            onClick={handleAddPage}
+            className="bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-2"
+          >
+            <Plus className="h-4 w-4" />
+            Ajouter une page
+          </Button>
         </div>
 
         {/* Loading State */}
-        {isLoading && <div className="text-center py-12">
+        {isLoading && (
+          <div className="text-center py-12">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-secondary mx-auto mb-4"></div>
-            <p className="text-gray-500">{t('Chargement des pages...', {
-            defaultValue: 'Chargement des pages...'
-          })}</p>
-          </div>}
+            <p className="text-gray-500">Chargement des pages...</p>
+          </div>
+        )}
 
         {/* Error State */}
-        {error && <Card className="bg-red-50 border-red-200">
+        {error && (
+          <Card className="bg-red-50 border-red-200">
             <CardContent className="p-6 text-center">
-              <p className="text-red-600">{t('Erreur lors du chargement des pages', {
-              defaultValue: 'Erreur lors du chargement des pages'
-            })}</p>
+              <p className="text-red-600">Erreur lors du chargement des pages</p>
             </CardContent>
-          </Card>}
+          </Card>
+        )}
 
         {/* Pages List */}
-        {!isLoading && !error && <div className="space-y-4">
-          {pages.map(page => <Card key={page.id} className="bg-white border border-gray-200 hover:border-blue-300 transition-colors">
+        {!isLoading && !error && (
+        <div className="space-y-4">
+          {pages.map((page) => (
+            <Card key={page.id} className="bg-white border border-gray-200 hover:border-blue-300 transition-colors">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
                     <h3 className="text-lg font-semibold text-gray-900">
                       {page.title || 'Page sans titre'}
                     </h3>
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${page.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}`}>
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      page.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                    }`}>
                       {page.status}
                     </span>
                   </div>
                   
                   <div className="flex items-center gap-2">
-                    <Button variant="outline" size="sm" onClick={() => window.open(page.slug, '_blank')} className="flex items-center gap-1">
-                      <Eye className="h-4 w-4" />{t('Voir', {
-                    defaultValue: 'Voir'
-                  })}</Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => window.open(page.slug, '_blank')}
+                      className="flex items-center gap-1"
+                    >
+                      <Eye className="h-4 w-4" />
+                      Voir
+                    </Button>
                     
-                    <Button variant="outline" size="sm" onClick={() => handleEditPage(page.id)} className="flex items-center gap-1 bg-blue-50 border-blue-200 hover:bg-blue-100">
-                      <Edit className="h-4 w-4" />{t('Modifier', {
-                    defaultValue: 'Modifier'
-                  })}</Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleEditPage(page.id)}
+                      className="flex items-center gap-1 bg-blue-50 border-blue-200 hover:bg-blue-100"
+                    >
+                      <Edit className="h-4 w-4" />
+                      Modifier
+                    </Button>
                     
-                    {page.id !== 'home' && <AlertDialog>
+                    {page.id !== 'home' && (
+                      <AlertDialog>
                         <AlertDialogTrigger asChild>
-                          <Button variant="outline" size="sm" className="flex items-center gap-1 text-red-600 border-red-200 hover:bg-red-50">
-                            <Trash2 className="h-4 w-4" />{t('Supprimer', {
-                        defaultValue: 'Supprimer'
-                      })}</Button>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="flex items-center gap-1 text-red-600 border-red-200 hover:bg-red-50"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                            Supprimer
+                          </Button>
                         </AlertDialogTrigger>
                         <AlertDialogContent>
                           <AlertDialogHeader>
                             <AlertDialogTitle>Êtes-vous sûr de supprimer cette page ?</AlertDialogTitle>
-                            <AlertDialogDescription>{t('Cette action est irr\xE9versible. La page "', {
-                          defaultValue: 'Cette action est irr\xE9versible. La page "'
-                        })}{page.title}" sera définitivement supprimée.
+                            <AlertDialogDescription>
+                              Cette action est irréversible. La page "{page.title}" sera définitivement supprimée.
                             </AlertDialogDescription>
                           </AlertDialogHeader>
                           <AlertDialogFooter>
-                            <AlertDialogCancel>{t('Annuler', {
-                          defaultValue: 'Annuler'
-                        })}</AlertDialogCancel>
-                            <AlertDialogAction onClick={() => handleDeletePage(page.id)} className="bg-red-600 hover:bg-red-700">{t('Supprimer', {
-                          defaultValue: 'Supprimer'
-                        })}</AlertDialogAction>
+                            <AlertDialogCancel>Annuler</AlertDialogCancel>
+                            <AlertDialogAction 
+                              onClick={() => handleDeletePage(page.id)}
+                              className="bg-red-600 hover:bg-red-700"
+                            >
+                              Supprimer
+                            </AlertDialogAction>
                           </AlertDialogFooter>
                         </AlertDialogContent>
-                      </AlertDialog>}
+                      </AlertDialog>
+                    )}
                   </div>
                 </div>
               </CardContent>
-            </Card>)}
-        </div>}
+            </Card>
+          ))}
+        </div>
+        )}
 
         {/* Empty state if no pages */}
-        {pages.length === 0 && <Card className="bg-white border-2 border-dashed border-gray-300">
+        {pages.length === 0 && (
+          <Card className="bg-white border-2 border-dashed border-gray-300">
             <CardContent className="p-12 text-center">
               <div className="text-gray-400 mb-4">
                 <Plus className="h-12 w-12 mx-auto" />
               </div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">{t('Aucune page cr\xE9\xE9e', {
-              defaultValue: 'Aucune page cr\xE9\xE9e'
-            })}</h3>
-              <p className="text-gray-500 mb-6">{t('Commencez par cr\xE9er votre premi\xE8re page', {
-              defaultValue: 'Commencez par cr\xE9er votre premi\xE8re page'
-            })}</p>
-              <Button onClick={handleAddPage} className="bg-blue-600 hover:bg-blue-700">{t('Cr\xE9er ma premi\xE8re page', {
-              defaultValue: 'Cr\xE9er ma premi\xE8re page'
-            })}</Button>
+              <h3 className="text-lg font-medium text-gray-900 mb-2">
+                Aucune page créée
+              </h3>
+              <p className="text-gray-500 mb-6">
+                Commencez par créer votre première page
+              </p>
+              <Button onClick={handleAddPage} className="bg-blue-600 hover:bg-blue-700">
+                Créer ma première page
+              </Button>
             </CardContent>
-          </Card>}
+          </Card>
+        )}
       </div>
 
       {/* Modal d'ajout de page */}
-      <AddPageModal isOpen={isAddPageModalOpen} onClose={() => setIsAddPageModalOpen(false)} onSuccess={pageSlug => {
-      // Attendre un moment pour que les données soient rafraîchies puis rediriger
-      setTimeout(() => {
-        if (pageSlug === 'home') {
-          setLocation('/admin-page-editor');
-        } else {
-          setLocation(`/admin-page-editor?page=${pageSlug}`);
-        }
-      }, 1500);
-    }} />
-    </div>;
+      <AddPageModal
+        isOpen={isAddPageModalOpen}
+        onClose={() => setIsAddPageModalOpen(false)}
+        onSuccess={(pageSlug) => {
+          // Attendre un moment pour que les données soient rafraîchies puis rediriger
+          setTimeout(() => {
+            if (pageSlug === 'home') {
+              setLocation('/admin-page-editor');
+            } else {
+              setLocation(`/admin-page-editor?page=${pageSlug}`);
+            }
+          }, 1500);
+        }}
+      />
+    </div>
+  );
 }
-export default function AdminEditorPage() {
-  const { t } = useTranslation();
 
-  return <AdminGuard>
+export default function AdminEditorPage() {
+  return (
+    <AdminGuard>
       <AdminEditorPageContent />
-    </AdminGuard>;
+    </AdminGuard>
+  );
 }
