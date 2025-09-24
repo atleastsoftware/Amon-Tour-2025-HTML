@@ -91,13 +91,13 @@ export default function SeasonalPricing() {
           </div>
 
           <motion.div 
-            className="mt-12 mb-8 text-center"
+            className="mt-12 mb-12 text-center"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <p className="text-muted-foreground text-lg font-medium">{cruise.pickupTimesTransfers}</p>
+            <p className="text-muted-foreground text-lg">{cruise.pickupTimesTransfers}</p>
           </motion.div>
 
           {/* Pickup Locations Cards */}
