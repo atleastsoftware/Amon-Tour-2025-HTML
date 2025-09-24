@@ -390,8 +390,8 @@ export default function Home() {
         </section>
         <CustomTourForm />
         
-        {/* 5. Some Ideas For Your Next Trip */}
-        <TourNinjaSection />
+        {/* 5. Some Ideas For Your Next Trip - Hidden as requested */}
+        {/* <TourNinjaSection /> */}
         
         {/* 6. Why Choose Us */}
         <Features />
