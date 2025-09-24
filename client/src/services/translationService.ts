@@ -229,6 +229,7 @@ export interface Translations {
     perDay: string;
     period: string;
     dailyRateMinimum: string;
+    pickupTimesTransfers: string;
     fromTubkeak: string;
     fromThalane: string;
     fromAoNang: string;
@@ -462,8 +463,8 @@ const translations: Record<string, Translations> = {
       lagoonDesc3: "Perfect for holidays with family, friends or private charter, this boat guarantees your comfort, privacy and freedom to explore the most beautiful islands of the Andaman Sea.",
       
       routeSuggestions: "Route suggestions",
-      routeDescription: "Each itinerary adapts to the season and natural conditions to guarantee you an optimal experience.",
-      oneDayRoute: "Local islands of Ao Nang or Koh Hong archipelago",
+      routeDescription: "Each itinerary is adapted to the season, natural conditions, and tourist traffic to guarantee you an optimal experience.",
+      oneDayRoute: "Only available through this offer: https://www.tourninja.io/details/Wmx1GcKCGO",
       twoDaysRoute: "Head towards Koh Hong or the legendary Koh Phi Phi",
       threeFourDaysRoute: "Combined Phang Nga Bay and Koh Phi Phi",
       fiveSixDaysRoute: "Getaway to the preserved waters of Koh Rok and Koh Mook",
@@ -480,7 +481,8 @@ const translations: Record<string, Translations> = {
       bestValueRates: "Best value rates",
       perDay: "per day",
       period: "Period:",
-      dailyRateMinimum: "Daily rate for minimum 2 days and one night. Capacity 8 adults max.",
+      dailyRateMinimum: "Daily rate for a minimum of 2 days and 1 night. Maximum capacity: 8 adults.",
+      pickupTimesTransfers: "Pick up times and transfer surcharges",
       
       fromTubkeak: "from Tubkeak",
       fromThalane: "from Thalane", 
@@ -712,8 +714,8 @@ const translations: Record<string, Translations> = {
       lagoonDesc3: "Parfait pour des vacances en famille, entre amis ou en charter privé, ce bateau garantit votre confort, votre intimité et votre liberté d'explorer les plus belles îles de la mer d'Andaman.",
       
       routeSuggestions: "Suggestions d'itinéraires",
-      routeDescription: "Chaque itinéraire s'adapte à la saison et aux conditions naturelles pour vous garantir une expérience optimale.",
-      oneDayRoute: "Îles locales d'Ao Nang ou archipel de Koh Hong",
+      routeDescription: "Chaque itinéraire est adapté à la saison, aux conditions naturelles et au trafic touristique pour vous garantir une expérience optimale.",
+      oneDayRoute: "Uniquement disponible via cette offre : https://www.tourninja.io/details/Wmx1GcKCGO",
       twoDaysRoute: "Direction Koh Hong ou le légendaire Koh Phi Phi",
       threeFourDaysRoute: "Baie de Phang Nga et Koh Phi Phi combinés",
       fiveSixDaysRoute: "Escapade vers les eaux préservées de Koh Rok et Koh Mook",
@@ -730,7 +732,8 @@ const translations: Record<string, Translations> = {
       bestValueRates: "Tarifs meilleur rapport qualité-prix",
       perDay: "par jour",
       period: "Période :",
-      dailyRateMinimum: "Tarif journalier pour un minimum de 2 jours et une nuit. Capacité 8 adultes max.",
+      dailyRateMinimum: "Tarif journalier pour un minimum de 2 jours et 1 nuit. Capacité maximale : 8 adultes.",
+      pickupTimesTransfers: "Horaires et suppléments de transfert",
       
       fromTubkeak: "depuis Tubkeak",
       fromThalane: "depuis Thalane",
@@ -962,8 +965,8 @@ const translations: Record<string, Translations> = {
       lagoonDesc3: "Perfecto para vacaciones en familia, con amigos o charter privado, este barco garantiza su comodidad, privacidad y libertad para explorar las islas más hermosas del Mar de Andamán.",
       
       routeSuggestions: "Sugerencias de rutas",
-      routeDescription: "Cada itinerario se adapta a la estación y condiciones naturales para garantizarle una experiencia óptima.",
-      oneDayRoute: "Islas locales de Ao Nang o archipiélago de Koh Hong",
+      routeDescription: "Cada itinerario es adaptado a la estación, condiciones naturales y tráfico turístico para garantizarle una experiencia óptima.",
+      oneDayRoute: "Solo disponible a través de esta oferta: https://www.tourninja.io/details/Wmx1GcKCGO",
       twoDaysRoute: "Dirección hacia Koh Hong o la legendaria Koh Phi Phi",
       threeFourDaysRoute: "Bahía de Phang Nga y Koh Phi Phi combinadas",
       fiveSixDaysRoute: "Escapada a las aguas preservadas de Koh Rok y Koh Mook",
@@ -980,7 +983,8 @@ const translations: Record<string, Translations> = {
       bestValueRates: "Tarifas mejor valor",
       perDay: "por día",
       period: "Período:",
-      dailyRateMinimum: "Tarifa diaria por mínimo 2 días y una noche. Capacidad 8 adultos máx.",
+      dailyRateMinimum: "Tarifa diaria para un mínimo de 2 días y 1 noche. Capacidad máxima: 8 adultos.",
+      pickupTimesTransfers: "Horarios de recogida y recargos de traslado",
       
       fromTubkeak: "desde Tubkeak",
       fromThalane: "desde Thalane",
