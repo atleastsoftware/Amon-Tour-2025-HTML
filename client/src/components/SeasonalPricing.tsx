@@ -97,18 +97,7 @@ export default function SeasonalPricing() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <p className="text-muted-foreground text-lg">{cruise.dailyRateMinimum}</p>
-          </motion.div>
-          
-          {/* Pickup Times and Transfer Surcharges */}
-          <motion.div 
-            className="mt-8 text-center"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.42 }}
-          >
-            <h3 className="text-xl font-bold text-foreground mb-6">{cruise.pickupTimesTransfers}</h3>
+            <p className="text-muted-foreground text-lg">{cruise.pickupTimesTransfers}</p>
           </motion.div>
 
           {/* Pickup Locations Cards */}

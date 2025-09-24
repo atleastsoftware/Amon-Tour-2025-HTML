@@ -487,7 +487,9 @@ export default function CatamaranExperience() {
             >
               <div className="flex flex-col md:flex-row md:items-center">
                 <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">{cruise.oneDay}</span>
-                <span className="text-gray-600 text-lg md:ml-4">{cruise.oneDayRoute}</span>
+                <span className="text-gray-600 text-lg md:ml-4">
+                  Only available through this offer: <a href="https://www.tourninja.io/details/Wmx1GcKCGO" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-secondary underline transition-colors">https://www.tourninja.io/details/Wmx1GcKCGO</a>
+                </span>
               </div>
             </motion.div>
             
