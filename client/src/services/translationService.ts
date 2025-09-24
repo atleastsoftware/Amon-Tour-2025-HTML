@@ -239,6 +239,10 @@ export interface Translations {
     includedDescription: string;
     notIncludedInPrice: string;
     notIncludedDescription: string;
+    
+    // Video section
+    videoTitle: string;
+    videoDescription: string;
   };
   // Custom Tour page
   customTour: {
@@ -488,7 +492,11 @@ const translations: Record<string, Translations> = {
       includedInPrice: "Included in Price",
       includedDescription: "Boat rental with captain, assistant and professional English-speaking guide, fuel, semi-rigid dinghy for 5 to 6 people with an 18 HP engine, BBQ, fishing equipment and a paddleboard, fresh fruit, sodas, water. Breakfast (tea, coffee, toast, omelet).",
       notIncludedInPrice: "Not Included in Price", 
-      notIncludedDescription: "Transfers (on request), national park fees (depending on the itinerary), beer, wine, spirits. Lunch and dinner (Thai cuisine): 500 Baht per person per meal. Please let us know your preferences and we will provision the boat accordingly."
+      notIncludedDescription: "Transfers (on request), national park fees (depending on the itinerary), beer, wine, spirits. Lunch and dinner (Thai cuisine): 500 Baht per person per meal. Please let us know your preferences and we will provision the boat accordingly.",
+      
+      // Video section
+      videoTitle: "Discover Our Catamaran in Video",
+      videoDescription: "Explore your future vessel and discover the unique experience that awaits you aboard our Lagoon 470."
     },
     customTour: {
       title: "Create Your Custom Tour",
@@ -734,7 +742,11 @@ const translations: Record<string, Translations> = {
       includedInPrice: "Inclus dans le Prix",
       includedDescription: "Location bateau avec capitaine, assistant et guide anglophone professionnel, carburant, annexe semi-rigide pour 5 à 6 personnes avec moteur 18 CV, BBQ, équipement de pêche et paddle, fruits frais, sodas, eau. Petit-déjeuner (thé, café, toast, omelette).",
       notIncludedInPrice: "Non Inclus dans le Prix",
-      notIncludedDescription: "Transferts (sur demande), frais de parcs nationaux (selon l'itinéraire), bière, vin, spiritueux. Déjeuner et dîner (cuisine thaï) : 500 Baht par personne par repas. Merci de nous faire connaître vos préférences et nous approvisionnerons le bateau en conséquence."
+      notIncludedDescription: "Transferts (sur demande), frais de parcs nationaux (selon l'itinéraire), bière, vin, spiritueux. Déjeuner et dîner (cuisine thaï) : 500 Baht par personne par repas. Merci de nous faire connaître vos préférences et nous approvisionnerons le bateau en conséquence.",
+      
+      // Video section
+      videoTitle: "Découvrez Notre Catamaran en Vidéo",
+      videoDescription: "Explorez votre futur navire et découvrez l'expérience unique qui vous attend à bord de notre Lagoon 470."
     },
     customTour: {
       title: "Créez Votre Voyage Sur Mesure",
@@ -980,7 +992,11 @@ const translations: Record<string, Translations> = {
       includedInPrice: "Incluido en el Precio",
       includedDescription: "Alquiler de barco con capitán, asistente y guía profesional de habla inglesa, combustible, bote semirrígido para 5 a 6 personas con motor de 18 HP, BBQ, equipo de pesca y paddleboard, frutas frescas, refrescos, agua. Desayuno (té, café, tostadas, tortilla).",
       notIncludedInPrice: "No Incluido en el Precio",
-      notIncludedDescription: "Traslados (bajo pedido), tarifas de parques nacionales (según el itinerario), cerveza, vino, licores. Almuerzo y cena (cocina tailandesa): 500 Baht por persona por comida. Por favor háganos saber sus preferencias y abasteceremos el barco en consecuencia."
+      notIncludedDescription: "Traslados (bajo pedido), tarifas de parques nacionales (según el itinerario), cerveza, vino, licores. Almuerzo y cena (cocina tailandesa): 500 Baht por persona por comida. Por favor háganos saber sus preferencias y abasteceremos el barco en consecuencia.",
+      
+      // Video section
+      videoTitle: "Descubra Nuestro Catamarán en Video",
+      videoDescription: "Explore su futuro barco y descubra la experiencia única que le espera a bordo de nuestro Lagoon 470."
     },
     customTour: {
       title: "Cree Su Tour Personalizado",

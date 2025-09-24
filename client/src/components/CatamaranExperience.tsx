@@ -429,6 +429,37 @@ export default function CatamaranExperience() {
           <PhotoGallery />
         </motion.div>
         
+        {/* YouTube Video Section */}
+        <motion.div 
+          className="mt-16 mb-16"
+          initial={{ y: 20, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
+          <div className="text-center mb-8">
+            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{cruise.videoTitle}</h2>
+            <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
+            <p className="text-lg text-gray-700 leading-relaxed max-w-4xl mx-auto">
+              {cruise.videoDescription}
+            </p>
+          </div>
+          
+          <div className="max-w-5xl mx-auto">
+            <div className="relative aspect-video bg-gray-100 rounded-xl overflow-hidden shadow-xl">
+              <iframe
+                src="https://www.youtube.com/embed/VCECtIN2AbQ?rel=0&modestbranding=1&showinfo=0"
+                title="Découvrez Notre Catamaran"
+                className="absolute inset-0 w-full h-full"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </motion.div>
+        
         {/* Route Suggestions Section */}
         <motion.div 
           className="mt-16"
