@@ -32,7 +32,7 @@ const cruiseFormSchema = z.object({
   fullName: z.string().min(2, "Full name required"),
   email: z.string().email("Valid email required"),
   phone: z.string().optional(),
-  numberOfGuests: z.number().min(1, "Minimum 1 passenger").max(8, "Maximum 8 passengers"),
+  numberOfGuests: z.coerce.number().min(1, "Minimum 1 passenger").max(8, "Maximum 8 passengers"),
   duration: z.string().min(1, "Duration required"),
   preferredDates: z.string().optional(),
   itinerary: z.string().optional(),
