@@ -497,7 +497,7 @@ const translations: Record<string, Translations> = {
       notIncludedDescription: "Transfers (on request), national park fees (depending on the itinerary), beer, wine, spirits. Lunch and dinner (Thai cuisine): 500 Baht per person per meal. Please let us know your preferences and we will provision the boat accordingly.",
       
       // Video section
-      videoTitle: "Discover Our Catamaran in Video",
+      videoTitle: "Our Catamaran in Video",
       videoDescription: "Explore your future vessel and discover the unique experience that awaits you aboard our Lagoon 470."
     },
     customTour: {
@@ -748,7 +748,7 @@ const translations: Record<string, Translations> = {
       notIncludedDescription: "Transferts (sur demande), frais de parcs nationaux (selon l'itinéraire), bière, vin, spiritueux. Déjeuner et dîner (cuisine thaï) : 500 Baht par personne par repas. Merci de nous faire connaître vos préférences et nous approvisionnerons le bateau en conséquence.",
       
       // Video section
-      videoTitle: "Découvrez Notre Catamaran en Vidéo",
+      videoTitle: "Notre Catamaran en Vidéo",
       videoDescription: "Explorez votre futur navire et découvrez l'expérience unique qui vous attend à bord de notre Lagoon 470."
     },
     customTour: {
@@ -999,7 +999,7 @@ const translations: Record<string, Translations> = {
       notIncludedDescription: "Traslados (bajo pedido), tarifas de parques nacionales (según el itinerario), cerveza, vino, licores. Almuerzo y cena (cocina tailandesa): 500 Baht por persona por comida. Por favor háganos saber sus preferencias y abasteceremos el barco en consecuencia.",
       
       // Video section
-      videoTitle: "Descubra Nuestro Catamarán en Video",
+      videoTitle: "Nuestro Catamarán en Video",
       videoDescription: "Explore su futuro barco y descubra la experiencia única que le espera a bordo de nuestro Lagoon 470."
     },
     customTour: {
