@@ -41,23 +41,27 @@ export class PersistentImageStorageService {
       const extension = file.originalname.split('.').pop();
       const fileName = `tour-ninja-${tourNinjaId}-${timestamp}.${extension}`;
       
-      // Créer le dossier si nécessaire
-      const uploadDir = path.join(process.cwd(), 'objects', 'tour-images');
+      // Utiliser le vrai Object Storage de Replit (persistant)
+      const privateDir = this.getPrivateObjectDir();
+      const uploadDir = path.join(privateDir, 'tour-images');
+      
+      // Créer le dossier dans Object Storage si nécessaire
       if (!fs.existsSync(uploadDir)) {
         fs.mkdirSync(uploadDir, { recursive: true });
       }
       
-      // Chemin complet du fichier
+      // Chemin complet du fichier dans Object Storage
       const filePath = path.join(uploadDir, fileName);
       
-      // Sauvegarder réellement le fichier
+      // Sauvegarder dans Object Storage (persistant)
       fs.writeFileSync(filePath, file.buffer);
       
-      // URL accessible depuis le frontend
-      const persistentUrl = `/objects/tour-images/${fileName}`;
+      // URL accessible depuis le frontend via Object Storage
+      const bucketId = privateDir.split('/')[1]; // Extraire l'ID du bucket
+      const persistentUrl = `/${bucketId}/.private/tour-images/${fileName}`;
       
-      console.log(`✅ Image réellement sauvegardée : ${filePath}`);
-      console.log(`✅ URL accessible : ${persistentUrl}`);
+      console.log(`✅ Image sauvegardée dans Object Storage (persistant) : ${filePath}`);
+      console.log(`✅ URL persistante : ${persistentUrl}`);
       
       return persistentUrl;
     } catch (error) {
