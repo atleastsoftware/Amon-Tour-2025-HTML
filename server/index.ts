@@ -82,20 +82,10 @@ app.use(session({
   }
 }));
 
-// Serve static files for uploaded images
+// Serve static files for uploaded images (persistent on Replit)
 app.use('/uploads', express.static('uploads'));
 app.use('/attached_assets', express.static('attached_assets'));
-
-// Serve images from Replit Object Storage (persistant)
-const PRIVATE_OBJECT_DIR = process.env.PRIVATE_OBJECT_DIR;
-if (PRIVATE_OBJECT_DIR) {
-  const bucketId = PRIVATE_OBJECT_DIR.split('/')[1];
-  app.use(`/${bucketId}/.private`, express.static(PRIVATE_OBJECT_DIR));
-  console.log(`✅ Serving persistent images from Object Storage: /${bucketId}/.private`);
-} else {
-  // Fallback pour développement local sans Object Storage
-  app.use('/objects', express.static('objects'));
-}
+console.log('✅ Serving persistent images from /uploads/tours/');
 
 app.use((req, res, next) => {
   const start = Date.now();
