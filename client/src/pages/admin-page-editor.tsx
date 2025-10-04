@@ -1583,6 +1583,27 @@ const BlockEditDropdown = ({
             <div className="space-y-4 border-t pt-4">
               <h4 className="text-sm font-medium text-gray-900">Configuration de la grille</h4>
               
+              {/* Couleurs des annonces */}
+              <div className="space-y-3">
+                <Label className="text-sm font-medium">Couleurs des annonces</Label>
+                <div>
+                  <Label className="text-xs text-gray-500 mb-2">Couleur de fond (sans image)</Label>
+                  <ColorPicker
+                    value={formData.cardBackgroundColor || '#bfdbfe'}
+                    onChange={(value) => updateField('cardBackgroundColor', value)}
+                    label=""
+                  />
+                </div>
+                <div>
+                  <Label className="text-xs text-gray-500 mb-2">Couleur des boutons</Label>
+                  <ColorPicker
+                    value={formData.cardButtonColor || '#2563eb'}
+                    onChange={(value) => updateField('cardButtonColor', value)}
+                    label=""
+                  />
+                </div>
+              </div>
+              
               {/* Colonnes */}
               <div>
                 <Label className="text-sm font-medium">Colonnes par appareil</Label>
@@ -1874,6 +1895,27 @@ const BlockEditDropdown = ({
             {/* Configuration de la grille */}
             <div className="space-y-4 border-t pt-4">
               <h4 className="text-sm font-medium text-gray-900">Configuration de la grille</h4>
+              
+              {/* Couleurs des annonces */}
+              <div className="space-y-3">
+                <Label className="text-sm font-medium">Couleurs des annonces</Label>
+                <div>
+                  <Label className="text-xs text-gray-500 mb-2">Couleur de fond (sans image)</Label>
+                  <ColorPicker
+                    value={formData.cardBackgroundColor || '#bfdbfe'}
+                    onChange={(value) => updateField('cardBackgroundColor', value)}
+                    label=""
+                  />
+                </div>
+                <div>
+                  <Label className="text-xs text-gray-500 mb-2">Couleur des boutons</Label>
+                  <ColorPicker
+                    value={formData.cardButtonColor || '#2563eb'}
+                    onChange={(value) => updateField('cardButtonColor', value)}
+                    label=""
+                  />
+                </div>
+              </div>
               
               {/* Colonnes */}
               <div>
