@@ -574,7 +574,10 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                       transition={{ duration: 0.6, delay: index * 0.1 }}
                       className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
                     >
-                      <div className="relative h-48 bg-gradient-to-br from-blue-200 to-blue-300">
+                      <div 
+                        className="relative h-48"
+                        style={{ backgroundColor: tour.primaryImage ? 'transparent' : (popularConfig.cardBackgroundColor || '#bfdbfe') }}
+                      >
                         {tour.primaryImage ? (
                           <img
                             src={tour.primaryImage}
@@ -607,12 +610,36 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                         </p>
                         
                         <div className="flex gap-2">
-                          <button className="flex-1 border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1">
-                            Details
+                          <button 
+                            className="flex-1 border py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
+                            style={{
+                              borderColor: popularConfig.cardButtonColor || '#2563eb',
+                              color: popularConfig.cardButtonColor || '#2563eb',
+                              backgroundColor: 'white',
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.backgroundColor = (popularConfig.cardButtonColor || '#2563eb') + '10';
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.backgroundColor = 'white';
+                            }}
+                          >
+                            View details
                             <ChevronRight className="h-3 w-3" />
                           </button>
-                          <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1">
-                            Book
+                          <button 
+                            className="flex-1 py-2 px-3 rounded-lg font-semibold transition-colors text-white flex items-center justify-center gap-1"
+                            style={{
+                              backgroundColor: popularConfig.cardButtonColor || '#2563eb',
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.filter = 'brightness(110%)';
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.filter = 'brightness(100%)';
+                            }}
+                          >
+                            Book now
                             <ChevronRight className="h-3 w-3" />
                           </button>
                         </div>
@@ -630,7 +657,10 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                       transition={{ duration: 0.6, delay: index * 0.1 }}
                       className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
                     >
-                      <div className="relative h-48 bg-gradient-to-br from-blue-200 to-blue-300">
+                      <div 
+                        className="relative h-48"
+                        style={{ backgroundColor: popularConfig.cardBackgroundColor || '#bfdbfe' }}
+                      >
                         <div className="w-full h-full flex items-center justify-center">
                           <div className="h-16 w-16 text-blue-400">🏝️</div>
                         </div>
@@ -651,12 +681,36 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                         </p>
                         
                         <div className="flex gap-2">
-                          <button className="flex-1 border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1">
-                            Details
+                          <button 
+                            className="flex-1 border py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
+                            style={{
+                              borderColor: popularConfig.cardButtonColor || '#2563eb',
+                              color: popularConfig.cardButtonColor || '#2563eb',
+                              backgroundColor: 'white',
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.backgroundColor = (popularConfig.cardButtonColor || '#2563eb') + '10';
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.backgroundColor = 'white';
+                            }}
+                          >
+                            View details
                             <ChevronRight className="h-3 w-3" />
                           </button>
-                          <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1">
-                            Book
+                          <button 
+                            className="flex-1 py-2 px-3 rounded-lg font-semibold transition-colors text-white flex items-center justify-center gap-1"
+                            style={{
+                              backgroundColor: popularConfig.cardButtonColor || '#2563eb',
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.filter = 'brightness(110%)';
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.filter = 'brightness(100%)';
+                            }}
+                          >
+                            Book now
                             <ChevronRight className="h-3 w-3" />
                           </button>
                         </div>
@@ -815,11 +869,95 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                   transition={{ duration: 0.5 }}
                 >
                   {displayToursPrice.map((tour, index) => (
-                    <TourNinjaCard 
-                      key={tour.id || index} 
-                      tour={tour} 
-                      index={index} 
-                    />
+                    <motion.div
+                      key={tour.id || index}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      whileHover={{ y: -5 }}
+                      className="h-full"
+                    >
+                      <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow overflow-hidden h-full">
+                        <div 
+                          className="relative h-48"
+                          style={{ backgroundColor: tour.primaryImage ? 'transparent' : (config.cardBackgroundColor || '#cbd5e1') }}
+                        >
+                          {tour.primaryImage ? (
+                            <img
+                              src={tour.primaryImage}
+                              alt={tour.name}
+                              className="w-full h-full object-cover"
+                              onError={(e) => {
+                                const target = e.target as HTMLImageElement;
+                                target.style.display = 'none';
+                              }}
+                              loading="lazy"
+                            />
+                          ) : (
+                            <div className="h-48 flex items-center justify-center relative overflow-hidden">
+                              <div className="text-center p-4">
+                                <div className="w-8 h-8 mx-auto mb-2 text-gray-500">📍</div>
+                                <span className="text-sm font-medium text-gray-600">Krabi, Thailand</span>
+                              </div>
+                            </div>
+                          )}
+                          
+                          <div className="absolute top-3 right-3">
+                            <span className="bg-white/90 text-gray-800 font-semibold px-3 py-1 rounded-full text-sm">
+                              {tour.price > 0 
+                                ? (tour.currency === 'THB' ? `฿${tour.price.toLocaleString()}` : `${tour.price} ${tour.currency || 'THB'}`)
+                                : 'Prix sur demande'
+                              }
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="p-4">
+                          <h3 className="font-semibold text-lg mb-2 line-clamp-2">
+                            {tour.name}
+                          </h3>
+                          
+                          {tour.description && (
+                            <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                              {tour.description}
+                            </p>
+                          )}
+
+                          <div className="flex gap-2">
+                            <button 
+                              className="flex-1 border py-2 px-4 rounded-md font-medium text-sm transition-colors"
+                              style={{
+                                borderColor: config.cardButtonColor || '#0ea5e9',
+                                color: config.cardButtonColor || '#0ea5e9',
+                                backgroundColor: 'white'
+                              }}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.backgroundColor = (config.cardButtonColor || '#0ea5e9') + '10';
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.backgroundColor = 'white';
+                              }}
+                            >
+                              View details
+                            </button>
+                            <button 
+                              className="flex-1 py-2 px-4 rounded-md font-medium text-sm text-white transition-colors"
+                              style={{
+                                backgroundColor: config.cardButtonColor || '#0ea5e9'
+                              }}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.filter = 'brightness(110%)';
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.filter = 'brightness(100%)';
+                              }}
+                            >
+                              Book now
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
                   ))}
                 </motion.div>
               ) : (
