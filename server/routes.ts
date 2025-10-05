@@ -2172,8 +2172,9 @@ Crawl-delay: 1`;
         tours = apiResponse.map((tour: any) => ({
           ...tour,
           primaryImage: tour.image || (tour.images && tour.images[0]) || null,
-          bookingUrl: tour.bookingUrl || `https://www.tourninja.io/book/${tour.id}`,
-          detailsUrl: tour.bookingUrl || `https://www.tourninja.io/book/${tour.id}`,
+          bookingUrl: tour.bookingUrl || tour.url || `https://www.tourninja.io/book/${tour.id}`,
+          detailsUrl: tour.detailsUrl || tour.url || `https://www.tourninja.io/details/${tour.id}`,
+          presentationUrl: tour.presentationUrl || tour.detailsUrl || tour.url || `https://www.tourninja.io/details/${tour.id}`,
           location: tour.location || 'Krabi, Thailand'
         }));
       } else if (apiResponse.data && Array.isArray(apiResponse.data)) {
