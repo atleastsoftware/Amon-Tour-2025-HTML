@@ -9,7 +9,9 @@ import { useTourNinja } from '@/hooks/useTourNinja';
 // Couleurs principales du thème
 const THEME_COLORS = {
   primary: '#084F6E',
-  secondary: '#3BA8AF'
+  secondary: '#3BA8AF',
+  secondaryLight: 'rgba(59, 168, 175, 0.1)',
+  secondaryHover: '#2e8a91' // Version plus foncée pour hover
 };
 
 // Fonction helper pour convertir hex en rgba
@@ -893,7 +895,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                 >
                   {displayToursPrice.map((tour, index) => (
                     <motion.div
-                      key={`${tour.id || index}-${config.cardButtonColor || '#0ea5e9'}`}
+                      key={`${tour.id || index}-${config.cardButtonColor || THEME_COLORS.primary}`}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.1 }}
@@ -907,7 +909,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                               key={config.cardButtonColor}
                               className="h-48 relative overflow-hidden"
                               style={{ 
-                                background: `linear-gradient(135deg, ${hexToRgba(config.cardButtonColor || '#0ea5e9', 0.3)}, ${hexToRgba(config.cardButtonColor || '#0ea5e9', 0.6)})`
+                                background: `linear-gradient(135deg, ${hexToRgba(config.cardButtonColor || THEME_COLORS.primary, 0.3)}, ${hexToRgba(config.cardButtonColor || THEME_COLORS.primary, 0.6)})`
                               }}
                             ></div>
                           ) : (
@@ -918,7 +920,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                               onError={(e) => {
                                 const target = e.target as HTMLImageElement;
                                 const parentDiv = target.parentElement;
-                                const bgColor = config.cardButtonColor || '#0ea5e9';
+                                const bgColor = config.cardButtonColor || THEME_COLORS.primary;
                                 if (parentDiv) {
                                   target.remove();
                                   parentDiv.innerHTML = `
@@ -956,12 +958,12 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                             <button 
                               className="flex-1 border py-2 px-4 rounded-md font-medium text-sm transition-colors"
                               style={{
-                                borderColor: config.cardButtonColor || '#0ea5e9',
-                                color: config.cardButtonColor || '#0ea5e9',
+                                borderColor: config.cardButtonColor || THEME_COLORS.primary,
+                                color: config.cardButtonColor || THEME_COLORS.primary,
                                 backgroundColor: 'white'
                               }}
                               onMouseEnter={(e) => {
-                                e.currentTarget.style.backgroundColor = (config.cardButtonColor || '#0ea5e9') + '10';
+                                e.currentTarget.style.backgroundColor = (config.cardButtonColor || THEME_COLORS.primary) + '10';
                               }}
                               onMouseLeave={(e) => {
                                 e.currentTarget.style.backgroundColor = 'white';
@@ -972,7 +974,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                             <button 
                               className="flex-1 py-2 px-4 rounded-md font-medium text-sm text-white transition-colors"
                               style={{
-                                backgroundColor: config.cardButtonColor || '#0ea5e9'
+                                backgroundColor: config.cardButtonColor || THEME_COLORS.primary
                               }}
                               onMouseEnter={(e) => {
                                 e.currentTarget.style.filter = 'brightness(110%)';
@@ -1037,7 +1039,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                     mainIcon: 'fas fa-user-friends',
                     title: 'Private Tours',
                     description: 'Experience an exclusive day trip with our professional guides and private vehicles.',
-                    iconColor: '#0ea5e9',
+                    iconColor: THEME_COLORS.primary,
                     miniIcons: [
                       { icon: 'fas fa-car', text: 'Private Car' },
                       { icon: 'fas fa-language', text: 'Guide' },
@@ -1049,7 +1051,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                     mainIcon: 'fas fa-compass',
                     title: 'Customized Itineraries',
                     description: 'Create your own journey based on your desires, your pace, and your interests.',
-                    iconColor: '#0ea5e9',
+                    iconColor: THEME_COLORS.primary,
                     miniIcons: [
                       { icon: 'fas fa-map-marked-alt', text: 'Custom Route' },
                       { icon: 'fas fa-clock', text: 'Flexible Time' },
@@ -1061,7 +1063,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                     mainIcon: 'fas fa-sparkles',
                     title: 'Authentic Experiences',
                     description: 'Discover destinations off the beaten path and immerse yourself in the local culture.',
-                    iconColor: '#0ea5e9',
+                    iconColor: THEME_COLORS.primary,
                     miniIcons: [
                       { icon: 'fas fa-utensils', text: 'Local Food' },
                       { icon: 'fas fa-hands-helping', text: 'Local People' },
@@ -1082,7 +1084,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                   if (iconStyle === 'minimalist') {
                     return (
                       <motion.div 
-                        key={`${feature.id}-${feature.iconColor || '#0ea5e9'}`}
+                        key={`minimalist-${feature.id}-${feature.iconColor || THEME_COLORS.primary}`}
                         className="text-center"
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -1092,8 +1094,8 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                         <div 
                           className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
                           style={{ 
-                            backgroundColor: hexToRgba(feature.iconColor || '#0ea5e9', 0.06),
-                            color: feature.iconColor || '#0ea5e9' 
+                            backgroundColor: hexToRgba(feature.iconColor || THEME_COLORS.primary, 0.06),
+                            color: feature.iconColor || THEME_COLORS.primary 
                           }}
                         >
                           {/* Si c'est une URL d'image, afficher l'image */}
@@ -1102,7 +1104,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                               src={feature.mainIcon} 
                               alt={feature.title} 
                               className="w-8 h-8 object-cover"
-                              style={{ filter: `brightness(0) saturate(100%)`, color: feature.iconColor || '#0ea5e9' }}
+                              style={{ filter: `brightness(0) saturate(100%)`, color: feature.iconColor || THEME_COLORS.primary }}
                               onError={(e) => {
                                 (e.target as HTMLElement).style.display = 'none';
                                 const fallbackIcon = (e.target as HTMLElement).nextElementSibling as HTMLElement;
@@ -1131,8 +1133,8 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                                 <div 
                                   className="w-10 h-10 rounded-full flex items-center justify-center mb-1"
                                   style={{ 
-                                    backgroundColor: hexToRgba(feature.iconColor || '#0ea5e9', 0.06),
-                                    color: feature.iconColor || '#0ea5e9' 
+                                    backgroundColor: hexToRgba(feature.iconColor || THEME_COLORS.primary, 0.06),
+                                    color: feature.iconColor || THEME_COLORS.primary 
                                   }}
                                 >
                                   {miniIcon.icon && (miniIcon.icon.startsWith('http') || miniIcon.icon.startsWith('/')) ? (
@@ -1157,7 +1159,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                   // Style Carte moderne (par défaut)
                   return (
                     <motion.div 
-                      key={`${feature.id}-${feature.iconColor || '#0ea5e9'}`}
+                      key={`modern-card-${feature.id}-${feature.iconColor || THEME_COLORS.primary}`}
                       className="bg-white p-6 rounded-lg shadow-md text-center flex flex-col items-center relative"
                       initial={{ opacity: 0, y: 50 }}
                       whileInView={{ opacity: 1, y: 0 }}
@@ -1170,7 +1172,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                     >
                       <motion.div 
                         className="w-16 h-16 rounded-full flex items-center justify-center mb-4 shadow-lg"
-                        style={{ backgroundColor: feature.iconColor || '#0ea5e9' }}
+                        style={{ backgroundColor: feature.iconColor || THEME_COLORS.primary }}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >
@@ -1216,7 +1218,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                           >
                             <div 
                               className="w-10 h-10 rounded-full flex items-center justify-center mb-1"
-                              style={{ backgroundColor: hexToRgba(feature.iconColor || '#0ea5e9', 0.06) }}
+                              style={{ backgroundColor: hexToRgba(feature.iconColor || THEME_COLORS.primary, 0.06) }}
                             >
                               {miniIcon.icon && (miniIcon.icon.startsWith('http') || miniIcon.icon.startsWith('/')) ? (
                                 <img 
@@ -1234,7 +1236,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                                 className={`${miniIcon.icon && !miniIcon.icon.startsWith('http') && !miniIcon.icon.startsWith('/') ? miniIcon.icon : 'fas fa-question'} text-sm`}
                                 style={{ 
                                   display: miniIcon.icon && (miniIcon.icon.startsWith('http') || miniIcon.icon.startsWith('/')) ? 'none' : 'block',
-                                  color: feature.iconColor || '#0ea5e9'
+                                  color: feature.iconColor || THEME_COLORS.primary
                                 }}
                               ></i>
                             </div>
@@ -2402,7 +2404,7 @@ const BlockEditDropdown = ({
                           mainIcon: 'fas fa-sparkles',
                           title: 'Nouveau Bloc',
                           description: 'Description de ce bloc d\'avantages.',
-                          iconColor: '#0ea5e9',
+                          iconColor: THEME_COLORS.primary,
                           miniIcons: [
                             { icon: 'fas fa-check', text: 'Avantage 1' },
                             { icon: 'fas fa-check', text: 'Avantage 2' },
@@ -2412,7 +2414,21 @@ const BlockEditDropdown = ({
                         updateField('iconBlocks', [...blocks, newBlock]);
                       }
                     }}
-                    className={`px-3 py-1 rounded text-sm ${formData.iconBlocks?.length >= 6 ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-blue-500 text-white hover:bg-blue-600'}`}
+                    style={formData.iconBlocks?.length >= 6 ? {} : { 
+                      backgroundColor: THEME_COLORS.secondary,
+                      color: 'white'
+                    }}
+                    onMouseEnter={(e) => {
+                      if (formData.iconBlocks?.length < 6) {
+                        e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryHover;
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (formData.iconBlocks?.length < 6) {
+                        e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
+                      }
+                    }}
+                    className={`px-3 py-1 rounded text-sm ${formData.iconBlocks?.length >= 6 ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : ''}`}
                     disabled={formData.iconBlocks?.length >= 6}
                   >
                     + Ajouter
@@ -2427,11 +2443,11 @@ const BlockEditDropdown = ({
                   <button
                     type="button"
                     onClick={() => updateField('iconStyle', 'modern-card')}
-                    className={`p-3 border-2 rounded-lg text-left transition-all ${
-                      (formData.iconStyle || 'modern-card') === 'modern-card' 
-                        ? 'border-blue-500 bg-blue-50' 
-                        : 'border-gray-300 hover:border-gray-400'
-                    }`}
+                    className="p-3 border-2 rounded-lg text-left transition-all"
+                    style={(formData.iconStyle || 'modern-card') === 'modern-card' 
+                      ? { borderColor: THEME_COLORS.secondary, backgroundColor: THEME_COLORS.secondaryLight } 
+                      : { borderColor: '#d1d5db' }
+                    }
                   >
                     <div className="font-medium text-sm">Carte moderne</div>
                     <div className="text-xs text-gray-500 mt-1">Avec cadres et fond coloré</div>
@@ -2439,11 +2455,11 @@ const BlockEditDropdown = ({
                   <button
                     type="button"
                     onClick={() => updateField('iconStyle', 'minimalist')}
-                    className={`p-3 border-2 rounded-lg text-left transition-all ${
-                      formData.iconStyle === 'minimalist' 
-                        ? 'border-blue-500 bg-blue-50' 
-                        : 'border-gray-300 hover:border-gray-400'
-                    }`}
+                    className="p-3 border-2 rounded-lg text-left transition-all"
+                    style={formData.iconStyle === 'minimalist' 
+                      ? { borderColor: THEME_COLORS.secondary, backgroundColor: THEME_COLORS.secondaryLight } 
+                      : { borderColor: '#d1d5db' }
+                    }
                   >
                     <div className="font-medium text-sm">Minimaliste</div>
                     <div className="text-xs text-gray-500 mt-1">Sans cadres, fond coloré teinté</div>
@@ -2459,7 +2475,7 @@ const BlockEditDropdown = ({
                       mainIcon: 'fas fa-user-friends',
                       title: 'Private Tours',
                       description: 'Experience an exclusive day trip with our professional guides and private vehicles.',
-                      iconColor: '#0ea5e9',
+                      iconColor: THEME_COLORS.primary,
                       miniIcons: [
                         { icon: 'fas fa-car', text: 'Private Car' },
                         { icon: 'fas fa-language', text: 'Guide' },
@@ -2471,7 +2487,7 @@ const BlockEditDropdown = ({
                       mainIcon: 'fas fa-compass',
                       title: 'Customized Itineraries',
                       description: 'Create your own journey based on your desires, your pace, and your interests.',
-                      iconColor: '#0ea5e9',
+                      iconColor: THEME_COLORS.primary,
                       miniIcons: [
                         { icon: 'fas fa-map-marked-alt', text: 'Custom Route' },
                         { icon: 'fas fa-clock', text: 'Flexible Time' },
@@ -2483,7 +2499,7 @@ const BlockEditDropdown = ({
                       mainIcon: 'fas fa-sparkles',
                       title: 'Authentic Experiences',
                       description: 'Discover destinations off the beaten path and immerse yourself in the local culture.',
-                      iconColor: '#0ea5e9',
+                      iconColor: THEME_COLORS.primary,
                       miniIcons: [
                         { icon: 'fas fa-utensils', text: 'Local Food' },
                         { icon: 'fas fa-hands-helping', text: 'Local People' },
@@ -2506,7 +2522,7 @@ const BlockEditDropdown = ({
                       <div className="flex flex-col gap-2">
                         <Label className="font-medium text-base">Bloc {index + 1}</Label>
                         <ColorPicker
-                          value={block.iconColor || '#0ea5e9'}
+                          value={block.iconColor || THEME_COLORS.primary}
                           onChange={(value) => {
                             const blocks = formData.iconBlocks || [];
                             const updatedBlocks = blocks.map((b: any) => 
@@ -2553,9 +2569,11 @@ const BlockEditDropdown = ({
                                   );
                                   updateField('iconBlocks', updatedBlocks);
                                 }}
-                                className={`p-3 border rounded-lg hover:bg-gray-50 flex items-center justify-center transition-colors ${
-                                  block.mainIcon === icon ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
-                                }`}
+                                className="p-3 border rounded-lg hover:bg-gray-50 flex items-center justify-center transition-colors"
+                                style={block.mainIcon === icon 
+                                  ? { borderColor: THEME_COLORS.secondary, backgroundColor: THEME_COLORS.secondaryLight } 
+                                  : { borderColor: '#d1d5db' }
+                                }
                                 title={icon}
                               >
                                 {component}
@@ -2572,9 +2590,11 @@ const BlockEditDropdown = ({
                                 );
                                 updateField('iconBlocks', updatedBlocks);
                               }}
-                              className={`p-3 border rounded-lg hover:bg-gray-50 flex items-center justify-center transition-colors ${
-                                block.mainIcon === 'fas fa-medal' ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
-                              }`}
+                              className="p-3 border rounded-lg hover:bg-gray-50 flex items-center justify-center transition-colors"
+                              style={block.mainIcon === 'fas fa-medal' 
+                                ? { borderColor: THEME_COLORS.secondary, backgroundColor: THEME_COLORS.secondaryLight } 
+                                : { borderColor: '#d1d5db' }
+                              }
                               title="Médaille"
                             >
                               <i className="fas fa-medal text-lg text-gray-700"></i>
@@ -2635,10 +2655,20 @@ const BlockEditDropdown = ({
                                   };
                                   input.click();
                                 }}
-                                className="w-9 h-9 border-2 border-dashed border-blue-400 rounded hover:bg-blue-50 transition-colors flex items-center justify-center bg-blue-25"
+                                className="w-9 h-9 border-2 border-dashed rounded transition-colors flex items-center justify-center"
+                                style={{ 
+                                  borderColor: THEME_COLORS.secondary,
+                                  backgroundColor: THEME_COLORS.secondaryLight 
+                                }}
+                                onMouseEnter={(e) => {
+                                  e.currentTarget.style.backgroundColor = hexToRgba(THEME_COLORS.secondary, 0.15);
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryLight;
+                                }}
                                 title="Upload icône principale personnalisée"
                               >
-                                <Plus size={14} className="text-blue-600" />
+                                <Plus size={14} style={{ color: THEME_COLORS.secondary }} />
                               </button>
                             </div>
                           </div>
@@ -2704,8 +2734,22 @@ const BlockEditDropdown = ({
                             className={`text-xs px-2 py-1 rounded flex items-center gap-1 ${
                               (block.miniIcons || []).length >= 3 
                                 ? 'bg-gray-200 text-gray-400 cursor-not-allowed' 
-                                : 'bg-blue-500 text-white hover:bg-blue-600'
+                                : ''
                             }`}
+                            style={(block.miniIcons || []).length < 3 
+                              ? { backgroundColor: THEME_COLORS.secondary, color: 'white' } 
+                              : {}
+                            }
+                            onMouseEnter={(e) => {
+                              if ((block.miniIcons || []).length < 3) {
+                                e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryHover;
+                              }
+                            }}
+                            onMouseLeave={(e) => {
+                              if ((block.miniIcons || []).length < 3) {
+                                e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
+                              }
+                            }}
                             disabled={(block.miniIcons || []).length >= 3}
                           >
                             <Plus size={12} />
@@ -2754,7 +2798,14 @@ const BlockEditDropdown = ({
                                       });
                                       updateField('iconBlocks', updatedBlocks);
                                     }}
-                                    className="bg-blue-500 text-white w-9 h-9 rounded hover:bg-blue-600 transition-colors flex items-center justify-center"
+                                    className="w-9 h-9 rounded transition-colors flex items-center justify-center"
+                                    style={{ backgroundColor: THEME_COLORS.secondary, color: 'white' }}
+                                    onMouseEnter={(e) => {
+                                      e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryHover;
+                                    }}
+                                    onMouseLeave={(e) => {
+                                      e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
+                                    }}
                                     title="Supprimer cette mini-icône"
                                   >
                                     <Trash2 size={14} />
@@ -2792,9 +2843,11 @@ const BlockEditDropdown = ({
                                         });
                                         updateField('iconBlocks', updatedBlocks);
                                       }}
-                                      className={`p-1.5 border rounded hover:bg-gray-50 flex items-center justify-center transition-colors ${
-                                        miniIcon.icon === icon ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
-                                      }`}
+                                      className="p-1.5 border rounded hover:bg-gray-50 flex items-center justify-center transition-colors"
+                                      style={miniIcon.icon === icon 
+                                        ? { borderColor: THEME_COLORS.secondary, backgroundColor: THEME_COLORS.secondaryLight } 
+                                        : { borderColor: '#d1d5db' }
+                                      }
                                       title={label}
                                     >
                                       {component}
@@ -2879,10 +2932,20 @@ const BlockEditDropdown = ({
                                       };
                                       input.click();
                                     }}
-                                    className="w-9 h-9 border-2 border-dashed border-blue-400 rounded hover:bg-blue-50 transition-colors flex items-center justify-center bg-blue-25"
+                                    className="w-9 h-9 border-2 border-dashed rounded transition-colors flex items-center justify-center"
+                                    style={{ 
+                                      borderColor: THEME_COLORS.secondary,
+                                      backgroundColor: THEME_COLORS.secondaryLight 
+                                    }}
+                                    onMouseEnter={(e) => {
+                                      e.currentTarget.style.backgroundColor = hexToRgba(THEME_COLORS.secondary, 0.15);
+                                    }}
+                                    onMouseLeave={(e) => {
+                                      e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryLight;
+                                    }}
                                     title="Upload icône personnalisée"
                                   >
-                                    <Plus size={14} className="text-blue-600" />
+                                    <Plus size={14} style={{ color: THEME_COLORS.secondary }} />
                                   </button>
                                 </div>
                               </div>
@@ -3182,8 +3245,11 @@ export default function AdminPageEditor() {
                 <ArrowLeft className="w-5 h-5" />
               </Button>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                  <Settings className="w-5 h-5 text-blue-600" />
+                <div 
+                  className="w-10 h-10 rounded-lg flex items-center justify-center"
+                  style={{ backgroundColor: THEME_COLORS.secondaryLight }}
+                >
+                  <Settings className="w-5 h-5" style={{ color: THEME_COLORS.secondary }} />
                 </div>
                 <div>
                   <h1 className="text-2xl font-bold text-gray-900">Éditeur de page</h1>
@@ -3320,7 +3386,11 @@ export default function AdminPageEditor() {
                                   setTimeout(() => scrollToElement(`edit-${block.id}`), 300);
                                 }
                               }}
-                              className={`flex items-center gap-1 ${editingBlockId === block.id ? 'bg-blue-100' : ''}`}
+                              className="flex items-center gap-1"
+                              style={editingBlockId === block.id 
+                                ? { backgroundColor: THEME_COLORS.secondaryLight } 
+                                : {}
+                              }
                             >
                               <Settings className="w-4 h-4" />
                               {editingBlockId === block.id ? 'Fermer' : 'Modifier'}
