@@ -1030,18 +1030,8 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                 </motion.div>
               </div>
               
-              <div className={`grid gap-8 ${
-                (() => {
-                  const blocksCount = (featuresConfig.iconBlocks || []).length || 3;
-                  if (blocksCount === 1) return 'grid-cols-1 max-w-md mx-auto';
-                  if (blocksCount === 2) return 'grid-cols-1 md:grid-cols-2';
-                  if (blocksCount === 3) return 'grid-cols-1 md:grid-cols-3';
-                  if (blocksCount === 4) return 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4';
-                  if (blocksCount === 5) return 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3';
-                  return 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3';
-                })()
-              }`}>
-                {(featuresConfig.iconBlocks || [
+              {(() => {
+                const allBlocks = featuresConfig.iconBlocks || [
                   {
                     id: 1,
                     mainIcon: 'fas fa-user-friends',
@@ -1078,7 +1068,15 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                       { icon: 'fas fa-landmark', text: 'Culture' }
                     ]
                   }
-                ]).map((feature: any, index: number) => (
+                ];
+                
+                const blocksCount = allBlocks.length;
+                
+                // 1-4 blocs : une seule ligne
+                // 5 blocs : 3 en haut, 2 en bas centrés
+                // 6 blocs : 3 en haut, 3 en bas
+                
+                const renderBlock = (feature: any, index: number) => (
                   <motion.div 
                     key={`${feature.id}-${feature.iconColor || '#0ea5e9'}`}
                     className="bg-white p-6 rounded-lg shadow-md text-center flex flex-col items-center relative"
@@ -1170,8 +1168,45 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                       ))}
                     </motion.div>
                   </motion.div>
-                ))}
-              </div>
+                );
+                
+                // Logique d'affichage selon le nombre de blocs
+                if (blocksCount === 5) {
+                  return (
+                    <>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                        {allBlocks.slice(0, 3).map((feature: any, index: number) => renderBlock(feature, index))}
+                      </div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto">
+                        {allBlocks.slice(3, 5).map((feature: any, index: number) => renderBlock(feature, index + 3))}
+                      </div>
+                    </>
+                  );
+                } else if (blocksCount === 6) {
+                  return (
+                    <>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                        {allBlocks.slice(0, 3).map((feature: any, index: number) => renderBlock(feature, index))}
+                      </div>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {allBlocks.slice(3, 6).map((feature: any, index: number) => renderBlock(feature, index + 3))}
+                      </div>
+                    </>
+                  );
+                } else {
+                  const gridClass = blocksCount === 1 ? 'grid-cols-1 max-w-md mx-auto' :
+                                    blocksCount === 2 ? 'grid-cols-1 md:grid-cols-2' :
+                                    blocksCount === 3 ? 'grid-cols-1 md:grid-cols-3' :
+                                    blocksCount === 4 ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4' :
+                                    'grid-cols-1 md:grid-cols-3';
+                  
+                  return (
+                    <div className={`grid ${gridClass} gap-8`}>
+                      {allBlocks.map((feature: any, index: number) => renderBlock(feature, index))}
+                    </div>
+                  );
+                }
+              })()}
             </div>
           </section>
         );
@@ -2356,7 +2391,20 @@ const BlockEditDropdown = ({
                 })().map((block: any, index: number) => (
                   <div key={block.id} className="border border-gray-200 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-3">
-                      <Label className="font-medium">Bloc {index + 1}</Label>
+                      <div className="flex items-center gap-3">
+                        <Label className="font-medium">Bloc {index + 1}</Label>
+                        <ColorPicker
+                          value={block.iconColor || '#0ea5e9'}
+                          onChange={(value) => {
+                            const blocks = formData.iconBlocks || [];
+                            const updatedBlocks = blocks.map((b: any) => 
+                              b.id === block.id ? { ...b, iconColor: value } : b
+                            );
+                            updateField('iconBlocks', updatedBlocks);
+                          }}
+                          label=""
+                        />
+                      </div>
                       <button 
                         type="button"
                         onClick={() => {
@@ -2515,24 +2563,6 @@ const BlockEditDropdown = ({
                           rows={2}
                           className="mt-1"
                         />
-                      </div>
-                      
-                      {/* Couleur des icônes */}
-                      <div>
-                        <Label className="text-sm font-medium text-gray-700">Couleur des icônes</Label>
-                        <div className="mt-2">
-                          <ColorPicker
-                            value={block.iconColor || '#0ea5e9'}
-                            onChange={(value) => {
-                              const blocks = formData.iconBlocks || [];
-                              const updatedBlocks = blocks.map((b: any) => 
-                                b.id === block.id ? { ...b, iconColor: value } : b
-                              );
-                              updateField('iconBlocks', updatedBlocks);
-                            }}
-                            label=""
-                          />
-                        </div>
                       </div>
                       
                       {/* Mini-icônes */}
