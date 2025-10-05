@@ -1307,49 +1307,55 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
 
       case 'travelers_reviews':
         const reviewsConfig = liveConfiguration || block.configuration || {};
+        
+        // Valeurs par défaut pour les avis
+        const defaultReviews = [
+          {
+            id: 1,
+            name: 'Sophie L.',
+            rating: 5,
+            text: 'We spent 2 wonderful days with Eric and Margaux who showed us amazing places. A unique and authentic experience...'
+          },
+          {
+            id: 2,
+            name: 'Pierre M.',
+            rating: 5,
+            text: 'The French explanations, the Thai meal in a local spot, the magnificent landscapes and the warm welcome from Eric and Margaux, everything was perfect!'
+          },
+          {
+            id: 3,
+            name: 'Martin Family',
+            rating: 5,
+            text: 'An unforgettable day, everything was perfect. We discovered beautiful places away from the tourist crowds. Thanks to Eric and Margaux for their kindness...'
+          }
+        ];
+        
+        const reviews = reviewsConfig.reviews && reviewsConfig.reviews.length > 0 
+          ? reviewsConfig.reviews 
+          : defaultReviews;
+        
         return (
           <section className="py-16 bg-primary text-white">
             <div className="container mx-auto px-4">
-              <div className="text-center mb-12">
-                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
-                  {reviewsConfig.title || 'Our Travelers Reviews'}
-                </h2>
-                <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
-                <p className="max-w-2xl mx-auto">
-                  {reviewsConfig.subtitle || 'Discover the authentic experiences...'}
-                </p>
-              </div>
-              
-              <div className="bg-white rounded-lg p-6 shadow-lg mb-10">
-                <div className="text-center mb-4">
+              <div className="bg-white rounded-lg p-6 shadow-lg">
+                <div className="text-center mb-6">
                   <div className="flex justify-center mb-3">
                     {Array.from({ length: parseInt(reviewsConfig.starRating || '5') }).map((_, i) => (
-                      <i key={i} className="fas fa-star text-[hsl(var(--star))] text-2xl mx-1"></i>
+                      <i key={i} className="fas fa-star text-[hsl(var(--star))] text-3xl mx-1"></i>
                     ))}
                   </div>
-                  <h3 className="text-primary font-heading font-bold text-2xl">
+                  <h3 className="text-primary font-heading font-bold text-2xl mb-1">
                     {reviewsConfig.googleRating || '5.0'} on Google
                   </h3>
-                  <p className="text-muted-foreground">
+                  <p className="text-muted-foreground text-sm">
                     Based on {reviewsConfig.reviewCount || '80'} reviews
                   </p>
-                  {reviewsConfig.googleLink && (
-                    <a 
-                      href={reviewsConfig.googleLink} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-primary hover:underline font-medium inline-flex items-center mt-2"
-                    >
-                      <span>{reviewsConfig.googleLinkText || 'View all reviews on Google'}</span>
-                      <i className="fas fa-external-link-alt ml-2 text-sm"></i>
-                    </a>
-                  )}
                 </div>
                 
-                {/* Reviews Grid */}
-                <div className="max-h-96 overflow-y-auto">
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {(reviewsConfig.reviews || []).map((review: any) => {
+                {/* Reviews Carousel - Horizontal Scroll */}
+                <div className="overflow-x-auto pb-4">
+                  <div className="flex gap-6" style={{ minWidth: 'max-content' }}>
+                    {reviews.map((review: any) => {
                       const initials = review.name
                         .split(' ')
                         .map((n: string) => n[0])
@@ -1358,29 +1364,41 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                         .slice(0, 2);
                       
                       return (
-                        <div key={review.id} className="bg-muted/30 p-4 rounded-lg shadow-sm">
-                          <div className="flex items-center gap-3 mb-3">
+                        <div key={review.id} className="flex-shrink-0 w-80 p-4">
+                          <div className="flex gap-1 mb-3">
+                            {Array.from({ length: review.rating }).map((_, i) => (
+                              <i key={i} className="fas fa-star text-[hsl(var(--star))] text-sm"></i>
+                            ))}
+                          </div>
+                          <p className="text-gray-700 italic text-sm mb-4">"{review.text}"</p>
+                          <div className="flex items-center gap-3">
                             <div 
                               className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm"
                               style={{ backgroundColor: THEME_COLORS.primary }}
                             >
                               {initials}
                             </div>
-                            <div className="flex-1">
-                              <div className="font-medium text-primary">{review.name}</div>
-                              <div className="flex gap-0.5">
-                                {Array.from({ length: review.rating }).map((_, i) => (
-                                  <i key={i} className="fas fa-star text-[hsl(var(--star))] text-xs"></i>
-                                ))}
-                              </div>
-                            </div>
+                            <div className="font-medium text-primary">{review.name}</div>
                           </div>
-                          <p className="text-sm text-gray-700">{review.text}</p>
                         </div>
                       );
                     })}
                   </div>
                 </div>
+                
+                {reviewsConfig.googleLink && (
+                  <div className="text-center mt-6 pt-4 border-t">
+                    <a 
+                      href={reviewsConfig.googleLink} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-primary hover:underline font-medium inline-flex items-center"
+                    >
+                      <span>{reviewsConfig.googleLinkText || 'View all reviews on Google'}</span>
+                      <i className="fas fa-external-link-alt ml-2 text-sm"></i>
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
           </section>
@@ -3101,6 +3119,33 @@ const BlockEditDropdown = ({
         );
 
       case 'travelers_reviews':
+        // Initialiser les avis par défaut s'ils n'existent pas
+        const defaultReviewsForEdit = [
+          {
+            id: 1,
+            name: 'Sophie L.',
+            rating: 5,
+            text: 'We spent 2 wonderful days with Eric and Margaux who showed us amazing places. A unique and authentic experience...'
+          },
+          {
+            id: 2,
+            name: 'Pierre M.',
+            rating: 5,
+            text: 'The French explanations, the Thai meal in a local spot, the magnificent landscapes and the warm welcome from Eric and Margaux, everything was perfect!'
+          },
+          {
+            id: 3,
+            name: 'Martin Family',
+            rating: 5,
+            text: 'An unforgettable day, everything was perfect. We discovered beautiful places away from the tourist crowds. Thanks to Eric and Margaux for their kindness...'
+          }
+        ];
+        
+        // Si les avis n'existent pas encore, les initialiser
+        if (!formData.reviews || formData.reviews.length === 0) {
+          updateField('reviews', defaultReviewsForEdit);
+        }
+        
         return (
           <div className="space-y-4">
             <div>
