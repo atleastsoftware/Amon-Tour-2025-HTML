@@ -56,10 +56,13 @@ export default function Home() {
     description: tour.description || tour.shortDescription || "",
     price: tour.price,
     currency: tour.currency,
-    customLink: tour.url || tour.detailsUrl || `https://www.tourninja.io/details/${tour.id}`,
+    customLink: tour.bookingUrl || tour.detailsUrl || `https://www.tourninja.io/details/${tour.id}`,
     type: "tour" as const,
     images: tour.images || [],
     tags: tour.tags || [],
+    bookingUrl: tour.bookingUrl,
+    detailsUrl: tour.detailsUrl,
+    presentationUrl: tour.presentationUrl
   }));
   
   // Combine local tour cards with Tour Ninja tours
