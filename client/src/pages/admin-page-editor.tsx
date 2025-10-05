@@ -1128,7 +1128,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                                 <div 
                                   className="w-10 h-10 rounded-full flex items-center justify-center mb-1"
                                   style={{ 
-                                    backgroundColor: `${feature.iconColor || '#0ea5e9'}1A`,
+                                    backgroundColor: hexToRgba(feature.iconColor || '#0ea5e9', 0.1),
                                     color: feature.iconColor || '#0ea5e9' 
                                   }}
                                 >
@@ -1213,7 +1213,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                           >
                             <div 
                               className="w-10 h-10 rounded-full flex items-center justify-center mb-1"
-                              style={{ backgroundColor: `${feature.iconColor || '#0ea5e9'}1A` }}
+                              style={{ backgroundColor: hexToRgba(feature.iconColor || '#0ea5e9', 0.1) }}
                             >
                               {miniIcon.icon && (miniIcon.icon.startsWith('http') || miniIcon.icon.startsWith('/')) ? (
                                 <img 
