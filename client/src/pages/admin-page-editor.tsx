@@ -12,6 +12,15 @@ const THEME_COLORS = {
   secondary: '#3BA8AF'
 };
 
+// Fonction helper pour convertir hex en rgba
+const hexToRgba = (hex: string, alpha: number): string => {
+  const cleanHex = hex.replace('#', '');
+  const r = parseInt(cleanHex.substring(0, 2), 16);
+  const g = parseInt(cleanHex.substring(2, 4), 16);
+  const b = parseInt(cleanHex.substring(4, 6), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+};
+
 // Composant ColorPicker compact avec sélecteur natif + cases rapides
 interface ColorPickerProps {
   value: string;
@@ -565,49 +574,63 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                   ))
                 ) : displayTours.length > 0 ? (
                   // Affiche les vraies cartes de tours avec design "Our Popular Experiences" (badges de jours)
-                  displayTours.map((tour, index) => (
-                    <motion.div
-                      key={tour.id || index}
-                      initial={{ opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: index * 0.1 }}
-                      className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
-                    >
-                      <div className="relative h-48">
-                        {tour.primaryImage ? (
-                          <img
-                            src={tour.primaryImage}
-                            alt={tour.name}
-                            className="w-full h-full object-cover"
-                            onError={(e) => {
-                              const target = e.target as HTMLImageElement;
-                              target.style.display = 'none';
-                            }}
-                          />
-                        ) : (
-                          <div 
-                            className="w-full h-full flex items-center justify-center relative overflow-hidden"
-                            style={{ 
-                              background: `linear-gradient(to bottom right, ${popularConfig.cardBackgroundColor || '#bfdbfe'}B3, ${popularConfig.cardBackgroundColor || '#bfdbfe'})`
-                            }}
-                          >
-                            <div className="absolute inset-0 bg-black/20"></div>
-                            <div className="h-16 w-16 text-blue-400 relative z-10">🏝️</div>
+                  displayTours.map((tour, index) => {
+                    const bgColor = popularConfig.cardBackgroundColor || '#bfdbfe';
+                    const hasImage = !!tour.primaryImage;
+                    
+                    return (
+                      <motion.div
+                        key={tour.id || index}
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: index * 0.1 }}
+                        className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
+                      >
+                        <div className="relative h-48">
+                          {!hasImage ? (
                             <div 
-                              className="absolute inset-0"
+                              className="w-full h-full flex items-center justify-center relative overflow-hidden"
                               style={{ 
-                                background: `linear-gradient(to bottom right, transparent, ${popularConfig.cardBackgroundColor || '#bfdbfe'}4D)`
+                                background: `linear-gradient(to bottom right, ${hexToRgba(bgColor, 0.7)}, ${bgColor})`
                               }}
-                            ></div>
+                            >
+                              <div className="absolute inset-0 bg-black/20"></div>
+                              <div className="h-16 w-16 text-white relative z-10">🏝️</div>
+                              <div 
+                                className="absolute inset-0"
+                                style={{ 
+                                  background: `linear-gradient(to bottom right, transparent, ${hexToRgba(bgColor, 0.3)})`
+                                }}
+                              ></div>
+                            </div>
+                          ) : (
+                            <img
+                              src={tour.primaryImage}
+                              alt={tour.name}
+                              className="w-full h-full object-cover"
+                              onError={(e) => {
+                                const target = e.target as HTMLImageElement;
+                                const parentDiv = target.parentElement;
+                                if (parentDiv) {
+                                  target.remove();
+                                  parentDiv.innerHTML = `
+                                    <div class="w-full h-full flex items-center justify-center relative overflow-hidden" style="background: linear-gradient(to bottom right, ${hexToRgba(bgColor, 0.7)}, ${bgColor})">
+                                      <div class="absolute inset-0 bg-black/20"></div>
+                                      <div class="h-16 w-16 text-white relative z-10">🏝️</div>
+                                      <div class="absolute inset-0" style="background: linear-gradient(to bottom right, transparent, ${hexToRgba(bgColor, 0.3)})"></div>
+                                    </div>
+                                  `;
+                                }
+                              }}
+                            />
+                          )}
+                          <div className="absolute top-4 right-4">
+                            <span className="bg-white/90 text-gray-800 px-2 py-1 rounded-full text-xs">
+                              {tour.duration || '1'} jour{(tour.duration && Number(tour.duration) > 1) ? 's' : ''}
+                            </span>
                           </div>
-                        )}
-                        <div className="absolute top-4 right-4">
-                          <span className="bg-white/90 text-gray-800 px-2 py-1 rounded-full text-xs">
-                            {tour.duration || '1'} jour{(tour.duration && Number(tour.duration) > 1) ? 's' : ''}
-                          </span>
                         </div>
-                      </div>
                       
                       <div className="p-6">
                         <h3 className="text-lg font-bold text-gray-800 mb-3 line-clamp-2">
@@ -654,7 +677,8 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                         </div>
                       </div>
                     </motion.div>
-                  ))
+                    );
+                  })
                 ) : (
                   // Fallback si pas de tours avec le bon nombre
                   Array.from({ length: Math.min(displayCount, 12) }).map((_, index) => (
@@ -669,17 +693,17 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                       <div 
                         className="relative h-48 overflow-hidden"
                         style={{ 
-                          background: `linear-gradient(to bottom right, ${popularConfig.cardBackgroundColor || '#bfdbfe'}B3, ${popularConfig.cardBackgroundColor || '#bfdbfe'})`
+                          background: `linear-gradient(to bottom right, ${hexToRgba(popularConfig.cardBackgroundColor || '#bfdbfe', 0.7)}, ${popularConfig.cardBackgroundColor || '#bfdbfe'})`
                         }}
                       >
                         <div className="absolute inset-0 bg-black/20"></div>
                         <div className="w-full h-full flex items-center justify-center relative z-10">
-                          <div className="h-16 w-16 text-blue-400">🏝️</div>
+                          <div className="h-16 w-16 text-white">🏝️</div>
                         </div>
                         <div 
                           className="absolute inset-0"
                           style={{ 
-                            background: `linear-gradient(to bottom right, transparent, ${popularConfig.cardBackgroundColor || '#bfdbfe'}4D)`
+                            background: `linear-gradient(to bottom right, transparent, ${hexToRgba(popularConfig.cardBackgroundColor || '#bfdbfe', 0.3)})`
                           }}
                         ></div>
                         <div className="absolute top-4 right-4 z-20">
@@ -897,36 +921,50 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                     >
                       <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow overflow-hidden h-full">
                         <div className="relative h-48">
-                          {tour.primaryImage ? (
+                          {!tour.primaryImage ? (
+                            <div 
+                              className="h-48 flex items-center justify-center relative overflow-hidden"
+                              style={{ 
+                                background: `linear-gradient(to bottom right, ${hexToRgba(config.cardBackgroundColor || '#cbd5e1', 0.7)}, ${config.cardBackgroundColor || '#cbd5e1'})`
+                              }}
+                            >
+                              <div className="absolute inset-0 bg-black/20"></div>
+                              <div className="text-center p-4 relative z-10">
+                                <div className="w-8 h-8 mx-auto mb-2 text-white">📍</div>
+                                <span className="text-sm font-medium text-white">Krabi, Thailand</span>
+                              </div>
+                              <div 
+                                className="absolute inset-0"
+                                style={{ 
+                                  background: `linear-gradient(to bottom right, transparent, ${hexToRgba(config.cardBackgroundColor || '#cbd5e1', 0.3)})`
+                                }}
+                              ></div>
+                            </div>
+                          ) : (
                             <img
                               src={tour.primaryImage}
                               alt={tour.name}
                               className="w-full h-full object-cover"
                               onError={(e) => {
                                 const target = e.target as HTMLImageElement;
-                                target.style.display = 'none';
+                                const parentDiv = target.parentElement;
+                                const bgColor = config.cardBackgroundColor || '#cbd5e1';
+                                if (parentDiv) {
+                                  target.remove();
+                                  parentDiv.innerHTML = `
+                                    <div class="h-48 flex items-center justify-center relative overflow-hidden" style="background: linear-gradient(to bottom right, ${hexToRgba(bgColor, 0.7)}, ${bgColor})">
+                                      <div class="absolute inset-0 bg-black/20"></div>
+                                      <div class="text-center p-4 relative z-10">
+                                        <div class="w-8 h-8 mx-auto mb-2 text-white">📍</div>
+                                        <span class="text-sm font-medium text-white">Krabi, Thailand</span>
+                                      </div>
+                                      <div class="absolute inset-0" style="background: linear-gradient(to bottom right, transparent, ${hexToRgba(bgColor, 0.3)})"></div>
+                                    </div>
+                                  `;
+                                }
                               }}
                               loading="lazy"
                             />
-                          ) : (
-                            <div 
-                              className="h-48 flex items-center justify-center relative overflow-hidden"
-                              style={{ 
-                                background: `linear-gradient(to bottom right, ${config.cardBackgroundColor || '#cbd5e1'}B3, ${config.cardBackgroundColor || '#cbd5e1'})`
-                              }}
-                            >
-                              <div className="absolute inset-0 bg-black/20"></div>
-                              <div className="text-center p-4 relative z-10">
-                                <div className="w-8 h-8 mx-auto mb-2 text-gray-500">📍</div>
-                                <span className="text-sm font-medium text-gray-600">Krabi, Thailand</span>
-                              </div>
-                              <div 
-                                className="absolute inset-0"
-                                style={{ 
-                                  background: `linear-gradient(to bottom right, transparent, ${config.cardBackgroundColor || '#cbd5e1'}4D)`
-                                }}
-                              ></div>
-                            </div>
                           )}
                           
                           <div className="absolute top-3 right-3">
