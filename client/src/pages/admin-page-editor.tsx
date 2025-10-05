@@ -580,7 +580,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                     
                     return (
                       <motion.div
-                        key={tour.id || index}
+                        key={`${tour.id || index}-${bgColor}`}
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
@@ -590,6 +590,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                         <div className="relative h-48">
                           {!hasImage ? (
                             <div 
+                              key={bgColor}
                               className="w-full h-full relative overflow-hidden"
                               style={{ 
                                 background: `linear-gradient(135deg, ${hexToRgba(bgColor, 0.3)}, ${hexToRgba(bgColor, 0.6)})`
@@ -672,7 +673,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                   // Fallback si pas de tours avec le bon nombre
                   Array.from({ length: Math.min(displayCount, 12) }).map((_, index) => (
                     <motion.div
-                      key={index}
+                      key={`${index}-${popularConfig.cardButtonColor || '#2563eb'}`}
                       initial={{ opacity: 0, y: 30 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
@@ -680,6 +681,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                       className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
                     >
                       <div 
+                        key={popularConfig.cardButtonColor}
                         className="relative h-48 overflow-hidden"
                         style={{ 
                           background: `linear-gradient(135deg, ${hexToRgba(popularConfig.cardButtonColor || '#2563eb', 0.3)}, ${hexToRgba(popularConfig.cardButtonColor || '#2563eb', 0.6)})`
@@ -891,7 +893,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                 >
                   {displayToursPrice.map((tour, index) => (
                     <motion.div
-                      key={tour.id || index}
+                      key={`${tour.id || index}-${config.cardButtonColor || '#0ea5e9'}`}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.1 }}
@@ -902,6 +904,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                         <div className="relative h-48">
                           {!tour.primaryImage ? (
                             <div 
+                              key={config.cardButtonColor}
                               className="h-48 relative overflow-hidden"
                               style={{ 
                                 background: `linear-gradient(135deg, ${hexToRgba(config.cardButtonColor || '#0ea5e9', 0.3)}, ${hexToRgba(config.cardButtonColor || '#0ea5e9', 0.6)})`
