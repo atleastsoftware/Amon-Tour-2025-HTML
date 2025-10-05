@@ -1137,7 +1137,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                           whileHover={{ y: -5 }}
                         >
                           <div 
-                            className="w-10 h-10 rounded-full flex items-center justify-center mb-1"
+                            className="w-10 h-10 rounded-full flex items-center justify-center mb-1 border border-gray-200"
                             style={{ backgroundColor: `${feature.iconColor || '#0ea5e9'}1A` }}
                           >
                             {/* Si c'est une URL d'image, afficher l'image avec couleur dynamique */}
@@ -1177,8 +1177,13 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
                         {allBlocks.slice(0, 3).map((feature: any, index: number) => renderBlock(feature, index))}
                       </div>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto">
-                        {allBlocks.slice(3, 5).map((feature: any, index: number) => renderBlock(feature, index + 3))}
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div className="md:col-start-1">
+                          {renderBlock(allBlocks[3], 3)}
+                        </div>
+                        <div className="md:col-start-2">
+                          {renderBlock(allBlocks[4], 4)}
+                        </div>
                       </div>
                     </>
                   );
@@ -2389,10 +2394,10 @@ const BlockEditDropdown = ({
                   
                   return blocks;
                 })().map((block: any, index: number) => (
-                  <div key={block.id} className="border border-gray-200 rounded-lg p-4">
+                  <div key={block.id} className="border-2 border-gray-300 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-3">
-                      <div className="flex items-center gap-3">
-                        <Label className="font-medium">Bloc {index + 1}</Label>
+                      <div className="flex flex-col gap-2">
+                        <Label className="font-medium text-base">Bloc {index + 1}</Label>
                         <ColorPicker
                           value={block.iconColor || '#0ea5e9'}
                           onChange={(value) => {
