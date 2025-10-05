@@ -1906,9 +1906,9 @@ Crawl-delay: 1`;
     TTL: 6 * 60 * 60 * 1000 // 6 hours in milliseconds
   };
 
-  // Clear cache to force fresh data fetch with presentation images
-  tourCache.data = null;
-  tourCache.timestamp = 0;
+  // Don't clear cache on startup - let it fetch when needed
+  // tourCache.data = null;
+  // tourCache.timestamp = 0;
 
   // Debug route for deployment issues
   app.get("/api/debug/tour-ninja", (req, res) => {
@@ -2036,10 +2036,13 @@ Crawl-delay: 1`;
         });
       }
 
-      // Force cache refresh to use correct API keys
-      console.log("Forcing fresh data fetch to fix API key issue");
-      tourCache.data = null;
-      tourCache.timestamp = 0;
+      // Only clear cache if requested explicitly
+      const forceFresh = req.query.fresh === 'true';
+      if (forceFresh) {
+        console.log("Fresh data requested - clearing cache");
+        tourCache.data = null;
+        tourCache.timestamp = 0;
+      }
 
       // Try both API endpoints for maximum compatibility
       const useApiKey = !!(process.env.TOUR_NINJA_API_KEY && process.env.TOUR_NINJA_COMPANY_ID);
