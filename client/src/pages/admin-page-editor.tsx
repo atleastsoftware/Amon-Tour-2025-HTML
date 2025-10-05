@@ -1071,104 +1071,174 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                 ];
                 
                 const blocksCount = allBlocks.length;
+                const iconStyle = featuresConfig.iconStyle || 'modern-card';
                 
                 // 1-4 blocs : une seule ligne
                 // 5 blocs : 3 en haut, 2 en bas centrés
                 // 6 blocs : 3 en haut, 3 en bas
                 
-                const renderBlock = (feature: any, index: number) => (
-                  <motion.div 
-                    key={`${feature.id}-${feature.iconColor || '#0ea5e9'}`}
-                    className="bg-white p-6 rounded-lg shadow-md text-center flex flex-col items-center relative"
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    whileHover={{ 
-                      y: -10, 
-                      boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
-                    }}
-                  >
-                    <motion.div 
-                      className="w-16 h-16 rounded-full flex items-center justify-center mb-4 shadow-lg"
-                      style={{ backgroundColor: feature.iconColor || '#0ea5e9' }}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      {/* Si c'est une URL d'image, afficher l'image */}
-                      {feature.mainIcon && (feature.mainIcon.startsWith('http') || feature.mainIcon.startsWith('/')) ? (
-                        <img 
-                          src={feature.mainIcon} 
-                          alt={feature.title} 
-                          className="w-10 h-10 object-cover rounded-full"
-                          style={{ filter: 'brightness(0) invert(1)' }} /* Rendre l'image blanche */
-                          onError={(e) => {
-                            // Fallback vers icône par défaut
-                            (e.target as HTMLElement).style.display = 'none';
-                            const fallbackIcon = (e.target as HTMLElement).nextElementSibling as HTMLElement;
-                            if (fallbackIcon) fallbackIcon.style.display = 'block';
-                          }}
-                        />
-                      ) : (
-                        <>
-                          {feature.mainIcon === 'fas fa-user-friends' && <Users size={28} className="text-white" />}
-                          {feature.mainIcon === 'fas fa-compass' && <Compass size={28} className="text-white" />}
-                          {feature.mainIcon === 'fas fa-sparkles' && <Sparkles size={28} className="text-white" />}
-                          {!['fas fa-user-friends', 'fas fa-compass', 'fas fa-sparkles'].includes(feature.mainIcon) && (
-                            <i className={`${feature.mainIcon} text-white text-2xl`} style={{ display: feature.mainIcon && (feature.mainIcon.startsWith('http') || feature.mainIcon.startsWith('/')) ? 'none' : 'block' }}></i>
+                const renderBlock = (feature: any, index: number) => {
+                  // Style Minimaliste
+                  if (iconStyle === 'minimalist') {
+                    return (
+                      <motion.div 
+                        key={`${feature.id}-${feature.iconColor || '#0ea5e9'}`}
+                        className="text-center"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: index * 0.1 }}
+                      >
+                        <div 
+                          className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4"
+                          style={{ color: feature.iconColor || '#0ea5e9' }}
+                        >
+                          {/* Si c'est une URL d'image, afficher l'image */}
+                          {feature.mainIcon && (feature.mainIcon.startsWith('http') || feature.mainIcon.startsWith('/')) ? (
+                            <img 
+                              src={feature.mainIcon} 
+                              alt={feature.title} 
+                              className="w-8 h-8 object-cover"
+                              style={{ filter: `brightness(0) saturate(100%)`, color: feature.iconColor || '#0ea5e9' }}
+                              onError={(e) => {
+                                (e.target as HTMLElement).style.display = 'none';
+                                const fallbackIcon = (e.target as HTMLElement).nextElementSibling as HTMLElement;
+                                if (fallbackIcon) fallbackIcon.style.display = 'block';
+                              }}
+                            />
+                          ) : (
+                            <>
+                              {feature.mainIcon === 'fas fa-user-friends' && <Users size={28} />}
+                              {feature.mainIcon === 'fas fa-compass' && <Compass size={28} />}
+                              {feature.mainIcon === 'fas fa-sparkles' && <Sparkles size={28} />}
+                              {!['fas fa-user-friends', 'fas fa-compass', 'fas fa-sparkles'].includes(feature.mainIcon) && (
+                                <i className={`${feature.mainIcon} text-2xl`} style={{ display: feature.mainIcon && (feature.mainIcon.startsWith('http') || feature.mainIcon.startsWith('/')) ? 'none' : 'block' }}></i>
+                              )}
+                            </>
                           )}
-                        </>
-                      )}
-                    </motion.div>
-                    <h3 className="font-heading font-bold text-xl mb-2">{feature.title}</h3>
-                    <p className="text-gray-600 mb-4">{feature.description}</p>
-                    
+                        </div>
+                        <h3 className="font-heading font-bold text-xl mb-3">{feature.title}</h3>
+                        <p className="text-gray-600">{feature.description}</p>
+                        
+                        {/* Mini icônes si présentes */}
+                        {feature.miniIcons && feature.miniIcons.length > 0 && (
+                          <div className="mt-4 grid grid-cols-3 gap-2">
+                            {feature.miniIcons.slice(0, 3).map((miniIcon: any, miniIndex: number) => (
+                              <div key={miniIndex} className="flex flex-col items-center">
+                                <div 
+                                  className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center mb-1"
+                                  style={{ color: feature.iconColor || '#0ea5e9' }}
+                                >
+                                  {miniIcon.icon && (miniIcon.icon.startsWith('http') || miniIcon.icon.startsWith('/')) ? (
+                                    <img 
+                                      src={miniIcon.icon} 
+                                      alt={miniIcon.text} 
+                                      className="w-5 h-5 object-cover"
+                                    />
+                                  ) : (
+                                    <i className={`${miniIcon.icon || 'fas fa-question'} text-sm`}></i>
+                                  )}
+                                </div>
+                                <span className="text-xs text-center">{miniIcon.text}</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </motion.div>
+                    );
+                  }
+                  
+                  // Style Carte moderne (par défaut)
+                  return (
                     <motion.div 
-                      className="mt-4 grid grid-cols-3 gap-2"
-                      initial={{ opacity: 0, y: 10 }}
+                      key={`${feature.id}-${feature.iconColor || '#0ea5e9'}`}
+                      className="bg-white p-6 rounded-lg shadow-md text-center flex flex-col items-center relative"
+                      initial={{ opacity: 0, y: 50 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
-                      transition={{ delay: 0.2 }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                      whileHover={{ 
+                        y: -10, 
+                        boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+                      }}
                     >
-                      {feature.miniIcons?.slice(0, 3).map((miniIcon: any, miniIndex: number) => (
-                        <motion.div 
-                          key={miniIndex}
-                          className="flex flex-col items-center"
-                          whileHover={{ y: -5 }}
-                        >
-                          <div 
-                            className="w-10 h-10 rounded-full flex items-center justify-center mb-1 border border-gray-200"
-                            style={{ backgroundColor: `${feature.iconColor || '#0ea5e9'}1A` }}
+                      <motion.div 
+                        className="w-16 h-16 rounded-full flex items-center justify-center mb-4 shadow-lg"
+                        style={{ backgroundColor: feature.iconColor || '#0ea5e9' }}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        {/* Si c'est une URL d'image, afficher l'image */}
+                        {feature.mainIcon && (feature.mainIcon.startsWith('http') || feature.mainIcon.startsWith('/')) ? (
+                          <img 
+                            src={feature.mainIcon} 
+                            alt={feature.title} 
+                            className="w-10 h-10 object-cover rounded-full"
+                            style={{ filter: 'brightness(0) invert(1)' }}
+                            onError={(e) => {
+                              (e.target as HTMLElement).style.display = 'none';
+                              const fallbackIcon = (e.target as HTMLElement).nextElementSibling as HTMLElement;
+                              if (fallbackIcon) fallbackIcon.style.display = 'block';
+                            }}
+                          />
+                        ) : (
+                          <>
+                            {feature.mainIcon === 'fas fa-user-friends' && <Users size={28} className="text-white" />}
+                            {feature.mainIcon === 'fas fa-compass' && <Compass size={28} className="text-white" />}
+                            {feature.mainIcon === 'fas fa-sparkles' && <Sparkles size={28} className="text-white" />}
+                            {!['fas fa-user-friends', 'fas fa-compass', 'fas fa-sparkles'].includes(feature.mainIcon) && (
+                              <i className={`${feature.mainIcon} text-white text-2xl`} style={{ display: feature.mainIcon && (feature.mainIcon.startsWith('http') || feature.mainIcon.startsWith('/')) ? 'none' : 'block' }}></i>
+                            )}
+                          </>
+                        )}
+                      </motion.div>
+                      <h3 className="font-heading font-bold text-xl mb-2">{feature.title}</h3>
+                      <p className="text-gray-600 mb-4">{feature.description}</p>
+                      
+                      <motion.div 
+                        className="mt-4 grid grid-cols-3 gap-2"
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.2 }}
+                      >
+                        {feature.miniIcons?.slice(0, 3).map((miniIcon: any, miniIndex: number) => (
+                          <motion.div 
+                            key={miniIndex}
+                            className="flex flex-col items-center"
+                            whileHover={{ y: -5 }}
                           >
-                            {/* Si c'est une URL d'image, afficher l'image avec couleur dynamique */}
-                            {miniIcon.icon && (miniIcon.icon.startsWith('http') || miniIcon.icon.startsWith('/')) ? (
-                              <img 
-                                src={miniIcon.icon} 
-                                alt={miniIcon.text} 
-                                className="w-6 h-6 object-cover rounded"
-                                onError={(e) => {
-                                  // Fallback vers icône par défaut si image ne charge pas
-                                  (e.target as HTMLElement).style.display = 'none';
-                                  const fallbackIcon = (e.target as HTMLElement).nextElementSibling as HTMLElement;
-                                  if (fallbackIcon) fallbackIcon.style.display = 'block';
+                            <div 
+                              className="w-10 h-10 rounded-full flex items-center justify-center mb-1 border border-gray-200"
+                              style={{ backgroundColor: `${feature.iconColor || '#0ea5e9'}1A` }}
+                            >
+                              {miniIcon.icon && (miniIcon.icon.startsWith('http') || miniIcon.icon.startsWith('/')) ? (
+                                <img 
+                                  src={miniIcon.icon} 
+                                  alt={miniIcon.text} 
+                                  className="w-6 h-6 object-cover rounded"
+                                  onError={(e) => {
+                                    (e.target as HTMLElement).style.display = 'none';
+                                    const fallbackIcon = (e.target as HTMLElement).nextElementSibling as HTMLElement;
+                                    if (fallbackIcon) fallbackIcon.style.display = 'block';
+                                  }}
+                                />
+                              ) : null}
+                              <i 
+                                className={`${miniIcon.icon && !miniIcon.icon.startsWith('http') && !miniIcon.icon.startsWith('/') ? miniIcon.icon : 'fas fa-question'} text-sm`}
+                                style={{ 
+                                  display: miniIcon.icon && (miniIcon.icon.startsWith('http') || miniIcon.icon.startsWith('/')) ? 'none' : 'block',
+                                  color: feature.iconColor || '#0ea5e9'
                                 }}
-                              />
-                            ) : null}
-                            {/* Icône FontAwesome par défaut */}
-                            <i 
-                              className={`${miniIcon.icon && !miniIcon.icon.startsWith('http') && !miniIcon.icon.startsWith('/') ? miniIcon.icon : 'fas fa-question'} text-sm`}
-                              style={{ 
-                                display: miniIcon.icon && (miniIcon.icon.startsWith('http') || miniIcon.icon.startsWith('/')) ? 'none' : 'block',
-                                color: feature.iconColor || '#0ea5e9'
-                              }}
-                            ></i>
-                          </div>
-                          <span className="text-xs text-center">{miniIcon.text}</span>
-                        </motion.div>
-                      ))}
+                              ></i>
+                            </div>
+                            <span className="text-xs text-center">{miniIcon.text}</span>
+                          </motion.div>
+                        ))}
+                      </motion.div>
                     </motion.div>
-                  </motion.div>
-                );
+                  );
+                };
                 
                 // Logique d'affichage selon le nombre de blocs
                 if (blocksCount === 5) {
@@ -2340,6 +2410,37 @@ const BlockEditDropdown = ({
                     disabled={formData.iconBlocks?.length >= 6}
                   >
                     + Ajouter
+                  </button>
+                </div>
+              </div>
+              
+              {/* Sélecteur de style */}
+              <div className="mb-6">
+                <Label className="text-sm font-medium mb-2">Style de design</Label>
+                <div className="grid grid-cols-2 gap-3 mt-2">
+                  <button
+                    type="button"
+                    onClick={() => updateField('iconStyle', 'modern-card')}
+                    className={`p-3 border-2 rounded-lg text-left transition-all ${
+                      (formData.iconStyle || 'modern-card') === 'modern-card' 
+                        ? 'border-blue-500 bg-blue-50' 
+                        : 'border-gray-300 hover:border-gray-400'
+                    }`}
+                  >
+                    <div className="font-medium text-sm">Carte moderne</div>
+                    <div className="text-xs text-gray-500 mt-1">Avec cadres et fond coloré</div>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => updateField('iconStyle', 'minimalist')}
+                    className={`p-3 border-2 rounded-lg text-left transition-all ${
+                      formData.iconStyle === 'minimalist' 
+                        ? 'border-blue-500 bg-blue-50' 
+                        : 'border-gray-300 hover:border-gray-400'
+                    }`}
+                  >
+                    <div className="font-medium text-sm">Minimaliste</div>
+                    <div className="text-xs text-gray-500 mt-1">Sans cadres, fond gris clair</div>
                   </button>
                 </div>
               </div>
