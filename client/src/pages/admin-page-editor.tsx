@@ -574,10 +574,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                       transition={{ duration: 0.6, delay: index * 0.1 }}
                       className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
                     >
-                      <div 
-                        className="relative h-48"
-                        style={{ backgroundColor: tour.primaryImage ? 'transparent' : (popularConfig.cardBackgroundColor || '#bfdbfe') }}
-                      >
+                      <div className="relative h-48">
                         {tour.primaryImage ? (
                           <img
                             src={tour.primaryImage}
@@ -589,7 +586,10 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                             }}
                           />
                         ) : (
-                          <div className="w-full h-full flex items-center justify-center">
+                          <div 
+                            className="w-full h-full flex items-center justify-center"
+                            style={{ backgroundColor: popularConfig.cardBackgroundColor || '#bfdbfe' }}
+                          >
                             <div className="h-16 w-16 text-blue-400">🏝️</div>
                           </div>
                         )}
@@ -878,10 +878,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                       className="h-full"
                     >
                       <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow overflow-hidden h-full">
-                        <div 
-                          className="relative h-48"
-                          style={{ backgroundColor: tour.primaryImage ? 'transparent' : (config.cardBackgroundColor || '#cbd5e1') }}
-                        >
+                        <div className="relative h-48">
                           {tour.primaryImage ? (
                             <img
                               src={tour.primaryImage}
@@ -894,7 +891,10 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                               loading="lazy"
                             />
                           ) : (
-                            <div className="h-48 flex items-center justify-center relative overflow-hidden">
+                            <div 
+                              className="h-48 flex items-center justify-center relative overflow-hidden"
+                              style={{ backgroundColor: config.cardBackgroundColor || '#cbd5e1' }}
+                            >
                               <div className="text-center p-4">
                                 <div className="w-8 h-8 mx-auto mb-2 text-gray-500">📍</div>
                                 <span className="text-sm font-medium text-gray-600">Krabi, Thailand</span>
@@ -1722,24 +1722,16 @@ const BlockEditDropdown = ({
               <h4 className="text-sm font-medium text-gray-900">Configuration de la grille</h4>
               
               {/* Couleurs des annonces */}
-              <div className="space-y-3">
+              <div className="space-y-2">
                 <Label className="text-sm font-medium">Couleurs des annonces</Label>
-                <div>
-                  <Label className="text-xs text-gray-500 mb-2">Couleur de fond (sans image)</Label>
-                  <ColorPicker
-                    value={formData.cardBackgroundColor || '#bfdbfe'}
-                    onChange={(value) => updateField('cardBackgroundColor', value)}
-                    label=""
-                  />
-                </div>
-                <div>
-                  <Label className="text-xs text-gray-500 mb-2">Couleur des boutons</Label>
-                  <ColorPicker
-                    value={formData.cardButtonColor || '#2563eb'}
-                    onChange={(value) => updateField('cardButtonColor', value)}
-                    label=""
-                  />
-                </div>
+                <ColorPicker
+                  value={formData.cardButtonColor || '#2563eb'}
+                  onChange={(value) => {
+                    updateField('cardBackgroundColor', value);
+                    updateField('cardButtonColor', value);
+                  }}
+                  label=""
+                />
               </div>
               
               {/* Colonnes */}
@@ -2035,24 +2027,16 @@ const BlockEditDropdown = ({
               <h4 className="text-sm font-medium text-gray-900">Configuration de la grille</h4>
               
               {/* Couleurs des annonces */}
-              <div className="space-y-3">
+              <div className="space-y-2">
                 <Label className="text-sm font-medium">Couleurs des annonces</Label>
-                <div>
-                  <Label className="text-xs text-gray-500 mb-2">Couleur de fond (sans image)</Label>
-                  <ColorPicker
-                    value={formData.cardBackgroundColor || '#bfdbfe'}
-                    onChange={(value) => updateField('cardBackgroundColor', value)}
-                    label=""
-                  />
-                </div>
-                <div>
-                  <Label className="text-xs text-gray-500 mb-2">Couleur des boutons</Label>
-                  <ColorPicker
-                    value={formData.cardButtonColor || '#2563eb'}
-                    onChange={(value) => updateField('cardButtonColor', value)}
-                    label=""
-                  />
-                </div>
+                <ColorPicker
+                  value={formData.cardButtonColor || '#2563eb'}
+                  onChange={(value) => {
+                    updateField('cardBackgroundColor', value);
+                    updateField('cardButtonColor', value);
+                  }}
+                  label=""
+                />
               </div>
               
               {/* Colonnes */}
