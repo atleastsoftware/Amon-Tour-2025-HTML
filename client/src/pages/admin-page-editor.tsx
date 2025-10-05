@@ -587,10 +587,19 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                           />
                         ) : (
                           <div 
-                            className="w-full h-full flex items-center justify-center"
-                            style={{ backgroundColor: popularConfig.cardBackgroundColor || '#bfdbfe' }}
+                            className="w-full h-full flex items-center justify-center relative overflow-hidden"
+                            style={{ 
+                              background: `linear-gradient(to bottom right, ${popularConfig.cardBackgroundColor || '#bfdbfe'}, ${popularConfig.cardBackgroundColor || '#bfdbfe'}DD)`
+                            }}
                           >
-                            <div className="h-16 w-16 text-blue-400">🏝️</div>
+                            <div className="absolute inset-0 bg-black/10"></div>
+                            <div className="h-16 w-16 text-blue-400 relative z-10">🏝️</div>
+                            <div 
+                              className="absolute inset-0"
+                              style={{ 
+                                background: `linear-gradient(to bottom right, transparent, ${popularConfig.cardBackgroundColor || '#bfdbfe'}50)`
+                              }}
+                            ></div>
                           </div>
                         )}
                         <div className="absolute top-4 right-4">
@@ -658,13 +667,22 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                       className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
                     >
                       <div 
-                        className="relative h-48"
-                        style={{ backgroundColor: popularConfig.cardBackgroundColor || '#bfdbfe' }}
+                        className="relative h-48 overflow-hidden"
+                        style={{ 
+                          background: `linear-gradient(to bottom right, ${popularConfig.cardBackgroundColor || '#bfdbfe'}, ${popularConfig.cardBackgroundColor || '#bfdbfe'}DD)`
+                        }}
                       >
-                        <div className="w-full h-full flex items-center justify-center">
+                        <div className="absolute inset-0 bg-black/10"></div>
+                        <div className="w-full h-full flex items-center justify-center relative z-10">
                           <div className="h-16 w-16 text-blue-400">🏝️</div>
                         </div>
-                        <div className="absolute top-4 right-4">
+                        <div 
+                          className="absolute inset-0"
+                          style={{ 
+                            background: `linear-gradient(to bottom right, transparent, ${popularConfig.cardBackgroundColor || '#bfdbfe'}50)`
+                          }}
+                        ></div>
+                        <div className="absolute top-4 right-4 z-20">
                           <span className="bg-white/90 text-gray-800 px-2 py-1 rounded-full text-xs">
                             {index % 2 + 1} jour{index % 2 > 0 ? 's' : ''}
                           </span>
@@ -893,12 +911,21 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                           ) : (
                             <div 
                               className="h-48 flex items-center justify-center relative overflow-hidden"
-                              style={{ backgroundColor: config.cardBackgroundColor || '#cbd5e1' }}
+                              style={{ 
+                                background: `linear-gradient(to bottom right, ${config.cardBackgroundColor || '#cbd5e1'}, ${config.cardBackgroundColor || '#cbd5e1'}DD)`
+                              }}
                             >
-                              <div className="text-center p-4">
+                              <div className="absolute inset-0 bg-black/10"></div>
+                              <div className="text-center p-4 relative z-10">
                                 <div className="w-8 h-8 mx-auto mb-2 text-gray-500">📍</div>
                                 <span className="text-sm font-medium text-gray-600">Krabi, Thailand</span>
                               </div>
+                              <div 
+                                className="absolute inset-0"
+                                style={{ 
+                                  background: `linear-gradient(to bottom right, transparent, ${config.cardBackgroundColor || '#cbd5e1'}50)`
+                                }}
+                              ></div>
                             </div>
                           )}
                           
