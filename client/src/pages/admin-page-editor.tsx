@@ -592,16 +592,9 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                             <div 
                               className="w-full h-full relative overflow-hidden"
                               style={{ 
-                                background: `linear-gradient(to bottom right, ${hexToRgba(bgColor, 0.7)}, ${bgColor})`
+                                background: `linear-gradient(135deg, ${hexToRgba(bgColor, 0.3)}, ${hexToRgba(bgColor, 0.6)})`
                               }}
                             >
-                              <div className="absolute inset-0 bg-black/20"></div>
-                              <div 
-                                className="absolute inset-0"
-                                style={{ 
-                                  background: `linear-gradient(to bottom right, transparent, ${hexToRgba(bgColor, 0.3)})`
-                                }}
-                              ></div>
                             </div>
                           ) : (
                             <img
@@ -614,9 +607,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                                 if (parentDiv) {
                                   target.remove();
                                   parentDiv.innerHTML = `
-                                    <div class="w-full h-full relative overflow-hidden" style="background: linear-gradient(to bottom right, ${hexToRgba(bgColor, 0.7)}, ${bgColor})">
-                                      <div class="absolute inset-0 bg-black/20"></div>
-                                      <div class="absolute inset-0" style="background: linear-gradient(to bottom right, transparent, ${hexToRgba(bgColor, 0.3)})"></div>
+                                    <div class="w-full h-full relative overflow-hidden" style="background: linear-gradient(135deg, ${hexToRgba(bgColor, 0.3)}, ${hexToRgba(bgColor, 0.6)})">
                                     </div>
                                   `;
                                 }
@@ -691,16 +682,9 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                       <div 
                         className="relative h-48 overflow-hidden"
                         style={{ 
-                          background: `linear-gradient(to bottom right, ${hexToRgba(popularConfig.cardButtonColor || '#2563eb', 0.7)}, ${popularConfig.cardButtonColor || '#2563eb'})`
+                          background: `linear-gradient(135deg, ${hexToRgba(popularConfig.cardButtonColor || '#2563eb', 0.3)}, ${hexToRgba(popularConfig.cardButtonColor || '#2563eb', 0.6)})`
                         }}
                       >
-                        <div className="absolute inset-0 bg-black/20"></div>
-                        <div 
-                          className="absolute inset-0"
-                          style={{ 
-                            background: `linear-gradient(to bottom right, transparent, ${hexToRgba(popularConfig.cardButtonColor || '#2563eb', 0.3)})`
-                          }}
-                        ></div>
                         <div className="absolute top-4 right-4 z-20">
                           <span className="bg-white/90 text-gray-800 px-2 py-1 rounded-full text-xs">
                             {index % 2 + 1} jour{index % 2 > 0 ? 's' : ''}
@@ -920,17 +904,9 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                             <div 
                               className="h-48 relative overflow-hidden"
                               style={{ 
-                                background: `linear-gradient(to bottom right, ${hexToRgba(config.cardButtonColor || '#0ea5e9', 0.7)}, ${config.cardButtonColor || '#0ea5e9'})`
+                                background: `linear-gradient(135deg, ${hexToRgba(config.cardButtonColor || '#0ea5e9', 0.3)}, ${hexToRgba(config.cardButtonColor || '#0ea5e9', 0.6)})`
                               }}
-                            >
-                              <div className="absolute inset-0 bg-black/20"></div>
-                              <div 
-                                className="absolute inset-0"
-                                style={{ 
-                                  background: `linear-gradient(to bottom right, transparent, ${hexToRgba(config.cardButtonColor || '#0ea5e9', 0.3)})`
-                                }}
-                              ></div>
-                            </div>
+                            ></div>
                           ) : (
                             <img
                               src={tour.primaryImage}
@@ -943,9 +919,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                                 if (parentDiv) {
                                   target.remove();
                                   parentDiv.innerHTML = `
-                                    <div class="h-48 relative overflow-hidden" style="background: linear-gradient(to bottom right, ${hexToRgba(bgColor, 0.7)}, ${bgColor})">
-                                      <div class="absolute inset-0 bg-black/20"></div>
-                                      <div class="absolute inset-0" style="background: linear-gradient(to bottom right, transparent, ${hexToRgba(bgColor, 0.3)})"></div>
+                                    <div class="h-48 relative overflow-hidden" style="background: linear-gradient(135deg, ${hexToRgba(bgColor, 0.3)}, ${hexToRgba(bgColor, 0.6)})">
                                     </div>
                                   `;
                                 }
