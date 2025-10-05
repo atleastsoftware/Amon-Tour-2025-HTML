@@ -590,13 +590,12 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                         <div className="relative h-48">
                           {!hasImage ? (
                             <div 
-                              className="w-full h-full flex items-center justify-center relative overflow-hidden"
+                              className="w-full h-full relative overflow-hidden"
                               style={{ 
                                 background: `linear-gradient(to bottom right, ${hexToRgba(bgColor, 0.7)}, ${bgColor})`
                               }}
                             >
                               <div className="absolute inset-0 bg-black/20"></div>
-                              <div className="h-16 w-16 text-white relative z-10">🏝️</div>
                               <div 
                                 className="absolute inset-0"
                                 style={{ 
@@ -615,9 +614,8 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                                 if (parentDiv) {
                                   target.remove();
                                   parentDiv.innerHTML = `
-                                    <div class="w-full h-full flex items-center justify-center relative overflow-hidden" style="background: linear-gradient(to bottom right, ${hexToRgba(bgColor, 0.7)}, ${bgColor})">
+                                    <div class="w-full h-full relative overflow-hidden" style="background: linear-gradient(to bottom right, ${hexToRgba(bgColor, 0.7)}, ${bgColor})">
                                       <div class="absolute inset-0 bg-black/20"></div>
-                                      <div class="h-16 w-16 text-white relative z-10">🏝️</div>
                                       <div class="absolute inset-0" style="background: linear-gradient(to bottom right, transparent, ${hexToRgba(bgColor, 0.3)})"></div>
                                     </div>
                                   `;
