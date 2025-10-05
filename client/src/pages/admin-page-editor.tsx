@@ -1127,7 +1127,11 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                         
                         {/* Mini icônes si présentes */}
                         {feature.miniIcons && feature.miniIcons.length > 0 && (
-                          <div className="mt-4 grid grid-cols-3 gap-2">
+                          <div className={`mt-4 grid gap-4 ${
+                            feature.miniIcons.length === 1 ? 'grid-cols-1 justify-items-center' : 
+                            feature.miniIcons.length === 2 ? 'grid-cols-2 justify-items-center max-w-[200px] mx-auto' : 
+                            'grid-cols-3'
+                          }`}>
                             {feature.miniIcons.slice(0, 3).map((miniIcon: any, miniIndex: number) => (
                               <div key={miniIndex} className="flex flex-col items-center">
                                 <div 
@@ -1204,7 +1208,11 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                       <p className="text-gray-600 mb-4">{feature.description}</p>
                       
                       <motion.div 
-                        className="mt-4 grid grid-cols-3 gap-2"
+                        className={`mt-4 grid gap-4 ${
+                          (feature.miniIcons?.length || 0) === 1 ? 'grid-cols-1 justify-items-center' : 
+                          (feature.miniIcons?.length || 0) === 2 ? 'grid-cols-2 justify-items-center max-w-[200px] mx-auto' : 
+                          'grid-cols-3'
+                        }`}
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
@@ -2431,7 +2439,7 @@ const BlockEditDropdown = ({
                     className={`px-3 py-1 rounded text-sm ${formData.iconBlocks?.length >= 6 ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : ''}`}
                     disabled={formData.iconBlocks?.length >= 6}
                   >
-                    + Ajouter un bloc
+                    + Ajouter un nouveau bloc
                   </button>
                 </div>
               </div>
