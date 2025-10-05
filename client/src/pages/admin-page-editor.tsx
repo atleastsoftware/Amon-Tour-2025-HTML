@@ -697,9 +697,6 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                         }}
                       >
                         <div className="absolute inset-0 bg-black/20"></div>
-                        <div className="w-full h-full flex items-center justify-center relative z-10">
-                          <div className="h-16 w-16 text-white">🏝️</div>
-                        </div>
                         <div 
                           className="absolute inset-0"
                           style={{ 
@@ -923,16 +920,12 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                         <div className="relative h-48">
                           {!tour.primaryImage ? (
                             <div 
-                              className="h-48 flex items-center justify-center relative overflow-hidden"
+                              className="h-48 relative overflow-hidden"
                               style={{ 
                                 background: `linear-gradient(to bottom right, ${hexToRgba(config.cardBackgroundColor || '#cbd5e1', 0.7)}, ${config.cardBackgroundColor || '#cbd5e1'})`
                               }}
                             >
                               <div className="absolute inset-0 bg-black/20"></div>
-                              <div className="text-center p-4 relative z-10">
-                                <div className="w-8 h-8 mx-auto mb-2 text-white">📍</div>
-                                <span className="text-sm font-medium text-white">Krabi, Thailand</span>
-                              </div>
                               <div 
                                 className="absolute inset-0"
                                 style={{ 
@@ -952,12 +945,8 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                                 if (parentDiv) {
                                   target.remove();
                                   parentDiv.innerHTML = `
-                                    <div class="h-48 flex items-center justify-center relative overflow-hidden" style="background: linear-gradient(to bottom right, ${hexToRgba(bgColor, 0.7)}, ${bgColor})">
+                                    <div class="h-48 relative overflow-hidden" style="background: linear-gradient(to bottom right, ${hexToRgba(bgColor, 0.7)}, ${bgColor})">
                                       <div class="absolute inset-0 bg-black/20"></div>
-                                      <div class="text-center p-4 relative z-10">
-                                        <div class="w-8 h-8 mx-auto mb-2 text-white">📍</div>
-                                        <span class="text-sm font-medium text-white">Krabi, Thailand</span>
-                                      </div>
                                       <div class="absolute inset-0" style="background: linear-gradient(to bottom right, transparent, ${hexToRgba(bgColor, 0.3)})"></div>
                                     </div>
                                   `;
