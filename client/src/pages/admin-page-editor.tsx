@@ -1126,8 +1126,11 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                             {feature.miniIcons.slice(0, 3).map((miniIcon: any, miniIndex: number) => (
                               <div key={miniIndex} className="flex flex-col items-center">
                                 <div 
-                                  className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center mb-1"
-                                  style={{ color: feature.iconColor || '#0ea5e9' }}
+                                  className="w-10 h-10 rounded-full flex items-center justify-center mb-1"
+                                  style={{ 
+                                    backgroundColor: `${feature.iconColor || '#0ea5e9'}1A`,
+                                    color: feature.iconColor || '#0ea5e9' 
+                                  }}
                                 >
                                   {miniIcon.icon && (miniIcon.icon.startsWith('http') || miniIcon.icon.startsWith('/')) ? (
                                     <img 
@@ -1209,7 +1212,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                             whileHover={{ y: -5 }}
                           >
                             <div 
-                              className="w-10 h-10 rounded-full flex items-center justify-center mb-1 border border-gray-200"
+                              className="w-10 h-10 rounded-full flex items-center justify-center mb-1"
                               style={{ backgroundColor: `${feature.iconColor || '#0ea5e9'}1A` }}
                             >
                               {miniIcon.icon && (miniIcon.icon.startsWith('http') || miniIcon.icon.startsWith('/')) ? (
