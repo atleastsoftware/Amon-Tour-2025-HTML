@@ -1090,8 +1090,11 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                         transition={{ duration: 0.6, delay: index * 0.1 }}
                       >
                         <div 
-                          className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4"
-                          style={{ color: feature.iconColor || '#0ea5e9' }}
+                          className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+                          style={{ 
+                            backgroundColor: hexToRgba(feature.iconColor || '#0ea5e9', 0.06),
+                            color: feature.iconColor || '#0ea5e9' 
+                          }}
                         >
                           {/* Si c'est une URL d'image, afficher l'image */}
                           {feature.mainIcon && (feature.mainIcon.startsWith('http') || feature.mainIcon.startsWith('/')) ? (
@@ -2443,7 +2446,7 @@ const BlockEditDropdown = ({
                     }`}
                   >
                     <div className="font-medium text-sm">Minimaliste</div>
-                    <div className="text-xs text-gray-500 mt-1">Sans cadres, fond gris clair</div>
+                    <div className="text-xs text-gray-500 mt-1">Sans cadres, fond coloré teinté</div>
                   </button>
                 </div>
               </div>
