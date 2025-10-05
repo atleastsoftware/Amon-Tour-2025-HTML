@@ -2431,7 +2431,7 @@ const BlockEditDropdown = ({
                     className={`px-3 py-1 rounded text-sm ${formData.iconBlocks?.length >= 6 ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : ''}`}
                     disabled={formData.iconBlocks?.length >= 6}
                   >
-                    + Ajouter
+                    + Ajouter un bloc
                   </button>
                 </div>
               </div>
@@ -2540,9 +2540,19 @@ const BlockEditDropdown = ({
                           const updatedBlocks = blocks.filter((b: any) => b.id !== block.id);
                           updateField('iconBlocks', updatedBlocks);
                         }}
-                        className="text-black hover:text-gray-700 text-sm"
+                        className="px-3 py-1 rounded text-sm"
+                        style={{ 
+                          backgroundColor: THEME_COLORS.secondary,
+                          color: 'white'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryHover;
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
+                        }}
                       >
-                        <Trash2 className="w-4 h-4" />
+                        Supprimer le bloc
                       </button>
                     </div>
                     
@@ -2753,7 +2763,7 @@ const BlockEditDropdown = ({
                             disabled={(block.miniIcons || []).length >= 3}
                           >
                             <Plus size={12} />
-                            Ajouter
+                            Ajouter un mini bloc
                           </button>
                         </div>
                         <div className="space-y-2">
