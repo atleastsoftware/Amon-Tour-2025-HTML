@@ -1306,7 +1306,85 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         return <About />;
 
       case 'travelers_reviews':
-        return <Testimonials />;
+        const reviewsConfig = liveConfiguration || block.configuration || {};
+        return (
+          <section className="py-16 bg-primary text-white">
+            <div className="container mx-auto px-4">
+              <div className="text-center mb-12">
+                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
+                  {reviewsConfig.title || 'Our Travelers Reviews'}
+                </h2>
+                <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
+                <p className="max-w-2xl mx-auto">
+                  {reviewsConfig.subtitle || 'Discover the authentic experiences...'}
+                </p>
+              </div>
+              
+              <div className="bg-white rounded-lg p-6 shadow-lg mb-10">
+                <div className="text-center mb-4">
+                  <div className="flex justify-center mb-3">
+                    {Array.from({ length: parseInt(reviewsConfig.starRating || '5') }).map((_, i) => (
+                      <i key={i} className="fas fa-star text-[hsl(var(--star))] text-2xl mx-1"></i>
+                    ))}
+                  </div>
+                  <h3 className="text-primary font-heading font-bold text-2xl">
+                    {reviewsConfig.googleRating || '5.0'} on Google
+                  </h3>
+                  <p className="text-muted-foreground">
+                    Based on {reviewsConfig.reviewCount || '80'} reviews
+                  </p>
+                  {reviewsConfig.googleLink && (
+                    <a 
+                      href={reviewsConfig.googleLink} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-primary hover:underline font-medium inline-flex items-center mt-2"
+                    >
+                      <span>{reviewsConfig.googleLinkText || 'View all reviews on Google'}</span>
+                      <i className="fas fa-external-link-alt ml-2 text-sm"></i>
+                    </a>
+                  )}
+                </div>
+                
+                {/* Reviews Grid */}
+                <div className="max-h-96 overflow-y-auto">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {(reviewsConfig.reviews || []).map((review: any) => {
+                      const initials = review.name
+                        .split(' ')
+                        .map((n: string) => n[0])
+                        .join('')
+                        .toUpperCase()
+                        .slice(0, 2);
+                      
+                      return (
+                        <div key={review.id} className="bg-muted/30 p-4 rounded-lg shadow-sm">
+                          <div className="flex items-center gap-3 mb-3">
+                            <div 
+                              className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm"
+                              style={{ backgroundColor: THEME_COLORS.primary }}
+                            >
+                              {initials}
+                            </div>
+                            <div className="flex-1">
+                              <div className="font-medium text-primary">{review.name}</div>
+                              <div className="flex gap-0.5">
+                                {Array.from({ length: review.rating }).map((_, i) => (
+                                  <i key={i} className="fas fa-star text-[hsl(var(--star))] text-xs"></i>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                          <p className="text-sm text-gray-700">{review.text}</p>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        );
 
       default:
         return (
@@ -3042,6 +3120,18 @@ const BlockEditDropdown = ({
               />
             </div>
             <div>
+              <Label htmlFor="starRating">Nombre d'étoiles (affichées sous la note)</Label>
+              <Input 
+                id="starRating"
+                type="number"
+                min="1"
+                max="5"
+                step="1"
+                value={formData.starRating || '5'} 
+                onChange={e => updateField('starRating', e.target.value)}
+              />
+            </div>
+            <div>
               <Label htmlFor="googleRating">Note Google</Label>
               <Input 
                 id="googleRating"
@@ -3056,6 +3146,139 @@ const BlockEditDropdown = ({
                 value={formData.reviewCount || '80'} 
                 onChange={e => updateField('reviewCount', e.target.value)}
               />
+            </div>
+            <div>
+              <Label htmlFor="googleLink">Lien de redirection Google</Label>
+              <Input 
+                id="googleLink"
+                type="url"
+                placeholder="https://g.page/..."
+                value={formData.googleLink || ''} 
+                onChange={e => updateField('googleLink', e.target.value)}
+              />
+            </div>
+            <div>
+              <Label htmlFor="googleLinkText">Texte du lien Google</Label>
+              <Input 
+                id="googleLinkText"
+                value={formData.googleLinkText || 'View all reviews on Google'} 
+                onChange={e => updateField('googleLinkText', e.target.value)}
+              />
+            </div>
+
+            {/* Section des avis individuels */}
+            <div className="border-t pt-4 mt-6">
+              <div className="flex items-center justify-between mb-4">
+                <Label className="text-base font-semibold">Avis clients</Label>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const reviews = formData.reviews || [];
+                    const newReview = {
+                      id: Date.now(),
+                      name: 'Nouveau Client',
+                      rating: 5,
+                      text: 'Excellent service!'
+                    };
+                    updateField('reviews', [...reviews, newReview]);
+                  }}
+                  className="px-3 py-1 rounded text-sm"
+                  style={{ 
+                    backgroundColor: THEME_COLORS.secondary,
+                    color: 'white'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryHover;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
+                  }}
+                >
+                  <Plus size={14} className="inline mr-1" />
+                  Ajouter une note
+                </button>
+              </div>
+
+              <div className="space-y-3 max-h-96 overflow-y-auto pr-2">
+                {(formData.reviews || []).map((review: any, index: number) => (
+                  <div key={review.id} className="border-2 border-gray-300 rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-3">
+                      <Label className="text-sm font-medium">Avis {index + 1}</Label>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const reviews = formData.reviews || [];
+                          const updatedReviews = reviews.filter((r: any) => r.id !== review.id);
+                          updateField('reviews', updatedReviews);
+                        }}
+                        className="px-2 py-1 rounded text-sm"
+                        style={{ 
+                          backgroundColor: THEME_COLORS.secondary,
+                          color: 'white'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryHover;
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
+                        }}
+                      >
+                        Supprimer
+                      </button>
+                    </div>
+
+                    <div className="space-y-3">
+                      <div>
+                        <Label className="text-sm">Nom</Label>
+                        <Input 
+                          value={review.name || ''} 
+                          onChange={e => {
+                            const reviews = formData.reviews || [];
+                            const updatedReviews = reviews.map((r: any) => 
+                              r.id === review.id ? { ...r, name: e.target.value } : r
+                            );
+                            updateField('reviews', updatedReviews);
+                          }}
+                          className="mt-1"
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-sm">Nombre d'étoiles</Label>
+                        <Input 
+                          type="number"
+                          min="1"
+                          max="5"
+                          step="1"
+                          value={review.rating || 5} 
+                          onChange={e => {
+                            const reviews = formData.reviews || [];
+                            const updatedReviews = reviews.map((r: any) => 
+                              r.id === review.id ? { ...r, rating: parseInt(e.target.value) || 5 } : r
+                            );
+                            updateField('reviews', updatedReviews);
+                          }}
+                          className="mt-1"
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-sm">Texte</Label>
+                        <Textarea 
+                          value={review.text || ''} 
+                          onChange={e => {
+                            const reviews = formData.reviews || [];
+                            const updatedReviews = reviews.map((r: any) => 
+                              r.id === review.id ? { ...r, text: e.target.value } : r
+                            );
+                            updateField('reviews', updatedReviews);
+                          }}
+                          rows={2}
+                          className="mt-1"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         );
