@@ -1030,13 +1030,24 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                 </motion.div>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className={`grid gap-8 ${
+                (() => {
+                  const blocksCount = (featuresConfig.iconBlocks || []).length || 3;
+                  if (blocksCount === 1) return 'grid-cols-1 max-w-md mx-auto';
+                  if (blocksCount === 2) return 'grid-cols-1 md:grid-cols-2';
+                  if (blocksCount === 3) return 'grid-cols-1 md:grid-cols-3';
+                  if (blocksCount === 4) return 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4';
+                  if (blocksCount === 5) return 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3';
+                  return 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3';
+                })()
+              }`}>
                 {(featuresConfig.iconBlocks || [
                   {
                     id: 1,
                     mainIcon: 'fas fa-user-friends',
                     title: 'Private Tours',
                     description: 'Experience an exclusive day trip with our professional guides and private vehicles.',
+                    iconColor: '#0ea5e9',
                     miniIcons: [
                       { icon: 'fas fa-car', text: 'Private Car' },
                       { icon: 'fas fa-language', text: 'Guide' },
@@ -1048,6 +1059,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                     mainIcon: 'fas fa-compass',
                     title: 'Customized Itineraries',
                     description: 'Create your own journey based on your desires, your pace, and your interests.',
+                    iconColor: '#0ea5e9',
                     miniIcons: [
                       { icon: 'fas fa-map-marked-alt', text: 'Custom Route' },
                       { icon: 'fas fa-clock', text: 'Flexible Time' },
@@ -1059,15 +1071,16 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                     mainIcon: 'fas fa-sparkles',
                     title: 'Authentic Experiences',
                     description: 'Discover destinations off the beaten path and immerse yourself in the local culture.',
+                    iconColor: '#0ea5e9',
                     miniIcons: [
                       { icon: 'fas fa-utensils', text: 'Local Food' },
                       { icon: 'fas fa-hands-helping', text: 'Local People' },
                       { icon: 'fas fa-landmark', text: 'Culture' }
                     ]
                   }
-                ]).slice(0, 3).map((feature: any, index: number) => (
+                ]).map((feature: any, index: number) => (
                   <motion.div 
-                    key={feature.id}
+                    key={`${feature.id}-${feature.iconColor || '#0ea5e9'}`}
                     className="bg-white p-6 rounded-lg shadow-md text-center flex flex-col items-center relative"
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -1079,7 +1092,8 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                     }}
                   >
                     <motion.div 
-                      className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-4 shadow-lg"
+                      className="w-16 h-16 rounded-full flex items-center justify-center mb-4 shadow-lg"
+                      style={{ backgroundColor: feature.iconColor || '#0ea5e9' }}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
@@ -1124,14 +1138,16 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                           className="flex flex-col items-center"
                           whileHover={{ y: -5 }}
                         >
-                          <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mb-1">
-                            {/* Si c'est une URL d'image, afficher l'image avec couleur bleue */}
+                          <div 
+                            className="w-10 h-10 rounded-full flex items-center justify-center mb-1"
+                            style={{ backgroundColor: `${feature.iconColor || '#0ea5e9'}1A` }}
+                          >
+                            {/* Si c'est une URL d'image, afficher l'image avec couleur dynamique */}
                             {miniIcon.icon && (miniIcon.icon.startsWith('http') || miniIcon.icon.startsWith('/')) ? (
                               <img 
                                 src={miniIcon.icon} 
                                 alt={miniIcon.text} 
                                 className="w-6 h-6 object-cover rounded"
-                                style={{ filter: 'brightness(0) saturate(100%) invert(32%) sepia(87%) saturate(1297%) hue-rotate(195deg) brightness(95%) contrast(85%)' }}
                                 onError={(e) => {
                                   // Fallback vers icône par défaut si image ne charge pas
                                   (e.target as HTMLElement).style.display = 'none';
@@ -1142,8 +1158,11 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                             ) : null}
                             {/* Icône FontAwesome par défaut */}
                             <i 
-                              className={`${miniIcon.icon && !miniIcon.icon.startsWith('http') && !miniIcon.icon.startsWith('/') ? miniIcon.icon : 'fas fa-question'} text-primary text-sm`}
-                              style={{ display: miniIcon.icon && (miniIcon.icon.startsWith('http') || miniIcon.icon.startsWith('/')) ? 'none' : 'block' }}
+                              className={`${miniIcon.icon && !miniIcon.icon.startsWith('http') && !miniIcon.icon.startsWith('/') ? miniIcon.icon : 'fas fa-question'} text-sm`}
+                              style={{ 
+                                display: miniIcon.icon && (miniIcon.icon.startsWith('http') || miniIcon.icon.startsWith('/')) ? 'none' : 'block',
+                                color: feature.iconColor || '#0ea5e9'
+                              }}
                             ></i>
                           </div>
                           <span className="text-xs text-center">{miniIcon.text}</span>
@@ -2261,12 +2280,13 @@ const BlockEditDropdown = ({
                     type="button"
                     onClick={() => {
                       const blocks = formData.iconBlocks || [];
-                      if (blocks.length < 3) {
+                      if (blocks.length < 6) {
                         const newBlock = {
                           id: Date.now(),
                           mainIcon: 'fas fa-sparkles',
                           title: 'Nouveau Bloc',
                           description: 'Description de ce bloc d\'avantages.',
+                          iconColor: '#0ea5e9',
                           miniIcons: [
                             { icon: 'fas fa-check', text: 'Avantage 1' },
                             { icon: 'fas fa-check', text: 'Avantage 2' },
@@ -2276,8 +2296,8 @@ const BlockEditDropdown = ({
                         updateField('iconBlocks', [...blocks, newBlock]);
                       }
                     }}
-                    className={`px-3 py-1 rounded text-sm ${formData.iconBlocks?.length >= 3 ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-blue-500 text-white hover:bg-blue-600'}`}
-                    disabled={formData.iconBlocks?.length >= 3}
+                    className={`px-3 py-1 rounded text-sm ${formData.iconBlocks?.length >= 6 ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-blue-500 text-white hover:bg-blue-600'}`}
+                    disabled={formData.iconBlocks?.length >= 6}
                   >
                     + Ajouter
                   </button>
@@ -2292,6 +2312,7 @@ const BlockEditDropdown = ({
                       mainIcon: 'fas fa-user-friends',
                       title: 'Private Tours',
                       description: 'Experience an exclusive day trip with our professional guides and private vehicles.',
+                      iconColor: '#0ea5e9',
                       miniIcons: [
                         { icon: 'fas fa-car', text: 'Private Car' },
                         { icon: 'fas fa-language', text: 'Guide' },
@@ -2303,6 +2324,7 @@ const BlockEditDropdown = ({
                       mainIcon: 'fas fa-compass',
                       title: 'Customized Itineraries',
                       description: 'Create your own journey based on your desires, your pace, and your interests.',
+                      iconColor: '#0ea5e9',
                       miniIcons: [
                         { icon: 'fas fa-map-marked-alt', text: 'Custom Route' },
                         { icon: 'fas fa-clock', text: 'Flexible Time' },
@@ -2314,6 +2336,7 @@ const BlockEditDropdown = ({
                       mainIcon: 'fas fa-sparkles',
                       title: 'Authentic Experiences',
                       description: 'Discover destinations off the beaten path and immerse yourself in the local culture.',
+                      iconColor: '#0ea5e9',
                       miniIcons: [
                         { icon: 'fas fa-utensils', text: 'Local Food' },
                         { icon: 'fas fa-hands-helping', text: 'Local People' },
@@ -2492,6 +2515,24 @@ const BlockEditDropdown = ({
                           rows={2}
                           className="mt-1"
                         />
+                      </div>
+                      
+                      {/* Couleur des icônes */}
+                      <div>
+                        <Label className="text-sm font-medium text-gray-700">Couleur des icônes</Label>
+                        <div className="mt-2">
+                          <ColorPicker
+                            value={block.iconColor || '#0ea5e9'}
+                            onChange={(value) => {
+                              const blocks = formData.iconBlocks || [];
+                              const updatedBlocks = blocks.map((b: any) => 
+                                b.id === block.id ? { ...b, iconColor: value } : b
+                              );
+                              updateField('iconBlocks', updatedBlocks);
+                            }}
+                            label=""
+                          />
+                        </div>
                       </div>
                       
                       {/* Mini-icônes */}
