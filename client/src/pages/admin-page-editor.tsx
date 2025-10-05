@@ -575,7 +575,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                 ) : displayTours.length > 0 ? (
                   // Affiche les vraies cartes de tours avec design "Our Popular Experiences" (badges de jours)
                   displayTours.map((tour, index) => {
-                    const bgColor = popularConfig.cardBackgroundColor || '#bfdbfe';
+                    const bgColor = popularConfig.cardButtonColor || '#2563eb';
                     const hasImage = !!tour.primaryImage;
                     
                     return (
@@ -691,14 +691,14 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                       <div 
                         className="relative h-48 overflow-hidden"
                         style={{ 
-                          background: `linear-gradient(to bottom right, ${hexToRgba(popularConfig.cardBackgroundColor || '#bfdbfe', 0.7)}, ${popularConfig.cardBackgroundColor || '#bfdbfe'})`
+                          background: `linear-gradient(to bottom right, ${hexToRgba(popularConfig.cardButtonColor || '#2563eb', 0.7)}, ${popularConfig.cardButtonColor || '#2563eb'})`
                         }}
                       >
                         <div className="absolute inset-0 bg-black/20"></div>
                         <div 
                           className="absolute inset-0"
                           style={{ 
-                            background: `linear-gradient(to bottom right, transparent, ${hexToRgba(popularConfig.cardBackgroundColor || '#bfdbfe', 0.3)})`
+                            background: `linear-gradient(to bottom right, transparent, ${hexToRgba(popularConfig.cardButtonColor || '#2563eb', 0.3)})`
                           }}
                         ></div>
                         <div className="absolute top-4 right-4 z-20">
@@ -920,14 +920,14 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                             <div 
                               className="h-48 relative overflow-hidden"
                               style={{ 
-                                background: `linear-gradient(to bottom right, ${hexToRgba(config.cardBackgroundColor || '#cbd5e1', 0.7)}, ${config.cardBackgroundColor || '#cbd5e1'})`
+                                background: `linear-gradient(to bottom right, ${hexToRgba(config.cardButtonColor || '#0ea5e9', 0.7)}, ${config.cardButtonColor || '#0ea5e9'})`
                               }}
                             >
                               <div className="absolute inset-0 bg-black/20"></div>
                               <div 
                                 className="absolute inset-0"
                                 style={{ 
-                                  background: `linear-gradient(to bottom right, transparent, ${hexToRgba(config.cardBackgroundColor || '#cbd5e1', 0.3)})`
+                                  background: `linear-gradient(to bottom right, transparent, ${hexToRgba(config.cardButtonColor || '#0ea5e9', 0.3)})`
                                 }}
                               ></div>
                             </div>
@@ -939,7 +939,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                               onError={(e) => {
                                 const target = e.target as HTMLImageElement;
                                 const parentDiv = target.parentElement;
-                                const bgColor = config.cardBackgroundColor || '#cbd5e1';
+                                const bgColor = config.cardButtonColor || '#0ea5e9';
                                 if (parentDiv) {
                                   target.remove();
                                   parentDiv.innerHTML = `
