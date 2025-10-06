@@ -334,28 +334,30 @@ export default function Home() {
                       )}
                       
                       <div className="flex gap-2">
-                        <button 
-                          onClick={() => {
-                            if (tour.detailsUrl) {
+                        {tour.detailsUrl && (
+                          <button 
+                            onClick={() => {
                               openIframe(tour.detailsUrl, `Détails - ${tour.name}`);
-                            }
-                          }}
-                          className="flex-1 border border-primary text-primary hover:bg-primary/10 py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
-                        >
-                          {common.viewDetails}
-                          <FiChevronRight className="h-3 w-3" />
-                        </button>
-                        <button 
-                          onClick={() => {
-                            if (tour.bookingUrl) {
+                            }}
+                            className="flex-1 border border-primary text-primary hover:bg-primary/10 py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
+                            data-testid={`button-view-details-${tour.id}`}
+                          >
+                            {common.viewDetails}
+                            <FiChevronRight className="h-3 w-3" />
+                          </button>
+                        )}
+                        {tour.bookingUrl && (
+                          <button 
+                            onClick={() => {
                               openIframe(tour.bookingUrl, `Booking - ${tour.name}`);
-                            }
-                          }}
-                          className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
-                        >
-                          {common.bookNow}
-                          <FiChevronRight className="h-3 w-3" />
-                        </button>
+                            }}
+                            className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
+                            data-testid={`button-book-now-${tour.id}`}
+                          >
+                            {common.bookNow}
+                            <FiChevronRight className="h-3 w-3" />
+                          </button>
+                        )}
                       </div>
                     </div>
                   </motion.div>
