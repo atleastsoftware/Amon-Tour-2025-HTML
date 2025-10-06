@@ -404,33 +404,128 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         );
       
       case 'text_image':
-        // Section Text simple
-        const textConfig = liveConfiguration || block.configuration || {};
+        // Section Text + Images complète
+        const textImagesConfig = liveConfiguration || block.configuration || {};
+        const sections = textImagesConfig.sections || [];
+        const images = textImagesConfig.images || [];
+        const buttons = textImagesConfig.buttons || [];
+        
         return (
-          <section className="py-20">
-            <div className="container mx-auto px-4 max-w-4xl text-center">
+          <section className="py-20" style={{ backgroundColor: textImagesConfig.backgroundColor || '#ffffff' }}>
+            <div className="container mx-auto px-4 max-w-6xl">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                <h2 
-                  className="font-heading font-bold text-3xl md:text-4xl mb-3"
-                  style={{ color: textConfig.titleColor || '#333333' }}
-                >
-                  {textConfig.title || block.configuration?.title || "Titre de la section"}
-                </h2>
-                <div 
-                  className="w-20 h-1 mx-auto mb-8"
-                  style={{ backgroundColor: textConfig.dividerColor || '#3BA8AF' }}
-                ></div>
-                <p 
-                  className="text-lg leading-relaxed"
-                  style={{ color: textConfig.contentColor || '#666666' }}
-                >
-                  {textConfig.content || block.configuration?.content || "Contenu du texte de cette section. Vous pouvez modifier ce texte dans l'éditeur."}
-                </p>
+                {/* Titre */}
+                <div className="text-center mb-12">
+                  <h2 
+                    className="font-heading font-bold text-3xl md:text-4xl mb-3"
+                    style={{ 
+                      color: textImagesConfig.titleColor || '#084F6E',
+                      whiteSpace: 'pre-line'
+                    }}
+                  >
+                    {textImagesConfig.title || "Who We Are"}
+                  </h2>
+                  <div 
+                    className="w-20 h-1 mx-auto"
+                    style={{ backgroundColor: textImagesConfig.dividerColor || '#3BA8AF' }}
+                  ></div>
+                </div>
+
+                {/* Introduction */}
+                {textImagesConfig.introduction && (
+                  <div className="mb-12 text-center max-w-4xl mx-auto">
+                    <p 
+                      className="text-lg leading-relaxed"
+                      style={{ 
+                        color: textImagesConfig.introColor || '#666666',
+                        whiteSpace: 'pre-line'
+                      }}
+                    >
+                      {textImagesConfig.introduction}
+                    </p>
+                  </div>
+                )}
+
+                {/* Sous-sections dynamiques avec images */}
+                <div className="space-y-16">
+                  {sections.map((section: any, index: number) => {
+                    const sectionImage = images.find((img: any) => img.sectionIndex === index);
+                    const isLeftImage = sectionImage?.position === 'left';
+                    
+                    return (
+                      <div key={index} className={`flex flex-col ${sectionImage ? 'md:flex-row' : ''} gap-8 items-center`}>
+                        {sectionImage && isLeftImage && (
+                          <div className="md:w-1/2">
+                            <img 
+                              src={sectionImage.url} 
+                              alt={sectionImage.alt || section.subtitle}
+                              className="w-full h-auto rounded-lg shadow-lg object-cover"
+                              style={{ maxHeight: '500px' }}
+                            />
+                          </div>
+                        )}
+                        
+                        <div className={sectionImage ? 'md:w-1/2' : 'max-w-4xl mx-auto'}>
+                          <h3 
+                            className="font-heading font-bold text-2xl md:text-3xl mb-4"
+                            style={{ color: textImagesConfig.subtitleColor || '#084F6E' }}
+                          >
+                            {section.subtitle}
+                          </h3>
+                          <p 
+                            className="text-lg leading-relaxed"
+                            style={{ 
+                              color: textImagesConfig.textColor || '#666666',
+                              whiteSpace: 'pre-line'
+                            }}
+                          >
+                            {section.text}
+                          </p>
+                        </div>
+
+                        {sectionImage && !isLeftImage && (
+                          <div className="md:w-1/2">
+                            <img 
+                              src={sectionImage.url} 
+                              alt={sectionImage.alt || section.subtitle}
+                              className="w-full h-auto rounded-lg shadow-lg object-cover"
+                              style={{ maxHeight: '500px' }}
+                            />
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Boutons */}
+                {buttons.length > 0 && (
+                  <div className="flex flex-wrap gap-4 justify-center mt-12">
+                    {buttons.map((button: any, index: number) => (
+                      <a
+                        key={index}
+                        href={button.url || '#'}
+                        className={`px-8 py-3 rounded transition-colors inline-block ${
+                          button.style === 'filled' 
+                            ? 'text-white hover:opacity-90' 
+                            : 'bg-transparent border-2 hover:bg-opacity-10'
+                        }`}
+                        style={{
+                          backgroundColor: button.style === 'filled' ? (button.color || '#084F6E') : 'transparent',
+                          borderColor: button.style === 'outline' ? (button.color || '#084F6E') : 'transparent',
+                          color: button.style === 'outline' ? (button.color || '#084F6E') : '#ffffff'
+                        }}
+                      >
+                        {button.text}
+                      </a>
+                    ))}
+                  </div>
+                )}
               </motion.div>
             </div>
           </section>
@@ -1832,53 +1927,436 @@ const BlockEditDropdown = ({
         );
 
       case 'text_image':
+        // Initialiser avec valeurs par défaut
+        const defaultTextImagesData = {
+          title: 'Who We Are',
+          introduction: "We are Eric, Margaux, Gabriel, and Raphaël, a French family living in Krabi, southern Thailand, since 2013.\n\nFrom our life here, we created Amon Tour — a small, independent travel agency built on a simple idea: personally welcome our travelers to Krabi and offer them a different way to experience Thailand.",
+          sections: [
+            {
+              subtitle: 'Deep Local Roots',
+              text: "We live here year-round, in the heart of the region we love. This close connection to the destination allows us to offer exclusive experiences in Krabi, designed and guided by our team of professional local guides or trusted partners.\n\nYou're not booking a generic tour — you're being welcomed, guided, and cared for by people who live here, who know the tides, the seasons, the crowds to avoid, and the hidden gems worth discovering."
+            },
+            {
+              subtitle: 'Our Concept',
+              text: "Combine the warmth and proximity of a local agency in Krabi with the expertise of a tailor-made travel designer for all of Thailand. At Amon Tour, you're supported before, during, and after your trip. You're in contact with real people – a face, a voice, a team – not a call center or an algorithm. We're here, on the ground, to make your trip a seamless, personal, and unforgettable experience."
+            }
+          ],
+          images: [],
+          buttons: [
+            { text: 'Contact Us', url: '/contact', color: '#084F6E', style: 'filled' },
+            { text: 'Create Your Journey →', url: '/custom-tour', color: '#084F6E', style: 'outline' }
+          ]
+        };
+        
+        // Si les données n'existent pas encore, les initialiser
+        if (!formData.title && !formData.sections) {
+          Object.keys(defaultTextImagesData).forEach(key => {
+            updateField(key, defaultTextImagesData[key as keyof typeof defaultTextImagesData]);
+          });
+        }
+        
+        const textSections = formData.sections || defaultTextImagesData.sections;
+        const textImages = formData.images || defaultTextImagesData.images;
+        const textButtons = formData.buttons || defaultTextImagesData.buttons;
+        
         return (
           <div className="space-y-6">
             {/* Titre */}
             <div>
-              <Label htmlFor="title">Titre</Label>
-              <Input 
+              <Label htmlFor="title">Titre principal</Label>
+              <Textarea 
                 id="title"
-                value={formData.title || block.configuration?.title || 'Titre de la section'} 
+                value={formData.title || defaultTextImagesData.title} 
                 onChange={e => updateField('title', e.target.value)}
-                placeholder="Titre de la section"
+                placeholder="Who We Are"
+                rows={2}
                 className="mt-2"
               />
               <div className="mt-3">
+                <Label className="text-sm">Couleur du titre</Label>
                 <ColorPicker
-                  value={formData.titleColor || '#333333'}
+                  value={formData.titleColor || '#084F6E'}
                   onChange={(value) => updateField('titleColor', value)}
                 />
               </div>
             </div>
-            
-            {/* Contenu */}
+
+            {/* Introduction */}
             <div>
-              <Label htmlFor="content">Contenu</Label>
+              <Label htmlFor="introduction">Introduction</Label>
               <Textarea 
-                id="content"
-                value={formData.content || block.configuration?.content || 'Contenu du texte de cette section. Vous pouvez modifier ce texte dans l\'éditeur.'} 
-                onChange={e => updateField('content', e.target.value)}
-                placeholder="Contenu du texte de cette section..."
+                id="introduction"
+                value={formData.introduction || defaultTextImagesData.introduction} 
+                onChange={e => updateField('introduction', e.target.value)}
+                placeholder="Texte d'introduction..."
                 rows={4}
                 className="mt-2"
               />
               <div className="mt-3">
+                <Label className="text-sm">Couleur de l'introduction</Label>
                 <ColorPicker
-                  value={formData.contentColor || '#666666'}
-                  onChange={(value) => updateField('contentColor', value)}
+                  value={formData.introColor || '#666666'}
+                  onChange={(value) => updateField('introColor', value)}
                 />
               </div>
             </div>
 
-            {/* Tiret */}
+            {/* Couleur du trait de séparation */}
             <div>
-              <Label htmlFor="divider">Tiret</Label>
-              <div className="mt-3">
+              <Label>Couleur du trait de séparation</Label>
+              <div className="mt-2">
                 <ColorPicker
                   value={formData.dividerColor || '#3BA8AF'}
                   onChange={(value) => updateField('dividerColor', value)}
                 />
+              </div>
+            </div>
+
+            {/* Sous-sections dynamiques */}
+            <div className="border-t pt-4 mt-6">
+              <div className="flex items-center justify-between mb-4">
+                <Label className="text-base font-semibold">Sous-sections</Label>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const newSection = {
+                      subtitle: 'Nouveau sous-titre',
+                      text: 'Nouveau texte...'
+                    };
+                    updateField('sections', [...textSections, newSection]);
+                  }}
+                  className="px-3 py-1 rounded text-sm"
+                  style={{ 
+                    backgroundColor: THEME_COLORS.secondary,
+                    color: 'white'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryHover;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
+                  }}
+                >
+                  <Plus size={14} className="inline mr-1" />
+                  Ajouter une sous-section
+                </button>
+              </div>
+
+              <div className="space-y-4 max-h-96 overflow-y-auto pr-2">
+                {textSections.map((section: any, index: number) => (
+                  <div key={index} className="border-2 border-gray-300 rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-3">
+                      <Label className="text-sm font-medium">Sous-section {index + 1}</Label>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const updated = textSections.filter((_: any, i: number) => i !== index);
+                          updateField('sections', updated);
+                        }}
+                        className="px-2 py-1 rounded text-sm"
+                        style={{ 
+                          backgroundColor: THEME_COLORS.secondary,
+                          color: 'white'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryHover;
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
+                        }}
+                      >
+                        Supprimer
+                      </button>
+                    </div>
+
+                    <div className="space-y-3">
+                      <div>
+                        <Label className="text-sm">Sous-titre</Label>
+                        <Input 
+                          value={section.subtitle || ''} 
+                          onChange={e => {
+                            const updated = [...textSections];
+                            updated[index].subtitle = e.target.value;
+                            updateField('sections', updated);
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-sm">Texte</Label>
+                        <Textarea 
+                          value={section.text || ''} 
+                          onChange={e => {
+                            const updated = [...textSections];
+                            updated[index].text = e.target.value;
+                            updateField('sections', updated);
+                          }}
+                          rows={4}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-4">
+                <Label className="text-sm">Couleur des sous-titres</Label>
+                <ColorPicker
+                  value={formData.subtitleColor || '#084F6E'}
+                  onChange={(value) => updateField('subtitleColor', value)}
+                />
+              </div>
+
+              <div className="mt-4">
+                <Label className="text-sm">Couleur du texte</Label>
+                <ColorPicker
+                  value={formData.textColor || '#666666'}
+                  onChange={(value) => updateField('textColor', value)}
+                />
+              </div>
+            </div>
+
+            {/* Images */}
+            <div className="border-t pt-4 mt-6">
+              <div className="flex items-center justify-between mb-4">
+                <Label className="text-base font-semibold">Images</Label>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const input = document.createElement('input');
+                    input.type = 'file';
+                    input.accept = 'image/*';
+                    input.onchange = (e) => {
+                      const file = (e.target as HTMLInputElement).files?.[0];
+                      if (file) {
+                        const url = URL.createObjectURL(file);
+                        const newImage = {
+                          url,
+                          alt: '',
+                          sectionIndex: 0,
+                          position: 'left'
+                        };
+                        updateField('images', [...textImages, newImage]);
+                      }
+                    };
+                    input.click();
+                  }}
+                  className="px-3 py-1 rounded text-sm"
+                  style={{ 
+                    backgroundColor: THEME_COLORS.secondary,
+                    color: 'white'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryHover;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
+                  }}
+                >
+                  <Plus size={14} className="inline mr-1" />
+                  Ajouter une image
+                </button>
+              </div>
+
+              <div className="space-y-3">
+                {textImages.map((image: any, index: number) => (
+                  <div key={index} className="border-2 border-gray-300 rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-3">
+                      <Label className="text-sm font-medium">Image {index + 1}</Label>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const updated = textImages.filter((_: any, i: number) => i !== index);
+                          updateField('images', updated);
+                        }}
+                        className="px-2 py-1 rounded text-sm"
+                        style={{ 
+                          backgroundColor: THEME_COLORS.secondary,
+                          color: 'white'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryHover;
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
+                        }}
+                      >
+                        Supprimer
+                      </button>
+                    </div>
+
+                    <div className="space-y-3">
+                      <div>
+                        <Label className="text-sm">URL de l'image</Label>
+                        <Input 
+                          value={image.url || ''} 
+                          onChange={e => {
+                            const updated = [...textImages];
+                            updated[index].url = e.target.value;
+                            updateField('images', updated);
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-sm">Texte alternatif</Label>
+                        <Input 
+                          value={image.alt || ''} 
+                          onChange={e => {
+                            const updated = [...textImages];
+                            updated[index].alt = e.target.value;
+                            updateField('images', updated);
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-sm">Associer à la sous-section</Label>
+                        <select 
+                          value={image.sectionIndex || 0}
+                          onChange={e => {
+                            const updated = [...textImages];
+                            updated[index].sectionIndex = parseInt(e.target.value);
+                            updateField('images', updated);
+                          }}
+                          className="w-full p-2 border rounded"
+                        >
+                          {textSections.map((section: any, sIndex: number) => (
+                            <option key={sIndex} value={sIndex}>
+                              {section.subtitle || `Section ${sIndex + 1}`}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      <div>
+                        <Label className="text-sm">Position</Label>
+                        <select 
+                          value={image.position || 'left'}
+                          onChange={e => {
+                            const updated = [...textImages];
+                            updated[index].position = e.target.value;
+                            updateField('images', updated);
+                          }}
+                          className="w-full p-2 border rounded"
+                        >
+                          <option value="left">Gauche</option>
+                          <option value="right">Droite</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Boutons */}
+            <div className="border-t pt-4 mt-6">
+              <div className="flex items-center justify-between mb-4">
+                <Label className="text-base font-semibold">Boutons</Label>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const newButton = {
+                      text: 'Nouveau bouton',
+                      url: '#',
+                      color: '#084F6E',
+                      style: 'filled'
+                    };
+                    updateField('buttons', [...textButtons, newButton]);
+                  }}
+                  className="px-3 py-1 rounded text-sm"
+                  style={{ 
+                    backgroundColor: THEME_COLORS.secondary,
+                    color: 'white'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryHover;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
+                  }}
+                >
+                  <Plus size={14} className="inline mr-1" />
+                  Ajouter un bouton
+                </button>
+              </div>
+
+              <div className="space-y-3">
+                {textButtons.map((button: any, index: number) => (
+                  <div key={index} className="border-2 border-gray-300 rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-3">
+                      <Label className="text-sm font-medium">Bouton {index + 1}</Label>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const updated = textButtons.filter((_: any, i: number) => i !== index);
+                          updateField('buttons', updated);
+                        }}
+                        className="px-2 py-1 rounded text-sm"
+                        style={{ 
+                          backgroundColor: THEME_COLORS.secondary,
+                          color: 'white'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryHover;
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
+                        }}
+                      >
+                        Supprimer
+                      </button>
+                    </div>
+
+                    <div className="space-y-3">
+                      <div>
+                        <Label className="text-sm">Texte du bouton</Label>
+                        <Input 
+                          value={button.text || ''} 
+                          onChange={e => {
+                            const updated = [...textButtons];
+                            updated[index].text = e.target.value;
+                            updateField('buttons', updated);
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-sm">URL</Label>
+                        <Input 
+                          value={button.url || ''} 
+                          onChange={e => {
+                            const updated = [...textButtons];
+                            updated[index].url = e.target.value;
+                            updateField('buttons', updated);
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-sm">Style</Label>
+                        <select 
+                          value={button.style || 'filled'}
+                          onChange={e => {
+                            const updated = [...textButtons];
+                            updated[index].style = e.target.value;
+                            updateField('buttons', updated);
+                          }}
+                          className="w-full p-2 border rounded"
+                        >
+                          <option value="filled">Plein</option>
+                          <option value="outline">Contour</option>
+                        </select>
+                      </div>
+                      <div>
+                        <Label className="text-sm">Couleur</Label>
+                        <ColorPicker
+                          value={button.color || '#084F6E'}
+                          onChange={(value) => {
+                            const updated = [...textButtons];
+                            updated[index].color = value;
+                            updateField('buttons', updated);
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
