@@ -165,6 +165,7 @@ app.use((req, res, next) => {
         log("Pre-loading Tour Ninja tours into cache...");
         try {
           const nodeFetch = (await import('node-fetch')).default;
+          const { tourCache } = await import('./tourCache');
           const apiKey = "tourninja-showcase-2-amontour";
           const companyId = "2";
           const url = `https://www.tourninja.io/api/public/tours?apiKey=${apiKey}&companyId=${companyId}&limit=100`;
@@ -181,9 +182,46 @@ app.use((req, res, next) => {
             const data = JSON.parse(text);
             
             if (data.success && data.tours && data.tours.length > 0) {
-              // The cache will be populated by the first request to /api/proxy/tours
-              // We just warm up the API connection here
-              log(`Tour Ninja API warmed up - ${data.tours.length} tours available`);
+              // Process and cache the tours data like the main route does
+              const tours = data.tours.map((tour: any) => {
+                const hasImage = !!(tour.image || tour.primaryImage);
+                const cachedImage = tour.image || tour.primaryImage || null;
+                const imageUrl = hasImage ? `/api/image-proxy/${tour.id}/presentation` : null;
+                
+                return {
+                  id: tour.id,
+                  name: tour.name || tour.title,
+                  description: tour.description || '',
+                  shortDescription: tour.description ? tour.description.substring(0, 150) + '...' : '',
+                  images: imageUrl ? [imageUrl] : [],
+                  primaryImage: imageUrl,
+                  fallbackImage: imageUrl,
+                  presentationImageUrl: imageUrl,
+                  originalPrimaryImage: imageUrl,
+                  price: tour.price || 0,
+                  currency: tour.currency || 'THB',
+                  duration: tour.duration || 1,
+                  location: tour.destination || 'Krabi, Thailand',
+                  bookingUrl: tour.bookingUrl || tour.url || `https://www.tourninja.io/book/${tour.id}`,
+                  detailsUrl: tour.detailsUrl || tour.url || `https://www.tourninja.io/details/${tour.id}`,
+                  presentationUrl: tour.detailsUrl || tour.url || `https://www.tourninja.io/details/${tour.id}`,
+                  externalId: tour.id,
+                  slug: tour.slug || tour.name?.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+                  tourType: tour.tourType || 'group',
+                  maxParticipants: tour.maxParticipants || 12,
+                  isActive: true,
+                  category: tour.category || '',
+                  tags: tour.tags || [],
+                  maxGuests: tour.maxParticipants || 12,
+                  minGuests: 1,
+                  _serverCachedImage: cachedImage
+                };
+              });
+              
+              // Populate the cache
+              tourCache.data = tours;
+              tourCache.timestamp = Date.now();
+              log(`Tour Ninja cache pre-loaded with ${tours.length} tours`);
             }
           }
         } catch (error) {

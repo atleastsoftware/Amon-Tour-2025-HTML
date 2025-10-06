@@ -1899,12 +1899,8 @@ Crawl-delay: 1`;
     }
   });
 
-  // In-memory cache for Tour Ninja data (24 hours TTL)
-  let tourCache = {
-    data: null as any,
-    timestamp: 0,
-    TTL: 24 * 60 * 60 * 1000 // 24 hours in milliseconds - very aggressive caching for better performance
-  };
+  // Import shared Tour Ninja cache - using dynamic import due to module context
+  const { tourCache } = await import('./tourCache');
 
   // Don't clear cache on startup - let it fetch when needed
   // tourCache.data = null;
