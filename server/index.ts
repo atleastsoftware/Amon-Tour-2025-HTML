@@ -161,6 +161,36 @@ app.use((req, res, next) => {
           await migrateTours();
         }
         
+        // Pre-load Tour Ninja tours into cache for better performance
+        log("Pre-loading Tour Ninja tours into cache...");
+        try {
+          const nodeFetch = (await import('node-fetch')).default;
+          const apiKey = "tourninja-showcase-2-amontour";
+          const companyId = "2";
+          const url = `https://www.tourninja.io/api/public/tours?apiKey=${apiKey}&companyId=${companyId}&limit=100`;
+          
+          const response = await nodeFetch(url, {
+            method: 'GET',
+            headers: {
+              'Accept': 'application/json'
+            }
+          });
+          
+          if (response.ok) {
+            const text = await response.text();
+            const data = JSON.parse(text);
+            
+            if (data.success && data.tours && data.tours.length > 0) {
+              // The cache will be populated by the first request to /api/proxy/tours
+              // We just warm up the API connection here
+              log(`Tour Ninja API warmed up - ${data.tours.length} tours available`);
+            }
+          }
+        } catch (error) {
+          log(`Failed to pre-load Tour Ninja tours (non-critical): ${error}`);
+          // This is not critical, the cache will be populated on first request
+        }
+        
         log("Initialization tasks completed successfully");
       } catch (error) {
         log(`Error during initialization: ${error}`);
