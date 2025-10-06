@@ -2196,10 +2196,8 @@ Crawl-delay: 1`;
           // Store base64 image in server cache but don't send to client
           const hasImage = !!(tour.image || tour.primaryImage);
           
-          // Store the base64 image in a separate cache for server-side use only
-          if (!tour._cachedBase64) {
-            tour._cachedBase64 = tour.image || tour.primaryImage || null;
-          }
+          // Store the base64 image in server-side cache only
+          const cachedImage = tour.image || tour.primaryImage || null;
           
           // For client, use image proxy URL instead of base64 to improve performance
           const imageUrl = hasImage ? `/api/image-proxy/${tour.id}/presentation` : null;
@@ -2238,7 +2236,7 @@ Crawl-delay: 1`;
             maxGuests: tour.maxParticipants || 12,
             minGuests: 1,
             // Keep base64 in server cache but not sent to client
-            _serverCachedImage: tour._cachedBase64
+            _serverCachedImage: cachedImage
           };
         });
       } else if (Array.isArray(apiResponse)) {
