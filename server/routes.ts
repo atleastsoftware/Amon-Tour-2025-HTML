@@ -1899,11 +1899,11 @@ Crawl-delay: 1`;
     }
   });
 
-  // In-memory cache for Tour Ninja data (6 hours TTL)
+  // In-memory cache for Tour Ninja data (24 hours TTL)
   let tourCache = {
     data: null as any,
     timestamp: 0,
-    TTL: 6 * 60 * 60 * 1000 // 6 hours in milliseconds
+    TTL: 24 * 60 * 60 * 1000 // 24 hours in milliseconds - very aggressive caching for better performance
   };
 
   // Don't clear cache on startup - let it fetch when needed
@@ -1930,7 +1930,50 @@ Crawl-delay: 1`;
     });
   });
 
-  // Image proxy for Tour Ninja images
+  // New route to serve cached Tour Ninja images from server memory for better performance
+  app.get('/api/image-proxy/:tourId/presentation', async (req, res) => {
+    try {
+      const { tourId } = req.params;
+      
+      // Check if we have cached tour data with base64 image
+      if (tourCache.data && Array.isArray(tourCache.data)) {
+        const tour = tourCache.data.find((t: any) => t.id === tourId);
+        
+        if (tour && tour._serverCachedImage) {
+          // Extract base64 image data
+          const base64Data = tour._serverCachedImage;
+          
+          // Check if it's a data URL
+          if (base64Data.startsWith('data:')) {
+            const matches = base64Data.match(/^data:([^;]+);base64,(.+)$/);
+            if (matches) {
+              const mimeType = matches[1];
+              const imageData = matches[2];
+              const imageBuffer = Buffer.from(imageData, 'base64');
+              
+              // Set appropriate headers
+              res.set('Content-Type', mimeType);
+              res.set('Cache-Control', 'public, max-age=86400'); // Cache for 24 hours
+              res.set('Access-Control-Allow-Origin', '*');
+              
+              // Send the image
+              return res.send(imageBuffer);
+            }
+          }
+        }
+      }
+      
+      // If no cached image, return a placeholder or 404
+      console.log(`No cached image for tour ${tourId}`);
+      return res.status(404).json({ error: 'Image not found in cache' });
+      
+    } catch (error) {
+      console.error('Image proxy error for tour:', req.params.tourId, error);
+      res.status(500).json({ error: 'Failed to serve cached image' });
+    }
+  });
+
+  // Image proxy for Tour Ninja images (legacy route)
   app.get('/api/proxy/image', async (req, res) => {
     try {
       const imageUrl = req.query.url as string;
@@ -2044,6 +2087,21 @@ Crawl-delay: 1`;
         tourCache.timestamp = 0;
       }
 
+      // Check if cache is still valid
+      const cacheAge = Date.now() - tourCache.timestamp;
+      const isCacheValid = tourCache.data && cacheAge < tourCache.TTL && !forceFresh;
+      
+      if (isCacheValid) {
+        console.log(`Returning cached data (age: ${Math.round(cacheAge / 1000)}s, TTL: ${Math.round(tourCache.TTL / 1000)}s)`);
+        return res.json({
+          success: true,
+          data: tourCache.data,
+          cached: true,
+          cacheAge: cacheAge,
+          timestamp: tourCache.timestamp
+        });
+      }
+
       // Try both API endpoints for maximum compatibility
       const useApiKey = !!(process.env.TOUR_NINJA_API_KEY && process.env.TOUR_NINJA_COMPANY_ID);
       const primaryUrl = useApiKey 
@@ -2051,11 +2109,12 @@ Crawl-delay: 1`;
         : `https://www.tourninja.io/api/public/tours/legacy?companyId=${companyId}`;
       const fallbackUrl = `https://www.tourninja.io/api/public/tours/legacy?companyId=${companyId}`;
       
-      console.log("Fetching fresh data from Tour Ninja API", {
+      console.log("Fetching fresh data from Tour Ninja API (cache expired or invalid)", {
         url: primaryUrl,
         useApiKey,
         environment: process.env.NODE_ENV,
-        hostname: req.hostname
+        hostname: req.hostname,
+        cacheAge: Math.round(cacheAge / 1000) + "s"
       });
       
       let response;
@@ -2134,12 +2193,21 @@ Crawl-delay: 1`;
       // The legacy API returns an object with tours array - structure confirmed by Tour Ninja agent
       if (apiResponse.success && apiResponse.tours && Array.isArray(apiResponse.tours)) {
         tours = apiResponse.tours.map((tour: any) => {
-          // Use TourNinja images when available
-          const primaryImage = tour.image || tour.primaryImage || null;
-          if (primaryImage) {
-            console.log(`Tour ${tour.name}: Using TourNinja image (${primaryImage.substring(0, 50)}...)`);
+          // Store base64 image in server cache but don't send to client
+          const hasImage = !!(tour.image || tour.primaryImage);
+          
+          // Store the base64 image in a separate cache for server-side use only
+          if (!tour._cachedBase64) {
+            tour._cachedBase64 = tour.image || tour.primaryImage || null;
+          }
+          
+          // For client, use image proxy URL instead of base64 to improve performance
+          const imageUrl = hasImage ? `/api/image-proxy/${tour.id}/presentation` : null;
+          
+          if (hasImage) {
+            console.log(`Tour ${tour.name}: Will use image proxy URL`);
           } else {
-            console.log(`Tour ${tour.name}: No image available from TourNinja`);
+            console.log(`Tour ${tour.name}: No image available`);
           }
           
           return {
@@ -2147,11 +2215,12 @@ Crawl-delay: 1`;
             name: tour.name || tour.title,
             description: tour.description || '',
             shortDescription: tour.description ? tour.description.substring(0, 150) + '...' : '',
-            images: primaryImage ? [primaryImage] : [],
-            primaryImage: primaryImage,
-            fallbackImage: primaryImage,
-            presentationImageUrl: primaryImage,
-            originalPrimaryImage: primaryImage,
+            // IMPORTANT: Don't send base64 images to client - use proxy URLs instead for better performance
+            images: imageUrl ? [imageUrl] : [],
+            primaryImage: imageUrl,
+            fallbackImage: imageUrl,
+            presentationImageUrl: imageUrl,
+            originalPrimaryImage: imageUrl,
             price: tour.price || 0,
             currency: tour.currency || 'THB',
             duration: tour.duration || 1,
@@ -2168,6 +2237,8 @@ Crawl-delay: 1`;
             tags: tour.tags || [],
             maxGuests: tour.maxParticipants || 12,
             minGuests: 1,
+            // Keep base64 in server cache but not sent to client
+            _serverCachedImage: tour._cachedBase64
           };
         });
       } else if (Array.isArray(apiResponse)) {
