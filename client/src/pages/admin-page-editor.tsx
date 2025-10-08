@@ -868,7 +868,16 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
       case 'custom_tour_form':
         const customFormTitle = block.title || 'Our Tailor-made trips';
         const customFormSubtitle = block.subtitle || 'Design your own journey through Thailand with our tailor-made stays: from cultural discoveries and family adventures to romantic getaways and island escapes. Every itinerary is crafted to match your wishes, offering authentic experiences, quality services, and a unique immersion far from mass tourism.';
-        return <CustomTourForm title={customFormTitle} subtitle={customFormSubtitle} />;
+        const customFormConfig = block.configuration || {};
+        return (
+          <CustomTourForm 
+            title={customFormTitle} 
+            subtitle={customFormSubtitle}
+            titleColor={customFormConfig.titleColor}
+            subtitleColor={customFormConfig.subtitleColor}
+            dividerColor={customFormConfig.dividerColor}
+          />
+        );
 
       case 'tour_ninja_section':
         // Section "Some Ideas For Your Next Trip" - Card Grid Price avec badges de prix
@@ -4375,7 +4384,7 @@ const BlockEditDropdown = ({
         return (
           <div className="space-y-4">
             <div>
-              <Label htmlFor="title">Titre du header (au-dessus du formulaire)</Label>
+              <Label htmlFor="title">Titre</Label>
               <Input 
                 id="title"
                 value={formData.title || 'Our Tailor-made trips'} 
@@ -4383,14 +4392,39 @@ const BlockEditDropdown = ({
                 placeholder="Our Tailor-made trips"
               />
             </div>
+            
             <div>
-              <Label htmlFor="subtitle">Sous-titre du header</Label>
+              <Label htmlFor="titleColor">Couleur du titre</Label>
+              <ColorPicker
+                value={formData.titleColor || '#1f2937'}
+                onChange={(value) => updateField('titleColor', value)}
+              />
+            </div>
+            
+            <div>
+              <Label htmlFor="divider">Tiret</Label>
+              <ColorPicker
+                value={formData.dividerColor || '#3BA8AF'}
+                onChange={(value) => updateField('dividerColor', value)}
+              />
+            </div>
+            
+            <div>
+              <Label htmlFor="subtitle">Sous-titre</Label>
               <Textarea 
                 id="subtitle"
                 value={formData.subtitle || 'Design your own journey through Thailand with our tailor-made stays: from cultural discoveries and family adventures to romantic getaways and island escapes. Every itinerary is crafted to match your wishes, offering authentic experiences, quality services, and a unique immersion far from mass tourism.'} 
                 onChange={e => updateField('subtitle', e.target.value)}
                 rows={4}
                 placeholder="Design your own journey through Thailand..."
+              />
+            </div>
+            
+            <div>
+              <Label htmlFor="subtitleColor">Couleur du sous-titre</Label>
+              <ColorPicker
+                value={formData.subtitleColor || '#6b7280'}
+                onChange={(value) => updateField('subtitleColor', value)}
               />
             </div>
             
