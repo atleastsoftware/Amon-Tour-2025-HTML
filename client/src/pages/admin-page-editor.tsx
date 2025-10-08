@@ -2,16 +2,17 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
 import { ArrowLeft, Edit, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Save, Undo, Trash2, AlertTriangle, Plus, ExternalLink, ChevronRight, Users, Compass, Sparkles, Star, Heart, FormInput } from 'lucide-react';
 import TourNinjaCard from '@/components/tour/TourNinjaCard';
 import { useTourNinja } from '@/hooks/useTourNinja';
 
 // Couleurs principales du thème
 const THEME_COLORS = {
-  primary: '#084F6E',
-  secondary: '#3BA8AF',
-  secondaryLight: 'rgba(59, 168, 175, 0.1)',
-  secondaryHover: '#2e8a91' // Version plus foncée pour hover
+  primary: '#1e73be',
+  secondary: '#E6B64C',
+  secondaryLight: 'rgba(230, 182, 76, 0.1)',
+  secondaryHover: '#d4a33e' // Version plus foncée pour hover
 };
 
 // Fonction helper pour convertir hex en rgba
