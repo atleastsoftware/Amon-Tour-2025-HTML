@@ -673,6 +673,7 @@ export default function AdminEditorForm() {
       apiRequest('PUT', `/api/admin/custom-forms/${id}`, formData),
     onSuccess: (data, variables) => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/custom-forms'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/custom-forms', variables.id] });
       
       // Vérifier si on doit retourner à l'éditeur de page
       if (navigationContext?.returnToPage) {
