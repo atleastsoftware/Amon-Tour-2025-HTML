@@ -1408,8 +1408,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         const whoImages = whoWeAreConfig.images || [];
         const whoButtons = whoWeAreConfig.buttons || [];
         const imagesPosition = whoWeAreConfig.layoutStyle || 'right'; // 'left' ou 'right'
-        const showTitleDivider = whoWeAreConfig.showTitleDivider !== false;
-        const titleDividerAlign = whoWeAreConfig.titleDividerAlign || (imagesPosition === 'right' ? 'left' : 'right');
+        const titleDividerAlign = imagesPosition === 'right' ? 'left' : 'right';
         
         return (
           <section className="py-16" style={{ backgroundColor: whoWeAreConfig.backgroundColor || '#ffffff' }}>
@@ -1425,12 +1424,10 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                     >
                       {whoWeAreConfig.title || "Who We Are"}
                     </h2>
-                    {showTitleDivider && (
-                      <div 
-                        className={`w-20 h-1 ${titleDividerAlign === 'left' ? '' : 'ml-auto'}`}
-                        style={{ backgroundColor: whoWeAreConfig.dividerColor || '#3BA8AF' }}
-                      ></div>
-                    )}
+                    <div 
+                      className={`w-20 h-1 ${titleDividerAlign === 'left' ? '' : 'ml-auto'}`}
+                      style={{ backgroundColor: whoWeAreConfig.dividerColor || '#3BA8AF' }}
+                    ></div>
                   </div>
                   
                   {/* Introduction */}
@@ -3751,39 +3748,12 @@ const BlockEditDropdown = ({
                 />
               </div>
               
-              {/* Options du tiret sous le titre */}
-              <div className="mt-4 p-3 border rounded-lg bg-gray-50">
-                <div className="flex items-center justify-between mb-2">
-                  <Label className="text-sm">Afficher le tiret sous le titre</Label>
-                  <input
-                    type="checkbox"
-                    checked={formData.showTitleDivider !== false}
-                    onChange={e => updateField('showTitleDivider', e.target.checked)}
-                    className="w-4 h-4"
-                  />
-                </div>
-                {formData.showTitleDivider !== false && (
-                  <>
-                    <div className="mt-2">
-                      <Label className="text-sm">Alignement du tiret</Label>
-                      <select 
-                        value={formData.titleDividerAlign || (formData.layoutStyle === 'right' ? 'left' : 'right')}
-                        onChange={e => updateField('titleDividerAlign', e.target.value)}
-                        className="w-full p-2 border rounded mt-1"
-                      >
-                        <option value="left">À gauche</option>
-                        <option value="right">À droite</option>
-                      </select>
-                    </div>
-                    <div className="mt-2">
-                      <Label className="text-sm">Couleur du tiret</Label>
-                      <ColorPicker
-                        value={formData.dividerColor || '#3BA8AF'}
-                        onChange={(value) => updateField('dividerColor', value)}
-                      />
-                    </div>
-                  </>
-                )}
+              <div className="mt-3">
+                <Label className="text-sm">Couleur du tiret</Label>
+                <ColorPicker
+                  value={formData.dividerColor || '#3BA8AF'}
+                  onChange={(value) => updateField('dividerColor', value)}
+                />
               </div>
             </div>
 
