@@ -273,6 +273,14 @@ interface PageConfiguration {
   updatedAt: Date;
 }
 
+// System colors for form preview
+const SYSTEM_COLORS = {
+  primary: '#084F6E',
+  secondary: '#3BA8AF',
+  white: '#ffffff',
+  black: '#000000',
+};
+
 // Dynamic Form Block Preview Component
 interface DynamicFormBlockPreviewProps {
   title?: string;
@@ -286,6 +294,161 @@ function DynamicFormBlockPreview({ title, subtitle, formId }: DynamicFormBlockPr
     queryFn: () => formId ? fetch(`/api/admin/custom-forms/${formId}`).then(res => res.json()) : null,
     enabled: !!formId,
   });
+
+  // Fonction pour résoudre la couleur (convertit 'primary' en '#084F6E', etc.)
+  const resolveColor = (colorValue: string) => {
+    return SYSTEM_COLORS[colorValue as keyof typeof SYSTEM_COLORS] || colorValue;
+  };
+
+  const renderFieldPreview = (field: any) => {
+    const fieldStyle = {
+      marginBottom: `${field.style?.marginBottom || 16}px`
+    };
+
+    switch (field.type) {
+      case 'text':
+      case 'email':
+      case 'phone':
+      case 'number':
+        return (
+          <div className="w-full" style={fieldStyle}>
+            <label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
+              {field.label}{field.required ? ' *' : ''}
+            </label>
+            <input 
+              placeholder={field.placeholder} 
+              type={field.type} 
+              style={{ color: resolveColor(formData.textColor) }}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              disabled
+            />
+          </div>
+        );
+        
+      case 'textarea':
+        return (
+          <div className="w-full" style={fieldStyle}>
+            <label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
+              {field.label}{field.required ? ' *' : ''}
+            </label>
+            <textarea 
+              placeholder={field.placeholder} 
+              rows={4} 
+              style={{ color: resolveColor(formData.textColor) }}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              disabled
+            />
+          </div>
+        );
+        
+      case 'select':
+        return (
+          <div className="w-full" style={fieldStyle}>
+            <label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
+              {field.label}{field.required ? ' *' : ''}
+            </label>
+            <select 
+              style={{ color: resolveColor(formData.textColor) }}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              disabled
+            >
+              <option>{field.placeholder || "Select an option"}</option>
+              {field.options?.map((option: string, index: number) => (
+                <option key={index} value={option}>{option}</option>
+              ))}
+            </select>
+          </div>
+        );
+        
+      case 'checkbox':
+        return (
+          <div className="w-full" style={fieldStyle}>
+            <label className="mb-4 block" style={{ color: resolveColor(formData.textColor) }}>
+              {field.label}{field.required ? ' *' : ''}
+            </label>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+              {field.options?.map((option: string, index: number) => (
+                <div key={index} className="flex flex-row items-start space-x-3 space-y-0">
+                  <input 
+                    type="checkbox"
+                    id={`${field.id}-${index}`}
+                    className="rounded"
+                    disabled
+                  />
+                  <label 
+                    htmlFor={`${field.id}-${index}`}
+                    style={{ color: resolveColor(formData.textColor) }}
+                    className="text-sm font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    {option}
+                  </label>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+        
+      case 'radio':
+        return (
+          <div className="w-full" style={fieldStyle}>
+            <label className="mb-4 block" style={{ color: resolveColor(formData.textColor) }}>
+              {field.label}{field.required ? ' *' : ''}
+            </label>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+              {field.options?.map((option: string, index: number) => (
+                <div key={index} className="flex items-center space-x-3">
+                  <input 
+                    type="radio"
+                    id={`${field.id}-${index}`}
+                    name={field.id}
+                    className="rounded-full"
+                    disabled
+                  />
+                  <label 
+                    htmlFor={`${field.id}-${index}`}
+                    style={{ color: resolveColor(formData.textColor) }}
+                    className="text-sm font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    {option}
+                  </label>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+        
+      case 'file':
+        return (
+          <div className="w-full" style={fieldStyle}>
+            <label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
+              {field.label}{field.required ? ' *' : ''}
+            </label>
+            <div className="border-2 border-dashed border-gray-300 rounded-md p-4 text-center">
+              <p className="text-sm text-gray-500">Télécharger un fichier</p>
+            </div>
+          </div>
+        );
+        
+      case 'date':
+        return (
+          <div className="w-full" style={fieldStyle}>
+            <label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
+              {field.label}{field.required ? ' *' : ''}
+            </label>
+            <input
+              type="text"
+              placeholder={field.placeholder || "jj/mm/aaaa"}
+              style={{ color: resolveColor(formData.textColor) }}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              disabled
+            />
+          </div>
+        );
+        
+      default:
+        return null;
+    }
+  };
 
   return (
     <section className="py-16">
@@ -319,100 +482,185 @@ function DynamicFormBlockPreview({ title, subtitle, formId }: DynamicFormBlockPr
           </div>
         ) : formData ? (
           <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-            {formData.settings?.imageUrl && (
-              <div className="w-full h-64 overflow-hidden">
-                <img 
-                  src={formData.settings.imageUrl} 
-                  alt={formData.title}
-                  className="w-full h-full object-cover"
-                />
+            {formData.formLayout === 'full' ? (
+              // Layout Full (formulaire uniquement)
+              <div className="p-8" style={{ backgroundColor: resolveColor(formData.frameColor) }}>
+                {formData.headerImage && (
+                  <div className="w-full h-64 mb-6 overflow-hidden rounded-lg">
+                    <img 
+                      src={formData.headerImage}
+                      alt={formData.title}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.currentTarget.src = '/catamaran-cruise.png';
+                      }}
+                    />
+                  </div>
+                )}
+                <div className="max-w-3xl mx-auto">
+                  <h3 
+                    className="font-heading font-bold text-3xl mb-3"
+                    style={{ color: resolveColor(formData.titleColor) }}
+                  >
+                    {formData.title || 'Titre du formulaire'}
+                  </h3>
+                  {formData.subtitle && (
+                    <p 
+                      className="mb-6"
+                      style={{ color: resolveColor(formData.subtitleColor) }}
+                    >
+                      {formData.subtitle}
+                    </p>
+                  )}
+                  {formData.fields?.length === 0 ? (
+                    <div className="text-center py-16 text-gray-500">
+                      <FormInput className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+                      <p>Aucun champ dans ce formulaire</p>
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      <div className="grid grid-cols-12 gap-4">
+                        {formData.fields?.map((field: any, index: number) => {
+                          let colSpan = 'col-span-12';
+                          
+                          switch (field.style?.width) {
+                            case 'half':
+                              colSpan = 'col-span-12 md:col-span-6';
+                              break;
+                            case 'third':
+                              colSpan = 'col-span-12 md:col-span-4';
+                              break;
+                            case 'twothirds':
+                              colSpan = 'col-span-12 md:col-span-8';
+                              break;
+                            case 'full':
+                            default:
+                              colSpan = 'col-span-12';
+                              break;
+                          }
+                          
+                          return (
+                            <div key={field.id || index} className={colSpan}>
+                              {renderFieldPreview(field)}
+                            </div>
+                          );
+                        })}
+                      </div>
+                      
+                      <div className="pt-4">
+                        <button 
+                          style={{ 
+                            backgroundColor: resolveColor(formData.primaryColor),
+                            color: '#ffffff'
+                          }}
+                          className="w-full px-8 py-3 rounded-md font-semibold"
+                          disabled
+                        >
+                          {formData.settings?.submitButtonText || 'Envoyer'}
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ) : (
+              // Layout Colonnes (normal ou inversé)
+              <div className={`grid grid-cols-1 md:grid-cols-2 min-h-[500px] ${
+                formData.formLayout === 'columns-reversed' ? 'md:[&>:first-child]:order-2 md:[&>:last-child]:order-1' : ''
+              }`}>
+                {/* Image Side */}
+                <div className="h-64 md:h-auto relative">
+                  {formData.headerImage ? (
+                    <img 
+                      src={formData.headerImage}
+                      alt="Header image"
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.currentTarget.src = '/catamaran-cruise.png';
+                      }}
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gray-200"></div>
+                  )}
+                  <div 
+                    className={`absolute inset-0 flex flex-col justify-center p-8 ${
+                      formData.formLayout === 'columns-reversed' ? 'items-end text-right' : ''
+                    }`}
+                    style={{ 
+                      background: `linear-gradient(to ${formData.formLayout === 'columns' ? 'right' : 'left'}, ${resolveColor(formData.primaryColor)}CC, transparent)` 
+                    }}
+                  >
+                    <h3 
+                      className="font-heading font-bold text-3xl mb-3"
+                      style={{ color: resolveColor(formData.titleColor) }}
+                    >
+                      {formData.title || 'Titre du formulaire'}
+                    </h3>
+                    {formData.subtitle && (
+                      <p 
+                        className="max-w-xs"
+                        style={{ color: resolveColor(formData.subtitleColor) }}
+                      >
+                        {formData.subtitle}
+                      </p>
+                    )}
+                  </div>
+                </div>
+                
+                {/* Form Side */}
+                <div className="p-8" style={{ backgroundColor: resolveColor(formData.frameColor) }}>
+                  {formData.fields?.length === 0 ? (
+                    <div className="text-center py-16 text-gray-500 h-full flex flex-col items-center justify-center">
+                      <FormInput className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+                      <p>Aucun champ dans ce formulaire</p>
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      <div className="grid grid-cols-12 gap-4">
+                        {formData.fields?.map((field: any, index: number) => {
+                          let colSpan = 'col-span-12';
+                          
+                          switch (field.style?.width) {
+                            case 'half':
+                              colSpan = 'col-span-12 md:col-span-6';
+                              break;
+                            case 'third':
+                              colSpan = 'col-span-12 md:col-span-4';
+                              break;
+                            case 'twothirds':
+                              colSpan = 'col-span-12 md:col-span-8';
+                              break;
+                            case 'full':
+                            default:
+                              colSpan = 'col-span-12';
+                              break;
+                          }
+                          
+                          return (
+                            <div key={field.id || index} className={colSpan}>
+                              {renderFieldPreview(field)}
+                            </div>
+                          );
+                        })}
+                      </div>
+                      
+                      <div className="pt-4">
+                        <button 
+                          style={{ 
+                            backgroundColor: resolveColor(formData.primaryColor),
+                            color: '#ffffff'
+                          }}
+                          className="w-full px-8 py-3 rounded-md font-semibold"
+                          disabled
+                        >
+                          {formData.settings?.submitButtonText || 'Envoyer'}
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
             )}
-            <div className="p-8">
-              <h3 className="text-2xl font-bold mb-2">{formData.title}</h3>
-              {formData.subtitle && (
-                <p className="text-gray-600 mb-6">{formData.subtitle}</p>
-              )}
-              <div className="grid grid-cols-12 gap-4">
-                {formData.fields?.map((field: any, index: number) => {
-                  let colSpan = 'col-span-12';
-                  switch (field.style?.width) {
-                    case 'half':
-                      colSpan = 'col-span-12 md:col-span-6';
-                      break;
-                    case 'third':
-                      colSpan = 'col-span-12 md:col-span-4';
-                      break;
-                    case 'twothirds':
-                      colSpan = 'col-span-12 md:col-span-8';
-                      break;
-                    default:
-                      colSpan = 'col-span-12';
-                  }
-                  
-                  return (
-                    <div key={index} className={colSpan} style={{ marginBottom: `${field.style?.marginBottom || 0}px` }}>
-                      <label className="block text-sm font-medium mb-2">
-                        {field.label} {field.required && '*'}
-                      </label>
-                      {field.type === 'textarea' ? (
-                        <textarea
-                          placeholder={field.placeholder}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                          rows={4}
-                          disabled
-                        />
-                      ) : field.type === 'select' ? (
-                        <select className="w-full px-3 py-2 border border-gray-300 rounded-md" disabled>
-                          <option>{field.placeholder || 'Sélectionner...'}</option>
-                          {field.options?.map((opt: string, i: number) => (
-                            <option key={i}>{opt}</option>
-                          ))}
-                        </select>
-                      ) : field.type === 'checkbox' ? (
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                          {field.options?.map((opt: string, i: number) => (
-                            <label key={i} className="flex items-center space-x-2">
-                              <input type="checkbox" className="rounded" disabled />
-                              <span className="text-sm">{opt}</span>
-                            </label>
-                          ))}
-                        </div>
-                      ) : field.type === 'radio' ? (
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                          {field.options?.map((opt: string, i: number) => (
-                            <label key={i} className="flex items-center space-x-2">
-                              <input type="radio" name={`radio-${index}`} className="rounded-full" disabled />
-                              <span className="text-sm">{opt}</span>
-                            </label>
-                          ))}
-                        </div>
-                      ) : field.type === 'file' ? (
-                        <div className="border-2 border-dashed border-gray-300 rounded-md p-4 text-center">
-                          <p className="text-sm text-gray-500">Télécharger un fichier</p>
-                        </div>
-                      ) : (
-                        <input
-                          type={field.type}
-                          placeholder={field.placeholder}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                          disabled
-                        />
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-              <div className="pt-4">
-                <button
-                  className="w-full py-3 rounded-md text-white font-semibold"
-                  style={{ backgroundColor: formData.settings?.submitButtonColor || '#084F6E' }}
-                  disabled
-                >
-                  {formData.settings?.submitButtonText || 'Envoyer'}
-                </button>
-              </div>
-            </div>
           </div>
         ) : (
           <div className="bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-12 text-center">
