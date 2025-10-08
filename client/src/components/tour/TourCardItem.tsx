@@ -5,7 +5,6 @@ import { formatTHB } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { useTranslation } from 'react-i18next';
 import {
   Dialog,
   DialogContent,
@@ -39,7 +38,6 @@ export default function TourCardItem({
   tags = []
 }: TourCardItemProps) {
   const { toast } = useToast();
-  const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
@@ -62,15 +60,15 @@ export default function TourCardItem({
     navigator.clipboard.writeText(customLink).then(() => {
       setCopied(true);
       toast({
-        title: t('toasts.linkCopied'),
-        description: t('toasts.linkCopiedDesc'),
+        title: 'Lien copié',
+        description: 'Le lien a été copié dans votre presse-papiers',
       });
       setTimeout(() => setCopied(false), 2000);
     }).catch(err => {
       console.error('Erreur lors de la copie du lien:', err);
       toast({
-        title: t('toasts.error'),
-        description: t('toasts.linkCopyFailed'),
+        title: 'Erreur',
+        description: 'Impossible de copier le lien',
         variant: 'destructive',
       });
     });
@@ -210,7 +208,7 @@ export default function TourCardItem({
                 }}
               >
                 <ExternalLink className="h-4 w-4 mr-1" />
-                {t('buttons.bookNow')}
+                Book Now
               </Button>
             </div>
           </CardContent>

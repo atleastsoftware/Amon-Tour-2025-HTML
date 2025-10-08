@@ -3,11 +3,11 @@ import { RefreshCw, AlertCircle } from "lucide-react";
 import { useTourNinjaWithCustomImages } from "@/hooks/useTourNinja";
 import TourNinjaCard from "./TourNinjaCard";
 import { Button } from "@/components/ui/button";
-import { useTranslation } from "react-i18next";
+import { translationService } from "@/services/translationService";
 
 export default function TourNinjaSection() {
   const { tours, isLoading, error, refetch, cached, fallback, success } = useTourNinjaWithCustomImages();
-  const { t } = useTranslation();
+  const home = translationService.getHome();
 
   if (error) {
     return (
@@ -45,9 +45,9 @@ export default function TourNinjaSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{t('home.someIdeasTitle')}</h2>
+            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{home.someIdeasTitle}</h2>
             <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">{t('home.someIdeasDescription')}</p>
+            <p className="text-gray-600 text-lg max-w-2xl mx-auto">{home.someIdeasDescription}</p>
           </motion.div>
         </div>
 
