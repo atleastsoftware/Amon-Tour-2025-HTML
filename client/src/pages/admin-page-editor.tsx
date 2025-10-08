@@ -1941,7 +1941,20 @@ const BlockEditDropdown = ({
               text: "Combine the warmth and proximity of a local agency in Krabi with the expertise of a tailor-made travel designer for all of Thailand. At Amon Tour, you're supported before, during, and after your trip. You're in contact with real people – a face, a voice, a team – not a call center or an algorithm. We're here, on the ground, to make your trip a seamless, personal, and unforgettable experience."
             }
           ],
-          images: [],
+          images: [
+            {
+              url: '/family-photo.png',
+              alt: 'Amon Tour family - Éric, Margaux, Gabriel, and Raphaël',
+              sectionIndex: 0,
+              position: 'right'
+            },
+            {
+              url: '/attached_assets/amon-tour-team.png',
+              alt: 'Amon Tour team',
+              sectionIndex: 1,
+              position: 'left'
+            }
+          ],
           buttons: [
             { text: 'Contact Us', url: '/contact', color: '#084F6E', style: 'filled' },
             { text: 'Create Your Journey →', url: '/custom-tour', color: '#084F6E', style: 'outline' }
