@@ -225,7 +225,7 @@ const getBlockDisplayName = (block: PageBlock): string => {
     'features': 'Features',
     'about': 'About',
     'custom_tour_form': 'Custom Tour Form',
-    'expats_welcome': 'Expats Welcome',
+    'expats_welcome': 'Text',
     'who_we_are': 'Article',
     'why_choose_us': 'Text + Icones',
     'travelers_reviews': 'Reviews'
