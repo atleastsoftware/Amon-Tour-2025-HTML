@@ -1495,9 +1495,9 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
 
                 {/* Bloc d'images empilées */}
                 <div className={imagesPosition === 'right' ? 'order-1 lg:order-2' : 'order-1 lg:order-1'}>
-                  <div className="flex flex-col gap-6 h-full">
+                  <div className="flex flex-col gap-6 h-full" style={{ minHeight: '400px' }}>
                     {whoImages.map((image: any, index: number) => (
-                      <div key={index} className="relative flex-1 min-h-[150px]">
+                      <div key={index} className="relative" style={{ flex: `1 1 ${100 / whoImages.length}%`, minHeight: 0 }}>
                         {image.url ? (
                           <img 
                             src={image.url} 
