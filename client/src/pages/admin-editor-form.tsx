@@ -43,6 +43,10 @@ export default function AdminEditorForm() {
   const [newFormName, setNewFormName] = useState('');
   const queryClient = useQueryClient();
 
+  // Charger le contexte de navigation depuis sessionStorage
+  const formEditorContext = sessionStorage.getItem('formEditorContext');
+  const navigationContext = formEditorContext ? JSON.parse(formEditorContext) : null;
+
   // Fallback data for initial forms (only used if no API data)
   const fallbackForms: FormData[] = [
     {
@@ -532,6 +536,17 @@ export default function AdminEditorForm() {
     enabled: true,
   });
 
+  // Charger automatiquement le formulaire depuis sessionStorage si présent
+  useEffect(() => {
+    if (navigationContext && forms && forms.length > 0 && !showBuilder) {
+      const formToEdit = forms.find(f => f.id === navigationContext.formId);
+      if (formToEdit) {
+        setEditingForm(formToEdit);
+        setShowBuilder(true);
+      }
+    }
+  }, [navigationContext, forms, showBuilder]);
+
   const handleEditForm = (form: FormData) => {
     setEditingForm(form);
     setShowBuilder(true);
@@ -617,16 +632,31 @@ export default function AdminEditorForm() {
       apiRequest('POST', '/api/admin/custom-forms', formData),
     onSuccess: (data, variables) => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/custom-forms'] });
-      // Redirection immédiate
-      setShowBuilder(false);
-      setEditingForm(null);
-      // Toast après redirection avec message adapté
-      setTimeout(() => {
-        toast({
-          title: variables.isActive ? "Formulaire publié" : "Formulaire sauvegardé",
-          description: variables.isActive ? "Le nouveau formulaire a été publié avec succès." : "Le formulaire a été sauvegardé en brouillon."
-        });
-      }, 100);
+      
+      // Vérifier si on doit retourner à l'éditeur de page
+      if (navigationContext?.returnToPage) {
+        // Nettoyer sessionStorage
+        sessionStorage.removeItem('formEditorContext');
+        // Rediriger vers l'éditeur de page
+        setLocation(`/admin-page-editor?page=${navigationContext.returnToPage}`);
+        // Toast après redirection
+        setTimeout(() => {
+          toast({
+            title: variables.isActive ? "Formulaire publié" : "Formulaire sauvegardé",
+            description: "Retour à l'éditeur de page."
+          });
+        }, 100);
+      } else {
+        // Comportement normal
+        setShowBuilder(false);
+        setEditingForm(null);
+        setTimeout(() => {
+          toast({
+            title: variables.isActive ? "Formulaire publié" : "Formulaire sauvegardé",
+            description: variables.isActive ? "Le nouveau formulaire a été publié avec succès." : "Le formulaire a été sauvegardé en brouillon."
+          });
+        }, 100);
+      }
     },
     onError: (error: any) => {
       toast({
@@ -643,16 +673,31 @@ export default function AdminEditorForm() {
       apiRequest('PUT', `/api/admin/custom-forms/${id}`, formData),
     onSuccess: (data, variables) => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/custom-forms'] });
-      // Redirection immédiate
-      setShowBuilder(false);
-      setEditingForm(null);
-      // Toast après redirection avec message adapté
-      setTimeout(() => {
-        toast({
-          title: variables.formData.isActive ? "Formulaire publié" : "Formulaire sauvegardé",
-          description: variables.formData.isActive ? "Le formulaire a été publié avec succès." : "Le formulaire a été sauvegardé en brouillon."
-        });
-      }, 100);
+      
+      // Vérifier si on doit retourner à l'éditeur de page
+      if (navigationContext?.returnToPage) {
+        // Nettoyer sessionStorage
+        sessionStorage.removeItem('formEditorContext');
+        // Rediriger vers l'éditeur de page
+        setLocation(`/admin-page-editor?page=${navigationContext.returnToPage}`);
+        // Toast après redirection
+        setTimeout(() => {
+          toast({
+            title: variables.formData.isActive ? "Formulaire publié" : "Formulaire sauvegardé",
+            description: "Retour à l'éditeur de page."
+          });
+        }, 100);
+      } else {
+        // Comportement normal
+        setShowBuilder(false);
+        setEditingForm(null);
+        setTimeout(() => {
+          toast({
+            title: variables.formData.isActive ? "Formulaire publié" : "Formulaire sauvegardé",
+            description: variables.formData.isActive ? "Le formulaire a été publié avec succès." : "Le formulaire a été sauvegardé en brouillon."
+          });
+        }, 100);
+      }
     },
     onError: (error: any) => {
       toast({
