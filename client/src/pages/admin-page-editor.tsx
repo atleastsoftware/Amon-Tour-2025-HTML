@@ -975,14 +975,10 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         // Utiliser liveConfiguration pour l'édition en temps réel
         const customFormTitle = (liveConfiguration?.title !== undefined ? liveConfiguration.title : block.title) || 'Our Tailor-made trips';
         const customFormSubtitle = (liveConfiguration?.subtitle !== undefined ? liveConfiguration.subtitle : block.subtitle) || 'Design your own journey through Thailand with our tailor-made stays: from cultural discoveries and family adventures to romantic getaways and island escapes. Every itinerary is crafted to match your wishes, offering authentic experiences, quality services, and a unique immersion far from mass tourism.';
-        const customFormConfig = liveConfiguration || block.configuration || {};
         return (
           <CustomTourForm 
             title={customFormTitle} 
             subtitle={customFormSubtitle}
-            titleColor={customFormConfig.titleColor}
-            subtitleColor={customFormConfig.subtitleColor}
-            dividerColor={customFormConfig.dividerColor}
           />
         );
 
@@ -4501,22 +4497,6 @@ const BlockEditDropdown = ({
             </div>
             
             <div>
-              <Label htmlFor="titleColor">Couleur du titre</Label>
-              <ColorPicker
-                value={formData.titleColor || '#1f2937'}
-                onChange={(value) => updateField('titleColor', value)}
-              />
-            </div>
-            
-            <div>
-              <Label htmlFor="divider">Tiret</Label>
-              <ColorPicker
-                value={formData.dividerColor || '#3BA8AF'}
-                onChange={(value) => updateField('dividerColor', value)}
-              />
-            </div>
-            
-            <div>
               <Label htmlFor="subtitle">Sous-titre</Label>
               <Textarea 
                 id="subtitle"
@@ -4524,14 +4504,6 @@ const BlockEditDropdown = ({
                 onChange={e => updateField('subtitle', e.target.value)}
                 rows={4}
                 placeholder="Design your own journey through Thailand..."
-              />
-            </div>
-            
-            <div>
-              <Label htmlFor="subtitleColor">Couleur du sous-titre</Label>
-              <ColorPicker
-                value={formData.subtitleColor || '#6b7280'}
-                onChange={(value) => updateField('subtitleColor', value)}
               />
             </div>
             

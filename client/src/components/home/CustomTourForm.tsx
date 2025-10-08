@@ -67,12 +67,9 @@ type CustomTourFormData = z.infer<typeof customTourSchema>;
 interface CustomTourFormProps {
   title?: string;
   subtitle?: string;
-  titleColor?: string;
-  subtitleColor?: string;
-  dividerColor?: string;
 }
 
-export default function CustomTourForm({ title, subtitle, titleColor, subtitleColor, dividerColor }: CustomTourFormProps = {}) {
+export default function CustomTourForm({ title, subtitle }: CustomTourFormProps = {}) {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const datePickerRef = useRef<HTMLInputElement | null>(null);
@@ -209,23 +206,12 @@ export default function CustomTourForm({ title, subtitle, titleColor, subtitleCo
         {(title || subtitle) && (
           <div className="text-center mb-12">
             {title && (
-              <h2 
-                className="font-heading font-bold text-3xl md:text-4xl mb-4"
-                style={{ color: titleColor || '#1f2937' }}
-              >
+              <h2 className="font-heading font-bold text-3xl md:text-4xl text-gray-900 mb-4">
                 {title}
               </h2>
             )}
-            {/* Divider */}
-            <div 
-              className="w-20 h-1 mx-auto mb-4"
-              style={{ backgroundColor: dividerColor || '#3BA8AF' }}
-            ></div>
             {subtitle && (
-              <p 
-                className="text-lg max-w-4xl mx-auto leading-relaxed"
-                style={{ color: subtitleColor || '#6b7280' }}
-              >
+              <p className="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
                 {subtitle}
               </p>
             )}
