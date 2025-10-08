@@ -218,14 +218,14 @@ const getBlockDisplayName = (block: PageBlock): string => {
   const blockNames: { [key: string]: string } = {
     'video_hero': 'Hero Section',
     'hero': 'Hero Section', 
-    'text_image': 'Text',
+    'text_image': 'Text + Images',
     'form': 'Form',
     'advantages': 'Text + Icones',
     'testimonials': 'Testimonials',
     'features': 'Features',
     'about': 'About',
     'custom_tour_form': 'Custom Tour Form',
-    'expats_welcome': 'Text + Images',
+    'expats_welcome': 'Text',
     'who_we_are': 'Article',
     'why_choose_us': 'Text + Icones',
     'travelers_reviews': 'Reviews'
