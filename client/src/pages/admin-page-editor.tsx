@@ -1496,13 +1496,13 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
 
                 {/* Bloc d'images empilées */}
                 <div className={imagesPosition === 'right' ? 'order-1 lg:order-2' : 'order-1 lg:order-1'}>
-                  <div className={`${whoImages.length === 1 ? 'h-full' : 'space-y-6'}`}>
+                  <div className="space-y-6">
                     {whoImages.map((image: any, index: number) => (
-                      <div key={index} className={`relative ${whoImages.length === 1 ? 'h-full' : ''}`}>
+                      <div key={index} className="relative">
                         <img 
                           src={image.url} 
                           alt={image.alt || `Image ${index + 1}`}
-                          className={`w-full rounded-lg shadow-lg ${whoImages.length === 1 ? 'h-full object-cover' : 'h-auto'}`}
+                          className="w-full rounded-lg shadow-lg object-cover"
                         />
                       </div>
                     ))}
@@ -3887,21 +3887,11 @@ const BlockEditDropdown = ({
                 <button
                   type="button"
                   onClick={() => {
-                    const input = document.createElement('input');
-                    input.type = 'file';
-                    input.accept = 'image/*';
-                    input.onchange = (e) => {
-                      const file = (e.target as HTMLInputElement).files?.[0];
-                      if (file) {
-                        const url = URL.createObjectURL(file);
-                        const newImage = {
-                          url,
-                          alt: ''
-                        };
-                        updateField('images', [...whoWeAreImages, newImage]);
-                      }
+                    const newImage = {
+                      url: '',
+                      alt: ''
                     };
-                    input.click();
+                    updateField('images', [...whoWeAreImages, newImage]);
                   }}
                   className="px-3 py-1 rounded text-sm"
                   style={{ 
@@ -3981,14 +3971,53 @@ const BlockEditDropdown = ({
                     <div className="space-y-3">
                       <div>
                         <Label className="text-sm">URL de l'image</Label>
-                        <Input 
-                          value={image.url || ''} 
-                          onChange={e => {
-                            const updated = [...whoWeAreImages];
-                            updated[index].url = e.target.value;
-                            updateField('images', updated);
-                          }}
-                        />
+                        <div className="flex gap-2 items-center">
+                          <Input 
+                            value={image.url || ''} 
+                            onChange={e => {
+                              const updated = [...whoWeAreImages];
+                              updated[index].url = e.target.value;
+                              updateField('images', updated);
+                            }}
+                            className="flex-1"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const input = document.createElement('input');
+                              input.type = 'file';
+                              input.accept = 'image/*';
+                              input.onchange = async (e) => {
+                                const file = (e.target as HTMLInputElement).files?.[0];
+                                if (file) {
+                                  const formData = new FormData();
+                                  formData.append('image', file);
+                                  
+                                  try {
+                                    const response = await fetch('/api/upload/image', {
+                                      method: 'POST',
+                                      body: formData,
+                                    });
+                                    
+                                    if (response.ok) {
+                                      const data = await response.json();
+                                      const updated = [...whoWeAreImages];
+                                      updated[index].url = data.url;
+                                      updateField('images', updated);
+                                    }
+                                  } catch (error) {
+                                    console.error('Upload error:', error);
+                                  }
+                                }
+                              };
+                              input.click();
+                            }}
+                            className="w-10 h-10 border-2 border-dashed border-gray-400 rounded flex items-center justify-center hover:border-gray-600 hover:bg-gray-50 transition-colors"
+                            title="Télécharger une image"
+                          >
+                            <Plus size={20} className="text-gray-600" />
+                          </button>
+                        </div>
                       </div>
                       <div>
                         <Label className="text-sm">Texte alternatif</Label>
