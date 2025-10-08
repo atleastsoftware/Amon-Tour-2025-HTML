@@ -1931,7 +1931,6 @@ const BlockEditDropdown = ({
         );
 
       case 'text_image':
-        
         return (
           <div className="space-y-6">
             {/* Titre */}
@@ -1939,7 +1938,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="title">Titre principal</Label>
               <Textarea 
                 id="title"
-                value={formData.title || defaultTextImagesData.title} 
+                value={formData.title || ''} 
                 onChange={e => updateField('title', e.target.value)}
                 placeholder="Who We Are"
                 rows={2}
@@ -1959,7 +1958,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="introduction">Introduction</Label>
               <Textarea 
                 id="introduction"
-                value={formData.introduction || defaultTextImagesData.introduction} 
+                value={formData.introduction || ''} 
                 onChange={e => updateField('introduction', e.target.value)}
                 placeholder="Texte d'introduction..."
                 rows={4}
@@ -1996,7 +1995,7 @@ const BlockEditDropdown = ({
                       subtitle: 'Nouveau sous-titre',
                       text: 'Nouveau texte...'
                     };
-                    updateField('sections', [...textSections, newSection]);
+                    updateField('sections', [...(formData.sections || []), newSection]);
                   }}
                   className="px-3 py-1 rounded text-sm"
                   style={{ 
@@ -2016,14 +2015,14 @@ const BlockEditDropdown = ({
               </div>
 
               <div className="space-y-4 max-h-96 overflow-y-auto pr-2">
-                {textSections.map((section: any, index: number) => (
+                {(formData.sections || []).map((section: any, index: number) => (
                   <div key={index} className="border-2 border-gray-300 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-3">
                       <Label className="text-sm font-medium">Sous-section {index + 1}</Label>
                       <button
                         type="button"
                         onClick={() => {
-                          const updated = textSections.filter((_: any, i: number) => i !== index);
+                          const updated = (formData.sections || []).filter((_: any, i: number) => i !== index);
                           updateField('sections', updated);
                         }}
                         className="px-2 py-1 rounded text-sm"
@@ -2048,7 +2047,7 @@ const BlockEditDropdown = ({
                         <Input 
                           value={section.subtitle || ''} 
                           onChange={e => {
-                            const updated = [...textSections];
+                            const updated = [...(formData.sections || [])];
                             updated[index].subtitle = e.target.value;
                             updateField('sections', updated);
                           }}
@@ -2059,7 +2058,7 @@ const BlockEditDropdown = ({
                         <Textarea 
                           value={section.text || ''} 
                           onChange={e => {
-                            const updated = [...textSections];
+                            const updated = [...(formData.sections || [])];
                             updated[index].text = e.target.value;
                             updateField('sections', updated);
                           }}
@@ -2108,7 +2107,7 @@ const BlockEditDropdown = ({
                           sectionIndex: 0,
                           position: 'left'
                         };
-                        updateField('images', [...textImages, newImage]);
+                        updateField('images', [...(formData.images || []), newImage]);
                       }
                     };
                     input.click();
@@ -2131,14 +2130,14 @@ const BlockEditDropdown = ({
               </div>
 
               <div className="space-y-3">
-                {textImages.map((image: any, index: number) => (
+                {(formData.images || []).map((image: any, index: number) => (
                   <div key={index} className="border-2 border-gray-300 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-3">
                       <Label className="text-sm font-medium">Image {index + 1}</Label>
                       <button
                         type="button"
                         onClick={() => {
-                          const updated = textImages.filter((_: any, i: number) => i !== index);
+                          const updated = (formData.images || []).filter((_: any, i: number) => i !== index);
                           updateField('images', updated);
                         }}
                         className="px-2 py-1 rounded text-sm"
@@ -2163,7 +2162,7 @@ const BlockEditDropdown = ({
                         <Input 
                           value={image.url || ''} 
                           onChange={e => {
-                            const updated = [...textImages];
+                            const updated = [...(formData.images || [])];
                             updated[index].url = e.target.value;
                             updateField('images', updated);
                           }}
@@ -2174,7 +2173,7 @@ const BlockEditDropdown = ({
                         <Input 
                           value={image.alt || ''} 
                           onChange={e => {
-                            const updated = [...textImages];
+                            const updated = [...(formData.images || [])];
                             updated[index].alt = e.target.value;
                             updateField('images', updated);
                           }}
@@ -2185,13 +2184,13 @@ const BlockEditDropdown = ({
                         <select 
                           value={image.sectionIndex || 0}
                           onChange={e => {
-                            const updated = [...textImages];
+                            const updated = [...(formData.images || [])];
                             updated[index].sectionIndex = parseInt(e.target.value);
                             updateField('images', updated);
                           }}
                           className="w-full p-2 border rounded"
                         >
-                          {textSections.map((section: any, sIndex: number) => (
+                          {(formData.sections || []).map((section: any, sIndex: number) => (
                             <option key={sIndex} value={sIndex}>
                               {section.subtitle || `Section ${sIndex + 1}`}
                             </option>
@@ -2203,7 +2202,7 @@ const BlockEditDropdown = ({
                         <select 
                           value={image.position || 'left'}
                           onChange={e => {
-                            const updated = [...textImages];
+                            const updated = [...(formData.images || [])];
                             updated[index].position = e.target.value;
                             updateField('images', updated);
                           }}
@@ -2232,7 +2231,7 @@ const BlockEditDropdown = ({
                       color: '#084F6E',
                       style: 'filled'
                     };
-                    updateField('buttons', [...textButtons, newButton]);
+                    updateField('buttons', [...(formData.buttons || []), newButton]);
                   }}
                   className="px-3 py-1 rounded text-sm"
                   style={{ 
@@ -2252,14 +2251,14 @@ const BlockEditDropdown = ({
               </div>
 
               <div className="space-y-3">
-                {textButtons.map((button: any, index: number) => (
+                {(formData.buttons || []).map((button: any, index: number) => (
                   <div key={index} className="border-2 border-gray-300 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-3">
                       <Label className="text-sm font-medium">Bouton {index + 1}</Label>
                       <button
                         type="button"
                         onClick={() => {
-                          const updated = textButtons.filter((_: any, i: number) => i !== index);
+                          const updated = (formData.buttons || []).filter((_: any, i: number) => i !== index);
                           updateField('buttons', updated);
                         }}
                         className="px-2 py-1 rounded text-sm"
@@ -2284,7 +2283,7 @@ const BlockEditDropdown = ({
                         <Input 
                           value={button.text || ''} 
                           onChange={e => {
-                            const updated = [...textButtons];
+                            const updated = [...(formData.buttons || [])];
                             updated[index].text = e.target.value;
                             updateField('buttons', updated);
                           }}
@@ -2295,7 +2294,7 @@ const BlockEditDropdown = ({
                         <Input 
                           value={button.url || ''} 
                           onChange={e => {
-                            const updated = [...textButtons];
+                            const updated = [...(formData.buttons || [])];
                             updated[index].url = e.target.value;
                             updateField('buttons', updated);
                           }}
@@ -2306,7 +2305,7 @@ const BlockEditDropdown = ({
                         <select 
                           value={button.style || 'filled'}
                           onChange={e => {
-                            const updated = [...textButtons];
+                            const updated = [...(formData.buttons || [])];
                             updated[index].style = e.target.value;
                             updateField('buttons', updated);
                           }}
@@ -2321,7 +2320,7 @@ const BlockEditDropdown = ({
                         <ColorPicker
                           value={button.color || '#084F6E'}
                           onChange={(value) => {
-                            const updated = [...textButtons];
+                            const updated = [...(formData.buttons || [])];
                             updated[index].color = value;
                             updateField('buttons', updated);
                           }}
