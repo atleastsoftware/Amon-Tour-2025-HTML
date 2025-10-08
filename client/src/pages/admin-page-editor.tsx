@@ -1398,7 +1398,132 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         );
 
       case 'who_we_are':
-        return <About />;
+        // Section Who We Are avec la même structure que text_image
+        const whoWeAreConfig = liveConfiguration || block.configuration || {};
+        const whoWeAreSections = whoWeAreConfig.sections || [];
+        const whoWeAreImages = whoWeAreConfig.images || [];
+        const whoWeAreButtons = whoWeAreConfig.buttons || [];
+        
+        return (
+          <section className="py-20" style={{ backgroundColor: whoWeAreConfig.backgroundColor || '#ffffff' }}>
+            <div className="container mx-auto px-4 max-w-6xl">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                {/* Titre */}
+                <div className="text-center mb-12">
+                  <h2 
+                    className="font-heading font-bold text-3xl md:text-4xl mb-3"
+                    style={{ 
+                      color: whoWeAreConfig.titleColor || '#084F6E',
+                      whiteSpace: 'pre-line'
+                    }}
+                  >
+                    {whoWeAreConfig.title || "Who We Are"}
+                  </h2>
+                  <div 
+                    className="w-20 h-1 mx-auto"
+                    style={{ backgroundColor: whoWeAreConfig.dividerColor || '#3BA8AF' }}
+                  ></div>
+                </div>
+
+                {/* Introduction */}
+                {whoWeAreConfig.introduction && (
+                  <div className="mb-12 text-center max-w-4xl mx-auto">
+                    <p 
+                      className="text-lg leading-relaxed"
+                      style={{ 
+                        color: whoWeAreConfig.introColor || '#666666',
+                        whiteSpace: 'pre-line'
+                      }}
+                    >
+                      {whoWeAreConfig.introduction}
+                    </p>
+                  </div>
+                )}
+
+                {/* Sous-sections dynamiques avec images */}
+                <div className="space-y-16">
+                  {whoWeAreSections.map((section: any, index: number) => {
+                    const sectionImage = whoWeAreImages.find((img: any) => img.sectionIndex === index);
+                    const isLeftImage = sectionImage?.position === 'left';
+                    
+                    return (
+                      <div key={index} className={`flex flex-col ${sectionImage ? 'md:flex-row' : ''} gap-8 items-center`}>
+                        {sectionImage && isLeftImage && (
+                          <div className="md:w-1/2">
+                            <img 
+                              src={sectionImage.url} 
+                              alt={sectionImage.alt || section.subtitle}
+                              className="w-full h-auto rounded-lg shadow-lg object-cover"
+                              style={{ maxHeight: '500px' }}
+                            />
+                          </div>
+                        )}
+                        
+                        <div className={sectionImage ? 'md:w-1/2' : 'max-w-4xl mx-auto'}>
+                          <h3 
+                            className="font-heading font-bold text-2xl md:text-3xl mb-4"
+                            style={{ color: whoWeAreConfig.subtitleColor || '#084F6E' }}
+                          >
+                            {section.subtitle}
+                          </h3>
+                          <p 
+                            className="text-lg leading-relaxed"
+                            style={{ 
+                              color: whoWeAreConfig.textColor || '#666666',
+                              whiteSpace: 'pre-line'
+                            }}
+                          >
+                            {section.text}
+                          </p>
+                        </div>
+
+                        {sectionImage && !isLeftImage && (
+                          <div className="md:w-1/2">
+                            <img 
+                              src={sectionImage.url} 
+                              alt={sectionImage.alt || section.subtitle}
+                              className="w-full h-auto rounded-lg shadow-lg object-cover"
+                              style={{ maxHeight: '500px' }}
+                            />
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Boutons */}
+                {whoWeAreButtons.length > 0 && (
+                  <div className="flex flex-wrap gap-4 justify-center mt-12">
+                    {whoWeAreButtons.map((button: any, index: number) => (
+                      <a
+                        key={index}
+                        href={button.url || '#'}
+                        className={`px-8 py-3 rounded transition-colors inline-block ${
+                          button.style === 'filled' 
+                            ? 'text-white hover:opacity-90' 
+                            : 'bg-transparent border-2 hover:bg-opacity-10'
+                        }`}
+                        style={{
+                          backgroundColor: button.style === 'filled' ? (button.color || '#084F6E') : 'transparent',
+                          borderColor: button.style === 'outline' ? (button.color || '#084F6E') : 'transparent',
+                          color: button.style === 'outline' ? (button.color || '#084F6E') : '#ffffff'
+                        }}
+                      >
+                        {button.text}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </motion.div>
+            </div>
+          </section>
+        );
 
       case 'travelers_reviews':
         const reviewsConfig = liveConfiguration || block.configuration || {};
@@ -3570,41 +3695,450 @@ const BlockEditDropdown = ({
         );
 
       case 'who_we_are':
+        // Initialiser avec valeurs par défaut
+        const defaultWhoWeAreData = {
+          title: 'Who We Are',
+          introduction: "We are Eric, Margaux, Gabriel, and Raphaël, a French family living in Krabi, southern Thailand, since 2013.\n\nFrom our life here, we created Amon Tour — a small, independent travel agency built on a simple idea: personally welcome our travelers to Krabi and offer them a different way to experience Thailand.",
+          sections: [
+            {
+              subtitle: 'Deep Local Roots',
+              text: "We live here year-round, in the heart of the region we love. This close connection to the destination allows us to offer exclusive experiences in Krabi, designed and guided by our team of professional local guides or trusted partners.\n\nYou're not booking a generic tour — you're being welcomed, guided, and cared for by people who live here, who know the tides, the seasons, the crowds to avoid, and the hidden gems worth discovering."
+            },
+            {
+              subtitle: 'Our Concept',
+              text: "Combine the warmth and proximity of a local agency in Krabi with the expertise of a tailor-made travel designer for all of Thailand. At Amon Tour, you're supported before, during, and after your trip. You're in contact with real people – a face, a voice, a team – not a call center or an algorithm. We're here, on the ground, to make your trip a seamless, personal, and unforgettable experience."
+            }
+          ],
+          images: [
+            {
+              url: '/family-photo.png',
+              alt: 'Amon Tour family - Éric, Margaux, Gabriel, and Raphaël',
+              sectionIndex: 0,
+              position: 'right'
+            },
+            {
+              url: '/attached_assets/amon-tour-team.png',
+              alt: 'Amon Tour team',
+              sectionIndex: 1,
+              position: 'left'
+            }
+          ],
+          buttons: [
+            { text: 'Contact Us', url: '/contact', color: '#084F6E', style: 'filled' },
+            { text: 'Create Your Journey →', url: '/custom-tour', color: '#084F6E', style: 'outline' }
+          ]
+        };
+        
+        // Si les données n'existent pas encore, les initialiser
+        if (!formData.title && !formData.sections) {
+          Object.keys(defaultWhoWeAreData).forEach(key => {
+            updateField(key, defaultWhoWeAreData[key as keyof typeof defaultWhoWeAreData]);
+          });
+        }
+        
+        const whoWeAreSections = formData.sections || defaultWhoWeAreData.sections;
+        const whoWeAreImages = formData.images || defaultWhoWeAreData.images;
+        const whoWeAreButtons = formData.buttons || defaultWhoWeAreData.buttons;
+        
         return (
-          <div className="space-y-4">
+          <div className="space-y-6">
+            {/* Titre */}
             <div>
-              <Label htmlFor="title">Titre</Label>
-              <Input 
+              <Label htmlFor="title">Titre principal</Label>
+              <Textarea 
                 id="title"
-                value={formData.title || 'Who We Are'} 
+                value={formData.title || defaultWhoWeAreData.title} 
                 onChange={e => updateField('title', e.target.value)}
+                placeholder="Who We Are"
+                rows={2}
+                className="mt-2"
               />
+              <div className="mt-3">
+                <Label className="text-sm">Couleur du titre</Label>
+                <ColorPicker
+                  value={formData.titleColor || '#084F6E'}
+                  onChange={(value) => updateField('titleColor', value)}
+                />
+              </div>
             </div>
+
+            {/* Introduction */}
             <div>
-              <Label htmlFor="mainText">Texte principal</Label>
+              <Label htmlFor="introduction">Introduction</Label>
               <Textarea 
-                id="mainText"
-                value={formData.mainText || 'We are Éric, Margaux, Gabriel, and Raphaël...'} 
-                onChange={e => updateField('mainText', e.target.value)}
-                rows={3}
+                id="introduction"
+                value={formData.introduction || defaultWhoWeAreData.introduction} 
+                onChange={e => updateField('introduction', e.target.value)}
+                placeholder="Texte d'introduction..."
+                rows={4}
+                className="mt-2"
               />
+              <div className="mt-3">
+                <Label className="text-sm">Couleur de l'introduction</Label>
+                <ColorPicker
+                  value={formData.introColor || '#666666'}
+                  onChange={(value) => updateField('introColor', value)}
+                />
+              </div>
             </div>
+
+            {/* Couleur du trait de séparation */}
             <div>
-              <Label htmlFor="conceptTitle">Titre "Our Concept"</Label>
-              <Input 
-                id="conceptTitle"
-                value={formData.conceptTitle || 'Our Concept'} 
-                onChange={e => updateField('conceptTitle', e.target.value)}
-              />
+              <Label>Couleur du trait de séparation</Label>
+              <div className="mt-2">
+                <ColorPicker
+                  value={formData.dividerColor || '#3BA8AF'}
+                  onChange={(value) => updateField('dividerColor', value)}
+                />
+              </div>
             </div>
-            <div>
-              <Label htmlFor="conceptText">Texte concept</Label>
-              <Textarea 
-                id="conceptText"
-                value={formData.conceptText || 'Combine the warmth and proximity...'} 
-                onChange={e => updateField('conceptText', e.target.value)}
-                rows={3}
-              />
+
+            {/* Sous-sections dynamiques */}
+            <div className="border-t pt-4 mt-6">
+              <div className="flex items-center justify-between mb-4">
+                <Label className="text-base font-semibold">Sous-sections</Label>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const newSection = {
+                      subtitle: 'Nouveau sous-titre',
+                      text: 'Nouveau texte...'
+                    };
+                    updateField('sections', [...whoWeAreSections, newSection]);
+                  }}
+                  className="px-3 py-1 rounded text-sm"
+                  style={{ 
+                    backgroundColor: THEME_COLORS.secondary,
+                    color: 'white'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryHover;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
+                  }}
+                >
+                  <Plus size={14} className="inline mr-1" />
+                  Ajouter une sous-section
+                </button>
+              </div>
+
+              <div className="space-y-4 max-h-96 overflow-y-auto pr-2">
+                {whoWeAreSections.map((section: any, index: number) => (
+                  <div key={index} className="border-2 border-gray-300 rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-3">
+                      <Label className="text-sm font-medium">Sous-section {index + 1}</Label>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const updated = whoWeAreSections.filter((_: any, i: number) => i !== index);
+                          updateField('sections', updated);
+                        }}
+                        className="px-2 py-1 rounded text-sm"
+                        style={{ 
+                          backgroundColor: THEME_COLORS.secondary,
+                          color: 'white'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryHover;
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
+                        }}
+                      >
+                        Supprimer
+                      </button>
+                    </div>
+
+                    <div className="space-y-3">
+                      <div>
+                        <Label className="text-sm">Sous-titre</Label>
+                        <Input 
+                          value={section.subtitle || ''} 
+                          onChange={e => {
+                            const updated = [...whoWeAreSections];
+                            updated[index].subtitle = e.target.value;
+                            updateField('sections', updated);
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-sm">Texte</Label>
+                        <Textarea 
+                          value={section.text || ''} 
+                          onChange={e => {
+                            const updated = [...whoWeAreSections];
+                            updated[index].text = e.target.value;
+                            updateField('sections', updated);
+                          }}
+                          rows={4}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-4">
+                <Label className="text-sm">Couleur des sous-titres</Label>
+                <ColorPicker
+                  value={formData.subtitleColor || '#084F6E'}
+                  onChange={(value) => updateField('subtitleColor', value)}
+                />
+              </div>
+
+              <div className="mt-4">
+                <Label className="text-sm">Couleur du texte</Label>
+                <ColorPicker
+                  value={formData.textColor || '#666666'}
+                  onChange={(value) => updateField('textColor', value)}
+                />
+              </div>
+            </div>
+
+            {/* Images */}
+            <div className="border-t pt-4 mt-6">
+              <div className="flex items-center justify-between mb-4">
+                <Label className="text-base font-semibold">Images</Label>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const input = document.createElement('input');
+                    input.type = 'file';
+                    input.accept = 'image/*';
+                    input.onchange = (e) => {
+                      const file = (e.target as HTMLInputElement).files?.[0];
+                      if (file) {
+                        const url = URL.createObjectURL(file);
+                        const newImage = {
+                          url,
+                          alt: '',
+                          sectionIndex: 0,
+                          position: 'left'
+                        };
+                        updateField('images', [...whoWeAreImages, newImage]);
+                      }
+                    };
+                    input.click();
+                  }}
+                  className="px-3 py-1 rounded text-sm"
+                  style={{ 
+                    backgroundColor: THEME_COLORS.secondary,
+                    color: 'white'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryHover;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
+                  }}
+                >
+                  <Plus size={14} className="inline mr-1" />
+                  Ajouter une image
+                </button>
+              </div>
+
+              <div className="space-y-3">
+                {whoWeAreImages.map((image: any, index: number) => (
+                  <div key={index} className="border-2 border-gray-300 rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-3">
+                      <Label className="text-sm font-medium">Image {index + 1}</Label>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const updated = whoWeAreImages.filter((_: any, i: number) => i !== index);
+                          updateField('images', updated);
+                        }}
+                        className="px-2 py-1 rounded text-sm"
+                        style={{ 
+                          backgroundColor: THEME_COLORS.secondary,
+                          color: 'white'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryHover;
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
+                        }}
+                      >
+                        Supprimer
+                      </button>
+                    </div>
+
+                    <div className="space-y-3">
+                      <div>
+                        <Label className="text-sm">URL de l'image</Label>
+                        <Input 
+                          value={image.url || ''} 
+                          onChange={e => {
+                            const updated = [...whoWeAreImages];
+                            updated[index].url = e.target.value;
+                            updateField('images', updated);
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-sm">Texte alternatif</Label>
+                        <Input 
+                          value={image.alt || ''} 
+                          onChange={e => {
+                            const updated = [...whoWeAreImages];
+                            updated[index].alt = e.target.value;
+                            updateField('images', updated);
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-sm">Associer à la sous-section</Label>
+                        <select 
+                          value={image.sectionIndex || 0}
+                          onChange={e => {
+                            const updated = [...whoWeAreImages];
+                            updated[index].sectionIndex = parseInt(e.target.value);
+                            updateField('images', updated);
+                          }}
+                          className="w-full p-2 border rounded"
+                        >
+                          {whoWeAreSections.map((section: any, sIndex: number) => (
+                            <option key={sIndex} value={sIndex}>
+                              {section.subtitle || `Section ${sIndex + 1}`}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      <div>
+                        <Label className="text-sm">Position</Label>
+                        <select 
+                          value={image.position || 'left'}
+                          onChange={e => {
+                            const updated = [...whoWeAreImages];
+                            updated[index].position = e.target.value;
+                            updateField('images', updated);
+                          }}
+                          className="w-full p-2 border rounded"
+                        >
+                          <option value="left">Gauche</option>
+                          <option value="right">Droite</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Boutons */}
+            <div className="border-t pt-4 mt-6">
+              <div className="flex items-center justify-between mb-4">
+                <Label className="text-base font-semibold">Boutons</Label>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const newButton = {
+                      text: 'Nouveau bouton',
+                      url: '#',
+                      color: '#084F6E',
+                      style: 'filled'
+                    };
+                    updateField('buttons', [...whoWeAreButtons, newButton]);
+                  }}
+                  className="px-3 py-1 rounded text-sm"
+                  style={{ 
+                    backgroundColor: THEME_COLORS.secondary,
+                    color: 'white'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryHover;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
+                  }}
+                >
+                  <Plus size={14} className="inline mr-1" />
+                  Ajouter un bouton
+                </button>
+              </div>
+
+              <div className="space-y-3">
+                {whoWeAreButtons.map((button: any, index: number) => (
+                  <div key={index} className="border-2 border-gray-300 rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-3">
+                      <Label className="text-sm font-medium">Bouton {index + 1}</Label>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const updated = whoWeAreButtons.filter((_: any, i: number) => i !== index);
+                          updateField('buttons', updated);
+                        }}
+                        className="px-2 py-1 rounded text-sm"
+                        style={{ 
+                          backgroundColor: THEME_COLORS.secondary,
+                          color: 'white'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryHover;
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
+                        }}
+                      >
+                        Supprimer
+                      </button>
+                    </div>
+
+                    <div className="space-y-3">
+                      <div>
+                        <Label className="text-sm">Texte du bouton</Label>
+                        <Input 
+                          value={button.text || ''} 
+                          onChange={e => {
+                            const updated = [...whoWeAreButtons];
+                            updated[index].text = e.target.value;
+                            updateField('buttons', updated);
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-sm">URL</Label>
+                        <Input 
+                          value={button.url || ''} 
+                          onChange={e => {
+                            const updated = [...whoWeAreButtons];
+                            updated[index].url = e.target.value;
+                            updateField('buttons', updated);
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-sm">Style</Label>
+                        <select 
+                          value={button.style || 'filled'}
+                          onChange={e => {
+                            const updated = [...whoWeAreButtons];
+                            updated[index].style = e.target.value;
+                            updateField('buttons', updated);
+                          }}
+                          className="w-full p-2 border rounded"
+                        >
+                          <option value="filled">Plein</option>
+                          <option value="outline">Contour</option>
+                        </select>
+                      </div>
+                      <div>
+                        <Label className="text-sm">Couleur</Label>
+                        <ColorPicker
+                          value={button.color || '#084F6E'}
+                          onChange={(value) => {
+                            const updated = [...whoWeAreButtons];
+                            updated[index].color = value;
+                            updateField('buttons', updated);
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         );
