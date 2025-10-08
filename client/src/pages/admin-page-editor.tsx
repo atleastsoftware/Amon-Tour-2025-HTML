@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Edit, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Save, Undo, Trash2, AlertTriangle, Plus, ExternalLink, ChevronRight, Users, Compass, Sparkles, Star, Heart } from 'lucide-react';
+import { ArrowLeft, Edit, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Save, Undo, Trash2, AlertTriangle, Plus, ExternalLink, ChevronRight, Users, Compass, Sparkles, Star, Heart, FormInput } from 'lucide-react';
 import TourNinjaCard from '@/components/tour/TourNinjaCard';
 import { useTourNinja } from '@/hooks/useTourNinja';
 
@@ -861,6 +861,42 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                   </button>
                 ))}
               </div>
+            </div>
+          </section>
+        );
+
+      case 'form':
+        const formConfig = liveConfiguration || block.configuration || {};
+        return (
+          <section className="py-16 bg-white">
+            <div className="container mx-auto px-4">
+              <div className="text-center mb-12">
+                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-4" style={{ color: '#084F6E' }}>
+                  {formConfig.title || 'Our Tailor-made trips'}
+                </h2>
+                {formConfig.subtitle && (
+                  <p className="text-gray-600 max-w-3xl mx-auto text-lg">
+                    {formConfig.subtitle}
+                  </p>
+                )}
+              </div>
+              {formConfig.formId ? (
+                <div className="max-w-4xl mx-auto">
+                  <div className="bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg p-12 text-center">
+                    <FormInput className="w-16 h-16 mx-auto mb-4 text-gray-400" />
+                    <p className="text-gray-600 font-medium mb-2">Formulaire sélectionné</p>
+                    <p className="text-sm text-gray-500">{formConfig.formName || `Formulaire #${formConfig.formId}`}</p>
+                  </div>
+                </div>
+              ) : (
+                <div className="max-w-4xl mx-auto">
+                  <div className="bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg p-12 text-center">
+                    <FormInput className="w-16 h-16 mx-auto mb-4 text-gray-400" />
+                    <p className="text-gray-600">Aucun formulaire sélectionné</p>
+                    <p className="text-sm text-gray-500 mt-2">Utilisez l'éditeur pour ajouter un formulaire</p>
+                  </div>
+                </div>
+              )}
             </div>
           </section>
         );
@@ -4363,6 +4399,67 @@ const BlockEditDropdown = ({
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+        );
+
+      case 'form':
+        return (
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="title">Titre</Label>
+              <Input 
+                id="title"
+                value={formData.title || 'Our Tailor-made trips'} 
+                onChange={e => updateField('title', e.target.value)}
+              />
+            </div>
+            <div>
+              <Label htmlFor="subtitle">Sous-titre</Label>
+              <Textarea 
+                id="subtitle"
+                value={formData.subtitle || 'Design your own journey through Thailand with our tailor-made stays: from cultural discoveries and family adventures to romantic getaways and island escapes. Every itinerary is crafted to match your wishes, offering authentic experiences, quality services, and a unique immersion far from mass tourism.'} 
+                onChange={e => updateField('subtitle', e.target.value)}
+                rows={3}
+              />
+            </div>
+            <div className="border-t pt-4 mt-4">
+              <Label className="text-base font-semibold mb-3 block">Formulaire</Label>
+              {formData.formId ? (
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between p-3 border rounded-lg bg-white">
+                    <div>
+                      <p className="font-medium">{formData.formName || `Formulaire #${formData.formId}`}</p>
+                      <p className="text-sm text-gray-500">ID: {formData.formId}</p>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button 
+                        size="sm"
+                        variant="outline"
+                        onClick={() => {
+                          updateField('formId', null);
+                          updateField('formName', null);
+                        }}
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-600">Modifiez ce formulaire dans l'éditeur de formulaires.</p>
+                </div>
+              ) : (
+                <Button 
+                  variant="outline" 
+                  className="w-full"
+                  onClick={() => {
+                    // TODO: Ouvrir le dialog de sélection/création de formulaire
+                    console.log('Ouvrir dialog formulaire');
+                  }}
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Ajouter un formulaire
+                </Button>
+              )}
             </div>
           </div>
         );
