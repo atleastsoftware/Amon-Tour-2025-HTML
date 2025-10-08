@@ -272,6 +272,116 @@ interface PageConfiguration {
   updatedAt: Date;
 }
 
+// Dynamic Form Block Preview Component
+interface DynamicFormBlockPreviewProps {
+  title?: string;
+  subtitle?: string;
+  formId?: number | null;
+}
+
+function DynamicFormBlockPreview({ title, subtitle, formId }: DynamicFormBlockPreviewProps) {
+  const { data: formData, isLoading } = useQuery<any>({
+    queryKey: ['/api/admin/custom-forms', formId],
+    queryFn: () => formId ? fetch(`/api/admin/custom-forms/${formId}`).then(res => res.json()) : null,
+    enabled: !!formId,
+  });
+
+  return (
+    <section className="py-16">
+      <div className="container mx-auto px-4">
+        {/* Header Section */}
+        {(title || subtitle) && (
+          <div className="text-center mb-12">
+            {title && (
+              <h2 className="font-heading font-bold text-3xl md:text-4xl text-gray-900 mb-4">
+                {title}
+              </h2>
+            )}
+            {subtitle && (
+              <p className="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                {subtitle}
+              </p>
+            )}
+          </div>
+        )}
+
+        {/* Form Section */}
+        {!formId ? (
+          <div className="bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-12 text-center">
+            <FormInput className="w-12 h-12 mx-auto mb-4 text-gray-400" />
+            <p className="text-gray-500 text-lg">Aucun formulaire sélectionné</p>
+            <p className="text-gray-400 text-sm mt-2">Sélectionnez un formulaire dans les options d'édition</p>
+          </div>
+        ) : isLoading ? (
+          <div className="bg-white rounded-lg shadow-lg p-12 text-center">
+            <p className="text-gray-500">Chargement du formulaire...</p>
+          </div>
+        ) : formData ? (
+          <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+            <div className="p-8">
+              <h3 className="text-2xl font-bold mb-2">{formData.title}</h3>
+              {formData.subtitle && (
+                <p className="text-gray-600 mb-6">{formData.subtitle}</p>
+              )}
+              <div className="space-y-4">
+                {formData.fields?.map((field: any, index: number) => (
+                  <div key={index} className={field.style?.width === 'half' ? 'inline-block w-1/2 pr-2' : 'block'}>
+                    <label className="block text-sm font-medium mb-1">
+                      {field.label} {field.required && '*'}
+                    </label>
+                    {field.type === 'textarea' ? (
+                      <textarea
+                        placeholder={field.placeholder}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                        rows={4}
+                        disabled
+                      />
+                    ) : field.type === 'select' ? (
+                      <select className="w-full px-3 py-2 border border-gray-300 rounded-md" disabled>
+                        <option>{field.placeholder || 'Sélectionner...'}</option>
+                        {field.options?.map((opt: string, i: number) => (
+                          <option key={i}>{opt}</option>
+                        ))}
+                      </select>
+                    ) : field.type === 'checkbox' ? (
+                      <div className="space-y-2">
+                        {field.options?.map((opt: string, i: number) => (
+                          <label key={i} className="flex items-center">
+                            <input type="checkbox" className="mr-2" disabled />
+                            <span>{opt}</span>
+                          </label>
+                        ))}
+                      </div>
+                    ) : (
+                      <input
+                        type={field.type}
+                        placeholder={field.placeholder}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                        disabled
+                      />
+                    )}
+                  </div>
+                ))}
+              </div>
+              <button
+                className="w-full mt-6 py-3 rounded-md text-white font-semibold"
+                style={{ backgroundColor: formData.settings?.submitButtonColor || '#1e73be' }}
+                disabled
+              >
+                {formData.settings?.submitButtonText || 'Envoyer'}
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-12 text-center">
+            <p className="text-gray-500">Formulaire introuvable</p>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
 // Form Selector Component
 interface FormSelectorProps {
   selectedFormId: number | null;
@@ -975,10 +1085,13 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         // Utiliser liveConfiguration pour l'édition en temps réel
         const customFormTitle = (liveConfiguration?.title !== undefined ? liveConfiguration.title : block.title) || 'Our Tailor-made trips';
         const customFormSubtitle = (liveConfiguration?.subtitle !== undefined ? liveConfiguration.subtitle : block.subtitle) || 'Design your own journey through Thailand with our tailor-made stays: from cultural discoveries and family adventures to romantic getaways and island escapes. Every itinerary is crafted to match your wishes, offering authentic experiences, quality services, and a unique immersion far from mass tourism.';
+        const selectedFormId = (liveConfiguration?.formId !== undefined ? liveConfiguration.formId : block.configuration?.formId);
+        
         return (
-          <CustomTourForm 
+          <DynamicFormBlockPreview 
             title={customFormTitle} 
             subtitle={customFormSubtitle}
+            formId={selectedFormId}
           />
         );
 
