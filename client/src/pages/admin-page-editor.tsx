@@ -9,18 +9,7 @@ import { useTourNinja } from '@/hooks/useTourNinja';
 // Couleurs principales du thème
 const THEME_COLORS = {
   primary: '#084F6E',
-  secondary: '#3BA8AF',
-  secondaryLight: 'rgba(59, 168, 175, 0.1)',
-  secondaryHover: '#2e8a91' // Version plus foncée pour hover
-};
-
-// Fonction helper pour convertir hex en rgba
-const hexToRgba = (hex: string, alpha: number): string => {
-  const cleanHex = hex.replace('#', '');
-  const r = parseInt(cleanHex.substring(0, 2), 16);
-  const g = parseInt(cleanHex.substring(2, 4), 16);
-  const b = parseInt(cleanHex.substring(4, 6), 16);
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  secondary: '#3BA8AF'
 };
 
 // Composant ColorPicker compact avec sélecteur natif + cases rapides
@@ -218,7 +207,7 @@ const getBlockDisplayName = (block: PageBlock): string => {
   const blockNames: { [key: string]: string } = {
     'video_hero': 'Hero Section',
     'hero': 'Hero Section', 
-    'text_image': 'Text + Images',
+    'text_image': 'Text',
     'form': 'Form',
     'advantages': 'Text + Icones',
     'testimonials': 'Testimonials',
@@ -404,128 +393,33 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         );
       
       case 'text_image':
-        // Section Text + Images complète
-        const textImagesConfig = liveConfiguration || block.configuration || {};
-        const sections = textImagesConfig.sections || [];
-        const images = textImagesConfig.images || [];
-        const buttons = textImagesConfig.buttons || [];
-        
+        // Section Text simple
+        const textConfig = liveConfiguration || block.configuration || {};
         return (
-          <section className="py-20" style={{ backgroundColor: textImagesConfig.backgroundColor || '#ffffff' }}>
-            <div className="container mx-auto px-4 max-w-6xl">
+          <section className="py-20">
+            <div className="container mx-auto px-4 max-w-4xl text-center">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                {/* Titre */}
-                <div className="text-center mb-12">
-                  <h2 
-                    className="font-heading font-bold text-3xl md:text-4xl mb-3"
-                    style={{ 
-                      color: textImagesConfig.titleColor || '#084F6E',
-                      whiteSpace: 'pre-line'
-                    }}
-                  >
-                    {textImagesConfig.title || "Who We Are"}
-                  </h2>
-                  <div 
-                    className="w-20 h-1 mx-auto"
-                    style={{ backgroundColor: textImagesConfig.dividerColor || '#3BA8AF' }}
-                  ></div>
-                </div>
-
-                {/* Introduction */}
-                {textImagesConfig.introduction && (
-                  <div className="mb-12 text-center max-w-4xl mx-auto">
-                    <p 
-                      className="text-lg leading-relaxed"
-                      style={{ 
-                        color: textImagesConfig.introColor || '#666666',
-                        whiteSpace: 'pre-line'
-                      }}
-                    >
-                      {textImagesConfig.introduction}
-                    </p>
-                  </div>
-                )}
-
-                {/* Sous-sections dynamiques avec images */}
-                <div className="space-y-16">
-                  {sections.map((section: any, index: number) => {
-                    const sectionImage = images.find((img: any) => img.sectionIndex === index);
-                    const isLeftImage = sectionImage?.position === 'left';
-                    
-                    return (
-                      <div key={index} className={`flex flex-col ${sectionImage ? 'md:flex-row' : ''} gap-8 items-center`}>
-                        {sectionImage && isLeftImage && (
-                          <div className="md:w-1/2">
-                            <img 
-                              src={sectionImage.url} 
-                              alt={sectionImage.alt || section.subtitle}
-                              className="w-full h-auto rounded-lg shadow-lg object-cover"
-                              style={{ maxHeight: '500px' }}
-                            />
-                          </div>
-                        )}
-                        
-                        <div className={sectionImage ? 'md:w-1/2' : 'max-w-4xl mx-auto'}>
-                          <h3 
-                            className="font-heading font-bold text-2xl md:text-3xl mb-4"
-                            style={{ color: textImagesConfig.subtitleColor || '#084F6E' }}
-                          >
-                            {section.subtitle}
-                          </h3>
-                          <p 
-                            className="text-lg leading-relaxed"
-                            style={{ 
-                              color: textImagesConfig.textColor || '#666666',
-                              whiteSpace: 'pre-line'
-                            }}
-                          >
-                            {section.text}
-                          </p>
-                        </div>
-
-                        {sectionImage && !isLeftImage && (
-                          <div className="md:w-1/2">
-                            <img 
-                              src={sectionImage.url} 
-                              alt={sectionImage.alt || section.subtitle}
-                              className="w-full h-auto rounded-lg shadow-lg object-cover"
-                              style={{ maxHeight: '500px' }}
-                            />
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-
-                {/* Boutons */}
-                {buttons.length > 0 && (
-                  <div className="flex flex-wrap gap-4 justify-center mt-12">
-                    {buttons.map((button: any, index: number) => (
-                      <a
-                        key={index}
-                        href={button.url || '#'}
-                        className={`px-8 py-3 rounded transition-colors inline-block ${
-                          button.style === 'filled' 
-                            ? 'text-white hover:opacity-90' 
-                            : 'bg-transparent border-2 hover:bg-opacity-10'
-                        }`}
-                        style={{
-                          backgroundColor: button.style === 'filled' ? (button.color || '#084F6E') : 'transparent',
-                          borderColor: button.style === 'outline' ? (button.color || '#084F6E') : 'transparent',
-                          color: button.style === 'outline' ? (button.color || '#084F6E') : '#ffffff'
-                        }}
-                      >
-                        {button.text}
-                      </a>
-                    ))}
-                  </div>
-                )}
+                <h2 
+                  className="font-heading font-bold text-3xl md:text-4xl mb-3"
+                  style={{ color: textConfig.titleColor || '#333333' }}
+                >
+                  {textConfig.title || block.configuration?.title || "Titre de la section"}
+                </h2>
+                <div 
+                  className="w-20 h-1 mx-auto mb-8"
+                  style={{ backgroundColor: textConfig.dividerColor || '#3BA8AF' }}
+                ></div>
+                <p 
+                  className="text-lg leading-relaxed"
+                  style={{ color: textConfig.contentColor || '#666666' }}
+                >
+                  {textConfig.content || block.configuration?.content || "Contenu du texte de cette section. Vous pouvez modifier ce texte dans l'éditeur."}
+                </p>
               </motion.div>
             </div>
           </section>
@@ -671,53 +565,37 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                   ))
                 ) : displayTours.length > 0 ? (
                   // Affiche les vraies cartes de tours avec design "Our Popular Experiences" (badges de jours)
-                  displayTours.map((tour, index) => {
-                    const bgColor = popularConfig.cardButtonColor || '#2563eb';
-                    const hasImage = !!tour.primaryImage;
-                    
-                    return (
-                      <motion.div
-                        key={`${tour.id || index}-${bgColor}`}
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: index * 0.1 }}
-                        className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
-                      >
-                        <div className="relative h-48">
-                          {!hasImage ? (
-                            <div 
-                              key={bgColor}
-                              className="w-full h-full relative overflow-hidden"
-                              style={{ 
-                                background: `linear-gradient(135deg, ${hexToRgba(bgColor, 0.3)}, ${hexToRgba(bgColor, 0.6)})`
-                              }}
-                            >
-                            </div>
-                          ) : (
-                            <img
-                              src={tour.primaryImage}
-                              alt={tour.name}
-                              className="w-full h-full object-cover"
-                              onError={(e) => {
-                                const target = e.target as HTMLImageElement;
-                                const parentDiv = target.parentElement;
-                                if (parentDiv) {
-                                  target.remove();
-                                  parentDiv.innerHTML = `
-                                    <div class="w-full h-full relative overflow-hidden" style="background: linear-gradient(135deg, ${hexToRgba(bgColor, 0.3)}, ${hexToRgba(bgColor, 0.6)})">
-                                    </div>
-                                  `;
-                                }
-                              }}
-                            />
-                          )}
-                          <div className="absolute top-4 right-4">
-                            <span className="bg-white/90 text-gray-800 px-2 py-1 rounded-full text-xs">
-                              {tour.duration || '1'} jour{(tour.duration && Number(tour.duration) > 1) ? 's' : ''}
-                            </span>
+                  displayTours.map((tour, index) => (
+                    <motion.div
+                      key={tour.id || index}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, delay: index * 0.1 }}
+                      className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
+                    >
+                      <div className="relative h-48 bg-gradient-to-br from-blue-200 to-blue-300">
+                        {tour.primaryImage ? (
+                          <img
+                            src={tour.primaryImage}
+                            alt={tour.name}
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              const target = e.target as HTMLImageElement;
+                              target.style.display = 'none';
+                            }}
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center">
+                            <div className="h-16 w-16 text-blue-400">🏝️</div>
                           </div>
+                        )}
+                        <div className="absolute top-4 right-4">
+                          <span className="bg-white/90 text-gray-800 px-2 py-1 rounded-full text-xs">
+                            {tour.duration || '1'} jour{(tour.duration && Number(tour.duration) > 1) ? 's' : ''}
+                          </span>
                         </div>
+                      </div>
                       
                       <div className="p-6">
                         <h3 className="text-lg font-bold text-gray-800 mb-3 line-clamp-2">
@@ -729,62 +607,34 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                         </p>
                         
                         <div className="flex gap-2">
-                          <button 
-                            className="flex-1 border py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
-                            style={{
-                              borderColor: popularConfig.cardButtonColor || '#2563eb',
-                              color: popularConfig.cardButtonColor || '#2563eb',
-                              backgroundColor: 'white',
-                            }}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.backgroundColor = (popularConfig.cardButtonColor || '#2563eb') + '10';
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.backgroundColor = 'white';
-                            }}
-                          >
-                            View details
+                          <button className="flex-1 border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1">
+                            Details
                             <ChevronRight className="h-3 w-3" />
                           </button>
-                          <button 
-                            className="flex-1 py-2 px-3 rounded-lg font-semibold transition-colors text-white flex items-center justify-center gap-1"
-                            style={{
-                              backgroundColor: popularConfig.cardButtonColor || '#2563eb',
-                            }}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.filter = 'brightness(110%)';
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.filter = 'brightness(100%)';
-                            }}
-                          >
-                            Book now
+                          <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1">
+                            Book
                             <ChevronRight className="h-3 w-3" />
                           </button>
                         </div>
                       </div>
                     </motion.div>
-                    );
-                  })
+                  ))
                 ) : (
                   // Fallback si pas de tours avec le bon nombre
                   Array.from({ length: Math.min(displayCount, 12) }).map((_, index) => (
                     <motion.div
-                      key={`${index}-${popularConfig.cardButtonColor || '#2563eb'}`}
+                      key={index}
                       initial={{ opacity: 0, y: 30 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.6, delay: index * 0.1 }}
                       className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
                     >
-                      <div 
-                        key={popularConfig.cardButtonColor}
-                        className="relative h-48 overflow-hidden"
-                        style={{ 
-                          background: `linear-gradient(135deg, ${hexToRgba(popularConfig.cardButtonColor || '#2563eb', 0.3)}, ${hexToRgba(popularConfig.cardButtonColor || '#2563eb', 0.6)})`
-                        }}
-                      >
-                        <div className="absolute top-4 right-4 z-20">
+                      <div className="relative h-48 bg-gradient-to-br from-blue-200 to-blue-300">
+                        <div className="w-full h-full flex items-center justify-center">
+                          <div className="h-16 w-16 text-blue-400">🏝️</div>
+                        </div>
+                        <div className="absolute top-4 right-4">
                           <span className="bg-white/90 text-gray-800 px-2 py-1 rounded-full text-xs">
                             {index % 2 + 1} jour{index % 2 > 0 ? 's' : ''}
                           </span>
@@ -801,36 +651,12 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                         </p>
                         
                         <div className="flex gap-2">
-                          <button 
-                            className="flex-1 border py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
-                            style={{
-                              borderColor: popularConfig.cardButtonColor || '#2563eb',
-                              color: popularConfig.cardButtonColor || '#2563eb',
-                              backgroundColor: 'white',
-                            }}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.backgroundColor = (popularConfig.cardButtonColor || '#2563eb') + '10';
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.backgroundColor = 'white';
-                            }}
-                          >
-                            View details
+                          <button className="flex-1 border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1">
+                            Details
                             <ChevronRight className="h-3 w-3" />
                           </button>
-                          <button 
-                            className="flex-1 py-2 px-3 rounded-lg font-semibold transition-colors text-white flex items-center justify-center gap-1"
-                            style={{
-                              backgroundColor: popularConfig.cardButtonColor || '#2563eb',
-                            }}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.filter = 'brightness(110%)';
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.filter = 'brightness(100%)';
-                            }}
-                          >
-                            Book now
+                          <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1">
+                            Book
                             <ChevronRight className="h-3 w-3" />
                           </button>
                         </div>
@@ -989,101 +815,11 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                   transition={{ duration: 0.5 }}
                 >
                   {displayToursPrice.map((tour, index) => (
-                    <motion.div
-                      key={`${tour.id || index}-${config.cardButtonColor || THEME_COLORS.primary}`}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      whileHover={{ y: -5 }}
-                      className="h-full"
-                    >
-                      <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow overflow-hidden h-full">
-                        <div className="relative h-48">
-                          {!tour.primaryImage ? (
-                            <div 
-                              key={config.cardButtonColor}
-                              className="h-48 relative overflow-hidden"
-                              style={{ 
-                                background: `linear-gradient(135deg, ${hexToRgba(config.cardButtonColor || THEME_COLORS.primary, 0.3)}, ${hexToRgba(config.cardButtonColor || THEME_COLORS.primary, 0.6)})`
-                              }}
-                            ></div>
-                          ) : (
-                            <img
-                              src={tour.primaryImage}
-                              alt={tour.name}
-                              className="w-full h-full object-cover"
-                              onError={(e) => {
-                                const target = e.target as HTMLImageElement;
-                                const parentDiv = target.parentElement;
-                                const bgColor = config.cardButtonColor || THEME_COLORS.primary;
-                                if (parentDiv) {
-                                  target.remove();
-                                  parentDiv.innerHTML = `
-                                    <div class="h-48 relative overflow-hidden" style="background: linear-gradient(135deg, ${hexToRgba(bgColor, 0.3)}, ${hexToRgba(bgColor, 0.6)})">
-                                    </div>
-                                  `;
-                                }
-                              }}
-                              loading="lazy"
-                            />
-                          )}
-                          
-                          <div className="absolute top-3 right-3">
-                            <span className="bg-white/90 text-gray-800 font-semibold px-3 py-1 rounded-full text-sm">
-                              {tour.price > 0 
-                                ? (tour.currency === 'THB' ? `฿${tour.price.toLocaleString()}` : `${tour.price} ${tour.currency || 'THB'}`)
-                                : 'Prix sur demande'
-                              }
-                            </span>
-                          </div>
-                        </div>
-
-                        <div className="p-4">
-                          <h3 className="font-semibold text-lg mb-2 line-clamp-2">
-                            {tour.name}
-                          </h3>
-                          
-                          {tour.description && (
-                            <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-                              {tour.description}
-                            </p>
-                          )}
-
-                          <div className="flex gap-2">
-                            <button 
-                              className="flex-1 border py-2 px-4 rounded-md font-medium text-sm transition-colors"
-                              style={{
-                                borderColor: config.cardButtonColor || THEME_COLORS.primary,
-                                color: config.cardButtonColor || THEME_COLORS.primary,
-                                backgroundColor: 'white'
-                              }}
-                              onMouseEnter={(e) => {
-                                e.currentTarget.style.backgroundColor = (config.cardButtonColor || THEME_COLORS.primary) + '10';
-                              }}
-                              onMouseLeave={(e) => {
-                                e.currentTarget.style.backgroundColor = 'white';
-                              }}
-                            >
-                              View details
-                            </button>
-                            <button 
-                              className="flex-1 py-2 px-4 rounded-md font-medium text-sm text-white transition-colors"
-                              style={{
-                                backgroundColor: config.cardButtonColor || THEME_COLORS.primary
-                              }}
-                              onMouseEnter={(e) => {
-                                e.currentTarget.style.filter = 'brightness(110%)';
-                              }}
-                              onMouseLeave={(e) => {
-                                e.currentTarget.style.filter = 'brightness(100%)';
-                              }}
-                            >
-                              Book now
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </motion.div>
+                    <TourNinjaCard 
+                      key={tour.id || index} 
+                      tour={tour} 
+                      index={index} 
+                    />
                   ))}
                 </motion.div>
               ) : (
@@ -1127,14 +863,13 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                 </motion.div>
               </div>
               
-              {(() => {
-                const allBlocks = featuresConfig.iconBlocks || [
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {(featuresConfig.iconBlocks || [
                   {
                     id: 1,
                     mainIcon: 'fas fa-user-friends',
                     title: 'Private Tours',
                     description: 'Experience an exclusive day trip with our professional guides and private vehicles.',
-                    iconColor: THEME_COLORS.primary,
                     miniIcons: [
                       { icon: 'fas fa-car', text: 'Private Car' },
                       { icon: 'fas fa-language', text: 'Guide' },
@@ -1146,7 +881,6 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                     mainIcon: 'fas fa-compass',
                     title: 'Customized Itineraries',
                     description: 'Create your own journey based on your desires, your pace, and your interests.',
-                    iconColor: THEME_COLORS.primary,
                     miniIcons: [
                       { icon: 'fas fa-map-marked-alt', text: 'Custom Route' },
                       { icon: 'fas fa-clock', text: 'Flexible Time' },
@@ -1158,241 +892,100 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                     mainIcon: 'fas fa-sparkles',
                     title: 'Authentic Experiences',
                     description: 'Discover destinations off the beaten path and immerse yourself in the local culture.',
-                    iconColor: THEME_COLORS.primary,
                     miniIcons: [
                       { icon: 'fas fa-utensils', text: 'Local Food' },
                       { icon: 'fas fa-hands-helping', text: 'Local People' },
                       { icon: 'fas fa-landmark', text: 'Culture' }
                     ]
                   }
-                ];
-                
-                const blocksCount = allBlocks.length;
-                const iconStyle = featuresConfig.iconStyle || 'modern-card';
-                
-                // 1-4 blocs : une seule ligne
-                // 5 blocs : 3 en haut, 2 en bas centrés
-                // 6 blocs : 3 en haut, 3 en bas
-                
-                const renderBlock = (feature: any, index: number) => {
-                  // Style Minimaliste
-                  if (iconStyle === 'minimalist') {
-                    return (
-                      <motion.div 
-                        key={`minimalist-${feature.id}-${feature.iconColor || THEME_COLORS.primary}`}
-                        className="text-center"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: index * 0.1 }}
-                      >
-                        <div 
-                          className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
-                          style={{ 
-                            backgroundColor: hexToRgba(feature.iconColor || THEME_COLORS.primary, 0.06),
-                            color: feature.iconColor || THEME_COLORS.primary 
-                          }}
-                        >
-                          {/* Si c'est une URL d'image, afficher l'image */}
-                          {feature.mainIcon && (feature.mainIcon.startsWith('http') || feature.mainIcon.startsWith('/')) ? (
-                            <img 
-                              src={feature.mainIcon} 
-                              alt={feature.title} 
-                              className="w-8 h-8 object-cover"
-                              style={{ filter: `brightness(0) saturate(100%)`, color: feature.iconColor || THEME_COLORS.primary }}
-                              onError={(e) => {
-                                (e.target as HTMLElement).style.display = 'none';
-                                const fallbackIcon = (e.target as HTMLElement).nextElementSibling as HTMLElement;
-                                if (fallbackIcon) fallbackIcon.style.display = 'block';
-                              }}
-                            />
-                          ) : (
-                            <>
-                              {feature.mainIcon === 'fas fa-user-friends' && <Users size={28} />}
-                              {feature.mainIcon === 'fas fa-compass' && <Compass size={28} />}
-                              {feature.mainIcon === 'fas fa-sparkles' && <Sparkles size={28} />}
-                              {!['fas fa-user-friends', 'fas fa-compass', 'fas fa-sparkles'].includes(feature.mainIcon) && (
-                                <i className={`${feature.mainIcon} text-2xl`} style={{ display: feature.mainIcon && (feature.mainIcon.startsWith('http') || feature.mainIcon.startsWith('/')) ? 'none' : 'block' }}></i>
-                              )}
-                            </>
-                          )}
-                        </div>
-                        <h3 className="font-heading font-bold text-xl mb-3">{feature.title}</h3>
-                        <p className="text-gray-600">{feature.description}</p>
-                        
-                        {/* Mini icônes si présentes */}
-                        {feature.miniIcons && feature.miniIcons.length > 0 && (
-                          <div className={`mt-4 grid gap-4 ${
-                            feature.miniIcons.length === 1 ? 'grid-cols-1 justify-items-center' : 
-                            feature.miniIcons.length === 2 ? 'grid-cols-2 justify-items-center max-w-[200px] mx-auto' : 
-                            'grid-cols-3'
-                          }`}>
-                            {feature.miniIcons.slice(0, 3).map((miniIcon: any, miniIndex: number) => (
-                              <div key={miniIndex} className="flex flex-col items-center">
-                                <div 
-                                  className="w-10 h-10 rounded-full flex items-center justify-center mb-1"
-                                  style={{ 
-                                    backgroundColor: hexToRgba(feature.iconColor || THEME_COLORS.primary, 0.06),
-                                    color: feature.iconColor || THEME_COLORS.primary 
-                                  }}
-                                >
-                                  {miniIcon.icon && (miniIcon.icon.startsWith('http') || miniIcon.icon.startsWith('/')) ? (
-                                    <img 
-                                      src={miniIcon.icon} 
-                                      alt={miniIcon.text} 
-                                      className="w-5 h-5 object-cover"
-                                    />
-                                  ) : (
-                                    <i className={`${miniIcon.icon || 'fas fa-question'} text-sm`}></i>
-                                  )}
-                                </div>
-                                <span className="text-xs text-center">{miniIcon.text}</span>
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                      </motion.div>
-                    );
-                  }
-                  
-                  // Style Carte moderne (par défaut)
-                  return (
+                ]).slice(0, 3).map((feature: any, index: number) => (
+                  <motion.div 
+                    key={feature.id}
+                    className="bg-white p-6 rounded-lg shadow-md text-center flex flex-col items-center relative"
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    whileHover={{ 
+                      y: -10, 
+                      boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+                    }}
+                  >
                     <motion.div 
-                      key={`modern-card-${feature.id}-${feature.iconColor || THEME_COLORS.primary}`}
-                      className="bg-white p-6 rounded-lg shadow-md text-center flex flex-col items-center relative"
-                      initial={{ opacity: 0, y: 50 }}
+                      className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-4 shadow-lg"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      {/* Si c'est une URL d'image, afficher l'image */}
+                      {feature.mainIcon && (feature.mainIcon.startsWith('http') || feature.mainIcon.startsWith('/')) ? (
+                        <img 
+                          src={feature.mainIcon} 
+                          alt={feature.title} 
+                          className="w-10 h-10 object-cover rounded-full"
+                          style={{ filter: 'brightness(0) invert(1)' }} /* Rendre l'image blanche */
+                          onError={(e) => {
+                            // Fallback vers icône par défaut
+                            (e.target as HTMLElement).style.display = 'none';
+                            const fallbackIcon = (e.target as HTMLElement).nextElementSibling as HTMLElement;
+                            if (fallbackIcon) fallbackIcon.style.display = 'block';
+                          }}
+                        />
+                      ) : (
+                        <>
+                          {feature.mainIcon === 'fas fa-user-friends' && <Users size={28} className="text-white" />}
+                          {feature.mainIcon === 'fas fa-compass' && <Compass size={28} className="text-white" />}
+                          {feature.mainIcon === 'fas fa-sparkles' && <Sparkles size={28} className="text-white" />}
+                          {!['fas fa-user-friends', 'fas fa-compass', 'fas fa-sparkles'].includes(feature.mainIcon) && (
+                            <i className={`${feature.mainIcon} text-white text-2xl`} style={{ display: feature.mainIcon && (feature.mainIcon.startsWith('http') || feature.mainIcon.startsWith('/')) ? 'none' : 'block' }}></i>
+                          )}
+                        </>
+                      )}
+                    </motion.div>
+                    <h3 className="font-heading font-bold text-xl mb-2">{feature.title}</h3>
+                    <p className="text-gray-600 mb-4">{feature.description}</p>
+                    
+                    <motion.div 
+                      className="mt-4 grid grid-cols-3 gap-2"
+                      initial={{ opacity: 0, y: 10 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                      whileHover={{ 
-                        y: -10, 
-                        boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
-                      }}
+                      transition={{ delay: 0.2 }}
                     >
-                      <motion.div 
-                        className="w-16 h-16 rounded-full flex items-center justify-center mb-4 shadow-lg"
-                        style={{ backgroundColor: feature.iconColor || THEME_COLORS.primary }}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        {/* Si c'est une URL d'image, afficher l'image */}
-                        {feature.mainIcon && (feature.mainIcon.startsWith('http') || feature.mainIcon.startsWith('/')) ? (
-                          <img 
-                            src={feature.mainIcon} 
-                            alt={feature.title} 
-                            className="w-10 h-10 object-cover rounded-full"
-                            style={{ filter: 'brightness(0) invert(1)' }}
-                            onError={(e) => {
-                              (e.target as HTMLElement).style.display = 'none';
-                              const fallbackIcon = (e.target as HTMLElement).nextElementSibling as HTMLElement;
-                              if (fallbackIcon) fallbackIcon.style.display = 'block';
-                            }}
-                          />
-                        ) : (
-                          <>
-                            {feature.mainIcon === 'fas fa-user-friends' && <Users size={28} className="text-white" />}
-                            {feature.mainIcon === 'fas fa-compass' && <Compass size={28} className="text-white" />}
-                            {feature.mainIcon === 'fas fa-sparkles' && <Sparkles size={28} className="text-white" />}
-                            {!['fas fa-user-friends', 'fas fa-compass', 'fas fa-sparkles'].includes(feature.mainIcon) && (
-                              <i className={`${feature.mainIcon} text-white text-2xl`} style={{ display: feature.mainIcon && (feature.mainIcon.startsWith('http') || feature.mainIcon.startsWith('/')) ? 'none' : 'block' }}></i>
-                            )}
-                          </>
-                        )}
-                      </motion.div>
-                      <h3 className="font-heading font-bold text-xl mb-2">{feature.title}</h3>
-                      <p className="text-gray-600 mb-4">{feature.description}</p>
-                      
-                      <motion.div 
-                        className={`mt-4 grid gap-4 ${
-                          (feature.miniIcons?.length || 0) === 1 ? 'grid-cols-1 justify-items-center' : 
-                          (feature.miniIcons?.length || 0) === 2 ? 'grid-cols-2 justify-items-center max-w-[200px] mx-auto' : 
-                          'grid-cols-3'
-                        }`}
-                        initial={{ opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.2 }}
-                      >
-                        {feature.miniIcons?.slice(0, 3).map((miniIcon: any, miniIndex: number) => (
-                          <motion.div 
-                            key={miniIndex}
-                            className="flex flex-col items-center"
-                            whileHover={{ y: -5 }}
-                          >
-                            <div 
-                              className="w-10 h-10 rounded-full flex items-center justify-center mb-1"
-                              style={{ backgroundColor: hexToRgba(feature.iconColor || THEME_COLORS.primary, 0.06) }}
-                            >
-                              {miniIcon.icon && (miniIcon.icon.startsWith('http') || miniIcon.icon.startsWith('/')) ? (
-                                <img 
-                                  src={miniIcon.icon} 
-                                  alt={miniIcon.text} 
-                                  className="w-6 h-6 object-cover rounded"
-                                  onError={(e) => {
-                                    (e.target as HTMLElement).style.display = 'none';
-                                    const fallbackIcon = (e.target as HTMLElement).nextElementSibling as HTMLElement;
-                                    if (fallbackIcon) fallbackIcon.style.display = 'block';
-                                  }}
-                                />
-                              ) : null}
-                              <i 
-                                className={`${miniIcon.icon && !miniIcon.icon.startsWith('http') && !miniIcon.icon.startsWith('/') ? miniIcon.icon : 'fas fa-question'} text-sm`}
-                                style={{ 
-                                  display: miniIcon.icon && (miniIcon.icon.startsWith('http') || miniIcon.icon.startsWith('/')) ? 'none' : 'block',
-                                  color: feature.iconColor || THEME_COLORS.primary
+                      {feature.miniIcons?.slice(0, 3).map((miniIcon: any, miniIndex: number) => (
+                        <motion.div 
+                          key={miniIndex}
+                          className="flex flex-col items-center"
+                          whileHover={{ y: -5 }}
+                        >
+                          <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mb-1">
+                            {/* Si c'est une URL d'image, afficher l'image avec couleur bleue */}
+                            {miniIcon.icon && (miniIcon.icon.startsWith('http') || miniIcon.icon.startsWith('/')) ? (
+                              <img 
+                                src={miniIcon.icon} 
+                                alt={miniIcon.text} 
+                                className="w-6 h-6 object-cover rounded"
+                                style={{ filter: 'brightness(0) saturate(100%) invert(32%) sepia(87%) saturate(1297%) hue-rotate(195deg) brightness(95%) contrast(85%)' }}
+                                onError={(e) => {
+                                  // Fallback vers icône par défaut si image ne charge pas
+                                  (e.target as HTMLElement).style.display = 'none';
+                                  const fallbackIcon = (e.target as HTMLElement).nextElementSibling as HTMLElement;
+                                  if (fallbackIcon) fallbackIcon.style.display = 'block';
                                 }}
-                              ></i>
-                            </div>
-                            <span className="text-xs text-center">{miniIcon.text}</span>
-                          </motion.div>
-                        ))}
-                      </motion.div>
+                              />
+                            ) : null}
+                            {/* Icône FontAwesome par défaut */}
+                            <i 
+                              className={`${miniIcon.icon && !miniIcon.icon.startsWith('http') && !miniIcon.icon.startsWith('/') ? miniIcon.icon : 'fas fa-question'} text-primary text-sm`}
+                              style={{ display: miniIcon.icon && (miniIcon.icon.startsWith('http') || miniIcon.icon.startsWith('/')) ? 'none' : 'block' }}
+                            ></i>
+                          </div>
+                          <span className="text-xs text-center">{miniIcon.text}</span>
+                        </motion.div>
+                      ))}
                     </motion.div>
-                  );
-                };
-                
-                // Logique d'affichage selon le nombre de blocs
-                if (blocksCount === 5) {
-                  return (
-                    <>
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-                        {allBlocks.slice(0, 3).map((feature: any, index: number) => renderBlock(feature, index))}
-                      </div>
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div className="md:col-start-1">
-                          {renderBlock(allBlocks[3], 3)}
-                        </div>
-                        <div className="md:col-start-2">
-                          {renderBlock(allBlocks[4], 4)}
-                        </div>
-                      </div>
-                    </>
-                  );
-                } else if (blocksCount === 6) {
-                  return (
-                    <>
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-                        {allBlocks.slice(0, 3).map((feature: any, index: number) => renderBlock(feature, index))}
-                      </div>
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {allBlocks.slice(3, 6).map((feature: any, index: number) => renderBlock(feature, index + 3))}
-                      </div>
-                    </>
-                  );
-                } else {
-                  const gridClass = blocksCount === 1 ? 'grid-cols-1 max-w-md mx-auto' :
-                                    blocksCount === 2 ? 'grid-cols-1 md:grid-cols-2' :
-                                    blocksCount === 3 ? 'grid-cols-1 md:grid-cols-3' :
-                                    blocksCount === 4 ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4' :
-                                    'grid-cols-1 md:grid-cols-3';
-                  
-                  return (
-                    <div className={`grid ${gridClass} gap-8`}>
-                      {allBlocks.map((feature: any, index: number) => renderBlock(feature, index))}
-                    </div>
-                  );
-                }
-              })()}
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </section>
         );
@@ -1401,103 +994,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         return <About />;
 
       case 'travelers_reviews':
-        const reviewsConfig = liveConfiguration || block.configuration || {};
-        
-        // Valeurs par défaut pour les avis
-        const defaultReviews = [
-          {
-            id: 1,
-            name: 'Sophie L.',
-            rating: 5,
-            text: 'We spent 2 wonderful days with Eric and Margaux who showed us amazing places. A unique and authentic experience...'
-          },
-          {
-            id: 2,
-            name: 'Pierre M.',
-            rating: 5,
-            text: 'The French explanations, the Thai meal in a local spot, the magnificent landscapes and the warm welcome from Eric and Margaux, everything was perfect!'
-          },
-          {
-            id: 3,
-            name: 'Martin Family',
-            rating: 5,
-            text: 'An unforgettable day, everything was perfect. We discovered beautiful places away from the tourist crowds. Thanks to Eric and Margaux for their kindness...'
-          }
-        ];
-        
-        const reviews = reviewsConfig.reviews && reviewsConfig.reviews.length > 0 
-          ? reviewsConfig.reviews 
-          : defaultReviews;
-        
-        return (
-          <section className="py-16 bg-primary text-white">
-            <div className="container mx-auto px-4">
-              <div className="bg-white rounded-lg p-6 shadow-lg">
-                <div className="text-center mb-6">
-                  <div className="flex justify-center mb-3">
-                    {Array.from({ length: parseInt(reviewsConfig.starRating || '5') }).map((_, i) => (
-                      <i key={i} className="fas fa-star text-[hsl(var(--star))] text-3xl mx-1"></i>
-                    ))}
-                  </div>
-                  <h3 className="text-primary font-heading font-bold text-2xl mb-1">
-                    {reviewsConfig.googleRating || '5.0'} on Google
-                  </h3>
-                  <p className="text-muted-foreground text-sm">
-                    Based on {reviewsConfig.reviewCount || '80'} reviews
-                  </p>
-                </div>
-                
-                {/* Reviews Carousel - Horizontal Scroll */}
-                <div className="overflow-x-auto pb-4">
-                  <div className="flex gap-6" style={{ minWidth: 'max-content' }}>
-                    {reviews.map((review: any) => {
-                      const initials = review.name
-                        .split(' ')
-                        .map((n: string) => n[0])
-                        .join('')
-                        .toUpperCase()
-                        .slice(0, 2);
-                      
-                      return (
-                        <div key={review.id} className="flex-shrink-0 w-80 p-4">
-                          <div className="flex gap-1 mb-3">
-                            {Array.from({ length: review.rating }).map((_, i) => (
-                              <i key={i} className="fas fa-star text-[hsl(var(--star))] text-sm"></i>
-                            ))}
-                          </div>
-                          <p className="text-gray-700 italic text-sm mb-4">"{review.text}"</p>
-                          <div className="flex items-center gap-3">
-                            <div 
-                              className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm"
-                              style={{ backgroundColor: THEME_COLORS.primary }}
-                            >
-                              {initials}
-                            </div>
-                            <div className="font-medium text-primary">{review.name}</div>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-                
-                {reviewsConfig.googleLink && (
-                  <div className="text-center mt-6 pt-4 border-t">
-                    <a 
-                      href={reviewsConfig.googleLink} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-primary hover:underline font-medium inline-flex items-center"
-                    >
-                      <span>{reviewsConfig.googleLinkText || 'View all reviews on Google'}</span>
-                      <i className="fas fa-external-link-alt ml-2 text-sm"></i>
-                    </a>
-                  </div>
-                )}
-              </div>
-            </div>
-          </section>
-        );
+        return <Testimonials />;
 
       default:
         return (
@@ -1540,10 +1037,6 @@ const BlockEditDropdown = ({
   onPreviewUpdate?: (config: any) => void;
 }) => {
   const [formData, setFormData] = useState(block.configuration || {});
-
-  useEffect(() => {
-    setFormData(block.configuration || {});
-  }, [block.id, block.configuration]);
 
   const updateField = (key: string, value: any) => {
     const newFormData = { ...formData, [key]: value };
@@ -1935,400 +1428,49 @@ const BlockEditDropdown = ({
           <div className="space-y-6">
             {/* Titre */}
             <div>
-              <Label htmlFor="title">Titre principal</Label>
-              <Textarea 
+              <Label htmlFor="title">Titre</Label>
+              <Input 
                 id="title"
-                value={formData.title || ''} 
+                value={formData.title || block.configuration?.title || 'Titre de la section'} 
                 onChange={e => updateField('title', e.target.value)}
-                placeholder="Who We Are"
-                rows={2}
+                placeholder="Titre de la section"
                 className="mt-2"
               />
               <div className="mt-3">
-                <Label className="text-sm">Couleur du titre</Label>
                 <ColorPicker
-                  value={formData.titleColor || '#084F6E'}
+                  value={formData.titleColor || '#333333'}
                   onChange={(value) => updateField('titleColor', value)}
                 />
               </div>
             </div>
-
-            {/* Introduction */}
+            
+            {/* Contenu */}
             <div>
-              <Label htmlFor="introduction">Introduction</Label>
+              <Label htmlFor="content">Contenu</Label>
               <Textarea 
-                id="introduction"
-                value={formData.introduction || ''} 
-                onChange={e => updateField('introduction', e.target.value)}
-                placeholder="Texte d'introduction..."
+                id="content"
+                value={formData.content || block.configuration?.content || 'Contenu du texte de cette section. Vous pouvez modifier ce texte dans l\'éditeur.'} 
+                onChange={e => updateField('content', e.target.value)}
+                placeholder="Contenu du texte de cette section..."
                 rows={4}
                 className="mt-2"
               />
               <div className="mt-3">
-                <Label className="text-sm">Couleur de l'introduction</Label>
                 <ColorPicker
-                  value={formData.introColor || '#666666'}
-                  onChange={(value) => updateField('introColor', value)}
+                  value={formData.contentColor || '#666666'}
+                  onChange={(value) => updateField('contentColor', value)}
                 />
               </div>
             </div>
 
-            {/* Couleur du trait de séparation */}
+            {/* Tiret */}
             <div>
-              <Label>Couleur du trait de séparation</Label>
-              <div className="mt-2">
+              <Label htmlFor="divider">Tiret</Label>
+              <div className="mt-3">
                 <ColorPicker
                   value={formData.dividerColor || '#3BA8AF'}
                   onChange={(value) => updateField('dividerColor', value)}
                 />
-              </div>
-            </div>
-
-            {/* Sous-sections dynamiques */}
-            <div className="border-t pt-4 mt-6">
-              <div className="flex items-center justify-between mb-4">
-                <Label className="text-base font-semibold">Sous-sections</Label>
-                <button
-                  type="button"
-                  onClick={() => {
-                    const newSection = {
-                      subtitle: 'Nouveau sous-titre',
-                      text: 'Nouveau texte...'
-                    };
-                    updateField('sections', [...(formData.sections || []), newSection]);
-                  }}
-                  className="px-3 py-1 rounded text-sm"
-                  style={{ 
-                    backgroundColor: THEME_COLORS.secondary,
-                    color: 'white'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryHover;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
-                  }}
-                >
-                  <Plus size={14} className="inline mr-1" />
-                  Ajouter une sous-section
-                </button>
-              </div>
-
-              <div className="space-y-4 max-h-96 overflow-y-auto pr-2">
-                {(formData.sections || []).map((section: any, index: number) => (
-                  <div key={index} className="border-2 border-gray-300 rounded-lg p-4">
-                    <div className="flex items-center justify-between mb-3">
-                      <Label className="text-sm font-medium">Sous-section {index + 1}</Label>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          const updated = (formData.sections || []).filter((_: any, i: number) => i !== index);
-                          updateField('sections', updated);
-                        }}
-                        className="px-2 py-1 rounded text-sm"
-                        style={{ 
-                          backgroundColor: THEME_COLORS.secondary,
-                          color: 'white'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryHover;
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
-                        }}
-                      >
-                        Supprimer
-                      </button>
-                    </div>
-
-                    <div className="space-y-3">
-                      <div>
-                        <Label className="text-sm">Sous-titre</Label>
-                        <Input 
-                          value={section.subtitle || ''} 
-                          onChange={e => {
-                            const updated = [...(formData.sections || [])];
-                            updated[index].subtitle = e.target.value;
-                            updateField('sections', updated);
-                          }}
-                        />
-                      </div>
-                      <div>
-                        <Label className="text-sm">Texte</Label>
-                        <Textarea 
-                          value={section.text || ''} 
-                          onChange={e => {
-                            const updated = [...(formData.sections || [])];
-                            updated[index].text = e.target.value;
-                            updateField('sections', updated);
-                          }}
-                          rows={4}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-4">
-                <Label className="text-sm">Couleur des sous-titres</Label>
-                <ColorPicker
-                  value={formData.subtitleColor || '#084F6E'}
-                  onChange={(value) => updateField('subtitleColor', value)}
-                />
-              </div>
-
-              <div className="mt-4">
-                <Label className="text-sm">Couleur du texte</Label>
-                <ColorPicker
-                  value={formData.textColor || '#666666'}
-                  onChange={(value) => updateField('textColor', value)}
-                />
-              </div>
-            </div>
-
-            {/* Images */}
-            <div className="border-t pt-4 mt-6">
-              <div className="flex items-center justify-between mb-4">
-                <Label className="text-base font-semibold">Images</Label>
-                <button
-                  type="button"
-                  onClick={() => {
-                    const input = document.createElement('input');
-                    input.type = 'file';
-                    input.accept = 'image/*';
-                    input.onchange = (e) => {
-                      const file = (e.target as HTMLInputElement).files?.[0];
-                      if (file) {
-                        const url = URL.createObjectURL(file);
-                        const newImage = {
-                          url,
-                          alt: '',
-                          sectionIndex: 0,
-                          position: 'left'
-                        };
-                        updateField('images', [...(formData.images || []), newImage]);
-                      }
-                    };
-                    input.click();
-                  }}
-                  className="px-3 py-1 rounded text-sm"
-                  style={{ 
-                    backgroundColor: THEME_COLORS.secondary,
-                    color: 'white'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryHover;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
-                  }}
-                >
-                  <Plus size={14} className="inline mr-1" />
-                  Ajouter une image
-                </button>
-              </div>
-
-              <div className="space-y-3">
-                {(formData.images || []).map((image: any, index: number) => (
-                  <div key={index} className="border-2 border-gray-300 rounded-lg p-4">
-                    <div className="flex items-center justify-between mb-3">
-                      <Label className="text-sm font-medium">Image {index + 1}</Label>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          const updated = (formData.images || []).filter((_: any, i: number) => i !== index);
-                          updateField('images', updated);
-                        }}
-                        className="px-2 py-1 rounded text-sm"
-                        style={{ 
-                          backgroundColor: THEME_COLORS.secondary,
-                          color: 'white'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryHover;
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
-                        }}
-                      >
-                        Supprimer
-                      </button>
-                    </div>
-
-                    <div className="space-y-3">
-                      <div>
-                        <Label className="text-sm">URL de l'image</Label>
-                        <Input 
-                          value={image.url || ''} 
-                          onChange={e => {
-                            const updated = [...(formData.images || [])];
-                            updated[index].url = e.target.value;
-                            updateField('images', updated);
-                          }}
-                        />
-                      </div>
-                      <div>
-                        <Label className="text-sm">Texte alternatif</Label>
-                        <Input 
-                          value={image.alt || ''} 
-                          onChange={e => {
-                            const updated = [...(formData.images || [])];
-                            updated[index].alt = e.target.value;
-                            updateField('images', updated);
-                          }}
-                        />
-                      </div>
-                      <div>
-                        <Label className="text-sm">Associer à la sous-section</Label>
-                        <select 
-                          value={image.sectionIndex || 0}
-                          onChange={e => {
-                            const updated = [...(formData.images || [])];
-                            updated[index].sectionIndex = parseInt(e.target.value);
-                            updateField('images', updated);
-                          }}
-                          className="w-full p-2 border rounded"
-                        >
-                          {(formData.sections || []).map((section: any, sIndex: number) => (
-                            <option key={sIndex} value={sIndex}>
-                              {section.subtitle || `Section ${sIndex + 1}`}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                      <div>
-                        <Label className="text-sm">Position</Label>
-                        <select 
-                          value={image.position || 'left'}
-                          onChange={e => {
-                            const updated = [...(formData.images || [])];
-                            updated[index].position = e.target.value;
-                            updateField('images', updated);
-                          }}
-                          className="w-full p-2 border rounded"
-                        >
-                          <option value="left">Gauche</option>
-                          <option value="right">Droite</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Boutons */}
-            <div className="border-t pt-4 mt-6">
-              <div className="flex items-center justify-between mb-4">
-                <Label className="text-base font-semibold">Boutons</Label>
-                <button
-                  type="button"
-                  onClick={() => {
-                    const newButton = {
-                      text: 'Nouveau bouton',
-                      url: '#',
-                      color: '#084F6E',
-                      style: 'filled'
-                    };
-                    updateField('buttons', [...(formData.buttons || []), newButton]);
-                  }}
-                  className="px-3 py-1 rounded text-sm"
-                  style={{ 
-                    backgroundColor: THEME_COLORS.secondary,
-                    color: 'white'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryHover;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
-                  }}
-                >
-                  <Plus size={14} className="inline mr-1" />
-                  Ajouter un bouton
-                </button>
-              </div>
-
-              <div className="space-y-3">
-                {(formData.buttons || []).map((button: any, index: number) => (
-                  <div key={index} className="border-2 border-gray-300 rounded-lg p-4">
-                    <div className="flex items-center justify-between mb-3">
-                      <Label className="text-sm font-medium">Bouton {index + 1}</Label>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          const updated = (formData.buttons || []).filter((_: any, i: number) => i !== index);
-                          updateField('buttons', updated);
-                        }}
-                        className="px-2 py-1 rounded text-sm"
-                        style={{ 
-                          backgroundColor: THEME_COLORS.secondary,
-                          color: 'white'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryHover;
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
-                        }}
-                      >
-                        Supprimer
-                      </button>
-                    </div>
-
-                    <div className="space-y-3">
-                      <div>
-                        <Label className="text-sm">Texte du bouton</Label>
-                        <Input 
-                          value={button.text || ''} 
-                          onChange={e => {
-                            const updated = [...(formData.buttons || [])];
-                            updated[index].text = e.target.value;
-                            updateField('buttons', updated);
-                          }}
-                        />
-                      </div>
-                      <div>
-                        <Label className="text-sm">URL</Label>
-                        <Input 
-                          value={button.url || ''} 
-                          onChange={e => {
-                            const updated = [...(formData.buttons || [])];
-                            updated[index].url = e.target.value;
-                            updateField('buttons', updated);
-                          }}
-                        />
-                      </div>
-                      <div>
-                        <Label className="text-sm">Style</Label>
-                        <select 
-                          value={button.style || 'filled'}
-                          onChange={e => {
-                            const updated = [...(formData.buttons || [])];
-                            updated[index].style = e.target.value;
-                            updateField('buttons', updated);
-                          }}
-                          className="w-full p-2 border rounded"
-                        >
-                          <option value="filled">Plein</option>
-                          <option value="outline">Contour</option>
-                        </select>
-                      </div>
-                      <div>
-                        <Label className="text-sm">Couleur</Label>
-                        <ColorPicker
-                          value={button.color || '#084F6E'}
-                          onChange={(value) => {
-                            const updated = [...(formData.buttons || [])];
-                            updated[index].color = value;
-                            updateField('buttons', updated);
-                          }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                ))}
               </div>
             </div>
           </div>
@@ -2440,19 +1582,6 @@ const BlockEditDropdown = ({
             {/* Configuration de la grille */}
             <div className="space-y-4 border-t pt-4">
               <h4 className="text-sm font-medium text-gray-900">Configuration de la grille</h4>
-              
-              {/* Couleurs des annonces */}
-              <div className="space-y-2">
-                <Label className="text-sm font-medium">Couleurs des annonces</Label>
-                <ColorPicker
-                  value={formData.cardButtonColor || '#2563eb'}
-                  onChange={(value) => {
-                    updateField('cardBackgroundColor', value);
-                    updateField('cardButtonColor', value);
-                  }}
-                  label=""
-                />
-              </div>
               
               {/* Colonnes */}
               <div>
@@ -2746,19 +1875,6 @@ const BlockEditDropdown = ({
             <div className="space-y-4 border-t pt-4">
               <h4 className="text-sm font-medium text-gray-900">Configuration de la grille</h4>
               
-              {/* Couleurs des annonces */}
-              <div className="space-y-2">
-                <Label className="text-sm font-medium">Couleurs des annonces</Label>
-                <ColorPicker
-                  value={formData.cardButtonColor || '#2563eb'}
-                  onChange={(value) => {
-                    updateField('cardBackgroundColor', value);
-                    updateField('cardButtonColor', value);
-                  }}
-                  label=""
-                />
-              </div>
-              
               {/* Colonnes */}
               <div>
                 <Label className="text-sm font-medium">Colonnes par appareil</Label>
@@ -2952,13 +2068,12 @@ const BlockEditDropdown = ({
                     type="button"
                     onClick={() => {
                       const blocks = formData.iconBlocks || [];
-                      if (blocks.length < 6) {
+                      if (blocks.length < 3) {
                         const newBlock = {
                           id: Date.now(),
                           mainIcon: 'fas fa-sparkles',
                           title: 'Nouveau Bloc',
                           description: 'Description de ce bloc d\'avantages.',
-                          iconColor: THEME_COLORS.primary,
                           miniIcons: [
                             { icon: 'fas fa-check', text: 'Avantage 1' },
                             { icon: 'fas fa-check', text: 'Avantage 2' },
@@ -2968,55 +2083,10 @@ const BlockEditDropdown = ({
                         updateField('iconBlocks', [...blocks, newBlock]);
                       }
                     }}
-                    style={formData.iconBlocks?.length >= 6 ? {} : { 
-                      backgroundColor: THEME_COLORS.secondary,
-                      color: 'white'
-                    }}
-                    onMouseEnter={(e) => {
-                      if (formData.iconBlocks?.length < 6) {
-                        e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryHover;
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      if (formData.iconBlocks?.length < 6) {
-                        e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
-                      }
-                    }}
-                    className={`px-3 py-1 rounded text-sm ${formData.iconBlocks?.length >= 6 ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : ''}`}
-                    disabled={formData.iconBlocks?.length >= 6}
+                    className={`px-3 py-1 rounded text-sm ${formData.iconBlocks?.length >= 3 ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-blue-500 text-white hover:bg-blue-600'}`}
+                    disabled={formData.iconBlocks?.length >= 3}
                   >
-                    + Ajouter un nouveau bloc
-                  </button>
-                </div>
-              </div>
-              
-              {/* Sélecteur de style */}
-              <div className="mb-6">
-                <Label className="text-sm font-medium mb-2">Style de design</Label>
-                <div className="grid grid-cols-2 gap-3 mt-2">
-                  <button
-                    type="button"
-                    onClick={() => updateField('iconStyle', 'modern-card')}
-                    className="p-3 border-2 rounded-lg text-left transition-all"
-                    style={(formData.iconStyle || 'modern-card') === 'modern-card' 
-                      ? { borderColor: THEME_COLORS.secondary, backgroundColor: THEME_COLORS.secondaryLight } 
-                      : { borderColor: '#d1d5db' }
-                    }
-                  >
-                    <div className="font-medium text-sm">Carte moderne</div>
-                    <div className="text-xs text-gray-500 mt-1">Avec cadres et fond coloré</div>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => updateField('iconStyle', 'minimalist')}
-                    className="p-3 border-2 rounded-lg text-left transition-all"
-                    style={formData.iconStyle === 'minimalist' 
-                      ? { borderColor: THEME_COLORS.secondary, backgroundColor: THEME_COLORS.secondaryLight } 
-                      : { borderColor: '#d1d5db' }
-                    }
-                  >
-                    <div className="font-medium text-sm">Minimaliste</div>
-                    <div className="text-xs text-gray-500 mt-1">Sans cadres, fond coloré teinté</div>
+                    + Ajouter
                   </button>
                 </div>
               </div>
@@ -3029,7 +2099,6 @@ const BlockEditDropdown = ({
                       mainIcon: 'fas fa-user-friends',
                       title: 'Private Tours',
                       description: 'Experience an exclusive day trip with our professional guides and private vehicles.',
-                      iconColor: THEME_COLORS.primary,
                       miniIcons: [
                         { icon: 'fas fa-car', text: 'Private Car' },
                         { icon: 'fas fa-language', text: 'Guide' },
@@ -3041,7 +2110,6 @@ const BlockEditDropdown = ({
                       mainIcon: 'fas fa-compass',
                       title: 'Customized Itineraries',
                       description: 'Create your own journey based on your desires, your pace, and your interests.',
-                      iconColor: THEME_COLORS.primary,
                       miniIcons: [
                         { icon: 'fas fa-map-marked-alt', text: 'Custom Route' },
                         { icon: 'fas fa-clock', text: 'Flexible Time' },
@@ -3053,7 +2121,6 @@ const BlockEditDropdown = ({
                       mainIcon: 'fas fa-sparkles',
                       title: 'Authentic Experiences',
                       description: 'Discover destinations off the beaten path and immerse yourself in the local culture.',
-                      iconColor: THEME_COLORS.primary,
                       miniIcons: [
                         { icon: 'fas fa-utensils', text: 'Local Food' },
                         { icon: 'fas fa-hands-helping', text: 'Local People' },
@@ -3071,22 +2138,9 @@ const BlockEditDropdown = ({
                   
                   return blocks;
                 })().map((block: any, index: number) => (
-                  <div key={block.id} className="border-2 border-gray-300 rounded-lg p-4">
+                  <div key={block.id} className="border border-gray-200 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-3">
-                      <div className="flex flex-col gap-2">
-                        <Label className="font-medium text-base">Bloc {index + 1}</Label>
-                        <ColorPicker
-                          value={block.iconColor || THEME_COLORS.primary}
-                          onChange={(value) => {
-                            const blocks = formData.iconBlocks || [];
-                            const updatedBlocks = blocks.map((b: any) => 
-                              b.id === block.id ? { ...b, iconColor: value } : b
-                            );
-                            updateField('iconBlocks', updatedBlocks);
-                          }}
-                          label=""
-                        />
-                      </div>
+                      <Label className="font-medium">Bloc {index + 1}</Label>
                       <button 
                         type="button"
                         onClick={() => {
@@ -3094,19 +2148,9 @@ const BlockEditDropdown = ({
                           const updatedBlocks = blocks.filter((b: any) => b.id !== block.id);
                           updateField('iconBlocks', updatedBlocks);
                         }}
-                        className="px-3 py-1 rounded text-sm"
-                        style={{ 
-                          backgroundColor: THEME_COLORS.secondary,
-                          color: 'white'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryHover;
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
-                        }}
+                        className="text-black hover:text-gray-700 text-sm"
                       >
-                        Supprimer le bloc
+                        <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
                     
@@ -3133,11 +2177,9 @@ const BlockEditDropdown = ({
                                   );
                                   updateField('iconBlocks', updatedBlocks);
                                 }}
-                                className="p-3 border rounded-lg hover:bg-gray-50 flex items-center justify-center transition-colors"
-                                style={block.mainIcon === icon 
-                                  ? { borderColor: THEME_COLORS.secondary, backgroundColor: THEME_COLORS.secondaryLight } 
-                                  : { borderColor: '#d1d5db' }
-                                }
+                                className={`p-3 border rounded-lg hover:bg-gray-50 flex items-center justify-center transition-colors ${
+                                  block.mainIcon === icon ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
+                                }`}
                                 title={icon}
                               >
                                 {component}
@@ -3154,11 +2196,9 @@ const BlockEditDropdown = ({
                                 );
                                 updateField('iconBlocks', updatedBlocks);
                               }}
-                              className="p-3 border rounded-lg hover:bg-gray-50 flex items-center justify-center transition-colors"
-                              style={block.mainIcon === 'fas fa-medal' 
-                                ? { borderColor: THEME_COLORS.secondary, backgroundColor: THEME_COLORS.secondaryLight } 
-                                : { borderColor: '#d1d5db' }
-                              }
+                              className={`p-3 border rounded-lg hover:bg-gray-50 flex items-center justify-center transition-colors ${
+                                block.mainIcon === 'fas fa-medal' ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
+                              }`}
                               title="Médaille"
                             >
                               <i className="fas fa-medal text-lg text-gray-700"></i>
@@ -3219,20 +2259,10 @@ const BlockEditDropdown = ({
                                   };
                                   input.click();
                                 }}
-                                className="w-9 h-9 border-2 border-dashed rounded transition-colors flex items-center justify-center"
-                                style={{ 
-                                  borderColor: THEME_COLORS.secondary,
-                                  backgroundColor: THEME_COLORS.secondaryLight 
-                                }}
-                                onMouseEnter={(e) => {
-                                  e.currentTarget.style.backgroundColor = hexToRgba(THEME_COLORS.secondary, 0.15);
-                                }}
-                                onMouseLeave={(e) => {
-                                  e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryLight;
-                                }}
+                                className="w-9 h-9 border-2 border-dashed border-blue-400 rounded hover:bg-blue-50 transition-colors flex items-center justify-center bg-blue-25"
                                 title="Upload icône principale personnalisée"
                               >
-                                <Plus size={14} style={{ color: THEME_COLORS.secondary }} />
+                                <Plus size={14} className="text-blue-600" />
                               </button>
                             </div>
                           </div>
@@ -3298,26 +2328,12 @@ const BlockEditDropdown = ({
                             className={`text-xs px-2 py-1 rounded flex items-center gap-1 ${
                               (block.miniIcons || []).length >= 3 
                                 ? 'bg-gray-200 text-gray-400 cursor-not-allowed' 
-                                : ''
+                                : 'bg-blue-500 text-white hover:bg-blue-600'
                             }`}
-                            style={(block.miniIcons || []).length < 3 
-                              ? { backgroundColor: THEME_COLORS.secondary, color: 'white' } 
-                              : {}
-                            }
-                            onMouseEnter={(e) => {
-                              if ((block.miniIcons || []).length < 3) {
-                                e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryHover;
-                              }
-                            }}
-                            onMouseLeave={(e) => {
-                              if ((block.miniIcons || []).length < 3) {
-                                e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
-                              }
-                            }}
                             disabled={(block.miniIcons || []).length >= 3}
                           >
                             <Plus size={12} />
-                            Ajouter un mini bloc
+                            Ajouter
                           </button>
                         </div>
                         <div className="space-y-2">
@@ -3362,14 +2378,7 @@ const BlockEditDropdown = ({
                                       });
                                       updateField('iconBlocks', updatedBlocks);
                                     }}
-                                    className="w-9 h-9 rounded transition-colors flex items-center justify-center"
-                                    style={{ backgroundColor: THEME_COLORS.secondary, color: 'white' }}
-                                    onMouseEnter={(e) => {
-                                      e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryHover;
-                                    }}
-                                    onMouseLeave={(e) => {
-                                      e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
-                                    }}
+                                    className="bg-blue-500 text-white w-9 h-9 rounded hover:bg-blue-600 transition-colors flex items-center justify-center"
                                     title="Supprimer cette mini-icône"
                                   >
                                     <Trash2 size={14} />
@@ -3407,11 +2416,9 @@ const BlockEditDropdown = ({
                                         });
                                         updateField('iconBlocks', updatedBlocks);
                                       }}
-                                      className="p-1.5 border rounded hover:bg-gray-50 flex items-center justify-center transition-colors"
-                                      style={miniIcon.icon === icon 
-                                        ? { borderColor: THEME_COLORS.secondary, backgroundColor: THEME_COLORS.secondaryLight } 
-                                        : { borderColor: '#d1d5db' }
-                                      }
+                                      className={`p-1.5 border rounded hover:bg-gray-50 flex items-center justify-center transition-colors ${
+                                        miniIcon.icon === icon ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
+                                      }`}
                                       title={label}
                                     >
                                       {component}
@@ -3496,20 +2503,10 @@ const BlockEditDropdown = ({
                                       };
                                       input.click();
                                     }}
-                                    className="w-9 h-9 border-2 border-dashed rounded transition-colors flex items-center justify-center"
-                                    style={{ 
-                                      borderColor: THEME_COLORS.secondary,
-                                      backgroundColor: THEME_COLORS.secondaryLight 
-                                    }}
-                                    onMouseEnter={(e) => {
-                                      e.currentTarget.style.backgroundColor = hexToRgba(THEME_COLORS.secondary, 0.15);
-                                    }}
-                                    onMouseLeave={(e) => {
-                                      e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryLight;
-                                    }}
+                                    className="w-9 h-9 border-2 border-dashed border-blue-400 rounded hover:bg-blue-50 transition-colors flex items-center justify-center bg-blue-25"
                                     title="Upload icône personnalisée"
                                   >
-                                    <Plus size={14} style={{ color: THEME_COLORS.secondary }} />
+                                    <Plus size={14} className="text-blue-600" />
                                   </button>
                                 </div>
                               </div>
@@ -3569,33 +2566,6 @@ const BlockEditDropdown = ({
         );
 
       case 'travelers_reviews':
-        // Initialiser les avis par défaut s'ils n'existent pas
-        const defaultReviewsForEdit = [
-          {
-            id: 1,
-            name: 'Sophie L.',
-            rating: 5,
-            text: 'We spent 2 wonderful days with Eric and Margaux who showed us amazing places. A unique and authentic experience...'
-          },
-          {
-            id: 2,
-            name: 'Pierre M.',
-            rating: 5,
-            text: 'The French explanations, the Thai meal in a local spot, the magnificent landscapes and the warm welcome from Eric and Margaux, everything was perfect!'
-          },
-          {
-            id: 3,
-            name: 'Martin Family',
-            rating: 5,
-            text: 'An unforgettable day, everything was perfect. We discovered beautiful places away from the tourist crowds. Thanks to Eric and Margaux for their kindness...'
-          }
-        ];
-        
-        // Si les avis n'existent pas encore, les initialiser
-        if (!formData.reviews || formData.reviews.length === 0) {
-          updateField('reviews', defaultReviewsForEdit);
-        }
-        
         return (
           <div className="space-y-4">
             <div>
@@ -3615,18 +2585,6 @@ const BlockEditDropdown = ({
               />
             </div>
             <div>
-              <Label htmlFor="starRating">Nombre d'étoiles (affichées sous la note)</Label>
-              <Input 
-                id="starRating"
-                type="number"
-                min="1"
-                max="5"
-                step="1"
-                value={formData.starRating || '5'} 
-                onChange={e => updateField('starRating', e.target.value)}
-              />
-            </div>
-            <div>
               <Label htmlFor="googleRating">Note Google</Label>
               <Input 
                 id="googleRating"
@@ -3641,139 +2599,6 @@ const BlockEditDropdown = ({
                 value={formData.reviewCount || '80'} 
                 onChange={e => updateField('reviewCount', e.target.value)}
               />
-            </div>
-            <div>
-              <Label htmlFor="googleLink">Lien de redirection Google</Label>
-              <Input 
-                id="googleLink"
-                type="url"
-                placeholder="https://g.page/..."
-                value={formData.googleLink || ''} 
-                onChange={e => updateField('googleLink', e.target.value)}
-              />
-            </div>
-            <div>
-              <Label htmlFor="googleLinkText">Texte du lien Google</Label>
-              <Input 
-                id="googleLinkText"
-                value={formData.googleLinkText || 'View all reviews on Google'} 
-                onChange={e => updateField('googleLinkText', e.target.value)}
-              />
-            </div>
-
-            {/* Section des avis individuels */}
-            <div className="border-t pt-4 mt-6">
-              <div className="flex items-center justify-between mb-4">
-                <Label className="text-base font-semibold">Avis clients</Label>
-                <button
-                  type="button"
-                  onClick={() => {
-                    const reviews = formData.reviews || [];
-                    const newReview = {
-                      id: Date.now(),
-                      name: 'Nouveau Client',
-                      rating: 5,
-                      text: 'Excellent service!'
-                    };
-                    updateField('reviews', [...reviews, newReview]);
-                  }}
-                  className="px-3 py-1 rounded text-sm"
-                  style={{ 
-                    backgroundColor: THEME_COLORS.secondary,
-                    color: 'white'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryHover;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
-                  }}
-                >
-                  <Plus size={14} className="inline mr-1" />
-                  Ajouter une note
-                </button>
-              </div>
-
-              <div className="space-y-3 max-h-96 overflow-y-auto pr-2">
-                {(formData.reviews || []).map((review: any, index: number) => (
-                  <div key={review.id} className="border-2 border-gray-300 rounded-lg p-4">
-                    <div className="flex items-center justify-between mb-3">
-                      <Label className="text-sm font-medium">Avis {index + 1}</Label>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          const reviews = formData.reviews || [];
-                          const updatedReviews = reviews.filter((r: any) => r.id !== review.id);
-                          updateField('reviews', updatedReviews);
-                        }}
-                        className="px-2 py-1 rounded text-sm"
-                        style={{ 
-                          backgroundColor: THEME_COLORS.secondary,
-                          color: 'white'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryHover;
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
-                        }}
-                      >
-                        Supprimer
-                      </button>
-                    </div>
-
-                    <div className="space-y-3">
-                      <div>
-                        <Label className="text-sm">Nom</Label>
-                        <Input 
-                          value={review.name || ''} 
-                          onChange={e => {
-                            const reviews = formData.reviews || [];
-                            const updatedReviews = reviews.map((r: any) => 
-                              r.id === review.id ? { ...r, name: e.target.value } : r
-                            );
-                            updateField('reviews', updatedReviews);
-                          }}
-                          className="mt-1"
-                        />
-                      </div>
-                      <div>
-                        <Label className="text-sm">Nombre d'étoiles</Label>
-                        <Input 
-                          type="number"
-                          min="1"
-                          max="5"
-                          step="1"
-                          value={review.rating || 5} 
-                          onChange={e => {
-                            const reviews = formData.reviews || [];
-                            const updatedReviews = reviews.map((r: any) => 
-                              r.id === review.id ? { ...r, rating: parseInt(e.target.value) || 5 } : r
-                            );
-                            updateField('reviews', updatedReviews);
-                          }}
-                          className="mt-1"
-                        />
-                      </div>
-                      <div>
-                        <Label className="text-sm">Texte</Label>
-                        <Textarea 
-                          value={review.text || ''} 
-                          onChange={e => {
-                            const reviews = formData.reviews || [];
-                            const updatedReviews = reviews.map((r: any) => 
-                              r.id === review.id ? { ...r, text: e.target.value } : r
-                            );
-                            updateField('reviews', updatedReviews);
-                          }}
-                          rows={2}
-                          className="mt-1"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
         );
@@ -3981,11 +2806,8 @@ export default function AdminPageEditor() {
                 <ArrowLeft className="w-5 h-5" />
               </Button>
               <div className="flex items-center gap-3">
-                <div 
-                  className="w-10 h-10 rounded-lg flex items-center justify-center"
-                  style={{ backgroundColor: THEME_COLORS.secondaryLight }}
-                >
-                  <Settings className="w-5 h-5" style={{ color: THEME_COLORS.secondary }} />
+                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                  <Settings className="w-5 h-5 text-blue-600" />
                 </div>
                 <div>
                   <h1 className="text-2xl font-bold text-gray-900">Éditeur de page</h1>
@@ -4122,11 +2944,7 @@ export default function AdminPageEditor() {
                                   setTimeout(() => scrollToElement(`edit-${block.id}`), 300);
                                 }
                               }}
-                              className="flex items-center gap-1"
-                              style={editingBlockId === block.id 
-                                ? { backgroundColor: THEME_COLORS.secondaryLight } 
-                                : {}
-                              }
+                              className={`flex items-center gap-1 ${editingBlockId === block.id ? 'bg-blue-100' : ''}`}
                             >
                               <Settings className="w-4 h-4" />
                               {editingBlockId === block.id ? 'Fermer' : 'Modifier'}

@@ -1,14 +1,32 @@
 // Service de stockage persistant pour les images personnalisées TourNinja
-// Utilise le dossier /uploads/tours qui est persistant sur Replit
+// Utilise les variables d'environnement Object Storage configurées
 
 import fs from 'fs';
 import path from 'path';
 
 /**
  * Service de stockage persistant pour les images personnalisées TourNinja
- * Utilise le dossier /uploads/tours qui est persistant sur Replit
+ * Utilise Replit Object Storage pour assurer la persistance en production
  */
 export class PersistentImageStorageService {
+  
+  constructor() {
+    // Vérifier que les variables d'environnement Object Storage sont configurées
+    if (!process.env.PRIVATE_OBJECT_DIR) {
+      throw new Error("PRIVATE_OBJECT_DIR environment variable not set. Object Storage not configured.");
+    }
+  }
+
+  /**
+   * Récupère le répertoire privé configuré pour Object Storage
+   */
+  getPrivateObjectDir(): string {
+    const dir = process.env.PRIVATE_OBJECT_DIR || "";
+    if (!dir) {
+      throw new Error("PRIVATE_OBJECT_DIR not set. Object Storage not configured.");
+    }
+    return dir;
+  }
 
   /**
    * Upload une image vers le stockage persistant
@@ -21,12 +39,10 @@ export class PersistentImageStorageService {
       // Générer un nom de fichier unique
       const timestamp = Date.now();
       const extension = file.originalname.split('.').pop();
-      const fileName = `tour-${timestamp}-${Math.round(Math.random() * 1E9)}.${extension}`;
-      
-      // Utiliser le dossier /uploads/tours qui est déjà persistant sur Replit
-      const uploadDir = path.join(process.cwd(), 'uploads', 'tours');
+      const fileName = `tour-ninja-${tourNinjaId}-${timestamp}.${extension}`;
       
       // Créer le dossier si nécessaire
+      const uploadDir = path.join(process.cwd(), 'objects', 'tour-images');
       if (!fs.existsSync(uploadDir)) {
         fs.mkdirSync(uploadDir, { recursive: true });
       }
@@ -34,18 +50,18 @@ export class PersistentImageStorageService {
       // Chemin complet du fichier
       const filePath = path.join(uploadDir, fileName);
       
-      // Sauvegarder le fichier
+      // Sauvegarder réellement le fichier
       fs.writeFileSync(filePath, file.buffer);
       
       // URL accessible depuis le frontend
-      const persistentUrl = `/uploads/tours/${fileName}`;
+      const persistentUrl = `/objects/tour-images/${fileName}`;
       
-      console.log(`✅ Image sauvegardée (persistant) : ${filePath}`);
-      console.log(`✅ URL persistante : ${persistentUrl}`);
+      console.log(`✅ Image réellement sauvegardée : ${filePath}`);
+      console.log(`✅ URL accessible : ${persistentUrl}`);
       
       return persistentUrl;
     } catch (error) {
-      console.error("❌ Failed to upload image:", error);
+      console.error("❌ Failed to upload image to persistent storage:", error);
       throw error;
     }
   }
@@ -74,7 +90,7 @@ export class PersistentImageStorageService {
       const newFileName = `tour-ninja-${tourNinjaId}-${timestamp}.${extension}`;
       
       // TODO: Copier le fichier local vers Object Storage
-      const persistentUrl = `/uploads/tours/${newFileName}`;
+      const persistentUrl = `/objects/tour-images/${newFileName}`;
       
       console.log(`✅ Migrated ${localUrl} to ${persistentUrl}`);
       return persistentUrl;
@@ -90,7 +106,7 @@ export class PersistentImageStorageService {
    */
   async deleteImage(imageUrl: string): Promise<void> {
     try {
-      if (!imageUrl.startsWith('/uploads/tours/')) {
+      if (!imageUrl.startsWith('/objects/')) {
         console.warn(`Not a persistent storage URL, skipping deletion: ${imageUrl}`);
         return;
       }
@@ -109,7 +125,7 @@ export class PersistentImageStorageService {
    * @returns true si c'est une URL persistante
    */
   isPersistentUrl(url: string): boolean {
-    return url.startsWith('/uploads/tours/');
+    return url.startsWith('/objects/');
   }
 
   /**

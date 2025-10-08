@@ -17,7 +17,7 @@ export default function SeasonalPricing() {
             >
               <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{cruise.seasonalPricing}</h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-4"></div>
-              <p className="text-muted-foreground text-lg">{cruise.dailyRateMinimum}</p>
+              <p className="text-muted-foreground text-lg">{cruise.perfectForHolidays}</p>
             </motion.div>
           </div>
           
@@ -91,17 +91,17 @@ export default function SeasonalPricing() {
           </div>
 
           <motion.div 
-            className="mt-12 mb-12 text-center"
+            className="mt-8 text-center"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <p className="text-muted-foreground text-lg">{cruise.pickupTimesTransfers}</p>
+            <p className="text-muted-foreground text-lg">{cruise.dailyRateMinimum}</p>
           </motion.div>
-
+          
           {/* Pickup Locations Cards */}
-          <div className="max-w-5xl mx-auto mt-4 mb-6">
+          <div className="max-w-5xl mx-auto mt-8 mb-6">
             <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
               {/* Tubkeak */}
               <motion.div 

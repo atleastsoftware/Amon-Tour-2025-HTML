@@ -1,17 +1,20 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
+import { useTranslation } from 'react-i18next';
 import { Download, Globe } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
 export default function Brochure() {
+  const { t } = useTranslation();
+  
   return (
     <>
       <SEO 
-        title="Our Brochure - Amon Tour Travel Guide"
-        description="Download our comprehensive travel brochure featuring the best of Krabi and Thailand. Available in French and English with detailed tour information and stunning photography."
-        keywords="amon tour brochure, krabi travel guide, thailand tours pdf, travel brochure download"
+        title={t('seoMeta.brochureTitle')}
+        description={t('seoMeta.brochureDescription')}
+        keywords={t('seoMeta.brochureKeywords')}
       />
       <Header />
       
@@ -34,10 +37,10 @@ export default function Brochure() {
             >
               <Download className="w-16 h-16 text-secondary mx-auto mb-6" />
               <h1 className="font-heading font-bold text-4xl md:text-5xl mb-6">
-                Our Travel Brochure
+                {t('seoMeta.brochureTitle')}
               </h1>
               <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-8">
-                Discover the magic of Krabi and Thailand with our comprehensive travel guide
+                {t('seoMeta.brochureDescription')}
               </p>
             </motion.div>
           </div>

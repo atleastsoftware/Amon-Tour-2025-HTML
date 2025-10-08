@@ -5,33 +5,28 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
 import HeroHeader from "@/components/layout/HeroHeader";
+import { translationService } from "@/services/translationService";
 import TourCardItem, { TourCardItemProps } from "@/components/tour/TourCardItem";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
-import { FiChevronRight } from "react-icons/fi";
 import { 
   FadeInWhenVisible, 
   SlideUpWhenVisible,
   StaggerChildren,
   StaggerItem 
 } from "@/components/ui/animations";
-import { useTourNinjaWithCustomImages } from "@/hooks/useTourNinja";
-import { useIframe } from "@/contexts/IframeContext";
 
 // Image is loaded from URL directly
 
 export default function Experiences() {
-  const { openIframe } = useIframe();
+  const pageHeaders = translationService.getPageHeaders();
+  const seoMeta = translationService.getSeoMeta();
   
   const { data: tourCards = [], isLoading } = useQuery<TourCardItemProps[]>({
     queryKey: ['/api/tour-cards'],
   });
-  
-  // Get Tour Ninja tours with custom images
-  const { tours: tourNinjaTours = [], isLoading: tourNinjaLoading } = useTourNinjaWithCustomImages();
   
   // Filtre pour avoir uniquement les tour cards de type "experience"
   const experienceTypeCards = tourCards.filter(card => card.type === "experience");
@@ -48,9 +43,9 @@ export default function Experiences() {
   return (
     <>
       <SEO 
-        title="Thailand Experiences - Cultural Journeys & Authentic Adventures | Amon Tour"
-        description="Immerse yourself in authentic Thailand experiences with Amon Tour. Cultural journeys, local traditions, culinary adventures, and hidden gems away from tourist crowds. Personalized experiences crafted by locals."
-        keywords="thailand cultural experiences, authentic thai adventures, cultural immersion thailand, local experiences thailand, thailand culinary tours, traditional thai experiences, cultural journeys thailand, authentic local guides"
+        title={seoMeta.experiencesTitle}
+        description={seoMeta.experiencesDescription}
+        keywords={seoMeta.experiencesKeywords}
         canonicalUrl="https://amon-tour.com/experiences"
         breadcrumbs={[
           { name: "Home", url: "/" },
@@ -107,129 +102,168 @@ export default function Experiences() {
       <main>
         {/* Hero Banner */}
         <HeroHeader 
-          title="Discover Thailand Experiences"
-          subtitle="Immerse yourself in authentic Thai culture with our unique experiences"
+          title={pageHeaders.experiences.title}
+          subtitle={pageHeaders.experiences.subtitle}
           alt="Thailand experiences and cultural journeys"
         />
         
         {/* Featured Tours Section - Tour Ninja Integration */}
         <section className="py-20 bg-gradient-to-b from-primary/5 to-white">
-          <div className="container mx-auto px-4 max-w-6xl text-center">
+          <div className="container mx-auto px-4 max-w-4xl text-center">
             <FadeInWhenVisible>
               <div className="mb-8">
                 <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
-                  Available Tours & Experiences
+                  Recommended Guided Tours
                 </h2>
                 <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
                 <p className="text-lg text-gray-700 leading-relaxed">
-                  Discover our authentic Thailand tours with expert guides
+                  Discover our organized tours with English-speaking guides for an authentic Thailand experience
                 </p>
               </div>
             </FadeInWhenVisible>
             
-            {/* Tour Ninja Tours Display */}
-            <div className="container mx-auto px-4">
-              {tourNinjaLoading ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-                  {[...Array(6)].map((_, i) => (
-                    <div key={i} className="bg-gray-200 rounded-xl h-80 animate-pulse" />
-                  ))}
-                </div>
-              ) : tourNinjaTours.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-                  {tourNinjaTours.map((tour: any, index: number) => (
-                    <motion.div
-                      key={tour.id}
-                      initial={{ opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: index * 0.1 }}
-                      className="bg-card rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
-                    >
-                      <div 
-                        className="relative h-48 bg-gradient-to-br from-primary/40 to-primary/60 cursor-pointer"
-                        onClick={() => {
-                          if (tour.presentationUrl) {
-                            openIframe(tour.presentationUrl, `Présentation - ${tour.name}`);
-                          }
-                        }}
+            <StaggerChildren className="grid md:grid-cols-3 gap-8 mb-16">
+              {/* Bangkok Essentiel */}
+              <StaggerItem>
+                <Card className="h-full hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                  <CardHeader className="p-0">
+                    <div className="relative h-48 bg-gradient-to-r from-primary to-secondary">
+                      <img 
+                        src="https://images.unsplash.com/photo-1528181304800-259b08848526?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+                        alt="Bangkok temples et palais - Tour guidé" 
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-black bg-opacity-20"></div>
+                      <div className="absolute top-4 left-4">
+                        <span className="bg-secondary text-white px-3 py-1 rounded-full text-sm font-semibold">
+                          Culture & History
+                        </span>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="p-6">
+                    <h3 className="text-xl font-bold text-gray-800 mb-3">Bangkok Essential</h3>
+                    <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                      3-day cultural tour: Grand Palace, sacred temples, floating markets and gastronomy with expert English-speaking guide.
+                    </p>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-primary font-semibold">3 days</span>
+                      <span className="text-secondary font-bold text-lg">From $450</span>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button 
+                        className="flex-1 bg-primary hover:bg-primary/90"
+                        onClick={() => window.open('https://tourninja.com/tours/bangkok-essential', '_blank')}
                       >
-                        {tour.primaryImage ? (
-                          <img 
-                            src={tour.primaryImage} 
-                            alt={tour.name}
-                            className="w-full h-full object-cover"
-                            onError={(e) => {
-                              const target = e.target as HTMLImageElement;
-                              target.style.display = 'none';
-                            }}
-                          />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center">
-                            <FiChevronRight className="h-16 w-16 text-primary/70" />
-                          </div>
-                        )}
-                        <div className="absolute top-4 right-4">
-                          <Badge variant="secondary" className="bg-white/90 text-primary font-semibold px-2 py-1">
-                            {tour.duration} day{Number(tour.duration) > 1 ? 's' : ''}
-                          </Badge>
-                        </div>
+View Details
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        className="flex-1"
+                        onClick={() => window.location.href = '/contact?tour=Bangkok Essentiel'}
+                      >
+Book Now
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </StaggerItem>
+
+              {/* Triangle d'Or */}
+              <StaggerItem>
+                <Card className="h-full hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                  <CardHeader className="p-0">
+                    <div className="relative h-48 bg-gradient-to-r from-primary to-secondary">
+                      <img 
+                        src="https://images.unsplash.com/photo-1551016988-eb38968b55d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+                        alt="Triangle d'Or Nord Thaïlande - Chiang Mai et tribus" 
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-black bg-opacity-20"></div>
+                      <div className="absolute top-4 left-4">
+                        <span className="bg-primary text-white px-3 py-1 rounded-full text-sm font-semibold">
+                          North & Adventure
+                        </span>
                       </div>
-                      
-                      <div className="p-6">
-                        <h3 
-                          className="text-lg font-bold text-gray-800 mb-3 line-clamp-2 cursor-pointer hover:text-primary transition-colors"
-                          onClick={() => {
-                            if (tour.presentationUrl) {
-                              openIframe(tour.presentationUrl, `Présentation - ${tour.name}`);
-                            }
-                          }}
-                        >
-                          {tour.name}
-                        </h3>
-                        
-                        {tour.shortDescription && (
-                          <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-                            {tour.shortDescription}
-                          </p>
-                        )}
-                        
-                        <div className="flex gap-2">
-                          {tour.detailsUrl && (
-                            <button 
-                              onClick={() => {
-                                openIframe(tour.detailsUrl, `Détails - ${tour.name}`);
-                              }}
-                              className="flex-1 border border-primary text-primary hover:bg-primary/10 py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
-                              data-testid={`button-view-details-${tour.id}`}
-                            >
-                              View Details
-                              <FiChevronRight className="h-3 w-3" />
-                            </button>
-                          )}
-                          {tour.bookingUrl && (
-                            <button 
-                              onClick={() => {
-                                openIframe(tour.bookingUrl, `Booking - ${tour.name}`);
-                              }}
-                              className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
-                              data-testid={`button-book-now-${tour.id}`}
-                            >
-                              Book Now
-                              <FiChevronRight className="h-3 w-3" />
-                            </button>
-                          )}
-                        </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="p-6">
+                    <h3 className="text-xl font-bold text-gray-800 mb-3">Golden Triangle</h3>
+                    <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                      5-day journey: Chiang Mai, mountain tribes, White Temple, Golden Triangle and Mekong cruise.
+                    </p>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-primary font-semibold">5 days</span>
+                      <span className="text-secondary font-bold text-lg">From $750</span>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button 
+                        className="flex-1 bg-primary hover:bg-primary/90"
+                        onClick={() => window.open('https://tourninja.com/tours/golden-triangle', '_blank')}
+                      >
+View Details
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        className="flex-1"
+                        onClick={() => window.location.href = '/contact?tour=Triangle d\'Or'}
+                      >
+Book Now
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </StaggerItem>
+
+              {/* Îles du Sud */}
+              <StaggerItem>
+                <Card className="h-full hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                  <CardHeader className="p-0">
+                    <div className="relative h-48 bg-gradient-to-r from-secondary to-primary">
+                      <img 
+                        src="https://images.unsplash.com/photo-1552465011-1c479c548c28?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+                        alt="Îles du Sud Thaïlande - Krabi Phi Phi Railay" 
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-black bg-opacity-20"></div>
+                      <div className="absolute top-4 left-4">
+                        <span className="bg-secondary text-white px-3 py-1 rounded-full text-sm font-semibold">
+                          Beaches & Islands
+                        </span>
                       </div>
-                    </motion.div>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-8 mb-16">
-                  <p className="text-gray-500">No tours available at the moment.</p>
-                </div>
-              )}
-            </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="p-6">
+                    <h3 className="text-xl font-bold text-gray-800 mb-3">Southern Islands</h3>
+                    <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                      7-day tour: Phuket, Phi Phi islands, Phang Nga Bay, Krabi and Railay Beach. Paradise beaches and water activities.
+                    </p>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-primary font-semibold">7 days</span>
+                      <span className="text-secondary font-bold text-lg">From $990</span>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button 
+                        className="flex-1 bg-primary hover:bg-primary/90"
+                        onClick={() => window.open('https://tourninja.com/tours/southern-islands', '_blank')}
+                      >
+View Details
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        className="flex-1"
+                        onClick={() => window.location.href = '/contact?tour=Îles du Sud'}
+                      >
+Book Now
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </StaggerItem>
+            </StaggerChildren>
             
             {/* Call to Action */}
             <FadeInWhenVisible>
@@ -237,7 +271,7 @@ export default function Experiences() {
                 <h3 className="text-2xl font-bold mb-4">Need a Customized Tour?</h3>
                 <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
                   Our local experts create tailor-made itineraries according to your desires and budget. 
-                  Contact us to organize your dream trip to Thailand.
+                  {pageHeaders.experiences.organizeDreamTrip}
                 </p>
                 <Button 
                   size="lg" 
@@ -271,7 +305,7 @@ export default function Experiences() {
                     <Input
                       id="search"
                       type="text"
-                      placeholder="Search by title or description..."
+                      placeholder={pageHeaders.experiences.searchPlaceholder}
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />

@@ -50,6 +50,7 @@ import IframeModal from "@/components/ui/IframeModal";
 import CookieConsent from "@/components/ui/CookieConsent";
 import { useEffect } from "react";
 import { useLocation } from "wouter";
+import { detectCountryAndSetLanguage } from "@/lib/i18n";
 
 function Router() {
   const [location] = useLocation();
@@ -124,6 +125,12 @@ function Router() {
 }
 
 function App() {
+  // Détection automatique de la langue via géolocalisation IP - temporairement désactivée pour corriger crash
+  // TODO: Réactiver quand hooks React seront fixés
+  // useEffect(() => {
+  //   detectCountryAndSetLanguage();
+  // }, []);
+
   return (
     <TooltipProvider>
       <IframeProvider>
