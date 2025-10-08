@@ -4394,6 +4394,26 @@ const BlockEditDropdown = ({
                 onChange={e => updateField('formImage', e.target.value)}
               />
             </div>
+            <div className="pt-4 border-t">
+              <Button
+                onClick={() => {
+                  // Stocker le contexte de navigation dans sessionStorage
+                  sessionStorage.setItem('formEditorContext', JSON.stringify({
+                    returnToPage: pageSlug,
+                    blockId: block.id,
+                    formId: formData.formId || 2 // Default to Custom Tour Request form (ID 2)
+                  }));
+                  // Rediriger vers l'éditeur de formulaire
+                  const formId = formData.formId || 2;
+                  window.location.href = `/admin-editor-form`;
+                }}
+                className="w-full"
+                variant="outline"
+              >
+                <FormInput className="w-4 h-4 mr-2" />
+                Modifier le formulaire complet
+              </Button>
+            </div>
           </div>
         );
 
