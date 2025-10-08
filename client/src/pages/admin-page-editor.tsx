@@ -1408,6 +1408,8 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         const whoImages = whoWeAreConfig.images || [];
         const whoButtons = whoWeAreConfig.buttons || [];
         const imagesPosition = whoWeAreConfig.layoutStyle || 'right'; // 'left' ou 'right'
+        const showTitleDivider = whoWeAreConfig.showTitleDivider !== false;
+        const titleDividerAlign = whoWeAreConfig.titleDividerAlign || (imagesPosition === 'right' ? 'left' : 'right');
         
         return (
           <section className="py-16" style={{ backgroundColor: whoWeAreConfig.backgroundColor || '#ffffff' }}>
@@ -1415,13 +1417,21 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 {/* Bloc de contenu textuel */}
                 <div className={imagesPosition === 'right' ? 'order-2 lg:order-1' : 'order-2 lg:order-2'}>
-                  {/* Titre principal */}
-                  <h2 
-                    className="font-heading font-bold text-3xl md:text-4xl mb-6"
-                    style={{ color: whoWeAreConfig.titleColor || '#084F6E' }}
-                  >
-                    {whoWeAreConfig.title || "Who We Are"}
-                  </h2>
+                  {/* Titre principal avec tiret */}
+                  <div className="mb-6">
+                    <h2 
+                      className="font-heading font-bold text-3xl md:text-4xl mb-3"
+                      style={{ color: whoWeAreConfig.titleColor || '#084F6E' }}
+                    >
+                      {whoWeAreConfig.title || "Who We Are"}
+                    </h2>
+                    {showTitleDivider && (
+                      <div 
+                        className={`w-20 h-1 ${titleDividerAlign === 'left' ? '' : 'ml-auto'}`}
+                        style={{ backgroundColor: whoWeAreConfig.dividerColor || '#3BA8AF' }}
+                      ></div>
+                    )}
+                  </div>
                   
                   {/* Introduction */}
                   {whoWeAreConfig.introduction && (
@@ -1489,13 +1499,13 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
 
                 {/* Bloc d'images empilées */}
                 <div className={imagesPosition === 'right' ? 'order-1 lg:order-2' : 'order-1 lg:order-1'}>
-                  <div className="space-y-6">
+                  <div className={`${whoImages.length === 1 ? 'h-full' : 'space-y-6'}`}>
                     {whoImages.map((image: any, index: number) => (
-                      <div key={index} className="relative">
+                      <div key={index} className={`relative ${whoImages.length === 1 ? 'h-full' : ''}`}>
                         <img 
                           src={image.url} 
                           alt={image.alt || `Image ${index + 1}`}
-                          className="w-full h-auto rounded-lg shadow-lg"
+                          className={`w-full rounded-lg shadow-lg ${whoImages.length === 1 ? 'h-full object-cover' : 'h-auto'}`}
                         />
                       </div>
                     ))}
@@ -3704,7 +3714,10 @@ const BlockEditDropdown = ({
             { text: 'Contact Us', url: '/contact', color: '#084F6E', style: 'filled' },
             { text: 'Create Your Journey →', url: '/custom-tour', color: '#084F6E', style: 'outline' }
           ],
-          layoutStyle: 'right'
+          layoutStyle: 'right',
+          showTitleDivider: true,
+          titleDividerAlign: 'left',
+          dividerColor: '#3BA8AF'
         };
         
         // Initialiser si nécessaire
@@ -3723,12 +3736,11 @@ const BlockEditDropdown = ({
             {/* Titre */}
             <div>
               <Label htmlFor="title">Titre principal</Label>
-              <Textarea 
+              <Input 
                 id="title"
                 value={formData.title || whoWeAreDefaultData.title} 
                 onChange={e => updateField('title', e.target.value)}
                 placeholder="Who We Are"
-                rows={2}
                 className="mt-2"
               />
               <div className="mt-3">
@@ -3737,6 +3749,41 @@ const BlockEditDropdown = ({
                   value={formData.titleColor || '#084F6E'}
                   onChange={(value) => updateField('titleColor', value)}
                 />
+              </div>
+              
+              {/* Options du tiret sous le titre */}
+              <div className="mt-4 p-3 border rounded-lg bg-gray-50">
+                <div className="flex items-center justify-between mb-2">
+                  <Label className="text-sm">Afficher le tiret sous le titre</Label>
+                  <input
+                    type="checkbox"
+                    checked={formData.showTitleDivider !== false}
+                    onChange={e => updateField('showTitleDivider', e.target.checked)}
+                    className="w-4 h-4"
+                  />
+                </div>
+                {formData.showTitleDivider !== false && (
+                  <>
+                    <div className="mt-2">
+                      <Label className="text-sm">Alignement du tiret</Label>
+                      <select 
+                        value={formData.titleDividerAlign || (formData.layoutStyle === 'right' ? 'left' : 'right')}
+                        onChange={e => updateField('titleDividerAlign', e.target.value)}
+                        className="w-full p-2 border rounded mt-1"
+                      >
+                        <option value="left">À gauche</option>
+                        <option value="right">À droite</option>
+                      </select>
+                    </div>
+                    <div className="mt-2">
+                      <Label className="text-sm">Couleur du tiret</Label>
+                      <ColorPicker
+                        value={formData.dividerColor || '#3BA8AF'}
+                        onChange={(value) => updateField('dividerColor', value)}
+                      />
+                    </div>
+                  </>
+                )}
               </div>
             </div>
 
@@ -3756,17 +3803,6 @@ const BlockEditDropdown = ({
                 <ColorPicker
                   value={formData.introColor || '#666666'}
                   onChange={(value) => updateField('introColor', value)}
-                />
-              </div>
-            </div>
-
-            {/* Couleur du trait de séparation */}
-            <div>
-              <Label>Couleur du trait de séparation</Label>
-              <div className="mt-2">
-                <ColorPicker
-                  value={formData.dividerColor || '#3BA8AF'}
-                  onChange={(value) => updateField('dividerColor', value)}
                 />
               </div>
             </div>
@@ -3920,18 +3956,6 @@ const BlockEditDropdown = ({
                 <div className="grid grid-cols-2 gap-3 mt-2">
                   <button
                     type="button"
-                    onClick={() => updateField('layoutStyle', 'right')}
-                    className="p-3 border-2 rounded-lg text-left transition-all"
-                    style={(formData.layoutStyle || 'right') === 'right' 
-                      ? { borderColor: THEME_COLORS.secondary, backgroundColor: THEME_COLORS.secondaryLight } 
-                      : { borderColor: '#d1d5db' }
-                    }
-                  >
-                    <div className="font-medium text-sm">Images à droite</div>
-                    <div className="text-xs text-gray-500 mt-1">Contenu à gauche, images à droite</div>
-                  </button>
-                  <button
-                    type="button"
                     onClick={() => updateField('layoutStyle', 'left')}
                     className="p-3 border-2 rounded-lg text-left transition-all"
                     style={formData.layoutStyle === 'left' 
@@ -3941,6 +3965,18 @@ const BlockEditDropdown = ({
                   >
                     <div className="font-medium text-sm">Images à gauche</div>
                     <div className="text-xs text-gray-500 mt-1">Images à gauche, contenu à droite</div>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => updateField('layoutStyle', 'right')}
+                    className="p-3 border-2 rounded-lg text-left transition-all"
+                    style={(formData.layoutStyle || 'right') === 'right' 
+                      ? { borderColor: THEME_COLORS.secondary, backgroundColor: THEME_COLORS.secondaryLight } 
+                      : { borderColor: '#d1d5db' }
+                    }
+                  >
+                    <div className="font-medium text-sm">Images à droite</div>
+                    <div className="text-xs text-gray-500 mt-1">Contenu à gauche, images à droite</div>
                   </button>
                 </div>
               </div>
