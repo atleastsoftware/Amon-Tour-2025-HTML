@@ -1497,12 +1497,18 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                 <div className={imagesPosition === 'right' ? 'order-1 lg:order-2' : 'order-1 lg:order-1'}>
                   <div className="flex flex-col gap-6 h-full">
                     {whoImages.map((image: any, index: number) => (
-                      <div key={index} className="relative flex-1">
-                        <img 
-                          src={image.url} 
-                          alt={image.alt || `Image ${index + 1}`}
-                          className="w-full h-full rounded-lg shadow-lg object-cover"
-                        />
+                      <div key={index} className="relative flex-1 min-h-[150px]">
+                        {image.url ? (
+                          <img 
+                            src={image.url} 
+                            alt={image.alt || `Image ${index + 1}`}
+                            className="w-full h-full rounded-lg shadow-lg object-cover"
+                          />
+                        ) : (
+                          <div className="w-full h-full rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center bg-gray-50">
+                            <span className="text-gray-400 text-sm">Aucune image</span>
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>
@@ -3374,18 +3380,18 @@ const BlockEditDropdown = ({
                                 }}
                                 className="w-9 h-9 border-2 border-dashed rounded transition-colors flex items-center justify-center"
                                 style={{ 
-                                  borderColor: THEME_COLORS.secondary,
-                                  backgroundColor: THEME_COLORS.secondaryLight 
+                                  borderColor: '#9ca3af',
+                                  backgroundColor: '#f9fafb'
                                 }}
                                 onMouseEnter={(e) => {
-                                  e.currentTarget.style.backgroundColor = hexToRgba(THEME_COLORS.secondary, 0.15);
+                                  e.currentTarget.style.backgroundColor = '#f3f4f6';
                                 }}
                                 onMouseLeave={(e) => {
-                                  e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryLight;
+                                  e.currentTarget.style.backgroundColor = '#f9fafb';
                                 }}
                                 title="Upload icône principale personnalisée"
                               >
-                                <Plus size={14} style={{ color: THEME_COLORS.secondary }} />
+                                <Plus size={14} style={{ color: '#6b7280' }} />
                               </button>
                             </div>
                           </div>
@@ -3651,18 +3657,18 @@ const BlockEditDropdown = ({
                                     }}
                                     className="w-9 h-9 border-2 border-dashed rounded transition-colors flex items-center justify-center"
                                     style={{ 
-                                      borderColor: THEME_COLORS.secondary,
-                                      backgroundColor: THEME_COLORS.secondaryLight 
+                                      borderColor: '#9ca3af',
+                                      backgroundColor: '#f9fafb'
                                     }}
                                     onMouseEnter={(e) => {
-                                      e.currentTarget.style.backgroundColor = hexToRgba(THEME_COLORS.secondary, 0.15);
+                                      e.currentTarget.style.backgroundColor = '#f3f4f6';
                                     }}
                                     onMouseLeave={(e) => {
-                                      e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryLight;
+                                      e.currentTarget.style.backgroundColor = '#f9fafb';
                                     }}
                                     title="Upload icône personnalisée"
                                   >
-                                    <Plus size={14} style={{ color: THEME_COLORS.secondary }} />
+                                    <Plus size={14} style={{ color: '#6b7280' }} />
                                   </button>
                                 </div>
                               </div>
