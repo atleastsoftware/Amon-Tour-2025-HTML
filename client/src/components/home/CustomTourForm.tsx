@@ -203,11 +203,11 @@ export default function CustomTourForm({ title, subtitle, titleColor, subtitleCo
   }, [form]);
 
   return (
-    <section id="custom" className="pt-0 pb-16">
+    <section id="custom" className="py-16">
       <div className="container mx-auto px-4">
         {/* Header Section */}
         {(title || subtitle) && (
-          <div className="text-center mb-8">
+          <div className="text-center mb-12">
             {title && (
               <h2 
                 className="font-heading font-bold text-3xl md:text-4xl mb-4"
