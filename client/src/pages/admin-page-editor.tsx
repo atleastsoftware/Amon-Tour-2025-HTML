@@ -318,6 +318,15 @@ function DynamicFormBlockPreview({ title, subtitle, formId }: DynamicFormBlockPr
           </div>
         ) : formData ? (
           <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+            {formData.settings?.imageUrl && (
+              <div className="w-full h-64 overflow-hidden">
+                <img 
+                  src={formData.settings.imageUrl} 
+                  alt={formData.title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            )}
             <div className="p-8">
               <h3 className="text-2xl font-bold mb-2">{formData.title}</h3>
               {formData.subtitle && (
@@ -433,6 +442,7 @@ function FormSelector({ selectedFormId, onFormSelect, pageSlug, blockId }: FormS
               ))}
             </SelectContent>
           </Select>
+          <Separator />
           <Button
             onClick={() => {
               sessionStorage.setItem('formEditorContext', JSON.stringify({
