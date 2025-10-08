@@ -1408,7 +1408,6 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         const whoImages = whoWeAreConfig.images || [];
         const whoButtons = whoWeAreConfig.buttons || [];
         const imagesPosition = whoWeAreConfig.layoutStyle || 'right'; // 'left' ou 'right'
-        const titleDividerAlign = imagesPosition === 'right' ? 'left' : 'right';
         
         return (
           <section className="py-16" style={{ backgroundColor: whoWeAreConfig.backgroundColor || '#ffffff' }}>
@@ -1425,7 +1424,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                       {whoWeAreConfig.title || "Who We Are"}
                     </h2>
                     <div 
-                      className={`w-20 h-1 ${titleDividerAlign === 'left' ? '' : 'ml-auto'}`}
+                      className="w-20 h-1"
                       style={{ backgroundColor: whoWeAreConfig.dividerColor || '#3BA8AF' }}
                     ></div>
                   </div>
@@ -3807,7 +3806,7 @@ const BlockEditDropdown = ({
                 </button>
               </div>
 
-              <div className="space-y-4 max-h-96 overflow-y-auto pr-2">
+              <div className="space-y-4">
                 {whoWeAreSections.map((section: any, index: number) => (
                   <div key={index} className="border-2 border-gray-300 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-3">
