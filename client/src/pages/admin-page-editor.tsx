@@ -205,6 +205,11 @@ import TourNinjaSection from '@/components/tour/TourNinjaSection';
 
 // Helper function to get readable block type names
 const getBlockDisplayName = (block: PageBlock): string => {
+  // Cas spécifique pour expats_welcome : afficher "Text" au lieu de "Text + Images"
+  if (block.identifier === 'expats_welcome') {
+    return 'Text';
+  }
+  
   // Si c'est un card_grid, utiliser l'identifier pour distinguer les types
   if (block.blockType === 'card_grid') {
     const cardGridNames: { [key: string]: string } = {
@@ -225,7 +230,6 @@ const getBlockDisplayName = (block: PageBlock): string => {
     'features': 'Features',
     'about': 'About',
     'custom_tour_form': 'Custom Tour Form',
-    'expats_welcome': 'Text',
     'who_we_are': 'Article',
     'why_choose_us': 'Text + Icones',
     'travelers_reviews': 'Reviews'
