@@ -2,10 +2,11 @@ import { motion } from "framer-motion";
 import { StaggerChildren, StaggerItem } from "@/components/ui/animations";
 import { Map, Zap, Globe, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect, useMemo } from "react";
-import { translationService } from "@/services/translationService";
+import { useTranslation } from 'react-i18next';
 
 // Photo Gallery Carousel Component with Lightbox
 function PhotoGallery() {
+  const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(3);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -247,7 +248,7 @@ function PhotoGallery() {
           <button
             onClick={prevSlide}
             className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-3 rounded-r-lg shadow-lg transition-all duration-200 hover:pl-4 z-10"
-            aria-label="Previous images"
+            aria-label={t('accessibility.previousImages')}
           >
             <ChevronLeft className="h-6 w-6" />
           </button>
@@ -255,7 +256,7 @@ function PhotoGallery() {
           <button
             onClick={nextSlide}
             className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-3 rounded-l-lg shadow-lg transition-all duration-200 hover:pr-4 z-10"
-            aria-label="Next images"
+            aria-label={t('accessibility.nextImages')}
           >
             <ChevronRight className="h-6 w-6" />
           </button>
@@ -269,7 +270,7 @@ function PhotoGallery() {
             <button
               onClick={closeLightbox}
               className="absolute top-16 right-4 md:top-4 text-white bg-black/70 hover:bg-black/90 p-3 rounded-full transition-colors z-10 shadow-lg"
-              aria-label="Close gallery"
+              aria-label={t('accessibility.closeGallery')}
               data-testid="button-close-gallery"
             >
               <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -280,7 +281,7 @@ function PhotoGallery() {
             <button
               onClick={prevLightboxImage}
               className="absolute left-4 top-1/2 -translate-y-1/2 text-white bg-black/50 hover:bg-black/70 p-3 rounded-full transition-colors"
-              aria-label="Previous image"
+              aria-label={t('accessibility.previousImage')}
             >
               <ChevronLeft className="h-8 w-8" />
             </button>
@@ -295,7 +296,7 @@ function PhotoGallery() {
             <button
               onClick={nextLightboxImage}
               className="absolute right-4 top-1/2 -translate-y-1/2 text-white bg-black/50 hover:bg-black/70 p-3 rounded-full transition-colors"
-              aria-label="Next image"
+              aria-label={t('accessibility.nextImage')}
             >
               <ChevronRight className="h-8 w-8" />
             </button>
@@ -307,7 +308,7 @@ function PhotoGallery() {
 }
 
 export default function CatamaranExperience() {
-  const cruise = translationService.getCruise();
+  const { t } = useTranslation();
   
   return (
     <section className="py-20 bg-neutral-light">
@@ -319,10 +320,10 @@ export default function CatamaranExperience() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{cruise.freedomExclusivity}</h2>
+            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{t('cruise.freedomExclusivity')}</h2>
             <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
             <p className="text-lg text-gray-700 leading-relaxed max-w-4xl mx-auto">
-              {cruise.freedomDescription}
+              {t('cruise.freedomDescription')}
             </p>
           </motion.div>
         </div>
@@ -345,8 +346,8 @@ export default function CatamaranExperience() {
               >
                 <Map size={28} className="text-white" />
               </motion.div>
-              <h3 className="font-heading font-bold text-xl mb-2">{cruise.tailorMadeRoutes}</h3>
-              <p className="text-gray-600 flex-grow">{cruise.tailorMadeDesc}</p>
+              <h3 className="font-heading font-bold text-xl mb-2">{t('cruise.tailorMadeRoutes')}</h3>
+              <p className="text-gray-600 flex-grow">{t('cruise.tailorMadeDesc')}</p>
             </motion.div>
           </StaggerItem>
           
@@ -367,8 +368,8 @@ export default function CatamaranExperience() {
               >
                 <Zap size={28} className="text-white" />
               </motion.div>
-              <h3 className="font-heading font-bold text-xl mb-2">{cruise.expertCrew}</h3>
-              <p className="text-gray-600 flex-grow">{cruise.expertCrewDesc}</p>
+              <h3 className="font-heading font-bold text-xl mb-2">{t('cruise.expertCrew')}</h3>
+              <p className="text-gray-600 flex-grow">{t('cruise.expertCrewDesc')}</p>
             </motion.div>
           </StaggerItem>
           
@@ -389,8 +390,8 @@ export default function CatamaranExperience() {
               >
                 <Globe size={28} className="text-white" />
               </motion.div>
-              <h3 className="font-heading font-bold text-xl mb-2">{cruise.totalFreedom}</h3>
-              <p className="text-gray-600 flex-grow">{cruise.totalFreedomDesc}</p>
+              <h3 className="font-heading font-bold text-xl mb-2">{t('cruise.totalFreedom')}</h3>
+              <p className="text-gray-600 flex-grow">{t('cruise.totalFreedomDesc')}</p>
             </motion.div>
           </StaggerItem>
         </StaggerChildren>
@@ -403,17 +404,17 @@ export default function CatamaranExperience() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3 text-center">{cruise.lagoonCatamaran}</h2>
+          <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3 text-center">{t('cruise.lagoonCatamaran')}</h2>
           <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
           <div className="max-w-4xl mx-auto space-y-4">
             <p className="text-lg text-gray-700 leading-relaxed text-center">
-              {cruise.lagoonDesc1}
+              {t('cruise.lagoonDesc1')}
             </p>
             <p className="text-lg text-gray-700 leading-relaxed text-center">
-              {cruise.lagoonDesc2}
+              {t('cruise.lagoonDesc2')}
             </p>
             <p className="text-lg text-gray-700 leading-relaxed text-center">
-              {cruise.lagoonDesc3}
+              {t('cruise.lagoonDesc3')}
             </p>
           </div>
         </motion.div>
@@ -429,37 +430,6 @@ export default function CatamaranExperience() {
           <PhotoGallery />
         </motion.div>
         
-        {/* YouTube Video Section */}
-        <motion.div 
-          className="mt-16 mb-16"
-          initial={{ y: 20, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-        >
-          <div className="text-center mb-8">
-            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{cruise.videoTitle}</h2>
-            <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
-            <p className="text-lg text-gray-700 leading-relaxed max-w-4xl mx-auto">
-              {cruise.videoDescription}
-            </p>
-          </div>
-          
-          <div className="max-w-5xl mx-auto">
-            <div className="relative aspect-video bg-gray-100 rounded-xl overflow-hidden shadow-xl">
-              <iframe
-                src="https://www.youtube.com/embed/VCECtIN2AbQ?rel=0&modestbranding=1&showinfo=0"
-                title="Découvrez Notre Catamaran"
-                className="absolute inset-0 w-full h-full"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-                loading="lazy"
-              />
-            </div>
-          </div>
-        </motion.div>
-        
         {/* Route Suggestions Section */}
         <motion.div 
           className="mt-16"
@@ -469,10 +439,10 @@ export default function CatamaranExperience() {
           transition={{ duration: 0.5, delay: 0.5 }}
         >
           <div className="text-center mb-8">
-            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{cruise.routeSuggestions}</h2>
+            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{t('cruise.routeSuggestions')}</h2>
             <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
             <p className="text-lg text-gray-700 leading-relaxed max-w-4xl mx-auto">
-              {cruise.routeDescription}
+              {t('cruise.routeDescription')}
             </p>
           </div>
           
@@ -486,10 +456,8 @@ export default function CatamaranExperience() {
               transition={{ duration: 0.5, delay: 0.1 }}
             >
               <div className="flex flex-col md:flex-row md:items-center">
-                <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">{cruise.oneDay}</span>
-                <span className="text-gray-600 text-lg md:ml-4">
-                  Only available through this offer: <a href="https://www.tourninja.io/details/Wmx1GcKCGO" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-secondary underline transition-colors">Catamaran Private Day Trip</a>
-                </span>
+                <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">{t('cruise.oneDay')}</span>
+                <span className="text-gray-600 text-lg md:ml-4">{t('cruise.oneDayRoute')}</span>
               </div>
             </motion.div>
             
@@ -502,8 +470,8 @@ export default function CatamaranExperience() {
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               <div className="flex flex-col md:flex-row md:items-center">
-                <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">{cruise.twoDays}</span>
-                <span className="text-gray-600 text-lg md:ml-4">{cruise.twoDaysRoute}</span>
+                <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">{t('cruise.twoDays')}</span>
+                <span className="text-gray-600 text-lg md:ml-4">{t('cruise.twoDaysRoute')}</span>
               </div>
             </motion.div>
             
@@ -516,8 +484,8 @@ export default function CatamaranExperience() {
               transition={{ duration: 0.5, delay: 0.3 }}
             >
               <div className="flex flex-col md:flex-row md:items-center">
-                <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">{cruise.threeFourDays}</span>
-                <span className="text-gray-600 text-lg md:ml-4">{cruise.threeFourDaysRoute}</span>
+                <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">{t('cruise.threeFourDays')}</span>
+                <span className="text-gray-600 text-lg md:ml-4">{t('cruise.threeFourDaysRoute')}</span>
               </div>
             </motion.div>
             
@@ -530,8 +498,8 @@ export default function CatamaranExperience() {
               transition={{ duration: 0.5, delay: 0.4 }}
             >
               <div className="flex flex-col md:flex-row md:items-center">
-                <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">{cruise.fiveSixDays}</span>
-                <span className="text-gray-600 text-lg md:ml-4">{cruise.fiveSixDaysRoute}</span>
+                <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">{t('cruise.fiveSixDays')}</span>
+                <span className="text-gray-600 text-lg md:ml-4">{t('cruise.fiveSixDaysRoute')}</span>
               </div>
             </motion.div>
             
@@ -544,8 +512,8 @@ export default function CatamaranExperience() {
               transition={{ duration: 0.5, delay: 0.5 }}
             >
               <div className="flex flex-col md:flex-row md:items-center">
-                <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">{cruise.sevenPlusDays}</span>
-                <span className="text-gray-600 text-lg md:ml-4">{cruise.sevenPlusDaysRoute}</span>
+                <span className="font-bold text-xl text-primary md:w-32 mb-2 md:mb-0">{t('cruise.sevenPlusDays')}</span>
+                <span className="text-gray-600 text-lg md:ml-4">{t('cruise.sevenPlusDaysRoute')}</span>
               </div>
             </motion.div>
           </div>

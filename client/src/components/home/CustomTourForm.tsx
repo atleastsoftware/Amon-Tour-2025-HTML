@@ -6,7 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
-import { translationService } from "@/services/translationService";
+import { useTranslation } from 'react-i18next';
 
 import {
   Form,
@@ -68,7 +68,73 @@ export default function CustomTourForm() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const datePickerRef = useRef<HTMLInputElement | null>(null);
-  const home = translationService.getHome();
+  
+  // Translation setup with original English texts from production
+  const { t, i18n } = useTranslation();
+  const isEN = i18n.language?.startsWith('en');
+  
+  // Original English texts from amon-tour.com production
+  const originalTexts = {
+    customTripTitle: "Create Your Custom Trip",
+    customTripSubtitle: "Your travel story starts with your dreams - let us write the rest.",
+    fullName: "Full Name",
+    email: "Email", 
+    countryCode: "Country Code",
+    whatsappNumber: "WhatsApp Number",
+    numberOfAdults: "Number of adults",
+    numberOfKids: "Number of kids (under 12 years old)",
+    datesOfTrip: "Dates of trip",
+    approximateDuration: "Or approximate duration",
+    tripTypes: "Trip Types",
+    destinations: "Destinations",
+    describeIdealTrip: "Describe your ideal trip",
+    sendRequest: "Send my request",
+    orContactDirectly: "Or contact us directly via WhatsApp",
+    contactWhatsApp: "Contact via WhatsApp",
+    cultureHistory: "Culture & History",
+    natureAdventure: "Nature & Adventure", 
+    beachesIslands: "Beaches & Islands",
+    familyTrip: "Family trip",
+    groupTrip: "Group trip", 
+    weddingHoneymoon: "Wedding & Honeymoon",
+    khaoSok: "Khao Sok",
+    krabi: "Krabi",
+    kohMook: "Koh Mook",
+    bangkok: "Bangkok",
+    chiangMai: "Chiang Mai",
+    othersDestinations: "Others destinations"
+  };
+  
+  const home = {
+    customTripTitle: isEN ? originalTexts.customTripTitle : t('home.customTripTitle'),
+    customTripSubtitle: isEN ? originalTexts.customTripSubtitle : t('home.customTripSubtitle'), 
+    fullName: isEN ? originalTexts.fullName : t('forms.fullName'),
+    email: isEN ? originalTexts.email : t('forms.email'),
+    countryCode: isEN ? originalTexts.countryCode : t('forms.countryCode'),
+    whatsappNumber: isEN ? originalTexts.whatsappNumber : t('forms.whatsappNumber'),
+    numberOfAdults: isEN ? originalTexts.numberOfAdults : t('forms.numberOfAdults'),
+    numberOfKids: isEN ? originalTexts.numberOfKids : t('forms.numberOfKids'),
+    datesOfTrip: isEN ? originalTexts.datesOfTrip : t('forms.datesOfTrip'),
+    approximateDuration: isEN ? originalTexts.approximateDuration : t('forms.approximateDuration'),
+    tripTypes: isEN ? originalTexts.tripTypes : t('forms.tripTypes'),
+    destinations: isEN ? originalTexts.destinations : t('forms.destinations'),
+    describeIdealTrip: isEN ? originalTexts.describeIdealTrip : t('forms.describeIdealTrip'),
+    sendRequest: isEN ? originalTexts.sendRequest : t('forms.sendRequest'),
+    orContactDirectly: isEN ? originalTexts.orContactDirectly : t('forms.orContactDirectly'),
+    contactWhatsApp: isEN ? originalTexts.contactWhatsApp : t('forms.contactWhatsApp'),
+    cultureHistory: isEN ? originalTexts.cultureHistory : t('forms.cultureHistory'),
+    natureAdventure: isEN ? originalTexts.natureAdventure : t('forms.natureAdventure'),
+    beachesIslands: isEN ? originalTexts.beachesIslands : t('forms.beachesIslands'),
+    familyTrip: isEN ? originalTexts.familyTrip : t('forms.familyTrip'),
+    groupTrip: isEN ? originalTexts.groupTrip : t('forms.groupTrip'),
+    weddingHoneymoon: isEN ? originalTexts.weddingHoneymoon : t('forms.weddingHoneymoon'),
+    khaoSok: isEN ? originalTexts.khaoSok : t('forms.khaoSok'),
+    krabi: isEN ? originalTexts.krabi : t('forms.krabi'),
+    kohMook: isEN ? originalTexts.kohMook : t('forms.kohMook'),
+    bangkok: isEN ? originalTexts.bangkok : t('forms.bangkok'),
+    chiangMai: isEN ? originalTexts.chiangMai : t('forms.chiangMai'),
+    othersDestinations: isEN ? originalTexts.othersDestinations : t('forms.othersDestinations')
+  };
 
   const form = useForm<CustomTourFormData>({
     resolver: zodResolver(customTourSchema),

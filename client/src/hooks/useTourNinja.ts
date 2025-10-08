@@ -40,18 +40,15 @@ export function useTourNinja() {
   const { data: response, isLoading, error, refetch } = useQuery<TourNinjaApiResponse>({
     queryKey: ['/api/proxy/tours'],
     retry: 1,
-    staleTime: 60 * 60 * 1000, // 1 hour - increased from 5 minutes for better performance
-    gcTime: 2 * 60 * 60 * 1000, // 2 hours - keep in cache for longer
+    staleTime: 5 * 60 * 1000, // 5 minutes
     refetchOnWindowFocus: false,
-    refetchOnMount: false, // Don't refetch on mount if data is still fresh
   });
 
   // Fetch image overrides
   const { data: imageOverrides, isLoading: overridesLoading } = useQuery({
     queryKey: ['/api/tour-ninja-image-overrides'],
     retry: false,
-    staleTime: 60 * 60 * 1000, // 1 hour - increased for better performance
-    gcTime: 2 * 60 * 60 * 1000, // 2 hours
+    staleTime: 10 * 60 * 1000, // 10 minutes
     enabled: !!(response?.data && response.data.length > 0), // Only fetch overrides if we have tours
   });
 
@@ -98,18 +95,14 @@ export function useTourNinjaWithCustomImages() {
   const { data: response, isLoading, error, refetch } = useQuery<TourNinjaApiResponse>({
     queryKey: ['/api/proxy/tours'],
     retry: 1,
-    staleTime: 60 * 60 * 1000, // 1 hour - increased from 5 minutes for better performance
-    gcTime: 2 * 60 * 60 * 1000, // 2 hours - keep in cache for longer
+    staleTime: 5 * 60 * 1000, // 5 minutes
     refetchOnWindowFocus: false,
-    refetchOnMount: false, // Don't refetch on mount if data is still fresh
   });
 
   // Use public endpoint to get only active overrides
   const { data: imageOverrides, isLoading: overridesLoading } = useQuery({
     queryKey: ["/api/tour-ninja-image-overrides"],
     retry: false,
-    staleTime: 60 * 60 * 1000, // 1 hour - consistent caching
-    gcTime: 2 * 60 * 60 * 1000, // 2 hours
   });
 
   const [toursWithOverrides, setToursWithOverrides] = useState<TourNinjaTour[]>([]);

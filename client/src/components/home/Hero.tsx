@@ -4,7 +4,7 @@ import { FadeInWhenVisible, SlideUpWhenVisible, StaggerChildren, StaggerItem } f
 import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import heroImage from "@/assets/DJI_20241115104455_0160_D-min.jpeg";
-import { translationService } from "@/services/translationService";
+import { useTranslation } from 'react-i18next';
 
 // Use optimized video (6MB instead of 40MB) for better loading performance
 const backgroundVideo = "/attached_assets/hero-video-optimized.mp4";
@@ -50,8 +50,18 @@ export default function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const loadTimeoutRef = useRef<NodeJS.Timeout>();
   
-  // Get translations
-  const hero = translationService.getHero();
+  // Get translations with conditional logic
+  const { t, i18n } = useTranslation();
+  const isEN = i18n.language?.startsWith('en');
+  
+  // Original English texts from production
+  const originalTexts = {
+    title: "Your exclusive experiences in Krabi – THAILAND",
+    description: "Discover amazing places away from mass tourism in Krabi. And also Khao Sok, Koh Mook and many more destinations.",
+    seeOffers: "See our offers",
+    customTrip: "Custom your trip",
+    thailand: "THAILAND"
+  };
 
   // Récupérer les données de configuration du héros (avec gestion d'erreur)
   const { data: heroBlocks } = useQuery({
@@ -91,11 +101,11 @@ export default function Hero() {
   
   // Fonction pour appliquer la couleur au mot spécifique dans le titre
   const renderTitleWithColors = () => {
-    const mainTitle = heroConfig?.titleMainColor || heroConfig?.title || hero.title;
-    const colorPart = heroConfig?.titleColorPart || hero.subtitle;
+    const mainTitle = heroConfig?.titleMainColor || heroConfig?.title || (isEN ? originalTexts.title : t('hero.title'));
+    const colorPart = heroConfig?.titleColorPart || (isEN ? "exclusive experiences" : t('hero.subtitle'));
     const titlePrimaryColor = heroConfig?.titlePrimaryColor || 'white';
     const titleAccentColor = heroConfig?.titleAccentColor || 'primary';
-    const heroCountry = heroConfig?.heroCountry || `– ${hero.thailand}`;
+    const heroCountry = heroConfig?.heroCountry || `– ${isEN ? originalTexts.thailand : t('hero.thailand')}`;
     
     // Si le titre contient le mot à colorier
     if (mainTitle.includes(colorPart)) {
@@ -230,7 +240,7 @@ export default function Hero() {
               <p className={`mb-6 text-lg drop-shadow-md ${
                 getColorClass(heroConfig?.subtitleColor || 'white', 'text-white/90')
               }`}>
-                {heroConfig?.subtitle || hero.description}
+                {heroConfig?.subtitle || (isEN ? originalTexts.description : t('hero.description'))}
               </p>
               
               <div className={`flex flex-col sm:flex-row gap-4 ${
@@ -239,8 +249,8 @@ export default function Hero() {
                 'justify-start'
               }`}>
                 {(heroConfig?.buttons || [
-                  {text: hero.seeOffers, url: '/tours', color: '#084F6E', style: 'filled'},
-                  {text: hero.customTrip, url: '/custom-tour', color: '#084F6E', style: 'filled'}
+                  {text: isEN ? originalTexts.seeOffers : t('hero.seeOffers'), url: '/tours', color: '#084F6E', style: 'filled'},
+                  {text: isEN ? originalTexts.customTrip : t('hero.customTrip'), url: '/custom-tour', color: '#084F6E', style: 'filled'}
                 ]).map((button: any, index: number) => (
                   <Link key={index} href={button.url}>
                     <motion.span 

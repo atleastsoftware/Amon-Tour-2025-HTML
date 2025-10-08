@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import { translationService } from "@/services/translationService";
 
 import SEO from "@/components/layout/SEO";
 import Hero from "@/components/home/Hero";
@@ -23,6 +22,7 @@ import { useTourNinjaWithCustomImages } from "@/hooks/useTourNinja";
 import { Link } from "wouter";
 import { useIframe } from "@/contexts/IframeContext";
 import { Badge } from "@/components/ui/badge";
+import { useTranslation } from "react-i18next";
 
 
 export default function Home() {
@@ -31,11 +31,7 @@ export default function Home() {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [maxScroll, setMaxScroll] = useState(0);
   const { openIframe } = useIframe();
-  
-  // Get translations
-  const tours = translationService.getTours();
-  const common = translationService.getCommon();
-  const home = translationService.getHome();
+  const { t } = useTranslation();
   
   const { data: featuredTours, isLoading: isLoadingTours } = useQuery<Tour[]>({
     queryKey: ['/api/tours/featured'],
@@ -56,13 +52,10 @@ export default function Home() {
     description: tour.description || tour.shortDescription || "",
     price: tour.price,
     currency: tour.currency,
-    customLink: tour.bookingUrl || tour.detailsUrl || `https://www.tourninja.io/details/${tour.id}`,
+    customLink: tour.url || tour.detailsUrl || `https://www.tourninja.io/details/${tour.id}`,
     type: "tour" as const,
     images: tour.images || [],
     tags: tour.tags || [],
-    bookingUrl: tour.bookingUrl,
-    detailsUrl: tour.detailsUrl,
-    presentationUrl: tour.presentationUrl
   }));
   
   // Combine local tour cards with Tour Ninja tours
@@ -241,11 +234,11 @@ export default function Home() {
               transition={{ duration: 0.6 }}
             >
               <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
-                {home.introTitle}
+                {t('home.introTitle')}
               </h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
               <p className="text-lg text-gray-700 leading-relaxed">
-                {home.introDescription}
+                {t('home.introDescription')}
               </p>
             </motion.div>
           </div>
@@ -260,9 +253,9 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{tours.featured}</h2>
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{t('tours.featured')}</h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
-              <p className="text-lg text-gray-700 leading-relaxed mb-12">{tours.description}</p>
+              <p className="text-lg text-gray-700 leading-relaxed mb-12">{t('tours.description')}</p>
             </motion.div>
           </div>
           
@@ -334,30 +327,28 @@ export default function Home() {
                       )}
                       
                       <div className="flex gap-2">
-                        {tour.detailsUrl && (
-                          <button 
-                            onClick={() => {
+                        <button 
+                          onClick={() => {
+                            if (tour.detailsUrl) {
                               openIframe(tour.detailsUrl, `Détails - ${tour.name}`);
-                            }}
-                            className="flex-1 border border-primary text-primary hover:bg-primary/10 py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
-                            data-testid={`button-view-details-${tour.id}`}
-                          >
-                            {common.viewDetails}
-                            <FiChevronRight className="h-3 w-3" />
-                          </button>
-                        )}
-                        {tour.bookingUrl && (
-                          <button 
-                            onClick={() => {
+                            }
+                          }}
+                          className="flex-1 border border-primary text-primary hover:bg-primary/10 py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
+                        >
+                          {t('buttons.viewDetails')}
+                          <FiChevronRight className="h-3 w-3" />
+                        </button>
+                        <button 
+                          onClick={() => {
+                            if (tour.bookingUrl) {
                               openIframe(tour.bookingUrl, `Booking - ${tour.name}`);
-                            }}
-                            className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
-                            data-testid={`button-book-now-${tour.id}`}
-                          >
-                            {common.bookNow}
-                            <FiChevronRight className="h-3 w-3" />
-                          </button>
-                        )}
+                            }
+                          }}
+                          className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
+                        >
+                          {t('buttons.bookNow')}
+                          <FiChevronRight className="h-3 w-3" />
+                        </button>
                       </div>
                     </div>
                   </motion.div>
@@ -373,7 +364,7 @@ export default function Home() {
                   className="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-heading font-semibold hover:bg-primary-dark transition-colors inline-block cursor-pointer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
-                >{tours.title}</motion.span>
+                >{t('tours.title')}</motion.span>
               </Link>
             </div>
           </div>
@@ -384,19 +375,19 @@ export default function Home() {
           <div className="container mx-auto px-4 max-w-4xl text-center">
             <div className="mb-8">
               <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
-                {home.tailorMadeTitle}
+                {t('home.tailorMadeTitle')}
               </h2>
               <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
               <p className="text-lg text-gray-700 leading-relaxed">
-                {home.tailorMadeDescription}
+                {t('home.tailorMadeDescription')}
               </p>
             </div>
           </div>
         </section>
         <CustomTourForm />
         
-        {/* 5. Some Ideas For Your Next Trip - Hidden as requested */}
-        {/* <TourNinjaSection /> */}
+        {/* 5. Some Ideas For Your Next Trip */}
+        <TourNinjaSection />
         
         {/* 6. Why Choose Us */}
         <Features />
@@ -410,6 +401,7 @@ export default function Home() {
         <CallToAction />
       </main>
       <Footer />
+      
     </>
   );
 }

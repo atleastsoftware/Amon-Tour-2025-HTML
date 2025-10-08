@@ -21,9 +21,12 @@ export class AutoBrowserTranslate {
   private translationTriggered = false;
 
   constructor() {
-    // Check if user has already made a language choice
+    // Check if user has already made a language choice or disabled auto-translation
     const userChoice = localStorage.getItem('amon-tour-translation-choice');
-    if (userChoice) {
+    const autoTranslateDisabled = localStorage.getItem('amon-tour-disable-auto-translate');
+    const userChoseManually = localStorage.getItem('user-chose-language');
+    
+    if (userChoice || autoTranslateDisabled || userChoseManually) {
       this.translationTriggered = true;
     }
   }
@@ -32,7 +35,17 @@ export class AutoBrowserTranslate {
    * Initialize auto-translation detection
    */
   async init(): Promise<void> {
+    // Skip if already triggered or user made manual choice or disabled auto-translation
     if (this.translationTriggered) {
+      return;
+    }
+
+    // Double-check for manual language choice (in case localStorage was set after constructor)
+    const userChoseManually = localStorage.getItem('user-chose-language');
+    const autoTranslateDisabled = localStorage.getItem('amon-tour-disable-auto-translate');
+    if (userChoseManually || autoTranslateDisabled) {
+      console.log('Auto-translation disabled: User made manual language choice');
+      this.translationTriggered = true;
       return;
     }
 

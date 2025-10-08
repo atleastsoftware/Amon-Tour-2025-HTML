@@ -301,9 +301,9 @@ export default function Dashboard() {
                       <TableBody>
                         {customTourRequests.map((request) => (
                           <TableRow key={request.id}>
-                            <TableCell className="font-medium">{request.name}</TableCell>
+                            <TableCell className="font-medium">{request.fullName}</TableCell>
                             <TableCell>{request.email}</TableCell>
-                            <TableCell>{request.travelers}</TableCell>
+                            <TableCell>{request.numberOfAdults + (request.numberOfKids || 0)}</TableCell>
                             <TableCell>{request.duration}</TableCell>
                             <TableCell>
                               {request.createdAt ? new Date(request.createdAt).toLocaleDateString() : '-'}
