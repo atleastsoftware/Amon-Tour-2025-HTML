@@ -4538,8 +4538,8 @@ const BlockEditDropdown = ({
               <Label>Formulaire lié</Label>
               <FormSelector 
                 selectedFormId={formData.formId}
-                onFormSelect={(formId) => updateField('formId', formId)}
-                pageSlug={pageSlug}
+                onFormSelect={(formId: number | null) => updateField('formId', formId)}
+                pageSlug={pageSlug || 'home'}
                 blockId={block.id}
               />
             </div>
