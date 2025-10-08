@@ -1402,129 +1402,106 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         );
 
       case 'who_we_are':
-        // Utiliser le même rendu que text_image pour la prévisualisation en temps réel
+        // Structure exacte du site réel : 2 colonnes (contenu + images)
         const whoWeAreConfig = liveConfiguration || block.configuration || {};
         const whoSections = whoWeAreConfig.sections || [];
         const whoImages = whoWeAreConfig.images || [];
         const whoButtons = whoWeAreConfig.buttons || [];
+        const imagesPosition = whoWeAreConfig.layoutStyle || 'right'; // 'left' ou 'right'
         
         return (
-          <section className="py-20" style={{ backgroundColor: whoWeAreConfig.backgroundColor || '#ffffff' }}>
-            <div className="container mx-auto px-4 max-w-6xl">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-              >
-                {/* Titre */}
-                <div className="text-center mb-12">
+          <section className="py-16" style={{ backgroundColor: whoWeAreConfig.backgroundColor || '#ffffff' }}>
+            <div className="container mx-auto px-4">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                {/* Bloc de contenu textuel */}
+                <div className={imagesPosition === 'right' ? 'order-2 lg:order-1' : 'order-2 lg:order-2'}>
+                  {/* Titre principal */}
                   <h2 
-                    className="font-heading font-bold text-3xl md:text-4xl mb-3"
-                    style={{ 
-                      color: whoWeAreConfig.titleColor || '#084F6E',
-                      whiteSpace: 'pre-line'
-                    }}
+                    className="font-heading font-bold text-3xl md:text-4xl mb-6"
+                    style={{ color: whoWeAreConfig.titleColor || '#084F6E' }}
                   >
                     {whoWeAreConfig.title || "Who We Are"}
                   </h2>
-                  <div 
-                    className="w-20 h-1 mx-auto"
-                    style={{ backgroundColor: whoWeAreConfig.dividerColor || '#3BA8AF' }}
-                  ></div>
-                </div>
-
-                {/* Introduction */}
-                {whoWeAreConfig.introduction && (
-                  <div className="mb-12 text-center max-w-4xl mx-auto">
-                    <p 
-                      className="text-lg leading-relaxed"
-                      style={{ 
-                        color: whoWeAreConfig.introColor || '#666666',
-                        whiteSpace: 'pre-line'
-                      }}
-                    >
-                      {whoWeAreConfig.introduction}
-                    </p>
-                  </div>
-                )}
-
-                {/* Sous-sections dynamiques avec images */}
-                <div className="space-y-16">
-                  {whoSections.map((section: any, index: number) => {
-                    const sectionImage = whoImages.find((img: any) => img.sectionIndex === index);
-                    const isLeftImage = sectionImage?.position === 'left';
-                    
-                    return (
-                      <div key={index} className={`flex flex-col ${sectionImage ? 'md:flex-row' : ''} gap-8 items-center`}>
-                        {sectionImage && isLeftImage && (
-                          <div className="md:w-1/2">
-                            <img 
-                              src={sectionImage.url} 
-                              alt={sectionImage.alt || section.subtitle}
-                              className="w-full h-auto rounded-lg shadow-lg object-cover"
-                              style={{ maxHeight: '500px' }}
-                            />
-                          </div>
-                        )}
-                        
-                        <div className={sectionImage ? 'md:w-1/2' : 'max-w-4xl mx-auto'}>
-                          <h3 
-                            className="font-heading font-bold text-2xl md:text-3xl mb-4"
-                            style={{ color: whoWeAreConfig.subtitleColor || '#084F6E' }}
-                          >
-                            {section.subtitle}
-                          </h3>
+                  
+                  {/* Introduction */}
+                  {whoWeAreConfig.introduction && (
+                    <div className="mb-6">
+                      {whoWeAreConfig.introduction.split('\n').map((para: string, i: number) => 
+                        para.trim() && (
                           <p 
-                            className="text-lg leading-relaxed"
-                            style={{ 
-                              color: whoWeAreConfig.textColor || '#666666',
-                              whiteSpace: 'pre-line'
-                            }}
+                            key={i}
+                            className="text-muted-foreground mb-4"
+                            style={{ color: whoWeAreConfig.textColor || '#666666' }}
                           >
-                            {section.text}
+                            {para.trim()}
                           </p>
-                        </div>
+                        )
+                      )}
+                    </div>
+                  )}
 
-                        {sectionImage && !isLeftImage && (
-                          <div className="md:w-1/2">
-                            <img 
-                              src={sectionImage.url} 
-                              alt={sectionImage.alt || section.subtitle}
-                              className="w-full h-auto rounded-lg shadow-lg object-cover"
-                              style={{ maxHeight: '500px' }}
-                            />
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
+                  {/* Sous-sections */}
+                  {whoSections.map((section: any, index: number) => (
+                    <div key={index} className="mt-6">
+                      <h3 
+                        className="font-heading font-semibold text-2xl mb-3"
+                        style={{ color: whoWeAreConfig.subtitleColor || '#084F6E' }}
+                      >
+                        {section.subtitle}
+                      </h3>
+                      {section.text.split('\n').map((para: string, i: number) => 
+                        para.trim() && (
+                          <p 
+                            key={i}
+                            className="text-muted-foreground mb-4"
+                            style={{ color: whoWeAreConfig.textColor || '#666666' }}
+                          >
+                            {para.trim()}
+                          </p>
+                        )
+                      )}
+                    </div>
+                  ))}
+
+                  {/* Boutons */}
+                  {whoButtons.length > 0 && (
+                    <div className="flex items-center space-x-4 mt-6">
+                      {whoButtons.map((button: any, index: number) => (
+                        <a
+                          key={index}
+                          href={button.url || '#'}
+                          className={`px-6 py-2 rounded font-heading font-semibold transition-colors inline-flex items-center ${
+                            button.style === 'filled' 
+                              ? 'text-white hover:opacity-90' 
+                              : 'hover:opacity-80'
+                          }`}
+                          style={{
+                            backgroundColor: button.style === 'filled' ? (button.color || '#084F6E') : 'transparent',
+                            color: button.style === 'outline' ? (button.color || '#084F6E') : '#ffffff'
+                          }}
+                        >
+                          {button.text}
+                        </a>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
-                {/* Boutons */}
-                {whoButtons.length > 0 && (
-                  <div className="flex flex-wrap gap-4 justify-center mt-12">
-                    {whoButtons.map((button: any, index: number) => (
-                      <a
-                        key={index}
-                        href={button.url || '#'}
-                        className={`px-8 py-3 rounded transition-colors inline-block ${
-                          button.style === 'filled' 
-                            ? 'text-white hover:opacity-90' 
-                            : 'bg-transparent border-2 hover:bg-opacity-10'
-                        }`}
-                        style={{
-                          backgroundColor: button.style === 'filled' ? (button.color || '#084F6E') : 'transparent',
-                          borderColor: button.style === 'outline' ? (button.color || '#084F6E') : 'transparent',
-                          color: button.style === 'outline' ? (button.color || '#084F6E') : '#ffffff'
-                        }}
-                      >
-                        {button.text}
-                      </a>
+                {/* Bloc d'images empilées */}
+                <div className={imagesPosition === 'right' ? 'order-1 lg:order-2' : 'order-1 lg:order-1'}>
+                  <div className="space-y-6">
+                    {whoImages.map((image: any, index: number) => (
+                      <div key={index} className="relative">
+                        <img 
+                          src={image.url} 
+                          alt={image.alt || `Image ${index + 1}`}
+                          className="w-full h-auto rounded-lg shadow-lg"
+                        />
+                      </div>
                     ))}
                   </div>
-                )}
-              </motion.div>
+                </div>
+              </div>
             </div>
           </section>
         );
@@ -3716,21 +3693,18 @@ const BlockEditDropdown = ({
           images: [
             {
               url: '/family-photo.png',
-              alt: 'Amon Tour family - Éric, Margaux, Gabriel, and Raphaël',
-              sectionIndex: 0,
-              position: 'right'
+              alt: 'Amon Tour family - Éric, Margaux, Gabriel, and Raphaël'
             },
             {
               url: '/attached_assets/amon-tour-team.png',
-              alt: 'Amon Tour team',
-              sectionIndex: 1,
-              position: 'left'
+              alt: 'Amon Tour team'
             }
           ],
           buttons: [
             { text: 'Contact Us', url: '/contact', color: '#084F6E', style: 'filled' },
             { text: 'Create Your Journey →', url: '/custom-tour', color: '#084F6E', style: 'outline' }
-          ]
+          ],
+          layoutStyle: 'right'
         };
         
         // Initialiser si nécessaire
@@ -3746,6 +3720,19 @@ const BlockEditDropdown = ({
         
         return (
           <div className="space-y-6">
+            {/* Style de mise en page */}
+            <div>
+              <Label>Disposition des images</Label>
+              <select 
+                value={formData.layoutStyle || 'right'}
+                onChange={e => updateField('layoutStyle', e.target.value)}
+                className="w-full p-2 border rounded mt-2"
+              >
+                <option value="right">Images à droite</option>
+                <option value="left">Images à gauche</option>
+              </select>
+            </div>
+
             {/* Titre */}
             <div>
               <Label htmlFor="title">Titre principal</Label>
@@ -3916,9 +3903,7 @@ const BlockEditDropdown = ({
                         const url = URL.createObjectURL(file);
                         const newImage = {
                           url,
-                          alt: '',
-                          sectionIndex: 0,
-                          position: 'left'
+                          alt: ''
                         };
                         updateField('images', [...whoWeAreImages, newImage]);
                       }
@@ -3991,39 +3976,6 @@ const BlockEditDropdown = ({
                             updateField('images', updated);
                           }}
                         />
-                      </div>
-                      <div>
-                        <Label className="text-sm">Associer à la sous-section</Label>
-                        <select 
-                          value={image.sectionIndex || 0}
-                          onChange={e => {
-                            const updated = [...whoWeAreImages];
-                            updated[index].sectionIndex = parseInt(e.target.value);
-                            updateField('images', updated);
-                          }}
-                          className="w-full p-2 border rounded"
-                        >
-                          {whoWeAreSections.map((section: any, sIndex: number) => (
-                            <option key={sIndex} value={sIndex}>
-                              {section.subtitle || `Section ${sIndex + 1}`}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                      <div>
-                        <Label className="text-sm">Position</Label>
-                        <select 
-                          value={image.position || 'left'}
-                          onChange={e => {
-                            const updated = [...whoWeAreImages];
-                            updated[index].position = e.target.value;
-                            updateField('images', updated);
-                          }}
-                          className="w-full p-2 border rounded"
-                        >
-                          <option value="left">Gauche</option>
-                          <option value="right">Droite</option>
-                        </select>
                       </div>
                     </div>
                   </div>
