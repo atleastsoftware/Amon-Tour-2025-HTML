@@ -167,6 +167,7 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
     </div>
   );
 }
+
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Switch } from '@/components/ui/switch';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
@@ -269,6 +270,111 @@ interface PageConfiguration {
   isActive: boolean;
   createdAt: Date;
   updatedAt: Date;
+}
+
+// Form Selector Component
+interface FormSelectorProps {
+  selectedFormId: number | null;
+  onFormSelect: (formId: number | null) => void;
+  pageSlug: string;
+  blockId: number;
+}
+
+function FormSelector({ selectedFormId, onFormSelect, pageSlug, blockId }: FormSelectorProps) {
+  const { data: forms = [], isLoading } = useQuery<any[]>({
+    queryKey: ['/api/admin/custom-forms'],
+  });
+
+  const selectedForm = forms.find(f => f.id === selectedFormId);
+
+  if (isLoading) {
+    return <div className="text-sm text-gray-500">Chargement des formulaires...</div>;
+  }
+
+  return (
+    <div className="space-y-3">
+      {selectedFormId ? (
+        <div className="bg-gray-50 p-4 rounded-lg space-y-3">
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-medium">
+              {selectedForm ? selectedForm.name : `Formulaire ID ${selectedFormId}`}
+            </span>
+            <Button
+              onClick={() => onFormSelect(null)}
+              variant="ghost"
+              size="sm"
+            >
+              <Trash2 className="w-4 h-4 mr-1" />
+              Supprimer
+            </Button>
+          </div>
+          <Select 
+            value={selectedFormId.toString()} 
+            onValueChange={(value) => onFormSelect(parseInt(value))}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Choisir un formulaire" />
+            </SelectTrigger>
+            <SelectContent>
+              {forms.map(form => (
+                <SelectItem key={form.id} value={form.id.toString()}>
+                  {form.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Button
+            onClick={() => {
+              sessionStorage.setItem('formEditorContext', JSON.stringify({
+                returnToPage: pageSlug,
+                blockId: blockId,
+                formId: selectedFormId
+              }));
+              window.location.href = `/admin-editor-form`;
+            }}
+            className="w-full"
+            variant="outline"
+          >
+            <FormInput className="w-4 h-4 mr-2" />
+            Modifier le formulaire complet
+          </Button>
+        </div>
+      ) : (
+        <Select 
+          value="" 
+          onValueChange={(value) => {
+            if (value === "new") {
+              sessionStorage.setItem('formEditorContext', JSON.stringify({
+                returnToPage: pageSlug,
+                blockId: blockId,
+                formId: null
+              }));
+              window.location.href = `/admin-editor-form`;
+            } else {
+              onFormSelect(parseInt(value));
+            }
+          }}
+        >
+          <SelectTrigger>
+            <SelectValue placeholder="Choisir ou créer un formulaire" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="new">
+              <div className="flex items-center">
+                <Plus className="w-4 h-4 mr-2" />
+                Créer un nouveau formulaire
+              </div>
+            </SelectItem>
+            {forms.map(form => (
+              <SelectItem key={form.id} value={form.id.toString()}>
+                {form.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      )}
+    </div>
+  );
 }
 
 // Real Component Previews - Using ACTUAL website components only
@@ -4430,48 +4536,12 @@ const BlockEditDropdown = ({
             
             <div className="pt-4 border-t space-y-3">
               <Label>Formulaire lié</Label>
-              {formData.formId ? (
-                <div className="bg-gray-50 p-4 rounded-lg space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium">Formulaire sélectionné: ID {formData.formId}</span>
-                    <Button
-                      onClick={() => updateField('formId', null)}
-                      variant="ghost"
-                      size="sm"
-                    >
-                      <Trash2 className="w-4 h-4 mr-1" />
-                      Supprimer
-                    </Button>
-                  </div>
-                  <Button
-                    onClick={() => {
-                      sessionStorage.setItem('formEditorContext', JSON.stringify({
-                        returnToPage: pageSlug,
-                        blockId: block.id,
-                        formId: formData.formId
-                      }));
-                      window.location.href = `/admin-editor-form`;
-                    }}
-                    className="w-full"
-                    variant="outline"
-                  >
-                    <FormInput className="w-4 h-4 mr-2" />
-                    Modifier le formulaire
-                  </Button>
-                </div>
-              ) : (
-                <Button
-                  onClick={() => {
-                    // Par défaut, sélectionner le formulaire Custom Tour Request (ID 2)
-                    updateField('formId', 2);
-                  }}
-                  className="w-full"
-                  variant="outline"
-                >
-                  <Plus className="w-4 h-4 mr-2" />
-                  Ajouter un formulaire
-                </Button>
-              )}
+              <FormSelector 
+                selectedFormId={formData.formId}
+                onFormSelect={(formId) => updateField('formId', formId)}
+                pageSlug={pageSlug}
+                blockId={block.id}
+              />
             </div>
           </div>
         );
