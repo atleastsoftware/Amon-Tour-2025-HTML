@@ -9,10 +9,10 @@ import { useTourNinja } from '@/hooks/useTourNinja';
 
 // Couleurs principales du thème
 const THEME_COLORS = {
-  primary: '#1e73be',
-  secondary: '#E6B64C',
-  secondaryLight: 'rgba(230, 182, 76, 0.1)',
-  secondaryHover: '#d4a33e' // Version plus foncée pour hover
+  primary: '#084F6E',
+  secondary: '#3BA8AF',
+  secondaryLight: 'rgba(59, 168, 175, 0.1)',
+  secondaryHover: '#2e8a91' // Version plus foncée pour hover
 };
 
 // Fonction helper pour convertir hex en rgba
