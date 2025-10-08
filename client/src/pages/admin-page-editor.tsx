@@ -1541,6 +1541,10 @@ const BlockEditDropdown = ({
 }) => {
   const [formData, setFormData] = useState(block.configuration || {});
 
+  useEffect(() => {
+    setFormData(block.configuration || {});
+  }, [block.id, block.configuration]);
+
   const updateField = (key: string, value: any) => {
     const newFormData = { ...formData, [key]: value };
     
