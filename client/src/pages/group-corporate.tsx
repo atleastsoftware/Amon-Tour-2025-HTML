@@ -2,7 +2,6 @@ import { useState } from "react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
-import { translationService } from "@/services/translationService";
 import { Users, Target, Calendar, Award, Building, GraduationCap } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -24,8 +23,6 @@ interface FormData {
 
 export default function GroupCorporate() {
   const { toast } = useToast();
-  const seoMeta = translationService.getSeoMeta();
-  const toasts = translationService.getToasts();
   const [formData, setFormData] = useState<FormData>({
     companyName: '',
     contactName: '',
@@ -74,8 +71,8 @@ export default function GroupCorporate() {
       console.log('Group Corporate - Success result:', result);
       
       toast({
-        title: toasts.requestSent,
-        description: toasts.requestSentDesc,
+        title: "Group Request Sent!",
+        description: "Thank you for your group inquiry. Our team will create a customized proposal and contact you within 24 hours.",
         duration: 5000,
       });
 
@@ -94,8 +91,8 @@ export default function GroupCorporate() {
     } catch (error) {
       console.error('Group Corporate - Submit error:', error);
       toast({
-        title: toasts.requestFailed,
-        description: toasts.requestFailedDesc,
+        title: "Error Sending Request",
+        description: "There was a problem sending your group request. Please try again or contact us directly.",
         variant: "destructive",
         duration: 5000,
       });
@@ -108,9 +105,9 @@ export default function GroupCorporate() {
   return (
     <>
       <SEO 
-        title={seoMeta.groupCorporateTitle}
-        description={seoMeta.groupCorporateDescription}
-        keywords={seoMeta.groupCorporateKeywords}
+        title="Group & Corporate Travel - Tailored Experiences in Krabi"
+        description="Custom group travel solutions for corporate retreats, team building, educational trips, and special events in Krabi, Thailand. Professional planning and on-site support."
+        keywords="corporate retreat krabi, group travel thailand, team building activities, educational tours, company events krabi"
       />
       <Header />
       

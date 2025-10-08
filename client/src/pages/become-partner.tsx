@@ -9,7 +9,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { translationService } from "@/services/translationService";
 
 interface FormData {
   companyName: string;
@@ -23,7 +22,6 @@ interface FormData {
 
 export default function BecomePartner() {
   const { toast } = useToast();
-  const toasts = translationService.getToasts();
   const [formData, setFormData] = useState<FormData>({
     companyName: '',
     contactName: '',
@@ -87,8 +85,8 @@ export default function BecomePartner() {
     } catch (error) {
       console.error('Partnership - Submit error:', error);
       toast({
-        title: toasts.requestFailed,
-        description: toasts.requestFailedDesc,
+        title: "Error Sending Request",
+        description: "There was a problem sending your partnership request. Please try again or contact us directly.",
         variant: "destructive",
         duration: 5000,
       });

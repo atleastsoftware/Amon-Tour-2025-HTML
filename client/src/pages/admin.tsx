@@ -112,12 +112,12 @@ export default function Admin() {
                   className="group hover:shadow-lg transition-all duration-300 cursor-pointer border-0 bg-gradient-to-r from-blue-500 to-blue-600 shadow-md hover:shadow-xl hover:scale-105 relative"
                   onClick={() => setLocation('/admin-custom-tours')}
                 >
-                  {(Array.isArray(customTourUnread) && customTourUnread.length > 0) && (
+                  {(customTourUnread?.length || 0) > 0 && (
                     <Badge 
                       variant="destructive" 
                       className="absolute -top-2 -right-2 h-6 w-6 rounded-full p-0 flex items-center justify-center text-xs z-10"
                     >
-                      {Array.isArray(customTourUnread) ? customTourUnread.length : 0}
+                      {customTourUnread?.length}
                     </Badge>
                   )}
                   <CardHeader className="text-white">
@@ -148,12 +148,12 @@ export default function Admin() {
                   className="group hover:shadow-lg transition-all duration-300 cursor-pointer border-0 bg-gradient-to-r from-pink-500 to-pink-600 shadow-md hover:shadow-xl hover:scale-105 relative"
                   onClick={() => setLocation('/admin/krabi-celebration')}
                 >
-                  {(Array.isArray(krabiUnread) && krabiUnread.length > 0) && (
+                  {(krabiUnread?.length || 0) > 0 && (
                     <Badge 
                       variant="destructive" 
                       className="absolute -top-2 -right-2 h-6 w-6 rounded-full p-0 flex items-center justify-center text-xs z-10"
                     >
-                      {Array.isArray(krabiUnread) ? krabiUnread.length : 0}
+                      {krabiUnread?.length}
                     </Badge>
                   )}
                   <CardHeader className="text-white">
@@ -184,12 +184,12 @@ export default function Admin() {
                   className="group hover:shadow-lg transition-all duration-300 cursor-pointer border-0 bg-gradient-to-r from-indigo-500 to-indigo-600 shadow-md hover:shadow-xl hover:scale-105 relative"
                   onClick={() => setLocation('/admin/partnership-requests')}
                 >
-                  {(Array.isArray(partnershipUnread) && partnershipUnread.length > 0) && (
+                  {(partnershipUnread?.length || 0) > 0 && (
                     <Badge 
                       variant="destructive" 
                       className="absolute -top-2 -right-2 h-6 w-6 rounded-full p-0 flex items-center justify-center text-xs z-10"
                     >
-                      {Array.isArray(partnershipUnread) ? partnershipUnread.length : 0}
+                      {partnershipUnread?.length}
                     </Badge>
                   )}
                   <CardHeader className="text-white">
@@ -220,12 +220,12 @@ export default function Admin() {
                   className="group hover:shadow-lg transition-all duration-300 cursor-pointer border-0 bg-gradient-to-r from-amber-500 to-amber-600 shadow-md hover:shadow-xl hover:scale-105 relative"
                   onClick={() => setLocation('/admin/group-requests')}
                 >
-                  {(Array.isArray(groupUnread) && groupUnread.length > 0) && (
+                  {(groupUnread?.length || 0) > 0 && (
                     <Badge 
                       variant="destructive" 
                       className="absolute -top-2 -right-2 h-6 w-6 rounded-full p-0 flex items-center justify-center text-xs z-10"
                     >
-                      {Array.isArray(groupUnread) ? groupUnread.length : 0}
+                      {groupUnread?.length}
                     </Badge>
                   )}
                   <CardHeader className="text-white">
@@ -284,12 +284,12 @@ export default function Admin() {
                   className="group hover:shadow-lg transition-all duration-300 cursor-pointer border-0 bg-gradient-to-r from-orange-500 to-orange-600 shadow-md hover:shadow-xl hover:scale-105 relative"
                   onClick={() => setLocation('/admin-newsletter')}
                 >
-                  {(Array.isArray(newsletterUnconfirmed) && newsletterUnconfirmed.length > 0) && (
+                  {(newsletterUnconfirmed?.length || 0) > 0 && (
                     <Badge 
                       variant="destructive" 
                       className="absolute -top-2 -right-2 h-6 w-6 rounded-full p-0 flex items-center justify-center text-xs z-10"
                     >
-                      {Array.isArray(newsletterUnconfirmed) ? newsletterUnconfirmed.length : 0}
+                      {newsletterUnconfirmed?.length}
                     </Badge>
                   )}
                   <CardHeader className="text-white">

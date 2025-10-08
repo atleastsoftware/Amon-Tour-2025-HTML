@@ -2,28 +2,24 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEO from "@/components/layout/SEO";
 import HeroHeader from "@/components/layout/HeroHeader";
-import { translationService } from "@/services/translationService";
 import { MapPin, Mail, Phone, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function Contact() {
-  const pageHeaders = translationService.getPageHeaders();
-  const seoMeta = translationService.getSeoMeta();
-  
   return (
     <>
       <SEO 
-        title={seoMeta.contactTitle}
-        description={seoMeta.contactDescription}
-        keywords={seoMeta.contactKeywords}
+        title="Contact Us - Amon Tour Krabi"
+        description="Get in touch with Amon Tour for your perfect Krabi experience. Visit our office in Ao Nang or contact us via phone, email, WhatsApp, or Line."
+        keywords="contact amon tour, krabi office, ao nang location, thailand tour operator contact"
       />
       <Header />
       
       <main>
         {/* Hero Section */}
         <HeroHeader 
-          title={pageHeaders.contact.title}
-          subtitle={pageHeaders.contact.subtitle}
+          title="Contact Us"
+          subtitle="We're here to help you plan the perfect experience in Krabi."
           alt="Contact Amon Tour in Krabi"
         />
 
@@ -39,10 +35,10 @@ export default function Contact() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5 }}
                 >
-                  <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{pageHeaders.contact.getInTouch}</h2>
+                  <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">Get In Touch</h2>
                   <div className="w-20 h-1 bg-secondary mx-auto mb-8"></div>
                   <p className="text-lg text-gray-700 leading-relaxed">
-                    {pageHeaders.contact.readyToExplore}
+                    Ready to explore Krabi? Contact us through any of the methods below. Our friendly team is here to answer your questions and help you plan an unforgettable experience.
                   </p>
                 </motion.div>
               </div>
@@ -63,7 +59,7 @@ export default function Contact() {
                       <Mail className="w-6 h-6 text-primary" />
                     </div>
                     <div>
-                      <p className="font-heading font-semibold text-primary">{pageHeaders.contact.email}</p>
+                      <p className="font-heading font-semibold text-primary">Email</p>
                       <a 
                         href="mailto:info@amon-tour.com"
                         className="text-foreground hover:text-primary transition-colors"
@@ -82,7 +78,7 @@ export default function Contact() {
                       <Phone className="w-6 h-6 text-secondary" />
                     </div>
                     <div>
-                      <p className="font-heading font-semibold text-primary">{pageHeaders.contact.phone}</p>
+                      <p className="font-heading font-semibold text-primary">Phone</p>
                       <a 
                         href="tel:+66962166559"
                         className="text-foreground hover:text-primary transition-colors"
@@ -101,7 +97,7 @@ export default function Contact() {
                       <MessageCircle className="w-6 h-6 text-[hsl(var(--success))]" />
                     </div>
                     <div>
-                      <p className="font-heading font-semibold text-primary">{pageHeaders.contact.whatsapp}</p>
+                      <p className="font-heading font-semibold text-primary">WhatsApp</p>
                       <a 
                         href="https://wa.me/66653496445"
                         target="_blank"
@@ -122,7 +118,7 @@ export default function Contact() {
                       <MessageCircle className="w-6 h-6 text-[hsl(var(--success))]" />
                     </div>
                     <div>
-                      <p className="font-heading font-semibold text-primary">{pageHeaders.contact.line}</p>
+                      <p className="font-heading font-semibold text-primary">Line ID</p>
                       <span className="text-foreground">amontour</span>
                     </div>
                   </motion.div>

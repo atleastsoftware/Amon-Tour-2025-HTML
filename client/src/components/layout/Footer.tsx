@@ -4,7 +4,6 @@ import { FadeInWhenVisible, SlideUpWhenVisible, StaggerChildren, StaggerItem } f
 import NewsletterSubscription from "@/components/newsletter/NewsletterSubscription";
 import logoA from "@/assets/logo-a.png";
 import { useQuery } from '@tanstack/react-query';
-import { useTranslation } from "react-i18next";
 import { 
   Facebook, 
   Instagram, 
@@ -136,8 +135,6 @@ function renderContactInfo(item: any) {
 }
 
 export default function Footer() {
-  const { t } = useTranslation();
-  
   // Fetch dynamic footer content
   const { data: siteSettings } = useQuery({
     queryKey: ['/api/public/footer-settings'],
@@ -179,7 +176,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
           {/* Contact Column */}
           <div>
-            <h4 className="font-heading font-bold text-lg mb-3 text-center">{t('footer.contact')}</h4>
+            <h4 className="font-heading font-bold text-lg mb-3 text-center">Contact</h4>
             <div className="space-y-2 text-center">
               {/* Dynamic Contact Information */}
               {contactInfo.map((item: any, index: number) => (
@@ -212,7 +209,7 @@ export default function Footer() {
           
           {/* Useful Links Column */}
           <div>
-            <h4 className="font-heading font-bold text-lg mb-3 text-center">{t('footer.usefulLinks')}</h4>
+            <h4 className="font-heading font-bold text-lg mb-3 text-center">Useful Links</h4>
             <div className="flex flex-col items-center space-y-2">
               {usefulLinks.map((link: any, index: number) => (
                 <motion.a 
@@ -235,14 +232,14 @@ export default function Footer() {
           {newsletterConfig.enabled !== false && (
             <div>
               <h4 className="font-heading font-bold text-lg mb-3 text-center">
-                {newsletterConfig.title || t('footer.defaultNewsletterTitle')}
+                {newsletterConfig.title || 'Newsletter'}
               </h4>
               <p className="font-heading text-center mb-3">
-                {newsletterConfig.description || t('footer.defaultNewsletterDescription')}
+                {newsletterConfig.description || 'Subscribe to receive our special offers and travel tips.'}
               </p>
               <NewsletterSubscription />
               <p className="font-heading text-center text-sm">
-                {newsletterConfig.privacyText || t('footer.defaultPrivacyText')}
+                {newsletterConfig.privacyText || 'We respect your privacy. Unsubscribe at any time.'}
               </p>
             </div>
           )}
@@ -256,28 +253,28 @@ export default function Footer() {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.5 }}
         >
-          <p className="font-heading">&copy; {new Date().getFullYear()} Flame BB Co., Ltd. (Amon Tour). {t('footer.copyright')}</p>
+          <p className="font-heading">&copy; {new Date().getFullYear()} Flame BB Co., Ltd. (Amon Tour). All rights reserved.</p>
           <div className="flex space-x-4 mt-4 md:mt-0">
             <motion.a 
               href="/legal-notice" 
               className="font-heading text-sm hover:text-secondary transition-colors"
               whileHover={{ y: -2 }}
             >
-              {t('footer.legalNotice')}
+              Legal Notice
             </motion.a>
             <motion.a 
               href="/privacy-policy" 
               className="font-heading text-sm hover:text-secondary transition-colors"
               whileHover={{ y: -2 }}
             >
-              {t('footer.privacyPolicy')}
+              Privacy Policy
             </motion.a>
             <motion.a 
               href="/terms-conditions" 
               className="font-heading text-sm hover:text-secondary transition-colors"
               whileHover={{ y: -2 }}
             >
-              {t('footer.termsConditions')}
+              Terms & Conditions
             </motion.a>
           </div>
         </motion.div>

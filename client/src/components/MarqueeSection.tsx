@@ -6,13 +6,12 @@ import { translationService } from "@/services/translationService";
 
 export default function MarqueeSection() {
   const home = translationService.getHome();
-  const tourNames = translationService.getTourNames();
   
   // Tours réels de l'iframe Tour Ninja showcase/2
   const iframeTours = [
     { 
       id: "1",
-      name: tourNames.phiPhiIslands, 
+      name: "Phi Phi Islands Speed Boat Tour", 
       price: 2500, 
       currency: "THB",
       location: "Krabi",
@@ -22,7 +21,7 @@ export default function MarqueeSection() {
     },
     { 
       id: "2",
-      name: tourNames.jamesBondIsland, 
+      name: "James Bond Island Day Trip", 
       price: 3200, 
       currency: "THB",
       location: "Phang Nga",
@@ -32,7 +31,7 @@ export default function MarqueeSection() {
     },
     { 
       id: "3",
-      name: tourNames.phuketCityTemple, 
+      name: "Phuket City & Temple Tour", 
       price: 1800, 
       currency: "THB",
       location: "Phuket",
@@ -42,7 +41,7 @@ export default function MarqueeSection() {
     },
     { 
       id: "4",
-      name: tourNames.emeraldCaveKayaking, 
+      name: "Emerald Cave Kayaking", 
       price: 2800, 
       currency: "THB",
       location: "Krabi",
@@ -52,7 +51,7 @@ export default function MarqueeSection() {
     },
     { 
       id: "5",
-      name: tourNames.elephantSanctuary, 
+      name: "Elephant Sanctuary Visit", 
       price: 2200, 
       currency: "THB",
       location: "Phuket",
@@ -62,7 +61,7 @@ export default function MarqueeSection() {
     },
     { 
       id: "6",
-      name: tourNames.fourIslandsLongtail, 
+      name: "4 Islands Tour by Longtail", 
       price: 1900, 
       currency: "THB",
       location: "Krabi",

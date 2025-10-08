@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { autoTranslate } from '../lib/autoTranslate';
+import { translationService } from '../services/translationService';
 
 const languageData = {
   en: { 
@@ -18,14 +17,13 @@ const languageData = {
 } as const;
 
 export default function LanguageSelector() {
-  const { i18n } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState(i18n.language || 'en');
+  const [currentLanguage, setCurrentLanguage] = useState(translationService.getCurrentLanguage());
 
-  // Update current language when i18n language changes
+  // Update current language when component mounts
   useEffect(() => {
-    setCurrentLanguage(i18n.language || 'en');
-  }, [i18n.language]);
+    setCurrentLanguage(translationService.getCurrentLanguage());
+  }, []);
 
   const handleLanguageChange = async (langCode: string) => {
     if (isLoading || currentLanguage === langCode) return;
@@ -33,52 +31,19 @@ export default function LanguageSelector() {
     setIsLoading(true);
     
     try {
-      // 1. Disable auto-translation system to prevent conflicts
-      disableAutoTranslation();
-      
-      // 2. Change language using i18next (no reload needed!)
-      await i18n.changeLanguage(langCode);
-      setCurrentLanguage(langCode);
-      
-      // 3. Mark that user made a manual language choice
-      localStorage.setItem('amon-tour-translation-choice', `manual-${langCode}`);
-      localStorage.setItem('user-chose-language', 'true');
-      
-      // 4. No page reload needed - i18next updates automatically!
-      console.log(`Manual language changed to: ${langCode} (smooth transition)`);
-      
-      // 5. Persist language choice for i18next
-      localStorage.setItem('i18nextLng', langCode);
+      // Change language using translation service
+      const success = translationService.setLanguage(langCode);
+      if (success) {
+        setCurrentLanguage(langCode);
+        // Force page reload to apply translations
+        window.location.reload();
+        console.log(`Language changed to: ${langCode}`);
+      }
     } catch (error) {
       console.error('Failed to switch language:', error);
     } finally {
       setIsLoading(false);
     }
-  };
-
-  /**
-   * Disable browser auto-translation when user makes manual choice
-   */
-  const disableAutoTranslation = () => {
-    // Set translate="no" on document to disable browser translation
-    document.documentElement.setAttribute('translate', 'no');
-    
-    // Remove any Google Translate widgets
-    const googleTranslateElements = document.querySelectorAll('[id*="google_translate"], .goog-te-banner-frame, .goog-te-menu-frame');
-    googleTranslateElements.forEach(el => el.remove());
-    
-    // Clear any translation meta tags
-    const translationMetas = document.querySelectorAll('meta[name="google-translate-customization"], meta[name="translate"]');
-    translationMetas.forEach(meta => meta.remove());
-    
-    // Hide any translation indicators
-    const indicators = document.querySelectorAll('.translation-indicator');
-    indicators.forEach(indicator => indicator.remove());
-    
-    // Stop auto-translation detection
-    localStorage.setItem('amon-tour-disable-auto-translate', 'true');
-    
-    console.log('Browser auto-translation disabled - using manual TranslationService');
   };
 
   return (

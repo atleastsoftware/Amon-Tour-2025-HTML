@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useQuery } from '@tanstack/react-query';
 import logoAmon from "@/assets/logo-amon.png";
 import LanguageSelector from "@/components/LanguageSelector";
-import { useTranslation } from "react-i18next";
+import { translationService } from "@/services/translationService";
 
 type NavLinkProps = {
   href: string;
@@ -52,15 +52,9 @@ export default function Header() {
   const headerRef = useRef<HTMLElement>(null);
   const isBookingPage = location.startsWith('/booking');
   const isHomePage = location === '/';
-  const { t, i18n } = useTranslation();
-  const isEN = i18n.language?.startsWith('en');
   
-  // Original English texts from production
-  const originalTexts = {
-    experiences: "Experiences",
-    blog: "Blog", 
-    contact: "Contact"
-  };
+  // Get translations
+  const nav = translationService.getNav();
 
   // Fetch notification bar settings
   const { data: siteSettings } = useQuery({
@@ -273,19 +267,19 @@ export default function Header() {
             </NavLink>
           )}
           <NavLink href="/tours" isActive={location === '/tours'} isHomePage={isHomePage} scrolled={scrolled}>
-            {isEN ? originalTexts.experiences : t('navigation.experiences')}
+            {nav.experiences}
           </NavLink>
           <NavLink href="/cruise" isActive={location === '/cruise'} isHomePage={isHomePage} scrolled={scrolled}>
-            Cruise
+            {nav.cruise}
           </NavLink>
           <NavLink href="/custom-tour" isActive={location === '/custom-tour'} isHomePage={isHomePage} scrolled={scrolled}>
-            Custom Tour
+            {nav.customTrip}
           </NavLink>
           <NavLink href="/blog" isActive={location === '/blog'} isHomePage={isHomePage} scrolled={scrolled}>
-            {isEN ? originalTexts.blog : t('navigation.blog')}
+            {nav.blog}
           </NavLink>
           <NavLink href="/contact" isActive={location === '/contact'} isHomePage={isHomePage} scrolled={scrolled}>
-            {isEN ? originalTexts.contact : t('navigation.contact')}
+            {nav.contact}
           </NavLink>
           
           {/* Language Selector */}
@@ -321,19 +315,19 @@ export default function Header() {
                 </NavLink>
               )}
               <NavLink href="/tours" isActive={location === '/tours'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
-                {isEN ? originalTexts.experiences : t('navigation.experiences')}
+                {nav.experiences}
               </NavLink>
               <NavLink href="/cruise" isActive={location === '/cruise'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
-                Cruise
+                {nav.cruise}
               </NavLink>
               <NavLink href="/custom-tour" isActive={location === '/custom-tour'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
-                Custom Tour
+                {nav.customTrip}
               </NavLink>
               <NavLink href="/blog" isActive={location === '/blog'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
-                {isEN ? originalTexts.blog : t('navigation.blog')}
+                {nav.blog}
               </NavLink>
               <NavLink href="/contact" isActive={location === '/contact'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
-                {isEN ? originalTexts.contact : t('navigation.contact')}
+                {nav.contact}
               </NavLink>
               
               {/* Language Selector for Mobile */}

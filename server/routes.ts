@@ -1164,8 +1164,8 @@ Crawl-delay: 1`;
 
   // ===== TOUR NINJA SYNCHRONIZATION API =====
 
-  // Function to transform Amontour request to Tour Ninja format
-  function transformToTourNinja(amontourRequest: any) {
+  // Function to transform Amontour custom tour request to Tour Ninja format
+  function transformCustomTourToTourNinja(amontourRequest: any) {
     // Map status values
     const statusMap: Record<string, string> = {
       "new": "received",
@@ -1204,7 +1204,57 @@ Crawl-delay: 1`;
       tripTypes: amontourRequest.tripTypes || [],
       amontourId: amontourRequest.id,
       originalCreatedAt: amontourRequest.createdAt,
-      source: "amontour_sync"
+      source: "amontour_custom_tour"
+    };
+  }
+
+  // Function to transform Amontour cruise request to Tour Ninja format
+  function transformCruiseToTourNinja(cruiseRequest: any) {
+    // Map cruise status values
+    const statusMap: Record<string, string> = {
+      "pending": "received",
+      "contacted": "processing", 
+      "confirmed": "completed",
+      "cancelled": "cancelled"
+    };
+
+    // Infer cruise tour name from duration and itinerary
+    const inferCruiseTourName = (duration: string, itinerary?: string) => {
+      if (duration === "1 day") return "Day Cruise Experience";
+      if (duration === "2 days") return "2-Day Island Cruise";
+      if (duration === "3-4 days") return "Multi-Day Island Explorer";
+      if (duration === "5-6 days") return "Extended Island Adventure";
+      if (duration === "7+ days") return "Ultimate Island Journey";
+      if (itinerary?.toLowerCase().includes("phi phi")) return "Phi Phi Islands Cruise";
+      if (itinerary?.toLowerCase().includes("krabi")) return "Krabi Coast Cruise";
+      if (itinerary?.toLowerCase().includes("phang nga")) return "Phang Nga Bay Cruise";
+      return "Custom Island Cruise";
+    };
+
+    return {
+      customerName: cruiseRequest.fullName,
+      customerEmail: cruiseRequest.email,
+      phone: cruiseRequest.phone || "Non fourni",
+      tourDate: cruiseRequest.preferredDates || "Date flexible",
+      numberOfAdults: cruiseRequest.numberOfGuests || 2,
+      numberOfKids: 0, // Cruise requests don't differentiate adults/kids
+      duration: cruiseRequest.duration,
+      message: [
+        cruiseRequest.specialRequests ? `Demandes spéciales: ${cruiseRequest.specialRequests}` : "",
+        cruiseRequest.itinerary ? `Itinéraire préféré: ${cruiseRequest.itinerary}` : "",
+        cruiseRequest.budget ? `Budget: ${cruiseRequest.budget}` : ""
+      ].filter(Boolean).join("\n"),
+      destinations: cruiseRequest.itinerary ? [cruiseRequest.itinerary] : [],
+      budget: cruiseRequest.budget || "À discuter",
+      status: statusMap[cruiseRequest.status] || "received",
+      associatedTourName: inferCruiseTourName(cruiseRequest.duration, cruiseRequest.itinerary),
+      // Additional cruise-specific fields
+      numberOfGuests: cruiseRequest.numberOfGuests,
+      itinerary: cruiseRequest.itinerary,
+      specialRequests: cruiseRequest.specialRequests,
+      amontourId: cruiseRequest.id,
+      originalCreatedAt: cruiseRequest.createdAt,
+      source: "amontour_cruise"
     };
   }
 
@@ -1264,7 +1314,7 @@ Crawl-delay: 1`;
       const amontourRequests = await storage.getCustomTourRequests(filters);
       
       // Transform to Tour Ninja format
-      const tourNinjaFormat = amontourRequests.map(transformToTourNinja);
+      const tourNinjaFormat = amontourRequests.map(transformCustomTourToTourNinja);
       
       res.json({
         success: true,
@@ -1279,6 +1329,84 @@ Crawl-delay: 1`;
       res.status(500).json({ 
         success: false, 
         message: "Failed to sync data",
+        error: String(error) 
+      });
+    }
+  });
+
+  // Cruise requests synchronization endpoint with API key authentication
+  app.get("/api/sync/cruise-requests", async (req, res) => {
+    try {
+      // API key authentication for Tour Ninja
+      const authHeader = req.headers.authorization;
+      
+      // Accept both the hardcoded key for Tour Ninja sync and the environment key for internal use
+      const validApiKeys = [
+        "TOUR_NINJA_API_KEY_2025", // Tour Ninja's dedicated sync key
+        process.env.TOUR_NINJA_API_KEY // Environment key if set
+      ].filter(Boolean);
+      
+      if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return res.status(401).json({ 
+          success: false, 
+          message: "Authorization header required" 
+        });
+      }
+
+      const apiKey = authHeader.substring(7); // Remove 'Bearer '
+      
+      if (!validApiKeys.includes(apiKey)) {
+        return res.status(403).json({ 
+          success: false, 
+          message: "Invalid API key" 
+        });
+      }
+
+      // Get query parameters for filtering
+      const { status, since } = req.query;
+      const filters: any = {};
+      
+      // Map Tour Ninja status values to internal cruise request statuses
+      if (status && status !== 'all') {
+        const tourNinjaToCruise: Record<string, string> = {
+          "received": "pending",
+          "processing": "contacted", 
+          "completed": "confirmed",
+          "cancelled": "cancelled"
+        };
+        
+        const mappedStatus = tourNinjaToCruise[status as string] || status as string;
+        filters.status = mappedStatus;
+      }
+      
+      // Handle incremental sync with 'since' parameter
+      if (since) {
+        const sinceDate = new Date(since as string);
+        if (!isNaN(sinceDate.getTime())) {
+          filters.since = sinceDate;
+        }
+      }
+      
+      // Fetch cruise requests from storage
+      const cruiseRequests = await storage.getCruiseRequests(filters);
+      
+      // Transform to Tour Ninja format
+      const tourNinjaFormat = cruiseRequests.map(transformCruiseToTourNinja);
+      
+      res.json({
+        success: true,
+        count: tourNinjaFormat.length,
+        data: tourNinjaFormat,
+        lastSync: new Date().toISOString(),
+        filters: filters,
+        type: "cruise_requests"
+      });
+
+    } catch (error: any) {
+      console.error("Error in Cruise requests Tour Ninja sync:", error);
+      res.status(500).json({ 
+        success: false, 
+        message: "Failed to sync cruise requests data",
         error: String(error) 
       });
     }
@@ -1771,16 +1899,12 @@ Crawl-delay: 1`;
     }
   });
 
-  // In-memory cache for Tour Ninja data (6 hours TTL)
-  let tourCache = {
-    data: null as any,
-    timestamp: 0,
-    TTL: 6 * 60 * 60 * 1000 // 6 hours in milliseconds
-  };
+  // Import shared Tour Ninja cache - using dynamic import due to module context
+  const { tourCache } = await import('./tourCache');
 
-  // Clear cache to force fresh data fetch with presentation images
-  tourCache.data = null;
-  tourCache.timestamp = 0;
+  // Don't clear cache on startup - let it fetch when needed
+  // tourCache.data = null;
+  // tourCache.timestamp = 0;
 
   // Debug route for deployment issues
   app.get("/api/debug/tour-ninja", (req, res) => {
@@ -1802,7 +1926,50 @@ Crawl-delay: 1`;
     });
   });
 
-  // Image proxy for Tour Ninja images
+  // New route to serve cached Tour Ninja images from server memory for better performance
+  app.get('/api/image-proxy/:tourId/presentation', async (req, res) => {
+    try {
+      const { tourId } = req.params;
+      
+      // Check if we have cached tour data with base64 image
+      if (tourCache.data && Array.isArray(tourCache.data)) {
+        const tour = tourCache.data.find((t: any) => t.id === tourId);
+        
+        if (tour && tour._serverCachedImage) {
+          // Extract base64 image data
+          const base64Data = tour._serverCachedImage;
+          
+          // Check if it's a data URL
+          if (base64Data.startsWith('data:')) {
+            const matches = base64Data.match(/^data:([^;]+);base64,(.+)$/);
+            if (matches) {
+              const mimeType = matches[1];
+              const imageData = matches[2];
+              const imageBuffer = Buffer.from(imageData, 'base64');
+              
+              // Set appropriate headers
+              res.set('Content-Type', mimeType);
+              res.set('Cache-Control', 'public, max-age=86400'); // Cache for 24 hours
+              res.set('Access-Control-Allow-Origin', '*');
+              
+              // Send the image
+              return res.send(imageBuffer);
+            }
+          }
+        }
+      }
+      
+      // If no cached image, return a placeholder or 404
+      console.log(`No cached image for tour ${tourId}`);
+      return res.status(404).json({ error: 'Image not found in cache' });
+      
+    } catch (error) {
+      console.error('Image proxy error for tour:', req.params.tourId, error);
+      res.status(500).json({ error: 'Failed to serve cached image' });
+    }
+  });
+
+  // Image proxy for Tour Ninja images (legacy route)
   app.get('/api/proxy/image', async (req, res) => {
     try {
       const imageUrl = req.query.url as string;
@@ -1908,10 +2075,28 @@ Crawl-delay: 1`;
         });
       }
 
-      // Force cache refresh to use correct API keys
-      console.log("Forcing fresh data fetch to fix API key issue");
-      tourCache.data = null;
-      tourCache.timestamp = 0;
+      // Only clear cache if requested explicitly
+      const forceFresh = req.query.fresh === 'true';
+      if (forceFresh) {
+        console.log("Fresh data requested - clearing cache");
+        tourCache.data = null;
+        tourCache.timestamp = 0;
+      }
+
+      // Check if cache is still valid
+      const cacheAge = Date.now() - tourCache.timestamp;
+      const isCacheValid = tourCache.data && cacheAge < tourCache.TTL && !forceFresh;
+      
+      if (isCacheValid) {
+        console.log(`Returning cached data (age: ${Math.round(cacheAge / 1000)}s, TTL: ${Math.round(tourCache.TTL / 1000)}s)`);
+        return res.json({
+          success: true,
+          data: tourCache.data,
+          cached: true,
+          cacheAge: cacheAge,
+          timestamp: tourCache.timestamp
+        });
+      }
 
       // Try both API endpoints for maximum compatibility
       const useApiKey = !!(process.env.TOUR_NINJA_API_KEY && process.env.TOUR_NINJA_COMPANY_ID);
@@ -1920,11 +2105,12 @@ Crawl-delay: 1`;
         : `https://www.tourninja.io/api/public/tours/legacy?companyId=${companyId}`;
       const fallbackUrl = `https://www.tourninja.io/api/public/tours/legacy?companyId=${companyId}`;
       
-      console.log("Fetching fresh data from Tour Ninja API", {
+      console.log("Fetching fresh data from Tour Ninja API (cache expired or invalid)", {
         url: primaryUrl,
         useApiKey,
         environment: process.env.NODE_ENV,
-        hostname: req.hostname
+        hostname: req.hostname,
+        cacheAge: Math.round(cacheAge / 1000) + "s"
       });
       
       let response;
@@ -2003,12 +2189,19 @@ Crawl-delay: 1`;
       // The legacy API returns an object with tours array - structure confirmed by Tour Ninja agent
       if (apiResponse.success && apiResponse.tours && Array.isArray(apiResponse.tours)) {
         tours = apiResponse.tours.map((tour: any) => {
-          // Use TourNinja images when available
-          const primaryImage = tour.image || tour.primaryImage || null;
-          if (primaryImage) {
-            console.log(`Tour ${tour.name}: Using TourNinja image (${primaryImage.substring(0, 50)}...)`);
+          // Store base64 image in server cache but don't send to client
+          const hasImage = !!(tour.image || tour.primaryImage);
+          
+          // Store the base64 image in server-side cache only
+          const cachedImage = tour.image || tour.primaryImage || null;
+          
+          // For client, use image proxy URL instead of base64 to improve performance
+          const imageUrl = hasImage ? `/api/image-proxy/${tour.id}/presentation` : null;
+          
+          if (hasImage) {
+            console.log(`Tour ${tour.name}: Will use image proxy URL`);
           } else {
-            console.log(`Tour ${tour.name}: No image available from TourNinja`);
+            console.log(`Tour ${tour.name}: No image available`);
           }
           
           return {
@@ -2016,11 +2209,12 @@ Crawl-delay: 1`;
             name: tour.name || tour.title,
             description: tour.description || '',
             shortDescription: tour.description ? tour.description.substring(0, 150) + '...' : '',
-            images: primaryImage ? [primaryImage] : [],
-            primaryImage: primaryImage,
-            fallbackImage: primaryImage,
-            presentationImageUrl: primaryImage,
-            originalPrimaryImage: primaryImage,
+            // IMPORTANT: Don't send base64 images to client - use proxy URLs instead for better performance
+            images: imageUrl ? [imageUrl] : [],
+            primaryImage: imageUrl,
+            fallbackImage: imageUrl,
+            presentationImageUrl: imageUrl,
+            originalPrimaryImage: imageUrl,
             price: tour.price || 0,
             currency: tour.currency || 'THB',
             duration: tour.duration || 1,
@@ -2037,6 +2231,8 @@ Crawl-delay: 1`;
             tags: tour.tags || [],
             maxGuests: tour.maxParticipants || 12,
             minGuests: 1,
+            // Keep base64 in server cache but not sent to client
+            _serverCachedImage: cachedImage
           };
         });
       } else if (Array.isArray(apiResponse)) {
@@ -2044,8 +2240,9 @@ Crawl-delay: 1`;
         tours = apiResponse.map((tour: any) => ({
           ...tour,
           primaryImage: tour.image || (tour.images && tour.images[0]) || null,
-          bookingUrl: tour.bookingUrl || `https://www.tourninja.io/book/${tour.id}`,
-          detailsUrl: tour.bookingUrl || `https://www.tourninja.io/book/${tour.id}`,
+          bookingUrl: tour.bookingUrl || tour.url || `https://www.tourninja.io/book/${tour.id}`,
+          detailsUrl: tour.detailsUrl || tour.url || `https://www.tourninja.io/details/${tour.id}`,
+          presentationUrl: tour.presentationUrl || tour.detailsUrl || tour.url || `https://www.tourninja.io/details/${tour.id}`,
           location: tour.location || 'Krabi, Thailand'
         }));
       } else if (apiResponse.data && Array.isArray(apiResponse.data)) {
