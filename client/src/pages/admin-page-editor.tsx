@@ -3696,7 +3696,7 @@ const BlockEditDropdown = ({
               alt: 'Amon Tour family - Éric, Margaux, Gabriel, and Raphaël'
             },
             {
-              url: '/attached_assets/amon-tour-team.png',
+              url: '/amon-tour-team.jpg',
               alt: 'Amon Tour team'
             }
           ],
@@ -3720,19 +3720,6 @@ const BlockEditDropdown = ({
         
         return (
           <div className="space-y-6">
-            {/* Style de mise en page */}
-            <div>
-              <Label>Disposition des images</Label>
-              <select 
-                value={formData.layoutStyle || 'right'}
-                onChange={e => updateField('layoutStyle', e.target.value)}
-                className="w-full p-2 border rounded mt-2"
-              >
-                <option value="right">Images à droite</option>
-                <option value="left">Images à gauche</option>
-              </select>
-            </div>
-
             {/* Titre */}
             <div>
               <Label htmlFor="title">Titre principal</Label>
@@ -3925,6 +3912,37 @@ const BlockEditDropdown = ({
                   <Plus size={14} className="inline mr-1" />
                   Ajouter une image
                 </button>
+              </div>
+
+              {/* Disposition des images */}
+              <div className="mb-4">
+                <Label className="text-sm font-medium mb-2">Disposition des images</Label>
+                <div className="grid grid-cols-2 gap-3 mt-2">
+                  <button
+                    type="button"
+                    onClick={() => updateField('layoutStyle', 'right')}
+                    className="p-3 border-2 rounded-lg text-left transition-all"
+                    style={(formData.layoutStyle || 'right') === 'right' 
+                      ? { borderColor: THEME_COLORS.secondary, backgroundColor: THEME_COLORS.secondaryLight } 
+                      : { borderColor: '#d1d5db' }
+                    }
+                  >
+                    <div className="font-medium text-sm">Images à droite</div>
+                    <div className="text-xs text-gray-500 mt-1">Contenu à gauche, images à droite</div>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => updateField('layoutStyle', 'left')}
+                    className="p-3 border-2 rounded-lg text-left transition-all"
+                    style={formData.layoutStyle === 'left' 
+                      ? { borderColor: THEME_COLORS.secondary, backgroundColor: THEME_COLORS.secondaryLight } 
+                      : { borderColor: '#d1d5db' }
+                    }
+                  >
+                    <div className="font-medium text-sm">Images à gauche</div>
+                    <div className="text-xs text-gray-500 mt-1">Images à gauche, contenu à droite</div>
+                  </button>
+                </div>
               </div>
 
               <div className="space-y-3">
