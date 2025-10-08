@@ -64,7 +64,12 @@ const customTourSchema = z.object({
 
 type CustomTourFormData = z.infer<typeof customTourSchema>;
 
-export default function CustomTourForm() {
+interface CustomTourFormProps {
+  title?: string;
+  subtitle?: string;
+}
+
+export default function CustomTourForm({ title, subtitle }: CustomTourFormProps = {}) {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const datePickerRef = useRef<HTMLInputElement | null>(null);
@@ -197,6 +202,22 @@ export default function CustomTourForm() {
   return (
     <section id="custom" className="pt-0 pb-16">
       <div className="container mx-auto px-4">
+        {/* Header Section */}
+        {(title || subtitle) && (
+          <div className="text-center mb-8">
+            {title && (
+              <h2 className="font-heading font-bold text-3xl md:text-4xl text-gray-900 mb-4">
+                {title}
+              </h2>
+            )}
+            {subtitle && (
+              <p className="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                {subtitle}
+              </p>
+            )}
+          </div>
+        )}
+        
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
           <div className="grid grid-cols-1 md:grid-cols-2">
             {/* Image Side */}

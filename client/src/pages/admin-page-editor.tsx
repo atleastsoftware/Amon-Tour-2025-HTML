@@ -866,7 +866,9 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         );
 
       case 'custom_tour_form':
-        return <CustomTourForm />;
+        const customFormTitle = block.title || 'Our Tailor-made trips';
+        const customFormSubtitle = block.subtitle || 'Design your own journey through Thailand with our tailor-made stays: from cultural discoveries and family adventures to romantic getaways and island escapes. Every itinerary is crafted to match your wishes, offering authentic experiences, quality services, and a unique immersion far from mass tourism.';
+        return <CustomTourForm title={customFormTitle} subtitle={customFormSubtitle} />;
 
       case 'tour_ninja_section':
         // Section "Some Ideas For Your Next Trip" - Card Grid Price avec badges de prix
@@ -1649,12 +1651,14 @@ const BlockEditDropdown = ({
   isOpen, 
   onSave, 
   onCancel,
-  onPreviewUpdate 
+  onPreviewUpdate,
+  pageSlug 
 }: { 
   block: PageBlock; 
   isOpen: boolean;
   onSave: (data: any) => void; 
-  onCancel: () => void; 
+  onCancel: () => void;
+  pageSlug?: string; 
   onPreviewUpdate?: (config: any) => void;
 }) => {
   const [formData, setFormData] = useState(block.configuration || {});
@@ -4371,48 +4375,69 @@ const BlockEditDropdown = ({
         return (
           <div className="space-y-4">
             <div>
-              <Label htmlFor="title">Titre</Label>
+              <Label htmlFor="title">Titre du header (au-dessus du formulaire)</Label>
               <Input 
                 id="title"
-                value={formData.title || 'Create Your Custom Trip'} 
+                value={formData.title || 'Our Tailor-made trips'} 
                 onChange={e => updateField('title', e.target.value)}
+                placeholder="Our Tailor-made trips"
               />
             </div>
             <div>
-              <Label htmlFor="subtitle">Sous-titre</Label>
-              <Input 
+              <Label htmlFor="subtitle">Sous-titre du header</Label>
+              <Textarea 
                 id="subtitle"
-                value={formData.subtitle || 'Your travel story starts with your dreams...'} 
+                value={formData.subtitle || 'Design your own journey through Thailand with our tailor-made stays: from cultural discoveries and family adventures to romantic getaways and island escapes. Every itinerary is crafted to match your wishes, offering authentic experiences, quality services, and a unique immersion far from mass tourism.'} 
                 onChange={e => updateField('subtitle', e.target.value)}
+                rows={4}
+                placeholder="Design your own journey through Thailand..."
               />
             </div>
-            <div>
-              <Label htmlFor="formImage">Image du formulaire</Label>
-              <Input 
-                id="formImage"
-                value={formData.formImage || '/catamaran-cruise.png'} 
-                onChange={e => updateField('formImage', e.target.value)}
-              />
-            </div>
-            <div className="pt-4 border-t">
-              <Button
-                onClick={() => {
-                  // Stocker le contexte de navigation dans sessionStorage
-                  sessionStorage.setItem('formEditorContext', JSON.stringify({
-                    returnToPage: pageSlug,
-                    blockId: block.id,
-                    formId: formData.formId || 2 // Default to Custom Tour Request form (ID 2)
-                  }));
-                  // Rediriger vers l'éditeur de formulaire
-                  const formId = formData.formId || 2;
-                  window.location.href = `/admin-editor-form`;
-                }}
-                className="w-full"
-                variant="outline"
-              >
-                <FormInput className="w-4 h-4 mr-2" />
-                Modifier le formulaire complet
-              </Button>
+            
+            <div className="pt-4 border-t space-y-3">
+              <Label>Formulaire lié</Label>
+              {formData.formId ? (
+                <div className="bg-gray-50 p-4 rounded-lg space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium">Formulaire sélectionné: ID {formData.formId}</span>
+                    <Button
+                      onClick={() => updateField('formId', null)}
+                      variant="ghost"
+                      size="sm"
+                    >
+                      <Trash2 className="w-4 h-4 mr-1" />
+                      Supprimer
+                    </Button>
+                  </div>
+                  <Button
+                    onClick={() => {
+                      sessionStorage.setItem('formEditorContext', JSON.stringify({
+                        returnToPage: pageSlug,
+                        blockId: block.id,
+                        formId: formData.formId
+                      }));
+                      window.location.href = `/admin-editor-form`;
+                    }}
+                    className="w-full"
+                    variant="outline"
+                  >
+                    <FormInput className="w-4 h-4 mr-2" />
+                    Modifier le formulaire
+                  </Button>
+                </div>
+              ) : (
+                <Button
+                  onClick={() => {
+                    // Par défaut, sélectionner le formulaire Custom Tour Request (ID 2)
+                    updateField('formId', 2);
+                  }}
+                  className="w-full"
+                  variant="outline"
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Ajouter un formulaire
+                </Button>
+              )}
             </div>
           </div>
         );
@@ -4789,6 +4814,7 @@ export default function AdminPageEditor() {
                             <BlockEditDropdown
                               block={block}
                               isOpen={editingBlockId === block.id}
+                              pageSlug={pageSlug}
                             onSave={(updatedBlock) => {
                               updateBlockMutation.mutate(updatedBlock);
                               setEditingBlockId(null);
