@@ -1412,7 +1412,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         return (
           <section className="py-16" style={{ backgroundColor: whoWeAreConfig.backgroundColor || '#ffffff' }}>
             <div className="container mx-auto px-4">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
                 {/* Bloc de contenu textuel */}
                 <div className={imagesPosition === 'right' ? 'order-2 lg:order-1' : 'order-2 lg:order-2'}>
                   {/* Titre principal avec tiret */}
@@ -1495,13 +1495,13 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
 
                 {/* Bloc d'images empilées */}
                 <div className={imagesPosition === 'right' ? 'order-1 lg:order-2' : 'order-1 lg:order-1'}>
-                  <div className="space-y-6">
+                  <div className="flex flex-col gap-6 h-full">
                     {whoImages.map((image: any, index: number) => (
-                      <div key={index} className="relative">
+                      <div key={index} className="relative flex-1">
                         <img 
                           src={image.url} 
                           alt={image.alt || `Image ${index + 1}`}
-                          className="w-full rounded-lg shadow-lg object-cover"
+                          className="w-full h-full rounded-lg shadow-lg object-cover"
                         />
                       </div>
                     ))}
