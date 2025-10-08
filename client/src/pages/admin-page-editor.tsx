@@ -1931,50 +1931,6 @@ const BlockEditDropdown = ({
         );
 
       case 'text_image':
-        // Initialiser avec valeurs par défaut
-        const defaultTextImagesData = {
-          title: 'Who We Are',
-          introduction: "We are Eric, Margaux, Gabriel, and Raphaël, a French family living in Krabi, southern Thailand, since 2013.\n\nFrom our life here, we created Amon Tour — a small, independent travel agency built on a simple idea: personally welcome our travelers to Krabi and offer them a different way to experience Thailand.",
-          sections: [
-            {
-              subtitle: 'Deep Local Roots',
-              text: "We live here year-round, in the heart of the region we love. This close connection to the destination allows us to offer exclusive experiences in Krabi, designed and guided by our team of professional local guides or trusted partners.\n\nYou're not booking a generic tour — you're being welcomed, guided, and cared for by people who live here, who know the tides, the seasons, the crowds to avoid, and the hidden gems worth discovering."
-            },
-            {
-              subtitle: 'Our Concept',
-              text: "Combine the warmth and proximity of a local agency in Krabi with the expertise of a tailor-made travel designer for all of Thailand. At Amon Tour, you're supported before, during, and after your trip. You're in contact with real people – a face, a voice, a team – not a call center or an algorithm. We're here, on the ground, to make your trip a seamless, personal, and unforgettable experience."
-            }
-          ],
-          images: [
-            {
-              url: '/family-photo.png',
-              alt: 'Amon Tour family - Éric, Margaux, Gabriel, and Raphaël',
-              sectionIndex: 0,
-              position: 'right'
-            },
-            {
-              url: '/attached_assets/amon-tour-team.png',
-              alt: 'Amon Tour team',
-              sectionIndex: 1,
-              position: 'left'
-            }
-          ],
-          buttons: [
-            { text: 'Contact Us', url: '/contact', color: '#084F6E', style: 'filled' },
-            { text: 'Create Your Journey →', url: '/custom-tour', color: '#084F6E', style: 'outline' }
-          ]
-        };
-        
-        // Si les données n'existent pas encore, les initialiser
-        if (!formData.title && !formData.sections) {
-          Object.keys(defaultTextImagesData).forEach(key => {
-            updateField(key, defaultTextImagesData[key as keyof typeof defaultTextImagesData]);
-          });
-        }
-        
-        const textSections = formData.sections || defaultTextImagesData.sections;
-        const textImages = formData.images || defaultTextImagesData.images;
-        const textButtons = formData.buttons || defaultTextImagesData.buttons;
         
         return (
           <div className="space-y-6">
