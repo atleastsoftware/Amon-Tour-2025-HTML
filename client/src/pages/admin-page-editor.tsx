@@ -5346,11 +5346,7 @@ export default function AdminPageEditor() {
                           <div className="flex items-center gap-2">
                             {/* Visibility Toggle with integrated Switch */}
                             <div className="flex items-center gap-2">
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                className="flex items-center justify-between gap-3 min-w-[120px]"
-                              >
+                              <div className="flex items-center justify-between gap-3 min-w-[120px] h-9 px-3 rounded-md border border-input bg-background">
                                 <div className="flex items-center gap-2">
                                   {block.isActive ? (
                                     <><Eye className="w-4 h-4" />Visible</>
@@ -5362,7 +5358,7 @@ export default function AdminPageEditor() {
                                   checked={block.isActive}
                                   onCheckedChange={() => toggleBlockVisibility(block)}
                                 />
-                              </Button>
+                              </div>
                             </div>
 
                             {/* Edit Dropdown Button */}
