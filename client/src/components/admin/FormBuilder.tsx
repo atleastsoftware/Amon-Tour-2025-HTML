@@ -570,7 +570,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
     }
   };
 
-  // Render field preview - adapted for the real site layout (matching DynamicFormBlockPreview exactly)
+  // Render field preview - adapted for the real site layout
   const renderFieldPreview = (field: FormField) => {
     const fieldStyle = {
       marginBottom: `${field.style?.marginBottom || 16}px`
@@ -583,77 +583,66 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
       case 'number':
         return (
           <div className="w-full" style={fieldStyle}>
-            <label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
+            <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
               {field.label}{field.required ? ' *' : ''}
-            </label>
-            <input 
-              placeholder={field.placeholder} 
-              type={field.type} 
-              style={{ color: resolveColor(formData.textColor) }}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              disabled
-            />
+            </Label>
+            <Input placeholder={field.placeholder} type={field.type} style={{ color: resolveColor(formData.textColor) }} />
           </div>
         );
         
       case 'textarea':
         return (
           <div className="w-full" style={fieldStyle}>
-            <label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
+            <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
               {field.label}{field.required ? ' *' : ''}
-            </label>
-            <textarea 
-              placeholder={field.placeholder} 
-              rows={4} 
-              style={{ color: resolveColor(formData.textColor) }}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              disabled
-            />
+            </Label>
+            <Textarea placeholder={field.placeholder} rows={4} style={{ color: resolveColor(formData.textColor) }} />
           </div>
         );
         
       case 'select':
         return (
           <div className="w-full" style={fieldStyle}>
-            <label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
+            <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
               {field.label}{field.required ? ' *' : ''}
-            </label>
-            <select 
-              style={{ color: resolveColor(formData.textColor) }}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              disabled
-            >
-              <option>{field.placeholder || "Select an option"}</option>
-              {field.options?.map((option, index) => (
-                <option key={index} value={option}>{option}</option>
-              ))}
-            </select>
+            </Label>
+            <Select>
+              <SelectTrigger style={{ color: resolveColor(formData.textColor) }}>
+                <SelectValue placeholder={field.placeholder || "Select an option"} />
+              </SelectTrigger>
+              <SelectContent>
+                {field.options?.map((option, index) => (
+                  <SelectItem key={index} value={option}>{option}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         );
         
       case 'checkbox':
         return (
           <div className="w-full" style={fieldStyle}>
-            <label className="mb-4 block" style={{ color: resolveColor(formData.textColor) }}>
+            <Label className="mb-4 block" style={{ color: resolveColor(formData.textColor) }}>
               {field.label}{field.required ? ' *' : ''}
-            </label>
+            </Label>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
               {field.options?.map((option, index) => (
                 <div key={index} className="flex flex-row items-start space-x-3 space-y-0">
-                  <input 
-                    type="checkbox" 
+                  <Checkbox 
                     id={`${field.id}-${index}`} 
-                    className="mt-1" 
-                    style={{ accentColor: resolveColor(formData.primaryColor) }}
-                    disabled
+                    className="mt-1 checkbox-custom" 
+                    style={{ 
+                      '--checkbox-color': resolveColor(formData.primaryColor),
+                      accentColor: resolveColor(formData.primaryColor)
+                    } as React.CSSProperties}
                   />
-                  <label 
+                  <Label 
                     htmlFor={`${field.id}-${index}`} 
                     className="text-sm font-normal cursor-pointer leading-5"
                     style={{ color: resolveColor(formData.textColor) }}
                   >
                     {option}
-                  </label>
+                  </Label>
                 </div>
               ))}
             </div>
@@ -663,9 +652,9 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
       case 'radio':
         return (
           <div className="w-full" style={fieldStyle}>
-            <label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
+            <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
               {field.label}{field.required ? ' *' : ''}
-            </label>
+            </Label>
             <div className="space-y-2">
               {field.options?.map((option, index) => (
                 <div key={index} className="flex items-center space-x-2">
@@ -674,9 +663,8 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                     name={field.id} 
                     id={`${field.id}-${index}`}
                     style={{ accentColor: resolveColor(formData.primaryColor) }}
-                    disabled
                   />
-                  <label htmlFor={`${field.id}-${index}`} style={{ color: resolveColor(formData.textColor) }}>{option}</label>
+                  <Label htmlFor={`${field.id}-${index}`} style={{ color: resolveColor(formData.textColor) }}>{option}</Label>
                 </div>
               ))}
             </div>
@@ -686,25 +674,27 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
       case 'file':
         return (
           <div className="w-full" style={fieldStyle}>
-            <label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
+            <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
               {field.label}{field.required ? ' *' : ''}
-            </label>
-            <input type="file" className="w-full px-3 py-2 border border-gray-300 rounded-md" style={{ color: resolveColor(formData.textColor) }} disabled />
+            </Label>
+            <Input type="file" style={{ color: resolveColor(formData.textColor) }} />
           </div>
         );
         
       case 'date':
         return (
           <div className="w-full" style={fieldStyle}>
-            <label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
+            <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
               {field.label}{field.required ? ' *' : ''}
-            </label>
-            <input 
+            </Label>
+            <Input 
               placeholder={field.placeholder || "Select trip dates"} 
               readOnly 
-              className="cursor-pointer w-full px-3 py-2 border border-gray-300 rounded-md" 
+              className="cursor-pointer flatpickr-input" 
               style={{ color: resolveColor(formData.textColor) }}
-              disabled
+              onClick={() => {
+                alert('Sélecteur de date - Un calendrier s\'ouvrirait ici sur le site réel');
+              }}
             />
           </div>
         );

@@ -317,76 +317,66 @@ function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitle
       case 'number':
         return (
           <div className="w-full" style={fieldStyle}>
-            <label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
+            <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
               {field.label}{field.required ? ' *' : ''}
-            </label>
-            <input 
-              placeholder={field.placeholder} 
-              type={field.type} 
-              style={{ color: resolveColor(formData.textColor) }}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              disabled
-            />
+            </Label>
+            <Input placeholder={field.placeholder} type={field.type} style={{ color: resolveColor(formData.textColor) }} />
           </div>
         );
         
       case 'textarea':
         return (
           <div className="w-full" style={fieldStyle}>
-            <label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
+            <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
               {field.label}{field.required ? ' *' : ''}
-            </label>
-            <textarea 
-              placeholder={field.placeholder} 
-              rows={4} 
-              style={{ color: resolveColor(formData.textColor) }}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              disabled
-            />
+            </Label>
+            <Textarea placeholder={field.placeholder} rows={4} style={{ color: resolveColor(formData.textColor) }} />
           </div>
         );
         
       case 'select':
         return (
           <div className="w-full" style={fieldStyle}>
-            <label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
+            <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
               {field.label}{field.required ? ' *' : ''}
-            </label>
-            <select 
-              style={{ color: resolveColor(formData.textColor) }}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              disabled
-            >
-              <option>{field.placeholder || "Select an option"}</option>
-              {field.options?.map((option: string, index: number) => (
-                <option key={index} value={option}>{option}</option>
-              ))}
-            </select>
+            </Label>
+            <Select>
+              <SelectTrigger style={{ color: resolveColor(formData.textColor) }}>
+                <SelectValue placeholder={field.placeholder || "Select an option"} />
+              </SelectTrigger>
+              <SelectContent>
+                {field.options?.map((option: string, index: number) => (
+                  <SelectItem key={index} value={option}>{option}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         );
         
       case 'checkbox':
         return (
           <div className="w-full" style={fieldStyle}>
-            <label className="mb-4 block" style={{ color: resolveColor(formData.textColor) }}>
+            <Label className="mb-4 block" style={{ color: resolveColor(formData.textColor) }}>
               {field.label}{field.required ? ' *' : ''}
-            </label>
+            </Label>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
               {field.options?.map((option: string, index: number) => (
                 <div key={index} className="flex flex-row items-start space-x-3 space-y-0">
-                  <input 
-                    type="checkbox"
-                    id={`${field.id}-${index}`}
-                    className="rounded"
-                    disabled
+                  <Checkbox 
+                    id={`${field.id}-${index}`} 
+                    className="mt-1 checkbox-custom" 
+                    style={{ 
+                      '--checkbox-color': resolveColor(formData.primaryColor),
+                      accentColor: resolveColor(formData.primaryColor)
+                    } as React.CSSProperties}
                   />
-                  <label 
-                    htmlFor={`${field.id}-${index}`}
+                  <Label 
+                    htmlFor={`${field.id}-${index}`} 
+                    className="text-sm font-normal cursor-pointer leading-5"
                     style={{ color: resolveColor(formData.textColor) }}
-                    className="text-sm font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                   >
                     {option}
-                  </label>
+                  </Label>
                 </div>
               ))}
             </div>
@@ -396,26 +386,19 @@ function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitle
       case 'radio':
         return (
           <div className="w-full" style={fieldStyle}>
-            <label className="mb-4 block" style={{ color: resolveColor(formData.textColor) }}>
+            <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
               {field.label}{field.required ? ' *' : ''}
-            </label>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+            </Label>
+            <div className="space-y-2">
               {field.options?.map((option: string, index: number) => (
-                <div key={index} className="flex items-center space-x-3">
+                <div key={index} className="flex items-center space-x-2">
                   <input 
-                    type="radio"
+                    type="radio" 
+                    name={field.id} 
                     id={`${field.id}-${index}`}
-                    name={field.id}
-                    className="rounded-full"
-                    disabled
+                    style={{ accentColor: resolveColor(formData.primaryColor) }}
                   />
-                  <label 
-                    htmlFor={`${field.id}-${index}`}
-                    style={{ color: resolveColor(formData.textColor) }}
-                    className="text-sm font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  >
-                    {option}
-                  </label>
+                  <Label htmlFor={`${field.id}-${index}`} style={{ color: resolveColor(formData.textColor) }}>{option}</Label>
                 </div>
               ))}
             </div>
@@ -425,27 +408,25 @@ function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitle
       case 'file':
         return (
           <div className="w-full" style={fieldStyle}>
-            <label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
+            <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
               {field.label}{field.required ? ' *' : ''}
-            </label>
-            <div className="border-2 border-dashed border-gray-300 rounded-md p-4 text-center">
-              <p className="text-sm text-gray-500">Télécharger un fichier</p>
-            </div>
+            </Label>
+            <Input type="file" style={{ color: resolveColor(formData.textColor) }} />
           </div>
         );
         
       case 'date':
         return (
           <div className="w-full" style={fieldStyle}>
-            <label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
+            <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
               {field.label}{field.required ? ' *' : ''}
-            </label>
-            <input
-              type="text"
-              placeholder={field.placeholder || "jj/mm/aaaa"}
+            </Label>
+            <Input 
+              placeholder={field.placeholder || "Select trip dates"} 
+              readOnly 
+              className="cursor-pointer flatpickr-input" 
               style={{ color: resolveColor(formData.textColor) }}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              disabled
+              onClick={() => {}}
             />
           </div>
         );
