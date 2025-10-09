@@ -4915,7 +4915,7 @@ const BlockEditDropdown = ({
       case 'custom_tour_form':
         return (
           <div className="space-y-4">
-            <div>
+            <div className="space-y-2">
               <Label htmlFor="title">Titre</Label>
               <Input 
                 id="title"
@@ -4923,9 +4923,24 @@ const BlockEditDropdown = ({
                 onChange={e => updateField('title', e.target.value)}
                 placeholder="Our Tailor-made trips"
               />
+              <Input 
+                type="color"
+                value={formData.titleColor || '#333333'} 
+                onChange={e => updateField('titleColor', e.target.value)}
+                className="h-10 w-full"
+              />
             </div>
             
-            <div>
+            <div className="space-y-2">
+              <Input 
+                type="color"
+                value={formData.dividerColor || '#3BA8AF'} 
+                onChange={e => updateField('dividerColor', e.target.value)}
+                className="h-10 w-full"
+              />
+            </div>
+            
+            <div className="space-y-2">
               <Label htmlFor="subtitle">Sous-titre</Label>
               <Textarea 
                 id="subtitle"
@@ -4934,38 +4949,12 @@ const BlockEditDropdown = ({
                 rows={4}
                 placeholder="Design your own journey through Thailand..."
               />
-            </div>
-            
-            <div className="grid grid-cols-3 gap-3">
-              <div>
-                <Label htmlFor="titleColor">Couleur du titre</Label>
-                <Input 
-                  id="titleColor"
-                  type="color"
-                  value={formData.titleColor || '#333333'} 
-                  onChange={e => updateField('titleColor', e.target.value)}
-                />
-              </div>
-              
-              <div>
-                <Label htmlFor="subtitleColor">Couleur du sous-titre</Label>
-                <Input 
-                  id="subtitleColor"
-                  type="color"
-                  value={formData.subtitleColor || '#666666'} 
-                  onChange={e => updateField('subtitleColor', e.target.value)}
-                />
-              </div>
-              
-              <div>
-                <Label htmlFor="dividerColor">Couleur du tiret</Label>
-                <Input 
-                  id="dividerColor"
-                  type="color"
-                  value={formData.dividerColor || '#3BA8AF'} 
-                  onChange={e => updateField('dividerColor', e.target.value)}
-                />
-              </div>
+              <Input 
+                type="color"
+                value={formData.subtitleColor || '#666666'} 
+                onChange={e => updateField('subtitleColor', e.target.value)}
+                className="h-10 w-full"
+              />
             </div>
             
             <div className="pt-4 border-t space-y-3">
