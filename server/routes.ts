@@ -2563,8 +2563,11 @@ Crawl-delay: 1`;
         return res.status(400).json({ message: "Invalid form ID" });
       }
 
+      console.log(`🔵 Données reçues par le serveur pour formulaire ${id}:`, JSON.stringify(req.body, null, 2));
       const formData = insertCustomFormSchema.partial().parse(req.body);
+      console.log(`🔵 Données après validation Zod:`, JSON.stringify(formData, null, 2));
       const updatedForm = await storage.updateCustomForm(id, formData);
+      console.log(`🔵 Formulaire mis à jour dans DB:`, JSON.stringify(updatedForm, null, 2));
       
       if (!updatedForm) {
         return res.status(404).json({ message: "Custom form not found" });
