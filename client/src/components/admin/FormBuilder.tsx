@@ -876,16 +876,19 @@ export default function FormBuilder({ initialForm, onSave, onSaveDraft, onCancel
                           
                           {/* WhatsApp Button */}
                           {formData.settings.whatsappButtonEnabled && (
-                            <div className="mt-4 text-center">
-                              <p className="text-sm mb-2" style={{ color: resolveColor(formData.textColor) }}>
+                            <div className="mt-4 pt-4 border-t border-gray-200">
+                              <p className="text-center text-sm text-gray-600 mb-3">
                                 {formData.settings.whatsappButtonText || 'Or contact us directly via WhatsApp'}
                               </p>
-                              <Button
-                                type="button"
-                                className="bg-[#25D366] hover:bg-[#20BA5A] text-white"
+                              <a
+                                href="https://wa.me/66653496445?text=Hello%20Amon%20Tour,%20I%20would%20like%20to%20inquire%20about%20a%20custom%20tour."
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-md font-heading font-semibold transition-colors duration-200 flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
                               >
-                                WhatsApp
-                              </Button>
+                                <i className="fab fa-whatsapp text-xl" aria-hidden="true"></i>
+                                Contact via WhatsApp
+                              </a>
                             </div>
                           )}
                         </div>
@@ -995,16 +998,19 @@ export default function FormBuilder({ initialForm, onSave, onSaveDraft, onCancel
                           
                           {/* WhatsApp Button */}
                           {formData.settings.whatsappButtonEnabled && (
-                            <div className="mt-4 text-center">
-                              <p className="text-sm mb-2" style={{ color: resolveColor(formData.textColor) }}>
+                            <div className="mt-4 pt-4 border-t border-gray-200">
+                              <p className="text-center text-sm text-gray-600 mb-3">
                                 {formData.settings.whatsappButtonText || 'Or contact us directly via WhatsApp'}
                               </p>
-                              <Button
-                                type="button"
-                                className="bg-[#25D366] hover:bg-[#20BA5A] text-white"
+                              <a
+                                href="https://wa.me/66653496445?text=Hello%20Amon%20Tour,%20I%20would%20like%20to%20inquire%20about%20a%20custom%20tour."
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-md font-heading font-semibold transition-colors duration-200 flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
                               >
-                                WhatsApp
-                              </Button>
+                                <i className="fab fa-whatsapp text-xl" aria-hidden="true"></i>
+                                Contact via WhatsApp
+                              </a>
                             </div>
                           )}
                         </div>
