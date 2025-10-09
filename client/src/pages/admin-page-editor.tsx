@@ -2710,6 +2710,17 @@ const BlockEditDropdown = ({
               </div>
             </div>
 
+            {/* Couleur de fond */}
+            <div>
+              <Label htmlFor="backgroundColor">Couleur de fond</Label>
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.backgroundColor || '#ffffff'}
+                  onChange={(value) => updateField('backgroundColor', value)}
+                />
+              </div>
+            </div>
+
             {/* Sous-sections dynamiques */}
             <div className="border-t pt-4 mt-6">
               <div className="flex items-center justify-between mb-4">
@@ -3110,6 +3121,17 @@ const BlockEditDropdown = ({
                 />
               </div>
             </div>
+
+            {/* Couleur de fond */}
+            <div>
+              <Label htmlFor="backgroundColor">Couleur de fond</Label>
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.backgroundColor || '#ffffff'}
+                  onChange={(value) => updateField('backgroundColor', value)}
+                />
+              </div>
+            </div>
           </div>
         );
 
@@ -3159,6 +3181,17 @@ const BlockEditDropdown = ({
                 <ColorPicker
                   value={formData.dividerColor || '#3BA8AF'}
                   onChange={(value) => updateField('dividerColor', value)}
+                />
+              </div>
+            </div>
+
+            {/* Couleur de fond */}
+            <div>
+              <Label htmlFor="backgroundColor">Couleur de fond</Label>
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.backgroundColor || '#ffffff'}
+                  onChange={(value) => updateField('backgroundColor', value)}
                 />
               </div>
             </div>
@@ -3468,6 +3501,17 @@ const BlockEditDropdown = ({
               </div>
             </div>
 
+            {/* Couleur de fond */}
+            <div>
+              <Label htmlFor="backgroundColor">Couleur de fond</Label>
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.backgroundColor || '#f9fafb'}
+                  onChange={(value) => updateField('backgroundColor', value)}
+                />
+              </div>
+            </div>
+
             {/* Configuration de la grille */}
             <div className="space-y-4 border-t pt-4">
               <h4 className="text-sm font-medium text-gray-900">Configuration de la grille</h4>
@@ -3664,6 +3708,17 @@ const BlockEditDropdown = ({
                   <ColorPicker
                     value={formData.dividerColor || '#3BA8AF'}
                     onChange={(value) => updateField('dividerColor', value)}
+                  />
+                </div>
+              </div>
+
+              {/* Couleur de fond */}
+              <div>
+                <Label htmlFor="backgroundColor">Couleur de fond</Label>
+                <div className="mt-3">
+                  <ColorPicker
+                    value={formData.backgroundColor || '#ffffff'}
+                    onChange={(value) => updateField('backgroundColor', value)}
                   />
                 </div>
               </div>
@@ -4981,6 +5036,17 @@ const BlockEditDropdown = ({
                 <ColorPicker
                   value={formData.dividerColor || '#3BA8AF'}
                   onChange={(value) => updateField('dividerColor', value)}
+                />
+              </div>
+            </div>
+
+            {/* Couleur de fond */}
+            <div>
+              <Label htmlFor="backgroundColor">Couleur de fond</Label>
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.backgroundColor || '#ffffff'}
+                  onChange={(value) => updateField('backgroundColor', value)}
                 />
               </div>
             </div>
