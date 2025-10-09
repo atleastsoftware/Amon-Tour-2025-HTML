@@ -873,6 +873,21 @@ export default function FormBuilder({ initialForm, onSave, onSaveDraft, onCancel
                           >
                             {formData.settings.submitButtonText || 'Envoyer'}
                           </Button>
+                          
+                          {/* WhatsApp Button */}
+                          {formData.settings.whatsappButtonEnabled && (
+                            <div className="mt-4 text-center">
+                              <p className="text-sm mb-2" style={{ color: resolveColor(formData.textColor) }}>
+                                {formData.settings.whatsappButtonText || 'Or contact us directly via WhatsApp'}
+                              </p>
+                              <Button
+                                type="button"
+                                className="bg-[#25D366] hover:bg-[#20BA5A] text-white"
+                              >
+                                WhatsApp
+                              </Button>
+                            </div>
+                          )}
                         </div>
                       </div>
                     )}
@@ -977,6 +992,21 @@ export default function FormBuilder({ initialForm, onSave, onSaveDraft, onCancel
                           >
                             {formData.settings.submitButtonText || 'Envoyer'}
                           </Button>
+                          
+                          {/* WhatsApp Button */}
+                          {formData.settings.whatsappButtonEnabled && (
+                            <div className="mt-4 text-center">
+                              <p className="text-sm mb-2" style={{ color: resolveColor(formData.textColor) }}>
+                                {formData.settings.whatsappButtonText || 'Or contact us directly via WhatsApp'}
+                              </p>
+                              <Button
+                                type="button"
+                                className="bg-[#25D366] hover:bg-[#20BA5A] text-white"
+                              >
+                                WhatsApp
+                              </Button>
+                            </div>
+                          )}
                         </div>
                       </div>
                     )}
@@ -1099,21 +1129,24 @@ export default function FormBuilder({ initialForm, onSave, onSaveDraft, onCancel
                     />
                   </div>
 
-                  <div className="flex items-center justify-between pt-2">
-                    <Label>Ajouter un bouton WhatsApp</Label>
-                    <Switch
+                  <div className="flex items-center gap-2 pt-2">
+                    <Checkbox
+                      id="whatsapp-button-enabled"
                       checked={formData.settings.whatsappButtonEnabled || false}
                       onCheckedChange={(checked) => setFormData(prev => ({
                         ...prev,
                         settings: { 
                           ...prev.settings, 
-                          whatsappButtonEnabled: checked,
+                          whatsappButtonEnabled: checked as boolean,
                           whatsappButtonText: checked && !prev.settings.whatsappButtonText 
                             ? 'Or contact us directly via WhatsApp' 
                             : prev.settings.whatsappButtonText
                         }
                       }))}
                     />
+                    <Label htmlFor="whatsapp-button-enabled" className="cursor-pointer">
+                      Ajouter un bouton WhatsApp
+                    </Label>
                   </div>
 
                   {formData.settings.whatsappButtonEnabled && (
