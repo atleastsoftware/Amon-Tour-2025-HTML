@@ -749,14 +749,18 @@ export default function AdminEditorForm() {
 
   const handleSaveForm = async (formData: FormData) => {
     try {
+      console.log('📤 Données du formulaire à sauvegarder:', formData);
       // Assurer que isActive est true pour Publier
       const publishData = { ...formData, isActive: true };
+      console.log('📤 Données après traitement (publish):', publishData);
       
       if (editingForm?.id) {
         // Modifier un formulaire existant (avec ID)
+        console.log(`📝 Mise à jour du formulaire ID:`, editingForm.id);
         await updateFormMutation.mutateAsync({ id: editingForm.id, formData: publishData });
       } else {
         // Créer un nouveau formulaire (sans ID)
+        console.log(`✨ Création d'un nouveau formulaire`);
         await createFormMutation.mutateAsync(publishData);
       }
     } catch (error) {
@@ -767,14 +771,18 @@ export default function AdminEditorForm() {
 
   const handleSaveDraft = async (formData: FormData) => {
     try {
+      console.log('💾 Données du formulaire brouillon à sauvegarder:', formData);
       // Assurer que isActive est false pour Brouillon
       const draftData = { ...formData, isActive: false };
+      console.log('💾 Données après traitement (brouillon):', draftData);
       
       if (editingForm?.id) {
         // Modifier un formulaire existant (avec ID)
+        console.log(`📝 Mise à jour du brouillon ID:`, editingForm.id);
         await updateFormMutation.mutateAsync({ id: editingForm.id, formData: draftData });
       } else {
         // Créer un nouveau formulaire (sans ID)
+        console.log(`✨ Création d'un nouveau brouillon`);
         await createFormMutation.mutateAsync(draftData);
       }
     } catch (error) {
