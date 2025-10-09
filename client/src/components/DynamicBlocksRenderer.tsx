@@ -240,19 +240,6 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
           </div>
         );
 
-      case 'gallery':
-        // Parse images from configuration
-        const galleryImages = block.configuration?.images || [];
-        return (
-          <Gallery
-            key={block.id}
-            images={galleryImages}
-            title={block.title || undefined}
-            subtitle={block.subtitle || undefined}
-            className=""
-          />
-        );
-
       case 'advantages':
         // Special handling for "Your Cruise, Our Expertise" section
         if (block.identifier === 'our_expertise') {
