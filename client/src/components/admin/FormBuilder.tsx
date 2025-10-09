@@ -79,6 +79,8 @@ interface FormSettings {
   errorMessage?: string;
   emailNotification?: boolean;
   redirectUrl?: string;
+  whatsappButtonEnabled?: boolean;
+  whatsappButtonText?: string;
 }
 
 interface FormData {
@@ -1096,6 +1098,37 @@ export default function FormBuilder({ initialForm, onSave, onSaveDraft, onCancel
                       }))}
                     />
                   </div>
+
+                  <div className="flex items-center justify-between pt-2">
+                    <Label>Ajouter un bouton WhatsApp</Label>
+                    <Switch
+                      checked={formData.settings.whatsappButtonEnabled || false}
+                      onCheckedChange={(checked) => setFormData(prev => ({
+                        ...prev,
+                        settings: { 
+                          ...prev.settings, 
+                          whatsappButtonEnabled: checked,
+                          whatsappButtonText: checked && !prev.settings.whatsappButtonText 
+                            ? 'Or contact us directly via WhatsApp' 
+                            : prev.settings.whatsappButtonText
+                        }
+                      }))}
+                    />
+                  </div>
+
+                  {formData.settings.whatsappButtonEnabled && (
+                    <div>
+                      <Label>Texte au-dessus du bouton WhatsApp</Label>
+                      <Input
+                        value={formData.settings.whatsappButtonText || 'Or contact us directly via WhatsApp'}
+                        onChange={(e) => setFormData(prev => ({
+                          ...prev,
+                          settings: { ...prev.settings, whatsappButtonText: e.target.value }
+                        }))}
+                        placeholder="Or contact us directly via WhatsApp"
+                      />
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </div>

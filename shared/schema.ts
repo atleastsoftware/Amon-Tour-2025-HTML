@@ -767,6 +767,8 @@ interface FormSettings {
   errorMessage?: string;
   emailNotification?: boolean;
   redirectUrl?: string;
+  whatsappButtonEnabled?: boolean;
+  whatsappButtonText?: string;
 }
 
 // Custom Forms Builder
