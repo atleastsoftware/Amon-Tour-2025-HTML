@@ -286,9 +286,12 @@ interface DynamicFormBlockPreviewProps {
   title?: string;
   subtitle?: string;
   formId?: number | null;
+  titleColor?: string;
+  subtitleColor?: string;
+  dividerColor?: string;
 }
 
-function DynamicFormBlockPreview({ title, subtitle, formId }: DynamicFormBlockPreviewProps) {
+function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitleColor, dividerColor }: DynamicFormBlockPreviewProps) {
   const { data: formData, isLoading } = useQuery<any>({
     queryKey: ['/api/admin/custom-forms', formId],
     queryFn: () => formId ? fetch(`/api/admin/custom-forms/${formId}`).then(res => res.json()) : null,
@@ -457,12 +460,28 @@ function DynamicFormBlockPreview({ title, subtitle, formId }: DynamicFormBlockPr
         {(title || subtitle) && (
           <div className="text-center mb-12">
             {title && (
-              <h2 className="font-heading font-bold text-3xl md:text-4xl text-gray-900 mb-4">
+              <h2 
+                className="font-heading font-bold text-3xl md:text-4xl mb-3"
+                style={{
+                  color: titleColor || '#333333'
+                }}
+              >
                 {title}
               </h2>
             )}
+            <div 
+              className="w-20 h-1 mx-auto mb-4"
+              style={{
+                backgroundColor: dividerColor || '#3BA8AF'
+              }}
+            ></div>
             {subtitle && (
-              <p className="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
+              <p 
+                className="max-w-2xl mx-auto"
+                style={{
+                  color: subtitleColor || '#666666'
+                }}
+              >
                 {subtitle}
               </p>
             )}
@@ -1377,12 +1396,18 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         const customFormTitle = (liveConfiguration?.title !== undefined ? liveConfiguration.title : block.title) || 'Our Tailor-made trips';
         const customFormSubtitle = (liveConfiguration?.subtitle !== undefined ? liveConfiguration.subtitle : block.subtitle) || 'Design your own journey through Thailand with our tailor-made stays: from cultural discoveries and family adventures to romantic getaways and island escapes. Every itinerary is crafted to match your wishes, offering authentic experiences, quality services, and a unique immersion far from mass tourism.';
         const selectedFormId = (liveConfiguration?.formId !== undefined ? liveConfiguration.formId : block.configuration?.formId);
+        const customFormTitleColor = (liveConfiguration?.titleColor !== undefined ? liveConfiguration.titleColor : block.configuration?.titleColor) || '#333333';
+        const customFormSubtitleColor = (liveConfiguration?.subtitleColor !== undefined ? liveConfiguration.subtitleColor : block.configuration?.subtitleColor) || '#666666';
+        const customFormDividerColor = (liveConfiguration?.dividerColor !== undefined ? liveConfiguration.dividerColor : block.configuration?.dividerColor) || '#3BA8AF';
         
         return (
           <DynamicFormBlockPreview 
             title={customFormTitle} 
             subtitle={customFormSubtitle}
             formId={selectedFormId}
+            titleColor={customFormTitleColor}
+            subtitleColor={customFormSubtitleColor}
+            dividerColor={customFormDividerColor}
           />
         );
 
@@ -4909,6 +4934,38 @@ const BlockEditDropdown = ({
                 rows={4}
                 placeholder="Design your own journey through Thailand..."
               />
+            </div>
+            
+            <div className="grid grid-cols-3 gap-3">
+              <div>
+                <Label htmlFor="titleColor">Couleur du titre</Label>
+                <Input 
+                  id="titleColor"
+                  type="color"
+                  value={formData.titleColor || '#333333'} 
+                  onChange={e => updateField('titleColor', e.target.value)}
+                />
+              </div>
+              
+              <div>
+                <Label htmlFor="subtitleColor">Couleur du sous-titre</Label>
+                <Input 
+                  id="subtitleColor"
+                  type="color"
+                  value={formData.subtitleColor || '#666666'} 
+                  onChange={e => updateField('subtitleColor', e.target.value)}
+                />
+              </div>
+              
+              <div>
+                <Label htmlFor="dividerColor">Couleur du tiret</Label>
+                <Input 
+                  id="dividerColor"
+                  type="color"
+                  value={formData.dividerColor || '#3BA8AF'} 
+                  onChange={e => updateField('dividerColor', e.target.value)}
+                />
+              </div>
             </div>
             
             <div className="pt-4 border-t space-y-3">
