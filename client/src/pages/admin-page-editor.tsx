@@ -296,6 +296,8 @@ function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitle
     queryKey: ['/api/admin/custom-forms', formId],
     queryFn: () => formId ? fetch(`/api/admin/custom-forms/${formId}`).then(res => res.json()) : null,
     enabled: !!formId,
+    refetchInterval: 2000, // Rafraîchir toutes les 2 secondes pour avoir les modifications en temps réel
+    staleTime: 0, // Les données sont considérées obsolètes immédiatement
   });
 
   // Fonction pour résoudre la couleur (convertit 'primary' en '#084F6E', etc.)
@@ -577,6 +579,24 @@ function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitle
                         >
                           {formData.settings?.submitButtonText || 'Envoyer'}
                         </button>
+                        
+                        {/* WhatsApp Button */}
+                        {formData.settings?.whatsappButtonEnabled && (
+                          <div className="mt-4 pt-4 border-t border-gray-200">
+                            <p className="text-center text-sm text-gray-600 mb-3">
+                              {formData.settings?.whatsappButtonText || 'Or contact us directly via WhatsApp'}
+                            </p>
+                            <a
+                              href="https://wa.me/66653496445?text=Hello%20Amon%20Tour,%20I%20would%20like%20to%20inquire%20about%20a%20custom%20tour."
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-md font-heading font-semibold transition-colors duration-200 flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+                            >
+                              <i className="fab fa-whatsapp text-xl" aria-hidden="true"></i>
+                              Contact via WhatsApp
+                            </a>
+                          </div>
+                        )}
                       </div>
                     </div>
                   )}
@@ -674,6 +694,24 @@ function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitle
                         >
                           {formData.settings?.submitButtonText || 'Envoyer'}
                         </button>
+                        
+                        {/* WhatsApp Button */}
+                        {formData.settings?.whatsappButtonEnabled && (
+                          <div className="mt-4 pt-4 border-t border-gray-200">
+                            <p className="text-center text-sm text-gray-600 mb-3">
+                              {formData.settings?.whatsappButtonText || 'Or contact us directly via WhatsApp'}
+                            </p>
+                            <a
+                              href="https://wa.me/66653496445?text=Hello%20Amon%20Tour,%20I%20would%20like%20to%20inquire%20about%20a%20custom%20tour."
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-md font-heading font-semibold transition-colors duration-200 flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+                            >
+                              <i className="fab fa-whatsapp text-xl" aria-hidden="true"></i>
+                              Contact via WhatsApp
+                            </a>
+                          </div>
+                        )}
                       </div>
                     </div>
                   )}
