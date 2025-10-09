@@ -539,16 +539,16 @@ export default function AdminEditorForm() {
   // Query pour charger un formulaire spécifique depuis la navigation
   const { data: navigationForm } = useQuery<FormData>({
     queryKey: ['/api/admin/custom-forms', navigationContext?.formId],
-    enabled: !!navigationContext?.formId,
+    enabled: !!navigationContext?.formId && !!navigationContext?.returnToPage,
   });
 
-  // Charger automatiquement le formulaire depuis sessionStorage si présent
+  // Charger automatiquement le formulaire depuis sessionStorage SEULEMENT si on vient de l'éditeur de page
   useEffect(() => {
-    if (navigationContext && navigationForm && !showBuilder) {
-      console.log('📥 Chargement du formulaire depuis navigation:', navigationForm);
+    if (navigationContext?.returnToPage && navigationForm && !showBuilder) {
+      console.log('📥 Chargement du formulaire depuis navigation (page editor):', navigationForm);
       setEditingForm(navigationForm);
       setShowBuilder(true);
-    } else if (navigationContext && !navigationForm && forms && forms.length > 0 && !showBuilder) {
+    } else if (navigationContext?.returnToPage && !navigationForm && forms && forms.length > 0 && !showBuilder) {
       // Fallback: si la query spécifique échoue, utiliser la liste
       const formToEdit = forms.find(f => f.id === navigationContext.formId);
       if (formToEdit) {

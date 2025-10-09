@@ -1401,14 +1401,34 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         const customFormDividerColor = (liveConfiguration?.dividerColor !== undefined ? liveConfiguration.dividerColor : block.configuration?.dividerColor) || '#3BA8AF';
         
         return (
-          <DynamicFormBlockPreview 
-            title={customFormTitle} 
-            subtitle={customFormSubtitle}
-            formId={selectedFormId}
-            titleColor={customFormTitleColor}
-            subtitleColor={customFormSubtitleColor}
-            dividerColor={customFormDividerColor}
-          />
+          <section className="py-16 bg-gray-50">
+            <div className="container mx-auto px-4">
+              <div className="text-center mb-8">
+                <h2 
+                  className="font-heading font-bold text-3xl md:text-4xl mb-3"
+                  style={{ color: customFormTitleColor }}
+                >
+                  {customFormTitle}
+                </h2>
+                <div 
+                  className="w-20 h-1 mx-auto mb-4"
+                  style={{ backgroundColor: customFormDividerColor }}
+                ></div>
+                <p 
+                  className="text-gray-600 max-w-2xl mx-auto"
+                  style={{ color: customFormSubtitleColor }}
+                >
+                  {customFormSubtitle}
+                </p>
+              </div>
+              <div className="bg-white rounded-lg p-8 text-center">
+                <FormInput className="w-12 h-12 mx-auto mb-4 text-gray-400" />
+                <p className="text-gray-600">
+                  {selectedFormId ? `Formulaire sélectionné (ID: ${selectedFormId})` : 'Aucun formulaire sélectionné'}
+                </p>
+              </div>
+            </div>
+          </section>
         );
 
       case 'tour_ninja_section':
