@@ -778,8 +778,12 @@ export const customForms = pgTable("custom_forms", {
   description: text("description"),
   headerImage: text("header_image"),
   layout: text("layout").notNull().default("single-column"), // single-column, two-column, grid
+  formLayout: text("form_layout").default("columns"), // columns, columns-reversed, full
   backgroundColor: text("background_color").default("#ffffff"),
   primaryColor: text("primary_color").default("#1e73be"),
+  frameColor: text("frame_color").default("hsl(var(--background))"),
+  titleColor: text("title_color").default("#ffffff"),
+  subtitleColor: text("subtitle_color").default("hsl(var(--muted-foreground))"),
   textColor: text("text_color").default("#333333"),
   fields: json("fields").$type<FormField[]>().notNull().default([]),
   settings: json("settings").$type<FormSettings>().default({}),
