@@ -40,11 +40,21 @@ export default function AdminEditorForm() {
   const [editingForm, setEditingForm] = useState<FormData | null>(null);
   const [showTitleDialog, setShowTitleDialog] = useState(false);
   const [newFormName, setNewFormName] = useState('');
+  const [navigationContext, setNavigationContext] = useState<any>(null);
   const queryClient = useQueryClient();
 
   // Charger le contexte de navigation depuis sessionStorage
-  const formEditorContext = sessionStorage.getItem('formEditorContext');
-  const navigationContext = formEditorContext ? JSON.parse(formEditorContext) : null;
+  useEffect(() => {
+    const formEditorContext = sessionStorage.getItem('formEditorContext');
+    if (formEditorContext) {
+      const context = JSON.parse(formEditorContext);
+      console.log('🔄 Navigation context chargé:', context);
+      setNavigationContext(context);
+    } else {
+      console.log('❌ Aucun contexte de navigation trouvé');
+      setNavigationContext(null);
+    }
+  }, []);
 
   // Fallback data for initial forms (only used if no API data)
   const fallbackForms: FormData[] = [
@@ -560,8 +570,7 @@ export default function AdminEditorForm() {
           console.log('📥 Chargement du formulaire depuis navigation (ID ' + navigationContext.formId + '):', formToLoad);
           setEditingForm(formToLoad);
           setShowBuilder(true);
-          // Nettoyer sessionStorage après utilisation
-          sessionStorage.removeItem('formEditorContext');
+          // NE PAS nettoyer sessionStorage ici - on en a besoin pour la redirection après sauvegarde!
         }
       }
     };
@@ -655,8 +664,11 @@ export default function AdminEditorForm() {
     onSuccess: (data, variables) => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/custom-forms'] });
       
+      console.log('✅ CREATE onSuccess - navigationContext:', navigationContext);
+      
       // Vérifier si on doit retourner à l'éditeur de page
       if (navigationContext?.returnToPage) {
+        console.log('🔙 Retour à l\'éditeur de page:', navigationContext.returnToPage);
         // Nettoyer sessionStorage
         sessionStorage.removeItem('formEditorContext');
         // Rediriger vers l'éditeur de page
@@ -669,6 +681,7 @@ export default function AdminEditorForm() {
           });
         }, 100);
       } else {
+        console.log('📋 Retour au listing des formulaires');
         // Comportement normal
         setShowBuilder(false);
         setEditingForm(null);
@@ -697,8 +710,11 @@ export default function AdminEditorForm() {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/custom-forms'] });
       queryClient.invalidateQueries({ queryKey: ['/api/admin/custom-forms', variables.id] });
       
+      console.log('✅ UPDATE onSuccess - navigationContext:', navigationContext);
+      
       // Vérifier si on doit retourner à l'éditeur de page
       if (navigationContext?.returnToPage) {
+        console.log('🔙 Retour à l\'éditeur de page:', navigationContext.returnToPage);
         // Nettoyer sessionStorage
         sessionStorage.removeItem('formEditorContext');
         // Rediriger vers l'éditeur de page
@@ -711,6 +727,7 @@ export default function AdminEditorForm() {
           });
         }, 100);
       } else {
+        console.log('📋 Retour au listing des formulaires');
         // Comportement normal
         setShowBuilder(false);
         setEditingForm(null);

@@ -570,15 +570,11 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
     }
   };
 
-  // Render field preview - adapted for the real site layout
+  // Render field preview - adapted for the real site layout (matching DynamicFormBlockPreview exactly)
   const renderFieldPreview = (field: FormField) => {
-    const isHalfWidth = field.style?.width === 'half';
-    
     const fieldStyle = {
       marginBottom: `${field.style?.marginBottom || 16}px`
     };
-
-    const baseFieldClasses = isHalfWidth ? "w-full" : "w-full";
 
     switch (field.type) {
       case 'text':
@@ -586,67 +582,78 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
       case 'phone':
       case 'number':
         return (
-          <div className={baseFieldClasses} style={fieldStyle}>
-            <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
+          <div className="w-full" style={fieldStyle}>
+            <label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
               {field.label}{field.required ? ' *' : ''}
-            </Label>
-            <Input placeholder={field.placeholder} type={field.type} style={{ color: resolveColor(formData.textColor) }} />
+            </label>
+            <input 
+              placeholder={field.placeholder} 
+              type={field.type} 
+              style={{ color: resolveColor(formData.textColor) }}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              disabled
+            />
           </div>
         );
         
       case 'textarea':
         return (
-          <div className={baseFieldClasses} style={fieldStyle}>
-            <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
+          <div className="w-full" style={fieldStyle}>
+            <label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
               {field.label}{field.required ? ' *' : ''}
-            </Label>
-            <Textarea placeholder={field.placeholder} rows={4} style={{ color: resolveColor(formData.textColor) }} />
+            </label>
+            <textarea 
+              placeholder={field.placeholder} 
+              rows={4} 
+              style={{ color: resolveColor(formData.textColor) }}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              disabled
+            />
           </div>
         );
         
       case 'select':
         return (
-          <div className={baseFieldClasses} style={fieldStyle}>
-            <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
+          <div className="w-full" style={fieldStyle}>
+            <label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
               {field.label}{field.required ? ' *' : ''}
-            </Label>
-            <Select>
-              <SelectTrigger style={{ color: resolveColor(formData.textColor) }}>
-                <SelectValue placeholder={field.placeholder || "Select an option"} />
-              </SelectTrigger>
-              <SelectContent>
-                {field.options?.map((option, index) => (
-                  <SelectItem key={index} value={option}>{option}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            </label>
+            <select 
+              style={{ color: resolveColor(formData.textColor) }}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              disabled
+            >
+              <option>{field.placeholder || "Select an option"}</option>
+              {field.options?.map((option, index) => (
+                <option key={index} value={option}>{option}</option>
+              ))}
+            </select>
           </div>
         );
         
       case 'checkbox':
         return (
-          <div className={baseFieldClasses} style={fieldStyle}>
-            <Label className="mb-4 block" style={{ color: resolveColor(formData.textColor) }}>
+          <div className="w-full" style={fieldStyle}>
+            <label className="mb-4 block" style={{ color: resolveColor(formData.textColor) }}>
               {field.label}{field.required ? ' *' : ''}
-            </Label>
+            </label>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
               {field.options?.map((option, index) => (
                 <div key={index} className="flex flex-row items-start space-x-3 space-y-0">
-                  <Checkbox 
+                  <input 
+                    type="checkbox" 
                     id={`${field.id}-${index}`} 
-                    className="mt-1 checkbox-custom" 
-                    style={{ 
-                      '--checkbox-color': resolveColor(formData.primaryColor),
-                      accentColor: resolveColor(formData.primaryColor)
-                    } as React.CSSProperties}
+                    className="mt-1" 
+                    style={{ accentColor: resolveColor(formData.primaryColor) }}
+                    disabled
                   />
-                  <Label 
+                  <label 
                     htmlFor={`${field.id}-${index}`} 
                     className="text-sm font-normal cursor-pointer leading-5"
                     style={{ color: resolveColor(formData.textColor) }}
                   >
                     {option}
-                  </Label>
+                  </label>
                 </div>
               ))}
             </div>
@@ -655,10 +662,10 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
         
       case 'radio':
         return (
-          <div className={baseFieldClasses} style={fieldStyle}>
-            <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
+          <div className="w-full" style={fieldStyle}>
+            <label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
               {field.label}{field.required ? ' *' : ''}
-            </Label>
+            </label>
             <div className="space-y-2">
               {field.options?.map((option, index) => (
                 <div key={index} className="flex items-center space-x-2">
@@ -667,8 +674,9 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                     name={field.id} 
                     id={`${field.id}-${index}`}
                     style={{ accentColor: resolveColor(formData.primaryColor) }}
+                    disabled
                   />
-                  <Label htmlFor={`${field.id}-${index}`} style={{ color: resolveColor(formData.textColor) }}>{option}</Label>
+                  <label htmlFor={`${field.id}-${index}`} style={{ color: resolveColor(formData.textColor) }}>{option}</label>
                 </div>
               ))}
             </div>
@@ -677,28 +685,26 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
         
       case 'file':
         return (
-          <div className={baseFieldClasses} style={fieldStyle}>
-            <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
+          <div className="w-full" style={fieldStyle}>
+            <label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
               {field.label}{field.required ? ' *' : ''}
-            </Label>
-            <Input type="file" style={{ color: resolveColor(formData.textColor) }} />
+            </label>
+            <input type="file" className="w-full px-3 py-2 border border-gray-300 rounded-md" style={{ color: resolveColor(formData.textColor) }} disabled />
           </div>
         );
         
       case 'date':
         return (
-          <div className={baseFieldClasses} style={fieldStyle}>
-            <Label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
+          <div className="w-full" style={fieldStyle}>
+            <label className="mb-2 block" style={{ color: resolveColor(formData.textColor) }}>
               {field.label}{field.required ? ' *' : ''}
-            </Label>
-            <Input 
+            </label>
+            <input 
               placeholder={field.placeholder || "Select trip dates"} 
               readOnly 
-              className="cursor-pointer flatpickr-input" 
+              className="cursor-pointer w-full px-3 py-2 border border-gray-300 rounded-md" 
               style={{ color: resolveColor(formData.textColor) }}
-              onClick={() => {
-                alert('Sélecteur de date - Un calendrier s\'ouvrirait ici sur le site réel');
-              }}
+              disabled
             />
           </div>
         );
