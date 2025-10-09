@@ -754,10 +754,10 @@ export default function AdminEditorForm() {
       
       if (editingForm?.id) {
         // Modifier un formulaire existant (avec ID)
-        updateFormMutation.mutate({ id: editingForm.id, formData: publishData });
+        await updateFormMutation.mutateAsync({ id: editingForm.id, formData: publishData });
       } else {
         // Créer un nouveau formulaire (sans ID)
-        createFormMutation.mutate(publishData);
+        await createFormMutation.mutateAsync(publishData);
       }
     } catch (error) {
       console.error('Erreur lors de la sauvegarde:', error);
@@ -772,10 +772,10 @@ export default function AdminEditorForm() {
       
       if (editingForm?.id) {
         // Modifier un formulaire existant (avec ID)
-        updateFormMutation.mutate({ id: editingForm.id, formData: draftData });
+        await updateFormMutation.mutateAsync({ id: editingForm.id, formData: draftData });
       } else {
         // Créer un nouveau formulaire (sans ID)
-        createFormMutation.mutate(draftData);
+        await createFormMutation.mutateAsync(draftData);
       }
     } catch (error) {
       console.error('Erreur lors de la sauvegarde du brouillon:', error);
