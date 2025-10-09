@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -792,31 +791,18 @@ export default function AdminEditorForm() {
     }
   };
 
-  const handleSaveDraft = async (formData: FormData) => {
-    try {
-      console.log('💾 Données du formulaire brouillon à sauvegarder:', formData);
-      // Assurer que isActive est false pour Brouillon
-      const draftData = { ...formData, isActive: false };
-      console.log('💾 Données après traitement (brouillon):', draftData);
-      
-      if (editingForm?.id) {
-        // Modifier un formulaire existant (avec ID)
-        console.log(`📝 Mise à jour du brouillon ID:`, editingForm.id);
-        await updateFormMutation.mutateAsync({ id: editingForm.id, formData: draftData });
-      } else {
-        // Créer un nouveau formulaire (sans ID)
-        console.log(`✨ Création d'un nouveau brouillon`);
-        await createFormMutation.mutateAsync(draftData);
-      }
-    } catch (error) {
-      console.error('Erreur lors de la sauvegarde du brouillon:', error);
-      throw error;
-    }
-  };
-
   const handleCancelBuilder = () => {
-    setShowBuilder(false);
-    setEditingForm(null);
+    // Vérifier si on doit retourner à l'éditeur de page
+    if (navigationContext?.returnToPage) {
+      // Nettoyer sessionStorage
+      sessionStorage.removeItem('formEditorContext');
+      // Rediriger vers l'éditeur de page
+      setLocation(`/admin-page-editor?page=${navigationContext.returnToPage}`);
+    } else {
+      // Comportement normal : retourner au listing
+      setShowBuilder(false);
+      setEditingForm(null);
+    }
   };
 
   const getFormIcon = (formName: string) => {
@@ -834,7 +820,6 @@ export default function AdminEditorForm() {
       <FormBuilder
         initialForm={editingForm || undefined}
         onSave={handleSaveForm}
-        onSaveDraft={handleSaveDraft}
         onCancel={handleCancelBuilder}
       />
     );
@@ -898,11 +883,6 @@ export default function AdminEditorForm() {
                             <h3 className="text-lg font-semibold text-gray-900">
                               {form.name === 'Custom Trip' ? 'Custom Trip' : form.name}
                             </h3>
-                            <Badge 
-                              variant={form.isActive ? 'default' : 'secondary'}
-                            >
-                              {form.isActive ? 'Actif' : 'Inactif'}
-                            </Badge>
                           </div>
                         </div>
                         

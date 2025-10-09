@@ -106,7 +106,6 @@ interface FormData {
 interface FormBuilderProps {
   initialForm?: FormData;
   onSave: (form: FormData) => Promise<void>;
-  onSaveDraft?: (form: FormData) => Promise<void>;
   onCancel: () => void;
 }
 
@@ -281,7 +280,7 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
   );
 }
 
-export default function FormBuilder({ initialForm, onSave, onSaveDraft, onCancel }: FormBuilderProps) {
+export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuilderProps) {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState<'informations' | 'builder' | 'style' | 'settings'>('informations');
   const [showPreview, setShowPreview] = useState(true);
@@ -571,37 +570,6 @@ export default function FormBuilder({ initialForm, onSave, onSaveDraft, onCancel
     }
   };
 
-  const handleSaveDraft = async () => {
-    if (!formData.name.trim()) {
-      toast({
-        title: "Erreur",
-        description: "Le nom du formulaire est obligatoire pour sauvegarder en brouillon.",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    setSaving(true);
-    try {
-      // Utiliser onSaveDraft si disponible, sinon onSave avec isActive: false
-      if (onSaveDraft) {
-        await onSaveDraft(formData);
-      } else {
-        const draftData = { ...formData, isActive: false };
-        await onSave(draftData);
-      }
-      // Toast et redirection gérés dans admin-editor-form.tsx
-    } catch (error) {
-      toast({
-        title: "Erreur",
-        description: "Erreur lors de la sauvegarde du brouillon.",
-        variant: "destructive"
-      });
-    } finally {
-      setSaving(false);
-    }
-  };
-
   // Render field preview - adapted for the real site layout
   const renderFieldPreview = (field: FormField) => {
     const isHalfWidth = field.style?.width === 'half';
@@ -760,9 +728,6 @@ export default function FormBuilder({ initialForm, onSave, onSaveDraft, onCancel
           <div className="flex gap-2">
             <Button onClick={onCancel} variant="outline" size="sm" className="h-9">
               Annuler
-            </Button>
-            <Button onClick={handleSaveDraft} variant="outline" size="sm" className="h-9" disabled={saving}>
-              Brouillon
             </Button>
             <Button onClick={handleSave} disabled={saving} size="sm" className="h-9">
               <Save className="h-4 w-4 mr-2" />
