@@ -289,9 +289,10 @@ interface DynamicFormBlockPreviewProps {
   titleColor?: string;
   subtitleColor?: string;
   dividerColor?: string;
+  backgroundColor?: string;
 }
 
-function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitleColor, dividerColor }: DynamicFormBlockPreviewProps) {
+function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitleColor, dividerColor, backgroundColor }: DynamicFormBlockPreviewProps) {
   const { data: formData, isLoading } = useQuery<any>({
     queryKey: ['/api/admin/custom-forms', formId],
     queryFn: () => formId ? fetch(`/api/admin/custom-forms/${formId}`).then(res => res.json()) : null,
@@ -437,7 +438,7 @@ function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitle
   };
 
   return (
-    <section className="py-16">
+    <section className="py-16" style={{ backgroundColor: backgroundColor || '#ffffff' }}>
       <div className="container mx-auto px-4">
         {/* Header Section */}
         {(title || subtitle) && (
@@ -453,14 +454,14 @@ function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitle
               </h2>
             )}
             <div 
-              className="w-20 h-1 mx-auto mb-4"
+              className="w-20 h-1 mx-auto mb-8"
               style={{
                 backgroundColor: dividerColor || '#3BA8AF'
               }}
             ></div>
             {subtitle && (
               <p 
-                className="max-w-2xl mx-auto"
+                className="text-lg leading-relaxed max-w-2xl mx-auto"
                 style={{
                   color: subtitleColor || '#666666'
                 }}
@@ -980,14 +981,14 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                     {textImagesConfig.title || "Who We Are"}
                   </h2>
                   <div 
-                    className="w-20 h-1 mx-auto"
+                    className="w-20 h-1 mx-auto mb-8"
                     style={{ backgroundColor: textImagesConfig.dividerColor || '#3BA8AF' }}
                   ></div>
                 </div>
 
                 {/* Introduction */}
                 {textImagesConfig.introduction && (
-                  <div className="mb-12 text-center max-w-4xl mx-auto">
+                  <div className="mb-12 text-center max-w-2xl mx-auto">
                     <p 
                       className="text-lg leading-relaxed"
                       style={{ 
@@ -1084,7 +1085,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         // Section d'accueil basée sur le style du vrai site
         const expatsConfig = liveConfiguration || block.configuration || {};
         return (
-          <section className="py-20">
+          <section className="py-20" style={{ backgroundColor: expatsConfig.backgroundColor || '#ffffff' }}>
             <div className="container mx-auto px-4 max-w-4xl text-center">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -1103,7 +1104,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                   style={{ backgroundColor: expatsConfig.dividerColor || '#3BA8AF' }}
                 ></div>
                 <p 
-                  className="text-lg leading-relaxed"
+                  className="text-lg leading-relaxed max-w-2xl mx-auto"
                   style={{ color: expatsConfig.contentColor || '#666666' }}
                 >
                   {expatsConfig.content || block.configuration?.content || "This is a family-run travel agency that combines the organization of exclusive activities with the creation of tailor-made trips throughout the country. Our goal is to offer an immersive experience, far from mass tourism, with personalized service for every traveler — as if we were welcoming our own family or friends."}
@@ -1157,7 +1158,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         const displayTours = filteredTours.slice(0, displayCount);
         
         return (
-          <section id="tours" className="py-16 bg-white">
+          <section id="tours" className="py-16" style={{ backgroundColor: popularConfig.backgroundColor || '#ffffff' }}>
             <div className="container mx-auto px-4 text-center mb-8">
               <motion.div
                 initial={{ y: -20, opacity: 0 }}
@@ -1174,13 +1175,13 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                   {liveConfiguration?.title || block.configuration?.title || "Our Popular Experiences"}
                 </h2>
                 <div 
-                  className="w-20 h-1 mx-auto mb-4"
+                  className="w-20 h-1 mx-auto mb-8"
                   style={{
                     backgroundColor: popularConfig.dividerColor || '#3BA8AF'
                   }}
                 ></div>
                 <p 
-                  className="max-w-2xl mx-auto"
+                  className="text-lg leading-relaxed max-w-2xl mx-auto"
                   style={{
                     color: popularConfig.subtitleColor || '#666666'
                   }}
@@ -1418,6 +1419,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         const customFormTitleColor = (liveConfiguration?.titleColor !== undefined ? liveConfiguration.titleColor : block.configuration?.titleColor) || '#333333';
         const customFormSubtitleColor = (liveConfiguration?.subtitleColor !== undefined ? liveConfiguration.subtitleColor : block.configuration?.subtitleColor) || '#666666';
         const customFormDividerColor = (liveConfiguration?.dividerColor !== undefined ? liveConfiguration.dividerColor : block.configuration?.dividerColor) || '#3BA8AF';
+        const customFormBackgroundColor = (liveConfiguration?.backgroundColor !== undefined ? liveConfiguration.backgroundColor : block.configuration?.backgroundColor) || '#ffffff';
         
         return (
           <DynamicFormBlockPreview 
@@ -1427,6 +1429,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
             titleColor={customFormTitleColor}
             subtitleColor={customFormSubtitleColor}
             dividerColor={customFormDividerColor}
+            backgroundColor={customFormBackgroundColor}
           />
         );
 
@@ -1474,7 +1477,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         const displayToursPrice = filteredToursPrice.slice(0, displayCountPrice);
         
         return (
-          <section className="py-16 bg-gray-50">
+          <section className="py-16" style={{ backgroundColor: config.backgroundColor || '#f9fafb' }}>
             <div className="container mx-auto px-4">
               <div className="text-center mb-12">
                 <motion.div
@@ -1492,13 +1495,13 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                     {config.title || 'Some Ideas For Your Next Trip'}
                   </h2>
                   <div 
-                    className="w-20 h-1 mx-auto mb-4"
+                    className="w-20 h-1 mx-auto mb-8"
                     style={{
                       backgroundColor: config.dividerColor || '#3BA8AF'
                     }}
                   ></div>
                   <p 
-                    className="text-gray-600 max-w-2xl mx-auto"
+                    className="text-lg leading-relaxed max-w-2xl mx-auto"
                     style={{
                       color: config.subtitleColor || '#666666'
                     }}
@@ -1665,7 +1668,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         // Utiliser liveConfiguration pour l'édition en temps réel, sinon block.configuration pour les données sauvegardées
         const featuresConfig = liveConfiguration || block.configuration || {};
         return (
-          <section className="py-16 bg-neutral-light">
+          <section className="py-16" style={{ backgroundColor: featuresConfig.backgroundColor || '#ffffff' }}>
             <div className="container mx-auto px-4">
               <div className="text-center mb-12">
                 <motion.div 
@@ -1681,11 +1684,11 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                     {featuresConfig.title || 'Why Choose Us'}
                   </h2>
                   <div 
-                    className="w-20 h-1 mx-auto mb-4"
+                    className="w-20 h-1 mx-auto mb-8"
                     style={{ backgroundColor: featuresConfig.dividerColor || '#3BA8AF' }}
                   ></div>
                   <p 
-                    className="text-gray-600 max-w-2xl mx-auto"
+                    className="text-lg leading-relaxed max-w-2xl mx-auto"
                     style={{ color: featuresConfig.subtitleColor || '#666666' }}
                   >
 {featuresConfig.subtitle || 'Experience an exclusive private day trip with our English or French-speaking and certified guides.'}
