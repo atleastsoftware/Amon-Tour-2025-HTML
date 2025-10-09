@@ -548,6 +548,8 @@ export default function AdminEditorForm() {
       console.log('📥 Chargement du formulaire depuis navigation:', navigationForm);
       setEditingForm(navigationForm);
       setShowBuilder(true);
+      // Nettoyer sessionStorage après utilisation
+      sessionStorage.removeItem('formEditorContext');
     } else if (navigationContext && !navigationForm && forms && forms.length > 0 && !showBuilder) {
       // Fallback: si la query spécifique échoue, utiliser la liste
       const formToEdit = forms.find(f => f.id === navigationContext.formId);
@@ -555,6 +557,8 @@ export default function AdminEditorForm() {
         console.log('📥 Fallback: Chargement du formulaire depuis la liste:', formToEdit);
         setEditingForm(formToEdit);
         setShowBuilder(true);
+        // Nettoyer sessionStorage après utilisation
+        sessionStorage.removeItem('formEditorContext');
       }
     }
   }, [navigationContext, navigationForm, forms, showBuilder]);
