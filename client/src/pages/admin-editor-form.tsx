@@ -536,16 +536,20 @@ export default function AdminEditorForm() {
     enabled: true,
   });
 
+  // Query pour charger un formulaire spécifique depuis la navigation
+  const { data: navigationForm } = useQuery<FormData>({
+    queryKey: ['/api/admin/custom-forms', navigationContext?.formId],
+    enabled: !!navigationContext?.formId && !showBuilder,
+  });
+
   // Charger automatiquement le formulaire depuis sessionStorage si présent
   useEffect(() => {
-    if (navigationContext && forms && forms.length > 0 && !showBuilder) {
-      const formToEdit = forms.find(f => f.id === navigationContext.formId);
-      if (formToEdit) {
-        setEditingForm(formToEdit);
-        setShowBuilder(true);
-      }
+    if (navigationContext && navigationForm && !showBuilder) {
+      console.log('📥 Chargement du formulaire depuis navigation:', navigationForm);
+      setEditingForm(navigationForm);
+      setShowBuilder(true);
     }
-  }, [navigationContext, forms, showBuilder]);
+  }, [navigationContext, navigationForm, showBuilder]);
 
   const handleEditForm = (form: FormData) => {
     setEditingForm(form);
