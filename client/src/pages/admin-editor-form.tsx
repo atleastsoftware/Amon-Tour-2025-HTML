@@ -540,28 +540,35 @@ export default function AdminEditorForm() {
   const { data: navigationForm } = useQuery<FormData>({
     queryKey: ['/api/admin/custom-forms', navigationContext?.formId],
     enabled: !!navigationContext?.formId,
+    staleTime: 0, // Toujours charger les données fraîches
+    refetchOnMount: true, // Recharger à chaque montage du composant
+    refetchOnWindowFocus: false, // Ne pas recharger au focus de la fenêtre
   });
 
   // Charger automatiquement le formulaire depuis sessionStorage si présent
   useEffect(() => {
-    if (navigationContext && navigationForm && !showBuilder) {
-      console.log('📥 Chargement du formulaire depuis navigation:', navigationForm);
-      setEditingForm(navigationForm);
-      setShowBuilder(true);
-      // Nettoyer sessionStorage après utilisation
-      sessionStorage.removeItem('formEditorContext');
-    } else if (navigationContext && !navigationForm && forms && forms.length > 0 && !showBuilder) {
-      // Fallback: si la query spécifique échoue, utiliser la liste
-      const formToEdit = forms.find(f => f.id === navigationContext.formId);
-      if (formToEdit) {
-        console.log('📥 Fallback: Chargement du formulaire depuis la liste:', formToEdit);
-        setEditingForm(formToEdit);
-        setShowBuilder(true);
-        // Nettoyer sessionStorage après utilisation
-        sessionStorage.removeItem('formEditorContext');
+    const loadFormFromNavigation = async () => {
+      if (navigationContext && !showBuilder) {
+        // Invalider le cache et forcer le rechargement depuis l'API
+        await queryClient.invalidateQueries({ 
+          queryKey: ['/api/admin/custom-forms', navigationContext.formId] 
+        });
+        
+        // Utiliser navigationForm si disponible, sinon chercher dans la liste
+        const formToLoad = navigationForm || forms?.find(f => f.id === navigationContext.formId);
+        
+        if (formToLoad) {
+          console.log('📥 Chargement du formulaire depuis navigation (ID ' + navigationContext.formId + '):', formToLoad);
+          setEditingForm(formToLoad);
+          setShowBuilder(true);
+          // Nettoyer sessionStorage après utilisation
+          sessionStorage.removeItem('formEditorContext');
+        }
       }
-    }
-  }, [navigationContext, navigationForm, forms, showBuilder]);
+    };
+    
+    loadFormFromNavigation();
+  }, [navigationContext, navigationForm, forms, showBuilder, queryClient]);
 
   const handleEditForm = (form: FormData) => {
     setEditingForm(form);
