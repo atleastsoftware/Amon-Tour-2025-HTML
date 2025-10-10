@@ -15,24 +15,6 @@ interface BlockType {
 
 const blockTypes: BlockType[] = [
   {
-    type: 'hero',
-    label: 'Hero Section',
-    description: 'Grande section d\'en-tête avec titre et image/vidéo',
-    icon: Home,
-    preview: (
-      <div className="w-full bg-white rounded-lg overflow-hidden border">
-        <div className="relative h-32 bg-gradient-to-r from-[#084F6E] to-[#3BA8AF]">
-          <div className="absolute inset-0 flex items-center justify-center text-white">
-            <div className="text-center">
-              <h1 className="text-xl font-bold mb-1">Titre Hero</h1>
-              <p className="text-xs opacity-90">Sous-titre descriptif</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  },
-  {
     type: 'text_image',
     label: 'Text',
     description: 'Section texte + image côte à côte (2 colonnes)',
@@ -52,90 +34,6 @@ const blockTypes: BlockType[] = [
           <div className="bg-gray-200 rounded flex items-center justify-center">
             <Image className="w-6 h-6 text-gray-400" />
           </div>
-        </div>
-      </div>
-    )
-  },
-  {
-    type: 'card_grid_date',
-    label: 'Card Grid Date',
-    description: 'Grille de cartes avec dates (événements, tours)',
-    icon: Calendar,
-    preview: (
-      <div className="w-full bg-white p-3 rounded-lg border">
-        <div className="grid grid-cols-3 gap-1.5">
-          {[1, 2, 3].map(i => (
-            <div key={i} className="bg-gray-50 p-1.5 rounded border">
-              <div className="w-full h-12 bg-gray-200 rounded mb-1.5"></div>
-              <div className="h-1 bg-gray-300 rounded mb-1"></div>
-              <div className="flex items-center gap-0.5">
-                <Calendar className="w-2.5 h-2.5 text-[#084F6E]" />
-                <div className="h-1 bg-[#3BA8AF] rounded flex-1"></div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    )
-  },
-  {
-    type: 'form',
-    label: 'Form',
-    description: 'Formulaire personnalisable avec champs dynamiques',
-    icon: FormInput,
-    preview: (
-      <div className="w-full bg-white p-3 rounded-lg border">
-        <h3 className="text-sm font-semibold mb-2">Formulaire</h3>
-        <div className="space-y-1.5">
-          <div className="h-6 bg-gray-50 border rounded"></div>
-          <div className="h-6 bg-gray-50 border rounded"></div>
-          <div className="h-14 bg-gray-50 border rounded"></div>
-          <div className="h-6 bg-[#084F6E] rounded w-20"></div>
-        </div>
-      </div>
-    )
-  },
-  {
-    type: 'card_grid_price',
-    label: 'Card Grid Price',
-    description: 'Grille de cartes avec prix (produits, tours)',
-    icon: DollarSign,
-    preview: (
-      <div className="w-full bg-white p-3 rounded-lg border">
-        <div className="grid grid-cols-3 gap-1.5">
-          {[1, 2, 3].map(i => (
-            <div key={i} className="bg-gray-50 p-1.5 rounded border">
-              <div className="w-full h-12 bg-gray-200 rounded mb-1.5"></div>
-              <div className="h-1 bg-gray-300 rounded mb-1"></div>
-              <div className="flex items-center gap-0.5">
-                <span className="text-[#084F6E] font-bold text-[10px]">฿</span>
-                <div className="h-1 bg-[#3BA8AF] rounded w-6"></div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    )
-  },
-  {
-    type: 'advantages',
-    label: 'Text + Icones',
-    description: 'Section avec texte et icônes (avantages, caractéristiques)',
-    icon: CheckCircle,
-    preview: (
-      <div className="w-full bg-white p-3 rounded-lg border">
-        <h3 className="text-sm font-semibold text-center mb-1">Nos Avantages</h3>
-        <div className="w-12 h-0.5 bg-[#3BA8AF] mx-auto mb-2"></div>
-        <div className="grid grid-cols-3 gap-2">
-          {[1, 2, 3].map(i => (
-            <div key={i} className="bg-gray-50 p-2 rounded text-center">
-              <div className="w-8 h-8 bg-[#084F6E] rounded-full flex items-center justify-center mx-auto mb-1">
-                <CheckCircle className="w-4 h-4 text-white" />
-              </div>
-              <div className="h-1 bg-gray-300 rounded mb-0.5"></div>
-              <div className="h-0.5 bg-gray-200 rounded"></div>
-            </div>
-          ))}
         </div>
       </div>
     )
