@@ -33,19 +33,25 @@ const blockTypes: BlockType[] = [
     )
   },
   {
-    type: 'text_section',
+    type: 'text_image',
     label: 'Text',
-    description: 'Section de texte avec titre, séparateur et sous-titre',
+    description: 'Section texte + image côte à côte (2 colonnes)',
     icon: FileText,
     preview: (
-      <div className="w-full bg-white p-4 rounded-lg border">
-        <h2 className="text-lg font-bold text-center mb-2">Titre de Section</h2>
-        <div className="w-12 h-0.5 bg-[#3BA8AF] mx-auto mb-2"></div>
-        <p className="text-xs text-gray-600 text-center mb-2">Sous-titre descriptif</p>
-        <div className="space-y-1">
-          <div className="h-1.5 bg-gray-200 rounded"></div>
-          <div className="h-1.5 bg-gray-200 rounded"></div>
-          <div className="h-1.5 bg-gray-200 rounded w-3/4 mx-auto"></div>
+      <div className="w-full bg-white p-3 rounded-lg border">
+        <div className="grid grid-cols-2 gap-2">
+          <div>
+            <div className="h-2 bg-gray-800 rounded mb-1.5 w-3/4"></div>
+            <div className="h-1.5 bg-gray-400 rounded mb-1 w-full"></div>
+            <div className="space-y-0.5 mt-2">
+              <div className="h-1 bg-gray-200 rounded"></div>
+              <div className="h-1 bg-gray-200 rounded"></div>
+              <div className="h-1 bg-gray-200 rounded w-2/3"></div>
+            </div>
+          </div>
+          <div className="bg-gray-200 rounded flex items-center justify-center">
+            <Image className="w-6 h-6 text-gray-400" />
+          </div>
         </div>
       </div>
     )
@@ -130,30 +136,6 @@ const blockTypes: BlockType[] = [
               <div className="h-0.5 bg-gray-200 rounded"></div>
             </div>
           ))}
-        </div>
-      </div>
-    )
-  },
-  {
-    type: 'text_image',
-    label: 'Text + Images',
-    description: 'Section avec texte et image côte à côte',
-    icon: Image,
-    preview: (
-      <div className="w-full bg-white p-3 rounded-lg border">
-        <div className="grid grid-cols-2 gap-2">
-          <div>
-            <div className="h-2 bg-gray-800 rounded mb-1.5 w-3/4"></div>
-            <div className="h-1.5 bg-gray-400 rounded mb-1 w-full"></div>
-            <div className="space-y-0.5 mt-2">
-              <div className="h-1 bg-gray-200 rounded"></div>
-              <div className="h-1 bg-gray-200 rounded"></div>
-              <div className="h-1 bg-gray-200 rounded w-2/3"></div>
-            </div>
-          </div>
-          <div className="bg-gray-200 rounded flex items-center justify-center">
-            <Image className="w-6 h-6 text-gray-400" />
-          </div>
         </div>
       </div>
     )

@@ -3316,9 +3316,12 @@ Crawl-delay: 1`;
         },
         text_image: {
           identifier: `text_image_${Date.now()}`,
-          title: 'Nouvelle Section Texte & Image',
+          title: 'Titre de section',
+          subtitle: 'Sous-titre descriptif',
           blockType: 'text_image',
-          configuration: { text: '', imageUrl: '', imagePosition: 'right' },
+          content: '<p>Contenu de la section à remplir...</p>',
+          imageUrl: '',
+          configuration: { imagePosition: 'right' },
           isActive: false
         }
       };

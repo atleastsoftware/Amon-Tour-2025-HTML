@@ -5342,7 +5342,7 @@ export default function AdminPageEditor() {
                     >
                       <button
                         onClick={() => {
-                          setInsertPosition(index);
+                          setInsertPosition(block.blockOrder);
                           setIsBlockPopupOpen(true);
                         }}
                         className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center gap-2 px-3 py-1 rounded-md text-sm font-medium"
@@ -5527,7 +5527,8 @@ export default function AdminPageEditor() {
               <div className="mt-6 flex justify-center">
                 <Button
                   onClick={() => {
-                    setInsertPosition(sortedBlocks.length);
+                    const lastBlock = sortedBlocks[sortedBlocks.length - 1];
+                    setInsertPosition(lastBlock ? lastBlock.blockOrder + 1 : 0);
                     setIsBlockPopupOpen(true);
                   }}
                   className="flex items-center gap-2"
