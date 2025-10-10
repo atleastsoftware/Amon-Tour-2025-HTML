@@ -3274,9 +3274,18 @@ Crawl-delay: 1`;
       const defaultBlockData: Record<string, any> = {
         hero: {
           identifier: `hero_${Date.now()}`,
-          title: 'Nouveau Hero',
+          title: '',
+          description: 'Hero section',
           blockType: 'hero',
-          configuration: { subtitle: '', videoUrl: '', imageUrl: '' },
+          configuration: { 
+            title: '',
+            ctaUrl: '',
+            ctaText: '',
+            overlay: true,
+            subtitle: '',
+            videoUrl: '',
+            backgroundImage: ''
+          },
           isActive: false
         },
         text_section: {

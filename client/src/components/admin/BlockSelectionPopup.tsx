@@ -13,7 +13,33 @@ interface BlockType {
   preview: JSX.Element;
 }
 
-const blockTypes: BlockType[] = [];
+const blockTypes: BlockType[] = [
+  {
+    type: 'hero',
+    label: 'Hero Section',
+    description: 'Grande bannière avec titre, sous-titre et boutons CTA',
+    icon: Home,
+    preview: (
+      <div className="w-full bg-white rounded-lg overflow-hidden border">
+        <div className="relative h-32 bg-gradient-to-r from-[#084F6E] to-[#3BA8AF]">
+          <div className="absolute inset-0 bg-black/40"></div>
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-4">
+            <h1 className="text-lg font-bold mb-1 text-center">Titre principal</h1>
+            <p className="text-xs opacity-90 mb-2 text-center">Sous-titre descriptif</p>
+            <div className="flex gap-2">
+              <div className="px-3 py-1 bg-white text-[#084F6E] rounded text-xs font-semibold">
+                Bouton 1
+              </div>
+              <div className="px-3 py-1 border border-white rounded text-xs font-semibold">
+                Bouton 2
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+];
 
 interface BlockSelectionPopupProps {
   isOpen: boolean;
