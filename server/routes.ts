@@ -3225,11 +3225,11 @@ Crawl-delay: 1`;
     }
   });
 
-  // Page blocks - Admin route (protected)
+  // Page blocks - Admin route (protected) - Returns ALL blocks including inactive ones
   app.get("/api/admin/page-blocks/:pageSlug", requireAuth, async (req, res) => {
     try {
       const { pageSlug } = req.params;
-      const blocks = await storage.getPageBlocksBySlug(pageSlug);
+      const blocks = await storage.getAllPageBlocksBySlug(pageSlug);
       res.json(blocks);
     } catch (error) {
       console.error("Error fetching page blocks:", error);

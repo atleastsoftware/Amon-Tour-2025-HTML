@@ -258,6 +258,7 @@ export interface IStorage {
   // Page Blocks operations
   getPageBlocks(pageId: number): Promise<PageBlock[]>;
   getPageBlocksBySlug(pageSlug: string): Promise<PageBlock[]>;
+  getAllPageBlocksBySlug(pageSlug: string): Promise<PageBlock[]>;
   createPageBlock(block: InsertPageBlock): Promise<PageBlock>;
   updatePageBlock(id: number, data: Partial<InsertPageBlock>): Promise<PageBlock | undefined>;
   deletePageBlock(id: number): Promise<boolean>;
@@ -1673,6 +1674,16 @@ export class DatabaseStorage implements IStorage {
     const config = await this.getPageConfiguration(pageSlug);
     if (!config) return [];
     return this.getPageBlocks(config.id);
+  }
+
+  // Get all page blocks including inactive ones (for admin)
+  async getAllPageBlocksBySlug(pageSlug: string): Promise<PageBlock[]> {
+    const config = await this.getPageConfiguration(pageSlug);
+    if (!config) return [];
+    return db.select()
+      .from(pageBlocks)
+      .where(eq(pageBlocks.pageId, config.id))
+      .orderBy(asc(pageBlocks.blockOrder));
   }
 
   async createPageBlock(block: InsertPageBlock): Promise<PageBlock> {
