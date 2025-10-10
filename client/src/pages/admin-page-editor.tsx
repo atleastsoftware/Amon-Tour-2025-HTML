@@ -2311,6 +2311,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
               {renderBackground()}
               <div className="container mx-auto px-4 relative z-10">
                 <ContentWrapper 
+                  key={`hero-content-${hasAnimation ? 'animated' : 'static'}`}
                   className={`max-w-xl ${
                     heroConfig.contentAlignment === 'center' ? 'mx-auto text-center' : 
                     heroConfig.contentAlignment === 'right' ? 'ml-auto text-right' : 
