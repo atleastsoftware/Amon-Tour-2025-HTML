@@ -556,6 +556,7 @@ export const blockTypeEnum = pgEnum("block_type", [
   "hero",          // Hero générique
   
   // Content Sections
+  "text",          // Bloc de texte simple avec titre et contenu
   "text_section",  // Section de texte centré avec titre
   "text_image",    // Section texte + image (2 colonnes)
   "about_2col",    // Section À propos 2 colonnes

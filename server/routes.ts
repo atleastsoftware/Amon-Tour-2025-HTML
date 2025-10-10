@@ -3290,11 +3290,11 @@ Crawl-delay: 1`;
         },
         text: {
           identifier: `text_${Date.now()}`,
-          title: 'When expats welcome you in their host country',
+          title: 'Titre de la section',
           blockType: 'text',
           configuration: { 
-            title: 'When expats welcome you in their host country',
-            content: 'Since 2013, our family-run travel agency has been curating exclusive activities around Krabi and designing tailor-made trips all across Thailand. We aim to deliver immersive travel experiences, away from mass tourism, with personalized service for every traveler — welcoming you as part of our family or close friends.',
+            title: 'Titre de la section',
+            content: 'Ajoutez ici le contenu de votre section de texte. Vous pouvez décrire vos services, partager votre histoire, ou présenter des informations importantes.',
             titleColor: '#333333',
             contentColor: '#666666',
             dividerColor: '#3BA8AF',
