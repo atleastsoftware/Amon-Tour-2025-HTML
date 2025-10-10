@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'wouter';
+import { useLocation, useSearch } from 'wouter';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -5742,6 +5742,7 @@ const BlockEditDropdown = ({
 
 export default function AdminPageEditor() {
   const [, setLocation] = useLocation();
+  const searchString = useSearch();
   const [previewMode, setPreviewMode] = useState<'normal' | 'fullscreen'>('normal');
   const [editingBlockId, setEditingBlockId] = useState<number | null>(null);
   const [previewBlock, setPreviewBlock] = useState<PageBlock | null>(null);
@@ -5751,7 +5752,7 @@ export default function AdminPageEditor() {
   const queryClient = useQueryClient();
   
   // Get page slug from URL parameters
-  const urlParams = new URLSearchParams(window.location.search);
+  const urlParams = new URLSearchParams(searchString);
   const pageSlug = urlParams.get('page') || 'home';
 
   // Fetch page configurations
