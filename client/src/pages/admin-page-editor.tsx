@@ -2184,18 +2184,18 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         );
 
       default:
-        // Cas général pour les blocs Hero (quand ce n'est pas hero_main) - COPIE EXACTE du rendu hero_main
+        // Cas général pour les blocs Hero (quand ce n'est pas hero_main) - Prévisualisation simple
         if (block.blockType === 'hero') {
           const heroConfig = liveConfiguration || block.configuration || {};
           
           // Helper function to render title with colored accent
           const renderTitle = () => {
-            const fullTitle = heroConfig.title || "Your exclusive experiences\nin Krabi –\nTHAILAND";
-            const accentText = heroConfig.titleAccentText || "in Krabi –";
+            const fullTitle = heroConfig.title || "Titre principal";
+            const accentText = heroConfig.titleAccentText || "";
             const titleColor = heroConfig.titleColor || '#ffffff';
             const accentColor = heroConfig.titleAccentColor || '#084F6E';
             
-            if (fullTitle.includes(accentText)) {
+            if (accentText && fullTitle.includes(accentText)) {
               const parts = fullTitle.split(accentText);
               return (
                 <>
@@ -2210,7 +2210,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
           
           // Background rendering based on type
           const renderBackground = () => {
-            const bgType = heroConfig.backgroundType || 'video';
+            const bgType = heroConfig.backgroundType || 'color';
             
             switch (bgType) {
               case 'color':
@@ -2232,41 +2232,50 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                   <div className="absolute inset-0 w-full h-full z-0">
                     {images.length > 0 ? (
                       <img
-                        src={images[0]} // For preview, show first image
+                        src={images[0]}
                         alt="Hero background"
                         className="w-full h-full object-cover"
                       />
                     ) : (
-                      <div className="w-full h-full bg-gray-300 flex items-center justify-center">
-                        <span className="text-gray-600">Aucune image sélectionnée</span>
-                      </div>
+                      <div className="w-full h-full bg-gradient-to-r from-[#084F6E] to-[#3BA8AF]"></div>
                     )}
                     <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
                   </div>
                 );
               
               case 'video':
-              default:
-                const videoUrl = heroConfig.videoUrl || '/attached_assets/hero-video-optimized.mp4';
+                const videoUrl = heroConfig.videoUrl;
                 return (
                   <div className="absolute inset-0 w-full h-full z-0">
-                    <video
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      preload="auto"
-                      className="w-full h-full object-cover"
-                      style={{ objectFit: 'cover' }}
-                    >
-                      <source src={videoUrl} type="video/mp4" />
-                      Your browser does not support the video tag.
-                    </video>
-                    <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
+                    {videoUrl ? (
+                      <>
+                        <video
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                          preload="auto"
+                          className="w-full h-full object-cover"
+                          style={{ objectFit: 'cover' }}
+                        >
+                          <source src={videoUrl} type="video/mp4" />
+                        </video>
+                        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
+                      </>
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-r from-[#084F6E] to-[#3BA8AF]"></div>
+                    )}
                   </div>
+                );
+              
+              default:
+                return (
+                  <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-[#084F6E] to-[#3BA8AF] z-0"></div>
                 );
             }
           };
+          
+          const buttons = heroConfig.buttons || [{text: 'Bouton 1', url: '#', color: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '#', color: '#084F6E', style: 'filled'}];
           
           return (
             <section className="relative pt-32 pb-20 min-h-screen flex items-center overflow-hidden" style={{ minHeight: 'auto' }}>
@@ -2287,14 +2296,14 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                       whiteSpace: 'pre-line'
                     }}
                   >
-                    {heroConfig.subtitle || "Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations."}
+                    {heroConfig.subtitle || "Sous-titre descriptif"}
                   </p>
                   <div className={`flex flex-col sm:flex-row gap-4 ${
                     heroConfig.contentAlignment === 'center' ? 'justify-center' :
                     heroConfig.contentAlignment === 'right' ? 'justify-end' :
                     'justify-start'
                   }`}>
-                    {(heroConfig.buttons || [{text: 'See our offers', url: '/tours', color: '#084F6E', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#084F6E', style: 'filled'}]).map((button: any, index: number) => (
+                    {buttons.map((button: any, index: number) => (
                       <span 
                         key={index}
                         className={`px-8 py-3 mt-4 rounded transition-colors cursor-pointer inline-block shadow-lg ${
@@ -5199,7 +5208,7 @@ const BlockEditDropdown = ({
         );
 
       default:
-        // Cas général pour les blocs Hero (quand ce n'est pas hero_main) - COPIE EXACTE de hero_main
+        // Cas général pour les blocs Hero (quand ce n'est pas hero_main) - Champs vides par défaut
         if (block.blockType === 'hero') {
           return (
             <div className="space-y-6">
@@ -5208,15 +5217,15 @@ const BlockEditDropdown = ({
                 <Label htmlFor="title">Titre principal</Label>
                 <Textarea 
                   id="title"
-                  value={formData.title || block.configuration?.title || 'Your exclusive experiences\nin Krabi –\nTHAILAND'} 
+                  value={formData.title || block.configuration?.title || ''} 
                   onChange={e => updateField('title', e.target.value)}
-                  placeholder="Your exclusive experiences\nin Krabi –\nTHAILAND"
+                  placeholder="Votre titre principal"
                   rows={3}
                   className="mt-2"
                 />
                 <div className="mt-3">
                   <ColorPicker
-                    value={formData.titleColor || '#ffffff'}
+                    value={formData.titleColor || ''}
                     onChange={(value) => updateField('titleColor', value)}
                   />
                 </div>
@@ -5227,9 +5236,9 @@ const BlockEditDropdown = ({
                 <Label htmlFor="titleAccentText">Mot du titre en seconde couleur</Label>
                 <Input 
                   id="titleAccentText"
-                  value={formData.titleAccentText || 'in Krabi –'} 
+                  value={formData.titleAccentText || ''} 
                   onChange={e => updateField('titleAccentText', e.target.value)}
-                  placeholder="in Krabi –"
+                  placeholder="Mot à colorer"
                   className="mt-2"
                 />
                 <p className="text-xs text-gray-500 mt-1">
@@ -5237,7 +5246,7 @@ const BlockEditDropdown = ({
                 </p>
                 <div className="mt-3">
                   <ColorPicker
-                    value={formData.titleAccentColor || '#084F6E'}
+                    value={formData.titleAccentColor || ''}
                     onChange={(value) => updateField('titleAccentColor', value)}
                   />
                 </div>
@@ -5248,15 +5257,15 @@ const BlockEditDropdown = ({
                 <Label htmlFor="subtitle">Sous-titre</Label>
                 <Textarea 
                   id="subtitle"
-                  value={formData.subtitle || block.configuration?.subtitle || 'Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations.'} 
+                  value={formData.subtitle || block.configuration?.subtitle || ''} 
                   onChange={e => updateField('subtitle', e.target.value)}
-                  placeholder="Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations."
+                  placeholder="Votre sous-titre descriptif"
                   rows={3}
                   className="mt-2"
                 />
                 <div className="mt-3">
                   <ColorPicker
-                    value={formData.subtitleColor || '#ffffff'}
+                    value={formData.subtitleColor || ''}
                     onChange={(value) => updateField('subtitleColor', value)}
                   />
                 </div>
@@ -5271,7 +5280,7 @@ const BlockEditDropdown = ({
                     variant="outline"
                     size="sm"
                     onClick={() => {
-                      const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#084F6E', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#084F6E', style: 'filled'}];
+                      const buttons = formData.buttons || [{text: 'Bouton 1', url: '#', color: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '#', color: '#084F6E', style: 'filled'}];
                       updateField('buttons', [...buttons, {text: 'Nouveau bouton', url: '#', color: '#084F6E', style: 'filled'}]);
                     }}
                   >
@@ -5280,7 +5289,7 @@ const BlockEditDropdown = ({
                 </div>
                 
                 <div className="space-y-3">
-                  {(formData.buttons || [{text: 'See our offers', url: '/tours', color: '#084F6E', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#084F6E', style: 'filled'}]).map((button: any, index: number) => (
+                  {(formData.buttons || [{text: 'Bouton 1', url: '#', color: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '#', color: '#084F6E', style: 'filled'}]).map((button: any, index: number) => (
                     <div key={index} className="border rounded-lg p-4 space-y-3">
                       <div className="flex items-center justify-between">
                         <Label className="text-sm font-medium">Bouton {index + 1}</Label>
@@ -5289,7 +5298,7 @@ const BlockEditDropdown = ({
                           variant="ghost"
                           size="sm"
                           onClick={() => {
-                            const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#084F6E', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#084F6E', style: 'filled'}];
+                            const buttons = formData.buttons || [{text: 'Bouton 1', url: '#', color: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '#', color: '#084F6E', style: 'filled'}];
                             const newButtons = buttons.filter((_: any, i: number) => i !== index);
                             updateField('buttons', newButtons);
                           }}
@@ -5304,7 +5313,7 @@ const BlockEditDropdown = ({
                         <Input 
                           value={button.text || ''} 
                           onChange={e => {
-                            const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#084F6E', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#084F6E', style: 'filled'}];
+                            const buttons = formData.buttons || [{text: 'Bouton 1', url: '#', color: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '#', color: '#084F6E', style: 'filled'}];
                             const newButtons = buttons.map((b: any, i: number) => 
                               i === index ? {...b, text: e.target.value} : b
                             );
@@ -5317,7 +5326,7 @@ const BlockEditDropdown = ({
                         <Input 
                           value={button.url || ''} 
                           onChange={e => {
-                            const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#084F6E', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#084F6E', style: 'filled'}];
+                            const buttons = formData.buttons || [{text: 'Bouton 1', url: '#', color: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '#', color: '#084F6E', style: 'filled'}];
                             const newButtons = buttons.map((b: any, i: number) => 
                               i === index ? {...b, url: e.target.value} : b
                             );
@@ -5333,7 +5342,7 @@ const BlockEditDropdown = ({
                         <ColorPicker
                           value={button.color || '#084F6E'}
                           onChange={(value) => {
-                            const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#084F6E', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#084F6E', style: 'filled'}];
+                            const buttons = formData.buttons || [{text: 'Bouton 1', url: '#', color: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '#', color: '#084F6E', style: 'filled'}];
                             const newButtons = buttons.map((b: any, i: number) => 
                               i === index ? {...b, color: value} : b
                             );
@@ -5347,7 +5356,7 @@ const BlockEditDropdown = ({
                         <Select 
                           value={button.style || 'filled'} 
                           onValueChange={value => {
-                            const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#084F6E', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#084F6E', style: 'filled'}];
+                            const buttons = formData.buttons || [{text: 'Bouton 1', url: '#', color: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '#', color: '#084F6E', style: 'filled'}];
                             const newButtons = buttons.map((b: any, i: number) => 
                               i === index ? {...b, style: value} : b
                             );
@@ -5390,14 +5399,14 @@ const BlockEditDropdown = ({
               <div>
                 <Label>Arrière-plan</Label>
                 <div className="mt-3">
-                  <Select value={formData.backgroundType || 'video'} onValueChange={value => updateField('backgroundType', value)}>
+                  <Select value={formData.backgroundType || 'color'} onValueChange={value => updateField('backgroundType', value)}>
                     <SelectTrigger>
                       <SelectValue placeholder="Type d'arrière-plan" />
                     </SelectTrigger>
                     <SelectContent>
+                      <SelectItem value="color">Couleur unie</SelectItem>
                       <SelectItem value="video">Vidéo</SelectItem>
                       <SelectItem value="images">Images en rotation</SelectItem>
-                      <SelectItem value="color">Couleur unie</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -5430,9 +5439,9 @@ const BlockEditDropdown = ({
                     <div className="flex gap-2">
                       <Input 
                         id="videoUrl"
-                        value={formData.videoUrl || '/attached_assets/hero-video-optimized.mp4'} 
+                        value={formData.videoUrl || ''} 
                         onChange={e => updateField('videoUrl', e.target.value)}
-                        placeholder="/attached_assets/hero-video-optimized.mp4"
+                        placeholder="/attached_assets/video.mp4"
                         className="flex-1"
                       />
                       <Button 
