@@ -2444,6 +2444,40 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
           );
         }
 
+        // Gérer les blocs par blockType si identifier ne match pas
+        if (block.blockType === 'text') {
+          const textConfig = liveConfiguration || block.configuration || {};
+          return (
+            <section className="py-20" style={{ backgroundColor: textConfig.backgroundColor || '#ffffff' }}>
+              <div className="container mx-auto px-4 max-w-4xl text-center">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <h2 
+                    className="font-heading font-bold text-3xl md:text-4xl mb-3"
+                    style={{ color: textConfig.titleColor || '#333333' }}
+                  >
+                    {textConfig.title || block.configuration?.title || block.title || "Titre de la section"}
+                  </h2>
+                  <div 
+                    className="w-20 h-1 mx-auto mb-8"
+                    style={{ backgroundColor: textConfig.dividerColor || '#3BA8AF' }}
+                  ></div>
+                  <p 
+                    className="text-lg leading-relaxed max-w-2xl mx-auto"
+                    style={{ color: textConfig.contentColor || '#666666' }}
+                  >
+                    {textConfig.content || block.configuration?.content || block.content || "Ajoutez ici le contenu de votre section de texte. Vous pouvez décrire vos services, partager votre histoire, ou présenter des informations importantes."}
+                  </p>
+                </motion.div>
+              </div>
+            </section>
+          );
+        }
+
         return (
           <div className={`${isFullscreen ? 'h-40' : 'h-24'} bg-gray-100 flex items-center justify-center rounded-lg`}>
             <div className="text-gray-500 text-center">
