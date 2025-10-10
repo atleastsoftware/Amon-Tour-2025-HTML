@@ -5172,6 +5172,31 @@ export default function AdminPageEditor() {
     },
   });
 
+  // Insert block mutation
+  const insertBlockMutation = useMutation({
+    mutationFn: async ({ blockType, position }: { blockType: string; position: number }) => {
+      const response = await fetch('/api/admin/page-blocks/insert', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          blockType,
+          position,
+          pageSlug,
+          pageId: currentPageConfig?.id
+        }),
+      });
+      if (!response.ok) throw new Error('Failed to insert block');
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/page-blocks', pageSlug] });
+      toast({ title: "Succès", description: "Bloc ajouté avec succès" });
+    },
+    onError: () => {
+      toast({ title: "Erreur", description: "Impossible d'ajouter le bloc", variant: "destructive" });
+    },
+  });
+
   // Toggle block visibility
   const toggleBlockVisibility = (block: PageBlock) => {
     updateBlockMutation.mutate({
@@ -5552,8 +5577,11 @@ export default function AdminPageEditor() {
           setInsertPosition(null);
         }}
         onSelect={(blockType) => {
-          console.log('Block type selected:', blockType, 'at position:', insertPosition);
-          // TODO: Implement block creation
+          if (insertPosition !== null) {
+            insertBlockMutation.mutate({ blockType, position: insertPosition });
+            setIsBlockPopupOpen(false);
+            setInsertPosition(null);
+          }
         }}
       />
     </div>
