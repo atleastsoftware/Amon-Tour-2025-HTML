@@ -33,15 +33,6 @@ interface PageConfiguration {
 function AdminEditorPageContent() {
   const [, setLocation] = useLocation();
   const searchString = useSearch();
-  
-  // Détecter si on a un paramètre ?page= dans l'URL
-  const urlParams = new URLSearchParams(searchString);
-  const pageParam = urlParams.get('page');
-  
-  // Si on a un paramètre ?page=, afficher l'éditeur au lieu du listing
-  if (pageParam) {
-    return <AdminPageEditor />;
-  }
   const [isAddPageModalOpen, setIsAddPageModalOpen] = useState(false);
 
   // Récupérer toutes les pages depuis la base de données
@@ -52,6 +43,15 @@ function AdminEditorPageContent() {
       return res.json();
     })
   });
+  
+  // Détecter si on a un paramètre ?page= dans l'URL (après tous les hooks)
+  const urlParams = new URLSearchParams(searchString);
+  const pageParam = urlParams.get('page');
+  
+  // Si on a un paramètre ?page=, afficher l'éditeur au lieu du listing
+  if (pageParam) {
+    return <AdminPageEditor />;
+  }
 
   // Transformer les données pour l'affichage et trier par ordre alphabétique
   const pages = pageConfigs
