@@ -124,23 +124,14 @@ function AdminEditorPageContent() {
               </h1>
               <p className="text-sm sm:text-base text-gray-600">Gérez le contenu et la structure de vos pages web</p>
             </div>
-            <div className="flex items-center gap-3 w-full sm:w-auto">
-              <Button 
-                onClick={handleAddPage}
-                className="bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-2"
-              >
-                <Plus className="h-4 w-4" />
-                Ajouter une page
-              </Button>
-              <Button 
-                variant="outline" 
-                onClick={() => setLocation('/admin-editor')}
-                className="flex items-center gap-2"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                <span className="hidden sm:inline">Retour</span>
-              </Button>
-            </div>
+            <Button 
+              variant="outline" 
+              onClick={() => setLocation('/admin-editor')}
+              className="flex items-center gap-2 w-full sm:w-auto"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span>Retour à Gestion de Contenu</span>
+            </Button>
           </div>
         </div>
 
@@ -208,6 +199,17 @@ function AdminEditorPageContent() {
               </Card>
             </div>
           )}
+
+          {/* Bouton Ajouter une page */}
+          <div className="flex justify-end">
+            <Button 
+              onClick={handleAddPage}
+              className="bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-2"
+            >
+              <Plus className="h-4 w-4" />
+              Ajouter une page
+            </Button>
+          </div>
 
           {/* Autres pages */}
           {otherPages.length > 0 && (
