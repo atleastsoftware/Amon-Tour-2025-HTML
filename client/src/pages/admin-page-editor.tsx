@@ -225,7 +225,8 @@ const getBlockDisplayName = (block: PageBlock): string => {
   // Sinon utiliser le blockType normal
   const blockNames: { [key: string]: string } = {
     'video_hero': 'Hero Section',
-    'hero': 'Hero Section', 
+    'hero': 'Hero Section',
+    'text': 'Text',
     'text_image': 'Text + Images',
     'form': 'Form',
     'advantages': 'Text + Icones',
@@ -1109,6 +1110,39 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                   style={{ color: expatsConfig.contentColor || '#666666' }}
                 >
                   {expatsConfig.content || block.configuration?.content || "This is a family-run travel agency that combines the organization of exclusive activities with the creation of tailor-made trips throughout the country. Our goal is to offer an immersive experience, far from mass tourism, with personalized service for every traveler — as if we were welcoming our own family or friends."}
+                </p>
+              </motion.div>
+            </div>
+          </section>
+        );
+
+      case 'text':
+        // Section de texte - même rendu que expats_welcome
+        const textConfig = liveConfiguration || block.configuration || {};
+        return (
+          <section className="py-20" style={{ backgroundColor: textConfig.backgroundColor || '#ffffff' }}>
+            <div className="container mx-auto px-4 max-w-4xl text-center">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <h2 
+                  className="font-heading font-bold text-3xl md:text-4xl mb-3"
+                  style={{ color: textConfig.titleColor || '#333333' }}
+                >
+                  {textConfig.title || block.configuration?.title || "When expats welcome you in their host country"}
+                </h2>
+                <div 
+                  className="w-20 h-1 mx-auto mb-8"
+                  style={{ backgroundColor: textConfig.dividerColor || '#3BA8AF' }}
+                ></div>
+                <p 
+                  className="text-lg leading-relaxed max-w-2xl mx-auto"
+                  style={{ color: textConfig.contentColor || '#666666' }}
+                >
+                  {textConfig.content || block.configuration?.content || "Since 2013, our family-run travel agency has been curating exclusive activities around Krabi and designing tailor-made trips all across Thailand. We aim to deliver immersive travel experiences, away from mass tourism, with personalized service for every traveler — welcoming you as part of our family or close friends."}
                 </p>
               </motion.div>
             </div>
@@ -3299,6 +3333,70 @@ const BlockEditDropdown = ({
         );
 
       case 'expats_welcome':
+        return (
+          <div className="space-y-6">
+            {/* Titre */}
+            <div>
+              <Label htmlFor="title">Titre</Label>
+              <Input 
+                id="title"
+                value={formData.title || block.configuration?.title || ''} 
+                onChange={e => updateField('title', e.target.value)}
+                placeholder="When expats welcome you..."
+                className="mt-2"
+              />
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.titleColor || '#333333'}
+                  onChange={(value) => updateField('titleColor', value)}
+                />
+              </div>
+            </div>
+            
+            {/* Contenu */}
+            <div>
+              <Label htmlFor="content">Contenu</Label>
+              <Textarea 
+                id="content"
+                value={formData.content || block.configuration?.content || ''} 
+                onChange={e => updateField('content', e.target.value)}
+                placeholder="Contenu de la section..."
+                rows={4}
+                className="mt-2"
+              />
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.contentColor || '#666666'}
+                  onChange={(value) => updateField('contentColor', value)}
+                />
+              </div>
+            </div>
+
+            {/* Tiret */}
+            <div>
+              <Label htmlFor="divider">Tiret</Label>
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.dividerColor || '#3BA8AF'}
+                  onChange={(value) => updateField('dividerColor', value)}
+                />
+              </div>
+            </div>
+
+            {/* Couleur de fond */}
+            <div>
+              <Label htmlFor="backgroundColor">Couleur de fond</Label>
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.backgroundColor || '#ffffff'}
+                  onChange={(value) => updateField('backgroundColor', value)}
+                />
+              </div>
+            </div>
+          </div>
+        );
+
+      case 'text':
         return (
           <div className="space-y-6">
             {/* Titre */}

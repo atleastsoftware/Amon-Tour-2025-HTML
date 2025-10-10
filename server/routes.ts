@@ -3288,6 +3288,20 @@ Crawl-delay: 1`;
           },
           isActive: false
         },
+        text: {
+          identifier: `text_${Date.now()}`,
+          title: 'When expats welcome you in their host country',
+          blockType: 'text',
+          configuration: { 
+            title: 'When expats welcome you in their host country',
+            content: 'Since 2013, our family-run travel agency has been curating exclusive activities around Krabi and designing tailor-made trips all across Thailand. We aim to deliver immersive travel experiences, away from mass tourism, with personalized service for every traveler — welcoming you as part of our family or close friends.',
+            titleColor: '#333333',
+            contentColor: '#666666',
+            dividerColor: '#3BA8AF',
+            backgroundColor: '#ffffff'
+          },
+          isActive: false
+        },
         text_section: {
           identifier: `text_section_${Date.now()}`,
           title: 'Nouvelle Section Texte',
