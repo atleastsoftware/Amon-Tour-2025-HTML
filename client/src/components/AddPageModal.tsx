@@ -110,17 +110,16 @@ export function AddPageModal({ isOpen, onClose, onSuccess }: AddPageModalProps) 
       .replace(/[^a-z0-9]+/g, '-') // Remplacer les caractères spéciaux par des tirets
       .replace(/^-+|-+$/g, ''); // Supprimer les tirets au début et à la fin
     
-    // Si on duplique, ajouter un suffixe pour éviter les conflits
-    if (createMode === 'duplicate') {
-      // Vérifier si le slug existe déjà et ajouter un numéro si nécessaire
-      const existingSlugs = existingPages.map(p => p.pageSlug);
-      let counter = 1;
-      let newSlug = pageSlug;
-      while (existingSlugs.includes(newSlug)) {
-        newSlug = `${pageSlug}-${counter}`;
-        counter++;
-      }
-      pageSlug = newSlug;
+    // Vérifier si le slug existe déjà et afficher une erreur
+    const existingSlugs = existingPages.map(p => p.pageSlug);
+    
+    if (existingSlugs.includes(pageSlug)) {
+      toast({
+        title: "Erreur",
+        description: "Une page avec ce nom existe déjà. Veuillez choisir un nom différent.",
+        variant: "destructive",
+      });
+      return;
     }
 
     const data = {

@@ -55,14 +55,8 @@ function AdminEditorPageContent() {
     .sort((a, b) => a.title.localeCompare(b.title, 'fr'));
 
   const handleEditPage = (pageId: string) => {
-    // Rediriger vers l'éditeur de page pour toutes les pages
-    // On peut passer l'ID de la page en paramètre URL si nécessaire
-    if (pageId === 'home') {
-      setLocation('/admin-page-editor');
-    } else {
-      // Pour les autres pages, rediriger vers admin-page-editor avec le slug
-      setLocation(`/admin-page-editor?page=${pageId}`);
-    }
+    // Rediriger vers l'éditeur de page avec le paramètre page pour toutes les pages
+    setLocation(`/admin-page-editor?page=${pageId}`);
   };
 
   const handleDeletePage = async (pageId: string) => {
@@ -259,11 +253,7 @@ function AdminEditorPageContent() {
         onSuccess={(pageSlug) => {
           // Attendre un moment pour que les données soient rafraîchies puis rediriger
           setTimeout(() => {
-            if (pageSlug === 'home') {
-              setLocation('/admin-page-editor');
-            } else {
-              setLocation(`/admin-page-editor?page=${pageSlug}`);
-            }
+            setLocation(`/admin-page-editor?page=${pageSlug}`);
           }, 1500);
         }}
       />
