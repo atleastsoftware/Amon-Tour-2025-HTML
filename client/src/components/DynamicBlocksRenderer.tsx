@@ -73,6 +73,38 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
           </div>
         );
 
+      case 'text':
+        const textConfig = block.configuration || {};
+        return (
+          <section key={block.id} className="py-20" style={{ backgroundColor: textConfig.backgroundColor || '#ffffff' }}>
+            <div className="container mx-auto px-4 max-w-4xl text-center">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <h2 
+                  className="font-heading font-bold text-3xl md:text-4xl mb-3"
+                  style={{ color: textConfig.titleColor || '#333333' }}
+                >
+                  {textConfig.title || block.title || 'Titre de la section'}
+                </h2>
+                <div 
+                  className="w-20 h-1 mx-auto mb-8"
+                  style={{ backgroundColor: textConfig.dividerColor || '#3BA8AF' }}
+                ></div>
+                <p 
+                  className="text-lg leading-relaxed max-w-2xl mx-auto"
+                  style={{ color: textConfig.contentColor || '#666666' }}
+                >
+                  {textConfig.content || block.content || 'Ajoutez ici le contenu de votre section de texte.'}
+                </p>
+              </motion.div>
+            </div>
+          </section>
+        );
+
       case 'text_section':
         return (
           <div key={block.id} className={`py-16 bg-${block.backgroundColor || 'white'}`}>
