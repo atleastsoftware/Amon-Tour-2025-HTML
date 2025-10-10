@@ -2210,9 +2210,19 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
           
           // Background rendering based on type
           const renderBackground = () => {
-            const bgType = heroConfig.backgroundType || 'color';
+            const bgType = heroConfig.backgroundType || 'gradient';
             
             switch (bgType) {
+              case 'gradient':
+                const color1 = heroConfig.gradientColor1 || '#084F6E';
+                const color2 = heroConfig.gradientColor2 || '#3BA8AF';
+                return (
+                  <div 
+                    className="absolute inset-0 w-full h-full z-0"
+                    style={{ background: `linear-gradient(to right, ${color1}, ${color2})` }}
+                  />
+                );
+              
               case 'color':
                 return (
                   <div 
@@ -2275,7 +2285,10 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
             }
           };
           
-          const buttons = heroConfig.buttons || [{text: 'Bouton 1', url: '#', color: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '#', color: '#084F6E', style: 'filled'}];
+          const buttons = heroConfig.buttons || [
+            {text: 'Bouton 1', url: '#', color: '#ffffff', textColor: '#084F6E', style: 'filled'}, 
+            {text: 'Bouton 2', url: '#', color: '#ffffff', textColor: '#ffffff', style: 'outline'}
+          ];
           
           return (
             <section className="relative pt-32 pb-20 min-h-screen flex items-center overflow-hidden" style={{ minHeight: 'auto' }}>
@@ -2284,7 +2297,8 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                 <div className={`max-w-xl ${
                   heroConfig.contentAlignment === 'center' ? 'mx-auto text-center' : 
                   heroConfig.contentAlignment === 'right' ? 'ml-auto text-right' : 
-                  'text-left'
+                  heroConfig.contentAlignment === 'left' ? 'text-left' :
+                  'mx-auto text-center'
                 }`}>
                   <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight drop-shadow-lg" style={{ whiteSpace: 'pre-line' }}>
                     {renderTitle()}
@@ -2301,20 +2315,21 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                   <div className={`flex flex-col sm:flex-row gap-4 ${
                     heroConfig.contentAlignment === 'center' ? 'justify-center' :
                     heroConfig.contentAlignment === 'right' ? 'justify-end' :
-                    'justify-start'
+                    heroConfig.contentAlignment === 'left' ? 'justify-start' :
+                    'justify-center'
                   }`}>
                     {buttons.map((button: any, index: number) => (
                       <span 
                         key={index}
                         className={`px-8 py-3 mt-4 rounded transition-colors cursor-pointer inline-block shadow-lg ${
                           (button.style || 'filled') === 'filled' 
-                            ? 'text-white hover:opacity-90' 
+                            ? 'hover:opacity-90' 
                             : 'bg-transparent border-2 hover:bg-opacity-10'
                         }`}
                         style={{
-                          backgroundColor: (button.style || 'filled') === 'filled' ? (button.color || '#084F6E') : 'transparent',
-                          borderColor: (button.style || 'filled') === 'outline' ? (button.color || '#084F6E') : 'transparent',
-                          color: (button.style || 'filled') === 'outline' ? (button.color || '#084F6E') : '#ffffff'
+                          backgroundColor: (button.style || 'filled') === 'filled' ? (button.color || '#ffffff') : 'transparent',
+                          borderColor: (button.style || 'filled') === 'outline' ? (button.color || '#ffffff') : 'transparent',
+                          color: button.textColor || ((button.style || 'filled') === 'outline' ? '#ffffff' : '#084F6E')
                         }}
                       >
                         {button.text || `Bouton ${index + 1}`}
@@ -5280,8 +5295,8 @@ const BlockEditDropdown = ({
                     variant="outline"
                     size="sm"
                     onClick={() => {
-                      const buttons = formData.buttons || [{text: 'Bouton 1', url: '#', color: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '#', color: '#084F6E', style: 'filled'}];
-                      updateField('buttons', [...buttons, {text: 'Nouveau bouton', url: '#', color: '#084F6E', style: 'filled'}]);
+                      const buttons = formData.buttons || [{text: 'Bouton 1', url: '#', color: '#ffffff', textColor: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '#', color: '#ffffff', textColor: '#ffffff', style: 'outline'}];
+                      updateField('buttons', [...buttons, {text: 'Nouveau bouton', url: '#', color: '#ffffff', textColor: '#084F6E', style: 'filled'}]);
                     }}
                   >
                     <Plus className="h-4 w-4 mr-1" /> Ajouter un bouton
@@ -5289,7 +5304,7 @@ const BlockEditDropdown = ({
                 </div>
                 
                 <div className="space-y-3">
-                  {(formData.buttons || [{text: 'Bouton 1', url: '#', color: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '#', color: '#084F6E', style: 'filled'}]).map((button: any, index: number) => (
+                  {(formData.buttons || [{text: 'Bouton 1', url: '#', color: '#ffffff', textColor: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '#', color: '#ffffff', textColor: '#ffffff', style: 'outline'}]).map((button: any, index: number) => (
                     <div key={index} className="border rounded-lg p-4 space-y-3">
                       <div className="flex items-center justify-between">
                         <Label className="text-sm font-medium">Bouton {index + 1}</Label>
@@ -5338,11 +5353,11 @@ const BlockEditDropdown = ({
                     
                     <div className="grid grid-cols-2 gap-3">
                       <div>
-                        <Label className="text-xs">Couleur</Label>
+                        <Label className="text-xs">Couleur du bouton</Label>
                         <ColorPicker
                           value={button.color || '#084F6E'}
                           onChange={(value) => {
-                            const buttons = formData.buttons || [{text: 'Bouton 1', url: '#', color: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '#', color: '#084F6E', style: 'filled'}];
+                            const buttons = formData.buttons || [{text: 'Bouton 1', url: '#', color: '#ffffff', textColor: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '#', color: '#ffffff', textColor: '#ffffff', style: 'outline'}];
                             const newButtons = buttons.map((b: any, i: number) => 
                               i === index ? {...b, color: value} : b
                             );
@@ -5352,26 +5367,40 @@ const BlockEditDropdown = ({
                       </div>
                       
                       <div>
-                        <Label className="text-xs">Style</Label>
-                        <Select 
-                          value={button.style || 'filled'} 
-                          onValueChange={value => {
-                            const buttons = formData.buttons || [{text: 'Bouton 1', url: '#', color: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '#', color: '#084F6E', style: 'filled'}];
+                        <Label className="text-xs">Couleur du texte</Label>
+                        <ColorPicker
+                          value={button.textColor || '#ffffff'}
+                          onChange={(value) => {
+                            const buttons = formData.buttons || [{text: 'Bouton 1', url: '#', color: '#ffffff', textColor: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '#', color: '#ffffff', textColor: '#ffffff', style: 'outline'}];
                             const newButtons = buttons.map((b: any, i: number) => 
-                              i === index ? {...b, style: value} : b
+                              i === index ? {...b, textColor: value} : b
                             );
                             updateField('buttons', newButtons);
                           }}
-                        >
-                          <SelectTrigger className="h-10">
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="filled">Plein</SelectItem>
-                            <SelectItem value="outline">Contour</SelectItem>
-                          </SelectContent>
-                        </Select>
+                        />
                       </div>
+                    </div>
+                    
+                    <div>
+                      <Label className="text-xs">Style</Label>
+                      <Select 
+                        value={button.style || 'filled'} 
+                        onValueChange={value => {
+                          const buttons = formData.buttons || [{text: 'Bouton 1', url: '#', color: '#ffffff', textColor: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '#', color: '#ffffff', textColor: '#ffffff', style: 'outline'}];
+                          const newButtons = buttons.map((b: any, i: number) => 
+                            i === index ? {...b, style: value} : b
+                          );
+                          updateField('buttons', newButtons);
+                        }}
+                      >
+                        <SelectTrigger className="h-10">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="filled">Plein</SelectItem>
+                          <SelectItem value="outline">Contour</SelectItem>
+                        </SelectContent>
+                      </Select>
                       </div>
                     </div>
                   ))}
@@ -5382,7 +5411,7 @@ const BlockEditDropdown = ({
               <div>
                 <Label>Alignement du contenu</Label>
                 <div className="mt-3">
-                  <Select value={formData.contentAlignment || 'left'} onValueChange={value => updateField('contentAlignment', value)}>
+                  <Select value={formData.contentAlignment || 'center'} onValueChange={value => updateField('contentAlignment', value)}>
                     <SelectTrigger>
                       <SelectValue placeholder="Alignement" />
                     </SelectTrigger>
@@ -5399,11 +5428,12 @@ const BlockEditDropdown = ({
               <div>
                 <Label>Arrière-plan</Label>
                 <div className="mt-3">
-                  <Select value={formData.backgroundType || 'color'} onValueChange={value => updateField('backgroundType', value)}>
+                  <Select value={formData.backgroundType || 'gradient'} onValueChange={value => updateField('backgroundType', value)}>
                     <SelectTrigger>
                       <SelectValue placeholder="Type d'arrière-plan" />
                     </SelectTrigger>
                     <SelectContent>
+                      <SelectItem value="gradient">Couleur dégradé</SelectItem>
                       <SelectItem value="color">Couleur unie</SelectItem>
                       <SelectItem value="video">Vidéo</SelectItem>
                       <SelectItem value="images">Images en rotation</SelectItem>
@@ -5411,37 +5441,44 @@ const BlockEditDropdown = ({
                   </Select>
                 </div>
                 
-                {formData.backgroundType === 'color' && (
-                  <div>
-                    <Label htmlFor="backgroundColor">Couleur de fond</Label>
-                    <div className="flex gap-2">
-                      <input 
-                        type="color" 
-                        id="backgroundColor"
-                        value={formData.backgroundColor || '#084F6E'}
-                        onChange={e => updateField('backgroundColor', e.target.value)}
-                        className="w-10 h-10 rounded cursor-pointer"
-                      style={{ border: 'none', outline: 'none' }}
+                {formData.backgroundType === 'gradient' && (
+                  <div className="space-y-3 mt-3">
+                    <div>
+                      <Label htmlFor="gradientColor1">Première couleur du dégradé</Label>
+                      <ColorPicker
+                        value={formData.gradientColor1 || '#084F6E'}
+                        onChange={(value) => updateField('gradientColor1', value)}
                       />
-                      <Input 
-                        value={formData.backgroundColor || '#084F6E'}
-                        onChange={e => updateField('backgroundColor', e.target.value)}
-                        placeholder="#084F6E"
-                        className="flex-1"
+                    </div>
+                    <div>
+                      <Label htmlFor="gradientColor2">Deuxième couleur du dégradé</Label>
+                      <ColorPicker
+                        value={formData.gradientColor2 || '#3BA8AF'}
+                        onChange={(value) => updateField('gradientColor2', value)}
                       />
                     </div>
                   </div>
                 )}
                 
+                {formData.backgroundType === 'color' && (
+                  <div className="mt-3">
+                    <Label htmlFor="backgroundColor">Couleur de fond</Label>
+                    <ColorPicker
+                      value={formData.backgroundColor || '#084F6E'}
+                      onChange={(value) => updateField('backgroundColor', value)}
+                    />
+                  </div>
+                )}
+                
                 {formData.backgroundType === 'video' && (
-                  <div>
+                  <div className="mt-3">
                     <Label htmlFor="videoUrl">URL de la vidéo</Label>
                     <div className="flex gap-2">
                       <Input 
                         id="videoUrl"
                         value={formData.videoUrl || ''} 
                         onChange={e => updateField('videoUrl', e.target.value)}
-                        placeholder="/attached_assets/video.mp4"
+                        placeholder="URL de la vidéo"
                         className="flex-1"
                       />
                       <Button 
