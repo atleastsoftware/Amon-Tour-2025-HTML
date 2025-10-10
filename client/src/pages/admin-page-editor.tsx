@@ -5427,6 +5427,18 @@ const BlockEditDropdown = ({
                 </div>
               </div>
 
+              {/* Animation */}
+              <div className="flex items-center space-x-2">
+                <Checkbox 
+                  id="animation"
+                  checked={formData.hasAnimation || false}
+                  onCheckedChange={(checked) => updateField('hasAnimation', checked)}
+                />
+                <Label htmlFor="animation" className="cursor-pointer">
+                  Animation du contenu (mouvement droite-gauche)
+                </Label>
+              </div>
+
               {/* Arrière-plan */}
               <div>
                 <Label>Arrière-plan</Label>
