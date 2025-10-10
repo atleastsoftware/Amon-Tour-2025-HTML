@@ -5389,6 +5389,72 @@ const BlockEditDropdown = ({
         );
 
       default:
+        // Gérer les blocs Text génériques
+        if (block.blockType === 'text') {
+          return (
+            <div className="space-y-6">
+              {/* Titre */}
+              <div>
+                <Label htmlFor="title">Titre</Label>
+                <Input 
+                  id="title"
+                  value={formData.title || block.configuration?.title || ''} 
+                  onChange={e => updateField('title', e.target.value)}
+                  placeholder="Titre de la section"
+                  className="mt-2"
+                />
+                <div className="mt-3">
+                  <ColorPicker
+                    value={formData.titleColor || '#333333'}
+                    onChange={(value) => updateField('titleColor', value)}
+                  />
+                </div>
+              </div>
+              
+              {/* Contenu */}
+              <div>
+                <Label htmlFor="content">Contenu</Label>
+                <Textarea 
+                  id="content"
+                  value={formData.content || block.configuration?.content || ''} 
+                  onChange={e => updateField('content', e.target.value)}
+                  placeholder="Contenu de la section..."
+                  rows={4}
+                  className="mt-2"
+                />
+                <div className="mt-3">
+                  <ColorPicker
+                    value={formData.contentColor || '#666666'}
+                    onChange={(value) => updateField('contentColor', value)}
+                  />
+                </div>
+              </div>
+
+              {/* Tiret */}
+              <div>
+                <Label htmlFor="divider">Tiret</Label>
+                <div className="mt-3">
+                  <ColorPicker
+                    value={formData.dividerColor || '#3BA8AF'}
+                    onChange={(value) => updateField('dividerColor', value)}
+                  />
+                </div>
+              </div>
+
+              {/* Couleur de fond */}
+              <div>
+                <Label htmlFor="backgroundColor">Couleur de fond</Label>
+                <div className="mt-3">
+                  <ColorPicker
+                    value={formData.backgroundColor || '#ffffff'}
+                    onChange={(value) => updateField('backgroundColor', value)}
+                  />
+                </div>
+              </div>
+            </div>
+          );
+        }
+        
         // Cas général pour les blocs Hero (quand ce n'est pas hero_main) - Champs vides par défaut
         if (block.blockType === 'hero') {
           return (
