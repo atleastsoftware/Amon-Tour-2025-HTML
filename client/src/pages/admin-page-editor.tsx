@@ -2184,6 +2184,76 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         );
 
       default:
+        // Cas général pour les blocs Hero (quand ce n'est pas hero_main)
+        if (block.blockType === 'hero') {
+          const heroConfig = liveConfiguration || block.configuration || {};
+          return (
+            <section className="relative pt-20 pb-16 min-h-[400px] flex items-center overflow-hidden">
+              {/* Background */}
+              {heroConfig.backgroundImage ? (
+                <img
+                  src={heroConfig.backgroundImage}
+                  alt="Hero background"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              ) : heroConfig.videoUrl ? (
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="absolute inset-0 w-full h-full object-cover"
+                >
+                  <source src={heroConfig.videoUrl} type="video/mp4" />
+                </video>
+              ) : (
+                <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-[#084F6E] to-[#3BA8AF]"></div>
+              )}
+              
+              {/* Overlay */}
+              {heroConfig.overlay !== false && (
+                <div className="absolute inset-0 bg-black/40"></div>
+              )}
+              
+              {/* Content */}
+              <div className="container mx-auto px-4 relative z-10">
+                <div className="max-w-3xl text-center mx-auto">
+                  {(heroConfig.title || block.title) && (
+                    <h1 
+                      className="text-4xl md:text-5xl font-bold mb-4"
+                      style={{ 
+                        color: heroConfig.titleColor || '#ffffff',
+                        whiteSpace: 'pre-line'
+                      }}
+                    >
+                      {heroConfig.title || block.title}
+                    </h1>
+                  )}
+                  {(heroConfig.subtitle || block.subtitle) && (
+                    <p 
+                      className="text-lg md:text-xl mb-6"
+                      style={{ 
+                        color: heroConfig.subtitleColor || '#ffffff',
+                        whiteSpace: 'pre-line'
+                      }}
+                    >
+                      {heroConfig.subtitle || block.subtitle}
+                    </p>
+                  )}
+                  {heroConfig.ctaText && (
+                    <a 
+                      href={heroConfig.ctaUrl || '#'}
+                      className="inline-block px-8 py-3 bg-white text-[#084F6E] rounded-lg hover:bg-gray-100 transition-colors font-semibold"
+                    >
+                      {heroConfig.ctaText}
+                    </a>
+                  )}
+                </div>
+              </div>
+            </section>
+          );
+        }
+
         return (
           <div className={`${isFullscreen ? 'h-40' : 'h-24'} bg-gray-100 flex items-center justify-center rounded-lg`}>
             <div className="text-gray-500 text-center">
