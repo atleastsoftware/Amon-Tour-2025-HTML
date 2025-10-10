@@ -5065,6 +5065,115 @@ const BlockEditDropdown = ({
         );
 
       default:
+        // Cas général pour les blocs Hero (quand ce n'est pas hero_main)
+        if (block.blockType === 'hero') {
+          return (
+            <div className="space-y-6">
+              {/* Titre principal */}
+              <div>
+                <Label htmlFor="title">Titre principal</Label>
+                <Textarea 
+                  id="title"
+                  value={formData.title || block.configuration?.title || ''} 
+                  onChange={e => updateField('title', e.target.value)}
+                  placeholder="Votre titre principal"
+                  rows={3}
+                  className="mt-2"
+                />
+                <div className="mt-3">
+                  <Label>Couleur du titre</Label>
+                  <ColorPicker
+                    value={formData.titleColor || '#ffffff'}
+                    onChange={(value) => updateField('titleColor', value)}
+                  />
+                </div>
+              </div>
+
+              {/* Sous-titre */}
+              <div>
+                <Label htmlFor="subtitle">Sous-titre</Label>
+                <Textarea 
+                  id="subtitle"
+                  value={formData.subtitle || block.configuration?.subtitle || ''} 
+                  onChange={e => updateField('subtitle', e.target.value)}
+                  placeholder="Votre sous-titre"
+                  rows={2}
+                  className="mt-2"
+                />
+                <div className="mt-3">
+                  <Label>Couleur du sous-titre</Label>
+                  <ColorPicker
+                    value={formData.subtitleColor || '#ffffff'}
+                    onChange={(value) => updateField('subtitleColor', value)}
+                  />
+                </div>
+              </div>
+
+              {/* Image/Vidéo de fond */}
+              <div>
+                <Label htmlFor="backgroundImage">Image de fond (URL)</Label>
+                <Input 
+                  id="backgroundImage"
+                  value={formData.backgroundImage || block.configuration?.backgroundImage || ''} 
+                  onChange={e => updateField('backgroundImage', e.target.value)}
+                  placeholder="/attached_assets/image.jpg"
+                  className="mt-2"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  URL de l'image de fond du Hero
+                </p>
+              </div>
+
+              <div>
+                <Label htmlFor="videoUrl">Vidéo de fond (URL - optionnel)</Label>
+                <Input 
+                  id="videoUrl"
+                  value={formData.videoUrl || block.configuration?.videoUrl || ''} 
+                  onChange={e => updateField('videoUrl', e.target.value)}
+                  placeholder="/attached_assets/video.mp4"
+                  className="mt-2"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Si fournie, la vidéo remplacera l'image de fond
+                </p>
+              </div>
+
+              {/* Bouton CTA */}
+              <div>
+                <Label htmlFor="ctaText">Texte du bouton</Label>
+                <Input 
+                  id="ctaText"
+                  value={formData.ctaText || block.configuration?.ctaText || ''} 
+                  onChange={e => updateField('ctaText', e.target.value)}
+                  placeholder="Découvrir nos tours"
+                  className="mt-2"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="ctaUrl">Lien du bouton</Label>
+                <Input 
+                  id="ctaUrl"
+                  value={formData.ctaUrl || block.configuration?.ctaUrl || ''} 
+                  onChange={e => updateField('ctaUrl', e.target.value)}
+                  placeholder="#tours"
+                  className="mt-2"
+                />
+              </div>
+
+              {/* Overlay */}
+              <div className="flex items-center space-x-2">
+                <Switch
+                  id="overlay"
+                  checked={formData.overlay !== false}
+                  onCheckedChange={(checked) => updateField('overlay', checked)}
+                />
+                <Label htmlFor="overlay">Activer l'overlay sombre (pour améliorer la lisibilité du texte)</Label>
+              </div>
+            </div>
+          );
+        }
+
         return (
           <div className="p-4 text-center text-gray-500">
             <p>Aucune option d'édition pour ce type de bloc</p>
