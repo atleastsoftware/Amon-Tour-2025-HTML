@@ -5309,7 +5309,7 @@ export default function AdminPageEditor() {
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <Card className={`overflow-hidden ${!block.isActive ? 'bg-gray-100' : ''}`}>
+                    <Card className={`overflow-hidden ${!block.isActive ? 'bg-gray-200' : ''}`}>
                       <CardHeader className="pb-4" id={`header-${block.id}`}>
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-3">

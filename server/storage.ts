@@ -1972,11 +1972,11 @@ export class DatabaseStorage implements IStorage {
   async createCustomForm(form: InsertCustomForm): Promise<CustomForm> {
     const formData = {
       ...form,
-      fields: form.fields || [] // Ensure fields is defined as array
+      fields: form.fields || [] as any // Ensure fields is defined as array
     };
     const [createdForm] = await db
       .insert(customForms)
-      .values([formData])
+      .values(formData)
       .returning();
     return createdForm;
   }
