@@ -1099,7 +1099,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                   className="font-heading font-bold text-3xl md:text-4xl mb-3"
                   style={{ color: expatsConfig.titleColor || '#333333' }}
                 >
-                  {expatsConfig.title || block.configuration?.title || "When expats welcome you in their host country"}
+                  {expatsConfig.title || block.configuration?.title || block.title || "Titre de la section"}
                 </h2>
                 <div 
                   className="w-20 h-1 mx-auto mb-8"
@@ -1109,7 +1109,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                   className="text-lg leading-relaxed max-w-2xl mx-auto"
                   style={{ color: expatsConfig.contentColor || '#666666' }}
                 >
-                  {expatsConfig.content || block.configuration?.content || "This is a family-run travel agency that combines the organization of exclusive activities with the creation of tailor-made trips throughout the country. Our goal is to offer an immersive experience, far from mass tourism, with personalized service for every traveler — as if we were welcoming our own family or friends."}
+                  {expatsConfig.content || block.configuration?.content || block.content || "Ajoutez ici le contenu de votre section de texte. Vous pouvez décrire vos services, partager votre histoire, ou présenter des informations importantes."}
                 </p>
               </motion.div>
             </div>
