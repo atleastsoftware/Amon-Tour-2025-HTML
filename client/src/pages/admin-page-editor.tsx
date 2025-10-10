@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { ArrowLeft, Edit, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Save, Undo, Trash2, AlertTriangle, Plus, ExternalLink, ChevronRight, Users, Compass, Sparkles, Star, Heart, FormInput } from 'lucide-react';
+import BlockSelectionPopup from '@/components/admin/BlockSelectionPopup';
 import TourNinjaCard from '@/components/tour/TourNinjaCard';
 import { useTourNinja } from '@/hooks/useTourNinja';
 
@@ -5108,6 +5109,8 @@ export default function AdminPageEditor() {
   const [editingBlockId, setEditingBlockId] = useState<number | null>(null);
   const [previewBlock, setPreviewBlock] = useState<PageBlock | null>(null);
   const [livePreviewData, setLivePreviewData] = useState<{ [blockId: number]: any }>({});
+  const [isBlockPopupOpen, setIsBlockPopupOpen] = useState(false);
+  const [insertPosition, setInsertPosition] = useState<number | null>(null);
   const queryClient = useQueryClient();
   
   // Get page slug from URL parameters
@@ -5298,18 +5301,46 @@ export default function AdminPageEditor() {
               </p>
             </div>
           ) : (
-            <div className="space-y-4">
+            <div className="space-y-0">
               <AnimatePresence mode="popLayout">
                 {sortedBlocks.map((block, index) => (
-                  <motion.div
-                    key={block.id}
-                    layout
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <Card className={`overflow-hidden ${!block.isActive ? 'bg-gray-200' : ''}`}>
+                  <div key={block.id}>
+                    {/* Zone d'insertion discrète au hover */}
+                    <div 
+                      className="group relative h-8 flex items-center justify-center transition-all hover:h-12"
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = 'rgba(59, 168, 175, 0.05)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = 'transparent';
+                      }}
+                    >
+                      <button
+                        onClick={() => {
+                          setInsertPosition(index);
+                          setIsBlockPopupOpen(true);
+                        }}
+                        className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center gap-2 px-3 py-1 rounded-md text-sm font-medium"
+                        style={{ 
+                          backgroundColor: THEME_COLORS.secondary,
+                          color: 'white'
+                        }}
+                        data-testid={`button-insert-before-${index}`}
+                      >
+                        <Plus className="w-4 h-4" />
+                        Insérer un bloc ici
+                      </button>
+                    </div>
+
+                    <motion.div
+                      layout
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      transition={{ duration: 0.3 }}
+                      className="mb-4"
+                    >
+                      <Card className={`overflow-hidden ${!block.isActive ? 'bg-gray-200' : ''}`}>
                       <CardHeader className="pb-4" id={`header-${block.id}`}>
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-3">
@@ -5462,8 +5493,35 @@ export default function AdminPageEditor() {
                       </CardContent>
                     </Card>
                   </motion.div>
+                  </div>
                 ))}
               </AnimatePresence>
+
+
+              {/* Bouton visible pour ajouter un bloc à la fin */}
+              <div className="mt-6 flex justify-center">
+                <Button
+                  onClick={() => {
+                    setInsertPosition(sortedBlocks.length);
+                    setIsBlockPopupOpen(true);
+                  }}
+                  className="flex items-center gap-2"
+                  style={{ 
+                    backgroundColor: THEME_COLORS.secondary,
+                    color: 'white'
+                  }}
+                  data-testid="button-add-block-end"
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = THEME_COLORS.secondaryHover;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = THEME_COLORS.secondary;
+                  }}
+                >
+                  <Plus className="w-5 h-5" />
+                  Ajouter un bloc
+                </Button>
+              </div>
             </div>
           )}
         </div>
@@ -5485,6 +5543,19 @@ export default function AdminPageEditor() {
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Block Selection Popup */}
+      <BlockSelectionPopup
+        isOpen={isBlockPopupOpen}
+        onClose={() => {
+          setIsBlockPopupOpen(false);
+          setInsertPosition(null);
+        }}
+        onSelect={(blockType) => {
+          console.log('Block type selected:', blockType, 'at position:', insertPosition);
+          // TODO: Implement block creation
+        }}
+      />
     </div>
   );
 }
