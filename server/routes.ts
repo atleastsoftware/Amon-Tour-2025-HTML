@@ -3251,6 +3251,80 @@ Crawl-delay: 1`;
     }
   });
 
+  app.post("/api/admin/page-blocks/insert", requireAuth, async (req, res) => {
+    try {
+      const { blockType, position, pageId, pageSlug } = req.body;
+      
+      // Validate required fields
+      if (!blockType || position === undefined || (!pageId && !pageSlug)) {
+        return res.status(400).json({ message: "Missing required fields: blockType, position, and (pageId or pageSlug)" });
+      }
+
+      // Get pageId if pageSlug is provided
+      let finalPageId = pageId;
+      if (!finalPageId && pageSlug) {
+        const config = await storage.getPageConfiguration(pageSlug);
+        if (!config) {
+          return res.status(404).json({ message: "Page not found" });
+        }
+        finalPageId = config.id;
+      }
+
+      // Create default block data based on type
+      const defaultBlockData: Record<string, any> = {
+        hero: {
+          identifier: `hero_${Date.now()}`,
+          title: 'Nouveau Hero',
+          blockType: 'hero',
+          configuration: { subtitle: '', videoUrl: '', imageUrl: '' },
+          isActive: false
+        },
+        text_image: {
+          identifier: `text_image_${Date.now()}`,
+          title: 'Nouvelle Section Texte & Image',
+          blockType: 'text_image',
+          configuration: { text: '', imageUrl: '', imagePosition: 'right' },
+          isActive: false
+        },
+        card_grid: {
+          identifier: `card_grid_${Date.now()}`,
+          title: 'Nouvelle Grille de Cartes',
+          blockType: 'card_grid',
+          configuration: { cards: [] },
+          isActive: false
+        },
+        form: {
+          identifier: `form_${Date.now()}`,
+          title: 'Nouveau Formulaire',
+          blockType: 'form',
+          configuration: { formId: null },
+          isActive: false
+        },
+        advantages: {
+          identifier: `advantages_${Date.now()}`,
+          title: 'Nouveaux Avantages',
+          blockType: 'advantages',
+          configuration: { advantages: [] },
+          isActive: false
+        }
+      };
+
+      const blockData = defaultBlockData[blockType];
+      if (!blockData) {
+        return res.status(400).json({ message: `Invalid block type: ${blockType}` });
+      }
+
+      const block = await storage.insertPageBlockAtPosition(blockData, position, finalPageId);
+      res.status(201).json(block);
+    } catch (error) {
+      console.error("Error inserting page block:", error);
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Validation error", errors: error.errors });
+      }
+      res.status(500).json({ message: "Failed to insert page block", error: String(error) });
+    }
+  });
+
   app.put("/api/admin/page-blocks/:id", requireAuth, async (req, res) => {
     try {
       const id = parseInt(req.params.id);

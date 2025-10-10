@@ -1697,6 +1697,35 @@ export class DatabaseStorage implements IStorage {
     return created;
   }
 
+  async insertPageBlockAtPosition(block: Omit<InsertPageBlock, 'blockOrder'>, position: number, pageId: number): Promise<PageBlock> {
+    return await db.transaction(async (tx) => {
+      // Décaler tous les blocs qui ont blockOrder >= position
+      await tx
+        .update(pageBlocks)
+        .set({ 
+          blockOrder: sql`${pageBlocks.blockOrder} + 1`,
+          updatedAt: new Date()
+        })
+        .where(and(
+          eq(pageBlocks.pageId, pageId),
+          sql`${pageBlocks.blockOrder} >= ${position}`
+        ));
+
+      // Créer le nouveau bloc à la position spécifiée
+      const [created] = await tx
+        .insert(pageBlocks)
+        .values({
+          ...block,
+          pageId,
+          blockOrder: position,
+          updatedAt: new Date()
+        })
+        .returning();
+
+      return created;
+    });
+  }
+
   async updatePageBlock(id: number, data: Partial<InsertPageBlock>): Promise<PageBlock | undefined> {
     const [updated] = await db
       .update(pageBlocks)
