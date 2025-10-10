@@ -2184,70 +2184,134 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         );
 
       default:
-        // Cas général pour les blocs Hero (quand ce n'est pas hero_main)
+        // Cas général pour les blocs Hero (quand ce n'est pas hero_main) - COPIE EXACTE du rendu hero_main
         if (block.blockType === 'hero') {
           const heroConfig = liveConfiguration || block.configuration || {};
+          
+          // Helper function to render title with colored accent
+          const renderTitle = () => {
+            const fullTitle = heroConfig.title || "Your exclusive experiences\nin Krabi –\nTHAILAND";
+            const accentText = heroConfig.titleAccentText || "in Krabi –";
+            const titleColor = heroConfig.titleColor || '#ffffff';
+            const accentColor = heroConfig.titleAccentColor || '#084F6E';
+            
+            if (fullTitle.includes(accentText)) {
+              const parts = fullTitle.split(accentText);
+              return (
+                <>
+                  {parts[0] && <span style={{ color: titleColor }}>{parts[0]}</span>}
+                  <span style={{ color: accentColor }}>{accentText}</span>
+                  {parts[1] && <span style={{ color: titleColor }}>{parts[1]}</span>}
+                </>
+              );
+            }
+            return <span style={{ color: titleColor, whiteSpace: 'pre-line' }}>{fullTitle}</span>;
+          };
+          
+          // Background rendering based on type
+          const renderBackground = () => {
+            const bgType = heroConfig.backgroundType || 'video';
+            
+            switch (bgType) {
+              case 'color':
+                return (
+                  <div 
+                    className="absolute inset-0 w-full h-full z-0"
+                    style={{ backgroundColor: heroConfig.backgroundColor || '#084F6E' }}
+                  />
+                );
+              
+              case 'images':
+                const images = [
+                  heroConfig.backgroundImage1,
+                  heroConfig.backgroundImage2,
+                  heroConfig.backgroundImage3
+                ].filter(Boolean);
+                
+                return (
+                  <div className="absolute inset-0 w-full h-full z-0">
+                    {images.length > 0 ? (
+                      <img
+                        src={images[0]} // For preview, show first image
+                        alt="Hero background"
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gray-300 flex items-center justify-center">
+                        <span className="text-gray-600">Aucune image sélectionnée</span>
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
+                  </div>
+                );
+              
+              case 'video':
+              default:
+                const videoUrl = heroConfig.videoUrl || '/attached_assets/hero-video-optimized.mp4';
+                return (
+                  <div className="absolute inset-0 w-full h-full z-0">
+                    <video
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="auto"
+                      className="w-full h-full object-cover"
+                      style={{ objectFit: 'cover' }}
+                    >
+                      <source src={videoUrl} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
+                  </div>
+                );
+            }
+          };
+          
           return (
-            <section className="relative pt-20 pb-16 min-h-[400px] flex items-center overflow-hidden">
-              {/* Background */}
-              {heroConfig.backgroundImage ? (
-                <img
-                  src={heroConfig.backgroundImage}
-                  alt="Hero background"
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-              ) : heroConfig.videoUrl ? (
-                <video
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className="absolute inset-0 w-full h-full object-cover"
-                >
-                  <source src={heroConfig.videoUrl} type="video/mp4" />
-                </video>
-              ) : (
-                <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-[#084F6E] to-[#3BA8AF]"></div>
-              )}
-              
-              {/* Overlay */}
-              {heroConfig.overlay !== false && (
-                <div className="absolute inset-0 bg-black/40"></div>
-              )}
-              
-              {/* Content */}
+            <section className="relative pt-32 pb-20 min-h-screen flex items-center overflow-hidden" style={{ minHeight: 'auto' }}>
+              {renderBackground()}
               <div className="container mx-auto px-4 relative z-10">
-                <div className="max-w-3xl text-center mx-auto">
-                  {(heroConfig.title || block.title) && (
-                    <h1 
-                      className="text-4xl md:text-5xl font-bold mb-4"
-                      style={{ 
-                        color: heroConfig.titleColor || '#ffffff',
-                        whiteSpace: 'pre-line'
-                      }}
-                    >
-                      {heroConfig.title || block.title}
-                    </h1>
-                  )}
-                  {(heroConfig.subtitle || block.subtitle) && (
-                    <p 
-                      className="text-lg md:text-xl mb-6"
-                      style={{ 
-                        color: heroConfig.subtitleColor || '#ffffff',
-                        whiteSpace: 'pre-line'
-                      }}
-                    >
-                      {heroConfig.subtitle || block.subtitle}
-                    </p>
-                  )}
-                  {heroConfig.ctaText && (
-                    <a 
-                      href={heroConfig.ctaUrl || '#'}
-                      className="inline-block px-8 py-3 bg-white text-[#084F6E] rounded-lg hover:bg-gray-100 transition-colors font-semibold"
-                    >
-                      {heroConfig.ctaText}
-                    </a>
-                  )}
+                <div className={`max-w-xl ${
+                  heroConfig.contentAlignment === 'center' ? 'mx-auto text-center' : 
+                  heroConfig.contentAlignment === 'right' ? 'ml-auto text-right' : 
+                  'text-left'
+                }`}>
+                  <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight drop-shadow-lg" style={{ whiteSpace: 'pre-line' }}>
+                    {renderTitle()}
+                  </h1>
+                  <p 
+                    className="mb-8 text-lg drop-shadow-md opacity-90"
+                    style={{ 
+                      color: heroConfig.subtitleColor || '#ffffff',
+                      whiteSpace: 'pre-line'
+                    }}
+                  >
+                    {heroConfig.subtitle || "Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations."}
+                  </p>
+                  <div className={`flex flex-col sm:flex-row gap-4 ${
+                    heroConfig.contentAlignment === 'center' ? 'justify-center' :
+                    heroConfig.contentAlignment === 'right' ? 'justify-end' :
+                    'justify-start'
+                  }`}>
+                    {(heroConfig.buttons || [{text: 'See our offers', url: '/tours', color: '#084F6E', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#084F6E', style: 'filled'}]).map((button: any, index: number) => (
+                      <span 
+                        key={index}
+                        className={`px-8 py-3 mt-4 rounded transition-colors cursor-pointer inline-block shadow-lg ${
+                          (button.style || 'filled') === 'filled' 
+                            ? 'text-white hover:opacity-90' 
+                            : 'bg-transparent border-2 hover:bg-opacity-10'
+                        }`}
+                        style={{
+                          backgroundColor: (button.style || 'filled') === 'filled' ? (button.color || '#084F6E') : 'transparent',
+                          borderColor: (button.style || 'filled') === 'outline' ? (button.color || '#084F6E') : 'transparent',
+                          color: (button.style || 'filled') === 'outline' ? (button.color || '#084F6E') : '#ffffff'
+                        }}
+                      >
+                        {button.text || `Bouton ${index + 1}`}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             </section>
@@ -5135,7 +5199,7 @@ const BlockEditDropdown = ({
         );
 
       default:
-        // Cas général pour les blocs Hero (quand ce n'est pas hero_main)
+        // Cas général pour les blocs Hero (quand ce n'est pas hero_main) - COPIE EXACTE de hero_main
         if (block.blockType === 'hero') {
           return (
             <div className="space-y-6">
@@ -5144,17 +5208,37 @@ const BlockEditDropdown = ({
                 <Label htmlFor="title">Titre principal</Label>
                 <Textarea 
                   id="title"
-                  value={formData.title || block.configuration?.title || ''} 
+                  value={formData.title || block.configuration?.title || 'Your exclusive experiences\nin Krabi –\nTHAILAND'} 
                   onChange={e => updateField('title', e.target.value)}
-                  placeholder="Votre titre principal"
+                  placeholder="Your exclusive experiences\nin Krabi –\nTHAILAND"
                   rows={3}
                   className="mt-2"
                 />
                 <div className="mt-3">
-                  <Label>Couleur du titre</Label>
                   <ColorPicker
                     value={formData.titleColor || '#ffffff'}
                     onChange={(value) => updateField('titleColor', value)}
+                  />
+                </div>
+              </div>
+              
+              {/* Mot du titre en seconde couleur */}
+              <div>
+                <Label htmlFor="titleAccentText">Mot du titre en seconde couleur</Label>
+                <Input 
+                  id="titleAccentText"
+                  value={formData.titleAccentText || 'in Krabi –'} 
+                  onChange={e => updateField('titleAccentText', e.target.value)}
+                  placeholder="in Krabi –"
+                  className="mt-2"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Tapez exactement les mots du titre que vous voulez colorer
+                </p>
+                <div className="mt-3">
+                  <ColorPicker
+                    value={formData.titleAccentColor || '#084F6E'}
+                    onChange={(value) => updateField('titleAccentColor', value)}
                   />
                 </div>
               </div>
@@ -5164,14 +5248,13 @@ const BlockEditDropdown = ({
                 <Label htmlFor="subtitle">Sous-titre</Label>
                 <Textarea 
                   id="subtitle"
-                  value={formData.subtitle || block.configuration?.subtitle || ''} 
+                  value={formData.subtitle || block.configuration?.subtitle || 'Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations.'} 
                   onChange={e => updateField('subtitle', e.target.value)}
-                  placeholder="Votre sous-titre"
-                  rows={2}
+                  placeholder="Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations."
+                  rows={3}
                   className="mt-2"
                 />
                 <div className="mt-3">
-                  <Label>Couleur du sous-titre</Label>
                   <ColorPicker
                     value={formData.subtitleColor || '#ffffff'}
                     onChange={(value) => updateField('subtitleColor', value)}
@@ -5179,66 +5262,299 @@ const BlockEditDropdown = ({
                 </div>
               </div>
 
-              {/* Image/Vidéo de fond */}
+              {/* Boutons d'action */}
               <div>
-                <Label htmlFor="backgroundImage">Image de fond (URL)</Label>
-                <Input 
-                  id="backgroundImage"
-                  value={formData.backgroundImage || block.configuration?.backgroundImage || ''} 
-                  onChange={e => updateField('backgroundImage', e.target.value)}
-                  placeholder="/attached_assets/image.jpg"
-                  className="mt-2"
-                />
-                <p className="text-xs text-gray-500 mt-1">
-                  URL de l'image de fond du Hero
-                </p>
+                <div className="flex items-center justify-between mb-3">
+                  <Label>Boutons d'action</Label>
+                  <Button 
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#084F6E', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#084F6E', style: 'filled'}];
+                      updateField('buttons', [...buttons, {text: 'Nouveau bouton', url: '#', color: '#084F6E', style: 'filled'}]);
+                    }}
+                  >
+                    <Plus className="h-4 w-4 mr-1" /> Ajouter un bouton
+                  </Button>
+                </div>
+                
+                <div className="space-y-3">
+                  {(formData.buttons || [{text: 'See our offers', url: '/tours', color: '#084F6E', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#084F6E', style: 'filled'}]).map((button: any, index: number) => (
+                    <div key={index} className="border rounded-lg p-4 space-y-3">
+                      <div className="flex items-center justify-between">
+                        <Label className="text-sm font-medium">Bouton {index + 1}</Label>
+                        <Button 
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => {
+                            const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#084F6E', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#084F6E', style: 'filled'}];
+                            const newButtons = buttons.filter((_: any, i: number) => i !== index);
+                            updateField('buttons', newButtons);
+                          }}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    
+                    <div className="grid grid-cols-2 gap-2">
+                      <div>
+                        <Label className="text-xs">Texte</Label>
+                        <Input 
+                          value={button.text || ''} 
+                          onChange={e => {
+                            const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#084F6E', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#084F6E', style: 'filled'}];
+                            const newButtons = buttons.map((b: any, i: number) => 
+                              i === index ? {...b, text: e.target.value} : b
+                            );
+                            updateField('buttons', newButtons);
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-xs">URL</Label>
+                        <Input 
+                          value={button.url || ''} 
+                          onChange={e => {
+                            const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#084F6E', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#084F6E', style: 'filled'}];
+                            const newButtons = buttons.map((b: any, i: number) => 
+                              i === index ? {...b, url: e.target.value} : b
+                            );
+                            updateField('buttons', newButtons);
+                          }}
+                        />
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <Label className="text-xs">Couleur</Label>
+                        <ColorPicker
+                          value={button.color || '#084F6E'}
+                          onChange={(value) => {
+                            const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#084F6E', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#084F6E', style: 'filled'}];
+                            const newButtons = buttons.map((b: any, i: number) => 
+                              i === index ? {...b, color: value} : b
+                            );
+                            updateField('buttons', newButtons);
+                          }}
+                        />
+                      </div>
+                      
+                      <div>
+                        <Label className="text-xs">Style</Label>
+                        <Select 
+                          value={button.style || 'filled'} 
+                          onValueChange={value => {
+                            const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#084F6E', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#084F6E', style: 'filled'}];
+                            const newButtons = buttons.map((b: any, i: number) => 
+                              i === index ? {...b, style: value} : b
+                            );
+                            updateField('buttons', newButtons);
+                          }}
+                        >
+                          <SelectTrigger className="h-10">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="filled">Plein</SelectItem>
+                            <SelectItem value="outline">Contour</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
 
+              {/* Alignement du contenu */}
               <div>
-                <Label htmlFor="videoUrl">Vidéo de fond (URL - optionnel)</Label>
-                <Input 
-                  id="videoUrl"
-                  value={formData.videoUrl || block.configuration?.videoUrl || ''} 
-                  onChange={e => updateField('videoUrl', e.target.value)}
-                  placeholder="/attached_assets/video.mp4"
-                  className="mt-2"
-                />
-                <p className="text-xs text-gray-500 mt-1">
-                  Si fournie, la vidéo remplacera l'image de fond
-                </p>
+                <Label>Alignement du contenu</Label>
+                <div className="mt-3">
+                  <Select value={formData.contentAlignment || 'left'} onValueChange={value => updateField('contentAlignment', value)}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Alignement" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="left">À gauche</SelectItem>
+                      <SelectItem value="center">Au centre</SelectItem>
+                      <SelectItem value="right">À droite</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
 
-              {/* Bouton CTA */}
+              {/* Arrière-plan */}
               <div>
-                <Label htmlFor="ctaText">Texte du bouton</Label>
-                <Input 
-                  id="ctaText"
-                  value={formData.ctaText || block.configuration?.ctaText || ''} 
-                  onChange={e => updateField('ctaText', e.target.value)}
-                  placeholder="Découvrir nos tours"
-                  className="mt-2"
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="ctaUrl">Lien du bouton</Label>
-                <Input 
-                  id="ctaUrl"
-                  value={formData.ctaUrl || block.configuration?.ctaUrl || ''} 
-                  onChange={e => updateField('ctaUrl', e.target.value)}
-                  placeholder="#tours"
-                  className="mt-2"
-                />
-              </div>
-
-              {/* Overlay */}
-              <div className="flex items-center space-x-2">
-                <Switch
-                  id="overlay"
-                  checked={formData.overlay !== false}
-                  onCheckedChange={(checked) => updateField('overlay', checked)}
-                />
-                <Label htmlFor="overlay">Activer l'overlay sombre (pour améliorer la lisibilité du texte)</Label>
+                <Label>Arrière-plan</Label>
+                <div className="mt-3">
+                  <Select value={formData.backgroundType || 'video'} onValueChange={value => updateField('backgroundType', value)}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Type d'arrière-plan" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="video">Vidéo</SelectItem>
+                      <SelectItem value="images">Images en rotation</SelectItem>
+                      <SelectItem value="color">Couleur unie</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                {formData.backgroundType === 'color' && (
+                  <div>
+                    <Label htmlFor="backgroundColor">Couleur de fond</Label>
+                    <div className="flex gap-2">
+                      <input 
+                        type="color" 
+                        id="backgroundColor"
+                        value={formData.backgroundColor || '#084F6E'}
+                        onChange={e => updateField('backgroundColor', e.target.value)}
+                        className="w-10 h-10 rounded cursor-pointer"
+                      style={{ border: 'none', outline: 'none' }}
+                      />
+                      <Input 
+                        value={formData.backgroundColor || '#084F6E'}
+                        onChange={e => updateField('backgroundColor', e.target.value)}
+                        placeholder="#084F6E"
+                        className="flex-1"
+                      />
+                    </div>
+                  </div>
+                )}
+                
+                {formData.backgroundType === 'video' && (
+                  <div>
+                    <Label htmlFor="videoUrl">URL de la vidéo</Label>
+                    <div className="flex gap-2">
+                      <Input 
+                        id="videoUrl"
+                        value={formData.videoUrl || '/attached_assets/hero-video-optimized.mp4'} 
+                        onChange={e => updateField('videoUrl', e.target.value)}
+                        placeholder="/attached_assets/hero-video-optimized.mp4"
+                        className="flex-1"
+                      />
+                      <Button 
+                        type="button"
+                        variant="outline"
+                        size="icon"
+                        className="shrink-0"
+                        onClick={() => {
+                          const input = document.createElement('input');
+                          input.type = 'file';
+                          input.accept = 'video/*';
+                          input.onchange = (e) => {
+                            const file = (e.target as HTMLInputElement).files?.[0];
+                            if (file) {
+                              const url = URL.createObjectURL(file);
+                              updateField('videoUrl', url);
+                            }
+                          };
+                          input.click();
+                        }}
+                      >
+                        <Plus className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                )}
+                
+                {formData.backgroundType === 'images' && (
+                  <div className="space-y-3">
+                    <Label>URLs des images (3 maximum)</Label>
+                    
+                    <div className="flex gap-2">
+                      <Input 
+                        value={formData.backgroundImage1 || ''} 
+                        onChange={e => updateField('backgroundImage1', e.target.value)}
+                        placeholder="URL de l'image 1"
+                        className="flex-1"
+                      />
+                      <Button 
+                        type="button"
+                        variant="outline"
+                        size="icon"
+                        className="shrink-0"
+                        onClick={() => {
+                          const input = document.createElement('input');
+                          input.type = 'file';
+                          input.accept = 'image/*';
+                          input.onchange = (e) => {
+                            const file = (e.target as HTMLInputElement).files?.[0];
+                            if (file) {
+                              const url = URL.createObjectURL(file);
+                              updateField('backgroundImage1', url);
+                            }
+                          };
+                          input.click();
+                        }}
+                      >
+                        <Plus className="h-4 w-4" />
+                      </Button>
+                    </div>
+                    
+                    <div className="flex gap-2">
+                      <Input 
+                        value={formData.backgroundImage2 || ''} 
+                        onChange={e => updateField('backgroundImage2', e.target.value)}
+                        placeholder="URL de l'image 2"
+                        className="flex-1"
+                      />
+                      <Button 
+                        type="button"
+                        variant="outline"
+                        size="icon"
+                        className="shrink-0"
+                        onClick={() => {
+                          const input = document.createElement('input');
+                          input.type = 'file';
+                          input.accept = 'image/*';
+                          input.onchange = (e) => {
+                            const file = (e.target as HTMLInputElement).files?.[0];
+                            if (file) {
+                              const url = URL.createObjectURL(file);
+                              updateField('backgroundImage2', url);
+                            }
+                          };
+                          input.click();
+                        }}
+                      >
+                        <Plus className="h-4 w-4" />
+                      </Button>
+                    </div>
+                    
+                    <div className="flex gap-2">
+                      <Input 
+                        value={formData.backgroundImage3 || ''} 
+                        onChange={e => updateField('backgroundImage3', e.target.value)}
+                        placeholder="URL de l'image 3"
+                        className="flex-1"
+                      />
+                      <Button 
+                        type="button"
+                        variant="outline"
+                        size="icon"
+                        className="shrink-0"
+                        onClick={() => {
+                          const input = document.createElement('input');
+                          input.type = 'file';
+                          input.accept = 'image/*';
+                          input.onchange = (e) => {
+                            const file = (e.target as HTMLInputElement).files?.[0];
+                            if (file) {
+                              const url = URL.createObjectURL(file);
+                              updateField('backgroundImage3', url);
+                            }
+                          };
+                          input.click();
+                        }}
+                      >
+                        <Plus className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           );
