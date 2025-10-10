@@ -53,8 +53,8 @@ function AdminEditorPageContent() {
     return <AdminPageEditor />;
   }
 
-  // Transformer les données pour l'affichage et trier par ordre alphabétique
-  const pages = pageConfigs
+  // Transformer les données pour l'affichage et séparer Home des autres pages
+  const allPages = pageConfigs
     .map(page => ({
       id: page.pageSlug,
       title: page.pageName,
@@ -62,7 +62,12 @@ function AdminEditorPageContent() {
       status: page.isActive ? 'Active' : 'Inactive',
       type: page.pageType === 'main' ? 'Page principale' : 
             page.pageType === 'secondary' ? 'Page secondaire' : 'Mentions légales'
-    }))
+    }));
+  
+  // Séparer la page Home (non supprimable) des autres pages
+  const homePage = allPages.find(p => p.id === 'home');
+  const otherPages = allPages
+    .filter(p => p.id !== 'home')
     .sort((a, b) => a.title.localeCompare(b.title, 'fr'));
 
   const handleEditPage = (pageId: string) => {
@@ -119,26 +124,24 @@ function AdminEditorPageContent() {
               </h1>
               <p className="text-sm sm:text-base text-gray-600">Gérez le contenu et la structure de vos pages web</p>
             </div>
-            <Button 
-              variant="outline" 
-              onClick={() => setLocation('/admin-editor')}
-              className="flex items-center gap-2 w-full sm:w-auto"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              <span>Retour à Gestion de Contenu</span>
-            </Button>
+            <div className="flex items-center gap-3 w-full sm:w-auto">
+              <Button 
+                onClick={handleAddPage}
+                className="bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-2"
+              >
+                <Plus className="h-4 w-4" />
+                Ajouter une page
+              </Button>
+              <Button 
+                variant="outline" 
+                onClick={() => setLocation('/admin-editor')}
+                className="flex items-center gap-2"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                <span className="hidden sm:inline">Retour</span>
+              </Button>
+            </div>
           </div>
-        </div>
-
-        {/* Add Page Button */}
-        <div className="mb-6">
-          <Button 
-            onClick={handleAddPage}
-            className="bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-2"
-          >
-            <Plus className="h-4 w-4" />
-            Ajouter une page
-          </Button>
         </div>
 
         {/* Loading State */}
@@ -160,84 +163,135 @@ function AdminEditorPageContent() {
 
         {/* Pages List */}
         {!isLoading && !error && (
-        <div className="space-y-4">
-          {pages.map((page) => (
-            <Card key={page.id} className="bg-white border border-gray-200 hover:border-blue-300 transition-colors">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <h3 className="text-lg font-semibold text-gray-900">
-                      {page.title || 'Page sans titre'}
-                    </h3>
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                      page.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
-                    }`}>
-                      {page.status}
-                    </span>
+        <div className="space-y-6">
+          {/* Page d'accueil (Home) - Non supprimable */}
+          {homePage && (
+            <div>
+              <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Page d'accueil</h2>
+              <Card className="bg-white border border-gray-200 hover:border-blue-300 transition-colors">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <h3 className="text-lg font-semibold text-gray-900">
+                        {homePage.title || 'Page sans titre'}
+                      </h3>
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                        homePage.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                      }`}>
+                        {homePage.status}
+                      </span>
+                    </div>
+                    
+                    <div className="flex items-center gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => window.open(homePage.slug, '_blank')}
+                        className="flex items-center gap-1"
+                      >
+                        <Eye className="h-4 w-4" />
+                        Voir
+                      </Button>
+                      
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleEditPage(homePage.id)}
+                        className="flex items-center gap-1 bg-blue-50 border-blue-200 hover:bg-blue-100"
+                      >
+                        <Edit className="h-4 w-4" />
+                        Modifier
+                      </Button>
+                    </div>
                   </div>
-                  
-                  <div className="flex items-center gap-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => window.open(page.slug, '_blank')}
-                      className="flex items-center gap-1"
-                    >
-                      <Eye className="h-4 w-4" />
-                      Voir
-                    </Button>
-                    
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleEditPage(page.id)}
-                      className="flex items-center gap-1 bg-blue-50 border-blue-200 hover:bg-blue-100"
-                    >
-                      <Edit className="h-4 w-4" />
-                      Modifier
-                    </Button>
-                    
-                    {page.id !== 'home' && (
-                      <AlertDialog>
-                        <AlertDialogTrigger asChild>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+
+          {/* Autres pages */}
+          {otherPages.length > 0 && (
+            <div>
+              <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Autres pages</h2>
+              <div className="space-y-4">
+                {otherPages.map((page) => (
+                  <Card key={page.id} className="bg-white border border-gray-200 hover:border-blue-300 transition-colors">
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4">
+                          <h3 className="text-lg font-semibold text-gray-900">
+                            {page.title || 'Page sans titre'}
+                          </h3>
+                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                            page.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                          }`}>
+                            {page.status}
+                          </span>
+                        </div>
+                        
+                        <div className="flex items-center gap-2">
                           <Button
                             variant="outline"
                             size="sm"
-                            className="flex items-center gap-1 text-red-600 border-red-200 hover:bg-red-50"
+                            onClick={() => window.open(page.slug, '_blank')}
+                            className="flex items-center gap-1"
                           >
-                            <Trash2 className="h-4 w-4" />
-                            Supprimer
+                            <Eye className="h-4 w-4" />
+                            Voir
                           </Button>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                          <AlertDialogHeader>
-                            <AlertDialogTitle>Êtes-vous sûr de supprimer cette page ?</AlertDialogTitle>
-                            <AlertDialogDescription>
-                              Cette action est irréversible. La page "{page.title}" sera définitivement supprimée.
-                            </AlertDialogDescription>
-                          </AlertDialogHeader>
-                          <AlertDialogFooter>
-                            <AlertDialogCancel>Annuler</AlertDialogCancel>
-                            <AlertDialogAction 
-                              onClick={() => handleDeletePage(page.id)}
-                              className="bg-red-600 hover:bg-red-700"
-                            >
-                              Supprimer
-                            </AlertDialogAction>
-                          </AlertDialogFooter>
-                        </AlertDialogContent>
-                      </AlertDialog>
-                    )}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                          
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handleEditPage(page.id)}
+                            className="flex items-center gap-1 bg-blue-50 border-blue-200 hover:bg-blue-100"
+                          >
+                            <Edit className="h-4 w-4" />
+                            Modifier
+                          </Button>
+                          
+                          <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                className="flex items-center gap-1 text-red-600 border-red-200 hover:bg-red-50"
+                              >
+                                <Trash2 className="h-4 w-4" />
+                                Supprimer
+                              </Button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                              <AlertDialogHeader>
+                                <AlertDialogTitle>Êtes-vous sûr de supprimer cette page ?</AlertDialogTitle>
+                                <AlertDialogDescription>
+                                  Cette action est irréversible. La page "{page.title}" sera définitivement supprimée.
+                                </AlertDialogDescription>
+                              </AlertDialogHeader>
+                              <AlertDialogFooter>
+                                <AlertDialogCancel>Annuler</AlertDialogCancel>
+                                <AlertDialogAction 
+                                  onClick={() => handleDeletePage(page.id)}
+                                  className="bg-red-600 hover:bg-red-700"
+                                >
+                                  Supprimer
+                                </AlertDialogAction>
+                              </AlertDialogFooter>
+                            </AlertDialogContent>
+                          </AlertDialog>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
         )}
 
         {/* Empty state if no pages */}
-        {pages.length === 0 && (
+        {allPages.length === 0 && (
           <Card className="bg-white border-2 border-dashed border-gray-300">
             <CardContent className="p-12 text-center">
               <div className="text-gray-400 mb-4">
