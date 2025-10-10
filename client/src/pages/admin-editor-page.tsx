@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useLocation } from 'wouter';
+import { useState, useEffect } from 'react';
+import { useLocation, useSearch } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -32,9 +32,10 @@ interface PageConfiguration {
 
 function AdminEditorPageContent() {
   const [, setLocation] = useLocation();
+  const searchString = useSearch();
   
   // Détecter si on a un paramètre ?page= dans l'URL
-  const urlParams = new URLSearchParams(window.location.search);
+  const urlParams = new URLSearchParams(searchString);
   const pageParam = urlParams.get('page');
   
   // Si on a un paramètre ?page=, afficher l'éditeur au lieu du listing
