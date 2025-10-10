@@ -2290,8 +2290,11 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
             {text: 'Bouton 2', url: '#', color: '#ffffff', textColor: '#ffffff', style: 'outline'}
           ];
           
+          const heroSize = heroConfig.heroSize || 'petite';
+          const heightClass = heroSize === 'grande' ? 'min-h-screen' : '';
+          
           return (
-            <section className="relative pt-32 pb-20 min-h-screen flex items-center overflow-hidden" style={{ minHeight: 'auto' }}>
+            <section className={`relative pt-32 pb-20 ${heightClass} flex items-center overflow-hidden`}>
               {renderBackground()}
               <div className="container mx-auto px-4 relative z-10">
                 <div className={`max-w-xl ${
@@ -5601,6 +5604,22 @@ const BlockEditDropdown = ({
                     </div>
                   </div>
                 )}
+              </div>
+
+              {/* Taille du cadre */}
+              <div>
+                <Label>Taille du cadre</Label>
+                <div className="mt-3">
+                  <Select value={formData.heroSize || 'petite'} onValueChange={value => updateField('heroSize', value)}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Taille" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="petite">Petite</SelectItem>
+                      <SelectItem value="grande">Grande (plein écran)</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
             </div>
           );
