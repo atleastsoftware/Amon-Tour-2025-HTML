@@ -2293,7 +2293,6 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
           const heroSize = heroConfig.heroSize || 'petite';
           const heightClass = heroSize === 'grande' ? 'min-h-screen' : '';
           const hasAnimation = heroConfig.hasAnimation || false;
-          const animationTimestamp = heroConfig.animationTimestamp || 0;
           
           return (
             <section className={`relative pt-32 pb-20 ${heightClass} flex items-center overflow-hidden`}>
@@ -2301,14 +2300,24 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
               <div className="container mx-auto px-4 relative z-10">
                 {hasAnimation ? (
                   <motion.div
-                    key={`animated-${animationTimestamp}`}
-                    initial={{ opacity: 0, x: -100 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 1.2, ease: "easeOut" }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ 
+                      opacity: 1, 
+                      y: 0,
+                      x: [0, 5, 0, -5, 0],
+                      transition: {
+                        y: { duration: 0.6 },
+                        x: {
+                          repeat: Infinity,
+                          duration: 5,
+                          ease: "easeInOut"
+                        }
+                      }
+                    }}
                     className={`max-w-xl ${
                       heroConfig.contentAlignment === 'center' ? 'mx-auto text-center' : 
                       heroConfig.contentAlignment === 'right' ? 'ml-auto text-right' : 
-                      heroConfig.contentAlignment === 'left' ? 'text-left' :
+                      heroConfig.contentAlignment === 'left' ? 'ml-3 md:ml-6 text-left' :
                       'mx-auto text-center'
                     }`}
                   >
@@ -2354,7 +2363,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                     className={`max-w-xl ${
                       heroConfig.contentAlignment === 'center' ? 'mx-auto text-center' : 
                       heroConfig.contentAlignment === 'right' ? 'ml-auto text-right' : 
-                      heroConfig.contentAlignment === 'left' ? 'text-left' :
+                      heroConfig.contentAlignment === 'left' ? 'ml-3 md:ml-6 text-left' :
                       'mx-auto text-center'
                     }`}
                   >
@@ -5488,17 +5497,7 @@ const BlockEditDropdown = ({
                 <Checkbox 
                   id="animation"
                   checked={formData.hasAnimation || false}
-                  onCheckedChange={(checked) => {
-                    const newFormData = { 
-                      ...formData, 
-                      hasAnimation: checked,
-                      animationTimestamp: checked ? Date.now() : formData.animationTimestamp
-                    };
-                    setFormData(newFormData);
-                    if (onPreviewUpdate) {
-                      onPreviewUpdate(newFormData);
-                    }
-                  }}
+                  onCheckedChange={(checked) => updateField('hasAnimation', checked)}
                 />
                 <Label htmlFor="animation" className="cursor-pointer">
                   Animation du contenu
