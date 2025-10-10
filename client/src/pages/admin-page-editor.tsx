@@ -5871,7 +5871,7 @@ export default function AdminPageEditor() {
   };
 
   const handlePageChange = (newPageSlug: string) => {
-    setLocation(`/admin-page-editor?page=${newPageSlug}`);
+    setLocation(`/admin-editor-page?page=${newPageSlug}`);
   };
 
   if (!currentPageConfig) {

@@ -672,7 +672,7 @@ export default function AdminEditorForm() {
         // Nettoyer sessionStorage
         sessionStorage.removeItem('formEditorContext');
         // Rediriger vers l'éditeur de page
-        setLocation(`/admin-page-editor?page=${navigationContext.returnToPage}`);
+        setLocation(`/admin-editor-page?page=${navigationContext.returnToPage}`);
         // Toast après redirection
         setTimeout(() => {
           toast({
@@ -718,7 +718,7 @@ export default function AdminEditorForm() {
         // Nettoyer sessionStorage
         sessionStorage.removeItem('formEditorContext');
         // Rediriger vers l'éditeur de page
-        setLocation(`/admin-page-editor?page=${navigationContext.returnToPage}`);
+        setLocation(`/admin-editor-page?page=${navigationContext.returnToPage}`);
         // Toast après redirection
         setTimeout(() => {
           toast({
@@ -814,7 +814,7 @@ export default function AdminEditorForm() {
       // Nettoyer sessionStorage
       sessionStorage.removeItem('formEditorContext');
       // Rediriger vers l'éditeur de page
-      setLocation(`/admin-page-editor?page=${navigationContext.returnToPage}`);
+      setLocation(`/admin-editor-page?page=${navigationContext.returnToPage}`);
     } else {
       // Comportement normal : retourner au listing
       setShowBuilder(false);

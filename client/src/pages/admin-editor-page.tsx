@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { ArrowLeft, Plus, Edit, Trash2, Eye, FileText } from 'lucide-react';
 import { AdminGuard } from '@/components/AdminGuard';
 import { AddPageModal } from '@/components/AddPageModal';
+import AdminPageEditor from '@/pages/admin-page-editor';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -31,6 +32,15 @@ interface PageConfiguration {
 
 function AdminEditorPageContent() {
   const [, setLocation] = useLocation();
+  
+  // Détecter si on a un paramètre ?page= dans l'URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const pageParam = urlParams.get('page');
+  
+  // Si on a un paramètre ?page=, afficher l'éditeur au lieu du listing
+  if (pageParam) {
+    return <AdminPageEditor />;
+  }
   const [isAddPageModalOpen, setIsAddPageModalOpen] = useState(false);
 
   // Récupérer toutes les pages depuis la base de données
@@ -56,7 +66,7 @@ function AdminEditorPageContent() {
 
   const handleEditPage = (pageId: string) => {
     // Rediriger vers l'éditeur de page avec le paramètre page pour toutes les pages
-    setLocation(`/admin-page-editor?page=${pageId}`);
+    setLocation(`/admin-editor-page?page=${pageId}`);
   };
 
   const handleDeletePage = async (pageId: string) => {
@@ -253,7 +263,7 @@ function AdminEditorPageContent() {
         onSuccess={(pageSlug) => {
           // Attendre un moment pour que les données soient rafraîchies puis rediriger
           setTimeout(() => {
-            setLocation(`/admin-page-editor?page=${pageSlug}`);
+            setLocation(`/admin-editor-page?page=${pageSlug}`);
           }, 1500);
         }}
       />

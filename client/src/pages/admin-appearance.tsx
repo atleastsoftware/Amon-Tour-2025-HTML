@@ -3547,7 +3547,7 @@ export default function AdminAppearance() {
                           <Button
                             onClick={() => {
                               // Rediriger directement vers l'édition de la page sélectionnée
-                              window.location.href = `/admin-page-editor?page=${selectedPage}`;
+                              window.location.href = `/admin-editor-page?page=${selectedPage}`;
                             }}
                           >
                             <Edit className="w-4 h-4 mr-2" />
