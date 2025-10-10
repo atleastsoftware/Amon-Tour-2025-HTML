@@ -2293,36 +2293,25 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
           const heroSize = heroConfig.heroSize || 'petite';
           const heightClass = heroSize === 'grande' ? 'min-h-screen' : '';
           const hasAnimation = heroConfig.hasAnimation || false;
-          
-          // Animation variants pour le mouvement droite-gauche
-          const contentVariants = {
-            hidden: { opacity: 0, x: -50 },
-            visible: { 
-              opacity: 1, 
-              x: 0,
-              transition: { duration: 0.8, ease: "easeOut" }
-            }
-          };
+          const animationTimestamp = heroConfig.animationTimestamp || 0;
           
           return (
             <section className={`relative pt-32 pb-20 ${heightClass} flex items-center overflow-hidden`}>
               {renderBackground()}
               <div className="container mx-auto px-4 relative z-10">
-                <AnimatePresence mode="wait">
-                  {hasAnimation ? (
-                    <motion.div
-                      key="animated"
-                      initial={{ opacity: 0, x: -50 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: 50 }}
-                      transition={{ duration: 0.8, ease: "easeOut" }}
-                      className={`max-w-xl ${
-                        heroConfig.contentAlignment === 'center' ? 'mx-auto text-center' : 
-                        heroConfig.contentAlignment === 'right' ? 'ml-auto text-right' : 
-                        heroConfig.contentAlignment === 'left' ? 'text-left' :
-                        'mx-auto text-center'
-                      }`}
-                    >
+                {hasAnimation ? (
+                  <motion.div
+                    key={`animated-${animationTimestamp}`}
+                    initial={{ opacity: 0, x: -100 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 1.2, ease: "easeOut" }}
+                    className={`max-w-xl ${
+                      heroConfig.contentAlignment === 'center' ? 'mx-auto text-center' : 
+                      heroConfig.contentAlignment === 'right' ? 'ml-auto text-right' : 
+                      heroConfig.contentAlignment === 'left' ? 'text-left' :
+                      'mx-auto text-center'
+                    }`}
+                  >
                   <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight drop-shadow-lg" style={{ whiteSpace: 'pre-line' }}>
                     {renderTitle()}
                   </h1>
@@ -2359,17 +2348,16 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                       </span>
                     ))}
                   </div>
-                    </motion.div>
-                  ) : (
-                    <div
-                      key="static"
-                      className={`max-w-xl ${
-                        heroConfig.contentAlignment === 'center' ? 'mx-auto text-center' : 
-                        heroConfig.contentAlignment === 'right' ? 'ml-auto text-right' : 
-                        heroConfig.contentAlignment === 'left' ? 'text-left' :
-                        'mx-auto text-center'
-                      }`}
-                    >
+                  </motion.div>
+                ) : (
+                  <div
+                    className={`max-w-xl ${
+                      heroConfig.contentAlignment === 'center' ? 'mx-auto text-center' : 
+                      heroConfig.contentAlignment === 'right' ? 'ml-auto text-right' : 
+                      heroConfig.contentAlignment === 'left' ? 'text-left' :
+                      'mx-auto text-center'
+                    }`}
+                  >
                       <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight drop-shadow-lg" style={{ whiteSpace: 'pre-line' }}>
                         {renderTitle()}
                       </h1>
@@ -2406,9 +2394,8 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                           </span>
                         ))}
                       </div>
-                    </div>
-                  )}
-                </AnimatePresence>
+                  </div>
+                )}
               </div>
             </section>
           );
@@ -5501,7 +5488,17 @@ const BlockEditDropdown = ({
                 <Checkbox 
                   id="animation"
                   checked={formData.hasAnimation || false}
-                  onCheckedChange={(checked) => updateField('hasAnimation', checked)}
+                  onCheckedChange={(checked) => {
+                    const newFormData = { 
+                      ...formData, 
+                      hasAnimation: checked,
+                      animationTimestamp: checked ? Date.now() : formData.animationTimestamp
+                    };
+                    setFormData(newFormData);
+                    if (onPreviewUpdate) {
+                      onPreviewUpdate(newFormData);
+                    }
+                  }}
                 />
                 <Label htmlFor="animation" className="cursor-pointer">
                   Animation du contenu
