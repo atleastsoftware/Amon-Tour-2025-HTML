@@ -2291,7 +2291,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
           ];
           
           const heroSize = heroConfig.heroSize || 'petite';
-          const heightClass = heroSize === 'grande' ? 'min-h-screen' : '';
+          const heightClass = heroSize === 'grande' ? 'min-h-screen' : 'min-h-[400px]';
           const hasAnimation = heroConfig.hasAnimation || false;
           
           return (
