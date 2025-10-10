@@ -2304,26 +2304,25 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
             }
           };
           
-          const ContentWrapper = hasAnimation ? motion.div : 'div';
-          
           return (
             <section className={`relative pt-32 pb-20 ${heightClass} flex items-center overflow-hidden`}>
               {renderBackground()}
               <div className="container mx-auto px-4 relative z-10">
-                <ContentWrapper 
-                  key={`hero-content-${hasAnimation ? 'animated' : 'static'}`}
-                  className={`max-w-xl ${
-                    heroConfig.contentAlignment === 'center' ? 'mx-auto text-center' : 
-                    heroConfig.contentAlignment === 'right' ? 'ml-auto text-right' : 
-                    heroConfig.contentAlignment === 'left' ? 'text-left' :
-                    'mx-auto text-center'
-                  }`}
-                  {...(hasAnimation ? {
-                    initial: "hidden",
-                    animate: "visible",
-                    variants: contentVariants
-                  } : {})}
-                >
+                <AnimatePresence mode="wait">
+                  {hasAnimation ? (
+                    <motion.div
+                      key="animated"
+                      initial={{ opacity: 0, x: -50 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: 50 }}
+                      transition={{ duration: 0.8, ease: "easeOut" }}
+                      className={`max-w-xl ${
+                        heroConfig.contentAlignment === 'center' ? 'mx-auto text-center' : 
+                        heroConfig.contentAlignment === 'right' ? 'ml-auto text-right' : 
+                        heroConfig.contentAlignment === 'left' ? 'text-left' :
+                        'mx-auto text-center'
+                      }`}
+                    >
                   <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight drop-shadow-lg" style={{ whiteSpace: 'pre-line' }}>
                     {renderTitle()}
                   </h1>
@@ -2360,7 +2359,56 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                       </span>
                     ))}
                   </div>
-                </ContentWrapper>
+                    </motion.div>
+                  ) : (
+                    <div
+                      key="static"
+                      className={`max-w-xl ${
+                        heroConfig.contentAlignment === 'center' ? 'mx-auto text-center' : 
+                        heroConfig.contentAlignment === 'right' ? 'ml-auto text-right' : 
+                        heroConfig.contentAlignment === 'left' ? 'text-left' :
+                        'mx-auto text-center'
+                      }`}
+                    >
+                      <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight drop-shadow-lg" style={{ whiteSpace: 'pre-line' }}>
+                        {renderTitle()}
+                      </h1>
+                      <p 
+                        className="mb-8 text-lg drop-shadow-md opacity-90"
+                        style={{ 
+                          color: heroConfig.subtitleColor || '#ffffff',
+                          whiteSpace: 'pre-line'
+                        }}
+                      >
+                        {heroConfig.subtitle || "Sous-titre descriptif"}
+                      </p>
+                      <div className={`flex flex-col sm:flex-row gap-4 ${
+                        heroConfig.contentAlignment === 'center' ? 'justify-center' :
+                        heroConfig.contentAlignment === 'right' ? 'justify-end' :
+                        heroConfig.contentAlignment === 'left' ? 'justify-start' :
+                        'justify-center'
+                      }`}>
+                        {buttons.map((button: any, index: number) => (
+                          <span 
+                            key={index}
+                            className={`px-8 py-3 mt-4 rounded transition-colors cursor-pointer inline-block shadow-lg ${
+                              (button.style || 'filled') === 'filled' 
+                                ? 'hover:opacity-90' 
+                                : 'bg-transparent border-2 hover:bg-opacity-10'
+                            }`}
+                            style={{
+                              backgroundColor: (button.style || 'filled') === 'filled' ? (button.color || '#ffffff') : 'transparent',
+                              borderColor: (button.style || 'filled') === 'outline' ? (button.color || '#ffffff') : 'transparent',
+                              color: button.textColor || ((button.style || 'filled') === 'outline' ? '#ffffff' : '#084F6E')
+                            }}
+                          >
+                            {button.text || `Bouton ${index + 1}`}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </AnimatePresence>
               </div>
             </section>
           );
