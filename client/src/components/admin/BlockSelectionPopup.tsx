@@ -48,11 +48,11 @@ const blockTypes: BlockType[] = [
       <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
         <div className="text-center max-w-2xl mx-auto">
           <h2 className="font-bold text-lg mb-2" style={{ color: '#333333' }}>
-            When expats welcome you in their host country
+            Titre de la section
           </h2>
           <div className="w-16 h-0.5 mx-auto mb-3" style={{ backgroundColor: '#3BA8AF' }}></div>
           <p className="text-sm leading-relaxed" style={{ color: '#666666' }}>
-            Since 2013, our family-run travel agency has been curating exclusive activities around Krabi and designing tailor-made trips all across Thailand. We aim to deliver immersive travel experiences, away from mass tourism, with personalized service for every traveler — welcoming you as part of our family or close friends.
+            Ajoutez ici le contenu de votre section de texte. Vous pouvez décrire vos services, partager votre histoire, ou présenter des informations importantes.
           </p>
         </div>
       </div>
