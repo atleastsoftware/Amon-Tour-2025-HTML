@@ -3316,12 +3316,15 @@ Crawl-delay: 1`;
         },
         text_image: {
           identifier: `text_image_${Date.now()}`,
-          title: 'Titre de section',
-          subtitle: 'Sous-titre descriptif',
+          title: '',
           blockType: 'text_image',
-          content: '<p>Contenu de la section à remplir...</p>',
-          imageUrl: '',
-          configuration: { imagePosition: 'right' },
+          configuration: { 
+            title: '',
+            content: '',
+            hasImage: false,
+            maxWidth: '4xl',
+            textAlign: 'center'
+          },
           isActive: false
         }
       };
