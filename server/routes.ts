@@ -3279,18 +3279,18 @@ Crawl-delay: 1`;
           configuration: { subtitle: '', videoUrl: '', imageUrl: '' },
           isActive: false
         },
-        text_image: {
-          identifier: `text_image_${Date.now()}`,
-          title: 'Nouvelle Section Texte & Image',
-          blockType: 'text_image',
-          configuration: { text: '', imageUrl: '', imagePosition: 'right' },
+        text_section: {
+          identifier: `text_section_${Date.now()}`,
+          title: 'Nouvelle Section Texte',
+          blockType: 'text_section',
+          configuration: { content: '' },
           isActive: false
         },
-        card_grid: {
-          identifier: `card_grid_${Date.now()}`,
-          title: 'Nouvelle Grille de Cartes',
+        card_grid_date: {
+          identifier: `card_grid_date_${Date.now()}`,
+          title: 'Grille de Cartes avec Dates',
           blockType: 'card_grid',
-          configuration: { cards: [] },
+          configuration: { cards: [], showDates: true },
           isActive: false
         },
         form: {
@@ -3300,11 +3300,25 @@ Crawl-delay: 1`;
           configuration: { formId: null },
           isActive: false
         },
+        card_grid_price: {
+          identifier: `card_grid_price_${Date.now()}`,
+          title: 'Grille de Cartes avec Prix',
+          blockType: 'card_grid',
+          configuration: { cards: [], showPrices: true },
+          isActive: false
+        },
         advantages: {
           identifier: `advantages_${Date.now()}`,
           title: 'Nouveaux Avantages',
           blockType: 'advantages',
           configuration: { advantages: [] },
+          isActive: false
+        },
+        text_image: {
+          identifier: `text_image_${Date.now()}`,
+          title: 'Nouvelle Section Texte & Image',
+          blockType: 'text_image',
+          configuration: { text: '', imageUrl: '', imagePosition: 'right' },
           isActive: false
         }
       };

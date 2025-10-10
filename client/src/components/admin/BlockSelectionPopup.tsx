@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Home, FileText, Grid3x3, FormInput, CheckCircle } from 'lucide-react';
+import { Home, FileText, Grid3x3, FormInput, CheckCircle, Calendar, DollarSign, Sparkles, Image } from 'lucide-react';
 
 interface BlockType {
   type: string;
@@ -16,82 +16,136 @@ interface BlockType {
 const blockTypes: BlockType[] = [
   {
     type: 'hero',
-    label: 'Hero',
-    description: 'Grande section d\'en-tête avec titre et vidéo/image',
+    label: 'Hero Section',
+    description: 'Grande section d\'en-tête avec titre et image/vidéo',
     icon: Home,
     preview: (
-      <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-8 rounded-lg text-white">
-        <h1 className="text-4xl font-bold mb-2">Titre Hero</h1>
-        <p className="text-xl opacity-90">Description de votre section principale</p>
+      <div className="w-full bg-gray-100 rounded-lg overflow-hidden">
+        <div className="relative h-40 bg-gradient-to-r from-[#084F6E] to-[#3BA8AF]">
+          <div className="absolute inset-0 flex items-center justify-center text-white">
+            <div className="text-center">
+              <h1 className="text-2xl font-bold mb-2">Titre Hero</h1>
+              <p className="text-sm opacity-90">Sous-titre descriptif</p>
+            </div>
+          </div>
+        </div>
       </div>
     )
   },
   {
-    type: 'text_image',
-    label: 'Texte & Image',
-    description: 'Section avec texte et image côte à côte',
+    type: 'text_section',
+    label: 'Text',
+    description: 'Section de texte simple avec titre',
     icon: FileText,
     preview: (
-      <div className="flex gap-4 p-4 bg-gray-50 rounded-lg">
-        <div className="flex-1">
-          <h3 className="text-xl font-semibold mb-2">Titre de section</h3>
-          <p className="text-gray-600">Texte descriptif avec une image associée...</p>
-        </div>
-        <div className="w-32 h-24 bg-gray-300 rounded flex items-center justify-center text-gray-500 text-sm">
-          Image
-        </div>
+      <div className="w-full bg-white p-6 rounded-lg border">
+        <h2 className="text-xl font-bold mb-3 text-center">Titre de Section</h2>
+        <p className="text-sm text-gray-600 text-center mb-2">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        </p>
+        <p className="text-sm text-gray-600 text-center">
+          Sed do eiusmod tempor incididunt ut labore et dolore.
+        </p>
       </div>
     )
   },
   {
-    type: 'card_grid',
-    label: 'Grille de Cartes',
-    description: 'Grille de cartes pour afficher du contenu',
-    icon: Grid3x3,
+    type: 'card_grid_date',
+    label: 'Card Grid Date',
+    description: 'Grille de cartes avec dates (événements, tours)',
+    icon: Calendar,
     preview: (
-      <div className="grid grid-cols-3 gap-2 p-4 bg-gray-50 rounded-lg">
-        {[1, 2, 3].map(i => (
-          <div key={i} className="bg-white p-3 rounded shadow-sm">
-            <div className="w-full h-16 bg-gray-200 rounded mb-2"></div>
-            <div className="h-2 bg-gray-300 rounded mb-1"></div>
-            <div className="h-2 bg-gray-200 rounded w-2/3"></div>
-          </div>
-        ))}
+      <div className="w-full bg-gray-50 p-4 rounded-lg">
+        <div className="grid grid-cols-3 gap-2">
+          {[1, 2, 3].map(i => (
+            <div key={i} className="bg-white p-2 rounded shadow-sm border">
+              <div className="w-full h-16 bg-gray-200 rounded mb-2"></div>
+              <div className="h-2 bg-gray-300 rounded mb-2"></div>
+              <div className="flex items-center gap-1">
+                <Calendar className="w-3 h-3 text-[#084F6E]" />
+                <div className="h-1.5 bg-[#3BA8AF] rounded w-12"></div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     )
   },
   {
     type: 'form',
-    label: 'Formulaire',
+    label: 'Form',
     description: 'Formulaire personnalisable avec champs dynamiques',
     icon: FormInput,
     preview: (
-      <div className="p-4 bg-gray-50 rounded-lg">
-        <h3 className="text-lg font-semibold mb-3">Formulaire de contact</h3>
+      <div className="w-full bg-gray-50 p-6 rounded-lg">
+        <h3 className="text-lg font-semibold mb-3">Formulaire</h3>
         <div className="space-y-2">
           <div className="h-8 bg-white border rounded"></div>
           <div className="h-8 bg-white border rounded"></div>
           <div className="h-20 bg-white border rounded"></div>
-          <div className="h-8 bg-blue-500 rounded w-32"></div>
+          <div className="h-8 bg-[#084F6E] rounded w-24"></div>
+        </div>
+      </div>
+    )
+  },
+  {
+    type: 'card_grid_price',
+    label: 'Card Grid Price',
+    description: 'Grille de cartes avec prix (produits, tours)',
+    icon: DollarSign,
+    preview: (
+      <div className="w-full bg-gray-50 p-4 rounded-lg">
+        <div className="grid grid-cols-3 gap-2">
+          {[1, 2, 3].map(i => (
+            <div key={i} className="bg-white p-2 rounded shadow-sm border">
+              <div className="w-full h-16 bg-gray-200 rounded mb-2"></div>
+              <div className="h-2 bg-gray-300 rounded mb-2"></div>
+              <div className="flex items-center gap-1">
+                <span className="text-[#084F6E] font-bold text-xs">฿</span>
+                <div className="h-2 bg-[#3BA8AF] rounded w-8"></div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     )
   },
   {
     type: 'advantages',
-    label: 'Avantages',
-    description: 'Section pour présenter vos avantages/points forts',
+    label: 'Text + Icones',
+    description: 'Section avec texte et icônes (avantages, caractéristiques)',
     icon: CheckCircle,
     preview: (
-      <div className="p-4 bg-gray-50 rounded-lg">
-        <h3 className="text-xl font-semibold mb-3 text-center">Nos Avantages</h3>
+      <div className="w-full bg-white p-6 rounded-lg border">
+        <h3 className="text-lg font-semibold mb-4 text-center">Nos Avantages</h3>
         <div className="grid grid-cols-2 gap-3">
           {[1, 2, 3, 4].map(i => (
             <div key={i} className="flex items-center gap-2">
-              <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-xs">✓</div>
-              <span className="text-sm">Avantage {i}</span>
+              <div className="w-6 h-6 bg-[#3BA8AF] rounded-full flex items-center justify-center text-white text-xs flex-shrink-0">✓</div>
+              <div className="h-2 bg-gray-300 rounded flex-1"></div>
             </div>
           ))}
+        </div>
+      </div>
+    )
+  },
+  {
+    type: 'text_image',
+    label: 'Text + Images',
+    description: 'Section avec texte et image côte à côte',
+    icon: Image,
+    preview: (
+      <div className="w-full bg-white p-4 rounded-lg border">
+        <div className="flex gap-3">
+          <div className="flex-1">
+            <div className="h-3 bg-gray-800 rounded mb-2 w-3/4"></div>
+            <div className="h-2 bg-gray-300 rounded mb-1"></div>
+            <div className="h-2 bg-gray-300 rounded mb-1"></div>
+            <div className="h-2 bg-gray-300 rounded w-2/3"></div>
+          </div>
+          <div className="w-24 h-20 bg-gray-200 rounded flex items-center justify-center flex-shrink-0">
+            <Image className="w-8 h-8 text-gray-400" />
+          </div>
         </div>
       </div>
     )
