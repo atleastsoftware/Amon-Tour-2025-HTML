@@ -57,6 +57,144 @@ const blockTypes: BlockType[] = [
         </div>
       </div>
     )
+  },
+  {
+    type: 'popular_experiences',
+    label: 'Card Grid Date',
+    description: 'Grille de cartes avec badges de durée',
+    icon: Calendar,
+    preview: (
+      <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
+        <div className="text-center mb-4">
+          <h2 className="font-bold text-lg mb-2" style={{ color: '#333333' }}>
+            Our exclusive experiences
+          </h2>
+          <div className="w-16 h-0.5 mx-auto mb-3" style={{ backgroundColor: '#3BA8AF' }}></div>
+          <p className="text-xs leading-relaxed" style={{ color: '#666666' }}>
+            Explore our finest experiences in Krabi, all guaranteed off the beaten path.
+          </p>
+        </div>
+        <div className="grid grid-cols-3 gap-2">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="bg-gray-100 rounded aspect-video relative">
+              <div className="absolute top-2 right-2 bg-white px-2 py-0.5 rounded text-xs">
+                1 jour
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  {
+    type: 'custom_tour_form',
+    label: 'Form',
+    description: 'Formulaire avec image et champs personnalisables',
+    icon: FormInput,
+    preview: (
+      <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
+        <div className="text-center mb-4">
+          <h2 className="font-bold text-lg mb-2" style={{ color: '#333333' }}>
+            Our Tailor-made trips
+          </h2>
+          <div className="w-16 h-0.5 mx-auto mb-3" style={{ backgroundColor: '#3BA8AF' }}></div>
+          <p className="text-xs leading-relaxed" style={{ color: '#666666' }}>
+            Design your own journey through Thailand.
+          </p>
+        </div>
+        <div className="grid grid-cols-2 gap-3">
+          <div className="bg-gradient-to-r from-[#084F6E] to-[#3BA8AF] rounded h-20"></div>
+          <div className="space-y-2">
+            <div className="h-6 bg-gray-100 rounded"></div>
+            <div className="h-6 bg-gray-100 rounded"></div>
+          </div>
+        </div>
+      </div>
+    )
+  },
+  {
+    type: 'tour_ninja_section',
+    label: 'Card Grid Price',
+    description: 'Grille de cartes avec badges de prix',
+    icon: DollarSign,
+    preview: (
+      <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
+        <div className="text-center mb-4">
+          <h2 className="font-bold text-lg mb-2" style={{ color: '#333333' }}>
+            Some Ideas For Your Next Trip
+          </h2>
+          <div className="w-16 h-0.5 mx-auto mb-3" style={{ backgroundColor: '#3BA8AF' }}></div>
+          <p className="text-xs leading-relaxed" style={{ color: '#666666' }}>
+            Get inspired by our custom-designed travel experiences.
+          </p>
+        </div>
+        <div className="grid grid-cols-3 gap-2">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="bg-gray-100 rounded aspect-video relative">
+              <div className="absolute top-2 right-2 bg-white px-2 py-0.5 rounded text-xs">
+                Prix sur demande
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  {
+    type: 'why_choose_us',
+    label: 'Text + Icones',
+    description: 'Section avec icônes, titres et descriptions',
+    icon: Sparkles,
+    preview: (
+      <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
+        <div className="text-center mb-4">
+          <h2 className="font-bold text-lg mb-2" style={{ color: '#333333' }}>
+            Why Choose Us
+          </h2>
+          <div className="w-16 h-0.5 mx-auto mb-3" style={{ backgroundColor: '#3BA8AF' }}></div>
+          <p className="text-xs leading-relaxed" style={{ color: '#666666' }}>
+            Experience an exclusive private day trip with our certified guides.
+          </p>
+        </div>
+        <div className="grid grid-cols-3 gap-3">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="text-center">
+              <div className="w-10 h-10 bg-[#084F6E] rounded-full mx-auto mb-2"></div>
+              <div className="text-xs font-semibold mb-1">Feature Title</div>
+              <div className="text-xs text-gray-500">Description</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  {
+    type: 'who_we_are',
+    label: 'Text + Images',
+    description: 'Section avec contenu texte et images',
+    icon: Image,
+    preview: (
+      <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <h2 className="font-bold text-base mb-2" style={{ color: '#333333' }}>
+              Who We Are
+            </h2>
+            <div className="w-12 h-0.5 mb-3" style={{ backgroundColor: '#3BA8AF' }}></div>
+            <p className="text-xs leading-relaxed mb-3" style={{ color: '#666666' }}>
+              We are a French family living in Krabi since 2013.
+            </p>
+            <h3 className="font-bold text-sm mb-1" style={{ color: '#333333' }}>
+              Deep Local Roots
+            </h3>
+            <p className="text-xs leading-relaxed" style={{ color: '#666666' }}>
+              We live here year-round, in the heart of the region we love.
+            </p>
+          </div>
+          <div className="bg-gradient-to-br from-[#084F6E] to-[#3BA8AF] rounded"></div>
+        </div>
+      </div>
+    )
   }
 ];
 
