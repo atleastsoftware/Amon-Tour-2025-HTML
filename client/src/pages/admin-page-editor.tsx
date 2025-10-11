@@ -823,8 +823,16 @@ function FormSelector({ selectedFormId, onFormSelect, pageSlug, blockId }: FormS
 
 // Real Component Previews - Using ACTUAL website components only
 const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: PageBlock; isFullscreen: boolean; liveConfiguration?: any }) => {
+  // Appeler tous les hooks au niveau du composant (règle de React)
+  const { tours: tourNinjaTours, isLoading: tourNinjaLoading } = useTourNinja();
+  
   const getActualComponent = () => {
-    switch (block.identifier) {
+    // Utiliser blockType pour les nouveaux blocs, identifier pour les anciens blocs hardcodés
+    const matchKey = block.identifier.includes('_') && block.identifier.match(/_\d+$/) 
+      ? block.blockType 
+      : block.identifier;
+    
+    switch (matchKey) {
       case 'hero_main':
         const heroConfig = liveConfiguration || block.configuration || {};
         
@@ -1153,7 +1161,8 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
 
       case 'popular_experiences':
         // Section "Our Popular Experiences" - Card Grid Date avec badges de jours
-        const { tours: realTours, isLoading: toursLoading } = useTourNinja();
+        const realTours = tourNinjaTours;
+        const toursLoading = tourNinjaLoading;
         
         // Utiliser liveConfiguration pour l'édition en temps réel, sinon block.configuration pour les données sauvegardées
         const popularConfig = liveConfiguration || block.configuration || {};
@@ -1472,7 +1481,8 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
 
       case 'tour_ninja_section':
         // Section "Some Ideas For Your Next Trip" - Card Grid Price avec badges de prix
-        const { tours: realToursPrice, isLoading: toursLoadingPrice } = useTourNinja();
+        const realToursPrice = tourNinjaTours;
+        const toursLoadingPrice = tourNinjaLoading;
         
         // Utiliser liveConfiguration pour l'édition en temps réel, sinon block.configuration pour les données sauvegardées
         const config = liveConfiguration || block.configuration || {};
