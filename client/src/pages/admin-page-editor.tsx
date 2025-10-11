@@ -1139,7 +1139,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                   style={{ backgroundColor: textConfig.dividerColor || '#3BA8AF' }}
                 ></div>
                 <p 
-                  className="text-lg leading-relaxed max-w-2xl mx-auto"
+                  className="text-lg leading-relaxed"
                   style={{ color: textConfig.contentColor || '#666666' }}
                 >
                   {textConfig.content || block.configuration?.content || block.content || "Ajoutez ici le contenu de votre section de texte. Vous pouvez décrire vos services, partager votre histoire, ou présenter des informations importantes."}
