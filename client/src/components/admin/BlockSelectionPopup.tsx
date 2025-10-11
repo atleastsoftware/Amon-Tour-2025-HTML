@@ -45,13 +45,13 @@ const blockTypes: BlockType[] = [
     description: 'Section de texte avec titre et contenu',
     icon: FileText,
     preview: (
-      <div className="w-full bg-white rounded-lg overflow-hidden border p-4">
-        <div className="text-center max-w-full mx-auto px-2">
+      <div className="w-full bg-white rounded-lg overflow-hidden border p-2">
+        <div className="text-center w-full px-1">
           <h2 className="font-bold text-lg mb-3" style={{ color: '#333333' }}>
             Titre de la section
           </h2>
           <div className="w-20 h-1 mx-auto mb-8" style={{ backgroundColor: '#3BA8AF' }}></div>
-          <p className="text-sm leading-relaxed" style={{ color: '#666666' }}>
+          <p className="text-base leading-relaxed" style={{ color: '#666666' }}>
             Ajoutez ici le contenu de votre section de texte. Vous pouvez décrire vos services, partager votre histoire, ou présenter des informations importantes.
           </p>
         </div>
