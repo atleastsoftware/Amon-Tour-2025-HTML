@@ -3365,6 +3365,8 @@ Crawl-delay: 1`;
             backgroundColor: '#ffffff',
             categoryFilter: 'all',
             showAllAds: false,
+            displayCountMobile: 4,
+            displayCountTablet: 4,
             displayCountDesktop: 6,
             mobileColumns: 1,
             tabletColumns: 2,
