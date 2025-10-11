@@ -3364,11 +3364,12 @@ Crawl-delay: 1`;
             dividerColor: '#3BA8AF',
             backgroundColor: '#ffffff',
             categoryFilter: 'all',
-            showAllAds: true,
+            showAllAds: false,
             displayCountDesktop: 6,
             mobileColumns: 1,
             tabletColumns: 2,
             desktopColumns: 3,
+            cardButtonColor: '#084F6E',
             buttonText: 'Bouton',
             buttonUrl: ''
           },
