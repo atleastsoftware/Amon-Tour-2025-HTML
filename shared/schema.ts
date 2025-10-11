@@ -594,6 +594,14 @@ export const blockTypeEnum = pgEnum("block_type", [
   "social_media",  // Liens sociaux
   "pdf_download",  // Téléchargement de PDF
   "interests",     // Section intérêts/destinations
+  
+  // Dynamic Page Builder Blocks
+  "popular_experiences", // Card Grid avec badges de durée
+  "custom_tour_form",    // Formulaire personnalisé avec image
+  "tour_ninja_section",  // Card Grid avec badges de prix
+  "why_choose_us",       // Section avec icônes et features
+  "who_we_are",          // Section texte + images (2 colonnes)
+  "expats_welcome",      // Section de bienvenue expats
 ]);
 
 // Enum pour les types de pages

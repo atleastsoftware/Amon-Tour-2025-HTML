@@ -67,11 +67,11 @@ const blockTypes: BlockType[] = [
       <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
         <div className="text-center mb-4">
           <h2 className="font-bold text-lg mb-2" style={{ color: '#333333' }}>
-            Our exclusive experiences
+            Titre de la section
           </h2>
           <div className="w-16 h-0.5 mx-auto mb-3" style={{ backgroundColor: '#3BA8AF' }}></div>
           <p className="text-xs leading-relaxed" style={{ color: '#666666' }}>
-            Explore our finest experiences in Krabi, all guaranteed off the beaten path.
+            Description de votre grille de cartes avec badges de durée.
           </p>
         </div>
         <div className="grid grid-cols-3 gap-2">
@@ -95,11 +95,11 @@ const blockTypes: BlockType[] = [
       <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
         <div className="text-center mb-4">
           <h2 className="font-bold text-lg mb-2" style={{ color: '#333333' }}>
-            Our Tailor-made trips
+            Titre du formulaire
           </h2>
           <div className="w-16 h-0.5 mx-auto mb-3" style={{ backgroundColor: '#3BA8AF' }}></div>
           <p className="text-xs leading-relaxed" style={{ color: '#666666' }}>
-            Design your own journey through Thailand.
+            Description de votre formulaire personnalisé.
           </p>
         </div>
         <div className="grid grid-cols-2 gap-3">
@@ -121,18 +121,18 @@ const blockTypes: BlockType[] = [
       <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
         <div className="text-center mb-4">
           <h2 className="font-bold text-lg mb-2" style={{ color: '#333333' }}>
-            Some Ideas For Your Next Trip
+            Titre de la section
           </h2>
           <div className="w-16 h-0.5 mx-auto mb-3" style={{ backgroundColor: '#3BA8AF' }}></div>
           <p className="text-xs leading-relaxed" style={{ color: '#666666' }}>
-            Get inspired by our custom-designed travel experiences.
+            Description de votre grille de cartes avec prix.
           </p>
         </div>
         <div className="grid grid-cols-3 gap-2">
           {[1, 2, 3].map((i) => (
             <div key={i} className="bg-gray-100 rounded aspect-video relative">
               <div className="absolute top-2 right-2 bg-white px-2 py-0.5 rounded text-xs">
-                Prix sur demande
+                Prix
               </div>
             </div>
           ))}
@@ -149,18 +149,18 @@ const blockTypes: BlockType[] = [
       <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
         <div className="text-center mb-4">
           <h2 className="font-bold text-lg mb-2" style={{ color: '#333333' }}>
-            Why Choose Us
+            Titre de la section
           </h2>
           <div className="w-16 h-0.5 mx-auto mb-3" style={{ backgroundColor: '#3BA8AF' }}></div>
           <p className="text-xs leading-relaxed" style={{ color: '#666666' }}>
-            Experience an exclusive private day trip with our certified guides.
+            Description de votre section avec icônes.
           </p>
         </div>
         <div className="grid grid-cols-3 gap-3">
           {[1, 2, 3].map((i) => (
             <div key={i} className="text-center">
               <div className="w-10 h-10 bg-[#084F6E] rounded-full mx-auto mb-2"></div>
-              <div className="text-xs font-semibold mb-1">Feature Title</div>
+              <div className="text-xs font-semibold mb-1">Titre</div>
               <div className="text-xs text-gray-500">Description</div>
             </div>
           ))}
@@ -178,17 +178,17 @@ const blockTypes: BlockType[] = [
         <div className="grid grid-cols-2 gap-4">
           <div>
             <h2 className="font-bold text-base mb-2" style={{ color: '#333333' }}>
-              Who We Are
+              Titre principal
             </h2>
             <div className="w-12 h-0.5 mb-3" style={{ backgroundColor: '#3BA8AF' }}></div>
             <p className="text-xs leading-relaxed mb-3" style={{ color: '#666666' }}>
-              We are a French family living in Krabi since 2013.
+              Ajoutez ici votre contenu texte principal.
             </p>
             <h3 className="font-bold text-sm mb-1" style={{ color: '#333333' }}>
-              Deep Local Roots
+              Sous-titre
             </h3>
             <p className="text-xs leading-relaxed" style={{ color: '#666666' }}>
-              We live here year-round, in the heart of the region we love.
+              Description supplémentaire pour votre section.
             </p>
           </div>
           <div className="bg-gradient-to-br from-[#084F6E] to-[#3BA8AF] rounded"></div>
