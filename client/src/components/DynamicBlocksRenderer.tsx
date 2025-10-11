@@ -77,7 +77,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
         const textConfig = block.configuration || {};
         return (
           <section key={block.id} className="py-20" style={{ backgroundColor: textConfig.backgroundColor || '#ffffff' }}>
-            <div className="container mx-auto px-4 text-center">
+            <div className="w-full px-8 md:px-16 lg:px-24 xl:px-32 text-center">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -95,7 +95,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                   style={{ backgroundColor: textConfig.dividerColor || '#3BA8AF' }}
                 ></div>
                 <p 
-                  className="text-lg leading-relaxed mx-auto"
+                  className="text-lg leading-relaxed"
                   style={{ color: textConfig.contentColor || '#666666' }}
                 >
                   {textConfig.content || block.content || 'Ajoutez ici le contenu de votre section de texte.'}
