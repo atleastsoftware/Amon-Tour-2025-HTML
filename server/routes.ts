@@ -3349,6 +3349,92 @@ Crawl-delay: 1`;
             textAlign: 'center'
           },
           isActive: false
+        },
+        popular_experiences: {
+          identifier: `popular_experiences_${Date.now()}`,
+          title: 'Our exclusive experiences',
+          blockType: 'popular_experiences',
+          configuration: { 
+            title: 'Our exclusive experiences',
+            subtitle: 'Step off the beaten path into carefully curated experiences beyond the tourist trail.',
+            titleColor: '#333333',
+            subtitleColor: '#666666',
+            dividerColor: '#3BA8AF',
+            backgroundColor: '#ffffff',
+            categoryFilter: 'all',
+            showAllAds: false,
+            displayCountDesktop: 6,
+            mobileColumns: 1,
+            tabletColumns: 2,
+            desktopColumns: 3
+          },
+          isActive: false
+        },
+        custom_tour_form: {
+          identifier: `custom_tour_form_${Date.now()}`,
+          title: 'Our Tailor-made trips',
+          subtitle: 'Design your own journey through Thailand with our tailor-made stays.',
+          blockType: 'custom_tour_form',
+          configuration: { 
+            title: 'Our Tailor-made trips',
+            subtitle: 'Design your own journey through Thailand with our tailor-made stays: from cultural discoveries and family adventures to romantic getaways and island escapes. Every itinerary is crafted to match your wishes, offering authentic experiences, quality services, and a unique immersion far from mass tourism.',
+            titleColor: '#333333',
+            subtitleColor: '#666666',
+            dividerColor: '#3BA8AF',
+            backgroundColor: '#ffffff',
+            formId: 2
+          },
+          isActive: false
+        },
+        tour_ninja_section: {
+          identifier: `tour_ninja_section_${Date.now()}`,
+          title: 'Some Ideas For Your Next Trip',
+          blockType: 'tour_ninja_section',
+          configuration: { 
+            title: 'Some Ideas For Your Next Trip',
+            subtitle: 'Get inspired by our custom-designed travel experiences.',
+            titleColor: '#333333',
+            subtitleColor: '#666666',
+            dividerColor: '#3BA8AF',
+            backgroundColor: '#f9fafb',
+            categoryFilter: 'all',
+            showAllAds: false,
+            displayCountDesktop: 6,
+            mobileColumns: 1,
+            tabletColumns: 2,
+            desktopColumns: 3
+          },
+          isActive: false
+        },
+        why_choose_us: {
+          identifier: `why_choose_us_${Date.now()}`,
+          title: 'Why Choose Us',
+          blockType: 'why_choose_us',
+          configuration: { 
+            title: 'Why Choose Us',
+            subtitle: 'Experience an exclusive private day trip with our English or French-speaking and certified guides.',
+            titleColor: '#333333',
+            subtitleColor: '#666666',
+            dividerColor: '#3BA8AF',
+            backgroundColor: '#ffffff',
+            iconBlocks: []
+          },
+          isActive: false
+        },
+        who_we_are: {
+          identifier: `who_we_are_${Date.now()}`,
+          title: 'Who We Are',
+          blockType: 'who_we_are',
+          configuration: { 
+            title: 'Who We Are',
+            titleColor: '#333333',
+            dividerColor: '#3BA8AF',
+            backgroundColor: '#ffffff',
+            sections: [],
+            imageUrl: '',
+            imageAlt: 'About us'
+          },
+          isActive: false
         }
       };
 
