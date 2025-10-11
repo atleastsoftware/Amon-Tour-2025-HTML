@@ -95,7 +95,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                   style={{ backgroundColor: textConfig.dividerColor || '#3BA8AF' }}
                 ></div>
                 <p 
-                  className="text-lg leading-relaxed max-w-2xl mx-auto"
+                  className="text-lg leading-relaxed max-w-4xl mx-auto"
                   style={{ color: textConfig.contentColor || '#666666' }}
                 >
                   {textConfig.content || block.content || 'Ajoutez ici le contenu de votre section de texte.'}
