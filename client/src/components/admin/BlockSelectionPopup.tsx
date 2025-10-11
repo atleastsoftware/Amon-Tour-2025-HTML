@@ -45,13 +45,13 @@ const blockTypes: BlockType[] = [
     description: 'Section de texte avec titre et contenu',
     icon: FileText,
     preview: (
-      <div className="w-full bg-white rounded-lg overflow-hidden border p-1">
-        <div className="text-center w-full">
-          <h2 className="font-bold text-lg mb-3" style={{ color: '#333333' }}>
+      <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
+        <div className="text-center max-w-2xl mx-auto">
+          <h2 className="font-bold text-lg mb-2" style={{ color: '#333333' }}>
             Titre de la section
           </h2>
-          <div className="w-20 h-1 mx-auto mb-8" style={{ backgroundColor: '#3BA8AF' }}></div>
-          <p className="text-base leading-relaxed px-1" style={{ color: '#666666' }}>
+          <div className="w-16 h-0.5 mx-auto mb-3" style={{ backgroundColor: '#3BA8AF' }}></div>
+          <p className="text-sm leading-relaxed" style={{ color: '#666666' }}>
             Ajoutez ici le contenu de votre section de texte. Vous pouvez décrire vos services, partager votre histoire, ou présenter des informations importantes.
           </p>
         </div>
@@ -114,10 +114,10 @@ export default function BlockSelectionPopup({ isOpen, onClose, onSelect }: Block
           </ScrollArea>
 
           {/* Prévisualisation */}
-          <div className="flex-1 border rounded-lg p-2 bg-gray-50 overflow-auto">
-            <h3 className="text-sm font-semibold mb-2 text-gray-700">Prévisualisation</h3>
+          <div className="flex-1 border rounded-lg p-4 bg-gray-50 overflow-auto">
+            <h3 className="text-sm font-semibold mb-3 text-gray-700">Prévisualisation</h3>
             {selectedBlock ? (
-              <div className="bg-white rounded-lg p-1 shadow-sm">
+              <div className="bg-white rounded-lg p-4 shadow-sm">
                 {selectedBlock.preview}
               </div>
             ) : (
