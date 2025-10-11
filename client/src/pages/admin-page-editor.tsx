@@ -463,7 +463,7 @@ function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitle
             ></div>
             {subtitle && (
               <p 
-                className="text-lg leading-relaxed max-w-2xl mx-auto"
+                className="text-lg leading-relaxed"
                 style={{
                   color: subtitleColor || '#666666'
                 }}
@@ -1216,7 +1216,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                   }}
                 ></div>
                 <p 
-                  className="text-lg leading-relaxed max-w-2xl mx-auto"
+                  className="text-lg leading-relaxed"
                   style={{
                     color: popularConfig.subtitleColor || '#666666'
                   }}
@@ -1536,7 +1536,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                     }}
                   ></div>
                   <p 
-                    className="text-lg leading-relaxed max-w-2xl mx-auto"
+                    className="text-lg leading-relaxed"
                     style={{
                       color: config.subtitleColor || '#666666'
                     }}
@@ -1723,7 +1723,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                     style={{ backgroundColor: featuresConfig.dividerColor || '#3BA8AF' }}
                   ></div>
                   <p 
-                    className="text-lg leading-relaxed max-w-2xl mx-auto"
+                    className="text-lg leading-relaxed"
                     style={{ color: featuresConfig.subtitleColor || '#666666' }}
                   >
 {featuresConfig.subtitle || 'Experience an exclusive private day trip with our English or French-speaking and certified guides.'}
