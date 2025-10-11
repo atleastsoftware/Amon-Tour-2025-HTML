@@ -1436,19 +1436,23 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                 )}
               </div>
               
-              {/* Bouton en bas de section */}
-              {popularConfig.buttonText && (
-                <div className="flex justify-center mt-8">
+              <div className="flex justify-center gap-4">
+                {/* Utilise les boutons configurés ou le bouton par défaut */}
+                {(liveConfiguration?.buttons?.length ? liveConfiguration.buttons : [{text: 'View All Our Tours', url: '/tours', color: '#084F6E', style: 'filled'}]).map((button: any, index: number) => (
                   <button 
+                    key={index}
                     className="text-white px-8 py-3 rounded-lg font-heading font-semibold hover:opacity-90 transition-colors"
                     style={{
-                      backgroundColor: popularConfig.dividerColor || '#3BA8AF'
+                      backgroundColor: button.style === 'outline' ? 'transparent' : (button.color || '#084F6E'),
+                      borderColor: button.style === 'outline' ? (button.color || '#084F6E') : 'transparent',
+                      border: button.style === 'outline' ? '2px solid' : 'none',
+                      color: button.style === 'outline' ? (button.color || '#084F6E') : 'white'
                     }}
                   >
-                    {popularConfig.buttonText}
+                    {button.text}
                   </button>
-                </div>
-              )}
+                ))}
+              </div>
             </div>
           </section>
         );
@@ -3717,26 +3721,107 @@ const BlockEditDropdown = ({
               </div>
             </div>
 
-            {/* Bouton */}
-            <div className="space-y-3 border-t pt-4">
-              <Label className="text-sm font-medium">Bouton en bas de section</Label>
-              <div>
-                <Label className="text-xs text-gray-500">Texte du bouton</Label>
-                <Input 
-                  value={formData.buttonText || ''} 
-                  onChange={e => updateField('buttonText', e.target.value)}
-                  placeholder="Bouton"
-                  className="mt-2"
-                />
+            {/* Boutons d'action */}
+            <div>
+              <div className="flex items-center justify-between mb-3">
+                <Label>Boutons d'action</Label>
+                <Button 
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    const buttons = formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#084F6E', style: 'filled'}];
+                    updateField('buttons', [...buttons, {text: 'Nouveau bouton', url: '#', color: '#084F6E', style: 'filled'}]);
+                  }}
+                >
+                  <Plus className="h-4 w-4 mr-1" /> Ajouter un bouton
+                </Button>
               </div>
-              <div>
-                <Label className="text-xs text-gray-500">URL du bouton</Label>
-                <Input 
-                  value={formData.buttonUrl || ''} 
-                  onChange={e => updateField('buttonUrl', e.target.value)}
-                  placeholder="Laisser vide si pas d'URL"
-                  className="mt-2"
-                />
+              
+              <div className="space-y-3">
+                {(formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#084F6E', style: 'filled'}]).map((button: any, index: number) => (
+                  <div key={index} className="border rounded-lg p-4 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <Label className="text-sm font-medium">Bouton {index + 1}</Label>
+                      <Button 
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {
+                          const buttons = formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#084F6E', style: 'filled'}];
+                          const newButtons = buttons.filter((_: any, i: number) => i !== index);
+                          updateField('buttons', newButtons);
+                        }}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  
+                  <div className="grid grid-cols-2 gap-2">
+                    <div>
+                      <Label className="text-xs">Texte</Label>
+                      <Input 
+                        value={button.text || ''} 
+                        onChange={e => {
+                          const buttons = formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#084F6E', style: 'filled'}];
+                          const newButtons = [...buttons];
+                          newButtons[index] = { ...newButtons[index], text: e.target.value };
+                          updateField('buttons', newButtons);
+                        }}
+                        className="h-10"
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-xs">URL</Label>
+                      <Input 
+                        value={button.url || ''} 
+                        onChange={e => {
+                          const buttons = formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#084F6E', style: 'filled'}];
+                          const newButtons = [...buttons];
+                          newButtons[index] = { ...newButtons[index], url: e.target.value };
+                          updateField('buttons', newButtons);
+                        }}
+                        className="h-10"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-2">
+                    <div>
+                      <Label className="text-xs">Couleur</Label>
+                      <ColorPicker
+                        value={button.color || '#084F6E'}
+                        onChange={(value) => {
+                          const buttons = formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#084F6E', style: 'filled'}];
+                          const newButtons = [...buttons];
+                          newButtons[index] = { ...newButtons[index], color: value };
+                          updateField('buttons', newButtons);
+                        }}
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-xs">Style</Label>
+                      <Select 
+                        value={button.style || 'filled'} 
+                        onValueChange={value => {
+                          const buttons = formData.buttons || [{text: 'View All Our Tours', url: '/tours', color: '#084F6E', style: 'filled'}];
+                          const newButtons = [...buttons];
+                          newButtons[index] = { ...newButtons[index], style: value };
+                          updateField('buttons', newButtons);
+                        }}
+                      >
+                        <SelectTrigger className="h-10">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="filled">Plein</SelectItem>
+                          <SelectItem value="outline">Contour</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
