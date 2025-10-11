@@ -3383,16 +3383,16 @@ Crawl-delay: 1`;
         custom_tour_form: {
           identifier: `custom_tour_form_${Date.now()}`,
           title: 'Form',
-          subtitle: 'Design your own journey through Thailand with our tailor-made stays.',
+          subtitle: 'Description de votre formulaire personnalisé.',
           blockType: 'custom_tour_form',
           configuration: { 
-            title: 'Our Tailor-made trips',
-            subtitle: 'Design your own journey through Thailand with our tailor-made stays: from cultural discoveries and family adventures to romantic getaways and island escapes. Every itinerary is crafted to match your wishes, offering authentic experiences, quality services, and a unique immersion far from mass tourism.',
+            title: 'Titre du formulaire',
+            subtitle: 'Description de votre formulaire personnalisé.',
             titleColor: '#333333',
             subtitleColor: '#666666',
             dividerColor: '#3BA8AF',
             backgroundColor: '#ffffff',
-            formId: 2
+            formId: null
           },
           isActive: false
         },
