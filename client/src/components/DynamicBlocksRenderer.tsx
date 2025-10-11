@@ -77,7 +77,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
         const textConfig = block.configuration || {};
         return (
           <section key={block.id} className="py-20" style={{ backgroundColor: textConfig.backgroundColor || '#ffffff' }}>
-            <div className="w-full px-8 md:px-16 lg:px-24 xl:px-32 text-center">
+            <div className="container mx-auto px-4 max-w-4xl text-center">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
