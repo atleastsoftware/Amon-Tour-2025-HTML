@@ -5,7 +5,6 @@ import Gallery from "@/components/ui/Gallery";
 
 // Lazy load form components
 const CruiseForm = lazy(() => import("@/components/CruiseForm"));
-const CruiseQuoteForm = lazy(() => import("@/components/CruiseQuoteForm"));
 const CatamaranExperience = lazy(() => import("@/components/CatamaranExperience"));
 const SeasonalPricing = lazy(() => import("@/components/SeasonalPricing"));
 
@@ -246,26 +245,6 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
 
       case 'form':
       case 'custom_form':
-        // Handle cruise quote form
-        if (block.identifier === 'cruise_quote_form') {
-          const config = block.configuration || {};
-          return (
-            <div key={block.id} id={block.identifier || undefined} className="w-full">
-              <Suspense fallback={
-                <div className="flex justify-center py-8">
-                  <Loader2 className="h-8 w-8 animate-spin text-primary" />
-                </div>
-              }>
-                <CruiseQuoteForm 
-                  title={config.title || block.title}
-                  subtitle={config.subtitle || block.subtitle}
-                  titleColor={config.titleColor}
-                  subtitleColor={config.subtitleColor}
-                />
-              </Suspense>
-            </div>
-          );
-        }
         // Handle cruise form
         if (block.configuration?.formType === 'cruise' || block.identifier === 'cruise-form') {
           return (
