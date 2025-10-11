@@ -444,7 +444,7 @@ function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitle
       <div className="container mx-auto px-4">
         {/* Header Section */}
         {(title || subtitle) && (
-          <div className="text-center mb-12">
+          <div className="text-center mb-12 max-w-4xl mx-auto">
             {title && (
               <h2 
                 className="font-heading font-bold text-3xl md:text-4xl mb-3"
@@ -1194,7 +1194,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         
         return (
           <section id="tours" className="py-16" style={{ backgroundColor: popularConfig.backgroundColor || '#ffffff' }}>
-            <div className="container mx-auto px-4 text-center mb-8">
+            <div className="container mx-auto px-4 max-w-4xl text-center mb-8">
               <motion.div
                 initial={{ y: -20, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
@@ -1514,7 +1514,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         return (
           <section className="py-16" style={{ backgroundColor: config.backgroundColor || '#f9fafb' }}>
             <div className="container mx-auto px-4">
-              <div className="text-center mb-12">
+              <div className="text-center mb-12 max-w-4xl mx-auto">
                 <motion.div
                   initial={{ y: -20, opacity: 0 }}
                   whileInView={{ y: 0, opacity: 1 }}
@@ -1705,7 +1705,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         return (
           <section className="py-16" style={{ backgroundColor: featuresConfig.backgroundColor || '#ffffff' }}>
             <div className="container mx-auto px-4">
-              <div className="text-center mb-12">
+              <div className="text-center mb-12 max-w-4xl mx-auto">
                 <motion.div 
                   initial={{ y: -20, opacity: 0 }}
                   whileInView={{ y: 0, opacity: 1 }}
