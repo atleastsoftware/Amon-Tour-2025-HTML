@@ -1436,17 +1436,33 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                 )}
               </div>
               
-              {/* Bouton en bas de section */}
+              {/* Bouton d'action en bas de section */}
               {popularConfig.buttonText && (
                 <div className="flex justify-center mt-8">
-                  <button 
-                    className="text-white px-8 py-3 rounded-lg font-heading font-semibold hover:opacity-90 transition-colors"
-                    style={{
-                      backgroundColor: popularConfig.dividerColor || '#3BA8AF'
-                    }}
-                  >
-                    {popularConfig.buttonText}
-                  </button>
+                  {popularConfig.buttonUrl ? (
+                    <a 
+                      href={popularConfig.buttonUrl}
+                      className="px-8 py-3 rounded-lg font-heading font-semibold hover:opacity-90 transition-all"
+                      style={{
+                        backgroundColor: popularConfig.buttonStyle === 'outline' ? 'transparent' : (popularConfig.buttonBackgroundColor || '#084F6E'),
+                        color: popularConfig.buttonStyle === 'outline' ? (popularConfig.buttonBackgroundColor || '#084F6E') : (popularConfig.buttonTextColor || '#ffffff'),
+                        border: popularConfig.buttonStyle === 'outline' ? `2px solid ${popularConfig.buttonBackgroundColor || '#084F6E'}` : 'none'
+                      }}
+                    >
+                      {popularConfig.buttonText}
+                    </a>
+                  ) : (
+                    <button 
+                      className="px-8 py-3 rounded-lg font-heading font-semibold hover:opacity-90 transition-all"
+                      style={{
+                        backgroundColor: popularConfig.buttonStyle === 'outline' ? 'transparent' : (popularConfig.buttonBackgroundColor || '#084F6E'),
+                        color: popularConfig.buttonStyle === 'outline' ? (popularConfig.buttonBackgroundColor || '#084F6E') : (popularConfig.buttonTextColor || '#ffffff'),
+                        border: popularConfig.buttonStyle === 'outline' ? `2px solid ${popularConfig.buttonBackgroundColor || '#084F6E'}` : 'none'
+                      }}
+                    >
+                      {popularConfig.buttonText}
+                    </button>
+                  )}
                 </div>
               )}
             </div>
@@ -3717,15 +3733,15 @@ const BlockEditDropdown = ({
               </div>
             </div>
 
-            {/* Bouton */}
+            {/* Bouton d'action */}
             <div className="space-y-3 border-t pt-4">
-              <Label className="text-sm font-medium">Bouton en bas de section</Label>
+              <Label className="text-sm font-medium">Bouton d'action en bas de section</Label>
               <div>
                 <Label className="text-xs text-gray-500">Texte du bouton</Label>
                 <Input 
                   value={formData.buttonText || ''} 
                   onChange={e => updateField('buttonText', e.target.value)}
-                  placeholder="Bouton"
+                  placeholder="Voir tous les tours"
                   className="mt-2"
                 />
               </div>
@@ -3734,9 +3750,42 @@ const BlockEditDropdown = ({
                 <Input 
                   value={formData.buttonUrl || ''} 
                   onChange={e => updateField('buttonUrl', e.target.value)}
-                  placeholder="Laisser vide si pas d'URL"
+                  placeholder="/tours"
                   className="mt-2"
                 />
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <Label className="text-xs text-gray-500">Couleur du bouton</Label>
+                  <ColorPicker
+                    value={formData.buttonBackgroundColor || '#084F6E'}
+                    onChange={(value) => updateField('buttonBackgroundColor', value)}
+                    label=""
+                  />
+                </div>
+                <div>
+                  <Label className="text-xs text-gray-500">Couleur du texte</Label>
+                  <ColorPicker
+                    value={formData.buttonTextColor || '#ffffff'}
+                    onChange={(value) => updateField('buttonTextColor', value)}
+                    label=""
+                  />
+                </div>
+              </div>
+              <div>
+                <Label className="text-xs text-gray-500">Style du bouton</Label>
+                <Select 
+                  value={formData.buttonStyle || 'solid'} 
+                  onValueChange={value => updateField('buttonStyle', value)}
+                >
+                  <SelectTrigger className="mt-2">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="solid">Plein</SelectItem>
+                    <SelectItem value="outline">Contour</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
           </div>
