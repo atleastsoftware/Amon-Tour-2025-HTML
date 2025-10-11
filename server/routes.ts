@@ -3357,38 +3357,34 @@ Crawl-delay: 1`;
           title: 'Card Grid Date',
           blockType: 'popular_experiences',
           configuration: { 
-            title: 'Titre de la section',
-            subtitle: 'Description de la section pour introduire vos annonces.',
+            title: 'Our exclusive experiences',
+            subtitle: 'Step off the beaten path into carefully curated experiences beyond the tourist trail.',
             titleColor: '#333333',
             subtitleColor: '#666666',
             dividerColor: '#3BA8AF',
             backgroundColor: '#ffffff',
-            cardTitleColor: '#084F6E',
-            cardSubtitleColor: '#666666',
             categoryFilter: 'all',
             showAllAds: false,
             displayCountDesktop: 6,
             mobileColumns: 1,
             tabletColumns: 2,
-            desktopColumns: 3,
-            ctaText: 'Bouton',
-            ctaUrl: ''
+            desktopColumns: 3
           },
           isActive: false
         },
         custom_tour_form: {
           identifier: `custom_tour_form_${Date.now()}`,
           title: 'Form',
-          subtitle: 'Formulaire personnalisable pour vos demandes.',
+          subtitle: 'Design your own journey through Thailand with our tailor-made stays.',
           blockType: 'custom_tour_form',
           configuration: { 
-            title: 'Titre du formulaire',
-            subtitle: 'Description du formulaire pour expliquer son utilité à vos visiteurs.',
+            title: 'Our Tailor-made trips',
+            subtitle: 'Design your own journey through Thailand with our tailor-made stays: from cultural discoveries and family adventures to romantic getaways and island escapes. Every itinerary is crafted to match your wishes, offering authentic experiences, quality services, and a unique immersion far from mass tourism.',
             titleColor: '#333333',
             subtitleColor: '#666666',
             dividerColor: '#3BA8AF',
             backgroundColor: '#ffffff',
-            formId: null
+            formId: 2
           },
           isActive: false
         },
@@ -3397,22 +3393,18 @@ Crawl-delay: 1`;
           title: 'Card Grid Price',
           blockType: 'tour_ninja_section',
           configuration: { 
-            title: 'Titre de la section',
-            subtitle: 'Description de la section pour introduire vos annonces.',
+            title: 'Some Ideas For Your Next Trip',
+            subtitle: 'Get inspired by our custom-designed travel experiences.',
             titleColor: '#333333',
             subtitleColor: '#666666',
             dividerColor: '#3BA8AF',
             backgroundColor: '#f9fafb',
-            cardTitleColor: '#084F6E',
-            cardSubtitleColor: '#666666',
             categoryFilter: 'all',
             showAllAds: false,
             displayCountDesktop: 6,
             mobileColumns: 1,
             tabletColumns: 2,
-            desktopColumns: 3,
-            ctaText: 'Bouton',
-            ctaUrl: ''
+            desktopColumns: 3
           },
           isActive: false
         },
@@ -3421,8 +3413,8 @@ Crawl-delay: 1`;
           title: 'Text + Icones',
           blockType: 'why_choose_us',
           configuration: { 
-            title: 'Titre de la section',
-            subtitle: 'Description de la section pour introduire vos avantages.',
+            title: 'Why Choose Us',
+            subtitle: 'Experience an exclusive private day trip with our English or French-speaking and certified guides.',
             titleColor: '#333333',
             subtitleColor: '#666666',
             dividerColor: '#3BA8AF',
@@ -3436,13 +3428,13 @@ Crawl-delay: 1`;
           title: 'Text + Images',
           blockType: 'who_we_are',
           configuration: { 
-            title: 'Titre de la section',
+            title: 'Who We Are',
             titleColor: '#333333',
             dividerColor: '#3BA8AF',
             backgroundColor: '#ffffff',
             sections: [],
             imageUrl: '',
-            imageAlt: 'Image de la section'
+            imageAlt: 'About us'
           },
           isActive: false
         }
