@@ -46,7 +46,7 @@ const blockTypes: BlockType[] = [
     icon: FileText,
     preview: (
       <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
-        <div className="text-center max-w-2xl mx-auto">
+        <div className="text-center max-w-4xl mx-auto">
           <h2 className="font-bold text-lg mb-2" style={{ color: '#333333' }}>
             Titre de la section
           </h2>
