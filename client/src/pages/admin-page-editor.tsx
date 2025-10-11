@@ -233,9 +233,11 @@ const getBlockDisplayName = (block: PageBlock): string => {
     'testimonials': 'Testimonials',
     'features': 'Features',
     'about': 'About',
-    'custom_tour_form': 'Custom Tour Form',
-    'who_we_are': 'Article',
+    'popular_experiences': 'Card Grid Date',
+    'custom_tour_form': 'Form',
+    'tour_ninja_section': 'Card Grid Price',
     'why_choose_us': 'Text + Icones',
+    'who_we_are': 'Text + Images',
     'travelers_reviews': 'Reviews'
   };
   
@@ -2546,7 +2548,12 @@ const BlockEditDropdown = ({
   };
 
   const renderEditFields = () => {
-    switch (block.identifier) {
+    // Utiliser blockType pour les nouveaux blocs, identifier pour les anciens blocs hardcodés
+    const matchKey = block.identifier.includes('_') && block.identifier.match(/_\d+$/) 
+      ? block.blockType 
+      : block.identifier;
+    
+    switch (matchKey) {
       case 'hero_main':
         return (
           <div className="space-y-6">
