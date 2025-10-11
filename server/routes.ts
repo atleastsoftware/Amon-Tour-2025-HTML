@@ -3255,6 +3255,8 @@ Crawl-delay: 1`;
     try {
       const { blockType, position, pageId, pageSlug } = req.body;
       
+      console.log(`[INSERT BLOCK] Received blockType: ${blockType}, position: ${position}`);
+      
       // Validate required fields
       if (!blockType || position === undefined || (!pageId && !pageSlug)) {
         return res.status(400).json({ message: "Missing required fields: blockType, position, and (pageId or pageSlug)" });
