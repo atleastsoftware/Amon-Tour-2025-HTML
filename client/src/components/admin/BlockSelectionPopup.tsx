@@ -52,7 +52,7 @@ const blockTypes: BlockType[] = [
           </h2>
           <div className="w-16 h-0.5 mx-auto mb-3" style={{ backgroundColor: '#3BA8AF' }}></div>
           <p className="text-sm leading-relaxed" style={{ color: '#666666' }}>
-            Ajoutez ici le contenu de votre section de texte. Vous pouvez décrire vos services, partager votre histoire, présenter des informations importantes à vos visiteurs, ou encore détailler les avantages de votre offre. Ce bloc de texte est parfait pour communiquer votre message de manière claire et professionnelle. Personnalisez le titre, le contenu et les couleurs selon vos besoins pour créer une section qui reflète parfaitement votre identité visuelle.
+            Ajoutez ici le contenu de votre section de texte. Vous pouvez décrire vos services, partager votre histoire, ou présenter des informations importantes.
           </p>
         </div>
       </div>
