@@ -36,7 +36,6 @@ const cruiseFormSchema = z.object({
   duration: z.string().min(1, "Duration required"),
   preferredDates: z.string().optional(),
   itinerary: z.string().optional(),
-  budget: z.string().optional(),
   specialRequests: z.string().optional(),
 });
 
@@ -48,7 +47,6 @@ type CruiseFormData = {
   duration: string;
   preferredDates?: string;
   itinerary?: string;
-  budget?: string;
   specialRequests?: string;
 };
 
@@ -67,7 +65,6 @@ export default function CruiseForm() {
       duration: "",
       preferredDates: "",
       itinerary: "",
-      budget: "",
       specialRequests: "",
     },
   });
@@ -118,10 +115,6 @@ export default function CruiseForm() {
 
     if (data.preferredDates) {
       lines.push(`📅 *Preferred Dates:* ${data.preferredDates}`);
-    }
-
-    if (data.budget) {
-      lines.push(`💰 *Budget:* ${data.budget}`);
     }
 
     if (data.itinerary) {
@@ -273,29 +266,6 @@ export default function CruiseForm() {
                 )}
               />
             </div>
-
-            <FormField
-              control={form.control}
-              name="budget"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{cruise.approximateBudget}</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder={cruise.selectSeason} />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="low">{cruise.lowSeasonOption}</SelectItem>
-                      <SelectItem value="high">{cruise.highSeasonOption}</SelectItem>
-                      <SelectItem value="very_high">{cruise.veryHighSeasonOption}</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
 
             <FormField
               control={form.control}
