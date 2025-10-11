@@ -3382,7 +3382,7 @@ Crawl-delay: 1`;
         },
         custom_tour_form: {
           identifier: `custom_tour_form_${Date.now()}`,
-          title: 'Form',
+          title: 'Titre du formulaire',
           subtitle: 'Description de votre formulaire personnalisé.',
           blockType: 'custom_tour_form',
           configuration: { 
