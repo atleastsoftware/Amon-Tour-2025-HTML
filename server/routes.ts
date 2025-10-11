@@ -3357,18 +3357,20 @@ Crawl-delay: 1`;
           title: 'Card Grid Date',
           blockType: 'popular_experiences',
           configuration: { 
-            title: 'Our exclusive experiences',
-            subtitle: 'Step off the beaten path into carefully curated experiences beyond the tourist trail.',
+            title: 'Titre de la section',
+            subtitle: 'Description de votre grille de cartes avec badges de durée',
             titleColor: '#333333',
             subtitleColor: '#666666',
             dividerColor: '#3BA8AF',
             backgroundColor: '#ffffff',
             categoryFilter: 'all',
-            showAllAds: false,
+            showAllAds: true,
             displayCountDesktop: 6,
             mobileColumns: 1,
             tabletColumns: 2,
-            desktopColumns: 3
+            desktopColumns: 3,
+            buttonText: 'Bouton',
+            buttonUrl: ''
           },
           isActive: false
         },
