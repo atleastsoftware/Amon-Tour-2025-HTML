@@ -3354,7 +3354,7 @@ Crawl-delay: 1`;
         },
         popular_experiences: {
           identifier: `popular_experiences_${Date.now()}`,
-          title: 'Our exclusive experiences',
+          title: 'Card Grid Date',
           blockType: 'popular_experiences',
           configuration: { 
             title: 'Our exclusive experiences',
@@ -3374,7 +3374,7 @@ Crawl-delay: 1`;
         },
         custom_tour_form: {
           identifier: `custom_tour_form_${Date.now()}`,
-          title: 'Our Tailor-made trips',
+          title: 'Form',
           subtitle: 'Design your own journey through Thailand with our tailor-made stays.',
           blockType: 'custom_tour_form',
           configuration: { 
@@ -3390,7 +3390,7 @@ Crawl-delay: 1`;
         },
         tour_ninja_section: {
           identifier: `tour_ninja_section_${Date.now()}`,
-          title: 'Some Ideas For Your Next Trip',
+          title: 'Card Grid Price',
           blockType: 'tour_ninja_section',
           configuration: { 
             title: 'Some Ideas For Your Next Trip',
@@ -3410,7 +3410,7 @@ Crawl-delay: 1`;
         },
         why_choose_us: {
           identifier: `why_choose_us_${Date.now()}`,
-          title: 'Why Choose Us',
+          title: 'Text + Icones',
           blockType: 'why_choose_us',
           configuration: { 
             title: 'Why Choose Us',
@@ -3425,7 +3425,7 @@ Crawl-delay: 1`;
         },
         who_we_are: {
           identifier: `who_we_are_${Date.now()}`,
-          title: 'Who We Are',
+          title: 'Text + Images',
           blockType: 'who_we_are',
           configuration: { 
             title: 'Who We Are',

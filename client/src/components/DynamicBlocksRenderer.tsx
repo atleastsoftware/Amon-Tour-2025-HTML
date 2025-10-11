@@ -8,6 +8,12 @@ const CruiseForm = lazy(() => import("@/components/CruiseForm"));
 const CatamaranExperience = lazy(() => import("@/components/CatamaranExperience"));
 const SeasonalPricing = lazy(() => import("@/components/SeasonalPricing"));
 
+// Import components for new block types
+const Features = lazy(() => import("@/components/home/Features"));
+const About = lazy(() => import("@/components/home/About"));
+const TourNinjaSection = lazy(() => import("@/components/tour/TourNinjaSection"));
+const CustomTourForm = lazy(() => import("@/components/home/CustomTourForm"));
+
 interface PageBlock {
   id: number;
   blockType: string;
@@ -326,6 +332,71 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                 />
               )}
             </div>
+          </div>
+        );
+
+      case 'popular_experiences':
+        return (
+          <div key={block.id} className="w-full">
+            <Suspense fallback={
+              <div className="flex justify-center py-8">
+                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+              </div>
+            }>
+              <TourNinjaSection />
+            </Suspense>
+          </div>
+        );
+
+      case 'custom_tour_form':
+        return (
+          <div key={block.id} className="w-full">
+            <Suspense fallback={
+              <div className="flex justify-center py-8">
+                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+              </div>
+            }>
+              <CustomTourForm />
+            </Suspense>
+          </div>
+        );
+
+      case 'tour_ninja_section':
+        return (
+          <div key={block.id} className="w-full">
+            <Suspense fallback={
+              <div className="flex justify-center py-8">
+                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+              </div>
+            }>
+              <TourNinjaSection />
+            </Suspense>
+          </div>
+        );
+
+      case 'why_choose_us':
+        return (
+          <div key={block.id} className="w-full">
+            <Suspense fallback={
+              <div className="flex justify-center py-8">
+                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+              </div>
+            }>
+              <Features />
+            </Suspense>
+          </div>
+        );
+
+      case 'who_we_are':
+        return (
+          <div key={block.id} className="w-full">
+            <Suspense fallback={
+              <div className="flex justify-center py-8">
+                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+              </div>
+            }>
+              <About />
+            </Suspense>
           </div>
         );
 
