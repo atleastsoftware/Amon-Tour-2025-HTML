@@ -6,6 +6,7 @@ import { Separator } from '@/components/ui/separator';
 import { ArrowLeft, Edit, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Save, Undo, Trash2, AlertTriangle, Plus, ExternalLink, ChevronRight, Users, Compass, Sparkles, Star, Heart, FormInput } from 'lucide-react';
 import BlockSelectionPopup from '@/components/admin/BlockSelectionPopup';
 import TourNinjaCard from '@/components/tour/TourNinjaCard';
+import URLInput from '@/components/admin/URLInput';
 import { useTourNinja } from '@/hooks/useTourNinja';
 
 // Couleurs principales du thème
@@ -3842,12 +3843,10 @@ const BlockEditDropdown = ({
                 />
               </div>
               <div>
-                <Label className="text-xs text-gray-500">URL du bouton</Label>
-                <Input 
-                  value={formData.buttonUrl || ''} 
-                  onChange={e => updateField('buttonUrl', e.target.value)}
-                  placeholder="/tours"
-                  className="mt-2"
+                <URLInput
+                  label="URL du bouton"
+                  value={formData.buttonUrl || ''}
+                  onChange={(value) => updateField('buttonUrl', value)}
                 />
               </div>
               <div className="grid grid-cols-2 gap-3">
@@ -4148,12 +4147,10 @@ const BlockEditDropdown = ({
                 />
               </div>
               <div>
-                <Label className="text-xs text-gray-500">URL du bouton</Label>
-                <Input 
-                  value={formData.buttonUrl || ''} 
-                  onChange={e => updateField('buttonUrl', e.target.value)}
-                  placeholder="/tours"
-                  className="mt-2"
+                <URLInput
+                  label="URL du bouton"
+                  value={formData.buttonUrl || ''}
+                  onChange={(value) => updateField('buttonUrl', value)}
                 />
               </div>
               <div className="grid grid-cols-2 gap-3">
@@ -5265,12 +5262,12 @@ const BlockEditDropdown = ({
                           />
                         </div>
                         <div>
-                          <Label className="text-sm">URL</Label>
-                          <Input 
-                            value={button.url || ''} 
-                            onChange={e => {
+                          <URLInput
+                            label="URL"
+                            value={button.url || ''}
+                            onChange={(value) => {
                               const updated = [...whoWeAreButtons];
-                              updated[index].url = e.target.value;
+                              updated[index].url = value;
                               updateField('buttons', updated);
                             }}
                           />
