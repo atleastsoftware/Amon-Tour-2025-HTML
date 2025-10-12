@@ -226,7 +226,10 @@ export default function BlockSelectionPopup({ isOpen, onClose, onSelect }: Block
     onClose();
   };
 
-  const selectedBlock = blockTypes.find(b => b.type === selectedType);
+  // Trier les blocs par ordre alphabétique
+  const sortedBlockTypes = [...blockTypes].sort((a, b) => a.label.localeCompare(b.label));
+  
+  const selectedBlock = sortedBlockTypes.find(b => b.type === selectedType);
 
   return (
     <Dialog open={isOpen} onOpenChange={handleCancel}>
@@ -239,7 +242,7 @@ export default function BlockSelectionPopup({ isOpen, onClose, onSelect }: Block
           {/* Liste des types de blocs */}
           <ScrollArea className="w-56 border rounded-lg flex-shrink-0">
             <div className="p-2 space-y-1.5">
-              {blockTypes.map((blockType) => {
+              {sortedBlockTypes.map((blockType) => {
                 return (
                   <Card
                     key={blockType.type}
