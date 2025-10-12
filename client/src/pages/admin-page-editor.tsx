@@ -222,9 +222,9 @@ const getBlockDisplayName = (block: PageBlock): string => {
     return cardGridNames[block.identifier] || 'Card Grid';
   }
   
-  // Pour les formulaires personnalisés, utiliser le titre du bloc
+  // Pour les formulaires personnalisés, toujours afficher "Form"
   if (block.blockType === 'custom_tour_form') {
-    return block.title || block.configuration?.title || 'Form';
+    return 'Form';
   }
   
   // Sinon utiliser le blockType normal
