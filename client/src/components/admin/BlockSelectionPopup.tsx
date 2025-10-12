@@ -158,9 +158,9 @@ const blockTypes: BlockType[] = [
         </div>
         <div className="grid grid-cols-3 gap-3">
           {[
-            { icon: 'fas fa-users' },
+            { icon: 'fas fa-user-friends' },
             { icon: 'fas fa-compass' },
-            { icon: 'fas fa-heart' }
+            { icon: 'fas fa-sparkles' }
           ].map((item, i) => (
             <div key={i} className="text-center border rounded-lg p-3 bg-white">
               <div className="w-10 h-10 bg-[#084F6E] rounded-full mx-auto mb-2 flex items-center justify-center">
