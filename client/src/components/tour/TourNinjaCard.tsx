@@ -37,6 +37,7 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
   // État pour la gestion du fallback automatique
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showPlaceholder, setShowPlaceholder] = useState(false);
+  const [isImageLoading, setIsImageLoading] = useState(true);
   const triedUrls = useRef(new Set<string>());
   
   // Source d'image actuelle
@@ -67,6 +68,7 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
       const nextUrl = imageCandidates[nextIndex];
       if (!triedUrls.current.has(nextUrl)) {
         console.log(`🔄 Trying next image for tour ${tour.name}:`, nextUrl);
+        setIsImageLoading(true);
         setCurrentImageIndex(nextIndex);
         return;
       }
@@ -74,11 +76,13 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
 
     // Si tous les candidats ont échoué, afficher le placeholder
     console.log(`❌ All image sources failed for tour ${tour.name}, showing placeholder`);
+    setIsImageLoading(false);
     setShowPlaceholder(true);
   }, [currentImageSrc, currentImageIndex, imageCandidates, tour.name]);
 
   // Gestionnaire de succès de chargement d'image
   const handleImageLoad = useCallback(() => {
+    setIsImageLoading(false);
     setShowPlaceholder(false);
     const imageType = tour.customImage && currentImageSrc === tour.customImage 
       ? 'image personnalisée' 
@@ -98,11 +102,16 @@ export default function TourNinjaCard({ tour, index = 0 }: TourNinjaCardProps) {
       <Card className="h-full cursor-pointer hover:shadow-lg transition-shadow overflow-hidden group">
         <div className="relative">
           {!showPlaceholder && currentImageSrc ? (
-            <div className="h-48 overflow-hidden">
+            <div className="h-48 overflow-hidden relative">
+              {isImageLoading && (
+                <div className="absolute inset-0 bg-gray-200 animate-pulse flex items-center justify-center">
+                  <div className="text-gray-400">Chargement...</div>
+                </div>
+              )}
               <img
                 src={currentImageSrc}
                 alt={tour.name}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                className={`w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 ${isImageLoading ? 'opacity-0' : 'opacity-100'}`}
                 onLoad={handleImageLoad}
                 onError={handleImageError}
                 loading="lazy"
