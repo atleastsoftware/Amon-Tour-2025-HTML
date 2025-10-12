@@ -3471,24 +3471,27 @@ Crawl-delay: 1`;
           configuration: { 
             title: 'Titre principal',
             titleColor: '#333333',
+            subtitleColor: '#333333',
+            textColor: '#666666',
             dividerColor: '#3BA8AF',
             backgroundColor: '#ffffff',
+            introduction: 'Ajoutez ici votre contenu texte principal.',
             sections: [
               {
                 id: 1,
-                title: 'Ajoutez ici votre contenu texte principal.',
-                titleColor: '#333333'
-              },
-              {
-                id: 2,
-                title: 'Sous-titre',
-                content: 'Description supplémentaire pour votre section.',
-                titleColor: '#333333',
-                contentColor: '#666666'
+                subtitle: 'Sous-titre',
+                text: 'Description supplémentaire pour votre section.'
               }
             ],
-            imageUrl: '',
-            imageAlt: 'About us'
+            images: [
+              {
+                id: 1,
+                url: '',
+                alt: 'Image 1'
+              }
+            ],
+            buttons: [],
+            layoutStyle: 'right'
           },
           isActive: false
         }

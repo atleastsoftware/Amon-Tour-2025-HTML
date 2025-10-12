@@ -2176,9 +2176,12 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                             className="w-full h-full rounded-lg shadow-lg object-cover"
                           />
                         ) : (
-                          <div className="w-full h-full rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center bg-gray-50">
-                            <span className="text-gray-400 text-sm">Aucune image</span>
-                          </div>
+                          <div 
+                            className="w-full h-full rounded-lg shadow-lg"
+                            style={{ 
+                              background: `linear-gradient(135deg, ${hexToRgba('#084F6E', 0.6)}, ${hexToRgba('#084F6E', 0.9)})`
+                            }}
+                          ></div>
                         )}
                       </div>
                     ))}
