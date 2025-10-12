@@ -1736,6 +1736,36 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                   <p className="text-gray-500">No tours available at the moment.</p>
                 </div>
               )}
+              
+              {/* Bouton d'action en bas de section */}
+              {config.buttonText && (
+                <div className="flex justify-center mt-8">
+                  {config.buttonUrl ? (
+                    <a 
+                      href={config.buttonUrl}
+                      className="px-8 py-3 rounded-lg font-heading font-semibold hover:opacity-90 transition-all"
+                      style={{
+                        backgroundColor: config.buttonStyle === 'outline' ? 'transparent' : (config.buttonBackgroundColor || '#084F6E'),
+                        color: config.buttonStyle === 'outline' ? (config.buttonBackgroundColor || '#084F6E') : (config.buttonTextColor || '#ffffff'),
+                        border: config.buttonStyle === 'outline' ? `2px solid ${config.buttonBackgroundColor || '#084F6E'}` : 'none'
+                      }}
+                    >
+                      {config.buttonText}
+                    </a>
+                  ) : (
+                    <button 
+                      className="px-8 py-3 rounded-lg font-heading font-semibold hover:opacity-90 transition-all"
+                      style={{
+                        backgroundColor: config.buttonStyle === 'outline' ? 'transparent' : (config.buttonBackgroundColor || '#084F6E'),
+                        color: config.buttonStyle === 'outline' ? (config.buttonBackgroundColor || '#084F6E') : (config.buttonTextColor || '#ffffff'),
+                        border: config.buttonStyle === 'outline' ? `2px solid ${config.buttonBackgroundColor || '#084F6E'}` : 'none'
+                      }}
+                    >
+                      {config.buttonText}
+                    </button>
+                  )}
+                </div>
+              )}
             </div>
           </section>
         );
