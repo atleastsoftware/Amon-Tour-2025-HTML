@@ -3494,7 +3494,7 @@ Crawl-delay: 1`;
               {
                 id: 1,
                 text: 'Bouton 1',
-                url: '#',
+                url: '',
                 color: '#084F6E',
                 textColor: '#ffffff',
                 style: 'filled'
@@ -3502,7 +3502,7 @@ Crawl-delay: 1`;
               {
                 id: 2,
                 text: 'Bouton 2 →',
-                url: '#',
+                url: '',
                 color: '#ffffff',
                 textColor: '#084F6E',
                 style: 'outline'
