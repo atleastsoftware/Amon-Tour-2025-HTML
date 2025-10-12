@@ -6338,10 +6338,22 @@ export default function AdminPageEditor() {
           ) : pageBlocks.length === 0 ? (
             <div className="text-center py-12 bg-white rounded-xl shadow-sm">
               <Edit className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <div className="text-gray-500 mb-4">Aucune section sur cette page</div>
+              <div className="text-gray-500 mb-4 font-medium">Aucune section sur cette page</div>
               <p className="text-gray-400 text-sm mb-6">
-                Les sections de votre site web s'afficheront ici
+                Commencez par ajouter votre premier bloc pour construire cette page
               </p>
+              <Button
+                onClick={() => {
+                  setInsertPosition(0);
+                  setIsBlockPopupOpen(true);
+                }}
+                className="text-white"
+                style={{ backgroundColor: THEME_COLORS.secondary }}
+                data-testid="button-add-first-block"
+              >
+                <Plus className="w-4 h-4 mr-2" />
+                Ajouter un premier bloc
+              </Button>
             </div>
           ) : (
             <div className="space-y-0">
