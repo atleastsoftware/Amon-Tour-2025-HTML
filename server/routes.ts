@@ -3469,11 +3469,24 @@ Crawl-delay: 1`;
           title: 'Text + Images',
           blockType: 'who_we_are',
           configuration: { 
-            title: 'Who We Are',
+            title: 'Titre principal',
             titleColor: '#333333',
             dividerColor: '#3BA8AF',
             backgroundColor: '#ffffff',
-            sections: [],
+            sections: [
+              {
+                id: 1,
+                title: 'Ajoutez ici votre contenu texte principal.',
+                titleColor: '#333333'
+              },
+              {
+                id: 2,
+                title: 'Sous-titre',
+                content: 'Description supplémentaire pour votre section.',
+                titleColor: '#333333',
+                contentColor: '#666666'
+              }
+            ],
             imageUrl: '',
             imageAlt: 'About us'
           },
