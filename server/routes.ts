@@ -3449,12 +3449,12 @@ Crawl-delay: 1`;
                 mainIcon: 'fas fa-compass',
                 title: 'Titre',
                 description: 'Description',
-                iconColor: '#084F6E',
+                iconColor: '#3BA8AF',
                 miniIcons: []
               },
               {
                 id: 3,
-                mainIcon: 'fas fa-sparkles',
+                mainIcon: 'fas fa-star',
                 title: 'Titre',
                 description: 'Description',
                 iconColor: '#084F6E',
