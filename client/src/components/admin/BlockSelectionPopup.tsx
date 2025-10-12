@@ -182,7 +182,7 @@ const blockTypes: BlockType[] = [
     preview: (
       <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
         <div className="grid grid-cols-2 gap-4">
-          <div>
+          <div className="flex flex-col">
             <h2 className="font-bold text-base mb-2" style={{ color: '#333333' }}>
               Titre principal
             </h2>
@@ -193,11 +193,19 @@ const blockTypes: BlockType[] = [
             <h3 className="font-bold text-sm mb-1" style={{ color: '#333333' }}>
               Sous-titre
             </h3>
-            <p className="text-xs leading-relaxed" style={{ color: '#666666' }}>
+            <p className="text-xs leading-relaxed mb-3" style={{ color: '#666666' }}>
               Description supplémentaire pour votre section.
             </p>
+            <div className="flex gap-2 mt-auto">
+              <div className="px-3 py-1 rounded text-xs font-semibold" style={{ backgroundColor: '#084F6E', color: '#ffffff' }}>
+                Bouton 1
+              </div>
+              <div className="px-3 py-1 rounded text-xs font-semibold border-2" style={{ borderColor: '#084F6E', color: '#084F6E' }}>
+                Bouton 2 →
+              </div>
+            </div>
           </div>
-          <div className="bg-gradient-to-br from-[#084F6E] to-[#3BA8AF] rounded"></div>
+          <div className="bg-gradient-to-br from-[#084F6E] to-[#3BA8AF] rounded h-full min-h-[180px]"></div>
         </div>
       </div>
     )
