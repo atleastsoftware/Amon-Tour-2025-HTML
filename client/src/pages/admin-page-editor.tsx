@@ -3190,7 +3190,7 @@ const BlockEditDropdown = ({
               <div className="mt-4">
                 <Label className="text-sm">Couleur des sous-titres</Label>
                 <ColorPicker
-                  value={formData.subtitleColor || '#084F6E'}
+                  value={formData.subtitleColor ?? '#084F6E'}
                   onChange={(value) => updateField('subtitleColor', value)}
                 />
               </div>
@@ -3198,7 +3198,7 @@ const BlockEditDropdown = ({
               <div className="mt-4">
                 <Label className="text-sm">Couleur du texte</Label>
                 <ColorPicker
-                  value={formData.textColor || '#666666'}
+                  value={formData.textColor ?? '#666666'}
                   onChange={(value) => updateField('textColor', value)}
                 />
               </div>
@@ -4879,9 +4879,9 @@ const BlockEditDropdown = ({
           });
         }
         
-        const whoWeAreSections = formData.sections || whoWeAreDefaultData.sections;
-        const whoWeAreImages = formData.images || whoWeAreDefaultData.images;
-        const whoWeAreButtons = formData.buttons || whoWeAreDefaultData.buttons;
+        const whoWeAreSections = formData.sections ?? whoWeAreDefaultData.sections;
+        const whoWeAreImages = formData.images ?? whoWeAreDefaultData.images;
+        const whoWeAreButtons = formData.buttons ?? whoWeAreDefaultData.buttons;
         
         return (
           <div className="space-y-6">
@@ -4890,7 +4890,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="title">Titre principal</Label>
               <Input 
                 id="title"
-                value={formData.title || whoWeAreDefaultData.title} 
+                value={formData.title ?? whoWeAreDefaultData.title} 
                 onChange={e => updateField('title', e.target.value)}
                 placeholder="Who We Are"
                 className="mt-2"
@@ -4898,7 +4898,7 @@ const BlockEditDropdown = ({
               <div className="mt-3">
                 <Label className="text-sm">Couleur du titre</Label>
                 <ColorPicker
-                  value={formData.titleColor || '#084F6E'}
+                  value={formData.titleColor ?? '#084F6E'}
                   onChange={(value) => updateField('titleColor', value)}
                 />
               </div>
@@ -4906,7 +4906,7 @@ const BlockEditDropdown = ({
               <div className="mt-3">
                 <Label className="text-sm">Couleur du tiret</Label>
                 <ColorPicker
-                  value={formData.dividerColor || '#3BA8AF'}
+                  value={formData.dividerColor ?? '#3BA8AF'}
                   onChange={(value) => updateField('dividerColor', value)}
                 />
               </div>
@@ -4914,7 +4914,7 @@ const BlockEditDropdown = ({
               <div className="mt-3">
                 <Label className="text-sm">Couleur du fond</Label>
                 <ColorPicker
-                  value={formData.backgroundColor || '#ffffff'}
+                  value={formData.backgroundColor ?? '#ffffff'}
                   onChange={(value) => updateField('backgroundColor', value)}
                 />
               </div>
@@ -4925,7 +4925,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="introduction">Introduction</Label>
               <Textarea 
                 id="introduction"
-                value={formData.introduction || whoWeAreDefaultData.introduction} 
+                value={formData.introduction ?? whoWeAreDefaultData.introduction} 
                 onChange={e => updateField('introduction', e.target.value)}
                 placeholder="Texte d'introduction..."
                 rows={4}
@@ -4934,7 +4934,7 @@ const BlockEditDropdown = ({
               <div className="mt-3">
                 <Label className="text-sm">Couleur de l'introduction</Label>
                 <ColorPicker
-                  value={formData.introColor || '#666666'}
+                  value={formData.introColor ?? '#666666'}
                   onChange={(value) => updateField('introColor', value)}
                 />
               </div>
@@ -5029,7 +5029,7 @@ const BlockEditDropdown = ({
               <div className="mt-4">
                 <Label className="text-sm">Couleur des sous-titres</Label>
                 <ColorPicker
-                  value={formData.subtitleColor || '#084F6E'}
+                  value={formData.subtitleColor ?? '#084F6E'}
                   onChange={(value) => updateField('subtitleColor', value)}
                 />
               </div>
@@ -5037,7 +5037,7 @@ const BlockEditDropdown = ({
               <div className="mt-4">
                 <Label className="text-sm">Couleur du texte</Label>
                 <ColorPicker
-                  value={formData.textColor || '#666666'}
+                  value={formData.textColor ?? '#666666'}
                   onChange={(value) => updateField('textColor', value)}
                 />
               </div>
