@@ -2149,12 +2149,13 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                           href={button.url || '#'}
                           className={`px-6 py-2 rounded font-heading font-semibold transition-colors inline-flex items-center ${
                             button.style === 'filled' 
-                              ? 'text-white hover:opacity-90' 
+                              ? 'hover:opacity-90' 
                               : 'hover:opacity-80'
                           }`}
                           style={{
                             backgroundColor: button.style === 'filled' ? (button.color || '#084F6E') : 'transparent',
-                            color: button.style === 'outline' ? (button.color || '#084F6E') : '#ffffff'
+                            color: button.textColor || (button.style === 'outline' ? (button.color || '#084F6E') : '#ffffff'),
+                            border: button.style === 'outline' ? `2px solid ${button.color || '#084F6E'}` : 'none'
                           }}
                         >
                           {button.text}
@@ -4909,6 +4910,14 @@ const BlockEditDropdown = ({
                   onChange={(value) => updateField('dividerColor', value)}
                 />
               </div>
+
+              <div className="mt-3">
+                <Label className="text-sm">Couleur du fond</Label>
+                <ColorPicker
+                  value={formData.backgroundColor || '#ffffff'}
+                  onChange={(value) => updateField('backgroundColor', value)}
+                />
+              </div>
             </div>
 
             {/* Introduction */}
@@ -5250,27 +5259,53 @@ const BlockEditDropdown = ({
                     </div>
 
                     <div className="space-y-3">
-                      <div>
-                        <Label className="text-sm">Texte du bouton</Label>
-                        <Input 
-                          value={button.text || ''} 
-                          onChange={e => {
-                            const updated = [...whoWeAreButtons];
-                            updated[index].text = e.target.value;
-                            updateField('buttons', updated);
-                          }}
-                        />
+                      <div className="grid grid-cols-2 gap-3">
+                        <div>
+                          <Label className="text-sm">Texte du bouton</Label>
+                          <Input 
+                            value={button.text || ''} 
+                            onChange={e => {
+                              const updated = [...whoWeAreButtons];
+                              updated[index].text = e.target.value;
+                              updateField('buttons', updated);
+                            }}
+                          />
+                        </div>
+                        <div>
+                          <Label className="text-sm">URL</Label>
+                          <Input 
+                            value={button.url || ''} 
+                            onChange={e => {
+                              const updated = [...whoWeAreButtons];
+                              updated[index].url = e.target.value;
+                              updateField('buttons', updated);
+                            }}
+                          />
+                        </div>
                       </div>
-                      <div>
-                        <Label className="text-sm">URL</Label>
-                        <Input 
-                          value={button.url || ''} 
-                          onChange={e => {
-                            const updated = [...whoWeAreButtons];
-                            updated[index].url = e.target.value;
-                            updateField('buttons', updated);
-                          }}
-                        />
+                      <div className="grid grid-cols-2 gap-3">
+                        <div>
+                          <Label className="text-sm">Couleur du bouton</Label>
+                          <ColorPicker
+                            value={button.color || '#084F6E'}
+                            onChange={(value) => {
+                              const updated = [...whoWeAreButtons];
+                              updated[index].color = value;
+                              updateField('buttons', updated);
+                            }}
+                          />
+                        </div>
+                        <div>
+                          <Label className="text-sm">Couleur du texte</Label>
+                          <ColorPicker
+                            value={button.textColor || '#ffffff'}
+                            onChange={(value) => {
+                              const updated = [...whoWeAreButtons];
+                              updated[index].textColor = value;
+                              updateField('buttons', updated);
+                            }}
+                          />
+                        </div>
                       </div>
                       <div>
                         <Label className="text-sm">Style</Label>
@@ -5286,17 +5321,6 @@ const BlockEditDropdown = ({
                           <option value="filled">Plein</option>
                           <option value="outline">Contour</option>
                         </select>
-                      </div>
-                      <div>
-                        <Label className="text-sm">Couleur</Label>
-                        <ColorPicker
-                          value={button.color || '#084F6E'}
-                          onChange={(value) => {
-                            const updated = [...whoWeAreButtons];
-                            updated[index].color = value;
-                            updateField('buttons', updated);
-                          }}
-                        />
                       </div>
                     </div>
                   </div>

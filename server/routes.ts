@@ -3490,7 +3490,24 @@ Crawl-delay: 1`;
                 alt: 'Image 1'
               }
             ],
-            buttons: [],
+            buttons: [
+              {
+                id: 1,
+                text: 'Bouton 1',
+                url: '#',
+                color: '#084F6E',
+                textColor: '#ffffff',
+                style: 'filled'
+              },
+              {
+                id: 2,
+                text: 'Bouton 2 →',
+                url: '#',
+                color: '#ffffff',
+                textColor: '#084F6E',
+                style: 'outline'
+              }
+            ],
             layoutStyle: 'right'
           },
           isActive: false
