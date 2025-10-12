@@ -2087,18 +2087,20 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                 {/* Bloc de contenu textuel */}
                 <div className={imagesPosition === 'right' ? 'order-2 lg:order-1' : 'order-2 lg:order-2'}>
                   {/* Titre principal avec tiret */}
-                  <div className="mb-6">
-                    <h2 
-                      className="font-heading font-bold text-3xl md:text-4xl mb-3"
-                      style={{ color: whoWeAreConfig.titleColor || '#084F6E' }}
-                    >
-                      {whoWeAreConfig.title || "Who We Are"}
-                    </h2>
-                    <div 
-                      className="w-20 h-1"
-                      style={{ backgroundColor: whoWeAreConfig.dividerColor || '#3BA8AF' }}
-                    ></div>
-                  </div>
+                  {whoWeAreConfig.title && (
+                    <div className="mb-6">
+                      <h2 
+                        className="font-heading font-bold text-3xl md:text-4xl mb-3"
+                        style={{ color: whoWeAreConfig.titleColor || '#084F6E' }}
+                      >
+                        {whoWeAreConfig.title}
+                      </h2>
+                      <div 
+                        className="w-20 h-1"
+                        style={{ backgroundColor: whoWeAreConfig.dividerColor || '#3BA8AF' }}
+                      ></div>
+                    </div>
+                  )}
                   
                   {/* Introduction */}
                   {whoWeAreConfig.introduction && (
@@ -4872,13 +4874,6 @@ const BlockEditDropdown = ({
           dividerColor: '#3BA8AF'
         };
         
-        // Initialiser si nécessaire
-        if (!formData.title && !formData.sections) {
-          Object.keys(whoWeAreDefaultData).forEach(key => {
-            updateField(key, whoWeAreDefaultData[key as keyof typeof whoWeAreDefaultData]);
-          });
-        }
-        
         const whoWeAreSections = formData.sections || whoWeAreDefaultData.sections;
         const whoWeAreImages = formData.images || whoWeAreDefaultData.images;
         const whoWeAreButtons = formData.buttons || whoWeAreDefaultData.buttons;
@@ -4890,9 +4885,9 @@ const BlockEditDropdown = ({
               <Label htmlFor="title">Titre principal</Label>
               <Input 
                 id="title"
-                value={formData.title || whoWeAreDefaultData.title} 
+                value={formData.title ?? ''} 
                 onChange={e => updateField('title', e.target.value)}
-                placeholder="Who We Are"
+                placeholder="Titre principal"
                 className="mt-2"
               />
               <div className="mt-3">
@@ -4925,7 +4920,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="introduction">Introduction</Label>
               <Textarea 
                 id="introduction"
-                value={formData.introduction || whoWeAreDefaultData.introduction} 
+                value={formData.introduction ?? ''} 
                 onChange={e => updateField('introduction', e.target.value)}
                 placeholder="Texte d'introduction..."
                 rows={4}
