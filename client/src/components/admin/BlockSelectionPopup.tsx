@@ -183,13 +183,7 @@ const blockTypes: BlockType[] = [
       <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
         <div className="grid grid-cols-2 gap-4">
           <div className="flex flex-col">
-            <h2 className="font-bold text-base mb-2" style={{ color: '#333333' }}>
-              Titre principal
-            </h2>
             <div className="w-12 h-0.5 mb-3" style={{ backgroundColor: '#3BA8AF' }}></div>
-            <p className="text-xs leading-relaxed mb-3" style={{ color: '#666666' }}>
-              Ajoutez ici votre contenu texte principal.
-            </p>
             <h3 className="font-bold text-sm mb-1" style={{ color: '#333333' }}>
               Sous-titre
             </h3>
