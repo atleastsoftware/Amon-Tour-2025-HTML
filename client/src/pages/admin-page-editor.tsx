@@ -4099,6 +4099,62 @@ const BlockEditDropdown = ({
               )}
             </div>
 
+            {/* Bouton d'action */}
+            <div className="space-y-3 border-t pt-4">
+              <Label className="text-sm font-medium">Bouton d'action en bas de section</Label>
+              <div>
+                <Label className="text-xs text-gray-500">Texte du bouton</Label>
+                <Input 
+                  value={formData.buttonText || ''} 
+                  onChange={e => updateField('buttonText', e.target.value)}
+                  placeholder="Voir tous les tours"
+                  className="mt-2"
+                />
+              </div>
+              <div>
+                <Label className="text-xs text-gray-500">URL du bouton</Label>
+                <Input 
+                  value={formData.buttonUrl || ''} 
+                  onChange={e => updateField('buttonUrl', e.target.value)}
+                  placeholder="/tours"
+                  className="mt-2"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <Label className="text-xs text-gray-500">Couleur du bouton</Label>
+                  <ColorPicker
+                    value={formData.buttonBackgroundColor || '#084F6E'}
+                    onChange={(value) => updateField('buttonBackgroundColor', value)}
+                    label=""
+                  />
+                </div>
+                <div>
+                  <Label className="text-xs text-gray-500">Couleur du texte</Label>
+                  <ColorPicker
+                    value={formData.buttonTextColor || '#ffffff'}
+                    onChange={(value) => updateField('buttonTextColor', value)}
+                    label=""
+                  />
+                </div>
+              </div>
+              <div>
+                <Label className="text-xs text-gray-500">Style du bouton</Label>
+                <Select 
+                  value={formData.buttonStyle || 'solid'} 
+                  onValueChange={value => updateField('buttonStyle', value)}
+                >
+                  <SelectTrigger className="mt-2">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="solid">Plein</SelectItem>
+                    <SelectItem value="outline">Contour</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
           </div>
         );
 
