@@ -3469,13 +3469,13 @@ Crawl-delay: 1`;
           title: 'Text + Images',
           blockType: 'who_we_are',
           configuration: { 
-            title: '',
+            title: 'Titre principal',
             titleColor: '#333333',
             subtitleColor: '#333333',
             textColor: '#666666',
             dividerColor: '#3BA8AF',
             backgroundColor: '#ffffff',
-            introduction: '',
+            introduction: 'Ajoutez ici votre contenu texte principal.',
             sections: [
               {
                 id: 1,
