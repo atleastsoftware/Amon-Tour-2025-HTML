@@ -4887,7 +4887,6 @@ const BlockEditDropdown = ({
                 id="title"
                 value={formData.title ?? ''} 
                 onChange={e => updateField('title', e.target.value)}
-                placeholder="Titre principal"
                 className="mt-2"
               />
               <div className="mt-3">
@@ -4922,7 +4921,6 @@ const BlockEditDropdown = ({
                 id="introduction"
                 value={formData.introduction ?? ''} 
                 onChange={e => updateField('introduction', e.target.value)}
-                placeholder="Texte d'introduction..."
                 rows={4}
                 className="mt-2"
               />
