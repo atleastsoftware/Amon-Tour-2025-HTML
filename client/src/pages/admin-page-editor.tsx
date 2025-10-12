@@ -1192,8 +1192,14 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
             const duration = parseInt(String(tour.duration)) || 0;
             return duration > 1;
           });
+        } else if (categoryFilter === 'custom') {
+          // Filtrer uniquement les tours sélectionnés manuellement
+          const selectedIds = popularConfig.selectedTourIds || [];
+          if (selectedIds.length > 0) {
+            filteredTours = filteredTours.filter(tour => selectedIds.includes(tour.id));
+          }
         }
-        // 'all' et 'custom' gardent tous les tours pour l'instant
+        // 'all' garde tous les tours
         
         // Calculer le nombre d'annonces selon la configuration
         let displayCount = 6;
@@ -1524,8 +1530,14 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
             const duration = parseInt(String(tour.duration)) || 0;
             return duration > 1;
           });
+        } else if (categoryFilterPrice === 'custom') {
+          // Filtrer uniquement les tours sélectionnés manuellement
+          const selectedIds = config.selectedTourIds || [];
+          if (selectedIds.length > 0) {
+            filteredToursPrice = filteredToursPrice.filter(tour => selectedIds.includes(tour.id));
+          }
         }
-        // 'all' et 'custom' gardent tous les tours pour l'instant
+        // 'all' garde tous les tours
         
         // Calculer le nombre d'annonces selon la configuration
         let displayCountPrice = 6;
