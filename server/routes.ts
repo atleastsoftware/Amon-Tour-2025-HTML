@@ -3416,8 +3416,8 @@ Crawl-delay: 1`;
             tabletColumns: 2,
             desktopColumns: 3,
             cardButtonColor: '#084F6E',
-            buttonText: 'Voir tous les tours',
-            buttonUrl: '/tours',
+            buttonText: 'Bouton',
+            buttonUrl: '',
             buttonBackgroundColor: '#084F6E',
             buttonTextColor: '#ffffff',
             buttonStyle: 'solid'
