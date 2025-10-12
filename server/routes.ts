@@ -3406,7 +3406,7 @@ Crawl-delay: 1`;
             titleColor: '#333333',
             subtitleColor: '#666666',
             dividerColor: '#3BA8AF',
-            backgroundColor: '#f9fafb',
+            backgroundColor: '#ffffff',
             categoryFilter: 'all',
             showAllAds: false,
             displayCountMobile: 4,
