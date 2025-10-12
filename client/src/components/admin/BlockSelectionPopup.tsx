@@ -157,10 +157,14 @@ const blockTypes: BlockType[] = [
           </p>
         </div>
         <div className="grid grid-cols-3 gap-3">
-          {[1, 2, 3].map((i) => (
+          {[
+            { icon: 'fas fa-users' },
+            { icon: 'fas fa-compass' },
+            { icon: 'fas fa-heart' }
+          ].map((item, i) => (
             <div key={i} className="text-center border rounded-lg p-3 bg-white">
               <div className="w-10 h-10 bg-[#084F6E] rounded-full mx-auto mb-2 flex items-center justify-center">
-                <i className="fas fa-star text-white text-sm"></i>
+                <i className={`${item.icon} text-white text-sm`}></i>
               </div>
               <div className="text-xs font-semibold mb-1">Titre</div>
               <div className="text-xs text-gray-500">Description</div>

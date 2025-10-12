@@ -3438,7 +3438,7 @@ Crawl-delay: 1`;
             iconBlocks: [
               {
                 id: 1,
-                mainIcon: 'fas fa-star',
+                mainIcon: 'fas fa-users',
                 title: 'Titre',
                 description: 'Description',
                 iconColor: '#084F6E',
@@ -3446,7 +3446,7 @@ Crawl-delay: 1`;
               },
               {
                 id: 2,
-                mainIcon: 'fas fa-star',
+                mainIcon: 'fas fa-compass',
                 title: 'Titre',
                 description: 'Description',
                 iconColor: '#084F6E',
@@ -3454,7 +3454,7 @@ Crawl-delay: 1`;
               },
               {
                 id: 3,
-                mainIcon: 'fas fa-star',
+                mainIcon: 'fas fa-heart',
                 title: 'Titre',
                 description: 'Description',
                 iconColor: '#084F6E',
