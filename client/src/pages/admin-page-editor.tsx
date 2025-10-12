@@ -2561,6 +2561,11 @@ const BlockEditDropdown = ({
   onPreviewUpdate?: (config: any) => void;
 }) => {
   const [formData, setFormData] = useState(block.configuration || {});
+  
+  // Récupérer les tours Tour Ninja pour la sélection manuelle
+  const { tours: tourNinjaTours } = useTourNinja();
+  const realTours = tourNinjaTours;
+  const realToursPrice = tourNinjaTours;
 
   const updateField = (key: string, value: any) => {
     const newFormData = { ...formData, [key]: value };
