@@ -3736,6 +3736,44 @@ const BlockEditDropdown = ({
                   </SelectContent>
                 </Select>
               </div>
+
+              {/* Sélection manuelle des tours (affiché uniquement en mode "Personnalisé") */}
+              {formData.categoryFilter === 'custom' && (
+                <div className="mt-4 p-4 border rounded-lg bg-gray-50">
+                  <Label className="text-sm font-medium mb-3 block">Sélectionner les tours à afficher</Label>
+                  <div className="max-h-64 overflow-y-auto space-y-2">
+                    {realTours && realTours.length > 0 ? (
+                      realTours.map((tour: any) => (
+                        <div key={tour.id} className="flex items-center space-x-2">
+                          <input
+                            type="checkbox"
+                            id={`tour-${tour.id}`}
+                            checked={(formData.selectedTourIds || []).includes(tour.id)}
+                            onChange={(e) => {
+                              const currentIds = formData.selectedTourIds || [];
+                              const newIds = e.target.checked
+                                ? [...currentIds, tour.id]
+                                : currentIds.filter((id: string) => id !== tour.id);
+                              updateField('selectedTourIds', newIds);
+                            }}
+                            className="w-4 h-4 text-primary"
+                          />
+                          <label htmlFor={`tour-${tour.id}`} className="text-sm cursor-pointer flex-1">
+                            {tour.name} {tour.price ? `(${tour.price} ${tour.currency || 'THB'})` : ''}
+                          </label>
+                        </div>
+                      ))
+                    ) : (
+                      <p className="text-sm text-gray-500">Aucun tour disponible</p>
+                    )}
+                  </div>
+                  {formData.selectedTourIds && formData.selectedTourIds.length > 0 && (
+                    <p className="text-xs text-gray-500 mt-3">
+                      {formData.selectedTourIds.length} tour(s) sélectionné(s)
+                    </p>
+                  )}
+                </div>
+              )}
             </div>
 
             {/* Bouton d'action */}
@@ -4004,6 +4042,44 @@ const BlockEditDropdown = ({
                   </SelectContent>
                 </Select>
               </div>
+
+              {/* Sélection manuelle des tours (affiché uniquement en mode "Personnalisé") */}
+              {formData.categoryFilter === 'custom' && (
+                <div className="mt-4 p-4 border rounded-lg bg-gray-50">
+                  <Label className="text-sm font-medium mb-3 block">Sélectionner les tours à afficher</Label>
+                  <div className="max-h-64 overflow-y-auto space-y-2">
+                    {realToursPrice && realToursPrice.length > 0 ? (
+                      realToursPrice.map((tour: any) => (
+                        <div key={tour.id} className="flex items-center space-x-2">
+                          <input
+                            type="checkbox"
+                            id={`tour-price-${tour.id}`}
+                            checked={(formData.selectedTourIds || []).includes(tour.id)}
+                            onChange={(e) => {
+                              const currentIds = formData.selectedTourIds || [];
+                              const newIds = e.target.checked
+                                ? [...currentIds, tour.id]
+                                : currentIds.filter((id: string) => id !== tour.id);
+                              updateField('selectedTourIds', newIds);
+                            }}
+                            className="w-4 h-4 text-primary"
+                          />
+                          <label htmlFor={`tour-price-${tour.id}`} className="text-sm cursor-pointer flex-1">
+                            {tour.name} {tour.price ? `(${tour.price} ${tour.currency || 'THB'})` : ''}
+                          </label>
+                        </div>
+                      ))
+                    ) : (
+                      <p className="text-sm text-gray-500">Aucun tour disponible</p>
+                    )}
+                  </div>
+                  {formData.selectedTourIds && formData.selectedTourIds.length > 0 && (
+                    <p className="text-xs text-gray-500 mt-3">
+                      {formData.selectedTourIds.length} tour(s) sélectionné(s)
+                    </p>
+                  )}
+                </div>
+              )}
             </div>
 
           </div>
