@@ -3429,13 +3429,38 @@ Crawl-delay: 1`;
           title: 'Text + Icones',
           blockType: 'why_choose_us',
           configuration: { 
-            title: 'Why Choose Us',
-            subtitle: 'Experience an exclusive private day trip with our English or French-speaking and certified guides.',
+            title: 'Titre de la section',
+            subtitle: 'Description de votre section avec icônes.',
             titleColor: '#333333',
             subtitleColor: '#666666',
             dividerColor: '#3BA8AF',
             backgroundColor: '#ffffff',
-            iconBlocks: []
+            iconBlocks: [
+              {
+                id: 1,
+                mainIcon: 'fas fa-star',
+                title: 'Titre',
+                description: 'Description',
+                iconColor: '#084F6E',
+                miniIcons: []
+              },
+              {
+                id: 2,
+                mainIcon: 'fas fa-star',
+                title: 'Titre',
+                description: 'Description',
+                iconColor: '#084F6E',
+                miniIcons: []
+              },
+              {
+                id: 3,
+                mainIcon: 'fas fa-star',
+                title: 'Titre',
+                description: 'Description',
+                iconColor: '#084F6E',
+                miniIcons: []
+              }
+            ]
           },
           isActive: false
         },
