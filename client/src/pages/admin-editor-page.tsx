@@ -53,21 +53,29 @@ function AdminEditorPageContent() {
     return <AdminPageEditor />;
   }
 
-  // Transformer les données pour l'affichage et séparer Home des autres pages
+  // Transformer les données pour l'affichage et organiser par catégories
   const allPages = pageConfigs
     .map(page => ({
       id: page.pageSlug,
       title: page.pageName,
       slug: page.pageSlug === 'home' ? '/' : `/${page.pageSlug}`,
       status: page.isActive ? 'Active' : 'Inactive',
+      pageType: page.pageType,
       type: page.pageType === 'main' ? 'Page principale' : 
             page.pageType === 'secondary' ? 'Page secondaire' : 'Mentions légales'
     }));
   
-  // Séparer la page Home (non supprimable) des autres pages
+  // Organiser les pages par catégories (même logique que admin-appearance)
   const homePage = allPages.find(p => p.id === 'home');
-  const otherPages = allPages
-    .filter(p => p.id !== 'home')
+  
+  // Pages principales (sauf Home)
+  const mainPages = allPages
+    .filter(p => p.pageType === 'main' && p.id !== 'home')
+    .sort((a, b) => a.title.localeCompare(b.title, 'fr'));
+  
+  // Pages secondaires
+  const secondaryPages = allPages
+    .filter(p => p.pageType === 'secondary')
     .sort((a, b) => a.title.localeCompare(b.title, 'fr'));
 
   const handleEditPage = (pageId: string) => {
@@ -211,12 +219,12 @@ function AdminEditorPageContent() {
             </Button>
           </div>
 
-          {/* Autres pages */}
-          {otherPages.length > 0 && (
+          {/* Pages principales */}
+          {mainPages.length > 0 && (
             <div>
-              <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Autres pages</h2>
+              <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Pages principales</h2>
               <div className="space-y-4">
-                {otherPages.map((page) => (
+                {mainPages.map((page) => (
                   <Card key={page.id} className="bg-white border border-gray-200 hover:border-blue-300 transition-colors">
                     <CardContent className="p-6">
                       <div className="flex items-center justify-between">
@@ -237,6 +245,7 @@ function AdminEditorPageContent() {
                             size="sm"
                             onClick={() => window.open(page.slug, '_blank')}
                             className="flex items-center gap-1"
+                            data-testid={`button-view-${page.id}`}
                           >
                             <Eye className="h-4 w-4" />
                             Voir
@@ -247,6 +256,7 @@ function AdminEditorPageContent() {
                             size="sm"
                             onClick={() => handleEditPage(page.id)}
                             className="flex items-center gap-1 bg-blue-50 border-blue-200 hover:bg-blue-100"
+                            data-testid={`button-edit-${page.id}`}
                           >
                             <Edit className="h-4 w-4" />
                             Modifier
@@ -258,6 +268,89 @@ function AdminEditorPageContent() {
                                 variant="outline"
                                 size="sm"
                                 className="flex items-center gap-1 text-red-600 border-red-200 hover:bg-red-50"
+                                data-testid={`button-delete-${page.id}`}
+                              >
+                                <Trash2 className="h-4 w-4" />
+                                Supprimer
+                              </Button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                              <AlertDialogHeader>
+                                <AlertDialogTitle>Êtes-vous sûr de supprimer cette page ?</AlertDialogTitle>
+                                <AlertDialogDescription>
+                                  Cette action est irréversible. La page "{page.title}" sera définitivement supprimée.
+                                </AlertDialogDescription>
+                              </AlertDialogHeader>
+                              <AlertDialogFooter>
+                                <AlertDialogCancel>Annuler</AlertDialogCancel>
+                                <AlertDialogAction 
+                                  onClick={() => handleDeletePage(page.id)}
+                                  className="bg-red-600 hover:bg-red-700"
+                                >
+                                  Supprimer
+                                </AlertDialogAction>
+                              </AlertDialogFooter>
+                            </AlertDialogContent>
+                          </AlertDialog>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Pages secondaires */}
+          {secondaryPages.length > 0 && (
+            <div>
+              <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Pages secondaires</h2>
+              <div className="space-y-4">
+                {secondaryPages.map((page) => (
+                  <Card key={page.id} className="bg-white border border-gray-200 hover:border-blue-300 transition-colors">
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4">
+                          <h3 className="text-lg font-semibold text-gray-900">
+                            {page.title || 'Page sans titre'}
+                          </h3>
+                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                            page.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                          }`}>
+                            {page.status}
+                          </span>
+                        </div>
+                        
+                        <div className="flex items-center gap-2">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => window.open(page.slug, '_blank')}
+                            className="flex items-center gap-1"
+                            data-testid={`button-view-${page.id}`}
+                          >
+                            <Eye className="h-4 w-4" />
+                            Voir
+                          </Button>
+                          
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handleEditPage(page.id)}
+                            className="flex items-center gap-1 bg-blue-50 border-blue-200 hover:bg-blue-100"
+                            data-testid={`button-edit-${page.id}`}
+                          >
+                            <Edit className="h-4 w-4" />
+                            Modifier
+                          </Button>
+                          
+                          <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                className="flex items-center gap-1 text-red-600 border-red-200 hover:bg-red-50"
+                                data-testid={`button-delete-${page.id}`}
                               >
                                 <Trash2 className="h-4 w-4" />
                                 Supprimer
