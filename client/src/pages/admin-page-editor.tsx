@@ -2525,8 +2525,8 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
           };
           
           const buttons = heroConfig.buttons || [
-            {text: 'Bouton 1', url: '#', color: '#ffffff', textColor: '#084F6E', style: 'filled'}, 
-            {text: 'Bouton 2', url: '#', color: '#ffffff', textColor: '#ffffff', style: 'outline'}
+            {text: 'Bouton 1', url: '', color: '#ffffff', textColor: '#084F6E', style: 'filled'}, 
+            {text: 'Bouton 2', url: '', color: '#ffffff', textColor: '#ffffff', style: 'outline'}
           ];
           
           const heroSize = heroConfig.heroSize || 'petite';
@@ -2834,7 +2834,7 @@ const BlockEditDropdown = ({
                   size="sm"
                   onClick={() => {
                     const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#084F6E', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#084F6E', style: 'filled'}];
-                    updateField('buttons', [...buttons, {text: 'Nouveau bouton', url: '#', color: '#084F6E', style: 'filled'}]);
+                    updateField('buttons', [...buttons, {text: 'Nouveau bouton', url: '', color: '#084F6E', style: 'filled'}]);
                   }}
                 >
                   <Plus className="h-4 w-4 mr-1" /> Ajouter un bouton
@@ -3474,7 +3474,7 @@ const BlockEditDropdown = ({
                   onClick={() => {
                     const newButton = {
                       text: 'Nouveau bouton',
-                      url: '#',
+                      url: '',
                       color: '#084F6E',
                       style: 'filled'
                     };
@@ -3801,7 +3801,7 @@ const BlockEditDropdown = ({
                   size="sm"
                   onClick={() => {
                     const buttons = formData.buttons || [];
-                    updateField('buttons', [...buttons, {text: 'Nouveau bouton', url: '#', color: '#084F6E', style: 'filled'}]);
+                    updateField('buttons', [...buttons, {text: 'Nouveau bouton', url: '', color: '#084F6E', style: 'filled'}]);
                   }}
                 >
                   <Plus className="h-4 w-4 mr-1" /> Ajouter un bouton
@@ -3842,7 +3842,6 @@ const BlockEditDropdown = ({
                       />
                     </div>
                     <div>
-                      <Label className="text-xs">URL</Label>
                       <URLInput
                         value={button.url || ''}
                         onChange={(value: string) => {
@@ -5623,7 +5622,7 @@ const BlockEditDropdown = ({
                   onClick={() => {
                     const newButton = {
                       text: 'Nouveau bouton',
-                      url: '#',
+                      url: '',
                       color: '#084F6E',
                       style: 'filled'
                     };
@@ -6168,8 +6167,8 @@ const BlockEditDropdown = ({
                     variant="outline"
                     size="sm"
                     onClick={() => {
-                      const buttons = formData.buttons || [{text: 'Bouton 1', url: '#', color: '#ffffff', textColor: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '#', color: '#ffffff', textColor: '#ffffff', style: 'outline'}];
-                      updateField('buttons', [...buttons, {text: 'Nouveau bouton', url: '#', color: '#ffffff', textColor: '#084F6E', style: 'filled'}]);
+                      const buttons = formData.buttons || [{text: 'Bouton 1', url: '', color: '#ffffff', textColor: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '', color: '#ffffff', textColor: '#ffffff', style: 'outline'}];
+                      updateField('buttons', [...buttons, {text: 'Nouveau bouton', url: '', color: '#ffffff', textColor: '#084F6E', style: 'filled'}]);
                     }}
                   >
                     <Plus className="h-4 w-4 mr-1" /> Ajouter un bouton
@@ -6177,7 +6176,7 @@ const BlockEditDropdown = ({
                 </div>
                 
                 <div className="space-y-3">
-                  {(formData.buttons || [{text: 'Bouton 1', url: '#', color: '#ffffff', textColor: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '#', color: '#ffffff', textColor: '#ffffff', style: 'outline'}]).map((button: any, index: number) => (
+                  {(formData.buttons || [{text: 'Bouton 1', url: '', color: '#ffffff', textColor: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '', color: '#ffffff', textColor: '#ffffff', style: 'outline'}]).map((button: any, index: number) => (
                     <div key={index} className="border rounded-lg p-4 space-y-3">
                       <div className="flex items-center justify-between">
                         <Label className="text-sm font-medium">Bouton {index + 1}</Label>
@@ -6186,7 +6185,7 @@ const BlockEditDropdown = ({
                           variant="ghost"
                           size="sm"
                           onClick={() => {
-                            const buttons = formData.buttons || [{text: 'Bouton 1', url: '#', color: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '#', color: '#084F6E', style: 'filled'}];
+                            const buttons = formData.buttons || [{text: 'Bouton 1', url: '', color: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '', color: '#084F6E', style: 'filled'}];
                             const newButtons = buttons.filter((_: any, i: number) => i !== index);
                             updateField('buttons', newButtons);
                           }}
@@ -6201,7 +6200,7 @@ const BlockEditDropdown = ({
                         <Input 
                           value={button.text || ''} 
                           onChange={e => {
-                            const buttons = formData.buttons || [{text: 'Bouton 1', url: '#', color: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '#', color: '#084F6E', style: 'filled'}];
+                            const buttons = formData.buttons || [{text: 'Bouton 1', url: '', color: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '', color: '#084F6E', style: 'filled'}];
                             const newButtons = buttons.map((b: any, i: number) => 
                               i === index ? {...b, text: e.target.value} : b
                             );
@@ -6214,7 +6213,7 @@ const BlockEditDropdown = ({
                         <Input 
                           value={button.url || ''} 
                           onChange={e => {
-                            const buttons = formData.buttons || [{text: 'Bouton 1', url: '#', color: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '#', color: '#084F6E', style: 'filled'}];
+                            const buttons = formData.buttons || [{text: 'Bouton 1', url: '', color: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '', color: '#084F6E', style: 'filled'}];
                             const newButtons = buttons.map((b: any, i: number) => 
                               i === index ? {...b, url: e.target.value} : b
                             );
@@ -6230,7 +6229,7 @@ const BlockEditDropdown = ({
                         <ColorPicker
                           value={button.color || '#084F6E'}
                           onChange={(value) => {
-                            const buttons = formData.buttons || [{text: 'Bouton 1', url: '#', color: '#ffffff', textColor: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '#', color: '#ffffff', textColor: '#ffffff', style: 'outline'}];
+                            const buttons = formData.buttons || [{text: 'Bouton 1', url: '', color: '#ffffff', textColor: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '', color: '#ffffff', textColor: '#ffffff', style: 'outline'}];
                             const newButtons = buttons.map((b: any, i: number) => 
                               i === index ? {...b, color: value} : b
                             );
@@ -6244,7 +6243,7 @@ const BlockEditDropdown = ({
                         <ColorPicker
                           value={button.textColor || '#ffffff'}
                           onChange={(value) => {
-                            const buttons = formData.buttons || [{text: 'Bouton 1', url: '#', color: '#ffffff', textColor: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '#', color: '#ffffff', textColor: '#ffffff', style: 'outline'}];
+                            const buttons = formData.buttons || [{text: 'Bouton 1', url: '', color: '#ffffff', textColor: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '', color: '#ffffff', textColor: '#ffffff', style: 'outline'}];
                             const newButtons = buttons.map((b: any, i: number) => 
                               i === index ? {...b, textColor: value} : b
                             );
@@ -6259,7 +6258,7 @@ const BlockEditDropdown = ({
                       <Select 
                         value={button.style || 'filled'} 
                         onValueChange={value => {
-                          const buttons = formData.buttons || [{text: 'Bouton 1', url: '#', color: '#ffffff', textColor: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '#', color: '#ffffff', textColor: '#ffffff', style: 'outline'}];
+                          const buttons = formData.buttons || [{text: 'Bouton 1', url: '', color: '#ffffff', textColor: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '', color: '#ffffff', textColor: '#ffffff', style: 'outline'}];
                           const newButtons = buttons.map((b: any, i: number) => 
                             i === index ? {...b, style: value} : b
                           );
