@@ -1910,13 +1910,19 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         const allTours = tourNinjaTours || [];
         const searchBarLoading = tourNinjaLoading;
         
-        // Configuration des couleurs
+        // Configuration des paramètres
+        const filtersTitle = searchBarConfig.filtersTitle || 'Filters';
+        const searchPlaceholder = searchBarConfig.searchPlaceholder || 'Search for a tour...';
         const filtersBgColor = searchBarConfig.filtersBgColor || '#ffffff';
         const filtersTextColor = searchBarConfig.filtersTextColor || '#333333';
         const cardsBgColor = searchBarConfig.cardsBgColor || '#ffffff';
+        const sectionBgColor = searchBarConfig.backgroundColor || '#f9fafb';
+        const mobileColumns = searchBarConfig.mobileColumns || 1;
+        const tabletColumns = searchBarConfig.tabletColumns || 2;
+        const desktopColumns = searchBarConfig.desktopColumns || 3;
         
         return (
-          <section className="min-h-screen bg-gradient-to-br from-primary/10 to-primary/20 py-16">
+          <section className="py-16" style={{ backgroundColor: sectionBgColor }}>
             <div className="container mx-auto px-4">
               {/* Barre de filtres */}
               <div 
@@ -1928,7 +1934,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                     className="text-xl font-semibold"
                     style={{ color: filtersTextColor }}
                   >
-                    Filters
+                    {filtersTitle}
                   </h2>
                 </div>
 
@@ -1939,7 +1945,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                       <Search className="h-4 w-4" />
                     </div>
                     <input
-                      placeholder="Search for a tour..."
+                      placeholder={searchPlaceholder}
                       className="pl-10 w-full p-2 border rounded-md"
                       style={{ color: filtersTextColor }}
                     />
@@ -1964,19 +1970,39 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
 
               {/* Grille de tours */}
               {searchBarLoading ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div 
+                  className={`grid gap-8 ${
+                    mobileColumns === 1 ? 'grid-cols-1' : 'grid-cols-2'
+                  } ${
+                    tabletColumns === 1 ? 'md:grid-cols-1' :
+                    tabletColumns === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3'
+                  } ${
+                    desktopColumns === 1 ? 'lg:grid-cols-1' :
+                    desktopColumns === 2 ? 'lg:grid-cols-2' :
+                    desktopColumns === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4'
+                  }`}
+                >
                   {[...Array(6)].map((_, i) => (
                     <div key={i} className="bg-gray-200 rounded-xl h-96 animate-pulse" />
                   ))}
                 </div>
               ) : allTours.length > 0 ? (
                 <motion.div 
-                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                  className={`grid gap-8 ${
+                    mobileColumns === 1 ? 'grid-cols-1' : 'grid-cols-2'
+                  } ${
+                    tabletColumns === 1 ? 'md:grid-cols-1' :
+                    tabletColumns === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3'
+                  } ${
+                    desktopColumns === 1 ? 'lg:grid-cols-1' :
+                    desktopColumns === 2 ? 'lg:grid-cols-2' :
+                    desktopColumns === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4'
+                  }`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.6 }}
                 >
-                  {allTours.slice(0, 6).map((tour: any, index: number) => (
+                  {allTours.map((tour: any, index: number) => (
                     <motion.div
                       key={tour.id}
                       initial={{ opacity: 0, y: 30 }}
@@ -4157,35 +4183,139 @@ const BlockEditDropdown = ({
       case 'search_bar_tours':
         return (
           <div className="space-y-6">
-            {/* Couleur de fond - Barre de filtres */}
-            <div>
-              <Label htmlFor="filtersBgColor">Couleur de fond - Barre de filtres</Label>
-              <div className="mt-3">
-                <ColorPicker
-                  value={formData.filtersBgColor || '#ffffff'}
-                  onChange={(value) => updateField('filtersBgColor', value)}
+            {/* Barre de filtres */}
+            <div className="space-y-4">
+              <h3 className="font-semibold text-lg">Barre de filtres</h3>
+              
+              {/* Titre */}
+              <div>
+                <Label htmlFor="filtersTitle">Titre</Label>
+                <Input 
+                  id="filtersTitle"
+                  value={formData.filtersTitle !== undefined ? formData.filtersTitle : (block.configuration?.filtersTitle || 'Filters')} 
+                  onChange={e => updateField('filtersTitle', e.target.value)}
+                  placeholder="Filters"
+                  className="mt-2"
                 />
+              </div>
+
+              {/* Placeholder de recherche */}
+              <div>
+                <Label htmlFor="searchPlaceholder">Placeholder de recherche</Label>
+                <Input 
+                  id="searchPlaceholder"
+                  value={formData.searchPlaceholder !== undefined ? formData.searchPlaceholder : (block.configuration?.searchPlaceholder || 'Search for a tour...')} 
+                  onChange={e => updateField('searchPlaceholder', e.target.value)}
+                  placeholder="Search for a tour..."
+                  className="mt-2"
+                />
+              </div>
+
+              {/* Couleur de texte */}
+              <div>
+                <Label htmlFor="filtersTextColor">Couleur de texte</Label>
+                <div className="mt-3">
+                  <ColorPicker
+                    value={formData.filtersTextColor || '#333333'}
+                    onChange={(value) => updateField('filtersTextColor', value)}
+                  />
+                </div>
+              </div>
+
+              {/* Couleur du bloc */}
+              <div>
+                <Label htmlFor="filtersBgColor">Couleur du bloc</Label>
+                <div className="mt-3">
+                  <ColorPicker
+                    value={formData.filtersBgColor || '#ffffff'}
+                    onChange={(value) => updateField('filtersBgColor', value)}
+                  />
+                </div>
               </div>
             </div>
 
-            {/* Couleur de texte - Filtres */}
-            <div>
-              <Label htmlFor="filtersTextColor">Couleur de texte - Filtres</Label>
-              <div className="mt-3">
-                <ColorPicker
-                  value={formData.filtersTextColor || '#333333'}
-                  onChange={(value) => updateField('filtersTextColor', value)}
-                />
+            <Separator />
+
+            {/* Configuration de la grille */}
+            <div className="space-y-4">
+              <h3 className="font-semibold text-lg">Configuration de la grille</h3>
+
+              {/* Couleurs des annonces */}
+              <div>
+                <Label htmlFor="cardsBgColor">Couleurs des annonces</Label>
+                <div className="mt-3">
+                  <ColorPicker
+                    value={formData.cardsBgColor || '#ffffff'}
+                    onChange={(value) => updateField('cardsBgColor', value)}
+                  />
+                </div>
+              </div>
+
+              {/* Colonnes par appareil */}
+              <div>
+                <Label>Colonnes par appareil</Label>
+                <div className="grid grid-cols-3 gap-3 mt-3">
+                  <div>
+                    <Label htmlFor="mobileColumns" className="text-xs">Mobile</Label>
+                    <Select 
+                      value={String(formData.mobileColumns || 1)} 
+                      onValueChange={value => updateField('mobileColumns', parseInt(value))}
+                    >
+                      <SelectTrigger className="mt-1">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="1">1</SelectItem>
+                        <SelectItem value="2">2</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label htmlFor="tabletColumns" className="text-xs">Tablette</Label>
+                    <Select 
+                      value={String(formData.tabletColumns || 2)} 
+                      onValueChange={value => updateField('tabletColumns', parseInt(value))}
+                    >
+                      <SelectTrigger className="mt-1">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="1">1</SelectItem>
+                        <SelectItem value="2">2</SelectItem>
+                        <SelectItem value="3">3</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label htmlFor="desktopColumns" className="text-xs">Ordinateur</Label>
+                    <Select 
+                      value={String(formData.desktopColumns || 3)} 
+                      onValueChange={value => updateField('desktopColumns', parseInt(value))}
+                    >
+                      <SelectTrigger className="mt-1">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="1">1</SelectItem>
+                        <SelectItem value="2">2</SelectItem>
+                        <SelectItem value="3">3</SelectItem>
+                        <SelectItem value="4">4</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* Couleur de fond - Cartes */}
+            <Separator />
+
+            {/* Couleur de fond */}
             <div>
-              <Label htmlFor="cardsBgColor">Couleur de fond - Cartes</Label>
+              <Label htmlFor="backgroundColor">Couleur de fond</Label>
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.cardsBgColor || '#ffffff'}
-                  onChange={(value) => updateField('cardsBgColor', value)}
+                  value={formData.backgroundColor || '#f9fafb'}
+                  onChange={(value) => updateField('backgroundColor', value)}
                 />
               </div>
             </div>
