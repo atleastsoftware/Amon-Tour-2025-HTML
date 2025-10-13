@@ -1912,12 +1912,13 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         const searchBarLoading = tourNinjaLoading;
         
         // Configuration des paramètres
-        const filtersTitle = searchBarConfig.filtersTitle || 'Filters';
-        const searchPlaceholder = searchBarConfig.searchPlaceholder || 'Search for a tour...';
+        const filtersTitle = searchBarConfig.filtersTitle || '';
+        const searchPlaceholder = searchBarConfig.searchPlaceholder || '';
         const filtersBgColor = searchBarConfig.filtersBgColor || '#ffffff';
         const filtersTextColor = searchBarConfig.filtersTextColor || '#333333';
-        const cardsBgColor = searchBarConfig.cardsBgColor || '#ffffff';
-        const sectionBgColor = searchBarConfig.backgroundColor || '#f9fafb';
+        const cardGradientColor = searchBarConfig.cardGradientColor || '#084F6E';
+        const cardButtonColor = searchBarConfig.cardButtonColor || '#084F6E';
+        const sectionBgColor = searchBarConfig.backgroundColor || '#ffffff';
         const mobileColumns = searchBarConfig.mobileColumns || 1;
         const tabletColumns = searchBarConfig.tabletColumns || 2;
         const desktopColumns = searchBarConfig.desktopColumns || 3;
@@ -2011,11 +2012,15 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                       transition={{ duration: 0.6, delay: index * 0.1 }}
                     >
                       <Card 
-                        className="h-full rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
-                        style={{ backgroundColor: cardsBgColor }}
+                        className="h-full rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden bg-white"
                       >
                         <div 
-                          className="relative h-64 bg-gradient-to-br from-primary/40 to-primary/60 cursor-pointer"
+                          className="relative h-64 cursor-pointer"
+                          style={{
+                            background: tour.primaryImage 
+                              ? 'none'
+                              : `linear-gradient(to bottom right, ${hexToRgba(cardGradientColor, 0.4)}, ${hexToRgba(cardGradientColor, 0.6)})`
+                          }}
                         >
                           {tour.primaryImage ? (
                             <img 
@@ -2029,7 +2034,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                             />
                           ) : (
                             <div className="w-full h-full flex items-center justify-center">
-                              <MapPin className="h-16 w-16 text-primary/70" />
+                              <MapPin className="h-16 w-16" style={{ color: hexToRgba(cardGradientColor, 0.7) }} />
                             </div>
                           )}
                           <div className="absolute top-4 right-4">
@@ -2059,13 +2064,20 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                           <div className="flex gap-2">
                             <Button 
                               variant="outline"
-                              className="flex-1 border-primary text-primary hover:bg-primary/10"
+                              className="flex-1"
+                              style={{
+                                borderColor: cardButtonColor,
+                                color: cardButtonColor
+                              }}
                             >
                               View details
                               <ExternalLink className="h-4 w-4 ml-2" />
                             </Button>
                             <Button 
-                              className="flex-1 bg-primary hover:bg-primary/90 text-white"
+                              className="flex-1 text-white"
+                              style={{
+                                backgroundColor: cardButtonColor
+                              }}
                             >
                               Book
                               <ExternalLink className="h-4 w-4 ml-2" />
@@ -4200,9 +4212,8 @@ const BlockEditDropdown = ({
                 <Label htmlFor="filtersTitle">Titre</Label>
                 <Input 
                   id="filtersTitle"
-                  value={formData.filtersTitle !== undefined ? formData.filtersTitle : (block.configuration?.filtersTitle || 'Filters')} 
+                  value={formData.filtersTitle !== undefined ? formData.filtersTitle : (block.configuration?.filtersTitle || '')} 
                   onChange={e => updateField('filtersTitle', e.target.value)}
-                  placeholder="Filters"
                   className="mt-2"
                 />
               </div>
@@ -4212,9 +4223,8 @@ const BlockEditDropdown = ({
                 <Label htmlFor="searchPlaceholder">Placeholder de recherche</Label>
                 <Input 
                   id="searchPlaceholder"
-                  value={formData.searchPlaceholder !== undefined ? formData.searchPlaceholder : (block.configuration?.searchPlaceholder || 'Search for a tour...')} 
+                  value={formData.searchPlaceholder !== undefined ? formData.searchPlaceholder : (block.configuration?.searchPlaceholder || '')} 
                   onChange={e => updateField('searchPlaceholder', e.target.value)}
-                  placeholder="Search for a tour..."
                   className="mt-2"
                 />
               </div>
@@ -4249,13 +4259,27 @@ const BlockEditDropdown = ({
               <h3 className="font-semibold text-lg">Configuration de la grille</h3>
 
               {/* Couleurs des annonces */}
-              <div>
-                <Label htmlFor="cardsBgColor">Couleurs des annonces</Label>
-                <div className="mt-3">
-                  <ColorPicker
-                    value={formData.cardsBgColor || '#ffffff'}
-                    onChange={(value) => updateField('cardsBgColor', value)}
-                  />
+              <div className="space-y-3">
+                <Label className="text-sm font-medium">Couleurs des annonces</Label>
+                
+                <div>
+                  <Label className="text-xs text-gray-500">Dégradé de la carte</Label>
+                  <div className="mt-2">
+                    <ColorPicker
+                      value={formData.cardGradientColor || '#084F6E'}
+                      onChange={(value) => updateField('cardGradientColor', value)}
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <Label className="text-xs text-gray-500">Couleur des boutons</Label>
+                  <div className="mt-2">
+                    <ColorPicker
+                      value={formData.cardButtonColor || '#084F6E'}
+                      onChange={(value) => updateField('cardButtonColor', value)}
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -4322,7 +4346,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="backgroundColor">Couleur de fond</Label>
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.backgroundColor || '#f9fafb'}
+                  value={formData.backgroundColor || '#ffffff'}
                   onChange={(value) => updateField('backgroundColor', value)}
                 />
               </div>

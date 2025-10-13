@@ -9,13 +9,23 @@ import { MapPin, Clock, ExternalLink, Search } from "lucide-react";
 import { useTourNinjaWithCustomImages, type TourNinjaTour } from "@/hooks/useTourNinja";
 import { useIframe } from "@/contexts/IframeContext";
 
+// Fonction helper pour convertir hex en rgba
+const hexToRgba = (hex: string, alpha: number): string => {
+  const cleanHex = hex.replace('#', '');
+  const r = parseInt(cleanHex.substring(0, 2), 16);
+  const g = parseInt(cleanHex.substring(2, 4), 16);
+  const b = parseInt(cleanHex.substring(4, 6), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+};
+
 interface SearchBarToursBlockProps {
   configuration: {
     filtersTitle?: string;
     searchPlaceholder?: string;
     filtersTextColor?: string;
     filtersBgColor?: string;
-    cardsBgColor?: string;
+    cardGradientColor?: string;
+    cardButtonColor?: string;
     backgroundColor?: string;
     mobileColumns?: number;
     tabletColumns?: number;
@@ -28,12 +38,13 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
   const { openIframe } = useIframe();
 
   // Configuration
-  const filtersTitle = configuration.filtersTitle || 'Filters';
-  const searchPlaceholder = configuration.searchPlaceholder || 'Search for a tour...';
+  const filtersTitle = configuration.filtersTitle || '';
+  const searchPlaceholder = configuration.searchPlaceholder || '';
   const filtersTextColor = configuration.filtersTextColor || '#333333';
   const filtersBgColor = configuration.filtersBgColor || '#ffffff';
-  const cardsBgColor = configuration.cardsBgColor || '#ffffff';
-  const sectionBgColor = configuration.backgroundColor || '#f9fafb';
+  const cardGradientColor = configuration.cardGradientColor || '#084F6E';
+  const cardButtonColor = configuration.cardButtonColor || '#084F6E';
+  const sectionBgColor = configuration.backgroundColor || '#ffffff';
   const mobileColumns = configuration.mobileColumns || 1;
   const tabletColumns = configuration.tabletColumns || 2;
   const desktopColumns = configuration.desktopColumns || 3;
@@ -243,12 +254,16 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
                 <Card 
-                  className="h-full rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
-                  style={{ backgroundColor: cardsBgColor }}
+                  className="h-full rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden bg-white"
                 >
                   <div 
-                    className="relative h-64 bg-gradient-to-br from-primary/40 to-primary/60 cursor-pointer"
+                    className="relative h-64 cursor-pointer"
                     onClick={() => handleTourDetails(tour)}
+                    style={{
+                      background: tour.primaryImage 
+                        ? 'none'
+                        : `linear-gradient(to bottom right, ${hexToRgba(cardGradientColor, 0.4)}, ${hexToRgba(cardGradientColor, 0.6)})`
+                    }}
                   >
                     {tour.primaryImage ? (
                       <img 
@@ -262,7 +277,7 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center">
-                        <MapPin className="h-16 w-16 text-primary/70" />
+                        <MapPin className="h-16 w-16" style={{ color: hexToRgba(cardGradientColor, 0.7) }} />
                       </div>
                     )}
                     <div className="absolute top-4 right-4">
@@ -296,14 +311,21 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
                       <Button 
                         onClick={() => handleTourDetails(tour)}
                         variant="outline"
-                        className="flex-1 border-primary text-primary hover:bg-primary/10"
+                        className="flex-1"
+                        style={{
+                          borderColor: cardButtonColor,
+                          color: cardButtonColor
+                        }}
                       >
                         View details
                         <ExternalLink className="h-4 w-4 ml-2" />
                       </Button>
                       <Button 
                         onClick={() => handleTourBooking(tour)}
-                        className="flex-1 bg-primary hover:bg-primary/90 text-white"
+                        className="flex-1 text-white"
+                        style={{
+                          backgroundColor: cardButtonColor
+                        }}
                       >
                         Book
                         <ExternalLink className="h-4 w-4 ml-2" />
