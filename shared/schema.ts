@@ -568,6 +568,7 @@ export const blockTypeEnum = pgEnum("block_type", [
   "card_grid",     // Alias pour compatibilité
   "search_bar",    // Barre de recherche
   "search_module", // Module de recherche (alias)
+  "search_bar_tours", // Barre de recherche + grille de tours
   
   // Features & Layout
   "features_3col", // 3 colonnes avec icônes
