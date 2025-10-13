@@ -4154,6 +4154,44 @@ const BlockEditDropdown = ({
           </div>
         );
 
+      case 'search_bar_tours':
+        return (
+          <div className="space-y-6">
+            {/* Couleur de fond - Barre de filtres */}
+            <div>
+              <Label htmlFor="filtersBgColor">Couleur de fond - Barre de filtres</Label>
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.filtersBgColor || '#ffffff'}
+                  onChange={(value) => updateField('filtersBgColor', value)}
+                />
+              </div>
+            </div>
+
+            {/* Couleur de texte - Filtres */}
+            <div>
+              <Label htmlFor="filtersTextColor">Couleur de texte - Filtres</Label>
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.filtersTextColor || '#333333'}
+                  onChange={(value) => updateField('filtersTextColor', value)}
+                />
+              </div>
+            </div>
+
+            {/* Couleur de fond - Cartes */}
+            <div>
+              <Label htmlFor="cardsBgColor">Couleur de fond - Cartes</Label>
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.cardsBgColor || '#ffffff'}
+                  onChange={(value) => updateField('cardsBgColor', value)}
+                />
+              </div>
+            </div>
+          </div>
+        );
+
       case 'popular_experiences':
         return (
           <div className="space-y-6">
