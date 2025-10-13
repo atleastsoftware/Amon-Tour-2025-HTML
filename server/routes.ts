@@ -3518,9 +3518,11 @@ Crawl-delay: 1`;
           blockType: 'header_page',
           configuration: { 
             title: 'Titre de la page',
-            subtitle: 'Sous-titre descriptif',
+            subtitle: 'Sous-titre',
             titleColor: '#ffffff',
             subtitleColor: '#ffffff',
+            iconUrl: '',
+            iconColor: '#3BA8AF',
             backgroundType: 'gradient',
             gradientColor1: '#084F6E',
             gradientColor2: '#3BA8AF',

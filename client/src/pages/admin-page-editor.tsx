@@ -1243,6 +1243,16 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
           <section className={`relative ${heightClass}`}>
             {renderHeaderBackground()}
             <div className="relative z-20 container mx-auto px-4 h-full flex flex-col items-center justify-center text-center text-white">
+              {headerPageConfig.iconUrl && (
+                <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center" style={{ color: headerPageConfig.iconColor || '#3BA8AF' }}>
+                  <img 
+                    src={headerPageConfig.iconUrl} 
+                    alt="Icon"
+                    className="w-full h-full object-contain"
+                    style={{ filter: 'brightness(0) invert(1)' }}
+                  />
+                </div>
+              )}
               <h1 
                 className="text-4xl md:text-5xl font-heading font-bold mb-4"
                 style={{ color: headerPageConfig.titleColor || '#ffffff', whiteSpace: 'pre-line' }}
@@ -3707,7 +3717,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="title">Titre</Label>
               <Textarea 
                 id="title"
-                value={formData.title || block.configuration?.title || ''} 
+                value={formData.title !== undefined ? formData.title : (block.configuration?.title || '')} 
                 onChange={e => updateField('title', e.target.value)}
                 rows={2}
                 className="mt-2"
@@ -3725,7 +3735,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="subtitle">Sous-titre</Label>
               <Textarea 
                 id="subtitle"
-                value={formData.subtitle || block.configuration?.subtitle || ''} 
+                value={formData.subtitle !== undefined ? formData.subtitle : (block.configuration?.subtitle || '')} 
                 onChange={e => updateField('subtitle', e.target.value)}
                 rows={2}
                 className="mt-2"
@@ -3735,6 +3745,49 @@ const BlockEditDropdown = ({
                   value={formData.subtitleColor || '#ffffff'}
                   onChange={(value) => updateField('subtitleColor', value)}
                 />
+              </div>
+            </div>
+
+            {/* Icône */}
+            <div>
+              <Label htmlFor="iconUrl">Icône (URL)</Label>
+              <div className="flex gap-2 mt-2">
+                <Input 
+                  id="iconUrl"
+                  value={formData.iconUrl !== undefined ? formData.iconUrl : (block.configuration?.iconUrl || '')} 
+                  onChange={e => updateField('iconUrl', e.target.value)}
+                  placeholder="https://example.com/icon.svg"
+                  className="flex-1"
+                />
+                <Button 
+                  type="button"
+                  variant="outline"
+                  className="border-2 border-dashed border-gray-300 px-3"
+                  onClick={() => {
+                    const input = document.createElement('input');
+                    input.type = 'file';
+                    input.accept = 'image/*';
+                    input.onchange = (e) => {
+                      const file = (e.target as HTMLInputElement).files?.[0];
+                      if (file) {
+                        const url = URL.createObjectURL(file);
+                        updateField('iconUrl', url);
+                      }
+                    };
+                    input.click();
+                  }}
+                >
+                  <Plus className="h-4 w-4" />
+                </Button>
+              </div>
+              <div className="mt-3">
+                <Label className="text-sm">Couleur de l'icône</Label>
+                <div className="mt-2">
+                  <ColorPicker
+                    value={formData.iconColor || '#3BA8AF'}
+                    onChange={(value) => updateField('iconColor', value)}
+                  />
+                </div>
               </div>
             </div>
 
