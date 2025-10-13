@@ -3315,7 +3315,7 @@ Crawl-delay: 1`;
           identifier: `card_grid_date_${Date.now()}`,
           title: 'Grille de Cartes avec Dates',
           blockType: 'card_grid',
-          configuration: { cards: [], showDates: true },
+          configuration: { cards: [], showDates: true, cardsColor: '#084F6E' },
           isActive: false
         },
         form: {
@@ -3329,7 +3329,7 @@ Crawl-delay: 1`;
           identifier: `card_grid_price_${Date.now()}`,
           title: 'Grille de Cartes avec Prix',
           blockType: 'card_grid',
-          configuration: { cards: [], showPrices: true },
+          configuration: { cards: [], showPrices: true, cardsColor: '#084F6E' },
           isActive: false
         },
         advantages: {

@@ -271,7 +271,6 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
                   >
                     {tour.primaryImage && !failedImages.has(tour.id) && (
                       <img 
-                        key={`${tour.id}-${cardsColor}`}
                         src={tour.primaryImage} 
                         alt={tour.name}
                         className="w-full h-full object-cover"

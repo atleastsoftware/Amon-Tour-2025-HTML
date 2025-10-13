@@ -2023,18 +2023,10 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                         >
                           {tour.primaryImage && (
                             <img 
-                              key={`${tour.id}-${cardsColor}`}
                               src={tour.primaryImage} 
                               alt={tour.name}
                               className="w-full h-full object-cover"
-                              onError={(e) => {
-                                const target = e.target as HTMLImageElement;
-                                const parentDiv = target.parentElement;
-                                if (parentDiv) {
-                                  target.remove();
-                                  parentDiv.style.background = `linear-gradient(to bottom right, ${hexToRgba(cardsColor, 0.4)}, ${hexToRgba(cardsColor, 0.6)})`;
-                                }
-                              }}
+                              style={{ display: 'block' }}
                             />
                           )}
                           <div className="absolute top-4 right-4">
