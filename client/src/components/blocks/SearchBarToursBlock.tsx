@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -52,6 +52,12 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
   const [priceRange, setPriceRange] = useState<string>("all");
   const [durationFilter, setDurationFilter] = useState<string>("all");
   const [destinationFilter, setDestinationFilter] = useState<string>("all");
+  const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
+
+  // Réinitialiser les images échouées quand la couleur change
+  useEffect(() => {
+    setFailedImages(new Set());
+  }, [cardsColor]);
 
   const handleTourDetails = (tour: TourNinjaTour) => {
     if (tour.detailsUrl) {
@@ -258,37 +264,21 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
                     className="relative h-64 cursor-pointer"
                     onClick={() => handleTourDetails(tour)}
                     style={{
-                      background: tour.primaryImage 
+                      background: (tour.primaryImage && !failedImages.has(tour.id))
                         ? 'none'
                         : `linear-gradient(to bottom right, ${hexToRgba(cardsColor, 0.4)}, ${hexToRgba(cardsColor, 0.6)})`
                     }}
                   >
-                    {tour.primaryImage ? (
+                    {tour.primaryImage && !failedImages.has(tour.id) && (
                       <img 
+                        key={`${tour.id}-${cardsColor}`}
                         src={tour.primaryImage} 
                         alt={tour.name}
                         className="w-full h-full object-cover"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          const parentDiv = target.parentElement;
-                          if (parentDiv) {
-                            target.remove();
-                            parentDiv.style.background = `linear-gradient(to bottom right, ${hexToRgba(cardsColor, 0.4)}, ${hexToRgba(cardsColor, 0.6)})`;
-                            parentDiv.innerHTML = `
-                              <div class="w-full h-full flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="${hexToRgba(cardsColor, 0.7)}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                  <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
-                                  <circle cx="12" cy="10" r="3"/>
-                                </svg>
-                              </div>
-                            `;
-                          }
+                        onError={() => {
+                          setFailedImages(prev => new Set(prev).add(tour.id));
                         }}
                       />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center">
-                        <MapPin className="h-16 w-16" style={{ color: hexToRgba(cardsColor, 0.7) }} />
-                      </div>
                     )}
                     <div className="absolute top-4 right-4">
                       <Badge variant="secondary" className="bg-white/90 text-gray-800">
