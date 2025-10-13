@@ -1904,6 +1904,153 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
           </section>
         );
 
+      case 'search_bar_tours':
+        // Barre de recherche + grille de tours (style page /tours)
+        const searchBarConfig = liveConfiguration || block.configuration || {};
+        const allTours = tourNinjaTours || [];
+        const searchBarLoading = tourNinjaLoading;
+        
+        // Configuration des couleurs
+        const filtersBgColor = searchBarConfig.filtersBgColor || '#ffffff';
+        const filtersTextColor = searchBarConfig.filtersTextColor || '#333333';
+        const cardsBgColor = searchBarConfig.cardsBgColor || '#ffffff';
+        
+        return (
+          <section className="min-h-screen bg-gradient-to-br from-primary/10 to-primary/20 py-16">
+            <div className="container mx-auto px-4">
+              {/* Barre de filtres */}
+              <div 
+                className="rounded-xl shadow-lg p-6 mb-8"
+                style={{ backgroundColor: filtersBgColor }}
+              >
+                <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-4">
+                  <h2 
+                    className="text-xl font-semibold"
+                    style={{ color: filtersTextColor }}
+                  >
+                    Filters
+                  </h2>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-4 w-full">
+                  {/* Recherche */}
+                  <div className="relative md:col-span-2 lg:col-span-2">
+                    <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                      <Search className="h-4 w-4" />
+                    </div>
+                    <input
+                      placeholder="Search for a tour..."
+                      className="pl-10 w-full p-2 border rounded-md"
+                      style={{ color: filtersTextColor }}
+                    />
+                  </div>
+
+                  {/* Prix */}
+                  <select className="p-2 border rounded-md" style={{ color: filtersTextColor }}>
+                    <option>All prices</option>
+                  </select>
+
+                  {/* Durée */}
+                  <select className="p-2 border rounded-md" style={{ color: filtersTextColor }}>
+                    <option>All durations</option>
+                  </select>
+
+                  {/* Destination */}
+                  <select className="p-2 border rounded-md" style={{ color: filtersTextColor }}>
+                    <option>All destinations</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Grille de tours */}
+              {searchBarLoading ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {[...Array(6)].map((_, i) => (
+                    <div key={i} className="bg-gray-200 rounded-xl h-96 animate-pulse" />
+                  ))}
+                </div>
+              ) : allTours.length > 0 ? (
+                <motion.div 
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  {allTours.slice(0, 6).map((tour: any, index: number) => (
+                    <motion.div
+                      key={tour.id}
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: index * 0.1 }}
+                    >
+                      <div 
+                        className="h-full rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
+                        style={{ backgroundColor: cardsBgColor }}
+                      >
+                        <div 
+                          className="relative h-64 bg-gradient-to-br from-primary/40 to-primary/60 cursor-pointer"
+                        >
+                          {tour.primaryImage ? (
+                            <img 
+                              src={tour.primaryImage} 
+                              alt={tour.name}
+                              className="w-full h-full object-cover"
+                              onError={(e) => {
+                                const target = e.target as HTMLImageElement;
+                                target.style.display = 'none';
+                              }}
+                            />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center">
+                              <MapPin className="h-16 w-16 text-primary/70" />
+                            </div>
+                          )}
+                          <div className="absolute top-4 right-4">
+                            <div className="bg-white/90 text-gray-800 px-3 py-1 rounded-full text-sm flex items-center gap-1">
+                              <Clock className="h-3 w-3" />
+                              {tour.duration} day{Number(tour.duration) > 1 ? 's' : ''}
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="p-6">
+                          <h3 className="text-xl font-bold text-gray-800 mb-3 line-clamp-2">
+                            {tour.name}
+                          </h3>
+                          
+                          {tour.shortDescription && (
+                            <p className="text-gray-600 mb-4 line-clamp-3">
+                              {tour.shortDescription}
+                            </p>
+                          )}
+                          
+                          <div className="flex items-center text-sm text-gray-500 mb-4">
+                            <MapPin className="h-4 w-4 mr-1" />
+                            {tour.location}
+                          </div>
+                          
+                          <div className="flex gap-2">
+                            <button className="flex-1 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors text-sm font-semibold">
+                              Details
+                            </button>
+                            <button className="flex-1 px-4 py-2 bg-secondary text-white rounded-lg hover:bg-secondary/90 transition-colors text-sm font-semibold">
+                              {tour.price > 0 ? `${tour.price.toLocaleString()} ฿` : 'Price on request'}
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              ) : (
+                <div className="text-center py-8">
+                  <p className="text-gray-500">No tours available at the moment.</p>
+                </div>
+              )}
+            </div>
+          </section>
+        );
+
       case 'why_choose_us':
         // Utiliser liveConfiguration pour l'édition en temps réel, sinon block.configuration pour les données sauvegardées
         const featuresConfig = liveConfiguration || block.configuration || {};
