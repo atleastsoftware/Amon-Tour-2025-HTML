@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation, useSearch } from 'wouter';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { ArrowLeft, Edit, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Save, Undo, Trash2, AlertTriangle, Plus, ExternalLink, ChevronRight, Users, Compass, Sparkles, Star, Heart, FormInput, Clock, MapPin, Search } from 'lucide-react';
 import BlockSelectionPopup from '@/components/admin/BlockSelectionPopup';
@@ -2009,7 +2010,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6, delay: index * 0.1 }}
                     >
-                      <div 
+                      <Card 
                         className="h-full rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
                         style={{ backgroundColor: cardsBgColor }}
                       >
@@ -2032,15 +2033,15 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                             </div>
                           )}
                           <div className="absolute top-4 right-4">
-                            <div className="bg-white/90 text-gray-800 px-3 py-1 rounded-full text-sm flex items-center gap-1">
-                              <Clock className="h-3 w-3" />
+                            <Badge variant="secondary" className="bg-white/90 text-gray-800">
+                              <Clock className="h-3 w-3 mr-1" />
                               {tour.duration} day{Number(tour.duration) > 1 ? 's' : ''}
-                            </div>
+                            </Badge>
                           </div>
                         </div>
                         
-                        <div className="p-6">
-                          <h3 className="text-xl font-bold text-gray-800 mb-3 line-clamp-2">
+                        <CardContent className="p-6">
+                          <h3 className="text-xl font-bold text-gray-800 mb-3 line-clamp-2 cursor-pointer hover:text-primary transition-colors">
                             {tour.name}
                           </h3>
                           
@@ -2056,15 +2057,22 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                           </div>
                           
                           <div className="flex gap-2">
-                            <button className="flex-1 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors text-sm font-semibold">
-                              Details
-                            </button>
-                            <button className="flex-1 px-4 py-2 bg-secondary text-white rounded-lg hover:bg-secondary/90 transition-colors text-sm font-semibold">
-                              {tour.price > 0 ? `${tour.price.toLocaleString()} ฿` : 'Price on request'}
-                            </button>
+                            <Button 
+                              variant="outline"
+                              className="flex-1 border-primary text-primary hover:bg-primary/10"
+                            >
+                              View details
+                              <ExternalLink className="h-4 w-4 ml-2" />
+                            </Button>
+                            <Button 
+                              className="flex-1 bg-primary hover:bg-primary/90 text-white"
+                            >
+                              Book
+                              <ExternalLink className="h-4 w-4 ml-2" />
+                            </Button>
                           </div>
-                        </div>
-                      </div>
+                        </CardContent>
+                      </Card>
                     </motion.div>
                   ))}
                 </motion.div>
