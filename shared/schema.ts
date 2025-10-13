@@ -554,6 +554,7 @@ export const blockTypeEnum = pgEnum("block_type", [
   "hero_video",    // Hero avec vidéo de fond
   "hero_banner",   // Hero avec image statique
   "hero",          // Hero générique
+  "header_page",   // Header de page (style "Our Experiences")
   
   // Content Sections
   "text",          // Bloc de texte simple avec titre et contenu
