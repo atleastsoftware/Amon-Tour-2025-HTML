@@ -1244,14 +1244,20 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
             {renderHeaderBackground()}
             <div className="relative z-20 container mx-auto px-4 h-full flex flex-col items-center justify-center text-center text-white">
               {headerPageConfig.iconUrl && (
-                <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center" style={{ color: headerPageConfig.iconColor || '#3BA8AF' }}>
-                  <img 
-                    src={headerPageConfig.iconUrl} 
-                    alt="Icon"
-                    className="w-full h-full object-contain"
-                    style={{ filter: 'brightness(0) invert(1)' }}
-                  />
-                </div>
+                <div 
+                  className="w-16 h-16 mx-auto mb-6"
+                  style={{ 
+                    WebkitMaskImage: `url(${headerPageConfig.iconUrl})`,
+                    maskImage: `url(${headerPageConfig.iconUrl})`,
+                    WebkitMaskRepeat: 'no-repeat',
+                    maskRepeat: 'no-repeat',
+                    WebkitMaskPosition: 'center',
+                    maskPosition: 'center',
+                    WebkitMaskSize: 'contain',
+                    maskSize: 'contain',
+                    backgroundColor: headerPageConfig.iconColor || '#ffffff'
+                  }}
+                />
               )}
               <h1 
                 className="text-4xl md:text-5xl font-heading font-bold mb-4"
@@ -2875,13 +2881,12 @@ const BlockEditDropdown = ({
                       />
                     </div>
                     <div>
-                      <Label className="text-xs">URL</Label>
-                      <Input 
+                      <URLInput 
                         value={button.url || ''} 
-                        onChange={e => {
+                        onChange={(value: string) => {
                           const buttons = formData.buttons || [{text: 'See our offers', url: '/tours', color: '#084F6E', style: 'filled'}, {text: 'Custom your trip', url: '/custom-tour', color: '#084F6E', style: 'filled'}];
                           const newButtons = buttons.map((b: any, i: number) => 
-                            i === index ? {...b, url: e.target.value} : b
+                            i === index ? {...b, url: value} : b
                           );
                           updateField('buttons', newButtons);
                         }}
@@ -3537,12 +3542,11 @@ const BlockEditDropdown = ({
                         />
                       </div>
                       <div>
-                        <Label className="text-sm">URL</Label>
-                        <Input 
+                        <URLInput 
                           value={button.url || ''} 
-                          onChange={e => {
+                          onChange={(value: string) => {
                             const updated = [...textButtons];
-                            updated[index].url = e.target.value;
+                            updated[index].url = value;
                             updateField('buttons', updated);
                           }}
                         />
@@ -3750,7 +3754,7 @@ const BlockEditDropdown = ({
 
             {/* Icône */}
             <div>
-              <Label htmlFor="iconUrl">Icône (URL)</Label>
+              <Label htmlFor="iconUrl">Icône</Label>
               <div className="flex gap-2 mt-2">
                 <Input 
                   id="iconUrl"
@@ -3781,13 +3785,10 @@ const BlockEditDropdown = ({
                 </Button>
               </div>
               <div className="mt-3">
-                <Label className="text-sm">Couleur de l'icône</Label>
-                <div className="mt-2">
-                  <ColorPicker
-                    value={formData.iconColor || '#3BA8AF'}
-                    onChange={(value) => updateField('iconColor', value)}
-                  />
-                </div>
+                <ColorPicker
+                  value={formData.iconColor || '#ffffff'}
+                  onChange={(value) => updateField('iconColor', value)}
+                />
               </div>
             </div>
 
@@ -5687,7 +5688,6 @@ const BlockEditDropdown = ({
                         </div>
                         <div>
                           <URLInput
-                            label="URL"
                             value={button.url || ''}
                             onChange={(value) => {
                               const updated = [...whoWeAreButtons];
@@ -6209,13 +6209,12 @@ const BlockEditDropdown = ({
                         />
                       </div>
                       <div>
-                        <Label className="text-xs">URL</Label>
-                        <Input 
+                        <URLInput 
                           value={button.url || ''} 
-                          onChange={e => {
+                          onChange={(value: string) => {
                             const buttons = formData.buttons || [{text: 'Bouton 1', url: '', color: '#084F6E', style: 'filled'}, {text: 'Bouton 2', url: '', color: '#084F6E', style: 'filled'}];
                             const newButtons = buttons.map((b: any, i: number) => 
-                              i === index ? {...b, url: e.target.value} : b
+                              i === index ? {...b, url: value} : b
                             );
                             updateField('buttons', newButtons);
                           }}

@@ -3522,7 +3522,7 @@ Crawl-delay: 1`;
             titleColor: '#ffffff',
             subtitleColor: '#ffffff',
             iconUrl: '',
-            iconColor: '#3BA8AF',
+            iconColor: '#ffffff',
             backgroundType: 'gradient',
             gradientColor1: '#084F6E',
             gradientColor2: '#3BA8AF',
