@@ -1414,7 +1414,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                 ) : displayTours.length > 0 ? (
                   // Affiche les vraies cartes de tours avec design "Our Popular Experiences" (badges de jours)
                   displayTours.map((tour, index) => {
-                    const bgColor = popularConfig.cardButtonColor || '#2563eb';
+                    const bgColor = popularConfig.cardsColor || '#2563eb';
                     const hasImage = !!tour.primaryImage;
                     
                     return (
@@ -1474,12 +1474,12 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                           <button 
                             className="flex-1 border py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
                             style={{
-                              borderColor: popularConfig.cardButtonColor || '#2563eb',
-                              color: popularConfig.cardButtonColor || '#2563eb',
+                              borderColor: popularConfig.cardsColor || '#2563eb',
+                              color: popularConfig.cardsColor || '#2563eb',
                               backgroundColor: 'white',
                             }}
                             onMouseEnter={(e) => {
-                              e.currentTarget.style.backgroundColor = (popularConfig.cardButtonColor || '#2563eb') + '10';
+                              e.currentTarget.style.backgroundColor = (popularConfig.cardsColor || '#2563eb') + '10';
                             }}
                             onMouseLeave={(e) => {
                               e.currentTarget.style.backgroundColor = 'white';
@@ -1491,7 +1491,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                           <button 
                             className="flex-1 py-2 px-3 rounded-lg font-semibold transition-colors text-white flex items-center justify-center gap-1"
                             style={{
-                              backgroundColor: popularConfig.cardButtonColor || '#2563eb',
+                              backgroundColor: popularConfig.cardsColor || '#2563eb',
                             }}
                             onMouseEnter={(e) => {
                               e.currentTarget.style.filter = 'brightness(110%)';
@@ -1512,7 +1512,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                   // Fallback si pas de tours avec le bon nombre
                   Array.from({ length: Math.min(displayCount, 12) }).map((_, index) => (
                     <motion.div
-                      key={`${index}-${popularConfig.cardButtonColor || '#2563eb'}`}
+                      key={`${index}-${popularConfig.cardsColor || '#2563eb'}`}
                       initial={{ opacity: 0, y: 30 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
@@ -1520,10 +1520,10 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                       className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
                     >
                       <div 
-                        key={popularConfig.cardButtonColor}
+                        key={popularConfig.cardsColor}
                         className="relative h-48 overflow-hidden"
                         style={{ 
-                          background: `linear-gradient(135deg, ${hexToRgba(popularConfig.cardButtonColor || '#2563eb', 0.3)}, ${hexToRgba(popularConfig.cardButtonColor || '#2563eb', 0.6)})`
+                          background: `linear-gradient(135deg, ${hexToRgba(popularConfig.cardsColor || '#2563eb', 0.3)}, ${hexToRgba(popularConfig.cardsColor || '#2563eb', 0.6)})`
                         }}
                       >
                         <div className="absolute top-4 right-4 z-20">
@@ -1546,12 +1546,12 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                           <button 
                             className="flex-1 border py-2 px-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-1"
                             style={{
-                              borderColor: popularConfig.cardButtonColor || '#2563eb',
-                              color: popularConfig.cardButtonColor || '#2563eb',
+                              borderColor: popularConfig.cardsColor || '#2563eb',
+                              color: popularConfig.cardsColor || '#2563eb',
                               backgroundColor: 'white',
                             }}
                             onMouseEnter={(e) => {
-                              e.currentTarget.style.backgroundColor = (popularConfig.cardButtonColor || '#2563eb') + '10';
+                              e.currentTarget.style.backgroundColor = (popularConfig.cardsColor || '#2563eb') + '10';
                             }}
                             onMouseLeave={(e) => {
                               e.currentTarget.style.backgroundColor = 'white';
@@ -1563,7 +1563,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                           <button 
                             className="flex-1 py-2 px-3 rounded-lg font-semibold transition-colors text-white flex items-center justify-center gap-1"
                             style={{
-                              backgroundColor: popularConfig.cardButtonColor || '#2563eb',
+                              backgroundColor: popularConfig.cardsColor || '#2563eb',
                             }}
                             onMouseEnter={(e) => {
                               e.currentTarget.style.filter = 'brightness(110%)';
@@ -4408,10 +4408,9 @@ const BlockEditDropdown = ({
               <div className="space-y-2">
                 <Label className="text-sm font-medium">Couleurs des annonces</Label>
                 <ColorPicker
-                  value={formData.cardButtonColor || '#2563eb'}
+                  value={formData.cardsColor || '#2563eb'}
                   onChange={(value) => {
-                    updateField('cardBackgroundColor', value);
-                    updateField('cardButtonColor', value);
+                    updateField('cardsColor', value);
                   }}
                   label=""
                 />
@@ -4712,10 +4711,9 @@ const BlockEditDropdown = ({
               <div className="space-y-2">
                 <Label className="text-sm font-medium">Couleurs des annonces</Label>
                 <ColorPicker
-                  value={formData.cardButtonColor || '#2563eb'}
+                  value={formData.cardsColor || '#2563eb'}
                   onChange={(value) => {
-                    updateField('cardBackgroundColor', value);
-                    updateField('cardButtonColor', value);
+                    updateField('cardsColor', value);
                   }}
                   label=""
                 />
