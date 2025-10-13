@@ -40,6 +40,23 @@ const blockTypes: BlockType[] = [
     )
   },
   {
+    type: 'header_page',
+    label: 'Header Page',
+    description: 'En-tête de page avec titre et sous-titre (style "Our Experiences")',
+    icon: Home,
+    preview: (
+      <div className="w-full bg-white rounded-lg overflow-hidden border">
+        <div className="relative h-20 bg-gradient-to-r from-[#084F6E] to-[#3BA8AF]">
+          <div className="absolute inset-0 bg-black/40"></div>
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-3">
+            <h1 className="text-base font-bold mb-0.5 text-center">Our Experiences</h1>
+            <p className="text-xs opacity-90 text-center">Découvrez la beauté exceptionnelle...</p>
+          </div>
+        </div>
+      </div>
+    )
+  },
+  {
     type: 'text',
     label: 'Text',
     description: 'Section de texte avec titre et contenu',
