@@ -3536,8 +3536,8 @@ Crawl-delay: 1`;
           title: 'Search bar : Tours',
           blockType: 'search_bar_tours',
           configuration: {
-            filtersTitle: '',
-            searchPlaceholder: '',
+            filtersTitle: 'Filters',
+            searchPlaceholder: 'Search for a tour...',
             filtersTextColor: '#333333',
             filtersBgColor: '#ffffff',
             cardsColor: '#084F6E',
