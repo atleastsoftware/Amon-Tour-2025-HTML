@@ -1770,7 +1770,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                 >
                   {displayToursPrice.map((tour, index) => (
                     <motion.div
-                      key={`${tour.id || index}-${config.cardButtonColor || THEME_COLORS.primary}`}
+                      key={`${tour.id || index}-${config.cardsColor || THEME_COLORS.primary}`}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.1 }}
@@ -1781,10 +1781,10 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                         <div className="relative h-48">
                           {!tour.primaryImage ? (
                             <div 
-                              key={config.cardButtonColor}
+                              key={config.cardsColor}
                               className="h-48 relative overflow-hidden"
                               style={{ 
-                                background: `linear-gradient(135deg, ${hexToRgba(config.cardButtonColor || THEME_COLORS.primary, 0.3)}, ${hexToRgba(config.cardButtonColor || THEME_COLORS.primary, 0.6)})`
+                                background: `linear-gradient(135deg, ${hexToRgba(config.cardsColor || THEME_COLORS.primary, 0.3)}, ${hexToRgba(config.cardsColor || THEME_COLORS.primary, 0.6)})`
                               }}
                             ></div>
                           ) : (
@@ -1795,7 +1795,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                               onError={(e) => {
                                 const target = e.target as HTMLImageElement;
                                 const parentDiv = target.parentElement;
-                                const bgColor = config.cardButtonColor || THEME_COLORS.primary;
+                                const bgColor = config.cardsColor || THEME_COLORS.primary;
                                 if (parentDiv) {
                                   target.remove();
                                   parentDiv.innerHTML = `
@@ -1833,12 +1833,12 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                             <button 
                               className="flex-1 border py-2 px-4 rounded-md font-medium text-sm transition-colors"
                               style={{
-                                borderColor: config.cardButtonColor || THEME_COLORS.primary,
-                                color: config.cardButtonColor || THEME_COLORS.primary,
+                                borderColor: config.cardsColor || THEME_COLORS.primary,
+                                color: config.cardsColor || THEME_COLORS.primary,
                                 backgroundColor: 'white'
                               }}
                               onMouseEnter={(e) => {
-                                e.currentTarget.style.backgroundColor = (config.cardButtonColor || THEME_COLORS.primary) + '10';
+                                e.currentTarget.style.backgroundColor = (config.cardsColor || THEME_COLORS.primary) + '10';
                               }}
                               onMouseLeave={(e) => {
                                 e.currentTarget.style.backgroundColor = 'white';
@@ -1849,7 +1849,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                             <button 
                               className="flex-1 py-2 px-4 rounded-md font-medium text-sm text-white transition-colors"
                               style={{
-                                backgroundColor: config.cardButtonColor || THEME_COLORS.primary
+                                backgroundColor: config.cardsColor || THEME_COLORS.primary
                               }}
                               onMouseEnter={(e) => {
                                 e.currentTarget.style.filter = 'brightness(110%)';
@@ -1916,8 +1916,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         const searchPlaceholder = searchBarConfig.searchPlaceholder || '';
         const filtersBgColor = searchBarConfig.filtersBgColor || '#ffffff';
         const filtersTextColor = searchBarConfig.filtersTextColor || '#333333';
-        const cardGradientColor = searchBarConfig.cardGradientColor || '#084F6E';
-        const cardButtonColor = searchBarConfig.cardButtonColor || '#084F6E';
+        const cardsColor = searchBarConfig.cardsColor || '#084F6E';
         const sectionBgColor = searchBarConfig.backgroundColor || '#ffffff';
         const mobileColumns = searchBarConfig.mobileColumns || 1;
         const tabletColumns = searchBarConfig.tabletColumns || 2;
@@ -2019,7 +2018,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                           style={{
                             background: tour.primaryImage 
                               ? 'none'
-                              : `linear-gradient(to bottom right, ${hexToRgba(cardGradientColor, 0.4)}, ${hexToRgba(cardGradientColor, 0.6)})`
+                              : `linear-gradient(to bottom right, ${hexToRgba(cardsColor, 0.4)}, ${hexToRgba(cardsColor, 0.6)})`
                           }}
                         >
                           {tour.primaryImage ? (
@@ -2034,7 +2033,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                             />
                           ) : (
                             <div className="w-full h-full flex items-center justify-center">
-                              <MapPin className="h-16 w-16" style={{ color: hexToRgba(cardGradientColor, 0.7) }} />
+                              <MapPin className="h-16 w-16" style={{ color: hexToRgba(cardsColor, 0.7) }} />
                             </div>
                           )}
                           <div className="absolute top-4 right-4">
@@ -2066,8 +2065,8 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                               variant="outline"
                               className="flex-1"
                               style={{
-                                borderColor: cardButtonColor,
-                                color: cardButtonColor
+                                borderColor: cardsColor,
+                                color: cardsColor
                               }}
                             >
                               View details
@@ -2076,7 +2075,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                             <Button 
                               className="flex-1 text-white"
                               style={{
-                                backgroundColor: cardButtonColor
+                                backgroundColor: cardsColor
                               }}
                             >
                               Book
@@ -4259,27 +4258,13 @@ const BlockEditDropdown = ({
               <h3 className="font-semibold text-lg">Configuration de la grille</h3>
 
               {/* Couleurs des annonces */}
-              <div className="space-y-3">
+              <div>
                 <Label className="text-sm font-medium">Couleurs des annonces</Label>
-                
-                <div>
-                  <Label className="text-xs text-gray-500">Dégradé de la carte</Label>
-                  <div className="mt-2">
-                    <ColorPicker
-                      value={formData.cardGradientColor || '#084F6E'}
-                      onChange={(value) => updateField('cardGradientColor', value)}
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <Label className="text-xs text-gray-500">Couleur des boutons</Label>
-                  <div className="mt-2">
-                    <ColorPicker
-                      value={formData.cardButtonColor || '#084F6E'}
-                      onChange={(value) => updateField('cardButtonColor', value)}
-                    />
-                  </div>
+                <div className="mt-2">
+                  <ColorPicker
+                    value={formData.cardsColor || '#084F6E'}
+                    onChange={(value) => updateField('cardsColor', value)}
+                  />
                 </div>
               </div>
 

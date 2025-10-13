@@ -24,8 +24,7 @@ interface SearchBarToursBlockProps {
     searchPlaceholder?: string;
     filtersTextColor?: string;
     filtersBgColor?: string;
-    cardGradientColor?: string;
-    cardButtonColor?: string;
+    cardsColor?: string;
     backgroundColor?: string;
     mobileColumns?: number;
     tabletColumns?: number;
@@ -42,8 +41,7 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
   const searchPlaceholder = configuration.searchPlaceholder || '';
   const filtersTextColor = configuration.filtersTextColor || '#333333';
   const filtersBgColor = configuration.filtersBgColor || '#ffffff';
-  const cardGradientColor = configuration.cardGradientColor || '#084F6E';
-  const cardButtonColor = configuration.cardButtonColor || '#084F6E';
+  const cardsColor = configuration.cardsColor || '#084F6E';
   const sectionBgColor = configuration.backgroundColor || '#ffffff';
   const mobileColumns = configuration.mobileColumns || 1;
   const tabletColumns = configuration.tabletColumns || 2;
@@ -262,7 +260,7 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
                     style={{
                       background: tour.primaryImage 
                         ? 'none'
-                        : `linear-gradient(to bottom right, ${hexToRgba(cardGradientColor, 0.4)}, ${hexToRgba(cardGradientColor, 0.6)})`
+                        : `linear-gradient(to bottom right, ${hexToRgba(cardsColor, 0.4)}, ${hexToRgba(cardsColor, 0.6)})`
                     }}
                   >
                     {tour.primaryImage ? (
@@ -277,7 +275,7 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center">
-                        <MapPin className="h-16 w-16" style={{ color: hexToRgba(cardGradientColor, 0.7) }} />
+                        <MapPin className="h-16 w-16" style={{ color: hexToRgba(cardsColor, 0.7) }} />
                       </div>
                     )}
                     <div className="absolute top-4 right-4">
@@ -313,8 +311,8 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
                         variant="outline"
                         className="flex-1"
                         style={{
-                          borderColor: cardButtonColor,
-                          color: cardButtonColor
+                          borderColor: cardsColor,
+                          color: cardsColor
                         }}
                       >
                         View details
@@ -324,7 +322,7 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
                         onClick={() => handleTourBooking(tour)}
                         className="flex-1 text-white"
                         style={{
-                          backgroundColor: cardButtonColor
+                          backgroundColor: cardsColor
                         }}
                       >
                         Book
