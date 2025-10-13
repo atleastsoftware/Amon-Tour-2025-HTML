@@ -1165,6 +1165,41 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
           </section>
         );
 
+      case 'header_page':
+        // Header de page (style "Our Experiences")
+        const headerPageConfig = liveConfiguration || block.configuration || {};
+        
+        return (
+          <section className="relative h-[35vh] md:h-[52vh]">
+            {headerPageConfig.imageUrl ? (
+              <img 
+                src={headerPageConfig.imageUrl} 
+                alt={headerPageConfig.imageAlt || headerPageConfig.title || 'Header background'} 
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            ) : (
+              <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-primary to-secondary" />
+            )}
+            <div className="absolute inset-0 bg-black/50 z-10"></div>
+            <div className="relative z-20 container mx-auto px-4 h-full flex flex-col items-center justify-center text-center text-white">
+              <h1 
+                className="text-4xl md:text-5xl font-heading font-bold mb-4"
+                style={{ color: headerPageConfig.titleColor || '#ffffff' }}
+              >
+                {headerPageConfig.title || 'Our Experiences'}
+              </h1>
+              {headerPageConfig.subtitle && (
+                <p 
+                  className="text-lg md:text-xl max-w-2xl mx-auto"
+                  style={{ color: headerPageConfig.subtitleColor || '#ffffff' }}
+                >
+                  {headerPageConfig.subtitle}
+                </p>
+              )}
+            </div>
+          </section>
+        );
+
       case 'popular_experiences':
         // Section "Our Popular Experiences" - Card Grid Date avec badges de jours
         const realTours = tourNinjaTours;
@@ -3578,6 +3613,58 @@ const BlockEditDropdown = ({
                   onChange={(value) => updateField('backgroundColor', value)}
                 />
               </div>
+            </div>
+          </div>
+        );
+
+      case 'header_page':
+        return (
+          <div className="space-y-6">
+            {/* Titre */}
+            <div>
+              <Label htmlFor="title">Titre</Label>
+              <Input 
+                id="title"
+                value={formData.title || block.configuration?.title || 'Our Experiences'} 
+                onChange={e => updateField('title', e.target.value)}
+                placeholder="Our Experiences"
+                className="mt-2"
+              />
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.titleColor || '#ffffff'}
+                  onChange={(value) => updateField('titleColor', value)}
+                />
+              </div>
+            </div>
+            
+            {/* Sous-titre */}
+            <div>
+              <Label htmlFor="subtitle">Sous-titre</Label>
+              <Input 
+                id="subtitle"
+                value={formData.subtitle || block.configuration?.subtitle || ''} 
+                onChange={e => updateField('subtitle', e.target.value)}
+                placeholder="Découvrez la beauté exceptionnelle de Krabi..."
+                className="mt-2"
+              />
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.subtitleColor || '#ffffff'}
+                  onChange={(value) => updateField('subtitleColor', value)}
+                />
+              </div>
+            </div>
+
+            {/* Image de fond */}
+            <div>
+              <Label>Image de fond</Label>
+              <ImageUpload
+                value={formData.imageUrl || ''}
+                onChange={(value) => updateField('imageUrl', value)}
+                onAltChange={(value) => updateField('imageAlt', value)}
+                altText={formData.imageAlt || ''}
+              />
             </div>
           </div>
         );
