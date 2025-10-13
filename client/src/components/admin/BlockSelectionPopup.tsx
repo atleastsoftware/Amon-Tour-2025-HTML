@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Home, FileText, Grid3x3, FormInput, CheckCircle, Calendar, DollarSign, Sparkles, Image } from 'lucide-react';
+import { Home, FileText, Grid3x3, FormInput, CheckCircle, Calendar, DollarSign, Sparkles, Image, Search } from 'lucide-react';
 
 interface BlockType {
   type: string;
@@ -223,6 +223,40 @@ const blockTypes: BlockType[] = [
             </div>
           </div>
           <div className="bg-gradient-to-br from-[#084F6E] to-[#3BA8AF] rounded h-full min-h-[180px]"></div>
+        </div>
+      </div>
+    )
+  },
+  {
+    type: 'search_bar_tours',
+    label: 'Search bar : Tours',
+    description: 'Barre de recherche avec filtres et grille de tours',
+    icon: Search,
+    preview: (
+      <div className="w-full bg-white rounded-lg overflow-hidden border p-4">
+        <div className="bg-white rounded-lg border p-3 mb-4">
+          <div className="text-xs font-semibold mb-2">Filters</div>
+          <div className="grid grid-cols-3 gap-2">
+            <div className="flex items-center gap-1 border rounded px-2 py-1">
+              <Search className="h-3 w-3 text-gray-400" />
+              <div className="text-xs text-gray-400">Search...</div>
+            </div>
+            <div className="border rounded px-2 py-1 text-xs text-gray-600">All prices</div>
+            <div className="border rounded px-2 py-1 text-xs text-gray-600">All durations</div>
+          </div>
+        </div>
+        <div className="grid grid-cols-3 gap-2">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="bg-white border rounded-lg overflow-hidden">
+              <div className="h-16 bg-gradient-to-r from-[#084F6E] to-[#3BA8AF] relative">
+                <div className="absolute top-1 right-1 bg-white px-1.5 py-0.5 rounded text-xs">1 day</div>
+              </div>
+              <div className="p-2">
+                <div className="text-xs font-semibold mb-1">Tour Name</div>
+                <div className="text-xs text-gray-500">From 2,500 ฿</div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     )
