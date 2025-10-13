@@ -43,6 +43,29 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
     // Pour l'instant, on affiche un rendu basique pour chaque type de bloc
     // Dans le futur, chaque type de bloc aura son propre composant
     switch (block.blockType) {
+      case 'header_page':
+        return (
+          <div key={block.id} className="relative h-[35vh] md:h-[52vh] bg-gradient-to-br from-primary to-secondary flex items-center justify-center w-full">
+            {block.imageUrl && (
+              <img 
+                src={block.imageUrl} 
+                alt={block.imageAlt || block.title || ''} 
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            )}
+            {/* Overlay pour améliorer le contraste du texte blanc */}
+            <div className="absolute inset-0 bg-black/50 z-10"></div>
+            <div className="relative z-20 w-full px-8 md:px-12 lg:px-16 text-center">
+              {block.title && (
+                <h1 className="text-4xl md:text-5xl font-heading font-bold text-white mb-4">{block.title}</h1>
+              )}
+              {block.subtitle && (
+                <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto">{block.subtitle}</p>
+              )}
+            </div>
+          </div>
+        );
+
       case 'hero':
       case 'hero_banner':
       case 'hero_video':
