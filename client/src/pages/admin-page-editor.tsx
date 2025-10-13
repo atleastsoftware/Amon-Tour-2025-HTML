@@ -1169,32 +1169,110 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         // Header de page (style "Our Experiences")
         const headerPageConfig = liveConfiguration || block.configuration || {};
         
+        // Fonction pour afficher l'arrière-plan
+        const renderHeaderBackground = () => {
+          const bgType = headerPageConfig.backgroundType || 'image';
+          
+          switch (bgType) {
+            case 'color':
+              return (
+                <div 
+                  className="absolute inset-0 w-full h-full z-0"
+                  style={{ backgroundColor: headerPageConfig.backgroundColor || '#084F6E' }}
+                />
+              );
+            
+            case 'gradient':
+              return (
+                <div 
+                  className="absolute inset-0 w-full h-full z-0"
+                  style={{ 
+                    background: `linear-gradient(135deg, ${headerPageConfig.gradientColor1 || '#084F6E'} 0%, ${headerPageConfig.gradientColor2 || '#3BA8AF'} 100%)` 
+                  }}
+                />
+              );
+            
+            case 'video':
+              if (headerPageConfig.videoUrl) {
+                return (
+                  <div className="absolute inset-0 w-full h-full z-0">
+                    <video
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="auto"
+                      className="w-full h-full object-cover"
+                    >
+                      <source src={headerPageConfig.videoUrl} type="video/mp4" />
+                    </video>
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
+                  </div>
+                );
+              }
+              return <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-primary to-secondary z-0" />;
+            
+            case 'image':
+            default:
+              if (headerPageConfig.imageUrl) {
+                return (
+                  <>
+                    <img 
+                      src={headerPageConfig.imageUrl} 
+                      alt={headerPageConfig.imageAlt || headerPageConfig.title || 'Header background'} 
+                      className="absolute inset-0 w-full h-full object-cover z-0"
+                    />
+                    <div className="absolute inset-0 bg-black/50 z-10"></div>
+                  </>
+                );
+              }
+              return (
+                <>
+                  <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-primary to-secondary z-0" />
+                  <div className="absolute inset-0 bg-black/50 z-10"></div>
+                </>
+              );
+          }
+        };
+        
         return (
           <section className="relative h-[35vh] md:h-[52vh]">
-            {headerPageConfig.imageUrl ? (
-              <img 
-                src={headerPageConfig.imageUrl} 
-                alt={headerPageConfig.imageAlt || headerPageConfig.title || 'Header background'} 
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-            ) : (
-              <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-primary to-secondary" />
-            )}
-            <div className="absolute inset-0 bg-black/50 z-10"></div>
+            {renderHeaderBackground()}
             <div className="relative z-20 container mx-auto px-4 h-full flex flex-col items-center justify-center text-center text-white">
               <h1 
                 className="text-4xl md:text-5xl font-heading font-bold mb-4"
-                style={{ color: headerPageConfig.titleColor || '#ffffff' }}
+                style={{ color: headerPageConfig.titleColor || '#ffffff', whiteSpace: 'pre-line' }}
               >
                 {headerPageConfig.title || 'Our Experiences'}
               </h1>
               {headerPageConfig.subtitle && (
                 <p 
-                  className="text-lg md:text-xl max-w-2xl mx-auto"
-                  style={{ color: headerPageConfig.subtitleColor || '#ffffff' }}
+                  className="text-lg md:text-xl max-w-2xl mx-auto mb-6"
+                  style={{ color: headerPageConfig.subtitleColor || '#ffffff', whiteSpace: 'pre-line' }}
                 >
                   {headerPageConfig.subtitle}
                 </p>
+              )}
+              {headerPageConfig.buttons && headerPageConfig.buttons.length > 0 && (
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  {headerPageConfig.buttons.map((button: any, index: number) => (
+                    <span 
+                      key={index}
+                      className={`px-8 py-3 rounded transition-colors cursor-pointer inline-block shadow-lg ${
+                        (button.style || 'filled') === 'filled' 
+                          ? 'text-white hover:opacity-90' 
+                          : 'bg-transparent border-2 hover:bg-opacity-10'
+                      }`}
+                      style={{
+                        backgroundColor: (button.style || 'filled') === 'filled' ? (button.color || '#084F6E') : 'transparent',
+                        borderColor: (button.style || 'filled') === 'outline' ? (button.color || '#084F6E') : 'transparent',
+                        color: (button.style || 'filled') === 'outline' ? (button.color || '#084F6E') : '#ffffff'
+                      }}
+                    >
+                      {button.text || `Bouton ${index + 1}`}
+                    </span>
+                  ))}
+                </div>
               )}
             </div>
           </section>
@@ -3623,11 +3701,12 @@ const BlockEditDropdown = ({
             {/* Titre */}
             <div>
               <Label htmlFor="title">Titre</Label>
-              <Input 
+              <Textarea 
                 id="title"
                 value={formData.title || block.configuration?.title || 'Our Experiences'} 
                 onChange={e => updateField('title', e.target.value)}
                 placeholder="Our Experiences"
+                rows={2}
                 className="mt-2"
               />
               <div className="mt-3">
@@ -3641,11 +3720,12 @@ const BlockEditDropdown = ({
             {/* Sous-titre */}
             <div>
               <Label htmlFor="subtitle">Sous-titre</Label>
-              <Input 
+              <Textarea 
                 id="subtitle"
-                value={formData.subtitle || block.configuration?.subtitle || ''} 
+                value={formData.subtitle || block.configuration?.subtitle || 'Découvrez la beauté exceptionnelle de Krabi et du sud de la Thaïlande'} 
                 onChange={e => updateField('subtitle', e.target.value)}
                 placeholder="Découvrez la beauté exceptionnelle de Krabi..."
+                rows={2}
                 className="mt-2"
               />
               <div className="mt-3">
@@ -3656,15 +3736,202 @@ const BlockEditDropdown = ({
               </div>
             </div>
 
-            {/* Image de fond */}
+            {/* Boutons d'action */}
             <div>
-              <Label>Image de fond</Label>
-              <ImageUpload
-                value={formData.imageUrl || ''}
-                onChange={(value) => updateField('imageUrl', value)}
-                onAltChange={(value) => updateField('imageAlt', value)}
-                altText={formData.imageAlt || ''}
-              />
+              <div className="flex items-center justify-between mb-3">
+                <Label>Boutons d'action</Label>
+                <Button 
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    const buttons = formData.buttons || [];
+                    updateField('buttons', [...buttons, {text: 'Nouveau bouton', url: '#', color: '#084F6E', style: 'filled'}]);
+                  }}
+                >
+                  <Plus className="h-4 w-4 mr-1" /> Ajouter un bouton
+                </Button>
+              </div>
+              
+              <div className="space-y-3">
+                {(formData.buttons || []).map((button: any, index: number) => (
+                  <div key={index} className="border rounded-lg p-4 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <Label className="text-sm font-medium">Bouton {index + 1}</Label>
+                      <Button 
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {
+                          const buttons = formData.buttons || [];
+                          const newButtons = buttons.filter((_: any, i: number) => i !== index);
+                          updateField('buttons', newButtons);
+                        }}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  
+                  <div className="grid grid-cols-2 gap-2">
+                    <div>
+                      <Label className="text-xs">Texte</Label>
+                      <Input 
+                        value={button.text || ''} 
+                        onChange={e => {
+                          const buttons = formData.buttons || [];
+                          const newButtons = buttons.map((b: any, i: number) => 
+                            i === index ? {...b, text: e.target.value} : b
+                          );
+                          updateField('buttons', newButtons);
+                        }}
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-xs">URL</Label>
+                      <URLInput
+                        value={button.url || ''}
+                        onChange={(value: string) => {
+                          const buttons = formData.buttons || [];
+                          const newButtons = buttons.map((b: any, i: number) => 
+                            i === index ? {...b, url: value} : b
+                          );
+                          updateField('buttons', newButtons);
+                        }}
+                      />
+                    </div>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <Label className="text-xs">Couleur</Label>
+                      <ColorPicker
+                        value={button.color || '#084F6E'}
+                        onChange={(value) => {
+                          const buttons = formData.buttons || [];
+                          const newButtons = buttons.map((b: any, i: number) => 
+                            i === index ? {...b, color: value} : b
+                          );
+                          updateField('buttons', newButtons);
+                        }}
+                      />
+                    </div>
+                    
+                    <div>
+                      <Label className="text-xs">Style</Label>
+                      <Select 
+                        value={button.style || 'filled'} 
+                        onValueChange={value => {
+                          const buttons = formData.buttons || [];
+                          const newButtons = buttons.map((b: any, i: number) => 
+                            i === index ? {...b, style: value} : b
+                          );
+                          updateField('buttons', newButtons);
+                        }}
+                      >
+                        <SelectTrigger className="h-10">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="filled">Plein</SelectItem>
+                          <SelectItem value="outline">Contour</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Arrière-plan */}
+            <div>
+              <Label>Arrière-plan</Label>
+              <div className="mt-3">
+                <Select value={formData.backgroundType || 'image'} onValueChange={value => updateField('backgroundType', value)}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Type d'arrière-plan" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="image">Image</SelectItem>
+                    <SelectItem value="video">Vidéo</SelectItem>
+                    <SelectItem value="color">Couleur unie</SelectItem>
+                    <SelectItem value="gradient">Dégradé</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              
+              {formData.backgroundType === 'color' && (
+                <div className="mt-3">
+                  <Label htmlFor="backgroundColor">Couleur de fond</Label>
+                  <div className="mt-2">
+                    <ColorPicker
+                      value={formData.backgroundColor || '#084F6E'}
+                      onChange={(value) => updateField('backgroundColor', value)}
+                    />
+                  </div>
+                </div>
+              )}
+              
+              {formData.backgroundType === 'gradient' && (
+                <div className="mt-3 space-y-3">
+                  <div>
+                    <Label htmlFor="gradientColor1">Couleur 1</Label>
+                    <div className="mt-2">
+                      <ColorPicker
+                        value={formData.gradientColor1 || '#084F6E'}
+                        onChange={(value) => updateField('gradientColor1', value)}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Label htmlFor="gradientColor2">Couleur 2</Label>
+                    <div className="mt-2">
+                      <ColorPicker
+                        value={formData.gradientColor2 || '#3BA8AF'}
+                        onChange={(value) => updateField('gradientColor2', value)}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+              
+              {formData.backgroundType === 'video' && (
+                <div className="mt-3">
+                  <Label htmlFor="videoUrl">URL de la vidéo</Label>
+                  <Input 
+                    id="videoUrl"
+                    value={formData.videoUrl || ''} 
+                    onChange={e => updateField('videoUrl', e.target.value)}
+                    placeholder="/attached_assets/video.mp4"
+                    className="mt-2"
+                  />
+                </div>
+              )}
+              
+              {formData.backgroundType === 'image' && (
+                <div className="mt-3 space-y-3">
+                  <div>
+                    <Label htmlFor="imageUrl">URL de l'image de fond</Label>
+                    <Input 
+                      id="imageUrl"
+                      value={formData.imageUrl || ''} 
+                      onChange={e => updateField('imageUrl', e.target.value)}
+                      placeholder="https://example.com/image.jpg"
+                      className="mt-2"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="imageAlt">Texte alternatif</Label>
+                    <Input 
+                      id="imageAlt"
+                      value={formData.imageAlt || ''} 
+                      onChange={e => updateField('imageAlt', e.target.value)}
+                      placeholder="Description de l'image"
+                      className="mt-2"
+                    />
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         );
