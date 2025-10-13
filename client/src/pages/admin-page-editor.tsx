@@ -1235,15 +1235,19 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
           }
         };
         
+        // Déterminer la taille du cadre
+        const frameSize = headerPageConfig.frameSize || 'small';
+        const heightClass = frameSize === 'large' ? 'h-[70vh]' : 'h-[35vh] md:h-[52vh]';
+        
         return (
-          <section className="relative h-[35vh] md:h-[52vh]">
+          <section className={`relative ${heightClass}`}>
             {renderHeaderBackground()}
             <div className="relative z-20 container mx-auto px-4 h-full flex flex-col items-center justify-center text-center text-white">
               <h1 
                 className="text-4xl md:text-5xl font-heading font-bold mb-4"
                 style={{ color: headerPageConfig.titleColor || '#ffffff', whiteSpace: 'pre-line' }}
               >
-                {headerPageConfig.title || 'Our Experiences'}
+                {headerPageConfig.title || 'Titre de la page'}
               </h1>
               {headerPageConfig.subtitle && (
                 <p 
@@ -3703,9 +3707,8 @@ const BlockEditDropdown = ({
               <Label htmlFor="title">Titre</Label>
               <Textarea 
                 id="title"
-                value={formData.title || block.configuration?.title || 'Our Experiences'} 
+                value={formData.title || block.configuration?.title || ''} 
                 onChange={e => updateField('title', e.target.value)}
-                placeholder="Our Experiences"
                 rows={2}
                 className="mt-2"
               />
@@ -3722,9 +3725,8 @@ const BlockEditDropdown = ({
               <Label htmlFor="subtitle">Sous-titre</Label>
               <Textarea 
                 id="subtitle"
-                value={formData.subtitle || block.configuration?.subtitle || 'Découvrez la beauté exceptionnelle de Krabi et du sud de la Thaïlande'} 
+                value={formData.subtitle || block.configuration?.subtitle || ''} 
                 onChange={e => updateField('subtitle', e.target.value)}
-                placeholder="Découvrez la beauté exceptionnelle de Krabi..."
                 rows={2}
                 className="mt-2"
               />
@@ -3932,6 +3934,22 @@ const BlockEditDropdown = ({
                   </div>
                 </div>
               )}
+            </div>
+
+            {/* Taille du cadre */}
+            <div>
+              <Label>Taille du cadre</Label>
+              <div className="mt-3">
+                <Select value={formData.frameSize || 'small'} onValueChange={value => updateField('frameSize', value)}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Taille du cadre" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="small">Petite</SelectItem>
+                    <SelectItem value="large">Grande</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
           </div>
         );

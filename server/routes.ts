@@ -3518,11 +3518,14 @@ Crawl-delay: 1`;
           blockType: 'header_page',
           configuration: { 
             title: 'Titre de la page',
-            subtitle: 'Sous-titre descriptif de votre page',
+            subtitle: 'Sous-titre descriptif',
             titleColor: '#ffffff',
             subtitleColor: '#ffffff',
-            imageUrl: '',
-            imageAlt: ''
+            backgroundType: 'gradient',
+            gradientColor1: '#084F6E',
+            gradientColor2: '#3BA8AF',
+            frameSize: 'small',
+            buttons: []
           },
           isActive: false
         }
