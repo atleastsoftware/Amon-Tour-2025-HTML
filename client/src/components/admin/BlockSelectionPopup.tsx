@@ -17,7 +17,7 @@ const blockTypes: BlockType[] = [
   {
     type: 'hero',
     label: 'Hero Section',
-    description: 'Grande bannière avec titre, sous-titre et boutons CTA',
+    description: 'Grande bannière d\'accueil avec titre, sous-titre et boutons CTA',
     icon: Home,
     preview: (
       <div className="w-full bg-white rounded-lg overflow-hidden border">
@@ -42,15 +42,15 @@ const blockTypes: BlockType[] = [
   {
     type: 'header_page',
     label: 'Header Page',
-    description: 'En-tête de page avec titre et sous-titre (style "Our Experiences")',
+    description: 'En-tête de page avec titre, sous-titre et image de fond',
     icon: Home,
     preview: (
       <div className="w-full bg-white rounded-lg overflow-hidden border">
         <div className="relative h-20 bg-gradient-to-r from-[#084F6E] to-[#3BA8AF]">
           <div className="absolute inset-0 bg-black/40"></div>
           <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-3">
-            <h1 className="text-base font-bold mb-0.5 text-center">Our Experiences</h1>
-            <p className="text-xs opacity-90 text-center">Découvrez la beauté exceptionnelle...</p>
+            <h1 className="text-base font-bold mb-0.5 text-center">Titre de la page</h1>
+            <p className="text-xs opacity-90 text-center">Sous-titre descriptif</p>
           </div>
         </div>
       </div>

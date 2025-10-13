@@ -3511,6 +3511,20 @@ Crawl-delay: 1`;
             layoutStyle: 'right'
           },
           isActive: false
+        },
+        header_page: {
+          identifier: `header_page_${Date.now()}`,
+          title: 'Header Page',
+          blockType: 'header_page',
+          configuration: { 
+            title: 'Titre de la page',
+            subtitle: 'Sous-titre descriptif de votre page',
+            titleColor: '#ffffff',
+            subtitleColor: '#ffffff',
+            imageUrl: '',
+            imageAlt: ''
+          },
+          isActive: false
         }
       };
 
