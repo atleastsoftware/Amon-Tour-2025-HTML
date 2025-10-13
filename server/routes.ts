@@ -3530,6 +3530,17 @@ Crawl-delay: 1`;
             buttons: []
           },
           isActive: false
+        },
+        search_bar_tours: {
+          identifier: `search_bar_tours_${Date.now()}`,
+          title: 'Search bar : Tours',
+          blockType: 'search_bar_tours',
+          configuration: {
+            filtersBgColor: '#ffffff',
+            filtersTextColor: '#333333',
+            cardsBgColor: '#ffffff'
+          },
+          isActive: false
         }
       };
 
