@@ -189,11 +189,13 @@ export default function ContactBlock({ block }: ContactBlockProps) {
                 <p>
                   {companyName}
                 </p>
-                <p>
-                  <span className="bg-secondary/20 text-primary px-2 py-1 rounded-full text-xs font-medium">
-                    Licence TAT : {companyLicense}
-                  </span>
-                </p>
+                {companyLicense && (
+                  <p>
+                    <span className="bg-secondary/20 text-primary px-2 py-1 rounded-full text-xs font-medium">
+                      Licence TAT : {companyLicense}
+                    </span>
+                  </p>
+                )}
                 {companyDescription && (
                   <p className="mt-4">
                     {companyDescription}
