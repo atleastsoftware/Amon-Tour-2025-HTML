@@ -15,6 +15,7 @@ const TourNinjaSection = lazy(() => import("@/components/tour/TourNinjaSection")
 const CustomTourForm = lazy(() => import("@/components/home/CustomTourForm"));
 import SearchBarToursBlock from "@/components/blocks/SearchBarToursBlock";
 import ContactBlock from "@/components/blocks/ContactBlock";
+import BlogSearchBlock from "@/components/blocks/BlogSearchBlock";
 
 interface PageBlock {
   id: number;
@@ -480,6 +481,13 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
         return (
           <div key={block.id} className="w-full">
             <ContactBlock block={block} />
+          </div>
+        );
+
+      case 'blog_search':
+        return (
+          <div key={block.id} className="w-full">
+            <BlogSearchBlock block={block} />
           </div>
         );
 
