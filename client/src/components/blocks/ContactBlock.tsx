@@ -32,8 +32,8 @@ interface ContactBlockProps {
 export default function ContactBlock({ block }: ContactBlockProps) {
   const config = block.configuration || {};
   
-  const title = config.title || "Contactez-nous";
-  const subtitle = config.subtitle || "Nous sommes là pour répondre à vos questions et vous aider à planifier votre expérience.";
+  const title = config.title || "Titre principal";
+  const subtitle = config.subtitle || "Sous-titre";
   const titleColor = config.titleColor || "#084F6E";
   const subtitleColor = config.subtitleColor || "#666666";
   const dividerColor = config.dividerColor || "#3BA8AF";
@@ -41,9 +41,9 @@ export default function ContactBlock({ block }: ContactBlockProps) {
   
   const email = config.email || "contact@example.com";
   const emailLabel = config.emailLabel || "Email";
-  const phone = config.phone || "+ 111 111 111 111";
+  const phone = config.phone || "+ 22 222 222 222";
   const phoneLabel = config.phoneLabel || "Téléphone";
-  const whatsapp = config.whatsapp || "+ 222 222 222 222";
+  const whatsapp = config.whatsapp || "+ 22 222 222 222";
   const whatsappLabel = config.whatsappLabel || "WhatsApp";
   const lineId = config.lineId || "moncompte";
   const lineIdLabel = config.lineIdLabel || "Line ID";
@@ -51,8 +51,8 @@ export default function ContactBlock({ block }: ContactBlockProps) {
   const showAboutCompany = config.showAboutCompany ?? true;
   const aboutTitle = config.aboutTitle || "À propos de notre entreprise";
   const companyBrand = config.companyBrand || "Nom de la marque";
-  const companyName = config.companyName || "Nom de l'entreprise";
-  const companyLicense = config.companyLicense || "12/34567";
+  const companyName = config.companyName || "Votre Adresse";
+  const companyLicense = config.companyLicense || "00/00000";
   const companyDescription = config.companyDescription || "";
 
   return (
@@ -168,11 +168,9 @@ export default function ContactBlock({ block }: ContactBlockProps) {
               <h3 className="font-heading font-bold text-lg mb-3">{aboutTitle}</h3>
               <div className="space-y-2 text-sm text-muted-foreground">
                 <p>
-                  <strong>Première ligne :</strong><br />
-                  {companyBrand}
+                  <strong>{companyBrand}</strong>
                 </p>
                 <p>
-                  <strong>Deuxième ligne :</strong><br />
                   {companyName}
                 </p>
                 <p>

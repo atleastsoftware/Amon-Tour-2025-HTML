@@ -6384,9 +6384,9 @@ const BlockEditDropdown = ({
               <Label htmlFor="title">Titre</Label>
               <Input 
                 id="title"
-                value={formData.title || 'Contactez-nous'} 
+                value={formData.title || 'Titre principal'} 
                 onChange={e => updateField('title', e.target.value)}
-                placeholder="Contactez-nous"
+                placeholder="Titre principal"
                 className="mt-2"
               />
               <div className="mt-3">
@@ -6403,10 +6403,10 @@ const BlockEditDropdown = ({
               <Label htmlFor="subtitle">Sous-titre</Label>
               <Textarea 
                 id="subtitle"
-                value={formData.subtitle || 'Nous sommes là pour répondre à vos questions et vous aider à planifier votre expérience.'} 
+                value={formData.subtitle || 'Sous-titre'} 
                 onChange={e => updateField('subtitle', e.target.value)}
                 rows={2}
-                placeholder="Nous sommes là pour vous aider..."
+                placeholder="Sous-titre"
                 className="mt-2"
               />
               <div className="mt-3">
@@ -6501,9 +6501,9 @@ const BlockEditDropdown = ({
                 <Input 
                   id="phone"
                   type="tel"
-                  value={formData.phone || '+ 111 111 111 111'} 
+                  value={formData.phone || '+ 22 222 222 222'} 
                   onChange={e => updateField('phone', e.target.value)}
-                  placeholder="+ 111 111 111 111"
+                  placeholder="+ 22 222 222 222"
                   className="mt-2"
                 />
               </div>
@@ -6544,9 +6544,9 @@ const BlockEditDropdown = ({
                 <Input 
                   id="whatsapp"
                   type="tel"
-                  value={formData.whatsapp || '+ 222 222 222 222'} 
+                  value={formData.whatsapp || '+ 22 222 222 222'} 
                   onChange={e => updateField('whatsapp', e.target.value)}
-                  placeholder="+ 222 222 222 222"
+                  placeholder="+ 22 222 222 222"
                   className="mt-2"
                 />
               </div>
@@ -6647,9 +6647,9 @@ const BlockEditDropdown = ({
                     <Label htmlFor="companyName">Deuxième ligne</Label>
                     <Input 
                       id="companyName"
-                      value={formData.companyName || 'Nom de l\'entreprise'} 
+                      value={formData.companyName || 'Votre Adresse'} 
                       onChange={e => updateField('companyName', e.target.value)}
-                      placeholder="Nom de l'entreprise"
+                      placeholder="Votre Adresse"
                       className="mt-2"
                     />
                   </div>
@@ -6657,9 +6657,9 @@ const BlockEditDropdown = ({
                     <Label htmlFor="companyLicense">Licence TAT</Label>
                     <Input 
                       id="companyLicense"
-                      value={formData.companyLicense || '12/34567'} 
+                      value={formData.companyLicense || '00/00000'} 
                       onChange={e => updateField('companyLicense', e.target.value)}
-                      placeholder="12/34567"
+                      placeholder="00/00000"
                       className="mt-2"
                     />
                   </div>
