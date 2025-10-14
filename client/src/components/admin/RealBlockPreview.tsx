@@ -688,6 +688,33 @@ function MiniaturizedComponent({
           </div>
         );
 
+      case 'blog_search':
+        return (
+          <div className="h-full bg-white p-2">
+            <div className="mb-1">
+              <div className="relative">
+                <div className="text-[7px] px-2 py-1 border rounded">Rechercher...</div>
+              </div>
+            </div>
+            <div className="space-y-1">
+              <div>
+                <div className="text-[7px] font-medium mb-1">Tags</div>
+                <div className="flex gap-0.5">
+                  <div className="px-1 py-0.5 bg-[#3BA8AF] text-white rounded text-[6px]">Tous</div>
+                  <div className="px-1 py-0.5 border border-[#3BA8AF] rounded text-[6px]">Tag</div>
+                </div>
+              </div>
+              <div>
+                <div className="text-[7px] font-medium mb-1">Catégories</div>
+                <div className="flex gap-0.5">
+                  <div className="px-1 py-0.5 bg-[#084F6E] text-white rounded text-[6px]">Toutes</div>
+                  <div className="px-1 py-0.5 border border-[#084F6E] rounded text-[6px]">Cat</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+
       default:
         return (
           <div className="h-full bg-gray-100 p-2 text-center flex flex-col justify-center">

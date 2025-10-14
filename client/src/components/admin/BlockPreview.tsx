@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Users, Shield, Heart, Mail, Phone, MapPin, Star, Play, Calendar } from 'lucide-react';
+import { Users, Shield, Heart, Mail, Phone, MapPin, Star, Play, Calendar, Search } from 'lucide-react';
 
 import type { PageBlock } from '@shared/schema';
 
@@ -344,6 +344,46 @@ function SimplifiedPreview({ block }: { block: PageBlock }) {
                 </Badge>
               </div>
             )}
+          </div>
+        </div>
+      );
+
+    case 'blog_search':
+      return (
+        <div className="py-8 border-b" style={{ backgroundColor: config.backgroundColor || '#ffffff' }}>
+          <div className="container mx-auto px-4">
+            <div className="mb-6">
+              <div className="relative w-full">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <input
+                  type="text"
+                  placeholder={config.searchPlaceholder || "Rechercher des articles..."}
+                  className="w-full pl-10 pr-4 py-2 border rounded-lg"
+                  disabled
+                />
+              </div>
+            </div>
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-sm font-medium text-gray-700 mb-3">{config.tagsTitle || "Tags"}</h3>
+                <div className="flex flex-wrap gap-2">
+                  <Button variant="secondary" size="sm">
+                    {config.allTagsText || "Tous les tags"}
+                  </Button>
+                  <Button variant="outline" size="sm">Adventure</Button>
+                  <Button variant="outline" size="sm">Beach</Button>
+                </div>
+              </div>
+              <div>
+                <h3 className="text-sm font-medium text-gray-700 mb-3">{config.categoriesTitle || "Catégories"}</h3>
+                <div className="flex flex-wrap gap-2">
+                  <Button variant="default" size="sm">
+                    {config.allCategoriesText || "Toutes les catégories"}
+                  </Button>
+                  <Button variant="outline" size="sm">🏝️ Island Adventures</Button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       );

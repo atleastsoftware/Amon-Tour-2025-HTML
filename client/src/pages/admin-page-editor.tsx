@@ -207,6 +207,7 @@ import About from '@/components/home/About';
 import CustomTourForm from '@/components/home/CustomTourForm';
 import Testimonials from '@/components/home/Testimonials';
 import ContactBlock from '@/components/blocks/ContactBlock';
+import BlogSearchBlock from '@/components/blocks/BlogSearchBlock';
 import TourNinjaSection from '@/components/tour/TourNinjaSection';
 
 // Helper function to get readable block type names
@@ -1684,6 +1685,17 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
             block={{
               id: block.id,
               configuration: contactConfig
+            }}
+          />
+        );
+
+      case 'blog_search':
+        const blogSearchConfig = liveConfiguration || block.configuration || {};
+        return (
+          <BlogSearchBlock 
+            block={{
+              id: block.id,
+              configuration: blogSearchConfig
             }}
           />
         );
