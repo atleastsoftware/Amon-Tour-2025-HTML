@@ -6850,10 +6850,10 @@ const BlockEditDropdown = ({
           <div className="space-y-6">
             {/* Couleur des annonces */}
             <div>
-              <Label>Couleur des annonces (bouton "Read More" et dégradé si image absente)</Label>
+              <Label>Couleur des annonces</Label>
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.cardColor ?? '#3BA8AF'}
+                  value={formData.cardColor ?? '#084F6E'}
                   onChange={(value) => updateField('cardColor', value)}
                 />
               </div>

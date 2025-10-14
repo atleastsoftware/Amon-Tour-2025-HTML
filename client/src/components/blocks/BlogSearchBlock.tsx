@@ -231,7 +231,7 @@ export default function BlogSearchBlock({ block }: BlogSearchBlockProps) {
                           e.currentTarget.style.display = 'none';
                           const parent = e.currentTarget.parentElement;
                           if (parent) {
-                            parent.style.background = `linear-gradient(135deg, ${config.cardColor ?? '#3BA8AF'} 0%, ${config.cardColor ?? '#3BA8AF'}dd 100%)`;
+                            parent.style.background = `linear-gradient(135deg, ${config.cardColor ?? '#084F6E'} 0%, ${config.cardColor ?? '#084F6E'}dd 100%)`;
                           }
                         }}
                       />
@@ -245,7 +245,7 @@ export default function BlogSearchBlock({ block }: BlogSearchBlockProps) {
                     <div 
                       className="relative h-48 overflow-hidden flex items-center justify-center"
                       style={{ 
-                        background: `linear-gradient(135deg, ${config.cardColor ?? '#3BA8AF'} 0%, ${config.cardColor ?? '#3BA8AF'}dd 100%)` 
+                        background: `linear-gradient(135deg, ${config.cardColor ?? '#084F6E'} 0%, ${config.cardColor ?? '#084F6E'}dd 100%)` 
                       }}
                     >
                       {post.category && (
@@ -300,7 +300,7 @@ export default function BlogSearchBlock({ block }: BlogSearchBlockProps) {
                       <Button 
                         className="w-full"
                         style={{
-                          backgroundColor: config.cardColor ?? '#3BA8AF',
+                          backgroundColor: config.cardColor ?? '#084F6E',
                           color: 'white'
                         }}
                       >

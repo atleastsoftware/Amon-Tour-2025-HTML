@@ -233,7 +233,7 @@ const blockTypes: BlockType[] = [
   },
   {
     type: 'search_bar_tours',
-    label: 'Search bar : Tours',
+    label: 'Search bar: Tours',
     description: 'Barre de recherche avec filtres et grille de tours',
     icon: Search,
     preview: (

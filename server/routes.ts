@@ -3580,10 +3580,10 @@ Crawl-delay: 1`;
         },
         blog_search: {
           identifier: `blog_search_${Date.now()}`,
-          title: 'Recherche Blog',
+          title: 'Search Bar: Blog',
           blockType: 'blog_search',
           configuration: { 
-            cardColor: '#3BA8AF',
+            cardColor: '#084F6E',
             backgroundColor: '#ffffff',
             searchPlaceholder: 'Rechercher des articles...',
             tagsTitle: 'Tags',
