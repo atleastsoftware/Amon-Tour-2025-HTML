@@ -3583,6 +3583,7 @@ Crawl-delay: 1`;
           title: 'Recherche Blog',
           blockType: 'blog_search',
           configuration: { 
+            cardColor: '#3BA8AF',
             backgroundColor: '#ffffff',
             searchPlaceholder: 'Rechercher des articles...',
             tagsTitle: 'Tags',
