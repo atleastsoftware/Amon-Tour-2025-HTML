@@ -6501,8 +6501,9 @@ const BlockEditDropdown = ({
                 <Input 
                   id="phone"
                   type="tel"
-                  value={formData.phone || '+33 1 23 45 67 89'} 
+                  value={formData.phone || '+ 111 111 111 111'} 
                   onChange={e => updateField('phone', e.target.value)}
+                  placeholder="+ 111 111 111 111"
                   className="mt-2"
                 />
               </div>
@@ -6543,8 +6544,9 @@ const BlockEditDropdown = ({
                 <Input 
                   id="whatsapp"
                   type="tel"
-                  value={formData.whatsapp || '+33 6 12 34 56 78'} 
+                  value={formData.whatsapp || '+ 222 222 222 222'} 
                   onChange={e => updateField('whatsapp', e.target.value)}
+                  placeholder="+ 222 222 222 222"
                   className="mt-2"
                 />
               </div>
@@ -6622,20 +6624,32 @@ const BlockEditDropdown = ({
               {(formData.showAboutCompany ?? true) && (
                 <>
                   <div>
-                    <Label htmlFor="companyBrand">Nom de la marque</Label>
+                    <Label htmlFor="aboutTitle">Titre de la section</Label>
                     <Input 
-                      id="companyBrand"
-                      value={formData.companyBrand || 'Amon Tour'} 
-                      onChange={e => updateField('companyBrand', e.target.value)}
+                      id="aboutTitle"
+                      value={formData.aboutTitle || 'À propos de notre entreprise'} 
+                      onChange={e => updateField('aboutTitle', e.target.value)}
+                      placeholder="À propos de notre entreprise"
                       className="mt-2"
                     />
                   </div>
                   <div>
-                    <Label htmlFor="companyName">Nom de l'entreprise</Label>
+                    <Label htmlFor="companyBrand">Première ligne</Label>
+                    <Input 
+                      id="companyBrand"
+                      value={formData.companyBrand || 'Nom de la marque'} 
+                      onChange={e => updateField('companyBrand', e.target.value)}
+                      placeholder="Nom de la marque"
+                      className="mt-2"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="companyName">Deuxième ligne</Label>
                     <Input 
                       id="companyName"
-                      value={formData.companyName || 'Flame BB Co., Ltd.'} 
+                      value={formData.companyName || 'Nom de l\'entreprise'} 
                       onChange={e => updateField('companyName', e.target.value)}
+                      placeholder="Nom de l'entreprise"
                       className="mt-2"
                     />
                   </div>
@@ -6643,8 +6657,9 @@ const BlockEditDropdown = ({
                     <Label htmlFor="companyLicense">Licence TAT</Label>
                     <Input 
                       id="companyLicense"
-                      value={formData.companyLicense || '34/01995'} 
+                      value={formData.companyLicense || '12/34567'} 
                       onChange={e => updateField('companyLicense', e.target.value)}
+                      placeholder="12/34567"
                       className="mt-2"
                     />
                   </div>
@@ -6654,6 +6669,7 @@ const BlockEditDropdown = ({
                       id="companyDescription"
                       value={formData.companyDescription || ''} 
                       onChange={e => updateField('companyDescription', e.target.value)}
+                      placeholder=""
                       rows={2}
                       className="mt-2"
                     />

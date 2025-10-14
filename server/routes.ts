@@ -3563,17 +3563,18 @@ Crawl-delay: 1`;
             backgroundColor: '#ffffff',
             email: 'contact@example.com',
             emailLabel: 'Email',
-            phone: '+33 1 23 45 67 89',
+            phone: '+ 111 111 111 111',
             phoneLabel: 'Téléphone',
-            whatsapp: '+33 6 12 34 56 78',
+            whatsapp: '+ 222 222 222 222',
             whatsappLabel: 'WhatsApp',
             lineId: 'moncompte',
             lineIdLabel: 'Line ID',
             showAboutCompany: true,
-            companyBrand: 'Votre Marque',
-            companyName: 'Votre Entreprise',
-            tatLicense: '12/34567',
-            companyDescription: 'Nous sommes un opérateur touristique agréé, spécialisé dans les expériences locales authentiques et les services de voyage personnalisés.'
+            aboutTitle: 'À propos de notre entreprise',
+            companyBrand: 'Nom de la marque',
+            companyName: 'Nom de l\'entreprise',
+            companyLicense: '12/34567',
+            companyDescription: ''
           },
           isActive: false
         }

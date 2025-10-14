@@ -20,9 +20,10 @@ interface ContactBlockProps {
       lineId?: string;
       lineIdLabel?: string;
       showAboutCompany?: boolean;
+      aboutTitle?: string;
       companyBrand?: string;
       companyName?: string;
-      tatLicense?: string;
+      companyLicense?: string;
       companyDescription?: string;
     };
   };
@@ -40,18 +41,19 @@ export default function ContactBlock({ block }: ContactBlockProps) {
   
   const email = config.email || "contact@example.com";
   const emailLabel = config.emailLabel || "Email";
-  const phone = config.phone || "+33 1 23 45 67 89";
+  const phone = config.phone || "+ 111 111 111 111";
   const phoneLabel = config.phoneLabel || "Téléphone";
-  const whatsapp = config.whatsapp || "+33 6 12 34 56 78";
+  const whatsapp = config.whatsapp || "+ 222 222 222 222";
   const whatsappLabel = config.whatsappLabel || "WhatsApp";
   const lineId = config.lineId || "moncompte";
   const lineIdLabel = config.lineIdLabel || "Line ID";
   
   const showAboutCompany = config.showAboutCompany ?? true;
-  const companyBrand = config.companyBrand || "Votre Marque";
-  const companyName = config.companyName || "Votre Entreprise";
-  const tatLicense = config.tatLicense || "12/34567";
-  const companyDescription = config.companyDescription || "Nous sommes un opérateur touristique agréé, spécialisé dans les expériences locales authentiques et les services de voyage personnalisés.";
+  const aboutTitle = config.aboutTitle || "À propos de notre entreprise";
+  const companyBrand = config.companyBrand || "Nom de la marque";
+  const companyName = config.companyName || "Nom de l'entreprise";
+  const companyLicense = config.companyLicense || "12/34567";
+  const companyDescription = config.companyDescription || "";
 
   return (
     <section className="py-20" style={{ backgroundColor }}>
@@ -163,20 +165,26 @@ export default function ContactBlock({ block }: ContactBlockProps) {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <h3 className="font-heading font-bold text-lg mb-3">À propos de notre entreprise</h3>
+              <h3 className="font-heading font-bold text-lg mb-3">{aboutTitle}</h3>
               <div className="space-y-2 text-sm text-muted-foreground">
                 <p>
-                  <strong>{companyBrand} est une marque de :</strong><br />
+                  <strong>Première ligne :</strong><br />
+                  {companyBrand}
+                </p>
+                <p>
+                  <strong>Deuxième ligne :</strong><br />
                   {companyName}
                 </p>
                 <p>
                   <span className="bg-secondary/20 text-primary px-2 py-1 rounded-full text-xs font-medium">
-                    Licence TAT : {tatLicense}
+                    Licence TAT : {companyLicense}
                   </span>
                 </p>
-                <p className="mt-4">
-                  {companyDescription}
-                </p>
+                {companyDescription && (
+                  <p className="mt-4">
+                    {companyDescription}
+                  </p>
+                )}
               </div>
             </motion.div>
           )}
