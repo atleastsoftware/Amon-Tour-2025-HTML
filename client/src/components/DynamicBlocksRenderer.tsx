@@ -137,33 +137,42 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                     {textConfig.content}
                   </p>
                 )}
-                {(textConfig.button1Text || textConfig.button2Text) && (
+                {textConfig.buttons && textConfig.buttons.length > 0 && (
                   <div className="flex gap-4 justify-center mt-8">
-                    {textConfig.button1Text && (
-                      <a
-                        href={textConfig.button1Url || '#'}
-                        className="px-6 py-3 rounded-lg font-semibold transition-all hover:opacity-90"
-                        style={{
-                          backgroundColor: textConfig.button1BgColor || '#084F6E',
-                          color: textConfig.button1TextColor || '#ffffff'
-                        }}
-                      >
-                        {textConfig.button1Text}
-                      </a>
-                    )}
-                    {textConfig.button2Text && (
-                      <a
-                        href={textConfig.button2Url || '#'}
-                        className="px-6 py-3 rounded-lg font-semibold transition-all hover:opacity-90"
-                        style={{
-                          backgroundColor: textConfig.button2BgColor || 'transparent',
-                          color: textConfig.button2TextColor || '#084F6E',
-                          border: `2px solid ${textConfig.button2BorderColor || '#084F6E'}`
-                        }}
-                      >
-                        {textConfig.button2Text}
-                      </a>
-                    )}
+                    {textConfig.buttons.map((button: any, index: number) => {
+                      if (!button.text) return null;
+                      
+                      if (button.style === 'outline') {
+                        return (
+                          <a
+                            key={index}
+                            href={button.url || '#'}
+                            className="px-6 py-3 rounded-lg font-semibold transition-all hover:opacity-90"
+                            style={{
+                              backgroundColor: 'transparent',
+                              color: button.color || '#084F6E',
+                              border: `2px solid ${button.color || '#084F6E'}`
+                            }}
+                          >
+                            {button.text}
+                          </a>
+                        );
+                      }
+                      
+                      return (
+                        <a
+                          key={index}
+                          href={button.url || '#'}
+                          className="px-6 py-3 rounded-lg font-semibold transition-all hover:opacity-90"
+                          style={{
+                            backgroundColor: button.color || '#084F6E',
+                            color: button.textColor || '#ffffff'
+                          }}
+                        >
+                          {button.text}
+                        </a>
+                      );
+                    })}
                   </div>
                 )}
               </motion.div>

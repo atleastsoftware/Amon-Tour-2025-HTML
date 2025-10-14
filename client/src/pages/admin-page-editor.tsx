@@ -1163,33 +1163,42 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                 >
                   {textConfig.content ?? block.configuration?.content ?? block.content ?? "Ajoutez ici le contenu de votre section de texte. Vous pouvez décrire vos services, partager votre histoire, ou présenter des informations importantes."}
                 </p>
-                {(textConfig.button1Text || textConfig.button2Text) && (
+                {textConfig.buttons && textConfig.buttons.length > 0 && (
                   <div className="flex gap-4 justify-center mt-8">
-                    {textConfig.button1Text && (
-                      <a
-                        href={textConfig.button1Url ?? '#'}
-                        className="px-6 py-3 rounded-lg font-semibold transition-all hover:opacity-90"
-                        style={{
-                          backgroundColor: textConfig.button1BgColor ?? '#084F6E',
-                          color: textConfig.button1TextColor ?? '#ffffff'
-                        }}
-                      >
-                        {textConfig.button1Text}
-                      </a>
-                    )}
-                    {textConfig.button2Text && (
-                      <a
-                        href={textConfig.button2Url ?? '#'}
-                        className="px-6 py-3 rounded-lg font-semibold transition-all hover:opacity-90"
-                        style={{
-                          backgroundColor: textConfig.button2BgColor ?? 'transparent',
-                          color: textConfig.button2TextColor ?? '#084F6E',
-                          border: `2px solid ${textConfig.button2BorderColor ?? '#084F6E'}`
-                        }}
-                      >
-                        {textConfig.button2Text}
-                      </a>
-                    )}
+                    {textConfig.buttons.map((button: any, index: number) => {
+                      if (!button.text) return null;
+                      
+                      if (button.style === 'outline') {
+                        return (
+                          <a
+                            key={index}
+                            href={button.url || '#'}
+                            className="px-6 py-3 rounded-lg font-semibold transition-all hover:opacity-90"
+                            style={{
+                              backgroundColor: 'transparent',
+                              color: button.color || '#084F6E',
+                              border: `2px solid ${button.color || '#084F6E'}`
+                            }}
+                          >
+                            {button.text}
+                          </a>
+                        );
+                      }
+                      
+                      return (
+                        <a
+                          key={index}
+                          href={button.url || '#'}
+                          className="px-6 py-3 rounded-lg font-semibold transition-all hover:opacity-90"
+                          style={{
+                            backgroundColor: button.color || '#084F6E',
+                            color: button.textColor || '#ffffff'
+                          }}
+                        >
+                          {button.text}
+                        </a>
+                      );
+                    })}
                   </div>
                 )}
               </motion.div>
@@ -3953,102 +3962,124 @@ const BlockEditDropdown = ({
             <Separator className="my-6" />
 
             {/* Boutons d'action */}
-            <div className="space-y-4">
-              <Label className="text-base font-semibold">Boutons d'action (optionnels)</Label>
-              
-              {/* Bouton 1 */}
-              <div className="space-y-3 p-4 border rounded-lg">
-                <Label className="text-sm font-medium">Bouton 1</Label>
-                <div>
-                  <Label htmlFor="button1Text">Texte du bouton</Label>
-                  <Input 
-                    id="button1Text"
-                    value={formData.button1Text ?? ''} 
-                    onChange={e => updateField('button1Text', e.target.value)}
-                    className="mt-2"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="button1Url">URL du bouton</Label>
-                  <Input 
-                    id="button1Url"
-                    value={formData.button1Url ?? ''} 
-                    onChange={e => updateField('button1Url', e.target.value)}
-                    className="mt-2"
-                  />
-                </div>
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <Label>Couleur de fond</Label>
-                    <div className="mt-2">
-                      <ColorPicker
-                        value={formData.button1BgColor ?? '#084F6E'}
-                        onChange={(value) => updateField('button1BgColor', value)}
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <Label>Couleur du texte</Label>
-                    <div className="mt-2">
-                      <ColorPicker
-                        value={formData.button1TextColor ?? '#ffffff'}
-                        onChange={(value) => updateField('button1TextColor', value)}
-                      />
-                    </div>
-                  </div>
-                </div>
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <Label>Boutons d'action</Label>
+                <Button 
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    const buttons = formData.buttons || [];
+                    updateField('buttons', [...buttons, {text: 'Nouveau bouton', url: '', color: '#084F6E', textColor: '#ffffff', style: 'filled'}]);
+                  }}
+                >
+                  <Plus className="h-4 w-4 mr-1" /> Ajouter un bouton
+                </Button>
               </div>
-
-              {/* Bouton 2 */}
-              <div className="space-y-3 p-4 border rounded-lg">
-                <Label className="text-sm font-medium">Bouton 2</Label>
-                <div>
-                  <Label htmlFor="button2Text">Texte du bouton</Label>
-                  <Input 
-                    id="button2Text"
-                    value={formData.button2Text ?? ''} 
-                    onChange={e => updateField('button2Text', e.target.value)}
-                    className="mt-2"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="button2Url">URL du bouton</Label>
-                  <Input 
-                    id="button2Url"
-                    value={formData.button2Url ?? ''} 
-                    onChange={e => updateField('button2Url', e.target.value)}
-                    className="mt-2"
-                  />
-                </div>
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <Label>Couleur de fond</Label>
-                    <div className="mt-2">
-                      <ColorPicker
-                        value={formData.button2BgColor ?? 'transparent'}
-                        onChange={(value) => updateField('button2BgColor', value)}
-                      />
+              
+              <div className="space-y-3">
+                {(formData.buttons || []).map((button: any, index: number) => (
+                  <div key={index} className="border rounded-lg p-4 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <Label className="text-sm font-medium">Bouton {index + 1}</Label>
+                      <Button 
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {
+                          const buttons = formData.buttons || [];
+                          const newButtons = buttons.filter((_: any, i: number) => i !== index);
+                          updateField('buttons', newButtons);
+                        }}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  
+                    <div className="grid grid-cols-2 gap-2">
+                      <div>
+                        <Label className="text-xs">Texte</Label>
+                        <Input 
+                          value={button.text || ''} 
+                          onChange={e => {
+                            const buttons = formData.buttons || [];
+                            const newButtons = buttons.map((b: any, i: number) => 
+                              i === index ? {...b, text: e.target.value} : b
+                            );
+                            updateField('buttons', newButtons);
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-xs">URL</Label>
+                        <Input 
+                          value={button.url || ''} 
+                          onChange={e => {
+                            const buttons = formData.buttons || [];
+                            const newButtons = buttons.map((b: any, i: number) => 
+                              i === index ? {...b, url: e.target.value} : b
+                            );
+                            updateField('buttons', newButtons);
+                          }}
+                          placeholder='Tapez "/" pour sélectionner une page du site'
+                        />
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <Label className="text-xs">Couleur du bouton</Label>
+                        <ColorPicker
+                          value={button.color || '#084F6E'}
+                          onChange={(value) => {
+                            const buttons = formData.buttons || [];
+                            const newButtons = buttons.map((b: any, i: number) => 
+                              i === index ? {...b, color: value} : b
+                            );
+                            updateField('buttons', newButtons);
+                          }}
+                        />
+                      </div>
+                      
+                      <div>
+                        <Label className="text-xs">Couleur du texte</Label>
+                        <ColorPicker
+                          value={button.textColor || '#ffffff'}
+                          onChange={(value) => {
+                            const buttons = formData.buttons || [];
+                            const newButtons = buttons.map((b: any, i: number) => 
+                              i === index ? {...b, textColor: value} : b
+                            );
+                            updateField('buttons', newButtons);
+                          }}
+                        />
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <Label className="text-xs">Style</Label>
+                      <Select 
+                        value={button.style || 'filled'} 
+                        onValueChange={value => {
+                          const buttons = formData.buttons || [];
+                          const newButtons = buttons.map((b: any, i: number) => 
+                            i === index ? {...b, style: value} : b
+                          );
+                          updateField('buttons', newButtons);
+                        }}
+                      >
+                        <SelectTrigger className="h-10">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="filled">Plein</SelectItem>
+                          <SelectItem value="outline">Bordure</SelectItem>
+                        </SelectContent>
+                      </Select>
                     </div>
                   </div>
-                  <div>
-                    <Label>Couleur du texte</Label>
-                    <div className="mt-2">
-                      <ColorPicker
-                        value={formData.button2TextColor ?? '#084F6E'}
-                        onChange={(value) => updateField('button2TextColor', value)}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <Label>Bordure</Label>
-                  <div className="mt-2">
-                    <ColorPicker
-                      value={formData.button2BorderColor ?? '#084F6E'}
-                      onChange={(value) => updateField('button2BorderColor', value)}
-                    />
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
