@@ -6994,6 +6994,186 @@ const BlockEditDropdown = ({
           </div>
         );
 
+      case 'text_gallery':
+        return (
+          <div className="space-y-6">
+            {/* Titre */}
+            <div>
+              <Label htmlFor="title">Titre</Label>
+              <Input 
+                id="title"
+                value={formData.title ?? 'Titre de la galerie'} 
+                onChange={e => updateField('title', e.target.value)}
+                className="mt-2"
+              />
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.titleColor ?? '#333333'}
+                  onChange={(value) => updateField('titleColor', value)}
+                />
+              </div>
+            </div>
+
+            {/* Sous-titre */}
+            <div>
+              <Label htmlFor="subtitle">Sous-titre</Label>
+              <Textarea 
+                id="subtitle"
+                value={formData.subtitle ?? "Description pour votre galerie d'images"} 
+                onChange={e => updateField('subtitle', e.target.value)}
+                rows={2}
+                className="mt-2"
+              />
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.subtitleColor ?? '#666666'}
+                  onChange={(value) => updateField('subtitleColor', value)}
+                />
+              </div>
+            </div>
+
+            <Separator />
+
+            {/* Tiret */}
+            <div>
+              <Label>Couleur du tiret</Label>
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.dividerColor ?? '#084F6E'}
+                  onChange={(value) => updateField('dividerColor', value)}
+                />
+              </div>
+            </div>
+
+            {/* Couleur de fond */}
+            <div>
+              <Label>Couleur de fond</Label>
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.backgroundColor ?? '#ffffff'}
+                  onChange={(value) => updateField('backgroundColor', value)}
+                />
+              </div>
+            </div>
+
+            <Separator />
+
+            {/* Images */}
+            <div>
+              <Label className="text-base font-semibold">Images de la galerie</Label>
+              <p className="text-sm text-muted-foreground mt-1 mb-3">
+                Ajoutez les URLs des images (une par ligne)
+              </p>
+              <Textarea 
+                value={(formData.images || []).join('\n')} 
+                onChange={e => {
+                  const urls = e.target.value.split('\n').filter(url => url.trim());
+                  updateField('images', urls);
+                }}
+                rows={6}
+                placeholder="https://example.com/image1.jpg&#10;https://example.com/image2.jpg"
+                className="mt-2"
+              />
+            </div>
+          </div>
+        );
+
+      case 'text_video':
+        return (
+          <div className="space-y-6">
+            {/* Titre */}
+            <div>
+              <Label htmlFor="title">Titre</Label>
+              <Input 
+                id="title"
+                value={formData.title ?? 'Titre de la vidéo'} 
+                onChange={e => updateField('title', e.target.value)}
+                className="mt-2"
+              />
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.titleColor ?? '#333333'}
+                  onChange={(value) => updateField('titleColor', value)}
+                />
+              </div>
+            </div>
+
+            {/* Sous-titre */}
+            <div>
+              <Label htmlFor="subtitle">Sous-titre</Label>
+              <Textarea 
+                id="subtitle"
+                value={formData.subtitle ?? 'Description pour votre section vidéo'} 
+                onChange={e => updateField('subtitle', e.target.value)}
+                rows={2}
+                className="mt-2"
+              />
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.subtitleColor ?? '#666666'}
+                  onChange={(value) => updateField('subtitleColor', value)}
+                />
+              </div>
+            </div>
+
+            <Separator />
+
+            {/* Tiret */}
+            <div>
+              <Label>Couleur du tiret</Label>
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.dividerColor ?? '#084F6E'}
+                  onChange={(value) => updateField('dividerColor', value)}
+                />
+              </div>
+            </div>
+
+            {/* Couleur de fond */}
+            <div>
+              <Label>Couleur de fond</Label>
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.backgroundColor ?? '#ffffff'}
+                  onChange={(value) => updateField('backgroundColor', value)}
+                />
+              </div>
+            </div>
+
+            <Separator />
+
+            {/* URL de la vidéo */}
+            <div>
+              <Label htmlFor="videoUrl">URL de la vidéo</Label>
+              <Input 
+                id="videoUrl"
+                value={formData.videoUrl ?? ''} 
+                onChange={e => updateField('videoUrl', e.target.value)}
+                placeholder="https://www.youtube.com/watch?v=..."
+                className="mt-2"
+              />
+            </div>
+
+            {/* Type de vidéo */}
+            <div>
+              <Label htmlFor="videoType">Type de vidéo</Label>
+              <Select 
+                value={formData.videoType ?? 'youtube'} 
+                onValueChange={(value) => updateField('videoType', value)}
+              >
+                <SelectTrigger className="mt-2">
+                  <SelectValue placeholder="Sélectionnez le type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="youtube">YouTube</SelectItem>
+                  <SelectItem value="vimeo">Vimeo</SelectItem>
+                  <SelectItem value="direct">Vidéo directe (MP4/WebM)</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        );
+
       default:
         // Gérer les blocs Text génériques
         if (block.blockType === 'text') {
