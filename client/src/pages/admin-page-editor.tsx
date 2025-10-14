@@ -179,7 +179,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
 import { toast } from '@/hooks/use-toast';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -7058,11 +7058,49 @@ export default function AdminPageEditor() {
                   <SelectValue placeholder="Sélectionner une page" />
                 </SelectTrigger>
                 <SelectContent>
-                  {pageConfigs.map((page: PageConfiguration) => (
-                    <SelectItem key={page.pageSlug} value={page.pageSlug}>
-                      {page.pageName}
-                    </SelectItem>
-                  ))}
+                  {/* Menu principal (Home) */}
+                  {pageConfigs.filter((p: PageConfiguration) => p.pageSlug === 'home').length > 0 && (
+                    <SelectGroup>
+                      <SelectLabel>Menu principal</SelectLabel>
+                      {pageConfigs
+                        .filter((p: PageConfiguration) => p.pageSlug === 'home')
+                        .map((page: PageConfiguration) => (
+                          <SelectItem key={page.pageSlug} value={page.pageSlug}>
+                            {page.pageName}
+                          </SelectItem>
+                        ))}
+                    </SelectGroup>
+                  )}
+                  
+                  {/* Pages principales */}
+                  {pageConfigs.filter((p: PageConfiguration) => p.pageType === 'main' && p.pageSlug !== 'home').length > 0 && (
+                    <SelectGroup>
+                      <SelectLabel>Pages principales</SelectLabel>
+                      {pageConfigs
+                        .filter((p: PageConfiguration) => p.pageType === 'main' && p.pageSlug !== 'home')
+                        .sort((a, b) => a.pageName.localeCompare(b.pageName, 'fr'))
+                        .map((page: PageConfiguration) => (
+                          <SelectItem key={page.pageSlug} value={page.pageSlug}>
+                            {page.pageName}
+                          </SelectItem>
+                        ))}
+                    </SelectGroup>
+                  )}
+                  
+                  {/* Pages secondaires */}
+                  {pageConfigs.filter((p: PageConfiguration) => p.pageType === 'secondary').length > 0 && (
+                    <SelectGroup>
+                      <SelectLabel>Pages secondaires</SelectLabel>
+                      {pageConfigs
+                        .filter((p: PageConfiguration) => p.pageType === 'secondary')
+                        .sort((a, b) => a.pageName.localeCompare(b.pageName, 'fr'))
+                        .map((page: PageConfiguration) => (
+                          <SelectItem key={page.pageSlug} value={page.pageSlug}>
+                            {page.pageName}
+                          </SelectItem>
+                        ))}
+                    </SelectGroup>
+                  )}
                 </SelectContent>
               </Select>
               <Button 
