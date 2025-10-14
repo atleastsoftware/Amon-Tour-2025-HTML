@@ -591,6 +591,8 @@ export const blockTypeEnum = pgEnum("block_type", [
   "gallery",       // Galerie d'images
   "video_section", // Section vidéo
   "video_hero",    // Alias pour hero_video
+  "text_gallery",  // Section texte + galerie d'images (carousel)
+  "text_video",    // Section texte + vidéo intégrée
   
   // Utility & Social
   "newsletter",    // Inscription newsletter
