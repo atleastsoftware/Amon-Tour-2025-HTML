@@ -276,6 +276,7 @@ interface PageConfiguration {
   pageName: string;
   pageSlug: string;
   pageType: string;
+  isExternalUrl?: boolean;
   seoTitle?: string;
   seoDescription?: string;
   seoKeywords?: string;
@@ -7122,7 +7123,29 @@ export default function AdminPageEditor() {
         {/* Blocks List */}
         <div className="space-y-4">
 
-          {loadingBlocks ? (
+          {/* Redirection externe - Blocage de l'édition */}
+          {currentPageConfig?.isExternalUrl ? (
+            <div className="text-center py-16 bg-white rounded-xl shadow-sm border-2 border-orange-200">
+              <ExternalLink className="w-16 h-16 text-orange-400 mx-auto mb-4" />
+              <div className="text-gray-700 mb-2 font-semibold text-lg">Page de redirection externe</div>
+              <p className="text-gray-500 text-sm mb-6 max-w-lg mx-auto">
+                Cette page redirige vers un lien externe : <span className="font-mono text-secondary">{currentPageConfig.pageSlug}</span>
+              </p>
+              <p className="text-gray-500 text-sm mb-6 max-w-lg mx-auto">
+                L'édition de blocs n'est pas disponible pour les pages de redirection externe. 
+                Si vous souhaitez créer une page personnalisée à la place, allez dans les paramètres 
+                de la page et décochez l'option "Lien externe".
+              </p>
+              <Button
+                variant="outline"
+                onClick={() => window.location.href = '/admin-appearance'}
+                className="flex items-center gap-2"
+              >
+                <Settings className="w-4 h-4" />
+                Modifier les paramètres de la page
+              </Button>
+            </div>
+          ) : loadingBlocks ? (
             <div className="space-y-4">
               {[1, 2, 3].map(i => (
                 <div key={i} className="bg-white p-6 rounded-xl shadow-sm animate-pulse">

@@ -616,6 +616,7 @@ export const pageConfigurations = pgTable("page_configurations", {
   pageName: text("page_name").notNull(), // "Accueil", "Expériences", etc.
   pageType: pageTypeEnum("page_type").notNull(), // "main", "secondary" ou "legal"
   isActive: boolean("is_active").default(true),
+  isExternalUrl: boolean("is_external_url").default(false), // Indique si le pageSlug est une URL externe
   seoTitle: text("seo_title"),
   seoDescription: text("seo_description"),
   seoKeywords: text("seo_keywords"),

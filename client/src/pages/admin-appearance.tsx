@@ -165,6 +165,7 @@ interface PageConfiguration {
   pageName: string;
   pageSlug: string;
   pageType: string;
+  isExternalUrl?: boolean;
   seoTitle?: string;
   seoDescription?: string;
   seoKeywords?: string;
@@ -1234,7 +1235,7 @@ function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs, update
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          {/* Ligne 1: Nom de la page + Slug/URL */}
+          {/* Ligne 1: Nom de la page + Slug/URL Externe */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <EditableField
               label="Nom de la page"
@@ -1242,14 +1243,33 @@ function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs, update
               onSave={(value) => updatePageConfigMutation.mutate({ id: currentPageConfig.id, field: 'pageName', value })}
               type="text"
             />
-            <EditableField
-              label="Slug/URL"
-              value={currentPageConfig.pageSlug}
-              onSave={(value) => updatePageConfigMutation.mutate({ id: currentPageConfig.id, field: 'pageSlug', value })}
-              type="text"
-              prefix="/"
-              className="font-mono"
-            />
+            <div>
+              <label className="text-sm font-medium text-gray-700 mb-2 block">Slug/URL Externe</label>
+              <EditableField
+                label=""
+                value={currentPageConfig.pageSlug}
+                onSave={(value) => updatePageConfigMutation.mutate({ id: currentPageConfig.id, field: 'pageSlug', value })}
+                type="text"
+                prefix={currentPageConfig.isExternalUrl ? "" : "/"}
+                className="font-mono"
+              />
+              <div className="flex items-center gap-2 mt-2">
+                <input 
+                  type="checkbox" 
+                  id="isExternalUrl"
+                  checked={currentPageConfig.isExternalUrl || false}
+                  onChange={(e) => updatePageConfigMutation.mutate({ 
+                    id: currentPageConfig.id, 
+                    field: 'isExternalUrl', 
+                    value: e.target.checked 
+                  })}
+                  className="h-4 w-4 rounded border-gray-300 text-secondary focus:ring-secondary cursor-pointer"
+                />
+                <label htmlFor="isExternalUrl" className="text-xs text-gray-500 cursor-pointer">
+                  Cochez si c'est un lien externe (redirection vers une URL complète)
+                </label>
+              </div>
+            </div>
           </div>
 
           {/* Ligne 2: Type de page + État */}

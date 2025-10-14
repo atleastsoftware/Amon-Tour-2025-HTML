@@ -25,6 +25,7 @@ interface PageConfiguration {
   pageName: string;
   pageSlug: string;
   pageType: 'main' | 'secondary' | 'legal';
+  isExternalUrl?: boolean;
   isActive: boolean;
   createdAt?: string;
   updatedAt?: string;
