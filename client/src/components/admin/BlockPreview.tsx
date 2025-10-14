@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Users, Shield, Heart, Mail, Phone, MapPin, Star, Play, Calendar, Search } from 'lucide-react';
+import { Users, Shield, Heart, Mail, Phone, MapPin, Star, Play, Calendar, Search, Images } from 'lucide-react';
 
 import type { PageBlock } from '@shared/schema';
 
@@ -382,6 +382,53 @@ function SimplifiedPreview({ block }: { block: PageBlock }) {
                   </Button>
                   <Button variant="outline" size="sm">🏝️ Island Adventures</Button>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+
+    case 'text_gallery':
+      return (
+        <div className="py-8 border-b" style={{ backgroundColor: config.backgroundColor || '#ffffff' }}>
+          <div className="container mx-auto px-4 max-w-6xl">
+            <div className="text-center mb-8">
+              <h2 className="font-heading font-bold text-2xl mb-2" style={{ color: config.titleColor || '#333333' }}>
+                {config.title || "Titre de la galerie"}
+              </h2>
+              <div className="w-16 h-1 mx-auto mb-4" style={{ backgroundColor: config.dividerColor || '#084F6E' }}></div>
+              <p className="text-base" style={{ color: config.subtitleColor || '#666666' }}>
+                {config.subtitle || "Description pour votre galerie d'images"}
+              </p>
+            </div>
+            <div className="relative aspect-video bg-gradient-to-r from-[#084F6E] to-[#3BA8AF] rounded-lg flex items-center justify-center text-white">
+              <Images className="w-24 h-24 opacity-40" />
+            </div>
+            <div className="flex gap-2 mt-4 justify-center">
+              {[1, 2, 3, 4].map((i) => (
+                <div key={i} className="w-20 h-20 bg-gradient-to-r from-[#084F6E] to-[#3BA8AF] rounded"></div>
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+
+    case 'text_video':
+      return (
+        <div className="py-8 border-b" style={{ backgroundColor: config.backgroundColor || '#ffffff' }}>
+          <div className="container mx-auto px-4 max-w-6xl">
+            <div className="text-center mb-8">
+              <h2 className="font-heading font-bold text-2xl mb-2" style={{ color: config.titleColor || '#333333' }}>
+                {config.title || "Titre de la vidéo"}
+              </h2>
+              <div className="w-16 h-1 mx-auto mb-4" style={{ backgroundColor: config.dividerColor || '#084F6E' }}></div>
+              <p className="text-base" style={{ color: config.subtitleColor || '#666666' }}>
+                {config.subtitle || "Description pour votre section vidéo"}
+              </p>
+            </div>
+            <div className="relative aspect-video bg-black rounded-lg flex items-center justify-center">
+              <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center">
+                <Play className="w-12 h-12 text-white ml-2" />
               </div>
             </div>
           </div>

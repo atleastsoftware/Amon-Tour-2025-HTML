@@ -715,6 +715,41 @@ function MiniaturizedComponent({
           </div>
         );
 
+      case 'text_gallery':
+        return (
+          <div className="h-full bg-white p-2">
+            <div className="text-center mb-1">
+              <div className="text-[10px] font-bold">{mergedConfig.title || "Titre de la galerie"}</div>
+              <div className="w-4 h-0.5 mx-auto mt-1 mb-1" style={{ backgroundColor: mergedConfig.dividerColor || '#084F6E' }}></div>
+              <div className="text-[7px] text-gray-600">{mergedConfig.subtitle || "Description"}</div>
+            </div>
+            <div className="relative aspect-video bg-gradient-to-r from-[#084F6E] to-[#3BA8AF] rounded flex items-center justify-center text-white text-[16px]">
+              📷
+            </div>
+            <div className="flex gap-0.5 mt-1 justify-center">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="w-6 h-6 bg-gradient-to-r from-[#084F6E] to-[#3BA8AF] rounded"></div>
+              ))}
+            </div>
+          </div>
+        );
+
+      case 'text_video':
+        return (
+          <div className="h-full bg-white p-2">
+            <div className="text-center mb-1">
+              <div className="text-[10px] font-bold">{mergedConfig.title || "Titre de la vidéo"}</div>
+              <div className="w-4 h-0.5 mx-auto mt-1 mb-1" style={{ backgroundColor: mergedConfig.dividerColor || '#084F6E' }}></div>
+              <div className="text-[7px] text-gray-600">{mergedConfig.subtitle || "Description"}</div>
+            </div>
+            <div className="relative aspect-video bg-black rounded flex items-center justify-center">
+              <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-white text-[16px]">
+                ▶
+              </div>
+            </div>
+          </div>
+        );
+
       default:
         return (
           <div className="h-full bg-gray-100 p-2 text-center flex flex-col justify-center">

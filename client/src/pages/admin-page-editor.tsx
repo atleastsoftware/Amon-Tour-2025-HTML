@@ -208,6 +208,8 @@ import CustomTourForm from '@/components/home/CustomTourForm';
 import Testimonials from '@/components/home/Testimonials';
 import ContactBlock from '@/components/blocks/ContactBlock';
 import BlogSearchBlock from '@/components/blocks/BlogSearchBlock';
+import TextGalleryBlock from '@/components/blocks/TextGalleryBlock';
+import TextVideoBlock from '@/components/blocks/TextVideoBlock';
 import TourNinjaSection from '@/components/tour/TourNinjaSection';
 
 // Helper function to get readable block type names
@@ -1696,6 +1698,28 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
             block={{
               id: block.id,
               configuration: blogSearchConfig
+            }}
+          />
+        );
+
+      case 'text_gallery':
+        const textGalleryConfig = liveConfiguration || block.configuration || {};
+        return (
+          <TextGalleryBlock 
+            block={{
+              id: block.id,
+              configuration: textGalleryConfig
+            }}
+          />
+        );
+
+      case 'text_video':
+        const textVideoConfig = liveConfiguration || block.configuration || {};
+        return (
+          <TextVideoBlock 
+            block={{
+              id: block.id,
+              configuration: textVideoConfig
             }}
           />
         );
