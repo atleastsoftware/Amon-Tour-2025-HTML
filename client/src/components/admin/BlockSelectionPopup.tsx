@@ -58,8 +58,8 @@ const blockTypes: BlockType[] = [
   },
   {
     type: 'text',
-    label: 'Text',
-    description: 'Section de texte avec titre et contenu',
+    label: 'Text + Buttons',
+    description: 'Section de texte avec titre, contenu et boutons d\'action',
     icon: FileText,
     preview: (
       <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
@@ -68,9 +68,13 @@ const blockTypes: BlockType[] = [
             Titre de la section
           </h2>
           <div className="w-16 h-0.5 mx-auto mb-3" style={{ backgroundColor: '#3BA8AF' }}></div>
-          <p className="text-sm leading-relaxed" style={{ color: '#666666' }}>
+          <p className="text-sm leading-relaxed mb-3" style={{ color: '#666666' }}>
             Ajoutez ici le contenu de votre section de texte. Vous pouvez décrire vos services, partager votre histoire, ou présenter des informations importantes.
           </p>
+          <div className="flex gap-2 justify-center">
+            <div className="px-3 py-1 bg-[#084F6E] text-white rounded text-xs">Bouton 1</div>
+            <div className="px-3 py-1 border border-[#084F6E] text-[#084F6E] rounded text-xs">Bouton 2</div>
+          </div>
         </div>
       </div>
     )
