@@ -97,9 +97,12 @@ const blockTypes: BlockType[] = [
         </div>
         <div className="grid grid-cols-3 gap-2">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="bg-gray-100 rounded aspect-video relative">
-              <div className="absolute top-2 right-2 bg-white px-2 py-0.5 rounded text-xs">
-                1 jour
+            <div key={i} className="bg-white border rounded-lg overflow-hidden">
+              <div className="h-16 bg-gradient-to-r from-[#084F6E] to-[#3BA8AF] relative">
+                <div className="absolute top-1 right-1 bg-white px-1.5 py-0.5 rounded text-xs">1 jour</div>
+              </div>
+              <div className="p-2 bg-white">
+                <div className="text-xs font-semibold">Tour Name</div>
               </div>
             </div>
           ))}
@@ -151,9 +154,12 @@ const blockTypes: BlockType[] = [
         </div>
         <div className="grid grid-cols-3 gap-2">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="bg-gray-100 rounded aspect-video relative">
-              <div className="absolute top-2 right-2 bg-white px-2 py-0.5 rounded text-xs">
-                Prix
+            <div key={i} className="bg-white border rounded-lg overflow-hidden">
+              <div className="h-16 bg-gradient-to-r from-[#084F6E] to-[#3BA8AF] relative">
+                <div className="absolute top-1 right-1 bg-white px-1.5 py-0.5 rounded text-xs">Prix</div>
+              </div>
+              <div className="p-2 bg-white">
+                <div className="text-xs font-semibold">Tour Name</div>
               </div>
             </div>
           ))}
@@ -255,9 +261,8 @@ const blockTypes: BlockType[] = [
               <div className="h-16 bg-gradient-to-r from-[#084F6E] to-[#3BA8AF] relative">
                 <div className="absolute top-1 right-1 bg-white px-1.5 py-0.5 rounded text-xs">1 day</div>
               </div>
-              <div className="p-2">
-                <div className="text-xs font-semibold mb-1">Tour Name</div>
-                <div className="text-xs text-gray-500">From 2,500 ฿</div>
+              <div className="p-2 bg-white">
+                <div className="text-xs font-semibold">Tour Name</div>
               </div>
             </div>
           ))}
@@ -337,15 +342,18 @@ const blockTypes: BlockType[] = [
             <div className="text-xs font-medium text-gray-700 mb-2">Tags</div>
             <div className="flex flex-wrap gap-1">
               <div className="px-2 py-1 bg-[#3BA8AF] text-white rounded text-xs">Tous les tags</div>
-              <div className="px-2 py-1 border border-[#3BA8AF] text-[#3BA8AF] rounded text-xs">Adventure</div>
-              <div className="px-2 py-1 border border-[#3BA8AF] text-[#3BA8AF] rounded text-xs">Beach</div>
+              <div className="px-2 py-1 border border-[#3BA8AF] text-[#3BA8AF] rounded text-xs">Nom du tag</div>
+              <div className="px-2 py-1 border border-[#3BA8AF] text-[#3BA8AF] rounded text-xs">Nom du tag</div>
+              <div className="px-2 py-1 border border-[#3BA8AF] text-[#3BA8AF] rounded text-xs">Nom du tag</div>
             </div>
           </div>
           <div>
             <div className="text-xs font-medium text-gray-700 mb-2">Catégories</div>
             <div className="flex flex-wrap gap-1">
               <div className="px-2 py-1 bg-[#084F6E] text-white rounded text-xs">Toutes les catégories</div>
-              <div className="px-2 py-1 border border-[#084F6E] text-[#084F6E] rounded text-xs">🏝️ Island Adventures</div>
+              <div className="px-2 py-1 border border-[#084F6E] text-[#084F6E] rounded text-xs">Nom de catégorie</div>
+              <div className="px-2 py-1 border border-[#084F6E] text-[#084F6E] rounded text-xs">Nom de catégorie</div>
+              <div className="px-2 py-1 border border-[#084F6E] text-[#084F6E] rounded text-xs">Nom de catégorie</div>
             </div>
           </div>
         </div>
