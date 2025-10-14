@@ -142,7 +142,7 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
                 setCustomInput(currentColorValue);
               }
             }}
-            placeholder="#ffffff"
+
             className="flex-1 font-mono text-sm"
             autoFocus
           />
@@ -765,7 +765,7 @@ function FormSelector({ selectedFormId, onFormSelect, pageSlug, blockId }: FormS
             onValueChange={(value) => onFormSelect(parseInt(value))}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Choisir un formulaire" />
+              <SelectValue />
             </SelectTrigger>
             <SelectContent>
               {forms.map(form => (
@@ -809,7 +809,7 @@ function FormSelector({ selectedFormId, onFormSelect, pageSlug, blockId }: FormS
           }}
         >
           <SelectTrigger>
-            <SelectValue placeholder="Choisir ou créer un formulaire" />
+            <SelectValue />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="new">
@@ -2988,7 +2988,7 @@ const BlockEditDropdown = ({
                 id="title"
                 value={formData.title ?? block.configuration?.title ?? 'Your exclusive experiences\nin Krabi –\nTHAILAND'} 
                 onChange={e => updateField('title', e.target.value)}
-                placeholder="Your exclusive experiences\nin Krabi –\nTHAILAND"
+
                 rows={3}
                 className="mt-2"
               />
@@ -3007,7 +3007,7 @@ const BlockEditDropdown = ({
                 id="titleAccentText"
                 value={formData.titleAccentText ?? 'in Krabi –'} 
                 onChange={e => updateField('titleAccentText', e.target.value)}
-                placeholder="in Krabi –"
+
                 className="mt-2"
               />
               <p className="text-xs text-gray-500 mt-1">
@@ -3028,7 +3028,7 @@ const BlockEditDropdown = ({
                 id="subtitle"
                 value={formData.subtitle ?? block.configuration?.subtitle ?? 'Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations.'} 
                 onChange={e => updateField('subtitle', e.target.value)}
-                placeholder="Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations."
+
                 rows={3}
                 className="mt-2"
               />
@@ -3152,7 +3152,7 @@ const BlockEditDropdown = ({
               <div className="mt-3">
                 <Select value={formData.contentAlignment ?? 'left'} onValueChange={value => updateField('contentAlignment', value)}>
                   <SelectTrigger>
-                    <SelectValue placeholder="Alignement" />
+                    <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="left">À gauche</SelectItem>
@@ -3169,7 +3169,7 @@ const BlockEditDropdown = ({
               <div className="mt-3">
                 <Select value={formData.backgroundType ?? 'video'} onValueChange={value => updateField('backgroundType', value)}>
                   <SelectTrigger>
-                    <SelectValue placeholder="Type d'arrière-plan" />
+                    <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="video">Vidéo</SelectItem>
@@ -3194,7 +3194,7 @@ const BlockEditDropdown = ({
                     <Input 
                       value={formData.backgroundColor ?? '#084F6E'}
                       onChange={e => updateField('backgroundColor', e.target.value)}
-                      placeholder="#084F6E"
+
                       className="flex-1"
                     />
                   </div>
@@ -3209,7 +3209,7 @@ const BlockEditDropdown = ({
                       id="videoUrl"
                       value={formData.videoUrl ?? '/attached_assets/hero-video-optimized.mp4'} 
                       onChange={e => updateField('videoUrl', e.target.value)}
-                      placeholder="/attached_assets/hero-video-optimized.mp4"
+
                       className="flex-1"
                     />
                     <Button 
@@ -3245,7 +3245,7 @@ const BlockEditDropdown = ({
                     <Input 
                       value={formData.backgroundImage1 ?? ''} 
                       onChange={e => updateField('backgroundImage1', e.target.value)}
-                      placeholder="URL de l'image 1"
+
                       className="flex-1"
                     />
                     <Button 
@@ -3275,7 +3275,7 @@ const BlockEditDropdown = ({
                     <Input 
                       value={formData.backgroundImage2 ?? ''} 
                       onChange={e => updateField('backgroundImage2', e.target.value)}
-                      placeholder="URL de l'image 2"
+
                       className="flex-1"
                     />
                     <Button 
@@ -3305,7 +3305,7 @@ const BlockEditDropdown = ({
                     <Input 
                       value={formData.backgroundImage3 ?? ''} 
                       onChange={e => updateField('backgroundImage3', e.target.value)}
-                      placeholder="URL de l'image 3"
+
                       className="flex-1"
                     />
                     <Button 
@@ -3391,7 +3391,7 @@ const BlockEditDropdown = ({
                 id="title"
                 value={formData.title ?? defaultTextImagesData.title} 
                 onChange={e => updateField('title', e.target.value)}
-                placeholder="Who We Are"
+
                 rows={2}
                 className="mt-2"
               />
@@ -3411,7 +3411,7 @@ const BlockEditDropdown = ({
                 id="introduction"
                 value={formData.introduction ?? defaultTextImagesData.introduction} 
                 onChange={e => updateField('introduction', e.target.value)}
-                placeholder="Texte d'introduction..."
+
                 rows={4}
                 className="mt-2"
               />
@@ -3805,7 +3805,7 @@ const BlockEditDropdown = ({
                 id="title"
                 value={formData.title ?? block.configuration?.title ?? ''} 
                 onChange={e => updateField('title', e.target.value)}
-                placeholder="When expats welcome you..."
+
                 className="mt-2"
               />
               <div className="mt-3">
@@ -3823,7 +3823,7 @@ const BlockEditDropdown = ({
                 id="content"
                 value={formData.content ?? block.configuration?.content ?? ''} 
                 onChange={e => updateField('content', e.target.value)}
-                placeholder="Contenu de la section..."
+
                 rows={4}
                 className="mt-2"
               />
@@ -3869,7 +3869,7 @@ const BlockEditDropdown = ({
                 id="title"
                 value={formData.title ?? block.configuration?.title ?? ''} 
                 onChange={e => updateField('title', e.target.value)}
-                placeholder="When expats welcome you..."
+
                 className="mt-2"
               />
               <div className="mt-3">
@@ -3887,7 +3887,7 @@ const BlockEditDropdown = ({
                 id="content"
                 value={formData.content ?? block.configuration?.content ?? ''} 
                 onChange={e => updateField('content', e.target.value)}
-                placeholder="Contenu de la section..."
+
                 rows={4}
                 className="mt-2"
               />
@@ -3970,7 +3970,7 @@ const BlockEditDropdown = ({
                   id="iconUrl"
                   value={formData.iconUrl !== undefined ? formData.iconUrl : (block.configuration?.iconUrl ?? '')} 
                   onChange={e => updateField('iconUrl', e.target.value)}
-                  placeholder="https://example.com/icon.svg"
+
                   className="flex-1"
                 />
                 <Button 
@@ -4114,7 +4114,7 @@ const BlockEditDropdown = ({
               <div className="mt-3">
                 <Select value={formData.backgroundType ?? 'image'} onValueChange={value => updateField('backgroundType', value)}>
                   <SelectTrigger>
-                    <SelectValue placeholder="Type d'arrière-plan" />
+                    <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="image">Image</SelectItem>
@@ -4167,7 +4167,7 @@ const BlockEditDropdown = ({
                     id="videoUrl"
                     value={formData.videoUrl ?? ''} 
                     onChange={e => updateField('videoUrl', e.target.value)}
-                    placeholder="/attached_assets/video.mp4"
+
                     className="mt-2"
                   />
                 </div>
@@ -4181,7 +4181,7 @@ const BlockEditDropdown = ({
                       id="imageUrl"
                       value={formData.imageUrl ?? ''} 
                       onChange={e => updateField('imageUrl', e.target.value)}
-                      placeholder="https://example.com/image.jpg"
+
                       className="mt-2"
                     />
                   </div>
@@ -4191,7 +4191,7 @@ const BlockEditDropdown = ({
                       id="imageAlt"
                       value={formData.imageAlt ?? ''} 
                       onChange={e => updateField('imageAlt', e.target.value)}
-                      placeholder="Description de l'image"
+
                       className="mt-2"
                     />
                   </div>
@@ -4205,7 +4205,7 @@ const BlockEditDropdown = ({
               <div className="mt-3">
                 <Select value={formData.frameSize ?? 'small'} onValueChange={value => updateField('frameSize', value)}>
                   <SelectTrigger>
-                    <SelectValue placeholder="Taille du cadre" />
+                    <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="small">Petite</SelectItem>
@@ -4367,7 +4367,7 @@ const BlockEditDropdown = ({
                 id="title"
                 value={formData.title ?? block.configuration?.title ?? 'Our Popular Experiences'} 
                 onChange={e => updateField('title', e.target.value)}
-                placeholder="Our Popular Experiences"
+
                 className="mt-2"
               />
               <div className="mt-3">
@@ -4385,7 +4385,7 @@ const BlockEditDropdown = ({
                 id="subtitle"
                 value={formData.subtitle ?? block.configuration?.subtitle ?? 'Step off the beaten path into carefully curated experiences beyond the tourist trail.'} 
                 onChange={e => updateField('subtitle', e.target.value)}
-                placeholder="Step off the beaten path..."
+
                 className="mt-2"
               />
               <div className="mt-3">
@@ -4612,7 +4612,7 @@ const BlockEditDropdown = ({
                 <Input 
                   value={formData.buttonText ?? ''} 
                   onChange={e => updateField('buttonText', e.target.value)}
-                  placeholder="Voir tous les tours"
+
                   className="mt-2"
                 />
               </div>
@@ -4670,7 +4670,7 @@ const BlockEditDropdown = ({
                 id="title"
                 value={formData.title ?? 'Some Ideas For Your Next Trip'} 
                 onChange={e => updateField('title', e.target.value)}
-                placeholder="Some Ideas For Your Next Trip"
+
                 className="mt-2"
               />
               <div className="mt-3">
@@ -4688,7 +4688,7 @@ const BlockEditDropdown = ({
                 id="subtitle"
                 value={formData.subtitle ?? 'Get inspired by our custom-designed travel experiences.'} 
                 onChange={e => updateField('subtitle', e.target.value)}
-                placeholder="Get inspired by our custom-designed travel experiences."
+
                 className="mt-2"
               />
               <div className="mt-3">
@@ -4915,7 +4915,7 @@ const BlockEditDropdown = ({
                 <Input 
                   value={formData.buttonText ?? ''} 
                   onChange={e => updateField('buttonText', e.target.value)}
-                  placeholder="Voir tous les tours"
+
                   className="mt-2"
                 />
               </div>
@@ -4989,7 +4989,7 @@ const BlockEditDropdown = ({
                 <Label htmlFor="subtitle">Sous-titre</Label>
                 <Input 
                   id="subtitle"
-                  placeholder="Experience an exclusive private day trip with our English or French-speaking and certified guides."
+
                   value={formData.subtitle ?? ''} 
                   onChange={e => updateField('subtitle', e.target.value)}
                   className="mt-2"
@@ -5251,7 +5251,7 @@ const BlockEditDropdown = ({
                           <div className="mt-3">
                             <div className="flex gap-2">
                               <Input 
-                                placeholder=""
+
                                 value={block.mainIcon || ''}
                                 onChange={(e) => {
                                   const blocks = formData.iconBlocks || [];
@@ -5410,7 +5410,7 @@ const BlockEditDropdown = ({
                                   <div className="flex-1">
                                     <Label className="text-xs font-medium text-gray-600">Texte</Label>
                                     <Input 
-                                      placeholder="Texte de la mini-icône (ex: Private Car)" 
+ 
                                       value={miniIcon.text} 
                                       onChange={e => {
                                         const blocks = formData.iconBlocks || [];
@@ -6171,7 +6171,7 @@ const BlockEditDropdown = ({
               <Input 
                 id="googleLink"
                 type="url"
-                placeholder="https://g.page/..."
+
                 value={formData.googleLink ?? ''} 
                 onChange={e => updateField('googleLink', e.target.value)}
               />
@@ -6312,7 +6312,7 @@ const BlockEditDropdown = ({
                 id="title"
                 value={formData.title ?? 'Our Tailor-made trips'} 
                 onChange={e => updateField('title', e.target.value)}
-                placeholder="Our Tailor-made trips"
+
                 className="mt-2"
               />
               <div className="mt-3">
@@ -6331,7 +6331,7 @@ const BlockEditDropdown = ({
                 value={formData.subtitle ?? 'Design your own journey through Thailand with our tailor-made stays: from cultural discoveries and family adventures to romantic getaways and island escapes. Every itinerary is crafted to match your wishes, offering authentic experiences, quality services, and a unique immersion far from mass tourism.'} 
                 onChange={e => updateField('subtitle', e.target.value)}
                 rows={4}
-                placeholder="Design your own journey through Thailand..."
+
                 className="mt-2"
               />
               <div className="mt-3">
@@ -6391,7 +6391,7 @@ const BlockEditDropdown = ({
               <div className="mt-3">
                 <ColorPicker
                   label="Couleur du titre"
-                  value={formData.titleColor ?? '#084F6E'}
+                  value={formData.titleColor ?? '#333333'}
                   onChange={(value) => updateField('titleColor', value)}
                 />
               </div>
@@ -6683,7 +6683,7 @@ const BlockEditDropdown = ({
                   id="title"
                   value={formData.title ?? block.configuration?.title ?? ''} 
                   onChange={e => updateField('title', e.target.value)}
-                  placeholder="Titre de la section"
+
                   className="mt-2"
                 />
                 <div className="mt-3">
@@ -6701,7 +6701,7 @@ const BlockEditDropdown = ({
                   id="content"
                   value={formData.content ?? block.configuration?.content ?? ''} 
                   onChange={e => updateField('content', e.target.value)}
-                  placeholder="Contenu de la section..."
+
                   rows={4}
                   className="mt-2"
                 />
@@ -6749,7 +6749,7 @@ const BlockEditDropdown = ({
                   id="title"
                   value={formData.title ?? block.configuration?.title ?? ''} 
                   onChange={e => updateField('title', e.target.value)}
-                  placeholder="Votre titre principal"
+
                   rows={3}
                   className="mt-2"
                 />
@@ -6768,7 +6768,7 @@ const BlockEditDropdown = ({
                   id="titleAccentText"
                   value={formData.titleAccentText ?? ''} 
                   onChange={e => updateField('titleAccentText', e.target.value)}
-                  placeholder="Mot à colorer"
+
                   className="mt-2"
                 />
                 <p className="text-xs text-gray-500 mt-1">
@@ -6789,7 +6789,7 @@ const BlockEditDropdown = ({
                   id="subtitle"
                   value={formData.subtitle ?? block.configuration?.subtitle ?? ''} 
                   onChange={e => updateField('subtitle', e.target.value)}
-                  placeholder="Votre sous-titre descriptif"
+
                   rows={3}
                   className="mt-2"
                 />
@@ -6927,7 +6927,7 @@ const BlockEditDropdown = ({
                 <div className="mt-3">
                   <Select value={formData.contentAlignment ?? 'center'} onValueChange={value => updateField('contentAlignment', value)}>
                     <SelectTrigger>
-                      <SelectValue placeholder="Alignement" />
+                      <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="left">À gauche</SelectItem>
@@ -6956,7 +6956,7 @@ const BlockEditDropdown = ({
                 <div className="mt-3">
                   <Select value={formData.backgroundType ?? 'gradient'} onValueChange={value => updateField('backgroundType', value)}>
                     <SelectTrigger>
-                      <SelectValue placeholder="Type d'arrière-plan" />
+                      <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="gradient">Couleur dégradé</SelectItem>
@@ -7004,7 +7004,7 @@ const BlockEditDropdown = ({
                         id="videoUrl"
                         value={formData.videoUrl ?? ''} 
                         onChange={e => updateField('videoUrl', e.target.value)}
-                        placeholder="URL de la vidéo"
+
                         className="flex-1"
                       />
                       <Button 
@@ -7040,7 +7040,7 @@ const BlockEditDropdown = ({
                       <Input 
                         value={formData.backgroundImage1 ?? ''} 
                         onChange={e => updateField('backgroundImage1', e.target.value)}
-                        placeholder="URL de l'image 1"
+
                         className="flex-1"
                       />
                       <Button 
@@ -7070,7 +7070,7 @@ const BlockEditDropdown = ({
                       <Input 
                         value={formData.backgroundImage2 ?? ''} 
                         onChange={e => updateField('backgroundImage2', e.target.value)}
-                        placeholder="URL de l'image 2"
+
                         className="flex-1"
                       />
                       <Button 
@@ -7100,7 +7100,7 @@ const BlockEditDropdown = ({
                       <Input 
                         value={formData.backgroundImage3 ?? ''} 
                         onChange={e => updateField('backgroundImage3', e.target.value)}
-                        placeholder="URL de l'image 3"
+
                         className="flex-1"
                       />
                       <Button 
@@ -7135,7 +7135,7 @@ const BlockEditDropdown = ({
                 <div className="mt-3">
                   <Select value={formData.heroSize ?? 'petite'} onValueChange={value => updateField('heroSize', value)}>
                     <SelectTrigger>
-                      <SelectValue placeholder="Taille" />
+                      <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="petite">Petite</SelectItem>
@@ -7363,7 +7363,7 @@ export default function AdminPageEditor() {
             <div className="flex items-center gap-3">
               <Select value={pageSlug} onValueChange={handlePageChange}>
                 <SelectTrigger className="w-48">
-                  <SelectValue placeholder="Sélectionner une page" />
+                  <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
                   {/* Menu principal (Home) */}
