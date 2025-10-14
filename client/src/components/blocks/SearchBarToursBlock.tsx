@@ -267,6 +267,10 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
                         alt={tour.name}
                         className="w-full h-full object-cover absolute top-0 left-0"
                         style={{ zIndex: 1 }}
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.style.display = 'none';
+                        }}
                       />
                     )}
                     <div className="absolute top-4 right-4" style={{ zIndex: 2 }}>
