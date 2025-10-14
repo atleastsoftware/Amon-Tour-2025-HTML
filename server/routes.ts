@@ -3596,6 +3596,37 @@ Crawl-delay: 1`;
             categoryButtonTextColor: '#ffffff'
           },
           isActive: false
+        },
+        text_gallery: {
+          identifier: `text_gallery_${Date.now()}`,
+          title: 'Text + Gallery',
+          blockType: 'text_gallery',
+          configuration: {
+            title: 'Titre de la galerie',
+            subtitle: 'Description pour votre galerie d\'images',
+            titleColor: '#333333',
+            subtitleColor: '#666666',
+            dividerColor: '#084F6E',
+            backgroundColor: '#ffffff',
+            images: []
+          },
+          isActive: false
+        },
+        text_video: {
+          identifier: `text_video_${Date.now()}`,
+          title: 'Text + Video',
+          blockType: 'text_video',
+          configuration: {
+            title: 'Titre de la vidéo',
+            subtitle: 'Description pour votre section vidéo',
+            titleColor: '#333333',
+            subtitleColor: '#666666',
+            dividerColor: '#084F6E',
+            backgroundColor: '#ffffff',
+            videoUrl: '',
+            videoType: 'youtube'
+          },
+          isActive: false
         }
       };
 
