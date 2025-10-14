@@ -576,6 +576,7 @@ export const blockTypeEnum = pgEnum("block_type", [
   "testimonials",  // Carousel d'avis
   
   // Contact & Forms
+  "contact",       // Section de contact complète (Get In Touch)
   "contact_cards", // Cartes de contact avec icônes
   "contact_info",  // Informations de contact
   "custom_form",   // Formulaires personnalisés
