@@ -273,7 +273,6 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
                       />
                     ) : (
                       <img
-                        key={`${tour.id}-${cardsColor}`}
                         src={tour.primaryImage}
                         alt={tour.name}
                         className="w-full h-full object-cover"
