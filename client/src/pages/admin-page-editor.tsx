@@ -6384,7 +6384,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="title">Titre</Label>
               <Input 
                 id="title"
-                value={formData.title || 'Titre principal'} 
+                value={formData.title ?? 'Titre principal'} 
                 onChange={e => updateField('title', e.target.value)}
                 placeholder="Titre principal"
                 className="mt-2"
@@ -6392,7 +6392,7 @@ const BlockEditDropdown = ({
               <div className="mt-3">
                 <ColorPicker
                   label="Couleur du titre"
-                  value={formData.titleColor || '#084F6E'}
+                  value={formData.titleColor ?? '#084F6E'}
                   onChange={(value) => updateField('titleColor', value)}
                 />
               </div>
@@ -6403,7 +6403,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="subtitle">Sous-titre</Label>
               <Textarea 
                 id="subtitle"
-                value={formData.subtitle || 'Description pour votre section de contact'} 
+                value={formData.subtitle ?? 'Description pour votre section de contact'} 
                 onChange={e => updateField('subtitle', e.target.value)}
                 rows={2}
                 placeholder="Description pour votre section de contact"
@@ -6412,7 +6412,7 @@ const BlockEditDropdown = ({
               <div className="mt-3">
                 <ColorPicker
                   label="Couleur du sous-titre"
-                  value={formData.subtitleColor || '#666666'}
+                  value={formData.subtitleColor ?? '#666666'}
                   onChange={(value) => updateField('subtitleColor', value)}
                 />
               </div>
@@ -6423,7 +6423,7 @@ const BlockEditDropdown = ({
               <Label>Tiret séparateur</Label>
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.dividerColor || '#3BA8AF'}
+                  value={formData.dividerColor ?? '#3BA8AF'}
                   onChange={(value) => updateField('dividerColor', value)}
                 />
               </div>
@@ -6434,7 +6434,7 @@ const BlockEditDropdown = ({
               <Label>Couleur de fond</Label>
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.backgroundColor || '#ffffff'}
+                  value={formData.backgroundColor ?? '#ffffff'}
                   onChange={(value) => updateField('backgroundColor', value)}
                 />
               </div>
@@ -6449,7 +6449,7 @@ const BlockEditDropdown = ({
                 <Label htmlFor="emailLabel">Label</Label>
                 <Input 
                   id="emailLabel"
-                  value={formData.emailLabel || 'Email'} 
+                  value={formData.emailLabel ?? 'Email'} 
                   onChange={e => updateField('emailLabel', e.target.value)}
                   className="mt-2"
                 />
@@ -6459,7 +6459,7 @@ const BlockEditDropdown = ({
                 <Input 
                   id="email"
                   type="email"
-                  value={formData.email || 'contact@example.com'} 
+                  value={formData.email ?? 'contact@example.com'} 
                   onChange={e => updateField('email', e.target.value)}
                   className="mt-2"
                 />
@@ -6468,14 +6468,14 @@ const BlockEditDropdown = ({
                 <div>
                   <Label>Couleur icône</Label>
                   <ColorPicker
-                    value={formData.emailIconColor || '#084F6E'}
+                    value={formData.emailIconColor ?? '#084F6E'}
                     onChange={(value) => updateField('emailIconColor', value)}
                   />
                 </div>
                 <div>
                   <Label>Couleur label</Label>
                   <ColorPicker
-                    value={formData.emailLabelColor || '#084F6E'}
+                    value={formData.emailLabelColor ?? '#084F6E'}
                     onChange={(value) => updateField('emailLabelColor', value)}
                   />
                 </div>
@@ -6491,7 +6491,7 @@ const BlockEditDropdown = ({
                 <Label htmlFor="phoneLabel">Label</Label>
                 <Input 
                   id="phoneLabel"
-                  value={formData.phoneLabel || 'Téléphone'} 
+                  value={formData.phoneLabel ?? 'Téléphone'} 
                   onChange={e => updateField('phoneLabel', e.target.value)}
                   className="mt-2"
                 />
@@ -6501,7 +6501,7 @@ const BlockEditDropdown = ({
                 <Input 
                   id="phone"
                   type="tel"
-                  value={formData.phone || '+ 22 222 222 222'} 
+                  value={formData.phone ?? '+ 22 222 222 222'} 
                   onChange={e => updateField('phone', e.target.value)}
                   placeholder="+ 22 222 222 222"
                   className="mt-2"
@@ -6511,14 +6511,14 @@ const BlockEditDropdown = ({
                 <div>
                   <Label>Couleur icône</Label>
                   <ColorPicker
-                    value={formData.phoneIconColor || '#3BA8AF'}
+                    value={formData.phoneIconColor ?? '#3BA8AF'}
                     onChange={(value) => updateField('phoneIconColor', value)}
                   />
                 </div>
                 <div>
                   <Label>Couleur label</Label>
                   <ColorPicker
-                    value={formData.phoneLabelColor || '#3BA8AF'}
+                    value={formData.phoneLabelColor ?? '#3BA8AF'}
                     onChange={(value) => updateField('phoneLabelColor', value)}
                   />
                 </div>
@@ -6534,7 +6534,7 @@ const BlockEditDropdown = ({
                 <Label htmlFor="whatsappLabel">Label</Label>
                 <Input 
                   id="whatsappLabel"
-                  value={formData.whatsappLabel || 'WhatsApp'} 
+                  value={formData.whatsappLabel ?? 'WhatsApp'} 
                   onChange={e => updateField('whatsappLabel', e.target.value)}
                   className="mt-2"
                 />
@@ -6544,7 +6544,7 @@ const BlockEditDropdown = ({
                 <Input 
                   id="whatsapp"
                   type="tel"
-                  value={formData.whatsapp || '+ 22 222 222 222'} 
+                  value={formData.whatsapp ?? '+ 22 222 222 222'} 
                   onChange={e => updateField('whatsapp', e.target.value)}
                   placeholder="+ 22 222 222 222"
                   className="mt-2"
@@ -6554,14 +6554,14 @@ const BlockEditDropdown = ({
                 <div>
                   <Label>Couleur icône</Label>
                   <ColorPicker
-                    value={formData.whatsappIconColor || '#25D366'}
+                    value={formData.whatsappIconColor ?? '#25D366'}
                     onChange={(value) => updateField('whatsappIconColor', value)}
                   />
                 </div>
                 <div>
                   <Label>Couleur label</Label>
                   <ColorPicker
-                    value={formData.whatsappLabelColor || '#25D366'}
+                    value={formData.whatsappLabelColor ?? '#25D366'}
                     onChange={(value) => updateField('whatsappLabelColor', value)}
                   />
                 </div>
@@ -6577,7 +6577,7 @@ const BlockEditDropdown = ({
                 <Label htmlFor="lineIdLabel">Label</Label>
                 <Input 
                   id="lineIdLabel"
-                  value={formData.lineIdLabel || 'Line ID'} 
+                  value={formData.lineIdLabel ?? 'Line ID'} 
                   onChange={e => updateField('lineIdLabel', e.target.value)}
                   className="mt-2"
                 />
@@ -6586,7 +6586,7 @@ const BlockEditDropdown = ({
                 <Label htmlFor="lineId">Line ID</Label>
                 <Input 
                   id="lineId"
-                  value={formData.lineId || 'moncompte'} 
+                  value={formData.lineId ?? 'moncompte'} 
                   onChange={e => updateField('lineId', e.target.value)}
                   className="mt-2"
                 />
@@ -6595,14 +6595,14 @@ const BlockEditDropdown = ({
                 <div>
                   <Label>Couleur icône</Label>
                   <ColorPicker
-                    value={formData.lineIdIconColor || '#00B900'}
+                    value={formData.lineIdIconColor ?? '#00B900'}
                     onChange={(value) => updateField('lineIdIconColor', value)}
                   />
                 </div>
                 <div>
                   <Label>Couleur label</Label>
                   <ColorPicker
-                    value={formData.lineIdLabelColor || '#00B900'}
+                    value={formData.lineIdLabelColor ?? '#00B900'}
                     onChange={(value) => updateField('lineIdLabelColor', value)}
                   />
                 </div>
@@ -6627,7 +6627,7 @@ const BlockEditDropdown = ({
                     <Label htmlFor="aboutTitle">Titre de la section</Label>
                     <Input 
                       id="aboutTitle"
-                      value={formData.aboutTitle || 'À propos de notre entreprise'} 
+                      value={formData.aboutTitle ?? 'À propos de notre entreprise'} 
                       onChange={e => updateField('aboutTitle', e.target.value)}
                       placeholder="À propos de notre entreprise"
                       className="mt-2"
@@ -6637,7 +6637,7 @@ const BlockEditDropdown = ({
                     <Label htmlFor="companyBrand">Première ligne</Label>
                     <Input 
                       id="companyBrand"
-                      value={formData.companyBrand || 'Nom de la marque'} 
+                      value={formData.companyBrand ?? 'Nom de la marque'} 
                       onChange={e => updateField('companyBrand', e.target.value)}
                       placeholder="Nom de la marque"
                       className="mt-2"
@@ -6647,7 +6647,7 @@ const BlockEditDropdown = ({
                     <Label htmlFor="companyName">Deuxième ligne</Label>
                     <Input 
                       id="companyName"
-                      value={formData.companyName || 'Votre Adresse'} 
+                      value={formData.companyName ?? 'Votre Adresse'} 
                       onChange={e => updateField('companyName', e.target.value)}
                       placeholder="Votre Adresse"
                       className="mt-2"
@@ -6657,7 +6657,7 @@ const BlockEditDropdown = ({
                     <Label htmlFor="companyLicense">Licence TAT</Label>
                     <Input 
                       id="companyLicense"
-                      value={formData.companyLicense || '00/00000'} 
+                      value={formData.companyLicense ?? '00/00000'} 
                       onChange={e => updateField('companyLicense', e.target.value)}
                       placeholder="00/00000"
                       className="mt-2"
@@ -6667,7 +6667,7 @@ const BlockEditDropdown = ({
                     <Label htmlFor="companyDescription">Description (optionnelle)</Label>
                     <Textarea 
                       id="companyDescription"
-                      value={formData.companyDescription || ''} 
+                      value={formData.companyDescription ?? ''} 
                       onChange={e => updateField('companyDescription', e.target.value)}
                       placeholder=""
                       rows={2}
