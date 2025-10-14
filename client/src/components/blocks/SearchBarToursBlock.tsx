@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -52,12 +52,6 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
   const [priceRange, setPriceRange] = useState<string>("all");
   const [durationFilter, setDurationFilter] = useState<string>("all");
   const [destinationFilter, setDestinationFilter] = useState<string>("all");
-  const [imagePlaceholders, setImagePlaceholders] = useState<Record<string, boolean>>({});
-
-  // Réinitialiser les placeholders quand la couleur change
-  useEffect(() => {
-    setImagePlaceholders({});
-  }, [cardsColor]);
 
   const handleTourDetails = (tour: TourNinjaTour) => {
     if (tour.detailsUrl) {
@@ -264,8 +258,9 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
                     className="relative h-64 cursor-pointer"
                     onClick={() => handleTourDetails(tour)}
                   >
-                    {!tour.primaryImage || imagePlaceholders[tour.id] ? (
+                    {!tour.primaryImage ? (
                       <div 
+                        key={cardsColor}
                         className="w-full h-full relative overflow-hidden"
                         style={{ 
                           background: `linear-gradient(135deg, ${hexToRgba(cardsColor, 0.3)}, ${hexToRgba(cardsColor, 0.6)})`
@@ -276,8 +271,16 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
                         src={tour.primaryImage}
                         alt={tour.name}
                         className="w-full h-full object-cover"
-                        onError={() => {
-                          setImagePlaceholders(prev => ({ ...prev, [tour.id]: true }));
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          const parentDiv = target.parentElement;
+                          if (parentDiv) {
+                            target.remove();
+                            parentDiv.innerHTML = `
+                              <div class="w-full h-full relative overflow-hidden" style="background: linear-gradient(135deg, ${hexToRgba(cardsColor, 0.3)}, ${hexToRgba(cardsColor, 0.6)})">
+                              </div>
+                            `;
+                          }
                         }}
                       />
                     )}
