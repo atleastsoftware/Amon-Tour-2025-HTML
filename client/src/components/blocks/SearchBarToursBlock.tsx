@@ -37,6 +37,7 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
   const { openIframe } = useIframe();
 
   console.log('SearchBarToursBlock - Rendered with:', { toursCount: tours.length, isLoading });
+  console.log('SearchBarToursBlock - Tours data:', tours);
 
   // Configuration
   const filtersTitle = configuration.filtersTitle || 'Filters';
@@ -184,11 +185,9 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
     <section className="py-16" style={{ backgroundColor: sectionBgColor }}>
       <div className="container mx-auto px-4">
         {/* Debug info - À supprimer plus tard */}
-        {process.env.NODE_ENV === 'development' && (
-          <div className="mb-4 p-2 bg-yellow-100 text-xs">
-            Tours: {tours.length} | Destinations: {filterOptions.destinations.length} | Durations: {filterOptions.durations.length} | Loading: {isLoading ? 'Yes' : 'No'}
-          </div>
-        )}
+        <div className="mb-4 p-3 bg-yellow-200 border-2 border-yellow-600 text-black font-mono text-sm">
+          🐛 DEBUG: Tours={tours.length} | Destinations={filterOptions.destinations.length} | Durations={filterOptions.durations.length} | Loading={isLoading ? 'Yes' : 'No'}
+        </div>
         
         {/* Barre de filtres */}
         <div 
