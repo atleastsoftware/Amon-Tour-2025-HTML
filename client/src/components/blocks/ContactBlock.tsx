@@ -1,0 +1,187 @@
+import { motion } from "framer-motion";
+import { Mail, Phone, MessageCircle } from "lucide-react";
+
+interface ContactBlockProps {
+  block: {
+    id: number;
+    configuration?: {
+      title?: string;
+      subtitle?: string;
+      titleColor?: string;
+      subtitleColor?: string;
+      dividerColor?: string;
+      backgroundColor?: string;
+      email?: string;
+      emailLabel?: string;
+      phone?: string;
+      phoneLabel?: string;
+      whatsapp?: string;
+      whatsappLabel?: string;
+      lineId?: string;
+      lineIdLabel?: string;
+      showAboutCompany?: boolean;
+      companyBrand?: string;
+      companyName?: string;
+      tatLicense?: string;
+      companyDescription?: string;
+    };
+  };
+}
+
+export default function ContactBlock({ block }: ContactBlockProps) {
+  const config = block.configuration || {};
+  
+  const title = config.title || "Contactez-nous";
+  const subtitle = config.subtitle || "Nous sommes là pour répondre à vos questions et vous aider à planifier votre expérience.";
+  const titleColor = config.titleColor || "#084F6E";
+  const subtitleColor = config.subtitleColor || "#666666";
+  const dividerColor = config.dividerColor || "#3BA8AF";
+  const backgroundColor = config.backgroundColor || "#ffffff";
+  
+  const email = config.email || "contact@example.com";
+  const emailLabel = config.emailLabel || "Email";
+  const phone = config.phone || "+33 1 23 45 67 89";
+  const phoneLabel = config.phoneLabel || "Téléphone";
+  const whatsapp = config.whatsapp || "+33 6 12 34 56 78";
+  const whatsappLabel = config.whatsappLabel || "WhatsApp";
+  const lineId = config.lineId || "moncompte";
+  const lineIdLabel = config.lineIdLabel || "Line ID";
+  
+  const showAboutCompany = config.showAboutCompany ?? true;
+  const companyBrand = config.companyBrand || "Votre Marque";
+  const companyName = config.companyName || "Votre Entreprise";
+  const tatLicense = config.tatLicense || "12/34567";
+  const companyDescription = config.companyDescription || "Nous sommes un opérateur touristique agréé, spécialisé dans les expériences locales authentiques et les services de voyage personnalisés.";
+
+  return (
+    <section className="py-20" style={{ backgroundColor }}>
+      <div className="container mx-auto px-4 max-w-4xl text-center">
+        <div className="mb-8">
+          <motion.div 
+            initial={{ y: -20, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3" style={{ color: titleColor }}>
+              {title}
+            </h2>
+            <div className="w-20 h-1 mx-auto mb-8" style={{ backgroundColor: dividerColor }}></div>
+            <p className="text-lg leading-relaxed" style={{ color: subtitleColor }}>
+              {subtitle}
+            </p>
+          </motion.div>
+        </div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="space-y-6">
+            {/* Email */}
+            <motion.div 
+              className="flex items-center space-x-4 p-4 bg-background border border-border rounded-lg shadow-sm hover:shadow-md transition-shadow"
+              whileHover={{ y: -2 }}
+            >
+              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                <Mail className="w-6 h-6 text-primary" />
+              </div>
+              <div className="text-left">
+                <p className="font-heading font-semibold text-primary">{emailLabel}</p>
+                <a 
+                  href={`mailto:${email}`}
+                  className="text-foreground hover:text-primary transition-colors"
+                >
+                  {email}
+                </a>
+              </div>
+            </motion.div>
+
+            {/* Phone */}
+            <motion.div 
+              className="flex items-center space-x-4 p-4 bg-background border border-border rounded-lg shadow-sm hover:shadow-md transition-shadow"
+              whileHover={{ y: -2 }}
+            >
+              <div className="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                <Phone className="w-6 h-6 text-secondary" />
+              </div>
+              <div className="text-left">
+                <p className="font-heading font-semibold text-primary">{phoneLabel}</p>
+                <a 
+                  href={`tel:${phone.replace(/\s/g, '')}`}
+                  className="text-foreground hover:text-primary transition-colors"
+                >
+                  {phone}
+                </a>
+              </div>
+            </motion.div>
+
+            {/* WhatsApp */}
+            <motion.div 
+              className="flex items-center space-x-4 p-4 bg-background border border-border rounded-lg shadow-sm hover:shadow-md transition-shadow"
+              whileHover={{ y: -2 }}
+            >
+              <div className="w-12 h-12 bg-[hsl(var(--success)/0.1)] rounded-full flex items-center justify-center flex-shrink-0">
+                <MessageCircle className="w-6 h-6 text-[hsl(var(--success))]" />
+              </div>
+              <div className="text-left">
+                <p className="font-heading font-semibold text-primary">{whatsappLabel}</p>
+                <a 
+                  href={`https://wa.me/${whatsapp.replace(/[^0-9]/g, '')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-foreground hover:text-primary transition-colors"
+                >
+                  {whatsapp}
+                </a>
+              </div>
+            </motion.div>
+
+            {/* Line */}
+            <motion.div 
+              className="flex items-center space-x-4 p-4 bg-background border border-border rounded-lg shadow-sm hover:shadow-md transition-shadow"
+              whileHover={{ y: -2 }}
+            >
+              <div className="w-12 h-12 bg-[hsl(var(--success)/0.1)] rounded-full flex items-center justify-center flex-shrink-0">
+                <MessageCircle className="w-6 h-6 text-[hsl(var(--success))]" />
+              </div>
+              <div className="text-left">
+                <p className="font-heading font-semibold text-primary">{lineIdLabel}</p>
+                <span className="text-foreground">{lineId}</span>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Business Info */}
+          {showAboutCompany && (
+            <motion.div 
+              className="mt-8 p-6 bg-muted rounded-lg"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              <h3 className="font-heading font-bold text-lg mb-3">À propos de notre entreprise</h3>
+              <div className="space-y-2 text-sm text-muted-foreground">
+                <p>
+                  <strong>{companyBrand} est une marque de :</strong><br />
+                  {companyName}
+                </p>
+                <p>
+                  <span className="bg-secondary/20 text-primary px-2 py-1 rounded-full text-xs font-medium">
+                    Licence TAT : {tatLicense}
+                  </span>
+                </p>
+                <p className="mt-4">
+                  {companyDescription}
+                </p>
+              </div>
+            </motion.div>
+          )}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
