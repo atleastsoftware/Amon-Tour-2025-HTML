@@ -685,6 +685,214 @@ function renderBlockSpecificContent(
         </div>
       );
 
+    case 'contact':
+      return (
+        <div className="space-y-4">
+          {/* Titre et sous-titre */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="contactTitle">Titre</Label>
+              <Input
+                id="contactTitle"
+                value={config.title || ''}
+                onChange={(e) => handleConfigChange('title', e.target.value)}
+                placeholder="Contactez-nous"
+              />
+            </div>
+            <div>
+              <Label htmlFor="contactSubtitle">Sous-titre</Label>
+              <Textarea
+                id="contactSubtitle"
+                value={config.subtitle || ''}
+                onChange={(e) => handleConfigChange('subtitle', e.target.value)}
+                placeholder="Nous sommes là pour vous aider..."
+                rows={2}
+              />
+            </div>
+          </div>
+
+          {/* Couleurs */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <Label htmlFor="titleColor">Couleur du titre</Label>
+              <ColorPicker 
+                value={config.titleColor || 'primary'} 
+                onChange={(value) => handleConfigChange('titleColor', value)}
+              />
+            </div>
+            <div>
+              <Label htmlFor="subtitleColor">Couleur du sous-titre</Label>
+              <ColorPicker 
+                value={config.subtitleColor || '#666666'} 
+                onChange={(value) => handleConfigChange('subtitleColor', value)}
+              />
+            </div>
+            <div>
+              <Label htmlFor="dividerColor">Couleur du séparateur</Label>
+              <ColorPicker 
+                value={config.dividerColor || 'secondary'} 
+                onChange={(value) => handleConfigChange('dividerColor', value)}
+              />
+            </div>
+          </div>
+
+          <div>
+            <Label htmlFor="backgroundColor">Couleur de fond</Label>
+            <ColorPicker 
+              value={config.backgroundColor || '#ffffff'} 
+              onChange={(value) => handleConfigChange('backgroundColor', value)}
+            />
+          </div>
+
+          {/* Email */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="emailLabel">Label Email</Label>
+              <Input
+                id="emailLabel"
+                value={config.emailLabel || ''}
+                onChange={(e) => handleConfigChange('emailLabel', e.target.value)}
+                placeholder="Email"
+              />
+            </div>
+            <div>
+              <Label htmlFor="email">Adresse Email</Label>
+              <Input
+                id="email"
+                type="email"
+                value={config.email || ''}
+                onChange={(e) => handleConfigChange('email', e.target.value)}
+                placeholder="contact@example.com"
+              />
+            </div>
+          </div>
+
+          {/* Téléphone */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="phoneLabel">Label Téléphone</Label>
+              <Input
+                id="phoneLabel"
+                value={config.phoneLabel || ''}
+                onChange={(e) => handleConfigChange('phoneLabel', e.target.value)}
+                placeholder="Téléphone"
+              />
+            </div>
+            <div>
+              <Label htmlFor="phone">Numéro de téléphone</Label>
+              <Input
+                id="phone"
+                type="tel"
+                value={config.phone || ''}
+                onChange={(e) => handleConfigChange('phone', e.target.value)}
+                placeholder="+33 1 23 45 67 89"
+              />
+            </div>
+          </div>
+
+          {/* WhatsApp */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="whatsappLabel">Label WhatsApp</Label>
+              <Input
+                id="whatsappLabel"
+                value={config.whatsappLabel || ''}
+                onChange={(e) => handleConfigChange('whatsappLabel', e.target.value)}
+                placeholder="WhatsApp"
+              />
+            </div>
+            <div>
+              <Label htmlFor="whatsapp">Numéro WhatsApp</Label>
+              <Input
+                id="whatsapp"
+                type="tel"
+                value={config.whatsapp || ''}
+                onChange={(e) => handleConfigChange('whatsapp', e.target.value)}
+                placeholder="+33 6 12 34 56 78"
+              />
+            </div>
+          </div>
+
+          {/* Line ID */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="lineIdLabel">Label Line ID</Label>
+              <Input
+                id="lineIdLabel"
+                value={config.lineIdLabel || ''}
+                onChange={(e) => handleConfigChange('lineIdLabel', e.target.value)}
+                placeholder="Line ID"
+              />
+            </div>
+            <div>
+              <Label htmlFor="lineId">Line ID</Label>
+              <Input
+                id="lineId"
+                value={config.lineId || ''}
+                onChange={(e) => handleConfigChange('lineId', e.target.value)}
+                placeholder="moncompte"
+              />
+            </div>
+          </div>
+
+          {/* Section À propos */}
+          <div className="flex items-center space-x-2">
+            <Switch
+              id="showAboutCompany"
+              checked={config.showAboutCompany ?? true}
+              onCheckedChange={(checked) => handleConfigChange('showAboutCompany', checked)}
+            />
+            <Label htmlFor="showAboutCompany">Afficher la section "À propos de notre entreprise"</Label>
+          </div>
+
+          {(config.showAboutCompany ?? true) && (
+            <div className="space-y-4 border-l-4 border-secondary pl-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="companyBrand">Nom de la marque</Label>
+                  <Input
+                    id="companyBrand"
+                    value={config.companyBrand || ''}
+                    onChange={(e) => handleConfigChange('companyBrand', e.target.value)}
+                    placeholder="Votre Marque"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="companyName">Nom de l'entreprise</Label>
+                  <Input
+                    id="companyName"
+                    value={config.companyName || ''}
+                    onChange={(e) => handleConfigChange('companyName', e.target.value)}
+                    placeholder="Votre Entreprise SARL"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <Label htmlFor="tatLicense">Licence TAT</Label>
+                <Input
+                  id="tatLicense"
+                  value={config.tatLicense || ''}
+                  onChange={(e) => handleConfigChange('tatLicense', e.target.value)}
+                  placeholder="12/34567"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="companyDescription">Description de l'entreprise</Label>
+                <Textarea
+                  id="companyDescription"
+                  value={config.companyDescription || ''}
+                  onChange={(e) => handleConfigChange('companyDescription', e.target.value)}
+                  placeholder="Nous sommes un opérateur touristique agréé..."
+                  rows={3}
+                />
+              </div>
+            </div>
+          )}
+        </div>
+      );
+
     default:
       return null;
   }
