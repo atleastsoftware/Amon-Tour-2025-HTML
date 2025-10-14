@@ -260,6 +260,43 @@ const blockTypes: BlockType[] = [
         </div>
       </div>
     )
+  },
+  {
+    type: 'contact',
+    label: 'Contact',
+    description: 'Section de contact avec email, téléphone, WhatsApp et Line ID',
+    icon: Mail,
+    preview: (
+      <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
+        <div className="text-center mb-4">
+          <h2 className="font-bold text-lg mb-2" style={{ color: '#333333' }}>
+            Contactez-nous
+          </h2>
+          <div className="w-16 h-0.5 mx-auto mb-3" style={{ backgroundColor: '#3BA8AF' }}></div>
+          <p className="text-xs leading-relaxed mb-4" style={{ color: '#666666' }}>
+            Nous sommes là pour répondre à vos questions et vous aider.
+          </p>
+        </div>
+        <div className="space-y-2">
+          {[
+            { icon: <Mail className="w-4 h-4" />, label: 'Email', value: 'contact@example.com', color: '#084F6E' },
+            { icon: <Mail className="w-4 h-4" />, label: 'Téléphone', value: '+33 1 23 45 67 89', color: '#3BA8AF' },
+            { icon: <Mail className="w-4 h-4" />, label: 'WhatsApp', value: '+33 6 12 34 56 78', color: '#25D366' },
+            { icon: <Mail className="w-4 h-4" />, label: 'Line ID', value: 'moncompte', color: '#00B900' }
+          ].map((item, i) => (
+            <div key={i} className="flex items-center gap-2 p-2 border rounded-lg">
+              <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: `${item.color}15` }}>
+                <div style={{ color: item.color }}>{item.icon}</div>
+              </div>
+              <div className="text-left">
+                <div className="text-xs font-semibold" style={{ color: '#084F6E' }}>{item.label}</div>
+                <div className="text-xs" style={{ color: '#666666' }}>{item.value}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
   }
 ];
 
