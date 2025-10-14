@@ -40,15 +40,15 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
   console.log('SearchBarToursBlock - Tours data:', tours);
 
   // Configuration
-  const filtersTitle = configuration.filtersTitle || 'Filters';
-  const searchPlaceholder = configuration.searchPlaceholder || 'Search for a tour...';
-  const filtersTextColor = configuration.filtersTextColor || '#333333';
-  const filtersBgColor = configuration.filtersBgColor || '#ffffff';
-  const cardsColor = configuration.cardsColor || '#084F6E';
-  const sectionBgColor = configuration.backgroundColor || '#ffffff';
-  const mobileColumns = configuration.mobileColumns || 1;
-  const tabletColumns = configuration.tabletColumns || 2;
-  const desktopColumns = configuration.desktopColumns || 3;
+  const filtersTitle = configuration.filtersTitle ?? 'Filters';
+  const searchPlaceholder = configuration.searchPlaceholder ?? 'Search for a tour...';
+  const filtersTextColor = configuration.filtersTextColor ?? '#333333';
+  const filtersBgColor = configuration.filtersBgColor ?? '#ffffff';
+  const cardsColor = configuration.cardsColor ?? '#084F6E';
+  const sectionBgColor = configuration.backgroundColor ?? '#ffffff';
+  const mobileColumns = configuration.mobileColumns ?? 1;
+  const tabletColumns = configuration.tabletColumns ?? 2;
+  const desktopColumns = configuration.desktopColumns ?? 3;
 
   // Filtres
   const [searchTerm, setSearchTerm] = useState("");

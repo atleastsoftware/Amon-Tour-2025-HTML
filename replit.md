@@ -135,7 +135,15 @@ When adding a new block type to the incremental block library system, follow thi
 #### 2. Block Component (`client/src/components/blocks/YourBlock.tsx`)
 - Create the visual component that renders the block on the public site
 - Ensure it accepts a `block` prop with structure: `{ id: number, configuration?: {...} }`
-- Use default values for all configuration properties
+- **CRITICAL**: Use nullish coalescing (`??`) instead of logical OR (`||`) for default values to allow empty strings:
+  ```typescript
+  const title = config.title ?? "Default Title";  // ✅ Correct - allows empty strings
+  const title = config.title || "Default Title";  // ❌ Wrong - empty string becomes default
+  ```
+- Conditionally render sections based on content to avoid empty spaces:
+  ```typescript
+  {title && <h2>{title}</h2>}  // Only render if title exists
+  ```
 
 #### 3. Server Configuration (`server/routes.ts`)
 - Add default data for the new block type in the `defaultBlockData` object
@@ -187,6 +195,8 @@ When adding a new block type to the incremental block library system, follow thi
 2. **Wrong prop structure** - Block components expect `{ id, configuration }` object, not individual props
 3. **Missing preview case** - Must add to ALL 3 preview locations
 4. **No editor fields** - Must add configuration case in the editor switch
+5. **Using `||` for defaults** - ALWAYS use `??` (nullish coalescing) instead of `||` (logical OR) to allow empty strings. This prevents fields from showing default values when users intentionally leave them empty.
+6. **Not hiding empty sections** - Wrap optional content in conditional rendering `{value && <element>{value}</element>}` to avoid empty spaces in the layout
 
 ## Changelog
 - June 24, 2025: Initial setup
@@ -200,6 +210,7 @@ When adding a new block type to the incremental block library system, follow thi
 - August 9, 2025: Completed full Tour Ninja API integration with custom image override system - added real API keys, now displaying all 18 tours instead of 1 demo tour. Implemented complete admin dashboard for image management with upload, CRUD operations, and automatic frontend application of custom images with fallback system.
 - October 8, 2025: Fixed critical UI issues in page editor - restored missing divider before "Modifier le formulaire complet" button, added form image display in DynamicFormBlockPreview component. Theme uses new brand colors: primary #084F6E (blue-green) and secondary #3BA8AF (turquoise) with updated logo.
 - October 14, 2025: Implemented Contact block with comprehensive editing options - added new "contact" block type with email, phone, WhatsApp, Line ID contact methods plus optional "About Our Company" section. Documented complete block creation procedure in Development Guidelines to prevent recurring integration issues.
+- October 14, 2025: Fixed critical empty field handling - replaced `||` with `??` (nullish coalescing) in all block components to allow empty strings. Added conditional rendering to hide empty sections and prevent unwanted default values. Updated development guidelines with this best practice for future block creation.
 
 ## User Preferences
 
