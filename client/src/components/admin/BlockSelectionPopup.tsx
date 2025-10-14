@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Home, FileText, Grid3x3, FormInput, CheckCircle, Calendar, DollarSign, Sparkles, Image, Search, Mail } from 'lucide-react';
+import { Home, FileText, Grid3x3, FormInput, CheckCircle, Calendar, DollarSign, Sparkles, Image, Search, Mail, Images, Video } from 'lucide-react';
 
 interface BlockType {
   type: string;
@@ -355,6 +355,57 @@ const blockTypes: BlockType[] = [
               <div className="px-2 py-1 border border-[#084F6E] text-[#084F6E] rounded text-xs">Nom de catégorie</div>
               <div className="px-2 py-1 border border-[#084F6E] text-[#084F6E] rounded text-xs">Nom de catégorie</div>
             </div>
+          </div>
+        </div>
+      </div>
+    )
+  },
+  {
+    type: 'text_gallery',
+    label: 'Text + Gallery',
+    description: 'Section avec titre et galerie d\'images (carousel)',
+    icon: Images,
+    preview: (
+      <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
+        <div className="text-center mb-4">
+          <h2 className="font-bold text-lg mb-2" style={{ color: '#333333' }}>
+            Titre de la galerie
+          </h2>
+          <div className="w-16 h-0.5 mx-auto mb-3" style={{ backgroundColor: '#084F6E' }}></div>
+          <p className="text-xs leading-relaxed" style={{ color: '#666666' }}>
+            Description pour votre galerie d'images
+          </p>
+        </div>
+        <div className="relative aspect-video bg-gradient-to-r from-[#084F6E] to-[#3BA8AF] rounded-lg flex items-center justify-center text-white">
+          <Images className="w-12 h-12 opacity-60" />
+        </div>
+        <div className="flex gap-1 mt-2 justify-center">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="w-12 h-12 bg-gradient-to-r from-[#084F6E] to-[#3BA8AF] rounded"></div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  {
+    type: 'text_video',
+    label: 'Text + Video',
+    description: 'Section avec titre et vidéo intégrée (YouTube/Vimeo)',
+    icon: Video,
+    preview: (
+      <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
+        <div className="text-center mb-4">
+          <h2 className="font-bold text-lg mb-2" style={{ color: '#333333' }}>
+            Titre de la vidéo
+          </h2>
+          <div className="w-16 h-0.5 mx-auto mb-3" style={{ backgroundColor: '#084F6E' }}></div>
+          <p className="text-xs leading-relaxed" style={{ color: '#666666' }}>
+            Description pour votre section vidéo
+          </p>
+        </div>
+        <div className="relative aspect-video bg-black rounded-lg flex items-center justify-center">
+          <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
+            <Video className="w-8 h-8 text-white" />
           </div>
         </div>
       </div>
