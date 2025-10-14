@@ -6376,6 +6376,294 @@ const BlockEditDropdown = ({
           </div>
         );
 
+      case 'contact':
+        return (
+          <div className="space-y-6">
+            {/* Titre */}
+            <div>
+              <Label htmlFor="title">Titre</Label>
+              <Input 
+                id="title"
+                value={formData.title || 'Contactez-nous'} 
+                onChange={e => updateField('title', e.target.value)}
+                placeholder="Contactez-nous"
+                className="mt-2"
+              />
+              <div className="mt-3">
+                <ColorPicker
+                  label="Couleur du titre"
+                  value={formData.titleColor || '#084F6E'}
+                  onChange={(value) => updateField('titleColor', value)}
+                />
+              </div>
+            </div>
+            
+            {/* Sous-titre */}
+            <div>
+              <Label htmlFor="subtitle">Sous-titre</Label>
+              <Textarea 
+                id="subtitle"
+                value={formData.subtitle || 'Nous sommes là pour répondre à vos questions et vous aider à planifier votre expérience.'} 
+                onChange={e => updateField('subtitle', e.target.value)}
+                rows={2}
+                placeholder="Nous sommes là pour vous aider..."
+                className="mt-2"
+              />
+              <div className="mt-3">
+                <ColorPicker
+                  label="Couleur du sous-titre"
+                  value={formData.subtitleColor || '#666666'}
+                  onChange={(value) => updateField('subtitleColor', value)}
+                />
+              </div>
+            </div>
+
+            {/* Tiret */}
+            <div>
+              <Label>Tiret séparateur</Label>
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.dividerColor || '#3BA8AF'}
+                  onChange={(value) => updateField('dividerColor', value)}
+                />
+              </div>
+            </div>
+
+            {/* Couleur de fond */}
+            <div>
+              <Label>Couleur de fond</Label>
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.backgroundColor || '#ffffff'}
+                  onChange={(value) => updateField('backgroundColor', value)}
+                />
+              </div>
+            </div>
+
+            <Separator className="my-6" />
+
+            {/* Email */}
+            <div className="space-y-3">
+              <Label className="text-base font-semibold">Email</Label>
+              <div>
+                <Label htmlFor="emailLabel">Label</Label>
+                <Input 
+                  id="emailLabel"
+                  value={formData.emailLabel || 'Email'} 
+                  onChange={e => updateField('emailLabel', e.target.value)}
+                  className="mt-2"
+                />
+              </div>
+              <div>
+                <Label htmlFor="email">Adresse email</Label>
+                <Input 
+                  id="email"
+                  type="email"
+                  value={formData.email || 'contact@example.com'} 
+                  onChange={e => updateField('email', e.target.value)}
+                  className="mt-2"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <Label>Couleur icône</Label>
+                  <ColorPicker
+                    value={formData.emailIconColor || '#084F6E'}
+                    onChange={(value) => updateField('emailIconColor', value)}
+                  />
+                </div>
+                <div>
+                  <Label>Couleur label</Label>
+                  <ColorPicker
+                    value={formData.emailLabelColor || '#084F6E'}
+                    onChange={(value) => updateField('emailLabelColor', value)}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <Separator />
+
+            {/* Phone */}
+            <div className="space-y-3">
+              <Label className="text-base font-semibold">Téléphone</Label>
+              <div>
+                <Label htmlFor="phoneLabel">Label</Label>
+                <Input 
+                  id="phoneLabel"
+                  value={formData.phoneLabel || 'Téléphone'} 
+                  onChange={e => updateField('phoneLabel', e.target.value)}
+                  className="mt-2"
+                />
+              </div>
+              <div>
+                <Label htmlFor="phone">Numéro</Label>
+                <Input 
+                  id="phone"
+                  type="tel"
+                  value={formData.phone || '+33 1 23 45 67 89'} 
+                  onChange={e => updateField('phone', e.target.value)}
+                  className="mt-2"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <Label>Couleur icône</Label>
+                  <ColorPicker
+                    value={formData.phoneIconColor || '#3BA8AF'}
+                    onChange={(value) => updateField('phoneIconColor', value)}
+                  />
+                </div>
+                <div>
+                  <Label>Couleur label</Label>
+                  <ColorPicker
+                    value={formData.phoneLabelColor || '#3BA8AF'}
+                    onChange={(value) => updateField('phoneLabelColor', value)}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <Separator />
+
+            {/* WhatsApp */}
+            <div className="space-y-3">
+              <Label className="text-base font-semibold">WhatsApp</Label>
+              <div>
+                <Label htmlFor="whatsappLabel">Label</Label>
+                <Input 
+                  id="whatsappLabel"
+                  value={formData.whatsappLabel || 'WhatsApp'} 
+                  onChange={e => updateField('whatsappLabel', e.target.value)}
+                  className="mt-2"
+                />
+              </div>
+              <div>
+                <Label htmlFor="whatsapp">Numéro</Label>
+                <Input 
+                  id="whatsapp"
+                  type="tel"
+                  value={formData.whatsapp || '+33 6 12 34 56 78'} 
+                  onChange={e => updateField('whatsapp', e.target.value)}
+                  className="mt-2"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <Label>Couleur icône</Label>
+                  <ColorPicker
+                    value={formData.whatsappIconColor || '#25D366'}
+                    onChange={(value) => updateField('whatsappIconColor', value)}
+                  />
+                </div>
+                <div>
+                  <Label>Couleur label</Label>
+                  <ColorPicker
+                    value={formData.whatsappLabelColor || '#25D366'}
+                    onChange={(value) => updateField('whatsappLabelColor', value)}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <Separator />
+
+            {/* Line ID */}
+            <div className="space-y-3">
+              <Label className="text-base font-semibold">Line ID</Label>
+              <div>
+                <Label htmlFor="lineIdLabel">Label</Label>
+                <Input 
+                  id="lineIdLabel"
+                  value={formData.lineIdLabel || 'Line ID'} 
+                  onChange={e => updateField('lineIdLabel', e.target.value)}
+                  className="mt-2"
+                />
+              </div>
+              <div>
+                <Label htmlFor="lineId">Line ID</Label>
+                <Input 
+                  id="lineId"
+                  value={formData.lineId || 'moncompte'} 
+                  onChange={e => updateField('lineId', e.target.value)}
+                  className="mt-2"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <Label>Couleur icône</Label>
+                  <ColorPicker
+                    value={formData.lineIdIconColor || '#00B900'}
+                    onChange={(value) => updateField('lineIdIconColor', value)}
+                  />
+                </div>
+                <div>
+                  <Label>Couleur label</Label>
+                  <ColorPicker
+                    value={formData.lineIdLabelColor || '#00B900'}
+                    onChange={(value) => updateField('lineIdLabelColor', value)}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <Separator className="my-6" />
+
+            {/* About Company Section */}
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <Label className="text-base font-semibold">Section "À propos de notre entreprise"</Label>
+                <Switch
+                  checked={formData.showAboutCompany ?? true}
+                  onCheckedChange={(checked) => updateField('showAboutCompany', checked)}
+                />
+              </div>
+              
+              {(formData.showAboutCompany ?? true) && (
+                <>
+                  <div>
+                    <Label htmlFor="companyBrand">Nom de la marque</Label>
+                    <Input 
+                      id="companyBrand"
+                      value={formData.companyBrand || 'Amon Tour'} 
+                      onChange={e => updateField('companyBrand', e.target.value)}
+                      className="mt-2"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="companyName">Nom de l'entreprise</Label>
+                    <Input 
+                      id="companyName"
+                      value={formData.companyName || 'Flame BB Co., Ltd.'} 
+                      onChange={e => updateField('companyName', e.target.value)}
+                      className="mt-2"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="companyLicense">Licence TAT</Label>
+                    <Input 
+                      id="companyLicense"
+                      value={formData.companyLicense || '34/01995'} 
+                      onChange={e => updateField('companyLicense', e.target.value)}
+                      className="mt-2"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="companyDescription">Description (optionnelle)</Label>
+                    <Textarea 
+                      id="companyDescription"
+                      value={formData.companyDescription || ''} 
+                      onChange={e => updateField('companyDescription', e.target.value)}
+                      rows={2}
+                      className="mt-2"
+                    />
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+        );
+
       default:
         // Gérer les blocs Text génériques
         if (block.blockType === 'text') {

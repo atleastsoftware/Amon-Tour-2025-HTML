@@ -122,6 +122,72 @@ STRIPE_SECRET_KEY=your_stripe_key (optional)
 SENDGRID_API_KEY=your_sendgrid_key (for email notifications)
 ```
 
+## Development Guidelines
+
+### Adding a New Block Type to the Page Editor
+
+When adding a new block type to the incremental block library system, follow this complete checklist to avoid common issues:
+
+#### 1. Database Schema (`shared/schema.ts`)
+- Add the new block type to the `block_type` enum using SQL ALTER TYPE command
+- Example: `ALTER TYPE block_type ADD VALUE IF NOT EXISTS 'contact';`
+
+#### 2. Block Component (`client/src/components/blocks/YourBlock.tsx`)
+- Create the visual component that renders the block on the public site
+- Ensure it accepts a `block` prop with structure: `{ id: number, configuration?: {...} }`
+- Use default values for all configuration properties
+
+#### 3. Server Configuration (`server/routes.ts`)
+- Add default data for the new block type in the `defaultBlockData` object
+- Include all editable fields with French default values
+
+#### 4. Block Selection Popup (`client/src/components/admin/BlockSelectionPopup.tsx`)
+- Add the block to the `blockTypes` array with:
+  - `type`: The block type identifier
+  - `label`: Display name
+  - `description`: Brief description
+  - `icon`: Lucide icon
+  - `preview`: Visual preview component showing the block's appearance
+
+#### 5. Preview Components - **CRITICAL: All 3 must be updated**
+
+##### a) RealBlockPreview (`client/src/components/admin/RealBlockPreview.tsx`)
+- Add a `case` for the new block type in the miniature preview switch
+- Use simplified mini representation (small text sizes, compact layout)
+
+##### b) RealBlockPreview in Page Editor (`client/src/pages/admin-page-editor.tsx`)
+- **Import the block component** at the top of the file
+- Add a `case` for the new block type in the `getActualComponent()` switch
+- Pass the block configuration merged with liveConfiguration for real-time preview
+- Example:
+  ```typescript
+  case 'contact':
+    const contactConfig = liveConfiguration || block.configuration || {};
+    return <ContactBlock block={{ id: block.id, configuration: contactConfig }} />;
+  ```
+
+##### c) BlockPreview (`client/src/components/admin/BlockPreview.tsx`)
+- Add a `case` in the `SimplifiedPreview` switch for the simplified editor preview
+- Show a representative preview with proper styling
+
+#### 6. Block Configuration Editor (`client/src/pages/admin-page-editor.tsx`)
+- Add a `case` for the new block type in the configuration switch (before `default:`)
+- Create form inputs for all editable properties:
+  - Use `<Input>`, `<Textarea>`, `<ColorPicker>`, `<Switch>`, etc.
+  - Call `updateField('fieldName', value)` for changes
+  - Use `formData.fieldName || 'default'` for controlled values
+  - Group related fields with `<Separator />` for better organization
+
+#### 7. Dynamic Blocks Renderer (`client/src/components/DynamicBlocksRenderer.tsx`)
+- Add a `case` to render the block on the public site
+- Pass the full block configuration
+
+#### Common Pitfalls to Avoid:
+1. **Missing import** - Always import the block component in `admin-page-editor.tsx`
+2. **Wrong prop structure** - Block components expect `{ id, configuration }` object, not individual props
+3. **Missing preview case** - Must add to ALL 3 preview locations
+4. **No editor fields** - Must add configuration case in the editor switch
+
 ## Changelog
 - June 24, 2025: Initial setup
 - June 24, 2025: Integrated complete backend system for 3 public forms (Krabi Celebration, Partnership, Group/Corporate) with full admin management interface, database tables, API endpoints, and notification system
@@ -133,6 +199,7 @@ SENDGRID_API_KEY=your_sendgrid_key (for email notifications)
 - August 9, 2025: Successfully implemented authentic TourNinja presentation images - replaced generic Unsplash fallbacks with real tour-specific presentation images via `/api/image-proxy/{tourId}/presentation` URLs. All 18 tours now display their authentic promotional images as configured in TourNinja dashboard.
 - August 9, 2025: Completed full Tour Ninja API integration with custom image override system - added real API keys, now displaying all 18 tours instead of 1 demo tour. Implemented complete admin dashboard for image management with upload, CRUD operations, and automatic frontend application of custom images with fallback system.
 - October 8, 2025: Fixed critical UI issues in page editor - restored missing divider before "Modifier le formulaire complet" button, added form image display in DynamicFormBlockPreview component. Theme uses new brand colors: primary #084F6E (blue-green) and secondary #3BA8AF (turquoise) with updated logo.
+- October 14, 2025: Implemented Contact block with comprehensive editing options - added new "contact" block type with email, phone, WhatsApp, Line ID contact methods plus optional "About Our Company" section. Documented complete block creation procedure in Development Guidelines to prevent recurring integration issues.
 
 ## User Preferences
 
