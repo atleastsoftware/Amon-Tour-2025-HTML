@@ -286,6 +286,68 @@ function SimplifiedPreview({ block }: { block: PageBlock }) {
         </div>
       );
 
+    case 'contact':
+      return (
+        <div className="py-8">
+          <div className="text-center mb-6">
+            <h2 className="text-2xl font-bold mb-2" style={{ color: config.titleColor || '#084F6E' }}>
+              {config.title || 'Contactez-nous'}
+            </h2>
+            <div className="w-16 h-1 mx-auto mb-4" style={{ backgroundColor: config.dividerColor || '#3BA8AF' }}></div>
+            <p className="text-gray-600">{config.subtitle || 'Nous sommes là pour vous aider'}</p>
+          </div>
+          <div className="space-y-3 max-w-2xl mx-auto">
+            <div className="flex items-center gap-3 p-3 border rounded-lg">
+              <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                <Mail className="h-5 w-5 text-primary" />
+              </div>
+              <div>
+                <div className="font-semibold text-sm">{config.emailLabel || 'Email'}</div>
+                <div className="text-sm text-gray-600">{config.email || 'contact@example.com'}</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 p-3 border rounded-lg">
+              <div className="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center">
+                <Phone className="h-5 w-5 text-secondary" />
+              </div>
+              <div>
+                <div className="font-semibold text-sm">{config.phoneLabel || 'Téléphone'}</div>
+                <div className="text-sm text-gray-600">{config.phone || '+33 1 23 45 67 89'}</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 p-3 border rounded-lg">
+              <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                <Phone className="h-5 w-5 text-green-600" />
+              </div>
+              <div>
+                <div className="font-semibold text-sm">{config.whatsappLabel || 'WhatsApp'}</div>
+                <div className="text-sm text-gray-600">{config.whatsapp || '+33 6 12 34 56 78'}</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 p-3 border rounded-lg">
+              <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                <Phone className="h-5 w-5 text-green-600" />
+              </div>
+              <div>
+                <div className="font-semibold text-sm">{config.lineIdLabel || 'Line ID'}</div>
+                <div className="text-sm text-gray-600">{config.lineId || 'moncompte'}</div>
+              </div>
+            </div>
+            {(config.showAboutCompany ?? true) && (
+              <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+                <h3 className="font-bold text-sm mb-2">À propos de notre entreprise</h3>
+                <p className="text-xs text-gray-600">
+                  <strong>{config.companyBrand || 'Votre Marque'}</strong> est une marque de : {config.companyName || 'Votre Entreprise'}
+                </p>
+                <Badge variant="outline" className="mt-2 text-xs">
+                  Licence TAT : {config.tatLicense || '12/34567'}
+                </Badge>
+              </div>
+            )}
+          </div>
+        </div>
+      );
+
     default:
       return (
         <div className="bg-gray-100 p-8 rounded-lg text-center">

@@ -3549,6 +3549,33 @@ Crawl-delay: 1`;
             desktopColumns: 3
           },
           isActive: false
+        },
+        contact: {
+          identifier: `contact_${Date.now()}`,
+          title: 'Contact',
+          blockType: 'contact',
+          configuration: {
+            title: 'Contactez-nous',
+            subtitle: 'Nous sommes là pour répondre à vos questions et vous aider à planifier votre expérience.',
+            titleColor: '#084F6E',
+            subtitleColor: '#666666',
+            dividerColor: '#3BA8AF',
+            backgroundColor: '#ffffff',
+            email: 'contact@example.com',
+            emailLabel: 'Email',
+            phone: '+33 1 23 45 67 89',
+            phoneLabel: 'Téléphone',
+            whatsapp: '+33 6 12 34 56 78',
+            whatsappLabel: 'WhatsApp',
+            lineId: 'moncompte',
+            lineIdLabel: 'Line ID',
+            showAboutCompany: true,
+            companyBrand: 'Votre Marque',
+            companyName: 'Votre Entreprise',
+            tatLicense: '12/34567',
+            companyDescription: 'Nous sommes un opérateur touristique agréé, spécialisé dans les expériences locales authentiques et les services de voyage personnalisés.'
+          },
+          isActive: false
         }
       };
 
