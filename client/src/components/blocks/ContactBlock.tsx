@@ -33,7 +33,7 @@ export default function ContactBlock({ block }: ContactBlockProps) {
   const config = block.configuration || {};
   
   const title = config.title || "Titre principal";
-  const subtitle = config.subtitle || "Sous-titre";
+  const subtitle = config.subtitle || "Description pour votre section de contact";
   const titleColor = config.titleColor || "#084F6E";
   const subtitleColor = config.subtitleColor || "#666666";
   const dividerColor = config.dividerColor || "#3BA8AF";

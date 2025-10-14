@@ -3556,7 +3556,7 @@ Crawl-delay: 1`;
           blockType: 'contact',
           configuration: {
             title: 'Titre principal',
-            subtitle: 'Sous-titre',
+            subtitle: 'Description pour votre section de contact',
             titleColor: '#084F6E',
             subtitleColor: '#666666',
             dividerColor: '#3BA8AF',

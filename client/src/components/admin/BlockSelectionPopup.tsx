@@ -269,19 +269,19 @@ const blockTypes: BlockType[] = [
     preview: (
       <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
         <div className="text-center mb-4">
-          <h2 className="font-bold text-lg mb-2" style={{ color: '#333333' }}>
-            Contactez-nous
+          <h2 className="font-bold text-lg mb-2" style={{ color: '#084F6E' }}>
+            Titre principal
           </h2>
           <div className="w-16 h-0.5 mx-auto mb-3" style={{ backgroundColor: '#3BA8AF' }}></div>
           <p className="text-xs leading-relaxed mb-4" style={{ color: '#666666' }}>
-            Nous sommes là pour répondre à vos questions et vous aider.
+            Description pour votre section de contact
           </p>
         </div>
         <div className="space-y-2">
           {[
             { icon: <Mail className="w-4 h-4" />, label: 'Email', value: 'contact@example.com', color: '#084F6E' },
-            { icon: <Mail className="w-4 h-4" />, label: 'Téléphone', value: '+33 1 23 45 67 89', color: '#3BA8AF' },
-            { icon: <Mail className="w-4 h-4" />, label: 'WhatsApp', value: '+33 6 12 34 56 78', color: '#25D366' },
+            { icon: <Mail className="w-4 h-4" />, label: 'Téléphone', value: '+ 22 222 222 222', color: '#3BA8AF' },
+            { icon: <Mail className="w-4 h-4" />, label: 'WhatsApp', value: '+ 22 222 222 222', color: '#25D366' },
             { icon: <Mail className="w-4 h-4" />, label: 'Line ID', value: 'moncompte', color: '#00B900' }
           ].map((item, i) => (
             <div key={i} className="flex items-center gap-2 p-2 border rounded-lg">
@@ -296,12 +296,15 @@ const blockTypes: BlockType[] = [
           ))}
         </div>
         <div className="mt-3 p-3 bg-gray-50 rounded-lg text-center">
-          <div className="text-xs font-bold mb-1">About Our Company</div>
+          <div className="text-xs font-bold mb-1">À propos de notre entreprise</div>
           <div className="text-xs text-gray-600 mb-1">
-            <strong>Amon Tour</strong> est une marque de : Flame BB Co., Ltd.
+            <strong>Nom de la marque</strong>
+          </div>
+          <div className="text-xs text-gray-600 mb-1">
+            Votre Adresse
           </div>
           <div className="inline-block bg-secondary/20 text-primary px-2 py-0.5 rounded-full text-xs mt-1">
-            TAT License: 34/01995
+            Licence TAT : 00/00000
           </div>
         </div>
       </div>

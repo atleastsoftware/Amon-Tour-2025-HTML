@@ -6403,10 +6403,10 @@ const BlockEditDropdown = ({
               <Label htmlFor="subtitle">Sous-titre</Label>
               <Textarea 
                 id="subtitle"
-                value={formData.subtitle || 'Sous-titre'} 
+                value={formData.subtitle || 'Description pour votre section de contact'} 
                 onChange={e => updateField('subtitle', e.target.value)}
                 rows={2}
-                placeholder="Sous-titre"
+                placeholder="Description pour votre section de contact"
                 className="mt-2"
               />
               <div className="mt-3">
