@@ -63,7 +63,7 @@ export default function TextGalleryBlock({ block }: TextGalleryBlockProps) {
                 </>
               )}
               {subtitle && (
-                <p className="text-lg leading-relaxed max-w-3xl mx-auto" style={{ color: subtitleColor }}>
+                <p className="text-lg leading-relaxed max-w-3xl mx-auto whitespace-pre-line" style={{ color: subtitleColor }}>
                   {subtitle}
                 </p>
               )}
