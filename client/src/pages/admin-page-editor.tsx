@@ -8,6 +8,7 @@ import { ArrowLeft, Edit, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Save, U
 import BlockSelectionPopup from '@/components/admin/BlockSelectionPopup';
 import TourNinjaCard from '@/components/tour/TourNinjaCard';
 import URLInput from '@/components/admin/URLInput';
+import ImageManager from '@/components/admin/ImageManager';
 import { useTourNinja } from '@/hooks/useTourNinja';
 
 // Couleurs principales du thème
@@ -7062,17 +7063,11 @@ const BlockEditDropdown = ({
             <div>
               <Label className="text-base font-semibold">Images de la galerie</Label>
               <p className="text-sm text-muted-foreground mt-1 mb-3">
-                Ajoutez les URLs des images (une par ligne)
+                Ajoutez et organisez vos images. Glissez-déposez pour réordonner.
               </p>
-              <Textarea 
-                value={(formData.images || []).join('\n')} 
-                onChange={e => {
-                  const urls = e.target.value.split('\n').filter(url => url.trim());
-                  updateField('images', urls);
-                }}
-                rows={6}
-                placeholder="https://example.com/image1.jpg&#10;https://example.com/image2.jpg"
-                className="mt-2"
+              <ImageManager 
+                images={formData.images || []}
+                onChange={(urls) => updateField('images', urls)}
               />
             </div>
           </div>
