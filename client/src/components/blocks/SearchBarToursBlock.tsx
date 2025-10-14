@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -52,6 +52,12 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
   const [priceRange, setPriceRange] = useState<string>("all");
   const [durationFilter, setDurationFilter] = useState<string>("all");
   const [destinationFilter, setDestinationFilter] = useState<string>("all");
+  const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
+
+  // Réinitialiser les images échouées quand la couleur change
+  useEffect(() => {
+    setFailedImages(new Set());
+  }, [cardsColor]);
 
   const handleTourDetails = (tour: TourNinjaTour) => {
     if (tour.detailsUrl) {
@@ -258,9 +264,8 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
                     className="relative h-64 cursor-pointer"
                     onClick={() => handleTourDetails(tour)}
                   >
-                    {!tour.primaryImage ? (
+                    {!tour.primaryImage || failedImages.has(tour.id) ? (
                       <div 
-                        key={cardsColor}
                         className="w-full h-full relative overflow-hidden"
                         style={{ 
                           background: `linear-gradient(135deg, ${hexToRgba(cardsColor, 0.3)}, ${hexToRgba(cardsColor, 0.6)})`
@@ -271,16 +276,8 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
                         src={tour.primaryImage}
                         alt={tour.name}
                         className="w-full h-full object-cover"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          const parentDiv = target.parentElement;
-                          if (parentDiv) {
-                            target.remove();
-                            parentDiv.innerHTML = `
-                              <div class="w-full h-full relative overflow-hidden" style="background: linear-gradient(135deg, ${hexToRgba(cardsColor, 0.3)}, ${hexToRgba(cardsColor, 0.6)})">
-                              </div>
-                            `;
-                          }
+                        onError={() => {
+                          setFailedImages(prev => new Set(prev).add(tour.id));
                         }}
                       />
                     )}
