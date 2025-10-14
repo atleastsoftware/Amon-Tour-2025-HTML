@@ -257,23 +257,34 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
                   <div 
                     className="relative h-64 cursor-pointer"
                     onClick={() => handleTourDetails(tour)}
-                    style={{
-                      background: `linear-gradient(to bottom right, ${hexToRgba(cardsColor, 0.4)}, ${hexToRgba(cardsColor, 0.6)})`
-                    }}
                   >
-                    {tour.primaryImage && (
-                      <img 
-                        src={tour.primaryImage} 
+                    {!tour.primaryImage ? (
+                      <div 
+                        key={cardsColor}
+                        className="w-full h-full relative overflow-hidden"
+                        style={{ 
+                          background: `linear-gradient(135deg, ${hexToRgba(cardsColor, 0.3)}, ${hexToRgba(cardsColor, 0.6)})`
+                        }}
+                      />
+                    ) : (
+                      <img
+                        src={tour.primaryImage}
                         alt={tour.name}
-                        className="w-full h-full object-cover absolute top-0 left-0"
-                        style={{ zIndex: 1 }}
+                        className="w-full h-full object-cover"
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
-                          target.style.display = 'none';
+                          const parentDiv = target.parentElement;
+                          if (parentDiv) {
+                            target.remove();
+                            parentDiv.innerHTML = `
+                              <div class="w-full h-full relative overflow-hidden" style="background: linear-gradient(135deg, ${hexToRgba(cardsColor, 0.3)}, ${hexToRgba(cardsColor, 0.6)})">
+                              </div>
+                            `;
+                          }
                         }}
                       />
                     )}
-                    <div className="absolute top-4 right-4" style={{ zIndex: 2 }}>
+                    <div className="absolute top-4 right-4">
                       <Badge variant="secondary" className="bg-white/90 text-gray-800">
                         <Clock className="h-3 w-3 mr-1" />
                         {tour.duration} day{Number(tour.duration) > 1 ? 's' : ''}
