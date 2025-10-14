@@ -21,7 +21,7 @@ const blockTypes: BlockType[] = [
     icon: Home,
     preview: (
       <div className="w-full bg-white rounded-lg overflow-hidden border">
-        <div className="relative h-32 bg-gradient-to-r from-[#084F6E] to-[#3BA8AF]">
+        <div className="relative h-48 bg-gradient-to-r from-[#084F6E] to-[#3BA8AF]">
           <div className="absolute inset-0 bg-black/40"></div>
           <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-4">
             <h1 className="text-lg font-bold mb-1 text-center">Titre principal</h1>
@@ -46,7 +46,7 @@ const blockTypes: BlockType[] = [
     icon: Home,
     preview: (
       <div className="w-full bg-white rounded-lg overflow-hidden border">
-        <div className="relative h-20 bg-gradient-to-r from-[#084F6E] to-[#3BA8AF]">
+        <div className="relative h-32 bg-gradient-to-r from-[#084F6E] to-[#3BA8AF]">
           <div className="absolute inset-0 bg-black/40"></div>
           <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-3">
             <h1 className="text-base font-bold mb-0.5 text-center">Titre de la page</h1>
