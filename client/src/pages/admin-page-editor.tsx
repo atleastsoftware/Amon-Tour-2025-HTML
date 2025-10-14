@@ -2013,20 +2013,31 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                       <Card 
                         className="h-full rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden bg-white"
                       >
-                        <div 
-                          className="relative h-64 cursor-pointer"
-                          style={{
-                            background: tour.primaryImage 
-                              ? 'none'
-                              : `linear-gradient(to bottom right, ${hexToRgba(cardsColor, 0.4)}, ${hexToRgba(cardsColor, 0.6)})`
-                          }}
-                        >
-                          {tour.primaryImage && (
-                            <img 
-                              src={tour.primaryImage} 
+                        <div className="relative h-64">
+                          {!tour.primaryImage ? (
+                            <div 
+                              key={cardsColor}
+                              className="w-full h-full relative overflow-hidden"
+                              style={{ 
+                                background: `linear-gradient(135deg, ${hexToRgba(cardsColor, 0.3)}, ${hexToRgba(cardsColor, 0.6)})`
+                              }}
+                            />
+                          ) : (
+                            <img
+                              src={tour.primaryImage}
                               alt={tour.name}
                               className="w-full h-full object-cover"
-                              style={{ display: 'block' }}
+                              onError={(e) => {
+                                const target = e.target as HTMLImageElement;
+                                const parentDiv = target.parentElement;
+                                if (parentDiv) {
+                                  target.remove();
+                                  parentDiv.innerHTML = `
+                                    <div class="w-full h-full relative overflow-hidden" style="background: linear-gradient(135deg, ${hexToRgba(cardsColor, 0.3)}, ${hexToRgba(cardsColor, 0.6)})">
+                                    </div>
+                                  `;
+                                }
+                              }}
                             />
                           )}
                           <div className="absolute top-4 right-4">
