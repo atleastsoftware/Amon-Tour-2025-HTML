@@ -313,6 +313,44 @@ const blockTypes: BlockType[] = [
         </div>
       </div>
     )
+  },
+  {
+    type: 'blog_search',
+    label: 'Search Bar: Blog',
+    description: 'Barre de recherche avec filtres par tags et catégories pour le blog',
+    icon: Search,
+    preview: (
+      <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
+        <div className="mb-3">
+          <div className="relative">
+            <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400 h-3 w-3" />
+            <input 
+              type="text" 
+              placeholder="Rechercher des articles..."
+              className="w-full pl-8 pr-3 py-1.5 text-xs border rounded-lg"
+              disabled
+            />
+          </div>
+        </div>
+        <div className="space-y-3">
+          <div>
+            <div className="text-xs font-medium text-gray-700 mb-2">Tags</div>
+            <div className="flex flex-wrap gap-1">
+              <div className="px-2 py-1 bg-[#3BA8AF] text-white rounded text-xs">Tous les tags</div>
+              <div className="px-2 py-1 border border-[#3BA8AF] text-[#3BA8AF] rounded text-xs">Adventure</div>
+              <div className="px-2 py-1 border border-[#3BA8AF] text-[#3BA8AF] rounded text-xs">Beach</div>
+            </div>
+          </div>
+          <div>
+            <div className="text-xs font-medium text-gray-700 mb-2">Catégories</div>
+            <div className="flex flex-wrap gap-1">
+              <div className="px-2 py-1 bg-[#084F6E] text-white rounded text-xs">Toutes les catégories</div>
+              <div className="px-2 py-1 border border-[#084F6E] text-[#084F6E] rounded text-xs">🏝️ Island Adventures</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
   }
 ];
 
