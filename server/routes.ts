@@ -3577,6 +3577,24 @@ Crawl-delay: 1`;
             companyDescription: ''
           },
           isActive: false
+        },
+        blog_search: {
+          identifier: `blog_search_${Date.now()}`,
+          title: 'Recherche Blog',
+          blockType: 'blog_search',
+          configuration: { 
+            backgroundColor: '#ffffff',
+            searchPlaceholder: 'Rechercher des articles...',
+            tagsTitle: 'Tags',
+            categoriesTitle: 'Catégories',
+            allTagsText: 'Tous les tags',
+            allCategoriesText: 'Toutes les catégories',
+            tagButtonColor: '#3BA8AF',
+            tagButtonTextColor: '#ffffff',
+            categoryButtonColor: '#084F6E',
+            categoryButtonTextColor: '#ffffff'
+          },
+          isActive: false
         }
       };
 
