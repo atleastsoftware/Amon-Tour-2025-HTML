@@ -115,22 +115,57 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                <h2 
-                  className="font-heading font-bold text-3xl md:text-4xl mb-3"
-                  style={{ color: textConfig.titleColor || '#333333' }}
-                >
-                  {textConfig.title || block.title || 'Titre de la section'}
-                </h2>
-                <div 
-                  className="w-20 h-1 mx-auto mb-8"
-                  style={{ backgroundColor: textConfig.dividerColor || '#3BA8AF' }}
-                ></div>
-                <p 
-                  className="text-lg leading-relaxed"
-                  style={{ color: textConfig.contentColor || '#666666' }}
-                >
-                  {textConfig.content || block.content || 'Ajoutez ici le contenu de votre section de texte.'}
-                </p>
+                {textConfig.title && (
+                  <h2 
+                    className="font-heading font-bold text-3xl md:text-4xl mb-3"
+                    style={{ color: textConfig.titleColor || '#333333' }}
+                  >
+                    {textConfig.title}
+                  </h2>
+                )}
+                {textConfig.title && (
+                  <div 
+                    className="w-20 h-1 mx-auto mb-8"
+                    style={{ backgroundColor: textConfig.dividerColor || '#3BA8AF' }}
+                  ></div>
+                )}
+                {textConfig.content && (
+                  <p 
+                    className="text-lg leading-relaxed"
+                    style={{ color: textConfig.contentColor || '#666666' }}
+                  >
+                    {textConfig.content}
+                  </p>
+                )}
+                {(textConfig.button1Text || textConfig.button2Text) && (
+                  <div className="flex gap-4 justify-center mt-8">
+                    {textConfig.button1Text && (
+                      <a
+                        href={textConfig.button1Url || '#'}
+                        className="px-6 py-3 rounded-lg font-semibold transition-all hover:opacity-90"
+                        style={{
+                          backgroundColor: textConfig.button1BgColor || '#084F6E',
+                          color: textConfig.button1TextColor || '#ffffff'
+                        }}
+                      >
+                        {textConfig.button1Text}
+                      </a>
+                    )}
+                    {textConfig.button2Text && (
+                      <a
+                        href={textConfig.button2Url || '#'}
+                        className="px-6 py-3 rounded-lg font-semibold transition-all hover:opacity-90"
+                        style={{
+                          backgroundColor: textConfig.button2BgColor || 'transparent',
+                          color: textConfig.button2TextColor || '#084F6E',
+                          border: `2px solid ${textConfig.button2BorderColor || '#084F6E'}`
+                        }}
+                      >
+                        {textConfig.button2Text}
+                      </a>
+                    )}
+                  </div>
+                )}
               </motion.div>
             </div>
           </section>

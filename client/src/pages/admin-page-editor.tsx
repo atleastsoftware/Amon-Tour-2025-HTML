@@ -1163,6 +1163,35 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                 >
                   {textConfig.content ?? block.configuration?.content ?? block.content ?? "Ajoutez ici le contenu de votre section de texte. Vous pouvez décrire vos services, partager votre histoire, ou présenter des informations importantes."}
                 </p>
+                {(textConfig.button1Text || textConfig.button2Text) && (
+                  <div className="flex gap-4 justify-center mt-8">
+                    {textConfig.button1Text && (
+                      <a
+                        href={textConfig.button1Url ?? '#'}
+                        className="px-6 py-3 rounded-lg font-semibold transition-all hover:opacity-90"
+                        style={{
+                          backgroundColor: textConfig.button1BgColor ?? '#084F6E',
+                          color: textConfig.button1TextColor ?? '#ffffff'
+                        }}
+                      >
+                        {textConfig.button1Text}
+                      </a>
+                    )}
+                    {textConfig.button2Text && (
+                      <a
+                        href={textConfig.button2Url ?? '#'}
+                        className="px-6 py-3 rounded-lg font-semibold transition-all hover:opacity-90"
+                        style={{
+                          backgroundColor: textConfig.button2BgColor ?? 'transparent',
+                          color: textConfig.button2TextColor ?? '#084F6E',
+                          border: `2px solid ${textConfig.button2BorderColor ?? '#084F6E'}`
+                        }}
+                      >
+                        {textConfig.button2Text}
+                      </a>
+                    )}
+                  </div>
+                )}
               </motion.div>
             </div>
           </section>
@@ -3918,6 +3947,108 @@ const BlockEditDropdown = ({
                   value={formData.backgroundColor ?? '#ffffff'}
                   onChange={(value) => updateField('backgroundColor', value)}
                 />
+              </div>
+            </div>
+
+            <Separator className="my-6" />
+
+            {/* Boutons d'action */}
+            <div className="space-y-4">
+              <Label className="text-base font-semibold">Boutons d'action (optionnels)</Label>
+              
+              {/* Bouton 1 */}
+              <div className="space-y-3 p-4 border rounded-lg">
+                <Label className="text-sm font-medium">Bouton 1</Label>
+                <div>
+                  <Label htmlFor="button1Text">Texte du bouton</Label>
+                  <Input 
+                    id="button1Text"
+                    value={formData.button1Text ?? ''} 
+                    onChange={e => updateField('button1Text', e.target.value)}
+                    className="mt-2"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="button1Url">URL du bouton</Label>
+                  <Input 
+                    id="button1Url"
+                    value={formData.button1Url ?? ''} 
+                    onChange={e => updateField('button1Url', e.target.value)}
+                    className="mt-2"
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <Label>Couleur de fond</Label>
+                    <div className="mt-2">
+                      <ColorPicker
+                        value={formData.button1BgColor ?? '#084F6E'}
+                        onChange={(value) => updateField('button1BgColor', value)}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Label>Couleur du texte</Label>
+                    <div className="mt-2">
+                      <ColorPicker
+                        value={formData.button1TextColor ?? '#ffffff'}
+                        onChange={(value) => updateField('button1TextColor', value)}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bouton 2 */}
+              <div className="space-y-3 p-4 border rounded-lg">
+                <Label className="text-sm font-medium">Bouton 2</Label>
+                <div>
+                  <Label htmlFor="button2Text">Texte du bouton</Label>
+                  <Input 
+                    id="button2Text"
+                    value={formData.button2Text ?? ''} 
+                    onChange={e => updateField('button2Text', e.target.value)}
+                    className="mt-2"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="button2Url">URL du bouton</Label>
+                  <Input 
+                    id="button2Url"
+                    value={formData.button2Url ?? ''} 
+                    onChange={e => updateField('button2Url', e.target.value)}
+                    className="mt-2"
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <Label>Couleur de fond</Label>
+                    <div className="mt-2">
+                      <ColorPicker
+                        value={formData.button2BgColor ?? 'transparent'}
+                        onChange={(value) => updateField('button2BgColor', value)}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Label>Couleur du texte</Label>
+                    <div className="mt-2">
+                      <ColorPicker
+                        value={formData.button2TextColor ?? '#084F6E'}
+                        onChange={(value) => updateField('button2TextColor', value)}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <Label>Bordure</Label>
+                  <div className="mt-2">
+                    <ColorPicker
+                      value={formData.button2BorderColor ?? '#084F6E'}
+                      onChange={(value) => updateField('button2BorderColor', value)}
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
