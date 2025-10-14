@@ -650,6 +650,44 @@ function MiniaturizedComponent({
           </div>
         );
         
+      case 'contact':
+        const contactConfig = block.configuration || {};
+        return (
+          <div className="h-full bg-white p-2">
+            <div className="text-center mb-2">
+              <div className="text-[10px] font-bold" style={{ color: contactConfig.titleColor || '#084F6E' }}>
+                {contactConfig.title || 'Contactez-nous'}
+              </div>
+              <div className="w-4 h-0.5 mx-auto my-1" style={{ backgroundColor: contactConfig.dividerColor || '#3BA8AF' }}></div>
+              <div className="text-[7px] text-gray-600">{contactConfig.subtitle || 'Nous sommes là pour vous aider'}</div>
+            </div>
+            <div className="space-y-1">
+              <div className="flex items-center gap-1 p-1 border rounded text-[7px]">
+                <div className="w-2 h-2 bg-primary/20 rounded-full"></div>
+                <div><strong>{contactConfig.emailLabel || 'Email'}:</strong> {contactConfig.email || 'contact@example.com'}</div>
+              </div>
+              <div className="flex items-center gap-1 p-1 border rounded text-[7px]">
+                <div className="w-2 h-2 bg-secondary/20 rounded-full"></div>
+                <div><strong>{contactConfig.phoneLabel || 'Phone'}:</strong> {contactConfig.phone || '+33 1 23 45 67 89'}</div>
+              </div>
+              <div className="flex items-center gap-1 p-1 border rounded text-[7px]">
+                <div className="w-2 h-2 bg-green-200 rounded-full"></div>
+                <div><strong>{contactConfig.whatsappLabel || 'WhatsApp'}:</strong> {contactConfig.whatsapp || '+33 6 12 34 56 78'}</div>
+              </div>
+              <div className="flex items-center gap-1 p-1 border rounded text-[7px]">
+                <div className="w-2 h-2 bg-green-200 rounded-full"></div>
+                <div><strong>{contactConfig.lineIdLabel || 'Line ID'}:</strong> {contactConfig.lineId || 'moncompte'}</div>
+              </div>
+              {(contactConfig.showAboutCompany ?? true) && (
+                <div className="mt-1 p-1 bg-gray-50 rounded text-[6px]">
+                  <div className="font-bold mb-0.5">About Our Company</div>
+                  <div><strong>{contactConfig.companyBrand || 'Brand'}</strong>: {contactConfig.companyName || 'Company'}</div>
+                </div>
+              )}
+            </div>
+          </div>
+        );
+
       default:
         return (
           <div className="h-full bg-gray-100 p-2 text-center flex flex-col justify-center">
