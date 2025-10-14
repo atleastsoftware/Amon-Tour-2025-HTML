@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -58,22 +58,27 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
   // State pour gérer les images qui ont échoué (pour afficher le dégradé)
   const [failedImageIds, setFailedImageIds] = useState<Set<string>>(new Set());
 
-  const handleTourDetails = (tour: TourNinjaTour) => {
-    if (tour.detailsUrl) {
-      openIframe(tour.detailsUrl, `Details - ${tour.name}`);
-    }
-  };
+  // State pour les options de filtres
+  const [filterOptions, setFilterOptions] = useState<{
+    destinations: string[];
+    durations: string[];
+    priceRanges: { value: string; label: string }[];
+  }>({
+    destinations: [],
+    durations: [],
+    priceRanges: [
+      { value: "0-2000", label: "0 - 2,000 THB" },
+      { value: "2000-4000", label: "2,000 - 4,000 THB" },
+      { value: "4000-6000", label: "4,000 - 6,000 THB" },
+      { value: "6000+", label: "6,000+ THB" },
+      { value: "free", label: "Price on request" }
+    ]
+  });
 
-  const handleTourBooking = (tour: TourNinjaTour) => {
-    if (tour.bookingUrl) {
-      openIframe(tour.bookingUrl, `Reservation - ${tour.name}`);
-    }
-  };
+  // Recalculer les options de filtres quand les tours changent
+  useEffect(() => {
+    if (tours.length === 0) return;
 
-  // Extraire les options de filtre dynamiquement des données de l'API
-  const filterOptions = useMemo(() => {
-    console.log('SearchBarToursBlock - Recalculating filterOptions with tours:', tours.length);
-    
     const destinationKeywords = tours.map(tour => {
       const name = tour.name.toLowerCase();
       if (name.includes('phi phi')) return 'Koh Phi Phi';
@@ -93,23 +98,31 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
     
     const destinations = Array.from(new Set(destinationKeywords)) as string[];
     const durations = Array.from(new Set(tours.map(tour => tour.duration).filter(Boolean)));
-    const priceRanges = [
-      { value: "0-2000", label: "0 - 2,000 THB" },
-      { value: "2000-4000", label: "2,000 - 4,000 THB" },
-      { value: "4000-6000", label: "4,000 - 6,000 THB" },
-      { value: "6000+", label: "6,000+ THB" },
-      { value: "free", label: "Price on request" }
-    ];
     
-    console.log('SearchBarToursBlock - filterOptions:', { 
-      destinations: destinations.length, 
-      durations: durations.length,
-      destinationsList: destinations,
-      durationsList: durations
+    setFilterOptions({
+      destinations,
+      durations,
+      priceRanges: [
+        { value: "0-2000", label: "0 - 2,000 THB" },
+        { value: "2000-4000", label: "2,000 - 4,000 THB" },
+        { value: "4000-6000", label: "4,000 - 6,000 THB" },
+        { value: "6000+", label: "6,000+ THB" },
+        { value: "free", label: "Price on request" }
+      ]
     });
-    
-    return { destinations, durations, priceRanges };
   }, [tours]);
+
+  const handleTourDetails = (tour: TourNinjaTour) => {
+    if (tour.detailsUrl) {
+      openIframe(tour.detailsUrl, `Details - ${tour.name}`);
+    }
+  };
+
+  const handleTourBooking = (tour: TourNinjaTour) => {
+    if (tour.bookingUrl) {
+      openIframe(tour.bookingUrl, `Reservation - ${tour.name}`);
+    }
+  };
 
   // Appliquer tous les filtres
   const filteredTours = useMemo(() => {
@@ -213,7 +226,7 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
             </Select>
 
             {/* Durée */}
-            <Select key={`duration-${tours.length}`} value={durationFilter} onValueChange={setDurationFilter}>
+            <Select value={durationFilter} onValueChange={setDurationFilter}>
               <SelectTrigger>
                 <SelectValue placeholder="All durations" />
               </SelectTrigger>
@@ -228,7 +241,7 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
             </Select>
 
             {/* Destination */}
-            <Select key={`destination-${tours.length}`} value={destinationFilter} onValueChange={setDestinationFilter}>
+            <Select value={destinationFilter} onValueChange={setDestinationFilter}>
               <SelectTrigger>
                 <SelectValue placeholder="All destinations" />
               </SelectTrigger>
