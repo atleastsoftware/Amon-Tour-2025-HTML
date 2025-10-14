@@ -36,6 +36,8 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
   const { tours, isLoading } = useTourNinjaWithCustomImages();
   const { openIframe } = useIframe();
 
+  console.log('SearchBarToursBlock - Rendered with:', { toursCount: tours.length, isLoading });
+
   // Configuration
   const filtersTitle = configuration.filtersTitle || 'Filters';
   const searchPlaceholder = configuration.searchPlaceholder || 'Search for a tour...';
@@ -70,6 +72,8 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
 
   // Extraire les options de filtre dynamiquement des données de l'API
   const filterOptions = useMemo(() => {
+    console.log('SearchBarToursBlock - Recalculating filterOptions with tours:', tours.length);
+    
     const destinationKeywords = tours.map(tour => {
       const name = tour.name.toLowerCase();
       if (name.includes('phi phi')) return 'Koh Phi Phi';
@@ -96,6 +100,13 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
       { value: "6000+", label: "6,000+ THB" },
       { value: "free", label: "Price on request" }
     ];
+    
+    console.log('SearchBarToursBlock - filterOptions:', { 
+      destinations: destinations.length, 
+      durations: durations.length,
+      destinationsList: destinations,
+      durationsList: durations
+    });
     
     return { destinations, durations, priceRanges };
   }, [tours]);
@@ -202,7 +213,7 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
             </Select>
 
             {/* Durée */}
-            <Select value={durationFilter} onValueChange={setDurationFilter}>
+            <Select key={`duration-${tours.length}`} value={durationFilter} onValueChange={setDurationFilter}>
               <SelectTrigger>
                 <SelectValue placeholder="All durations" />
               </SelectTrigger>
@@ -217,7 +228,7 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
             </Select>
 
             {/* Destination */}
-            <Select value={destinationFilter} onValueChange={setDestinationFilter}>
+            <Select key={`destination-${tours.length}`} value={destinationFilter} onValueChange={setDestinationFilter}>
               <SelectTrigger>
                 <SelectValue placeholder="All destinations" />
               </SelectTrigger>
