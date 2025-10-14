@@ -211,6 +211,7 @@ When adding a new block type to the incremental block library system, follow thi
 - October 8, 2025: Fixed critical UI issues in page editor - restored missing divider before "Modifier le formulaire complet" button, added form image display in DynamicFormBlockPreview component. Theme uses new brand colors: primary #084F6E (blue-green) and secondary #3BA8AF (turquoise) with updated logo.
 - October 14, 2025: Implemented Contact block with comprehensive editing options - added new "contact" block type with email, phone, WhatsApp, Line ID contact methods plus optional "About Our Company" section. Documented complete block creation procedure in Development Guidelines to prevent recurring integration issues.
 - October 14, 2025: Fixed critical empty field handling - replaced `||` with `??` (nullish coalescing) in all block components to allow empty strings. Added conditional rendering to hide empty sections and prevent unwanted default values. Updated development guidelines with this best practice for future block creation.
+- October 14, 2025: Implemented Blog Search block - added "blog_search" block type with search bar, tags filtering, and categories filtering. Features include customizable colors for buttons (active/inactive states), editable placeholder text, and dynamic connection to blog API for tags/categories. Completed all 7 integration steps following established block creation procedure.
 
 ## User Preferences
 
