@@ -1139,7 +1139,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         // Section de texte - même rendu que expats_welcome
         const textConfig = liveConfiguration || block.configuration || {};
         return (
-          <section className="py-20" style={{ backgroundColor: textConfig.backgroundColor || '#ffffff' }}>
+          <section className="py-20" style={{ backgroundColor: textConfig.backgroundColor ?? '#ffffff' }}>
             <div className="container mx-auto px-4 max-w-4xl text-center">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -1149,19 +1149,19 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
               >
                 <h2 
                   className="font-heading font-bold text-3xl md:text-4xl mb-3"
-                  style={{ color: textConfig.titleColor || '#333333' }}
+                  style={{ color: textConfig.titleColor ?? '#333333' }}
                 >
-                  {textConfig.title || block.configuration?.title || block.title || "Titre de la section"}
+                  {textConfig.title ?? block.configuration?.title ?? block.title ?? "Titre de la section"}
                 </h2>
                 <div 
                   className="w-20 h-1 mx-auto mb-8"
-                  style={{ backgroundColor: textConfig.dividerColor || '#3BA8AF' }}
+                  style={{ backgroundColor: textConfig.dividerColor ?? '#3BA8AF' }}
                 ></div>
                 <p 
                   className="text-lg leading-relaxed"
-                  style={{ color: textConfig.contentColor || '#666666' }}
+                  style={{ color: textConfig.contentColor ?? '#666666' }}
                 >
-                  {textConfig.content || block.configuration?.content || block.content || "Ajoutez ici le contenu de votre section de texte. Vous pouvez décrire vos services, partager votre histoire, ou présenter des informations importantes."}
+                  {textConfig.content ?? block.configuration?.content ?? block.content ?? "Ajoutez ici le contenu de votre section de texte. Vous pouvez décrire vos services, partager votre histoire, ou présenter des informations importantes."}
                 </p>
               </motion.div>
             </div>
@@ -1701,7 +1701,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         const displayToursPrice = filteredToursPrice.slice(0, displayCountPrice);
         
         return (
-          <section className="py-16" style={{ backgroundColor: config.backgroundColor || '#f9fafb' }}>
+          <section className="py-16" style={{ backgroundColor: config.backgroundColor ?? '#f9fafb' }}>
             <div className="container mx-auto px-4">
               <div className="text-center mb-12 max-w-4xl mx-auto">
                 <motion.div
@@ -1713,24 +1713,24 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                   <h2 
                     className="font-heading font-bold text-3xl md:text-4xl mb-3"
                     style={{
-                      color: config.titleColor || '#333333'
+                      color: config.titleColor ?? '#333333'
                     }}
                   >
-                    {config.title || 'Some Ideas For Your Next Trip'}
+                    {config.title ?? 'Some Ideas For Your Next Trip'}
                   </h2>
                   <div 
                     className="w-20 h-1 mx-auto mb-8"
                     style={{
-                      backgroundColor: config.dividerColor || '#3BA8AF'
+                      backgroundColor: config.dividerColor ?? '#3BA8AF'
                     }}
                   ></div>
                   <p 
                     className="text-lg leading-relaxed"
                     style={{
-                      color: config.subtitleColor || '#666666'
+                      color: config.subtitleColor ?? '#666666'
                     }}
                   >
-                    {config.subtitle || 'Get inspired by our custom-designed travel experiences.'}
+                    {config.subtitle ?? 'Get inspired by our custom-designed travel experiences.'}
                   </p>
                 </motion.div>
               </div>
@@ -2869,7 +2869,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         if (block.blockType === 'text') {
           const textConfig = liveConfiguration || block.configuration || {};
           return (
-            <section className="py-20" style={{ backgroundColor: textConfig.backgroundColor || '#ffffff' }}>
+            <section className="py-20" style={{ backgroundColor: textConfig.backgroundColor ?? '#ffffff' }}>
               <div className="container mx-auto px-4 max-w-4xl text-center">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -2879,17 +2879,17 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                 >
                   <h2 
                     className="font-heading font-bold text-3xl md:text-4xl mb-3"
-                    style={{ color: textConfig.titleColor || '#333333' }}
+                    style={{ color: textConfig.titleColor ?? '#333333' }}
                   >
                     {textConfig.title || block.configuration?.title || block.title || "Titre de la section"}
                   </h2>
                   <div 
                     className="w-20 h-1 mx-auto mb-8"
-                    style={{ backgroundColor: textConfig.dividerColor || '#3BA8AF' }}
+                    style={{ backgroundColor: textConfig.dividerColor ?? '#3BA8AF' }}
                   ></div>
                   <p 
                     className="text-lg leading-relaxed"
-                    style={{ color: textConfig.contentColor || '#666666' }}
+                    style={{ color: textConfig.contentColor ?? '#666666' }}
                   >
                     {textConfig.content || block.configuration?.content || block.content || "Ajoutez ici le contenu de votre section de texte. Vous pouvez décrire vos services, partager votre histoire, ou présenter des informations importantes."}
                   </p>
