@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -52,12 +52,6 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
   const [priceRange, setPriceRange] = useState<string>("all");
   const [durationFilter, setDurationFilter] = useState<string>("all");
   const [destinationFilter, setDestinationFilter] = useState<string>("all");
-  const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
-
-  // Réinitialiser les images échouées quand la couleur change
-  useEffect(() => {
-    setFailedImages(new Set());
-  }, [cardsColor]);
 
   const handleTourDetails = (tour: TourNinjaTour) => {
     if (tour.detailsUrl) {
@@ -252,7 +246,7 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
           >
             {filteredTours.map((tour, index) => (
               <motion.div
-                key={`${tour.id}-${cardsColor}`}
+                key={tour.id}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -264,22 +258,18 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
                     className="relative h-64 cursor-pointer"
                     onClick={() => handleTourDetails(tour)}
                     style={{
-                      background: (tour.primaryImage && !failedImages.has(tour.id))
-                        ? 'none'
-                        : `linear-gradient(to bottom right, ${hexToRgba(cardsColor, 0.4)}, ${hexToRgba(cardsColor, 0.6)})`
+                      background: `linear-gradient(to bottom right, ${hexToRgba(cardsColor, 0.4)}, ${hexToRgba(cardsColor, 0.6)})`
                     }}
                   >
-                    {tour.primaryImage && !failedImages.has(tour.id) && (
+                    {tour.primaryImage && (
                       <img 
                         src={tour.primaryImage} 
                         alt={tour.name}
-                        className="w-full h-full object-cover"
-                        onError={() => {
-                          setFailedImages(prev => new Set(prev).add(tour.id));
-                        }}
+                        className="w-full h-full object-cover absolute top-0 left-0"
+                        style={{ zIndex: 1 }}
                       />
                     )}
-                    <div className="absolute top-4 right-4">
+                    <div className="absolute top-4 right-4" style={{ zIndex: 2 }}>
                       <Badge variant="secondary" className="bg-white/90 text-gray-800">
                         <Clock className="h-3 w-3 mr-1" />
                         {tour.duration} day{Number(tour.duration) > 1 ? 's' : ''}
