@@ -6848,6 +6848,17 @@ const BlockEditDropdown = ({
       case 'blog_search':
         return (
           <div className="space-y-6">
+            {/* Couleur des annonces */}
+            <div>
+              <Label>Couleur des annonces (bouton "Read More" et dégradé si image absente)</Label>
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.cardColor ?? '#3BA8AF'}
+                  onChange={(value) => updateField('cardColor', value)}
+                />
+              </div>
+            </div>
+
             {/* Couleur de fond */}
             <div>
               <Label>Couleur de fond</Label>
