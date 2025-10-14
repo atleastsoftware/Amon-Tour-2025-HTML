@@ -52,11 +52,11 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
   const [priceRange, setPriceRange] = useState<string>("all");
   const [durationFilter, setDurationFilter] = useState<string>("all");
   const [destinationFilter, setDestinationFilter] = useState<string>("all");
-  const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
+  const [imagePlaceholders, setImagePlaceholders] = useState<Record<string, boolean>>({});
 
-  // Réinitialiser les images échouées quand la couleur change
+  // Réinitialiser les placeholders quand la couleur change
   useEffect(() => {
-    setFailedImages(new Set());
+    setImagePlaceholders({});
   }, [cardsColor]);
 
   const handleTourDetails = (tour: TourNinjaTour) => {
@@ -264,7 +264,7 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
                     className="relative h-64 cursor-pointer"
                     onClick={() => handleTourDetails(tour)}
                   >
-                    {!tour.primaryImage || failedImages.has(tour.id) ? (
+                    {!tour.primaryImage || imagePlaceholders[tour.id] ? (
                       <div 
                         className="w-full h-full relative overflow-hidden"
                         style={{ 
@@ -273,11 +273,12 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
                       />
                     ) : (
                       <img
+                        key={`${tour.id}-${cardsColor}`}
                         src={tour.primaryImage}
                         alt={tour.name}
                         className="w-full h-full object-cover"
                         onError={() => {
-                          setFailedImages(prev => new Set(prev).add(tour.id));
+                          setImagePlaceholders(prev => ({ ...prev, [tour.id]: true }));
                         }}
                       />
                     )}
