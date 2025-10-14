@@ -25,7 +25,7 @@ const blockTypes: BlockType[] = [
           <div className="absolute inset-0 bg-black/40"></div>
           <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-4">
             <h1 className="text-lg font-bold mb-1 text-center">Titre principal</h1>
-            <p className="text-xs opacity-90 mb-2 text-center">Sous-titre descriptif</p>
+            <p className="text-xs opacity-90 mb-2 text-center">Sous-titre</p>
             <div className="flex gap-2">
               <div className="px-3 py-1 bg-white text-[#084F6E] rounded text-xs font-semibold">
                 Bouton 1
@@ -50,7 +50,7 @@ const blockTypes: BlockType[] = [
           <div className="absolute inset-0 bg-black/40"></div>
           <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-3">
             <h1 className="text-base font-bold mb-0.5 text-center">Titre de la page</h1>
-            <p className="text-xs opacity-90 text-center">Sous-titre descriptif</p>
+            <p className="text-xs opacity-90 text-center">Sous-titre</p>
           </div>
         </div>
       </div>

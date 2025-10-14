@@ -2836,7 +2836,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                       whiteSpace: 'pre-line'
                     }}
                   >
-                    {heroConfig.subtitle || "Sous-titre descriptif"}
+                    {heroConfig.subtitle || "Sous-titre"}
                   </p>
                   <div className={`flex flex-col sm:flex-row gap-4 ${
                     heroConfig.contentAlignment === 'center' ? 'justify-center' :
@@ -2882,7 +2882,7 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                           whiteSpace: 'pre-line'
                         }}
                       >
-                        {heroConfig.subtitle || "Sous-titre descriptif"}
+                        {heroConfig.subtitle || "Sous-titre"}
                       </p>
                       <div className={`flex flex-col sm:flex-row gap-4 ${
                         heroConfig.contentAlignment === 'center' ? 'justify-center' :
