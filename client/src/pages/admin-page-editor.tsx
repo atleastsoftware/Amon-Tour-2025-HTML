@@ -2986,7 +2986,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="title">Titre principal</Label>
               <Textarea 
                 id="title"
-                value={formData.title || block.configuration?.title || 'Your exclusive experiences\nin Krabi –\nTHAILAND'} 
+                value={formData.title ?? block.configuration?.title ?? 'Your exclusive experiences\nin Krabi –\nTHAILAND'} 
                 onChange={e => updateField('title', e.target.value)}
                 placeholder="Your exclusive experiences\nin Krabi –\nTHAILAND"
                 rows={3}
@@ -2994,7 +2994,7 @@ const BlockEditDropdown = ({
               />
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.titleColor || '#ffffff'}
+                  value={formData.titleColor ?? '#ffffff'}
                   onChange={(value) => updateField('titleColor', value)}
                 />
               </div>
@@ -3005,7 +3005,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="titleAccentText">Mot du titre en seconde couleur</Label>
               <Input 
                 id="titleAccentText"
-                value={formData.titleAccentText || 'in Krabi –'} 
+                value={formData.titleAccentText ?? 'in Krabi –'} 
                 onChange={e => updateField('titleAccentText', e.target.value)}
                 placeholder="in Krabi –"
                 className="mt-2"
@@ -3015,7 +3015,7 @@ const BlockEditDropdown = ({
               </p>
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.titleAccentColor || '#084F6E'}
+                  value={formData.titleAccentColor ?? '#084F6E'}
                   onChange={(value) => updateField('titleAccentColor', value)}
                 />
               </div>
@@ -3026,7 +3026,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="subtitle">Sous-titre</Label>
               <Textarea 
                 id="subtitle"
-                value={formData.subtitle || block.configuration?.subtitle || 'Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations.'} 
+                value={formData.subtitle ?? block.configuration?.subtitle ?? 'Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations.'} 
                 onChange={e => updateField('subtitle', e.target.value)}
                 placeholder="Discover amazing places away from mass tourism in Krabi.\nAnd also Khao Sok, Koh Mook and many more destinations."
                 rows={3}
@@ -3034,7 +3034,7 @@ const BlockEditDropdown = ({
               />
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.subtitleColor || '#ffffff'}
+                  value={formData.subtitleColor ?? '#ffffff'}
                   onChange={(value) => updateField('subtitleColor', value)}
                 />
               </div>
@@ -3150,7 +3150,7 @@ const BlockEditDropdown = ({
             <div>
               <Label>Alignement du contenu</Label>
               <div className="mt-3">
-                <Select value={formData.contentAlignment || 'left'} onValueChange={value => updateField('contentAlignment', value)}>
+                <Select value={formData.contentAlignment ?? 'left'} onValueChange={value => updateField('contentAlignment', value)}>
                   <SelectTrigger>
                     <SelectValue placeholder="Alignement" />
                   </SelectTrigger>
@@ -3167,7 +3167,7 @@ const BlockEditDropdown = ({
             <div>
               <Label>Arrière-plan</Label>
               <div className="mt-3">
-                <Select value={formData.backgroundType || 'video'} onValueChange={value => updateField('backgroundType', value)}>
+                <Select value={formData.backgroundType ?? 'video'} onValueChange={value => updateField('backgroundType', value)}>
                   <SelectTrigger>
                     <SelectValue placeholder="Type d'arrière-plan" />
                   </SelectTrigger>
@@ -3186,13 +3186,13 @@ const BlockEditDropdown = ({
                     <input 
                       type="color" 
                       id="backgroundColor"
-                      value={formData.backgroundColor || '#084F6E'}
+                      value={formData.backgroundColor ?? '#084F6E'}
                       onChange={e => updateField('backgroundColor', e.target.value)}
                       className="w-10 h-10 rounded cursor-pointer"
                     style={{ border: 'none', outline: 'none' }}
                     />
                     <Input 
-                      value={formData.backgroundColor || '#084F6E'}
+                      value={formData.backgroundColor ?? '#084F6E'}
                       onChange={e => updateField('backgroundColor', e.target.value)}
                       placeholder="#084F6E"
                       className="flex-1"
@@ -3207,7 +3207,7 @@ const BlockEditDropdown = ({
                   <div className="flex gap-2">
                     <Input 
                       id="videoUrl"
-                      value={formData.videoUrl || '/attached_assets/hero-video-optimized.mp4'} 
+                      value={formData.videoUrl ?? '/attached_assets/hero-video-optimized.mp4'} 
                       onChange={e => updateField('videoUrl', e.target.value)}
                       placeholder="/attached_assets/hero-video-optimized.mp4"
                       className="flex-1"
@@ -3243,7 +3243,7 @@ const BlockEditDropdown = ({
                   
                   <div className="flex gap-2">
                     <Input 
-                      value={formData.backgroundImage1 || ''} 
+                      value={formData.backgroundImage1 ?? ''} 
                       onChange={e => updateField('backgroundImage1', e.target.value)}
                       placeholder="URL de l'image 1"
                       className="flex-1"
@@ -3273,7 +3273,7 @@ const BlockEditDropdown = ({
                   
                   <div className="flex gap-2">
                     <Input 
-                      value={formData.backgroundImage2 || ''} 
+                      value={formData.backgroundImage2 ?? ''} 
                       onChange={e => updateField('backgroundImage2', e.target.value)}
                       placeholder="URL de l'image 2"
                       className="flex-1"
@@ -3303,7 +3303,7 @@ const BlockEditDropdown = ({
                   
                   <div className="flex gap-2">
                     <Input 
-                      value={formData.backgroundImage3 || ''} 
+                      value={formData.backgroundImage3 ?? ''} 
                       onChange={e => updateField('backgroundImage3', e.target.value)}
                       placeholder="URL de l'image 3"
                       className="flex-1"
@@ -3389,7 +3389,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="title">Titre principal</Label>
               <Textarea 
                 id="title"
-                value={formData.title || defaultTextImagesData.title} 
+                value={formData.title ?? defaultTextImagesData.title} 
                 onChange={e => updateField('title', e.target.value)}
                 placeholder="Who We Are"
                 rows={2}
@@ -3398,7 +3398,7 @@ const BlockEditDropdown = ({
               <div className="mt-3">
                 <Label className="text-sm">Couleur du titre</Label>
                 <ColorPicker
-                  value={formData.titleColor || '#084F6E'}
+                  value={formData.titleColor ?? '#084F6E'}
                   onChange={(value) => updateField('titleColor', value)}
                 />
               </div>
@@ -3409,7 +3409,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="introduction">Introduction</Label>
               <Textarea 
                 id="introduction"
-                value={formData.introduction || defaultTextImagesData.introduction} 
+                value={formData.introduction ?? defaultTextImagesData.introduction} 
                 onChange={e => updateField('introduction', e.target.value)}
                 placeholder="Texte d'introduction..."
                 rows={4}
@@ -3418,7 +3418,7 @@ const BlockEditDropdown = ({
               <div className="mt-3">
                 <Label className="text-sm">Couleur de l'introduction</Label>
                 <ColorPicker
-                  value={formData.introColor || '#666666'}
+                  value={formData.introColor ?? '#666666'}
                   onChange={(value) => updateField('introColor', value)}
                 />
               </div>
@@ -3429,7 +3429,7 @@ const BlockEditDropdown = ({
               <Label>Couleur du trait de séparation</Label>
               <div className="mt-2">
                 <ColorPicker
-                  value={formData.dividerColor || '#3BA8AF'}
+                  value={formData.dividerColor ?? '#3BA8AF'}
                   onChange={(value) => updateField('dividerColor', value)}
                 />
               </div>
@@ -3440,7 +3440,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="backgroundColor">Couleur de fond</Label>
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.backgroundColor || '#ffffff'}
+                  value={formData.backgroundColor ?? '#ffffff'}
                   onChange={(value) => updateField('backgroundColor', value)}
                 />
               </div>
@@ -3535,7 +3535,7 @@ const BlockEditDropdown = ({
               <div className="mt-4">
                 <Label className="text-sm">Couleur des sous-titres</Label>
                 <ColorPicker
-                  value={formData.subtitleColor || '#084F6E'}
+                  value={formData.subtitleColor ?? '#084F6E'}
                   onChange={(value) => updateField('subtitleColor', value)}
                 />
               </div>
@@ -3543,7 +3543,7 @@ const BlockEditDropdown = ({
               <div className="mt-4">
                 <Label className="text-sm">Couleur du texte</Label>
                 <ColorPicker
-                  value={formData.textColor || '#666666'}
+                  value={formData.textColor ?? '#666666'}
                   onChange={(value) => updateField('textColor', value)}
                 />
               </div>
@@ -3803,14 +3803,14 @@ const BlockEditDropdown = ({
               <Label htmlFor="title">Titre</Label>
               <Input 
                 id="title"
-                value={formData.title || block.configuration?.title || ''} 
+                value={formData.title ?? block.configuration?.title ?? ''} 
                 onChange={e => updateField('title', e.target.value)}
                 placeholder="When expats welcome you..."
                 className="mt-2"
               />
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.titleColor || '#333333'}
+                  value={formData.titleColor ?? '#333333'}
                   onChange={(value) => updateField('titleColor', value)}
                 />
               </div>
@@ -3821,7 +3821,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="content">Contenu</Label>
               <Textarea 
                 id="content"
-                value={formData.content || block.configuration?.content || ''} 
+                value={formData.content ?? block.configuration?.content ?? ''} 
                 onChange={e => updateField('content', e.target.value)}
                 placeholder="Contenu de la section..."
                 rows={4}
@@ -3829,7 +3829,7 @@ const BlockEditDropdown = ({
               />
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.contentColor || '#666666'}
+                  value={formData.contentColor ?? '#666666'}
                   onChange={(value) => updateField('contentColor', value)}
                 />
               </div>
@@ -3840,7 +3840,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="divider">Tiret</Label>
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.dividerColor || '#3BA8AF'}
+                  value={formData.dividerColor ?? '#3BA8AF'}
                   onChange={(value) => updateField('dividerColor', value)}
                 />
               </div>
@@ -3851,7 +3851,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="backgroundColor">Couleur de fond</Label>
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.backgroundColor || '#ffffff'}
+                  value={formData.backgroundColor ?? '#ffffff'}
                   onChange={(value) => updateField('backgroundColor', value)}
                 />
               </div>
@@ -3867,14 +3867,14 @@ const BlockEditDropdown = ({
               <Label htmlFor="title">Titre</Label>
               <Input 
                 id="title"
-                value={formData.title || block.configuration?.title || ''} 
+                value={formData.title ?? block.configuration?.title ?? ''} 
                 onChange={e => updateField('title', e.target.value)}
                 placeholder="When expats welcome you..."
                 className="mt-2"
               />
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.titleColor || '#333333'}
+                  value={formData.titleColor ?? '#333333'}
                   onChange={(value) => updateField('titleColor', value)}
                 />
               </div>
@@ -3885,7 +3885,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="content">Contenu</Label>
               <Textarea 
                 id="content"
-                value={formData.content || block.configuration?.content || ''} 
+                value={formData.content ?? block.configuration?.content ?? ''} 
                 onChange={e => updateField('content', e.target.value)}
                 placeholder="Contenu de la section..."
                 rows={4}
@@ -3893,7 +3893,7 @@ const BlockEditDropdown = ({
               />
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.contentColor || '#666666'}
+                  value={formData.contentColor ?? '#666666'}
                   onChange={(value) => updateField('contentColor', value)}
                 />
               </div>
@@ -3904,7 +3904,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="divider">Tiret</Label>
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.dividerColor || '#3BA8AF'}
+                  value={formData.dividerColor ?? '#3BA8AF'}
                   onChange={(value) => updateField('dividerColor', value)}
                 />
               </div>
@@ -3915,7 +3915,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="backgroundColor">Couleur de fond</Label>
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.backgroundColor || '#ffffff'}
+                  value={formData.backgroundColor ?? '#ffffff'}
                   onChange={(value) => updateField('backgroundColor', value)}
                 />
               </div>
@@ -3931,14 +3931,14 @@ const BlockEditDropdown = ({
               <Label htmlFor="title">Titre</Label>
               <Textarea 
                 id="title"
-                value={formData.title !== undefined ? formData.title : (block.configuration?.title || '')} 
+                value={formData.title !== undefined ? formData.title : (block.configuration?.title ?? '')} 
                 onChange={e => updateField('title', e.target.value)}
                 rows={2}
                 className="mt-2"
               />
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.titleColor || '#ffffff'}
+                  value={formData.titleColor ?? '#ffffff'}
                   onChange={(value) => updateField('titleColor', value)}
                 />
               </div>
@@ -3949,14 +3949,14 @@ const BlockEditDropdown = ({
               <Label htmlFor="subtitle">Sous-titre</Label>
               <Textarea 
                 id="subtitle"
-                value={formData.subtitle !== undefined ? formData.subtitle : (block.configuration?.subtitle || '')} 
+                value={formData.subtitle !== undefined ? formData.subtitle : (block.configuration?.subtitle ?? '')} 
                 onChange={e => updateField('subtitle', e.target.value)}
                 rows={2}
                 className="mt-2"
               />
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.subtitleColor || '#ffffff'}
+                  value={formData.subtitleColor ?? '#ffffff'}
                   onChange={(value) => updateField('subtitleColor', value)}
                 />
               </div>
@@ -3968,7 +3968,7 @@ const BlockEditDropdown = ({
               <div className="flex gap-2 mt-2">
                 <Input 
                   id="iconUrl"
-                  value={formData.iconUrl !== undefined ? formData.iconUrl : (block.configuration?.iconUrl || '')} 
+                  value={formData.iconUrl !== undefined ? formData.iconUrl : (block.configuration?.iconUrl ?? '')} 
                   onChange={e => updateField('iconUrl', e.target.value)}
                   placeholder="https://example.com/icon.svg"
                   className="flex-1"
@@ -3996,7 +3996,7 @@ const BlockEditDropdown = ({
               </div>
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.iconColor || '#ffffff'}
+                  value={formData.iconColor ?? '#ffffff'}
                   onChange={(value) => updateField('iconColor', value)}
                 />
               </div>
@@ -4112,7 +4112,7 @@ const BlockEditDropdown = ({
             <div>
               <Label>Arrière-plan</Label>
               <div className="mt-3">
-                <Select value={formData.backgroundType || 'image'} onValueChange={value => updateField('backgroundType', value)}>
+                <Select value={formData.backgroundType ?? 'image'} onValueChange={value => updateField('backgroundType', value)}>
                   <SelectTrigger>
                     <SelectValue placeholder="Type d'arrière-plan" />
                   </SelectTrigger>
@@ -4130,7 +4130,7 @@ const BlockEditDropdown = ({
                   <Label htmlFor="backgroundColor">Couleur de fond</Label>
                   <div className="mt-2">
                     <ColorPicker
-                      value={formData.backgroundColor || '#084F6E'}
+                      value={formData.backgroundColor ?? '#084F6E'}
                       onChange={(value) => updateField('backgroundColor', value)}
                     />
                   </div>
@@ -4143,7 +4143,7 @@ const BlockEditDropdown = ({
                     <Label htmlFor="gradientColor1">Couleur 1</Label>
                     <div className="mt-2">
                       <ColorPicker
-                        value={formData.gradientColor1 || '#084F6E'}
+                        value={formData.gradientColor1 ?? '#084F6E'}
                         onChange={(value) => updateField('gradientColor1', value)}
                       />
                     </div>
@@ -4152,7 +4152,7 @@ const BlockEditDropdown = ({
                     <Label htmlFor="gradientColor2">Couleur 2</Label>
                     <div className="mt-2">
                       <ColorPicker
-                        value={formData.gradientColor2 || '#3BA8AF'}
+                        value={formData.gradientColor2 ?? '#3BA8AF'}
                         onChange={(value) => updateField('gradientColor2', value)}
                       />
                     </div>
@@ -4165,7 +4165,7 @@ const BlockEditDropdown = ({
                   <Label htmlFor="videoUrl">URL de la vidéo</Label>
                   <Input 
                     id="videoUrl"
-                    value={formData.videoUrl || ''} 
+                    value={formData.videoUrl ?? ''} 
                     onChange={e => updateField('videoUrl', e.target.value)}
                     placeholder="/attached_assets/video.mp4"
                     className="mt-2"
@@ -4179,7 +4179,7 @@ const BlockEditDropdown = ({
                     <Label htmlFor="imageUrl">URL de l'image de fond</Label>
                     <Input 
                       id="imageUrl"
-                      value={formData.imageUrl || ''} 
+                      value={formData.imageUrl ?? ''} 
                       onChange={e => updateField('imageUrl', e.target.value)}
                       placeholder="https://example.com/image.jpg"
                       className="mt-2"
@@ -4189,7 +4189,7 @@ const BlockEditDropdown = ({
                     <Label htmlFor="imageAlt">Texte alternatif</Label>
                     <Input 
                       id="imageAlt"
-                      value={formData.imageAlt || ''} 
+                      value={formData.imageAlt ?? ''} 
                       onChange={e => updateField('imageAlt', e.target.value)}
                       placeholder="Description de l'image"
                       className="mt-2"
@@ -4203,7 +4203,7 @@ const BlockEditDropdown = ({
             <div>
               <Label>Taille du cadre</Label>
               <div className="mt-3">
-                <Select value={formData.frameSize || 'small'} onValueChange={value => updateField('frameSize', value)}>
+                <Select value={formData.frameSize ?? 'small'} onValueChange={value => updateField('frameSize', value)}>
                   <SelectTrigger>
                     <SelectValue placeholder="Taille du cadre" />
                   </SelectTrigger>
@@ -4229,7 +4229,7 @@ const BlockEditDropdown = ({
                 <Label htmlFor="filtersTitle">Titre</Label>
                 <Input 
                   id="filtersTitle"
-                  value={formData.filtersTitle !== undefined ? formData.filtersTitle : (block.configuration?.filtersTitle || '')} 
+                  value={formData.filtersTitle !== undefined ? formData.filtersTitle : (block.configuration?.filtersTitle ?? '')} 
                   onChange={e => updateField('filtersTitle', e.target.value)}
                   className="mt-2"
                 />
@@ -4240,7 +4240,7 @@ const BlockEditDropdown = ({
                 <Label htmlFor="searchPlaceholder">Placeholder de recherche</Label>
                 <Input 
                   id="searchPlaceholder"
-                  value={formData.searchPlaceholder !== undefined ? formData.searchPlaceholder : (block.configuration?.searchPlaceholder || '')} 
+                  value={formData.searchPlaceholder !== undefined ? formData.searchPlaceholder : (block.configuration?.searchPlaceholder ?? '')} 
                   onChange={e => updateField('searchPlaceholder', e.target.value)}
                   className="mt-2"
                 />
@@ -4251,7 +4251,7 @@ const BlockEditDropdown = ({
                 <Label htmlFor="filtersTextColor">Couleur de texte</Label>
                 <div className="mt-3">
                   <ColorPicker
-                    value={formData.filtersTextColor || '#333333'}
+                    value={formData.filtersTextColor ?? '#333333'}
                     onChange={(value) => updateField('filtersTextColor', value)}
                   />
                 </div>
@@ -4262,7 +4262,7 @@ const BlockEditDropdown = ({
                 <Label htmlFor="filtersBgColor">Couleur du bloc</Label>
                 <div className="mt-3">
                   <ColorPicker
-                    value={formData.filtersBgColor || '#ffffff'}
+                    value={formData.filtersBgColor ?? '#ffffff'}
                     onChange={(value) => updateField('filtersBgColor', value)}
                   />
                 </div>
@@ -4280,7 +4280,7 @@ const BlockEditDropdown = ({
                 <Label className="text-sm font-medium">Couleurs des annonces</Label>
                 <div className="mt-2">
                   <ColorPicker
-                    value={formData.cardsColor || '#084F6E'}
+                    value={formData.cardsColor ?? '#084F6E'}
                     onChange={(value) => updateField('cardsColor', value)}
                   />
                 </div>
@@ -4349,7 +4349,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="backgroundColor">Couleur de fond</Label>
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.backgroundColor || '#ffffff'}
+                  value={formData.backgroundColor ?? '#ffffff'}
                   onChange={(value) => updateField('backgroundColor', value)}
                 />
               </div>
@@ -4365,14 +4365,14 @@ const BlockEditDropdown = ({
               <Label htmlFor="title">Titre</Label>
               <Input 
                 id="title"
-                value={formData.title || block.configuration?.title || 'Our Popular Experiences'} 
+                value={formData.title ?? block.configuration?.title ?? 'Our Popular Experiences'} 
                 onChange={e => updateField('title', e.target.value)}
                 placeholder="Our Popular Experiences"
                 className="mt-2"
               />
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.titleColor || '#333333'}
+                  value={formData.titleColor ?? '#333333'}
                   onChange={(value) => updateField('titleColor', value)}
                 />
               </div>
@@ -4383,14 +4383,14 @@ const BlockEditDropdown = ({
               <Label htmlFor="subtitle">Sous-titre</Label>
               <Input 
                 id="subtitle"
-                value={formData.subtitle || block.configuration?.subtitle || 'Step off the beaten path into carefully curated experiences beyond the tourist trail.'} 
+                value={formData.subtitle ?? block.configuration?.subtitle ?? 'Step off the beaten path into carefully curated experiences beyond the tourist trail.'} 
                 onChange={e => updateField('subtitle', e.target.value)}
                 placeholder="Step off the beaten path..."
                 className="mt-2"
               />
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.subtitleColor || '#666666'}
+                  value={formData.subtitleColor ?? '#666666'}
                   onChange={(value) => updateField('subtitleColor', value)}
                 />
               </div>
@@ -4401,7 +4401,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="divider">Tiret</Label>
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.dividerColor || '#3BA8AF'}
+                  value={formData.dividerColor ?? '#3BA8AF'}
                   onChange={(value) => updateField('dividerColor', value)}
                 />
               </div>
@@ -4412,7 +4412,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="backgroundColor">Couleur de fond</Label>
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.backgroundColor || '#ffffff'}
+                  value={formData.backgroundColor ?? '#ffffff'}
                   onChange={(value) => updateField('backgroundColor', value)}
                 />
               </div>
@@ -4426,7 +4426,7 @@ const BlockEditDropdown = ({
               <div className="space-y-2">
                 <Label className="text-sm font-medium">Couleurs des annonces</Label>
                 <ColorPicker
-                  value={formData.cardsColor || '#2563eb'}
+                  value={formData.cardsColor ?? '#2563eb'}
                   onChange={(value) => {
                     updateField('cardsColor', value);
                   }}
@@ -4490,7 +4490,7 @@ const BlockEditDropdown = ({
                       type="number" 
                       min="1" 
                       max="50"
-                      value={formData.showAllAds ? 19 : formData.displayCountMobile || 4}
+                      value={formData.showAllAds ? 19 : formData.displayCountMobile ?? 4}
                       onChange={e => updateField('displayCountMobile', parseInt(e.target.value) || 4)}
                       disabled={formData.showAllAds}
                       className={formData.showAllAds ? 'bg-gray-100' : ''}
@@ -4502,7 +4502,7 @@ const BlockEditDropdown = ({
                       type="number" 
                       min="1" 
                       max="50"
-                      value={formData.showAllAds ? 19 : formData.displayCountTablet || 6}
+                      value={formData.showAllAds ? 19 : formData.displayCountTablet ?? 6}
                       onChange={e => updateField('displayCountTablet', parseInt(e.target.value) || 6)}
                       disabled={formData.showAllAds}
                       className={formData.showAllAds ? 'bg-gray-100' : ''}
@@ -4514,7 +4514,7 @@ const BlockEditDropdown = ({
                       type="number" 
                       min="1" 
                       max="50"
-                      value={formData.showAllAds ? 19 : formData.displayCountDesktop || 6}
+                      value={formData.showAllAds ? 19 : formData.displayCountDesktop ?? 6}
                       onChange={e => updateField('displayCountDesktop', parseInt(e.target.value) || 6)}
                       disabled={formData.showAllAds}
                       className={formData.showAllAds ? 'bg-gray-100' : ''}
@@ -4551,7 +4551,7 @@ const BlockEditDropdown = ({
 
               <div>
                 <Label htmlFor="categoryFilter">Catégorie d'annonces</Label>
-                <Select value={formData.categoryFilter || 'all'} onValueChange={value => updateField('categoryFilter', value)}>
+                <Select value={formData.categoryFilter ?? 'all'} onValueChange={value => updateField('categoryFilter', value)}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
@@ -4610,7 +4610,7 @@ const BlockEditDropdown = ({
               <div>
                 <Label className="text-xs text-gray-500">Texte du bouton</Label>
                 <Input 
-                  value={formData.buttonText || ''} 
+                  value={formData.buttonText ?? ''} 
                   onChange={e => updateField('buttonText', e.target.value)}
                   placeholder="Voir tous les tours"
                   className="mt-2"
@@ -4619,7 +4619,7 @@ const BlockEditDropdown = ({
               <div>
                 <URLInput
                   label="URL du bouton"
-                  value={formData.buttonUrl || ''}
+                  value={formData.buttonUrl ?? ''}
                   onChange={(value) => updateField('buttonUrl', value)}
                 />
               </div>
@@ -4627,7 +4627,7 @@ const BlockEditDropdown = ({
                 <div>
                   <Label className="text-xs text-gray-500">Couleur du bouton</Label>
                   <ColorPicker
-                    value={formData.buttonBackgroundColor || '#084F6E'}
+                    value={formData.buttonBackgroundColor ?? '#084F6E'}
                     onChange={(value) => updateField('buttonBackgroundColor', value)}
                     label=""
                   />
@@ -4635,7 +4635,7 @@ const BlockEditDropdown = ({
                 <div>
                   <Label className="text-xs text-gray-500">Couleur du texte</Label>
                   <ColorPicker
-                    value={formData.buttonTextColor || '#ffffff'}
+                    value={formData.buttonTextColor ?? '#ffffff'}
                     onChange={(value) => updateField('buttonTextColor', value)}
                     label=""
                   />
@@ -4644,7 +4644,7 @@ const BlockEditDropdown = ({
               <div>
                 <Label className="text-xs text-gray-500">Style du bouton</Label>
                 <Select 
-                  value={formData.buttonStyle || 'solid'} 
+                  value={formData.buttonStyle ?? 'solid'} 
                   onValueChange={value => updateField('buttonStyle', value)}
                 >
                   <SelectTrigger className="mt-2">
@@ -4668,14 +4668,14 @@ const BlockEditDropdown = ({
               <Label htmlFor="title">Titre</Label>
               <Input 
                 id="title"
-                value={formData.title || 'Some Ideas For Your Next Trip'} 
+                value={formData.title ?? 'Some Ideas For Your Next Trip'} 
                 onChange={e => updateField('title', e.target.value)}
                 placeholder="Some Ideas For Your Next Trip"
                 className="mt-2"
               />
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.titleColor || '#333333'}
+                  value={formData.titleColor ?? '#333333'}
                   onChange={(value) => updateField('titleColor', value)}
                 />
               </div>
@@ -4686,14 +4686,14 @@ const BlockEditDropdown = ({
               <Label htmlFor="subtitle">Sous-titre</Label>
               <Input 
                 id="subtitle"
-                value={formData.subtitle || 'Get inspired by our custom-designed travel experiences.'} 
+                value={formData.subtitle ?? 'Get inspired by our custom-designed travel experiences.'} 
                 onChange={e => updateField('subtitle', e.target.value)}
                 placeholder="Get inspired by our custom-designed travel experiences."
                 className="mt-2"
               />
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.subtitleColor || '#666666'}
+                  value={formData.subtitleColor ?? '#666666'}
                   onChange={(value) => updateField('subtitleColor', value)}
                 />
               </div>
@@ -4704,7 +4704,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="divider">Tiret</Label>
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.dividerColor || '#3BA8AF'}
+                  value={formData.dividerColor ?? '#3BA8AF'}
                   onChange={(value) => updateField('dividerColor', value)}
                 />
               </div>
@@ -4715,7 +4715,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="backgroundColor">Couleur de fond</Label>
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.backgroundColor || '#f9fafb'}
+                  value={formData.backgroundColor ?? '#f9fafb'}
                   onChange={(value) => updateField('backgroundColor', value)}
                 />
               </div>
@@ -4729,7 +4729,7 @@ const BlockEditDropdown = ({
               <div className="space-y-2">
                 <Label className="text-sm font-medium">Couleurs des annonces</Label>
                 <ColorPicker
-                  value={formData.cardsColor || '#2563eb'}
+                  value={formData.cardsColor ?? '#2563eb'}
                   onChange={(value) => {
                     updateField('cardsColor', value);
                   }}
@@ -4793,7 +4793,7 @@ const BlockEditDropdown = ({
                       type="number" 
                       min="1" 
                       max="50"
-                      value={formData.showAllAds ? 19 : formData.displayCountMobile || 4}
+                      value={formData.showAllAds ? 19 : formData.displayCountMobile ?? 4}
                       onChange={e => updateField('displayCountMobile', parseInt(e.target.value) || 4)}
                       disabled={formData.showAllAds}
                       className={formData.showAllAds ? 'bg-gray-100' : ''}
@@ -4805,7 +4805,7 @@ const BlockEditDropdown = ({
                       type="number" 
                       min="1" 
                       max="50"
-                      value={formData.showAllAds ? 19 : formData.displayCountTablet || 6}
+                      value={formData.showAllAds ? 19 : formData.displayCountTablet ?? 6}
                       onChange={e => updateField('displayCountTablet', parseInt(e.target.value) || 6)}
                       disabled={formData.showAllAds}
                       className={formData.showAllAds ? 'bg-gray-100' : ''}
@@ -4817,7 +4817,7 @@ const BlockEditDropdown = ({
                       type="number" 
                       min="1" 
                       max="50"
-                      value={formData.showAllAds ? 19 : formData.displayCountDesktop || 6}
+                      value={formData.showAllAds ? 19 : formData.displayCountDesktop ?? 6}
                       onChange={e => updateField('displayCountDesktop', parseInt(e.target.value) || 6)}
                       disabled={formData.showAllAds}
                       className={formData.showAllAds ? 'bg-gray-100' : ''}
@@ -4854,7 +4854,7 @@ const BlockEditDropdown = ({
 
               <div>
                 <Label htmlFor="categoryFilter">Catégorie d'annonces</Label>
-                <Select value={formData.categoryFilter || 'all'} onValueChange={value => updateField('categoryFilter', value)}>
+                <Select value={formData.categoryFilter ?? 'all'} onValueChange={value => updateField('categoryFilter', value)}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
@@ -4913,7 +4913,7 @@ const BlockEditDropdown = ({
               <div>
                 <Label className="text-xs text-gray-500">Texte du bouton</Label>
                 <Input 
-                  value={formData.buttonText || ''} 
+                  value={formData.buttonText ?? ''} 
                   onChange={e => updateField('buttonText', e.target.value)}
                   placeholder="Voir tous les tours"
                   className="mt-2"
@@ -4922,7 +4922,7 @@ const BlockEditDropdown = ({
               <div>
                 <URLInput
                   label="URL du bouton"
-                  value={formData.buttonUrl || ''}
+                  value={formData.buttonUrl ?? ''}
                   onChange={(value) => updateField('buttonUrl', value)}
                 />
               </div>
@@ -4930,7 +4930,7 @@ const BlockEditDropdown = ({
                 <div>
                   <Label className="text-xs text-gray-500">Couleur du bouton</Label>
                   <ColorPicker
-                    value={formData.buttonBackgroundColor || '#084F6E'}
+                    value={formData.buttonBackgroundColor ?? '#084F6E'}
                     onChange={(value) => updateField('buttonBackgroundColor', value)}
                     label=""
                   />
@@ -4938,7 +4938,7 @@ const BlockEditDropdown = ({
                 <div>
                   <Label className="text-xs text-gray-500">Couleur du texte</Label>
                   <ColorPicker
-                    value={formData.buttonTextColor || '#ffffff'}
+                    value={formData.buttonTextColor ?? '#ffffff'}
                     onChange={(value) => updateField('buttonTextColor', value)}
                     label=""
                   />
@@ -4947,7 +4947,7 @@ const BlockEditDropdown = ({
               <div>
                 <Label className="text-xs text-gray-500">Style du bouton</Label>
                 <Select 
-                  value={formData.buttonStyle || 'solid'} 
+                  value={formData.buttonStyle ?? 'solid'} 
                   onValueChange={value => updateField('buttonStyle', value)}
                 >
                   <SelectTrigger className="mt-2">
@@ -4973,13 +4973,13 @@ const BlockEditDropdown = ({
                 <Label htmlFor="title">Titre</Label>
                 <Input 
                   id="title"
-                  value={formData.title || 'Why Choose Us'} 
+                  value={formData.title ?? 'Why Choose Us'} 
                   onChange={e => updateField('title', e.target.value)}
                   className="mt-2"
                 />
                 <div className="mt-3">
                   <ColorPicker
-                    value={formData.titleColor || '#333333'}
+                    value={formData.titleColor ?? '#333333'}
                     onChange={(value) => updateField('titleColor', value)}
                   />
                 </div>
@@ -4990,13 +4990,13 @@ const BlockEditDropdown = ({
                 <Input 
                   id="subtitle"
                   placeholder="Experience an exclusive private day trip with our English or French-speaking and certified guides."
-                  value={formData.subtitle || ''} 
+                  value={formData.subtitle ?? ''} 
                   onChange={e => updateField('subtitle', e.target.value)}
                   className="mt-2"
                 />
                 <div className="mt-3">
                   <ColorPicker
-                    value={formData.subtitleColor || '#666666'}
+                    value={formData.subtitleColor ?? '#666666'}
                     onChange={(value) => updateField('subtitleColor', value)}
                   />
                 </div>
@@ -5006,7 +5006,7 @@ const BlockEditDropdown = ({
                 <Label htmlFor="divider">Tiret</Label>
                 <div className="mt-3">
                   <ColorPicker
-                    value={formData.dividerColor || '#3BA8AF'}
+                    value={formData.dividerColor ?? '#3BA8AF'}
                     onChange={(value) => updateField('dividerColor', value)}
                   />
                 </div>
@@ -5017,7 +5017,7 @@ const BlockEditDropdown = ({
                 <Label htmlFor="backgroundColor">Couleur de fond</Label>
                 <div className="mt-3">
                   <ColorPicker
-                    value={formData.backgroundColor || '#ffffff'}
+                    value={formData.backgroundColor ?? '#ffffff'}
                     onChange={(value) => updateField('backgroundColor', value)}
                   />
                 </div>
@@ -5662,7 +5662,7 @@ const BlockEditDropdown = ({
               <div className="mt-3">
                 <Label className="text-sm">Couleur du titre</Label>
                 <ColorPicker
-                  value={formData.titleColor || '#084F6E'}
+                  value={formData.titleColor ?? '#084F6E'}
                   onChange={(value) => updateField('titleColor', value)}
                 />
               </div>
@@ -5670,7 +5670,7 @@ const BlockEditDropdown = ({
               <div className="mt-3">
                 <Label className="text-sm">Couleur du tiret</Label>
                 <ColorPicker
-                  value={formData.dividerColor || '#3BA8AF'}
+                  value={formData.dividerColor ?? '#3BA8AF'}
                   onChange={(value) => updateField('dividerColor', value)}
                 />
               </div>
@@ -5678,7 +5678,7 @@ const BlockEditDropdown = ({
               <div className="mt-3">
                 <Label className="text-sm">Couleur du fond</Label>
                 <ColorPicker
-                  value={formData.backgroundColor || '#ffffff'}
+                  value={formData.backgroundColor ?? '#ffffff'}
                   onChange={(value) => updateField('backgroundColor', value)}
                 />
               </div>
@@ -5697,7 +5697,7 @@ const BlockEditDropdown = ({
               <div className="mt-3">
                 <Label className="text-sm">Couleur de l'introduction</Label>
                 <ColorPicker
-                  value={formData.introColor || '#666666'}
+                  value={formData.introColor ?? '#666666'}
                   onChange={(value) => updateField('introColor', value)}
                 />
               </div>
@@ -5792,7 +5792,7 @@ const BlockEditDropdown = ({
               <div className="mt-4">
                 <Label className="text-sm">Couleur des sous-titres</Label>
                 <ColorPicker
-                  value={formData.subtitleColor || '#084F6E'}
+                  value={formData.subtitleColor ?? '#084F6E'}
                   onChange={(value) => updateField('subtitleColor', value)}
                 />
               </div>
@@ -5800,7 +5800,7 @@ const BlockEditDropdown = ({
               <div className="mt-4">
                 <Label className="text-sm">Couleur du texte</Label>
                 <ColorPicker
-                  value={formData.textColor || '#666666'}
+                  value={formData.textColor ?? '#666666'}
                   onChange={(value) => updateField('textColor', value)}
                 />
               </div>
@@ -6126,7 +6126,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="title">Titre</Label>
               <Input 
                 id="title"
-                value={formData.title || 'Our Travelers Reviews'} 
+                value={formData.title ?? 'Our Travelers Reviews'} 
                 onChange={e => updateField('title', e.target.value)}
               />
             </div>
@@ -6134,7 +6134,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="subtitle">Sous-titre</Label>
               <Input 
                 id="subtitle"
-                value={formData.subtitle || 'Discover the authentic experiences...'} 
+                value={formData.subtitle ?? 'Discover the authentic experiences...'} 
                 onChange={e => updateField('subtitle', e.target.value)}
               />
             </div>
@@ -6146,7 +6146,7 @@ const BlockEditDropdown = ({
                 min="1"
                 max="5"
                 step="1"
-                value={formData.starRating || '5'} 
+                value={formData.starRating ?? '5'} 
                 onChange={e => updateField('starRating', e.target.value)}
               />
             </div>
@@ -6154,7 +6154,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="googleRating">Note Google</Label>
               <Input 
                 id="googleRating"
-                value={formData.googleRating || '5.0'} 
+                value={formData.googleRating ?? '5.0'} 
                 onChange={e => updateField('googleRating', e.target.value)}
               />
             </div>
@@ -6162,7 +6162,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="reviewCount">Nombre d'avis</Label>
               <Input 
                 id="reviewCount"
-                value={formData.reviewCount || '80'} 
+                value={formData.reviewCount ?? '80'} 
                 onChange={e => updateField('reviewCount', e.target.value)}
               />
             </div>
@@ -6172,7 +6172,7 @@ const BlockEditDropdown = ({
                 id="googleLink"
                 type="url"
                 placeholder="https://g.page/..."
-                value={formData.googleLink || ''} 
+                value={formData.googleLink ?? ''} 
                 onChange={e => updateField('googleLink', e.target.value)}
               />
             </div>
@@ -6180,7 +6180,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="googleLinkText">Texte du lien Google</Label>
               <Input 
                 id="googleLinkText"
-                value={formData.googleLinkText || 'View all reviews on Google'} 
+                value={formData.googleLinkText ?? 'View all reviews on Google'} 
                 onChange={e => updateField('googleLinkText', e.target.value)}
               />
             </div>
@@ -6310,14 +6310,14 @@ const BlockEditDropdown = ({
               <Label htmlFor="title">Titre</Label>
               <Input 
                 id="title"
-                value={formData.title || 'Our Tailor-made trips'} 
+                value={formData.title ?? 'Our Tailor-made trips'} 
                 onChange={e => updateField('title', e.target.value)}
                 placeholder="Our Tailor-made trips"
                 className="mt-2"
               />
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.titleColor || '#333333'}
+                  value={formData.titleColor ?? '#333333'}
                   onChange={(value) => updateField('titleColor', value)}
                 />
               </div>
@@ -6328,7 +6328,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="subtitle">Sous-titre</Label>
               <Textarea 
                 id="subtitle"
-                value={formData.subtitle || 'Design your own journey through Thailand with our tailor-made stays: from cultural discoveries and family adventures to romantic getaways and island escapes. Every itinerary is crafted to match your wishes, offering authentic experiences, quality services, and a unique immersion far from mass tourism.'} 
+                value={formData.subtitle ?? 'Design your own journey through Thailand with our tailor-made stays: from cultural discoveries and family adventures to romantic getaways and island escapes. Every itinerary is crafted to match your wishes, offering authentic experiences, quality services, and a unique immersion far from mass tourism.'} 
                 onChange={e => updateField('subtitle', e.target.value)}
                 rows={4}
                 placeholder="Design your own journey through Thailand..."
@@ -6336,7 +6336,7 @@ const BlockEditDropdown = ({
               />
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.subtitleColor || '#666666'}
+                  value={formData.subtitleColor ?? '#666666'}
                   onChange={(value) => updateField('subtitleColor', value)}
                 />
               </div>
@@ -6347,7 +6347,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="divider">Tiret</Label>
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.dividerColor || '#3BA8AF'}
+                  value={formData.dividerColor ?? '#3BA8AF'}
                   onChange={(value) => updateField('dividerColor', value)}
                 />
               </div>
@@ -6358,7 +6358,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="backgroundColor">Couleur de fond</Label>
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.backgroundColor || '#ffffff'}
+                  value={formData.backgroundColor ?? '#ffffff'}
                   onChange={(value) => updateField('backgroundColor', value)}
                 />
               </div>
@@ -6386,7 +6386,6 @@ const BlockEditDropdown = ({
                 id="title"
                 value={formData.title ?? 'Titre principal'} 
                 onChange={e => updateField('title', e.target.value)}
-                placeholder="Titre principal"
                 className="mt-2"
               />
               <div className="mt-3">
@@ -6406,7 +6405,6 @@ const BlockEditDropdown = ({
                 value={formData.subtitle ?? 'Description pour votre section de contact'} 
                 onChange={e => updateField('subtitle', e.target.value)}
                 rows={2}
-                placeholder="Description pour votre section de contact"
                 className="mt-2"
               />
               <div className="mt-3">
@@ -6503,7 +6501,6 @@ const BlockEditDropdown = ({
                   type="tel"
                   value={formData.phone ?? '+ 22 222 222 222'} 
                   onChange={e => updateField('phone', e.target.value)}
-                  placeholder="+ 22 222 222 222"
                   className="mt-2"
                 />
               </div>
@@ -6546,7 +6543,6 @@ const BlockEditDropdown = ({
                   type="tel"
                   value={formData.whatsapp ?? '+ 22 222 222 222'} 
                   onChange={e => updateField('whatsapp', e.target.value)}
-                  placeholder="+ 22 222 222 222"
                   className="mt-2"
                 />
               </div>
@@ -6629,7 +6625,6 @@ const BlockEditDropdown = ({
                       id="aboutTitle"
                       value={formData.aboutTitle ?? 'À propos de notre entreprise'} 
                       onChange={e => updateField('aboutTitle', e.target.value)}
-                      placeholder="À propos de notre entreprise"
                       className="mt-2"
                     />
                   </div>
@@ -6639,7 +6634,6 @@ const BlockEditDropdown = ({
                       id="companyBrand"
                       value={formData.companyBrand ?? 'Nom de la marque'} 
                       onChange={e => updateField('companyBrand', e.target.value)}
-                      placeholder="Nom de la marque"
                       className="mt-2"
                     />
                   </div>
@@ -6649,7 +6643,6 @@ const BlockEditDropdown = ({
                       id="companyName"
                       value={formData.companyName ?? 'Votre Adresse'} 
                       onChange={e => updateField('companyName', e.target.value)}
-                      placeholder="Votre Adresse"
                       className="mt-2"
                     />
                   </div>
@@ -6659,7 +6652,6 @@ const BlockEditDropdown = ({
                       id="companyLicense"
                       value={formData.companyLicense ?? '00/00000'} 
                       onChange={e => updateField('companyLicense', e.target.value)}
-                      placeholder="00/00000"
                       className="mt-2"
                     />
                   </div>
@@ -6669,7 +6661,6 @@ const BlockEditDropdown = ({
                       id="companyDescription"
                       value={formData.companyDescription ?? ''} 
                       onChange={e => updateField('companyDescription', e.target.value)}
-                      placeholder=""
                       rows={2}
                       className="mt-2"
                     />
@@ -6690,14 +6681,14 @@ const BlockEditDropdown = ({
                 <Label htmlFor="title">Titre</Label>
                 <Input 
                   id="title"
-                  value={formData.title || block.configuration?.title || ''} 
+                  value={formData.title ?? block.configuration?.title ?? ''} 
                   onChange={e => updateField('title', e.target.value)}
                   placeholder="Titre de la section"
                   className="mt-2"
                 />
                 <div className="mt-3">
                   <ColorPicker
-                    value={formData.titleColor || '#333333'}
+                    value={formData.titleColor ?? '#333333'}
                     onChange={(value) => updateField('titleColor', value)}
                   />
                 </div>
@@ -6708,7 +6699,7 @@ const BlockEditDropdown = ({
                 <Label htmlFor="content">Contenu</Label>
                 <Textarea 
                   id="content"
-                  value={formData.content || block.configuration?.content || ''} 
+                  value={formData.content ?? block.configuration?.content ?? ''} 
                   onChange={e => updateField('content', e.target.value)}
                   placeholder="Contenu de la section..."
                   rows={4}
@@ -6716,7 +6707,7 @@ const BlockEditDropdown = ({
                 />
                 <div className="mt-3">
                   <ColorPicker
-                    value={formData.contentColor || '#666666'}
+                    value={formData.contentColor ?? '#666666'}
                     onChange={(value) => updateField('contentColor', value)}
                   />
                 </div>
@@ -6727,7 +6718,7 @@ const BlockEditDropdown = ({
                 <Label htmlFor="divider">Tiret</Label>
                 <div className="mt-3">
                   <ColorPicker
-                    value={formData.dividerColor || '#3BA8AF'}
+                    value={formData.dividerColor ?? '#3BA8AF'}
                     onChange={(value) => updateField('dividerColor', value)}
                   />
                 </div>
@@ -6738,7 +6729,7 @@ const BlockEditDropdown = ({
                 <Label htmlFor="backgroundColor">Couleur de fond</Label>
                 <div className="mt-3">
                   <ColorPicker
-                    value={formData.backgroundColor || '#ffffff'}
+                    value={formData.backgroundColor ?? '#ffffff'}
                     onChange={(value) => updateField('backgroundColor', value)}
                   />
                 </div>
@@ -6756,7 +6747,7 @@ const BlockEditDropdown = ({
                 <Label htmlFor="title">Titre principal</Label>
                 <Textarea 
                   id="title"
-                  value={formData.title || block.configuration?.title || ''} 
+                  value={formData.title ?? block.configuration?.title ?? ''} 
                   onChange={e => updateField('title', e.target.value)}
                   placeholder="Votre titre principal"
                   rows={3}
@@ -6764,7 +6755,7 @@ const BlockEditDropdown = ({
                 />
                 <div className="mt-3">
                   <ColorPicker
-                    value={formData.titleColor || ''}
+                    value={formData.titleColor ?? ''}
                     onChange={(value) => updateField('titleColor', value)}
                   />
                 </div>
@@ -6775,7 +6766,7 @@ const BlockEditDropdown = ({
                 <Label htmlFor="titleAccentText">Mot du titre en seconde couleur</Label>
                 <Input 
                   id="titleAccentText"
-                  value={formData.titleAccentText || ''} 
+                  value={formData.titleAccentText ?? ''} 
                   onChange={e => updateField('titleAccentText', e.target.value)}
                   placeholder="Mot à colorer"
                   className="mt-2"
@@ -6785,7 +6776,7 @@ const BlockEditDropdown = ({
                 </p>
                 <div className="mt-3">
                   <ColorPicker
-                    value={formData.titleAccentColor || ''}
+                    value={formData.titleAccentColor ?? ''}
                     onChange={(value) => updateField('titleAccentColor', value)}
                   />
                 </div>
@@ -6796,7 +6787,7 @@ const BlockEditDropdown = ({
                 <Label htmlFor="subtitle">Sous-titre</Label>
                 <Textarea 
                   id="subtitle"
-                  value={formData.subtitle || block.configuration?.subtitle || ''} 
+                  value={formData.subtitle ?? block.configuration?.subtitle ?? ''} 
                   onChange={e => updateField('subtitle', e.target.value)}
                   placeholder="Votre sous-titre descriptif"
                   rows={3}
@@ -6804,7 +6795,7 @@ const BlockEditDropdown = ({
                 />
                 <div className="mt-3">
                   <ColorPicker
-                    value={formData.subtitleColor || ''}
+                    value={formData.subtitleColor ?? ''}
                     onChange={(value) => updateField('subtitleColor', value)}
                   />
                 </div>
@@ -6934,7 +6925,7 @@ const BlockEditDropdown = ({
               <div>
                 <Label>Alignement du contenu</Label>
                 <div className="mt-3">
-                  <Select value={formData.contentAlignment || 'center'} onValueChange={value => updateField('contentAlignment', value)}>
+                  <Select value={formData.contentAlignment ?? 'center'} onValueChange={value => updateField('contentAlignment', value)}>
                     <SelectTrigger>
                       <SelectValue placeholder="Alignement" />
                     </SelectTrigger>
@@ -6963,7 +6954,7 @@ const BlockEditDropdown = ({
               <div>
                 <Label>Arrière-plan</Label>
                 <div className="mt-3">
-                  <Select value={formData.backgroundType || 'gradient'} onValueChange={value => updateField('backgroundType', value)}>
+                  <Select value={formData.backgroundType ?? 'gradient'} onValueChange={value => updateField('backgroundType', value)}>
                     <SelectTrigger>
                       <SelectValue placeholder="Type d'arrière-plan" />
                     </SelectTrigger>
@@ -6981,14 +6972,14 @@ const BlockEditDropdown = ({
                     <div>
                       <Label htmlFor="gradientColor1">Première couleur du dégradé</Label>
                       <ColorPicker
-                        value={formData.gradientColor1 || '#084F6E'}
+                        value={formData.gradientColor1 ?? '#084F6E'}
                         onChange={(value) => updateField('gradientColor1', value)}
                       />
                     </div>
                     <div>
                       <Label htmlFor="gradientColor2">Deuxième couleur du dégradé</Label>
                       <ColorPicker
-                        value={formData.gradientColor2 || '#3BA8AF'}
+                        value={formData.gradientColor2 ?? '#3BA8AF'}
                         onChange={(value) => updateField('gradientColor2', value)}
                       />
                     </div>
@@ -6999,7 +6990,7 @@ const BlockEditDropdown = ({
                   <div className="mt-3">
                     <Label htmlFor="backgroundColor">Couleur de fond</Label>
                     <ColorPicker
-                      value={formData.backgroundColor || '#084F6E'}
+                      value={formData.backgroundColor ?? '#084F6E'}
                       onChange={(value) => updateField('backgroundColor', value)}
                     />
                   </div>
@@ -7011,7 +7002,7 @@ const BlockEditDropdown = ({
                     <div className="flex gap-2">
                       <Input 
                         id="videoUrl"
-                        value={formData.videoUrl || ''} 
+                        value={formData.videoUrl ?? ''} 
                         onChange={e => updateField('videoUrl', e.target.value)}
                         placeholder="URL de la vidéo"
                         className="flex-1"
@@ -7047,7 +7038,7 @@ const BlockEditDropdown = ({
                     
                     <div className="flex gap-2">
                       <Input 
-                        value={formData.backgroundImage1 || ''} 
+                        value={formData.backgroundImage1 ?? ''} 
                         onChange={e => updateField('backgroundImage1', e.target.value)}
                         placeholder="URL de l'image 1"
                         className="flex-1"
@@ -7077,7 +7068,7 @@ const BlockEditDropdown = ({
                     
                     <div className="flex gap-2">
                       <Input 
-                        value={formData.backgroundImage2 || ''} 
+                        value={formData.backgroundImage2 ?? ''} 
                         onChange={e => updateField('backgroundImage2', e.target.value)}
                         placeholder="URL de l'image 2"
                         className="flex-1"
@@ -7107,7 +7098,7 @@ const BlockEditDropdown = ({
                     
                     <div className="flex gap-2">
                       <Input 
-                        value={formData.backgroundImage3 || ''} 
+                        value={formData.backgroundImage3 ?? ''} 
                         onChange={e => updateField('backgroundImage3', e.target.value)}
                         placeholder="URL de l'image 3"
                         className="flex-1"
@@ -7142,7 +7133,7 @@ const BlockEditDropdown = ({
               <div>
                 <Label>Taille du cadre</Label>
                 <div className="mt-3">
-                  <Select value={formData.heroSize || 'petite'} onValueChange={value => updateField('heroSize', value)}>
+                  <Select value={formData.heroSize ?? 'petite'} onValueChange={value => updateField('heroSize', value)}>
                     <SelectTrigger>
                       <SelectValue placeholder="Taille" />
                     </SelectTrigger>
