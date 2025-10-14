@@ -206,6 +206,7 @@ import Features from '@/components/home/Features';
 import About from '@/components/home/About';
 import CustomTourForm from '@/components/home/CustomTourForm';
 import Testimonials from '@/components/home/Testimonials';
+import ContactBlock from '@/components/blocks/ContactBlock';
 import TourNinjaSection from '@/components/tour/TourNinjaSection';
 
 // Helper function to get readable block type names
@@ -1635,6 +1636,17 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
             subtitleColor={customFormSubtitleColor}
             dividerColor={customFormDividerColor}
             backgroundColor={customFormBackgroundColor}
+          />
+        );
+
+      case 'contact':
+        const contactConfig = liveConfiguration || block.configuration || {};
+        return (
+          <ContactBlock 
+            block={{
+              id: block.id,
+              configuration: contactConfig
+            }}
           />
         );
 

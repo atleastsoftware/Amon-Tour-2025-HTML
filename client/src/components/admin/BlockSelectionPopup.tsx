@@ -295,7 +295,7 @@ const blockTypes: BlockType[] = [
             </div>
           ))}
         </div>
-        <div className="mt-3 p-3 bg-gray-50 rounded-lg">
+        <div className="mt-3 p-3 bg-gray-50 rounded-lg text-center">
           <div className="text-xs font-bold mb-1">About Our Company</div>
           <div className="text-xs text-gray-600 mb-1">
             <strong>Amon Tour</strong> est une marque de : Flame BB Co., Ltd.

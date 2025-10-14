@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Users, Shield, Heart, Mail, Phone, MapPin, Star, Play, Calendar } from 'lucide-react';
 
-import type { PageBlock } from '../../../shared/schema';
+import type { PageBlock } from '@shared/schema';
 
 // Import des composants réels pour la prévisualisation
 import Hero from '@/components/home/Hero';
@@ -334,7 +334,7 @@ function SimplifiedPreview({ block }: { block: PageBlock }) {
               </div>
             </div>
             {(config.showAboutCompany ?? true) && (
-              <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+              <div className="mt-4 p-4 bg-gray-50 rounded-lg text-center">
                 <h3 className="font-bold text-sm mb-2">À propos de notre entreprise</h3>
                 <p className="text-xs text-gray-600">
                   <strong>{config.companyBrand || 'Votre Marque'}</strong> est une marque de : {config.companyName || 'Votre Entreprise'}
