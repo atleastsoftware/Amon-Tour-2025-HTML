@@ -13,7 +13,7 @@ const Features = lazy(() => import("@/components/home/Features"));
 const About = lazy(() => import("@/components/home/About"));
 const TourNinjaSection = lazy(() => import("@/components/tour/TourNinjaSection"));
 const CustomTourForm = lazy(() => import("@/components/home/CustomTourForm"));
-const SearchBarToursBlock = lazy(() => import("@/components/blocks/SearchBarToursBlock"));
+import SearchBarToursBlock from "@/components/blocks/SearchBarToursBlock";
 
 interface PageBlock {
   id: number;
@@ -427,13 +427,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
       case 'search_bar_tours':
         return (
           <div key={block.id} className="w-full">
-            <Suspense fallback={
-              <div className="flex justify-center py-8">
-                <Loader2 className="h-8 w-8 animate-spin text-primary" />
-              </div>
-            }>
-              <SearchBarToursBlock configuration={block.configuration || {}} />
-            </Suspense>
+            <SearchBarToursBlock configuration={block.configuration || {}} />
           </div>
         );
 
