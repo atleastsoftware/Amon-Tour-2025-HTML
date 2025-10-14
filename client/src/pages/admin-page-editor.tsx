@@ -6845,6 +6845,120 @@ const BlockEditDropdown = ({
           </div>
         );
 
+      case 'blog_search':
+        return (
+          <div className="space-y-6">
+            {/* Couleur de fond */}
+            <div>
+              <Label>Couleur de fond</Label>
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.backgroundColor ?? '#ffffff'}
+                  onChange={(value) => updateField('backgroundColor', value)}
+                />
+              </div>
+            </div>
+
+            <Separator className="my-6" />
+
+            {/* Barre de recherche */}
+            <div>
+              <Label className="text-base font-semibold">Barre de recherche</Label>
+              <div className="mt-3">
+                <Label htmlFor="searchPlaceholder">Texte du placeholder</Label>
+                <Input 
+                  id="searchPlaceholder"
+                  value={formData.searchPlaceholder ?? 'Rechercher des articles...'} 
+                  onChange={e => updateField('searchPlaceholder', e.target.value)}
+                  className="mt-2"
+                />
+              </div>
+            </div>
+
+            <Separator />
+
+            {/* Tags */}
+            <div className="space-y-3">
+              <Label className="text-base font-semibold">Tags</Label>
+              <div>
+                <Label htmlFor="tagsTitle">Titre de la section Tags</Label>
+                <Input 
+                  id="tagsTitle"
+                  value={formData.tagsTitle ?? 'Tags'} 
+                  onChange={e => updateField('tagsTitle', e.target.value)}
+                  className="mt-2"
+                />
+              </div>
+              <div>
+                <Label htmlFor="allTagsText">Texte du bouton "Tous"</Label>
+                <Input 
+                  id="allTagsText"
+                  value={formData.allTagsText ?? 'Tous les tags'} 
+                  onChange={e => updateField('allTagsText', e.target.value)}
+                  className="mt-2"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <Label>Couleur des boutons</Label>
+                  <ColorPicker
+                    value={formData.tagButtonColor ?? '#3BA8AF'}
+                    onChange={(value) => updateField('tagButtonColor', value)}
+                  />
+                </div>
+                <div>
+                  <Label>Couleur du texte</Label>
+                  <ColorPicker
+                    value={formData.tagButtonTextColor ?? '#ffffff'}
+                    onChange={(value) => updateField('tagButtonTextColor', value)}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <Separator />
+
+            {/* Catégories */}
+            <div className="space-y-3">
+              <Label className="text-base font-semibold">Catégories</Label>
+              <div>
+                <Label htmlFor="categoriesTitle">Titre de la section Catégories</Label>
+                <Input 
+                  id="categoriesTitle"
+                  value={formData.categoriesTitle ?? 'Catégories'} 
+                  onChange={e => updateField('categoriesTitle', e.target.value)}
+                  className="mt-2"
+                />
+              </div>
+              <div>
+                <Label htmlFor="allCategoriesText">Texte du bouton "Tous"</Label>
+                <Input 
+                  id="allCategoriesText"
+                  value={formData.allCategoriesText ?? 'Toutes les catégories'} 
+                  onChange={e => updateField('allCategoriesText', e.target.value)}
+                  className="mt-2"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <Label>Couleur des boutons</Label>
+                  <ColorPicker
+                    value={formData.categoryButtonColor ?? '#084F6E'}
+                    onChange={(value) => updateField('categoryButtonColor', value)}
+                  />
+                </div>
+                <div>
+                  <Label>Couleur du texte</Label>
+                  <ColorPicker
+                    value={formData.categoryButtonTextColor ?? '#ffffff'}
+                    onChange={(value) => updateField('categoryButtonTextColor', value)}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+
       default:
         // Gérer les blocs Text génériques
         if (block.blockType === 'text') {
