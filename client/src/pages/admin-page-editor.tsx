@@ -2027,8 +2027,22 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
                               src={tour.primaryImage}
                               alt={tour.name}
                               className="w-full h-full object-cover"
+                              onLoad={(e) => {
+                                const target = e.target as HTMLImageElement;
+                                console.log('✅ Image loaded successfully:', {
+                                  tour: tour.name,
+                                  url: tour.primaryImage,
+                                  naturalWidth: target.naturalWidth,
+                                  naturalHeight: target.naturalHeight
+                                });
+                              }}
                               onError={(e) => {
                                 const target = e.target as HTMLImageElement;
+                                console.error('❌ Image failed to load:', {
+                                  tour: tour.name,
+                                  url: tour.primaryImage,
+                                  errorTime: new Date().toISOString()
+                                });
                                 const parentDiv = target.parentElement;
                                 if (parentDiv) {
                                   target.remove();
