@@ -25,6 +25,8 @@ interface TextPricingBlockProps {
     configuration?: {
       title?: string;
       subtitle?: string;
+      titleColor?: string;
+      subtitleColor?: string;
       pricingCards?: PricingCard[];
       dividerColor?: string;
       backgroundColor?: string;
@@ -33,10 +35,10 @@ interface TextPricingBlockProps {
       pickupTimes?: PickupTime[];
       includedTitle?: string;
       includedDescription?: string;
+      includedLogoColor?: string;
       notIncludedTitle?: string;
       notIncludedDescription?: string;
-      pickupTimeColor?: string;
-      pickupPriceColor?: string;
+      notIncludedLogoColor?: string;
     };
   };
 }
@@ -77,6 +79,8 @@ export default function TextPricingBlock({ block }: TextPricingBlockProps) {
       headerGradient: "#084F6E"
     }
   ];
+  const titleColor = config.titleColor ?? "#1F2937";
+  const subtitleColor = config.subtitleColor ?? "#6B7280";
   const dividerColor = config.dividerColor ?? "#3BA8AF";
   const backgroundColor = config.backgroundColor ?? "#ffffff";
   const showPickupSection = config.showPickupSection ?? false;
@@ -84,10 +88,10 @@ export default function TextPricingBlock({ block }: TextPricingBlockProps) {
   const pickupTimes = config.pickupTimes ?? [];
   const includedTitle = config.includedTitle ?? "Included in Price";
   const includedDescription = config.includedDescription ?? "";
+  const includedLogoColor = config.includedLogoColor ?? "#10B981";
   const notIncludedTitle = config.notIncludedTitle ?? "Not Included in Price";
   const notIncludedDescription = config.notIncludedDescription ?? "";
-  const pickupTimeColor = config.pickupTimeColor ?? "#1F2937";
-  const pickupPriceColor = config.pickupPriceColor ?? "#084F6E";
+  const notIncludedLogoColor = config.notIncludedLogoColor ?? "#EF4444";
 
   return (
     <div className="w-full">
@@ -101,10 +105,10 @@ export default function TextPricingBlock({ block }: TextPricingBlockProps) {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
               >
-                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{title}</h2>
+                <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3" style={{ color: titleColor }}>{title}</h2>
                 <div className="w-20 h-1 mx-auto mb-4" style={{ backgroundColor: dividerColor }}></div>
                 {subtitle && (
-                  <p className="text-muted-foreground text-lg">{subtitle}</p>
+                  <p className="text-lg" style={{ color: subtitleColor }}>{subtitle}</p>
                 )}
               </motion.div>
             </div>
@@ -169,7 +173,7 @@ export default function TextPricingBlock({ block }: TextPricingBlockProps) {
                       key={index}
                       className="bg-white rounded-lg shadow-md p-4 text-center"
                     >
-                      <div className="text-2xl font-bold mb-1" style={{ color: pickupTimeColor }}>
+                      <div className="text-2xl font-bold mb-1 text-gray-800">
                         {pickup.time}
                       </div>
                       <div className="text-sm text-gray-600 mb-2">
@@ -177,7 +181,7 @@ export default function TextPricingBlock({ block }: TextPricingBlockProps) {
                       </div>
                       <div 
                         className="text-sm font-semibold" 
-                        style={{ color: pickup.supplementColor || pickupPriceColor }}
+                        style={{ color: pickup.supplementColor || '#084F6E' }}
                       >
                         {pickup.price}
                       </div>
@@ -189,12 +193,12 @@ export default function TextPricingBlock({ block }: TextPricingBlockProps) {
               {includedDescription && (
                 <div className="bg-white rounded-xl shadow-lg p-6 mb-4">
                   <div className="flex items-start gap-4">
-                    <div className="p-2 bg-green-100 rounded-full flex-shrink-0">
-                      <Check className="w-6 h-6 text-green-600" />
+                    <div className="p-2 rounded-full flex-shrink-0" style={{ backgroundColor: `${includedLogoColor}20` }}>
+                      <Check className="w-6 h-6" style={{ color: includedLogoColor }} />
                     </div>
                     <div>
                       <h4 className="text-lg font-bold mb-2">{includedTitle}</h4>
-                      <p className="text-gray-600 leading-relaxed">{includedDescription}</p>
+                      <p className="text-gray-600 leading-relaxed whitespace-pre-line">{includedDescription}</p>
                     </div>
                   </div>
                 </div>
@@ -203,12 +207,12 @@ export default function TextPricingBlock({ block }: TextPricingBlockProps) {
               {notIncludedDescription && (
                 <div className="bg-white rounded-xl shadow-lg p-6">
                   <div className="flex items-start gap-4">
-                    <div className="p-2 bg-red-100 rounded-full flex-shrink-0">
-                      <X className="w-6 h-6 text-red-600" />
+                    <div className="p-2 rounded-full flex-shrink-0" style={{ backgroundColor: `${notIncludedLogoColor}20` }}>
+                      <X className="w-6 h-6" style={{ color: notIncludedLogoColor }} />
                     </div>
                     <div>
                       <h4 className="text-lg font-bold mb-2">{notIncludedTitle}</h4>
-                      <p className="text-gray-600 leading-relaxed">{notIncludedDescription}</p>
+                      <p className="text-gray-600 leading-relaxed whitespace-pre-line">{notIncludedDescription}</p>
                     </div>
                   </div>
                 </div>

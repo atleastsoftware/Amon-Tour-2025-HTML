@@ -7445,6 +7445,28 @@ const BlockEditDropdown = ({
 
             <Separator />
 
+            {/* Couleur Titre */}
+            <div>
+              <Label>Couleur du titre</Label>
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.titleColor ?? '#1F2937'}
+                  onChange={(value) => updateField('titleColor', value)}
+                />
+              </div>
+            </div>
+
+            {/* Couleur Sous-titre */}
+            <div>
+              <Label>Couleur du sous-titre</Label>
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.subtitleColor ?? '#6B7280'}
+                  onChange={(value) => updateField('subtitleColor', value)}
+                />
+              </div>
+            </div>
+
             {/* Tiret */}
             <div>
               <Label>Couleur du tiret</Label>
@@ -7706,9 +7728,9 @@ const BlockEditDropdown = ({
 
                   {/* Included in Price */}
                   <div>
-                    <Label htmlFor="includedTitle">Titre "Included"</Label>
+                    <Label>Included</Label>
                     <Input 
-                      id="includedTitle"
+                      placeholder="Titre"
                       value={formData.includedTitle ?? 'Included in Price'} 
                       onChange={e => updateField('includedTitle', e.target.value)}
                       className="mt-2"
@@ -7716,21 +7738,31 @@ const BlockEditDropdown = ({
                   </div>
 
                   <div>
-                    <Label htmlFor="includedDescription">Description "Included"</Label>
                     <Textarea 
-                      id="includedDescription"
+                      placeholder="Description"
                       value={formData.includedDescription ?? ''} 
                       onChange={e => updateField('includedDescription', e.target.value)}
                       rows={3}
-                      className="mt-2"
                     />
                   </div>
 
+                  <div>
+                    <Label>Couleur du logo</Label>
+                    <div className="mt-2">
+                      <ColorPicker
+                        value={formData.includedLogoColor ?? '#10B981'}
+                        onChange={(value) => updateField('includedLogoColor', value)}
+                      />
+                    </div>
+                  </div>
+
+                  <Separator />
+
                   {/* Not Included in Price */}
                   <div>
-                    <Label htmlFor="notIncludedTitle">Titre "Not Included"</Label>
+                    <Label>Not Included</Label>
                     <Input 
-                      id="notIncludedTitle"
+                      placeholder="Titre"
                       value={formData.notIncludedTitle ?? 'Not Included in Price'} 
                       onChange={e => updateField('notIncludedTitle', e.target.value)}
                       className="mt-2"
@@ -7738,35 +7770,20 @@ const BlockEditDropdown = ({
                   </div>
 
                   <div>
-                    <Label htmlFor="notIncludedDescription">Description "Not Included"</Label>
                     <Textarea 
-                      id="notIncludedDescription"
+                      placeholder="Description"
                       value={formData.notIncludedDescription ?? ''} 
                       onChange={e => updateField('notIncludedDescription', e.target.value)}
                       rows={3}
-                      className="mt-2"
                     />
                   </div>
 
-                  <Separator />
-
-                  {/* Couleurs */}
                   <div>
-                    <Label>Couleur de l'heure</Label>
+                    <Label>Couleur du logo</Label>
                     <div className="mt-2">
                       <ColorPicker
-                        value={formData.pickupTimeColor ?? '#1F2937'}
-                        onChange={(value) => updateField('pickupTimeColor', value)}
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <Label>Couleur du prix</Label>
-                    <div className="mt-2">
-                      <ColorPicker
-                        value={formData.pickupPriceColor ?? '#084F6E'}
-                        onChange={(value) => updateField('pickupPriceColor', value)}
+                        value={formData.notIncludedLogoColor ?? '#EF4444'}
+                        onChange={(value) => updateField('notIncludedLogoColor', value)}
                       />
                     </div>
                   </div>
