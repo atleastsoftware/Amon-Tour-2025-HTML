@@ -3292,7 +3292,7 @@ Crawl-delay: 1`;
         },
         text: {
           identifier: `text_${Date.now()}`,
-          title: 'Titre de la section',
+          title: 'Text + Buttons',
           blockType: 'text',
           configuration: { 
             title: 'Titre de la section',

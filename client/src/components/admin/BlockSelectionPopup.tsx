@@ -58,7 +58,7 @@ const blockTypes: BlockType[] = [
   },
   {
     type: 'text',
-    label: 'Text + Button',
+    label: 'Text + Buttons',
     description: 'Section de texte avec titre, contenu et boutons d\'action',
     icon: FileText,
     preview: (
