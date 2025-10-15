@@ -7438,7 +7438,7 @@ const BlockEditDropdown = ({
                       </Button>
                     </div>
                     <Input
-                      placeholder="Titre (ex: Haute Saison)"
+                      placeholder="Titre"
                       value={card.title || ''}
                       onChange={(e) => {
                         const newCards = [...pricingCards];
@@ -7447,7 +7447,7 @@ const BlockEditDropdown = ({
                       }}
                     />
                     <Input
-                      placeholder="Sous-titre (ex: Période premium)"
+                      placeholder="Sous-titre"
                       value={card.subtitle || ''}
                       onChange={(e) => {
                         const newCards = [...pricingCards];
@@ -7457,7 +7457,7 @@ const BlockEditDropdown = ({
                     />
                     <div className="grid grid-cols-2 gap-2">
                       <Input
-                        placeholder="Prix (ex: 39,000)"
+                        placeholder="Prix"
                         value={card.price || ''}
                         onChange={(e) => {
                           const newCards = [...pricingCards];
@@ -7466,7 +7466,7 @@ const BlockEditDropdown = ({
                         }}
                       />
                       <Input
-                        placeholder="Devise (ex: THB)"
+                        placeholder="Devise"
                         value={card.currency || ''}
                         onChange={(e) => {
                           const newCards = [...pricingCards];
@@ -7476,7 +7476,7 @@ const BlockEditDropdown = ({
                       />
                     </div>
                     <Textarea
-                      placeholder="Période (ex: Déc 15 - Jan 15)"
+                      placeholder="Période"
                       value={card.period || ''}
                       rows={2}
                       onChange={(e) => {
@@ -7486,7 +7486,7 @@ const BlockEditDropdown = ({
                       }}
                     />
                     <Input
-                      placeholder="Gradient header (ex: from-secondary to-secondary/80)"
+                      placeholder="Gradient header"
                       value={card.headerGradient || ''}
                       onChange={(e) => {
                         const newCards = [...pricingCards];
@@ -7502,12 +7502,12 @@ const BlockEditDropdown = ({
                   className="w-full"
                   onClick={() => {
                     const newCards = [...pricingCards, { 
-                      title: '', 
-                      subtitle: '', 
-                      price: '', 
-                      currency: 'THB', 
-                      period: '', 
-                      headerGradient: 'from-primary to-secondary' 
+                      title: 'Titre', 
+                      subtitle: 'Sous-titre', 
+                      price: 'Prix', 
+                      currency: 'Devise', 
+                      period: 'Période', 
+                      headerGradient: 'Gradient header' 
                     }];
                     updateField('pricingCards', newCards);
                   }}
@@ -7538,7 +7538,7 @@ const BlockEditDropdown = ({
                     <Label htmlFor="pickupTitle">Titre de la section</Label>
                     <Input 
                       id="pickupTitle"
-                      value={formData.pickupTitle ?? 'Pick up times and transfer surcharges'} 
+                      value={formData.pickupTitle ?? 'Options supplémentaires'} 
                       onChange={e => updateField('pickupTitle', e.target.value)}
                       className="mt-2"
                     />
@@ -7566,7 +7566,7 @@ const BlockEditDropdown = ({
                           </div>
                           <div className="grid grid-cols-3 gap-2">
                             <Input
-                              placeholder="Heure (ex: 8:30)"
+                              placeholder="Heure"
                               value={pickup.time || ''}
                               onChange={(e) => {
                                 const newTimes = [...(formData.pickupTimes || [])];
@@ -7575,7 +7575,7 @@ const BlockEditDropdown = ({
                               }}
                             />
                             <Input
-                              placeholder="Lieu (ex: Tubkeak)"
+                              placeholder="Lieu"
                               value={pickup.location || ''}
                               onChange={(e) => {
                                 const newTimes = [...(formData.pickupTimes || [])];
@@ -7584,7 +7584,7 @@ const BlockEditDropdown = ({
                               }}
                             />
                             <Input
-                              placeholder="Prix (ex: +1,300 Baht)"
+                              placeholder="Prix"
                               value={pickup.price || ''}
                               onChange={(e) => {
                                 const newTimes = [...(formData.pickupTimes || [])];
@@ -7600,7 +7600,7 @@ const BlockEditDropdown = ({
                         variant="outline"
                         className="w-full"
                         onClick={() => {
-                          const newTimes = [...(formData.pickupTimes || []), { time: '', location: '', price: '' }];
+                          const newTimes = [...(formData.pickupTimes || []), { time: 'Heure', location: 'Lieu', price: 'Prix' }];
                           updateField('pickupTimes', newTimes);
                         }}
                       >

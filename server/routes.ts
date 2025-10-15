@@ -3652,37 +3652,37 @@ Crawl-delay: 1`;
           title: 'Text + Pricing',
           blockType: 'text_pricing',
           configuration: {
-            title: 'Tarification Saisonnière',
-            subtitle: 'Tarif journalier minimum (2 jours minimum)',
+            title: 'Titre de la section',
+            subtitle: 'Description de vos tarifs',
             pricingCards: [
               {
-                title: 'Haute Saison',
-                subtitle: 'Période premium',
-                price: '39,000',
-                currency: 'THB',
-                period: 'Déc 15, 2025 - Jan 15, 2026',
-                headerGradient: 'from-secondary to-secondary/80'
+                title: 'Titre',
+                subtitle: 'Sous-titre',
+                price: 'Prix',
+                currency: 'Devise',
+                period: 'Période',
+                headerGradient: 'Gradient header'
               },
               {
-                title: 'Moyenne Saison',
-                subtitle: 'Tarif standard',
-                price: '31,000',
-                currency: 'THB',
-                period: 'Oct 15 - Déc 14, 2025\nJan 15 - Mar 31, 2026',
-                headerGradient: 'from-primary to-secondary'
+                title: 'Titre',
+                subtitle: 'Sous-titre',
+                price: 'Prix',
+                currency: 'Devise',
+                period: 'Période',
+                headerGradient: 'Gradient header'
               },
               {
-                title: 'Basse Saison',
-                subtitle: 'Meilleur rapport qualité-prix',
-                price: '28,000',
-                currency: 'THB',
-                period: 'Avr 1 - Oct 14, 2026',
-                headerGradient: 'from-primary/80 to-primary'
+                title: 'Titre',
+                subtitle: 'Sous-titre',
+                price: 'Prix',
+                currency: 'Devise',
+                period: 'Période',
+                headerGradient: 'Gradient header'
               }
             ],
             dividerColor: '#3BA8AF',
             showPickupSection: false,
-            pickupTitle: 'Pick up times and transfer surcharges',
+            pickupTitle: 'Options supplémentaires',
             pickupTimes: [
               { time: '8:30', location: 'Tubkeak', price: '+1,300 Baht' },
               { time: '8:30', location: 'Thalane', price: '+1,800 Baht' },

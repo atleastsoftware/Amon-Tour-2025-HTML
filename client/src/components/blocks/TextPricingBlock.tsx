@@ -42,32 +42,32 @@ interface TextPricingBlockProps {
 
 export default function TextPricingBlock({ block }: TextPricingBlockProps) {
   const config = block.configuration ?? {};
-  const title = config.title ?? "Tarification Saisonnière";
-  const subtitle = config.subtitle ?? "Tarif journalier minimum (2 jours minimum)";
+  const title = config.title ?? "Titre de la section";
+  const subtitle = config.subtitle ?? "Description de vos tarifs";
   const pricingCards = config.pricingCards ?? [
     {
-      title: "Haute Saison",
-      subtitle: "Période premium",
-      price: "39,000",
-      currency: "THB",
-      period: "Déc 15, 2025 - Jan 15, 2026",
-      headerGradient: "from-secondary to-secondary/80"
+      title: "Titre",
+      subtitle: "Sous-titre",
+      price: "Prix",
+      currency: "Devise",
+      period: "Période",
+      headerGradient: "Gradient header"
     },
     {
-      title: "Moyenne Saison",
-      subtitle: "Tarif standard",
-      price: "31,000",
-      currency: "THB",
-      period: "Oct 15 - Déc 14, 2025\nJan 15 - Mar 31, 2026",
-      headerGradient: "from-primary to-secondary"
+      title: "Titre",
+      subtitle: "Sous-titre",
+      price: "Prix",
+      currency: "Devise",
+      period: "Période",
+      headerGradient: "Gradient header"
     },
     {
-      title: "Basse Saison",
-      subtitle: "Meilleur rapport qualité-prix",
-      price: "28,000",
-      currency: "THB",
-      period: "Avr 1 - Oct 14, 2026",
-      headerGradient: "from-primary/80 to-primary"
+      title: "Titre",
+      subtitle: "Sous-titre",
+      price: "Prix",
+      currency: "Devise",
+      period: "Période",
+      headerGradient: "Gradient header"
     }
   ];
   const dividerColor = config.dividerColor ?? "#3BA8AF";
@@ -75,7 +75,7 @@ export default function TextPricingBlock({ block }: TextPricingBlockProps) {
   const perDayText = config.perDayText ?? "par jour";
   const periodLabel = config.periodLabel ?? "Période";
   const showPickupSection = config.showPickupSection ?? false;
-  const pickupTitle = config.pickupTitle ?? "Pick up times and transfer surcharges";
+  const pickupTitle = config.pickupTitle ?? "Options supplémentaires";
   const pickupTimes = config.pickupTimes ?? [];
   const includedTitle = config.includedTitle ?? "Included in Price";
   const includedDescription = config.includedDescription ?? "";
