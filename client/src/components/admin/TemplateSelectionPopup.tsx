@@ -507,7 +507,7 @@ export default function TemplateSelectionPopup({ isOpen, onClose, onSelectTempla
           <div className="col-span-1">
             <h3 className="text-sm font-semibold mb-3 text-gray-700">Bibliothèque de templates</h3>
             <ScrollArea className="h-[600px] pr-4">
-              <div className="space-y-2 pb-20">
+              <div className="space-y-2 pb-32">
                 {templates.map((template) => {
                   const Icon = template.icon;
                   return (
