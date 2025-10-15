@@ -396,151 +396,6 @@ export default function AdminLegalPages() {
           </div>
         </div>
 
-        {/* Create Button and Clean Database Button */}
-        <div className="mb-6 flex gap-3">
-          <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
-            <DialogTrigger asChild>
-              <Button className="flex items-center gap-2">
-                <Plus className="w-4 h-4" />
-                Créer une page légale
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto">
-              <DialogHeader>
-                <DialogTitle>Créer une nouvelle page légale</DialogTitle>
-                <DialogDescription>
-                  Éditez directement le contenu avec mise en forme visuelle
-                </DialogDescription>
-              </DialogHeader>
-              <div className="space-y-4 py-4">
-                {/* Title Field */}
-                <div className="space-y-2">
-                  <Label htmlFor="title">Titre de la page *</Label>
-                  <Input
-                    id="title"
-                    placeholder="ex: Legal Notice"
-                    value={formData.title}
-                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                    className="text-lg font-semibold"
-                  />
-                </div>
-
-                {/* Rich Text Toolbar */}
-                <div className="space-y-2">
-                  <Label>Barre d'outils de formatage</Label>
-                  <div className="flex flex-wrap gap-1 p-2 bg-muted rounded-md border">
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => insertHeading(2)}
-                      title="Titre H2"
-                    >
-                      <Heading1 className="w-4 h-4" />
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => insertHeading(3)}
-                      title="Titre H3"
-                    >
-                      <Heading2 className="w-4 h-4" />
-                    </Button>
-                    <div className="w-px bg-border mx-1" />
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
-                      onClick={insertBold}
-                      title="Gras"
-                    >
-                      <Bold className="w-4 h-4" />
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
-                      onClick={insertItalic}
-                      title="Italique"
-                    >
-                      <Italic className="w-4 h-4" />
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
-                      onClick={insertHighlight}
-                      title="Surligné"
-                    >
-                      <Highlighter className="w-4 h-4" />
-                    </Button>
-                    <div className="w-px bg-border mx-1" />
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
-                      onClick={insertAlignLeft}
-                      title="Aligner à gauche"
-                    >
-                      <AlignLeft className="w-4 h-4" />
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
-                      onClick={insertAlignCenter}
-                      title="Centrer"
-                    >
-                      <AlignCenter className="w-4 h-4" />
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
-                      onClick={insertAlignRight}
-                      title="Aligner à droite"
-                    >
-                      <AlignRight className="w-4 h-4" />
-                    </Button>
-                    <div className="w-px bg-border mx-1" />
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
-                      onClick={insertBulletList}
-                      title="Liste à puces"
-                    >
-                      <List className="w-4 h-4" />
-                    </Button>
-                  </div>
-                </div>
-
-                {/* ContentEditable Editor */}
-                <div className="space-y-2">
-                  <Label>Contenu éditable</Label>
-                  <div
-                    ref={contentEditableRef}
-                    contentEditable
-                    onInput={handleContentChange}
-                    className="border rounded-lg p-6 bg-white min-h-[400px] prose prose-headings:font-heading prose-h2:text-2xl prose-h2:font-semibold prose-h2:mb-4 prose-h3:text-xl prose-h3:font-semibold prose-h3:mb-3 prose-p:mb-4 prose-ul:list-disc prose-ul:pl-6 prose-ul:mb-4 prose-ul:space-y-1 prose-strong:font-bold max-w-none focus:outline-none focus:ring-2 focus:ring-primary"
-                  />
-                  <p className="text-sm text-muted-foreground">
-                    Cliquez dans la zone ci-dessus pour éditer directement. Sélectionnez du texte et utilisez les boutons de formatage.
-                  </p>
-                </div>
-              </div>
-              <div className="flex justify-end gap-2 pt-4 border-t">
-                <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)}>
-                  Annuler
-                </Button>
-                <Button onClick={handleCreatePage} disabled={createPageMutation.isPending}>
-                  {createPageMutation.isPending ? 'Création...' : 'Créer la page'}
-                </Button>
-              </div>
-            </DialogContent>
-          </Dialog>
-        </div>
 
         {/* Legal Pages List */}
         {isLoading ? (
@@ -553,8 +408,12 @@ export default function AdminLegalPages() {
             </CardContent>
           </Card>
         ) : (
-          <div className="space-y-4">
-            {legalPages.map((page) => (
+          <div className="space-y-6">
+            {/* Fixed Legal Pages - Cannot be deleted */}
+            <div className="space-y-4">
+              {legalPages
+                .filter(page => ['legal-notice', 'privacy-policy', 'terms-conditions'].includes(page.pageSlug))
+                .map((page) => (
               <motion.div
                 key={page.id}
                 initial={{ opacity: 0, y: 20 }}
@@ -753,146 +612,258 @@ export default function AdminLegalPages() {
                   </CardContent>
                 </Card>
               </motion.div>
-            ))}
+                ))}
+            </div>
+
+            {/* Create Legal Page Button */}
+            <div className="flex justify-center py-4">
+              <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
+                <DialogTrigger asChild>
+                  <Button variant="outline" className="flex items-center gap-2">
+                    <Plus className="w-4 h-4" />
+                    Créer une page légale
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Créer une nouvelle page légale</DialogTitle>
+                    <DialogDescription>
+                      Entrez le nom de la nouvelle page légale
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="space-y-4 py-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="new-page-name">Nom de la page *</Label>
+                      <Input
+                        id="new-page-name"
+                        value={formData.title}
+                        onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                        placeholder="Ex: Politique de cookies"
+                      />
+                      <p className="text-xs text-muted-foreground">
+                        L'URL sera générée automatiquement à partir du nom
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex justify-end gap-2">
+                    <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)}>
+                      Annuler
+                    </Button>
+                    <Button onClick={handleCreatePage} disabled={createPageMutation.isPending}>
+                      {createPageMutation.isPending ? 'Création...' : 'Créer'}
+                    </Button>
+                  </div>
+                </DialogContent>
+              </Dialog>
+            </div>
+
+            {/* User-Created Legal Pages - Can be deleted */}
+            <div className="space-y-4">
+              {legalPages
+                .filter(page => !['legal-notice', 'privacy-policy', 'terms-conditions'].includes(page.pageSlug))
+                .map((page) => (
+              <motion.div
+                key={page.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Card className="hover:shadow-md transition-shadow">
+                  <CardContent className="p-6">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-4 flex-1">
+                        <FileText className="w-8 h-8 text-[hsl(var(--success))] flex-shrink-0" />
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-lg">{page.pageName}</h3>
+                          <p className="text-sm text-muted-foreground">/{page.pageSlug}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="gap-2"
+                          onClick={() => window.open(`/${page.pageSlug}`, '_blank')}
+                          data-testid={`button-view-${page.id}`}
+                        >
+                          <Eye className="w-4 h-4" />
+                          Voir
+                        </Button>
+                        <Button
+                          variant={editingPageId === page.id ? "default" : "outline"}
+                          size="sm"
+                          className="gap-2"
+                          onClick={() => handleEditClick(page)}
+                          data-testid={`button-edit-${page.id}`}
+                        >
+                          <Edit className="w-4 h-4" />
+                          {editingPageId === page.id ? 'Fermer' : 'Modifier'}
+                        </Button>
+                        <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                            <Button 
+                              variant="outline" 
+                              size="sm" 
+                              className="text-destructive hover:text-destructive"
+                              data-testid={`button-delete-${page.id}`}
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              <AlertDialogTitle>Confirmer la suppression</AlertDialogTitle>
+                              <AlertDialogDescription>
+                                Voulez-vous vraiment supprimer "{page.pageName}" ? Cette action est irréversible.
+                              </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel>Annuler</AlertDialogCancel>
+                              <AlertDialogAction
+                                onClick={() => deletePageMutation.mutate(page.id)}
+                                className="bg-destructive text-destructive-foreground"
+                              >
+                                Supprimer
+                              </AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
+                      </div>
+                    </div>
+
+                    {/* Inline Editor - shows when editing this page */}
+                    {editingPageId === page.id && (
+                      <div className="mt-6 pt-6 border-t space-y-4">
+                        <div className="space-y-2">
+                          <Label htmlFor={`title-${page.id}`}>Titre</Label>
+                          <Input
+                            id={`title-${page.id}`}
+                            value={formData.title}
+                            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                          />
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label>Contenu</Label>
+                          
+                          {/* Formatting Toolbar */}
+                          <div className="border rounded-lg p-2 bg-muted/50 flex flex-wrap gap-1">
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => insertHeading(2)}
+                              title="Titre 2"
+                            >
+                              <Heading1 className="w-4 h-4" />
+                            </Button>
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => insertHeading(3)}
+                              title="Titre 3"
+                            >
+                              <Heading2 className="w-4 h-4" />
+                            </Button>
+                            <div className="w-px bg-border mx-1" />
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="sm"
+                              onClick={insertBold}
+                              title="Gras"
+                            >
+                              <Bold className="w-4 h-4" />
+                            </Button>
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="sm"
+                              onClick={insertItalic}
+                              title="Italique"
+                            >
+                              <Italic className="w-4 h-4" />
+                            </Button>
+                            <div className="w-px bg-border mx-1" />
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="sm"
+                              onClick={insertAlignLeft}
+                              title="Aligner à gauche"
+                            >
+                              <AlignLeft className="w-4 h-4" />
+                            </Button>
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="sm"
+                              onClick={insertAlignCenter}
+                              title="Centrer"
+                            >
+                              <AlignCenter className="w-4 h-4" />
+                            </Button>
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="sm"
+                              onClick={insertAlignRight}
+                              title="Aligner à droite"
+                            >
+                              <AlignRight className="w-4 h-4" />
+                            </Button>
+                            <div className="w-px bg-border mx-1" />
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="sm"
+                              onClick={insertBulletList}
+                              title="Liste à puces"
+                            >
+                              <List className="w-4 h-4" />
+                            </Button>
+                          </div>
+
+                          {/* Visual Editor */}
+                          <div
+                            ref={contentEditableRef}
+                            contentEditable
+                            onInput={handleContentChange}
+                            className="border rounded-lg p-6 bg-white min-h-[400px] prose prose-sm max-w-none focus:outline-none focus:ring-2 focus:ring-primary"
+                            suppressContentEditableWarning
+                          />
+                          <p className="text-xs text-muted-foreground">
+                            Cliquez dans la zone ci-dessus pour éditer. Sélectionnez du texte et utilisez les boutons de formatage.
+                          </p>
+                        </div>
+
+                        <div className="flex justify-end gap-2">
+                          <Button 
+                            variant="outline" 
+                            onClick={() => {
+                              setEditingPageId(null);
+                              setFormData({ title: '', content: '' });
+                            }}
+                          >
+                            Annuler
+                          </Button>
+                          <Button 
+                            onClick={handleUpdatePage}
+                            disabled={updatePageMutation.isPending}
+                          >
+                            {updatePageMutation.isPending ? 'Enregistrement...' : 'Enregistrer'}
+                          </Button>
+                        </div>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              </motion.div>
+                ))}
+            </div>
           </div>
         )}
-
-        {/* Edit Dialog */}
-        <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-          <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto">
-            <DialogHeader>
-              <DialogTitle>Modifier : {selectedPage?.pageName}</DialogTitle>
-              <DialogDescription>
-                Éditez directement le contenu avec mise en forme visuelle
-              </DialogDescription>
-            </DialogHeader>
-            <div className="space-y-4 py-4">
-              {/* Title Field */}
-              <div className="space-y-2">
-                <Label htmlFor="edit-title">Titre de la page *</Label>
-                <Input
-                  id="edit-title"
-                  value={formData.title}
-                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                  className="text-lg font-semibold"
-                />
-              </div>
-
-              {/* Rich Text Toolbar */}
-              <div className="space-y-2">
-                <Label>Barre d'outils de formatage</Label>
-                <div className="flex flex-wrap gap-1 p-2 bg-muted rounded-md border">
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => insertHeading(2)}
-                    title="Titre H2"
-                  >
-                    <Heading1 className="w-4 h-4" />
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => insertHeading(3)}
-                    title="Titre H3"
-                  >
-                    <Heading2 className="w-4 h-4" />
-                  </Button>
-                  <div className="w-px bg-border mx-1" />
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={insertBold}
-                    title="Gras"
-                  >
-                    <Bold className="w-4 h-4" />
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={insertItalic}
-                    title="Italique"
-                  >
-                    <Italic className="w-4 h-4" />
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={insertHighlight}
-                    title="Surligné"
-                  >
-                    <Highlighter className="w-4 h-4" />
-                  </Button>
-                  <div className="w-px bg-border mx-1" />
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={insertAlignLeft}
-                    title="Aligner à gauche"
-                  >
-                    <AlignLeft className="w-4 h-4" />
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={insertAlignCenter}
-                    title="Centrer"
-                  >
-                    <AlignCenter className="w-4 h-4" />
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={insertAlignRight}
-                    title="Aligner à droite"
-                  >
-                    <AlignRight className="w-4 h-4" />
-                  </Button>
-                  <div className="w-px bg-border mx-1" />
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={insertBulletList}
-                    title="Liste à puces"
-                  >
-                    <List className="w-4 h-4" />
-                  </Button>
-                </div>
-              </div>
-
-              {/* ContentEditable Editor */}
-              <div className="space-y-2">
-                <Label>Contenu éditable</Label>
-                <div
-                  ref={contentEditableRef}
-                  contentEditable
-                  onInput={handleContentChange}
-                  className="border rounded-lg p-6 bg-white min-h-[400px] prose prose-headings:font-heading prose-h2:text-2xl prose-h2:font-semibold prose-h2:mb-4 prose-h3:text-xl prose-h3:font-semibold prose-h3:mb-3 prose-p:mb-4 prose-ul:list-disc prose-ul:pl-6 prose-ul:mb-4 prose-ul:space-y-1 prose-strong:font-bold max-w-none focus:outline-none focus:ring-2 focus:ring-primary"
-                />
-                <p className="text-sm text-muted-foreground">
-                  Cliquez dans la zone ci-dessus pour éditer directement. Sélectionnez du texte et utilisez les boutons de formatage.
-                </p>
-              </div>
-            </div>
-            <div className="flex justify-end gap-2 pt-4 border-t">
-              <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>
-                Annuler
-              </Button>
-              <Button onClick={handleUpdatePage} disabled={updatePageMutation.isPending}>
-                {updatePageMutation.isPending ? 'Mise à jour...' : 'Mettre à jour'}
-              </Button>
-            </div>
-          </DialogContent>
-        </Dialog>
       </div>
     </div>
   );
