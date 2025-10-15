@@ -76,37 +76,163 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
       case 'hero':
       case 'hero_banner':
       case 'hero_video':
+        const heroConfig = block.configuration || {};
+        
+        // Helper function to render title with colored accent
+        const renderHeroTitle = () => {
+          const fullTitle = heroConfig.title || block.title || "Your exclusive experiences\nin Krabi –\nTHAILAND";
+          const accentText = heroConfig.titleAccentText || "in Krabi –";
+          const titleColor = heroConfig.titleColor || '#ffffff';
+          const accentColor = heroConfig.titleAccentColor || '#3BA8AF';
+          
+          if (fullTitle.includes(accentText)) {
+            const parts = fullTitle.split(accentText);
+            return (
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" style={{ whiteSpace: 'pre-line' }}>
+                {parts[0] && <span style={{ color: titleColor }}>{parts[0]}</span>}
+                <span style={{ color: accentColor }}>{accentText}</span>
+                {parts[1] && <span style={{ color: titleColor }}>{parts[1]}</span>}
+              </h1>
+            );
+          }
+          return <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" style={{ color: titleColor, whiteSpace: 'pre-line' }}>{fullTitle}</h1>;
+        };
+        
+        // Background rendering based on type
+        const renderHeroBackground = () => {
+          const bgType = heroConfig.backgroundType || 'image';
+          
+          switch (bgType) {
+            case 'color':
+              return (
+                <div 
+                  className="absolute inset-0 w-full h-full z-0"
+                  style={{ backgroundColor: heroConfig.backgroundColor || '#084F6E' }}
+                />
+              );
+            
+            case 'images':
+              const images = [
+                heroConfig.backgroundImage1,
+                heroConfig.backgroundImage2,
+                heroConfig.backgroundImage3
+              ].filter(Boolean);
+              
+              if (images.length > 0) {
+                return (
+                  <div className="absolute inset-0 w-full h-full z-0">
+                    <img
+                      src={images[0]}
+                      alt=""
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                  </div>
+                );
+              }
+              return <div className="absolute inset-0 w-full h-full z-0 bg-gradient-to-br from-primary to-secondary" />;
+            
+            case 'video':
+              if (heroConfig.videoUrl) {
+                return (
+                  <div className="absolute inset-0 w-full h-full z-0">
+                    <video
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="absolute inset-0 w-full h-full object-cover"
+                    >
+                      <source src={heroConfig.videoUrl} type="video/mp4" />
+                    </video>
+                  </div>
+                );
+              }
+              return <div className="absolute inset-0 w-full h-full z-0 bg-gradient-to-br from-primary to-secondary" />;
+            
+            default:
+              if (block.imageUrl || heroConfig.backgroundImage) {
+                return (
+                  <img 
+                    src={block.imageUrl || heroConfig.backgroundImage} 
+                    alt={block.imageAlt || ''} 
+                    className="absolute inset-0 w-full h-full object-cover z-0"
+                  />
+                );
+              }
+              return <div className="absolute inset-0 w-full h-full z-0 bg-gradient-to-br from-primary to-secondary" />;
+          }
+        };
+
+        const contentAlignment = (heroConfig.contentAlignment || 'center') as 'left' | 'center' | 'right';
+        const alignmentClasses = {
+          left: 'items-center justify-start text-left',
+          center: 'items-center justify-center text-center',
+          right: 'items-center justify-end text-right'
+        }[contentAlignment];
+
         return (
-          <div key={block.id} className="relative h-[52vh] bg-gradient-to-br from-primary to-secondary flex items-center justify-center w-full">
-            {block.imageUrl && (
-              <img 
-                src={block.imageUrl} 
-                alt={block.imageAlt || block.title || ''} 
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-            )}
-            {/* Overlay pour améliorer le contraste du texte blanc */}
+          <section key={block.id} className="relative pt-32 pb-20 min-h-screen flex overflow-hidden">
+            {renderHeroBackground()}
             <div className="absolute inset-0 bg-black/40 z-10"></div>
-            <div className="relative z-20 w-full px-8 md:px-12 lg:px-16 text-center">
-              {block.title && (
-                <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">{block.title}</h1>
-              )}
-              {block.subtitle && (
-                <p className="text-xl text-white/90 mb-4">{block.subtitle}</p>
-              )}
-              {block.description && (
-                <p className="text-lg text-white/80 mb-8 max-w-3xl mx-auto">{block.description}</p>
-              )}
-              {block.ctaText && block.ctaUrl && (
-                <a 
-                  href={block.ctaUrl} 
-                  className="inline-block bg-white text-primary px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors font-semibold shadow-lg"
-                >
-                  {block.ctaText}
-                </a>
-              )}
+            <div className={`relative z-20 w-full px-8 md:px-12 lg:px-16 flex ${alignmentClasses}`}>
+              <div className="max-w-5xl">
+                {renderHeroTitle()}
+                {(heroConfig.subtitle || block.subtitle) && (
+                  <p 
+                    className="text-lg md:text-xl mb-8 max-w-3xl"
+                    style={{ 
+                      color: heroConfig.subtitleColor || '#ffffff',
+                      whiteSpace: 'pre-line'
+                    }}
+                  >
+                    {heroConfig.subtitle || block.subtitle}
+                  </p>
+                )}
+                {heroConfig.buttons && heroConfig.buttons.length > 0 && (
+                  <div className={`flex gap-4 mt-8 ${contentAlignment === 'center' ? 'justify-center' : contentAlignment === 'right' ? 'justify-end' : 'justify-start'}`}>
+                    {heroConfig.buttons.map((button: any, index: number) => {
+                      if (!button.text) return null;
+                      
+                      const buttonStyle = button.style || 'solid';
+                      const buttonColor = button.color || '#3BA8AF';
+                      const buttonTextColor = button.textColor || '#ffffff';
+                      
+                      if (buttonStyle === 'outline') {
+                        return (
+                          <a
+                            key={index}
+                            href={button.url || '#'}
+                            className="px-6 py-3 rounded-lg font-semibold transition-all hover:opacity-90"
+                            style={{
+                              backgroundColor: 'transparent',
+                              color: buttonColor,
+                              border: `2px solid ${buttonColor}`
+                            }}
+                          >
+                            {button.text}
+                          </a>
+                        );
+                      }
+                      
+                      return (
+                        <a
+                          key={index}
+                          href={button.url || '#'}
+                          className="px-6 py-3 rounded-lg font-semibold transition-all hover:opacity-90"
+                          style={{
+                            backgroundColor: buttonColor,
+                            color: buttonTextColor
+                          }}
+                        >
+                          {button.text}
+                        </a>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
+          </section>
         );
 
       case 'text':
