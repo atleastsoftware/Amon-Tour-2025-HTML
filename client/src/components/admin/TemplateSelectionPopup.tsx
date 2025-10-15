@@ -3,13 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Home, FileText, Sparkles, Layout, Ship, MessageSquare, Palette } from 'lucide-react';
-import { getFullBlockPreviews } from './SharedBlockPreviews';
-
-interface BlockPreview {
-  type: string;
-  label: string;
-  preview: JSX.Element;
-}
+import { getMiniBlockPreviews, type BlockPreview } from './SharedBlockPreviews';
 
 interface Template {
   id: string;
@@ -19,24 +13,7 @@ interface Template {
   blocks: BlockPreview[];
 }
 
-// Get mini previews from shared block previews
-const getBlockPreviews = () => {
-  const fullPreviews = getFullBlockPreviews();
-  const miniPreviews: { [key: string]: BlockPreview } = {};
-  
-  Object.keys(fullPreviews).forEach(key => {
-    const block = fullPreviews[key];
-    miniPreviews[key] = {
-      type: block.type,
-      label: block.label,
-      preview: block.miniPreview || block.preview
-    };
-  });
-  
-  return miniPreviews;
-};
-
-const blockPreviews = getBlockPreviews();
+const blockPreviews = getMiniBlockPreviews();
 
 const templates: Template[] = [
   {
