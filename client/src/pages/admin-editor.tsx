@@ -54,7 +54,7 @@ export default function AdminEditor() {
       title: 'Éditeur de mention légal',
       description: 'Créer et gérer les pages légales (mentions, CGV, confidentialité)',
       icon: Scale,
-      route: '/admin-legal-pages',
+      route: '/admin-editor-legal',
       color: 'bg-[hsl(var(--success)/0.05)] border-[hsl(var(--success)/0.2)] hover:bg-[hsl(var(--success)/0.1)]',
       iconColor: 'text-[hsl(var(--success))]'
     },
