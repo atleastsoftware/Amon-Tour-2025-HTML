@@ -18,6 +18,8 @@ import ContactBlock from "@/components/blocks/ContactBlock";
 import BlogSearchBlock from "@/components/blocks/BlogSearchBlock";
 import TextGalleryBlock from "@/components/blocks/TextGalleryBlock";
 import TextVideoBlock from "@/components/blocks/TextVideoBlock";
+import TextListingBlock from "@/components/blocks/TextListingBlock";
+import TextPricingBlock from "@/components/blocks/TextPricingBlock";
 
 interface PageBlock {
   id: number;
@@ -504,6 +506,20 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
         return (
           <div key={block.id} className="w-full">
             <TextVideoBlock block={block} />
+          </div>
+        );
+
+      case 'text_listing':
+        return (
+          <div key={block.id} className="w-full">
+            <TextListingBlock block={block} />
+          </div>
+        );
+
+      case 'text_pricing':
+        return (
+          <div key={block.id} className="w-full">
+            <TextPricingBlock block={block} />
           </div>
         );
 
