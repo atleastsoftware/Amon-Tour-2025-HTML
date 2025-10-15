@@ -8609,18 +8609,41 @@ export default function AdminPageEditor() {
               <p className="text-gray-400 text-sm mb-6">
                 Commencez par ajouter votre premier bloc pour construire cette page
               </p>
-              <Button
-                onClick={() => {
-                  setInsertPosition(0);
-                  setIsBlockPopupOpen(true);
-                }}
-                className="text-white"
-                style={{ backgroundColor: THEME_COLORS.secondary }}
-                data-testid="button-add-first-block"
-              >
-                <Plus className="w-4 h-4 mr-2" />
-                Ajouter un premier bloc
-              </Button>
+              <div className="flex justify-center gap-3">
+                <Button
+                  onClick={() => {
+                    setInsertPosition(0);
+                    setIsBlockPopupOpen(true);
+                  }}
+                  className="text-white"
+                  style={{ backgroundColor: THEME_COLORS.secondary }}
+                  data-testid="button-add-first-block"
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Ajouter un premier bloc
+                </Button>
+                
+                <Button
+                  onClick={() => {
+                    setIsTemplatePopupOpen(true);
+                  }}
+                  className="flex items-center gap-2"
+                  style={{ 
+                    backgroundColor: '#10B981',
+                    color: 'white'
+                  }}
+                  data-testid="button-add-template"
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#059669';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = '#10B981';
+                  }}
+                >
+                  <Layout className="w-5 h-5" />
+                  Ajouter un template
+                </Button>
+              </div>
             </div>
           ) : (
             <div className="space-y-0">
@@ -8820,8 +8843,8 @@ export default function AdminPageEditor() {
               </AnimatePresence>
 
 
-              {/* Boutons pour ajouter un bloc ou un template */}
-              <div className="mt-6 flex justify-center gap-3">
+              {/* Bouton pour ajouter un bloc */}
+              <div className="mt-6 flex justify-center">
                 <Button
                   onClick={() => {
                     const lastBlock = sortedBlocks[sortedBlocks.length - 1];
@@ -8844,29 +8867,6 @@ export default function AdminPageEditor() {
                   <Plus className="w-5 h-5" />
                   Ajouter un bloc
                 </Button>
-                
-                {sortedBlocks.length === 0 && (
-                  <Button
-                    onClick={() => {
-                      setIsTemplatePopupOpen(true);
-                    }}
-                    className="flex items-center gap-2"
-                    style={{ 
-                      backgroundColor: '#10B981',
-                      color: 'white'
-                    }}
-                    data-testid="button-add-template"
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = '#059669';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = '#10B981';
-                    }}
-                  >
-                    <Layout className="w-5 h-5" />
-                    Ajouter un template
-                  </Button>
-                )}
               </div>
             </div>
           )}
