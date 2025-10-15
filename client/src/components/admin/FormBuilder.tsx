@@ -1120,7 +1120,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div>
-                    <Label>Titre *</Label>
+                    <Label>Titre</Label>
                     <Input
                       value={formData.title}
                       onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
