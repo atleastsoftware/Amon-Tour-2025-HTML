@@ -21,7 +21,6 @@ export default function TextListingBlock({ block }: TextListingBlockProps) {
   const allItems = config.items ?? [
     { label: "1", description: "Description de votre element" },
     { label: "2", description: "Description de votre element" },
-    { label: "3", description: "Description de votre element" },
   ];
   // Filtrer les items vides (sans label ni description)
   const items = allItems.filter(item => item.label || item.description);
