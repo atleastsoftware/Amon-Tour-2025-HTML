@@ -608,6 +608,8 @@ export const blockTypeEnum = pgEnum("block_type", [
   "who_we_are",          // Section texte + images (2 colonnes)
   "expats_welcome",      // Section de bienvenue expats
   "blog_search",         // Barre de recherche blog avec filtres tags/catégories
+  "text_listing",        // Section texte + liste d'items (label + description)
+  "text_pricing",        // Section texte + cartes de tarification saisonnière
 ]);
 
 // Enum pour les types de pages
