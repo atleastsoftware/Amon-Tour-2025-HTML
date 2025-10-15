@@ -448,26 +448,32 @@ const blockTypes: BlockType[] = [
       <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
         <div className="text-center mb-3">
           <h2 className="font-bold text-sm mb-2" style={{ color: '#333333' }}>
-            Tarification Saisonnière
+            Titre de la section
           </h2>
           <div className="w-12 h-0.5 mx-auto mb-2" style={{ backgroundColor: '#3BA8AF' }}></div>
           <p className="text-xs" style={{ color: '#666666' }}>
-            Tarif journalier minimum
+            Description de vos tarifs
           </p>
         </div>
         <div className="grid grid-cols-3 gap-2">
           {[
-            { title: 'Haute', price: '39,000', gradient: 'from-[#3BA8AF] to-[#3BA8AF]/80' },
-            { title: 'Moyenne', price: '31,000', gradient: 'from-[#084F6E] to-[#3BA8AF]' },
-            { title: 'Basse', price: '28,000', gradient: 'from-[#084F6E]/80 to-[#084F6E]' }
-          ].map((season, i) => (
+            { title: 'Titre', subtitle: 'Sous-titre', price: 'Prix', currency: 'Devise', cycle: 'Cycle', label: 'Label', moreText: 'Texte', color: '#084F6E' },
+            { title: 'Titre', subtitle: 'Sous-titre', price: 'Prix', currency: 'Devise', cycle: 'Cycle', label: 'Label', moreText: 'Texte', color: '#084F6E' },
+            { title: 'Titre', subtitle: 'Sous-titre', price: 'Prix', currency: 'Devise', cycle: 'Cycle', label: 'Label', moreText: 'Texte', color: '#084F6E' }
+          ].map((card, i) => (
             <div key={i} className="rounded-lg overflow-hidden shadow-sm">
-              <div className={`bg-gradient-to-r ${season.gradient} text-white p-1.5 text-center`}>
-                <div className="text-xs font-bold">{season.title}</div>
+              <div className="text-white p-1.5 text-center" style={{ backgroundColor: card.color }}>
+                <div className="text-xs font-bold">{card.title}</div>
+                <div className="text-[10px] opacity-90">{card.subtitle}</div>
               </div>
               <div className="bg-white p-2 text-center">
-                <div className="text-sm font-bold">{season.price}</div>
-                <div className="text-xs text-gray-500">THB</div>
+                <div className="text-sm font-bold">{card.price}</div>
+                <div className="text-xs text-gray-500">{card.currency}</div>
+                <div className="text-xs text-gray-400 mt-0.5">{card.cycle}</div>
+                <div className="border-t border-gray-200 mt-1 pt-1">
+                  <div className="text-xs font-semibold text-gray-700">{card.label}</div>
+                  <div className="text-[10px] text-gray-500">{card.moreText}</div>
+                </div>
               </div>
             </div>
           ))}
