@@ -51,26 +51,109 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
     // Dans le futur, chaque type de bloc aura son propre composant
     switch (block.blockType) {
       case 'header_page':
+        const headerPageConfig = block.configuration || {};
+        
+        // Background rendering based on type
+        const renderHeaderBackground = () => {
+          const bgType = headerPageConfig.backgroundType || 'image';
+          
+          switch (bgType) {
+            case 'color':
+              return (
+                <div 
+                  className="absolute inset-0 w-full h-full z-0"
+                  style={{ backgroundColor: headerPageConfig.backgroundColor || '#084F6E' }}
+                />
+              );
+            
+            case 'gradient':
+              return (
+                <div 
+                  className="absolute inset-0 w-full h-full z-0"
+                  style={{ 
+                    background: `linear-gradient(135deg, ${headerPageConfig.gradientColor1 || '#084F6E'} 0%, ${headerPageConfig.gradientColor2 || '#3BA8AF'} 100%)` 
+                  }}
+                />
+              );
+            
+            case 'video':
+              if (headerPageConfig.videoUrl) {
+                return (
+                  <div className="absolute inset-0 w-full h-full z-0">
+                    <video
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="auto"
+                      className="w-full h-full object-cover"
+                    >
+                      <source src={headerPageConfig.videoUrl} type="video/mp4" />
+                    </video>
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
+                  </div>
+                );
+              }
+              return <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-primary to-secondary z-0" />;
+            
+            case 'image':
+            default:
+              if (headerPageConfig.imageUrl || block.imageUrl) {
+                return (
+                  <>
+                    <img 
+                      src={headerPageConfig.imageUrl || block.imageUrl} 
+                      alt={headerPageConfig.imageAlt || block.imageAlt || block.title || ''} 
+                      className="absolute inset-0 w-full h-full object-cover z-0"
+                    />
+                    <div className="absolute inset-0 bg-black/50 z-10"></div>
+                  </>
+                );
+              }
+              return (
+                <>
+                  <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-primary to-secondary z-0" />
+                  <div className="absolute inset-0 bg-black/50 z-10"></div>
+                </>
+              );
+          }
+        };
+        
+        const frameSize = headerPageConfig.frameSize || 'small';
+        const heightClass = frameSize === 'large' ? 'h-[70vh]' : 'h-[35vh] md:h-[52vh]';
+        
         return (
-          <div key={block.id} className="relative h-[35vh] md:h-[52vh] bg-gradient-to-br from-primary to-secondary flex items-center justify-center w-full">
-            {block.imageUrl && (
-              <img 
-                src={block.imageUrl} 
-                alt={block.imageAlt || block.title || ''} 
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-            )}
-            {/* Overlay pour améliorer le contraste du texte blanc */}
-            <div className="absolute inset-0 bg-black/50 z-10"></div>
-            <div className="relative z-20 w-full px-8 md:px-12 lg:px-16 text-center">
-              {block.title && (
-                <h1 className="text-4xl md:text-5xl font-heading font-bold text-white mb-4">{block.title}</h1>
+          <section key={block.id} className={`relative ${heightClass}`}>
+            {renderHeaderBackground()}
+            <div className="relative z-20 container mx-auto px-4 h-full flex flex-col items-center justify-center text-center text-white">
+              {headerPageConfig.iconUrl && (
+                <div 
+                  className="w-16 h-16 mx-auto mb-6"
+                  style={{ 
+                    filter: headerPageConfig.iconColor ? `brightness(0) saturate(100%) invert(${headerPageConfig.iconColor === '#ffffff' ? '100%' : '0%'})` : undefined 
+                  }}
+                >
+                  <img src={headerPageConfig.iconUrl} alt="" className="w-full h-full object-contain" />
+                </div>
               )}
-              {block.subtitle && (
-                <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto">{block.subtitle}</p>
+              {(headerPageConfig.title || block.title) && (
+                <h1 
+                  className="text-4xl md:text-5xl font-heading font-bold mb-4"
+                  style={{ color: headerPageConfig.titleColor || '#ffffff', whiteSpace: 'pre-line' }}
+                >
+                  {headerPageConfig.title || block.title}
+                </h1>
+              )}
+              {(headerPageConfig.subtitle || block.subtitle) && (
+                <p 
+                  className="text-lg md:text-xl max-w-2xl mx-auto"
+                  style={{ color: headerPageConfig.subtitleColor || '#ffffff', whiteSpace: 'pre-line' }}
+                >
+                  {headerPageConfig.subtitle || block.subtitle}
+                </p>
               )}
             </div>
-          </div>
+          </section>
         );
 
       case 'hero':
