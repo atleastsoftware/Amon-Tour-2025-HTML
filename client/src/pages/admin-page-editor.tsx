@@ -7489,24 +7489,26 @@ const BlockEditDropdown = ({
                         Supprimer
                       </Button>
                     </div>
-                    <Input
-                      placeholder="Titre"
-                      value={card.title || ''}
-                      onChange={(e) => {
-                        const newCards = [...pricingCards];
-                        newCards[index] = { ...newCards[index], title: e.target.value };
-                        updateField('pricingCards', newCards);
-                      }}
-                    />
-                    <Input
-                      placeholder="Sous-titre"
-                      value={card.subtitle || ''}
-                      onChange={(e) => {
-                        const newCards = [...pricingCards];
-                        newCards[index] = { ...newCards[index], subtitle: e.target.value };
-                        updateField('pricingCards', newCards);
-                      }}
-                    />
+                    <div className="grid grid-cols-2 gap-2">
+                      <Input
+                        placeholder="Titre"
+                        value={card.title || ''}
+                        onChange={(e) => {
+                          const newCards = [...pricingCards];
+                          newCards[index] = { ...newCards[index], title: e.target.value };
+                          updateField('pricingCards', newCards);
+                        }}
+                      />
+                      <Input
+                        placeholder="Sous-titre"
+                        value={card.subtitle || ''}
+                        onChange={(e) => {
+                          const newCards = [...pricingCards];
+                          newCards[index] = { ...newCards[index], subtitle: e.target.value };
+                          updateField('pricingCards', newCards);
+                        }}
+                      />
+                    </div>
                     <div className="grid grid-cols-2 gap-2">
                       <Input
                         placeholder="Prix"
@@ -7527,24 +7529,26 @@ const BlockEditDropdown = ({
                         }}
                       />
                     </div>
-                    <Input
-                      placeholder="Cycle"
-                      value={card.cycle || ''}
-                      onChange={(e) => {
-                        const newCards = [...pricingCards];
-                        newCards[index] = { ...newCards[index], cycle: e.target.value };
-                        updateField('pricingCards', newCards);
-                      }}
-                    />
-                    <Input
-                      placeholder="Label"
-                      value={card.label || ''}
-                      onChange={(e) => {
-                        const newCards = [...pricingCards];
-                        newCards[index] = { ...newCards[index], label: e.target.value };
-                        updateField('pricingCards', newCards);
-                      }}
-                    />
+                    <div className="grid grid-cols-2 gap-2">
+                      <Input
+                        placeholder="Cycle"
+                        value={card.cycle || ''}
+                        onChange={(e) => {
+                          const newCards = [...pricingCards];
+                          newCards[index] = { ...newCards[index], cycle: e.target.value };
+                          updateField('pricingCards', newCards);
+                        }}
+                      />
+                      <Input
+                        placeholder="Label"
+                        value={card.label || ''}
+                        onChange={(e) => {
+                          const newCards = [...pricingCards];
+                          newCards[index] = { ...newCards[index], label: e.target.value };
+                          updateField('pricingCards', newCards);
+                        }}
+                      />
+                    </div>
                     <Textarea
                       placeholder="Texte de plus"
                       value={card.moreText || ''}
@@ -7640,24 +7644,26 @@ const BlockEditDropdown = ({
                               Supprimer
                             </Button>
                           </div>
-                          <Input
-                            placeholder="Titre"
-                            value={pickup.time || ''}
-                            onChange={(e) => {
-                              const newTimes = [...(formData.pickupTimes || [])];
-                              newTimes[index] = { ...newTimes[index], time: e.target.value };
-                              updateField('pickupTimes', newTimes);
-                            }}
-                          />
-                          <Input
-                            placeholder="Sous titre"
-                            value={pickup.location || ''}
-                            onChange={(e) => {
-                              const newTimes = [...(formData.pickupTimes || [])];
-                              newTimes[index] = { ...newTimes[index], location: e.target.value };
-                              updateField('pickupTimes', newTimes);
-                            }}
-                          />
+                          <div className="grid grid-cols-2 gap-2">
+                            <Input
+                              placeholder="Titre"
+                              value={pickup.time || ''}
+                              onChange={(e) => {
+                                const newTimes = [...(formData.pickupTimes || [])];
+                                newTimes[index] = { ...newTimes[index], time: e.target.value };
+                                updateField('pickupTimes', newTimes);
+                              }}
+                            />
+                            <Input
+                              placeholder="Sous titre"
+                              value={pickup.location || ''}
+                              onChange={(e) => {
+                                const newTimes = [...(formData.pickupTimes || [])];
+                                newTimes[index] = { ...newTimes[index], location: e.target.value };
+                                updateField('pickupTimes', newTimes);
+                              }}
+                            />
+                          </div>
                           <Input
                             placeholder="Supplément"
                             value={pickup.price || ''}

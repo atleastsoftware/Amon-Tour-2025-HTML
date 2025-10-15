@@ -461,18 +461,17 @@ const blockTypes: BlockType[] = [
             { title: 'Titre', subtitle: 'Sous-titre', price: 'Prix', currency: 'Devise', cycle: 'Cycle', label: 'Label', moreText: 'Texte', color: '#084F6E' },
             { title: 'Titre', subtitle: 'Sous-titre', price: 'Prix', currency: 'Devise', cycle: 'Cycle', label: 'Label', moreText: 'Texte', color: '#084F6E' }
           ].map((card, i) => (
-            <div key={i} className="rounded-lg overflow-hidden shadow-sm">
-              <div className="text-white p-1.5 text-center" style={{ backgroundColor: card.color }}>
-                <div className="text-xs font-bold">{card.title}</div>
-                <div className="text-[10px] opacity-90">{card.subtitle}</div>
+            <div key={i} className="rounded-lg overflow-hidden shadow-lg">
+              <div className="text-white p-2 text-center" style={{ backgroundColor: card.color }}>
+                <div className="text-sm font-bold">{card.title}</div>
+                <div className="text-xs opacity-90">{card.subtitle}</div>
               </div>
-              <div className="bg-white p-2 text-center">
-                <div className="text-sm font-bold">{card.price}</div>
-                <div className="text-xs text-gray-500">{card.currency}</div>
-                <div className="text-xs text-gray-400 mt-0.5">{card.cycle}</div>
-                <div className="border-t border-gray-200 mt-1 pt-1">
-                  <div className="text-xs font-semibold text-gray-700">{card.label}</div>
-                  <div className="text-[10px] text-gray-500">{card.moreText}</div>
+              <div className="bg-white p-3 text-center">
+                <div className="text-xl font-bold mb-1">{card.price} <span className="text-sm">{card.currency}</span></div>
+                <div className="text-xs text-gray-400 mb-2">{card.cycle}</div>
+                <div className="border-t border-gray-200 pt-2">
+                  <div className="text-xs font-semibold text-gray-700 mb-1">{card.label}</div>
+                  <div className="text-xs text-gray-500">{card.moreText}</div>
                 </div>
               </div>
             </div>
