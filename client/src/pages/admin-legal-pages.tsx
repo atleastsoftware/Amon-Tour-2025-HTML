@@ -134,8 +134,12 @@ export default function AdminLegalPages() {
         pageSlug: generateSlug(data.title),
       });
 
+      // Fetch current blocks to get the latest data
+      const blocksResponse = await fetch(`/api/admin/page-blocks?pageSlug=${selectedPage.pageSlug}`);
+      const currentBlocks = await blocksResponse.json();
+      const textBlock = currentBlocks.find((b: PageBlock) => b.blockType === 'text_section');
+      
       // Update or create content block
-      const textBlock = pageBlocks.find(b => b.blockType === 'text_section');
       if (textBlock) {
         await apiRequest('PUT', `/api/admin/page-blocks/${textBlock.id}`, {
           title: data.title,
