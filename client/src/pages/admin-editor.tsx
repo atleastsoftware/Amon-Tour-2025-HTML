@@ -21,6 +21,7 @@ export default function AdminEditor() {
 
   const activeFormsCount = formsData ? formsData.filter((form: any) => form.isActive).length : 0;
   const pagesCount = pagesData ? pagesData.length : 0;
+  const legalPagesCount = pagesData ? pagesData.filter((page: any) => page.pageType === 'legal').length : 0;
 
   const editorItems = [
     {
@@ -123,7 +124,7 @@ export default function AdminEditor() {
           </Card>
           <Card className="bg-white shadow-sm border border-border">
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-[hsl(var(--success))] mb-1">0</div>
+              <div className="text-2xl font-bold text-[hsl(var(--success))] mb-1">{legalPagesCount}</div>
               <div className="text-muted-foreground text-sm">Pages légales</div>
             </CardContent>
           </Card>
