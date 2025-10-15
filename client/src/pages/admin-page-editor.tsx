@@ -8395,6 +8395,33 @@ export default function AdminPageEditor() {
     },
   });
 
+  // Insert template mutation
+  const insertTemplateMutation = useMutation({
+    mutationFn: async (templateId: string) => {
+      const response = await fetch('/api/admin/page-blocks/insert-template', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          templateId,
+          pageSlug,
+          pageId: currentPageConfig?.id
+        }),
+      });
+      if (!response.ok) throw new Error('Failed to insert template');
+      return response.json();
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/page-blocks', pageSlug] });
+      toast({ 
+        title: "Succès", 
+        description: `Template ajouté avec succès (${data.count} blocs)` 
+      });
+    },
+    onError: () => {
+      toast({ title: "Erreur", description: "Impossible d'ajouter le template", variant: "destructive" });
+    },
+  });
+
   // Toggle block visibility
   const toggleBlockVisibility = (block: PageBlock) => {
     updateBlockMutation.mutate({
@@ -8886,7 +8913,7 @@ export default function AdminPageEditor() {
           setIsTemplatePopupOpen(false);
         }}
         onSelectTemplate={(templateId) => {
-          console.log('Template selected:', templateId);
+          insertTemplateMutation.mutate(templateId);
           setIsTemplatePopupOpen(false);
         }}
       />
