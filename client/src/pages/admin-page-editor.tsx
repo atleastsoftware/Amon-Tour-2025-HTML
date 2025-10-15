@@ -7416,7 +7416,7 @@ const BlockEditDropdown = ({
 
       case 'text_pricing':
         const pricingCards = formData.pricingCards || [
-          { title: 'Haute Saison', subtitle: 'Période premium', price: '39,000', currency: 'THB', cycle: 'par jour', label: 'Période', moreText: 'Déc 15 - Jan 15', headerGradient: '#3BA8AF' }
+          { title: 'Titre', subtitle: 'Sous-titre', price: 'Prix', currency: 'Devise', cycle: 'Cycle', label: 'Label', moreText: 'Texte', headerGradient: '#084F6E' }
         ];
         
         return (
@@ -7461,7 +7461,7 @@ const BlockEditDropdown = ({
               <Label>Couleur de fond</Label>
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.backgroundColor ?? '#f9fafb'}
+                  value={formData.backgroundColor ?? '#ffffff'}
                   onChange={(value) => updateField('backgroundColor', value)}
                 />
               </div>
@@ -7559,7 +7559,7 @@ const BlockEditDropdown = ({
                       <Label className="text-sm">Couleur du dégradé en-tête</Label>
                       <div className="mt-2">
                         <ColorPicker
-                          value={card.headerGradient || '#3BA8AF'}
+                          value={card.headerGradient || '#084F6E'}
                           onChange={(value) => {
                             const newCards = [...pricingCards];
                             newCards[index] = { ...newCards[index], headerGradient: value };
@@ -7580,10 +7580,10 @@ const BlockEditDropdown = ({
                       subtitle: 'Sous-titre', 
                       price: 'Prix', 
                       currency: 'Devise', 
-                      cycle: 'par jour',
-                      label: 'Période',
-                      moreText: 'Texte de plus', 
-                      headerGradient: '#3BA8AF' 
+                      cycle: 'Cycle',
+                      label: 'Label',
+                      moreText: 'Texte', 
+                      headerGradient: '#084F6E' 
                     }];
                     updateField('pricingCards', newCards);
                   }}
@@ -7595,10 +7595,10 @@ const BlockEditDropdown = ({
 
             <Separator />
 
-            {/* Options (optionnelle) */}
+            {/* Options supplémentaires (optionnelle) */}
             <div>
               <Label className="text-base font-semibold flex items-center gap-2">
-                Options
+                Options supplémentaires
                 <input
                   type="checkbox"
                   checked={formData.showPickupSection ?? false}
@@ -7620,14 +7620,14 @@ const BlockEditDropdown = ({
                     />
                   </div>
 
-                  {/* Horaires de pick-up */}
+                  {/* Toutes les options */}
                   <div>
-                    <Label className="text-sm font-medium">Horaires de pick-up</Label>
+                    <Label className="text-sm font-medium">Toutes les options</Label>
                     <div className="space-y-3 mt-2">
                       {(formData.pickupTimes || []).map((pickup: any, index: number) => (
                         <div key={index} className="p-3 border rounded-lg space-y-2">
                           <div className="flex items-center justify-between mb-2">
-                            <span className="text-xs font-medium">Horaire {index + 1}</span>
+                            <span className="text-xs font-medium">Option {index + 1}</span>
                             <Button
                               type="button"
                               variant="ghost"
@@ -7680,7 +7680,7 @@ const BlockEditDropdown = ({
                           updateField('pickupTimes', newTimes);
                         }}
                       >
-                        Ajouter un horaire
+                        Ajouter une option
                       </Button>
                     </div>
                   </div>

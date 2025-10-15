@@ -50,34 +50,34 @@ export default function TextPricingBlock({ block }: TextPricingBlockProps) {
       subtitle: "Sous-titre",
       price: "Prix",
       currency: "Devise",
-      cycle: "par jour",
-      label: "Période",
-      moreText: "Texte de plus",
-      headerGradient: "#3BA8AF"
+      cycle: "Cycle",
+      label: "Label",
+      moreText: "Texte",
+      headerGradient: "#084F6E"
     },
     {
       title: "Titre",
       subtitle: "Sous-titre",
       price: "Prix",
       currency: "Devise",
-      cycle: "par jour",
-      label: "Période",
-      moreText: "Texte de plus",
-      headerGradient: "#3BA8AF"
+      cycle: "Cycle",
+      label: "Label",
+      moreText: "Texte",
+      headerGradient: "#084F6E"
     },
     {
       title: "Titre",
       subtitle: "Sous-titre",
       price: "Prix",
       currency: "Devise",
-      cycle: "par jour",
-      label: "Période",
-      moreText: "Texte de plus",
-      headerGradient: "#3BA8AF"
+      cycle: "Cycle",
+      label: "Label",
+      moreText: "Texte",
+      headerGradient: "#084F6E"
     }
   ];
   const dividerColor = config.dividerColor ?? "#3BA8AF";
-  const backgroundColor = config.backgroundColor ?? "#f9fafb";
+  const backgroundColor = config.backgroundColor ?? "#ffffff";
   const showPickupSection = config.showPickupSection ?? false;
   const pickupTitle = config.pickupTitle ?? "Options supplémentaires";
   const pickupTimes = config.pickupTimes ?? [];
