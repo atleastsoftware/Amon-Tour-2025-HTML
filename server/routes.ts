@@ -3817,18 +3817,17 @@ Crawl-delay: 1`;
           },
           custom_tour_form: {
             identifier: `custom_tour_form_${timestamp}`,
-            title: 'Form',
+            title: 'Titre du formulaire',
+            subtitle: 'Description de votre formulaire personnalisé.',
             blockType: 'custom_tour_form',
             configuration: { 
-              formId: 'krabi_celebration',
-              layout: 'columns',
               title: 'Titre du formulaire',
-              description: 'Description de votre formulaire personnalisé',
-              imageUrl: '',
+              subtitle: 'Description de votre formulaire personnalisé.',
               titleColor: '#333333',
-              descriptionColor: '#666666',
+              subtitleColor: '#666666',
               dividerColor: '#3BA8AF',
-              backgroundColor: '#ffffff'
+              backgroundColor: '#ffffff',
+              formId: null
             },
             isActive: true
           },
@@ -3863,16 +3862,37 @@ Crawl-delay: 1`;
             blockType: 'why_choose_us',
             configuration: { 
               title: 'Titre de la section',
-              subtitle: 'Description de votre section avec icônes',
-              advantages: [
-                { icon: 'fas fa-user-friends', title: 'Titre', description: 'Description', color: '#084F6E' },
-                { icon: 'fas fa-compass', title: 'Titre', description: 'Description', color: '#3BA8AF' },
-                { icon: 'fas fa-star', title: 'Titre', description: 'Description', color: '#084F6E' }
-              ],
+              subtitle: 'Description de votre section avec icônes.',
               titleColor: '#333333',
               subtitleColor: '#666666',
               dividerColor: '#3BA8AF',
-              backgroundColor: '#ffffff'
+              backgroundColor: '#ffffff',
+              iconBlocks: [
+                {
+                  id: 1,
+                  mainIcon: 'fas fa-user-friends',
+                  title: 'Titre',
+                  description: 'Description',
+                  iconColor: '#084F6E',
+                  miniIcons: []
+                },
+                {
+                  id: 2,
+                  mainIcon: 'fas fa-compass',
+                  title: 'Titre',
+                  description: 'Description',
+                  iconColor: '#3BA8AF',
+                  miniIcons: []
+                },
+                {
+                  id: 3,
+                  mainIcon: 'fas fa-star',
+                  title: 'Titre',
+                  description: 'Description',
+                  iconColor: '#084F6E',
+                  miniIcons: []
+                }
+              ]
             },
             isActive: true
           },
@@ -3881,24 +3901,45 @@ Crawl-delay: 1`;
             title: 'Text + Images',
             blockType: 'who_we_are',
             configuration: { 
-              mainTitle: 'Titre principal',
-              mainContent: 'Ajoutez ici votre contenu texte principal.',
-              subtitle: 'Sous-titre',
-              subtitleContent: 'Description supplémentaire pour votre section.',
-              primaryButtonText: 'Bouton 1',
-              primaryButtonUrl: '',
-              secondaryButtonText: 'Bouton 2',
-              secondaryButtonUrl: '',
-              imageUrl: '',
-              layout: 'left',
-              mainTitleColor: '#333333',
-              mainContentColor: '#666666',
+              title: 'Titre principal',
+              titleColor: '#333333',
               subtitleColor: '#333333',
-              subtitleContentColor: '#666666',
+              textColor: '#666666',
               dividerColor: '#3BA8AF',
-              primaryButtonColor: '#084F6E',
-              secondaryButtonColor: '#084F6E',
-              backgroundColor: '#ffffff'
+              backgroundColor: '#ffffff',
+              introduction: 'Ajoutez ici votre contenu texte principal.',
+              sections: [
+                {
+                  id: 1,
+                  subtitle: 'Sous-titre',
+                  text: 'Description supplémentaire pour votre section.'
+                }
+              ],
+              images: [
+                {
+                  id: 1,
+                  url: '',
+                  alt: 'Image 1'
+                }
+              ],
+              buttons: [
+                {
+                  id: 1,
+                  text: 'Bouton 1',
+                  url: '',
+                  color: '#084F6E',
+                  textColor: '#ffffff',
+                  style: 'filled'
+                },
+                {
+                  id: 2,
+                  text: 'Bouton 2',
+                  url: '',
+                  color: '#084F6E',
+                  textColor: '#084F6E',
+                  style: 'outline'
+                }
+              ]
             },
             isActive: true
           }
