@@ -7430,6 +7430,12 @@ const BlockEditDropdown = ({
                 onChange={e => updateField('title', e.target.value)}
                 className="mt-2"
               />
+              <div className="mt-2">
+                <ColorPicker
+                  value={formData.titleColor ?? '#1F2937'}
+                  onChange={(value) => updateField('titleColor', value)}
+                />
+              </div>
             </div>
 
             {/* Sous-titre */}
@@ -7441,31 +7447,15 @@ const BlockEditDropdown = ({
                 onChange={e => updateField('subtitle', e.target.value)}
                 className="mt-2"
               />
-            </div>
-
-            <Separator />
-
-            {/* Couleur Titre */}
-            <div>
-              <Label>Couleur du titre</Label>
-              <div className="mt-3">
-                <ColorPicker
-                  value={formData.titleColor ?? '#1F2937'}
-                  onChange={(value) => updateField('titleColor', value)}
-                />
-              </div>
-            </div>
-
-            {/* Couleur Sous-titre */}
-            <div>
-              <Label>Couleur du sous-titre</Label>
-              <div className="mt-3">
+              <div className="mt-2">
                 <ColorPicker
                   value={formData.subtitleColor ?? '#6B7280'}
                   onChange={(value) => updateField('subtitleColor', value)}
                 />
               </div>
             </div>
+
+            <Separator />
 
             {/* Tiret */}
             <div>
@@ -7740,7 +7730,7 @@ const BlockEditDropdown = ({
                   <div>
                     <Textarea 
                       placeholder="Description"
-                      value={formData.includedDescription ?? ''} 
+                      value={formData.includedDescription ?? 'Description'} 
                       onChange={e => updateField('includedDescription', e.target.value)}
                       rows={3}
                     />
@@ -7772,7 +7762,7 @@ const BlockEditDropdown = ({
                   <div>
                     <Textarea 
                       placeholder="Description"
-                      value={formData.notIncludedDescription ?? ''} 
+                      value={formData.notIncludedDescription ?? 'Description'} 
                       onChange={e => updateField('notIncludedDescription', e.target.value)}
                       rows={3}
                     />
