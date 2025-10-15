@@ -590,7 +590,7 @@ export default function AdminLegalPages() {
             <div className="flex justify-center py-4">
               <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
                 <DialogTrigger asChild>
-                  <Button variant="outline" className="flex items-center gap-2">
+                  <Button className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white">
                     <Plus className="w-4 h-4" />
                     Créer une page légale
                   </Button>
