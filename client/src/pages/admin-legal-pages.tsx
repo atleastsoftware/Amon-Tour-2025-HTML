@@ -309,14 +309,14 @@ export default function AdminLegalPages() {
     return tempDiv.innerHTML.trim();
   };
 
-  // Sync contentEditable content when dialog opens or formData changes
+  // Sync contentEditable content when editing or formData changes
   useEffect(() => {
-    if (contentEditableRef.current && (isEditDialogOpen || isCreateDialogOpen)) {
+    if (contentEditableRef.current && (editingPageId !== null || isCreateDialogOpen)) {
       // Always update the content when formData changes
       contentEditableRef.current.innerHTML = formData.content || '';
       console.log('ContentEditable mis à jour avec:', formData.content);
     }
-  }, [formData.content, isEditDialogOpen, isCreateDialogOpen]);
+  }, [formData.content, editingPageId, isCreateDialogOpen]);
 
   // ContentEditable formatting functions
   const formatText = (command: string, value?: string) => {
