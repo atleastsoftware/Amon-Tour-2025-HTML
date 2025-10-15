@@ -43,6 +43,7 @@ import AdminEditor from "@/pages/admin-editor";
 import AdminEditorPage from "@/pages/admin-editor-page";
 import AdminEditorArticle from "@/pages/admin-editor-article";
 import AdminEditorForm from "@/pages/admin-editor-form";
+import AdminLegalPages from "@/pages/admin-legal-pages";
 import DynamicPage from "@/pages/DynamicPage";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 import { IframeProvider } from "@/contexts/IframeContext";
@@ -115,6 +116,7 @@ function Router() {
       <Route path="/admin-editor-page" component={AdminEditorPage} />
       <Route path="/admin-editor-article" component={AdminEditorArticle} />
       <Route path="/admin-editor-form" component={AdminEditorForm} />
+      <Route path="/admin-legal-pages" component={AdminLegalPages} />
       <Route path="/tour-card-builder" component={TourCardBuilder} />
       
       {/* Fallback to 404 */}

@@ -68,38 +68,34 @@ export default function AdminLegalPages() {
   const createPageMutation = useMutation({
     mutationFn: async (data: any) => {
       // Create page configuration
-      const pageConfig = await apiRequest('/api/admin/page-configurations', {
-        method: 'POST',
-        body: JSON.stringify({
-          pageName: data.pageName,
-          pageSlug: data.pageSlug,
-          pageType: 'legal',
-          seoTitle: data.seoTitle,
-          seoDescription: data.seoDescription,
-          seoKeywords: data.seoKeywords,
-          isActive: data.isActive
-        })
+      const pageConfigResponse = await apiRequest('POST', '/api/admin/page-configurations', {
+        pageName: data.pageName,
+        pageSlug: data.pageSlug,
+        pageType: 'legal',
+        seoTitle: data.seoTitle,
+        seoDescription: data.seoDescription,
+        seoKeywords: data.seoKeywords,
+        isActive: data.isActive
       });
+
+      const pageConfig = await pageConfigResponse.json();
 
       // Create a text block with the content
       if (data.content) {
-        await apiRequest('/api/admin/page-blocks', {
-          method: 'POST',
-          body: JSON.stringify({
-            pageId: pageConfig.id,
-            blockType: 'text_section',
-            blockOrder: 1,
-            identifier: `legal_content_${Date.now()}`,
-            title: data.pageName,
+        await apiRequest('POST', '/api/admin/page-blocks', {
+          pageId: pageConfig.id,
+          blockType: 'text_section',
+          blockOrder: 1,
+          identifier: `legal_content_${Date.now()}`,
+          title: data.pageName,
+          content: data.content,
+          configuration: {
             content: data.content,
-            configuration: {
-              content: data.content,
-              textAlign: 'left',
-              maxWidth: '4xl',
-              backgroundColor: '#ffffff'
-            },
-            isActive: true
-          })
+            textAlign: 'left',
+            maxWidth: '4xl',
+            backgroundColor: '#ffffff'
+          },
+          isActive: true
         });
       }
 
@@ -128,49 +124,40 @@ export default function AdminLegalPages() {
   const updatePageMutation = useMutation({
     mutationFn: async (data: any) => {
       // Update page configuration
-      await apiRequest(`/api/admin/page-configurations/${selectedPage?.id}`, {
-        method: 'PUT',
-        body: JSON.stringify({
-          pageName: data.pageName,
-          pageSlug: data.pageSlug,
-          seoTitle: data.seoTitle,
-          seoDescription: data.seoDescription,
-          seoKeywords: data.seoKeywords,
-          isActive: data.isActive
-        })
+      await apiRequest('PUT', `/api/admin/page-configurations/${selectedPage?.id}`, {
+        pageName: data.pageName,
+        pageSlug: data.pageSlug,
+        seoTitle: data.seoTitle,
+        seoDescription: data.seoDescription,
+        seoKeywords: data.seoKeywords,
+        isActive: data.isActive
       });
 
       // Update or create content block
       const textBlock = pageBlocks.find(b => b.blockType === 'text_section');
       if (textBlock) {
-        await apiRequest(`/api/admin/page-blocks/${textBlock.id}`, {
-          method: 'PUT',
-          body: JSON.stringify({
-            content: data.content,
-            configuration: {
-              ...textBlock.configuration,
-              content: data.content
-            }
-          })
+        await apiRequest('PUT', `/api/admin/page-blocks/${textBlock.id}`, {
+          content: data.content,
+          configuration: {
+            ...textBlock.configuration,
+            content: data.content
+          }
         });
       } else if (data.content) {
-        await apiRequest('/api/admin/page-blocks', {
-          method: 'POST',
-          body: JSON.stringify({
-            pageId: selectedPage?.id,
-            blockType: 'text_section',
-            blockOrder: 1,
-            identifier: `legal_content_${Date.now()}`,
-            title: data.pageName,
+        await apiRequest('POST', '/api/admin/page-blocks', {
+          pageId: selectedPage?.id,
+          blockType: 'text_section',
+          blockOrder: 1,
+          identifier: `legal_content_${Date.now()}`,
+          title: data.pageName,
+          content: data.content,
+          configuration: {
             content: data.content,
-            configuration: {
-              content: data.content,
-              textAlign: 'left',
-              maxWidth: '4xl',
-              backgroundColor: '#ffffff'
-            },
-            isActive: true
-          })
+            textAlign: 'left',
+            maxWidth: '4xl',
+            backgroundColor: '#ffffff'
+          },
+          isActive: true
         });
       }
     },
@@ -189,9 +176,7 @@ export default function AdminLegalPages() {
   // Delete legal page mutation
   const deletePageMutation = useMutation({
     mutationFn: async (id: number) => {
-      await apiRequest(`/api/admin/page-configurations/${id}`, {
-        method: 'DELETE'
-      });
+      await apiRequest('DELETE', `/api/admin/page-configurations/${id}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/page-configurations'] });
