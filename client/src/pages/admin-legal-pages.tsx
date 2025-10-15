@@ -265,6 +265,28 @@ export default function AdminLegalPages() {
       .replace(/(^-|-$)/g, '');
   };
 
+  // Clean HTML to remove unnecessary styles and attributes
+  const cleanHTML = (html: string): string => {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = html;
+    
+    // Remove all style attributes
+    const allElements = tempDiv.querySelectorAll('*');
+    allElements.forEach(el => {
+      el.removeAttribute('style');
+      el.removeAttribute('class');
+    });
+    
+    // Remove empty elements except br
+    allElements.forEach(el => {
+      if (el.tagName !== 'BR' && !el.textContent?.trim() && el.children.length === 0) {
+        el.remove();
+      }
+    });
+    
+    return tempDiv.innerHTML.trim();
+  };
+
   // Sync contentEditable content when dialog opens or formData changes
   useEffect(() => {
     if (contentEditableRef.current && (isEditDialogOpen || isCreateDialogOpen)) {
