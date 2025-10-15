@@ -50,81 +50,68 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
     // Pour l'instant, on affiche un rendu basique pour chaque type de bloc
     // Dans le futur, chaque type de bloc aura son propre composant
     switch (block.blockType) {
-      case 'header_page':
+      case 'header_page': {
         const headerPageConfig = block.configuration || {};
-        
-        // Background rendering based on type
-        const renderHeaderBackground = () => {
-          const bgType = headerPageConfig.backgroundType || 'image';
-          
-          switch (bgType) {
-            case 'color':
-              return (
-                <div 
-                  className="absolute inset-0 w-full h-full z-0"
-                  style={{ backgroundColor: headerPageConfig.backgroundColor || '#084F6E' }}
-                />
-              );
-            
-            case 'gradient':
-              return (
-                <div 
-                  className="absolute inset-0 w-full h-full z-0"
-                  style={{ 
-                    background: `linear-gradient(135deg, ${headerPageConfig.gradientColor1 || '#084F6E'} 0%, ${headerPageConfig.gradientColor2 || '#3BA8AF'} 100%)` 
-                  }}
-                />
-              );
-            
-            case 'video':
-              if (headerPageConfig.videoUrl) {
-                return (
-                  <div className="absolute inset-0 w-full h-full z-0">
-                    <video
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      preload="auto"
-                      className="w-full h-full object-cover"
-                    >
-                      <source src={headerPageConfig.videoUrl} type="video/mp4" />
-                    </video>
-                    <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
-                  </div>
-                );
-              }
-              return <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-primary to-secondary z-0" />;
-            
-            case 'image':
-            default:
-              if (headerPageConfig.imageUrl || block.imageUrl) {
-                return (
-                  <>
-                    <img 
-                      src={headerPageConfig.imageUrl || block.imageUrl} 
-                      alt={headerPageConfig.imageAlt || block.imageAlt || block.title || ''} 
-                      className="absolute inset-0 w-full h-full object-cover z-0"
-                    />
-                    <div className="absolute inset-0 bg-black/50 z-10"></div>
-                  </>
-                );
-              }
-              return (
-                <>
-                  <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-primary to-secondary z-0" />
-                  <div className="absolute inset-0 bg-black/50 z-10"></div>
-                </>
-              );
-          }
-        };
-        
+        const bgType = headerPageConfig.backgroundType || 'image';
         const frameSize = headerPageConfig.frameSize || 'small';
         const heightClass = frameSize === 'large' ? 'h-[70vh]' : 'h-[35vh] md:h-[52vh]';
         
+        let headerBackground;
+        if (bgType === 'color') {
+          headerBackground = (
+            <div 
+              className="absolute inset-0 w-full h-full z-0"
+              style={{ backgroundColor: headerPageConfig.backgroundColor || '#084F6E' }}
+            />
+          );
+        } else if (bgType === 'gradient') {
+          headerBackground = (
+            <div 
+              className="absolute inset-0 w-full h-full z-0"
+              style={{ 
+                background: `linear-gradient(135deg, ${headerPageConfig.gradientColor1 || '#084F6E'} 0%, ${headerPageConfig.gradientColor2 || '#3BA8AF'} 100%)` 
+              }}
+            />
+          );
+        } else if (bgType === 'video' && headerPageConfig.videoUrl) {
+          headerBackground = (
+            <div className="absolute inset-0 w-full h-full z-0">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                className="w-full h-full object-cover"
+              >
+                <source src={headerPageConfig.videoUrl} type="video/mp4" />
+              </video>
+              <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60"></div>
+            </div>
+          );
+        } else if (headerPageConfig.imageUrl || block.imageUrl) {
+          headerBackground = (
+            <>
+              <img 
+                src={headerPageConfig.imageUrl || block.imageUrl} 
+                alt={headerPageConfig.imageAlt || block.imageAlt || block.title || ''} 
+                className="absolute inset-0 w-full h-full object-cover z-0"
+              />
+              <div className="absolute inset-0 bg-black/50 z-10"></div>
+            </>
+          );
+        } else {
+          headerBackground = (
+            <>
+              <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-primary to-secondary z-0" />
+              <div className="absolute inset-0 bg-black/50 z-10"></div>
+            </>
+          );
+        }
+        
         return (
           <section key={block.id} className={`relative ${heightClass}`}>
-            {renderHeaderBackground()}
+            {headerBackground}
             <div className="relative z-20 container mx-auto px-4 h-full flex flex-col items-center justify-center text-center text-white">
               {headerPageConfig.iconUrl && (
                 <div 
@@ -155,111 +142,102 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
             </div>
           </section>
         );
+      }
 
       case 'hero':
       case 'hero_banner':
-      case 'hero_video':
+      case 'hero_video': {
         const heroConfig = block.configuration || {};
-        
-        // Helper function to render title with colored accent
-        const renderHeroTitle = () => {
-          const fullTitle = heroConfig.title || block.title || "Your exclusive experiences\nin Krabi –\nTHAILAND";
-          const accentText = heroConfig.titleAccentText || "in Krabi –";
-          const titleColor = heroConfig.titleColor || '#ffffff';
-          const accentColor = heroConfig.titleAccentColor || '#3BA8AF';
-          
-          if (fullTitle.includes(accentText)) {
-            const parts = fullTitle.split(accentText);
-            return (
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" style={{ whiteSpace: 'pre-line' }}>
-                {parts[0] && <span style={{ color: titleColor }}>{parts[0]}</span>}
-                <span style={{ color: accentColor }}>{accentText}</span>
-                {parts[1] && <span style={{ color: titleColor }}>{parts[1]}</span>}
-              </h1>
-            );
-          }
-          return <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" style={{ color: titleColor, whiteSpace: 'pre-line' }}>{fullTitle}</h1>;
-        };
-        
-        // Background rendering based on type
-        const renderHeroBackground = () => {
-          const bgType = heroConfig.backgroundType || 'image';
-          
-          switch (bgType) {
-            case 'color':
-              return (
-                <div 
-                  className="absolute inset-0 w-full h-full z-0"
-                  style={{ backgroundColor: heroConfig.backgroundColor || '#084F6E' }}
-                />
-              );
-            
-            case 'images':
-              const images = [
-                heroConfig.backgroundImage1,
-                heroConfig.backgroundImage2,
-                heroConfig.backgroundImage3
-              ].filter(Boolean);
-              
-              if (images.length > 0) {
-                return (
-                  <div className="absolute inset-0 w-full h-full z-0">
-                    <img
-                      src={images[0]}
-                      alt=""
-                      className="absolute inset-0 w-full h-full object-cover"
-                    />
-                  </div>
-                );
-              }
-              return <div className="absolute inset-0 w-full h-full z-0 bg-gradient-to-br from-primary to-secondary" />;
-            
-            case 'video':
-              if (heroConfig.videoUrl) {
-                return (
-                  <div className="absolute inset-0 w-full h-full z-0">
-                    <video
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      className="absolute inset-0 w-full h-full object-cover"
-                    >
-                      <source src={heroConfig.videoUrl} type="video/mp4" />
-                    </video>
-                  </div>
-                );
-              }
-              return <div className="absolute inset-0 w-full h-full z-0 bg-gradient-to-br from-primary to-secondary" />;
-            
-            default:
-              if (block.imageUrl || heroConfig.backgroundImage) {
-                return (
-                  <img 
-                    src={block.imageUrl || heroConfig.backgroundImage} 
-                    alt={block.imageAlt || ''} 
-                    className="absolute inset-0 w-full h-full object-cover z-0"
-                  />
-                );
-              }
-              return <div className="absolute inset-0 w-full h-full z-0 bg-gradient-to-br from-primary to-secondary" />;
-          }
-        };
-
+        const bgType = heroConfig.backgroundType || 'image';
         const contentAlignment = (heroConfig.contentAlignment || 'center') as 'left' | 'center' | 'right';
         const alignmentClasses = {
           left: 'items-center justify-start text-left',
           center: 'items-center justify-center text-center',
           right: 'items-center justify-end text-right'
         }[contentAlignment];
+        
+        // Render title with colored accent
+        const fullTitle = heroConfig.title || block.title || "Your exclusive experiences\nin Krabi –\nTHAILAND";
+        const accentText = heroConfig.titleAccentText || "in Krabi –";
+        const titleColor = heroConfig.titleColor || '#ffffff';
+        const accentColor = heroConfig.titleAccentColor || '#3BA8AF';
+        
+        let heroTitle;
+        if (fullTitle.includes(accentText)) {
+          const parts = fullTitle.split(accentText);
+          heroTitle = (
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" style={{ whiteSpace: 'pre-line' }}>
+              {parts[0] && <span style={{ color: titleColor }}>{parts[0]}</span>}
+              <span style={{ color: accentColor }}>{accentText}</span>
+              {parts[1] && <span style={{ color: titleColor }}>{parts[1]}</span>}
+            </h1>
+          );
+        } else {
+          heroTitle = <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" style={{ color: titleColor, whiteSpace: 'pre-line' }}>{fullTitle}</h1>;
+        }
+        
+        // Render background
+        let heroBackground;
+        if (bgType === 'color') {
+          heroBackground = (
+            <div 
+              className="absolute inset-0 w-full h-full z-0"
+              style={{ backgroundColor: heroConfig.backgroundColor || '#084F6E' }}
+            />
+          );
+        } else if (bgType === 'images') {
+          const images = [
+            heroConfig.backgroundImage1,
+            heroConfig.backgroundImage2,
+            heroConfig.backgroundImage3
+          ].filter(Boolean);
+          
+          if (images.length > 0) {
+            heroBackground = (
+              <div className="absolute inset-0 w-full h-full z-0">
+                <img
+                  src={images[0]}
+                  alt=""
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              </div>
+            );
+          } else {
+            heroBackground = <div className="absolute inset-0 w-full h-full z-0 bg-gradient-to-br from-primary to-secondary" />;
+          }
+        } else if (bgType === 'video' && heroConfig.videoUrl) {
+          heroBackground = (
+            <div className="absolute inset-0 w-full h-full z-0">
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover"
+              >
+                <source src={heroConfig.videoUrl} type="video/mp4" />
+              </video>
+            </div>
+          );
+        } else if (block.imageUrl || heroConfig.backgroundImage) {
+          heroBackground = (
+            <img 
+              src={block.imageUrl || heroConfig.backgroundImage} 
+              alt={block.imageAlt || ''} 
+              className="absolute inset-0 w-full h-full object-cover z-0"
+            />
+          );
+        } else {
+          heroBackground = <div className="absolute inset-0 w-full h-full z-0 bg-gradient-to-br from-primary to-secondary" />;
+        }
 
         return (
           <section key={block.id} className="relative pt-32 pb-20 min-h-screen flex overflow-hidden">
-            {renderHeroBackground()}
+            {heroBackground}
             <div className="absolute inset-0 bg-black/40 z-10"></div>
             <div className={`relative z-20 w-full px-8 md:px-12 lg:px-16 flex ${alignmentClasses}`}>
               <div className="max-w-5xl">
-                {renderHeroTitle()}
+                {heroTitle}
                 {(heroConfig.subtitle || block.subtitle) && (
                   <p 
                     className="text-lg md:text-xl mb-8 max-w-3xl"
@@ -317,6 +295,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
             </div>
           </section>
         );
+      }
 
       case 'text':
         const textConfig = block.configuration || {};
