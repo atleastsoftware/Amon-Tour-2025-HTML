@@ -309,7 +309,7 @@ export default function TemplateSelectionPopup({ isOpen, onClose, onSelectTempla
             </h3>
             <ScrollArea className="h-[400px] pr-4">
               {selectedTemplate ? (
-                <div className="space-y-4 pb-20">
+                <div className="space-y-4 pb-32">
                   {selectedTemplate.blocks.map((block, index) => (
                     <div key={index} className="relative">
                       <div className="absolute -left-8 top-4 w-6 h-6 rounded-full bg-[#3BA8AF] text-white flex items-center justify-center text-xs font-semibold">
