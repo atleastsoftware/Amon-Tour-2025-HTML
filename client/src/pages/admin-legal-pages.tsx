@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -12,6 +12,7 @@ import { toast } from '@/hooks/use-toast';
 import { ArrowLeft, Plus, Edit, Trash2, FileText, Eye, Scale, Bold, Italic, AlignLeft, AlignCenter, AlignRight, List, Heading1, Heading2, Highlighter } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { apiRequest } from '@/lib/queryClient';
+import { useIsAuthenticated } from '@/lib/auth';
 
 interface LegalPage {
   id: number;
@@ -37,6 +38,7 @@ interface PageBlock {
 export default function AdminLegalPages() {
   const [, setLocation] = useLocation();
   const queryClient = useQueryClient();
+  const { isAuthenticated, isLoading: authLoading } = useIsAuthenticated();
   const [selectedPage, setSelectedPage] = useState<LegalPage | null>(null);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -46,9 +48,17 @@ export default function AdminLegalPages() {
   });
   const contentTextareaRef = useRef<HTMLTextAreaElement>(null);
 
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (!authLoading && !isAuthenticated) {
+      setLocation('/admin-login');
+    }
+  }, [isAuthenticated, authLoading, setLocation]);
+
   // Fetch all pages and filter for legal pages
   const { data: allPages = [], isLoading } = useQuery<LegalPage[]>({
     queryKey: ['/api/admin/page-configurations'],
+    enabled: isAuthenticated
   });
 
   // Sort legal pages alphabetically by pageName
@@ -59,7 +69,7 @@ export default function AdminLegalPages() {
   // Fetch page blocks for selected page
   const { data: pageBlocks = [] } = useQuery<PageBlock[]>({
     queryKey: ['/api/admin/page-blocks', selectedPage?.pageSlug],
-    enabled: !!selectedPage?.pageSlug,
+    enabled: !!selectedPage?.pageSlug && isAuthenticated,
   });
 
   // Create legal page mutation
@@ -278,6 +288,10 @@ export default function AdminLegalPages() {
       textarea.setSelectionRange(newPosition, newPosition);
     }, 0);
   };
+
+  if (authLoading) {
+    return <div className="container mx-auto p-8 text-center">Loading...</div>;
+  }
 
   return (
     <div className="min-h-screen bg-muted/30 px-2 pb-4 sm:px-4 sm:pb-4">
