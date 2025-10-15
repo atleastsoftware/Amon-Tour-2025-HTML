@@ -962,12 +962,14 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                         background: `linear-gradient(to ${formData.formLayout === 'columns' ? 'right' : 'left'}, ${resolveColor(formData.primaryColor)}CC, transparent)` 
                       }}
                     >
-                      <h3 
-                        className="font-heading font-bold text-3xl mb-3"
-                        style={{ color: resolveColor(formData.titleColor) }}
-                      >
-                        {formData.title || 'Titre du formulaire'}
-                      </h3>
+                      {formData.title && (
+                        <h3 
+                          className="font-heading font-bold text-3xl mb-3"
+                          style={{ color: resolveColor(formData.titleColor) }}
+                        >
+                          {formData.title}
+                        </h3>
+                      )}
                       {formData.subtitle && (
                         <p 
                           className="max-w-xs"
@@ -1494,7 +1496,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                           </div>
                           <Label className="font-medium text-sm">Footer</Label>
                         </div>
-                        <p className="text-xs text-gray-600">Formulaire standard avec bouton WhatsApp en bas (sans image)</p>
+                        <p className="text-xs text-gray-600">Formulaire standard de bas de page (sans image)</p>
                       </div>
                     </div>
                   </CardContent>
