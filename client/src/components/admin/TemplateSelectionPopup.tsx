@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Home, FileText, Grid3x3, FormInput, Calendar, DollarSign, Sparkles, Image, Layout } from 'lucide-react';
+import { Home, FileText, Grid3x3, FormInput, Calendar, DollarSign, Sparkles, Image, Layout, Ship, Users, MessageSquare, Palette } from 'lucide-react';
 
 interface BlockPreview {
   type: string;
@@ -211,6 +211,193 @@ const getBlockPreviews = (): { [key: string]: BlockPreview } => ({
         </div>
       </div>
     )
+  },
+  header_page: {
+    type: 'header_page',
+    label: 'Header Page',
+    preview: (
+      <div className="w-full bg-white rounded-lg overflow-hidden border">
+        <div className="relative h-24 bg-gradient-to-r from-[#084F6E] to-[#3BA8AF]">
+          <div className="absolute inset-0 bg-black/30"></div>
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-3">
+            <div className="w-8 h-8 rounded-full bg-white/20 mb-1.5 flex items-center justify-center">
+              <Layout className="w-4 h-4" />
+            </div>
+            <h1 className="text-sm font-bold mb-0.5 text-center">Titre de la page</h1>
+            <p className="text-xs opacity-90 text-center">Sous-titre</p>
+          </div>
+        </div>
+      </div>
+    )
+  },
+  contact: {
+    type: 'contact',
+    label: 'Contact',
+    preview: (
+      <div className="w-full bg-white rounded-lg overflow-hidden border p-4">
+        <div className="text-center mb-3">
+          <h2 className="font-bold text-sm mb-1.5" style={{ color: '#333333' }}>
+            Contactez-nous
+          </h2>
+          <div className="w-12 h-0.5 mx-auto mb-2" style={{ backgroundColor: '#3BA8AF' }}></div>
+        </div>
+        <div className="grid grid-cols-2 gap-2">
+          <div className="bg-gray-50 rounded p-2 text-center">
+            <div className="text-xs font-semibold mb-0.5">Email</div>
+            <div className="text-xs text-gray-600">contact@email.com</div>
+          </div>
+          <div className="bg-gray-50 rounded p-2 text-center">
+            <div className="text-xs font-semibold mb-0.5">Téléphone</div>
+            <div className="text-xs text-gray-600">+66 12 345 678</div>
+          </div>
+        </div>
+      </div>
+    )
+  },
+  text_gallery: {
+    type: 'text_gallery',
+    label: 'Text + Gallery',
+    preview: (
+      <div className="w-full bg-white rounded-lg overflow-hidden border p-4">
+        <div className="text-center mb-3">
+          <h2 className="font-bold text-sm mb-1.5" style={{ color: '#333333' }}>
+            Titre de la section
+          </h2>
+          <div className="w-12 h-0.5 mx-auto mb-2" style={{ backgroundColor: '#3BA8AF' }}></div>
+          <p className="text-xs leading-relaxed" style={{ color: '#666666' }}>
+            Description avec galerie d'images
+          </p>
+        </div>
+        <div className="grid grid-cols-3 gap-1.5">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="h-16 bg-gradient-to-br from-[#084F6E] to-[#3BA8AF] rounded"></div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  text_video: {
+    type: 'text_video',
+    label: 'Text + Video',
+    preview: (
+      <div className="w-full bg-white rounded-lg overflow-hidden border p-4">
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <h2 className="font-bold text-sm mb-1.5" style={{ color: '#333333' }}>
+              Titre de la section
+            </h2>
+            <div className="w-10 h-0.5 mb-2" style={{ backgroundColor: '#3BA8AF' }}></div>
+            <p className="text-xs leading-relaxed" style={{ color: '#666666' }}>
+              Description avec vidéo
+            </p>
+          </div>
+          <div className="bg-gradient-to-br from-[#084F6E] to-[#3BA8AF] rounded h-20 flex items-center justify-center">
+            <div className="w-6 h-6 rounded-full bg-white/30 flex items-center justify-center">
+              <div className="w-0 h-0 border-l-4 border-l-white border-t-2 border-t-transparent border-b-2 border-b-transparent ml-0.5"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  },
+  text_listing: {
+    type: 'text_listing',
+    label: 'Text + Listing',
+    preview: (
+      <div className="w-full bg-white rounded-lg overflow-hidden border p-4">
+        <div className="text-center mb-3">
+          <h2 className="font-bold text-sm mb-1.5" style={{ color: '#333333' }}>
+            Titre de la section
+          </h2>
+          <div className="w-12 h-0.5 mx-auto mb-2" style={{ backgroundColor: '#3BA8AF' }}></div>
+        </div>
+        <div className="space-y-1.5">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="flex items-center gap-2">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#3BA8AF]"></div>
+              <div className="text-xs text-gray-600">Point de liste {i}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  text_pricing: {
+    type: 'text_pricing',
+    label: 'Text + Pricing',
+    preview: (
+      <div className="w-full bg-white rounded-lg overflow-hidden border p-4">
+        <div className="text-center mb-3">
+          <h2 className="font-bold text-sm mb-1.5" style={{ color: '#333333' }}>
+            Nos tarifs
+          </h2>
+          <div className="w-12 h-0.5 mx-auto mb-2" style={{ backgroundColor: '#3BA8AF' }}></div>
+        </div>
+        <div className="grid grid-cols-3 gap-1.5">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="border rounded p-2">
+              <div className="text-xs font-bold mb-1" style={{ color: '#084F6E' }}>Plan {i}</div>
+              <div className="text-sm font-bold mb-1">$99</div>
+              <div className="text-xs text-gray-500">par mois</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  search_bar_tours: {
+    type: 'search_bar_tours',
+    label: 'Search Bar: Tours',
+    preview: (
+      <div className="w-full bg-white rounded-lg overflow-hidden border p-4">
+        <div className="text-center mb-3">
+          <h2 className="font-bold text-sm mb-1.5" style={{ color: '#333333' }}>
+            Rechercher un tour
+          </h2>
+          <div className="w-12 h-0.5 mx-auto mb-2" style={{ backgroundColor: '#3BA8AF' }}></div>
+        </div>
+        <div className="bg-gray-100 rounded p-2 mb-2">
+          <div className="text-xs text-gray-500">🔍 Rechercher...</div>
+        </div>
+        <div className="grid grid-cols-3 gap-1.5">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="bg-white border rounded overflow-hidden">
+              <div className="h-12 bg-gradient-to-r from-[#084F6E] to-[#3BA8AF]"></div>
+              <div className="p-1.5">
+                <div className="text-xs font-semibold">Tour {i}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  blog_search: {
+    type: 'blog_search',
+    label: 'Search Bar: Blog',
+    preview: (
+      <div className="w-full bg-white rounded-lg overflow-hidden border p-4">
+        <div className="text-center mb-3">
+          <h2 className="font-bold text-sm mb-1.5" style={{ color: '#333333' }}>
+            Rechercher un article
+          </h2>
+          <div className="w-12 h-0.5 mx-auto mb-2" style={{ backgroundColor: '#3BA8AF' }}></div>
+        </div>
+        <div className="bg-gray-100 rounded p-2 mb-2">
+          <div className="text-xs text-gray-500">🔍 Rechercher...</div>
+        </div>
+        <div className="grid grid-cols-2 gap-1.5">
+          {[1, 2].map((i) => (
+            <div key={i} className="bg-white border rounded overflow-hidden">
+              <div className="h-12 bg-gradient-to-r from-[#084F6E] to-[#3BA8AF]"></div>
+              <div className="p-1.5">
+                <div className="text-xs font-semibold">Article {i}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
   }
 });
 
@@ -228,6 +415,63 @@ const templates: Template[] = [
       getBlockPreviews().tour_ninja_section,
       getBlockPreviews().why_choose_us,
       getBlockPreviews().who_we_are
+    ]
+  },
+  {
+    id: 'tours',
+    name: 'Tours',
+    description: 'Page pour afficher et rechercher les tours disponibles',
+    icon: Palette,
+    blocks: [
+      getBlockPreviews().header_page,
+      getBlockPreviews().search_bar_tours
+    ]
+  },
+  {
+    id: 'cruise',
+    name: 'Cruise',
+    description: 'Page complète pour présenter une croisière avec galerie, vidéo et formulaire',
+    icon: Ship,
+    blocks: [
+      getBlockPreviews().header_page,
+      getBlockPreviews().why_choose_us,
+      getBlockPreviews().text_gallery,
+      getBlockPreviews().text_video,
+      getBlockPreviews().text_listing,
+      getBlockPreviews().custom_tour_form
+    ]
+  },
+  {
+    id: 'custom',
+    name: 'Custom',
+    description: 'Page pour les voyages sur mesure avec tarifs et formulaire',
+    icon: Sparkles,
+    blocks: [
+      getBlockPreviews().header_page,
+      getBlockPreviews().why_choose_us,
+      getBlockPreviews().text_pricing,
+      getBlockPreviews().custom_tour_form
+    ]
+  },
+  {
+    id: 'blog',
+    name: 'Blog',
+    description: 'Page pour afficher et rechercher les articles du blog',
+    icon: FileText,
+    blocks: [
+      getBlockPreviews().header_page,
+      getBlockPreviews().blog_search
+    ]
+  },
+  {
+    id: 'contact',
+    name: 'Contact',
+    description: 'Page de contact avec informations et boutons d\'action',
+    icon: MessageSquare,
+    blocks: [
+      getBlockPreviews().header_page,
+      getBlockPreviews().contact,
+      getBlockPreviews().text
     ]
   }
 ];
