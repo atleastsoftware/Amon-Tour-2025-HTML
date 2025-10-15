@@ -4197,6 +4197,47 @@ Crawl-delay: 1`;
     `);
   });
 
+  // Temporary endpoint to clean HTML from existing page blocks
+  app.post("/api/admin/clean-html-blocks", requireAuth, async (req, res) => {
+    try {
+      const { pageBlocks } = await import('../shared/schema');
+      const blocksToClean = await db.select().from(pageBlocks).where(eq(pageBlocks.blockType, 'text_section'));
+      
+      let cleanedCount = 0;
+      
+      for (const block of blocksToClean) {
+        if (block.content) {
+          // Simple HTML cleaning: remove style and class attributes
+          const cleanedContent = block.content
+            .replace(/\s+style="[^"]*"/g, '')
+            .replace(/\s+class="[^"]*"/g, '')
+            .trim();
+          
+          // Update the block with cleaned content
+          await db.update(pageBlocks)
+            .set({ 
+              content: cleanedContent,
+              configuration: {
+                ...block.configuration,
+                content: cleanedContent
+              }
+            })
+            .where(eq(pageBlocks.id, block.id));
+          
+          cleanedCount++;
+        }
+      }
+      
+      res.json({ 
+        message: `Successfully cleaned ${cleanedCount} blocks`,
+        cleanedCount 
+      });
+    } catch (error) {
+      console.error("Error cleaning HTML blocks:", error);
+      res.status(500).json({ message: "Failed to clean blocks", error: String(error) });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
