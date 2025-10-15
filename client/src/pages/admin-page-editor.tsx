@@ -8316,7 +8316,7 @@ export default function AdminPageEditor() {
   const pageSlug = urlParams.get('page') || 'home';
 
   // Fetch page configurations
-  const { data: pageConfigs = [] } = useQuery<PageConfiguration[]>({
+  const { data: pageConfigs = [], isLoading: loadingPageConfigs } = useQuery<PageConfiguration[]>({
     queryKey: ['/api/admin/page-configurations'],
   });
 
@@ -8461,6 +8461,20 @@ export default function AdminPageEditor() {
   const handlePageChange = (newPageSlug: string) => {
     setLocation(`/admin-editor-page?page=${newPageSlug}`);
   };
+
+  // Afficher un état de chargement si les configurations de page sont en cours de chargement
+  if (loadingPageConfigs) {
+    return (
+      <div className="min-h-screen bg-gray-50 p-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center py-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-secondary mx-auto mb-4"></div>
+            <div className="text-gray-500">Chargement de la page...</div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (!currentPageConfig) {
     return (

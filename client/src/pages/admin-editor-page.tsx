@@ -412,10 +412,8 @@ function AdminEditorPageContent() {
         isOpen={isAddPageModalOpen}
         onClose={() => setIsAddPageModalOpen(false)}
         onSuccess={(pageSlug) => {
-          // Attendre un moment pour que les données soient rafraîchies puis rediriger
-          setTimeout(() => {
-            setLocation(`/admin-editor-page?page=${pageSlug}`);
-          }, 1500);
+          // Rediriger immédiatement - les données sont déjà invalidées et rechargées dans le modal
+          setLocation(`/admin-editor-page?page=${pageSlug}`);
         }}
       />
     </div>
