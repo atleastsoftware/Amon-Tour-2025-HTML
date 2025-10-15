@@ -7416,7 +7416,7 @@ const BlockEditDropdown = ({
 
       case 'text_pricing':
         const pricingCards = formData.pricingCards || [
-          { title: 'Haute Saison', subtitle: 'Période premium', price: '39,000', currency: 'THB', period: 'Déc 15 - Jan 15', headerGradient: 'from-secondary to-secondary/80' }
+          { title: 'Haute Saison', subtitle: 'Période premium', price: '39,000', currency: 'THB', cycle: 'par jour', label: 'Période', moreText: 'Déc 15 - Jan 15', headerGradient: '#3BA8AF' }
         ];
         
         return (
@@ -7458,37 +7458,13 @@ const BlockEditDropdown = ({
 
             {/* Couleur de fond */}
             <div>
-              <Label>Couleur de fond (gradient)</Label>
-              <Input 
-                value={formData.backgroundColor ?? 'from-muted/30 to-primary/5'} 
-                onChange={e => updateField('backgroundColor', e.target.value)}
-                placeholder="from-muted/30 to-primary/5"
-                className="mt-2"
-              />
-            </div>
-
-            <Separator />
-
-            {/* Texte "par jour" */}
-            <div>
-              <Label htmlFor="perDayText">Texte "par jour"</Label>
-              <Input 
-                id="perDayText"
-                value={formData.perDayText ?? 'par jour'} 
-                onChange={e => updateField('perDayText', e.target.value)}
-                className="mt-2"
-              />
-            </div>
-
-            {/* Label "Période" */}
-            <div>
-              <Label htmlFor="periodLabel">Label "Période"</Label>
-              <Input 
-                id="periodLabel"
-                value={formData.periodLabel ?? 'Période'} 
-                onChange={e => updateField('periodLabel', e.target.value)}
-                className="mt-2"
-              />
+              <Label>Couleur de fond</Label>
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.backgroundColor ?? '#f9fafb'}
+                  onChange={(value) => updateField('backgroundColor', value)}
+                />
+              </div>
             </div>
 
             <Separator />
@@ -7551,25 +7527,47 @@ const BlockEditDropdown = ({
                         }}
                       />
                     </div>
-                    <Textarea
-                      placeholder="Période"
-                      value={card.period || ''}
-                      rows={2}
+                    <Input
+                      placeholder="Cycle"
+                      value={card.cycle || ''}
                       onChange={(e) => {
                         const newCards = [...pricingCards];
-                        newCards[index] = { ...newCards[index], period: e.target.value };
+                        newCards[index] = { ...newCards[index], cycle: e.target.value };
                         updateField('pricingCards', newCards);
                       }}
                     />
                     <Input
-                      placeholder="Gradient header"
-                      value={card.headerGradient || ''}
+                      placeholder="Label"
+                      value={card.label || ''}
                       onChange={(e) => {
                         const newCards = [...pricingCards];
-                        newCards[index] = { ...newCards[index], headerGradient: e.target.value };
+                        newCards[index] = { ...newCards[index], label: e.target.value };
                         updateField('pricingCards', newCards);
                       }}
                     />
+                    <Textarea
+                      placeholder="Texte de plus"
+                      value={card.moreText || ''}
+                      rows={2}
+                      onChange={(e) => {
+                        const newCards = [...pricingCards];
+                        newCards[index] = { ...newCards[index], moreText: e.target.value };
+                        updateField('pricingCards', newCards);
+                      }}
+                    />
+                    <div>
+                      <Label className="text-sm">Couleur du dégradé en-tête</Label>
+                      <div className="mt-2">
+                        <ColorPicker
+                          value={card.headerGradient || '#3BA8AF'}
+                          onChange={(value) => {
+                            const newCards = [...pricingCards];
+                            newCards[index] = { ...newCards[index], headerGradient: value };
+                            updateField('pricingCards', newCards);
+                          }}
+                        />
+                      </div>
+                    </div>
                   </div>
                 ))}
                 <Button
@@ -7582,8 +7580,10 @@ const BlockEditDropdown = ({
                       subtitle: 'Sous-titre', 
                       price: 'Prix', 
                       currency: 'Devise', 
-                      period: 'Période', 
-                      headerGradient: 'Gradient header' 
+                      cycle: 'par jour',
+                      label: 'Période',
+                      moreText: 'Texte de plus', 
+                      headerGradient: '#3BA8AF' 
                     }];
                     updateField('pricingCards', newCards);
                   }}
@@ -7595,10 +7595,10 @@ const BlockEditDropdown = ({
 
             <Separator />
 
-            {/* Section Pick up times (optionnelle) */}
+            {/* Options (optionnelle) */}
             <div>
               <Label className="text-base font-semibold flex items-center gap-2">
-                Section Pick up times
+                Options
                 <input
                   type="checkbox"
                   checked={formData.showPickupSection ?? false}

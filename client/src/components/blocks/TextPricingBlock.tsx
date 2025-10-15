@@ -6,7 +6,9 @@ interface PricingCard {
   subtitle: string;
   price: string;
   currency: string;
-  period: string;
+  cycle: string;
+  label: string;
+  moreText: string;
   headerGradient: string;
 }
 
@@ -25,8 +27,6 @@ interface TextPricingBlockProps {
       pricingCards?: PricingCard[];
       dividerColor?: string;
       backgroundColor?: string;
-      perDayText?: string;
-      periodLabel?: string;
       showPickupSection?: boolean;
       pickupTitle?: string;
       pickupTimes?: PickupTime[];
@@ -50,30 +50,34 @@ export default function TextPricingBlock({ block }: TextPricingBlockProps) {
       subtitle: "Sous-titre",
       price: "Prix",
       currency: "Devise",
-      period: "Période",
-      headerGradient: "Gradient header"
+      cycle: "par jour",
+      label: "Période",
+      moreText: "Texte de plus",
+      headerGradient: "#3BA8AF"
     },
     {
       title: "Titre",
       subtitle: "Sous-titre",
       price: "Prix",
       currency: "Devise",
-      period: "Période",
-      headerGradient: "Gradient header"
+      cycle: "par jour",
+      label: "Période",
+      moreText: "Texte de plus",
+      headerGradient: "#3BA8AF"
     },
     {
       title: "Titre",
       subtitle: "Sous-titre",
       price: "Prix",
       currency: "Devise",
-      period: "Période",
-      headerGradient: "Gradient header"
+      cycle: "par jour",
+      label: "Période",
+      moreText: "Texte de plus",
+      headerGradient: "#3BA8AF"
     }
   ];
   const dividerColor = config.dividerColor ?? "#3BA8AF";
-  const backgroundColor = config.backgroundColor ?? "from-muted/30 to-primary/5";
-  const perDayText = config.perDayText ?? "par jour";
-  const periodLabel = config.periodLabel ?? "Période";
+  const backgroundColor = config.backgroundColor ?? "#f9fafb";
   const showPickupSection = config.showPickupSection ?? false;
   const pickupTitle = config.pickupTitle ?? "Options supplémentaires";
   const pickupTimes = config.pickupTimes ?? [];
@@ -86,7 +90,7 @@ export default function TextPricingBlock({ block }: TextPricingBlockProps) {
 
   return (
     <div className="w-full">
-      <div className={`bg-gradient-to-br ${backgroundColor} py-12`}>
+      <div className="py-12" style={{ backgroundColor }}>
         <div className="container mx-auto px-4">
           {title && (
             <div className="text-center mb-12">
@@ -115,7 +119,12 @@ export default function TextPricingBlock({ block }: TextPricingBlockProps) {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.1 * (index + 1) }}
               >
-                <div className={`bg-gradient-to-r ${card.headerGradient} text-white p-4`}>
+                <div 
+                  className="text-white p-4"
+                  style={{ 
+                    background: `linear-gradient(135deg, ${card.headerGradient}, ${card.headerGradient}dd)` 
+                  }}
+                >
                   <h3 className="text-xl font-bold">{card.title}</h3>
                   <p className="text-sm opacity-90">{card.subtitle}</p>
                 </div>
@@ -124,10 +133,10 @@ export default function TextPricingBlock({ block }: TextPricingBlockProps) {
                     {card.price}
                     <span className="text-lg ml-2">{card.currency}</span>
                   </p>
-                  <p className="text-sm text-muted-foreground/80 mb-4">{perDayText}</p>
+                  {card.cycle && <p className="text-sm text-muted-foreground/80 mb-4">{card.cycle}</p>}
                   <div className="border-t pt-4">
-                    <p className="text-sm font-semibold text-muted-foreground">{periodLabel}</p>
-                    <p className="text-sm text-muted-foreground whitespace-pre-line">{card.period}</p>
+                    {card.label && <p className="text-sm font-semibold text-muted-foreground">{card.label}</p>}
+                    {card.moreText && <p className="text-sm text-muted-foreground whitespace-pre-line">{card.moreText}</p>}
                   </div>
                 </div>
               </motion.div>

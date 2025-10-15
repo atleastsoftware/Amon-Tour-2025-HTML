@@ -3660,24 +3660,30 @@ Crawl-delay: 1`;
                 subtitle: 'Sous-titre',
                 price: 'Prix',
                 currency: 'Devise',
-                period: 'Période',
-                headerGradient: 'Gradient header'
+                cycle: 'par jour',
+                label: 'Période',
+                moreText: 'Texte de plus',
+                headerGradient: '#3BA8AF'
               },
               {
                 title: 'Titre',
                 subtitle: 'Sous-titre',
                 price: 'Prix',
                 currency: 'Devise',
-                period: 'Période',
-                headerGradient: 'Gradient header'
+                cycle: 'par jour',
+                label: 'Période',
+                moreText: 'Texte de plus',
+                headerGradient: '#3BA8AF'
               },
               {
                 title: 'Titre',
                 subtitle: 'Sous-titre',
                 price: 'Prix',
                 currency: 'Devise',
-                period: 'Période',
-                headerGradient: 'Gradient header'
+                cycle: 'par jour',
+                label: 'Période',
+                moreText: 'Texte de plus',
+                headerGradient: '#3BA8AF'
               }
             ],
             dividerColor: '#3BA8AF',
@@ -3696,9 +3702,7 @@ Crawl-delay: 1`;
             notIncludedDescription: 'Transfers (on request), national park fees (depending on the itinerary), beer, wine, spirits. Lunch and dinner (Thai cuisine): 500 Baht per person per meal. Please let us know your preferences and we will provision the boat accordingly.',
             pickupTimeColor: '#1F2937',
             pickupPriceColor: '#084F6E',
-            backgroundColor: 'from-muted/30 to-primary/5',
-            perDayText: 'par jour',
-            periodLabel: 'Période'
+            backgroundColor: '#f9fafb'
           },
           isActive: false
         }
