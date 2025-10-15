@@ -3771,7 +3771,7 @@ Crawl-delay: 1`;
               videoUrl: '',
               backgroundImage: ''
             },
-            isActive: true
+            isActive: false
           },
           text: {
             identifier: `text_${timestamp}`,
@@ -3785,7 +3785,7 @@ Crawl-delay: 1`;
               dividerColor: '#3BA8AF',
               backgroundColor: '#ffffff'
             },
-            isActive: true
+            isActive: false
           },
           popular_experiences: {
             identifier: `popular_experiences_${timestamp}`,
@@ -3813,7 +3813,7 @@ Crawl-delay: 1`;
               buttonBackgroundColor: '#084F6E',
               buttonTextColor: '#ffffff'
             },
-            isActive: true
+            isActive: false
           },
           custom_tour_form: {
             identifier: `custom_tour_form_${timestamp}`,
@@ -3829,7 +3829,7 @@ Crawl-delay: 1`;
               backgroundColor: '#ffffff',
               formId: null
             },
-            isActive: true
+            isActive: false
           },
           tour_ninja_section: {
             identifier: `tour_ninja_section_${timestamp}`,
@@ -3854,7 +3854,7 @@ Crawl-delay: 1`;
               buttonBackgroundColor: '#084F6E',
               buttonTextColor: '#ffffff'
             },
-            isActive: true
+            isActive: false
           },
           why_choose_us: {
             identifier: `why_choose_us_${timestamp}`,
@@ -3894,7 +3894,7 @@ Crawl-delay: 1`;
                 }
               ]
             },
-            isActive: true
+            isActive: false
           },
           who_we_are: {
             identifier: `who_we_are_${timestamp}`,
@@ -3941,7 +3941,7 @@ Crawl-delay: 1`;
                 }
               ]
             },
-            isActive: true
+            isActive: false
           }
         };
 
