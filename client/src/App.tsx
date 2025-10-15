@@ -2,6 +2,7 @@ import { Switch, Route } from "wouter";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
+import HomeDynamicPage from "@/pages/HomeDynamicPage";
 import Tours from "@/pages/tours";
 import Experiences from "@/pages/experiences";
 import TourCards from "@/pages/tour-cards";
@@ -63,29 +64,29 @@ function Router() {
   return (
     <Switch>
       {/* Public Pages */}
-      <Route path="/" component={Home} />
-      <Route path="/tours" component={Tours} />
+      <Route path="/" component={HomeDynamicPage} />
+      <Route path="/tours" component={() => <DynamicPage slug="tours" />} />
       <Route path="/experiences" component={Experiences} />
       <Route path="/tour-cards" component={TourCards} />
       <Route path="/stays" component={Stays} />
       <Route path="/tour/:token" component={TourShowcase} />
-      <Route path="/custom-tour" component={CustomTour} />
+      <Route path="/custom-tour" component={() => <DynamicPage slug="custom-tour" />} />
       <Route path="/book-tour/:id" component={BookTour} />
       <Route path="/booking" component={BookingIframe} />
       <Route path="/tour-view" component={TourView} />
       <Route path="/payment-complete" component={PaymentComplete} />
       <Route path="/external-stays" component={ExternalStays} />
       
-      {/* New Pages */}
+      {/* New Pages - Pages avec code personnalis\u00e9 (prot\u00e9g\u00e9es de l'\u00e9dition) */}
       <Route path="/krabi-celebration" component={KrabiCelebration} />
       <Route path="/become-partner" component={BecomePartner} />
       <Route path="/group-corporate" component={GroupCorporate} />
       <Route path="/brochure" component={Brochure} />
       <Route path="/villas-krabi" component={VillasKrabi} />
-      <Route path="/contact" component={Contact} />
+      <Route path="/contact" component={() => <DynamicPage slug="contact" />} />
       
       {/* Blog Pages */}
-      <Route path="/blog" component={Blog} />
+      <Route path="/blog" component={() => <DynamicPage slug="blog" />} />
       <Route path="/blog/:slug" component={BlogPost} />
       
       {/* Legal Pages */}
