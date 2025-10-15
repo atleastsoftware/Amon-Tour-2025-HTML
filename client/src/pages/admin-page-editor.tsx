@@ -252,7 +252,11 @@ const getBlockDisplayName = (block: PageBlock): string => {
     'tour_ninja_section': 'Card Grid Price',
     'why_choose_us': 'Text + Icones',
     'who_we_are': 'Text + Images',
-    'travelers_reviews': 'Reviews'
+    'travelers_reviews': 'Reviews',
+    'text_gallery': 'Text + Gallery',
+    'text_video': 'Text + Video',
+    'text_listing': 'Text + Listing',
+    'text_pricing': 'Text + Pricing'
   };
   
   return blockNames[block.blockType] || block.blockType.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
