@@ -7040,7 +7040,7 @@ const BlockEditDropdown = ({
               <Label>Couleur du tiret</Label>
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.dividerColor ?? '#084F6E'}
+                  value={formData.dividerColor ?? '#3BA8AF'}
                   onChange={(value) => updateField('dividerColor', value)}
                 />
               </div>
@@ -7055,6 +7055,25 @@ const BlockEditDropdown = ({
                   onChange={(value) => updateField('backgroundColor', value)}
                 />
               </div>
+            </div>
+
+            <Separator />
+
+            {/* Type de carrousel */}
+            <div>
+              <Label htmlFor="carouselType">Type de carrousel</Label>
+              <Select 
+                value={formData.carouselType ?? 'grande'} 
+                onValueChange={(value) => updateField('carouselType', value)}
+              >
+                <SelectTrigger className="mt-2">
+                  <SelectValue placeholder="Sélectionnez le type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="petite">Petite (Images défilantes)</SelectItem>
+                  <SelectItem value="grande">Grande (Image principale + miniatures)</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
             <Separator />
@@ -7118,7 +7137,7 @@ const BlockEditDropdown = ({
               <Label>Couleur du tiret</Label>
               <div className="mt-3">
                 <ColorPicker
-                  value={formData.dividerColor ?? '#084F6E'}
+                  value={formData.dividerColor ?? '#3BA8AF'}
                   onChange={(value) => updateField('dividerColor', value)}
                 />
               </div>
