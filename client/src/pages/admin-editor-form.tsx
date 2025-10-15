@@ -867,7 +867,7 @@ export default function AdminEditorForm() {
         </div>
 
         {/* Add Form Button */}
-        <div className="mb-6">
+        <div className="mb-6 flex justify-center">
           <Button 
             onClick={handleAddForm}
             className="bg-[hsl(var(--warning))] hover:bg-[hsl(var(--warning)/0.9)] text-white flex items-center gap-2"
