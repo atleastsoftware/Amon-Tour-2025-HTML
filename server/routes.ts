@@ -3694,11 +3694,13 @@ Crawl-delay: 1`;
               { time: 'Titre', location: 'Sous titre', price: 'Supplément', supplementColor: '#084F6E' }
             ],
             includedTitle: 'Included in Price',
-            includedDescription: '',
+            includedDescription: 'Description',
             notIncludedTitle: 'Not Included in Price',
-            notIncludedDescription: '',
-            pickupTimeColor: '#1F2937',
-            pickupPriceColor: '#084F6E',
+            notIncludedDescription: 'Description',
+            includedLogoColor: '#3BA8AF',
+            notIncludedLogoColor: '#3BA8AF',
+            titleColor: '#1F2937',
+            subtitleColor: '#6B7280',
             backgroundColor: '#ffffff'
           },
           isActive: false
