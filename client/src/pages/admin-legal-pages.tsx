@@ -135,7 +135,10 @@ export default function AdminLegalPages() {
       });
 
       // Fetch current blocks to get the latest data
-      const blocksResponse = await fetch(`/api/admin/page-blocks?pageSlug=${selectedPage.pageSlug}`);
+      const blocksResponse = await fetch(`/api/admin/page-blocks/${selectedPage.pageSlug}`);
+      if (!blocksResponse.ok) {
+        throw new Error(`Erreur lors de la récupération des blocs: ${blocksResponse.statusText}`);
+      }
       const currentBlocks = await blocksResponse.json();
       const textBlock = currentBlocks.find((b: PageBlock) => b.blockType === 'text_section');
       
