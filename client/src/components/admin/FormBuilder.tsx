@@ -859,8 +859,7 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                 </div>
               ) : formData.formLayout === 'footer' ? (
                 // Layout Footer - Juste le formulaire centré (comme la partie droite du layout colonnes)
-                <div className="bg-white rounded-lg shadow-lg overflow-hidden max-w-2xl mx-auto">
-                  <div className="p-8" style={{ backgroundColor: resolveColor(formData.frameColor) }}>
+                <div className="rounded-lg shadow-lg overflow-hidden max-w-2xl mx-auto p-8" style={{ backgroundColor: resolveColor(formData.frameColor) }}>
                     {formData.fields.length === 0 ? (
                       <div className="text-center py-16 text-gray-500">
                         <FormInput className="h-12 w-12 mx-auto mb-4 text-gray-300" />
@@ -933,7 +932,6 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                         </div>
                       </div>
                     )}
-                  </div>
                 </div>
               ) : (
                 // Layout Colonnes (normal ou inversé)

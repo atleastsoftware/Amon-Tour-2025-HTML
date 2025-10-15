@@ -617,8 +617,7 @@ function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitle
               </div>
             ) : formData.formLayout === 'footer' ? (
               // Layout Footer - Juste le formulaire centré (sans image/titre à gauche)
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden max-w-2xl mx-auto">
-                <div className="p-8" style={{ backgroundColor: resolveColor(formData.frameColor) }}>
+              <div className="rounded-lg shadow-lg overflow-hidden max-w-2xl mx-auto p-8" style={{ backgroundColor: resolveColor(formData.frameColor) }}>
                   {formData.fields?.length === 0 ? (
                     <div className="text-center py-16 text-gray-500">
                       <FormInput className="h-12 w-12 mx-auto mb-4 text-gray-300" />
@@ -683,8 +682,7 @@ function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitle
                       </div>
                     </div>
                   )}
-                </div>
-              </div>
+            </div>
             ) : (
               // Layout Colonnes (normal ou inversé)
               <div className={`grid grid-cols-1 md:grid-cols-2 min-h-[500px] ${
