@@ -218,7 +218,7 @@ export default function CustomTourForm({ title, subtitle }: CustomTourFormProps 
           </div>
         )}
         
-        <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+        <div className="bg-white rounded-lg shadow-lg overflow-hidden max-w-5xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2">
             {/* Image Side */}
             <div className="h-64 md:h-auto relative">
