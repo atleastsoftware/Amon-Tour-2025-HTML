@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Check, X } from "lucide-react";
 
 interface PricingCard {
   title: string;
@@ -7,6 +8,12 @@ interface PricingCard {
   currency: string;
   period: string;
   headerGradient: string;
+}
+
+interface PickupTime {
+  time: string;
+  location: string;
+  price: string;
 }
 
 interface TextPricingBlockProps {
@@ -20,6 +27,15 @@ interface TextPricingBlockProps {
       backgroundColor?: string;
       perDayText?: string;
       periodLabel?: string;
+      showPickupSection?: boolean;
+      pickupTitle?: string;
+      pickupTimes?: PickupTime[];
+      includedTitle?: string;
+      includedDescription?: string;
+      notIncludedTitle?: string;
+      notIncludedDescription?: string;
+      pickupTimeColor?: string;
+      pickupPriceColor?: string;
     };
   };
 }
@@ -58,6 +74,15 @@ export default function TextPricingBlock({ block }: TextPricingBlockProps) {
   const backgroundColor = config.backgroundColor ?? "from-muted/30 to-primary/5";
   const perDayText = config.perDayText ?? "par jour";
   const periodLabel = config.periodLabel ?? "Période";
+  const showPickupSection = config.showPickupSection ?? false;
+  const pickupTitle = config.pickupTitle ?? "Pick up times and transfer surcharges";
+  const pickupTimes = config.pickupTimes ?? [];
+  const includedTitle = config.includedTitle ?? "Included in Price";
+  const includedDescription = config.includedDescription ?? "";
+  const notIncludedTitle = config.notIncludedTitle ?? "Not Included in Price";
+  const notIncludedDescription = config.notIncludedDescription ?? "";
+  const pickupTimeColor = config.pickupTimeColor ?? "#1F2937";
+  const pickupPriceColor = config.pickupPriceColor ?? "#084F6E";
 
   return (
     <div className="w-full">
@@ -108,6 +133,72 @@ export default function TextPricingBlock({ block }: TextPricingBlockProps) {
               </motion.div>
             ))}
           </div>
+
+          {showPickupSection && (
+            <motion.div 
+              className="mt-12 max-w-5xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              {pickupTitle && (
+                <h3 className="text-2xl font-bold text-center mb-8">{pickupTitle}</h3>
+              )}
+              
+              {pickupTimes.length > 0 && (
+                <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+                  {pickupTimes.map((pickup, index) => (
+                    <div 
+                      key={index}
+                      className="bg-white rounded-lg shadow-md p-4 text-center"
+                    >
+                      <div className="text-2xl font-bold mb-1" style={{ color: pickupTimeColor }}>
+                        {pickup.time}
+                      </div>
+                      <div className="text-sm text-gray-600 mb-2">
+                        from {pickup.location}
+                      </div>
+                      <div 
+                        className="text-sm font-semibold" 
+                        style={{ color: pickup.price.includes('No') ? pickupTimeColor : pickupPriceColor }}
+                      >
+                        {pickup.price}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {includedDescription && (
+                <div className="bg-white rounded-xl shadow-lg p-6 mb-4">
+                  <div className="flex items-start gap-4">
+                    <div className="p-2 bg-green-100 rounded-full flex-shrink-0">
+                      <Check className="w-6 h-6 text-green-600" />
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-bold mb-2">{includedTitle}</h4>
+                      <p className="text-gray-600 leading-relaxed">{includedDescription}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {notIncludedDescription && (
+                <div className="bg-white rounded-xl shadow-lg p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="p-2 bg-red-100 rounded-full flex-shrink-0">
+                      <X className="w-6 h-6 text-red-600" />
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-bold mb-2">{notIncludedTitle}</h4>
+                      <p className="text-gray-600 leading-relaxed">{notIncludedDescription}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          )}
         </div>
       </div>
     </div>

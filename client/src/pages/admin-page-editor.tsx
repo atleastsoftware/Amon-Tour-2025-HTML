@@ -7516,6 +7516,170 @@ const BlockEditDropdown = ({
                 </Button>
               </div>
             </div>
+
+            <Separator />
+
+            {/* Section Pick up times (optionnelle) */}
+            <div>
+              <Label className="text-base font-semibold flex items-center gap-2">
+                Section Pick up times
+                <input
+                  type="checkbox"
+                  checked={formData.showPickupSection ?? false}
+                  onChange={(e) => updateField('showPickupSection', e.target.checked)}
+                  className="w-4 h-4"
+                />
+              </Label>
+              
+              {formData.showPickupSection && (
+                <div className="space-y-4 mt-3">
+                  {/* Titre de la section pickup */}
+                  <div>
+                    <Label htmlFor="pickupTitle">Titre de la section</Label>
+                    <Input 
+                      id="pickupTitle"
+                      value={formData.pickupTitle ?? 'Pick up times and transfer surcharges'} 
+                      onChange={e => updateField('pickupTitle', e.target.value)}
+                      className="mt-2"
+                    />
+                  </div>
+
+                  {/* Horaires de pick-up */}
+                  <div>
+                    <Label className="text-sm font-medium">Horaires de pick-up</Label>
+                    <div className="space-y-3 mt-2">
+                      {(formData.pickupTimes || []).map((pickup: any, index: number) => (
+                        <div key={index} className="p-3 border rounded-lg space-y-2">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-xs font-medium">Horaire {index + 1}</span>
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => {
+                                const newTimes = (formData.pickupTimes || []).filter((_: any, i: number) => i !== index);
+                                updateField('pickupTimes', newTimes);
+                              }}
+                            >
+                              Supprimer
+                            </Button>
+                          </div>
+                          <div className="grid grid-cols-3 gap-2">
+                            <Input
+                              placeholder="Heure (ex: 8:30)"
+                              value={pickup.time || ''}
+                              onChange={(e) => {
+                                const newTimes = [...(formData.pickupTimes || [])];
+                                newTimes[index] = { ...newTimes[index], time: e.target.value };
+                                updateField('pickupTimes', newTimes);
+                              }}
+                            />
+                            <Input
+                              placeholder="Lieu (ex: Tubkeak)"
+                              value={pickup.location || ''}
+                              onChange={(e) => {
+                                const newTimes = [...(formData.pickupTimes || [])];
+                                newTimes[index] = { ...newTimes[index], location: e.target.value };
+                                updateField('pickupTimes', newTimes);
+                              }}
+                            />
+                            <Input
+                              placeholder="Prix (ex: +1,300 Baht)"
+                              value={pickup.price || ''}
+                              onChange={(e) => {
+                                const newTimes = [...(formData.pickupTimes || [])];
+                                newTimes[index] = { ...newTimes[index], price: e.target.value };
+                                updateField('pickupTimes', newTimes);
+                              }}
+                            />
+                          </div>
+                        </div>
+                      ))}
+                      <Button
+                        type="button"
+                        variant="outline"
+                        className="w-full"
+                        onClick={() => {
+                          const newTimes = [...(formData.pickupTimes || []), { time: '', location: '', price: '' }];
+                          updateField('pickupTimes', newTimes);
+                        }}
+                      >
+                        Ajouter un horaire
+                      </Button>
+                    </div>
+                  </div>
+
+                  <Separator />
+
+                  {/* Included in Price */}
+                  <div>
+                    <Label htmlFor="includedTitle">Titre "Included"</Label>
+                    <Input 
+                      id="includedTitle"
+                      value={formData.includedTitle ?? 'Included in Price'} 
+                      onChange={e => updateField('includedTitle', e.target.value)}
+                      className="mt-2"
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="includedDescription">Description "Included"</Label>
+                    <Textarea 
+                      id="includedDescription"
+                      value={formData.includedDescription ?? ''} 
+                      onChange={e => updateField('includedDescription', e.target.value)}
+                      rows={3}
+                      className="mt-2"
+                    />
+                  </div>
+
+                  {/* Not Included in Price */}
+                  <div>
+                    <Label htmlFor="notIncludedTitle">Titre "Not Included"</Label>
+                    <Input 
+                      id="notIncludedTitle"
+                      value={formData.notIncludedTitle ?? 'Not Included in Price'} 
+                      onChange={e => updateField('notIncludedTitle', e.target.value)}
+                      className="mt-2"
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="notIncludedDescription">Description "Not Included"</Label>
+                    <Textarea 
+                      id="notIncludedDescription"
+                      value={formData.notIncludedDescription ?? ''} 
+                      onChange={e => updateField('notIncludedDescription', e.target.value)}
+                      rows={3}
+                      className="mt-2"
+                    />
+                  </div>
+
+                  <Separator />
+
+                  {/* Couleurs */}
+                  <div>
+                    <Label>Couleur de l'heure</Label>
+                    <div className="mt-2">
+                      <ColorPicker
+                        value={formData.pickupTimeColor ?? '#1F2937'}
+                        onChange={(value) => updateField('pickupTimeColor', value)}
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <Label>Couleur du prix</Label>
+                    <div className="mt-2">
+                      <ColorPicker
+                        value={formData.pickupPriceColor ?? '#084F6E'}
+                        onChange={(value) => updateField('pickupPriceColor', value)}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         );
 
