@@ -348,6 +348,21 @@ export default function AdminLegalPages() {
     }
   };
 
+  // Clean existing database content mutation
+  const cleanDatabaseMutation = useMutation({
+    mutationFn: async () => {
+      const response = await apiRequest('POST', '/api/admin/clean-html-blocks');
+      return response.json();
+    },
+    onSuccess: (data) => {
+      toast({ title: `${data.cleanedCount} blocs nettoyés avec succès!` });
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/page-blocks'] });
+    },
+    onError: () => {
+      toast({ title: 'Erreur lors du nettoyage', variant: 'destructive' });
+    }
+  });
+
   if (authLoading) {
     return <div className="container mx-auto p-8 text-center">Loading...</div>;
   }
@@ -378,8 +393,8 @@ export default function AdminLegalPages() {
           </div>
         </div>
 
-        {/* Create Button */}
-        <div className="mb-6">
+        {/* Create Button and Clean Database Button */}
+        <div className="mb-6 flex gap-3">
           <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
             <DialogTrigger asChild>
               <Button className="flex items-center gap-2">
@@ -522,6 +537,14 @@ export default function AdminLegalPages() {
               </div>
             </DialogContent>
           </Dialog>
+          <Button 
+            variant="secondary" 
+            className="flex items-center gap-2"
+            onClick={() => cleanDatabaseMutation.mutate()}
+            disabled={cleanDatabaseMutation.isPending}
+          >
+            {cleanDatabaseMutation.isPending ? 'Nettoyage...' : 'Nettoyer les blocs (fix CSS)'}
+          </Button>
         </div>
 
         {/* Legal Pages List */}
