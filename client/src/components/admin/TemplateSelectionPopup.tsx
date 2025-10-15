@@ -506,8 +506,8 @@ export default function TemplateSelectionPopup({ isOpen, onClose, onSelectTempla
         <div className="grid grid-cols-3 gap-4 mt-4 overflow-hidden flex-1">
           <div className="col-span-1">
             <h3 className="text-sm font-semibold mb-3 text-gray-700">Bibliothèque de templates</h3>
-            <ScrollArea className="h-[550px] pr-4">
-              <div className="space-y-2">
+            <ScrollArea className="h-[600px] pr-4">
+              <div className="space-y-2 pb-20">
                 {templates.map((template) => {
                   const Icon = template.icon;
                   return (
@@ -551,7 +551,7 @@ export default function TemplateSelectionPopup({ isOpen, onClose, onSelectTempla
             <h3 className="text-sm font-semibold mb-3 text-gray-700">
               {selectedTemplate ? `Prévisualisation: ${selectedTemplate.name}` : 'Sélectionnez un template'}
             </h3>
-            <ScrollArea className="h-[550px] pr-4">
+            <ScrollArea className="h-[600px] pr-4">
               {selectedTemplate ? (
                 <div className="space-y-4 pb-32">
                   {selectedTemplate.blocks.map((block, index) => (
