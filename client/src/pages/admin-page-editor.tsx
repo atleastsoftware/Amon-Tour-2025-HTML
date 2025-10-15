@@ -4,8 +4,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { ArrowLeft, Edit, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Save, Undo, Trash2, AlertTriangle, Plus, ExternalLink, ChevronRight, Users, Compass, Sparkles, Star, Heart, FormInput, Clock, MapPin, Search } from 'lucide-react';
+import { ArrowLeft, Edit, Eye, EyeOff, ChevronUp, ChevronDown, Settings, Save, Undo, Trash2, AlertTriangle, Plus, ExternalLink, ChevronRight, Users, Compass, Sparkles, Star, Heart, FormInput, Clock, MapPin, Search, Layout } from 'lucide-react';
 import BlockSelectionPopup from '@/components/admin/BlockSelectionPopup';
+import TemplateSelectionPopup from '@/components/admin/TemplateSelectionPopup';
 import TourNinjaCard from '@/components/tour/TourNinjaCard';
 import URLInput from '@/components/admin/URLInput';
 import ImageManager from '@/components/admin/ImageManager';
@@ -8306,6 +8307,7 @@ export default function AdminPageEditor() {
   const [previewBlock, setPreviewBlock] = useState<PageBlock | null>(null);
   const [livePreviewData, setLivePreviewData] = useState<{ [blockId: number]: any }>({});
   const [isBlockPopupOpen, setIsBlockPopupOpen] = useState(false);
+  const [isTemplatePopupOpen, setIsTemplatePopupOpen] = useState(false);
   const [insertPosition, setInsertPosition] = useState<number | null>(null);
   const queryClient = useQueryClient();
   
@@ -8791,8 +8793,8 @@ export default function AdminPageEditor() {
               </AnimatePresence>
 
 
-              {/* Bouton visible pour ajouter un bloc à la fin */}
-              <div className="mt-6 flex justify-center">
+              {/* Boutons pour ajouter un bloc ou un template */}
+              <div className="mt-6 flex justify-center gap-3">
                 <Button
                   onClick={() => {
                     const lastBlock = sortedBlocks[sortedBlocks.length - 1];
@@ -8815,6 +8817,29 @@ export default function AdminPageEditor() {
                   <Plus className="w-5 h-5" />
                   Ajouter un bloc
                 </Button>
+                
+                {sortedBlocks.length === 0 && (
+                  <Button
+                    onClick={() => {
+                      setIsTemplatePopupOpen(true);
+                    }}
+                    className="flex items-center gap-2"
+                    style={{ 
+                      backgroundColor: '#10B981',
+                      color: 'white'
+                    }}
+                    data-testid="button-add-template"
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = '#059669';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = '#10B981';
+                    }}
+                  >
+                    <Layout className="w-5 h-5" />
+                    Ajouter un template
+                  </Button>
+                )}
               </div>
             </div>
           )}
@@ -8851,6 +8876,18 @@ export default function AdminPageEditor() {
             setIsBlockPopupOpen(false);
             setInsertPosition(null);
           }
+        }}
+      />
+
+      {/* Template Selection Popup */}
+      <TemplateSelectionPopup
+        isOpen={isTemplatePopupOpen}
+        onClose={() => {
+          setIsTemplatePopupOpen(false);
+        }}
+        onSelectTemplate={(templateId) => {
+          console.log('Template selected:', templateId);
+          setIsTemplatePopupOpen(false);
         }}
       />
     </div>
