@@ -3746,7 +3746,12 @@ Crawl-delay: 1`;
 
       // Define template blocks
       const templateBlocks: Record<string, string[]> = {
-        'home': ['hero', 'text', 'popular_experiences', 'custom_tour_form', 'tour_ninja_section', 'why_choose_us', 'who_we_are']
+        'home': ['hero', 'text', 'popular_experiences', 'custom_tour_form', 'tour_ninja_section', 'why_choose_us', 'who_we_are'],
+        'tours': ['header_page', 'search_bar_tours'],
+        'cruise': ['header_page', 'why_choose_us', 'text_gallery', 'text_video', 'text_listing', 'custom_tour_form'],
+        'custom': ['header_page', 'why_choose_us', 'text_pricing', 'custom_tour_form'],
+        'blog': ['header_page', 'blog_search'],
+        'contact': ['header_page', 'contact', 'text']
       };
 
       const blockTypes = templateBlocks[templateId];
