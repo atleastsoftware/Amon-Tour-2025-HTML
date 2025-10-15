@@ -1,12 +1,16 @@
 import { motion } from "framer-motion";
 import { lazy, Suspense } from "react";
-import { Loader2 } from "lucide-react";
+import { Loader2, Users, Compass, Sparkles, ExternalLink, Clock } from "lucide-react";
 import Gallery from "@/components/ui/Gallery";
+import { useTourNinjaWithCustomImages } from "@/hooks/useTourNinjaWithCustomImages";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 // Lazy load form components
 const CruiseForm = lazy(() => import("@/components/CruiseForm"));
 const CatamaranExperience = lazy(() => import("@/components/CatamaranExperience"));
 const SeasonalPricing = lazy(() => import("@/components/SeasonalPricing"));
+const DynamicFormBlockPreview = lazy(() => import("@/components/admin/DynamicFormBlockPreview"));
 
 // Import components for new block types
 const Features = lazy(() => import("@/components/home/Features"));
@@ -597,18 +601,188 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
           </div>
         );
 
-      case 'popular_experiences':
-        return (
-          <div key={block.id} className="w-full">
-            <Suspense fallback={
-              <div className="flex justify-center py-8">
-                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      case 'popular_experiences': {
+        const popularConfig = block.configuration || {};
+        
+        const TourCardsDisplay = () => {
+          const { tours, isLoading } = useTourNinjaWithCustomImages();
+          
+          // Filtrer les tours selon la configuration
+          const categoryFilter = popularConfig.categoryFilter || 'all';
+          let filteredTours = tours || [];
+          
+          if (categoryFilter === 'featured') {
+            if (filteredTours.length > 0) {
+              const avgPrice = filteredTours.reduce((sum, tour) => sum + (tour.price || 0), 0) / filteredTours.length;
+              filteredTours = filteredTours.filter(tour => (tour.price || 0) > avgPrice);
+            }
+          } else if (categoryFilter === 'day_trips') {
+            filteredTours = filteredTours.filter(tour => {
+              const duration = parseInt(String(tour.duration)) || 0;
+              return duration <= 1;
+            });
+          } else if (categoryFilter === 'multi_day') {
+            filteredTours = filteredTours.filter(tour => {
+              const duration = parseInt(String(tour.duration)) || 0;
+              return duration > 1;
+            });
+          } else if (categoryFilter === 'custom') {
+            const selectedIds = popularConfig.selectedTourIds || [];
+            if (selectedIds.length > 0) {
+              filteredTours = filteredTours.filter(tour => selectedIds.includes(tour.id));
+            }
+          }
+          
+          // Calculer le nombre d'annonces à afficher
+          let displayCount = 6;
+          if (popularConfig.showAllAds === true) {
+            displayCount = Math.max(filteredTours.length, 19);
+          } else {
+            displayCount = popularConfig.displayCountDesktop || 6;
+          }
+          
+          const displayTours = filteredTours.slice(0, displayCount);
+          
+          if (isLoading) {
+            return (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[1, 2, 3, 4, 5, 6].map((i) => (
+                  <div key={i} className="bg-white rounded-lg overflow-hidden shadow-md h-96 animate-pulse">
+                    <div className="h-48 bg-gray-300"></div>
+                    <div className="p-4 space-y-4">
+                      <div className="h-6 bg-gray-300 rounded w-3/4"></div>
+                      <div className="h-4 bg-gray-300 rounded"></div>
+                      <div className="h-4 bg-gray-300 rounded w-1/2"></div>
+                    </div>
+                  </div>
+                ))}
               </div>
-            }>
-              <TourNinjaSection />
-            </Suspense>
-          </div>
+            );
+          }
+          
+          return (
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              {displayTours.map((tour: any, index: number) => (
+                <motion.div
+                  key={tour.id || index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <Card className="overflow-hidden h-full flex flex-col">
+                    <div className="relative h-48 overflow-hidden">
+                      {tour.presentation_image_url || tour.imageUrl ? (
+                        <img
+                          src={tour.presentation_image_url || tour.imageUrl}
+                          alt={tour.title || tour.name}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div 
+                          className="w-full h-full"
+                          style={{ 
+                            background: `linear-gradient(135deg, #084F6E 0%, #3BA8AF 100%)`
+                          }}
+                        />
+                      )}
+                      {tour.duration && (
+                        <div 
+                          className="absolute top-3 left-3 px-3 py-1 rounded-full text-white text-sm font-semibold flex items-center gap-1"
+                          style={{
+                            backgroundColor: popularConfig.badgeBackgroundColor || '#084F6E'
+                          }}
+                        >
+                          <Clock className="h-3 w-3" />
+                          {tour.duration} jour{tour.duration > 1 ? 's' : ''}
+                        </div>
+                      )}
+                    </div>
+                    <CardHeader className="flex-grow">
+                      <h3 className="font-bold text-xl line-clamp-2">{tour.title || tour.name}</h3>
+                      {tour.description && (
+                        <p className="text-sm text-muted-foreground line-clamp-2 mt-2">{tour.description}</p>
+                      )}
+                    </CardHeader>
+                    <CardContent className="pt-0 mt-auto">
+                      <div className="flex items-center justify-between">
+                        <div className="text-sm text-muted-foreground">
+                          À partir de
+                          <div className="text-2xl font-bold text-primary">
+                            {tour.price ? `${tour.price}฿` : 'N/A'}
+                          </div>
+                        </div>
+                        <Button 
+                          className="text-white"
+                          style={{
+                            backgroundColor: popularConfig.cardsColor || '#084F6E'
+                          }}
+                          asChild
+                        >
+                          <a href={tour.bookingUrl || '#'} target="_blank" rel="noopener noreferrer">
+                            Réserver
+                            <ExternalLink className="h-4 w-4 ml-2" />
+                          </a>
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </motion.div>
+          );
+        };
+        
+        return (
+          <section key={block.id} className="py-16" style={{ backgroundColor: popularConfig.backgroundColor || '#ffffff' }}>
+            <div className="container mx-auto px-4 max-w-4xl text-center mb-8">
+              <motion.div
+                initial={{ y: -20, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+              >
+                {popularConfig.title && (
+                  <h2 
+                    className="font-heading font-bold text-3xl md:text-4xl mb-3"
+                    style={{
+                      color: popularConfig.titleColor || '#333333'
+                    }}
+                  >
+                    {popularConfig.title}
+                  </h2>
+                )}
+                {popularConfig.title && (
+                  <div 
+                    className="w-20 h-1 mx-auto mb-8"
+                    style={{
+                      backgroundColor: popularConfig.dividerColor || '#3BA8AF'
+                    }}
+                  ></div>
+                )}
+                {popularConfig.subtitle && (
+                  <p 
+                    className="text-lg leading-relaxed"
+                    style={{
+                      color: popularConfig.subtitleColor || '#666666'
+                    }}
+                  >
+                    {popularConfig.subtitle}
+                  </p>
+                )}
+              </motion.div>
+            </div>
+            <div className="container mx-auto px-4">
+              <TourCardsDisplay />
+            </div>
+          </section>
         );
+      }
 
       case 'custom_tour_form':
         return (
