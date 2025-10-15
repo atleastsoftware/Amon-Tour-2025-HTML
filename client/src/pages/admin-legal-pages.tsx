@@ -46,7 +46,7 @@ export default function AdminLegalPages() {
     title: '',
     content: '',
   });
-  const contentTextareaRef = useRef<HTMLTextAreaElement>(null);
+  const contentEditableRef = useRef<HTMLDivElement>(null);
 
   // Redirect to login if not authenticated
   useEffect(() => {
@@ -222,71 +222,46 @@ export default function AdminLegalPages() {
       .replace(/(^-|-$)/g, '');
   };
 
-  // Rich text editor functions
-  const insertFormatting = (before: string, after: string = '') => {
-    const textarea = contentTextareaRef.current;
-    if (!textarea) return;
+  // Sync contentEditable content when dialog opens or formData changes
+  useEffect(() => {
+    if (contentEditableRef.current && (isEditDialogOpen || isCreateDialogOpen)) {
+      if (contentEditableRef.current.innerHTML !== formData.content) {
+        contentEditableRef.current.innerHTML = formData.content;
+      }
+    }
+  }, [formData.content, isEditDialogOpen, isCreateDialogOpen]);
 
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
-    const selectedText = formData.content.substring(start, end);
-    const beforeText = formData.content.substring(0, start);
-    const afterText = formData.content.substring(end);
-
-    const newContent = beforeText + before + selectedText + after + afterText;
-    setFormData({ ...formData, content: newContent });
-
-    // Set cursor position after insertion
-    setTimeout(() => {
-      textarea.focus();
-      const newPosition = start + before.length + selectedText.length + after.length;
-      textarea.setSelectionRange(newPosition, newPosition);
-    }, 0);
+  // ContentEditable formatting functions
+  const formatText = (command: string, value?: string) => {
+    const editor = contentEditableRef.current;
+    if (!editor) return;
+    
+    editor.focus();
+    document.execCommand(command, false, value);
+    
+    // Update formData with the new content
+    setFormData({ ...formData, content: editor.innerHTML });
   };
 
   const insertHeading = (level: number) => {
-    const tag = `h${level}`;
-    insertFormatting(`<${tag}>`, `</${tag}>`);
+    formatText('formatBlock', `h${level}`);
   };
 
-  const insertBold = () => insertFormatting('<strong>', '</strong>');
-  const insertItalic = () => insertFormatting('<em>', '</em>');
-  const insertHighlight = () => insertFormatting('<mark>', '</mark>');
-  const insertAlignLeft = () => insertFormatting('<div style="text-align: left;">', '</div>');
-  const insertAlignCenter = () => insertFormatting('<div style="text-align: center;">', '</div>');
-  const insertAlignRight = () => insertFormatting('<div style="text-align: right;">', '</div>');
-  const insertBulletList = () => {
-    const textarea = contentTextareaRef.current;
-    if (!textarea) return;
-    
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
-    const selectedText = formData.content.substring(start, end);
-    
-    if (selectedText) {
-      const lines = selectedText.split('\n');
-      const listItems = lines.map(line => `  <li>${line}</li>`).join('\n');
-      insertFormatting('<ul>\n', `\n</ul>`);
-    } else {
-      insertFormatting('<ul>\n  <li>', '</li>\n</ul>');
+  const insertBold = () => formatText('bold');
+  const insertItalic = () => formatText('italic');
+  const insertHighlight = () => formatText('hiliteColor', '#ffff00');
+  const insertAlignLeft = () => formatText('justifyLeft');
+  const insertAlignCenter = () => formatText('justifyCenter');
+  const insertAlignRight = () => formatText('justifyRight');
+  const insertBulletList = () => formatText('insertUnorderedList');
+  const insertLineBreak = () => formatText('insertLineBreak');
+  
+  // Update formData when contentEditable changes
+  const handleContentChange = () => {
+    const editor = contentEditableRef.current;
+    if (editor) {
+      setFormData({ ...formData, content: editor.innerHTML });
     }
-  };
-  const insertLineBreak = () => {
-    const textarea = contentTextareaRef.current;
-    if (!textarea) return;
-
-    const start = textarea.selectionStart;
-    const beforeText = formData.content.substring(0, start);
-    const afterText = formData.content.substring(start);
-
-    const newContent = beforeText + '<br>\n' + afterText;
-    setFormData({ ...formData, content: newContent });
-
-    setTimeout(() => {
-      textarea.focus();
-      const newPosition = start + 5; // Length of '<br>\n'
-      textarea.setSelectionRange(newPosition, newPosition);
-    }, 0);
   };
 
   if (authLoading) {
@@ -328,34 +303,30 @@ export default function AdminLegalPages() {
                 Créer une page légale
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-7xl max-h-[90vh] overflow-y-auto">
+            <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto">
               <DialogHeader>
                 <DialogTitle>Créer une nouvelle page légale</DialogTitle>
                 <DialogDescription>
-                  Ajoutez le contenu de votre page légale avec mise en forme
+                  Éditez directement le contenu avec mise en forme visuelle
                 </DialogDescription>
               </DialogHeader>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 py-4">
-                {/* Editor Panel */}
-                <div className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="title">Titre *</Label>
-                    <Input
-                      id="title"
-                      placeholder="ex: Legal Notice"
-                      value={formData.title}
-                      onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                    />
-                    <p className="text-sm text-muted-foreground">
-                      Ce titre apparaîtra en haut de la page
-                    </p>
-                  </div>
+              <div className="space-y-4 py-4">
+                {/* Title Field */}
+                <div className="space-y-2">
+                  <Label htmlFor="title">Titre de la page *</Label>
+                  <Input
+                    id="title"
+                    placeholder="ex: Legal Notice"
+                    value={formData.title}
+                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                    className="text-lg font-semibold"
+                  />
+                </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="content">Contenu</Label>
-                    
-                    {/* Rich Text Toolbar */}
-                    <div className="flex flex-wrap gap-1 p-2 bg-muted rounded-md border">
+                {/* Rich Text Toolbar */}
+                <div className="space-y-2">
+                  <Label>Barre d'outils de formatage</Label>
+                  <div className="flex flex-wrap gap-1 p-2 bg-muted rounded-md border">
                     <Button
                       type="button"
                       variant="ghost"
@@ -440,52 +411,21 @@ export default function AdminLegalPages() {
                     >
                       <List className="w-4 h-4" />
                     </Button>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
-                      onClick={insertLineBreak}
-                      title="Saut de ligne"
-                      className="text-xs px-2"
-                    >
-                      BR
-                    </Button>
-                  </div>
-
-                  <Textarea
-                    ref={contentTextareaRef}
-                    id="content"
-                    rows={15}
-                    placeholder="Entrez le contenu de la page légale..."
-                    value={formData.content}
-                    onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                    className="font-mono text-sm"
-                  />
-                    <p className="text-sm text-muted-foreground">
-                      Utilisez les boutons de formatage pour ajouter des styles HTML
-                    </p>
                   </div>
                 </div>
 
-                {/* Preview Panel */}
+                {/* ContentEditable Editor */}
                 <div className="space-y-2">
-                  <Label>Aperçu en temps réel</Label>
-                  <div className="border rounded-lg p-6 bg-white min-h-[400px]">
-                    {formData.title && (
-                      <h1 className="font-heading text-3xl md:text-4xl font-bold mb-6 text-center">
-                        {formData.title}
-                      </h1>
-                    )}
-                    {formData.content && (
-                      <div 
-                        className="prose prose-headings:font-heading prose-h2:text-2xl prose-h2:font-semibold prose-h2:mb-4 prose-h3:text-xl prose-h3:font-semibold prose-h3:mb-3 prose-p:mb-4 prose-ul:list-disc prose-ul:pl-6 prose-ul:mb-4 prose-ul:space-y-1 prose-strong:font-bold max-w-none"
-                        dangerouslySetInnerHTML={{ __html: formData.content }}
-                      />
-                    )}
-                    {!formData.title && !formData.content && (
-                      <p className="text-muted-foreground text-center">L'aperçu apparaîtra ici</p>
-                    )}
-                  </div>
+                  <Label>Contenu éditable</Label>
+                  <div
+                    ref={contentEditableRef}
+                    contentEditable
+                    onInput={handleContentChange}
+                    className="border rounded-lg p-6 bg-white min-h-[400px] prose prose-headings:font-heading prose-h2:text-2xl prose-h2:font-semibold prose-h2:mb-4 prose-h3:text-xl prose-h3:font-semibold prose-h3:mb-3 prose-p:mb-4 prose-ul:list-disc prose-ul:pl-6 prose-ul:mb-4 prose-ul:space-y-1 prose-strong:font-bold max-w-none focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                  <p className="text-sm text-muted-foreground">
+                    Cliquez dans la zone ci-dessus pour éditer directement. Sélectionnez du texte et utilisez les boutons de formatage.
+                  </p>
                 </div>
               </div>
               <div className="flex justify-end gap-2 pt-4 border-t">
@@ -590,33 +530,29 @@ export default function AdminLegalPages() {
 
         {/* Edit Dialog */}
         <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-          <DialogContent className="max-w-7xl max-h-[90vh] overflow-y-auto">
+          <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>Modifier : {selectedPage?.pageName}</DialogTitle>
               <DialogDescription>
-                Modifiez le contenu de la page légale
+                Éditez directement le contenu avec mise en forme visuelle
               </DialogDescription>
             </DialogHeader>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 py-4">
-              {/* Editor Panel */}
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="edit-title">Titre *</Label>
-                  <Input
-                    id="edit-title"
-                    value={formData.title}
-                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                  />
-                  <p className="text-sm text-muted-foreground">
-                    Ce titre apparaîtra en haut de la page
-                  </p>
-                </div>
+            <div className="space-y-4 py-4">
+              {/* Title Field */}
+              <div className="space-y-2">
+                <Label htmlFor="edit-title">Titre de la page *</Label>
+                <Input
+                  id="edit-title"
+                  value={formData.title}
+                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  className="text-lg font-semibold"
+                />
+              </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="edit-content">Contenu</Label>
-                  
-                  {/* Rich Text Toolbar */}
-                  <div className="flex flex-wrap gap-1 p-2 bg-muted rounded-md border">
+              {/* Rich Text Toolbar */}
+              <div className="space-y-2">
+                <Label>Barre d'outils de formatage</Label>
+                <div className="flex flex-wrap gap-1 p-2 bg-muted rounded-md border">
                   <Button
                     type="button"
                     variant="ghost"
@@ -701,51 +637,21 @@ export default function AdminLegalPages() {
                   >
                     <List className="w-4 h-4" />
                   </Button>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={insertLineBreak}
-                    title="Saut de ligne"
-                    className="text-xs px-2"
-                  >
-                    BR
-                  </Button>
-                </div>
-
-                <Textarea
-                  ref={contentTextareaRef}
-                  id="edit-content"
-                  rows={15}
-                  value={formData.content}
-                  onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                  className="font-mono text-sm"
-                />
-                  <p className="text-sm text-muted-foreground">
-                    Utilisez les boutons de formatage pour ajouter des styles HTML
-                  </p>
                 </div>
               </div>
 
-              {/* Preview Panel */}
+              {/* ContentEditable Editor */}
               <div className="space-y-2">
-                <Label>Aperçu en temps réel</Label>
-                <div className="border rounded-lg p-6 bg-white min-h-[400px]">
-                  {formData.title && (
-                    <h1 className="font-heading text-3xl md:text-4xl font-bold mb-6 text-center">
-                      {formData.title}
-                    </h1>
-                  )}
-                  {formData.content && (
-                    <div 
-                      className="prose prose-headings:font-heading prose-h2:text-2xl prose-h2:font-semibold prose-h2:mb-4 prose-h3:text-xl prose-h3:font-semibold prose-h3:mb-3 prose-p:mb-4 prose-ul:list-disc prose-ul:pl-6 prose-ul:mb-4 prose-ul:space-y-1 prose-strong:font-bold max-w-none"
-                      dangerouslySetInnerHTML={{ __html: formData.content }}
-                    />
-                  )}
-                  {!formData.title && !formData.content && (
-                    <p className="text-muted-foreground text-center">L'aperçu apparaîtra ici</p>
-                  )}
-                </div>
+                <Label>Contenu éditable</Label>
+                <div
+                  ref={contentEditableRef}
+                  contentEditable
+                  onInput={handleContentChange}
+                  className="border rounded-lg p-6 bg-white min-h-[400px] prose prose-headings:font-heading prose-h2:text-2xl prose-h2:font-semibold prose-h2:mb-4 prose-h3:text-xl prose-h3:font-semibold prose-h3:mb-3 prose-p:mb-4 prose-ul:list-disc prose-ul:pl-6 prose-ul:mb-4 prose-ul:space-y-1 prose-strong:font-bold max-w-none focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+                <p className="text-sm text-muted-foreground">
+                  Cliquez dans la zone ci-dessus pour éditer directement. Sélectionnez du texte et utilisez les boutons de formatage.
+                </p>
               </div>
             </div>
             <div className="flex justify-end gap-2 pt-4 border-t">
