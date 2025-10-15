@@ -7640,34 +7640,45 @@ const BlockEditDropdown = ({
                               Supprimer
                             </Button>
                           </div>
-                          <div className="grid grid-cols-3 gap-2">
-                            <Input
-                              placeholder="Heure"
-                              value={pickup.time || ''}
-                              onChange={(e) => {
-                                const newTimes = [...(formData.pickupTimes || [])];
-                                newTimes[index] = { ...newTimes[index], time: e.target.value };
-                                updateField('pickupTimes', newTimes);
-                              }}
-                            />
-                            <Input
-                              placeholder="Lieu"
-                              value={pickup.location || ''}
-                              onChange={(e) => {
-                                const newTimes = [...(formData.pickupTimes || [])];
-                                newTimes[index] = { ...newTimes[index], location: e.target.value };
-                                updateField('pickupTimes', newTimes);
-                              }}
-                            />
-                            <Input
-                              placeholder="Prix"
-                              value={pickup.price || ''}
-                              onChange={(e) => {
-                                const newTimes = [...(formData.pickupTimes || [])];
-                                newTimes[index] = { ...newTimes[index], price: e.target.value };
-                                updateField('pickupTimes', newTimes);
-                              }}
-                            />
+                          <Input
+                            placeholder="Titre"
+                            value={pickup.time || ''}
+                            onChange={(e) => {
+                              const newTimes = [...(formData.pickupTimes || [])];
+                              newTimes[index] = { ...newTimes[index], time: e.target.value };
+                              updateField('pickupTimes', newTimes);
+                            }}
+                          />
+                          <Input
+                            placeholder="Sous titre"
+                            value={pickup.location || ''}
+                            onChange={(e) => {
+                              const newTimes = [...(formData.pickupTimes || [])];
+                              newTimes[index] = { ...newTimes[index], location: e.target.value };
+                              updateField('pickupTimes', newTimes);
+                            }}
+                          />
+                          <Input
+                            placeholder="Supplément"
+                            value={pickup.price || ''}
+                            onChange={(e) => {
+                              const newTimes = [...(formData.pickupTimes || [])];
+                              newTimes[index] = { ...newTimes[index], price: e.target.value };
+                              updateField('pickupTimes', newTimes);
+                            }}
+                          />
+                          <div>
+                            <Label className="text-xs">Couleur du supplément</Label>
+                            <div className="mt-1">
+                              <ColorPicker
+                                value={pickup.supplementColor || '#084F6E'}
+                                onChange={(value) => {
+                                  const newTimes = [...(formData.pickupTimes || [])];
+                                  newTimes[index] = { ...newTimes[index], supplementColor: value };
+                                  updateField('pickupTimes', newTimes);
+                                }}
+                              />
+                            </div>
                           </div>
                         </div>
                       ))}
@@ -7676,7 +7687,7 @@ const BlockEditDropdown = ({
                         variant="outline"
                         className="w-full"
                         onClick={() => {
-                          const newTimes = [...(formData.pickupTimes || []), { time: 'Heure', location: 'Lieu', price: 'Prix' }];
+                          const newTimes = [...(formData.pickupTimes || []), { time: 'Titre', location: 'Sous titre', price: 'Supplément', supplementColor: '#084F6E' }];
                           updateField('pickupTimes', newTimes);
                         }}
                       >

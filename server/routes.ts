@@ -3690,16 +3690,16 @@ Crawl-delay: 1`;
             showPickupSection: false,
             pickupTitle: 'Options supplémentaires',
             pickupTimes: [
-              { time: '8:30', location: 'Tubkeak', price: '+1,300 Baht' },
-              { time: '8:30', location: 'Thalane', price: '+1,800 Baht' },
-              { time: '8:45', location: 'Ao Nang', price: 'No extra fee' },
-              { time: '8:40', location: 'Klong Mueang', price: '+1,000 Baht' },
-              { time: '9:00', location: 'Railay', price: 'No extra fee' }
+              { time: 'Titre', location: 'Sous titre', price: 'Supplément', supplementColor: '#084F6E' },
+              { time: 'Titre', location: 'Sous titre', price: 'Supplément', supplementColor: '#084F6E' },
+              { time: 'Titre', location: 'Sous titre', price: 'Supplément', supplementColor: '#084F6E' },
+              { time: 'Titre', location: 'Sous titre', price: 'Supplément', supplementColor: '#084F6E' },
+              { time: 'Titre', location: 'Sous titre', price: 'Supplément', supplementColor: '#084F6E' }
             ],
             includedTitle: 'Included in Price',
-            includedDescription: 'Boat rental with captain, assistant and professional English-speaking guide, fuel, semi-rigid dinghy for 5 to 6 people with an 18 HP engine, BBQ, fishing equipment and a paddleboard, fresh fruit, sodas, water. Breakfast (tea, coffee, toast, omelet).',
+            includedDescription: '',
             notIncludedTitle: 'Not Included in Price',
-            notIncludedDescription: 'Transfers (on request), national park fees (depending on the itinerary), beer, wine, spirits. Lunch and dinner (Thai cuisine): 500 Baht per person per meal. Please let us know your preferences and we will provision the boat accordingly.',
+            notIncludedDescription: '',
             pickupTimeColor: '#1F2937',
             pickupPriceColor: '#084F6E',
             backgroundColor: '#ffffff'

@@ -16,6 +16,7 @@ interface PickupTime {
   time: string;
   location: string;
   price: string;
+  supplementColor?: string;
 }
 
 interface TextPricingBlockProps {
@@ -166,11 +167,11 @@ export default function TextPricingBlock({ block }: TextPricingBlockProps) {
                         {pickup.time}
                       </div>
                       <div className="text-sm text-gray-600 mb-2">
-                        from {pickup.location}
+                        {pickup.location}
                       </div>
                       <div 
                         className="text-sm font-semibold" 
-                        style={{ color: pickup.price.includes('No') ? pickupTimeColor : pickupPriceColor }}
+                        style={{ color: pickup.supplementColor || pickupPriceColor }}
                       >
                         {pickup.price}
                       </div>
