@@ -32,7 +32,6 @@ export default function TextListingBlock({ block }: TextListingBlockProps) {
     <section className="w-full py-16" style={{ backgroundColor }}>
       <div className="container mx-auto px-4">
         <motion.div 
-          className="mt-16"
           initial={{ y: 20, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true }}
@@ -64,10 +63,27 @@ export default function TextListingBlock({ block }: TextListingBlockProps) {
                   <span className="font-bold text-xl md:w-32 mb-2 md:mb-0" style={{ color: labelColor }}>
                     {item.label}
                   </span>
-                  <span 
-                    className="text-gray-600 text-lg md:ml-4 [&_a]:text-[#3BA8AF] [&_a]:underline [&_a]:hover:text-[#084F6E] [&_a]:transition-colors"
-                    dangerouslySetInnerHTML={{ __html: item.description }}
-                  />
+                  <div 
+                    className="text-gray-600 text-lg md:ml-4"
+                    style={{
+                      ['--link-color' as string]: labelColor
+                    }}
+                  >
+                    <style dangerouslySetInnerHTML={{ __html: `
+                      .listing-item-${index} a {
+                        color: ${labelColor};
+                        text-decoration: underline;
+                        transition: opacity 0.2s;
+                      }
+                      .listing-item-${index} a:hover {
+                        opacity: 0.7;
+                      }
+                    `}} />
+                    <div 
+                      className={`listing-item-${index}`}
+                      dangerouslySetInnerHTML={{ __html: item.description }}
+                    />
+                  </div>
                 </div>
               </motion.div>
             ))}

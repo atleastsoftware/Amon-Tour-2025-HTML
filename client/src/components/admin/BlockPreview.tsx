@@ -450,17 +450,32 @@ function SimplifiedPreview({ block }: { block: PageBlock }) {
               </p>
             </div>
             <div className="max-w-4xl mx-auto space-y-3">
-              {listingItems.map((item: any, i: number) => (
-                <div key={i} className="bg-white rounded-lg shadow-md p-4 flex items-center gap-4">
-                  <span className="font-bold text-lg" style={{ color: config.labelColor || '#084F6E', minWidth: '80px' }}>
-                    {item.label}
-                  </span>
-                  <span 
-                    className="text-gray-600 [&_a]:text-[#3BA8AF] [&_a]:underline [&_a]:hover:text-[#084F6E] [&_a]:transition-colors"
-                    dangerouslySetInnerHTML={{ __html: item.description }}
-                  />
-                </div>
-              ))}
+              {listingItems.map((item: any, i: number) => {
+                const linkColor = config.labelColor || '#084F6E';
+                return (
+                  <div key={i} className="bg-white rounded-lg shadow-md p-4 flex items-center gap-4">
+                    <span className="font-bold text-lg" style={{ color: linkColor, minWidth: '80px' }}>
+                      {item.label}
+                    </span>
+                    <div className="text-gray-600">
+                      <style dangerouslySetInnerHTML={{ __html: `
+                        .preview-item-${i} a {
+                          color: ${linkColor};
+                          text-decoration: underline;
+                          transition: opacity 0.2s;
+                        }
+                        .preview-item-${i} a:hover {
+                          opacity: 0.7;
+                        }
+                      `}} />
+                      <div 
+                        className={`preview-item-${i}`}
+                        dangerouslySetInnerHTML={{ __html: item.description }}
+                      />
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

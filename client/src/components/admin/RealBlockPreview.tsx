@@ -760,17 +760,28 @@ function MiniaturizedComponent({
               <div className="text-[7px] text-gray-600">{mergedConfig.subtitle || "Description de votre listing"}</div>
             </div>
             <div className="space-y-0.5">
-              {listingItems.slice(0, 3).map((item: any, i: number) => (
-                <div key={i} className="bg-gray-50 rounded p-1 flex items-center gap-1">
-                  <span className="text-[8px] font-bold" style={{ color: mergedConfig.labelColor || '#084F6E' }}>
-                    {item.label}
-                  </span>
-                  <span 
-                    className="text-[7px] text-gray-600 truncate [&_a]:text-[#3BA8AF] [&_a]:underline"
-                    dangerouslySetInnerHTML={{ __html: item.description }}
-                  />
-                </div>
-              ))}
+              {listingItems.slice(0, 3).map((item: any, i: number) => {
+                const linkColor = mergedConfig.labelColor || '#084F6E';
+                return (
+                  <div key={i} className="bg-gray-50 rounded p-1 flex items-center gap-1">
+                    <span className="text-[8px] font-bold" style={{ color: linkColor }}>
+                      {item.label}
+                    </span>
+                    <div className="text-[7px] text-gray-600 truncate">
+                      <style dangerouslySetInnerHTML={{ __html: `
+                        .real-preview-${i} a {
+                          color: ${linkColor};
+                          text-decoration: underline;
+                        }
+                      `}} />
+                      <div 
+                        className={`real-preview-${i}`}
+                        dangerouslySetInnerHTML={{ __html: item.description }}
+                      />
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         );
