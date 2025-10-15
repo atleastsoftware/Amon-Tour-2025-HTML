@@ -3566,14 +3566,21 @@ export default function AdminAppearance() {
                           </Button>
                           <Button
                             onClick={() => {
-                              // Rediriger directement vers l'édition de la page sélectionnée
-                              window.location.href = `/admin-editor-page?page=${selectedPage}`;
+                              // Rediriger vers l'éditeur approprié selon le type de page
+                              const currentPageConfig = pageConfigs.find(p => p.pageSlug === selectedPage);
+                              const isLegalPage = currentPageConfig?.pageType === 'legal';
+                              
+                              if (isLegalPage) {
+                                window.location.href = `/admin-editor-legal`;
+                              } else {
+                                window.location.href = `/admin-editor-page?page=${selectedPage}`;
+                              }
                             }}
                           >
                             <Edit className="w-4 h-4 mr-2" />
                             Éditer la page
                           </Button>
-                          {selectedPage !== 'home' && (
+                          {selectedPage !== 'home' && !['legal-notice', 'privacy-policy', 'terms-conditions'].includes(selectedPage) && (
                             <AlertDialog>
                               <AlertDialogTrigger asChild>
                                 <Button
