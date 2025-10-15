@@ -49,6 +49,14 @@ interface DynamicBlocksRendererProps {
   blocks: PageBlock[];
 }
 
+// Helper function to convert hex to rgba
+function hexToRgba(hex: string, alpha: number = 1): string {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
 export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererProps) {
   const renderBlock = (block: PageBlock) => {
     // Pour l'instant, on affiche un rendu basique pour chaque type de bloc
@@ -823,18 +831,186 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
           </div>
         );
 
-      case 'why_choose_us':
+      case 'why_choose_us': {
+        const featuresConfig = block.configuration || {};
+        const iconBlocks = featuresConfig.iconBlocks || [
+          {
+            id: 1,
+            mainIcon: 'fas fa-user-friends',
+            title: 'Private Tours',
+            description: 'Experience an exclusive day trip with our professional guides.',
+            iconColor: '#084F6E',
+            miniIcons: [
+              { icon: 'fas fa-car', text: 'Private Car' },
+              { icon: 'fas fa-language', text: 'Guide' },
+              { icon: 'fas fa-shield-alt', text: 'Safety' }
+            ]
+          }
+        ];
+        const iconStyle = featuresConfig.iconStyle || 'modern-card';
+        
         return (
-          <div key={block.id} className="w-full">
-            <Suspense fallback={
-              <div className="flex justify-center py-8">
-                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          <section key={block.id} className="py-16" style={{ backgroundColor: featuresConfig.backgroundColor || '#ffffff' }}>
+            <div className="container mx-auto px-4">
+              <div className="text-center mb-12 max-w-4xl mx-auto">
+                <motion.div 
+                  initial={{ y: -20, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                >
+                  {featuresConfig.title && (
+                    <h2 
+                      className="font-heading font-bold text-3xl md:text-4xl mb-3"
+                      style={{ color: featuresConfig.titleColor || '#333333' }}
+                    >
+                      {featuresConfig.title}
+                    </h2>
+                  )}
+                  {featuresConfig.title && (
+                    <div 
+                      className="w-20 h-1 mx-auto mb-8"
+                      style={{ backgroundColor: featuresConfig.dividerColor || '#3BA8AF' }}
+                    ></div>
+                  )}
+                  {featuresConfig.subtitle && (
+                    <p 
+                      className="text-lg leading-relaxed"
+                      style={{ color: featuresConfig.subtitleColor || '#666666' }}
+                    >
+                      {featuresConfig.subtitle}
+                    </p>
+                  )}
+                </motion.div>
               </div>
-            }>
-              <Features />
-            </Suspense>
-          </div>
+              
+              <div className={`grid gap-8 ${
+                iconBlocks.length === 1 ? 'grid-cols-1 max-w-md mx-auto' :
+                iconBlocks.length === 2 ? 'grid-cols-1 md:grid-cols-2' :
+                'grid-cols-1 md:grid-cols-3'
+              }`}>
+                {iconBlocks.map((feature: any, index: number) => {
+                  if (iconStyle === 'minimalist') {
+                    return (
+                      <motion.div 
+                        key={`minimalist-${feature.id}`}
+                        className="text-center"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: index * 0.1 }}
+                      >
+                        <div 
+                          className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+                          style={{ 
+                            backgroundColor: hexToRgba(feature.iconColor || '#084F6E', 0.06),
+                            color: feature.iconColor || '#084F6E'
+                          }}
+                        >
+                          {feature.mainIcon === 'fas fa-user-friends' && <Users size={28} />}
+                          {feature.mainIcon === 'fas fa-compass' && <Compass size={28} />}
+                          {feature.mainIcon === 'fas fa-sparkles' && <Sparkles size={28} />}
+                          {!['fas fa-user-friends', 'fas fa-compass', 'fas fa-sparkles'].includes(feature.mainIcon) && (
+                            <i className={`${feature.mainIcon} text-2xl`}></i>
+                          )}
+                        </div>
+                        <h3 className="font-heading font-bold text-xl mb-3">{feature.title}</h3>
+                        <p className="text-gray-600">{feature.description}</p>
+                        
+                        {feature.miniIcons && feature.miniIcons.length > 0 && (
+                          <div className={`mt-4 grid gap-4 ${
+                            feature.miniIcons.length === 1 ? 'grid-cols-1 justify-items-center' : 
+                            feature.miniIcons.length === 2 ? 'grid-cols-2 justify-items-center max-w-[200px] mx-auto' : 
+                            'grid-cols-3'
+                          }`}>
+                            {feature.miniIcons.slice(0, 3).map((miniIcon: any, miniIndex: number) => (
+                              <div key={miniIndex} className="flex flex-col items-center">
+                                <div 
+                                  className="w-10 h-10 rounded-full flex items-center justify-center mb-1"
+                                  style={{ 
+                                    backgroundColor: hexToRgba(feature.iconColor || '#084F6E', 0.06),
+                                    color: feature.iconColor || '#084F6E' 
+                                  }}
+                                >
+                                  <i className={`${miniIcon.icon || 'fas fa-question'} text-sm`}></i>
+                                </div>
+                                <span className="text-xs text-center">{miniIcon.text}</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </motion.div>
+                    );
+                  }
+                  
+                  return (
+                    <motion.div 
+                      key={`modern-card-${feature.id}`}
+                      className="bg-white p-6 rounded-lg shadow-md text-center flex flex-col items-center relative"
+                      initial={{ opacity: 0, y: 50 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                      whileHover={{ 
+                        y: -10, 
+                        boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+                      }}
+                    >
+                      <motion.div 
+                        className="w-16 h-16 rounded-full flex items-center justify-center mb-4 shadow-lg"
+                        style={{ backgroundColor: feature.iconColor || '#084F6E' }}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        {feature.mainIcon === 'fas fa-user-friends' && <Users size={28} className="text-white" />}
+                        {feature.mainIcon === 'fas fa-compass' && <Compass size={28} className="text-white" />}
+                        {feature.mainIcon === 'fas fa-sparkles' && <Sparkles size={28} className="text-white" />}
+                        {!['fas fa-user-friends', 'fas fa-compass', 'fas fa-sparkles'].includes(feature.mainIcon) && (
+                          <i className={`${feature.mainIcon} text-white text-2xl`}></i>
+                        )}
+                      </motion.div>
+                      <h3 className="font-heading font-bold text-xl mb-2">{feature.title}</h3>
+                      <p className="text-gray-600 mb-4">{feature.description}</p>
+                      
+                      {feature.miniIcons && feature.miniIcons.length > 0 && (
+                        <motion.div 
+                          className={`mt-4 grid gap-4 ${
+                            (feature.miniIcons?.length || 0) === 1 ? 'grid-cols-1 justify-items-center' : 
+                            (feature.miniIcons?.length || 0) === 2 ? 'grid-cols-2 justify-items-center max-w-[200px] mx-auto' : 
+                            'grid-cols-3'
+                          }`}
+                          initial={{ opacity: 0, y: 10 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: 0.2 }}
+                        >
+                          {feature.miniIcons.slice(0, 3).map((miniIcon: any, miniIndex: number) => (
+                            <motion.div 
+                              key={miniIndex}
+                              className="flex flex-col items-center"
+                              whileHover={{ y: -5 }}
+                            >
+                              <div 
+                                className="w-10 h-10 rounded-full flex items-center justify-center mb-1"
+                                style={{ 
+                                  backgroundColor: hexToRgba(feature.iconColor || '#084F6E', 0.1) 
+                                }}
+                              >
+                                <i className={`${miniIcon.icon || 'fas fa-question'} text-sm`} style={{ color: feature.iconColor || '#084F6E' }}></i>
+                              </div>
+                              <span className="text-xs text-center">{miniIcon.text}</span>
+                            </motion.div>
+                          ))}
+                        </motion.div>
+                      )}
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
         );
+      }
 
       case 'who_we_are':
         return (
