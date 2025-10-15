@@ -240,7 +240,7 @@ const getBlockDisplayName = (block: PageBlock): string => {
   const blockNames: { [key: string]: string } = {
     'video_hero': 'Hero Section',
     'hero': 'Hero Section',
-    'text': 'Text',
+    'text': 'Text + Buttons',
     'text_image': 'Text + Images',
     'form': 'Form',
     'advantages': 'Text + Icones',
