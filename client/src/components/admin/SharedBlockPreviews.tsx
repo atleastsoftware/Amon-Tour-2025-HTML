@@ -65,6 +65,17 @@ export const getFullBlockPreviews = (): Record<string, BlockPreviewDefinition> =
           </div>
         </div>
       </div>
+    ),
+    miniPreview: (
+      <div className="w-full bg-white rounded-lg overflow-hidden border">
+        <div className="relative h-24 bg-gradient-to-r from-[#084F6E] to-[#3BA8AF]">
+          <div className="absolute inset-0 bg-black/40"></div>
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-2">
+            <h1 className="text-sm font-bold mb-0.5 text-center">Titre de la page</h1>
+            <p className="text-xs opacity-90 text-center">Sous-titre</p>
+          </div>
+        </div>
+      </div>
     )
   },
 
