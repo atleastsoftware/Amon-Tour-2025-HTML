@@ -40,7 +40,7 @@ interface PageConfiguration {
 export function AddPageModal({ isOpen, onClose, onSuccess }: AddPageModalProps) {
   const { toast } = useToast();
   const [pageName, setPageName] = useState('');
-  const [createMode, setCreateMode] = useState<'new' | 'duplicate'>('new');
+  const [createMode, setCreateMode] = useState<'new' | 'duplicate' | 'legal'>('new');
   const [sourcePageId, setSourcePageId] = useState<string>('');
 
   // Récupérer la liste des pages existantes pour la duplication
@@ -125,8 +125,8 @@ export function AddPageModal({ isOpen, onClose, onSuccess }: AddPageModalProps) 
     const data = {
       pageName,
       pageSlug,
-      pageType: 'secondary', // Par défaut, toutes les nouvelles pages sont secondaires
-      isActive: false, // Par défaut, les nouvelles pages sont en brouillon
+      pageType: createMode === 'legal' ? 'legal' : 'secondary', // Page légale si mode legal, sinon secondaire
+      isActive: createMode === 'legal' ? true : false, // Pages légales actives par défaut, autres en brouillon
       ...(createMode === 'duplicate' && sourcePageId ? { sourcePageId: parseInt(sourcePageId) } : {})
     };
 
@@ -156,7 +156,7 @@ export function AddPageModal({ isOpen, onClose, onSuccess }: AddPageModalProps) 
             <Label>Mode de création</Label>
             <RadioGroup 
               value={createMode} 
-              onValueChange={(value) => setCreateMode(value as 'new' | 'duplicate')}
+              onValueChange={(value) => setCreateMode(value as 'new' | 'duplicate' | 'legal')}
             >
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="new" id="new" />
@@ -168,6 +168,12 @@ export function AddPageModal({ isOpen, onClose, onSuccess }: AddPageModalProps) 
                 <RadioGroupItem value="duplicate" id="duplicate" />
                 <Label htmlFor="duplicate" className="font-normal cursor-pointer">
                   Dupliquer à partir d'une page existante
+                </Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="legal" id="legal" />
+                <Label htmlFor="legal" className="font-normal cursor-pointer">
+                  Créer une page légale
                 </Label>
               </div>
             </RadioGroup>
