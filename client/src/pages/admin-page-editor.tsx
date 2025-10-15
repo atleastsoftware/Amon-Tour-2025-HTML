@@ -8634,7 +8634,7 @@ export default function AdminPageEditor() {
                   data-testid="button-add-first-block"
                 >
                   <Plus className="w-4 h-4 mr-2" />
-                  Ajouter un premier bloc
+                  Ajouter un bloc
                 </Button>
                 
                 <Button

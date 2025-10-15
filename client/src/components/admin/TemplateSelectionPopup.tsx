@@ -251,7 +251,7 @@ export default function TemplateSelectionPopup({ isOpen, onClose, onSelectTempla
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-5xl max-h-[90vh]">
+      <DialogContent className="max-w-5xl max-h-[90vh] flex flex-col">
         <DialogHeader>
           <DialogTitle className="text-2xl">Ajouter un template</DialogTitle>
           <p className="text-sm text-muted-foreground">
@@ -259,10 +259,10 @@ export default function TemplateSelectionPopup({ isOpen, onClose, onSelectTempla
           </p>
         </DialogHeader>
 
-        <div className="grid grid-cols-3 gap-4 mt-4">
+        <div className="grid grid-cols-3 gap-4 mt-4 overflow-hidden flex-1">
           <div className="col-span-1">
             <h3 className="text-sm font-semibold mb-3 text-gray-700">Bibliothèque de templates</h3>
-            <ScrollArea className="h-[450px] pr-4">
+            <ScrollArea className="h-[400px] pr-4">
               <div className="space-y-2">
                 {templates.map((template) => {
                   const Icon = template.icon;
@@ -307,7 +307,7 @@ export default function TemplateSelectionPopup({ isOpen, onClose, onSelectTempla
             <h3 className="text-sm font-semibold mb-3 text-gray-700">
               {selectedTemplate ? `Prévisualisation: ${selectedTemplate.name}` : 'Sélectionnez un template'}
             </h3>
-            <ScrollArea className="h-[450px] pr-4">
+            <ScrollArea className="h-[400px] pr-4">
               {selectedTemplate ? (
                 <div className="space-y-4">
                   {selectedTemplate.blocks.map((block, index) => (
