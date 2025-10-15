@@ -231,10 +231,15 @@ export default function AdminLegalPages() {
         console.log('Bloc text_section trouvé:', textBlock);
         
         const title = textBlock?.title || textBlock?.configuration?.title || page.pageName;
-        const content = textBlock?.content || textBlock?.configuration?.content || '';
+        let content = textBlock?.content || textBlock?.configuration?.content || '';
+        
+        // CRUCIAL: Clean the HTML on LOAD to prevent CSS pollution propagation
+        if (content) {
+          content = cleanHTML(content);
+          console.log('Content nettoyé:', content);
+        }
         
         console.log('Title extrait:', title);
-        console.log('Content extrait:', content);
         
         setFormData({
           title,
