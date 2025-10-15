@@ -7213,7 +7213,7 @@ const BlockEditDropdown = ({
         );
 
       case 'text_listing':
-        const listingItems = formData.items || [{ label: '1 jour', description: 'Description' }];
+        const listingItems = formData.items || [{ label: '1', description: 'Description de votre element' }];
         
         return (
           <div className="space-y-6">
@@ -7222,7 +7222,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="title">Titre</Label>
               <Input 
                 id="title"
-                value={formData.title ?? 'Suggestions d\'Itinéraires'} 
+                value={formData.title ?? 'Titre de la section'} 
                 onChange={e => updateField('title', e.target.value)}
                 className="mt-2"
               />
@@ -7233,7 +7233,7 @@ const BlockEditDropdown = ({
               <Label htmlFor="subtitle">Sous-titre</Label>
               <Textarea 
                 id="subtitle"
-                value={formData.subtitle ?? 'Découvrez nos propositions pour différentes durées'} 
+                value={formData.subtitle ?? 'Description de votre listing'} 
                 onChange={e => updateField('subtitle', e.target.value)}
                 rows={2}
                 className="mt-2"
@@ -7277,14 +7277,14 @@ const BlockEditDropdown = ({
 
             <Separator />
 
-            {/* Items de la liste */}
+            {/* Elements de la liste */}
             <div>
-              <Label className="text-base font-semibold">Items de la liste</Label>
+              <Label className="text-base font-semibold">Elements de la liste</Label>
               <div className="space-y-3 mt-3">
                 {listingItems.map((item: any, index: number) => (
                   <div key={index} className="p-3 border rounded-lg space-y-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium">Item {index + 1}</span>
+                      <span className="text-sm font-medium">Element {index + 1}</span>
                       <Button
                         type="button"
                         variant="ghost"
@@ -7298,7 +7298,7 @@ const BlockEditDropdown = ({
                       </Button>
                     </div>
                     <Input
-                      placeholder="Label (ex: 1 jour)"
+                      placeholder="Label"
                       value={item.label || ''}
                       onChange={(e) => {
                         const newItems = [...listingItems];
@@ -7327,7 +7327,7 @@ const BlockEditDropdown = ({
                     updateField('items', newItems);
                   }}
                 >
-                  Ajouter un item
+                  Ajouter un element
                 </Button>
               </div>
             </div>

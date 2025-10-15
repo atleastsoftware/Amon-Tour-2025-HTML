@@ -16,12 +16,14 @@ interface TextListingBlockProps {
 
 export default function TextListingBlock({ block }: TextListingBlockProps) {
   const config = block.configuration ?? {};
-  const title = config.title ?? "Suggestions d'Itinéraires";
-  const subtitle = config.subtitle ?? "Découvrez nos propositions pour différentes durées";
-  const items = config.items ?? [
-    { label: "1 jour", description: "Exemple de description pour une journée" },
-    { label: "2 jours", description: "Exemple de description pour deux jours" },
+  const title = config.title ?? "Titre de la section";
+  const subtitle = config.subtitle ?? "Description de votre listing";
+  const allItems = config.items ?? [
+    { label: "1", description: "Description de votre element" },
+    { label: "2", description: "Description de votre element" },
   ];
+  // Filtrer les items vides (sans label ni description)
+  const items = allItems.filter(item => item.label || item.description);
   const labelColor = config.labelColor ?? "#084F6E";
   const dividerColor = config.dividerColor ?? "#3BA8AF";
   const backgroundColor = config.backgroundColor ?? "white";

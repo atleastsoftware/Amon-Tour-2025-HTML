@@ -437,19 +437,19 @@ function SimplifiedPreview({ block }: { block: PageBlock }) {
 
     case 'text_listing':
       const listingItems = config.items || [
-        { label: '1 jour', description: 'Exemple de description' },
-        { label: '2 jours', description: 'Exemple de description' }
+        { label: '1', description: 'Description de votre element' },
+        { label: '2', description: 'Description de votre element' }
       ];
       return (
         <div className="py-8 border-b" style={{ backgroundColor: config.backgroundColor || '#ffffff' }}>
           <div className="container mx-auto px-4 max-w-6xl">
             <div className="text-center mb-8">
               <h2 className="font-heading font-bold text-2xl mb-2" style={{ color: config.titleColor || '#333333' }}>
-                {config.title || "Suggestions d'Itinéraires"}
+                {config.title || "Titre de la section"}
               </h2>
               <div className="w-16 h-1 mx-auto mb-4" style={{ backgroundColor: config.dividerColor || '#3BA8AF' }}></div>
               <p className="text-base" style={{ color: config.subtitleColor || '#666666' }}>
-                {config.subtitle || "Découvrez nos propositions pour différentes durées"}
+                {config.subtitle || "Description de votre listing"}
               </p>
             </div>
             <div className="max-w-4xl mx-auto space-y-3">

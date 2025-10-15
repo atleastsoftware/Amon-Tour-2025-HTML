@@ -419,20 +419,20 @@ const blockTypes: BlockType[] = [
       <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
         <div className="text-center mb-3">
           <h2 className="font-bold text-sm mb-2" style={{ color: '#333333' }}>
-            Suggestions d'Itinéraires
+            Titre de la section
           </h2>
           <div className="w-12 h-0.5 mx-auto mb-2" style={{ backgroundColor: '#3BA8AF' }}></div>
           <p className="text-xs" style={{ color: '#666666' }}>
-            Découvrez nos propositions
+            Description de votre listing
           </p>
         </div>
         <div className="space-y-2">
-          {['1 jour', '2 jours', '3-4 jours'].map((label, i) => (
+          {['1', '2', '3'].map((label, i) => (
             <div key={i} className="bg-gray-50 rounded-lg p-2 flex items-center gap-2">
               <span className="font-bold text-xs" style={{ color: '#084F6E', minWidth: '45px' }}>
                 {label}
               </span>
-              <span className="text-xs text-gray-600">Description de l'itinéraire</span>
+              <span className="text-xs text-gray-600">Description de votre element</span>
             </div>
           ))}
         </div>

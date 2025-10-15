@@ -751,13 +751,13 @@ function MiniaturizedComponent({
         );
 
       case 'text_listing':
-        const listingItems = mergedConfig.items || [{ label: '1 jour', description: 'Description' }];
+        const listingItems = mergedConfig.items || [{ label: '1', description: 'Description de votre element' }];
         return (
           <div className="h-full bg-white p-2">
             <div className="text-center mb-1">
-              <div className="text-[10px] font-bold">{mergedConfig.title || "Suggestions d'Itinéraires"}</div>
+              <div className="text-[10px] font-bold">{mergedConfig.title || "Titre de la section"}</div>
               <div className="w-4 h-0.5 mx-auto mt-1 mb-1" style={{ backgroundColor: mergedConfig.dividerColor || '#3BA8AF' }}></div>
-              <div className="text-[7px] text-gray-600">{mergedConfig.subtitle || "Découvrez nos propositions"}</div>
+              <div className="text-[7px] text-gray-600">{mergedConfig.subtitle || "Description de votre listing"}</div>
             </div>
             <div className="space-y-0.5">
               {listingItems.slice(0, 3).map((item: any, i: number) => (

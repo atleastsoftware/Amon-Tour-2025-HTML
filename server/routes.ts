@@ -3634,12 +3634,12 @@ Crawl-delay: 1`;
           title: 'Text + Listing',
           blockType: 'text_listing',
           configuration: {
-            title: 'Suggestions d\'Itinéraires',
-            subtitle: 'Découvrez nos propositions pour différentes durées',
+            title: 'Titre de la section',
+            subtitle: 'Description de votre listing',
             items: [
-              { label: '1 jour', description: 'Exemple de description pour une journée' },
-              { label: '2 jours', description: 'Exemple de description pour deux jours' },
-              { label: '3-4 jours', description: 'Exemple de description pour trois à quatre jours' }
+              { label: '1', description: 'Description de votre element' },
+              { label: '2', description: 'Description de votre element' },
+              { label: '3', description: 'Description de votre element' }
             ],
             labelColor: '#084F6E',
             dividerColor: '#3BA8AF',
