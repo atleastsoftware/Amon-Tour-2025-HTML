@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Home, FileText, Grid3x3, FormInput, CheckCircle, Calendar, DollarSign, Sparkles, Image, Search, Mail, Images, Video } from 'lucide-react';
+import { Home, FileText, Grid3x3, FormInput, CheckCircle, Calendar, DollarSign, Sparkles, Image, Search, Mail, Images, Video, List } from 'lucide-react';
 
 interface BlockType {
   type: string;
@@ -406,6 +406,71 @@ const blockTypes: BlockType[] = [
           <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
             <Video className="w-8 h-8 text-white" />
           </div>
+        </div>
+      </div>
+    )
+  },
+  {
+    type: 'text_listing',
+    label: 'Text + Listing',
+    description: 'Section avec titre et liste d\'items (label + description)',
+    icon: List,
+    preview: (
+      <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
+        <div className="text-center mb-3">
+          <h2 className="font-bold text-sm mb-2" style={{ color: '#333333' }}>
+            Suggestions d'Itinéraires
+          </h2>
+          <div className="w-12 h-0.5 mx-auto mb-2" style={{ backgroundColor: '#3BA8AF' }}></div>
+          <p className="text-xs" style={{ color: '#666666' }}>
+            Découvrez nos propositions
+          </p>
+        </div>
+        <div className="space-y-2">
+          {['1 jour', '2 jours', '3-4 jours'].map((label, i) => (
+            <div key={i} className="bg-gray-50 rounded-lg p-2 flex items-center gap-2">
+              <span className="font-bold text-xs" style={{ color: '#084F6E', minWidth: '45px' }}>
+                {label}
+              </span>
+              <span className="text-xs text-gray-600">Description de l'itinéraire</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  {
+    type: 'text_pricing',
+    label: 'Text + Pricing',
+    description: 'Section avec titre et cartes de tarification saisonnière',
+    icon: DollarSign,
+    preview: (
+      <div className="w-full bg-white rounded-lg overflow-hidden border p-6">
+        <div className="text-center mb-3">
+          <h2 className="font-bold text-sm mb-2" style={{ color: '#333333' }}>
+            Tarification Saisonnière
+          </h2>
+          <div className="w-12 h-0.5 mx-auto mb-2" style={{ backgroundColor: '#3BA8AF' }}></div>
+          <p className="text-xs" style={{ color: '#666666' }}>
+            Tarif journalier minimum
+          </p>
+        </div>
+        <div className="grid grid-cols-3 gap-2">
+          {[
+            { title: 'Haute', price: '39,000', gradient: 'from-[#3BA8AF] to-[#3BA8AF]/80' },
+            { title: 'Moyenne', price: '31,000', gradient: 'from-[#084F6E] to-[#3BA8AF]' },
+            { title: 'Basse', price: '28,000', gradient: 'from-[#084F6E]/80 to-[#084F6E]' }
+          ].map((season, i) => (
+            <div key={i} className="rounded-lg overflow-hidden shadow-sm">
+              <div className={`bg-gradient-to-r ${season.gradient} text-white p-1.5 text-center`}>
+                <div className="text-xs font-bold">{season.title}</div>
+              </div>
+              <div className="bg-white p-2 text-center">
+                <div className="text-sm font-bold">{season.price}</div>
+                <div className="text-xs text-gray-500">THB</div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     )
