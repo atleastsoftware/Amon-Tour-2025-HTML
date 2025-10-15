@@ -3723,6 +3723,216 @@ Crawl-delay: 1`;
     }
   });
 
+  app.post("/api/admin/page-blocks/insert-template", requireAuth, async (req, res) => {
+    try {
+      const { templateId, pageId, pageSlug } = req.body;
+      
+      console.log(`[INSERT TEMPLATE] Received templateId: ${templateId}`);
+      
+      // Validate required fields
+      if (!templateId || (!pageId && !pageSlug)) {
+        return res.status(400).json({ message: "Missing required fields: templateId and (pageId or pageSlug)" });
+      }
+
+      // Get pageId if pageSlug is provided
+      let finalPageId = pageId;
+      if (!finalPageId && pageSlug) {
+        const config = await storage.getPageConfiguration(pageSlug);
+        if (!config) {
+          return res.status(404).json({ message: "Page not found" });
+        }
+        finalPageId = config.id;
+      }
+
+      // Define template blocks
+      const templateBlocks: Record<string, string[]> = {
+        'home': ['hero', 'text', 'popular_experiences', 'custom_tour_form', 'tour_ninja_section', 'why_choose_us', 'who_we_are']
+      };
+
+      const blockTypes = templateBlocks[templateId];
+      if (!blockTypes) {
+        return res.status(400).json({ message: `Invalid template ID: ${templateId}` });
+      }
+
+      // Create default block data function (reuse from insert endpoint)
+      const getDefaultBlockData = (blockType: string, timestamp: number): any => {
+        const defaultData: Record<string, any> = {
+          hero: {
+            identifier: `hero_${timestamp}`,
+            title: '',
+            description: 'Hero section',
+            blockType: 'hero',
+            configuration: { 
+              title: '',
+              ctaUrl: '',
+              ctaText: '',
+              overlay: true,
+              subtitle: '',
+              videoUrl: '',
+              backgroundImage: ''
+            },
+            isActive: true
+          },
+          text: {
+            identifier: `text_${timestamp}`,
+            title: 'Text + Buttons',
+            blockType: 'text',
+            configuration: { 
+              title: 'Titre de la section',
+              content: 'Ajoutez ici le contenu de votre section de texte. Vous pouvez décrire vos services, partager votre histoire, ou présenter des informations importantes.',
+              titleColor: '#333333',
+              contentColor: '#666666',
+              dividerColor: '#3BA8AF',
+              backgroundColor: '#ffffff'
+            },
+            isActive: true
+          },
+          popular_experiences: {
+            identifier: `popular_experiences_${timestamp}`,
+            title: 'Card Grid Date',
+            blockType: 'popular_experiences',
+            configuration: { 
+              title: 'Titre de la section',
+              subtitle: 'Description de votre grille de cartes avec badges de durée',
+              titleColor: '#333333',
+              subtitleColor: '#666666',
+              dividerColor: '#3BA8AF',
+              backgroundColor: '#ffffff',
+              categoryFilter: 'all',
+              showAllAds: false,
+              displayCountMobile: 4,
+              displayCountTablet: 4,
+              displayCountDesktop: 6,
+              mobileColumns: 1,
+              tabletColumns: 2,
+              desktopColumns: 3,
+              cardsColor: '#084F6E',
+              cardButtonColor: '#084F6E',
+              buttonText: 'Voir tous les tours',
+              buttonUrl: '/tours',
+              buttonBackgroundColor: '#084F6E',
+              buttonTextColor: '#ffffff'
+            },
+            isActive: true
+          },
+          custom_tour_form: {
+            identifier: `custom_tour_form_${timestamp}`,
+            title: 'Form',
+            blockType: 'custom_tour_form',
+            configuration: { 
+              formId: 'krabi_celebration',
+              layout: 'columns',
+              title: 'Titre du formulaire',
+              description: 'Description de votre formulaire personnalisé',
+              imageUrl: '',
+              titleColor: '#333333',
+              descriptionColor: '#666666',
+              dividerColor: '#3BA8AF',
+              backgroundColor: '#ffffff'
+            },
+            isActive: true
+          },
+          tour_ninja_section: {
+            identifier: `tour_ninja_section_${timestamp}`,
+            title: 'Card Grid Price',
+            blockType: 'tour_ninja_section',
+            configuration: { 
+              title: 'Titre de la section',
+              subtitle: 'Description de votre grille de cartes avec prix',
+              titleColor: '#333333',
+              subtitleColor: '#666666',
+              dividerColor: '#3BA8AF',
+              backgroundColor: '#ffffff',
+              displayCountMobile: 4,
+              displayCountTablet: 4,
+              displayCountDesktop: 6,
+              mobileColumns: 1,
+              tabletColumns: 2,
+              desktopColumns: 3,
+              cardButtonColor: '#084F6E',
+              buttonText: 'Voir tous les tours',
+              buttonUrl: '/tours',
+              buttonBackgroundColor: '#084F6E',
+              buttonTextColor: '#ffffff'
+            },
+            isActive: true
+          },
+          why_choose_us: {
+            identifier: `why_choose_us_${timestamp}`,
+            title: 'Text + Icones',
+            blockType: 'why_choose_us',
+            configuration: { 
+              title: 'Titre de la section',
+              subtitle: 'Description de votre section avec icônes',
+              advantages: [
+                { icon: 'fas fa-user-friends', title: 'Titre', description: 'Description', color: '#084F6E' },
+                { icon: 'fas fa-compass', title: 'Titre', description: 'Description', color: '#3BA8AF' },
+                { icon: 'fas fa-star', title: 'Titre', description: 'Description', color: '#084F6E' }
+              ],
+              titleColor: '#333333',
+              subtitleColor: '#666666',
+              dividerColor: '#3BA8AF',
+              backgroundColor: '#ffffff'
+            },
+            isActive: true
+          },
+          who_we_are: {
+            identifier: `who_we_are_${timestamp}`,
+            title: 'Text + Images',
+            blockType: 'who_we_are',
+            configuration: { 
+              mainTitle: 'Titre principal',
+              mainContent: 'Ajoutez ici votre contenu texte principal.',
+              subtitle: 'Sous-titre',
+              subtitleContent: 'Description supplémentaire pour votre section.',
+              primaryButtonText: 'Bouton 1',
+              primaryButtonUrl: '',
+              secondaryButtonText: 'Bouton 2',
+              secondaryButtonUrl: '',
+              imageUrl: '',
+              layout: 'left',
+              mainTitleColor: '#333333',
+              mainContentColor: '#666666',
+              subtitleColor: '#333333',
+              subtitleContentColor: '#666666',
+              dividerColor: '#3BA8AF',
+              primaryButtonColor: '#084F6E',
+              secondaryButtonColor: '#084F6E',
+              backgroundColor: '#ffffff'
+            },
+            isActive: true
+          }
+        };
+
+        return defaultData[blockType] || null;
+      };
+
+      // Insert all blocks sequentially
+      const insertedBlocks = [];
+      for (let i = 0; i < blockTypes.length; i++) {
+        const blockType = blockTypes[i];
+        const blockData = getDefaultBlockData(blockType, Date.now() + i);
+        
+        if (!blockData) {
+          console.warn(`Unknown block type in template: ${blockType}`);
+          continue;
+        }
+
+        const block = await storage.insertPageBlockAtPosition(blockData, i, finalPageId);
+        insertedBlocks.push(block);
+      }
+
+      console.log(`[INSERT TEMPLATE] Successfully inserted ${insertedBlocks.length} blocks`);
+      res.status(201).json({ blocks: insertedBlocks, count: insertedBlocks.length });
+    } catch (error) {
+      console.error("Error inserting template:", error);
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Validation error", errors: error.errors });
+      }
+      res.status(500).json({ message: "Failed to insert template", error: String(error) });
+    }
+  });
+
   app.put("/api/admin/page-blocks/:id", requireAuth, async (req, res) => {
     try {
       const id = parseInt(req.params.id);
