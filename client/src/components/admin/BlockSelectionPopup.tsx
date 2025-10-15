@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Home, FileText, Grid3x3, FormInput, CheckCircle, Calendar, DollarSign, Sparkles, Image, Search, Mail, Images, Video, List } from 'lucide-react';
 
-interface BlockType {
+export interface BlockType {
   type: string;
   label: string;
   description: string;
@@ -13,7 +13,7 @@ interface BlockType {
   preview: JSX.Element;
 }
 
-const blockTypes: BlockType[] = [
+export const blockTypes: BlockType[] = [
   {
     type: 'hero',
     label: 'Hero Section',

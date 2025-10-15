@@ -3,17 +3,21 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Home, FileText, Sparkles, Layout, Ship, MessageSquare, Palette } from 'lucide-react';
-import { getMiniBlockPreviews, type BlockPreview } from './SharedBlockPreviews';
+import { blockTypes, type BlockType } from './BlockSelectionPopup';
 
 interface Template {
   id: string;
   name: string;
   description: string;
   icon: any;
-  blocks: BlockPreview[];
+  blocks: BlockType[];
 }
 
-const blockPreviews = getMiniBlockPreviews();
+// Create a lookup map for quick access to block previews
+const blockPreviews: Record<string, BlockType> = {};
+blockTypes.forEach(block => {
+  blockPreviews[block.type] = block;
+});
 
 const templates: Template[] = [
   {
