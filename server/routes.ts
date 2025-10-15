@@ -3947,6 +3947,197 @@ Crawl-delay: 1`;
               ]
             },
             isActive: false
+          },
+          header_page: {
+            identifier: `header_page_${timestamp}`,
+            title: 'Header Page',
+            blockType: 'header_page',
+            configuration: { 
+              title: 'Titre de la page',
+              subtitle: 'Sous-titre',
+              titleColor: '#ffffff',
+              subtitleColor: '#ffffff',
+              iconUrl: '',
+              iconColor: '#ffffff',
+              backgroundType: 'gradient',
+              gradientColor1: '#084F6E',
+              gradientColor2: '#3BA8AF',
+              frameSize: 'small',
+              buttons: []
+            },
+            isActive: false
+          },
+          contact: {
+            identifier: `contact_${timestamp}`,
+            title: 'Contact',
+            blockType: 'contact',
+            configuration: {
+              title: 'Titre principal',
+              subtitle: 'Description pour votre section de contact',
+              titleColor: '#084F6E',
+              subtitleColor: '#666666',
+              dividerColor: '#3BA8AF',
+              backgroundColor: '#ffffff',
+              email: 'contact@example.com',
+              emailLabel: 'Email',
+              phone: '+ 22 222 222 222',
+              phoneLabel: 'Téléphone',
+              whatsapp: '+ 22 222 222 222',
+              whatsappLabel: 'WhatsApp',
+              lineId: 'moncompte',
+              lineIdLabel: 'Line ID',
+              showAboutCompany: true,
+              aboutTitle: 'À propos de notre entreprise',
+              companyBrand: 'Nom de la marque',
+              companyName: 'Votre Adresse',
+              companyLicense: '00/00000',
+              companyDescription: ''
+            },
+            isActive: false
+          },
+          search_bar_tours: {
+            identifier: `search_bar_tours_${timestamp}`,
+            title: 'Search bar : Tours',
+            blockType: 'search_bar_tours',
+            configuration: {
+              filtersTitle: 'Filters',
+              searchPlaceholder: 'Search for a tour...',
+              filtersTextColor: '#333333',
+              filtersBgColor: '#ffffff',
+              cardsColor: '#084F6E',
+              backgroundColor: '#ffffff',
+              mobileColumns: 1,
+              tabletColumns: 2,
+              desktopColumns: 3
+            },
+            isActive: false
+          },
+          blog_search: {
+            identifier: `blog_search_${timestamp}`,
+            title: 'Search Bar: Blog',
+            blockType: 'blog_search',
+            configuration: { 
+              cardColor: '#084F6E',
+              backgroundColor: '#ffffff',
+              searchPlaceholder: 'Rechercher des articles...',
+              tagsTitle: 'Tags',
+              categoriesTitle: 'Catégories',
+              allTagsText: 'Tous les tags',
+              allCategoriesText: 'Toutes les catégories',
+              tagButtonColor: '#3BA8AF',
+              tagButtonTextColor: '#ffffff',
+              categoryButtonColor: '#084F6E',
+              categoryButtonTextColor: '#ffffff'
+            },
+            isActive: false
+          },
+          text_gallery: {
+            identifier: `text_gallery_${timestamp}`,
+            title: 'Text + Gallery',
+            blockType: 'text_gallery',
+            configuration: {
+              title: 'Titre de la galerie',
+              subtitle: 'Description pour votre galerie d\'images',
+              titleColor: '#333333',
+              subtitleColor: '#666666',
+              dividerColor: '#3BA8AF',
+              backgroundColor: '#ffffff',
+              carouselType: 'petite',
+              images: []
+            },
+            isActive: false
+          },
+          text_video: {
+            identifier: `text_video_${timestamp}`,
+            title: 'Text + Video',
+            blockType: 'text_video',
+            configuration: {
+              title: 'Titre de la vidéo',
+              subtitle: 'Description pour votre section vidéo',
+              titleColor: '#333333',
+              subtitleColor: '#666666',
+              dividerColor: '#3BA8AF',
+              backgroundColor: '#ffffff',
+              videoUrl: '',
+              videoType: 'youtube'
+            },
+            isActive: false
+          },
+          text_listing: {
+            identifier: `text_listing_${timestamp}`,
+            title: 'Text + Listing',
+            blockType: 'text_listing',
+            configuration: {
+              title: 'Titre de la liste',
+              subtitle: 'Description pour votre section de liste',
+              titleColor: '#333333',
+              subtitleColor: '#666666',
+              dividerColor: '#3BA8AF',
+              backgroundColor: '#ffffff',
+              logoColor: '#3BA8AF',
+              items: [
+                {
+                  id: 1,
+                  text: 'Point de liste 1'
+                },
+                {
+                  id: 2,
+                  text: 'Point de liste 2'
+                },
+                {
+                  id: 3,
+                  text: 'Point de liste 3'
+                }
+              ]
+            },
+            isActive: false
+          },
+          text_pricing: {
+            identifier: `text_pricing_${timestamp}`,
+            title: 'Text + Pricing',
+            blockType: 'text_pricing',
+            configuration: {
+              title: 'Titre de la section',
+              subtitle: 'Description pour votre section de tarifs',
+              titleColor: '#333333',
+              subtitleColor: '#666666',
+              dividerColor: '#3BA8AF',
+              backgroundColor: '#ffffff',
+              cards: [
+                {
+                  id: 1,
+                  cardColor: '#ffffff',
+                  headerColor: '#084F6E',
+                  cycle: 'Mois',
+                  label: 'Basique',
+                  price: '99',
+                  options: [
+                    {
+                      id: 1,
+                      text: 'Option 1',
+                      optionColor: '#666666'
+                    }
+                  ],
+                  includedTitle: 'Inclus',
+                  includedList: [
+                    {
+                      id: 1,
+                      text: 'Fonctionnalité 1',
+                      logoColor: '#22c55e'
+                    }
+                  ],
+                  notIncludedTitle: 'Non inclus',
+                  notIncludedList: [
+                    {
+                      id: 1,
+                      text: 'Fonctionnalité premium',
+                      logoColor: '#ef4444'
+                    }
+                  ]
+                }
+              ]
+            },
+            isActive: false
           }
         };
 
