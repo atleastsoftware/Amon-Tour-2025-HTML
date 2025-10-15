@@ -34,13 +34,13 @@ interface PageBlock {
 }
 
 export default function HomeDynamicPage() {
-  const slug = '';
+  const slug = 'home';
 
   // Récupérer la configuration de la page home
   const { data: pageConfig, isLoading: isLoadingConfig, error: configError } = useQuery<PageConfiguration>({
-    queryKey: [`/api/admin/page-configurations/slug/`],
+    queryKey: [`/api/admin/page-configurations/slug/${slug}`],
     queryFn: async () => {
-      const response = await fetch(`/api/admin/page-configurations/slug/`);
+      const response = await fetch(`/api/admin/page-configurations/slug/${slug}`);
       if (!response.ok) {
         if (response.status === 404) {
           throw new Error('Page not found');
@@ -54,9 +54,9 @@ export default function HomeDynamicPage() {
 
   // Récupérer les blocs de la page
   const { data: blocks = [], isLoading: isLoadingBlocks } = useQuery<PageBlock[]>({
-    queryKey: [`/api/public/page-blocks/`],
+    queryKey: [`/api/public/page-blocks/${slug}`],
     queryFn: async () => {
-      const response = await fetch(`/api/public/page-blocks/`);
+      const response = await fetch(`/api/public/page-blocks/${slug}`);
       if (!response.ok) {
         return [];
       }
