@@ -435,6 +435,84 @@ function SimplifiedPreview({ block }: { block: PageBlock }) {
         </div>
       );
 
+    case 'text_listing':
+      const listingItems = config.items || [
+        { label: '1 jour', description: 'Exemple de description' },
+        { label: '2 jours', description: 'Exemple de description' }
+      ];
+      return (
+        <div className="py-8 border-b" style={{ backgroundColor: config.backgroundColor || '#ffffff' }}>
+          <div className="container mx-auto px-4 max-w-6xl">
+            <div className="text-center mb-8">
+              <h2 className="font-heading font-bold text-2xl mb-2" style={{ color: config.titleColor || '#333333' }}>
+                {config.title || "Suggestions d'Itinéraires"}
+              </h2>
+              <div className="w-16 h-1 mx-auto mb-4" style={{ backgroundColor: config.dividerColor || '#3BA8AF' }}></div>
+              <p className="text-base" style={{ color: config.subtitleColor || '#666666' }}>
+                {config.subtitle || "Découvrez nos propositions pour différentes durées"}
+              </p>
+            </div>
+            <div className="max-w-4xl mx-auto space-y-3">
+              {listingItems.map((item: any, i: number) => (
+                <div key={i} className="bg-white rounded-lg shadow-md p-4 flex items-center gap-4">
+                  <span className="font-bold text-lg" style={{ color: config.labelColor || '#084F6E', minWidth: '80px' }}>
+                    {item.label}
+                  </span>
+                  <span className="text-gray-600">{item.description}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+
+    case 'text_pricing':
+      const pricingCards = config.pricingCards || [
+        {
+          title: 'Haute Saison',
+          subtitle: 'Période premium',
+          price: '39,000',
+          currency: 'THB',
+          period: 'Déc 15, 2025 - Jan 15, 2026',
+          headerGradient: 'from-secondary to-secondary/80'
+        }
+      ];
+      return (
+        <div className="py-8 border-b bg-gradient-to-br" style={{ backgroundImage: `linear-gradient(to bottom right, ${config.backgroundColor || 'from-muted/30 to-primary/5'})` }}>
+          <div className="container mx-auto px-4 max-w-6xl">
+            <div className="text-center mb-8">
+              <h2 className="font-heading font-bold text-2xl mb-2" style={{ color: config.titleColor || '#333333' }}>
+                {config.title || "Tarification Saisonnière"}
+              </h2>
+              <div className="w-16 h-1 mx-auto mb-4" style={{ backgroundColor: config.dividerColor || '#3BA8AF' }}></div>
+              <p className="text-base text-muted-foreground">
+                {config.subtitle || "Tarif journalier minimum (2 jours minimum)"}
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+              {pricingCards.map((card: any, i: number) => (
+                <div key={i} className="bg-white rounded-lg shadow-lg overflow-hidden">
+                  <div className={`bg-gradient-to-r ${card.headerGradient} text-white p-3`}>
+                    <h3 className="font-bold text-lg">{card.title}</h3>
+                    <p className="text-sm opacity-90">{card.subtitle}</p>
+                  </div>
+                  <div className="p-4">
+                    <p className="text-3xl font-bold mb-1">
+                      {card.price} <span className="text-base">{card.currency}</span>
+                    </p>
+                    <p className="text-sm text-muted-foreground mb-3">{config.perDayText || 'par jour'}</p>
+                    <div className="border-t pt-3">
+                      <p className="text-sm font-semibold text-muted-foreground">{config.periodLabel || 'Période'}</p>
+                      <p className="text-sm text-muted-foreground whitespace-pre-line">{card.period}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+
     default:
       return (
         <div className="bg-gray-100 p-8 rounded-lg text-center">

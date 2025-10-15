@@ -750,6 +750,55 @@ function MiniaturizedComponent({
           </div>
         );
 
+      case 'text_listing':
+        const listingItems = mergedConfig.items || [{ label: '1 jour', description: 'Description' }];
+        return (
+          <div className="h-full bg-white p-2">
+            <div className="text-center mb-1">
+              <div className="text-[10px] font-bold">{mergedConfig.title || "Suggestions d'Itinéraires"}</div>
+              <div className="w-4 h-0.5 mx-auto mt-1 mb-1" style={{ backgroundColor: mergedConfig.dividerColor || '#3BA8AF' }}></div>
+              <div className="text-[7px] text-gray-600">{mergedConfig.subtitle || "Découvrez nos propositions"}</div>
+            </div>
+            <div className="space-y-0.5">
+              {listingItems.slice(0, 3).map((item: any, i: number) => (
+                <div key={i} className="bg-gray-50 rounded p-1 flex items-center gap-1">
+                  <span className="text-[8px] font-bold" style={{ color: mergedConfig.labelColor || '#084F6E' }}>
+                    {item.label}
+                  </span>
+                  <span className="text-[7px] text-gray-600 truncate">{item.description}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+
+      case 'text_pricing':
+        const pricingCards = mergedConfig.pricingCards || [
+          { title: 'Haute', price: '39,000', currency: 'THB', headerGradient: 'from-secondary to-secondary/80' }
+        ];
+        return (
+          <div className="h-full bg-white p-2">
+            <div className="text-center mb-1">
+              <div className="text-[10px] font-bold">{mergedConfig.title || "Tarification Saisonnière"}</div>
+              <div className="w-4 h-0.5 mx-auto mt-1 mb-1" style={{ backgroundColor: mergedConfig.dividerColor || '#3BA8AF' }}></div>
+              <div className="text-[7px] text-gray-600">{mergedConfig.subtitle || "Tarif journalier"}</div>
+            </div>
+            <div className="grid grid-cols-3 gap-1">
+              {pricingCards.slice(0, 3).map((card: any, i: number) => (
+                <div key={i} className="rounded overflow-hidden shadow-sm">
+                  <div className={`bg-gradient-to-r ${card.headerGradient} text-white p-0.5 text-center`}>
+                    <div className="text-[7px] font-bold">{card.title}</div>
+                  </div>
+                  <div className="bg-white p-1 text-center">
+                    <div className="text-[8px] font-bold">{card.price}</div>
+                    <div className="text-[6px] text-gray-500">{card.currency}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+
       default:
         return (
           <div className="h-full bg-gray-100 p-2 text-center flex flex-col justify-center">
