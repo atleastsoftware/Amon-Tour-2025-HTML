@@ -507,7 +507,7 @@ function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitle
             <p className="text-gray-500">Chargement du formulaire...</p>
           </div>
         ) : formData ? (
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden max-w-5xl mx-auto">
+          <div className={`${formData.formLayout === 'footer' ? '' : 'bg-white'} rounded-lg shadow-lg overflow-hidden ${formData.formLayout === 'footer' ? 'max-w-2xl' : 'max-w-5xl'} mx-auto`} style={formData.formLayout === 'footer' ? { backgroundColor: resolveColor(formData.frameColor) } : {}}>
             {formData.formLayout === 'header' ? (
               // Layout Header - Image en haut, formulaire en dessous
               <div className="flex flex-col">
@@ -617,72 +617,72 @@ function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitle
               </div>
             ) : formData.formLayout === 'footer' ? (
               // Layout Footer - Juste le formulaire centré (sans image/titre à gauche)
-              <div className="rounded-lg shadow-lg overflow-hidden max-w-2xl mx-auto p-8" style={{ backgroundColor: resolveColor(formData.frameColor) }}>
-                  {formData.fields?.length === 0 ? (
-                    <div className="text-center py-16 text-gray-500">
-                      <FormInput className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-                      <p>Aucun champ dans ce formulaire</p>
-                    </div>
-                  ) : (
-                    <div className="space-y-4">
-                      <div className="grid grid-cols-12 gap-4">
-                        {formData.fields?.map((field: any, index: number) => {
-                          let colSpan = 'col-span-12';
-                          
-                          switch (field.style?.width) {
-                            case 'half':
-                              colSpan = 'col-span-12 md:col-span-6';
-                              break;
-                            case 'third':
-                              colSpan = 'col-span-12 md:col-span-4';
-                              break;
-                            case 'twothirds':
-                              colSpan = 'col-span-12 md:col-span-8';
-                              break;
-                            case 'full':
-                            default:
-                              colSpan = 'col-span-12';
-                              break;
-                          }
-                          
-                          return (
-                            <div key={field.id || index} className={colSpan}>
-                              {renderFieldPreview(field)}
-                            </div>
-                          );
-                        })}
-                      </div>
-                      
-                      <div className="pt-2">
-                        <button 
-                          style={{ 
-                            backgroundColor: resolveColor(formData.primaryColor),
-                            color: '#ffffff'
-                          }}
-                          className="w-full px-8 py-3 rounded-md font-semibold"
-                          disabled
-                        >
-                          {formData.settings?.submitButtonText || 'Envoyer'}
-                        </button>
+              <div className="p-8">
+                {formData.fields?.length === 0 ? (
+                  <div className="text-center py-16 text-gray-500">
+                    <FormInput className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+                    <p>Aucun champ dans ce formulaire</p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-12 gap-4">
+                      {formData.fields?.map((field: any, index: number) => {
+                        let colSpan = 'col-span-12';
                         
-                        <div className="mt-4 pt-4 border-t border-gray-200">
-                          <p className="text-center text-sm text-gray-600 mb-3">
-                            {formData.settings?.whatsappButtonText || 'Or contact us directly via WhatsApp'}
-                          </p>
-                          <a
-                            href="https://wa.me/66653496445?text=Hello%20Amon%20Tour,%20I%20would%20like%20to%20inquire%20about%20a%20custom%20tour."
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-md font-heading font-semibold transition-colors duration-200 flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
-                          >
-                            <i className="fab fa-whatsapp text-xl" aria-hidden="true"></i>
-                            Contact via WhatsApp
-                          </a>
-                        </div>
+                        switch (field.style?.width) {
+                          case 'half':
+                            colSpan = 'col-span-12 md:col-span-6';
+                            break;
+                          case 'third':
+                            colSpan = 'col-span-12 md:col-span-4';
+                            break;
+                          case 'twothirds':
+                            colSpan = 'col-span-12 md:col-span-8';
+                            break;
+                          case 'full':
+                          default:
+                            colSpan = 'col-span-12';
+                            break;
+                        }
+                        
+                        return (
+                          <div key={field.id || index} className={colSpan}>
+                            {renderFieldPreview(field)}
+                          </div>
+                        );
+                      })}
+                    </div>
+                    
+                    <div className="pt-2">
+                      <button 
+                        style={{ 
+                          backgroundColor: resolveColor(formData.primaryColor),
+                          color: '#ffffff'
+                        }}
+                        className="w-full px-8 py-3 rounded-md font-semibold"
+                        disabled
+                      >
+                        {formData.settings?.submitButtonText || 'Envoyer'}
+                      </button>
+                      
+                      <div className="mt-4 pt-4 border-t border-gray-200">
+                        <p className="text-center text-sm text-gray-600 mb-3">
+                          {formData.settings?.whatsappButtonText || 'Or contact us directly via WhatsApp'}
+                        </p>
+                        <a
+                          href="https://wa.me/66653496445?text=Hello%20Amon%20Tour,%20I%20would%20like%20to%20inquire%20about%20a%20custom%20tour."
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-md font-heading font-semibold transition-colors duration-200 flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+                        >
+                          <i className="fab fa-whatsapp text-xl" aria-hidden="true"></i>
+                          Contact via WhatsApp
+                        </a>
                       </div>
                     </div>
-                  )}
-            </div>
+                  </div>
+                )}
+              </div>
             ) : (
               // Layout Colonnes (normal ou inversé)
               <div className={`grid grid-cols-1 md:grid-cols-2 min-h-[500px] ${
