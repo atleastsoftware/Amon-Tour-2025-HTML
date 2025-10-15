@@ -274,19 +274,31 @@ export default function AdminLegalPages() {
 
   // Clean HTML to remove unnecessary styles and attributes
   const cleanHTML = (html: string): string => {
+    if (!html) return '';
+    
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = html;
     
-    // Remove all style attributes
+    // Remove all style and class attributes from ALL elements
     const allElements = tempDiv.querySelectorAll('*');
     allElements.forEach(el => {
       el.removeAttribute('style');
       el.removeAttribute('class');
+      // Remove other unwanted attributes but keep semantic ones
+      const attrsToRemove = ['data-lexical-decorator', 'data-lexical-text', 'dir'];
+      attrsToRemove.forEach(attr => el.removeAttribute(attr));
     });
     
-    // Remove empty elements except br
-    allElements.forEach(el => {
-      if (el.tagName !== 'BR' && !el.textContent?.trim() && el.children.length === 0) {
+    // Only remove truly empty elements (no text, no children)
+    // Do this in reverse to avoid issues with nested removals
+    const emptyElements = Array.from(tempDiv.querySelectorAll('*')).reverse();
+    emptyElements.forEach(el => {
+      // Keep <br>, <hr>, <img> and other self-closing tags
+      const selfClosing = ['BR', 'HR', 'IMG', 'INPUT'];
+      if (selfClosing.includes(el.tagName)) return;
+      
+      // Remove only if completely empty (no text and no children)
+      if (!el.textContent?.trim() && el.children.length === 0) {
         el.remove();
       }
     });
