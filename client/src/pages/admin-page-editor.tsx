@@ -507,37 +507,46 @@ function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitle
             <p className="text-gray-500">Chargement du formulaire...</p>
           </div>
         ) : formData ? (
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-            {formData.formLayout === 'full' ? (
-              // Layout Full (formulaire uniquement)
-              <div className="p-8" style={{ backgroundColor: resolveColor(formData.frameColor) }}>
-                {formData.headerImage && (
-                  <div className="w-full h-64 mb-6 overflow-hidden rounded-lg">
+          <div className="bg-white rounded-lg shadow-lg overflow-hidden max-w-6xl mx-auto">
+            {formData.formLayout === 'header' ? (
+              // Layout Header - Image en haut, formulaire en dessous
+              <div className="flex flex-col">
+                <div className="h-56 relative">
+                  {formData.headerImage ? (
                     <img 
                       src={formData.headerImage}
-                      alt={formData.title}
+                      alt="Header image"
                       className="w-full h-full object-cover"
                       onError={(e) => {
                         e.currentTarget.src = '/catamaran-cruise.png';
                       }}
                     />
-                  </div>
-                )}
-                <div className="max-w-3xl mx-auto">
-                  <h3 
-                    className="font-heading font-bold text-3xl mb-3"
-                    style={{ color: resolveColor(formData.titleColor) }}
-                  >
-                    {formData.title || 'Titre du formulaire'}
-                  </h3>
-                  {formData.subtitle && (
-                    <p 
-                      className="mb-6"
-                      style={{ color: resolveColor(formData.subtitleColor) }}
-                    >
-                      {formData.subtitle}
-                    </p>
+                  ) : (
+                    <div className="w-full h-full bg-gray-200"></div>
                   )}
+                  <div 
+                    className="absolute inset-0 flex flex-col justify-center items-center text-center p-8"
+                    style={{ 
+                      background: `linear-gradient(to bottom, ${resolveColor(formData.primaryColor)}CC, transparent)` 
+                    }}
+                  >
+                    <h3 
+                      className="font-heading font-bold text-4xl mb-3"
+                      style={{ color: resolveColor(formData.titleColor) }}
+                    >
+                      {formData.title || 'Titre du formulaire'}
+                    </h3>
+                    {formData.subtitle && (
+                      <p 
+                        className="max-w-md"
+                        style={{ color: resolveColor(formData.subtitleColor) }}
+                      >
+                        {formData.subtitle}
+                      </p>
+                    )}
+                  </div>
+                </div>
+                <div className="p-8" style={{ backgroundColor: resolveColor(formData.frameColor) }}>
                   {formData.fields?.length === 0 ? (
                     <div className="text-center py-16 text-gray-500">
                       <FormInput className="h-12 w-12 mx-auto mb-4 text-gray-300" />
@@ -585,7 +594,6 @@ function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitle
                           {formData.settings?.submitButtonText || 'Envoyer'}
                         </button>
                         
-                        {/* WhatsApp Button */}
                         {formData.settings?.whatsappButtonEnabled && (
                           <div className="mt-4 pt-4 border-t border-gray-200">
                             <p className="text-center text-sm text-gray-600 mb-3">
@@ -606,6 +614,91 @@ function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitle
                     </div>
                   )}
                 </div>
+              </div>
+            ) : formData.formLayout === 'footer' ? (
+              // Layout Footer - Formulaire sans image avec bouton WhatsApp en bas
+              <div className="p-8" style={{ backgroundColor: resolveColor(formData.frameColor) }}>
+                <div className="text-center mb-6">
+                  <h3 
+                    className="font-heading font-bold text-3xl mb-3"
+                    style={{ color: resolveColor(formData.titleColor) }}
+                  >
+                    {formData.title || 'Titre du formulaire'}
+                  </h3>
+                  {formData.subtitle && (
+                    <p 
+                      className="text-base"
+                      style={{ color: resolveColor(formData.subtitleColor) }}
+                    >
+                      {formData.subtitle}
+                    </p>
+                  )}
+                </div>
+                
+                {formData.fields?.length === 0 ? (
+                  <div className="text-center py-16 text-gray-500">
+                    <FormInput className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+                    <p>Aucun champ dans ce formulaire</p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-12 gap-4">
+                      {formData.fields?.map((field: any, index: number) => {
+                        let colSpan = 'col-span-12';
+                        
+                        switch (field.style?.width) {
+                          case 'half':
+                            colSpan = 'col-span-12 md:col-span-6';
+                            break;
+                          case 'third':
+                            colSpan = 'col-span-12 md:col-span-4';
+                            break;
+                          case 'twothirds':
+                            colSpan = 'col-span-12 md:col-span-8';
+                            break;
+                          case 'full':
+                          default:
+                            colSpan = 'col-span-12';
+                            break;
+                        }
+                        
+                        return (
+                          <div key={field.id || index} className={colSpan}>
+                            {renderFieldPreview(field)}
+                          </div>
+                        );
+                      })}
+                    </div>
+                    
+                    <div className="pt-4">
+                      <button 
+                        style={{ 
+                          backgroundColor: resolveColor(formData.primaryColor),
+                          color: '#ffffff'
+                        }}
+                        className="w-full px-8 py-3 rounded-md font-semibold"
+                        disabled
+                      >
+                        {formData.settings?.submitButtonText || 'Envoyer'}
+                      </button>
+                      
+                      <div className="mt-4 pt-4 border-t border-gray-200">
+                        <p className="text-center text-sm text-gray-600 mb-3">
+                          {formData.settings?.whatsappButtonText || 'Or contact us directly via WhatsApp'}
+                        </p>
+                        <a
+                          href="https://wa.me/66653496445?text=Hello%20Amon%20Tour,%20I%20would%20like%20to%20inquire%20about%20a%20custom%20tour."
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-md font-heading font-semibold transition-colors duration-200 flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+                        >
+                          <i className="fab fa-whatsapp text-xl" aria-hidden="true"></i>
+                          Contact via WhatsApp
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             ) : (
               // Layout Colonnes (normal ou inversé)
