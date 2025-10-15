@@ -3606,8 +3606,9 @@ Crawl-delay: 1`;
             subtitle: 'Description pour votre galerie d\'images',
             titleColor: '#333333',
             subtitleColor: '#666666',
-            dividerColor: '#084F6E',
+            dividerColor: '#3BA8AF',
             backgroundColor: '#ffffff',
+            carouselType: 'grande',
             images: []
           },
           isActive: false
@@ -3621,7 +3622,7 @@ Crawl-delay: 1`;
             subtitle: 'Description pour votre section vidéo',
             titleColor: '#333333',
             subtitleColor: '#666666',
-            dividerColor: '#084F6E',
+            dividerColor: '#3BA8AF',
             backgroundColor: '#ffffff',
             videoUrl: '',
             videoType: 'youtube'

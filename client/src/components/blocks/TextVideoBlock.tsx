@@ -25,7 +25,7 @@ export default function TextVideoBlock({ block }: TextVideoBlockProps) {
   const subtitle = config.subtitle ?? "Description pour votre section vidéo";
   const titleColor = config.titleColor ?? "#333333";
   const subtitleColor = config.subtitleColor ?? "#666666";
-  const dividerColor = config.dividerColor ?? "#084F6E";
+  const dividerColor = config.dividerColor ?? "#3BA8AF";
   const backgroundColor = config.backgroundColor ?? "#ffffff";
   const videoUrl = config.videoUrl ?? "";
   const videoType = config.videoType ?? 'youtube';

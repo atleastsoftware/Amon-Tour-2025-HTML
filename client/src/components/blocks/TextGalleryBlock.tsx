@@ -24,9 +24,10 @@ export default function TextGalleryBlock({ block }: TextGalleryBlockProps) {
   const subtitle = config.subtitle ?? "Description pour votre galerie d'images";
   const titleColor = config.titleColor ?? "#333333";
   const subtitleColor = config.subtitleColor ?? "#666666";
-  const dividerColor = config.dividerColor ?? "#084F6E";
+  const dividerColor = config.dividerColor ?? "#3BA8AF";
   const backgroundColor = config.backgroundColor ?? "#ffffff";
   const images = config.images ?? [];
+  const carouselType = config.carouselType ?? "grande";
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
