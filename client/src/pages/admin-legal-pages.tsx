@@ -87,16 +87,17 @@ export default function AdminLegalPages() {
 
       // Create a text block with the content
       if (data.content) {
+        const cleanedContent = cleanHTML(data.content);
         await apiRequest('POST', '/api/admin/page-blocks', {
           pageId: pageConfig.id,
           blockType: 'text_section',
           blockOrder: 1,
           identifier: `legal_content_${Date.now()}`,
           title: data.title,
-          content: data.content,
+          content: cleanedContent,
           configuration: {
             title: data.title,
-            content: data.content,
+            content: cleanedContent,
             textAlign: 'left',
             maxWidth: '4xl',
             backgroundColor: '#ffffff'
@@ -143,14 +144,15 @@ export default function AdminLegalPages() {
       const textBlock = currentBlocks.find((b: PageBlock) => b.blockType === 'text_section');
       
       // Update or create content block
+      const cleanedContent = cleanHTML(data.content);
       if (textBlock) {
         await apiRequest('PUT', `/api/admin/page-blocks/${textBlock.id}`, {
           title: data.title,
-          content: data.content,
+          content: cleanedContent,
           configuration: {
             ...textBlock.configuration,
             title: data.title,
-            content: data.content
+            content: cleanedContent
           }
         });
       } else if (data.content) {
@@ -160,10 +162,10 @@ export default function AdminLegalPages() {
           blockOrder: 1,
           identifier: `legal_content_${Date.now()}`,
           title: data.title,
-          content: data.content,
+          content: cleanedContent,
           configuration: {
             title: data.title,
-            content: data.content,
+            content: cleanedContent,
             textAlign: 'left',
             maxWidth: '4xl',
             backgroundColor: '#ffffff'
