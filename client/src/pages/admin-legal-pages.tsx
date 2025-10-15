@@ -124,8 +124,12 @@ export default function AdminLegalPages() {
   // Update legal page mutation
   const updatePageMutation = useMutation({
     mutationFn: async (data: any) => {
+      if (!selectedPage?.id) {
+        throw new Error('Aucune page sélectionnée');
+      }
+
       // Update page configuration
-      await apiRequest('PUT', `/api/admin/page-configurations/${selectedPage?.id}`, {
+      await apiRequest('PUT', `/api/admin/page-configurations/${selectedPage.id}`, {
         pageName: data.title,
         pageSlug: generateSlug(data.title),
       });
@@ -144,7 +148,7 @@ export default function AdminLegalPages() {
         });
       } else if (data.content) {
         await apiRequest('POST', '/api/admin/page-blocks', {
-          pageId: selectedPage?.id,
+          pageId: selectedPage.id,
           blockType: 'text_section',
           blockOrder: 1,
           identifier: `legal_content_${Date.now()}`,
@@ -168,8 +172,10 @@ export default function AdminLegalPages() {
       setIsEditDialogOpen(false);
       setSelectedPage(null);
     },
-    onError: () => {
-      toast({ title: 'Erreur lors de la mise à jour', variant: 'destructive' });
+    onError: (error: any) => {
+      console.error('Erreur de mise à jour:', error);
+      const errorMessage = error?.message || 'Erreur lors de la mise à jour';
+      toast({ title: errorMessage, variant: 'destructive' });
     }
   });
 
@@ -203,8 +209,12 @@ export default function AdminLegalPages() {
     updatePageMutation.mutate(formData);
   };
 
-  const handleEditClick = (page: LegalPage) => {
+  const handleEditClick = async (page: LegalPage) => {
     setSelectedPage(page);
+    
+    // Wait a bit for pageBlocks to load
+    await new Promise(resolve => setTimeout(resolve, 100));
+    
     const textBlock = pageBlocks.find(b => b.blockType === 'text_section');
     setFormData({
       title: textBlock?.configuration?.title || page.pageName,
