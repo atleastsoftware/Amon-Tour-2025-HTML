@@ -1,7 +1,7 @@
 import { useLocation } from 'wouter';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { FileText, Users, FormInput, ArrowLeft, Edit } from 'lucide-react';
+import { FileText, Scale, FormInput, ArrowLeft, Edit } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 
 export default function AdminEditor() {
@@ -33,11 +33,11 @@ export default function AdminEditor() {
       iconColor: 'text-primary'
     },
     {
-      id: 'articles',
-      title: 'Éditeur d\'articles',
-      description: 'Créer et gérer des articles avec des titres, texte, images personnalisés',
-      icon: Users,
-      route: '/admin-editor-article',
+      id: 'legal',
+      title: 'Éditeur de mention légal',
+      description: 'Créer et gérer les pages légales (mentions, CGV, confidentialité)',
+      icon: Scale,
+      route: '/admin-legal-pages',
       color: 'bg-[hsl(var(--success)/0.05)] border-[hsl(var(--success)/0.2)] hover:bg-[hsl(var(--success)/0.1)]',
       iconColor: 'text-[hsl(var(--success))]'
     },
@@ -124,7 +124,7 @@ export default function AdminEditor() {
           <Card className="bg-white shadow-sm border border-border">
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-[hsl(var(--success))] mb-1">0</div>
-              <div className="text-muted-foreground text-sm">Articles</div>
+              <div className="text-muted-foreground text-sm">Pages légales</div>
             </CardContent>
           </Card>
           <Card className="bg-white shadow-sm border border-border">
