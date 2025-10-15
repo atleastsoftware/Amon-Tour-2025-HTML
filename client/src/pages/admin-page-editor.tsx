@@ -257,7 +257,9 @@ const getBlockDisplayName = (block: PageBlock): string => {
     'text_gallery': 'Text + Gallery',
     'text_video': 'Text + Video',
     'text_listing': 'Text + Listing',
-    'text_pricing': 'Text + Pricing'
+    'text_pricing': 'Text + Pricing',
+    'search_bar_tours': 'Search Bar: Tours',
+    'blog_search': 'Search Bar: Blog'
   };
   
   return blockNames[block.blockType] || block.blockType.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
