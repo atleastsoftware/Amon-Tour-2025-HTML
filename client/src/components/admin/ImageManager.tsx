@@ -85,7 +85,6 @@ export default function ImageManager({ images, onChange }: ImageManagerProps) {
                       <Input
                         value={url}
                         onChange={(e) => handleUpdateImage(index, e.target.value)}
-                        placeholder="https://example.com/image.jpg"
                         className="flex-1"
                       />
 

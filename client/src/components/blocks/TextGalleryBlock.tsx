@@ -27,7 +27,8 @@ export default function TextGalleryBlock({ block }: TextGalleryBlockProps) {
   const subtitleColor = config.subtitleColor ?? "#666666";
   const dividerColor = config.dividerColor ?? "#3BA8AF";
   const backgroundColor = config.backgroundColor ?? "#ffffff";
-  const images = config.images ?? [];
+  // Filter out empty images
+  const images = (config.images ?? []).filter(img => img && img.trim() !== '');
   const carouselType = config.carouselType ?? "grande";
 
   // For "grande" carousel
