@@ -788,24 +788,30 @@ function MiniaturizedComponent({
 
       case 'text_pricing':
         const pricingCards = mergedConfig.pricingCards || [
-          { title: 'Haute', price: '39,000', currency: 'THB', headerGradient: 'from-secondary to-secondary/80' }
+          { title: 'Titre', subtitle: 'Sous-titre', price: 'Prix', currency: 'Devise', cycle: 'Cycle', label: 'Label', moreText: 'Texte', headerGradient: '#084F6E' }
         ];
         return (
           <div className="h-full bg-white p-2">
             <div className="text-center mb-1">
-              <div className="text-[10px] font-bold">{mergedConfig.title || "Tarification Saisonnière"}</div>
+              <div className="text-[10px] font-bold">{mergedConfig.title || "Titre de la section"}</div>
               <div className="w-4 h-0.5 mx-auto mt-1 mb-1" style={{ backgroundColor: mergedConfig.dividerColor || '#3BA8AF' }}></div>
-              <div className="text-[7px] text-gray-600">{mergedConfig.subtitle || "Tarif journalier"}</div>
+              <div className="text-[7px] text-gray-600">{mergedConfig.subtitle || "Description de vos tarifs"}</div>
             </div>
             <div className="grid grid-cols-3 gap-1">
               {pricingCards.slice(0, 3).map((card: any, i: number) => (
-                <div key={i} className="rounded overflow-hidden shadow-sm">
-                  <div className={`bg-gradient-to-r ${card.headerGradient} text-white p-0.5 text-center`}>
-                    <div className="text-[7px] font-bold">{card.title}</div>
+                <div key={i} className="rounded-lg overflow-hidden shadow-sm">
+                  <div className="text-white p-1 text-center" style={{ backgroundColor: card.headerGradient || '#084F6E' }}>
+                    <div className="text-[7px] font-bold">{card.title || 'Titre'}</div>
+                    <div className="text-[6px] opacity-90">{card.subtitle || 'Sous-titre'}</div>
                   </div>
                   <div className="bg-white p-1 text-center">
-                    <div className="text-[8px] font-bold">{card.price}</div>
-                    <div className="text-[6px] text-gray-500">{card.currency}</div>
+                    <div className="text-[8px] font-bold">{card.price || 'Prix'}</div>
+                    <div className="text-[6px] text-gray-500">{card.currency || 'Devise'}</div>
+                    <div className="text-[6px] text-gray-400 mt-0.5">{card.cycle || 'Cycle'}</div>
+                    <div className="border-t border-gray-200 mt-0.5 pt-0.5">
+                      <div className="text-[6px] font-semibold text-gray-700">{card.label || 'Label'}</div>
+                      <div className="text-[5px] text-gray-500">{card.moreText || 'Texte'}</div>
+                    </div>
                   </div>
                 </div>
               ))}
