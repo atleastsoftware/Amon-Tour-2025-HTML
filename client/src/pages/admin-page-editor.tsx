@@ -7212,6 +7212,309 @@ const BlockEditDropdown = ({
           </div>
         );
 
+      case 'text_listing':
+        const listingItems = formData.items || [{ label: '1 jour', description: 'Description' }];
+        
+        return (
+          <div className="space-y-6">
+            {/* Titre */}
+            <div>
+              <Label htmlFor="title">Titre</Label>
+              <Input 
+                id="title"
+                value={formData.title ?? 'Suggestions d\'Itinéraires'} 
+                onChange={e => updateField('title', e.target.value)}
+                className="mt-2"
+              />
+            </div>
+
+            {/* Sous-titre */}
+            <div>
+              <Label htmlFor="subtitle">Sous-titre</Label>
+              <Textarea 
+                id="subtitle"
+                value={formData.subtitle ?? 'Découvrez nos propositions pour différentes durées'} 
+                onChange={e => updateField('subtitle', e.target.value)}
+                rows={2}
+                className="mt-2"
+              />
+            </div>
+
+            <Separator />
+
+            {/* Tiret */}
+            <div>
+              <Label>Couleur du tiret</Label>
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.dividerColor ?? '#3BA8AF'}
+                  onChange={(value) => updateField('dividerColor', value)}
+                />
+              </div>
+            </div>
+
+            {/* Couleur de fond */}
+            <div>
+              <Label>Couleur de fond</Label>
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.backgroundColor ?? '#ffffff'}
+                  onChange={(value) => updateField('backgroundColor', value)}
+                />
+              </div>
+            </div>
+
+            {/* Couleur du label */}
+            <div>
+              <Label>Couleur du label</Label>
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.labelColor ?? '#084F6E'}
+                  onChange={(value) => updateField('labelColor', value)}
+                />
+              </div>
+            </div>
+
+            <Separator />
+
+            {/* Items de la liste */}
+            <div>
+              <Label className="text-base font-semibold">Items de la liste</Label>
+              <div className="space-y-3 mt-3">
+                {listingItems.map((item: any, index: number) => (
+                  <div key={index} className="p-3 border rounded-lg space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium">Item {index + 1}</span>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {
+                          const newItems = listingItems.filter((_: any, i: number) => i !== index);
+                          updateField('items', newItems);
+                        }}
+                      >
+                        Supprimer
+                      </Button>
+                    </div>
+                    <Input
+                      placeholder="Label (ex: 1 jour)"
+                      value={item.label || ''}
+                      onChange={(e) => {
+                        const newItems = [...listingItems];
+                        newItems[index] = { ...newItems[index], label: e.target.value };
+                        updateField('items', newItems);
+                      }}
+                    />
+                    <Textarea
+                      placeholder="Description"
+                      value={item.description || ''}
+                      rows={2}
+                      onChange={(e) => {
+                        const newItems = [...listingItems];
+                        newItems[index] = { ...newItems[index], description: e.target.value };
+                        updateField('items', newItems);
+                      }}
+                    />
+                  </div>
+                ))}
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="w-full"
+                  onClick={() => {
+                    const newItems = [...listingItems, { label: '', description: '' }];
+                    updateField('items', newItems);
+                  }}
+                >
+                  Ajouter un item
+                </Button>
+              </div>
+            </div>
+          </div>
+        );
+
+      case 'text_pricing':
+        const pricingCards = formData.pricingCards || [
+          { title: 'Haute Saison', subtitle: 'Période premium', price: '39,000', currency: 'THB', period: 'Déc 15 - Jan 15', headerGradient: 'from-secondary to-secondary/80' }
+        ];
+        
+        return (
+          <div className="space-y-6">
+            {/* Titre */}
+            <div>
+              <Label htmlFor="title">Titre</Label>
+              <Input 
+                id="title"
+                value={formData.title ?? 'Tarification Saisonnière'} 
+                onChange={e => updateField('title', e.target.value)}
+                className="mt-2"
+              />
+            </div>
+
+            {/* Sous-titre */}
+            <div>
+              <Label htmlFor="subtitle">Sous-titre</Label>
+              <Input 
+                id="subtitle"
+                value={formData.subtitle ?? 'Tarif journalier minimum'} 
+                onChange={e => updateField('subtitle', e.target.value)}
+                className="mt-2"
+              />
+            </div>
+
+            <Separator />
+
+            {/* Tiret */}
+            <div>
+              <Label>Couleur du tiret</Label>
+              <div className="mt-3">
+                <ColorPicker
+                  value={formData.dividerColor ?? '#3BA8AF'}
+                  onChange={(value) => updateField('dividerColor', value)}
+                />
+              </div>
+            </div>
+
+            {/* Couleur de fond */}
+            <div>
+              <Label>Couleur de fond (gradient)</Label>
+              <Input 
+                value={formData.backgroundColor ?? 'from-muted/30 to-primary/5'} 
+                onChange={e => updateField('backgroundColor', e.target.value)}
+                placeholder="from-muted/30 to-primary/5"
+                className="mt-2"
+              />
+            </div>
+
+            <Separator />
+
+            {/* Texte "par jour" */}
+            <div>
+              <Label htmlFor="perDayText">Texte "par jour"</Label>
+              <Input 
+                id="perDayText"
+                value={formData.perDayText ?? 'par jour'} 
+                onChange={e => updateField('perDayText', e.target.value)}
+                className="mt-2"
+              />
+            </div>
+
+            {/* Label "Période" */}
+            <div>
+              <Label htmlFor="periodLabel">Label "Période"</Label>
+              <Input 
+                id="periodLabel"
+                value={formData.periodLabel ?? 'Période'} 
+                onChange={e => updateField('periodLabel', e.target.value)}
+                className="mt-2"
+              />
+            </div>
+
+            <Separator />
+
+            {/* Cartes de pricing */}
+            <div>
+              <Label className="text-base font-semibold">Cartes de tarification</Label>
+              <div className="space-y-4 mt-3">
+                {pricingCards.map((card: any, index: number) => (
+                  <div key={index} className="p-4 border rounded-lg space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium">Carte {index + 1}</span>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {
+                          const newCards = pricingCards.filter((_: any, i: number) => i !== index);
+                          updateField('pricingCards', newCards);
+                        }}
+                      >
+                        Supprimer
+                      </Button>
+                    </div>
+                    <Input
+                      placeholder="Titre (ex: Haute Saison)"
+                      value={card.title || ''}
+                      onChange={(e) => {
+                        const newCards = [...pricingCards];
+                        newCards[index] = { ...newCards[index], title: e.target.value };
+                        updateField('pricingCards', newCards);
+                      }}
+                    />
+                    <Input
+                      placeholder="Sous-titre (ex: Période premium)"
+                      value={card.subtitle || ''}
+                      onChange={(e) => {
+                        const newCards = [...pricingCards];
+                        newCards[index] = { ...newCards[index], subtitle: e.target.value };
+                        updateField('pricingCards', newCards);
+                      }}
+                    />
+                    <div className="grid grid-cols-2 gap-2">
+                      <Input
+                        placeholder="Prix (ex: 39,000)"
+                        value={card.price || ''}
+                        onChange={(e) => {
+                          const newCards = [...pricingCards];
+                          newCards[index] = { ...newCards[index], price: e.target.value };
+                          updateField('pricingCards', newCards);
+                        }}
+                      />
+                      <Input
+                        placeholder="Devise (ex: THB)"
+                        value={card.currency || ''}
+                        onChange={(e) => {
+                          const newCards = [...pricingCards];
+                          newCards[index] = { ...newCards[index], currency: e.target.value };
+                          updateField('pricingCards', newCards);
+                        }}
+                      />
+                    </div>
+                    <Textarea
+                      placeholder="Période (ex: Déc 15 - Jan 15)"
+                      value={card.period || ''}
+                      rows={2}
+                      onChange={(e) => {
+                        const newCards = [...pricingCards];
+                        newCards[index] = { ...newCards[index], period: e.target.value };
+                        updateField('pricingCards', newCards);
+                      }}
+                    />
+                    <Input
+                      placeholder="Gradient header (ex: from-secondary to-secondary/80)"
+                      value={card.headerGradient || ''}
+                      onChange={(e) => {
+                        const newCards = [...pricingCards];
+                        newCards[index] = { ...newCards[index], headerGradient: e.target.value };
+                        updateField('pricingCards', newCards);
+                      }}
+                    />
+                  </div>
+                ))}
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="w-full"
+                  onClick={() => {
+                    const newCards = [...pricingCards, { 
+                      title: '', 
+                      subtitle: '', 
+                      price: '', 
+                      currency: 'THB', 
+                      period: '', 
+                      headerGradient: 'from-primary to-secondary' 
+                    }];
+                    updateField('pricingCards', newCards);
+                  }}
+                >
+                  Ajouter une carte
+                </Button>
+              </div>
+            </div>
+          </div>
+        );
+
       default:
         // Gérer les blocs Text génériques
         if (block.blockType === 'text') {
