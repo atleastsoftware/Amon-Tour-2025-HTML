@@ -291,6 +291,7 @@ interface PageConfiguration {
   pageSlug: string;
   pageType: string;
   isExternalUrl?: boolean;
+  isCustomCode?: boolean;
   seoTitle?: string;
   seoDescription?: string;
   seoKeywords?: string;
@@ -8607,6 +8608,26 @@ export default function AdminPageEditor() {
               >
                 <Settings className="w-4 h-4" />
                 Modifier les paramètres de la page
+              </Button>
+            </div>
+          ) : currentPageConfig?.isCustomCode ? (
+            <div className="text-center py-16 bg-white rounded-xl shadow-sm border-2 border-purple-200">
+              <Layout className="w-16 h-16 text-purple-400 mx-auto mb-4" />
+              <div className="text-gray-700 mb-2 font-semibold text-lg">Page avec code personnalisé</div>
+              <p className="text-gray-500 text-sm mb-6 max-w-lg mx-auto">
+                Cette page : <span className="font-mono text-secondary">{currentPageConfig.pageSlug}</span> utilise du code personnalisé hors éditeur.
+              </p>
+              <p className="text-gray-500 text-sm mb-6 max-w-lg mx-auto">
+                L'édition de blocs n'est pas disponible pour les pages personnalisées créées hors de l'éditeur de page. 
+                Pour toute modification, veuillez contacter le développeur.
+              </p>
+              <Button
+                variant="outline"
+                onClick={() => window.location.href = '/admin-appearance'}
+                className="flex items-center gap-2 mx-auto"
+              >
+                <Settings className="w-4 h-4" />
+                Retour aux paramètres
               </Button>
             </div>
           ) : loadingBlocks ? (
