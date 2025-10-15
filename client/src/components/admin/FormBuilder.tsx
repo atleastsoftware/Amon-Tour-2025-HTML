@@ -91,7 +91,7 @@ interface FormData {
   description?: string;
   headerImage?: string;
   layout: 'single-column' | 'two-column' | 'grid';
-  formLayout: 'columns' | 'columns-reversed' | 'header';
+  formLayout: 'columns' | 'columns-reversed' | 'header' | 'footer';
   backgroundColor: string;
   primaryColor: string;
   frameColor: string;
@@ -857,6 +857,101 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                     )}
                   </div>
                 </div>
+              ) : formData.formLayout === 'footer' ? (
+                // Layout Footer - Formulaire sans image avec bouton WhatsApp en bas
+                <div className="p-8" style={{ backgroundColor: resolveColor(formData.frameColor) }}>
+                  {/* Title and Subtitle at top */}
+                  <div className="text-center mb-6">
+                    <h3 
+                      className="font-heading font-bold text-3xl mb-3"
+                      style={{ color: resolveColor(formData.titleColor) }}
+                    >
+                      {formData.title || 'Titre du formulaire'}
+                    </h3>
+                    {formData.subtitle && (
+                      <p 
+                        className="text-base"
+                        style={{ color: resolveColor(formData.subtitleColor) }}
+                      >
+                        {formData.subtitle}
+                      </p>
+                    )}
+                  </div>
+                  
+                  {/* Form Content */}
+                  {formData.fields.length === 0 ? (
+                    <div className="text-center py-16 text-gray-500">
+                      <FormInput className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+                      <p>Ajoutez des champs pour voir la prévisualisation</p>
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      {/* Rendu des champs du formulaire avec largeurs individuelles */}
+                      <div className="grid grid-cols-12 gap-4">
+                        {formData.fields.map((field, index) => {
+                          let colSpan = 'col-span-12'; // Default: full width
+                          
+                          switch (field.style?.width) {
+                            case 'half':
+                              colSpan = 'col-span-12 md:col-span-6';
+                              break;
+                            case 'third':
+                              colSpan = 'col-span-12 md:col-span-4';
+                              break;
+                            case 'twothirds':
+                              colSpan = 'col-span-12 md:col-span-8';
+                              break;
+                            case 'full':
+                            default:
+                              colSpan = 'col-span-12';
+                              break;
+                          }
+                          
+                          return (
+                            <motion.div
+                              key={field.id}
+                              className={colSpan}
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: -20 }}
+                            >
+                              {renderFieldPreview(field)}
+                            </motion.div>
+                          );
+                        })}
+                      </div>
+                      
+                      {/* Submit Button */}
+                      <div className="pt-4">
+                        <Button 
+                          style={{ 
+                            backgroundColor: resolveColor(formData.primaryColor),
+                            color: '#ffffff'
+                          }}
+                          className="w-full px-8 py-2"
+                        >
+                          {formData.settings.submitButtonText || 'Envoyer'}
+                        </Button>
+                        
+                        {/* WhatsApp Footer - Always visible in footer layout */}
+                        <div className="mt-4 pt-4 border-t border-gray-200">
+                          <p className="text-center text-sm text-gray-600 mb-3">
+                            {formData.settings.whatsappButtonText || 'Or contact us directly via WhatsApp'}
+                          </p>
+                          <a
+                            href="https://wa.me/66653496445?text=Hello%20Amon%20Tour,%20I%20would%20like%20to%20inquire%20about%20a%20custom%20tour."
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-md font-heading font-semibold transition-colors duration-200 flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+                          >
+                            <i className="fab fa-whatsapp text-xl" aria-hidden="true"></i>
+                            Contact via WhatsApp
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
               ) : (
                 // Layout Colonnes (normal ou inversé)
                 <div className={`grid grid-cols-1 md:grid-cols-2 min-h-[500px] ${
@@ -1401,6 +1496,22 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
                           <Label className="font-medium text-sm">Header</Label>
                         </div>
                         <p className="text-xs text-gray-600">Image et titre en haut, formulaire en dessous sur toute la largeur</p>
+                      </div>
+                      
+                      <div 
+                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all hover:border-primary/30 ${
+                          formData.formLayout === 'footer' ? 'border-primary bg-primary/10' : 'border-gray-200'
+                        }`}
+                        onClick={() => setFormData(prev => ({ ...prev, formLayout: 'footer' as const }))}
+                      >
+                        <div className="flex items-center gap-3 mb-2">
+                          <div className="flex flex-col gap-1">
+                            <div className="w-8 h-3 bg-gray-200 rounded-sm"></div>
+                            <div className="w-8 h-2 bg-primary/20 rounded-sm"></div>
+                          </div>
+                          <Label className="font-medium text-sm">Footer</Label>
+                        </div>
+                        <p className="text-xs text-gray-600">Formulaire standard avec bouton WhatsApp en bas (sans image)</p>
                       </div>
                     </div>
                   </CardContent>

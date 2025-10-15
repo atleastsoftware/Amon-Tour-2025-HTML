@@ -19,7 +19,7 @@ interface FormData {
   description?: string;
   headerImage?: string;
   layout: 'single-column' | 'two-column' | 'grid';
-  formLayout: 'columns' | 'columns-reversed' | 'header';
+  formLayout: 'columns' | 'columns-reversed' | 'header' | 'footer';
   backgroundColor: string;
   primaryColor: string;
   frameColor: string;
