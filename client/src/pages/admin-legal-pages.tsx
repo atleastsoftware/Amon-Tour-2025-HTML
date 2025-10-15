@@ -540,14 +540,6 @@ export default function AdminLegalPages() {
               </div>
             </DialogContent>
           </Dialog>
-          <Button 
-            variant="secondary" 
-            className="flex items-center gap-2"
-            onClick={() => cleanDatabaseMutation.mutate()}
-            disabled={cleanDatabaseMutation.isPending}
-          >
-            {cleanDatabaseMutation.isPending ? 'Nettoyage...' : 'Nettoyer les blocs (fix CSS)'}
-          </Button>
         </div>
 
         {/* Legal Pages List */}
