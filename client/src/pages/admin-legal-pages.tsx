@@ -42,6 +42,7 @@ export default function AdminLegalPages() {
   const [selectedPage, setSelectedPage] = useState<LegalPage | null>(null);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [editingPageId, setEditingPageId] = useState<number | null>(null);
   const [formData, setFormData] = useState({
     title: '',
     content: '',
@@ -179,7 +180,9 @@ export default function AdminLegalPages() {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/page-blocks', selectedPage?.pageSlug] });
       toast({ title: 'Page légale mise à jour avec succès!' });
       setIsEditDialogOpen(false);
+      setEditingPageId(null);
       setSelectedPage(null);
+      setFormData({ title: '', content: '' });
     },
     onError: (error: any) => {
       console.error('Erreur de mise à jour:', error);
@@ -219,27 +222,30 @@ export default function AdminLegalPages() {
   };
 
   const handleEditClick = async (page: LegalPage) => {
-    setSelectedPage(page);
+    // Toggle: if already editing this page, close it
+    if (editingPageId === page.id) {
+      setEditingPageId(null);
+      setFormData({ title: '', content: '' });
+      return;
+    }
     
-    // Fetch fresh blocks data directly from API BEFORE opening dialog
+    setSelectedPage(page);
+    setEditingPageId(page.id);
+    
+    // Fetch fresh blocks data directly from API
     try {
       const blocksResponse = await fetch(`/api/admin/page-blocks/${page.pageSlug}`);
       if (blocksResponse.ok) {
         const blocks = await blocksResponse.json();
-        console.log('Blocs chargés:', blocks);
         const textBlock = blocks.find((b: PageBlock) => b.blockType === 'text_section');
-        console.log('Bloc text_section trouvé:', textBlock);
         
         const title = textBlock?.title || textBlock?.configuration?.title || page.pageName;
         let content = textBlock?.content || textBlock?.configuration?.content || '';
         
-        // CRUCIAL: Clean the HTML on LOAD to prevent CSS pollution propagation
+        // Clean the HTML to remove CSS pollution
         if (content) {
           content = cleanHTML(content);
-          console.log('Content nettoyé:', content);
         }
-        
-        console.log('Title extrait:', title);
         
         setFormData({
           title,
@@ -258,9 +264,6 @@ export default function AdminLegalPages() {
         content: '',
       });
     }
-    
-    // Open dialog AFTER data is loaded
-    setIsEditDialogOpen(true);
   };
 
   const generateSlug = (name: string) => {
@@ -588,14 +591,14 @@ export default function AdminLegalPages() {
                           Voir
                         </Button>
                         <Button
-                          variant="outline"
+                          variant={editingPageId === page.id ? "default" : "outline"}
                           size="sm"
                           className="gap-2"
                           onClick={() => handleEditClick(page)}
                           data-testid={`button-edit-${page.id}`}
                         >
                           <Edit className="w-4 h-4" />
-                          Modifier
+                          {editingPageId === page.id ? 'Fermer' : 'Modifier'}
                         </Button>
                         <AlertDialog>
                           <AlertDialogTrigger asChild>
@@ -628,6 +631,64 @@ export default function AdminLegalPages() {
                         </AlertDialog>
                       </div>
                     </div>
+
+                    {/* Inline Editor - shows when editing this page */}
+                    {editingPageId === page.id && (
+                      <div className="mt-6 pt-6 border-t space-y-4">
+                        <div className="space-y-2">
+                          <Label htmlFor={`title-${page.id}`}>Titre</Label>
+                          <Input
+                            id={`title-${page.id}`}
+                            value={formData.title}
+                            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                          />
+                        </div>
+
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                          {/* HTML Editor */}
+                          <div className="space-y-2">
+                            <Label htmlFor={`content-${page.id}`}>Contenu HTML</Label>
+                            <Textarea
+                              id={`content-${page.id}`}
+                              value={formData.content}
+                              onChange={(e) => setFormData({ ...formData, content: e.target.value })}
+                              className="font-mono text-sm min-h-[400px]"
+                              placeholder="<p>Votre contenu HTML ici...</p>"
+                            />
+                            <p className="text-xs text-muted-foreground">
+                              Utilisez des balises HTML simples : &lt;p&gt;, &lt;h2&gt;, &lt;strong&gt;, &lt;ul&gt;, &lt;li&gt;
+                            </p>
+                          </div>
+
+                          {/* Live Preview */}
+                          <div className="space-y-2">
+                            <Label>Prévisualisation</Label>
+                            <div 
+                              className="border rounded-lg p-4 bg-white min-h-[400px] prose prose-sm max-w-none"
+                              dangerouslySetInnerHTML={{ __html: formData.content }}
+                            />
+                          </div>
+                        </div>
+
+                        <div className="flex justify-end gap-2">
+                          <Button 
+                            variant="outline" 
+                            onClick={() => {
+                              setEditingPageId(null);
+                              setFormData({ title: '', content: '' });
+                            }}
+                          >
+                            Annuler
+                          </Button>
+                          <Button 
+                            onClick={handleUpdatePage}
+                            disabled={updatePageMutation.isPending}
+                          >
+                            {updatePageMutation.isPending ? 'Enregistrement...' : 'Enregistrer'}
+                          </Button>
+                        </div>
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
               </motion.div>
