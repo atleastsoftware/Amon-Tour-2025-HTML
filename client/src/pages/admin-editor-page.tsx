@@ -210,7 +210,7 @@ function AdminEditorPageContent() {
           )}
 
           {/* Bouton Ajouter une page */}
-          <div className="flex justify-end">
+          <div className="flex justify-center">
             <Button 
               onClick={handleAddPage}
               className="bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-2"

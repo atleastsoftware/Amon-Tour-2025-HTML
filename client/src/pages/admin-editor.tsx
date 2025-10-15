@@ -46,8 +46,8 @@ export default function AdminEditor() {
       description: 'Créer, modifier, supprimer le contenu des blocs de chaque page',
       icon: FileText,
       route: '/admin-editor-page',
-      color: 'bg-primary/5 border-primary/20 hover:bg-primary/10',
-      iconColor: 'text-primary'
+      color: 'bg-blue-50 border-blue-200 hover:bg-blue-100',
+      iconColor: 'text-blue-600'
     },
     {
       id: 'legal',
