@@ -225,10 +225,19 @@ export default function AdminLegalPages() {
       const blocksResponse = await fetch(`/api/admin/page-blocks/${page.pageSlug}`);
       if (blocksResponse.ok) {
         const blocks = await blocksResponse.json();
+        console.log('Blocs chargés:', blocks);
         const textBlock = blocks.find((b: PageBlock) => b.blockType === 'text_section');
+        console.log('Bloc text_section trouvé:', textBlock);
+        
+        const title = textBlock?.title || textBlock?.configuration?.title || page.pageName;
+        const content = textBlock?.content || textBlock?.configuration?.content || '';
+        
+        console.log('Title extrait:', title);
+        console.log('Content extrait:', content);
+        
         setFormData({
-          title: textBlock?.configuration?.title || page.pageName,
-          content: textBlock?.content || textBlock?.configuration?.content || '',
+          title,
+          content,
         });
       } else {
         setFormData({
