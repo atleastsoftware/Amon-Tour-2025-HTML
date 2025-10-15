@@ -328,32 +328,34 @@ export default function AdminLegalPages() {
                 Créer une page légale
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+            <DialogContent className="max-w-7xl max-h-[90vh] overflow-y-auto">
               <DialogHeader>
                 <DialogTitle>Créer une nouvelle page légale</DialogTitle>
                 <DialogDescription>
                   Ajoutez le contenu de votre page légale avec mise en forme
                 </DialogDescription>
               </DialogHeader>
-              <div className="space-y-4 py-4">
-                <div className="space-y-2">
-                  <Label htmlFor="title">Titre *</Label>
-                  <Input
-                    id="title"
-                    placeholder="ex: Legal Notice"
-                    value={formData.title}
-                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                  />
-                  <p className="text-sm text-muted-foreground">
-                    Ce titre apparaîtra en haut de la page
-                  </p>
-                </div>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 py-4">
+                {/* Editor Panel */}
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="title">Titre *</Label>
+                    <Input
+                      id="title"
+                      placeholder="ex: Legal Notice"
+                      value={formData.title}
+                      onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                    />
+                    <p className="text-sm text-muted-foreground">
+                      Ce titre apparaîtra en haut de la page
+                    </p>
+                  </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="content">Contenu</Label>
-                  
-                  {/* Rich Text Toolbar */}
-                  <div className="flex flex-wrap gap-1 p-2 bg-muted rounded-md border">
+                  <div className="space-y-2">
+                    <Label htmlFor="content">Contenu</Label>
+                    
+                    {/* Rich Text Toolbar */}
+                    <div className="flex flex-wrap gap-1 p-2 bg-muted rounded-md border">
                     <Button
                       type="button"
                       variant="ghost"
@@ -459,12 +461,34 @@ export default function AdminLegalPages() {
                     onChange={(e) => setFormData({ ...formData, content: e.target.value })}
                     className="font-mono text-sm"
                   />
-                  <p className="text-sm text-muted-foreground">
-                    Utilisez les boutons de formatage pour ajouter des styles HTML
-                  </p>
+                    <p className="text-sm text-muted-foreground">
+                      Utilisez les boutons de formatage pour ajouter des styles HTML
+                    </p>
+                  </div>
+                </div>
+
+                {/* Preview Panel */}
+                <div className="space-y-2">
+                  <Label>Aperçu en temps réel</Label>
+                  <div className="border rounded-lg p-6 bg-white min-h-[400px]">
+                    {formData.title && (
+                      <h1 className="font-heading text-3xl md:text-4xl font-bold mb-6 text-center">
+                        {formData.title}
+                      </h1>
+                    )}
+                    {formData.content && (
+                      <div 
+                        className="prose prose-headings:font-heading prose-h2:text-2xl prose-h2:font-semibold prose-h2:mb-4 prose-h3:text-xl prose-h3:font-semibold prose-h3:mb-3 prose-p:mb-4 prose-ul:list-disc prose-ul:pl-6 prose-ul:mb-4 prose-ul:space-y-1 prose-strong:font-bold max-w-none"
+                        dangerouslySetInnerHTML={{ __html: formData.content }}
+                      />
+                    )}
+                    {!formData.title && !formData.content && (
+                      <p className="text-muted-foreground text-center">L'aperçu apparaîtra ici</p>
+                    )}
+                  </div>
                 </div>
               </div>
-              <div className="flex justify-end gap-2">
+              <div className="flex justify-end gap-2 pt-4 border-t">
                 <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)}>
                   Annuler
                 </Button>
@@ -566,31 +590,33 @@ export default function AdminLegalPages() {
 
         {/* Edit Dialog */}
         <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          <DialogContent className="max-w-7xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>Modifier : {selectedPage?.pageName}</DialogTitle>
               <DialogDescription>
                 Modifiez le contenu de la page légale
               </DialogDescription>
             </DialogHeader>
-            <div className="space-y-4 py-4">
-              <div className="space-y-2">
-                <Label htmlFor="edit-title">Titre *</Label>
-                <Input
-                  id="edit-title"
-                  value={formData.title}
-                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                />
-                <p className="text-sm text-muted-foreground">
-                  Ce titre apparaîtra en haut de la page
-                </p>
-              </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 py-4">
+              {/* Editor Panel */}
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="edit-title">Titre *</Label>
+                  <Input
+                    id="edit-title"
+                    value={formData.title}
+                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  />
+                  <p className="text-sm text-muted-foreground">
+                    Ce titre apparaîtra en haut de la page
+                  </p>
+                </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="edit-content">Contenu</Label>
-                
-                {/* Rich Text Toolbar */}
-                <div className="flex flex-wrap gap-1 p-2 bg-muted rounded-md border">
+                <div className="space-y-2">
+                  <Label htmlFor="edit-content">Contenu</Label>
+                  
+                  {/* Rich Text Toolbar */}
+                  <div className="flex flex-wrap gap-1 p-2 bg-muted rounded-md border">
                   <Button
                     type="button"
                     variant="ghost"
@@ -695,12 +721,34 @@ export default function AdminLegalPages() {
                   onChange={(e) => setFormData({ ...formData, content: e.target.value })}
                   className="font-mono text-sm"
                 />
-                <p className="text-sm text-muted-foreground">
-                  Utilisez les boutons de formatage pour ajouter des styles HTML
-                </p>
+                  <p className="text-sm text-muted-foreground">
+                    Utilisez les boutons de formatage pour ajouter des styles HTML
+                  </p>
+                </div>
+              </div>
+
+              {/* Preview Panel */}
+              <div className="space-y-2">
+                <Label>Aperçu en temps réel</Label>
+                <div className="border rounded-lg p-6 bg-white min-h-[400px]">
+                  {formData.title && (
+                    <h1 className="font-heading text-3xl md:text-4xl font-bold mb-6 text-center">
+                      {formData.title}
+                    </h1>
+                  )}
+                  {formData.content && (
+                    <div 
+                      className="prose prose-headings:font-heading prose-h2:text-2xl prose-h2:font-semibold prose-h2:mb-4 prose-h3:text-xl prose-h3:font-semibold prose-h3:mb-3 prose-p:mb-4 prose-ul:list-disc prose-ul:pl-6 prose-ul:mb-4 prose-ul:space-y-1 prose-strong:font-bold max-w-none"
+                      dangerouslySetInnerHTML={{ __html: formData.content }}
+                    />
+                  )}
+                  {!formData.title && !formData.content && (
+                    <p className="text-muted-foreground text-center">L'aperçu apparaîtra ici</p>
+                  )}
+                </div>
               </div>
             </div>
-            <div className="flex justify-end gap-2">
+            <div className="flex justify-end gap-2 pt-4 border-t">
               <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>
                 Annuler
               </Button>
