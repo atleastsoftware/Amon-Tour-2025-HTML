@@ -1,27 +1,43 @@
+import { useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { FileText, Scale, FormInput, ArrowLeft, Edit } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
+import { useIsAuthenticated } from '@/lib/auth';
 
 export default function AdminEditor() {
   const [, setLocation] = useLocation();
+  const { isAuthenticated, isLoading: authLoading } = useIsAuthenticated();
+
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (!authLoading && !isAuthenticated) {
+      setLocation('/admin-login');
+    }
+  }, [isAuthenticated, authLoading, setLocation]);
 
   // Query to get forms count
   const { data: formsData } = useQuery({
     queryKey: ['/api/admin/custom-forms'],
-    queryFn: () => fetch('/api/admin/custom-forms').then(res => res.json())
+    queryFn: () => fetch('/api/admin/custom-forms').then(res => res.json()),
+    enabled: isAuthenticated
   });
 
   // Query to get pages count
   const { data: pagesData } = useQuery({
     queryKey: ['/api/admin/page-configurations'],
-    queryFn: () => fetch('/api/admin/page-configurations').then(res => res.json())
+    queryFn: () => fetch('/api/admin/page-configurations').then(res => res.json()),
+    enabled: isAuthenticated
   });
 
   const activeFormsCount = formsData ? formsData.filter((form: any) => form.isActive).length : 0;
   const pagesCount = pagesData ? pagesData.length : 0;
   const legalPagesCount = pagesData ? pagesData.filter((page: any) => page.pageType === 'legal').length : 0;
+
+  if (authLoading) {
+    return <div className="container mx-auto p-8 text-center">Loading...</div>;
+  }
 
   const editorItems = [
     {
