@@ -535,10 +535,10 @@ export default function FormBuilder({ initialForm, onSave, onCancel }: FormBuild
 
   // Save form
   const handleSave = async () => {
-    if (!formData.name.trim() || !formData.title.trim()) {
+    if (!formData.name.trim()) {
       toast({
         title: "Erreur",
-        description: "Le nom et le titre du formulaire sont obligatoires.",
+        description: "Le nom du formulaire est obligatoire.",
         variant: "destructive"
       });
       return;
