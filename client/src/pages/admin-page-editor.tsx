@@ -617,89 +617,99 @@ function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitle
               </div>
             ) : formData.formLayout === 'footer' ? (
               // Layout Footer - Formulaire sans image avec bouton WhatsApp en bas
-              <div className="p-8" style={{ backgroundColor: resolveColor(formData.frameColor) }}>
-                <div className="max-w-3xl mx-auto">
-                  <div className="text-center mb-6">
-                    <h3 
-                      className="font-heading font-bold text-3xl mb-3"
-                      style={{ color: resolveColor(formData.titleColor) }}
-                    >
-                      {formData.title || 'Titre du formulaire'}
-                    </h3>
-                    {formData.subtitle && (
-                      <p 
-                        className="text-base"
-                        style={{ color: resolveColor(formData.subtitleColor) }}
-                      >
-                        {formData.subtitle}
-                      </p>
-                    )}
-                  </div>
+              <div className="bg-white rounded-lg shadow-lg overflow-hidden max-w-5xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2">
+                  {/* Espace vide (simule l'image) */}
+                  <div className="hidden md:block" style={{ backgroundColor: resolveColor(formData.frameColor) }}></div>
                   
-                  {formData.fields?.length === 0 ? (
-                    <div className="text-center py-16 text-gray-500">
-                      <FormInput className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-                      <p>Aucun champ dans ce formulaire</p>
-                    </div>
-                  ) : (
-                    <div className="space-y-4">
-                      <div className="grid grid-cols-12 gap-4">
-                        {formData.fields?.map((field: any, index: number) => {
-                          let colSpan = 'col-span-12';
-                          
-                          switch (field.style?.width) {
-                            case 'half':
-                              colSpan = 'col-span-12 md:col-span-6';
-                              break;
-                            case 'third':
-                              colSpan = 'col-span-12 md:col-span-4';
-                              break;
-                            case 'twothirds':
-                              colSpan = 'col-span-12 md:col-span-8';
-                              break;
-                            case 'full':
-                            default:
-                              colSpan = 'col-span-12';
-                              break;
-                          }
-                          
-                          return (
-                            <div key={field.id || index} className={colSpan}>
-                              {renderFieldPreview(field)}
-                            </div>
-                          );
-                        })}
-                      </div>
-                      
-                      <div className="pt-4">
-                        <button 
-                          style={{ 
-                            backgroundColor: resolveColor(formData.primaryColor),
-                            color: '#ffffff'
-                          }}
-                          className="w-full px-8 py-3 rounded-md font-semibold"
-                          disabled
-                        >
-                          {formData.settings?.submitButtonText || 'Envoyer'}
-                        </button>
-                        
-                        <div className="mt-4 pt-4 border-t border-gray-200">
-                          <p className="text-center text-sm text-gray-600 mb-3">
-                            {formData.settings?.whatsappButtonText || 'Or contact us directly via WhatsApp'}
-                          </p>
-                          <a
-                            href="https://wa.me/66653496445?text=Hello%20Amon%20Tour,%20I%20would%20like%20to%20inquire%20about%20a%20custom%20tour."
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-md font-heading font-semibold transition-colors duration-200 flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+                  {/* Form Side - identique à /cruise */}
+                  <div className="p-8" style={{ backgroundColor: resolveColor(formData.frameColor) }}>
+                    {(formData.title || formData.subtitle) && (
+                      <div className="text-center mb-4">
+                        {formData.title && (
+                          <h3 
+                            className="font-heading font-bold text-2xl mb-2"
+                            style={{ color: resolveColor(formData.titleColor) }}
                           >
-                            <i className="fab fa-whatsapp text-xl" aria-hidden="true"></i>
-                            Contact via WhatsApp
-                          </a>
+                            {formData.title}
+                          </h3>
+                        )}
+                        {formData.subtitle && (
+                          <p 
+                            className="text-sm"
+                            style={{ color: resolveColor(formData.subtitleColor) }}
+                          >
+                            {formData.subtitle}
+                          </p>
+                        )}
+                      </div>
+                    )}
+                    
+                    {formData.fields?.length === 0 ? (
+                      <div className="text-center py-16 text-gray-500">
+                        <FormInput className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+                        <p>Aucun champ dans ce formulaire</p>
+                      </div>
+                    ) : (
+                      <div className="space-y-4">
+                        <div className="grid grid-cols-12 gap-4">
+                          {formData.fields?.map((field: any, index: number) => {
+                            let colSpan = 'col-span-12';
+                            
+                            switch (field.style?.width) {
+                              case 'half':
+                                colSpan = 'col-span-12 md:col-span-6';
+                                break;
+                              case 'third':
+                                colSpan = 'col-span-12 md:col-span-4';
+                                break;
+                              case 'twothirds':
+                                colSpan = 'col-span-12 md:col-span-8';
+                                break;
+                              case 'full':
+                              default:
+                                colSpan = 'col-span-12';
+                                break;
+                            }
+                            
+                            return (
+                              <div key={field.id || index} className={colSpan}>
+                                {renderFieldPreview(field)}
+                              </div>
+                            );
+                          })}
+                        </div>
+                        
+                        <div className="pt-2">
+                          <button 
+                            style={{ 
+                              backgroundColor: resolveColor(formData.primaryColor),
+                              color: '#ffffff'
+                            }}
+                            className="w-full px-8 py-3 rounded-md font-semibold"
+                            disabled
+                          >
+                            {formData.settings?.submitButtonText || 'Envoyer'}
+                          </button>
+                          
+                          <div className="mt-4 pt-4 border-t border-gray-200">
+                            <p className="text-center text-sm text-gray-600 mb-3">
+                              {formData.settings?.whatsappButtonText || 'Or contact us directly via WhatsApp'}
+                            </p>
+                            <a
+                              href="https://wa.me/66653496445?text=Hello%20Amon%20Tour,%20I%20would%20like%20to%20inquire%20about%20a%20custom%20tour."
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-md font-heading font-semibold transition-colors duration-200 flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+                            >
+                              <i className="fab fa-whatsapp text-xl" aria-hidden="true"></i>
+                              Contact via WhatsApp
+                            </a>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
               </div>
             ) : (
