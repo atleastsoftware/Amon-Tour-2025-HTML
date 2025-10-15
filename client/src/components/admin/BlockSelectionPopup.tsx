@@ -371,17 +371,16 @@ const blockTypes: BlockType[] = [
           <h2 className="font-bold text-lg mb-2" style={{ color: '#333333' }}>
             Titre de la galerie
           </h2>
-          <div className="w-16 h-0.5 mx-auto mb-3" style={{ backgroundColor: '#084F6E' }}></div>
+          <div className="w-16 h-0.5 mx-auto mb-3" style={{ backgroundColor: '#3BA8AF' }}></div>
           <p className="text-xs leading-relaxed" style={{ color: '#666666' }}>
             Description pour votre galerie d'images
           </p>
         </div>
-        <div className="relative aspect-video bg-gradient-to-r from-[#084F6E] to-[#3BA8AF] rounded-lg flex items-center justify-center text-white">
-          <Images className="w-12 h-12 opacity-60" />
-        </div>
-        <div className="flex gap-1 mt-2 justify-center">
+        <div className="flex gap-2 justify-center">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="w-12 h-12 bg-gradient-to-r from-[#084F6E] to-[#3BA8AF] rounded"></div>
+            <div key={i} className="w-24 h-20 bg-gradient-to-r from-[#084F6E] to-[#3BA8AF] rounded-lg shadow-md flex items-center justify-center">
+              <Images className="w-8 h-8 text-white opacity-60" />
+            </div>
           ))}
         </div>
       </div>
