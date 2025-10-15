@@ -218,16 +218,31 @@ export default function AdminLegalPages() {
 
   const handleEditClick = async (page: LegalPage) => {
     setSelectedPage(page);
-    
-    // Wait a bit for pageBlocks to load
-    await new Promise(resolve => setTimeout(resolve, 100));
-    
-    const textBlock = pageBlocks.find(b => b.blockType === 'text_section');
-    setFormData({
-      title: textBlock?.configuration?.title || page.pageName,
-      content: textBlock?.content || textBlock?.configuration?.content || '',
-    });
     setIsEditDialogOpen(true);
+    
+    // Fetch fresh blocks data directly from API
+    try {
+      const blocksResponse = await fetch(`/api/admin/page-blocks/${page.pageSlug}`);
+      if (blocksResponse.ok) {
+        const blocks = await blocksResponse.json();
+        const textBlock = blocks.find((b: PageBlock) => b.blockType === 'text_section');
+        setFormData({
+          title: textBlock?.configuration?.title || page.pageName,
+          content: textBlock?.content || textBlock?.configuration?.content || '',
+        });
+      } else {
+        setFormData({
+          title: page.pageName,
+          content: '',
+        });
+      }
+    } catch (error) {
+      console.error('Erreur lors du chargement des blocs:', error);
+      setFormData({
+        title: page.pageName,
+        content: '',
+      });
+    }
   };
 
   const generateSlug = (name: string) => {
