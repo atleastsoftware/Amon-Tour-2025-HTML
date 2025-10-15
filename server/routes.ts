@@ -3691,9 +3691,6 @@ Crawl-delay: 1`;
             pickupTitle: 'Options supplémentaires',
             pickupTimes: [
               { time: 'Titre', location: 'Sous titre', price: 'Supplément', supplementColor: '#084F6E' },
-              { time: 'Titre', location: 'Sous titre', price: 'Supplément', supplementColor: '#084F6E' },
-              { time: 'Titre', location: 'Sous titre', price: 'Supplément', supplementColor: '#084F6E' },
-              { time: 'Titre', location: 'Sous titre', price: 'Supplément', supplementColor: '#084F6E' },
               { time: 'Titre', location: 'Sous titre', price: 'Supplément', supplementColor: '#084F6E' }
             ],
             includedTitle: 'Included in Price',
