@@ -43,9 +43,6 @@ function RealComponentPreview({ block }: { block: PageBlock }) {
     
     case 'advantages':
       return <Features />;
-    
-    case 'about':
-      return <About />;
       
     case 'form':
       if (config.formType === 'custom_tour') {
