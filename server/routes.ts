@@ -3628,6 +3628,64 @@ Crawl-delay: 1`;
             videoType: 'youtube'
           },
           isActive: false
+        },
+        text_listing: {
+          identifier: `text_listing_${Date.now()}`,
+          title: 'Text + Listing',
+          blockType: 'text_listing',
+          configuration: {
+            title: 'Suggestions d\'Itinéraires',
+            subtitle: 'Découvrez nos propositions pour différentes durées',
+            items: [
+              { label: '1 jour', description: 'Exemple de description pour une journée' },
+              { label: '2 jours', description: 'Exemple de description pour deux jours' },
+              { label: '3-4 jours', description: 'Exemple de description pour trois à quatre jours' }
+            ],
+            labelColor: '#084F6E',
+            dividerColor: '#3BA8AF',
+            backgroundColor: '#ffffff'
+          },
+          isActive: false
+        },
+        text_pricing: {
+          identifier: `text_pricing_${Date.now()}`,
+          title: 'Text + Pricing',
+          blockType: 'text_pricing',
+          configuration: {
+            title: 'Tarification Saisonnière',
+            subtitle: 'Tarif journalier minimum (2 jours minimum)',
+            pricingCards: [
+              {
+                title: 'Haute Saison',
+                subtitle: 'Période premium',
+                price: '39,000',
+                currency: 'THB',
+                period: 'Déc 15, 2025 - Jan 15, 2026',
+                headerGradient: 'from-secondary to-secondary/80'
+              },
+              {
+                title: 'Moyenne Saison',
+                subtitle: 'Tarif standard',
+                price: '31,000',
+                currency: 'THB',
+                period: 'Oct 15 - Déc 14, 2025\nJan 15 - Mar 31, 2026',
+                headerGradient: 'from-primary to-secondary'
+              },
+              {
+                title: 'Basse Saison',
+                subtitle: 'Meilleur rapport qualité-prix',
+                price: '28,000',
+                currency: 'THB',
+                period: 'Avr 1 - Oct 14, 2026',
+                headerGradient: 'from-primary/80 to-primary'
+              }
+            ],
+            dividerColor: '#3BA8AF',
+            backgroundColor: 'from-muted/30 to-primary/5',
+            perDayText: 'par jour',
+            periodLabel: 'Période'
+          },
+          isActive: false
         }
       };
 
