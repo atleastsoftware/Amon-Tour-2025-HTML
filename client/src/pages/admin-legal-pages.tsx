@@ -644,30 +644,99 @@ export default function AdminLegalPages() {
                           />
                         </div>
 
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                          {/* HTML Editor */}
-                          <div className="space-y-2">
-                            <Label htmlFor={`content-${page.id}`}>Contenu HTML</Label>
-                            <Textarea
-                              id={`content-${page.id}`}
-                              value={formData.content}
-                              onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                              className="font-mono text-sm min-h-[400px]"
-                              placeholder="<p>Votre contenu HTML ici...</p>"
-                            />
-                            <p className="text-xs text-muted-foreground">
-                              Utilisez des balises HTML simples : &lt;p&gt;, &lt;h2&gt;, &lt;strong&gt;, &lt;ul&gt;, &lt;li&gt;
-                            </p>
+                        <div className="space-y-2">
+                          <Label>Contenu</Label>
+                          
+                          {/* Formatting Toolbar */}
+                          <div className="border rounded-lg p-2 bg-muted/50 flex flex-wrap gap-1">
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => insertHeading(2)}
+                              title="Titre 2"
+                            >
+                              <Heading1 className="w-4 h-4" />
+                            </Button>
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => insertHeading(3)}
+                              title="Titre 3"
+                            >
+                              <Heading2 className="w-4 h-4" />
+                            </Button>
+                            <div className="w-px bg-border mx-1" />
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="sm"
+                              onClick={insertBold}
+                              title="Gras"
+                            >
+                              <Bold className="w-4 h-4" />
+                            </Button>
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="sm"
+                              onClick={insertItalic}
+                              title="Italique"
+                            >
+                              <Italic className="w-4 h-4" />
+                            </Button>
+                            <div className="w-px bg-border mx-1" />
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="sm"
+                              onClick={insertAlignLeft}
+                              title="Aligner à gauche"
+                            >
+                              <AlignLeft className="w-4 h-4" />
+                            </Button>
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="sm"
+                              onClick={insertAlignCenter}
+                              title="Centrer"
+                            >
+                              <AlignCenter className="w-4 h-4" />
+                            </Button>
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="sm"
+                              onClick={insertAlignRight}
+                              title="Aligner à droite"
+                            >
+                              <AlignRight className="w-4 h-4" />
+                            </Button>
+                            <div className="w-px bg-border mx-1" />
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="sm"
+                              onClick={insertBulletList}
+                              title="Liste à puces"
+                            >
+                              <List className="w-4 h-4" />
+                            </Button>
                           </div>
 
-                          {/* Live Preview */}
-                          <div className="space-y-2">
-                            <Label>Prévisualisation</Label>
-                            <div 
-                              className="border rounded-lg p-4 bg-white min-h-[400px] prose prose-sm max-w-none"
-                              dangerouslySetInnerHTML={{ __html: formData.content }}
-                            />
-                          </div>
+                          {/* Visual Editor */}
+                          <div
+                            ref={contentEditableRef}
+                            contentEditable
+                            onInput={handleContentChange}
+                            className="border rounded-lg p-6 bg-white min-h-[400px] prose prose-sm max-w-none focus:outline-none focus:ring-2 focus:ring-primary"
+                            suppressContentEditableWarning
+                          />
+                          <p className="text-xs text-muted-foreground">
+                            Cliquez dans la zone ci-dessus pour éditer. Sélectionnez du texte et utilisez les boutons de formatage.
+                          </p>
                         </div>
 
                         <div className="flex justify-end gap-2">
