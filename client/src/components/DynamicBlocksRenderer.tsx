@@ -1012,18 +1012,128 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
         );
       }
 
-      case 'who_we_are':
+      case 'who_we_are': {
+        const whoWeAreConfig = block.configuration || {};
+        const whoSections = whoWeAreConfig.sections || [];
+        const whoImages = whoWeAreConfig.images || [];
+        const whoButtons = whoWeAreConfig.buttons || [];
+        const imagesPosition = whoWeAreConfig.layoutStyle || 'right';
+        
         return (
-          <div key={block.id} className="w-full">
-            <Suspense fallback={
-              <div className="flex justify-center py-8">
-                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          <section key={block.id} className="py-16" style={{ backgroundColor: whoWeAreConfig.backgroundColor || '#ffffff' }}>
+            <div className="container mx-auto px-4">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
+                {/* Bloc de contenu textuel */}
+                <div className={imagesPosition === 'right' ? 'order-2 lg:order-1' : 'order-2 lg:order-2'}>
+                  {/* Titre principal avec tiret */}
+                  {whoWeAreConfig.title && (
+                    <div className="mb-6">
+                      <h2 
+                        className="font-heading font-bold text-3xl md:text-4xl mb-3"
+                        style={{ color: whoWeAreConfig.titleColor || '#084F6E' }}
+                      >
+                        {whoWeAreConfig.title}
+                      </h2>
+                      <div 
+                        className="w-20 h-1"
+                        style={{ backgroundColor: whoWeAreConfig.dividerColor || '#3BA8AF' }}
+                      ></div>
+                    </div>
+                  )}
+                  
+                  {/* Introduction */}
+                  {whoWeAreConfig.introduction && (
+                    <div className="mb-6">
+                      {whoWeAreConfig.introduction.split('\n').map((para: string, i: number) => 
+                        para.trim() && (
+                          <p 
+                            key={i}
+                            className="text-muted-foreground mb-4"
+                            style={{ color: whoWeAreConfig.textColor || '#666666' }}
+                          >
+                            {para.trim()}
+                          </p>
+                        )
+                      )}
+                    </div>
+                  )}
+
+                  {/* Sous-sections */}
+                  {whoSections.map((section: any, index: number) => (
+                    <div key={index} className="mt-6">
+                      <h3 
+                        className="font-heading font-semibold text-2xl mb-3"
+                        style={{ color: whoWeAreConfig.subtitleColor || '#084F6E' }}
+                      >
+                        {section.subtitle}
+                      </h3>
+                      {section.text.split('\n').map((para: string, i: number) => 
+                        para.trim() && (
+                          <p 
+                            key={i}
+                            className="text-muted-foreground mb-4"
+                            style={{ color: whoWeAreConfig.textColor || '#666666' }}
+                          >
+                            {para.trim()}
+                          </p>
+                        )
+                      )}
+                    </div>
+                  ))}
+
+                  {/* Boutons */}
+                  {whoButtons.length > 0 && (
+                    <div className="flex items-center space-x-4 mt-6">
+                      {whoButtons.map((button: any, index: number) => (
+                        <a
+                          key={index}
+                          href={button.url || '#'}
+                          className={`px-6 py-2 rounded font-heading font-semibold transition-colors inline-flex items-center ${
+                            button.style === 'filled' 
+                              ? 'hover:opacity-90' 
+                              : 'hover:opacity-80'
+                          }`}
+                          style={{
+                            backgroundColor: button.style === 'filled' ? (button.color || '#084F6E') : 'transparent',
+                            color: button.textColor || (button.style === 'outline' ? (button.color || '#084F6E') : '#ffffff'),
+                            border: button.style === 'outline' ? `2px solid ${button.color || '#084F6E'}` : 'none'
+                          }}
+                        >
+                          {button.text}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Bloc d'images empilées */}
+                <div className={imagesPosition === 'right' ? 'order-1 lg:order-2' : 'order-1 lg:order-1'}>
+                  <div className="flex flex-col gap-6 h-full">
+                    {whoImages.map((image: any, index: number) => (
+                      <div key={index} className="relative" style={{ flex: `1 1 ${100 / whoImages.length}%`, minHeight: 0 }}>
+                        {image.url ? (
+                          <img 
+                            src={image.url} 
+                            alt={image.alt || `Image ${index + 1}`}
+                            className="w-full h-full rounded-lg shadow-lg object-cover"
+                          />
+                        ) : (
+                          <div 
+                            className="w-full h-full rounded-lg shadow-lg"
+                            style={{ 
+                              background: `linear-gradient(135deg, ${hexToRgba('#084F6E', 0.6)}, ${hexToRgba('#084F6E', 0.9)})`
+                            }}
+                          ></div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
-            }>
-              <About />
-            </Suspense>
-          </div>
+            </div>
+          </section>
         );
+      }
 
       case 'search_bar_tours':
         return (
