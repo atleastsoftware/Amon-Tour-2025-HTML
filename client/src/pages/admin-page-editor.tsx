@@ -7740,7 +7740,7 @@ const BlockEditDropdown = ({
                     <Label>Couleur du logo</Label>
                     <div className="mt-2">
                       <ColorPicker
-                        value={formData.includedLogoColor ?? '#10B981'}
+                        value={formData.includedLogoColor ?? '#3BA8AF'}
                         onChange={(value) => updateField('includedLogoColor', value)}
                       />
                     </div>
@@ -7772,7 +7772,7 @@ const BlockEditDropdown = ({
                     <Label>Couleur du logo</Label>
                     <div className="mt-2">
                       <ColorPicker
-                        value={formData.notIncludedLogoColor ?? '#EF4444'}
+                        value={formData.notIncludedLogoColor ?? '#3BA8AF'}
                         onChange={(value) => updateField('notIncludedLogoColor', value)}
                       />
                     </div>

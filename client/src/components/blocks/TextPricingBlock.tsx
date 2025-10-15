@@ -88,10 +88,10 @@ export default function TextPricingBlock({ block }: TextPricingBlockProps) {
   const pickupTimes = config.pickupTimes ?? [];
   const includedTitle = config.includedTitle ?? "Included in Price";
   const includedDescription = config.includedDescription ?? "";
-  const includedLogoColor = config.includedLogoColor ?? "#10B981";
+  const includedLogoColor = config.includedLogoColor ?? "#3BA8AF";
   const notIncludedTitle = config.notIncludedTitle ?? "Not Included in Price";
   const notIncludedDescription = config.notIncludedDescription ?? "";
-  const notIncludedLogoColor = config.notIncludedLogoColor ?? "#EF4444";
+  const notIncludedLogoColor = config.notIncludedLogoColor ?? "#3BA8AF";
 
   return (
     <div className="w-full">
@@ -157,7 +157,7 @@ export default function TextPricingBlock({ block }: TextPricingBlockProps) {
               transition={{ duration: 0.5, delay: 0.3 }}
             >
               {pickupTitle && (
-                <h3 className="text-2xl font-bold text-center mb-8">{pickupTitle}</h3>
+                <h3 className="text-lg text-center mb-8" style={{ color: subtitleColor }}>{pickupTitle}</h3>
               )}
               
               {pickupTimes.length > 0 && (
