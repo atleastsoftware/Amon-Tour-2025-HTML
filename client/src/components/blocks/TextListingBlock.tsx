@@ -64,9 +64,10 @@ export default function TextListingBlock({ block }: TextListingBlockProps) {
                   <span className="font-bold text-xl md:w-32 mb-2 md:mb-0" style={{ color: labelColor }}>
                     {item.label}
                   </span>
-                  <span className="text-gray-600 text-lg md:ml-4">
-                    {item.description}
-                  </span>
+                  <span 
+                    className="text-gray-600 text-lg md:ml-4 [&_a]:text-[#3BA8AF] [&_a]:underline [&_a]:hover:text-[#084F6E] [&_a]:transition-colors"
+                    dangerouslySetInnerHTML={{ __html: item.description }}
+                  />
                 </div>
               </motion.div>
             ))}
