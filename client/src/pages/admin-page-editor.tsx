@@ -211,6 +211,8 @@ import ContactBlock from '@/components/blocks/ContactBlock';
 import BlogSearchBlock from '@/components/blocks/BlogSearchBlock';
 import TextGalleryBlock from '@/components/blocks/TextGalleryBlock';
 import TextVideoBlock from '@/components/blocks/TextVideoBlock';
+import TextListingBlock from '@/components/blocks/TextListingBlock';
+import TextPricingBlock from '@/components/blocks/TextPricingBlock';
 import TourNinjaSection from '@/components/tour/TourNinjaSection';
 
 // Helper function to get readable block type names
@@ -1721,6 +1723,28 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
             block={{
               id: block.id,
               configuration: textVideoConfig
+            }}
+          />
+        );
+
+      case 'text_listing':
+        const textListingConfig = liveConfiguration || block.configuration || {};
+        return (
+          <TextListingBlock 
+            block={{
+              id: block.id,
+              configuration: textListingConfig
+            }}
+          />
+        );
+
+      case 'text_pricing':
+        const textPricingConfig = liveConfiguration || block.configuration || {};
+        return (
+          <TextPricingBlock 
+            block={{
+              id: block.id,
+              configuration: textPricingConfig
             }}
           />
         );
