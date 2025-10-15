@@ -507,7 +507,7 @@ function DynamicFormBlockPreview({ title, subtitle, formId, titleColor, subtitle
             <p className="text-gray-500">Chargement du formulaire...</p>
           </div>
         ) : formData ? (
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden max-w-6xl mx-auto">
+          <div className="bg-white rounded-lg shadow-lg overflow-hidden max-w-5xl mx-auto">
             {formData.formLayout === 'header' ? (
               // Layout Header - Image en haut, formulaire en dessous
               <div className="flex flex-col">
