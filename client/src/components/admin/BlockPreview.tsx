@@ -458,7 +458,10 @@ function SimplifiedPreview({ block }: { block: PageBlock }) {
                   <span className="font-bold text-lg" style={{ color: config.labelColor || '#084F6E', minWidth: '80px' }}>
                     {item.label}
                   </span>
-                  <span className="text-gray-600">{item.description}</span>
+                  <span 
+                    className="text-gray-600 [&_a]:text-[#3BA8AF] [&_a]:underline [&_a]:hover:text-[#084F6E] [&_a]:transition-colors"
+                    dangerouslySetInnerHTML={{ __html: item.description }}
+                  />
                 </div>
               ))}
             </div>

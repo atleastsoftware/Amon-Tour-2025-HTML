@@ -765,7 +765,10 @@ function MiniaturizedComponent({
                   <span className="text-[8px] font-bold" style={{ color: mergedConfig.labelColor || '#084F6E' }}>
                     {item.label}
                   </span>
-                  <span className="text-[7px] text-gray-600 truncate">{item.description}</span>
+                  <span 
+                    className="text-[7px] text-gray-600 truncate [&_a]:text-[#3BA8AF] [&_a]:underline"
+                    dangerouslySetInnerHTML={{ __html: item.description }}
+                  />
                 </div>
               ))}
             </div>
