@@ -784,18 +784,31 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
         );
       }
 
-      case 'custom_tour_form':
+      case 'custom_tour_form': {
+        const customFormConfig = block.configuration || {};
+        
         return (
-          <div key={block.id} className="w-full">
-            <Suspense fallback={
-              <div className="flex justify-center py-8">
-                <Loader2 className="h-8 w-8 animate-spin text-primary" />
-              </div>
-            }>
-              <CustomTourForm />
-            </Suspense>
-          </div>
+          <section key={block.id} className="py-16" style={{ backgroundColor: customFormConfig.backgroundColor || '#ffffff' }}>
+            <div className="container mx-auto px-4">
+              <Suspense fallback={
+                <div className="flex justify-center py-8">
+                  <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                </div>
+              }>
+                <DynamicFormBlockPreview 
+                  title={customFormConfig.title || block.title || 'Our Tailor-made trips'}
+                  subtitle={customFormConfig.subtitle || block.subtitle || 'Design your own journey through Thailand'}
+                  formId={customFormConfig.formId}
+                  titleColor={customFormConfig.titleColor || '#333333'}
+                  subtitleColor={customFormConfig.subtitleColor || '#666666'}
+                  dividerColor={customFormConfig.dividerColor || '#3BA8AF'}
+                  backgroundColor={customFormConfig.backgroundColor || '#ffffff'}
+                />
+              </Suspense>
+            </div>
+          </section>
         );
+      }
 
       case 'tour_ninja_section':
         return (
