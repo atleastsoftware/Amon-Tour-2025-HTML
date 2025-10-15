@@ -218,9 +218,8 @@ export default function AdminLegalPages() {
 
   const handleEditClick = async (page: LegalPage) => {
     setSelectedPage(page);
-    setIsEditDialogOpen(true);
     
-    // Fetch fresh blocks data directly from API
+    // Fetch fresh blocks data directly from API BEFORE opening dialog
     try {
       const blocksResponse = await fetch(`/api/admin/page-blocks/${page.pageSlug}`);
       if (blocksResponse.ok) {
@@ -252,6 +251,9 @@ export default function AdminLegalPages() {
         content: '',
       });
     }
+    
+    // Open dialog AFTER data is loaded
+    setIsEditDialogOpen(true);
   };
 
   const generateSlug = (name: string) => {
@@ -266,9 +268,9 @@ export default function AdminLegalPages() {
   // Sync contentEditable content when dialog opens or formData changes
   useEffect(() => {
     if (contentEditableRef.current && (isEditDialogOpen || isCreateDialogOpen)) {
-      if (contentEditableRef.current.innerHTML !== formData.content) {
-        contentEditableRef.current.innerHTML = formData.content;
-      }
+      // Always update the content when formData changes
+      contentEditableRef.current.innerHTML = formData.content || '';
+      console.log('ContentEditable mis à jour avec:', formData.content);
     }
   }, [formData.content, isEditDialogOpen, isCreateDialogOpen]);
 
