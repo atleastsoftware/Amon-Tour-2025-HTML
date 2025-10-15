@@ -157,7 +157,13 @@ export default function TextPricingBlock({ block }: TextPricingBlockProps) {
               )}
               
               {pickupTimes.length > 0 && (
-                <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+                <div className={`grid gap-4 mb-8 ${
+                  pickupTimes.length === 1 ? 'grid-cols-1 max-w-md mx-auto' :
+                  pickupTimes.length === 2 ? 'grid-cols-1 md:grid-cols-2' :
+                  pickupTimes.length === 3 ? 'grid-cols-1 md:grid-cols-3' :
+                  pickupTimes.length === 4 ? 'grid-cols-2 md:grid-cols-4' :
+                  'grid-cols-2 md:grid-cols-5'
+                }`}>
                   {pickupTimes.map((pickup, index) => (
                     <div 
                       key={index}
