@@ -503,11 +503,11 @@ export default function TemplateSelectionPopup({ isOpen, onClose, onSelectTempla
           </p>
         </DialogHeader>
 
-        <div className="grid grid-cols-3 gap-4 mt-4 overflow-hidden flex-1">
-          <div className="col-span-1">
+        <div className="grid grid-cols-3 gap-4 mt-4 overflow-hidden flex-1 min-h-0">
+          <div className="col-span-1 flex flex-col min-h-0">
             <h3 className="text-sm font-semibold mb-3 text-gray-700">Bibliothèque de templates</h3>
-            <div className="h-[600px] overflow-y-auto pr-4">
-              <div className="space-y-2 pb-32">
+            <div className="flex-1 overflow-y-auto pr-4 min-h-0">
+              <div className="space-y-2 pb-8">
                 {templates.map((template) => {
                   const Icon = template.icon;
                   return (
@@ -547,13 +547,13 @@ export default function TemplateSelectionPopup({ isOpen, onClose, onSelectTempla
             </div>
           </div>
 
-          <div className="col-span-2">
+          <div className="col-span-2 flex flex-col min-h-0">
             <h3 className="text-sm font-semibold mb-3 text-gray-700">
               {selectedTemplate ? `Prévisualisation: ${selectedTemplate.name}` : 'Sélectionnez un template'}
             </h3>
-            <div className="h-[600px] overflow-y-auto pr-4">
+            <div className="flex-1 overflow-y-auto pr-4 min-h-0">
               {selectedTemplate ? (
-                <div className="space-y-4 pb-32">
+                <div className="space-y-4 pb-8">
                   {selectedTemplate.blocks.map((block, index) => (
                     <div key={index} className="relative">
                       <div className="absolute -left-8 top-4 w-6 h-6 rounded-full bg-[#3BA8AF] text-white flex items-center justify-center text-xs font-semibold">
