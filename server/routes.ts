@@ -3608,7 +3608,7 @@ Crawl-delay: 1`;
             subtitleColor: '#666666',
             dividerColor: '#3BA8AF',
             backgroundColor: '#ffffff',
-            carouselType: 'grande',
+            carouselType: 'petite',
             images: []
           },
           isActive: false
