@@ -130,10 +130,11 @@ export default function AdminLegalPages() {
         throw new Error('Aucune page sélectionnée');
       }
 
-      // Update page configuration
+      // Update page configuration - only update pageName (title), not the slug
+      // The slug should only be changed in /admin-appearance
       await apiRequest('PUT', `/api/admin/page-configurations/${selectedPage.id}`, {
         pageName: data.title,
-        pageSlug: generateSlug(data.title),
+        // Do NOT update pageSlug here - it's managed in /admin-appearance
       });
 
       // Fetch current blocks to get the latest data
@@ -309,14 +310,20 @@ export default function AdminLegalPages() {
     return tempDiv.innerHTML.trim();
   };
 
-  // Sync contentEditable content when editing or formData changes
+  // Initial content loading when opening editor
   useEffect(() => {
-    if (contentEditableRef.current && (editingPageId !== null || isCreateDialogOpen)) {
-      // Always update the content when formData changes
+    if (contentEditableRef.current && editingPageId !== null) {
+      // Set initial content when opening editor for a page
       contentEditableRef.current.innerHTML = formData.content || '';
-      console.log('ContentEditable mis à jour avec:', formData.content);
     }
-  }, [formData.content, editingPageId, isCreateDialogOpen]);
+  }, [editingPageId]); // Only run when editingPageId changes
+
+  // Handle dialog opening
+  useEffect(() => {
+    if (contentEditableRef.current && isCreateDialogOpen) {
+      contentEditableRef.current.innerHTML = '';
+    }
+  }, [isCreateDialogOpen]);
 
   // ContentEditable formatting functions
   const formatText = (command: string, value?: string) => {
@@ -343,12 +350,12 @@ export default function AdminLegalPages() {
   const insertBulletList = () => formatText('insertUnorderedList');
   const insertLineBreak = () => formatText('insertLineBreak');
   
-  // Update formData when contentEditable changes
-  const handleContentChange = () => {
-    const editor = contentEditableRef.current;
-    if (editor) {
-      setFormData({ ...formData, content: editor.innerHTML });
-    }
+  // Update formData when contentEditable changes - using onInput event
+  const handleContentChange = (e: React.FormEvent<HTMLDivElement>) => {
+    const editor = e.currentTarget;
+    // Directly update form data without causing re-render issues
+    // The contentEditable will maintain its own state and cursor position
+    setFormData(prev => ({ ...prev, content: editor.innerHTML }));
   };
 
   // Clean existing database content mutation
