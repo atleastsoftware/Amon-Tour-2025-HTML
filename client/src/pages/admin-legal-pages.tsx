@@ -312,11 +312,11 @@ export default function AdminLegalPages() {
 
   // Initial content loading when opening editor
   useEffect(() => {
-    if (contentEditableRef.current && editingPageId !== null) {
+    if (contentEditableRef.current && editingPageId !== null && formData.content) {
       // Set initial content when opening editor for a page
-      contentEditableRef.current.innerHTML = formData.content || '';
+      contentEditableRef.current.innerHTML = formData.content;
     }
-  }, [editingPageId]); // Only run when editingPageId changes
+  }, [editingPageId, formData.content]); // Run when editingPageId or content changes
 
   // Handle dialog opening
   useEffect(() => {
