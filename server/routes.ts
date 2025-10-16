@@ -3337,8 +3337,8 @@ Crawl-delay: 1`;
       // Get the page blocks (content)
       const blocks = await storage.getPageBlocksBySlug(slug);
       
-      // Find the text block that contains the main content
-      const textBlock = blocks.find(block => block.blockType === 'text' && block.isActive);
+      // Find the text block that contains the main content (can be 'text' or 'text_section')
+      const textBlock = blocks.find(block => (block.blockType === 'text' || block.blockType === 'text_section') && block.isActive);
       
       res.json({
         pageName: pageConfig.pageName,
