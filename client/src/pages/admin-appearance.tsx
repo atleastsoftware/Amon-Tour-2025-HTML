@@ -1469,9 +1469,12 @@ export default function AdminAppearance() {
   // Save functions for each section
   const saveTypography = () => {
     if (tempTypography) {
-      if (tempTypography.heading_font) updateSiteSetting('theme', 'heading_font', tempTypography.heading_font);
-      if (tempTypography.body_font) updateSiteSetting('theme', 'body_font', tempTypography.body_font);
+      const currentTypography = JSON.parse(getSiteSetting('theme', 'typography') || '{}');
+      const mergedTypography = { ...currentTypography, ...tempTypography };
+      updateSiteSetting('theme', 'typography', JSON.stringify(mergedTypography));
       setTempTypography(null);
+      queryClient.invalidateQueries({ queryKey: ['/api/public/theme-settings'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/site-settings'] });
       toast({ title: "Typography sauvegardée !", description: "Les polices ont été appliquées au site." });
     }
   };
@@ -1480,24 +1483,38 @@ export default function AdminAppearance() {
     if (tempColors) {
       if (tempColors.primary_color) updateSiteSetting('theme', 'primary_color', tempColors.primary_color);
       if (tempColors.secondary_color) updateSiteSetting('theme', 'secondary_color', tempColors.secondary_color);
-      if (tempColors.color_palette) updateSiteSetting('theme', 'color_palette', JSON.stringify(tempColors.color_palette));
+      if (tempColors.color_palette) {
+        const currentPalette = JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
+        const mergedPalette = { ...currentPalette, ...tempColors.color_palette };
+        updateSiteSetting('theme', 'color_palette', JSON.stringify(mergedPalette));
+      }
       setTempColors(null);
+      queryClient.invalidateQueries({ queryKey: ['/api/public/theme-settings'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/site-settings'] });
       toast({ title: "Couleurs sauvegardées !", description: "La palette de couleurs a été appliquée au site." });
     }
   };
 
   const saveButtonStyles = () => {
     if (tempButtonStyles) {
-      updateSiteSetting('theme', 'button_styles', JSON.stringify(tempButtonStyles));
+      const currentStyles = JSON.parse(getSiteSetting('theme', 'button_styles') || '{}');
+      const mergedStyles = { ...currentStyles, ...tempButtonStyles };
+      updateSiteSetting('theme', 'button_styles', JSON.stringify(mergedStyles));
       setTempButtonStyles(null);
+      queryClient.invalidateQueries({ queryKey: ['/api/public/theme-settings'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/site-settings'] });
       toast({ title: "Styles de boutons sauvegardés !", description: "Les nouveaux styles ont été appliqués." });
     }
   };
 
   const saveLogoSettings = () => {
     if (tempLogoSettings) {
-      updateSiteSetting('theme', 'logo_settings', JSON.stringify(tempLogoSettings));
+      const currentLogos = JSON.parse(getSiteSetting('theme', 'logo_settings') || '{}');
+      const mergedLogos = { ...currentLogos, ...tempLogoSettings };
+      updateSiteSetting('theme', 'logo_settings', JSON.stringify(mergedLogos));
       setTempLogoSettings(null);
+      queryClient.invalidateQueries({ queryKey: ['/api/public/theme-settings'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/site-settings'] });
       toast({ title: "Logos sauvegardés !", description: "Les nouveaux logos ont été appliqués au site." });
     }
   };
@@ -1508,14 +1525,20 @@ export default function AdminAppearance() {
       const mergedSettings = { ...currentSettings, ...tempNotificationBar };
       updateSiteSetting('theme', 'notification_bar', JSON.stringify(mergedSettings));
       setTempNotificationBar(null);
+      queryClient.invalidateQueries({ queryKey: ['/api/public/theme-settings'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/site-settings'] });
       toast({ title: "Barre d'annonce sauvegardée !", description: "Les paramètres ont été appliqués." });
     }
   };
 
   const savePopupSettings = () => {
     if (tempPopupSettings) {
-      updateSiteSetting('theme', 'popup_settings', JSON.stringify(tempPopupSettings));
+      const currentPopup = JSON.parse(getSiteSetting('theme', 'popup_settings') || '{}');
+      const mergedPopup = { ...currentPopup, ...tempPopupSettings };
+      updateSiteSetting('theme', 'popup_settings', JSON.stringify(mergedPopup));
       setTempPopupSettings(null);
+      queryClient.invalidateQueries({ queryKey: ['/api/public/theme-settings'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/site-settings'] });
       toast({ title: "Pop-up sauvegardée !", description: "Les paramètres de pop-up ont été appliqués." });
     }
   };
