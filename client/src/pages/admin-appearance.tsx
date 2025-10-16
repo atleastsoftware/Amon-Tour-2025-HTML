@@ -1504,7 +1504,9 @@ export default function AdminAppearance() {
 
   const saveNotificationBar = () => {
     if (tempNotificationBar) {
-      updateSiteSetting('theme', 'notification_bar', JSON.stringify(tempNotificationBar));
+      const currentSettings = JSON.parse(getSiteSetting('theme', 'notification_bar') || '{}');
+      const mergedSettings = { ...currentSettings, ...tempNotificationBar };
+      updateSiteSetting('theme', 'notification_bar', JSON.stringify(mergedSettings));
       setTempNotificationBar(null);
       toast({ title: "Barre d'annonce sauvegardée !", description: "Les paramètres ont été appliqués." });
     }
@@ -2782,17 +2784,17 @@ export default function AdminAppearance() {
                             <h3 className="text-base font-semibold">Aperçu de la barre d'annonces</h3>
                           </div>
                           <div className="bg-gray-100 p-4 rounded-lg">
-                            {!JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"enabled": true}').enabled && (
+                            {!(tempNotificationBar?.enabled ?? JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"enabled": true}').enabled) && (
                               <p className="text-xs text-orange-600 mb-2 text-center">⚠️ Barre d'annonce désactivée - cet aperçu ne s'affichera pas sur le site</p>
                             )}
                             <div 
                               className="py-2 px-4 text-center text-sm font-medium rounded"
                               style={{
-                                backgroundColor: JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"background_color": "#f5c400"}').background_color,
-                                color: JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text_color": "#000000"}').text_color
+                                backgroundColor: tempNotificationBar?.background_color ?? JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"background_color": "#f5c400"}').background_color,
+                                color: tempNotificationBar?.text_color ?? JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text_color": "#000000"}').text_color
                               }}
                             >
-                              {JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text": "📢 L\'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr"}').text || "Votre message d'annonce apparaîtra ici"}
+                              {tempNotificationBar?.text ?? (JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text": "L\'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr"}').text || "Votre message d'annonce apparaîtra ici")}
                             </div>
                           </div>
                         </div>
