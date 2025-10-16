@@ -161,7 +161,7 @@ export default function Footer() {
   const footerLogoHeight = logoSettings.footer_logo_height || "48px";
   
   return (
-    <footer className="bg-black text-primary-foreground pt-8 pb-4">
+    <footer className="pt-8 pb-4" style={{ backgroundColor: 'hsl(var(--footer-background))', color: 'hsl(var(--footer-text))' }}>
       <div className="container mx-auto px-4">
         {/* Logo Area */}
         <div className="flex justify-center mb-6">
@@ -202,7 +202,8 @@ export default function Footer() {
                   <motion.a 
                     key={index}
                     href={social.url}
-                    className="text-primary-foreground hover:text-secondary transition-colors"
+                    className="transition-colors"
+                    style={{ color: 'inherit' }}
                     target="_blank"
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.2 }}
@@ -224,12 +225,13 @@ export default function Footer() {
                 <motion.a 
                   key={index}
                   href={link.url}
-                  className="font-heading hover:text-secondary transition-colors"
+                  className="font-heading transition-colors"
+                  style={{ color: 'inherit', opacity: 0.9 }}
                   {...(link.url.startsWith('http') ? {
                     target: "_blank",
                     rel: "noopener noreferrer"
                   } : {})}
-                  whileHover={{ y: -2 }}
+                  whileHover={{ y: -2, opacity: 1 }}
                 >
                   {link.text}
                 </motion.a>
@@ -257,7 +259,8 @@ export default function Footer() {
         {/* Copyright */}
         {copyrightConfig.enabled !== false && (
           <motion.div 
-            className="border-t border-white/20 pt-4 flex flex-col md:flex-row justify-between items-center text-sm"
+            className="border-t pt-4 flex flex-col md:flex-row justify-between items-center text-sm"
+            style={{ borderColor: 'hsl(var(--footer-text) / 0.2)' }}
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -267,22 +270,25 @@ export default function Footer() {
             <div className="flex space-x-4 mt-4 md:mt-0">
               <motion.a 
                 href="/legal-notice" 
-                className="font-heading text-sm hover:text-secondary transition-colors"
-                whileHover={{ y: -2 }}
+                className="font-heading text-sm transition-colors"
+                style={{ color: 'inherit', opacity: 0.9 }}
+                whileHover={{ y: -2, opacity: 1 }}
               >
                 Legal Notice
               </motion.a>
               <motion.a 
                 href="/privacy-policy" 
-                className="font-heading text-sm hover:text-secondary transition-colors"
-                whileHover={{ y: -2 }}
+                className="font-heading text-sm transition-colors"
+                style={{ color: 'inherit', opacity: 0.9 }}
+                whileHover={{ y: -2, opacity: 1 }}
               >
                 Privacy Policy
               </motion.a>
               <motion.a 
                 href="/terms-conditions" 
-                className="font-heading text-sm hover:text-secondary transition-colors"
-                whileHover={{ y: -2 }}
+                className="font-heading text-sm transition-colors"
+                style={{ color: 'inherit', opacity: 0.9 }}
+                whileHover={{ y: -2, opacity: 1 }}
               >
                 Terms & Conditions
               </motion.a>
