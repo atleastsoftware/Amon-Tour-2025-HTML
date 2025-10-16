@@ -3080,6 +3080,39 @@ Crawl-delay: 1`;
     }
   });
 
+  // Public route for legal pages
+  app.get("/api/public/legal-page/:slug", async (req, res) => {
+    try {
+      const { slug } = req.params;
+      
+      // Get the page configuration
+      const pageConfig = await storage.getPageConfiguration(slug);
+      
+      if (!pageConfig || pageConfig.pageType !== 'legal' || !pageConfig.isActive) {
+        return res.status(404).json({ message: "Legal page not found" });
+      }
+      
+      // Get the page blocks (content)
+      const blocks = await storage.getPageBlocksBySlug(slug);
+      
+      // Find the text block that contains the main content
+      const textBlock = blocks.find(block => block.blockType === 'text' && block.isActive);
+      
+      res.json({
+        pageName: pageConfig.pageName,
+        pageSlug: pageConfig.pageSlug,
+        seoTitle: pageConfig.seoTitle || pageConfig.pageName,
+        seoDescription: pageConfig.seoDescription,
+        seoKeywords: pageConfig.seoKeywords,
+        content: textBlock?.configuration?.content || textBlock?.content || '',
+        title: textBlock?.configuration?.title || textBlock?.title || pageConfig.pageName
+      });
+    } catch (error) {
+      console.error("Error fetching legal page:", error);
+      res.status(500).json({ message: "Failed to fetch legal page", error: String(error) });
+    }
+  });
+
   app.get("/api/static-pages/:slug", async (req, res) => {
     try {
       const { slug } = req.params;
