@@ -36,9 +36,6 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
   const { tours, isLoading } = useTourNinjaWithCustomImages();
   const { openIframe } = useIframe();
 
-  console.log('SearchBarToursBlock - Rendered with:', { toursCount: tours.length, isLoading });
-  console.log('SearchBarToursBlock - Tours data:', tours);
-
   // Configuration
   const filtersTitle = configuration.filtersTitle ?? 'Filters';
   const searchPlaceholder = configuration.searchPlaceholder ?? 'Search for a tour...';
@@ -184,11 +181,6 @@ export default function SearchBarToursBlock({ configuration }: SearchBarToursBlo
   return (
     <section className="py-16" style={{ backgroundColor: sectionBgColor }}>
       <div className="container mx-auto px-4">
-        {/* Debug info - À supprimer plus tard */}
-        <div className="mb-4 p-3 bg-yellow-200 border-2 border-yellow-600 text-black font-mono text-sm">
-          🐛 DEBUG: Tours={tours.length} | Destinations={filterOptions.destinations.length} | Durations={filterOptions.durations.length} | Loading={isLoading ? 'Yes' : 'No'}
-        </div>
-        
         {/* Barre de filtres */}
         <div 
           className="rounded-xl shadow-lg p-6 mb-8"
