@@ -297,7 +297,7 @@ export default function Header() {
               }`}
               style={{ 
                 fontFamily: 'Lobster, cursive',
-                color: isHomePage && !scrolled ? 'white' : 'hsl(var(--menu-text))'
+                color: isHomePage && !scrolled ? 'white' : 'hsl(var(--primary))'
               }}
             >
               Amon Tour
