@@ -206,22 +206,14 @@ export default function Hero() {
           {/* Left content - Title and description */}
           <div className="w-full">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ 
-                opacity: 1, 
-                y: 0,
-                x: hasAnimation ? [0, 5, 0, -5, 0] : 0,
+              animate={hasAnimation ? { 
+                x: [0, 5, 0, -5, 0],
                 transition: {
-                  y: { duration: 0.6 },
-                  ...(hasAnimation && {
-                    x: {
-                      repeat: Infinity,
-                      duration: 5,
-                      ease: "easeInOut"
-                    }
-                  })
+                  repeat: Infinity,
+                  duration: 5,
+                  ease: "easeInOut"
                 }
-              }}
+              } : {}}
               className={`max-w-xl ml-3 md:ml-6 ${
                 heroConfig?.contentAlignment === 'center' ? 'mx-auto text-center' : 
                 heroConfig?.contentAlignment === 'right' ? 'ml-auto text-right' : 
