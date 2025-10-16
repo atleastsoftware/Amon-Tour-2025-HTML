@@ -36,8 +36,8 @@ export default function DynamicFormBlock({
   isPreview = false
 }: DynamicFormBlockProps) {
   const { data: formData, isLoading } = useQuery<any>({
-    queryKey: ['/api/admin/custom-forms', formId],
-    queryFn: () => formId ? fetch(`/api/admin/custom-forms/${formId}`).then(res => res.json()) : null,
+    queryKey: ['/api/public/custom-forms', formId],
+    queryFn: () => formId ? fetch(`/api/public/custom-forms/${formId}`).then(res => res.json()) : null,
     enabled: !!formId,
     refetchInterval: isPreview ? 2000 : false, // Rafraîchir toutes les 2s seulement dans l'éditeur
     staleTime: isPreview ? 0 : 60000, // Dans l'éditeur: obsolète immédiatement, sur le site: 1 minute

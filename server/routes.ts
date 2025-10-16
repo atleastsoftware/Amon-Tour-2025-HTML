@@ -2790,6 +2790,26 @@ Crawl-delay: 1`;
 
   // ===== CUSTOM FORMS API ROUTES =====
 
+  // Get custom form by ID (public - for displaying forms on pages)
+  app.get("/api/public/custom-forms/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid form ID" });
+      }
+
+      const form = await storage.getCustomForm(id);
+      if (!form) {
+        return res.status(404).json({ message: "Custom form not found" });
+      }
+
+      res.json(form);
+    } catch (error) {
+      console.error("Error fetching custom form:", error);
+      res.status(500).json({ message: "Failed to fetch custom form", error: String(error) });
+    }
+  });
+
   // Get all custom forms (admin only)
   app.get("/api/admin/custom-forms", requireAuth, async (req, res) => {
     try {
