@@ -2908,6 +2908,17 @@ Crawl-delay: 1`;
     }
   });
 
+  // Public Theme Settings (no auth required)
+  app.get("/api/public/theme-settings", async (req, res) => {
+    try {
+      const settings = await storage.getSiteSettings('theme');
+      res.json(settings);
+    } catch (error) {
+      console.error('Error fetching theme settings:', error);
+      res.status(500).json({ error: 'Failed to fetch theme settings' });
+    }
+  });
+
   // Site Settings routes (requires auth)
   app.get("/api/admin/site-settings", requireAuth, async (req, res) => {
     try {
