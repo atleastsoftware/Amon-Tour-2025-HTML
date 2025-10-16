@@ -2661,7 +2661,7 @@ export default function AdminAppearance() {
                           <Bell className="w-4 h-4" />
                           Barre d'annonces
                         </CardTitle>
-                        <CardDescription>Barre de notification en haut (barre jaune actuelle)</CardDescription>
+                        <CardDescription>Barre de notification en haut</CardDescription>
                       </CardHeader>
                       <CardContent className="space-y-4">
                         <div className="flex items-center space-x-2">
