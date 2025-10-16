@@ -126,6 +126,9 @@ const FIELD_TYPES = [
 const SYSTEM_COLORS = {
   primary: '#084F6E',
   secondary: '#3BA8AF',
+  heading: '#1f2937',
+  text: '#374151',
+  background: '#ffffff',
   white: '#ffffff',
   gray: '#6b7280',
   dark: '#1f2937'
@@ -134,7 +137,10 @@ const SYSTEM_COLORS = {
 // Couleurs principales du thème
 const THEME_COLORS = {
   primary: '#084F6E',
-  secondary: '#3BA8AF'
+  secondary: '#3BA8AF',
+  heading: '#1f2937',
+  text: '#374151',
+  background: '#ffffff'
 };
 
 // Composant ColorPicker compact avec sélecteur natif + cases rapides
@@ -180,6 +186,18 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
         onChange(THEME_COLORS.secondary);
         setIsEditingCustom(false);
         break;
+      case 'heading':
+        onChange(THEME_COLORS.heading);
+        setIsEditingCustom(false);
+        break;
+      case 'text':
+        onChange(THEME_COLORS.text);
+        setIsEditingCustom(false);
+        break;
+      case 'background':
+        onChange(THEME_COLORS.background);
+        setIsEditingCustom(false);
+        break;
       case 'custom':
         // Ne pas activer automatiquement le mode édition
         // Rester sur le dropdown avec le code couleur cliquable
@@ -211,6 +229,9 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
   const getCurrentOption = () => {
     if (currentColorValue === THEME_COLORS.primary) return 'primary';
     if (currentColorValue === THEME_COLORS.secondary) return 'secondary';
+    if (currentColorValue === THEME_COLORS.heading) return 'heading';
+    if (currentColorValue === THEME_COLORS.text) return 'text';
+    if (currentColorValue === THEME_COLORS.background) return 'background';
     return 'custom';
   };
 
@@ -261,7 +282,10 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
             <SelectTrigger className="flex-1">
               <SelectValue>
                 {getCurrentOption() === 'primary' && 'Couleur principale'}
-                {getCurrentOption() === 'secondary' && 'Couleur secondaire'}  
+                {getCurrentOption() === 'secondary' && 'Couleur secondaire'}
+                {getCurrentOption() === 'heading' && 'Couleur de titre'}
+                {getCurrentOption() === 'text' && 'Couleur de texte'}
+                {getCurrentOption() === 'background' && 'Couleur de fond'}
                 {getCurrentOption() === 'custom' && `Référence couleur : ${displayValue}`}
               </SelectValue>
             </SelectTrigger>
@@ -269,6 +293,9 @@ function ColorPicker({ value, onChange, label }: ColorPickerProps) {
               <SelectItem value="custom">Référence couleur</SelectItem>
               <SelectItem value="primary">Couleur principale</SelectItem>
               <SelectItem value="secondary">Couleur secondaire</SelectItem>
+              <SelectItem value="heading">Couleur de titre</SelectItem>
+              <SelectItem value="text">Couleur de texte</SelectItem>
+              <SelectItem value="background">Couleur de fond</SelectItem>
             </SelectContent>
           </Select>
         )}

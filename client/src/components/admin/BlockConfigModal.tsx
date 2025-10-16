@@ -24,6 +24,9 @@ interface BlockConfigModalProps {
 const SYSTEM_COLORS = {
   primary: '#084F6E',
   secondary: '#3BA8AF',
+  heading: '#1f2937',
+  text: '#374151',
+  background: '#ffffff',
   white: '#ffffff',
   gray: '#6b7280',
   dark: '#1f2937'
@@ -74,9 +77,9 @@ function ColorPicker({ value, onChange }: ColorPickerProps) {
       </div>
       
       {/* Couleurs prédéfinies du thème */}
-      <div className="space-y-2">
+      <div className="space-y-3">
         <Label className="text-sm font-medium">Couleurs du thème</Label>
-        <div className="flex gap-3">
+        <div className="grid grid-cols-2 gap-2">
           <button
             type="button"
             onClick={() => handleQuickColorClick('primary')}
@@ -89,7 +92,7 @@ function ColorPicker({ value, onChange }: ColorPickerProps) {
               className="w-6 h-6 rounded"
               style={{ backgroundColor: SYSTEM_COLORS.primary }}
             />
-            <span className="text-sm font-medium">Couleur principale</span>
+            <span className="text-sm font-medium">Principale</span>
           </button>
           
           <button
@@ -104,7 +107,52 @@ function ColorPicker({ value, onChange }: ColorPickerProps) {
               className="w-6 h-6 rounded"
               style={{ backgroundColor: SYSTEM_COLORS.secondary }}
             />
-            <span className="text-sm font-medium">Couleur secondaire</span>
+            <span className="text-sm font-medium">Secondaire</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => handleQuickColorClick('heading')}
+            className={`flex items-center gap-2 px-3 py-2 rounded border-2 transition-all hover:scale-105 ${
+              value === 'heading' ? 'border-gray-900 ring-2 ring-gray-900/30 bg-gray-900/10' : 'border-gray-200 hover:border-gray-300'
+            }`}
+            title="Couleur de titre (référence)"
+          >
+            <div 
+              className="w-6 h-6 rounded"
+              style={{ backgroundColor: SYSTEM_COLORS.heading }}
+            />
+            <span className="text-sm font-medium">Titre</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => handleQuickColorClick('text')}
+            className={`flex items-center gap-2 px-3 py-2 rounded border-2 transition-all hover:scale-105 ${
+              value === 'text' ? 'border-gray-700 ring-2 ring-gray-700/30 bg-gray-700/10' : 'border-gray-200 hover:border-gray-300'
+            }`}
+            title="Couleur de texte (référence)"
+          >
+            <div 
+              className="w-6 h-6 rounded"
+              style={{ backgroundColor: SYSTEM_COLORS.text }}
+            />
+            <span className="text-sm font-medium">Texte</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => handleQuickColorClick('background')}
+            className={`flex items-center gap-2 px-3 py-2 rounded border-2 transition-all hover:scale-105 ${
+              value === 'background' ? 'border-gray-400 ring-2 ring-gray-400/30 bg-gray-400/10' : 'border-gray-200 hover:border-gray-300'
+            }`}
+            title="Couleur de fond (référence)"
+          >
+            <div 
+              className="w-6 h-6 rounded border border-gray-300"
+              style={{ backgroundColor: SYSTEM_COLORS.background }}
+            />
+            <span className="text-sm font-medium">Fond</span>
           </button>
         </div>
       </div>
