@@ -43,6 +43,7 @@ export default function ThemeLoader() {
       const primaryColor = themeSettings.find((s: any) => s.key === 'primary_color')?.value;
       const secondaryColor = themeSettings.find((s: any) => s.key === 'secondary_color')?.value;
       const colorPaletteRaw = themeSettings.find((s: any) => s.key === 'color_palette')?.value;
+      const typographyRaw = themeSettings.find((s: any) => s.key === 'typography')?.value;
       
       const root = document.documentElement;
       
@@ -94,6 +95,35 @@ export default function ThemeLoader() {
           }
         } catch (e) {
           console.error('Error parsing color palette:', e);
+        }
+      }
+      
+      // Apply typography
+      if (typographyRaw) {
+        try {
+          const typography = typeof typographyRaw === 'string' ? JSON.parse(typographyRaw) : typographyRaw;
+          
+          if (typography.heading_font) {
+            root.style.setProperty('--font-heading', typography.heading_font);
+          }
+          
+          if (typography.body_font) {
+            root.style.setProperty('--font-body', typography.body_font);
+          }
+          
+          if (typography.heading_weight) {
+            root.style.setProperty('--font-heading-weight', typography.heading_weight);
+          }
+          
+          if (typography.body_weight) {
+            root.style.setProperty('--font-body-weight', typography.body_weight);
+          }
+          
+          if (typography.base_size) {
+            root.style.setProperty('--font-base-size', typography.base_size);
+          }
+        } catch (e) {
+          console.error('Error parsing typography:', e);
         }
       }
     }
