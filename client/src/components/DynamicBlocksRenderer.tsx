@@ -286,26 +286,23 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
         }
 
         return (
-          <section key={block.id} className="relative pt-32 pb-20 min-h-screen flex overflow-hidden">
+          <section key={block.id} className="relative pt-40 md:pt-48 pb-20 min-h-screen flex overflow-hidden">
             {heroBackground}
             <div className="absolute inset-0 bg-black/40 z-10"></div>
             <div className={`relative z-20 w-full px-8 md:px-12 lg:px-16 flex ${alignmentClasses}`}>
-              <div className="max-w-5xl">
+              <motion.div 
+                className="max-w-5xl"
+                animate={hasAnimation ? { 
+                  x: [0, 20, 0, -20, 0],
+                  transition: {
+                    repeat: Infinity,
+                    duration: 5,
+                    ease: "easeInOut"
+                  }
+                } : {}}
+              >
                 {heroTitle}
-                {(heroConfig.subtitle || block.subtitle) && hasAnimation ? (
-                  <motion.p 
-                    className="text-lg md:text-xl mb-8 max-w-3xl"
-                    style={{ 
-                      color: heroConfig.subtitleColor || '#ffffff',
-                      whiteSpace: 'pre-line'
-                    }}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.4 }}
-                  >
-                    {heroConfig.subtitle || block.subtitle}
-                  </motion.p>
-                ) : (heroConfig.subtitle || block.subtitle) && (
+                {(heroConfig.subtitle || block.subtitle) && (
                   <p 
                     className="text-lg md:text-xl mb-8 max-w-3xl"
                     style={{ 
@@ -316,12 +313,9 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                     {heroConfig.subtitle || block.subtitle}
                   </p>
                 )}
-                {heroConfig.buttons && heroConfig.buttons.length > 0 && hasAnimation ? (
-                  <motion.div 
+                {heroConfig.buttons && heroConfig.buttons.length > 0 && (
+                  <div 
                     className={`flex gap-4 mt-8 ${contentAlignment === 'center' ? 'justify-center' : contentAlignment === 'right' ? 'justify-end' : 'justify-start'}`}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.6 }}
                   >
                     {heroConfig.buttons.map((button: any, index: number) => {
                       if (!button.text) return null;
