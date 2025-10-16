@@ -62,22 +62,28 @@ export default function Header() {
     staleTime: 5 * 60 * 1000 // 5 minutes
   });
 
-  // Fetch notification bar settings
-  const { data: siteSettings } = useQuery({
+  // Fetch theme settings for notification bar
+  const { data: themeSettings } = useQuery({
+    queryKey: ['/api/public/theme-settings'],
+    staleTime: 5 * 60 * 1000 // 5 minutes
+  });
+
+  // Fetch header settings for logo
+  const { data: headerSettings } = useQuery({
     queryKey: ['/api/public/header-settings'],
     staleTime: 5 * 60 * 1000 // 5 minutes
   });
   
-  const notificationSettings = Array.isArray(siteSettings) 
-    ? siteSettings.find((s: any) => s.key === 'notification_bar')?.value 
+  const notificationSettings = Array.isArray(themeSettings) 
+    ? themeSettings.find((s: any) => s.key === 'notification_bar')?.value 
     : null;
   const notificationConfig = notificationSettings 
     ? (typeof notificationSettings === 'string' ? JSON.parse(notificationSettings) : notificationSettings) 
     : { enabled: true, text: "Welcome to the new Amon Tour website! This site is currently in a testing phase, so a few issues may still occur. For any reference, the previous site remains accessible at www.amon-tour.fr. Thank you for your understanding", background_color: "#3BA8AF", text_color: "#ffffff" };
   
   // Fetch logo settings
-  const logoSettings = Array.isArray(siteSettings) 
-    ? siteSettings.find((s: any) => s.key === 'logo_settings')?.value 
+  const logoSettings = Array.isArray(headerSettings) 
+    ? headerSettings.find((s: any) => s.key === 'logo_settings')?.value 
     : null;
   const logoConfig = logoSettings 
     ? (typeof logoSettings === 'string' ? JSON.parse(logoSettings) : logoSettings) 
