@@ -53,8 +53,14 @@ export default function Header() {
   const isBookingPage = location.startsWith('/booking');
   const isHomePage = location === '/';
   
-  // Get translations
+  // Get translations for fallback
   const nav = translationService.getNav();
+
+  // Fetch navigation menu items from database
+  const { data: menuItems = [] } = useQuery<any[]>({
+    queryKey: ['/api/navigation-menu'],
+    staleTime: 5 * 60 * 1000 // 5 minutes
+  });
 
   // Fetch notification bar settings
   const { data: siteSettings } = useQuery({
@@ -266,21 +272,20 @@ export default function Header() {
               Home
             </NavLink>
           )}
-          <NavLink href="/tours" isActive={location === '/tours'} isHomePage={isHomePage} scrolled={scrolled}>
-            {nav.experiences}
-          </NavLink>
-          <NavLink href="/cruise" isActive={location === '/cruise'} isHomePage={isHomePage} scrolled={scrolled}>
-            {nav.cruise}
-          </NavLink>
-          <NavLink href="/custom-tour" isActive={location === '/custom-tour'} isHomePage={isHomePage} scrolled={scrolled}>
-            {nav.customTrip}
-          </NavLink>
-          <NavLink href="/blog" isActive={location === '/blog'} isHomePage={isHomePage} scrolled={scrolled}>
-            {nav.blog}
-          </NavLink>
-          <NavLink href="/contact" isActive={location === '/contact'} isHomePage={isHomePage} scrolled={scrolled}>
-            {nav.contact}
-          </NavLink>
+          {menuItems
+            .filter((item: any) => !item.parentId && item.isActive)
+            .sort((a: any, b: any) => a.displayOrder - b.displayOrder)
+            .map((item: any) => (
+              <NavLink 
+                key={item.id} 
+                href={item.url} 
+                isActive={location === item.url} 
+                isHomePage={isHomePage} 
+                scrolled={scrolled}
+              >
+                {item.name}
+              </NavLink>
+            ))}
           
           {/* Language Selector */}
           <div className="ml-4 pl-4 border-l border-gray-300/50">
@@ -314,21 +319,21 @@ export default function Header() {
                   Home
                 </NavLink>
               )}
-              <NavLink href="/tours" isActive={location === '/tours'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
-                {nav.experiences}
-              </NavLink>
-              <NavLink href="/cruise" isActive={location === '/cruise'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
-                {nav.cruise}
-              </NavLink>
-              <NavLink href="/custom-tour" isActive={location === '/custom-tour'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
-                {nav.customTrip}
-              </NavLink>
-              <NavLink href="/blog" isActive={location === '/blog'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
-                {nav.blog}
-              </NavLink>
-              <NavLink href="/contact" isActive={location === '/contact'} onClick={closeMobileMenu} isHomePage={isHomePage} scrolled={scrolled}>
-                {nav.contact}
-              </NavLink>
+              {menuItems
+                .filter((item: any) => !item.parentId && item.isActive)
+                .sort((a: any, b: any) => a.displayOrder - b.displayOrder)
+                .map((item: any) => (
+                  <NavLink 
+                    key={item.id} 
+                    href={item.url} 
+                    isActive={location === item.url} 
+                    onClick={closeMobileMenu} 
+                    isHomePage={isHomePage} 
+                    scrolled={scrolled}
+                  >
+                    {item.name}
+                  </NavLink>
+                ))}
               
               {/* Language Selector for Mobile */}
               <div className="pt-3 mt-3 border-t border-gray-300/30">
