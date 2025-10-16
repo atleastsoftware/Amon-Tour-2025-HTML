@@ -2682,6 +2682,46 @@ export default function AdminAppearance() {
                             }}
                           />
                         </div>
+                        
+                        {/* Options de défilement et lien */}
+                        <div className="space-y-3 p-4 bg-gray-50 rounded-lg">
+                          <div className="flex items-center space-x-2">
+                            <Switch 
+                              id="notification-scrolling"
+                              checked={tempNotificationBar?.scrolling ?? JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"scrolling": false}').scrolling}
+                              onCheckedChange={(checked) => {
+                                setTempNotificationBar((prev: any) => ({ ...prev, scrolling: checked }));
+                              }}
+                            />
+                            <Label htmlFor="notification-scrolling">Activer défilement (idéal pour textes longs)</Label>
+                          </div>
+                          
+                          <div className="flex items-center space-x-2">
+                            <Switch 
+                              id="notification-clickable"
+                              checked={tempNotificationBar?.is_clickable ?? JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"is_clickable": false}').is_clickable}
+                              onCheckedChange={(checked) => {
+                                setTempNotificationBar((prev: any) => ({ ...prev, is_clickable: checked }));
+                              }}
+                            />
+                            <Label htmlFor="notification-clickable">Rendre cliquable (avec URL)</Label>
+                          </div>
+                          
+                          {(tempNotificationBar?.is_clickable ?? JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"is_clickable": false}').is_clickable) && (
+                            <div>
+                              <Label>URL de redirection</Label>
+                              <Input
+                                placeholder="/tours ou https://example.com"
+                                value={tempNotificationBar?.url || JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"url": ""}').url}
+                                onChange={(e) => {
+                                  setTempNotificationBar((prev: any) => ({ ...prev, url: e.target.value }));
+                                }}
+                              />
+                              <p className="text-xs text-gray-500 mt-1">Page du site (/tours) ou lien externe (https://...)</p>
+                            </div>
+                          )}
+                        </div>
+                        
                         <div className="grid grid-cols-2 gap-4">
                           <div>
                             <Label>Couleur de fond</Label>

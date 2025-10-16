@@ -131,57 +131,100 @@ export default function Header() {
     <>
       {/* Dynamic Notification Header */}
       {notificationConfig.enabled && (
-        <a
-          href="https://amon-tour.fr/"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            background: `linear-gradient(135deg, ${notificationConfig.background_color}, ${notificationConfig.background_color}e6)`,
-            color: notificationConfig.text_color,
-            textAlign: 'center',
-            padding: '12px 20px',
-            fontWeight: '500',
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            zIndex: 60,
-            height: '48px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            boxSizing: 'border-box',
-            fontSize: '14px',
-            fontFamily: 'inherit',
-            letterSpacing: '0.025em',
-            boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
-            backdropFilter: 'blur(8px)',
-            lineHeight: '1.4',
-            textDecoration: 'none',
-            cursor: 'pointer',
-            transition: 'all 0.2s ease'
-          }}
-          onMouseOver={(e) => {
-            e.currentTarget.style.opacity = '0.9';
-            e.currentTarget.style.transform = 'translateY(1px)';
-          }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.opacity = '1';
-            e.currentTarget.style.transform = 'translateY(0px)';
-          }}
-        >
-          <span 
+        notificationConfig.is_clickable && notificationConfig.url ? (
+          <a
+            href={notificationConfig.url}
+            {...(notificationConfig.url.startsWith('http') ? { target: "_blank", rel: "noopener noreferrer" } : {})}
             style={{
-              display: 'inline-block',
-              maxWidth: '100%',
-              wordWrap: 'break-word',
-              hyphens: 'none'
+              background: `linear-gradient(135deg, ${notificationConfig.background_color}, ${notificationConfig.background_color}e6)`,
+              color: notificationConfig.text_color,
+              textAlign: 'center',
+              padding: '12px 20px',
+              fontWeight: '500',
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              zIndex: 60,
+              height: '48px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxSizing: 'border-box',
+              fontSize: '14px',
+              fontFamily: 'inherit',
+              letterSpacing: '0.025em',
+              boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+              backdropFilter: 'blur(8px)',
+              lineHeight: '1.4',
+              textDecoration: 'none',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+              overflow: 'hidden'
             }}
-            dangerouslySetInnerHTML={{
-              __html: notificationConfig.text.replace('www.amon-tour.fr', '<span style="white-space: nowrap;">www.amon-tour.fr</span>')
+            onMouseOver={(e) => {
+              e.currentTarget.style.opacity = '0.9';
+              e.currentTarget.style.transform = 'translateY(1px)';
             }}
-          />
-        </a>
+            onMouseOut={(e) => {
+              e.currentTarget.style.opacity = '1';
+              e.currentTarget.style.transform = 'translateY(0px)';
+            }}
+          >
+            <span 
+              className={notificationConfig.scrolling ? "animate-scroll" : ""}
+              style={{
+                display: 'inline-block',
+                maxWidth: '100%',
+                wordWrap: 'break-word',
+                hyphens: 'none',
+                whiteSpace: notificationConfig.scrolling ? 'nowrap' : 'normal'
+              }}
+            >
+              {notificationConfig.text}
+            </span>
+          </a>
+        ) : (
+          <div
+            style={{
+              background: `linear-gradient(135deg, ${notificationConfig.background_color}, ${notificationConfig.background_color}e6)`,
+              color: notificationConfig.text_color,
+              textAlign: 'center',
+              padding: '12px 20px',
+              fontWeight: '500',
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              zIndex: 60,
+              height: '48px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxSizing: 'border-box',
+              fontSize: '14px',
+              fontFamily: 'inherit',
+              letterSpacing: '0.025em',
+              boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+              backdropFilter: 'blur(8px)',
+              lineHeight: '1.4',
+              overflow: 'hidden'
+            }}
+          >
+            <span 
+              className={notificationConfig.scrolling ? "animate-scroll" : ""}
+              style={{
+                display: 'inline-block',
+                maxWidth: '100%',
+                wordWrap: 'break-word',
+                hyphens: 'none',
+                whiteSpace: notificationConfig.scrolling ? 'nowrap' : 'normal'
+              }}
+            >
+              {notificationConfig.text}
+            </span>
+          </div>
+        )
       )}
       
       <header ref={headerRef} className={headerClasses} style={headerStyle}>

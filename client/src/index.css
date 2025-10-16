@@ -47,6 +47,20 @@
   100% { transform: translateX(0px); }
 }
 
+/* Animation de défilement pour la barre d'annonces */
+@keyframes scroll {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 20s linear infinite;
+}
+
 :root {
   --background: 0 0% 100%;
   --foreground: 20 14.3% 4.1%;
