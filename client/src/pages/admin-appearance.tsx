@@ -3367,7 +3367,7 @@ export default function AdminAppearance() {
                             {/* Header Logo Preview */}
                             <div className="bg-white p-3 rounded border">
                               <p className="text-xs font-medium mb-2 text-center">Header</p>
-                              <div className="flex items-center justify-center h-20 bg-gray-50 rounded">
+                              <div className="flex items-center justify-center h-20 bg-gray-50 rounded pl-4">
                                 {JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": "/src/assets/logo-amon.png"}').header_logo ? (
                                   <img 
                                     src={JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": "/src/assets/logo-amon.png"}').header_logo.startsWith('/src/') ? logoAmon : JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": "/src/assets/logo-amon.png"}').header_logo}
@@ -3386,7 +3386,7 @@ export default function AdminAppearance() {
                             {/* Footer Logo Preview */}
                             <div className="bg-black p-3 rounded border">
                               <p className="text-xs font-medium mb-2 text-white text-center">Footer</p>
-                              <div className="flex items-center justify-center h-20 bg-gray-800 rounded">
+                              <div className="flex items-center justify-center h-20 bg-gray-800 rounded pl-4">
                                 {JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": "/src/assets/logo-amon.png"}').footer_logo ? (
                                   <img 
                                     src={JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": "/src/assets/logo-amon.png"}').footer_logo.startsWith('/src/') ? logoAmon : JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": "/src/assets/logo-amon.png"}').footer_logo}
@@ -3405,7 +3405,7 @@ export default function AdminAppearance() {
                             {/* Favicon Logo Preview */}
                             <div className="bg-white p-3 rounded border">
                               <p className="text-xs font-medium mb-2 text-center">Favicon</p>
-                              <div className="flex items-center justify-center h-20 bg-gray-100 rounded">
+                              <div className="flex items-center justify-center h-20 bg-gray-100 rounded pl-4">
                                 {(tempLogoSettings?.favicon || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": "/favicon.ico"}').favicon) ? (
                                   <img 
                                     src={(tempLogoSettings?.favicon || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": "/favicon.ico"}').favicon).startsWith('/src/') ? logoAmon : (tempLogoSettings?.favicon || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": "/favicon.ico"}').favicon)}
