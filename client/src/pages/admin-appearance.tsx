@@ -2486,42 +2486,44 @@ export default function AdminAppearance() {
                         <Palette className="w-4 h-4" />
                         Référence couleur
                       </CardTitle>
-                      <CardDescription>Couleurs de base du site et références de style</CardDescription>
+                      <CardDescription>Couleurs de base du site et références de style pour les sélecteurs de couleur</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
                       {/* Ligne 1: Couleur principale + Couleur secondaire */}
                       <div className="grid grid-cols-2 gap-4">
                         <div>
                           <Label htmlFor="primary-color">Couleur principale</Label>
-                          <div className="flex items-center gap-3 mt-2">
+                          <div className="flex items-center gap-2 mt-2">
                             <Input
                               id="primary-color"
                               type="color"
                               value={tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#084F6E'}
                               onChange={(e) => setTempColors((prev: any) => ({ ...prev, primary_color: e.target.value }))}
-                              className="w-20 h-10"
+                              className="w-10 h-10 p-1 rounded cursor-pointer"
                             />
                             <Input
                               value={tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#084F6E'}
                               onChange={(e) => setTempColors((prev: any) => ({ ...prev, primary_color: e.target.value }))}
                               placeholder="#084F6E"
+                              className="flex-1"
                             />
                           </div>
                         </div>
                         <div>
                           <Label htmlFor="secondary-color">Couleur secondaire</Label>
-                          <div className="flex items-center gap-3 mt-2">
+                          <div className="flex items-center gap-2 mt-2">
                             <Input
                               id="secondary-color"
                               type="color"
                               value={tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#3BA8AF'}
                               onChange={(e) => setTempColors((prev: any) => ({ ...prev, secondary_color: e.target.value }))}
-                              className="w-20 h-10"
+                              className="w-10 h-10 p-1 rounded cursor-pointer"
                             />
                             <Input
                               value={tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#3BA8AF'}
                               onChange={(e) => setTempColors((prev: any) => ({ ...prev, secondary_color: e.target.value }))}
                               placeholder="#3BA8AF"
+                              className="flex-1"
                             />
                           </div>
                         </div>
@@ -2531,7 +2533,7 @@ export default function AdminAppearance() {
                       <div className="grid grid-cols-3 gap-4">
                         <div>
                           <Label>Couleur de titre</Label>
-                          <div className="flex items-center gap-3 mt-2">
+                          <div className="flex items-center gap-2 mt-2">
                             <Input
                               type="color"
                               value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"heading": "#1f2937"}')).heading || '#1f2937'}
@@ -2539,7 +2541,7 @@ export default function AdminAppearance() {
                                 const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
                                 setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, heading: e.target.value} }));
                               }}
-                              className="w-20 h-10"
+                              className="w-10 h-10 p-1 rounded cursor-pointer"
                             />
                             <Input
                               value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"heading": "#1f2937"}')).heading || '#1f2937'}
@@ -2548,12 +2550,13 @@ export default function AdminAppearance() {
                                 setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, heading: e.target.value} }));
                               }}
                               placeholder="#1f2937"
+                              className="flex-1"
                             />
                           </div>
                         </div>
                         <div>
                           <Label>Couleur de texte</Label>
-                          <div className="flex items-center gap-3 mt-2">
+                          <div className="flex items-center gap-2 mt-2">
                             <Input
                               type="color"
                               value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}')).text || '#374151'}
@@ -2561,7 +2564,7 @@ export default function AdminAppearance() {
                                 const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
                                 setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, text: e.target.value} }));
                               }}
-                              className="w-20 h-10"
+                              className="w-10 h-10 p-1 rounded cursor-pointer"
                             />
                             <Input
                               value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}')).text || '#374151'}
@@ -2570,12 +2573,13 @@ export default function AdminAppearance() {
                                 setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, text: e.target.value} }));
                               }}
                               placeholder="#374151"
+                              className="flex-1"
                             />
                           </div>
                         </div>
                         <div>
                           <Label>Couleur de fond</Label>
-                          <div className="flex items-center gap-3 mt-2">
+                          <div className="flex items-center gap-2 mt-2">
                             <Input
                               type="color"
                               value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}')).background || '#ffffff'}
@@ -2583,7 +2587,7 @@ export default function AdminAppearance() {
                                 const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
                                 setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, background: e.target.value} }));
                               }}
-                              className="w-20 h-10"
+                              className="w-10 h-10 p-1 rounded cursor-pointer"
                             />
                             <Input
                               value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}')).background || '#ffffff'}
@@ -2592,6 +2596,7 @@ export default function AdminAppearance() {
                                 setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, background: e.target.value} }));
                               }}
                               placeholder="#ffffff"
+                              className="flex-1"
                             />
                           </div>
                         </div>
@@ -2608,7 +2613,7 @@ export default function AdminAppearance() {
                           <div className="grid grid-cols-2 gap-4">
                             <div>
                               <Label>Text Menu</Label>
-                              <div className="flex items-center gap-3 mt-2">
+                              <div className="flex items-center gap-2 mt-2">
                                 <Input
                                   type="color"
                                   value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textMenu": "#374151"}')).textMenu || '#374151'}
@@ -2616,7 +2621,7 @@ export default function AdminAppearance() {
                                     const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
                                     setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, textMenu: e.target.value} }));
                                   }}
-                                  className="w-20 h-10"
+                                  className="w-10 h-10 p-1 rounded cursor-pointer"
                                 />
                                 <Input
                                   value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textMenu": "#374151"}')).textMenu || '#374151'}
@@ -2625,12 +2630,13 @@ export default function AdminAppearance() {
                                     setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, textMenu: e.target.value} }));
                                   }}
                                   placeholder="#374151"
+                                  className="flex-1"
                                 />
                               </div>
                             </div>
                             <div>
                               <Label>Background Menu</Label>
-                              <div className="flex items-center gap-3 mt-2">
+                              <div className="flex items-center gap-2 mt-2">
                                 <Input
                                   type="color"
                                   value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"backgroundMenu": "#ffffff"}')).backgroundMenu || '#ffffff'}
@@ -2638,7 +2644,7 @@ export default function AdminAppearance() {
                                     const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
                                     setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, backgroundMenu: e.target.value} }));
                                   }}
-                                  className="w-20 h-10"
+                                  className="w-10 h-10 p-1 rounded cursor-pointer"
                                 />
                                 <Input
                                   value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"backgroundMenu": "#ffffff"}')).backgroundMenu || '#ffffff'}
@@ -2647,6 +2653,7 @@ export default function AdminAppearance() {
                                     setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, backgroundMenu: e.target.value} }));
                                   }}
                                   placeholder="#ffffff"
+                                  className="flex-1"
                                 />
                               </div>
                             </div>
@@ -2656,7 +2663,7 @@ export default function AdminAppearance() {
                           <div className="grid grid-cols-2 gap-4">
                             <div>
                               <Label>Text Footer</Label>
-                              <div className="flex items-center gap-3 mt-2">
+                              <div className="flex items-center gap-2 mt-2">
                                 <Input
                                   type="color"
                                   value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff"}')).textFooter || '#ffffff'}
@@ -2664,7 +2671,7 @@ export default function AdminAppearance() {
                                     const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
                                     setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, textFooter: e.target.value} }));
                                   }}
-                                  className="w-20 h-10"
+                                  className="w-10 h-10 p-1 rounded cursor-pointer"
                                 />
                                 <Input
                                   value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff"}')).textFooter || '#ffffff'}
@@ -2673,12 +2680,13 @@ export default function AdminAppearance() {
                                     setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, textFooter: e.target.value} }));
                                   }}
                                   placeholder="#ffffff"
+                                  className="flex-1"
                                 />
                               </div>
                             </div>
                             <div>
                               <Label>Background Footer</Label>
-                              <div className="flex items-center gap-3 mt-2">
+                              <div className="flex items-center gap-2 mt-2">
                                 <Input
                                   type="color"
                                   value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"backgroundFooter": "#000000"}')).backgroundFooter || '#000000'}
@@ -2686,7 +2694,7 @@ export default function AdminAppearance() {
                                     const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
                                     setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, backgroundFooter: e.target.value} }));
                                   }}
-                                  className="w-20 h-10"
+                                  className="w-10 h-10 p-1 rounded cursor-pointer"
                                 />
                                 <Input
                                   value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"backgroundFooter": "#000000"}')).backgroundFooter || '#000000'}
@@ -2695,6 +2703,7 @@ export default function AdminAppearance() {
                                     setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, backgroundFooter: e.target.value} }));
                                   }}
                                   placeholder="#000000"
+                                  className="flex-1"
                                 />
                               </div>
                             </div>
@@ -2704,7 +2713,7 @@ export default function AdminAppearance() {
                           <div className="grid grid-cols-2 gap-4">
                             <div>
                               <Label>Error Color</Label>
-                              <div className="flex items-center gap-3 mt-2">
+                              <div className="flex items-center gap-2 mt-2">
                                 <Input
                                   type="color"
                                   value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"error": "#ef4444"}')).error || '#ef4444'}
@@ -2712,7 +2721,7 @@ export default function AdminAppearance() {
                                     const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
                                     setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, error: e.target.value} }));
                                   }}
-                                  className="w-20 h-10"
+                                  className="w-10 h-10 p-1 rounded cursor-pointer"
                                 />
                                 <Input
                                   value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"error": "#ef4444"}')).error || '#ef4444'}
@@ -2721,12 +2730,13 @@ export default function AdminAppearance() {
                                     setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, error: e.target.value} }));
                                   }}
                                   placeholder="#ef4444"
+                                  className="flex-1"
                                 />
                               </div>
                             </div>
                             <div>
                               <Label>Success Color</Label>
-                              <div className="flex items-center gap-3 mt-2">
+                              <div className="flex items-center gap-2 mt-2">
                                 <Input
                                   type="color"
                                   value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"success": "#10b981"}')).success || '#10b981'}
@@ -2734,7 +2744,7 @@ export default function AdminAppearance() {
                                     const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
                                     setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, success: e.target.value} }));
                                   }}
-                                  className="w-20 h-10"
+                                  className="w-10 h-10 p-1 rounded cursor-pointer"
                                 />
                                 <Input
                                   value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"success": "#10b981"}')).success || '#10b981'}
@@ -2743,6 +2753,7 @@ export default function AdminAppearance() {
                                     setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, success: e.target.value} }));
                                   }}
                                   placeholder="#10b981"
+                                  className="flex-1"
                                 />
                               </div>
                             </div>
