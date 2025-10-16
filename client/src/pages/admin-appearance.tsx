@@ -3470,8 +3470,22 @@ export default function AdminAppearance() {
                       </Button>
                     </div>
                     
-                    {/* Other Categories with Dropdowns */}
-                    {Object.entries(pageCategories).map(([categoryName, pages]) => (
+                    {/* Page d'accueil - Direct Access */}
+                    {pageCategories['Page d\'accueil'] && pageCategories['Page d\'accueil'].length > 0 && (
+                      <div className="space-y-2">
+                        <Button
+                          variant={selectedPage === 'home' ? 'default' : 'outline'}
+                          className="w-full justify-start text-sm h-8"
+                          onClick={() => setSelectedPage('home')}
+                        >
+                          <Layout className="w-4 h-4 mr-2" />
+                          Page d'accueil
+                        </Button>
+                      </div>
+                    )}
+                    
+                    {/* Other Categories with Dropdowns (excluding Page d'accueil) */}
+                    {Object.entries(pageCategories).filter(([categoryName]) => categoryName !== 'Page d\'accueil').map(([categoryName, pages]) => (
                       <div key={categoryName} className="space-y-2">
                         <Button
                           variant="outline"
