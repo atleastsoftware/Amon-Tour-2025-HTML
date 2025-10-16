@@ -252,6 +252,13 @@ export default function AdminLegalPages() {
           title,
           content,
         });
+        
+        // Directly set the contentEditable content after data is loaded
+        setTimeout(() => {
+          if (contentEditableRef.current) {
+            contentEditableRef.current.innerHTML = content;
+          }
+        }, 50);
       } else {
         setFormData({
           title: page.pageName,
@@ -310,15 +317,7 @@ export default function AdminLegalPages() {
     return tempDiv.innerHTML.trim();
   };
 
-  // Initial content loading when opening editor
-  useEffect(() => {
-    if (contentEditableRef.current && editingPageId !== null && formData.content) {
-      // Set initial content when opening editor for a page
-      contentEditableRef.current.innerHTML = formData.content;
-    }
-  }, [editingPageId, formData.content]); // Run when editingPageId or content changes
-
-  // Handle dialog opening
+  // Handle dialog opening - clear content for new page
   useEffect(() => {
     if (contentEditableRef.current && isCreateDialogOpen) {
       contentEditableRef.current.innerHTML = '';
