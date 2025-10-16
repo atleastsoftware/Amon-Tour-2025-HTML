@@ -183,7 +183,7 @@ export default function Header() {
             }}
           >
             <span 
-              className={notificationConfig.scrolling ? "animate-scroll" : ""}
+              className={notificationConfig.scrolling ? `animate-scroll-${notificationConfig.scroll_speed || 'medium'}` : ""}
               style={{
                 display: 'inline-block',
                 maxWidth: '100%',
@@ -227,7 +227,7 @@ export default function Header() {
             }}
           >
             <span 
-              className={notificationConfig.scrolling ? "animate-scroll" : ""}
+              className={notificationConfig.scrolling ? `animate-scroll-${notificationConfig.scroll_speed || 'medium'}` : ""}
               style={{
                 display: 'inline-block',
                 maxWidth: '100%',
