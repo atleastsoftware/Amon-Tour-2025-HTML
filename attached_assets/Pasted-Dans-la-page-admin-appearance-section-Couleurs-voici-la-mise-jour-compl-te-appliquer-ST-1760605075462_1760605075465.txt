@@ -1,0 +1,69 @@
+Dans la page /admin-appearance, section Couleurs, voici la mise à jour complète à appliquer :
+
+🎨 STRUCTURE ET NOUVEAUX NOMS
+
+Renommer les titres :
+
+Le titre général “Couleurs” reste inchangé.
+
+Le sous-titre “Extended Color Palette” doit être renommé en “Autres couleurs”.
+
+Le bloc regroupant les couleurs principales doit être renommé en “Référence couleur”.
+
+🧩 ORGANISATION ET LOGIQUE DES CHAMPS
+Bloc Référence couleur
+
+Sur une même ligne :
+
+Couleur principale (anciennement “Couleur primaire”)
+
+Couleur secondaire
+
+➡️ Ces deux champs modifient en temps réel les couleurs sur tout le site et dans le dashboard :
+
+Couleur principale = toutes les zones actuellement en #084F6E
+
+Couleur secondaire = toutes les zones actuellement en #3BA8AF
+
+➡️ Il faut vérifier que tous les sélecteurs de couleur (dans les éditeurs de blocs, menus, formulaires, etc.) qui utilisent ces références se mettent à jour automatiquement dès qu’on change la couleur ici.
+
+Sous ces deux champs, sur une autre ligne, ajouter :
+
+Couleur de titre
+
+Couleur de texte
+
+Couleur de fond
+
+➡️ Ces trois couleurs ne changent rien directement sur le site : elles servent de références de style pour faciliter l’édition dans les blocs.
+Elles doivent être disponibles dans les dropdowns de sélection de couleur dans tous les éditeurs de blocs (même logique que “Couleur principale” et “Couleur secondaire”).
+
+Bloc Autres couleurs
+
+Toujours sur une même ligne pour chaque paire :
+
+Text Menu et Background Menu
+
+Text Footer et Background Footer
+
+Error Color et Success Color
+
+➡️ Ces couleurs doivent, elles, modifier le site en temps réel (menu, footer, messages d’erreur et de succès).
+
+➡️ Pour ces 6 couleurs, garder un sélecteur de couleur avec dropdown.
+
+🧹 NETTOYAGE
+
+Supprimer complètement le composant Color Preview, il n’est plus nécessaire.
+
+🎯 OBJECTIF FINAL
+
+Le bloc Référence couleur regroupe toutes les couleurs de base du site et du dashboard.
+
+Les champs Couleur principale et Couleur secondaire agissent en temps réel sur tout le site (#084F6E et #3BA8AF actuellement).
+
+Les champs Couleur de titre, texte et fond servent de références de style et doivent être disponibles dans les dropdowns.
+
+Le bloc Autres couleurs agit également en temps réel sur les zones spécifiques (menu, footer, états d’erreur et succès).
+
+Tous les dropdowns de sélection de couleur dans les blocs doivent se baser sur ces nouvelles références et s’adapter automatiquement aux changements.
