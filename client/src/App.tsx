@@ -51,6 +51,7 @@ import { IframeProvider } from "@/contexts/IframeContext";
 import IframeModal from "@/components/ui/IframeModal";
 import CookieConsent from "@/components/ui/CookieConsent";
 import ThemeLoader from "@/components/ThemeLoader";
+import PopupAnnouncement from "@/components/PopupAnnouncement";
 import { useEffect } from "react";
 import { useLocation } from "wouter";
 
@@ -136,6 +137,7 @@ function App() {
         <WhatsAppButton />
         <IframeModal />
         <CookieConsent />
+        <PopupAnnouncement />
       </IframeProvider>
     </TooltipProvider>
   );
