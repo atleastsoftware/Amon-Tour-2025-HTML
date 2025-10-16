@@ -3423,10 +3423,9 @@ export default function AdminAppearance() {
                       <div className="flex items-center space-x-2">
                         <Switch 
                           id="popup-enabled"
-                          checked={JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"enabled": false}').enabled}
+                          checked={tempPopupSettings?.enabled ?? JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"enabled": false}').enabled}
                           onCheckedChange={(checked) => {
-                            const current = JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"enabled": false}');
-                            updateSiteSetting('theme', 'popup_settings', JSON.stringify({...current, enabled: checked}));
+                            setTempPopupSettings((prev: any) => ({ ...prev, enabled: checked }));
                           }}
                         />
                         <Label htmlFor="popup-enabled">Enable Pop-ups</Label>
@@ -3485,10 +3484,9 @@ export default function AdminAppearance() {
                           <Input
                             type="number"
                             placeholder="5"
-                            value={JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"delay": 5000}').delay / 1000}
+                            value={(tempPopupSettings?.delay || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"delay": 5000}').delay) / 1000}
                             onChange={(e) => {
-                              const current = JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"delay": 5000}');
-                              updateSiteSetting('theme', 'popup_settings', JSON.stringify({...current, delay: parseInt(e.target.value) * 1000}));
+                              setTempPopupSettings((prev: any) => ({ ...prev, delay: parseInt(e.target.value) * 1000 }));
                             }}
                           />
                         </div>
@@ -3512,29 +3510,41 @@ export default function AdminAppearance() {
                           <h3 className="text-base font-semibold">Pop-up Preview</h3>
                         </div>
                         <div className="bg-gray-100 p-4 rounded-lg">
-                          {JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"enabled": false}').enabled ? (
+                          {!(tempPopupSettings?.enabled ?? JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"enabled": false}').enabled) && (
+                            <p className="text-xs text-orange-600 mb-2 text-center">⚠️ Pop-up désactivé - cet aperçu ne s'affichera pas sur le site</p>
+                          )}
+                          {(tempPopupSettings?.enabled ?? JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"enabled": false}').enabled) ? (
                             <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg p-6 border">
                               <div className="text-center space-y-4">
                                 <h3 className="text-lg font-semibold">
-                                  {JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"title": "Special Offer!"}').title || "Special Offer!"}
+                                  {tempPopupSettings?.title || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"title": "Special Offer!"}').title || "Special Offer!"}
                                 </h3>
                                 <p className="text-gray-600 text-sm">
-                                  {JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"description": "Subscribe to our newsletter for exclusive travel tips."}').description || "Subscribe to our newsletter for exclusive travel tips."}
+                                  {tempPopupSettings?.description || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"description": "Subscribe to our newsletter for exclusive travel tips."}').description || "Subscribe to our newsletter for exclusive travel tips."}
                                 </p>
+                                {(tempPopupSettings?.type || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"type": "newsletter"}').type) === 'newsletter' && (
+                                  <input 
+                                    type="email" 
+                                    placeholder="Entrez votre email" 
+                                    className="w-full px-4 py-2 border rounded text-sm"
+                                    disabled
+                                  />
+                                )}
                                 <button 
-                                  className="px-6 py-2 text-white rounded font-medium"
+                                  className="w-full px-6 py-2 text-white rounded font-medium"
                                   style={{ backgroundColor: getSiteSetting('theme', 'primary_color') || '#084F6E' }}
+                                  disabled
                                 >
-                                  {JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"button_text": "Subscribe"}').button_text || "Subscribe"}
+                                  {tempPopupSettings?.button_text || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"button_text": "Subscribe"}').button_text || "Subscribe"}
                                 </button>
                                 <p className="text-xs text-gray-400">
-                                  Apparaît après {(JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"delay": 5000}').delay / 1000) || 5} secondes
+                                  Apparaît après {((tempPopupSettings?.delay || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"delay": 5000}').delay) / 1000) || 5} secondes
                                 </p>
                               </div>
                             </div>
                           ) : (
                             <div className="text-center text-gray-500 py-8">
-                              Pop-up désactivée
+                              Pop-up désactivé
                             </div>
                           )}
                         </div>
