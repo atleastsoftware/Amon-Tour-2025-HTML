@@ -2791,10 +2791,24 @@ export default function AdminAppearance() {
                               className="py-2 px-4 text-center text-sm font-medium rounded"
                               style={{
                                 backgroundColor: tempNotificationBar?.background_color ?? JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"background_color": "#f5c400"}').background_color,
-                                color: tempNotificationBar?.text_color ?? JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text_color": "#000000"}').text_color
+                                color: tempNotificationBar?.text_color ?? JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text_color": "#000000"}').text_color,
+                                overflow: 'hidden'
                               }}
                             >
-                              {tempNotificationBar?.text ?? (JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text": "L\'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr"}').text || "Votre message d'annonce apparaîtra ici")}
+                              <span
+                                className={(tempNotificationBar?.scrolling ?? JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"scrolling": false}').scrolling) ? "animate-scroll" : ""}
+                                style={{
+                                  display: 'inline-block',
+                                  whiteSpace: (tempNotificationBar?.scrolling ?? JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"scrolling": false}').scrolling) ? 'nowrap' : 'normal'
+                                }}
+                              >
+                                {tempNotificationBar?.text ?? (JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text": "L\'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr"}').text || "Votre message d'annonce apparaîtra ici")}
+                                {(tempNotificationBar?.scrolling ?? JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"scrolling": false}').scrolling) && (
+                                  <span style={{ paddingLeft: '3em' }}>
+                                    {tempNotificationBar?.text ?? (JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text": "L\'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr"}').text || "Votre message d'annonce apparaîtra ici")}
+                                  </span>
+                                )}
+                              </span>
                             </div>
                           </div>
                         </div>
