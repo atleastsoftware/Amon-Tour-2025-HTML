@@ -1247,8 +1247,7 @@ function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs, update
               <label className="text-sm font-medium text-gray-700 mb-2 block">Slug/URL Externe</label>
               {currentPageConfig.pageSlug === 'home' ? (
                 <div className="min-h-[40px] p-2 bg-gray-100 border rounded flex items-center cursor-not-allowed">
-                  <span className="text-sm text-gray-500 mr-1">/</span>
-                  <span className="text-sm text-gray-600 font-mono">home</span>
+                  <span className="text-sm text-gray-600 font-mono">/</span>
                   <span className="ml-auto text-xs text-gray-500">(non modifiable)</span>
                 </div>
               ) : (
