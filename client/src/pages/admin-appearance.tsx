@@ -2675,8 +2675,7 @@ export default function AdminAppearance() {
                         <div>
                           <Label>Texte de notification</Label>
                           <Input
-                            placeholder="📢 L'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr"
-                            value={tempNotificationBar?.text || JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text": "📢 L\'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr"}').text}
+                            value={tempNotificationBar?.text ?? JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text": "L\'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr"}').text}
                             onChange={(e) => {
                               setTempNotificationBar((prev: any) => ({ ...prev, text: e.target.value }));
                             }}
