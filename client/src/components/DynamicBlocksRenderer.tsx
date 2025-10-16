@@ -173,34 +173,43 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
         const accentText = heroConfig.titleAccentText || "in Krabi –";
         const titleColor = heroConfig.titleColor || '#ffffff';
         const accentColor = heroConfig.titleAccentColor || '#3BA8AF';
+        const hasAnimation = heroConfig.hasAnimation !== false;
         
         let heroTitle;
         if (fullTitle.includes(accentText)) {
           const parts = fullTitle.split(accentText);
+          const TitleTag = hasAnimation ? motion.h1 : 'h1' as any;
+          const motionProps = hasAnimation ? {
+            initial: { opacity: 0, y: 30 },
+            animate: { opacity: 1, y: 0 },
+            transition: { duration: 0.8, delay: 0.2 }
+          } : {};
           heroTitle = (
-            <motion.h1 
+            <TitleTag 
               className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" 
               style={{ whiteSpace: 'pre-line' }}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              {...motionProps}
             >
               {parts[0] && <span style={{ color: titleColor }}>{parts[0]}</span>}
               <span style={{ color: accentColor }}>{accentText}</span>
               {parts[1] && <span style={{ color: titleColor }}>{parts[1]}</span>}
-            </motion.h1>
+            </TitleTag>
           );
         } else {
+          const TitleTag = hasAnimation ? motion.h1 : 'h1' as any;
+          const motionProps = hasAnimation ? {
+            initial: { opacity: 0, y: 30 },
+            animate: { opacity: 1, y: 0 },
+            transition: { duration: 0.8, delay: 0.2 }
+          } : {};
           heroTitle = (
-            <motion.h1 
+            <TitleTag 
               className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" 
               style={{ color: titleColor, whiteSpace: 'pre-line' }}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              {...motionProps}
             >
               {fullTitle}
-            </motion.h1>
+            </TitleTag>
           );
         }
         
@@ -211,6 +220,15 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
             <div 
               className="absolute inset-0 w-full h-full z-0"
               style={{ backgroundColor: heroConfig.backgroundColor || '#084F6E' }}
+            />
+          );
+        } else if (bgType === 'gradient') {
+          const gradientColor1 = heroConfig.gradientColor1 || heroConfig.backgroundColor || '#084F6E';
+          const gradientColor2 = heroConfig.gradientColor2 || '#3BA8AF';
+          heroBackground = (
+            <div 
+              className="absolute inset-0 w-full h-full z-0"
+              style={{ background: `linear-gradient(135deg, ${gradientColor1}, ${gradientColor2})` }}
             />
           );
         } else if (bgType === 'images') {
@@ -274,7 +292,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
             <div className={`relative z-20 w-full px-8 md:px-12 lg:px-16 flex ${alignmentClasses}`}>
               <div className="max-w-5xl">
                 {heroTitle}
-                {(heroConfig.subtitle || block.subtitle) && (
+                {(heroConfig.subtitle || block.subtitle) && hasAnimation ? (
                   <motion.p 
                     className="text-lg md:text-xl mb-8 max-w-3xl"
                     style={{ 
@@ -287,8 +305,18 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                   >
                     {heroConfig.subtitle || block.subtitle}
                   </motion.p>
+                ) : (heroConfig.subtitle || block.subtitle) && (
+                  <p 
+                    className="text-lg md:text-xl mb-8 max-w-3xl"
+                    style={{ 
+                      color: heroConfig.subtitleColor || '#ffffff',
+                      whiteSpace: 'pre-line'
+                    }}
+                  >
+                    {heroConfig.subtitle || block.subtitle}
+                  </p>
                 )}
-                {heroConfig.buttons && heroConfig.buttons.length > 0 && (
+                {heroConfig.buttons && heroConfig.buttons.length > 0 && hasAnimation ? (
                   <motion.div 
                     className={`flex gap-4 mt-8 ${contentAlignment === 'center' ? 'justify-center' : contentAlignment === 'right' ? 'justify-end' : 'justify-start'}`}
                     initial={{ opacity: 0, y: 20 }}
@@ -334,6 +362,47 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                       );
                     })}
                   </motion.div>
+                ) : heroConfig.buttons && heroConfig.buttons.length > 0 && (
+                  <div className={`flex gap-4 mt-8 ${contentAlignment === 'center' ? 'justify-center' : contentAlignment === 'right' ? 'justify-end' : 'justify-start'}`}>
+                    {heroConfig.buttons.map((button: any, index: number) => {
+                      if (!button.text) return null;
+                      
+                      const buttonStyle = button.style || 'solid';
+                      const buttonColor = button.color || '#3BA8AF';
+                      const buttonTextColor = button.textColor || '#ffffff';
+                      
+                      if (buttonStyle === 'outline') {
+                        return (
+                          <a
+                            key={index}
+                            href={button.url || '#'}
+                            className="px-6 py-3 rounded-lg font-semibold transition-all hover:opacity-90"
+                            style={{
+                              backgroundColor: 'transparent',
+                              color: buttonColor,
+                              border: `2px solid ${buttonColor}`
+                            }}
+                          >
+                            {button.text}
+                          </a>
+                        );
+                      }
+                      
+                      return (
+                        <a
+                          key={index}
+                          href={button.url || '#'}
+                          className="px-6 py-3 rounded-lg font-semibold transition-all hover:opacity-90"
+                          style={{
+                            backgroundColor: buttonColor,
+                            color: buttonTextColor
+                          }}
+                        >
+                          {button.text}
+                        </a>
+                      );
+                    })}
+                  </div>
                 )}
               </div>
             </div>
