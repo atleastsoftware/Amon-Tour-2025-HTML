@@ -277,7 +277,7 @@ export default function Header() {
             <img 
               src={headerLogoSrc} 
               alt="Amon Logo" 
-              className="w-auto mt-1 ml-[-4px]"
+              className="w-auto mt-1 ml-3"
               style={{ height: headerLogoHeight }}
             />
             <span 
