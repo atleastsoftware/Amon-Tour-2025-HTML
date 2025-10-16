@@ -1245,14 +1245,22 @@ function PageManagementInterface({ selectedPage, pageBlocks, pageConfigs, update
             />
             <div>
               <label className="text-sm font-medium text-gray-700 mb-2 block">Slug/URL Externe</label>
-              <EditableField
-                label=""
-                value={currentPageConfig.pageSlug}
-                onSave={(value) => updatePageConfigMutation.mutate({ id: currentPageConfig.id, field: 'pageSlug', value })}
-                type="text"
-                prefix={currentPageConfig.isExternalUrl ? "" : "/"}
-                className="font-mono"
-              />
+              {currentPageConfig.pageSlug === 'home' ? (
+                <div className="min-h-[40px] p-2 bg-gray-100 border rounded flex items-center cursor-not-allowed">
+                  <span className="text-sm text-gray-500 mr-1">/</span>
+                  <span className="text-sm text-gray-600 font-mono">home</span>
+                  <span className="ml-auto text-xs text-gray-500">(non modifiable)</span>
+                </div>
+              ) : (
+                <EditableField
+                  label=""
+                  value={currentPageConfig.pageSlug}
+                  onSave={(value) => updatePageConfigMutation.mutate({ id: currentPageConfig.id, field: 'pageSlug', value })}
+                  type="text"
+                  prefix={currentPageConfig.isExternalUrl ? "" : "/"}
+                  className="font-mono"
+                />
+              )}
               <div className="flex items-center gap-2 mt-2">
                 <input 
                   type="checkbox" 
@@ -1927,6 +1935,7 @@ export default function AdminAppearance() {
     if (!pageConfigs || !Array.isArray(pageConfigs)) {
       // Fallback si les données ne sont pas encore chargées
       return {
+        'Page d\'accueil': [],
         'Pages principales': [],
         'Pages secondaires': [],
         'Mentions légales': []
@@ -1934,6 +1943,7 @@ export default function AdminAppearance() {
     }
     
     const categories: Record<string, Array<{ slug: string; name: string; id: number }>> = {
+      'Page d\'accueil': [],
       'Pages principales': [],
       'Pages secondaires': [],
       'Mentions légales': []
@@ -1946,6 +1956,12 @@ export default function AdminAppearance() {
         name: page.pageName === 'Accueil' ? 'Home' : page.pageName, 
         id: page.id 
       };
+      
+      // Page d'accueil séparée
+      if (page.pageSlug === 'home') {
+        categories['Page d\'accueil'].push(pageInfo);
+        return;
+      }
       
       switch (page.pageType) {
         case 'main':
@@ -1960,19 +1976,9 @@ export default function AdminAppearance() {
           break;
       }
     });
-
-    // Trier toutes les catégories par ordre alphabétique
-    // mais garder Home en premier dans Pages principales
-    const homePage = categories['Pages principales'].find(p => p.slug === 'home');
     
-    // Trier Pages principales (sauf Home)
-    const otherMainPages = categories['Pages principales']
-      .filter(p => p.slug !== 'home')
-      .sort((a, b) => a.name.localeCompare(b.name, 'fr'));
-    
-    categories['Pages principales'] = homePage 
-      ? [homePage, ...otherMainPages]
-      : otherMainPages;
+    // Trier Pages principales
+    categories['Pages principales'].sort((a, b) => a.name.localeCompare(b.name, 'fr'));
     
     // Trier Pages secondaires
     categories['Pages secondaires'].sort((a, b) => a.name.localeCompare(b.name, 'fr'));
