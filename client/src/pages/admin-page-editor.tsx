@@ -8049,7 +8049,9 @@ export default function AdminPageEditor() {
       return response.json();
     },
     onSuccess: () => {
+      // Invalidate both admin and public caches
       queryClient.invalidateQueries({ queryKey: ['/api/admin/page-blocks', pageSlug] });
+      queryClient.invalidateQueries({ queryKey: [`/api/public/page-blocks/${pageSlug}`] });
       toast({ title: "Succès", description: "Bloc mis à jour avec succès" });
       setEditingBlockId(null);
     },
@@ -8068,7 +8070,9 @@ export default function AdminPageEditor() {
       return response.json();
     },
     onSuccess: () => {
+      // Invalidate both admin and public caches
       queryClient.invalidateQueries({ queryKey: ['/api/admin/page-blocks', pageSlug] });
+      queryClient.invalidateQueries({ queryKey: [`/api/public/page-blocks/${pageSlug}`] });
       toast({ title: "Succès", description: "Bloc supprimé avec succès" });
     },
     onError: () => {
@@ -8093,7 +8097,9 @@ export default function AdminPageEditor() {
       return response.json();
     },
     onSuccess: () => {
+      // Invalidate both admin and public caches
       queryClient.invalidateQueries({ queryKey: ['/api/admin/page-blocks', pageSlug] });
+      queryClient.invalidateQueries({ queryKey: [`/api/public/page-blocks/${pageSlug}`] });
       toast({ title: "Succès", description: "Bloc ajouté avec succès" });
     },
     onError: () => {
@@ -8117,7 +8123,9 @@ export default function AdminPageEditor() {
       return response.json();
     },
     onSuccess: (data) => {
+      // Invalidate both admin and public caches
       queryClient.invalidateQueries({ queryKey: ['/api/admin/page-blocks', pageSlug] });
+      queryClient.invalidateQueries({ queryKey: [`/api/public/page-blocks/${pageSlug}`] });
       toast({ 
         title: "Succès", 
         description: `Template ajouté avec succès (${data.count} blocs)` 
