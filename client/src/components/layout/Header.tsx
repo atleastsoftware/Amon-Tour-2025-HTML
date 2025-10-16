@@ -189,7 +189,8 @@ export default function Header() {
                 maxWidth: '100%',
                 wordWrap: 'break-word',
                 hyphens: 'none',
-                whiteSpace: notificationConfig.scrolling ? 'nowrap' : 'normal'
+                whiteSpace: notificationConfig.scrolling ? 'nowrap' : 'normal',
+                pointerEvents: 'none'
               }}
             >
               {notificationConfig.text}
