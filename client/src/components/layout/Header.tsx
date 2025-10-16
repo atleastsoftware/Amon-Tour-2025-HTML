@@ -141,10 +141,18 @@ export default function Header() {
       }`
     : 'fixed left-0 w-full z-50 py-2';
 
+  // Get computed CSS variable for menu background, or default to white
+  const menuBgColor = getComputedStyle(document.documentElement).getPropertyValue('--menu-background').trim();
+  const menuTextColor = getComputedStyle(document.documentElement).getPropertyValue('--menu-text').trim();
+  
   const headerStyle = { 
     top: `${notificationBarHeight}px`,
-    backgroundColor: isHomePage && !scrolled ? 'transparent' : 'hsl(var(--menu-background))',
-    color: isHomePage && !scrolled ? '#ffffff' : 'hsl(var(--menu-text))'
+    backgroundColor: isHomePage && !scrolled 
+      ? 'transparent' 
+      : (menuBgColor ? `hsl(${menuBgColor})` : '#ffffff'),
+    color: isHomePage && !scrolled 
+      ? '#ffffff' 
+      : (menuTextColor ? `hsl(${menuTextColor})` : '#374151')
   };
 
   return (
