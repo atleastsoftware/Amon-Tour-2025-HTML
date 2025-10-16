@@ -355,50 +355,9 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                         </a>
                       );
                     })}
-                  </motion.div>
-                ) : heroConfig.buttons && heroConfig.buttons.length > 0 && (
-                  <div className={`flex gap-4 mt-8 ${contentAlignment === 'center' ? 'justify-center' : contentAlignment === 'right' ? 'justify-end' : 'justify-start'}`}>
-                    {heroConfig.buttons.map((button: any, index: number) => {
-                      if (!button.text) return null;
-                      
-                      const buttonStyle = button.style || 'solid';
-                      const buttonColor = button.color || '#3BA8AF';
-                      const buttonTextColor = button.textColor || '#ffffff';
-                      
-                      if (buttonStyle === 'outline') {
-                        return (
-                          <a
-                            key={index}
-                            href={button.url || '#'}
-                            className="px-6 py-3 rounded-lg font-semibold transition-all hover:opacity-90"
-                            style={{
-                              backgroundColor: 'transparent',
-                              color: buttonColor,
-                              border: `2px solid ${buttonColor}`
-                            }}
-                          >
-                            {button.text}
-                          </a>
-                        );
-                      }
-                      
-                      return (
-                        <a
-                          key={index}
-                          href={button.url || '#'}
-                          className="px-6 py-3 rounded-lg font-semibold transition-all hover:opacity-90"
-                          style={{
-                            backgroundColor: buttonColor,
-                            color: buttonTextColor
-                          }}
-                        >
-                          {button.text}
-                        </a>
-                      );
-                    })}
                   </div>
                 )}
-              </div>
+              </motion.div>
             </div>
           </section>
         );
