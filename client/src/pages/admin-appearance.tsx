@@ -3571,7 +3571,7 @@ export default function AdminAppearance() {
                       </CardTitle>
                       <CardDescription>
                         {selectedPage === 'navigation-menu' 
-                          ? 'Gérez les éléments du menu de navigation de votre site. Glissez-déposez pour réorganiser.'
+                          ? 'Gérez les éléments du menu de navigation de votre site. Glissez-déposez pour réorganiser. Note : Le lien "Home" (/) est géré automatiquement - il apparaît uniquement quand on n\'est pas sur la page d\'accueil.'
                           : (() => {
                               const currentPageConfig = pageConfigs.find(p => p.pageSlug === selectedPage);
                               const pageType = currentPageConfig?.pageType === 'main' ? 'principale' : 'secondaire';
