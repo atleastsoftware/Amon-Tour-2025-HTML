@@ -528,6 +528,82 @@ function SimplifiedPreview({ block }: { block: PageBlock }) {
         </div>
       );
 
+    case 'who_we_are':
+      const whoSections = config.sections || [];
+      const whoImages = config.images || [];
+      const imagesPosition = config.layoutStyle || 'right';
+      
+      return (
+        <div className="py-8" style={{ backgroundColor: config.backgroundColor || '#ffffff' }}>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Bloc de contenu textuel */}
+            <div className={imagesPosition === 'right' ? 'order-1' : 'order-2'}>
+              {config.title && (
+                <div className="mb-4">
+                  <h2 
+                    className="font-bold text-2xl mb-2"
+                    style={{ color: config.titleColor || '#084F6E' }}
+                  >
+                    {config.title}
+                  </h2>
+                  <div 
+                    className="w-16 h-1"
+                    style={{ backgroundColor: config.dividerColor || '#3BA8AF' }}
+                  ></div>
+                </div>
+              )}
+              
+              {config.introduction && (
+                <p className="text-sm mb-4" style={{ color: config.textColor || '#666666' }}>
+                  {config.introduction.substring(0, 100)}...
+                </p>
+              )}
+
+              {whoSections.slice(0, 2).map((section: any, index: number) => (
+                <div key={index} className="mt-3">
+                  <h3 className="font-semibold text-base mb-1" style={{ color: config.titleColor || '#084F6E' }}>
+                    {section.title || `Section ${index + 1}`}
+                  </h3>
+                  <p className="text-xs" style={{ color: config.textColor || '#666666' }}>
+                    {section.content?.substring(0, 60)}...
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {/* Bloc d'images */}
+            <div className={imagesPosition === 'right' ? 'order-2' : 'order-1'}>
+              <div className="grid grid-cols-2 gap-2">
+                {whoImages.slice(0, 4).map((image: any, index: number) => (
+                  <div 
+                    key={index} 
+                    className="aspect-square rounded-lg bg-gray-200 overflow-hidden"
+                  >
+                    {image && (
+                      <img 
+                        src={image} 
+                        alt={`Image ${index + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    )}
+                  </div>
+                ))}
+                {whoImages.length === 0 && (
+                  <>
+                    <div className="aspect-square rounded-lg bg-gray-200 flex items-center justify-center">
+                      <Images className="h-6 w-6 text-gray-400" />
+                    </div>
+                    <div className="aspect-square rounded-lg bg-gray-200 flex items-center justify-center">
+                      <Images className="h-6 w-6 text-gray-400" />
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+
     default:
       return (
         <div className="bg-gray-100 p-8 rounded-lg text-center">
