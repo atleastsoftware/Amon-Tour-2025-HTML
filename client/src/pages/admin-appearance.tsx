@@ -3074,15 +3074,6 @@ export default function AdminAppearance() {
                             >
                               Outline Button
                             </button>
-                            <button 
-                              className="px-4 py-2 text-white transition-all"
-                              style={{
-                                backgroundColor: getSiteSetting('theme', 'secondary_color') || '#3BA8AF',
-                                borderRadius: JSON.parse(getSiteSetting('theme', 'button_styles') || '{"border_radius": "8px"}').border_radius
-                              }}
-                            >
-                              Secondary Button
-                            </button>
                           </div>
                         </div>
                       </div>
