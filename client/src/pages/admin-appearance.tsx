@@ -2484,140 +2484,268 @@ export default function AdminAppearance() {
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                         <Palette className="w-4 h-4" />
-                        Couleurs
+                        Référence couleur
                       </CardTitle>
-                      <CardDescription>Personnalisez les couleurs principales et étendues de votre site</CardDescription>
+                      <CardDescription>Couleurs de base du site et références de style</CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-4">
-                      <div>
-                        <Label htmlFor="primary-color">Couleur primaire</Label>
-                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 mt-2">
-                          <Input
-                            id="primary-color"
-                            type="color"
-                            value={tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#084F6E'}
-                            onChange={(e) => setTempColors((prev: any) => ({ ...prev, primary_color: e.target.value }))}
-                            className="w-20 h-10"
-                          />
-                          <Input
-                            value={tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#084F6E'}
-                            onChange={(e) => setTempColors((prev: any) => ({ ...prev, primary_color: e.target.value }))}
-                            placeholder="#084F6E"
-                          />
+                    <CardContent className="space-y-6">
+                      {/* Ligne 1: Couleur principale + Couleur secondaire */}
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <Label htmlFor="primary-color">Couleur principale</Label>
+                          <div className="flex items-center gap-3 mt-2">
+                            <Input
+                              id="primary-color"
+                              type="color"
+                              value={tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#084F6E'}
+                              onChange={(e) => setTempColors((prev: any) => ({ ...prev, primary_color: e.target.value }))}
+                              className="w-20 h-10"
+                            />
+                            <Input
+                              value={tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#084F6E'}
+                              onChange={(e) => setTempColors((prev: any) => ({ ...prev, primary_color: e.target.value }))}
+                              placeholder="#084F6E"
+                            />
+                          </div>
+                        </div>
+                        <div>
+                          <Label htmlFor="secondary-color">Couleur secondaire</Label>
+                          <div className="flex items-center gap-3 mt-2">
+                            <Input
+                              id="secondary-color"
+                              type="color"
+                              value={tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#3BA8AF'}
+                              onChange={(e) => setTempColors((prev: any) => ({ ...prev, secondary_color: e.target.value }))}
+                              className="w-20 h-10"
+                            />
+                            <Input
+                              value={tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#3BA8AF'}
+                              onChange={(e) => setTempColors((prev: any) => ({ ...prev, secondary_color: e.target.value }))}
+                              placeholder="#3BA8AF"
+                            />
+                          </div>
                         </div>
                       </div>
-                      <div>
-                        <Label htmlFor="secondary-color">Couleur secondaire</Label>
-                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 mt-2">
-                          <Input
-                            id="secondary-color"
-                            type="color"
-                            value={tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#3BA8AF'}
-                            onChange={(e) => setTempColors((prev: any) => ({ ...prev, secondary_color: e.target.value }))}
-                            className="w-20 h-10"
-                          />
-                          <Input
-                            value={tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#3BA8AF'}
-                            onChange={(e) => setTempColors((prev: any) => ({ ...prev, secondary_color: e.target.value }))}
-                            placeholder="#3BA8AF"
-                          />
+
+                      {/* Ligne 2: Couleur de titre + texte + fond (références de style) */}
+                      <div className="grid grid-cols-3 gap-4">
+                        <div>
+                          <Label>Couleur de titre</Label>
+                          <div className="flex items-center gap-3 mt-2">
+                            <Input
+                              type="color"
+                              value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"heading": "#1f2937"}')).heading || '#1f2937'}
+                              onChange={(e) => {
+                                const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
+                                setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, heading: e.target.value} }));
+                              }}
+                              className="w-20 h-10"
+                            />
+                            <Input
+                              value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"heading": "#1f2937"}')).heading || '#1f2937'}
+                              onChange={(e) => {
+                                const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
+                                setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, heading: e.target.value} }));
+                              }}
+                              placeholder="#1f2937"
+                            />
+                          </div>
+                        </div>
+                        <div>
+                          <Label>Couleur de texte</Label>
+                          <div className="flex items-center gap-3 mt-2">
+                            <Input
+                              type="color"
+                              value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}')).text || '#374151'}
+                              onChange={(e) => {
+                                const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
+                                setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, text: e.target.value} }));
+                              }}
+                              className="w-20 h-10"
+                            />
+                            <Input
+                              value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}')).text || '#374151'}
+                              onChange={(e) => {
+                                const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
+                                setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, text: e.target.value} }));
+                              }}
+                              placeholder="#374151"
+                            />
+                          </div>
+                        </div>
+                        <div>
+                          <Label>Couleur de fond</Label>
+                          <div className="flex items-center gap-3 mt-2">
+                            <Input
+                              type="color"
+                              value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}')).background || '#ffffff'}
+                              onChange={(e) => {
+                                const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
+                                setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, background: e.target.value} }));
+                              }}
+                              className="w-20 h-10"
+                            />
+                            <Input
+                              value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}')).background || '#ffffff'}
+                              onChange={(e) => {
+                                const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
+                                setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, background: e.target.value} }));
+                              }}
+                              placeholder="#ffffff"
+                            />
+                          </div>
                         </div>
                       </div>
                       
-                      {/* Extended Color Palette */}
+                      {/* Autres couleurs */}
                       <div className="mt-6 pt-6 border-t border-gray-200">
                         <CardTitle className="flex items-center gap-2 text-base sm:text-lg mb-4">
                           <Palette className="w-4 h-4" />
-                          Extended Color Palette
+                          Autres couleurs
                         </CardTitle>
-                        <div className="grid grid-cols-2 gap-4">
-                          <div>
-                            <Label>Text Color</Label>
-                            <Input
-                              type="color"
-                              value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}')).text}
-                              onChange={(e) => {
-                                const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}');
-                                setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, text: e.target.value} }));
-                              }}
-                            />
+                        <div className="space-y-4">
+                          {/* Menu */}
+                          <div className="grid grid-cols-2 gap-4">
+                            <div>
+                              <Label>Text Menu</Label>
+                              <div className="flex items-center gap-3 mt-2">
+                                <Input
+                                  type="color"
+                                  value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textMenu": "#374151"}')).textMenu || '#374151'}
+                                  onChange={(e) => {
+                                    const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
+                                    setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, textMenu: e.target.value} }));
+                                  }}
+                                  className="w-20 h-10"
+                                />
+                                <Input
+                                  value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textMenu": "#374151"}')).textMenu || '#374151'}
+                                  onChange={(e) => {
+                                    const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
+                                    setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, textMenu: e.target.value} }));
+                                  }}
+                                  placeholder="#374151"
+                                />
+                              </div>
+                            </div>
+                            <div>
+                              <Label>Background Menu</Label>
+                              <div className="flex items-center gap-3 mt-2">
+                                <Input
+                                  type="color"
+                                  value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"backgroundMenu": "#ffffff"}')).backgroundMenu || '#ffffff'}
+                                  onChange={(e) => {
+                                    const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
+                                    setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, backgroundMenu: e.target.value} }));
+                                  }}
+                                  className="w-20 h-10"
+                                />
+                                <Input
+                                  value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"backgroundMenu": "#ffffff"}')).backgroundMenu || '#ffffff'}
+                                  onChange={(e) => {
+                                    const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
+                                    setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, backgroundMenu: e.target.value} }));
+                                  }}
+                                  placeholder="#ffffff"
+                                />
+                              </div>
+                            </div>
                           </div>
-                          <div>
-                            <Label>Couleur de fond</Label>
-                            <Input
-                              type="color"
-                              value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}')).background}
-                              onChange={(e) => {
-                                const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}');
-                                setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, background: e.target.value} }));
-                              }}
-                            />
+
+                          {/* Footer */}
+                          <div className="grid grid-cols-2 gap-4">
+                            <div>
+                              <Label>Text Footer</Label>
+                              <div className="flex items-center gap-3 mt-2">
+                                <Input
+                                  type="color"
+                                  value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff"}')).textFooter || '#ffffff'}
+                                  onChange={(e) => {
+                                    const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
+                                    setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, textFooter: e.target.value} }));
+                                  }}
+                                  className="w-20 h-10"
+                                />
+                                <Input
+                                  value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff"}')).textFooter || '#ffffff'}
+                                  onChange={(e) => {
+                                    const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
+                                    setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, textFooter: e.target.value} }));
+                                  }}
+                                  placeholder="#ffffff"
+                                />
+                              </div>
+                            </div>
+                            <div>
+                              <Label>Background Footer</Label>
+                              <div className="flex items-center gap-3 mt-2">
+                                <Input
+                                  type="color"
+                                  value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"backgroundFooter": "#000000"}')).backgroundFooter || '#000000'}
+                                  onChange={(e) => {
+                                    const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
+                                    setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, backgroundFooter: e.target.value} }));
+                                  }}
+                                  className="w-20 h-10"
+                                />
+                                <Input
+                                  value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"backgroundFooter": "#000000"}')).backgroundFooter || '#000000'}
+                                  onChange={(e) => {
+                                    const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
+                                    setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, backgroundFooter: e.target.value} }));
+                                  }}
+                                  placeholder="#000000"
+                                />
+                              </div>
+                            </div>
                           </div>
-                          <div>
-                            <Label>Text Menu</Label>
-                            <Input
-                              type="color"
-                              value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textMenu": "#374151"}')).textMenu || '#374151'}
-                              onChange={(e) => {
-                                const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff", "backgroundFooter": "#000000", "textMenu": "#374151", "backgroundMenu": "#ffffff"}');
-                                setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, textMenu: e.target.value} }));
-                              }}
-                            />
-                          </div>
-                          <div>
-                            <Label>Background Menu</Label>
-                            <Input
-                              type="color"
-                              value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"backgroundMenu": "#ffffff"}')).backgroundMenu || '#ffffff'}
-                              onChange={(e) => {
-                                const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff", "backgroundFooter": "#000000", "textMenu": "#374151", "backgroundMenu": "#ffffff"}');
-                                setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, backgroundMenu: e.target.value} }));
-                              }}
-                            />
-                          </div>
-                          <div>
-                            <Label>Text Footer</Label>
-                            <Input
-                              type="color"
-                              value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff"}')).textFooter || '#ffffff'}
-                              onChange={(e) => {
-                                const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff", "backgroundFooter": "#000000", "textMenu": "#374151", "backgroundMenu": "#ffffff"}');
-                                setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, textFooter: e.target.value} }));
-                              }}
-                            />
-                          </div>
-                          <div>
-                            <Label>Background Footer</Label>
-                            <Input
-                              type="color"
-                              value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"backgroundFooter": "#000000"}')).backgroundFooter || '#000000'}
-                              onChange={(e) => {
-                                const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff", "backgroundFooter": "#000000", "textMenu": "#374151", "backgroundMenu": "#ffffff"}');
-                                setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, backgroundFooter: e.target.value} }));
-                              }}
-                            />
-                          </div>
-                          <div>
-                            <Label>Error Color</Label>
-                            <Input
-                              type="color"
-                              value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"error": "#ef4444"}')).error}
-                              onChange={(e) => {
-                                const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"error": "#ef4444"}');
-                                setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, error: e.target.value} }));
-                              }}
-                            />
-                          </div>
-                          <div>
-                            <Label>Success Color</Label>
-                            <Input
-                              type="color"
-                              value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"success": "#10b981"}')).success}
-                              onChange={(e) => {
-                                const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"success": "#10b981"}');
-                                setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, success: e.target.value} }));
-                              }}
-                            />
+
+                          {/* Error & Success */}
+                          <div className="grid grid-cols-2 gap-4">
+                            <div>
+                              <Label>Error Color</Label>
+                              <div className="flex items-center gap-3 mt-2">
+                                <Input
+                                  type="color"
+                                  value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"error": "#ef4444"}')).error || '#ef4444'}
+                                  onChange={(e) => {
+                                    const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
+                                    setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, error: e.target.value} }));
+                                  }}
+                                  className="w-20 h-10"
+                                />
+                                <Input
+                                  value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"error": "#ef4444"}')).error || '#ef4444'}
+                                  onChange={(e) => {
+                                    const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
+                                    setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, error: e.target.value} }));
+                                  }}
+                                  placeholder="#ef4444"
+                                />
+                              </div>
+                            </div>
+                            <div>
+                              <Label>Success Color</Label>
+                              <div className="flex items-center gap-3 mt-2">
+                                <Input
+                                  type="color"
+                                  value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"success": "#10b981"}')).success || '#10b981'}
+                                  onChange={(e) => {
+                                    const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
+                                    setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, success: e.target.value} }));
+                                  }}
+                                  className="w-20 h-10"
+                                />
+                                <Input
+                                  value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"success": "#10b981"}')).success || '#10b981'}
+                                  onChange={(e) => {
+                                    const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
+                                    setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, success: e.target.value} }));
+                                  }}
+                                  placeholder="#10b981"
+                                />
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -2631,46 +2759,6 @@ export default function AdminAppearance() {
                         >
                           💾 Sauvegarder Couleurs
                         </Button>
-                      </div>
-
-                      {/* Colors Preview */}
-                      <div className="mt-6 pt-6 border-t border-gray-200">
-                        <div className="flex items-center gap-2 mb-4">
-                          <Palette className="w-4 h-4" />
-                          <h3 className="text-base font-semibold">Color Preview</h3>
-                        </div>
-                        <div className="bg-gray-50 p-4 rounded-lg">
-                          <div className="grid grid-cols-4 gap-3">
-                            <div className="text-center">
-                              <div 
-                                className="w-12 h-12 rounded-lg mx-auto mb-2 border-2 border-gray-300"
-                                style={{ backgroundColor: tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#084F6E' }}
-                              ></div>
-                              <p className="text-xs font-medium">Primary</p>
-                            </div>
-                            <div className="text-center">
-                              <div 
-                                className="w-12 h-12 rounded-lg mx-auto mb-2 border-2 border-gray-300"
-                                style={{ backgroundColor: tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#3BA8AF' }}
-                              ></div>
-                              <p className="text-xs font-medium">Secondary</p>
-                            </div>
-                            <div className="text-center">
-                              <div 
-                                className="w-12 h-12 rounded-lg mx-auto mb-2 border-2 border-gray-300"
-                                style={{ backgroundColor: (tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff", "backgroundFooter": "#000000"}')).backgroundFooter }}
-                              ></div>
-                              <p className="text-xs font-medium">Footer BG</p>
-                            </div>
-                            <div className="text-center">
-                              <div 
-                                className="w-12 h-12 rounded-lg mx-auto mb-2 border-2 border-gray-300"
-                                style={{ backgroundColor: (tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textMenu": "#374151", "backgroundMenu": "#ffffff"}')).backgroundMenu }}
-                              ></div>
-                              <p className="text-xs font-medium">Menu BG</p>
-                            </div>
-                          </div>
-                        </div>
                       </div>
                     </CardContent>
                   </Card>
