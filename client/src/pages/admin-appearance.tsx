@@ -4609,7 +4609,7 @@ function MenuItemDialog({
                 <SelectTrigger className="w-40">
                   <SelectValue placeholder="Choisir page" />
                 </SelectTrigger>
-                <SelectContent position="popper" className="z-[100]">
+                <SelectContent position="popper" className="z-[10000]">
                   {pageConfigs && Array.isArray(pageConfigs) ? pageConfigs.map((page) => (
                     <SelectItem key={page.id} value={`/${page.pageSlug}`}>
                       {page.pageName}
@@ -4637,7 +4637,7 @@ function MenuItemDialog({
                 <SelectTrigger>
                   <SelectValue placeholder="Sélectionner un menu parent" />
                 </SelectTrigger>
-                <SelectContent position="popper" className="z-[100]">
+                <SelectContent position="popper" className="z-[10000]">
                   <SelectItem value="none">Aucun (menu principal)</SelectItem>
                   {parentItems.map((parent) => (
                     <SelectItem key={parent.id} value={parent.id.toString()}>
@@ -4655,7 +4655,7 @@ function MenuItemDialog({
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent position="popper" className="z-[100]">
+                <SelectContent position="popper" className="z-[10000]">
                   <SelectItem value="_self">Même onglet</SelectItem>
                   <SelectItem value="_blank">Nouvel onglet</SelectItem>
                 </SelectContent>
