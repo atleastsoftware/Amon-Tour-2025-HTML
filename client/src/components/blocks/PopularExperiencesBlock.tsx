@@ -23,7 +23,7 @@ export default function PopularExperiencesBlock({
   configuration = {},
   isPreview = false
 }: PopularExperiencesBlockProps) {
-  const { data: tourNinjaTours, isLoading: tourNinjaLoading } = useQuery<any[]>({
+  const { data: tourNinjaResponse, isLoading: tourNinjaLoading } = useQuery<{success: boolean, data: any[]}>({
     queryKey: ['/api/proxy/tours'],
     refetchInterval: isPreview ? 2000 : false,
     staleTime: isPreview ? 0 : 60000,
@@ -31,6 +31,9 @@ export default function PopularExperiencesBlock({
 
   const config = configuration;
 
+  // Extract tours from API response
+  const tourNinjaTours = tourNinjaResponse?.data || [];
+  
   // Ensure we always have an array
   let filteredTours: any[] = Array.isArray(tourNinjaTours) ? tourNinjaTours : [];
 
