@@ -136,7 +136,7 @@ export default function Header() {
   const headerClasses = isHomePage
     ? `fixed left-0 w-full z-50 transition-all duration-300 ${
         scrolled 
-          ? 'backdrop-blur-md shadow-lg py-1' 
+          ? 'shadow-lg py-1' 
           : 'bg-transparent py-2'
       }`
     : 'fixed left-0 w-full z-50 py-2';
