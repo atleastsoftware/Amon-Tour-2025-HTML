@@ -2494,13 +2494,20 @@ export default function AdminAppearance() {
                         <div>
                           <Label htmlFor="primary-color">Couleur principale</Label>
                           <div className="flex items-center gap-2 mt-2">
-                            <Input
-                              id="primary-color"
-                              type="color"
-                              value={tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#084F6E'}
-                              onChange={(e) => setTempColors((prev: any) => ({ ...prev, primary_color: e.target.value }))}
-                              className="w-10 h-10 p-1 rounded cursor-pointer"
-                            />
+                            <div className="relative">
+                              <div 
+                                className="w-8 h-8 rounded border border-gray-300 cursor-pointer relative overflow-hidden hover:border-gray-400 transition-colors"
+                                style={{ backgroundColor: tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#084F6E' }}
+                              >
+                                <input
+                                  id="primary-color"
+                                  type="color"
+                                  value={tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#084F6E'}
+                                  onChange={(e) => setTempColors((prev: any) => ({ ...prev, primary_color: e.target.value }))}
+                                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                />
+                              </div>
+                            </div>
                             <Input
                               value={tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#084F6E'}
                               onChange={(e) => setTempColors((prev: any) => ({ ...prev, primary_color: e.target.value }))}
@@ -2512,13 +2519,20 @@ export default function AdminAppearance() {
                         <div>
                           <Label htmlFor="secondary-color">Couleur secondaire</Label>
                           <div className="flex items-center gap-2 mt-2">
-                            <Input
-                              id="secondary-color"
-                              type="color"
-                              value={tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#3BA8AF'}
-                              onChange={(e) => setTempColors((prev: any) => ({ ...prev, secondary_color: e.target.value }))}
-                              className="w-10 h-10 p-1 rounded cursor-pointer"
-                            />
+                            <div className="relative">
+                              <div 
+                                className="w-8 h-8 rounded border border-gray-300 cursor-pointer relative overflow-hidden hover:border-gray-400 transition-colors"
+                                style={{ backgroundColor: tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#3BA8AF' }}
+                              >
+                                <input
+                                  id="secondary-color"
+                                  type="color"
+                                  value={tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#3BA8AF'}
+                                  onChange={(e) => setTempColors((prev: any) => ({ ...prev, secondary_color: e.target.value }))}
+                                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                />
+                              </div>
+                            </div>
                             <Input
                               value={tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#3BA8AF'}
                               onChange={(e) => setTempColors((prev: any) => ({ ...prev, secondary_color: e.target.value }))}
@@ -2534,15 +2548,22 @@ export default function AdminAppearance() {
                         <div>
                           <Label>Couleur de titre</Label>
                           <div className="flex items-center gap-2 mt-2">
-                            <Input
-                              type="color"
-                              value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"heading": "#1f2937"}')).heading || '#1f2937'}
-                              onChange={(e) => {
-                                const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
-                                setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, heading: e.target.value} }));
-                              }}
-                              className="w-10 h-10 p-1 rounded cursor-pointer"
-                            />
+                            <div className="relative">
+                              <div 
+                                className="w-8 h-8 rounded border border-gray-300 cursor-pointer relative overflow-hidden hover:border-gray-400 transition-colors"
+                                style={{ backgroundColor: (tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"heading": "#1f2937"}')).heading || '#1f2937' }}
+                              >
+                                <input
+                                  type="color"
+                                  value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"heading": "#1f2937"}')).heading || '#1f2937'}
+                                  onChange={(e) => {
+                                    const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
+                                    setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, heading: e.target.value} }));
+                                  }}
+                                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                />
+                              </div>
+                            </div>
                             <Input
                               value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"heading": "#1f2937"}')).heading || '#1f2937'}
                               onChange={(e) => {
@@ -2557,15 +2578,22 @@ export default function AdminAppearance() {
                         <div>
                           <Label>Couleur de texte</Label>
                           <div className="flex items-center gap-2 mt-2">
-                            <Input
-                              type="color"
-                              value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}')).text || '#374151'}
-                              onChange={(e) => {
-                                const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
-                                setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, text: e.target.value} }));
-                              }}
-                              className="w-10 h-10 p-1 rounded cursor-pointer"
-                            />
+                            <div className="relative">
+                              <div 
+                                className="w-8 h-8 rounded border border-gray-300 cursor-pointer relative overflow-hidden hover:border-gray-400 transition-colors"
+                                style={{ backgroundColor: (tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}')).text || '#374151' }}
+                              >
+                                <input
+                                  type="color"
+                                  value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}')).text || '#374151'}
+                                  onChange={(e) => {
+                                    const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
+                                    setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, text: e.target.value} }));
+                                  }}
+                                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                />
+                              </div>
+                            </div>
                             <Input
                               value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}')).text || '#374151'}
                               onChange={(e) => {
@@ -2583,15 +2611,22 @@ export default function AdminAppearance() {
                       <div>
                         <Label>Couleur de fond</Label>
                         <div className="flex items-center gap-2 mt-2">
-                          <Input
-                            type="color"
-                            value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}')).background || '#ffffff'}
-                            onChange={(e) => {
-                              const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
-                              setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, background: e.target.value} }));
-                            }}
-                            className="w-10 h-10 p-1 rounded cursor-pointer"
-                          />
+                          <div className="relative">
+                            <div 
+                              className="w-8 h-8 rounded border border-gray-300 cursor-pointer relative overflow-hidden hover:border-gray-400 transition-colors"
+                              style={{ backgroundColor: (tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}')).background || '#ffffff' }}
+                            >
+                              <input
+                                type="color"
+                                value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}')).background || '#ffffff'}
+                                onChange={(e) => {
+                                  const currentPalette = tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{}');
+                                  setTempColors((prev: any) => ({ ...prev, color_palette: {...currentPalette, background: e.target.value} }));
+                                }}
+                                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                              />
+                            </div>
+                          </div>
                           <Input
                             value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}')).background || '#ffffff'}
                             onChange={(e) => {

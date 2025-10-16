@@ -93,6 +93,16 @@ export default function ThemeLoader() {
             const hsl = hexToHSL(colorPalette.backgroundFooter);
             root.style.setProperty('--footer-background', hsl);
           }
+          
+          if (colorPalette.error && colorPalette.error.startsWith('#')) {
+            const hsl = hexToHSL(colorPalette.error);
+            root.style.setProperty('--error', hsl);
+          }
+          
+          if (colorPalette.success && colorPalette.success.startsWith('#')) {
+            const hsl = hexToHSL(colorPalette.success);
+            root.style.setProperty('--success', hsl);
+          }
         } catch (e) {
           console.error('Error parsing color palette:', e);
         }
