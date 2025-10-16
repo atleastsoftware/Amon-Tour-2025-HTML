@@ -126,6 +126,27 @@ export default function ThemeLoader() {
           console.error('Error parsing typography:', e);
         }
       }
+      
+      // Apply logo settings (favicon)
+      const logoSettingsRaw = themeSettings.find((s: any) => s.key === 'logo_settings')?.value;
+      if (logoSettingsRaw) {
+        try {
+          const logoSettings = typeof logoSettingsRaw === 'string' ? JSON.parse(logoSettingsRaw) : logoSettingsRaw;
+          
+          if (logoSettings.favicon) {
+            // Update favicon in the document head
+            let link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
+            if (!link) {
+              link = document.createElement('link');
+              link.rel = 'icon';
+              document.getElementsByTagName('head')[0].appendChild(link);
+            }
+            link.href = logoSettings.favicon;
+          }
+        } catch (e) {
+          console.error('Error parsing logo settings:', e);
+        }
+      }
     }
   }, [themeSettings]);
 

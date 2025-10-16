@@ -74,6 +74,17 @@ export default function Header() {
   const notificationConfig = notificationSettings 
     ? (typeof notificationSettings === 'string' ? JSON.parse(notificationSettings) : notificationSettings) 
     : { enabled: true, text: "Welcome to the new Amon Tour website! This site is currently in a testing phase, so a few issues may still occur. For any reference, the previous site remains accessible at www.amon-tour.fr. Thank you for your understanding", background_color: "#3BA8AF", text_color: "#ffffff" };
+  
+  // Fetch logo settings
+  const logoSettings = Array.isArray(siteSettings) 
+    ? siteSettings.find((s: any) => s.key === 'logo_settings')?.value 
+    : null;
+  const logoConfig = logoSettings 
+    ? (typeof logoSettings === 'string' ? JSON.parse(logoSettings) : logoSettings) 
+    : { header_logo: logoAmon, header_logo_height: "80px" };
+  
+  const headerLogoSrc = logoConfig.header_logo?.startsWith('/src/') ? logoAmon : (logoConfig.header_logo || logoAmon);
+  const headerLogoHeight = logoConfig.header_logo_height || "80px";
 
   // Track scroll position for header transparency and measure header height
   useEffect(() => {
@@ -251,9 +262,10 @@ export default function Header() {
             whileHover={{ scale: 1.05 }}
           >
             <img 
-              src={logoAmon} 
+              src={headerLogoSrc} 
               alt="Amon Logo" 
-              className="h-20 w-auto mt-1 ml-[-4px]"
+              className="w-auto mt-1 ml-[-4px]"
+              style={{ height: headerLogoHeight }}
             />
             <span 
               className={`ml-3 text-3xl font-bold ${

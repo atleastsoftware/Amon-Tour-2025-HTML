@@ -14,7 +14,8 @@ export default function PopupAnnouncement() {
     queryKey: ['/api/public/theme-settings'],
   });
 
-  const popupConfig = settings?.popup_settings ? JSON.parse(settings.popup_settings) : {
+  const popupSettingsRaw = Array.isArray(settings) ? settings.find((s: any) => s.key === 'popup_settings')?.value : null;
+  const popupConfig = popupSettingsRaw ? (typeof popupSettingsRaw === 'string' ? JSON.parse(popupSettingsRaw) : popupSettingsRaw) : {
     enabled: false,
     type: 'newsletter',
     title: 'Subscribe to our Newsletter',

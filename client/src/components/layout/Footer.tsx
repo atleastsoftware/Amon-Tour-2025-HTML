@@ -154,6 +154,12 @@ export default function Footer() {
   const newsletterConfig = newsletterConfigRaw ? (typeof newsletterConfigRaw === 'string' ? JSON.parse(newsletterConfigRaw) : newsletterConfigRaw) : {};
   const copyrightConfig = copyrightConfigRaw ? (typeof copyrightConfigRaw === 'string' ? JSON.parse(copyrightConfigRaw) : copyrightConfigRaw) : { text: '© 2025 Flame BB Co., Ltd. (Amon Tour). All rights reserved.', enabled: true };
   
+  // Footer logo settings
+  const logoSettingsRaw = Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.key === 'logo_settings')?.value : null;
+  const logoSettings = logoSettingsRaw ? (typeof logoSettingsRaw === 'string' ? JSON.parse(logoSettingsRaw) : logoSettingsRaw) : {};
+  const footerLogoSrc = logoSettings.footer_logo?.startsWith('/src/') ? logoA : (logoSettings.footer_logo || logoA);
+  const footerLogoHeight = logoSettings.footer_logo_height || "48px";
+  
   return (
     <footer className="bg-black text-primary-foreground pt-8 pb-4">
       <div className="container mx-auto px-4">
@@ -167,9 +173,10 @@ export default function Footer() {
             whileHover={{ scale: 1.05 }}
           >
             <img 
-              src={logoA} 
+              src={footerLogoSrc} 
               alt="Amon Tour Logo" 
-              className="h-12 w-auto"
+              className="w-auto"
+              style={{ height: footerLogoHeight }}
             />
           </motion.div>
         </div>
