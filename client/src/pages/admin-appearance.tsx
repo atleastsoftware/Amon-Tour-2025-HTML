@@ -2815,45 +2815,47 @@ export default function AdminAppearance() {
                       <CardDescription>Familles de polices et styles de texte</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                      <div>
-                        <Label>Police des titres</Label>
-                        <Select 
-                          value={tempTypography?.heading_font || JSON.parse(getSiteSetting('theme', 'typography') || '{"heading_font": "Poppins"}').heading_font}
-                          onValueChange={(value) => {
-                            setTempTypography((prev: any) => ({ ...prev, heading_font: value }));
-                          }}
-                        >
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select heading font" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="Poppins">Poppins</SelectItem>
-                            <SelectItem value="Inter">Inter</SelectItem>
-                            <SelectItem value="Roboto">Roboto</SelectItem>
-                            <SelectItem value="Open Sans">Open Sans</SelectItem>
-                            <SelectItem value="Montserrat">Montserrat</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <div>
-                        <Label>Police du texte</Label>
-                        <Select 
-                          value={tempTypography?.body_font || JSON.parse(getSiteSetting('theme', 'typography') || '{"body_font": "Inter"}').body_font}
-                          onValueChange={(value) => {
-                            setTempTypography((prev: any) => ({ ...prev, body_font: value }));
-                          }}
-                        >
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select body font" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="Inter">Inter</SelectItem>
-                            <SelectItem value="Poppins">Poppins</SelectItem>
-                            <SelectItem value="Roboto">Roboto</SelectItem>
-                            <SelectItem value="Open Sans">Open Sans</SelectItem>
-                            <SelectItem value="Lato">Lato</SelectItem>
-                          </SelectContent>
-                        </Select>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <Label>Police des titres</Label>
+                          <Select 
+                            value={tempTypography?.heading_font || JSON.parse(getSiteSetting('theme', 'typography') || '{"heading_font": "Poppins"}').heading_font}
+                            onValueChange={(value) => {
+                              setTempTypography((prev: any) => ({ ...prev, heading_font: value }));
+                            }}
+                          >
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select heading font" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="Poppins">Poppins</SelectItem>
+                              <SelectItem value="Inter">Inter</SelectItem>
+                              <SelectItem value="Roboto">Roboto</SelectItem>
+                              <SelectItem value="Open Sans">Open Sans</SelectItem>
+                              <SelectItem value="Montserrat">Montserrat</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div>
+                          <Label>Police du texte</Label>
+                          <Select 
+                            value={tempTypography?.body_font || JSON.parse(getSiteSetting('theme', 'typography') || '{"body_font": "Inter"}').body_font}
+                            onValueChange={(value) => {
+                              setTempTypography((prev: any) => ({ ...prev, body_font: value }));
+                            }}
+                          >
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select body font" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="Inter">Inter</SelectItem>
+                              <SelectItem value="Poppins">Poppins</SelectItem>
+                              <SelectItem value="Roboto">Roboto</SelectItem>
+                              <SelectItem value="Open Sans">Open Sans</SelectItem>
+                              <SelectItem value="Lato">Lato</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
                       </div>
                       <div className="grid grid-cols-3 gap-4">
                         <div>
