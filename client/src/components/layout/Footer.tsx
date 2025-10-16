@@ -146,11 +146,13 @@ export default function Footer() {
   const usefulLinksRaw = Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.key === 'useful_links')?.value : null;
   const socialMediaRaw = Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.key === 'social_media')?.value : null;
   const newsletterConfigRaw = Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.key === 'newsletter_config')?.value : null;
+  const copyrightConfigRaw = Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.key === 'copyright_config')?.value : null;
   
   const contactInfo = contactInfoRaw ? (typeof contactInfoRaw === 'string' ? JSON.parse(contactInfoRaw) : contactInfoRaw) : [];
   const usefulLinks = usefulLinksRaw ? (typeof usefulLinksRaw === 'string' ? JSON.parse(usefulLinksRaw) : usefulLinksRaw) : [];
   const socialMedia = socialMediaRaw ? (typeof socialMediaRaw === 'string' ? JSON.parse(socialMediaRaw) : socialMediaRaw) : [];
   const newsletterConfig = newsletterConfigRaw ? (typeof newsletterConfigRaw === 'string' ? JSON.parse(newsletterConfigRaw) : newsletterConfigRaw) : {};
+  const copyrightConfig = copyrightConfigRaw ? (typeof copyrightConfigRaw === 'string' ? JSON.parse(copyrightConfigRaw) : copyrightConfigRaw) : { text: '© 2025 Flame BB Co., Ltd. (Amon Tour). All rights reserved.', enabled: true };
   
   return (
     <footer className="bg-black text-primary-foreground pt-8 pb-4">
@@ -246,38 +248,40 @@ export default function Footer() {
         </div>
         
         {/* Copyright */}
-        <motion.div 
-          className="border-t border-white/20 pt-4 flex flex-col md:flex-row justify-between items-center text-sm"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-        >
-          <p className="font-heading">&copy; {new Date().getFullYear()} Flame BB Co., Ltd. (Amon Tour). All rights reserved.</p>
-          <div className="flex space-x-4 mt-4 md:mt-0">
-            <motion.a 
-              href="/legal-notice" 
-              className="font-heading text-sm hover:text-secondary transition-colors"
-              whileHover={{ y: -2 }}
-            >
-              Legal Notice
-            </motion.a>
-            <motion.a 
-              href="/privacy-policy" 
-              className="font-heading text-sm hover:text-secondary transition-colors"
-              whileHover={{ y: -2 }}
-            >
-              Privacy Policy
-            </motion.a>
-            <motion.a 
-              href="/terms-conditions" 
-              className="font-heading text-sm hover:text-secondary transition-colors"
-              whileHover={{ y: -2 }}
-            >
-              Terms & Conditions
-            </motion.a>
-          </div>
-        </motion.div>
+        {copyrightConfig.enabled !== false && (
+          <motion.div 
+            className="border-t border-white/20 pt-4 flex flex-col md:flex-row justify-between items-center text-sm"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+          >
+            <p className="font-heading">{copyrightConfig.text || `© ${new Date().getFullYear()} Flame BB Co., Ltd. (Amon Tour). All rights reserved.`}</p>
+            <div className="flex space-x-4 mt-4 md:mt-0">
+              <motion.a 
+                href="/legal-notice" 
+                className="font-heading text-sm hover:text-secondary transition-colors"
+                whileHover={{ y: -2 }}
+              >
+                Legal Notice
+              </motion.a>
+              <motion.a 
+                href="/privacy-policy" 
+                className="font-heading text-sm hover:text-secondary transition-colors"
+                whileHover={{ y: -2 }}
+              >
+                Privacy Policy
+              </motion.a>
+              <motion.a 
+                href="/terms-conditions" 
+                className="font-heading text-sm hover:text-secondary transition-colors"
+                whileHover={{ y: -2 }}
+              >
+                Terms & Conditions
+              </motion.a>
+            </div>
+          </motion.div>
+        )}
       </div>
     </footer>
   );
