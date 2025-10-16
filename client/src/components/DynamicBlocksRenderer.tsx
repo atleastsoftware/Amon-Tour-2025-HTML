@@ -293,10 +293,10 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
               <motion.div 
                 className="max-w-5xl"
                 animate={hasAnimation ? { 
-                  x: [0, 20, 0, -20, 0],
+                  x: [0, 10, 0, -10, 0],
                   transition: {
                     repeat: Infinity,
-                    duration: 5,
+                    duration: 8,
                     ease: "easeInOut"
                   }
                 } : {}}
