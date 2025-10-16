@@ -2776,28 +2776,25 @@ export default function AdminAppearance() {
                           </Button>
                         </div>
                         
-                        {/* Announcement Bar Preview */}
+                        {/* Aperçu de la barre d'annonces */}
                         <div className="mt-6 pt-6 border-t border-gray-200">
                           <div className="flex items-center gap-2 mb-4">
                             <Bell className="w-4 h-4" />
-                            <h3 className="text-base font-semibold">Announcement Bar Preview</h3>
+                            <h3 className="text-base font-semibold">Aperçu de la barre d'annonces</h3>
                           </div>
                           <div className="bg-gray-100 p-4 rounded-lg">
-                            {JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"enabled": true}').enabled ? (
-                              <div 
-                                className="py-2 px-4 text-center text-sm font-medium rounded"
-                                style={{
-                                  backgroundColor: JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"background_color": "#f5c400"}').background_color,
-                                  color: JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text_color": "#000000"}').text_color
-                                }}
-                              >
-                                {JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text": "📢 L\'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr"}').text || "Votre message d'annonce apparaîtra ici"}
-                              </div>
-                            ) : (
-                              <div className="text-center text-gray-500 py-4">
-                                Barre d'annonce désactivée
-                              </div>
+                            {!JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"enabled": true}').enabled && (
+                              <p className="text-xs text-orange-600 mb-2 text-center">⚠️ Barre d'annonce désactivée - cet aperçu ne s'affichera pas sur le site</p>
                             )}
+                            <div 
+                              className="py-2 px-4 text-center text-sm font-medium rounded"
+                              style={{
+                                backgroundColor: JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"background_color": "#f5c400"}').background_color,
+                                color: JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text_color": "#000000"}').text_color
+                              }}
+                            >
+                              {JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"text": "📢 L\'ancien site Amon Tour est toujours en ligne sur www.Amon-Tour.fr"}').text || "Votre message d'annonce apparaîtra ici"}
+                            </div>
                           </div>
                         </div>
                       </CardContent>
