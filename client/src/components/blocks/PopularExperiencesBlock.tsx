@@ -31,9 +31,11 @@ export default function PopularExperiencesBlock({
 
   const config = configuration;
 
+  // Ensure we always have an array
+  let filteredTours: any[] = Array.isArray(tourNinjaTours) ? tourNinjaTours : [];
+
   // Apply category filter
   const categoryFilter = config.categoryFilter || 'all';
-  let filteredTours = tourNinjaTours || [];
 
   if (categoryFilter === 'featured') {
     if (filteredTours.length > 0) {
@@ -65,7 +67,8 @@ export default function PopularExperiencesBlock({
     displayCount = config.displayCountDesktop || 6;
   }
 
-  const displayTours = filteredTours.slice(0, displayCount);
+  // Ensure we have a valid array before slicing
+  const displayTours = Array.isArray(filteredTours) ? filteredTours.slice(0, displayCount) : [];
 
   return (
     <section id="tours" className="py-16" style={{ backgroundColor: config.backgroundColor || '#ffffff' }}>
