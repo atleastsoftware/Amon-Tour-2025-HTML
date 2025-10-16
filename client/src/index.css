@@ -63,6 +63,24 @@
   white-space: nowrap;
 }
 
+.animate-scroll-slow {
+  animation: marquee 25s linear infinite;
+  display: inline-flex;
+  white-space: nowrap;
+}
+
+.animate-scroll-medium {
+  animation: marquee 15s linear infinite;
+  display: inline-flex;
+  white-space: nowrap;
+}
+
+.animate-scroll-fast {
+  animation: marquee 8s linear infinite;
+  display: inline-flex;
+  white-space: nowrap;
+}
+
 :root {
   --background: 0 0% 100%;
   --foreground: 20 14.3% 4.1%;

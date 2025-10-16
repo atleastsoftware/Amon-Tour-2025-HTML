@@ -2720,6 +2720,27 @@ export default function AdminAppearance() {
                             <Label htmlFor="notification-scrolling">Activer défilement (idéal pour textes longs)</Label>
                           </div>
                           
+                          {(tempNotificationBar?.scrolling ?? JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"scrolling": false}').scrolling) && (
+                            <div>
+                              <Label>Vitesse de défilement</Label>
+                              <Select
+                                value={tempNotificationBar?.scroll_speed || JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"scroll_speed": "medium"}').scroll_speed || "medium"}
+                                onValueChange={(value) => {
+                                  setTempNotificationBar((prev: any) => ({ ...prev, scroll_speed: value }));
+                                }}
+                              >
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Sélectionner la vitesse" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="slow">🐌 Lent (25s)</SelectItem>
+                                  <SelectItem value="medium">🚶 Moyen (15s)</SelectItem>
+                                  <SelectItem value="fast">🚀 Rapide (8s)</SelectItem>
+                                </SelectContent>
+                              </Select>
+                            </div>
+                          )}
+                          
                           <div className="flex items-center space-x-2">
                             <Switch 
                               id="notification-clickable"
@@ -2819,7 +2840,11 @@ export default function AdminAppearance() {
                               }}
                             >
                               <span
-                                className={(tempNotificationBar?.scrolling ?? JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"scrolling": false}').scrolling) ? "animate-scroll" : ""}
+                                className={
+                                  (tempNotificationBar?.scrolling ?? JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"scrolling": false}').scrolling)
+                                    ? `animate-scroll-${tempNotificationBar?.scroll_speed || JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"scroll_speed": "medium"}').scroll_speed || "medium"}`
+                                    : ""
+                                }
                                 style={{
                                   display: 'inline-block',
                                   whiteSpace: (tempNotificationBar?.scrolling ?? JSON.parse(getSiteSetting('theme', 'notification_bar') || '{"scrolling": false}').scrolling) ? 'nowrap' : 'normal'
