@@ -273,7 +273,7 @@ export default function Header() {
             </NavLink>
           )}
           {menuItems
-            .filter((item: any) => !item.parentId && item.isActive)
+            .filter((item: any) => !item.parentId && item.isActive && item.url !== '/')
             .sort((a: any, b: any) => a.displayOrder - b.displayOrder)
             .map((item: any) => (
               <NavLink 
@@ -320,7 +320,7 @@ export default function Header() {
                 </NavLink>
               )}
               {menuItems
-                .filter((item: any) => !item.parentId && item.isActive)
+                .filter((item: any) => !item.parentId && item.isActive && item.url !== '/')
                 .sort((a: any, b: any) => a.displayOrder - b.displayOrder)
                 .map((item: any) => (
                   <NavLink 
