@@ -144,7 +144,7 @@ export default function Header() {
   const headerStyle = { 
     top: `${notificationBarHeight}px`,
     backgroundColor: isHomePage && !scrolled ? 'transparent' : 'hsl(var(--menu-background))',
-    color: 'hsl(var(--menu-text))'
+    color: isHomePage && !scrolled ? '#ffffff' : 'hsl(var(--menu-text))'
   };
 
   return (
