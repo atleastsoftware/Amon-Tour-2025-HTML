@@ -383,9 +383,9 @@ export default function DynamicFormBlock({
               // Layout Side-by-side (default)
               <div className="grid md:grid-cols-2">
                 <div className="bg-primary p-8 md:p-12 flex flex-col justify-center relative overflow-hidden">
-                  {formData.sideImage && (
+                  {formData.headerImage && (
                     <img 
-                      src={formData.sideImage}
+                      src={formData.headerImage}
                       alt="Form background"
                       className="absolute inset-0 w-full h-full object-cover opacity-30"
                     />
