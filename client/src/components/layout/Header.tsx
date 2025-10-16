@@ -16,26 +16,25 @@ type NavLinkProps = {
 };
 
 const NavLink = ({ href, isActive, children, onClick, isHomePage, scrolled }: NavLinkProps & { isHomePage?: boolean; scrolled?: boolean }) => {
-  const textColor = isHomePage && !scrolled 
-    ? isActive 
-      ? "text-primary drop-shadow-lg" 
-      : "text-primary-foreground hover:text-primary drop-shadow-lg"
-    : isActive 
-      ? "text-primary" 
-      : "text-neutral-700 hover:text-primary";
-
   return (
     <Link href={href}>
       <motion.span
         onClick={onClick}
-        className={`font-heading font-semibold transition-colors cursor-pointer relative ${textColor}`}
-        whileHover={{ scale: 1.05 }}
+        className={`font-heading font-semibold transition-colors cursor-pointer relative ${
+          isHomePage && !scrolled ? "drop-shadow-lg" : ""
+        }`}
+        style={{
+          color: isActive ? 'hsl(var(--primary))' : 'inherit',
+          opacity: isActive ? 1 : 0.9
+        }}
+        whileHover={{ scale: 1.05, opacity: 1 }}
         whileTap={{ scale: 0.98 }}
       >
         {children}
         {isActive && (
           <motion.div 
-            className="absolute bottom-0 left-0 w-full h-[2px] bg-primary"
+            className="absolute bottom-0 left-0 w-full h-[2px]"
+            style={{ backgroundColor: 'hsl(var(--primary))' }}
             layoutId="activeNav"
           />
         )}
@@ -137,12 +136,16 @@ export default function Header() {
   const headerClasses = isHomePage
     ? `fixed left-0 w-full z-50 transition-all duration-300 ${
         scrolled 
-          ? 'bg-card/95 backdrop-blur-md shadow-lg py-1' 
+          ? 'backdrop-blur-md shadow-lg py-1' 
           : 'bg-transparent py-2'
       }`
-    : 'fixed left-0 w-full z-50 bg-card py-2';
+    : 'fixed left-0 w-full z-50 py-2';
 
-  const headerStyle = { top: `${notificationBarHeight}px` };
+  const headerStyle = { 
+    top: `${notificationBarHeight}px`,
+    backgroundColor: isHomePage && !scrolled ? 'transparent' : 'hsl(var(--menu-background))',
+    color: 'hsl(var(--menu-text))'
+  };
 
   return (
     <>
@@ -282,11 +285,12 @@ export default function Header() {
             />
             <span 
               className={`ml-3 text-3xl font-bold ${
-                isHomePage && !scrolled 
-                  ? 'text-primary-foreground drop-shadow-lg' 
-                  : 'text-primary'
+                isHomePage && !scrolled ? 'drop-shadow-lg' : ''
               }`}
-              style={{ fontFamily: 'Lobster, cursive' }}
+              style={{ 
+                fontFamily: 'Lobster, cursive',
+                color: isHomePage && !scrolled ? 'white' : 'hsl(var(--menu-text))'
+              }}
             >
               Amon Tour
             </span>
@@ -296,9 +300,10 @@ export default function Header() {
         {/* Mobile Menu Button */}
         <motion.button 
           onClick={toggleMobileMenu}
-          className={`md:hidden focus:outline-none ${
-            isHomePage && !scrolled ? 'text-primary-foreground' : 'text-neutral-700'
-          }`}
+          className="md:hidden focus:outline-none"
+          style={{
+            color: isHomePage && !scrolled ? 'white' : 'hsl(var(--menu-text))'
+          }}
           aria-label="Toggle menu"
           whileTap={{ scale: 0.9 }}
           whileHover={{ scale: 1.1 }}
@@ -367,10 +372,13 @@ export default function Header() {
         {isMobileMenuOpen && (
           <motion.div 
             className={`md:hidden border-t px-4 py-3 overflow-hidden ${
-              isHomePage && !scrolled 
-                ? 'bg-black/80 backdrop-blur-md border-white/20' 
-                : 'bg-card border-gray-200'
+              isHomePage && !scrolled ? 'backdrop-blur-md' : ''
             }`}
+            style={{
+              backgroundColor: isHomePage && !scrolled ? 'rgba(0, 0, 0, 0.8)' : 'hsl(var(--menu-background))',
+              borderColor: isHomePage && !scrolled ? 'rgba(255, 255, 255, 0.2)' : 'hsl(var(--menu-background) / 0.8)',
+              color: 'hsl(var(--menu-text))'
+            }}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
