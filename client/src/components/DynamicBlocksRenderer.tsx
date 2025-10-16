@@ -22,6 +22,7 @@ import TextGalleryBlock from "@/components/blocks/TextGalleryBlock";
 import TextVideoBlock from "@/components/blocks/TextVideoBlock";
 import TextListingBlock from "@/components/blocks/TextListingBlock";
 import TextPricingBlock from "@/components/blocks/TextPricingBlock";
+import DynamicFormBlock from "@/components/blocks/DynamicFormBlock";
 
 interface PageBlock {
   id: number;
@@ -517,37 +518,19 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
 
       case 'form':
       case 'custom_form':
-        // Handle cruise form
-        if (block.configuration?.formType === 'cruise' || block.identifier === 'cruise-form') {
-          return (
-            <div key={block.id} id={block.identifier || undefined} className="py-16 bg-white w-full">
-              <div className="w-full px-8 md:px-12 lg:px-16 max-w-5xl mx-auto">
-                <Suspense fallback={
-                  <div className="flex justify-center py-8">
-                    <Loader2 className="h-8 w-8 animate-spin text-primary" />
-                  </div>
-                }>
-                  <CruiseForm />
-                </Suspense>
-              </div>
-            </div>
-          );
-        }
-        // Default form display
+      case 'dynamic_form':
+        const formConfig = block.configuration || {};
         return (
-          <div key={block.id} className="py-16 bg-white">
-            <div className="container mx-auto px-4">
-              {block.title && (
-                <h2 className="text-3xl font-bold text-center mb-8">{block.title}</h2>
-              )}
-              {block.subtitle && (
-                <p className="text-xl text-gray-600 text-center mb-8">{block.subtitle}</p>
-              )}
-              <div className="max-w-2xl mx-auto bg-gray-100 rounded-lg p-8">
-                <p className="text-gray-600 text-center">Formulaire personnalisé</p>
-              </div>
-            </div>
-          </div>
+          <DynamicFormBlock
+            key={block.id}
+            title={block.title || formConfig.title}
+            subtitle={block.subtitle || formConfig.subtitle}
+            formId={formConfig.formId}
+            titleColor={formConfig.titleColor}
+            subtitleColor={formConfig.subtitleColor}
+            dividerColor={formConfig.dividerColor}
+            backgroundColor={formConfig.backgroundColor}
+          />
         );
 
       case 'advantages':
@@ -624,18 +607,18 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
         );
 
       case 'custom_tour_form':
-        // Utiliser le composant CustomTourForm existant
-        // TODO: Le rendre configurable avec props dans une future mise à jour
+        const customTourFormConfig = block.configuration || {};
         return (
-          <div key={block.id} className="w-full">
-            <Suspense fallback={
-              <div className="flex justify-center py-8">
-                <Loader2 className="h-8 w-8 animate-spin text-primary" />
-              </div>
-            }>
-              <CustomTourForm />
-            </Suspense>
-          </div>
+          <DynamicFormBlock
+            key={block.id}
+            title={block.title || customTourFormConfig.title}
+            subtitle={block.subtitle || customTourFormConfig.subtitle}
+            formId={customTourFormConfig.formId}
+            titleColor={customTourFormConfig.titleColor}
+            subtitleColor={customTourFormConfig.subtitleColor}
+            dividerColor={customTourFormConfig.dividerColor}
+            backgroundColor={customTourFormConfig.backgroundColor}
+          />
         );
 
       case 'why_choose_us': {

@@ -1746,6 +1746,9 @@ const RealBlockPreview = ({ block, isFullscreen, liveConfiguration }: { block: P
         );
 
       case 'custom_tour_form':
+      case 'form':
+      case 'custom_form':
+      case 'dynamic_form':
         // Utiliser liveConfiguration pour l'édition en temps réel
         const customFormTitle = (liveConfiguration?.title !== undefined ? liveConfiguration.title : block.title) || 'Our Tailor-made trips';
         const customFormSubtitle = (liveConfiguration?.subtitle !== undefined ? liveConfiguration.subtitle : block.subtitle) || 'Design your own journey through Thailand with our tailor-made stays: from cultural discoveries and family adventures to romantic getaways and island escapes. Every itinerary is crafted to match your wishes, offering authentic experiences, quality services, and a unique immersion far from mass tourism.';
