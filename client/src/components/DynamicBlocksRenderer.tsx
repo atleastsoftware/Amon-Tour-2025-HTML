@@ -23,6 +23,7 @@ import TextVideoBlock from "@/components/blocks/TextVideoBlock";
 import TextListingBlock from "@/components/blocks/TextListingBlock";
 import TextPricingBlock from "@/components/blocks/TextPricingBlock";
 import DynamicFormBlock from "@/components/blocks/DynamicFormBlock";
+import PopularExperiencesBlock from "@/components/blocks/PopularExperiencesBlock";
 
 interface PageBlock {
   id: number;
@@ -592,18 +593,14 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
 
       case 'popular_experiences':
       case 'tour_ninja_section':
-        // Utiliser le composant TourNinjaSection existant
-        // TODO: Le rendre configurable avec props dans une future mise à jour
+        const popularExpConfig = block.configuration || {};
         return (
-          <div key={block.id} className="w-full">
-            <Suspense fallback={
-              <div className="flex justify-center py-8">
-                <Loader2 className="h-8 w-8 animate-spin text-primary" />
-              </div>
-            }>
-              <TourNinjaSection />
-            </Suspense>
-          </div>
+          <PopularExperiencesBlock
+            key={block.id}
+            title={block.title || popularExpConfig.title}
+            subtitle={block.subtitle || popularExpConfig.subtitle}
+            configuration={popularExpConfig}
+          />
         );
 
       case 'custom_tour_form':
