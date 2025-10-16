@@ -7040,6 +7040,12 @@ const BlockEditDropdown = ({
                 onChange={e => updateField('title', e.target.value)}
                 className="mt-2"
               />
+              <div className="mt-2">
+                <ColorPicker
+                  value={formData.titleColor ?? '#1f2937'}
+                  onChange={(value) => updateField('titleColor', value)}
+                />
+              </div>
             </div>
 
             {/* Sous-titre */}
@@ -7052,6 +7058,12 @@ const BlockEditDropdown = ({
                 rows={2}
                 className="mt-2"
               />
+              <div className="mt-2">
+                <ColorPicker
+                  value={formData.subtitleColor ?? '#374151'}
+                  onChange={(value) => updateField('subtitleColor', value)}
+                />
+              </div>
             </div>
 
             <Separator />

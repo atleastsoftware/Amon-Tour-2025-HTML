@@ -7,6 +7,8 @@ interface TextListingBlockProps {
       title?: string;
       subtitle?: string;
       items?: Array<{ label: string; description: string }>;
+      titleColor?: string;
+      subtitleColor?: string;
       labelColor?: string;
       dividerColor?: string;
       backgroundColor?: string;
@@ -24,6 +26,8 @@ export default function TextListingBlock({ block }: TextListingBlockProps) {
   ];
   // Filtrer les items vides (sans label ni description)
   const items = allItems.filter(item => item.label || item.description);
+  const titleColor = config.titleColor ?? "#1f2937";
+  const subtitleColor = config.subtitleColor ?? "#374151";
   const labelColor = config.labelColor ?? "#084F6E";
   const dividerColor = config.dividerColor ?? "#3BA8AF";
   const backgroundColor = config.backgroundColor ?? "white";
@@ -39,10 +43,10 @@ export default function TextListingBlock({ block }: TextListingBlockProps) {
         >
           {title && (
             <div className="text-center mb-8">
-              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">{title}</h2>
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3" style={{ color: titleColor }}>{title}</h2>
               <div className="w-20 h-1 mx-auto mb-8" style={{ backgroundColor: dividerColor }}></div>
               {subtitle && (
-                <p className="text-xl leading-relaxed max-w-3xl mx-auto whitespace-pre-line mb-8">
+                <p className="text-xl leading-relaxed max-w-3xl mx-auto whitespace-pre-line mb-8" style={{ color: subtitleColor }}>
                   {subtitle}
                 </p>
               )}
