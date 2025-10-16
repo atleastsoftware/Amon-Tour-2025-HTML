@@ -2733,9 +2733,9 @@ export default function AdminAppearance() {
                                   <SelectValue placeholder="Sélectionner la vitesse" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                  <SelectItem value="slow">🐌 Lent (25s)</SelectItem>
-                                  <SelectItem value="medium">🚶 Moyen (15s)</SelectItem>
-                                  <SelectItem value="fast">🚀 Rapide (8s)</SelectItem>
+                                  <SelectItem value="slow">Lent (25s)</SelectItem>
+                                  <SelectItem value="medium">Moyen (15s)</SelectItem>
+                                  <SelectItem value="fast">Rapide (8s)</SelectItem>
                                 </SelectContent>
                               </Select>
                             </div>
@@ -3223,18 +3223,8 @@ export default function AdminAppearance() {
                       {/* Header Logo */}
                       <div className="border rounded-lg p-4">
                         <Label className="text-base font-semibold mb-3 block">Header Logo</Label>
-                        <div className="grid grid-cols-2 gap-4">
-                          <div>
-                            <Label>Image URL/Path</Label>
-                            <Input
-                              placeholder="/src/assets/logo-amon.png"
-                              value={tempLogoSettings?.header_logo || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": "/src/assets/logo-amon.png"}').header_logo}
-                              onChange={(e) => {
-                                setTempLogoSettings((prev: any) => ({ ...prev, header_logo: e.target.value }));
-                              }}
-                            />
-                          </div>
-                          <div>
+                        <div className="flex gap-3">
+                          <div className="w-32">
                             <Label>Size</Label>
                             <Select 
                               value={tempLogoSettings?.header_logo_height || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo_height": "96px"}').header_logo_height}
@@ -3246,13 +3236,28 @@ export default function AdminAppearance() {
                                 <SelectValue />
                               </SelectTrigger>
                               <SelectContent>
-                                <SelectItem value="32px">Small (32px)</SelectItem>
-                                <SelectItem value="48px">Medium (48px)</SelectItem>
-                                <SelectItem value="64px">Large (64px)</SelectItem>
-                                <SelectItem value="96px">X-Large (96px)</SelectItem>
-                                <SelectItem value="128px">XX-Large (128px)</SelectItem>
+                                <SelectItem value="32px">32px</SelectItem>
+                                <SelectItem value="48px">48px</SelectItem>
+                                <SelectItem value="64px">64px</SelectItem>
+                                <SelectItem value="96px">96px</SelectItem>
+                                <SelectItem value="128px">128px</SelectItem>
                               </SelectContent>
                             </Select>
+                          </div>
+                          <div className="flex-1">
+                            <Label>Image URL/Path</Label>
+                            <div className="flex gap-2">
+                              <Input
+                                placeholder="/src/assets/logo-amon.png"
+                                value={tempLogoSettings?.header_logo || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": "/src/assets/logo-amon.png"}').header_logo}
+                                onChange={(e) => {
+                                  setTempLogoSettings((prev: any) => ({ ...prev, header_logo: e.target.value }));
+                                }}
+                              />
+                              <Button variant="outline" size="icon" className="border-dashed">
+                                <Plus className="h-4 w-4" />
+                              </Button>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -3260,18 +3265,8 @@ export default function AdminAppearance() {
                       {/* Footer Logo */}
                       <div className="border rounded-lg p-4">
                         <Label className="text-base font-semibold mb-3 block">Footer Logo</Label>
-                        <div className="grid grid-cols-2 gap-4">
-                          <div>
-                            <Label>Image URL/Path</Label>
-                            <Input
-                              placeholder="/src/assets/logo-amon.png"
-                              value={tempLogoSettings?.footer_logo || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": "/src/assets/logo-amon.png"}').footer_logo}
-                              onChange={(e) => {
-                                setTempLogoSettings((prev: any) => ({ ...prev, footer_logo: e.target.value }));
-                              }}
-                            />
-                          </div>
-                          <div>
+                        <div className="flex gap-3">
+                          <div className="w-32">
                             <Label>Size</Label>
                             <Select 
                               value={tempLogoSettings?.footer_logo_height || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo_height": "64px"}').footer_logo_height}
@@ -3283,13 +3278,28 @@ export default function AdminAppearance() {
                                 <SelectValue />
                               </SelectTrigger>
                               <SelectContent>
-                                <SelectItem value="24px">Small (24px)</SelectItem>
-                                <SelectItem value="32px">Medium (32px)</SelectItem>
-                                <SelectItem value="48px">Large (48px)</SelectItem>
-                                <SelectItem value="64px">X-Large (64px)</SelectItem>
-                                <SelectItem value="96px">XX-Large (96px)</SelectItem>
+                                <SelectItem value="24px">24px</SelectItem>
+                                <SelectItem value="32px">32px</SelectItem>
+                                <SelectItem value="48px">48px</SelectItem>
+                                <SelectItem value="64px">64px</SelectItem>
+                                <SelectItem value="96px">96px</SelectItem>
                               </SelectContent>
                             </Select>
+                          </div>
+                          <div className="flex-1">
+                            <Label>Image URL/Path</Label>
+                            <div className="flex gap-2">
+                              <Input
+                                placeholder="/src/assets/logo-amon.png"
+                                value={tempLogoSettings?.footer_logo || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": "/src/assets/logo-amon.png"}').footer_logo}
+                                onChange={(e) => {
+                                  setTempLogoSettings((prev: any) => ({ ...prev, footer_logo: e.target.value }));
+                                }}
+                              />
+                              <Button variant="outline" size="icon" className="border-dashed">
+                                <Plus className="h-4 w-4" />
+                              </Button>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -3297,18 +3307,8 @@ export default function AdminAppearance() {
                       {/* Favicon Logo */}
                       <div className="border rounded-lg p-4">
                         <Label className="text-base font-semibold mb-3 block">Favicon Logo</Label>
-                        <div className="grid grid-cols-2 gap-4">
-                          <div>
-                            <Label>Image URL/Path</Label>
-                            <Input
-                              placeholder="/favicon.ico"
-                              value={tempLogoSettings?.favicon || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": "/favicon.ico"}').favicon}
-                              onChange={(e) => {
-                                setTempLogoSettings((prev: any) => ({ ...prev, favicon: e.target.value }));
-                              }}
-                            />
-                          </div>
-                          <div>
+                        <div className="flex gap-3">
+                          <div className="w-32">
                             <Label>Size</Label>
                             <Select 
                               value={tempLogoSettings?.favicon_size || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon_size": "32px"}').favicon_size}
@@ -3320,12 +3320,27 @@ export default function AdminAppearance() {
                                 <SelectValue />
                               </SelectTrigger>
                               <SelectContent>
-                                <SelectItem value="16px">16x16px</SelectItem>
-                                <SelectItem value="24px">24x24px</SelectItem>
-                                <SelectItem value="32px">32x32px</SelectItem>
-                                <SelectItem value="48px">48x48px</SelectItem>
+                                <SelectItem value="16px">16px</SelectItem>
+                                <SelectItem value="24px">24px</SelectItem>
+                                <SelectItem value="32px">32px</SelectItem>
+                                <SelectItem value="48px">48px</SelectItem>
                               </SelectContent>
                             </Select>
+                          </div>
+                          <div className="flex-1">
+                            <Label>Image URL/Path</Label>
+                            <div className="flex gap-2">
+                              <Input
+                                placeholder="/favicon.ico"
+                                value={tempLogoSettings?.favicon || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": "/favicon.ico"}').favicon}
+                                onChange={(e) => {
+                                  setTempLogoSettings((prev: any) => ({ ...prev, favicon: e.target.value }));
+                                }}
+                              />
+                              <Button variant="outline" size="icon" className="border-dashed">
+                                <Plus className="h-4 w-4" />
+                              </Button>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -3347,61 +3362,63 @@ export default function AdminAppearance() {
                           <Image className="w-4 h-4" />
                           <h3 className="text-base font-semibold">Logo Preview</h3>
                         </div>
-                        <div className="bg-gray-50 p-4 rounded-lg space-y-6">
-                          {/* Header Logo Preview */}
-                          <div className="bg-white p-4 rounded border">
-                            <p className="text-sm font-medium mb-2">Header Logo</p>
-                            <div className="flex items-center justify-center min-h-[100px] bg-gray-50 rounded">
-                              {JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": "/src/assets/logo-amon.png"}').header_logo ? (
-                                <img 
-                                  src={JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": "/src/assets/logo-amon.png"}').header_logo.startsWith('/src/') ? logoAmon : JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": "/src/assets/logo-amon.png"}').header_logo}
-                                  alt="Header Logo" 
-                                  style={{ 
-                                    height: JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo_height": "96px"}').header_logo_height,
-                                    width: 'auto'
-                                  }}
-                                />
-                              ) : (
-                                <div className="text-gray-400 text-sm">Aucun logo header défini</div>
-                              )}
+                        <div className="bg-gray-50 p-4 rounded-lg">
+                          <div className="grid grid-cols-3 gap-4">
+                            {/* Header Logo Preview */}
+                            <div className="bg-white p-3 rounded border">
+                              <p className="text-xs font-medium mb-2 text-center">Header</p>
+                              <div className="flex items-center justify-center h-20 bg-gray-50 rounded">
+                                {JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": "/src/assets/logo-amon.png"}').header_logo ? (
+                                  <img 
+                                    src={JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": "/src/assets/logo-amon.png"}').header_logo.startsWith('/src/') ? logoAmon : JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"header_logo": "/src/assets/logo-amon.png"}').header_logo}
+                                    alt="Header Logo" 
+                                    style={{ 
+                                      maxHeight: '60px',
+                                      width: 'auto'
+                                    }}
+                                  />
+                                ) : (
+                                  <div className="text-gray-400 text-xs">Non défini</div>
+                                )}
+                              </div>
                             </div>
-                          </div>
 
-                          {/* Footer Logo Preview */}
-                          <div className="bg-black p-4 rounded border">
-                            <p className="text-sm font-medium mb-2 text-white">Footer Logo</p>
-                            <div className="flex items-center justify-center min-h-[80px] bg-gray-800 rounded">
-                              {JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": "/src/assets/logo-amon.png"}').footer_logo ? (
-                                <img 
-                                  src={JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": "/src/assets/logo-amon.png"}').footer_logo.startsWith('/src/') ? logoAmon : JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": "/src/assets/logo-amon.png"}').footer_logo}
-                                  alt="Footer Logo" 
-                                  style={{ 
-                                    height: JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo_height": "64px"}').footer_logo_height,
-                                    width: 'auto'
-                                  }}
-                                />
-                              ) : (
-                                <div className="text-gray-400 text-sm">Aucun logo footer défini</div>
-                              )}
+                            {/* Footer Logo Preview */}
+                            <div className="bg-black p-3 rounded border">
+                              <p className="text-xs font-medium mb-2 text-white text-center">Footer</p>
+                              <div className="flex items-center justify-center h-20 bg-gray-800 rounded">
+                                {JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": "/src/assets/logo-amon.png"}').footer_logo ? (
+                                  <img 
+                                    src={JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": "/src/assets/logo-amon.png"}').footer_logo.startsWith('/src/') ? logoAmon : JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"footer_logo": "/src/assets/logo-amon.png"}').footer_logo}
+                                    alt="Footer Logo" 
+                                    style={{ 
+                                      maxHeight: '60px',
+                                      width: 'auto'
+                                    }}
+                                  />
+                                ) : (
+                                  <div className="text-gray-400 text-xs">Non défini</div>
+                                )}
+                              </div>
                             </div>
-                          </div>
 
-                          {/* Favicon Logo Preview */}
-                          <div className="bg-white p-4 rounded border">
-                            <p className="text-sm font-medium mb-2">Favicon Logo</p>
-                            <div className="flex items-center justify-center min-h-[60px] bg-gray-100 rounded">
-                              {(tempLogoSettings?.favicon || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": "/favicon.ico"}').favicon) ? (
-                                <img 
-                                  src={(tempLogoSettings?.favicon || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": "/favicon.ico"}').favicon).startsWith('/src/') ? logoAmon : (tempLogoSettings?.favicon || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": "/favicon.ico"}').favicon)}
-                                  alt="Favicon" 
-                                  style={{ 
-                                    height: tempLogoSettings?.favicon_size || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon_size": "32px"}').favicon_size,
-                                    width: tempLogoSettings?.favicon_size || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon_size": "32px"}').favicon_size
-                                  }}
-                                />
-                              ) : (
-                                <div className="text-gray-400 text-sm">Aucun favicon défini</div>
-                              )}
+                            {/* Favicon Logo Preview */}
+                            <div className="bg-white p-3 rounded border">
+                              <p className="text-xs font-medium mb-2 text-center">Favicon</p>
+                              <div className="flex items-center justify-center h-20 bg-gray-100 rounded">
+                                {(tempLogoSettings?.favicon || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": "/favicon.ico"}').favicon) ? (
+                                  <img 
+                                    src={(tempLogoSettings?.favicon || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": "/favicon.ico"}').favicon).startsWith('/src/') ? logoAmon : (tempLogoSettings?.favicon || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon": "/favicon.ico"}').favicon)}
+                                    alt="Favicon" 
+                                    style={{ 
+                                      height: tempLogoSettings?.favicon_size || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon_size": "32px"}').favicon_size,
+                                      width: tempLogoSettings?.favicon_size || JSON.parse(getSiteSetting('theme', 'logo_settings') || '{"favicon_size": "32px"}').favicon_size
+                                    }}
+                                  />
+                                ) : (
+                                  <div className="text-gray-400 text-xs">Non défini</div>
+                                )}
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -3513,40 +3530,34 @@ export default function AdminAppearance() {
                           {!(tempPopupSettings?.enabled ?? JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"enabled": false}').enabled) && (
                             <p className="text-xs text-orange-600 mb-2 text-center">⚠️ Pop-up désactivé - cet aperçu ne s'affichera pas sur le site</p>
                           )}
-                          {(tempPopupSettings?.enabled ?? JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"enabled": false}').enabled) ? (
-                            <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg p-6 border">
-                              <div className="text-center space-y-4">
-                                <h3 className="text-lg font-semibold">
-                                  {tempPopupSettings?.title || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"title": "Special Offer!"}').title || "Special Offer!"}
-                                </h3>
-                                <p className="text-gray-600 text-sm">
-                                  {tempPopupSettings?.description || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"description": "Subscribe to our newsletter for exclusive travel tips."}').description || "Subscribe to our newsletter for exclusive travel tips."}
-                                </p>
-                                {(tempPopupSettings?.type || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"type": "newsletter"}').type) === 'newsletter' && (
-                                  <input 
-                                    type="email" 
-                                    placeholder="Entrez votre email" 
-                                    className="w-full px-4 py-2 border rounded text-sm"
-                                    disabled
-                                  />
-                                )}
-                                <button 
-                                  className="w-full px-6 py-2 text-white rounded font-medium"
-                                  style={{ backgroundColor: getSiteSetting('theme', 'primary_color') || '#084F6E' }}
+                          <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg p-6 border">
+                            <div className="text-center space-y-4">
+                              <h3 className="text-lg font-semibold">
+                                {tempPopupSettings?.title || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"title": "Special Offer!"}').title || "Special Offer!"}
+                              </h3>
+                              <p className="text-gray-600 text-sm">
+                                {tempPopupSettings?.description || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"description": "Subscribe to our newsletter for exclusive travel tips."}').description || "Subscribe to our newsletter for exclusive travel tips."}
+                              </p>
+                              {(tempPopupSettings?.type || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"type": "newsletter"}').type) === 'newsletter' && (
+                                <input 
+                                  type="email" 
+                                  placeholder="Entrez votre email" 
+                                  className="w-full px-4 py-2 border rounded text-sm"
                                   disabled
-                                >
-                                  {tempPopupSettings?.button_text || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"button_text": "Subscribe"}').button_text || "Subscribe"}
-                                </button>
-                                <p className="text-xs text-gray-400">
-                                  Apparaît après {((tempPopupSettings?.delay || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"delay": 5000}').delay) / 1000) || 5} secondes
-                                </p>
-                              </div>
+                                />
+                              )}
+                              <button 
+                                className="w-full px-6 py-2 text-white rounded font-medium"
+                                style={{ backgroundColor: getSiteSetting('theme', 'primary_color') || '#084F6E' }}
+                                disabled
+                              >
+                                {tempPopupSettings?.button_text || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"button_text": "Subscribe"}').button_text || "Subscribe"}
+                              </button>
+                              <p className="text-xs text-gray-400">
+                                Apparaît après {((tempPopupSettings?.delay || JSON.parse(getSiteSetting('theme', 'popup_settings') || '{"delay": 5000}').delay) / 1000) || 5} secondes
+                              </p>
                             </div>
-                          ) : (
-                            <div className="text-center text-gray-500 py-8">
-                              Pop-up désactivé
-                            </div>
-                          )}
+                          </div>
                         </div>
                       </div>
                     </CardContent>
