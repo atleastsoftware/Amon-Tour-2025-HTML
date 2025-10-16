@@ -1931,17 +1931,14 @@ Crawl-delay: 1`;
     try {
       const { tourId } = req.params;
       
-      // Check if we have cached tour data with base64 image
+      // Check if we have cached tour data
       if (tourCache.data && Array.isArray(tourCache.data)) {
         const tour = tourCache.data.find((t: any) => t.id === tourId);
         
         if (tour && tour._serverCachedImage) {
-          // Extract base64 image data
-          const base64Data = tour._serverCachedImage;
-          
-          // Check if it's a data URL
-          if (base64Data.startsWith('data:')) {
-            const matches = base64Data.match(/^data:([^;]+);base64,(.+)$/);
+          // Check if it's already a base64 data URL
+          if (tour._serverCachedImage.startsWith('data:')) {
+            const matches = tour._serverCachedImage.match(/^data:([^;]+);base64,(.+)$/);
             if (matches) {
               const mimeType = matches[1];
               const imageData = matches[2];
@@ -1956,16 +1953,58 @@ Crawl-delay: 1`;
               return res.send(imageBuffer);
             }
           }
+          // If it's a URL, fetch and cache the image
+          else if (tour._serverCachedImage.startsWith('http')) {
+            try {
+              console.log(`Fetching image for tour ${tourId} from URL: ${tour._serverCachedImage.substring(0, 60)}...`);
+              
+              const nodeFetch = (await import('node-fetch')).default;
+              const controller = new AbortController();
+              const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+              
+              const imageResponse = await nodeFetch(tour._serverCachedImage, {
+                signal: controller.signal,
+                headers: {
+                  'User-Agent': 'Amon-Tour/1.0'
+                }
+              });
+              
+              clearTimeout(timeoutId);
+              
+              if (imageResponse.ok) {
+                const imageBuffer = await imageResponse.buffer();
+                const contentType = imageResponse.headers.get('content-type') || 'image/jpeg';
+                
+                // Convert to base64 and cache it for future requests
+                const base64Image = `data:${contentType};base64,${imageBuffer.toString('base64')}`;
+                tour._serverCachedImage = base64Image;
+                
+                console.log(`Successfully cached image for tour ${tourId}`);
+                
+                // Set appropriate headers
+                res.set('Content-Type', contentType);
+                res.set('Cache-Control', 'public, max-age=86400'); // Cache for 24 hours
+                res.set('Access-Control-Allow-Origin', '*');
+                
+                // Send the image
+                return res.send(imageBuffer);
+              } else {
+                console.error(`Failed to fetch image for tour ${tourId}, status: ${imageResponse.status}`);
+              }
+            } catch (fetchError) {
+              console.error(`Error fetching image for tour ${tourId}:`, fetchError);
+            }
+          }
         }
       }
       
-      // If no cached image, return a placeholder or 404
-      console.log(`No cached image for tour ${tourId}`);
-      return res.status(404).json({ error: 'Image not found in cache' });
+      // If no image available, return 404
+      console.log(`No image available for tour ${tourId}`);
+      return res.status(404).json({ error: 'Image not found or could not be fetched' });
       
     } catch (error) {
       console.error('Image proxy error for tour:', req.params.tourId, error);
-      res.status(500).json({ error: 'Failed to serve cached image' });
+      res.status(500).json({ error: 'Failed to serve image' });
     }
   });
 
