@@ -48,17 +48,19 @@
 }
 
 /* Animation de défilement pour la barre d'annonces */
-@keyframes scroll {
+@keyframes marquee {
   0% {
-    transform: translateX(100%);
+    transform: translateX(0%);
   }
   100% {
-    transform: translateX(-100%);
+    transform: translateX(-50%);
   }
 }
 
 .animate-scroll {
-  animation: scroll 20s linear infinite;
+  animation: marquee 15s linear infinite;
+  display: inline-flex;
+  white-space: nowrap;
 }
 
 :root {

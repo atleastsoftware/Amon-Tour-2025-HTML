@@ -193,6 +193,9 @@ export default function Header() {
               }}
             >
               {notificationConfig.text}
+              {notificationConfig.scrolling && (
+                <span style={{ paddingLeft: '3em' }}>{notificationConfig.text}</span>
+              )}
             </span>
           </a>
         ) : (
@@ -233,6 +236,9 @@ export default function Header() {
               }}
             >
               {notificationConfig.text}
+              {notificationConfig.scrolling && (
+                <span style={{ paddingLeft: '3em' }}>{notificationConfig.text}</span>
+              )}
             </span>
           </div>
         )
