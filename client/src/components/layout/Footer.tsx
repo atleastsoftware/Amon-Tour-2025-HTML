@@ -142,10 +142,10 @@ export default function Footer() {
   });
   
   // Parse JSON data from database safely
-  const contactInfoRaw = Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.key === 'footer_contact_info')?.value : null;
-  const usefulLinksRaw = Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.key === 'footer_useful_links')?.value : null;
-  const socialMediaRaw = Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.key === 'footer_social_media')?.value : null;
-  const newsletterConfigRaw = Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.key === 'footer_newsletter')?.value : null;
+  const contactInfoRaw = Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.key === 'contact_info')?.value : null;
+  const usefulLinksRaw = Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.key === 'useful_links')?.value : null;
+  const socialMediaRaw = Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.key === 'social_media')?.value : null;
+  const newsletterConfigRaw = Array.isArray(siteSettings) ? siteSettings.find((s: any) => s.key === 'newsletter_config')?.value : null;
   
   const contactInfo = contactInfoRaw ? (typeof contactInfoRaw === 'string' ? JSON.parse(contactInfoRaw) : contactInfoRaw) : [];
   const usefulLinks = usefulLinksRaw ? (typeof usefulLinksRaw === 'string' ? JSON.parse(usefulLinksRaw) : usefulLinksRaw) : [];
