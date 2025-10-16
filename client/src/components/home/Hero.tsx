@@ -77,6 +77,9 @@ export default function Hero() {
   // Trouver le bloc hero principal
   const heroConfig = heroBlocks?.find((block: any) => block.blockType === 'video_hero');
   
+  // Récupérer la valeur de hasAnimation depuis la configuration
+  const hasAnimation = heroConfig?.configuration?.hasAnimation ?? true;
+  
   // Fonction pour obtenir la classe CSS selon la couleur configurée
   const getColorClass = (colorValue: string, defaultClass = 'text-white') => {
     switch(colorValue) {
@@ -207,14 +210,16 @@ export default function Hero() {
               animate={{ 
                 opacity: 1, 
                 y: 0,
-                x: [0, 5, 0, -5, 0],
+                x: hasAnimation ? [0, 5, 0, -5, 0] : 0,
                 transition: {
                   y: { duration: 0.6 },
-                  x: {
-                    repeat: Infinity,
-                    duration: 5,
-                    ease: "easeInOut"
-                  }
+                  ...(hasAnimation && {
+                    x: {
+                      repeat: Infinity,
+                      duration: 5,
+                      ease: "easeInOut"
+                    }
+                  })
                 }
               }}
               className={`max-w-xl ml-3 md:ml-6 ${
