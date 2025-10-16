@@ -38,6 +38,245 @@ import path from "path";
 import bcrypt from "bcrypt";
 import rateLimit from "express-rate-limit";
 
+// Initialize default legal pages on startup
+async function initializeDefaultLegalPages() {
+  try {
+    // Check if legal pages exist
+    const legalNotice = await storage.getPageConfiguration('legal-notice');
+    const privacyPolicy = await storage.getPageConfiguration('privacy-policy');
+    const termsConditions = await storage.getPageConfiguration('terms-conditions');
+    
+    // Create Legal Notice page if it doesn't exist
+    if (!legalNotice) {
+      console.log('Creating default Legal Notice page...');
+      const pageConfig = await storage.createPageConfiguration({
+        pageSlug: 'legal-notice',
+        pageName: 'Legal Notice',
+        pageType: 'legal',
+        isActive: true,
+        isExternalUrl: false,
+        isCustomCode: false,
+        seoTitle: 'Legal Notice',
+        seoDescription: 'Legal notice and terms of use for Amon Tour website.',
+        seoKeywords: 'legal notice, terms of use, Amon Tour, Krabi, Thailand'
+      });
+      
+      // Create the text block with the legal content
+      await storage.createPageBlock({
+        pageId: pageConfig.id,
+        blockType: 'text',
+        blockOrder: 1,
+        identifier: 'legal-notice-content',
+        isActive: true,
+        title: 'Legal Notice',
+        configuration: {
+          title: 'Legal Notice',
+          content: `<h2>Publisher</h2>
+<p>The website amon-tour.com is produced by Flame BB Co., Ltd., with a capital of 4,000,000 Thai Baht, registered with the Thai Ministry of Commerce (DBD) in Krabi under the number 0815558001588, with its headquarters located at 242 Moo1 – Na Thai – Ao Nang – 81000 Krabi – Thailand. The company holds a tourism license issued by the Thai Minister of Tourism (TAT) under the number 34/01995.</p>
+<p><strong>Publication Director:</strong> Eric Mosnier-Thoumas in his capacity as Chief Executive Officer and website administrator.</p>
+
+<h2>Disclaimer</h2>
+<p>Flame BB strives to ensure, to the best of its ability, the accuracy and updating of information distributed on this site, for which it reserves the right to correct, at any time and without notice, the content. However, Flame BB cannot guarantee the accuracy, precision or completeness of the information made available on this site.</p>
+<p>Consequently, Flame BB disclaims all responsibility:</p>
+<ul>
+<li>for any interruption of the site</li>
+<li>for the occurrence of bugs</li>
+<li>for any inaccuracy or omission concerning information available on the site</li>
+<li>for any damage resulting from a fraudulent intrusion by a third party having led to a modification of the information made available on the site</li>
+<li>and more generally for any direct or indirect damage, whatever its causes, nature or consequences</li>
+</ul>
+
+<h2>Protection of Personal Data</h2>
+<p>Flame BB is committed to preserving the confidentiality of information that may be provided online by the internet user.</p>
+<p>Any personal information that the internet user may be led to transmit to Flame BB for the use of certain services is subject to the provisions of Law No. 78-17 on Information Technology and Freedom of January 06, 1978. In this respect, the internet user has the right to access, rectify and delete personal information concerning him/her, which he/she can exercise at any time by sending a letter to:</p>
+<p>Flame BB<br>242/1 Moo1 – Na Thai – Ao Nang<br>81000 Krabi – Thailand</p>
+
+<h2>Links</h2>
+<p>The site may include links to other sites. To the extent that Flame BB cannot control these sites, Flame BB cannot be held responsible for making these sites available, and cannot bear any responsibility regarding the content, advertisements, products, services or any other material available on or from these sites.</p>
+
+<h2>Intellectual Property Rights of Flame BB</h2>
+<p>The site as well as any software necessarily used in relation to it may contain confidential information protected by applicable intellectual property law or any other law. Thus, unless otherwise stated, the intellectual property rights on the documents contained in the site and each of the elements created for this site are the exclusive property of Flame BB.</p>
+
+<h2>Rights and Properties</h2>
+<p>Unless otherwise stated, all texts, photographs and other visuals on this site are the exclusive property of the author and are therefore protected by copyright.<br>Strict prohibition of copying, reproducing or redistributing this content in any form whatsoever.<br>Any use outside of this medium must be the subject of a written request.</p>`
+        }
+      });
+    }
+    
+    // Create Privacy Policy page if it doesn't exist
+    if (!privacyPolicy) {
+      console.log('Creating default Privacy Policy page...');
+      const pageConfig = await storage.createPageConfiguration({
+        pageSlug: 'privacy-policy',
+        pageName: 'Privacy Policy',
+        pageType: 'legal',
+        isActive: true,
+        isExternalUrl: false,
+        isCustomCode: false,
+        seoTitle: 'Privacy Policy',
+        seoDescription: 'Privacy policy and data protection information for Amon Tour website and services.',
+        seoKeywords: 'privacy policy, data protection, GDPR, personal information, Amon Tour'
+      });
+      
+      await storage.createPageBlock({
+        pageId: pageConfig.id,
+        blockType: 'text',
+        blockOrder: 1,
+        identifier: 'privacy-policy-content',
+        isActive: true,
+        title: 'Privacy Policy',
+        configuration: {
+          title: 'Privacy Policy',
+          content: `<h2>Data Protection</h2>
+<p>Flame BB Co., Ltd. is committed to preserving the confidentiality of information that may be provided online by our website visitors and customers. This privacy policy explains how we collect, use, and protect your personal information.</p>
+
+<h2>Information Collection</h2>
+<p>We may collect personal information such as:</p>
+<ul>
+<li>Name and contact details</li>
+<li>Email address</li>
+<li>Phone number</li>
+<li>Travel preferences</li>
+<li>Booking information</li>
+<li>Payment details</li>
+</ul>
+<p>This information is collected when you:</p>
+<ul>
+<li>Make a reservation or booking</li>
+<li>Request a custom tour</li>
+<li>Subscribe to our newsletter</li>
+<li>Contact us via our contact form or WhatsApp</li>
+</ul>
+
+<h2>Use of Information</h2>
+<p>The information we collect is used for:</p>
+<ul>
+<li>Processing your tour bookings and requests</li>
+<li>Communicating with you about your travel arrangements</li>
+<li>Providing customer support</li>
+<li>Sending you promotional offers and newsletters (if you have opted in)</li>
+<li>Improving our website and services</li>
+<li>Complying with legal requirements</li>
+</ul>
+
+<h2>Data Security</h2>
+<p>We implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. However, no method of transmission over the Internet or electronic storage is 100% secure, and we cannot guarantee absolute security.</p>
+
+<h2>Data Retention</h2>
+<p>We retain your personal information for as long as necessary to fulfill the purposes for which we collected it, including for the purposes of satisfying any legal, accounting, or reporting requirements.</p>
+
+<h2>Your Rights</h2>
+<p>Under applicable data protection laws, you have rights regarding your personal data, including:</p>
+<ul>
+<li>The right to access your personal information</li>
+<li>The right to correct inaccurate information</li>
+<li>The right to request deletion of your information</li>
+<li>The right to restrict or object to processing</li>
+<li>The right to data portability</li>
+</ul>
+
+<h2>Contact Information</h2>
+<p>If you have any questions about this privacy policy or our data practices, please contact us at:</p>
+<p>Flame BB Co., Ltd.<br>242/1 Moo1 – Na Thai – Ao Nang<br>81000 Krabi – Thailand<br>Email: info@amon-tour.com</p>`
+        }
+      });
+    }
+    
+    // Create Terms & Conditions page if it doesn't exist
+    if (!termsConditions) {
+      console.log('Creating default Terms & Conditions page...');
+      const pageConfig = await storage.createPageConfiguration({
+        pageSlug: 'terms-conditions',
+        pageName: 'Terms & Conditions',
+        pageType: 'legal',
+        isActive: true,
+        isExternalUrl: false,
+        isCustomCode: false,
+        seoTitle: 'Terms & Conditions',
+        seoDescription: 'Terms and conditions for booking and using services offered by Amon Tour.',
+        seoKeywords: 'terms conditions, booking policy, cancellation, refund, Amon Tour'
+      });
+      
+      await storage.createPageBlock({
+        pageId: pageConfig.id,
+        blockType: 'text',
+        blockOrder: 1,
+        identifier: 'terms-conditions-content',
+        isActive: true,
+        title: 'Terms & Conditions',
+        configuration: {
+          title: 'Terms & Conditions',
+          content: `<h2>1. General Terms</h2>
+<p>These Terms and Conditions govern your use of the Amon Tour website and services provided by Flame BB Co., Ltd., a company registered in Thailand with TAT license number 34/01995.</p>
+<p>By accessing our website or using our services, you agree to be bound by these Terms and Conditions. If you disagree with any part of these terms, please do not use our website or services.</p>
+
+<h2>2. Booking and Reservation</h2>
+<p>2.1 All bookings are subject to availability and confirmation.</p>
+<p>2.2 A booking is confirmed once we have received the required deposit or full payment, and you have received a confirmation email from us.</p>
+<p>2.3 The person making the booking accepts these Terms and Conditions on behalf of all members of the party and is responsible for all payments due.</p>
+<p>2.4 All information provided during the booking process must be accurate and complete.</p>
+
+<h2>3. Payment</h2>
+<p>3.1 To secure a booking, a deposit of 30% of the total tour price is required, unless otherwise specified.</p>
+<p>3.2 Full payment must be received at least 7 days before the tour date, unless otherwise agreed.</p>
+<p>3.3 Payments can be made via the payment methods specified on our website or as communicated during the booking process.</p>
+<p>3.4 All prices are quoted in Thai Baht (THB) unless otherwise specified.</p>
+
+<h2>4. Cancellation and Refund Policy</h2>
+<p>4.1 Cancellation by Customer:</p>
+<ul>
+<li>More than 30 days before the tour date: Full refund minus administrative fees</li>
+<li>15-30 days before the tour date: 70% refund</li>
+<li>7-14 days before the tour date: 50% refund</li>
+<li>Less than 7 days before the tour date: No refund</li>
+</ul>
+<p>4.2 Cancellation by Amon Tour:</p>
+<p>If we need to cancel a tour due to unforeseen circumstances, adverse weather conditions, or insufficient participants, we will offer you an alternative date or a full refund.</p>
+
+<h2>5. Tour Modifications</h2>
+<p>5.1 We reserve the right to modify tour itineraries, departure times, or duration due to weather conditions, safety concerns, or other circumstances beyond our control.</p>
+<p>5.2 In such cases, we will make reasonable efforts to inform you as soon as possible.</p>
+
+<h2>6. Traveler's Responsibilities</h2>
+<p>6.1 You are responsible for ensuring that you have valid documentation (passport, visa, etc.) required for your travel.</p>
+<p>6.2 You must inform us of any medical conditions, dietary restrictions, or special requirements at the time of booking.</p>
+<p>6.3 Travel insurance is strongly recommended for all participants.</p>
+<p>6.4 You must comply with all instructions given by our tour guides and staff for safety purposes.</p>
+
+<h2>7. Limitation of Liability</h2>
+<p>7.1 While we take all reasonable steps to ensure your safety, participation in tours and activities involves some inherent risk.</p>
+<p>7.2 We are not liable for any injury, illness, death, loss, damage, expense, cost, or other claim of any description which results from:</p>
+<ul>
+<li>The acts or omissions of the person affected or any member of their party</li>
+<li>The acts or omissions of a third party not connected with the provision of your tour</li>
+<li>Unusual or unforeseeable circumstances beyond our control</li>
+<li>An event which we or our suppliers could not have foreseen or forestalled even with all due care</li>
+</ul>
+
+<h2>8. Copyright and Intellectual Property</h2>
+<p>8.1 All content on our website, including text, graphics, logos, images, and software, is the property of Flame BB Co., Ltd. and is protected by copyright and intellectual property laws.</p>
+<p>8.2 You may not reproduce, modify, distribute, or use any materials from our website without our prior written consent.</p>
+
+<h2>9. Website Use</h2>
+<p>9.1 You may use our website for lawful purposes only.</p>
+<p>9.2 You must not use our website in any way that causes, or may cause, damage to the website or impairment of the availability or accessibility of the website.</p>
+
+<h2>10. Governing Law</h2>
+<p>These Terms and Conditions are governed by and construed in accordance with the laws of Thailand. Any disputes arising under these Terms and Conditions shall be subject to the exclusive jurisdiction of the courts of Thailand.</p>
+
+<h2>11. Contact Information</h2>
+<p>If you have any questions about these Terms and Conditions, please contact us at:</p>
+<p>Flame BB Co., Ltd.<br>242/1 Moo1 – Na Thai – Ao Nang<br>81000 Krabi – Thailand<br>Email: info@amon-tour.com<br>WhatsApp: +66 86 476 3804</p>`
+        }
+      });
+    }
+    
+    console.log('Default legal pages initialization completed.');
+  } catch (error) {
+    console.error('Error initializing default legal pages:', error);
+  }
+}
+
 export async function registerRoutes(app: Express): Promise<Server> {
   
   // Simple authentication middleware for admin routes only
@@ -66,6 +305,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   }));
 
+  // Initialize default legal pages
+  await initializeDefaultLegalPages();
+  
   // SEO Routes
   app.get('/sitemap.xml', async (req, res) => {
     try {
