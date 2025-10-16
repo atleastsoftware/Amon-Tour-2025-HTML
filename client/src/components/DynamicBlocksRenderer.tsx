@@ -178,14 +178,30 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
         if (fullTitle.includes(accentText)) {
           const parts = fullTitle.split(accentText);
           heroTitle = (
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" style={{ whiteSpace: 'pre-line' }}>
+            <motion.h1 
+              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" 
+              style={{ whiteSpace: 'pre-line' }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
               {parts[0] && <span style={{ color: titleColor }}>{parts[0]}</span>}
               <span style={{ color: accentColor }}>{accentText}</span>
               {parts[1] && <span style={{ color: titleColor }}>{parts[1]}</span>}
-            </h1>
+            </motion.h1>
           );
         } else {
-          heroTitle = <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" style={{ color: titleColor, whiteSpace: 'pre-line' }}>{fullTitle}</h1>;
+          heroTitle = (
+            <motion.h1 
+              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" 
+              style={{ color: titleColor, whiteSpace: 'pre-line' }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              {fullTitle}
+            </motion.h1>
+          );
         }
         
         // Render background
@@ -206,13 +222,18 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
           
           if (images.length > 0) {
             heroBackground = (
-              <div className="absolute inset-0 w-full h-full z-0">
+              <motion.div 
+                className="absolute inset-0 w-full h-full z-0"
+                initial={{ scale: 1.1 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 1.2 }}
+              >
                 <img
                   src={images[0]}
                   alt=""
                   className="absolute inset-0 w-full h-full object-cover"
                 />
-              </div>
+              </motion.div>
             );
           } else {
             heroBackground = <div className="absolute inset-0 w-full h-full z-0 bg-gradient-to-br from-primary to-secondary" />;
@@ -233,10 +254,13 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
           );
         } else if (block.imageUrl || heroConfig.backgroundImage) {
           heroBackground = (
-            <img 
+            <motion.img 
               src={block.imageUrl || heroConfig.backgroundImage} 
               alt={block.imageAlt || ''} 
               className="absolute inset-0 w-full h-full object-cover z-0"
+              initial={{ scale: 1.1 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 1.2 }}
             />
           );
         } else {
@@ -251,18 +275,26 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
               <div className="max-w-5xl">
                 {heroTitle}
                 {(heroConfig.subtitle || block.subtitle) && (
-                  <p 
+                  <motion.p 
                     className="text-lg md:text-xl mb-8 max-w-3xl"
                     style={{ 
                       color: heroConfig.subtitleColor || '#ffffff',
                       whiteSpace: 'pre-line'
                     }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.4 }}
                   >
                     {heroConfig.subtitle || block.subtitle}
-                  </p>
+                  </motion.p>
                 )}
                 {heroConfig.buttons && heroConfig.buttons.length > 0 && (
-                  <div className={`flex gap-4 mt-8 ${contentAlignment === 'center' ? 'justify-center' : contentAlignment === 'right' ? 'justify-end' : 'justify-start'}`}>
+                  <motion.div 
+                    className={`flex gap-4 mt-8 ${contentAlignment === 'center' ? 'justify-center' : contentAlignment === 'right' ? 'justify-end' : 'justify-start'}`}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.6 }}
+                  >
                     {heroConfig.buttons.map((button: any, index: number) => {
                       if (!button.text) return null;
                       
@@ -301,7 +333,7 @@ export default function DynamicBlocksRenderer({ blocks }: DynamicBlocksRendererP
                         </a>
                       );
                     })}
-                  </div>
+                  </motion.div>
                 )}
               </div>
             </div>
