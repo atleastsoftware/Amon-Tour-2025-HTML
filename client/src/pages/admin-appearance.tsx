@@ -2678,8 +2678,35 @@ export default function AdminAppearance() {
                                     <SelectValue />
                                   </SelectTrigger>
                                   <SelectContent>
-                                    <SelectItem value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textMenu": "#374151"}')).textMenu || '#374151'}>
-                                      {((tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textMenu": "#374151"}')).textMenu || '#374151').toUpperCase()}
+                                    <SelectItem value={(tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#1e73be')}>
+                                      <div className="flex items-center gap-2">
+                                        <div className="w-4 h-4 rounded border" style={{ backgroundColor: (tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#1e73be') }} />
+                                        <span>Couleur principale - {(tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#1e73be').toUpperCase()}</span>
+                                      </div>
+                                    </SelectItem>
+                                    <SelectItem value={(tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#E6B64C')}>
+                                      <div className="flex items-center gap-2">
+                                        <div className="w-4 h-4 rounded border" style={{ backgroundColor: (tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#E6B64C') }} />
+                                        <span>Couleur secondaire - {(tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#E6B64C').toUpperCase()}</span>
+                                      </div>
+                                    </SelectItem>
+                                    <SelectItem value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"heading": "#1f2937"}')).heading || '#1f2937'}>
+                                      <div className="flex items-center gap-2">
+                                        <div className="w-4 h-4 rounded border" style={{ backgroundColor: (tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"heading": "#1f2937"}')).heading || '#1f2937' }} />
+                                        <span>Couleur de titre - {((tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"heading": "#1f2937"}')).heading || '#1f2937').toUpperCase()}</span>
+                                      </div>
+                                    </SelectItem>
+                                    <SelectItem value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}')).text || '#374151'}>
+                                      <div className="flex items-center gap-2">
+                                        <div className="w-4 h-4 rounded border" style={{ backgroundColor: (tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}')).text || '#374151' }} />
+                                        <span>Couleur de texte - {((tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}')).text || '#374151').toUpperCase()}</span>
+                                      </div>
+                                    </SelectItem>
+                                    <SelectItem value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}')).background || '#ffffff'}>
+                                      <div className="flex items-center gap-2">
+                                        <div className="w-4 h-4 rounded border" style={{ backgroundColor: (tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}')).background || '#ffffff' }} />
+                                        <span>Couleur de fond - {((tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}')).background || '#ffffff').toUpperCase()}</span>
+                                      </div>
                                     </SelectItem>
                                   </SelectContent>
                                 </Select>
@@ -2715,8 +2742,35 @@ export default function AdminAppearance() {
                                     <SelectValue />
                                   </SelectTrigger>
                                   <SelectContent>
-                                    <SelectItem value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"backgroundMenu": "#ffffff"}')).backgroundMenu || '#ffffff'}>
-                                      {((tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"backgroundMenu": "#ffffff"}')).backgroundMenu || '#ffffff').toUpperCase()}
+                                    <SelectItem value={(tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#1e73be')}>
+                                      <div className="flex items-center gap-2">
+                                        <div className="w-4 h-4 rounded border" style={{ backgroundColor: (tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#1e73be') }} />
+                                        <span>Couleur principale - {(tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#1e73be').toUpperCase()}</span>
+                                      </div>
+                                    </SelectItem>
+                                    <SelectItem value={(tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#E6B64C')}>
+                                      <div className="flex items-center gap-2">
+                                        <div className="w-4 h-4 rounded border" style={{ backgroundColor: (tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#E6B64C') }} />
+                                        <span>Couleur secondaire - {(tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#E6B64C').toUpperCase()}</span>
+                                      </div>
+                                    </SelectItem>
+                                    <SelectItem value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"heading": "#1f2937"}')).heading || '#1f2937'}>
+                                      <div className="flex items-center gap-2">
+                                        <div className="w-4 h-4 rounded border" style={{ backgroundColor: (tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"heading": "#1f2937"}')).heading || '#1f2937' }} />
+                                        <span>Couleur de titre - {((tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"heading": "#1f2937"}')).heading || '#1f2937').toUpperCase()}</span>
+                                      </div>
+                                    </SelectItem>
+                                    <SelectItem value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}')).text || '#374151'}>
+                                      <div className="flex items-center gap-2">
+                                        <div className="w-4 h-4 rounded border" style={{ backgroundColor: (tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}')).text || '#374151' }} />
+                                        <span>Couleur de texte - {((tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}')).text || '#374151').toUpperCase()}</span>
+                                      </div>
+                                    </SelectItem>
+                                    <SelectItem value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}')).background || '#ffffff'}>
+                                      <div className="flex items-center gap-2">
+                                        <div className="w-4 h-4 rounded border" style={{ backgroundColor: (tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}')).background || '#ffffff' }} />
+                                        <span>Couleur de fond - {((tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}')).background || '#ffffff').toUpperCase()}</span>
+                                      </div>
                                     </SelectItem>
                                   </SelectContent>
                                 </Select>
@@ -2756,8 +2810,35 @@ export default function AdminAppearance() {
                                     <SelectValue />
                                   </SelectTrigger>
                                   <SelectContent>
-                                    <SelectItem value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff"}')).textFooter || '#ffffff'}>
-                                      {((tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"textFooter": "#ffffff"}')).textFooter || '#ffffff').toUpperCase()}
+                                    <SelectItem value={(tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#1e73be')}>
+                                      <div className="flex items-center gap-2">
+                                        <div className="w-4 h-4 rounded border" style={{ backgroundColor: (tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#1e73be') }} />
+                                        <span>Couleur principale - {(tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#1e73be').toUpperCase()}</span>
+                                      </div>
+                                    </SelectItem>
+                                    <SelectItem value={(tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#E6B64C')}>
+                                      <div className="flex items-center gap-2">
+                                        <div className="w-4 h-4 rounded border" style={{ backgroundColor: (tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#E6B64C') }} />
+                                        <span>Couleur secondaire - {(tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#E6B64C').toUpperCase()}</span>
+                                      </div>
+                                    </SelectItem>
+                                    <SelectItem value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"heading": "#1f2937"}')).heading || '#1f2937'}>
+                                      <div className="flex items-center gap-2">
+                                        <div className="w-4 h-4 rounded border" style={{ backgroundColor: (tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"heading": "#1f2937"}')).heading || '#1f2937' }} />
+                                        <span>Couleur de titre - {((tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"heading": "#1f2937"}')).heading || '#1f2937').toUpperCase()}</span>
+                                      </div>
+                                    </SelectItem>
+                                    <SelectItem value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}')).text || '#374151'}>
+                                      <div className="flex items-center gap-2">
+                                        <div className="w-4 h-4 rounded border" style={{ backgroundColor: (tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}')).text || '#374151' }} />
+                                        <span>Couleur de texte - {((tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}')).text || '#374151').toUpperCase()}</span>
+                                      </div>
+                                    </SelectItem>
+                                    <SelectItem value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}')).background || '#ffffff'}>
+                                      <div className="flex items-center gap-2">
+                                        <div className="w-4 h-4 rounded border" style={{ backgroundColor: (tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}')).background || '#ffffff' }} />
+                                        <span>Couleur de fond - {((tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}')).background || '#ffffff').toUpperCase()}</span>
+                                      </div>
                                     </SelectItem>
                                   </SelectContent>
                                 </Select>
@@ -2793,8 +2874,35 @@ export default function AdminAppearance() {
                                     <SelectValue />
                                   </SelectTrigger>
                                   <SelectContent>
-                                    <SelectItem value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"backgroundFooter": "#000000"}')).backgroundFooter || '#000000'}>
-                                      {((tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"backgroundFooter": "#000000"}')).backgroundFooter || '#000000').toUpperCase()}
+                                    <SelectItem value={(tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#1e73be')}>
+                                      <div className="flex items-center gap-2">
+                                        <div className="w-4 h-4 rounded border" style={{ backgroundColor: (tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#1e73be') }} />
+                                        <span>Couleur principale - {(tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#1e73be').toUpperCase()}</span>
+                                      </div>
+                                    </SelectItem>
+                                    <SelectItem value={(tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#E6B64C')}>
+                                      <div className="flex items-center gap-2">
+                                        <div className="w-4 h-4 rounded border" style={{ backgroundColor: (tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#E6B64C') }} />
+                                        <span>Couleur secondaire - {(tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#E6B64C').toUpperCase()}</span>
+                                      </div>
+                                    </SelectItem>
+                                    <SelectItem value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"heading": "#1f2937"}')).heading || '#1f2937'}>
+                                      <div className="flex items-center gap-2">
+                                        <div className="w-4 h-4 rounded border" style={{ backgroundColor: (tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"heading": "#1f2937"}')).heading || '#1f2937' }} />
+                                        <span>Couleur de titre - {((tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"heading": "#1f2937"}')).heading || '#1f2937').toUpperCase()}</span>
+                                      </div>
+                                    </SelectItem>
+                                    <SelectItem value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}')).text || '#374151'}>
+                                      <div className="flex items-center gap-2">
+                                        <div className="w-4 h-4 rounded border" style={{ backgroundColor: (tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}')).text || '#374151' }} />
+                                        <span>Couleur de texte - {((tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}')).text || '#374151').toUpperCase()}</span>
+                                      </div>
+                                    </SelectItem>
+                                    <SelectItem value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}')).background || '#ffffff'}>
+                                      <div className="flex items-center gap-2">
+                                        <div className="w-4 h-4 rounded border" style={{ backgroundColor: (tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}')).background || '#ffffff' }} />
+                                        <span>Couleur de fond - {((tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}')).background || '#ffffff').toUpperCase()}</span>
+                                      </div>
                                     </SelectItem>
                                   </SelectContent>
                                 </Select>
@@ -2834,8 +2942,35 @@ export default function AdminAppearance() {
                                     <SelectValue />
                                   </SelectTrigger>
                                   <SelectContent>
-                                    <SelectItem value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"error": "#ef4444"}')).error || '#ef4444'}>
-                                      {((tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"error": "#ef4444"}')).error || '#ef4444').toUpperCase()}
+                                    <SelectItem value={(tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#1e73be')}>
+                                      <div className="flex items-center gap-2">
+                                        <div className="w-4 h-4 rounded border" style={{ backgroundColor: (tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#1e73be') }} />
+                                        <span>Couleur principale - {(tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#1e73be').toUpperCase()}</span>
+                                      </div>
+                                    </SelectItem>
+                                    <SelectItem value={(tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#E6B64C')}>
+                                      <div className="flex items-center gap-2">
+                                        <div className="w-4 h-4 rounded border" style={{ backgroundColor: (tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#E6B64C') }} />
+                                        <span>Couleur secondaire - {(tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#E6B64C').toUpperCase()}</span>
+                                      </div>
+                                    </SelectItem>
+                                    <SelectItem value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"heading": "#1f2937"}')).heading || '#1f2937'}>
+                                      <div className="flex items-center gap-2">
+                                        <div className="w-4 h-4 rounded border" style={{ backgroundColor: (tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"heading": "#1f2937"}')).heading || '#1f2937' }} />
+                                        <span>Couleur de titre - {((tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"heading": "#1f2937"}')).heading || '#1f2937').toUpperCase()}</span>
+                                      </div>
+                                    </SelectItem>
+                                    <SelectItem value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}')).text || '#374151'}>
+                                      <div className="flex items-center gap-2">
+                                        <div className="w-4 h-4 rounded border" style={{ backgroundColor: (tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}')).text || '#374151' }} />
+                                        <span>Couleur de texte - {((tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}')).text || '#374151').toUpperCase()}</span>
+                                      </div>
+                                    </SelectItem>
+                                    <SelectItem value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}')).background || '#ffffff'}>
+                                      <div className="flex items-center gap-2">
+                                        <div className="w-4 h-4 rounded border" style={{ backgroundColor: (tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}')).background || '#ffffff' }} />
+                                        <span>Couleur de fond - {((tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}')).background || '#ffffff').toUpperCase()}</span>
+                                      </div>
                                     </SelectItem>
                                   </SelectContent>
                                 </Select>
@@ -2871,8 +3006,35 @@ export default function AdminAppearance() {
                                     <SelectValue />
                                   </SelectTrigger>
                                   <SelectContent>
-                                    <SelectItem value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"success": "#10b981"}')).success || '#10b981'}>
-                                      {((tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"success": "#10b981"}')).success || '#10b981').toUpperCase()}
+                                    <SelectItem value={(tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#1e73be')}>
+                                      <div className="flex items-center gap-2">
+                                        <div className="w-4 h-4 rounded border" style={{ backgroundColor: (tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#1e73be') }} />
+                                        <span>Couleur principale - {(tempColors?.primary_color || getSiteSetting('theme', 'primary_color') || '#1e73be').toUpperCase()}</span>
+                                      </div>
+                                    </SelectItem>
+                                    <SelectItem value={(tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#E6B64C')}>
+                                      <div className="flex items-center gap-2">
+                                        <div className="w-4 h-4 rounded border" style={{ backgroundColor: (tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#E6B64C') }} />
+                                        <span>Couleur secondaire - {(tempColors?.secondary_color || getSiteSetting('theme', 'secondary_color') || '#E6B64C').toUpperCase()}</span>
+                                      </div>
+                                    </SelectItem>
+                                    <SelectItem value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"heading": "#1f2937"}')).heading || '#1f2937'}>
+                                      <div className="flex items-center gap-2">
+                                        <div className="w-4 h-4 rounded border" style={{ backgroundColor: (tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"heading": "#1f2937"}')).heading || '#1f2937' }} />
+                                        <span>Couleur de titre - {((tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"heading": "#1f2937"}')).heading || '#1f2937').toUpperCase()}</span>
+                                      </div>
+                                    </SelectItem>
+                                    <SelectItem value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}')).text || '#374151'}>
+                                      <div className="flex items-center gap-2">
+                                        <div className="w-4 h-4 rounded border" style={{ backgroundColor: (tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}')).text || '#374151' }} />
+                                        <span>Couleur de texte - {((tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"text": "#374151"}')).text || '#374151').toUpperCase()}</span>
+                                      </div>
+                                    </SelectItem>
+                                    <SelectItem value={(tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}')).background || '#ffffff'}>
+                                      <div className="flex items-center gap-2">
+                                        <div className="w-4 h-4 rounded border" style={{ backgroundColor: (tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}')).background || '#ffffff' }} />
+                                        <span>Couleur de fond - {((tempColors?.color_palette || JSON.parse(getSiteSetting('theme', 'color_palette') || '{"background": "#ffffff"}')).background || '#ffffff').toUpperCase()}</span>
+                                      </div>
                                     </SelectItem>
                                   </SelectContent>
                                 </Select>
