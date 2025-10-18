@@ -279,6 +279,15 @@ async function initializeDefaultLegalPages() {
 
 export async function registerRoutes(app: Express): Promise<Server> {
   
+  // Health check endpoint - responds immediately for deployment health checks
+  app.get("/", (req, res) => {
+    res.json({ 
+      status: "healthy",
+      service: "amontour-api",
+      timestamp: Date.now()
+    });
+  });
+  
   // Simple authentication middleware for admin routes only
   const requireAuth = (req: Request, res: Response, next: Function) => {
     if (req.session && req.session.user) {
