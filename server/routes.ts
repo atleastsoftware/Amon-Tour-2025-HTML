@@ -69,9 +69,7 @@ async function initializeDefaultLegalPages() {
         identifier: 'legal-notice-content',
         isActive: true,
         title: 'Legal Notice',
-        configuration: {
-          title: 'Legal Notice',
-          content: `<h2>Publisher</h2>
+        content: `<h2>Publisher</h2>
 <p>The website amon-tour.com is produced by Flame BB Co., Ltd., with a capital of 4,000,000 Thai Baht, registered with the Thai Ministry of Commerce (DBD) in Krabi under the number 0815558001588, with its headquarters located at 242 Moo1 – Na Thai – Ao Nang – 81000 Krabi – Thailand. The company holds a tourism license issued by the Thai Minister of Tourism (TAT) under the number 34/01995.</p>
 <p><strong>Publication Director:</strong> Eric Mosnier-Thoumas in his capacity as Chief Executive Officer and website administrator.</p>
 
@@ -99,7 +97,6 @@ async function initializeDefaultLegalPages() {
 
 <h2>Rights and Properties</h2>
 <p>Unless otherwise stated, all texts, photographs and other visuals on this site are the exclusive property of the author and are therefore protected by copyright.<br>Strict prohibition of copying, reproducing or redistributing this content in any form whatsoever.<br>Any use outside of this medium must be the subject of a written request.</p>`
-        }
       });
     }
     
@@ -125,9 +122,7 @@ async function initializeDefaultLegalPages() {
         identifier: 'privacy-policy-content',
         isActive: true,
         title: 'Privacy Policy',
-        configuration: {
-          title: 'Privacy Policy',
-          content: `<h2>Data Protection</h2>
+        content: `<h2>Data Protection</h2>
 <p>Flame BB Co., Ltd. is committed to preserving the confidentiality of information that may be provided online by our website visitors and customers. This privacy policy explains how we collect, use, and protect your personal information.</p>
 
 <h2>Information Collection</h2>
@@ -178,7 +173,6 @@ async function initializeDefaultLegalPages() {
 <h2>Contact Information</h2>
 <p>If you have any questions about this privacy policy or our data practices, please contact us at:</p>
 <p>Flame BB Co., Ltd.<br>242/1 Moo1 – Na Thai – Ao Nang<br>81000 Krabi – Thailand<br>Email: info@amon-tour.com</p>`
-        }
       });
     }
     
@@ -204,9 +198,7 @@ async function initializeDefaultLegalPages() {
         identifier: 'terms-conditions-content',
         isActive: true,
         title: 'Terms & Conditions',
-        configuration: {
-          title: 'Terms & Conditions',
-          content: `<h2>1. General Terms</h2>
+        content: `<h2>1. General Terms</h2>
 <p>These Terms and Conditions govern your use of the Amon Tour website and services provided by Flame BB Co., Ltd., a company registered in Thailand with TAT license number 34/01995.</p>
 <p>By accessing our website or using our services, you agree to be bound by these Terms and Conditions. If you disagree with any part of these terms, please do not use our website or services.</p>
 
@@ -267,7 +259,6 @@ async function initializeDefaultLegalPages() {
 <h2>11. Contact Information</h2>
 <p>If you have any questions about these Terms and Conditions, please contact us at:</p>
 <p>Flame BB Co., Ltd.<br>242/1 Moo1 – Na Thai – Ao Nang<br>81000 Krabi – Thailand<br>Email: info@amon-tour.com<br>WhatsApp: +66 86 476 3804</p>`
-        }
       });
     }
     
@@ -280,7 +271,7 @@ async function initializeDefaultLegalPages() {
 export async function registerRoutes(app: Express): Promise<Server> {
   
   // Health check endpoint - responds immediately for deployment health checks
-  app.get("/", (req, res) => {
+  app.get("/health", (req, res) => {
     res.json({ 
       status: "healthy",
       service: "amontour-api",
