@@ -388,6 +388,17 @@ Crawl-delay: 1`;
     res.set('Content-Type', 'text/plain');
     res.send(robotsTxt);
   });
+
+  // Route pour télécharger le fichier SETUP.md
+  app.get('/api/download/setup', (req, res) => {
+    const filePath = path.join(process.cwd(), 'SETUP.md');
+    res.download(filePath, 'SETUP.md', (err) => {
+      if (err) {
+        console.error('Error downloading SETUP.md:', err);
+        res.status(404).json({ message: 'File not found' });
+      }
+    });
+  });
   
   // Disabled authentication routes for public site
   app.post("/api/login", async (req, res) => {
