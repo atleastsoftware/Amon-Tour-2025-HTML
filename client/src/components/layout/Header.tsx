@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useQuery } from '@tanstack/react-query';
 import logoAmon from "@/assets/logo-amon.png";
 import LanguageSelector from "@/components/LanguageSelector";
-import { translationService } from "@/services/translationService";
+import { useTranslations } from "@/hooks/useTranslations";
 
 type NavLinkProps = {
   href: string;
@@ -53,7 +53,8 @@ export default function Header() {
   const isHomePage = location === '/';
   
   // Get translations for fallback
-  const nav = translationService.getNav();
+  const { getNav } = useTranslations();
+  const nav = getNav();
 
   // Fetch navigation menu items from database
   const { data: menuItems = [] } = useQuery<any[]>({
