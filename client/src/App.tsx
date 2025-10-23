@@ -1,5 +1,6 @@
 import { Switch, Route } from "wouter";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { TranslationProvider } from "@/contexts/TranslationContext";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import HomeDynamicPage from "@/pages/HomeDynamicPage";
@@ -131,14 +132,16 @@ function Router() {
 function App() {
   return (
     <TooltipProvider>
-      <IframeProvider>
-        <ThemeLoader />
-        <Router />
-        <WhatsAppButton />
-        <IframeModal />
-        <CookieConsent />
-        <PopupAnnouncement />
-      </IframeProvider>
+      <TranslationProvider>
+        <IframeProvider>
+          <ThemeLoader />
+          <Router />
+          <WhatsAppButton />
+          <IframeModal />
+          <CookieConsent />
+          <PopupAnnouncement />
+        </IframeProvider>
+      </TranslationProvider>
     </TooltipProvider>
   );
 }
