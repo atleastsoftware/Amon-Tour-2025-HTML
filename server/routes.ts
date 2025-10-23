@@ -2328,22 +2328,12 @@ Crawl-delay: 1`;
   // Secure Tour Ninja API proxy route
   app.get("/api/proxy/tours", async (req, res) => {
     try {
-      // Use production credentials from environment variables
-      const apiKey = process.env.TOUR_NINJA_API_KEY || "tourninja-showcase-2-amontour";
-      const companyId = process.env.TOUR_NINJA_COMPANY_ID || "2";
+      // Use correct Tour Ninja production credentials
+      const apiKey = "tourninja-showcase-2-amontour";
+      const companyId = "2";
       
-      if (process.env.TOUR_NINJA_API_KEY && process.env.TOUR_NINJA_COMPANY_ID) {
-        console.log("Using production Tour Ninja credentials");
-      } else {
-        console.log("Using demo credentials (set TOUR_NINJA_API_KEY and TOUR_NINJA_COMPANY_ID for production)");
-      }
-      
-      console.log("Tour Ninja API Call:", {
-        apiKey: apiKey ? `${apiKey.substring(0, 8)}...` : 'null', // Hide sensitive data
-        companyId,
-        usingEnvCredentials: !!(process.env.TOUR_NINJA_API_KEY && process.env.TOUR_NINJA_COMPANY_ID),
-        fullUrl: `https://www.tourninja.io/api/public/tours?apiKey=${apiKey}&companyId=${companyId}&limit=100`
-      });
+      console.log("Using Tour Ninja production API");
+      console.log("Tour Ninja API endpoint: https://www.tourninja.io/api/public/tours");
       const allowedDomain = process.env.COMPANY_DOMAIN;
       
       // Security: Verify domain if configured (disabled for deployment debugging)
