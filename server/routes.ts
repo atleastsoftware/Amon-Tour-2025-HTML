@@ -2475,32 +2475,33 @@ Crawl-delay: 1`;
       // The legacy API returns an object with tours array - structure confirmed by Tour Ninja agent
       if (apiResponse.success && apiResponse.tours && Array.isArray(apiResponse.tours)) {
         tours = apiResponse.tours.map((tour: any) => {
-          // Store base64 image in server cache but don't send to client
-          const hasImage = !!(tour.image || tour.primaryImage);
+          // Process all images from the tour
+          const tourImages: string[] = [];
           
-          // Store the base64 image in server-side cache only
-          const cachedImage = tour.image || tour.primaryImage || null;
-          
-          // For client, use image proxy URL instead of base64 to improve performance
-          const imageUrl = hasImage ? `/api/image-proxy/${tour.id}/presentation` : null;
-          
-          if (hasImage) {
-            console.log(`Tour ${tour.name}: Will use image proxy URL`);
-          } else {
-            console.log(`Tour ${tour.name}: No image available`);
+          // Handle the new images array from Tour Ninja API
+          if (tour.images && Array.isArray(tour.images)) {
+            // Use direct URLs from Tour Ninja API
+            tourImages.push(...tour.images);
+            console.log(`Tour ${tour.name}: Has ${tour.images.length} images`);
+          } else if (tour.image) {
+            // Fallback to single image if images array not available
+            tourImages.push(tour.image);
           }
+          
+          // Use the first image as primary
+          const primaryImage = tourImages[0] || null;
           
           return {
             id: tour.id,
             name: tour.name || tour.title,
             description: tour.description || '',
             shortDescription: tour.description ? tour.description.substring(0, 150) + '...' : '',
-            // IMPORTANT: Don't send base64 images to client - use proxy URLs instead for better performance
-            images: imageUrl ? [imageUrl] : [],
-            primaryImage: imageUrl,
-            fallbackImage: imageUrl,
-            presentationImageUrl: imageUrl,
-            originalPrimaryImage: imageUrl,
+            // Return all images from the API
+            images: tourImages,
+            primaryImage: primaryImage,
+            fallbackImage: primaryImage,
+            presentationImageUrl: primaryImage,
+            originalPrimaryImage: primaryImage,
             price: tour.price || 0,
             currency: tour.currency || 'THB',
             duration: tour.duration || 1,

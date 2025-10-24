@@ -120,53 +120,116 @@ export default function TourCardItem({
             }
           }}
         >
-          <div 
-            className="relative aspect-video overflow-hidden cursor-pointer"
-            onClick={(e) => {
-              e.stopPropagation(); // Prevent triggering card click event
+          <div className="relative">
+            {/* Main image display */}
+            <div 
+              className="relative aspect-video overflow-hidden cursor-pointer"
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent triggering card click event
+                
+                // Vérifier si l'appareil est mobile (petite résolution d'écran)
+                const isMobileDevice = window.innerWidth < 768;
+                
+                if (isMobileDevice) {
+                  // Sur mobile, afficher l'iframe directement sur la page
+                  setIsBookingOpen(!isBookingOpen);
+                } else {
+                  // Sur PC, rediriger vers la page dédiée à l'iframe
+                  window.location.href = `/booking?link=${encodeURIComponent(customLink)}&title=${encodeURIComponent(title)}&type=${encodeURIComponent(type)}`;
+                }
+              }}
+            >
+              {images && images.length > 0 ? (
+                <>
+                  <img 
+                    src={images[currentImageIndex]} 
+                    alt={`${title} - Image ${currentImageIndex + 1}`} 
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                    onError={(e) => {
+                      e.currentTarget.src = 'https://placehold.co/400x250?text=Image+Soon';
+                    }}
+                  />
+                  
+                  {/* Navigation arrows for multiple images */}
+                  {images.length > 1 && (
+                    <>
+                      <button
+                        className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-1 rounded-full transition-all"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigateGallery('prev');
+                        }}
+                      >
+                        <ChevronLeft className="h-4 w-4" />
+                      </button>
+                      <button
+                        className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-1 rounded-full transition-all"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigateGallery('next');
+                        }}
+                      >
+                        <ChevronRight className="h-4 w-4" />
+                      </button>
+                      
+                      {/* Image counter */}
+                      <div className="absolute top-2 left-2 bg-black/60 text-white px-2 py-1 rounded text-xs">
+                        {currentImageIndex + 1} / {images.length}
+                      </div>
+                    </>
+                  )}
+                </>
+              ) : (
+                <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                  <span className="text-gray-400">No image</span>
+                </div>
+              )}
               
-              // Vérifier si l'appareil est mobile (petite résolution d'écran)
-              const isMobileDevice = window.innerWidth < 768;
-              
-              if (isMobileDevice) {
-                // Sur mobile, afficher l'iframe directement sur la page
-                setIsBookingOpen(!isBookingOpen);
-              } else {
-                // Sur PC, rediriger vers la page dédiée à l'iframe
-                window.location.href = `/booking?link=${encodeURIComponent(customLink)}&title=${encodeURIComponent(title)}&type=${encodeURIComponent(type)}`;
-              }
-            }}
-          >
-            {images && images.length > 0 ? (
-              <img 
-                src={images[0]} 
-                alt={title} 
-                className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-              />
-            ) : (
-              <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                <span className="text-gray-400">No image</span>
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+                <div className="flex items-center gap-2">
+                  <div className="inline-block px-3 py-1 rounded-full bg-primary text-white font-medium text-sm">
+                    From {formatPrice(price, currency)}
+                  </div>
+                  <div className={`inline-block px-3 py-1 rounded-full font-medium text-xs ${
+                    type === "tour" 
+                      ? "bg-primary text-white" 
+                      : "bg-[hsl(var(--warning))] text-white"
+                  }`}>
+                    {type === "tour" ? "Tour" : "Experience"}
+                  </div>
+                </div>
               </div>
-            )}
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-              <div className="flex items-center gap-2">
-                <div className="inline-block px-3 py-1 rounded-full bg-primary text-white font-medium text-sm">
-                  From {formatPrice(price, currency)}
-                </div>
-                <div className={`inline-block px-3 py-1 rounded-full font-medium text-xs ${
-                  type === "tour" 
-                    ? "bg-primary text-white" 
-                    : "bg-[hsl(var(--warning))] text-white"
-                }`}>
-                  {type === "tour" ? "Tour" : "Experience"}
-                </div>
+              
+              {/* Info icon to indicate clickable details */}
+              <div className="absolute top-2 right-2 bg-white/80 rounded-full p-1.5">
+                <Info className="h-4 w-4 text-primary" />
               </div>
             </div>
             
-            {/* Info icon to indicate clickable details */}
-            <div className="absolute top-2 right-2 bg-white/80 rounded-full p-1.5">
-              <Info className="h-4 w-4 text-primary" />
-            </div>
+            {/* Thumbnail gallery below main image */}
+            {images && images.length > 1 && (
+              <div className="flex gap-1 p-2 bg-gray-50 overflow-x-auto">
+                {images.map((img, idx) => (
+                  <img
+                    key={idx}
+                    src={img}
+                    alt={`Thumbnail ${idx + 1}`}
+                    className={`w-16 h-12 object-cover cursor-pointer rounded transition-all ${
+                      idx === currentImageIndex 
+                        ? 'ring-2 ring-primary opacity-100' 
+                        : 'opacity-70 hover:opacity-100'
+                    }`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setCurrentImageIndex(idx);
+                    }}
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                    }}
+                  />
+                ))}
+              </div>
+            )}
           </div>
           
           <CardContent className="flex flex-col flex-grow p-5">
