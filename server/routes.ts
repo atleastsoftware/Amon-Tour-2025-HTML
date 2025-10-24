@@ -2480,37 +2480,19 @@ Crawl-delay: 1`;
           
           // Handle the new images array from Tour Ninja API
           if (tour.images && Array.isArray(tour.images) && tour.images.length > 0) {
-            // Use direct URLs from Tour Ninja API if they are valid URLs
-            const validImages = tour.images.filter((img: string) => 
-              img && (img.startsWith('http://') || img.startsWith('https://'))
-            );
-            if (validImages.length > 0) {
-              tourImages.push(...validImages);
-              console.log(`Tour ${tour.name}: Has ${validImages.length} valid images from API`);
+            // Use direct URLs from Tour Ninja API if provided
+            tourImages.push(...tour.images);
+            console.log(`Tour ${tour.name}: Has ${tour.images.length} images from API`);
+          } else {
+            // Construct image URLs based on Tour Ninja format
+            // Les URLs sont directes, pas besoin de proxy
+            const numberOfImages = 5; // Récupérer jusqu'à 5 images par tour
+            for (let i = 0; i < numberOfImages; i++) {
+              // Utiliser directement les URLs Tour Ninja avec les aperçus
+              const imageUrl = `https://www.tourninja.io/api/tours/images/${tour.id}/${i}`;
+              tourImages.push(imageUrl);
             }
-          }
-          
-          // If no valid images from API, use placeholder images based on tour category
-          if (tourImages.length === 0) {
-            // Generate attractive placeholder images for each tour
-            const placeholderCategories = [
-              'thailand-beach',
-              'island-hopping', 
-              'snorkeling-tour',
-              'sunset-cruise',
-              'kayaking-adventure'
-            ];
-            
-            // Use Unsplash for high-quality placeholder images
-            const category = placeholderCategories[Math.floor(Math.random() * placeholderCategories.length)];
-            const baseUrl = 'https://source.unsplash.com/800x600/?';
-            
-            // Generate 3 different images for the gallery
-            tourImages.push(`${baseUrl}${category},thailand`);
-            tourImages.push(`${baseUrl}krabi,beach`);
-            tourImages.push(`${baseUrl}tropical,island`);
-            
-            console.log(`Tour ${tour.name}: Using placeholder images`);
+            console.log(`Tour ${tour.name}: Generated ${numberOfImages} image URLs`);
           }
           
           // Use the first image as primary

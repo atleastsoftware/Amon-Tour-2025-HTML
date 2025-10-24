@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check, Copy, ExternalLink, X, ChevronLeft, ChevronRight, Info } from 'lucide-react';
+import { Check, Copy, ExternalLink, X, ChevronLeft, ChevronRight, Info, Loader2 } from 'lucide-react';
 import { formatTHB } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -42,6 +42,8 @@ export default function TourCardItem({
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [imageLoading, setImageLoading] = useState(true);
+  const [imageError, setImageError] = useState(false);
 
   const formatPrice = (price: number, currency: string) => {
     switch (currency) {
@@ -73,6 +75,12 @@ export default function TourCardItem({
       });
     });
   };
+
+  // Reset loading state when image index changes
+  useEffect(() => {
+    setImageLoading(true);
+    setImageError(false);
+  }, [currentImageIndex]);
 
   // Function to navigate the image gallery
   const navigateGallery = (direction: 'next' | 'prev') => {
@@ -139,14 +147,29 @@ export default function TourCardItem({
                 }
               }}
             >
+              {/* Loading spinner */}
+              {imageLoading && (
+                <div className="absolute inset-0 flex items-center justify-center bg-gray-100 z-10">
+                  <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                </div>
+              )}
+              
               {images && images.length > 0 ? (
                 <>
                   <img 
                     src={images[currentImageIndex]} 
                     alt={`${title} - Image ${currentImageIndex + 1}`} 
                     className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                    loading="lazy"
+                    onLoad={() => {
+                      setImageLoading(false);
+                      setImageError(false);
+                    }}
                     onError={(e) => {
-                      e.currentTarget.src = 'https://placehold.co/400x250?text=Image+Soon';
+                      setImageLoading(false);
+                      setImageError(true);
+                      // Utiliser un placeholder si l'image ne charge pas
+                      e.currentTarget.src = 'https://source.unsplash.com/800x600/?thailand,beach,krabi';
                     }}
                   />
                   
@@ -209,25 +232,35 @@ export default function TourCardItem({
             {/* Thumbnail gallery below main image */}
             {images && images.length > 1 && (
               <div className="flex gap-1 p-2 bg-gray-50 overflow-x-auto">
-                {images.map((img, idx) => (
-                  <img
+                {images.slice(0, 5).map((img, idx) => (
+                  <div
                     key={idx}
-                    src={img}
-                    alt={`Thumbnail ${idx + 1}`}
-                    className={`w-16 h-12 object-cover cursor-pointer rounded transition-all ${
+                    className={`relative w-16 h-12 cursor-pointer rounded overflow-hidden transition-all flex-shrink-0 ${
                       idx === currentImageIndex 
-                        ? 'ring-2 ring-primary opacity-100' 
+                        ? 'ring-2 ring-primary' 
                         : 'opacity-70 hover:opacity-100'
                     }`}
                     onClick={(e) => {
                       e.stopPropagation();
                       setCurrentImageIndex(idx);
                     }}
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none';
-                    }}
-                  />
+                  >
+                    <img
+                      src={img}
+                      alt={`Thumbnail ${idx + 1}`}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                      onError={(e) => {
+                        e.currentTarget.src = 'https://placehold.co/64x48/e0e0e0/666666?text=' + (idx + 1);
+                      }}
+                    />
+                  </div>
                 ))}
+                {images.length > 5 && (
+                  <div className="flex items-center px-2 text-sm text-gray-500">
+                    +{images.length - 5} more
+                  </div>
+                )}
               </div>
             )}
           </div>
