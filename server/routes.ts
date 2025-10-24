@@ -2478,25 +2478,21 @@ Crawl-delay: 1`;
           // Process all images from the tour
           const tourImages: string[] = [];
           
-          // Simple solution: ONE image per tour based on tour name
-          const tourName = (tour.name || tour.title || '').toLowerCase();
-          let imageUrl = '';
-          
-          // Use Picsum for reliable, fast loading placeholder images
-          // Each tour gets a unique image based on its ID hash
-          const tourIdHash = tour.id ? tour.id.split('').reduce((a, b) => {
-            a = ((a << 5) - a) + b.charCodeAt(0);
-            return a & a;
-          }, 0) : 0;
-          
-          // Generate a consistent seed from 100-999 based on tour ID
-          const seed = 100 + Math.abs(tourIdHash % 900);
-          
-          // Use Picsum with seed for consistent, reliable images
-          imageUrl = `https://picsum.photos/seed/${seed}/800/600`;
-          tourImages.push(imageUrl);
-          
-          console.log(`Tour ${tour.name}: Using image seed ${seed}`);
+          // USE DIRECTLY THE IMAGE URL PROVIDED BY TOUR NINJA API!
+          // The API already provides the image URL in the 'image' field
+          if (tour.image) {
+            // Tour Ninja provides the direct image URL in the 'image' field
+            tourImages.push(tour.image);
+            console.log(`Tour ${tour.name}: Using Tour Ninja image URL: ${tour.image}`);
+          } else if (tour.images && Array.isArray(tour.images) && tour.images.length > 0) {
+            // Fallback to first image from images array if 'image' field not present
+            tourImages.push(tour.images[0]);
+            console.log(`Tour ${tour.name}: Using first image from array: ${tour.images[0]}`);
+          } else {
+            // Only use placeholder if no Tour Ninja images available
+            console.log(`Tour ${tour.name}: No Tour Ninja image found, using placeholder`);
+            tourImages.push('https://via.placeholder.com/800x600/3BA8AF/ffffff?text=Tour+Image');
+          }
           
           // Use the first image as primary
           const primaryImage = tourImages[0] || null;
