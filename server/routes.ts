@@ -2480,19 +2480,37 @@ Crawl-delay: 1`;
           
           // Handle the new images array from Tour Ninja API
           if (tour.images && Array.isArray(tour.images) && tour.images.length > 0) {
-            // Use direct URLs from Tour Ninja API if provided
-            tourImages.push(...tour.images);
-            console.log(`Tour ${tour.name}: Has ${tour.images.length} images from API`);
-          } else {
-            // Construct image URLs based on Tour Ninja format
-            // As per the user documentation, images are available at:
-            // https://www.tourninja.io/api/tours/images/[TOKEN]/[INDEX]
-            const numberOfImages = 5; // Try to get up to 5 images per tour
-            for (let i = 0; i < numberOfImages; i++) {
-              const imageUrl = `https://www.tourninja.io/api/tours/images/${tour.id}/${i}`;
-              tourImages.push(imageUrl);
+            // Use direct URLs from Tour Ninja API if they are valid URLs
+            const validImages = tour.images.filter((img: string) => 
+              img && (img.startsWith('http://') || img.startsWith('https://'))
+            );
+            if (validImages.length > 0) {
+              tourImages.push(...validImages);
+              console.log(`Tour ${tour.name}: Has ${validImages.length} valid images from API`);
             }
-            console.log(`Tour ${tour.name}: Generated ${numberOfImages} image URLs`);
+          }
+          
+          // If no valid images from API, use placeholder images based on tour category
+          if (tourImages.length === 0) {
+            // Generate attractive placeholder images for each tour
+            const placeholderCategories = [
+              'thailand-beach',
+              'island-hopping', 
+              'snorkeling-tour',
+              'sunset-cruise',
+              'kayaking-adventure'
+            ];
+            
+            // Use Unsplash for high-quality placeholder images
+            const category = placeholderCategories[Math.floor(Math.random() * placeholderCategories.length)];
+            const baseUrl = 'https://source.unsplash.com/800x600/?';
+            
+            // Generate 3 different images for the gallery
+            tourImages.push(`${baseUrl}${category},thailand`);
+            tourImages.push(`${baseUrl}krabi,beach`);
+            tourImages.push(`${baseUrl}tropical,island`);
+            
+            console.log(`Tour ${tour.name}: Using placeholder images`);
           }
           
           // Use the first image as primary
@@ -2629,6 +2647,44 @@ Crawl-delay: 1`;
     } catch (error) {
       console.error("Error fetching tour showcase:", error);
       res.status(500).json({ message: "Server error" });
+    }
+  });
+
+  // Tour Ninja Image Proxy - Fetches images from Tour Ninja API with authentication
+  app.get("/api/tour-image-proxy/:tourId/:imageIndex", async (req, res) => {
+    try {
+      const { tourId, imageIndex } = req.params;
+      const imageUrl = `https://www.tourninja.io/api/tours/images/${tourId}/${imageIndex}`;
+      
+      // Fetch image from Tour Ninja with authentication headers
+      const response = await fetch(imageUrl, {
+        headers: {
+          'Accept': 'image/*,*/*',
+          'x-api-key': 'tourninja-showcase-2-amontour',
+          'User-Agent': 'Amon Tour Website'
+        }
+      });
+      
+      if (!response.ok) {
+        console.log(`Image not found: ${imageUrl} - Status: ${response.status}`);
+        // Return a placeholder image if the Tour Ninja image is not available
+        return res.redirect('https://placehold.co/600x400/1e73be/ffffff?text=Amon+Tour');
+      }
+      
+      // Get the content type from the response
+      const contentType = response.headers.get('content-type') || 'image/jpeg';
+      
+      // Stream the image directly to the client
+      res.setHeader('Content-Type', contentType);
+      res.setHeader('Cache-Control', 'public, max-age=3600'); // Cache for 1 hour
+      
+      const buffer = await response.arrayBuffer();
+      res.send(Buffer.from(buffer));
+      
+    } catch (error) {
+      console.error("Error proxying Tour Ninja image:", error);
+      // Return placeholder image on error
+      res.redirect('https://placehold.co/600x400/1e73be/ffffff?text=Amon+Tour');
     }
   });
 
