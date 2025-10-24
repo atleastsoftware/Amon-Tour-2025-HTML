@@ -2478,20 +2478,37 @@ Crawl-delay: 1`;
           // Process all images from the tour
           const tourImages: string[] = [];
           
-          // USE DIRECTLY THE IMAGE URL PROVIDED BY TOUR NINJA API!
-          // The API already provides the image URL in the 'image' field
-          if (tour.image) {
-            // Tour Ninja provides the direct image URL in the 'image' field
-            tourImages.push(tour.image);
-            console.log(`Tour ${tour.name}: Using Tour Ninja image URL: ${tour.image}`);
-          } else if (tour.images && Array.isArray(tour.images) && tour.images.length > 0) {
-            // Fallback to first image from images array if 'image' field not present
-            tourImages.push(tour.images[0]);
-            console.log(`Tour ${tour.name}: Using first image from array: ${tour.images[0]}`);
+          // The Tour Ninja images and primaryImage fields contain URLs that need transformation
+          // The working format according to Tour Ninja docs is: /api/tours/images/{tourId}/{index}
+          
+          if (tour.images && Array.isArray(tour.images) && tour.images.length > 0) {
+            // Use the first image from the images array
+            // Transform the URL if needed
+            if (tour.images[0].includes('/api/tours/images/')) {
+              // Already in the correct format
+              tourImages.push(tour.images[0]);
+              console.log(`Tour ${tour.name}: Using images[0]: ${tour.images[0]}`);
+            } else {
+              // Construct the correct URL format
+              const imageUrl = `https://www.tourninja.io/api/tours/images/${tour.id}/0`;
+              tourImages.push(imageUrl);
+              console.log(`Tour ${tour.name}: Constructed image URL: ${imageUrl}`);
+            }
+          } else if (tour.primaryImage) {
+            // If only primaryImage is available, construct the correct URL
+            const imageUrl = `https://www.tourninja.io/api/tours/images/${tour.id}/0`;
+            tourImages.push(imageUrl);
+            console.log(`Tour ${tour.name}: Using constructed URL from primaryImage: ${imageUrl}`);
+          } else if (tour.image) {
+            // Fallback to image field
+            const imageUrl = `https://www.tourninja.io/api/tours/images/${tour.id}/0`;
+            tourImages.push(imageUrl);
+            console.log(`Tour ${tour.name}: Using constructed URL from image field: ${imageUrl}`);
           } else {
-            // Only use placeholder if no Tour Ninja images available
-            console.log(`Tour ${tour.name}: No Tour Ninja image found, using placeholder`);
-            tourImages.push('https://via.placeholder.com/800x600/3BA8AF/ffffff?text=Tour+Image');
+            // Generate URL based on tour ID as last resort
+            const imageUrl = `https://www.tourninja.io/api/tours/images/${tour.id}/0`;
+            tourImages.push(imageUrl);
+            console.log(`Tour ${tour.name}: Using default constructed URL: ${imageUrl}`);
           }
           
           // Use the first image as primary
