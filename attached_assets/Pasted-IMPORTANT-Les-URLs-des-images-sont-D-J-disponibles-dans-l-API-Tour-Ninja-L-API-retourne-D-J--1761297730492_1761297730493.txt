@@ -1,0 +1,120 @@
+IMPORTANT : Les URLs des images sont DÉJÀ disponibles dans l'API Tour Ninja !
+
+L'API retourne DÉJÀ une URL directe pour la première image de chaque tour dans le champ image. Vous n'avez PAS besoin de générer ou construire des URLs - elles sont déjà prêtes à l'emploi.
+
+Ce que l'API vous donne DÉJÀ :
+
+Quand vous appelez https://www.tourninja.io/api/public/tours?apiKey=tourninja-showcase-2-amontour&companyId=2, chaque tour contient :
+
+{
+  "id": "IGdQFbdKFF",
+  "name": "Private Day Trip to Koh Hong",
+  "image": "https://www.tourninja.io/api/tours/images/IGdQFbdKFF/0",  ← URL PRÊTE À L'EMPLOI
+  "images": [
+    "https://www.tourninja.io/api/tours/images/IGdQFbdKFF/0",
+    "https://www.tourninja.io/api/tours/images/IGdQFbdKFF/1",
+    "https://www.tourninja.io/api/tours/images/IGdQFbdKFF/2"
+  ]
+}
+Code EXACT à utiliser (copier-coller directement) :
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tours Amon Tour</title>
+    <style>
+        .tours-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .tour-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .tour-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .tour-info {
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div id="tours-root"></div>
+    <script>
+        // ÉTAPE 1 : Appeler l'API
+        fetch('https://www.tourninja.io/api/public/tours?apiKey=tourninja-showcase-2-amontour&companyId=2')
+            .then(response => response.json())
+            .then(data => {
+                // ÉTAPE 2 : Vérifier la réponse
+                console.log('Données reçues:', data);
+                
+                if (data.success && data.tours) {
+                    // ÉTAPE 3 : Créer le HTML
+                    const html = data.tours.map(tour => {
+                        // Le champ 'image' contient DÉJÀ l'URL complète !
+                        const imageUrl = tour.image || 'https://via.placeholder.com/300x200';
+                        
+                        return `
+                            <div class="tour-card">
+                                <img 
+                                    src="${imageUrl}" 
+                                    alt="${tour.name}"
+                                    class="tour-image"
+                                    onerror="this.src='https://via.placeholder.com/300x200'"
+                                />
+                                <div class="tour-info">
+                                    <h3>${tour.name}</h3>
+                                    <p>${tour.description || ''}</p>
+                                    <p><strong>Prix:</strong> ${tour.price} ${tour.currency}</p>
+                                    <a href="${tour.bookingUrl}" target="_blank">
+                                        <button>Réserver</button>
+                                    </a>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                    
+                    // ÉTAPE 4 : Afficher
+                    document.getElementById('tours-root').innerHTML = 
+                        `<div class="tours-container">${html}</div>`;
+                }
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+                document.getElementById('tours-root').innerHTML = 
+                    '<p>Erreur lors du chargement des tours.</p>';
+            });
+    </script>
+</body>
+</html>
+Points CRITIQUES à retenir :
+
+NE PAS construire d'URLs manuellement
+NE PAS concaténer des strings pour créer des URLs d'images
+UTILISER DIRECTEMENT tour.image qui contient l'URL complète
+UTILISER DIRECTEMENT tour.images[0] si vous préférez le tableau
+Pour déboguer, ajoutez ce code :
+
+fetch('https://www.tourninja.io/api/public/tours?apiKey=tourninja-showcase-2-amontour&companyId=2')
+    .then(r => r.json())
+    .then(data => {
+        console.log('=== DONNÉES COMPLÈTES DE L\'API ===');
+        console.log(data);
+        
+        if (data.tours && data.tours[0]) {
+            console.log('=== PREMIER TOUR ===');
+            console.log('Nom:', data.tours[0].name);
+            console.log('URL Image (champ image):', data.tours[0].image);
+            console.log('URLs Images (tableau):', data.tours[0].images);
+            console.log('Cette URL est PRÊTE À L\'EMPLOI:', data.tours[0].image);
+        }
+    });
