@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check, Copy, ExternalLink, X, ChevronLeft, ChevronRight, Info, Loader2 } from 'lucide-react';
+import { Check, Copy, ExternalLink, X, Info, Loader2 } from 'lucide-react';
 import { formatTHB } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -41,7 +41,6 @@ export default function TourCardItem({
   const [copied, setCopied] = useState(false);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [imageLoading, setImageLoading] = useState(true);
   const [imageError, setImageError] = useState(false);
 
@@ -76,24 +75,6 @@ export default function TourCardItem({
     });
   };
 
-  // Reset loading state when image index changes
-  useEffect(() => {
-    setImageLoading(true);
-    setImageError(false);
-  }, [currentImageIndex]);
-
-  // Function to navigate the image gallery
-  const navigateGallery = (direction: 'next' | 'prev') => {
-    if (direction === 'next') {
-      setCurrentImageIndex((prevIndex) => 
-        prevIndex + 1 >= images.length ? 0 : prevIndex + 1
-      );
-    } else {
-      setCurrentImageIndex((prevIndex) => 
-        prevIndex - 1 < 0 ? images.length - 1 : prevIndex - 1
-      );
-    }
-  };
 
   return (
     <div className="flex flex-col">
@@ -155,53 +136,22 @@ export default function TourCardItem({
               )}
               
               {images && images.length > 0 ? (
-                <>
-                  <img 
-                    src={images[currentImageIndex]} 
-                    alt={`${title} - Image ${currentImageIndex + 1}`} 
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                    loading="lazy"
-                    onLoad={() => {
-                      setImageLoading(false);
-                      setImageError(false);
-                    }}
-                    onError={(e) => {
-                      setImageLoading(false);
-                      setImageError(true);
-                      // Utiliser un placeholder si l'image ne charge pas
-                      e.currentTarget.src = 'https://source.unsplash.com/800x600/?thailand,beach,krabi';
-                    }}
-                  />
-                  
-                  {/* Navigation arrows for multiple images */}
-                  {images.length > 1 && (
-                    <>
-                      <button
-                        className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-1 rounded-full transition-all"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          navigateGallery('prev');
-                        }}
-                      >
-                        <ChevronLeft className="h-4 w-4" />
-                      </button>
-                      <button
-                        className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-1 rounded-full transition-all"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          navigateGallery('next');
-                        }}
-                      >
-                        <ChevronRight className="h-4 w-4" />
-                      </button>
-                      
-                      {/* Image counter */}
-                      <div className="absolute top-2 left-2 bg-black/60 text-white px-2 py-1 rounded text-xs">
-                        {currentImageIndex + 1} / {images.length}
-                      </div>
-                    </>
-                  )}
-                </>
+                <img 
+                  src={images[0]} 
+                  alt={title} 
+                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                  loading="lazy"
+                  onLoad={() => {
+                    setImageLoading(false);
+                    setImageError(false);
+                  }}
+                  onError={(e) => {
+                    setImageLoading(false);
+                    setImageError(true);
+                    // Utiliser un placeholder si l'image ne charge pas
+                    e.currentTarget.src = 'https://picsum.photos/seed/fallback/800/600';
+                  }}
+                />
               ) : (
                 <div className="w-full h-full bg-gray-200 flex items-center justify-center">
                   <span className="text-gray-400">No image</span>
@@ -228,41 +178,6 @@ export default function TourCardItem({
                 <Info className="h-4 w-4 text-primary" />
               </div>
             </div>
-            
-            {/* Thumbnail gallery below main image */}
-            {images && images.length > 1 && (
-              <div className="flex gap-1 p-2 bg-gray-50 overflow-x-auto">
-                {images.slice(0, 5).map((img, idx) => (
-                  <div
-                    key={idx}
-                    className={`relative w-16 h-12 cursor-pointer rounded overflow-hidden transition-all flex-shrink-0 ${
-                      idx === currentImageIndex 
-                        ? 'ring-2 ring-primary' 
-                        : 'opacity-70 hover:opacity-100'
-                    }`}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setCurrentImageIndex(idx);
-                    }}
-                  >
-                    <img
-                      src={img}
-                      alt={`Thumbnail ${idx + 1}`}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                      onError={(e) => {
-                        e.currentTarget.src = 'https://placehold.co/64x48/e0e0e0/666666?text=' + (idx + 1);
-                      }}
-                    />
-                  </div>
-                ))}
-                {images.length > 5 && (
-                  <div className="flex items-center px-2 text-sm text-gray-500">
-                    +{images.length - 5} more
-                  </div>
-                )}
-              </div>
-            )}
           </div>
           
           <CardContent className="flex flex-col flex-grow p-5">
