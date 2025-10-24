@@ -2478,22 +2478,52 @@ Crawl-delay: 1`;
           // Process all images from the tour
           const tourImages: string[] = [];
           
-          // Handle the new images array from Tour Ninja API
-          if (tour.images && Array.isArray(tour.images) && tour.images.length > 0) {
-            // Use direct URLs from Tour Ninja API if provided
-            tourImages.push(...tour.images);
-            console.log(`Tour ${tour.name}: Has ${tour.images.length} images from API`);
+          // Generate high-quality images based on tour name and description
+          // Since Tour Ninja image URLs don't return actual images, we use Unsplash
+          
+          // Extract keywords from tour name for better image matching
+          const tourName = (tour.name || tour.title || '').toLowerCase();
+          let imageKeywords = [];
+          
+          // Determine image keywords based on tour content
+          if (tourName.includes('phi phi')) {
+            imageKeywords = ['phi-phi-island-thailand', 'maya-bay-thailand', 'tropical-beach-thailand'];
+          } else if (tourName.includes('railay')) {
+            imageKeywords = ['railay-beach-krabi', 'limestone-cliffs-thailand', 'rock-climbing-railay'];
+          } else if (tourName.includes('hong')) {
+            imageKeywords = ['koh-hong-thailand', 'lagoon-krabi', 'emerald-water-thailand'];
+          } else if (tourName.includes('phang nga')) {
+            imageKeywords = ['phang-nga-bay', 'james-bond-island', 'limestone-karst-thailand'];
+          } else if (tourName.includes('kradan') || tourName.includes('ngai')) {
+            imageKeywords = ['koh-kradan-thailand', 'trang-islands', 'andaman-sea-beach'];
+          } else if (tourName.includes('mook')) {
+            imageKeywords = ['koh-mook-thailand', 'emerald-cave', 'trang-thailand'];
+          } else if (tourName.includes('mangrove') || tourName.includes('kayak')) {
+            imageKeywords = ['mangrove-kayaking', 'krabi-mangroves', 'kayaking-thailand'];
+          } else if (tourName.includes('waterfall') || tourName.includes('forest')) {
+            imageKeywords = ['krabi-waterfall', 'emerald-pool-krabi', 'thailand-jungle'];
+          } else if (tourName.includes('sunset') || tourName.includes('plankton')) {
+            imageKeywords = ['sunset-andaman-sea', 'bioluminescent-plankton', 'thailand-sunset-beach'];
+          } else if (tourName.includes('catamaran')) {
+            imageKeywords = ['catamaran-thailand', 'sailing-andaman', 'yacht-krabi'];
+          } else if (tourName.includes('ao nang')) {
+            imageKeywords = ['ao-nang-beach', 'krabi-islands', 'longtail-boat-thailand'];
           } else {
-            // Construct image URLs based on Tour Ninja format
-            // Les URLs sont directes, pas besoin de proxy
-            const numberOfImages = 5; // Récupérer jusqu'à 5 images par tour
-            for (let i = 0; i < numberOfImages; i++) {
-              // Utiliser directement les URLs Tour Ninja avec les aperçus
-              const imageUrl = `https://www.tourninja.io/api/tours/images/${tour.id}/${i}`;
-              tourImages.push(imageUrl);
-            }
-            console.log(`Tour ${tour.name}: Generated ${numberOfImages} image URLs`);
+            // Default keywords for general Thailand tours
+            imageKeywords = ['krabi-thailand', 'thailand-islands', 'andaman-sea'];
           }
+          
+          // Generate 3 images using Unsplash with specific keywords
+          const imageSize = '800x600';
+          tourImages.push(`https://source.unsplash.com/${imageSize}/?${imageKeywords[0] || 'krabi-thailand'}`);
+          tourImages.push(`https://source.unsplash.com/${imageSize}/?${imageKeywords[1] || 'thailand-beach'}`);
+          tourImages.push(`https://source.unsplash.com/${imageSize}/?${imageKeywords[2] || 'tropical-island'}`);
+          
+          // Add 2 more generic Thailand images for variety
+          tourImages.push(`https://source.unsplash.com/${imageSize}/?longtail-boat,thailand`);
+          tourImages.push(`https://source.unsplash.com/${imageSize}/?thailand,travel`);
+          
+          console.log(`Tour ${tour.name}: Using themed images with keywords:`, imageKeywords);
           
           // Use the first image as primary
           const primaryImage = tourImages[0] || null;
