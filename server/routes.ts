@@ -2479,13 +2479,20 @@ Crawl-delay: 1`;
           const tourImages: string[] = [];
           
           // Handle the new images array from Tour Ninja API
-          if (tour.images && Array.isArray(tour.images)) {
-            // Use direct URLs from Tour Ninja API
+          if (tour.images && Array.isArray(tour.images) && tour.images.length > 0) {
+            // Use direct URLs from Tour Ninja API if provided
             tourImages.push(...tour.images);
-            console.log(`Tour ${tour.name}: Has ${tour.images.length} images`);
-          } else if (tour.image) {
-            // Fallback to single image if images array not available
-            tourImages.push(tour.image);
+            console.log(`Tour ${tour.name}: Has ${tour.images.length} images from API`);
+          } else {
+            // Construct image URLs based on Tour Ninja format
+            // As per the user documentation, images are available at:
+            // https://www.tourninja.io/api/tours/images/[TOKEN]/[INDEX]
+            const numberOfImages = 5; // Try to get up to 5 images per tour
+            for (let i = 0; i < numberOfImages; i++) {
+              const imageUrl = `https://www.tourninja.io/api/tours/images/${tour.id}/${i}`;
+              tourImages.push(imageUrl);
+            }
+            console.log(`Tour ${tour.name}: Generated ${numberOfImages} image URLs`);
           }
           
           // Use the first image as primary
@@ -2517,9 +2524,7 @@ Crawl-delay: 1`;
             category: tour.category || '',
             tags: tour.tags || [],
             maxGuests: tour.maxParticipants || 12,
-            minGuests: 1,
-            // Keep base64 in server cache but not sent to client
-            _serverCachedImage: cachedImage
+            minGuests: 1
           };
         });
       } else if (Array.isArray(apiResponse)) {
