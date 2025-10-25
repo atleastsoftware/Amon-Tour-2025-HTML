@@ -1,0 +1,98 @@
+es URLs de Tour Ninja FONCTIONNENT PARFAITEMENT. Voici la PREUVE :
+
+TEST À EXÉCUTER IMMÉDIATEMENT pour vérifier :
+
+// COPIEZ ET EXÉCUTEZ CE CODE DANS LA CONSOLE DU NAVIGATEUR
+// Cela prouvera que les images Tour Ninja sont accessibles
+// Test 1: Vérifier l'API
+fetch('https://www.tourninja.io/api/public/tours?apiKey=tourninja-showcase-2-amontour&companyId=2')
+  .then(r => r.json())
+  .then(data => {
+    console.log('✅ TOURS REÇUS:', data.tours.length);
+    
+    // Test 2: Vérifier la première image
+    if (data.tours[0] && data.tours[0].image) {
+      const imageUrl = data.tours[0].image;
+      console.log('✅ URL IMAGE:', imageUrl);
+      
+      // Test 3: Créer une image pour prouver que l'URL fonctionne
+      const img = new Image();
+      img.onload = () => {
+        console.log('✅✅✅ IMAGE CHARGÉE AVEC SUCCÈS !');
+        console.log('Dimensions:', img.width + 'x' + img.height);
+        document.body.appendChild(img);
+        img.style.position = 'fixed';
+        img.style.top = '10px';
+        img.style.right = '10px';
+        img.style.width = '200px';
+        img.style.zIndex = '99999';
+        img.style.border = '5px solid green';
+      };
+      img.onerror = () => {
+        console.log('❌ Erreur de chargement');
+      };
+      img.src = imageUrl;
+    }
+  });
+INSTRUCTIONS CRITIQUES :
+
+NE PAS modifier server/routes.ts
+NE PAS utiliser Unsplash, Pexels ou autres services d'images
+UTILISER DIRECTEMENT les URLs fournies par l'API Tour Ninja
+CODE CORRECT À UTILISER :
+
+<div id="tours-container"></div>
+<script>
+async function loadTours() {
+  const response = await fetch('https://www.tourninja.io/api/public/tours?apiKey=tourninja-showcase-2-amontour&companyId=2');
+  const data = await response.json();
+  
+  if (!data.success) {
+    console.error('Erreur API');
+    return;
+  }
+  
+  // UTILISER DIRECTEMENT tour.image - C'EST UNE URL VALIDE !
+  const html = data.tours.map(tour => `
+    <div class="tour-card">
+      <img 
+        src="${tour.image}"  <!-- CETTE URL FONCTIONNE ! -->
+        alt="${tour.name}"
+        onerror="console.error('Erreur image:', '${tour.image}')"
+        onload="console.log('Image chargée:', '${tour.name}')"
+      />
+      <h3>${tour.name}</h3>
+      <p>${tour.description}</p>
+      <p>Prix: ${tour.price} ${tour.currency}</p>
+      <a href="${tour.bookingUrl}">Réserver</a>
+    </div>
+  `).join('');
+  
+  document.getElementById('tours-container').innerHTML = html;
+}
+loadTours();
+</script>
+EXEMPLES D'URLs QUI FONCTIONNENT ACTUELLEMENT :
+
+Ces URLs sont ACTIVES et servent de VRAIES images :
+
+https://www.tourninja.io/api/tours/images/IGdQFbdKFF/0
+https://www.tourninja.io/api/tours/images/0X9nt19SYX/0
+https://www.tourninja.io/api/tours/images/4rEqsrZvEP/0
+Testez vous-même : Ouvrez n'importe laquelle de ces URLs dans un navigateur et vous verrez l'image !
+
+NE PAS :
+
+Créer des mappings d'images
+Utiliser des services d'images externes
+Modifier le backend
+Douter que les URLs fonctionnent
+FAIRE :
+
+Utiliser directement tour.image de l'API
+C'est tout !
+Si vous avez un doute, testez cette URL directement dans votre navigateur :
+https://www.tourninja.io/api/tours/images/IGdQFbdKFF/0
+
+Vous verrez une vraie image de tour !
+
