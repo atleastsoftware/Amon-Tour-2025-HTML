@@ -9,6 +9,7 @@ import Experiences from "@/pages/experiences";
 import TourCards from "@/pages/tour-cards";
 import Stays from "@/pages/stays";
 import TourIframe from "@/pages/tour-iframe";
+import TourNinjaIframe from "@/pages/tour-ninja-iframe";
 import TourView from "@/pages/tour-view";
 import TourShowcase from "@/pages/tour-showcase";
 import CustomTour from "@/pages/custom-tour";
@@ -49,7 +50,6 @@ import AdminLegalPages from "@/pages/admin-legal-pages";
 import DynamicPage from "@/pages/DynamicPage";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 import { IframeProvider } from "@/contexts/IframeContext";
-import IframeModal from "@/components/ui/IframeModal";
 import CookieConsent from "@/components/ui/CookieConsent";
 import ThemeLoader from "@/components/ThemeLoader";
 import PopupAnnouncement from "@/components/PopupAnnouncement";
@@ -73,6 +73,7 @@ function Router() {
       <Route path="/tour-cards" component={TourCards} />
       <Route path="/stays" component={Stays} />
       <Route path="/tour/:token" component={TourShowcase} />
+      <Route path="/tour-ninja-iframe" component={TourNinjaIframe} />
       <Route path="/custom-tour" component={() => <DynamicPage slug="custom-tour" />} />
       <Route path="/book-tour/:id" component={BookTour} />
       <Route path="/booking" component={BookingIframe} />
@@ -137,7 +138,6 @@ function App() {
           <ThemeLoader />
           <Router />
           <WhatsAppButton />
-          <IframeModal />
           <CookieConsent />
           <PopupAnnouncement />
         </IframeProvider>

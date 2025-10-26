@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
+import { useLocation } from 'wouter';
 
 interface IframeContextType {
   isOpen: boolean;
@@ -14,11 +15,17 @@ export function IframeProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [url, setUrl] = useState('');
   const [title, setTitle] = useState('');
+  const [location, setLocation] = useLocation();
 
   const openIframe = (url: string, title: string) => {
-    setUrl(url);
-    setTitle(title);
-    setIsOpen(true);
+    // Instead of opening a modal, navigate to the iframe page
+    const currentPath = location;
+    const params = new URLSearchParams({
+      url: url,
+      title: title,
+      return: currentPath
+    });
+    setLocation(`/tour-ninja-iframe?${params.toString()}`);
   };
 
   const closeIframe = () => {
