@@ -154,9 +154,9 @@ export default function Experiences() {
                           }
                         }}
                       >
-                        {tour.primaryImage ? (
+                        {tour.images && tour.images.length > 0 ? (
                           <img 
-                            src={tour.primaryImage} 
+                            src={tour.images[0]} 
                             alt={tour.name}
                             className="w-full h-full object-cover"
                             onError={(e) => {

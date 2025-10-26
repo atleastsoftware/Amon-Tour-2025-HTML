@@ -135,7 +135,7 @@ export default function TourCardItem({
                 </div>
               )}
               
-              {images && images.length > 0 ? (
+              {images && images.length > 0 && !imageError ? (
                 <img 
                   src={images[0]} 
                   alt={title} 
@@ -145,11 +145,9 @@ export default function TourCardItem({
                     setImageLoading(false);
                     setImageError(false);
                   }}
-                  onError={(e) => {
+                  onError={() => {
                     setImageLoading(false);
                     setImageError(true);
-                    // Utiliser un placeholder si l'image ne charge pas
-                    e.currentTarget.src = 'https://picsum.photos/seed/fallback/800/600';
                   }}
                 />
               ) : (
