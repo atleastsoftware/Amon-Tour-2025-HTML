@@ -2384,16 +2384,13 @@ Crawl-delay: 1`;
         });
       }
 
-      // Try both API endpoints for maximum compatibility
-      const useApiKey = !!(process.env.TOUR_NINJA_API_KEY && process.env.TOUR_NINJA_COMPANY_ID);
-      const primaryUrl = useApiKey 
-        ? `https://www.tourninja.io/api/public/tours?apiKey=${apiKey}&companyId=${companyId}&limit=100`
-        : `https://www.tourninja.io/api/public/tours/legacy?companyId=${companyId}`;
+      // Always use the new API endpoint with apiKey and companyId
+      const primaryUrl = `https://www.tourninja.io/api/public/tours?apiKey=${apiKey}&companyId=${companyId}&limit=100`;
       const fallbackUrl = `https://www.tourninja.io/api/public/tours/legacy?companyId=${companyId}`;
       
       console.log("Fetching fresh data from Tour Ninja API (cache expired or invalid)", {
         url: primaryUrl,
-        useApiKey,
+        usingNewApi: true,
         environment: process.env.NODE_ENV,
         hostname: req.hostname,
         cacheAge: Math.round(cacheAge / 1000) + "s"
@@ -2415,7 +2412,7 @@ Crawl-delay: 1`;
           signal: controller.signal
         });
         
-        if (!response.ok && useApiKey) {
+        if (!response.ok) {
           console.log("Primary API failed, trying fallback URL:", fallbackUrl);
           clearTimeout(timeoutId);
           controller = new AbortController();
@@ -2430,22 +2427,18 @@ Crawl-delay: 1`;
           });
         }
       } catch (error) {
-        if (useApiKey) {
-          console.log("Primary API errored, trying fallback URL:", fallbackUrl);
-          clearTimeout(timeoutId);
-          controller = new AbortController();
-          timeoutId = setTimeout(() => controller.abort(), 30000);
-          
-          response = await nodeFetch(fallbackUrl, {
-            method: 'GET',
-            headers: {
-              'Accept': 'application/json'
-            },
-            signal: controller.signal
-          });
-        } else {
-          throw error;
-        }
+        console.log("Primary API errored, trying fallback URL:", fallbackUrl);
+        clearTimeout(timeoutId);
+        controller = new AbortController();
+        timeoutId = setTimeout(() => controller.abort(), 30000);
+        
+        response = await nodeFetch(fallbackUrl, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json'
+          },
+          signal: controller.signal
+        });
       }
       
       clearTimeout(timeoutId);
