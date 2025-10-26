@@ -70,10 +70,17 @@ export function useTourNinja() {
         (override: any) => override.tourNinjaId === tour.id
       );
       
+      // Ensure we keep the original images if no override is provided
+      const finalPrimaryImage = override?.customImageUrl || 
+                               tour.primaryImage || 
+                               (tour.images && tour.images[0]) || 
+                               null;
+      
       return {
         ...tour,
         customImage: override?.customImageUrl,
-        primaryImage: override?.customImageUrl || tour.primaryImage
+        primaryImage: finalPrimaryImage,
+        images: tour.images || [] // Ensure images array is always present
       };
     });
     
@@ -126,11 +133,19 @@ export function useTourNinjaWithCustomImages() {
         (override: any) => override.tourNinjaId === tour.id
       );
       
+      // Ensure we keep the original images if no override is provided
+      // Use the first image from the images array as fallback
+      const finalPrimaryImage = override?.customImageUrl || 
+                               tour.primaryImage || 
+                               (tour.images && tour.images[0]) || 
+                               null;
+      
       return {
         ...tour,
         customImage: override?.customImageUrl,
-        primaryImage: override?.customImageUrl || tour.primaryImage,
-        originalImage: tour.primaryImage
+        primaryImage: finalPrimaryImage,
+        originalImage: tour.primaryImage,
+        images: tour.images || [] // Ensure images array is always present
       };
     });
     
